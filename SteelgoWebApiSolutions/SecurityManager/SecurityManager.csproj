@@ -98,7 +98,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Models\TransactionalInformation.cs" />
-    <Compile Include="Filters\SteelgoCorsPolicyProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
