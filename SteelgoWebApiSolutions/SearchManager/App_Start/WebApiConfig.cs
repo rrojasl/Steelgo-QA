@@ -17,7 +17,7 @@ namespace SearchManager
 
             config.Routes.MapHttpRoute(
                 name: "SearchManagerApi",
-                routeTemplate: "searchmanager/api/{controller}/{parameter}/{username}/{token}",
+                routeTemplate: "searchmanager/api/{controller}/{username}/{token}/{parameter}",
                 defaults: new
                 {
                     parameter = RouteParameter.Optional,

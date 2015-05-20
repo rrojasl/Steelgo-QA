@@ -17,7 +17,7 @@ namespace BackEndSAM
 
             config.Routes.MapHttpRoute(
                 name: "BackEndSAMApi",
-                routeTemplate: "backendsam/api/{controller}/{parameter}/{username}/{token}",
+                routeTemplate: "backendsam/api/{controller}/{username}/{token}/{parameter}",
                 defaults: new
                 {
                     parameter = RouteParameter.Optional,

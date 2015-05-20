@@ -17,7 +17,7 @@ namespace SecurityManager
 
             config.Routes.MapHttpRoute(
                 name: "SecurityManagerApi",
-                routeTemplate: "securitymanager/api/{controller}/{parameter}/{username}/{token}",
+                routeTemplate: "securitymanager/api/{controller}/{username}/{token}/{parameter}",
                 defaults: new 
                 {
                     parameter = RouteParameter.Optional,

@@ -17,7 +17,7 @@ namespace MessagesManager
 
             config.Routes.MapHttpRoute(
                 name: "MessagesManagerApi",
-                routeTemplate: "messagesmanager/api/{controller}/{parameter}/{username}/{token}",
+                routeTemplate: "messagesmanager/api/{controller}/{username}/{token}/{parameter}",
                 defaults: new
                 {
                     parameter = RouteParameter.Optional,

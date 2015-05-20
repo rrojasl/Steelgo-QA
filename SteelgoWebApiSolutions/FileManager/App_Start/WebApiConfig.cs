@@ -17,7 +17,7 @@ namespace FileManager
 
             config.Routes.MapHttpRoute(
                 name: "FileManagerApi",
-                routeTemplate: "filemanager/api/{controller}/{parameter}/{username}/{token}",
+                routeTemplate: "filemanager/api/{controller}/{username}/{token}/{parameter}",
                 defaults: new
                 {
                     parameter = RouteParameter.Optional,
