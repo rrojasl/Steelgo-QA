@@ -114,14 +114,14 @@ footer {
     }
 
     footer a {
-        margin-left: 16px;
+        margin-left: 24px;
     }
 
         footer a span {
             color: #305E8E;
             font-size: 12px;
             font-weight: 600;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
         }
 /**********************************************************************************/
 
