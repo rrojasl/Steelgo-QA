@@ -1,2 +1,108 @@
-﻿body {
+﻿/**********************************************************************************
+    File name: entities.css
+    Description: CSS rules for bussiness related UI entities.
+
+    Index: 
+
+    01  $_login
+    02  $_
+    03  $_
+    04  $_
+    05  $_
+    06  $_
+    07  $_
+    08  $_
+    09  $_
+    10  $_
+    11  $_
+
+
+    Color Palette: Look at site.css
+
+**********************************************************************************/
+
+/**********************************************************************************
+ Class name:    $_login
+ Description:   Customize the login section.
+**********************************************************************************/
+.login {
+    position: absolute;
+    width: 510px;
+    height: 374px;
+    text-align: center;
+    margin: auto;
+    padding: 0 15px;
+    top: -71px;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
+
+    .login img {
+        margin-left: -13px;
+        margin-bottom: 47px;
+    }
+
+    .login form {
+    }
+
+        .login form div {
+            text-align: left;
+            border: 1px solid #CCCCCC;
+            border-top: none;
+            padding: 15px 24px 17px;
+            text-transform: uppercase;
+            font-size: 10px;
+        }
+
+            .login form div.form-title {
+                padding: 10px 13px 8px;
+                border: 1px solid #1C4070;
+                background-color: #1C4070;
+                color: #FFFFFF;
+                letter-spacing: 0.7px;
+                font-size: 14px;
+            }
+
+            .login form div label.loginLabel {
+                color: rgba(065, 065, 065, 0.7);
+                font-weight: 900;
+                width: 80px;
+                margin-right: 41px;
+            }
+
+        .login form input {
+            width: 70%;
+            color: #202020;
+            border-color: transparent;
+            font-size: 15px;
+            vertical-align: baseline;
+            outline: none;
+        }
+
+            .login form input[type="submit"] {
+                background-color: #F8AC39;
+                color: #FFFFFF;
+                text-transform: capitalize;
+                display: block;
+                margin: 31px auto 11px;
+                border-radius: 3px;
+                width: 180px;
+                height: 40px;
+                font-size: 15px;
+                font-weight: 600;
+                letter-spacing: 1.2px;
+                border: none;
+                border-bottom: 3px solid #F3881C;
+            }
+
+                .login form input[type="submit"]:hover {
+                    background-color: rgba(248, 172, 057, 0.8);
+                    border-bottom: 3px solid rgba(243, 136, 028, 0.5);
+                }
+
+        .login form a span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+/**********************************************************************************/
