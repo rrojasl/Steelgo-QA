@@ -2,6 +2,12 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    @section JavascriptDocumentReadyFunctions {
+        $.cookie("home", true);
+    }
+</script>
+
 <div class="login">
     <img src="~/Content/images/Logo_Login.jpg" />
     <form>
