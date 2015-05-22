@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 @{
-        
 }
 
 <html>
@@ -51,14 +50,80 @@
         /****************************/
 
         var $body = $("body");
-        var $BackEndSAM = new $.RestClient('' + '/backendsam/api/');
-        var $FileManager = new $.RestClient('' + '/filemanager/api/');
-        var $MessagesManager = new $.RestClient('' + '/messagesmanager/api/');
-        var $SearchManager = new $.RestClient('' + '/searchmanager/api/');
-        var $SecurityManager = new $.RestClient('' + '/securitymanager/api/');
+            var $BackEndSAM = new $.RestClient('http://localhost:60921' + '/backendsam/api/');
+            var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
+            var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
+            var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
+            var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
+            $SecurityManager.add('authentication');
 
         //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalVariables", required: false)
+
+        /****************************/
+        /*   Security Functions     */
+        /****************************/
+
+        //Method to autogenerate a cookie
+            function autoCookies(correctCredentials) {
+                if ($.cookie("user") == null && $.cookie("token") == null) {
+                    if (correctCredentials) {
+                        createUserSession("YWRtaW4", "Q2hlbHNlYTEwMiE");
+                    } else {
+                        createUserSession("ZZZtaW4", "ZZZlbHNlYTEwMiE");
+                    }
+                }
+            }
+            
+            function createUserSession(username, password) {
+                
+                //Create Login
+                $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
+                    console.log(data);
+                    if (data.IsAuthenicated) {
+                        $.cookie("home", false);
+                        $.cookie("user", username);
+                        $.cookie("token", data.ReturnMessage[0]);
+                        //RedirectToLanding
+                        document.location.href = '@Url.Action("Landing", "Home")';
+                    }
+                });
+            }
+
+            function removeUserSession() {
+                if ($.cookie("user") != null && $.cookie("token") != null) {
+                    $SecurityManager.authentication.destroy({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        console.log(data);
+                        if (!data.IsAuthenicated) {
+                            $.removeCookie("user");
+                            $.removeCookie("token");
+                            $.removeCookie("home");
+                            validateCredentials();
+                        }
+                    });
+                }
+            }
+
+            function validateCredentials() {
+                if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
+                    $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        console.log(data);
+                        if (!data.IsAuthenicated) {
+                            //RedirectToHomePage
+                            document.location.href = '/';
+                        } else {
+                            $.cookie("home", false);
+                        }
+                    });
+                } else {
+                    if ($.cookie("home") != null && $.cookie("home") == "false") {
+                        //RedirectToHomePage
+                        document.location.href = '/';
+                    } else {
+                        console.log("In Home for Authentication");
+                    }
+                }
+            }
 
 
         /****************************/
@@ -173,8 +238,17 @@
 
         //Document Ready Section
         $(document).ready(function () {
+                //FOR DEVELOPONLY
+                autoCookies(true);
+
+                //Set cookie of homepage to false
+                $.cookie("home", false);
+
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
+
+                //Validate Logged User Credentials
+                validateCredentials();
 
             //Add the language parameter to all url invoked by the <a> tag
             $("a").click(function (event) {

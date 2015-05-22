@@ -14,5 +14,12 @@ namespace FrontEndSAM.Controllers.Home
         {
             return View();
         }
+
+        //
+        // GET: /Home/
+        public ActionResult Landing()
+        {
+            return View();
+        }
 	}
 }
