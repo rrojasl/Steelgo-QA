@@ -1,14 +1,36 @@
-<!-- jQuery -->
-<script src="jquery-2.1.4.js"></script>
+<html>
+    <head>
+        <title>Service teST</title>
+        <!-- jQuery -->
+        <script src="jquery-2.1.4.js"></script>
 
-<!-- jQuery rest -->
-<script src="jquery.rest.js"></script>
+        <!-- jQuery rest -->
+        <script src="jquery.rest.js"></script>
 
+    </head>
+    <body>
 
-<script>
-	var client = new $.RestClient('http://localhost:60960/backendsam/api/');
-	client.add('proyecto');
-	client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
-		console.log(data);
-	});
+        <script>
+            var dataReturned;
+            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+            var projects = [1, 2, 3, 4];
+
+            client.add('proyecto');
+
+            client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
+                console.log(data);
+            });
+            client.proyecto.create({ proys: projects }, { proys: projects, username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
+                console.log(data);
+            });
+
+            $(document).ready(function () {
+                
+            });
+            
 </script>
+    </body>
+</html>
+
+
+

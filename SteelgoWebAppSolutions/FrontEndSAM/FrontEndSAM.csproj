@@ -979,6 +979,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\AvisoLlegada\ListadoAvisoLlegada.cshtml" />
     <Content Include="Views\AvisoLlegada\DetalleAvisoLlegada.cshtml" />
+    <Content Include="Views\Home\Landing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
