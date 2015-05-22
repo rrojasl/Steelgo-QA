@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace BackEndSAM.Controllers
 {
+    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class ProyectoController : ApiController
     {
         // GET api/<controller>
