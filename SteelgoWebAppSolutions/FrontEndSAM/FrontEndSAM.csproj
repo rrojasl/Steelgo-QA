@@ -102,7 +102,9 @@
     <Content Include="Content\images\flags\en-US.png" />
     <Content Include="Content\images\flags\es-MX-16.png" />
     <Content Include="Content\images\flags\es-MX.png" />
+    <Content Include="Content\images\FooterLogo.png" />
     <Content Include="Content\images\loadingGift\loading.gif" />
+    <Content Include="Content\images\Logo_Login.jpg" />
     <Content Include="Content\kendo\2014.2.716\Black\editor.png" />
     <Content Include="Content\kendo\2014.2.716\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.2.716\Black\indeterminate.gif" />
