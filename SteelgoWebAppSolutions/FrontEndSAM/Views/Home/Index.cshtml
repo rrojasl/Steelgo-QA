@@ -1,9 +1,42 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>
-    <label id="homeLabel0001"></label> 
-</h2>
+<div class="login">
+    <img src="~/Content/images/Logo_Login.jpg" />
+    <form>
+        <div class="form-title">
+            <label id="loginLabel0001"></label>
+        </div>
+        <div>
+            <label id="loginLabel0002" class="loginLabel" for="username"></label>
+            <input id="username" name="username" type="text" />
+        </div>
+        <div>
+            <label id="loginLabel0003" class="loginLabel" for="password"></label>
+            <input id="password" name="password" type="password" />
+        </div>
+        <input id="loginLabel0009" type="submit" value="Iniciar Sesión" />
+        <a href="#">
+            <span id="loginLabel0004">¿Olvidaste tu contraseña?</span></a>
+    </form>
+</div>
+<footer>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-8 col-lg-8">
+                <img src="~/Content/images/FooterLogo.png" />
+                <label id="loginLabel0005"></label>
+            </div>
+            <div class="footerLinks col-md-4 col-lg-4">
+                <a href="#">
+                    <span id="loginLabel0006">Contacto</span></a>
+                <a href="#">
+                    <span id="loginLabel0007">¿Quiénes Somos?</span></a>
+                <a href="#">
+                    <span id="loginLabel0008">Servicios</span></a>
+            </div>
+        </div>
+    </div>
+</footer>
 
