@@ -43,3 +43,30 @@
         background-color: #FFFFFF;
     }
 /**********************************************************************************/
+
+
+/* Media Queries */
+
+/* xs viewport */
+@media screen and (max-width: 767px) {
+
+}
+
+/* sm viewport */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* tablet viewport*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+/* md viewport */
+@media (min-width: 992px) and (max-width: 1024px) {
+
+}
+
+/* lg viewport */
+@media (min-width: 1025px) {
+}

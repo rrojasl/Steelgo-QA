@@ -150,3 +150,53 @@ a, a:link, a:hover, a:visited {
 **********************************************************************************/
 
 /**********************************************************************************/
+
+
+/* Media Queries */
+
+/* xs viewport */
+@media screen and (max-width: 767px) {
+    footer {
+       text-align: center;
+       bottom: 20px;
+    }
+
+        footer .content-wrapper {
+            border: none;            
+            width: 90%;
+        }
+
+        footer label {
+            margin: 0;            
+            display: block;
+            font-size: 9px;
+        }
+}
+
+/* sm viewport */
+@media (min-width: 768px) and (max-width: 991px) {
+    footer {
+       text-align: center;
+    }
+}
+
+/* tablet viewport*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    footer .content-wrapper {
+        width: 80%;
+    }    
+
+}
+
+/* md viewport */
+@media (min-width: 992px) and (max-width: 1024px) {
+
+    footer label {
+        font-size: 11px;
+    }
+}
+
+/* lg viewport */
+@media (min-width: 1025px) {
+}

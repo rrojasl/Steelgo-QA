@@ -106,3 +106,45 @@
             font-weight: 600;
         }
 /**********************************************************************************/
+
+
+/* Media Queries */
+
+/* xs viewport */
+@media screen and (max-width: 767px) {
+
+    .login {
+        width: 100%;
+        max-width: 510px;
+        top: 0;
+    }
+
+        .login form div {
+            padding: 15px 12px 17px;
+        }
+
+            .login form div label.loginLabel {
+                margin-right: 4px;
+            }
+
+        .login form input {
+            width: 67%;
+        }
+    
+}
+
+/* sm viewport */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* tablet viewport*/
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* md viewport */
+@media (min-width: 992px) and (max-width: 1024px) {
+}
+
+/* lg viewport */
+@media (min-width: 1025px) {
+}
