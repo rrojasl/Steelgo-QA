@@ -1,5 +1,4 @@
-﻿using SecurityManager.Api.Filters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -11,7 +10,6 @@ namespace SecurityManager
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            //config.SetCorsPolicyProviderFactory(new SteelgoCorsPolicyFactory());
             config.EnableCors();
 
             // Web API routes
@@ -19,9 +17,12 @@ namespace SecurityManager
 
             config.Routes.MapHttpRoute(
                 name: "SecurityManagerApi",
-                routeTemplate: "securitymanager/api/{controller}/{parameter}",
-                defaults: new {
-                    parameter = RouteParameter.Optional
+                routeTemplate: "securitymanager/api/{controller}/{username}/{token}/{parameter}",
+                defaults: new 
+                {
+                    parameter = RouteParameter.Optional,
+                    username = RouteParameter.Optional,
+                    token = RouteParameter.Optional
                 }
             );
 

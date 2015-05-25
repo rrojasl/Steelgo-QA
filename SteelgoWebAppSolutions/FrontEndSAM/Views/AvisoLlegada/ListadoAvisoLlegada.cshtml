@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "ListadoAvisoLlegada";
+}
+
+<h2>ListadoAvisoLlegada</h2>
+<div class="form">
+        <div class="form-group">
+           <div id="grid"></div>
+        </div>
+</div>
+   
+
+<script>
+    @section JavascriptGlobalVariables {
+        //your partial views variables
+    }
+
+    @section JavascriptGlobalFunctions {
+    //Your partial views specific functions
+        function CargarGridAvisoLlegada()
+        {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                    },
+                    pageSize: 20
+                },
+                height: 550,
+                sortable: true,
+                filterable: true,
+                pageable: {
+                    refresh: false,
+                    pageSizes: false
+
+                },
+                columns: [
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0001, width: "200px" },
+                    { command: { text: "Editar", click: showDetails }, title: " ", width: "130px" },
+                    { command: { text: "Borrar", click: borrarFolio }, title: " ", width: "130px" }]
+            });
+        }
+
+
+        function showDetails()
+        {
+
+        }
+
+        function borrarFolio() {
+
+        }
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+    //Your partial view document ready functions
+    CargarGridAvisoLlegada();
+    }
+</script>
+

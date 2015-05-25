@@ -1,0 +1,15 @@
+<!-- jQuery -->
+<script src="jquery-2.1.4.js"></script>
+
+<!-- jQuery rest -->
+<script src="jquery.rest.js"></script>
+
+
+<script>
+	var client = new $.RestClient('http://localhost:60921/backendsam/api/');
+	client.add('proyecto');
+	client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
+	    alert("1");
+		console.log(data);
+	});
+</script>
