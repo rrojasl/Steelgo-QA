@@ -3,6 +3,12 @@
     ViewBag.Title = "DetalleAvisoLlegada";
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    //Your partial view document ready functions
+        alert(getUrlParameter("folio", "-1"));
+    }
+</script>
 
 
 <h2>DetalleAvisoLlegada</h2>

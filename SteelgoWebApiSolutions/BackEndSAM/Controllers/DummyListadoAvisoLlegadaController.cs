@@ -9,7 +9,7 @@ using System.Web.Http.Cors;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DummyListadoAvisoLlegadaController : ApiController
     {
         // GET api/dummylistadoavisollegada
@@ -44,12 +44,6 @@ namespace BackEndSAM.Controllers
         
         }
 
-        // GET api/dummylistadoavisollegada/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/dummylistadoavisollegada
         public void Post([FromBody]string value)
         {
@@ -61,9 +55,9 @@ namespace BackEndSAM.Controllers
         }
 
         // DELETE api/dummylistadoavisollegada/5
-        public void Delete([FromBody] string value2)
+        public string Delete(string folio, string username, string password)
         {
-
+            return "--->" + folio + "<---";
         }
     }
 }
