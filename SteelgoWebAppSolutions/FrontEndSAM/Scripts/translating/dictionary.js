@@ -55,6 +55,14 @@ _dictionary = {
         "es-MX": "Folio Aviso Llegada",
         "en-US": "Folio Arrival Notice"
     },
+    "ListadoAvisoLlegada0002": {
+        "es-MX": "Borrar",
+        "en-US": "Delete"
+    },
+    "ListadoAvisoLlegada0003": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

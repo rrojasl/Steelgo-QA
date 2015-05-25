@@ -13,25 +13,34 @@ namespace BackEndSAM.Controllers
     public class DummyListadoAvisoLlegadaController : ApiController
     {
         // GET api/dummylistadoavisollegada
-        public ListadoFolioAvisoLlegada Get()
+        public List<ListadoFolioAvisoLlegada> Get()
         {
-       
-            ListadoFolioAvisoLlegada lst = new ListadoFolioAvisoLlegada();
-            lst.creacion = 0;
-            lst.detalle = 1;
-            lst.eliminacion = 1;
-            lst.listado = 1;
-            List<propiedades> lstprop= new List<propiedades>();
-            propiedades prop = new propiedades();
-            FolioAvisoLlegadaID fl = new FolioAvisoLlegadaID();
-            fl.editable = 1;
-            fl.requerido = 1;
-            fl.visible = 0;
-            prop.FolioAvisoLlegadaID = fl;
+            List<ListadoFolioAvisoLlegada> lstfolioAvisoLlegada = new List<ListadoFolioAvisoLlegada>();
+            ListadoFolioAvisoLlegada folioAvisoLlegada = new ListadoFolioAvisoLlegada();
+
+            folioAvisoLlegada.FolioAvisoLlegadaID = 1;
+            lstfolioAvisoLlegada.Add(folioAvisoLlegada);
+
+            ListadoFolioAvisoLlegada folioAvisoLlegada1 = new ListadoFolioAvisoLlegada();
+            folioAvisoLlegada1.FolioAvisoLlegadaID = 2;
+            lstfolioAvisoLlegada.Add(folioAvisoLlegada1);
+
+            //ListadoFolioAvisoLlegada lst = new ListadoFolioAvisoLlegada();
+            //lst.creacion = 0;
+            //lst.detalle = 1;
+            //lst.eliminacion = 1;
+            //lst.listado = 1;
+            //List<propiedades> lstprop= new List<propiedades>();
+            //propiedades prop = new propiedades();
+            //FolioAvisoLlegadaID fl = new FolioAvisoLlegadaID();
+            //fl.editable = 1;
+            //fl.requerido = 1;
+            //fl.visible = 0;
+            //prop.FolioAvisoLlegadaID = fl;
            
-            lstprop.Add(prop);
-            lst.propiedades = lstprop.AsEnumerable();
-            return lst;
+            //lstprop.Add(prop);
+            //lst.propiedades = lstprop.AsEnumerable();
+            return lstfolioAvisoLlegada;
         
         }
 
