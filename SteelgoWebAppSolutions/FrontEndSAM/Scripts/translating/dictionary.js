@@ -63,6 +63,10 @@ _dictionary = {
         "es-MX": "Editar",
         "en-US": "Edit"
     },
+    "ListadoAvisoLlegada0004": {
+        "es-MX": "Estas seguro de eliminar el folio de aviso de llegada?",
+        "en-US": "Are you sure you remove the foil arrival record?"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
