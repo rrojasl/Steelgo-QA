@@ -172,6 +172,9 @@
             changeLayoutInputs(langValue);
             $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
                 kendo.ui.progress($("#grid"), false);
+                if (validateElementExistence(changeLanguageCall)) {
+                    changeLanguageCall();
+                }
             });
         }
 
