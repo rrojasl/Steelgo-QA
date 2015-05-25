@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, max-scale=1" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
     <title>@ViewBag.Title</title>
 
     <!-- Styles -->
@@ -30,13 +30,63 @@
     @RenderSection("HtmlHead", required: false)
 </head>
 <body>
-    <header>
-        <div class="content-wrapper">
-            @*<div class="userInformation">
-                <label id="layoutLabel0001"></label>
-            </div>*@
-            <div class="languageSelector clearfix">
-                <input id="language" value="es-MX" />
+    <header class="clearfix topbar">
+        <div class="content-wrapper clearfix">
+            <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                <a class="logo" href="#"></a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+                <div class="row pull-right">
+                    <div class="col-lg-12 menu">
+                        <div class="search-bar">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar en todo el sitio...">
+                                <span class="input-group-btn">
+                                    <button class="btn spyglass btn-blue" type="button"></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="notifications">
+                            <a href="#">
+                                <img src="~/Content/images/SAMC_MenuIcon_02.png" />
+                                <span class="count">8</span>
+                            </a>
+                        </div>
+                        <div class="logged-user">
+                            <div class="btn-group">
+                                <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                                    <img src="/Content/images/SAMC_MenuIcon_03.png" />
+                                    <span class="name">Carlos A. Gónzalez</span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user"></i>
+                                            <span class="text">Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-cog"></i>
+                                            <span class="text">Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-power-off"></i>
+                                            <span class="text">Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="languageSelector">
+                            <input id="language" value="es-MX" />
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -50,12 +100,12 @@
         /****************************/
 
         var $body = $("body");
-            var $BackEndSAM = new $.RestClient('http://localhost:60921' + '/backendsam/api/');
-            var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
-            var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
-            var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
-            var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
-            $SecurityManager.add('authentication');
+        var $BackEndSAM = new $.RestClient('http://localhost:60921' + '/backendsam/api/');
+        var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
+        var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
+        var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
+        var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
+        $SecurityManager.add('authentication');
 
         //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalVariables", required: false)
@@ -65,65 +115,65 @@
         /****************************/
 
         //Method to autogenerate a cookie
-            function autoCookies(correctCredentials) {
-                if ($.cookie("user") == null && $.cookie("token") == null) {
-                    if (correctCredentials) {
-                        createUserSession("YWRtaW4", "Q2hlbHNlYTEwMiE");
-                    } else {
-                        createUserSession("ZZZtaW4", "ZZZlbHNlYTEwMiE");
-                    }
+        function autoCookies(correctCredentials) {
+            if ($.cookie("user") == null && $.cookie("token") == null) {
+                if (correctCredentials) {
+                    createUserSession("YWRtaW4", "Q2hlbHNlYTEwMiE");
+                } else {
+                    createUserSession("ZZZtaW4", "ZZZlbHNlYTEwMiE");
                 }
             }
+        }
             
-            function createUserSession(username, password) {
+        function createUserSession(username, password) {
                 
-                //Create Login
-                $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
+            //Create Login
+            $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
+                console.log(data);
+                if (data.IsAuthenicated) {
+                    $.cookie("home", false);
+                    $.cookie("user", username);
+                    $.cookie("token", data.ReturnMessage[0]);
+                    //RedirectToLanding
+                    document.location.href = '@Url.Action("Landing", "Home")';
+                }
+            });
+        }
+
+        function removeUserSession() {
+            if ($.cookie("user") != null && $.cookie("token") != null) {
+                $SecurityManager.authentication.destroy({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                     console.log(data);
-                    if (data.IsAuthenicated) {
-                        $.cookie("home", false);
-                        $.cookie("user", username);
-                        $.cookie("token", data.ReturnMessage[0]);
-                        //RedirectToLanding
-                        document.location.href = '@Url.Action("Landing", "Home")';
+                    if (!data.IsAuthenicated) {
+                        $.removeCookie("user");
+                        $.removeCookie("token");
+                        $.removeCookie("home");
+                        validateCredentials();
                     }
                 });
             }
+        }
 
-            function removeUserSession() {
-                if ($.cookie("user") != null && $.cookie("token") != null) {
-                    $SecurityManager.authentication.destroy({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                        console.log(data);
-                        if (!data.IsAuthenicated) {
-                            $.removeCookie("user");
-                            $.removeCookie("token");
-                            $.removeCookie("home");
-                            validateCredentials();
-                        }
-                    });
-                }
-            }
-
-            function validateCredentials() {
-                if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
-                    $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                        console.log(data);
-                        if (!data.IsAuthenicated) {
-                            //RedirectToHomePage
-                            document.location.href = '/';
-                        } else {
-                            $.cookie("home", false);
-                        }
-                    });
-                } else {
-                    if ($.cookie("home") != null && $.cookie("home") == "false") {
+        function validateCredentials() {
+            if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
+                $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    console.log(data);
+                    if (!data.IsAuthenicated) {
                         //RedirectToHomePage
                         document.location.href = '/';
                     } else {
-                        console.log("In Home for Authentication");
+                        $.cookie("home", false);
                     }
+                });
+            } else {
+                if ($.cookie("home") != null && $.cookie("home") == "false") {
+                    //RedirectToHomePage
+                    document.location.href = '/';
+                } else {
+                    console.log("In Home for Authentication");
                 }
             }
+        }
 
 
         /****************************/
@@ -238,17 +288,17 @@
 
         //Document Ready Section
         $(document).ready(function () {
-                //FOR DEVELOPONLY
-                autoCookies(true);
+            //FOR DEVELOPONLY
+            autoCookies(true);
 
-                //Set cookie of homepage to false
-                $.cookie("home", false);
+            //Set cookie of homepage to false
+            $.cookie("home", false);
 
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
 
-                //Validate Logged User Credentials
-                validateCredentials();
+            //Validate Logged User Credentials
+            validateCredentials();
 
             //Add the language parameter to all url invoked by the <a> tag
             $("a").click(function (event) {

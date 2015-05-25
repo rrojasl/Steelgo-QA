@@ -8,11 +8,11 @@
     02  $_body
     03  $_header
     04  $_footer
-    05  $_label
-    06  $_links
-    07  $_
-    08  $_
-    09  $_
+    05  $_container
+    06  $_label
+    07  $_links
+    08  $_input
+    09  $_btn
     10  $_
     11  $_
 
@@ -80,6 +80,14 @@ body.loading {
 **********************************************************************************/
 header {
 }
+
+    header.topbar {
+        border-bottom: 1px solid #CECECE;
+    }
+
+    header .content-wrapper {
+        margin: 14px 0;
+    }
 /**********************************************************************************/
 
 
@@ -125,6 +133,18 @@ footer {
         }
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_container
+ Description:   Customize label tag.
+**********************************************************************************/
+.container {
+    max-width: 100%;
+    width: 100%;
+}
+/**********************************************************************************/
+
+
 /**********************************************************************************
  Class name:    $_label
  Description:   Customize label tag.
@@ -135,20 +155,88 @@ label {
 }
 /**********************************************************************************/
 
+
 /**********************************************************************************
  Class name:    $_links
  Description:   Customize anchor tag.
 **********************************************************************************/
 a, a:link, a:hover, a:visited {
     color: #305E8E;
+    outline: none;
 }
 /**********************************************************************************/
 
-/**********************************************************************************
- Class name:    $_
- Description:   Customize  tag.
-**********************************************************************************/
 
+/**********************************************************************************
+ Class name:    $_input
+ Description:   Customize input tag.
+**********************************************************************************/
+input {
+    border-color: transparent;    
+}
+
+    input:-moz-placeholder {
+        font-style: italic;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_btn
+ Description:   Customize button tag.
+**********************************************************************************/
+.btn, .btn:hover, .btn:focus {
+    color: #FFFFFF;
+    text-transform: capitalize;
+    display: block;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+
+.btn-yellow {
+    width: 180px;
+    height: 40px;
+    background-color: #F8AC39;
+    border: none;
+    border-bottom: 3px solid #F3881C;
+}
+
+    .btn-yellow:hover {
+        background-color: rgba(248, 172, 057, 0.8);
+        border-bottom-color: rgba(243, 136, 028, 0.5);
+    }
+
+.btn-blue {
+    background-color: #305E8E;
+    border: 1px solid #234568;
+}
+
+    .btn-blue:hover {
+        background-color: #1C4070;
+        border-bottom-color: #152F52;
+    }
 /**********************************************************************************/
 
 
@@ -156,18 +244,20 @@ a, a:link, a:hover, a:visited {
 
 /* xs viewport */
 @media screen and (max-width: 767px) {
+
+    /*$_footer*/
     footer {
-       text-align: center;
-       bottom: 20px;
+        text-align: center;
+        bottom: 20px;
     }
 
         footer .content-wrapper {
-            border: none;            
+            border: none;
             width: 90%;
         }
 
         footer label {
-            margin: 0;            
+            margin: 0;
             display: block;
             font-size: 9px;
         }
@@ -175,23 +265,26 @@ a, a:link, a:hover, a:visited {
 
 /* sm viewport */
 @media (min-width: 768px) and (max-width: 991px) {
+
+    /*$_footer*/
     footer {
-       text-align: center;
+        text-align: center;
     }
 }
 
 /* tablet viewport*/
 @media (min-width: 768px) and (max-width: 1024px) {
 
+    /*$_footer*/
     footer .content-wrapper {
         width: 80%;
-    }    
-
+    }
 }
 
 /* md viewport */
 @media (min-width: 992px) and (max-width: 1024px) {
 
+    /*$_footer*/
     footer label {
         font-size: 11px;
     }
