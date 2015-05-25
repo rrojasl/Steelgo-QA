@@ -172,7 +172,7 @@
             changeLayoutInputs(langValue);
             $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
                 kendo.ui.progress($("#grid"), false);
-                if (validateElementExistence(changeLanguageCall)) {
+                if (typeof changeLanguageCall == 'function') {
                     changeLanguageCall();
                 }
             });
@@ -247,9 +247,6 @@
                 //Set cookie of homepage to false
                 $.cookie("home", false);
 
-            //Partial Views Javascript Code Container
-            @RenderSection("JavascriptDocumentReadyFunctions", required: false)
-
                 //Validate Logged User Credentials
                 validateCredentials();
 
@@ -276,6 +273,8 @@
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
 
+            //Partial Views Javascript Code Container
+            @RenderSection("JavascriptDocumentReadyFunctions", required: false)
         });
     </script>
 </body>
