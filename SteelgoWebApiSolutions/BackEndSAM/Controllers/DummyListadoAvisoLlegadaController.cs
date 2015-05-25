@@ -61,8 +61,9 @@ namespace BackEndSAM.Controllers
         }
 
         // DELETE api/dummylistadoavisollegada/5
-        public void Delete(int id)
+        public void Delete([FromBody] string value2)
         {
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
 
         //
         // GET: /AvisoLlegada/
-        public ActionResult DetalleAvisoLlegada()
+        public ActionResult DetalleAvisoLlegada(string value)
         {
             return View();
         }
