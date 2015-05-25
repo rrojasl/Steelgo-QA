@@ -875,6 +875,7 @@
     <Content Include="Scripts\kendo\2014.2.716\messages\kendo.messages.es-MX.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\translating\dictionary.js" />
+    <Content Include="Scripts\xdomain.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
