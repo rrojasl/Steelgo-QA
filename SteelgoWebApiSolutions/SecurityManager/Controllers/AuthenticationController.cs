@@ -18,7 +18,7 @@ namespace SecurityManager
     ///         POST Method creates a session
     ///         DELETE Method removes a session
     /// </summary>
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
         Base64Security dataSecurity = new Base64Security();

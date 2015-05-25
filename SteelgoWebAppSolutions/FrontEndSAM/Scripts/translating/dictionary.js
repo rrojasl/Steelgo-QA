@@ -46,6 +46,27 @@ _dictionary = {
         "es-MX": "Buscar en todo el sitio...",
         "en-US": "Search in whole site..."
     },
+    "layoutLabel0002": {
+        "es-MX": "Derechos Reservados STEELGO",
+        "en-US": "Copyright STEELGO"
+    },
+    //Listado Aviso Llegada- Partial view Labels
+    "ListadoAvisoLlegada0001": {
+        "es-MX": "Folio Aviso Llegada",
+        "en-US": "Folio Arrival Notice"
+    },
+    "ListadoAvisoLlegada0002": {
+        "es-MX": "Borrar",
+        "en-US": "Delete"
+    },
+    "ListadoAvisoLlegada0003": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "ListadoAvisoLlegada0004": {
+        "es-MX": "Estas seguro de eliminar el folio de aviso de llegada?",
+        "en-US": "Are you sure you remove the foil arrival record?"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

@@ -1,7 +1,67 @@
 ﻿
 @{
     ViewBag.Title = "DetalleAvisoLlegada";
+     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    //Your partial view document ready functions
+        alert(getUrlParameter("folio", "-1"));
+    }
+</script>
+
 
 <h2>DetalleAvisoLlegada</h2>
 
+
+<fieldset>
+    <div class="form-group">
+        <label id="avisoLlegada0001"></label> 
+        <input id="Proyecto"  class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="avisoLlegada0002"></label> 
+        <input id="factura" class="form-control"/>
+    </div>
+    <input type="button" class="btn btn-primary" value="Cancelar"/>
+    <input type="button" class="btn btn-primary" value="Guardar"/>
+</fieldset>
+ <input type="hidden" id="folioAvisoLlegadaID" name="folioAvisoLlegadaID"  runat="server"/>
+
+
+
+@*<script type="text/javascript">
+
+
+    $(document).ready(function () {       
+        var client = new $.RestClient('http://localhost:60921/backendsam/api/');
+        client.add('proyecto');
+        client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
+            alert("1");
+            console.log(data);
+        });
+
+        $("#Proyecto").kendoComboBox({
+            dataSource: {
+                serverFiltering: true,
+                type: "json",
+                transport: {
+                    read: {
+                        url: "http://localhost:60960/backendsam/api/Proyecto",
+                    },
+                    schema: {
+                        data: function (response) {
+                            alert(response);
+                        }
+                    }
+                }
+            },
+            dataTextField: "value",
+            dataValueField: "id",
+            filter: "contains",
+        });
+        
+        
+    });
+
+</script>*@
