@@ -1,11 +1,10 @@
 ﻿<!DOCTYPE html>
 @{
-        
 }
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, max-scale=1" />
     <title>@ViewBag.Title</title>
 
     <!-- Styles -->
@@ -33,10 +32,10 @@
 <body>
     <header>
         <div class="content-wrapper">
-            <div class="userInformation">
+            @*<div class="userInformation">
                 <label id="layoutLabel0001"></label>
-            </div>
-            <div class="languageSelector">
+            </div>*@
+            <div class="languageSelector clearfix">
                 <input id="language" value="es-MX" />
             </div>
         </div>
@@ -44,145 +43,240 @@
     <div class="content">
         @RenderBody()
     </div>
-    <footer>
-        <div class="content-wrapper">
-            <label id="layoutLabel0002"></label>
-        </div>
-    </footer>
     <div class="modal"></div>
     <script>
         /****************************/
         /*     Global Variables     */
         /****************************/
 
-            var $body = $("body");
-            var $BackEndSAM = new $.RestClient('' + '/backendsam/api/');
-            var $FileManager = new $.RestClient('' + '/filemanager/api/');
-            var $MessagesManager = new $.RestClient('' + '/messagesmanager/api/');
-            var $SearchManager = new $.RestClient('' + '/searchmanager/api/');
-            var $SecurityManager = new $.RestClient('' + '/securitymanager/api/');
+        var $body = $("body");
+            var $BackEndSAM = new $.RestClient('http://localhost:60921' + '/backendsam/api/');
+            var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
+            var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
+            var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
+            var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
+            $SecurityManager.add('authentication');
 
-            //Partial Views Javascript Code Container
+        //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalVariables", required: false)
+
+        /****************************/
+        /*   Security Functions     */
+        /****************************/
+
+        //Method to autogenerate a cookie
+            function autoCookies(correctCredentials) {
+                if ($.cookie("user") == null && $.cookie("token") == null) {
+                    if (correctCredentials) {
+                        createUserSession("YWRtaW4", "Q2hlbHNlYTEwMiE");
+                    } else {
+                        createUserSession("ZZZtaW4", "ZZZlbHNlYTEwMiE");
+                    }
+                }
+            }
+            
+            function createUserSession(username, password) {
+                
+                //Create Login
+                $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
+                    console.log(data);
+                    if (data.IsAuthenicated) {
+                        $.cookie("home", false);
+                        $.cookie("user", username);
+                        $.cookie("token", data.ReturnMessage[0]);
+                        //RedirectToLanding
+                        document.location.href = '@Url.Action("Landing", "Home")';
+                    }
+                });
+            }
+
+            function removeUserSession() {
+                if ($.cookie("user") != null && $.cookie("token") != null) {
+                    $SecurityManager.authentication.destroy({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        console.log(data);
+                        if (!data.IsAuthenicated) {
+                            $.removeCookie("user");
+                            $.removeCookie("token");
+                            $.removeCookie("home");
+                            validateCredentials();
+                        }
+                    });
+                }
+            }
+
+            function validateCredentials() {
+                if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
+                    $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        console.log(data);
+                        if (!data.IsAuthenicated) {
+                            //RedirectToHomePage
+                            document.location.href = '/';
+                        } else {
+                            $.cookie("home", false);
+                        }
+                    });
+                } else {
+                    if ($.cookie("home") != null && $.cookie("home") == "false") {
+                        //RedirectToHomePage
+                        document.location.href = '/';
+                    } else {
+                        console.log("In Home for Authentication");
+                    }
+                }
+            }
 
 
         /****************************/
         /*   Traslation Functions   */
         /****************************/
 
-            //Partial Views Javascript Code Container
+        //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalFunctions", required: false)
             
-            //Function to change the labels to the corresponding language of the layout page
-            function changeLayoutLabels(language) {
-                $("label").each(function (index) {
-                    if (validateElementExistence(_dictionary[$(this).attr("id")])
-                            && validateElementExistence(_dictionary[$(this).attr("id")][language])) {
-                        $("#" + $(this).attr("id")).text(_dictionary[$(this).attr("id")][language]);
-                    }
-                });
-            }
-
-            //Function to change language in the onChange trigger of the language dropdownlist
-            function changeLanguage() {
-                var langValue = this.value();
-                kendo.ui.progress($("#grid"), true);
-                changeLayoutLabels(langValue);
-                $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
-                    kendo.ui.progress($("#grid"), false);
-                });
-            }
-
-            //Function to add elements to the dictionary from a string in this form "newItem°es°en|newItem2°es°en"
-            function addElementToDictionary(sParam) {
-                var elementsToAdd = sParam.split("|");
-                for (var i = 0; i < elementsToAdd.length; i++) {
-                    var partsOfElement = elementsToAdd[i].split("°");
-                    _dictionary[partsOfElement[0]] = {};
-                    _dictionary[partsOfElement[0]]["es-MX"] = partsOfElement[1];
-                    _dictionary[partsOfElement[0]]["en-US"] = partsOfElement[2];
+        //Function to change the labels to the corresponding language of the layout page
+        function changeLayoutLabels(language) {
+            $("label").each(function (index) {
+                if (validateElementExistence(_dictionary[$(this).attr("id")])
+                        && validateElementExistence(_dictionary[$(this).attr("id")][language])) {
+                    $("#" + $(this).attr("id")).text(_dictionary[$(this).attr("id")][language]);
                 }
+            });
+        }
+
+        //Function to change the spans to the corresponding language of the layout page
+        function changeLayoutSpans(language) {
+            $("span").each(function (index) {
+                if (validateElementExistence(_dictionary[$(this).attr("id")])
+                        && validateElementExistence(_dictionary[$(this).attr("id")][language])) {
+                    $("#" + $(this).attr("id")).text(_dictionary[$(this).attr("id")][language]);
+                }
+            });
+        }
+
+        //Function to change the inputs to the corresponding language of the layout page
+        function changeLayoutInputs(language) {
+            $("input").each(function (index) {
+                if (validateElementExistence(_dictionary[$(this).attr("id")])
+                        && validateElementExistence(_dictionary[$(this).attr("id")][language])) {
+                    $("#" + $(this).attr("id")).prop("value",_dictionary[$(this).attr("id")][language]);
+                }
+            });
+        }
+
+        //Function to change language in the onChange trigger of the language dropdownlist
+        function changeLanguage() {
+            var langValue = this.value();
+            kendo.ui.progress($("#grid"), true);
+            changeLayoutLabels(langValue);
+            changeLayoutSpans(langValue);
+            changeLayoutInputs(langValue);
+            $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
+                kendo.ui.progress($("#grid"), false);
+                if (validateElementExistence(changeLanguageCall)) {
+                    changeLanguageCall();
+                }
+            });
+        }
+
+        //Function to add elements to the dictionary from a string in this form "newItem°es°en|newItem2°es°en"
+        function addElementToDictionary(sParam) {
+            var elementsToAdd = sParam.split("|");
+            for (var i = 0; i < elementsToAdd.length; i++) {
+                var partsOfElement = elementsToAdd[i].split("°");
+                _dictionary[partsOfElement[0]] = {};
+                _dictionary[partsOfElement[0]]["es-MX"] = partsOfElement[1];
+                _dictionary[partsOfElement[0]]["en-US"] = partsOfElement[2];
             }
+        }
 
         /****************************/
         /*    Utilities Functions   */
         /****************************/
 
-            //Function to obtain an url parameter if is not present then return the notFindValue parameter
-            function getUrlParameter(sParam, notFindValue) {
-                var sPageURL = window.location.search.substring(1);
-                var sURLVariables = sPageURL.split('&');
-                for (var i = 0; i < sURLVariables.length; i++) {
-                    var sParameterName = sURLVariables[i].split('=');
-                    if (sParameterName[0] == sParam) {
-                        return sParameterName[1];
-                    }
+        //Function to obtain an url parameter if is not present then return the notFindValue parameter
+        function getUrlParameter(sParam, notFindValue) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
                 }
-                return notFindValue;
             }
+            return notFindValue;
+        }
 
-            //Function to validate the existence of an element
-            function validateElementExistence(element) {
-                if (typeof (element) !== 'undefined'
-                        && element != null) {
-                    return true;
-                }
-                return false;
+        //Function to validate the existence of an element
+        function validateElementExistence(element) {
+            if (typeof (element) !== 'undefined'
+                    && element != null) {
+                return true;
             }
+            return false;
+        }
 
-            //Function to activate waiting screen
-            function loadingStart() {
-                $body.addClass("loading");
-            }
+        //Function to activate waiting screen
+        function loadingStart() {
+            $body.addClass("loading");
+        }
 
-            //Function to deactivate waiting screen
-            function loadingStop() {
-                $body.removeClass("loading");
-            }
+        //Function to deactivate waiting screen
+        function loadingStop() {
+            $body.removeClass("loading");
+        }
 
-            //Function to encrypt base64 a string
-            function encrypt(toEncodData) {
-                return window.btoa(toEncodData);
-            }
+        //Function to encrypt base64 a string
+        function encrypt(toEncodData) {
+            return window.btoa(toEncodData);
+        }
 
-            //Function to decrypt base64 a string
-            function decrypt(encodedData) {
-                return window.atob(encodedData);
-            }
+        //Function to decrypt base64 a string
+        function decrypt(encodedData) {
+            return window.atob(encodedData);
+        }
 
         /****************************/
         /* Document Ready Variables */
         /****************************/
 
-            //Document Ready Section
-            $(document).ready(function () {
-                //Partial Views Javascript Code Container
-                @RenderSection("JavascriptDocumentReadyFunctions", required: false)
+        //Document Ready Section
+        $(document).ready(function () {
+                //FOR DEVELOPONLY
+                autoCookies(true);
 
-                //Add the language parameter to all url invoked by the <a> tag
-                $("a").click(function (event) {
-                    event.preventDefault();
-                    window.location.href = this.href + "?leng=" + $("#language").data("kendoDropDownList").value();
-                });
+                //Set cookie of homepage to false
+                $.cookie("home", false);
 
-                //Language dropdownlist inicialization method
-                $("#language").kendoDropDownList({
-                    change: changeLanguage,
-                    dataTextField: "text",
-                    dataValueField: "value",
-                    valueTemplate: '<img src=\"../Content/images/flags/#:data.text#-16.png\" alt=\"#:data.text#\" class="selected-value"/>',
-                    template: '<img src=\"../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" />',
-                    width: 24,
-                    dataSource: [
-                        { text: "es-MX" }, { text: "en-US" }
-                    ]
-                });
+            //Partial Views Javascript Code Container
+            @RenderSection("JavascriptDocumentReadyFunctions", required: false)
 
-                //Set on the dropdownlist the url language and change the current language
-                $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
-                $("#language").data("kendoDropDownList").trigger("change");
+                //Validate Logged User Credentials
+                validateCredentials();
 
+            //Add the language parameter to all url invoked by the <a> tag
+            $("a").click(function (event) {
+                event.preventDefault();
+                window.location.href = this.href + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
+
+            //Language dropdownlist inicialization method
+            $("#language").kendoDropDownList({
+                change: changeLanguage,
+                dataTextField: "text",
+                dataValueField: "value",
+                valueTemplate: '<img src=\"../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" class="selected-value"/>',
+                template: '<img src=\"../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" />',
+                width: 24,
+                dataSource: [
+                    { text: "es-MX" }, { text: "en-US" }
+                ]
+            });
+
+            //Set on the dropdownlist the url language and change the current language
+            $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
+            $("#language").data("kendoDropDownList").trigger("change");
+
+        });
     </script>
 </body>
 </html>

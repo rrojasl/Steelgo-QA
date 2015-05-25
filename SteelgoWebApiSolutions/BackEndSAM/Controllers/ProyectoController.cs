@@ -20,5 +20,11 @@ namespace BackEndSAM.Controllers
             returnObject[1] = new ListObject("id2", "value2");
             return returnObject;
         }
+
+        // POST api/<controller>
+        public void Post([FromUri] int[] proys, [FromUri] string username)
+        {
+            var content = Request.Content;
+        }
     }
 }

@@ -1,2 +1,68 @@
-﻿body {
+﻿/**********************************************************************************
+    File name: overrides.css
+    Description: CSS Framework overrides.
+
+    Index: 
+
+    01  $_languageSelector
+    02  $_
+    03  $_
+    04  $_
+    05  $_
+    06  $_
+    07  $_
+    08  $_
+    09  $_
+    10  $_
+    11  $_
+
+
+    Color Palette: Look at site.css
+
+**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_languageSelector
+ Description:   Override kendo language input section.
+**********************************************************************************/
+.languageSelector {    
+}
+
+    .languageSelector .k-widget.k-dropdown {
+        float: right;
+        width: 55px;
+    }
+
+    .languageSelector .k-dropdown-wrap.k-state-default {
+        border-color: transparent;
+        box-shadow: none;
+        outline: none;
+        background: none;
+        background-color: #FFFFFF;
+        padding-right: 19px;
+    }
+/**********************************************************************************/
+
+
+/* Media Queries */
+
+/* xs viewport */
+@media screen and (max-width: 767px) {
+}
+
+/* sm viewport */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/* tablet viewport*/
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* md viewport */
+@media (min-width: 992px) and (max-width: 1024px) {
+}
+
+/* lg viewport */
+@media (min-width: 1025px) {
 }
