@@ -40,7 +40,7 @@
                     <div class="col-lg-12 menu">
                         <div class="search-bar">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar en todo el sitio...">
+                                <input id="layoutLabel0001" type="text" class="form-control" placeholder="Buscar en todo el sitio...">
                                 <span class="input-group-btn">
                                     <button class="btn spyglass btn-blue" type="button"></button>
                                 </span>
@@ -209,6 +209,7 @@
                 if (validateElementExistence(_dictionary[$(this).attr("id")])
                         && validateElementExistence(_dictionary[$(this).attr("id")][language])) {
                     $("#" + $(this).attr("id")).prop("value",_dictionary[$(this).attr("id")][language]);
+                    $("#layoutLabel0001").prop("value","").prop("placeholder",_dictionary[$(this).attr("id")][language]);
                 }
             });
         }

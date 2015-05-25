@@ -43,8 +43,8 @@ _dictionary = {
     },
     //Layout Page Labels
     "layoutLabel0001": {
-        "es-MX": "Bienvenido",
-        "en-US": "Welcome"
+        "es-MX": "Buscar en todo el sitio...",
+        "en-US": "Search in whole site..."
     },
     //Home Partial View Labels
     "homeLabel0001": {
