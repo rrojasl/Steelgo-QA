@@ -48,14 +48,27 @@
         }
 
 
-        function showDetails()
+        function showDetails(e)
         {
-
+            e.preventDefault();
+            var tr = $(e.target).closest("tr");
+            var data = this.dataItem(tr);
+            var detalleIdeaUrl = "";
+            window.location.href = detalleIdeaUrl + "&FolioAvisoLlegadaID=" + data.FolioAvisoLlegadaID;
         }
 
-        function borrarFolio() {
-
+        function borrarFolio(e)
+        {
+            e.preventDefault();
+            var tr = $(e.target).closest("tr");
+            var data = this.dataItem(tr);
+            if (confirm('Do you really want to delete my favorite record?')) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                dataSource.remove(dataItem);
+                dataSource.sync();
+            }
         }
+
     }
 
     @section JavascriptDocumentReadyFunctions {
