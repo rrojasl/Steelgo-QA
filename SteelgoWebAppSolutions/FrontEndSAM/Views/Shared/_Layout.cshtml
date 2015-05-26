@@ -306,10 +306,13 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            autoCookies(true);
+            //autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);
+
+            //Partial Views Javascript Code Container
+            @RenderSection("JavascriptDocumentReadyHomeCookie", required: false)
 
             //Validate Logged User Credentials
             validateCredentials();
