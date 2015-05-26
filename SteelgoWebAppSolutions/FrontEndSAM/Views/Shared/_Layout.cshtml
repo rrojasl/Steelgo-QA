@@ -219,6 +219,11 @@
         //Function to change language in the onChange trigger of the language dropdownlist
         function changeLanguage() {
             var langValue = this.value();
+            kendo.culture(this.value());
+            var datePickerOptions = {
+                format: kendo.culture().calendar.patterns.d
+            };
+
             kendo.ui.progress($("#grid"), true);
             changeLayoutLabels(langValue);
             changeLayoutSpans(langValue);
@@ -227,6 +232,9 @@
                 kendo.ui.progress($("#grid"), false);
                 if (typeof changeLanguageCall == 'function') {
                     changeLanguageCall();
+                }
+                if (typeof changeDatePickerDateFormat == 'function') {
+                    changeDatePickerDateFormat(datePickerOptions);
                 }
             });
         }
