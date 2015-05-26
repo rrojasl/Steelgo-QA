@@ -24,9 +24,6 @@
     @Scripts.Render("~/Scripts/jquery.validate.js")
     @Scripts.Render("~/Scripts/jquery.rest.js")
     @Scripts.Render("~/Scripts/jquery.cookie.js")
-    @Scripts.Render("~/Scripts/kendo/2014.2.716/cultures/kendo.culture.en-US.min.js")
-    @Scripts.Render("~/Scripts/kendo/2014.2.716/cultures/kendo.culture.es-MX.min.js")
-    @Scripts.Render("~/Scripts/kendo/2014.2.716/kendo.all.min.js")
     @Scripts.Render("~/Scripts/kendo/2014.2.716/kendo.all.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Scripts.Render("~/Scripts/translating/dictionary.js")
@@ -231,7 +228,7 @@
             changeLayoutLabels(langValue);
             changeLayoutSpans(langValue);
             changeLayoutInputs(langValue);
-            $.getScript("../../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
+            $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
                 kendo.ui.progress($("#grid"), false);
                 if (typeof changeLanguageCall == 'function') {
                     changeLanguageCall();
@@ -328,8 +325,8 @@
                 change: changeLanguage,
                 dataTextField: "text",
                 dataValueField: "value",
-                valueTemplate: '<img src=\"../../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" class="selected-value"/>',
-                template: '<img src=\"../../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" />',
+                valueTemplate: '<img src=\"../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" class="selected-value"/>',
+                template: '<img src=\"../Content/images/flags/#:data.text#.png\" alt=\"#:data.text#\" />',
                 width: 24,
                 dataSource: [
                     { text: "es-MX" }, { text: "en-US" }
