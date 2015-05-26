@@ -25,6 +25,7 @@
     @Scripts.Render("~/Scripts/jquery.rest.js")
     @Scripts.Render("~/Scripts/jquery.cookie.js")
     @Scripts.Render("~/Scripts/kendo/2014.2.716/kendo.all.min.js")
+    @Scripts.Render("~/Scripts/kendo/2014.2.716/cultures/kendo.culture.es-MX.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Scripts.Render("~/Scripts/translating/dictionary.js")
 
@@ -307,6 +308,9 @@
 
             //Set cookie of homepage to false
             $.cookie("home", false);
+
+            //Partial Views Javascript Code Container
+            @RenderSection("JavascriptDocumentReadyHomeCookie", required: false)
 
             //Validate Logged User Credentials
             validateCredentials();
