@@ -6,22 +6,30 @@
 <h2>ListadoAvisoLlegada</h2>
 <div class="form">
         <div class="form-group">
+           <span id="Creacion"><label id="ListadoAvisoLlegada0001"></label></span>
+        </div> 
+
+        <div class="form-group">
            <div id="grid"></div>
         </div>
+    <div id="window">
+        @*Content of the Window*@
+    </div>
 </div>
    
 
 <script>
     @section JavascriptGlobalVariables {
     //your partial views variables
-
+    
     }
 
-    @section JavascriptGlobalFunctions {
-    function changeLanguageCall(){
-        CargarGridAvisoLlegada();
-    }
+    @section JavascriptGlobalFunctions {        
     //Your partial views specific functions
+        function changeLanguageCall() {
+            CargarGridAvisoLlegada();
+        }
+
         function CargarGridAvisoLlegada()
         {
             $("#grid").kendoGrid({
@@ -51,37 +59,66 @@
 
                 },
                 columns: [
-                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0001[$("#language").data("kendoDropDownList").value()], width: "200px", filterable : true },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0003[$("#language").data("kendoDropDownList").value()], click: showDetails }, title: " ", width: "130px" },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0002[$("#language").data("kendoDropDownList").value()], click: borrarFolio }, title: " ", width: "130px" }
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0002[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { command: { text: _dictionary.ListadoAvisoLlegada0003[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
+                    { command: { text: _dictionary.ListadoAvisoLlegada0004[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
                     ]
             });
         }
 
-
-        function showDetails(e)
+        function mostrarDetalle(e)
         {
             e.preventDefault();
             var tr = $(e.target).closest("tr"); // get the current table row (tr)
             var data = this.dataItem(tr);
             //REDIRECT
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-            alert(detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + data.FolioAvisoLlegadaID);
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + data.FolioAvisoLlegadaID;
         }
 
-        function borrarFolio(e) {
+        function eliminarFolio(e)
+        {
             e.preventDefault();
             var tr = $(e.target).closest("tr"); // get the current table row (tr)
             var data = this.dataItem(tr);
-            $BackEndSAM.DummyListadoAvisoLlegada.destroy({}, { folio: data.FolioAvisoLlegadaID }).done(function (data) {
-                console.log(data);
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyListadoAvisoLlegada');
+
+            Client.DummyListadoAvisoLlegada.destroy({}, { folio: data.FolioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                dataSource.remove(data);
+            });
+        }
+
+        function CargarEventPopupModal(window)
+        {
+            $("#Creacion").click(function (e) {
+                //window.data("kendoWindow").open();
+                var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
         }
     }
 
     @section JavascriptDocumentReadyFunctions {
     //Your partial view document ready functions
+       @* var window = $("#window");
+        var win = window.kendoWindow({
+            actions: ["Maximize", "Minimize", "Close"],
+            modal: true,
+            resizable: false,
+            visible: false,
+            width: "60%",
+            height: "50%",
+            position: {
+                top: "10%",
+                left: "20%"
+            },
+            content: "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")",
+        }).data("kendoWindow");*@
+
+        CargarEventPopupModal(window);
     }
 </script>
 
