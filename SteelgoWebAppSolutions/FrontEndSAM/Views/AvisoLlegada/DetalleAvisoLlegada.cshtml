@@ -54,12 +54,18 @@
 <script>
     @section JavascriptGlobalVariables {
         //your partial views variables
+        var FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
 
     }
 
     @section JavascriptGlobalFunctions {
+        function changeDatePickerDateFormat(datePickerOptions)
+        {
+            FechaRecepcion.setOptions(datePickerOptions);
+        };
+
         //Your partial views specific functions
-    function CargaInicial() {
+        function CargaInicial() {
 
             $("#Guardar").click(function () {
                 GuardarAvisoLlegada();
@@ -79,7 +85,7 @@
                 dataValueField: "id",
                 filter: "contains",
             });
-
+            
             $("#Transportista").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
@@ -93,10 +99,6 @@
                 dataTextField: "value",
                 dataValueField: "id",
                 filter: "contains",
-            });
-
-            $("#FechaRecepcion").kendoDatePicker({
-                format: $("#language").data("kendoDropDownList").value()=="es-MX"?"dd/MM/yyyy":"MM/dd/yyyy"
             });
 
             $("#Proveedor").kendoComboBox({
@@ -162,7 +164,7 @@
         }
 
         function GuardarAvisoLlegada()
-    {
+        {
             //Arreglo Aviso de llegada
             AvisoLlegada = [];
             AvisoLlegada[0] = { Proyecto: "",  Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenDeCompra: "", Patio: "", Chofer: "" };
@@ -207,8 +209,7 @@
 
     @section JavascriptDocumentReadyFunctions {
         //Your partial view document ready functions
-        alert(getUrlParameter("folio", "-1"));
+        //alert(getUrlParameter("folio", "-1"));
         CargaInicial();
-
     }
 </script>
