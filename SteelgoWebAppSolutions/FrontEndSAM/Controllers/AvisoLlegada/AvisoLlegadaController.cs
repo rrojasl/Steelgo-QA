@@ -21,5 +21,11 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
         {
             return View();
         }
+
+        public ActionResult FileUploadFile() 
+        {
+            var s = new { status = "OK", id = "12", archivo = "successfully uploaded" };
+            return Json(s, JsonRequestBehavior.AllowGet);
+        }
 	}
 }
