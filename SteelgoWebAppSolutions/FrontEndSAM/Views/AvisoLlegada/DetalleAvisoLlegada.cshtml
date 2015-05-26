@@ -60,7 +60,7 @@
 <script>
     @section JavascriptGlobalVariables {
         //your partial views variables
-        var FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
+        var FechaRecepcion;
 
     }
 
@@ -68,10 +68,12 @@
         function changeDatePickerDateFormat(datePickerOptions)
         {
             FechaRecepcion.setOptions(datePickerOptions);
-        };
+        }
 
         //Your partial views specific functions
         function CargaInicial() {
+
+            FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
 
             $("#Guardar").click(function () {
                 GuardarAvisoLlegada();
@@ -167,6 +169,7 @@
                 filter: "contains",
             });
 
+
             $("#files").kendoUpload({
                 async: {
                     saveUrl: "http://localhost:61102/AvisoLlegada/FileUploadFile",
@@ -187,6 +190,7 @@
             if (e.operation == "upload") {
                 alert("Failed to upload " + files.length + " files");
             }
+
         }
 
         function onSuccess(e)
