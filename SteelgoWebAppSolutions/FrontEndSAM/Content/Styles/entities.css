@@ -245,6 +245,16 @@ header .menu > div {
 
 /* sm viewport */
 @media (min-width: 768px) and (max-width: 991px) {
+
+    /*$_search-bar*/
+    .search-bar {
+        max-width: 242px;
+    }
+
+    /*$_notifications*/
+    .notifications .count {
+        left: 50.5%;
+    }
 }
 
 /* tablet viewport*/
