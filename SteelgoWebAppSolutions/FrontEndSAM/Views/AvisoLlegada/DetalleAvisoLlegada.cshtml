@@ -3,65 +3,212 @@
     ViewBag.Title = "DetalleAvisoLlegada";
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script>
-    @section JavascriptDocumentReadyFunctions {
-    //Your partial view document ready functions
-        alert(getUrlParameter("folio", "-1"));
-    }
-</script>
+
 
 
 <h2>DetalleAvisoLlegada</h2>
 
 
-<fieldset>
+<div class="form">
     <div class="form-group">
-        <label id="avisoLlegada0001"></label> 
-        <input id="Proyecto"  class="form-control"/>
+        <label id="DetalleAvisoLlegada0001"></label> 
+        <input id="Proyecto" class="form-control"/>
     </div>
     <div class="form-group">
-        <label id="avisoLlegada0002"></label> 
-        <input id="factura" class="form-control"/>
+        <label id="DetalleAvisoLlegada0002"></label> 
+        <input id="Factura" class="form-control"/>
     </div>
-    <input type="button" class="btn btn-primary" value="Cancelar"/>
-    <input type="button" class="btn btn-primary" value="Guardar"/>
-</fieldset>
- <input type="hidden" id="folioAvisoLlegadaID" name="folioAvisoLlegadaID"  runat="server"/>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0003"></label> 
+        <input id="Transportista" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0004"></label>
+        <input id="FechaRecepcion" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0005"></label> 
+        <input id="Proveedor" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0006"></label> 
+        <input id="Plana" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0007"></label> 
+        <input id="OrdenDeCompra" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0008"></label> 
+        <input id="Patio" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0009"></label> 
+        <input id="Chofer" class="form-control"/>
+    </div>
+    <input id="Guardar" type="button" class="btn btn-primary" value="Guardar"/>
+    <input id="Cancelar" type="button" class="btn btn-primary" value="Cancelar"/>
+</div>
 
 
+<script>
+    @section JavascriptGlobalVariables {
+        //your partial views variables
 
-@*<script type="text/javascript">
+    }
 
+    @section JavascriptGlobalFunctions {
+        //Your partial views specific functions
+    function CargaInicial() {
 
-    $(document).ready(function () {       
-        var client = new $.RestClient('http://localhost:60921/backendsam/api/');
-        client.add('proyecto');
-        client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
-            alert("1");
-            console.log(data);
-        });
+            $("#Guardar").click(function () {
+                GuardarAvisoLlegada();
+            });
 
-        $("#Proyecto").kendoComboBox({
-            dataSource: {
-                serverFiltering: true,
-                type: "json",
-                transport: {
-                    read: {
-                        url: "http://localhost:60960/backendsam/api/Proyecto",
-                    },
-                    schema: {
-                        data: function (response) {
-                            alert(response);
+            $("#Proyecto").kendoMultiSelect({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
                         }
                     }
-                }
-            },
-            dataTextField: "value",
-            dataValueField: "id",
-            filter: "contains",
-        });
-        
-        
-    });
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
 
-</script>*@
+            $("#Transportista").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
+
+            $("#FechaRecepcion").kendoDatePicker({
+                format: $("#language").data("kendoDropDownList").value()=="es-MX"?"dd/MM/yyyy":"MM/dd/yyyy"
+            });
+
+            $("#Proveedor").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
+
+            $("#Plana").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
+
+            $("#Patio").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
+
+            $("#Chofer").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
+
+        }
+
+        function GuardarAvisoLlegada()
+    {
+            //Arreglo Aviso de llegada
+            AvisoLlegada = [];
+            AvisoLlegada[0] = { Proyecto: "",  Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenDeCompra: "", Patio: "", Chofer: "" };
+            //objeto para los proyectos.
+            ProyectoIDs = [];
+                //alert($("#Proyecto").data("kendoMultiSelect").value());
+            alert($("#FechaRecepcion").data("kendoDatePicker").value());
+                //alert("Factura:" + $("#Factura").val());
+                //alert("Transportista:" + $("#Transportista").data("kendoComboBox").value());
+                //alert("FechaRecepcion:" + fecha.toString(new date(), "MM/dd/yyyy"));
+                //alert("Proveedor:" + $("#Proveedor").data("kendoComboBox").value());
+                //alert("Plana:" + $("#Plana").data("kendoComboBox").value());
+                //alert("OrdenDeCompra:" + $("#OrdenDeCompra").val());
+                //alert("Patio:" + $("#Patio").data("kendoComboBox").value());
+                //alert("Chofer" + $("#Chofer").data("kendoComboBox").value());
+            
+
+                //var proyectos = $("#Proyecto").data("kendoMultiSelect").value();
+
+                //$.each(proyectos, function (index, value) {
+                //    alert(index + ":" + value);
+                //    item = {};
+                //    item["ProyectoID"] = value;
+                //    ProyectoIDs.push(item);
+                //});
+            
+                //AvisoLlegada[0].Proyectos = ProyectoIDs;
+                //AvisoLlegada[0].Factura = $("#Factura").val();
+                //AvisoLlegada[0].TransportistaID = $("#Transportista").data("kendoComboBox").value();
+                //AvisoLlegada[0].FechaRecepcion = $("#FechaRecepcion").data("kendoDatePicker").value();
+                //AvisoLlegada[0].ProveedorID = $("#Proveedor").data("kendoComboBox").value();
+                //AvisoLlegada[0].NumeroPlana = $("#Plana").data("kendoComboBox").value();
+                //AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
+                //AvisoLlegada[0].PatioID = $("#Patio").data("kendoComboBox").value();
+                //AvisoLlegada[0].ChoferID = $("#Chofer").data("kendoComboBox").value();
+
+
+                console.log(JSON.stringify(AvisoLlegada));
+            
+         };
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+        //Your partial view document ready functions
+        alert(getUrlParameter("folio", "-1"));
+        CargaInicial();
+
+    }
+</script>

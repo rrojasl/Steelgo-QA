@@ -55,7 +55,7 @@ namespace BackEndSAM.Controllers
         }
 
         // DELETE api/dummylistadoavisollegada/5
-        public string Delete(string folio, string username, string password)
+        public string Delete(string folio, string username, string token)
         {
             return "--->" + folio + "<---";
         }
