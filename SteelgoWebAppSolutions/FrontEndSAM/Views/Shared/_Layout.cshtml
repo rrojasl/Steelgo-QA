@@ -30,6 +30,7 @@
     @Scripts.Render("~/Scripts/translating/dictionary.js")
 
     @RenderSection("HtmlHead", required: false)
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <header class="clearfix topbar">
@@ -105,9 +106,9 @@
         /*     Global Variables     */
         /****************************/
 
-            var $body = $("body");
-            var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            $BackEndSAM.add('DummyListadoAvisoLlegada');
+        var $body = $("body");
+        var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        $BackEndSAM.add('DummyListadoAvisoLlegada');
         var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
         var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
         var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
