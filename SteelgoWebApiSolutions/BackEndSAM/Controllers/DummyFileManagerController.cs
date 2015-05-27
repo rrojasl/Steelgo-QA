@@ -16,10 +16,23 @@ namespace BackEndSAM.Controllers
     public class DummyFileManagerController : ApiController
     {
 
-        // GET api/dummyfilemanager/5
-        public string Get(int id)
+        // GET api/dummyfilemanager/
+        public List<Files> Get(string username, string token)
         {
-            return "value";
+            var resultFiles = new List<Files>();
+            Files files = new Files();
+            files.id = 1;
+            files.Archivo = "Prueba1";
+            files.Extension = ".doc";
+            resultFiles.Add(files);
+
+            Files files2= new Files();
+            files2.id = 2;
+            files2.Archivo = "Prueba2";
+            files2.Extension = ".docx";
+            resultFiles.Add(files2);
+
+            return resultFiles;
         }
 
         // POST api/dummyfilemanager
@@ -57,8 +70,9 @@ namespace BackEndSAM.Controllers
         }
 
         // DELETE api/dummyfilemanager/5
-        public void Delete(int id)
+        public void Delete(string archivoID, string username, string token)
         {
+           
         }
     }
 }

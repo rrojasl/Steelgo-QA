@@ -52,6 +52,17 @@
         <input name="files" id="files" type="file" class="form-control" />
     </div>
 
+    <div class="form-group">
+        <label id="DetalleAvisoLlegada0010"></label>
+        <input id="TipoArchivo" class="form-control"/>
+        
+        <br />        
+
+        <table id="listaArchivos">
+             <thead><tr><td>Archivo</td><td>Tipo de Archivo</td><td>&nbsp;</td></tr></thead>
+        </table>
+
+    </div>
     <input id="Guardar" type="button" class="btn btn-primary" value="Guardar"/>
     <input id="Cancelar" type="button" class="btn btn-primary" value="Cancelar"/>
 </div>
@@ -60,22 +71,22 @@
 <script>
     @section JavascriptGlobalVariables {
         //your partial views variables
-        var FechaRecepcion;
-
+    var FechaRecepcion;
+    var folio = getUrlParameter("folio", "-1");
     }
 
     @section JavascriptGlobalFunctions {
         function changeDatePickerDateFormat(datePickerOptions)
         {
             FechaRecepcion.setOptions(datePickerOptions);
-        }
+        };
 
         //Your partial views specific functions
-        function CargaInicial() {
-
+        function CargaInicial()
+        {
             FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
 
-            $("#Guardar").click(function () {
+            $("#Guardar").click(function (e) {
                 GuardarAvisoLlegada();
             });
 
@@ -93,7 +104,7 @@
                 dataValueField: "id",
                 filter: "contains",
             });
-            
+
             $("#Transportista").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
@@ -108,7 +119,7 @@
                 dataValueField: "id",
                 filter: "contains",
             });
-
+            
             $("#Proveedor").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
@@ -169,48 +180,53 @@
                 filter: "contains",
             });
 
-
-            $("#files").kendoUpload({
-                async: {
-                    saveUrl: "http://localhost:61102/AvisoLlegada/FileUploadFile",
-                    autoUpload: true
+            $("#TipoArchivo").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
                 },
-                complete: function (e) {
-                    // here i want to get the text that is returned from the controller
-                    alert("hola");
-                }
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
             });
-           
 
-        }
-        function onError(e) {
-            // Array with information about the uploaded files
-            var files = e.files;
+            $('#files').kendoUpload({
+                async: {
+                    saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                    autoUpload: false
+                },
+                success: function (data) {
 
-            if (e.operation == "upload") {
-                alert("Failed to upload " + files.length + " files");
-            }
+                },
+                error: function (data) { },
+                upload: onUpload
+            });
+        };
 
-        }
-
-        function onSuccess(e)
-        {
-            // Array with information about the uploaded files
-            var files = e.files;
-
-            if (e.operation == "upload") {
-                alert("Successfully uploaded " + files.length + " files");
+        function onUpload(e) {
+            if (!$("#TipoArchivo").data("kendoComboBox").value())
+            {
+                alert("Por favor, seleccionar el tipo de archivo");
+                return false;
             }
         };
+
         function GuardarAvisoLlegada()
         {
-            //Arreglo Aviso de llegada
-            AvisoLlegada = [];
-            AvisoLlegada[0] = { Proyecto: "",  Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenDeCompra: "", Patio: "", Chofer: "" };
-            //objeto para los proyectos.
-            ProyectoIDs = [];
-                //alert($("#Proyecto").data("kendoMultiSelect").value());
-            alert($("#FechaRecepcion").data("kendoDatePicker").value());
+                //Arreglo Aviso de llegada
+                AvisoLlegada = [];
+                AvisoLlegada[0] = { FolioAvisoLlegadaID:"", Proyectos: "", Factura: "", TransportistaID: "", FechaRecepcion: "", ProveedorID: "", NumeroPlana: "", OrdenCompra: "", PatioID: "", ChoferID: "", Archivos: "" };
+                //objeto para los proyectos y documentos.
+                ProyectoIDs = [];
+                Documentos = [];
+
+                alert($("#Proyecto").data("kendoMultiSelect").value());
+                //alert($("#FechaRecepcion").data("kendoDatePicker").value());
                 //alert("Factura:" + $("#Factura").val());
                 //alert("Transportista:" + $("#Transportista").data("kendoComboBox").value());
                 //alert("FechaRecepcion:" + fecha.toString(new date(), "MM/dd/yyyy"));
@@ -219,36 +235,146 @@
                 //alert("OrdenDeCompra:" + $("#OrdenDeCompra").val());
                 //alert("Patio:" + $("#Patio").data("kendoComboBox").value());
                 //alert("Chofer" + $("#Chofer").data("kendoComboBox").value());
+
+                var proyectos = $("#Proyecto").data("kendoMultiSelect").value();
+
+                $.each(proyectos, function (index, value) {
+                    alert(index + ":" + value);
+                    item = {};
+                    item["ProyectoID"] = value;
+                    ProyectoIDs.push(item);
+                });
             
+                $('#listaArchivos > tbody  > tr').each(function () {
+                    if ($(this).find("td:first").length > 0) {
+                        var id = $(this).attr("id").split(",")[0];
+                        var archivo = $(this).find("td a").eq(0).html();
+                        var extencion = $(this).attr("id").split(",")[1];
 
-                //var proyectos = $("#Proyecto").data("kendoMultiSelect").value();
+                        item = {};
+                        item["ArchivoID"] = id;
+                        item["Nombre"] = archivo;
+                        item["Extension"] = extencion;
 
-                //$.each(proyectos, function (index, value) {
-                //    alert(index + ":" + value);
-                //    item = {};
-                //    item["ProyectoID"] = value;
-                //    ProyectoIDs.push(item);
-                //});
-            
-                //AvisoLlegada[0].Proyectos = ProyectoIDs;
-                //AvisoLlegada[0].Factura = $("#Factura").val();
-                //AvisoLlegada[0].TransportistaID = $("#Transportista").data("kendoComboBox").value();
-                //AvisoLlegada[0].FechaRecepcion = $("#FechaRecepcion").data("kendoDatePicker").value();
-                //AvisoLlegada[0].ProveedorID = $("#Proveedor").data("kendoComboBox").value();
-                //AvisoLlegada[0].NumeroPlana = $("#Plana").data("kendoComboBox").value();
-                //AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-                //AvisoLlegada[0].PatioID = $("#Patio").data("kendoComboBox").value();
-                //AvisoLlegada[0].ChoferID = $("#Chofer").data("kendoComboBox").value();
+                        Documentos.push(item);
 
+                    }
+                });
+                var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
+                
+
+                AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
+                AvisoLlegada[0].Proyectos = ProyectoIDs;
+                AvisoLlegada[0].Factura = $("#Factura").val();
+                AvisoLlegada[0].TransportistaID = $("#Transportista").data("kendoComboBox").value();
+                AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());;
+                AvisoLlegada[0].ProveedorID = $("#Proveedor").data("kendoComboBox").value();
+                AvisoLlegada[0].NumeroPlana = $("#Plana").data("kendoComboBox").value();
+                AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
+                AvisoLlegada[0].PatioID = $("#Patio").data("kendoComboBox").value();
+                AvisoLlegada[0].ChoferID = $("#Chofer").data("kendoComboBox").value();
+                AvisoLlegada[0].Archivos = Documentos;
 
                 console.log(JSON.stringify(AvisoLlegada));
-            
-         };
-    }
+
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyAvisoLlegada');
+
+
+                if (folio != -1)
+                {
+                    Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+
+                    });
+                } else
+                {
+                    Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+
+                    });
+                }
+
+                
+
+        };
+
+        function descargarArchivo(id)
+        {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyDescargarArchivo');
+
+            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+
+            });
+        };
+
+        function borrarArchivo(id,fila)
+        {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyFileManager');
+
+            Client.DummyFileManager.destroy({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                fila.closest("tr").remove();
+            });
+        };
+
+        function CargaInicialEdicion(id)
+        {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyAvisoLlegada');
+
+            Client.DummyAvisoLlegada.read({}, { folio: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log(data);
+                var concat = "";
+
+                $.each(data[0].Proyectos, function (index, value) {
+                    concat += "," + value.ProyectoID;
+                    console.log(" concat:" + concat);
+                });
+
+                $("#Proyecto").data("kendoMultiSelect").value(concat.split(","));
+                $("#Factura").val(data[0].Factura);
+                $("#Transportista").data("kendoComboBox").value(data[0].TransportistaID);
+                //Fecha Recepcion
+                var d = new Date(data[0].FechaRecepcion);                
+                $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+
+                $("#Proveedor").data("kendoComboBox").value(data[0].ProveedorID);
+                $("#Plana").data("kendoComboBox").value(data[0].NumeroPlana);
+                $("#OrdenDeCompra").val(data[0].OrdenCompra);
+                $("#Patio").data("kendoComboBox").value(data[0].PatioID);
+                $("#Chofer").data("kendoComboBox").value(data[0].ChoferID);
+
+                $.each(data[0].Archivos, function (index, value) {
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
+                });
+            });
+        }
+}
 
     @section JavascriptDocumentReadyFunctions {
         //Your partial view document ready functions
-        //alert(getUrlParameter("folio", "-1"));
+        alert(getUrlParameter("folio", "-1"));
+        
+
         CargaInicial();
+
+        if (folio != -1)
+        {
+            CargaInicialEdicion(folio);
+        }
+
+        // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.
+        if (folio == -1)
+        {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyFileManager');
+
+            Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                $.each(data, function (index, value) {
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
+                });
+        
+            });
+        }
     }
 </script>

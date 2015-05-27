@@ -16,8 +16,8 @@ namespace BackEndSAM.Controllers
         public ListObject[] Get()
         {
             ListObject[] returnObject = new ListObject[2];
-            returnObject[0] = new ListObject("id1", "value1");
-            returnObject[1] = new ListObject("id2", "value2");
+            returnObject[0] = new ListObject("1", "value1");
+            returnObject[1] = new ListObject("2", "value2");
             return returnObject;
         }
 

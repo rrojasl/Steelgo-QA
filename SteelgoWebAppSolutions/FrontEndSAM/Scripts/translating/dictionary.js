@@ -108,6 +108,11 @@ _dictionary = {
         "es-MX": "Chofer",
         "en-US": "Driver"
     },
+    "DetalleAvisoLlegada0010": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File type"
+    },
+    
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
