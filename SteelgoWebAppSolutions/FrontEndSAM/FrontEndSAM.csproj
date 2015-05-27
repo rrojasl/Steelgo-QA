@@ -884,6 +884,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
+    <Compile Include="Controllers\Errors\ErrorsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1011,6 +1012,8 @@
     <Content Include="Views\AvisoLlegada\ListadoAvisoLlegada.cshtml" />
     <Content Include="Views\AvisoLlegada\DetalleAvisoLlegada.cshtml" />
     <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\Shared\_LayoutErrors.cshtml" />
+    <Content Include="Views\Errors\notfound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
