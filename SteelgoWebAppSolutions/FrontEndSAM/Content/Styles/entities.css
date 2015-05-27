@@ -271,6 +271,7 @@ header .menu > div {
             border-color: #B4B4B4;
             border-bottom: 1px solid #CECECE;
             color: #DF6600;
+            font-weight: 600;
         }
 
     .sidebar .main-nav ul.main-menu > li:first-child > a {
