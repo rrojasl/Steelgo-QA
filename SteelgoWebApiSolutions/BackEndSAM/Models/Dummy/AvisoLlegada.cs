@@ -10,13 +10,13 @@ namespace BackEndSAM.Models
         public int FolioAvisoLlegadaID { get; set; }
         public List<Proyecto> Proyectos { get; set; }
         public string Factura { get; set; }
-        public int TransportistaID { get; set; }
+        public Transportista Transportistas { get; set; }
         public DateTime FechaRecepcion { get; set; }
-        public int ProveedorID { get; set; }
-        public int NumeroPlana { get; set; }
+        public Proveedor Proveedores { get; set; }
+        public Plana Planas { get; set; }
         public string OrdenCompra { get; set; }
-        public int PatioID { get; set; }
-        public int ChoferID { get; set; }
+        public Patio Patios { get; set; }
+        public Chofer Choferes { get; set; }
         public List<Files> Archivos { get; set; }
     }
 }

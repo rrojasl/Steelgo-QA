@@ -323,7 +323,7 @@
     <div class="modal">
         <!-- Place at bottom of page -->
     </div>
-    <iframe id="my_iframe" name="my_iframe" src="notfound.html" style="visibility: hidden; display: none"></iframe>
+    <iframe id="my_iframe" name="my_iframe" src="@Url.Action("notfound", "Errors")" style="visibility: hidden; display: none"></iframe>
 
     <script>
         /****************************/
@@ -345,6 +345,18 @@
         /****************************/
         /*   Security Functions     */
         /****************************/
+
+        //Method to hide elements if im in home
+        function hideElements() {
+            if ($.cookie("home") != null && $.cookie("home") == "true") {
+                $(".sidebar").css("display", "none");
+                $(".logo").css("display", "none");
+                $(".search-bar").css("display", "none");
+                $(".notifications").css("display", "none");
+                $(".logged-user").css("display", "none");
+                $("header").removeClass("topbar");
+            }
+        }
 
         //Method to autogenerate a cookie
         function autoCookies(correctCredentials) {
@@ -554,6 +566,9 @@
 
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyHomeCookie", required: false)
+
+            //Hide elements for Login
+            hideElements();
 
             //Validate Logged User Credentials
             validateCredentials();

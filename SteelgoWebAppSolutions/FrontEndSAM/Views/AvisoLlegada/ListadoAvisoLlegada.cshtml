@@ -42,7 +42,9 @@
                     schema: {
                         model: {
                             fields: {
-                                FolioAvisoLlegadaID: { type: "number" }
+                                FolioAvisoLlegadaID: { type: "number" },
+                                NombreProyecto: { type: "string" },
+                                FechaRecepcion: { type: "date" }
                             }
                         }
                     },
@@ -50,6 +52,9 @@
                     serverPaging: false,
                     serverFiltering: false,
                     serverSorting: false
+                    , parameterMap: function (data, type) {
+                        alert("parameterMap");
+                    }
                 },
                 height: 550,
                 sortable: true,
@@ -57,10 +62,11 @@
                 pageable: {
                     refresh: false,
                     pageSizes: false
-
                 },
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0002[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0006[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0007[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true, format: "{0:yyyy-MM-dd}" },
                     { command: { text: _dictionary.ListadoAvisoLlegada0003[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
                     { command: { text: _dictionary.ListadoAvisoLlegada0004[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
                     ]
@@ -81,14 +87,14 @@
         {
             e.preventDefault();
             var tr = $(e.target).closest("tr"); // get the current table row (tr)
-            var data = this.dataItem(tr);
+            var datatr = this.dataItem(tr);
             var dataSource = $("#grid").data("kendoGrid").dataSource;
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyListadoAvisoLlegada');
 
-            Client.DummyListadoAvisoLlegada.destroy({}, { folio: data.FolioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                dataSource.remove(data);
+            Client.DummyListadoAvisoLlegada.destroy({}, { folio: datatr.FolioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                dataSource.remove(datatr);
             });
         }
 
