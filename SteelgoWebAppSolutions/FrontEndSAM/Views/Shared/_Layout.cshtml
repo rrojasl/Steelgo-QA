@@ -76,7 +76,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a id="logout" href="#">
                                             <i class="fa fa-power-off"></i>
                                             <span class="text">Logout</span>
                                         </a>
@@ -358,14 +358,13 @@
             if ($.cookie("user") == null && $.cookie("token") == null) {
                 createUserSession(encrypt(username), encrypt(password));
             } else {
-                console.log("Credenciales ya existentes");
+                validateCredentials();
             }
         }
 
         function createUserSession(username, password) {
             //Create Login
             $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
-                console.log(data);
                 if (data.IsAuthenicated) {
                     $.cookie("home", false);
                     $.cookie("user", username);
@@ -379,11 +378,10 @@
         function removeUserSession() {
             if ($.cookie("user") != null && $.cookie("token") != null) {
                 $SecurityManager.authentication.destroy({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    console.log(data);
                     if (!data.IsAuthenicated) {
-                        $.removeCookie("user");
-                        $.removeCookie("token");
-                        $.removeCookie("home");
+                        $.removeCookie("user", { path: '/' });
+                        $.removeCookie("token", { path: '/' });
+                        $.removeCookie("home", { path: '/' });
                         validateCredentials();
                     }
                 });
@@ -394,7 +392,6 @@
             if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
                 loadingStart();
                 $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    console.log(data);
                     if (!data.IsAuthenicated) {
                         //RedirectToHomePage
                         document.location.href = '/';
@@ -407,8 +404,6 @@
                 if ($.cookie("home") != null && $.cookie("home") == "false") {
                     //RedirectToHomePage
                     document.location.href = '/';
-                } else {
-                    console.log("In Home for Authentication");
                 }
             }
         }
@@ -556,6 +551,11 @@
 
             //Validate Logged User Credentials
             validateCredentials();
+
+            $("#logout").click(function (event) {
+                event.preventDefault();
+                removeUserSession();
+            });
 
             //Add the language parameter to all url invoked by the <a> tag
             $("a").click(function (event) {
