@@ -7,20 +7,8 @@ namespace BackEndSAM.Models
 {
     public class ListadoFolioAvisoLlegada
     {
-        public int FolioAvisoLlegadaID { get; set; }       
+        public int FolioAvisoLlegadaID { get; set; }
+        public string NombreProyecto { get; set; }
+        public DateTime FechaRecepcion { get; set; }
     }
-
-    //public class propiedades
-    //{
-    //    public FolioAvisoLlegadaID FolioAvisoLlegadaID { get; set; }
-    //}
-
-
-    //public class FolioAvisoLlegadaID
-    //{
-    //    public int visible { get; set; }
-    //    public int editable { get; set; }
-    //    public int requerido { get; set; }
-//}
-
 }

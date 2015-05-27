@@ -71,6 +71,14 @@ _dictionary = {
         "es-MX": "Estas seguro de eliminar el folio de aviso de llegada?",
         "en-US": "Are you sure you remove the foil arrival record?"
     },
+    "ListadoAvisoLlegada0006": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "ListadoAvisoLlegada0007": {
+        "es-MX": "Fecha Recepción",
+        "en-US": "Reception Date"
+    },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",

@@ -19,29 +19,17 @@ namespace BackEndSAM.Controllers
             ListadoFolioAvisoLlegada folioAvisoLlegada = new ListadoFolioAvisoLlegada();
 
             folioAvisoLlegada.FolioAvisoLlegadaID = 1;
+            folioAvisoLlegada.NombreProyecto = "Prueba 1";
+            folioAvisoLlegada.FechaRecepcion = DateTime.Today;
             lstfolioAvisoLlegada.Add(folioAvisoLlegada);
 
             ListadoFolioAvisoLlegada folioAvisoLlegada1 = new ListadoFolioAvisoLlegada();
             folioAvisoLlegada1.FolioAvisoLlegadaID = 2;
+            folioAvisoLlegada1.NombreProyecto = "Prueba 2";
+            folioAvisoLlegada1.FechaRecepcion = DateTime.Today;
             lstfolioAvisoLlegada.Add(folioAvisoLlegada1);
 
-            //ListadoFolioAvisoLlegada lst = new ListadoFolioAvisoLlegada();
-            //lst.creacion = 0;
-            //lst.detalle = 1;
-            //lst.eliminacion = 1;
-            //lst.listado = 1;
-            //List<propiedades> lstprop= new List<propiedades>();
-            //propiedades prop = new propiedades();
-            //FolioAvisoLlegadaID fl = new FolioAvisoLlegadaID();
-            //fl.editable = 1;
-            //fl.requerido = 1;
-            //fl.visible = 0;
-            //prop.FolioAvisoLlegadaID = fl;
-           
-            //lstprop.Add(prop);
-            //lst.propiedades = lstprop.AsEnumerable();
             return lstfolioAvisoLlegada;
-        
         }
 
         // POST api/dummylistadoavisollegada

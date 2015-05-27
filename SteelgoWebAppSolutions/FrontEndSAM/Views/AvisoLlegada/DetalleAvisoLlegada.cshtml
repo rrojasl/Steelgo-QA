@@ -71,8 +71,13 @@
 <script>
     @section JavascriptGlobalVariables {
         //your partial views variables
-    var FechaRecepcion;
-    var folio = getUrlParameter("folio", "-1");
+        var FechaRecepcion;
+        var folio = getUrlParameter("folio", "-1");
+        var Transportista = [];
+        var Proveedor = [];
+        var Patio = [];
+        var Plana = [];
+        var Chofer = [];
     }
 
     @section JavascriptGlobalFunctions {
@@ -90,6 +95,11 @@
                 GuardarAvisoLlegada();
             });
 
+            $("#Cancelar").click(function (e) {
+                var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            });
+
             $("#Proyecto").kendoMultiSelect({
                 dataSource: {
                     serverFiltering: false,
@@ -105,37 +115,46 @@
                 filter: "contains",
             });
 
-            $("#Transportista").kendoComboBox({
+            $("#Transportista").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: "http://localhost:60960/backendsam/api/DummyTransportista",
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
+                dataTextField: "Nombre",
+                dataValueField: "TransportistaID",
+                select: function(e)
+                {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+                },
                 filter: "contains",
             });
             
-            $("#Proveedor").kendoComboBox({
+            $("#Proveedor").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: "http://localhost:60960/backendsam/api/DummyProveedor",
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
+                dataTextField: "Nombre",
+                dataValueField: "ProveedorID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarProveedor(dataItem.id, dataItem.value);
+                },
                 filter: "contains",
             });
 
-            $("#Plana").kendoComboBox({
+            $("#Plana").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -147,10 +166,14 @@
                 },
                 dataTextField: "value",
                 dataValueField: "id",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarPlana(dataItem.id, dataItem.value);
+                },
                 filter: "contains",
             });
 
-            $("#Patio").kendoComboBox({
+            $("#Patio").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -162,10 +185,14 @@
                 },
                 dataTextField: "value",
                 dataValueField: "id",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarPatio(dataItem.id, dataItem.value);
+                },
                 filter: "contains",
             });
 
-            $("#Chofer").kendoComboBox({
+            $("#Chofer").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -177,6 +204,11 @@
                 },
                 dataTextField: "value",
                 dataValueField: "id",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarChofer(dataItem.id, dataItem.value);
+
+                },
                 filter: "contains",
             });
 
@@ -220,24 +252,12 @@
         {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID:"", Proyectos: "", Factura: "", TransportistaID: "", FechaRecepcion: "", ProveedorID: "", NumeroPlana: "", OrdenCompra: "", PatioID: "", ChoferID: "", Archivos: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportistas: "", FechaRecepcion: "", Proveedores: "", Planas: "", OrdenCompra: "", Patios: "", Choferes: "", Archivos: "" };
                 //objeto para los proyectos y documentos.
                 ProyectoIDs = [];
-                Documentos = [];
-
-                alert($("#Proyecto").data("kendoMultiSelect").value());
-                //alert($("#FechaRecepcion").data("kendoDatePicker").value());
-                //alert("Factura:" + $("#Factura").val());
-                //alert("Transportista:" + $("#Transportista").data("kendoComboBox").value());
-                //alert("FechaRecepcion:" + fecha.toString(new date(), "MM/dd/yyyy"));
-                //alert("Proveedor:" + $("#Proveedor").data("kendoComboBox").value());
-                //alert("Plana:" + $("#Plana").data("kendoComboBox").value());
-                //alert("OrdenDeCompra:" + $("#OrdenDeCompra").val());
-                //alert("Patio:" + $("#Patio").data("kendoComboBox").value());
-                //alert("Chofer" + $("#Chofer").data("kendoComboBox").value());
+                Documentos = [];                
 
                 var proyectos = $("#Proyecto").data("kendoMultiSelect").value();
-
                 $.each(proyectos, function (index, value) {
                     alert(index + ":" + value);
                     item = {};
@@ -255,24 +275,22 @@
                         item["ArchivoID"] = id;
                         item["Nombre"] = archivo;
                         item["Extension"] = extencion;
-
                         Documentos.push(item);
-
                     }
                 });
+
                 var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
-                
 
                 AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
                 AvisoLlegada[0].Proyectos = ProyectoIDs;
                 AvisoLlegada[0].Factura = $("#Factura").val();
-                AvisoLlegada[0].TransportistaID = $("#Transportista").data("kendoComboBox").value();
+                AvisoLlegada[0].Transportistas = Transportista;
                 AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());;
-                AvisoLlegada[0].ProveedorID = $("#Proveedor").data("kendoComboBox").value();
-                AvisoLlegada[0].NumeroPlana = $("#Plana").data("kendoComboBox").value();
+                AvisoLlegada[0].Proveedores = Proveedor;
+                AvisoLlegada[0].Planas = Plana;
                 AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-                AvisoLlegada[0].PatioID = $("#Patio").data("kendoComboBox").value();
-                AvisoLlegada[0].ChoferID = $("#Chofer").data("kendoComboBox").value();
+                AvisoLlegada[0].Patios = Patio;
+                AvisoLlegada[0].Choferes = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
 
                 console.log(JSON.stringify(AvisoLlegada));
@@ -280,45 +298,39 @@
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyAvisoLlegada');
 
-
                 if (folio != -1)
                 {
                     Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-
+                        console.log("Client.DummyAvisoLlegada.update");
                     });
                 } else
                 {
                     Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-
+                        console.log("Client.DummyAvisoLlegada.create");
                     });
                 }
-
-                
-
         };
 
-        function descargarArchivo(id)
-        {
+        function descargarArchivo(id) {
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyDescargarArchivo');
 
             Client.DummyDescargarArchivo.read({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-
+                console.log("Client.DummyDescargarArchivo.read");
             });
         };
 
-        function borrarArchivo(id,fila)
-        {
+        function borrarArchivo(id,fila) {
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFileManager');
 
             Client.DummyFileManager.destroy({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 fila.closest("tr").remove();
+                console.log("Client.DummyFileManager.destroy");
             });
         };
 
-        function CargaInicialEdicion(id)
-        {
+        function CargaInicialEdicion(id) {
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
 
@@ -333,28 +345,91 @@
 
                 $("#Proyecto").data("kendoMultiSelect").value(concat.split(","));
                 $("#Factura").val(data[0].Factura);
-                $("#Transportista").data("kendoComboBox").value(data[0].TransportistaID);
+
+                //Se carga el arreglo transportista
+                if(data[0].Transportistas){
+                    CargarTransportista(data[0].Transportistas.TransportistaID, data[0].Transportistas.Nombre);
+                    $("#Transportista").data("kendoAutoComplete").value(data[0].Transportistas.Nombre);
+                }
                 //Fecha Recepcion
-                var d = new Date(data[0].FechaRecepcion);                
+                var d = new Date(data[0].FechaRecepcion);
                 $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
 
-                $("#Proveedor").data("kendoComboBox").value(data[0].ProveedorID);
-                $("#Plana").data("kendoComboBox").value(data[0].NumeroPlana);
+                //Se carga el arreglo Proveedores
+                if(data[0].Proveedores){
+                    CargarProveedor(data[0].Proveedores.ProveedorID, data[0].Proveedores.Nombre);
+                    $("#Proveedor").data("kendoAutoComplete").value(data[0].Proveedores.Nombre);
+                }
+
+                if(data[0].Planas) {
+                    CargarPlana(data[0].Planas.PlanaID, data[0].Planas.Nombre);
+                    $("#Plana").data("kendoAutoComplete").value(data[0].Planas.Nombre);
+                }
+
                 $("#OrdenDeCompra").val(data[0].OrdenCompra);
-                $("#Patio").data("kendoComboBox").value(data[0].PatioID);
-                $("#Chofer").data("kendoComboBox").value(data[0].ChoferID);
+
+                //Se carga el arreglo Patio
+                if(data[0].Patios) {
+                    CargarPatio(data[0].Patios.PatioID, data[0].Patios.Nombre);
+                    $("#Patio").data("kendoAutoComplete").value(data[0].Patios.Nombre);
+                }
+
+                //Se carga el arreglo Chofer
+                if (data[0].Choferes) {
+                    CargarChofer(data[0].Choferes.ChoferID, data[0].Choferes.Nombre);
+                    $("#Chofer").data("kendoAutoComplete").value(data[0].Choferes.Nombre);
+                }
 
                 $.each(data[0].Archivos, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
                 });
             });
-        }
+        };
+
+        function CargarTransportista(id, value) {
+            Transportista = [];
+            _transportista = {};
+            _transportista["TransportistaID"] = id;
+            _transportista["Nombre"] = value;
+            Transportista.push(_transportista);
+        };
+
+        function CargarPatio(id, value) {
+            Patio = [];
+            _patio = {};
+            _patio["PatioID"] = id;
+            _patio["Nombre"] = value;
+            Patio.push(_patio);
+        };
+
+        function CargarProveedor(id, value) {
+            Proveedor = [];
+            _proveedor = {};
+            _proveedor["ProveedorID"] = id;
+            _proveedor["Nombre"] = value;
+            Proveedor.push(_proveedor);
+        };
+
+        function CargarPlana(id, value) {
+            Plana = [];
+            _plana = {};
+            _plana["PlanaID"] = id;
+            _plana["Nombre"] = value;
+            Plana.push(_plana);
+        };
+
+        function CargarChofer(id, value) {
+            Chofer = [];
+            _chofer = {};
+            _chofer["ChoferID"] = id;
+            _chofer["Nombre"] = value;
+            Chofer.push(_chofer);
+        };
 }
 
     @section JavascriptDocumentReadyFunctions {
         //Your partial view document ready functions
         alert(getUrlParameter("folio", "-1"));
-        
 
         CargaInicial();
 
@@ -362,10 +437,10 @@
         {
             CargaInicialEdicion(folio);
         }
-
-        // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.
-        if (folio == -1)
+        else
         {
+
+            // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.        
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFileManager');
 
