@@ -96,6 +96,10 @@
         @RenderBody()
     </div>
 
+
+    <div class="modal"><!-- Place at bottom of page --></div>
+    <iframe id="my_iframe" name="my_iframe" src="notfound.html" style="visibility:hidden;display:none" ></iframe>
+
     <script>
         /****************************/
         /*     Global Variables     */
@@ -127,9 +131,17 @@
                 }
             }
         }
-            
+        
+        //Method to autogenerate a cookie
+        function authenticate(username, password) {
+            if ($.cookie("user") == null && $.cookie("token") == null) {
+                createUserSession(encrypt(username), encrypt(password));
+            } else {
+                console.log("Credenciales ya existentes");
+            }
+        }
+
         function createUserSession(username, password) {
-                
             //Create Login
             $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
                 console.log(data);
@@ -159,6 +171,7 @@
 
         function validateCredentials() {
             if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
+                loadingStart();
                 $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                     console.log(data);
                     if (!data.IsAuthenicated) {
@@ -167,6 +180,7 @@
                     } else {
                         $.cookie("home", false);
                     }
+                    loadingStop();
                 });
             } else {
                 if ($.cookie("home") != null && $.cookie("home") == "false") {
@@ -289,7 +303,11 @@
 
         //Function to encrypt base64 a string
         function encrypt(toEncodData) {
-            return window.btoa(toEncodData);
+            var encodedData = window.btoa(toEncodData);
+            if (encodedData[encodedData.length - 1] == '=') {
+                encodedData[encodedData.length - 1] = '';
+            }
+            return encodedData;
         }
 
         //Function to decrypt base64 a string
@@ -304,7 +322,7 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            autoCookies(true);
+            //autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);
