@@ -9,7 +9,7 @@
     03  $_search-bar
     04  $_logged-user
     05  $_notifications
-    06  $_
+    06  $_sidebar
     07  $_
     08  $_
     09  $_
@@ -50,22 +50,24 @@
             text-align: left;
             border: 1px solid #CCCCCC;
             border-top: none;
-            padding: 15px 24px 17px;
+            padding: 14px 24px 17px;
             text-transform: uppercase;
             font-size: 10px;
         }
 
             .login form div.form-title {
-                padding: 10px 13px 8px;
+                padding: 10px 13px 10px;
                 border: 1px solid #1C4070;
                 background-color: #1C4070;
                 color: #FFFFFF;
-                letter-spacing: 0.7px;
-                font-size: 14px;
+                letter-spacing: 1px;
+                font-size: 13px;
             }
 
             .login form div label.loginLabel {
                 color: rgba(065, 065, 065, 0.7);
+                font-size: 10px;
+                letter-spacing: 1px;
                 font-weight: 900;
                 width: 80px;
                 margin-right: 41px;
@@ -75,18 +77,20 @@
         .login form input[type="password"] {
             width: 70%;
             color: #202020;
-            font-size: 15px;
+            font-size: 16px;
+            letter-spacing: 0.6px;
             vertical-align: baseline;
             outline: none;
         }
 
         .login form input[type="submit"] {
-            margin: 31px auto 11px;
+            margin: 31px auto 10px;
         }
 
         .login form a span {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
+            letter-spacing: 1.1px;
         }
 /**********************************************************************************/
 
@@ -118,7 +122,9 @@ header .menu > div {
 .search-bar {
     margin-right: 24px;
     max-width: 260px;
+    width: 260px;
     max-height: 32px;
+    height: 32px;
     overflow: hidden;
     float: left;
 }
@@ -130,9 +136,13 @@ header .menu > div {
     }
 
     .search-bar .input-group input {
+        border-color: #E1DDDC;
         border-radius: 0;
         border-right: none;
         font-size: 12px;
+        padding: 6px 10px;
+        letter-spacing: 0.8px;
+        box-shadow: none;
     }
 
     .search-bar .input-group span button {
@@ -176,8 +186,9 @@ header .menu > div {
     .logged-user .btn-group a span.name,
     .logged-user .btn-group a span.caret {
         color: #1C4070;
-        font-size: 11.5px;
+        font-size: 13px;
         font-weight: 600;
+        letter-spacing: 1.1px;
     }
 
     .logged-user .btn-group ul {
@@ -193,7 +204,7 @@ header .menu > div {
  Description:   Customize notifications section in header.
 **********************************************************************************/
 .notifications {
-    margin-right: 16px;
+    margin-right: 17px;
 }
 
     .notifications img {
@@ -202,21 +213,87 @@ header .menu > div {
     }
 
     .notifications .count {
+        color: #FFFFFF;
+        background: #e60404 !important;
         position: absolute;
         top: -1px;
         left: 52%;
-        padding: 0px 4.5px;
+        padding: 0px 5px;
+        border: 2px solid #FFFFFF;
         border-radius: 30px;
         line-height: 16px;
         text-align: center;
-        font-size: 10px;
-        border-width: 2px;
-        border-style: solid;
-        color: #fff;
-        background: #e60404 !important;
+        font-size: 9px;
+        font-weight: 600;
     }
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_sidebar
+ Description:   Customize header tag.
+**********************************************************************************/
+.sidebar {
+    display: block;
+    width: 12.5%;
+    padding: 0;
+    border-left: none;
+    border-bottom: none;
+    overflow: visible;
+    z-index: 2;
+    top: -1px;
+}
+
+    .sidebar .main-nav ul.main-menu {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .sidebar .main-nav ul > li a {
+        background-color: #305E8E;
+        color: #FFFFFF;
+        font-size: 13px;
+        display: block;
+        height: 57px;
+        position: relative;
+        padding: 20px 15px;
+        border-top: 1px solid #234568;
+        border-right: 1px solid #234568;
+        text-decoration: none;
+        list-style: none;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .sidebar .main-nav ul.main-menu > li:first-child > a {
+        border-top: none;
+    }
+
+    .sidebar .main-nav ul.main-menu > li.active a {
+        background-color: #1C4070;
+        border-color: #152F52;
+        font-weight: 600;
+    }
+
+    .sidebar .main-nav ul.main-menu li ul.sub-menu {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu > li a {
+        }
+
+
+/**********************************************************************************/
+
+
+.content-container {
+    width: 87.5%;
+    padding-left: 48px;
+}
 
 /* Media Queries */
 
@@ -227,7 +304,7 @@ header .menu > div {
     .login {
         width: 100%;
         max-width: 510px;
-        top: 0;
+        /*top: 0;*/
     }
 
         .login form div {
