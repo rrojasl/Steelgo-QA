@@ -114,7 +114,7 @@
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn transactions"></i>
                                     <span class="text">Transacciones</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <i class="toggle-icon icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
@@ -163,7 +163,7 @@
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn catalog"></i>
                                     <span class="text">Catálogo</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <i class="toggle-icon icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
@@ -199,7 +199,7 @@
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn documents"></i>
                                     <span class="text">Documentos</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <i class="toggle-icon icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
@@ -279,15 +279,19 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <img src="~/Content/images/FooterLogo.png" />
-                            </li>
                         </ul>
                     </nav>
                     <!-- /main-nav -->
 
-                    <div class="sidebar-minified js-toggle-minified">
-                        <i class="fa fa-angle-left"></i>
+                    <div class="nav-footer sidebar-minified js-toggle-minified">
+                        <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
+                        <i class="icn right minify"></i>
+                        <ul>
+                            <li><a hre="#">Acerca del Grupo</a></li>
+                            <li><a hre="#">Politica de Privacidad</a></li>
+                            <li><a hre="#">Politica de Uso</a></li>
+                            <li><a hre="#">Contacto</a></li>
+                        </ul>
                     </div>
 
                 </div>
@@ -298,12 +302,6 @@
                 <div class="col-md-10 content-container">
                     <!-- main -->
                     <div class="content">
-                        @*<div class="main-header">
-                            <h2>DASHBOARD</h2>
-                            <em>the first priority information</em>
-
-                        </div>
-                        *@
                         <div class="main-content">
                             @RenderBody()
                         </div>
