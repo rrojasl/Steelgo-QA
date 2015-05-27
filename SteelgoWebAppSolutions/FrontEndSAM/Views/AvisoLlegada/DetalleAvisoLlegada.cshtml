@@ -46,6 +46,12 @@
         <label id="DetalleAvisoLlegada0009"></label> 
         <input id="Chofer" class="form-control"/>
     </div>
+
+    <div class="form-group">
+        <label id="FileUpload"></label> 
+        <input name="files" id="files" type="file" class="form-control" />
+    </div>
+
     <input id="Guardar" type="button" class="btn btn-primary" value="Guardar"/>
     <input id="Cancelar" type="button" class="btn btn-primary" value="Cancelar"/>
 </div>
@@ -162,8 +168,40 @@
                 dataValueField: "id",
                 filter: "contains",
             });
+
+
+            $("#files").kendoUpload({
+                async: {
+                    saveUrl: "http://localhost:61102/AvisoLlegada/FileUploadFile",
+                    autoUpload: true
+                },
+                complete: function (e) {
+                    // here i want to get the text that is returned from the controller
+                    alert("hola");
+                }
+            });
+           
+
+        }
+        function onError(e) {
+            // Array with information about the uploaded files
+            var files = e.files;
+
+            if (e.operation == "upload") {
+                alert("Failed to upload " + files.length + " files");
+            }
+
         }
 
+        function onSuccess(e)
+        {
+            // Array with information about the uploaded files
+            var files = e.files;
+
+            if (e.operation == "upload") {
+                alert("Successfully uploaded " + files.length + " files");
+            }
+        };
         function GuardarAvisoLlegada()
         {
             //Arreglo Aviso de llegada
