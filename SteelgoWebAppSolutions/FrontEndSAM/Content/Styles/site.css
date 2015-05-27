@@ -100,7 +100,7 @@ header {
  Description:   Customize footer tag.
 **********************************************************************************/
 footer {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 100px;

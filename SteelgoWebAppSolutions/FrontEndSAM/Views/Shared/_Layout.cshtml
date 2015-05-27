@@ -94,12 +94,220 @@
         </div>
     </header>
     <div class="content">
-        @RenderBody()
+        <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div class="col-md-2 sidebar">
+
+                    <!-- main-nav -->
+                    <nav class="main-nav">
+
+                        <ul class="main-menu">
+                            <li class="active">
+                                <a href="#">
+                                    <i class="icn dashboard"></i>                                    
+                                    <span class="text">Dashboard</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="icn transactions"></i>
+                                    <span class="text">Transacciones</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="icn catalog"></i>
+                                    <span class="text">Catálogo</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="icn report"></i>
+                                    <span class="text">Reportes</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="icn documents"></i>
+                                    <span class="text">Documentos</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Submenu</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icn config"></i>
+                                    <span class="text">Configuración</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="icn support"></i>
+                                    <span class="text">Soporte</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="js-sub-menu-toggle">
+                                    <i class="icn kpi"></i>
+                                    <span class="text">KPI's</span>
+                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="typography.html">
+                                    <i class="icn comm"></i>
+                                    <span class="text">Comunicación</span>
+                                </a>
+                            </li>
+                            <li class="shortcut">
+                                <a href="#" class="js-sub-menu-toggle quicklinks">
+                                    <i class="icn links"></i>
+                                    <span class="text">Ligas Rápidas</span>
+                                    <i class="icn right gear"></i>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Llegada de Material</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Generación Pase Salida</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="text">Despacho de Tubos</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <img src="~/Content/images/FooterLogo.png" />
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /main-nav -->
+
+                    <div class="sidebar-minified js-toggle-minified">
+                        <i class="fa fa-angle-left"></i>
+                    </div>
+
+                </div>
+                <!-- end left sidebar -->
+
+
+                <!-- content-wrapper -->
+                <div class="col-md-10 content-container">
+                    <!-- main -->
+                    <div class="content">
+                        @*<div class="main-header">
+                            <h2>DASHBOARD</h2>
+                            <em>the first priority information</em>
+
+                        </div>*@
+                        <div class="main-content">
+                            @RenderBody()
+                        </div>
+                        <!-- /main-content -->
+                    </div>
+                    <!-- /main -->
+                </div>
+                <!-- /content-wrapper -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+        <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
     </div>
 
 
-    <div class="modal"><!-- Place at bottom of page --></div>
-    <iframe id="my_iframe" name="my_iframe" src="notfound.html" style="visibility:hidden;display:none" ></iframe>
+    <div class="modal">
+        <!-- Place at bottom of page -->
+    </div>
+    <iframe id="my_iframe" name="my_iframe" src="notfound.html" style="visibility: hidden; display: none"></iframe>
 
     <script>
         /****************************/
