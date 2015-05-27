@@ -222,14 +222,14 @@ input {
 .btn-yellow {
     width: 180px;
     height: 40px;
-    background-color: #F8AC39;
+    background-color: #EC8B00;
     border: none;
-    border-bottom: 3px solid #F3881C;
+    border-bottom: 3px solid #DF6600;
 }
 
     .btn-yellow:hover {
-        background-color: rgba(248, 172, 057, 0.8);
-        border-bottom-color: rgba(243, 136, 028, 0.5);
+        background-color: rgba(236, 139, 000, 0.8);
+        border-bottom-color: rgba(223, 102, 0, 0.5);
     }
 
 .btn-blue {
