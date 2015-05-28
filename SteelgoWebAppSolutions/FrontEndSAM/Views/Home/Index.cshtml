@@ -3,19 +3,44 @@
 }
 
 <script>
-    @section JavascriptDocumentReadyHomeCookie {
-        $.cookie("home", true);
-    }
+@section JavascriptGlobalVariables {
+    var $loginModel = {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "#loginLabel0009",
+            destroy: ""
+        },
+        properties: {
+            username: {
+                visible: "#usernamecontainer",
+                editable: "#username",
+                required: "#username"
+            },
+            password: {
+                visible: "#passwordcontainer",
+                editable: "#password",
+                required: "#password"
+            }
+        }
+    };
+}
 
-    @section JavascriptDocumentReadyFunctions {
-        $("#loginform").submit(function (event) {
-            event.preventDefault();
-            authenticate($("#username").val(), $("#password").val());
-            $('#username').css('border-color', "red");
-            $('#password').css('border-color', "red");
-            validateCredentials();
-        });
-    }
+@section JavascriptDocumentReadyHomeCookie {
+    $.cookie("home", true);
+}
+
+@section JavascriptDocumentReadyFunctions {
+    $authorizationModel.login = $loginModel
+
+    $("#loginform").submit(function (event) {
+        event.preventDefault();
+        authenticate($("#username").val(), $("#password").val());
+        $('#username').css('border-color', "red");
+        $('#password').css('border-color', "red");
+        validateCredentials();
+    });
+}
 </script>
 
 <div class="login">
@@ -24,11 +49,11 @@
         <div class="form-title">
             <label id="loginLabel0001"></label>
         </div>
-        <div>
+        <div id="usernamecontainer">
             <label id="loginLabel0002" class="loginLabel" for="username"></label>
             <input id="username" name="username" type="text" />
         </div>
-        <div>
+        <div id="passwordcontainer">
             <label id="loginLabel0003" class="loginLabel" for="password"></label>
             <input id="password" name="password" type="password" />
         </div>
