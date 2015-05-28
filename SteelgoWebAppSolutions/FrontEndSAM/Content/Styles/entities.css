@@ -246,6 +246,12 @@ header .menu > div {
     z-index: 2;
 }
 
+    .sidebar.minified {
+        width: 58px;
+        margin-right: -40px;
+        z-index: 10;
+    }
+
     .sidebar .main-nav ul.main-menu {
         padding-left: 0;
         margin-bottom: 0;
@@ -351,6 +357,7 @@ header .menu > div {
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
             display: none;
+            position: relative;
             border-top: 1px solid #102647;
             border-bottom: 1px solid #102647;
             background: #102647; /* Old browsers */
@@ -547,6 +554,10 @@ header .menu > div {
 
     .content-container.topbar {
         border-top: 1px solid #C6C6C6;
+    }
+
+    .content-container.expanded {
+        width: 100%;
     }
 
 /* Media Queries */
