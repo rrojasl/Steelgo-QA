@@ -21,6 +21,7 @@
     <div class="form-group">
         <label id="DetalleAvisoLlegada0003"></label> 
         <input id="Transportista" class="form-control"/>
+        <a href='javascript:void(0);' onclick="VentanaModal(1);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0004"></label>
@@ -29,10 +30,12 @@
     <div class="form-group">
         <label id="DetalleAvisoLlegada0005"></label> 
         <input id="Proveedor" class="form-control"/>
+         <a href='javascript:void(0);' onclick="VentanaModal(2);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0006"></label> 
         <input id="Plana" class="form-control"/>
+        <a href='javascript:void(0);' onclick="VentanaModal(3);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0007"></label> 
@@ -41,10 +44,12 @@
     <div class="form-group">
         <label id="DetalleAvisoLlegada0008"></label> 
         <input id="Patio" class="form-control"/>
+         <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0009"></label> 
         <input id="Chofer" class="form-control"/>
+        <a href='javascript:void(0);' onclick="VentanaModal(5);">Icono</a>
     </div>
 
     <div class="form-group">
@@ -63,21 +68,102 @@
         </table>
 
     </div>
-    <input id="Guardar" type="button" class="btn btn-primary" value="Guardar"/>
-    <input id="Cancelar" type="button" class="btn btn-primary" value="Cancelar"/>
+    <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0017"></label></a>
+    <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0018"></label></a>
 </div>
 
+    <div id="window">
+        @*Content of the Window*@
+       <div id="modalTransportista" style="display:none">
+           modalTransportista
+           <div class="form-group">           
+                <label id="DetalleAvisoLlegada0012"></label> 
+                <input id="ContactoID" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0013"></label> 
+                <input id="Nombre" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0014"></label> 
+                <input id="Descripcion" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0015"></label> 
+                <input id="Direccion" class="form-control"/>
+            </div>
+           <div class="form-group">           
+                <label id="DetalleAvisoLlegada0016"></label> 
+                <input id="Telefono" class="form-control"/>
+            </div>
+           <div class="form-group">
+               <a id="GuardarTransportista" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0019"></label></a>              
+           </div>
+       </div>
+       <div id="modalProveedor" style="display:none">
+           modalProveedor
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0020"></label> 
+                <input id="mpContactoID" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0021"></label> 
+                <input id="mpNombre" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0022"></label> 
+                <input id="mpDescripcion" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0023"></label> 
+                <input id="mpDireccion" class="form-control"/>
+            </div>
+           <div class="form-group">           
+                <label id="DetalleAvisoLlegada0024"></label> 
+                <input id="mpTelefono" class="form-control"/>
+            </div>
+           <div class="form-group">
+               <a id="GuardarProveedor" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0025"></label></a>
+           </div>
+       </div>
 
+        <div id="modalPatio" style="display:none">
+           modalPatio
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0026"></label> 
+                <input id="NombrePatio" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0027"></label> 
+                <input id="Propietario" class="form-control"/>
+            </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0028"></label> 
+                <input id="DescripcionPatio" class="form-control"/>
+           </div>
+           <div class="form-group">
+               <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0029"></label></a>
+           </div>
+       </div>
+
+       <div id="modalChofer" style="display:none">
+           modalChofer
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0030"></label> 
+                <input id="NombreChofer" class="form-control"/>
+           </div>
+           <div class="form-group">
+               <a id="GuardarChofer" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0031"></label></a>
+           </div>
+        </div>
+    </div>
 <script>
     @section JavascriptGlobalVariables {
         //your partial views variables
         var FechaRecepcion;
         var folio = getUrlParameter("folio", "-1");
-        var Transportista = [];
-        var Proveedor = [];
-        var Patio = [];
-        var Plana = [];
-        var Chofer = [];
+        var Transportista = [], Proveedor = [], Patio = [],
+            Plana = [], Chofer = [], Contacto = [];
     }
 
     @section JavascriptGlobalFunctions {
@@ -87,18 +173,21 @@
         };
 
         //Your partial views specific functions
-        function CargaInicial()
-        {
+        function CargaInicial() {
             FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
-
-            $("#Guardar").click(function (e) {
-                GuardarAvisoLlegada();
-            });
+            //**Eventos
+            $("#Guardar").click(function (e) { GuardarAvisoLlegada(); });
 
             $("#Cancelar").click(function (e) {
                 var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
+            //Modales
+            $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
+            $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
+            $("#GuardarPatio").click(function (e) { GuardarPatio(); });
+            $("#GuardarChofer").click(function (e) { GuardarChofer();});
+            //**
 
             $("#Proyecto").kendoMultiSelect({
                 dataSource: {
@@ -127,14 +216,13 @@
                 },
                 dataTextField: "Nombre",
                 dataValueField: "TransportistaID",
-                select: function(e)
-                {
+                select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
                     CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
-            
+
             $("#Proveedor").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
@@ -149,7 +237,7 @@
                 dataValueField: "ProveedorID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarProveedor(dataItem.id, dataItem.value);
+                    CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
@@ -164,11 +252,11 @@
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
+                dataTextField: "Nombre",
+                dataValueField: "PlanaID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPlana(dataItem.id, dataItem.value);
+                    CargarPlana(dataItem.PlanaID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
@@ -183,11 +271,11 @@
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
+                dataTextField: "Nombre",
+                dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.id, dataItem.value);
+                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
@@ -202,11 +290,11 @@
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
+                dataTextField: "Nombre",
+                dataValueField: "ChoferID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarChofer(dataItem.id, dataItem.value);
+                    CargarChofer(dataItem.ChoferID, dataItem.Nombre);
 
                 },
                 filter: "contains",
@@ -238,11 +326,30 @@
                 error: function (data) { },
                 upload: onUpload
             });
+
+            //modal transportista
+            $("#ContactoID, #mpContactoID").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Contacto",
+                        }
+                    }
+                },
+                dataTextField: "Nombre",
+                dataValueField: "ContactoID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarContacto(dataItem.ContactoID, dataItem.Nombre);
+                },
+                filter: "contains",
+            });
         };
 
         function onUpload(e) {
-            if (!$("#TipoArchivo").data("kendoComboBox").value())
-            {
+            if (!$("#TipoArchivo").data("kendoComboBox").value()) {
                 alert("Por favor, seleccionar el tipo de archivo");
                 return false;
             }
@@ -425,12 +532,163 @@
             _chofer["Nombre"] = value;
             Chofer.push(_chofer);
         };
+
+        function VentanaModal(id) {
+
+            switch (id) {
+                case 1:
+                    $("#modalProveedor").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalTransportista").show();
+                    break;
+                case 2:
+                    $("#modalTransportista").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalProveedor").show();
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+                    $("#modalTransportista").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPatio").show();
+                    break;
+                case 5:
+                    $("#modalTransportista").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").show();
+                    break;
+         };
+
+            var window = $("#window");
+            var win = window.kendoWindow({
+                actions: ["Maximize", "Minimize", "Close"],
+                modal: true,
+                resizable: false,
+                visible: false,
+                width: "60%",
+                height: "50%",
+                position: {
+                    top: "10%",
+                    left: "20%"
+                }
+            }).data("kendoWindow");
+            window.data("kendoWindow").open();
+        };
+
+        function CargarContacto(id, value) {
+            Contacto = [];
+            _contacto = {};
+            _contacto["ContactoID"] = id;
+            _contacto["Nombre"] = value;
+            Contacto.push(_contacto);
+        };
+
+        function GuardarTransportista() {
+
+            TransportistaModal = [];
+            TransportistaModal[0] = { Contacto: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+            TransportistaModal[0].Contacto = Contacto;
+            TransportistaModal[0].Nombre = $("#Nombre").val();
+            TransportistaModal[0].Descripcion = $("#Descripcion").val();
+            TransportistaModal[0].Direccion = $("#Direccion").val();
+            TransportistaModal[0].Telefono = $("#Telefono").val();
+
+            console.log(JSON.stringify(TransportistaModal));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyTransportista');
+            Client.DummyTransportista.create({}, { transportista: JSON.stringify(TransportistaModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyTransportista.create");
+                LimpiarModalTransportista();
+            });
+        };
+
+        function GuardarProveedor() {
+            ProveedorModal = [];
+            ProveedorModal[0] = { Contacto: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+            ProveedorModal[0].Contacto = Contacto;
+            ProveedorModal[0].Nombre = $("#mpNombre").val();
+            ProveedorModal[0].Descripcion = $("#pmDescripcion").val();
+            ProveedorModal[0].Direccion = $("#mpDireccion").val();
+            ProveedorModal[0].Telefono = $("#mpTelefono").val();
+
+            console.log(JSON.stringify(ProveedorModal));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyProveedor');
+            Client.DummyProveedor.create({}, { proveedor: JSON.stringify(ProveedorModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyProveedor.create");
+                LimpiarModalProveedor();
+            });
+        };
+
+        function GuardarPatio() {
+            PatioModal = [];
+            PatioModal[0] = { Nombre: "", Propietario: "", DescripcionPatio:"" };
+            PatioModal[0].Nombre = $("#NombrePatio").val();
+            PatioModal[0].Propietario = $("#Propietario").val();
+            PatioModal[0].DescripcionPatio = $("#DescripcionPatio").val();
+
+            console.log(JSON.stringify(PatioModal));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyPatio');
+            Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyPatio.create");
+                LimpiarModalPatio();
+            });
+        };
+
+        function GuardarChofer() {
+            ChoferModal = [];
+            ChoferModal[0] = { Nombre: "" };
+            ChoferModal[0].Nombre = $("#NombreChofer").val();
+
+            console.log(JSON.stringify(ChoferModal));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyChofer');
+            Client.DummyChofer.create({}, { chofer: JSON.stringify(ChoferModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyChofer.create");
+                LimpiarModalChofer();
+            });
+        };
+
+        function LimpiarModalTransportista() {
+            $("#ContactoID").data("kendoAutoComplete").value("");
+            $("#Nombre").val("");
+            $("#Descripcion").val("");
+            $("#Direccion").val("");
+            $("#Telefono").val("");
+        };
+
+        function LimpiarModalProveedor() {
+            $("#mpContactoID").data("kendoAutoComplete").value("");
+            $("#mpNombre").val("");
+            $("#mpDescripcion").val("");
+            $("#mpDireccion").val("");
+            $("#mpTelefono").val("");
+        };
+
+        function LimpiarModalPatio() {
+            $("#NombrePatio").val("");
+            $("#Propietario").val("");
+            $("#DescripcionPatio").val("");
+        };
+
+        function LimpiarModalChofer() {
+            $("#NombreChofer").val("");
+        };
 }
 
     @section JavascriptDocumentReadyFunctions {
-        //Your partial view document ready functions
-        alert(getUrlParameter("folio", "-1"));
-
+        //Your partial view document ready function
         CargaInicial();
 
         if (folio != -1)

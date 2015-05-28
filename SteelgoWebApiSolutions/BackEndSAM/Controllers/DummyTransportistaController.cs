@@ -22,7 +22,7 @@ namespace BackEndSAM.Controllers
             lstTransportista.Add(transportista);
 
             Transportista transportista1 = new Transportista();
-            transportista1.TransportistaID = 123;
+            transportista1.TransportistaID = 124;
             transportista1.Nombre = "Sara Martinez";
             lstTransportista.Add(transportista1);
             return lstTransportista.AsEnumerable();
@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/dummytransportista
-        public void Post([FromBody]string value)
+        public void Post(string transportista, string username, string token)
         {
         }
 
