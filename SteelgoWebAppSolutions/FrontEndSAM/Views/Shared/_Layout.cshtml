@@ -395,7 +395,7 @@
                     </nav>
                     <!-- /main-nav -->
 
-                    <div class="nav-footer sidebar-minified js-toggle-minified">
+                    <div class="nav-footer">
                         <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <i class="icn right minify"></i>
                         <ul>
@@ -935,6 +935,15 @@
             $("ul.sub-menu3 > li > a").click(function () {                
                     $("ul.sub-menu2 span").removeClass("active");                  
                     $("ul.sub-menu3").removeClass("open");                                                            
+            });
+
+            //Toggle sidebar's size
+            $("i.minify").click(function () {
+                $("ul").removeClass("open");
+                $("span").removeClass("active");
+                $("li.shortcut ul").toggleClass("close");
+                $("#sidebar").toggleClass("minified");            
+                $(".content-container").toggleClass("expanded");
             });
 
             //Validate Logged User Credentials
