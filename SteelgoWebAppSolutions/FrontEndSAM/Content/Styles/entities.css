@@ -263,9 +263,7 @@ header .menu > div {
         border-bottom: 1px solid #234568;
         text-decoration: none;
         list-style: none;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        overflow: visible;
     }
 
         .sidebar .main-nav ul > li a.quicklinks {
@@ -281,6 +279,10 @@ header .menu > div {
         border-color: #152F52;
         font-weight: 600;
         z-index: 2;
+    }
+
+    .sidebar .main-nav ul.main-menu > li.active .icn.arrow {
+        background-image: url("/Content/images/SAMC_MenuDropdownArrowB.png");
     }
 
     .sidebar .main-nav ul.main-menu > li .icn {
@@ -301,20 +303,24 @@ header .menu > div {
         letter-spacing: 1.3px;
     }
 
+    .sidebar ul.sub-menu.open {
+        display: block !important;
+    }
+
     .sidebar .main-nav ul.main-menu li ul.sub-menu {
         display: none;
         border-bottom: 1px solid #152F52;
-        background: #1a375d; /* Old browsers */
-        background: -moz-linear-gradient(top, #1a375d 0%, #1d4579 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1a375d), color-stop(100%,#1d4579)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #1a375d 0%,#1d4579 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #1a375d 0%,#1d4579 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #1a375d 0%,#1d4579 100%); /* IE10+ */
-        background: linear-gradient(to bottom, #1a375d 0%,#1d4579 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a375d', endColorstr='#1d4579',GradientType=0 ); /* IE6-8 */
+        background: #1A375D; /* Old browsers */
+        background: -moz-linear-gradient(top, #1A375D 0%, #1D4579 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1A375D), color-stop(100%,#1D4579)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #1A375D 0%,#1D4579 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #1A375D 0%,#1D4579 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #1A375D 0%,#1D4579 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #1A375D 0%,#1D4579 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1A375D', endColorstr='#1D4579',GradientType=0 ); /* IE6-8 */
         list-style: none;
         margin: 0;
-        padding: 17px 11px 14px;
+        padding: 17px 11px 15px;
     }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu > li {
@@ -336,6 +342,31 @@ header .menu > div {
                     margin-left: 8px;
                     letter-spacing: 0.4px;
                     font-weight: 100;
+                }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu {
+            display: none;
+            border-bottom: 1px solid #102647;
+            background: #102647; /* Old browsers */
+            background: -moz-linear-gradient(top, #102647 0%, #133468 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#102647), color-stop(100%,#133468)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, #102647 0%,#133468 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top, #102647 0%,#133468 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top, #102647 0%,#133468 100%); /* IE10+ */
+            background: linear-gradient(to bottom, #102647 0%,#133468 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#102647', endColorstr='#133468',GradientType=0 ); /* IE6-8 */
+            list-style: none;
+            margin: 13px -11px 16px;
+            padding: 14px 12px 11px;
+        }
+
+            .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu > li {
+                margin-bottom: 9px;
+                margin-left: 8px;
+            }
+
+                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu > li a span {
+                    margin: 0;
                 }
 
     .sidebar .main-nav ul.main-menu li.shortcut {
