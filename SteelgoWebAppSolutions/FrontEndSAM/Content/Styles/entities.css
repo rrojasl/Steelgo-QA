@@ -356,7 +356,7 @@ header .menu > div {
             background: #FFFFFF;
             display: block;
             border: none;
-            padding: 12px 11px 13px;
+            padding: 11px 9px 13px;
         }
 
             .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
@@ -365,12 +365,11 @@ header .menu > div {
 
                 .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a {
                     color: #305E8D;
-                    font-size: 13px;
-                    font-weight: 600;
                 }
 
                     .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
-                        letter-spacing: 1.1px;
+                        letter-spacing: 1px;
+                        font-weight: 600;
                     }
 
     .sidebar .nav-footer {
