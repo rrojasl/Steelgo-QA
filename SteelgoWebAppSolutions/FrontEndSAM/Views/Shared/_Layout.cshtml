@@ -50,14 +50,14 @@
                             </div>
                         </div>
                         <div class="notifications">
-                            <a href="#">
+                            <a id="notifications" href="#">
                                 <img src="~/Content/images/SAMC_MenuIcon_02.png" />
                                 <span class="count">8</span>
                             </a>
                         </div>
                         <div class="logged-user">
                             <div class="btn-group">
-                                <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                                <a id="logged-user" href="#" class="btn dropdown-toggle" data-toggle="dropdown">
                                     <img src="/Content/images/SAMC_MenuIcon_03.png" />
                                     <span class="name">Carlos A. Gónzalez</span>
                                     <span class="caret"></span>
@@ -98,7 +98,7 @@
         <div class="container">
             <div class="row">
                 <!-- sidebar -->
-                <div class="col-md-2 sidebar">
+                <div id="sidebar" class="col-md-2 sidebar">
 
                     <!-- main-nav -->
                     <nav class="main-nav">
@@ -326,6 +326,55 @@
     <iframe id="my_iframe" name="my_iframe" src="@Url.Action("notfound", "Errors")" style="visibility: hidden; display: none"></iframe>
 
     <script>
+        var returnOfSecurityCheck = {
+            "layout": {
+                "create": false,
+                "list": false,
+                "detail": false,
+                "destroy": false,
+                "properties": {
+                    "sidemenu": {
+                        "visible": true,
+                        "editable": true,
+                        "required": false
+                    },
+                    "search": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "notifications": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "useroptions": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            },
+            "login": {
+                "create": false,
+                "list": false,
+                "detail": true,
+                "destroy": false,
+                "properties": {
+                    "username": {
+                        "visible": true,
+                        "editable": true,
+                        "required": true
+                    },
+                    "password": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            }
+        };
+
         /****************************/
         /*     Global Variables     */
         /****************************/
@@ -338,6 +387,37 @@
         var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
         var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
         $SecurityManager.add('authentication');
+        var $authorizationModel = {};
+        var $layoutModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: ""
+                },
+                properties: {
+                    sidemenu: {
+                        visible: "#sidebar",
+                        editable: "#sidebar",
+                        required: "#sidebar"
+                    },
+                    search: {
+                        visible: ".search-bar",
+                        editable: "#layoutLabel0001",
+                        required: "#layoutLabel0001"
+                    },
+                    notifications: {
+                        visible: ".notifications",
+                        editable: "#notifications",
+                        required: "#notifications"
+                    },
+                    useroptions: {
+                        visible: ".logged-user",
+                        editable: "#logged-user",
+                        required: "#logged-user",
+                    }
+                }
+            };
 
         //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalVariables", required: false)
@@ -345,6 +425,137 @@
         /****************************/
         /*   Security Functions     */
         /****************************/
+
+        //Method to change the visibility, editability and required attributes of the elements
+        //
+        function applySecurityPolicy() {
+            loadingStart();
+            //Obtain the entity list from the $authorizationModel
+            var index, key, entityDefinition, entitySecurity;
+            var securityNotFound = true;
+            var authorizationModelKeys = Object.keys($authorizationModel);
+            //Call to the permissions api passing all the entities by authorizationModelKeys.toString();
+
+            //Apply the returned permissions to the $authorizationModel objects
+            for (key in $authorizationModel) {
+                if ($authorizationModel.hasOwnProperty(key)) {
+                    entityDefinition = $authorizationModel[key];
+                    if (returnOfSecurityCheck.hasOwnProperty(key)) {
+                        entitySecurity = returnOfSecurityCheck[key];
+                        securityNotFound = false;
+                    }
+                    applySecurityPolicyEachEntity(entityDefinition, entitySecurity, securityNotFound);
+                }
+            }
+            loadingStop();
+        }
+
+        //method to apply the security policy for the entities, if securityNotFound == true then dennies all permisions
+        function applySecurityPolicyEachEntity(entityDefinition, entitySecurity, securityNotFound) {
+            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+        }
+
+        //Method to apply the security policy in the entity
+        function applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound) {
+            var entityCreationPermission = false;
+            var entityListPermission = false;
+            var entityDetailPermission = false;
+            var entityDestroyPermission = false;
+
+            if (securityNotFound == false) {
+                if (entitySecurity.hasOwnProperty("create")) {
+                    entityCreationPermission = entitySecurity["create"];
+                }
+
+                if (entitySecurity.hasOwnProperty("list")) {
+                    entityListPermission = entitySecurity["list"];
+                }
+
+                if (entitySecurity.hasOwnProperty("detail")) {
+                    entityDetailPermission = entitySecurity["detail"];
+                }
+
+                if (entitySecurity.hasOwnProperty("destroy")) {
+                    entityDestroyPermission = entitySecurity["destroy"];
+                }
+            }
+
+            if (entityDefinition.hasOwnProperty("listContainer")) {
+                if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
+                    if (entityCreationPermission == false) {
+                        $(entityDefinition.listContainer["create"]).css("display", "none");
+                    }
+                }
+
+                if (entityDefinition["listContainer"].hasOwnProperty("list") && entityDefinition.listContainer["list"] != null && entityDefinition.listContainer["list"].length > 0) {
+                    if (entityListPermission == false) {
+                        $(entityDefinition.listContainer["list"]).css("display", "none");
+                    }
+                }
+
+                if (entityDefinition["listContainer"].hasOwnProperty("detail") && entityDefinition.listContainer["detail"] != null && entityDefinition.listContainer["detail"].length > 0) {
+                    if (entityDetailPermission == false) {
+                        $(entityDefinition.listContainer["detail"]).css("display", "none");
+                    }
+                }
+
+                if (entityDefinition["listContainer"].hasOwnProperty("destroy") && entityDefinition.listContainer["destroy"] != null && entityDefinition.listContainer["destroy"].length > 0) {
+                    if (entityDestroyPermission == false) {
+                        $(entityDefinition.listContainer["destroy"]).css("display", "none");
+                    }
+                }
+            }
+        }
+
+        //Method to apply the security policy in the entity properties
+        function applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound) {
+            if (entityDefinition.hasOwnProperty("properties")) {
+                for (key in entityDefinition["properties"]) {
+                    var propertyViewPermission = false;
+                    var propertyEditPermission = false;
+                    var propertyRequiredPermission = false;
+
+                    if (securityNotFound == false) {
+                        if (entitySecurity.hasOwnProperty("properties")) {
+                            if (entitySecurity.properties.hasOwnProperty(key)) {
+                                if (entitySecurity.properties[key].hasOwnProperty("visible")) {
+                                    propertyViewPermission = entitySecurity.properties[key]["visible"];
+                                }
+
+                                if (entitySecurity.properties[key].hasOwnProperty("editable")) {
+                                    propertyEditPermission = entitySecurity.properties[key]["editable"];
+                                }
+
+                                if (entitySecurity.properties[key].hasOwnProperty("required")) {
+                                    propertyRequiredPermission = entitySecurity.properties[key]["required"];
+                                }
+                            }
+                        }
+                    }
+
+                    if (entityDefinition.properties.hasOwnProperty(key)) {
+                        if (entityDefinition.properties[key].hasOwnProperty("visible") && entityDefinition.properties[key]["visible"] != null && entityDefinition.properties[key]["visible"].length > 0) {
+                            if (propertyViewPermission == false) {
+                                $(entityDefinition.properties[key]["visible"]).css("display", "none");
+                            }
+                        }
+
+                        if (entityDefinition.properties[key].hasOwnProperty("editable") && entityDefinition.properties[key]["editable"] != null && entityDefinition.properties[key]["editable"].length > 0) {
+                            if (propertyEditPermission == false) {
+                                $(entityDefinition.properties[key]["editable"]).prop('disabled', true);
+                            }
+                        }
+
+                        if (entityDefinition.properties[key].hasOwnProperty("required") && entityDefinition.properties[key]["required"] != null && entityDefinition.properties[key]["required"].length > 0) {
+                            if (propertyRequiredPermission == true) {
+                                $(entityDefinition.properties[key]["required"]).addClass("security_required");
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         //Method to hide elements if im in home
         function hideElements() {
@@ -413,6 +624,7 @@
                         document.location.href = '/';
                     } else {
                         $.cookie("home", false);
+                        //
                     }
                     loadingStop();
                 });
@@ -537,13 +749,16 @@
         function encrypt(toEncodData) {
             var encodedData = window.btoa(toEncodData);
             if (encodedData[encodedData.length - 1] == '=') {
-                encodedData[encodedData.length - 1] = '';
+                encodedData = encodedData.substr(0, encodedData.length - 1);
             }
             return encodedData;
         }
 
         //Function to decrypt base64 a string
         function decrypt(encodedData) {
+            if (encodedData[encodedData.length - 1] != '=') {
+                encodedData = encodedData + '=';
+            }
             return window.atob(encodedData);
         }
 
@@ -596,8 +811,14 @@
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
 
+            //Add layout element to the Authorization Model
+            $authorizationModel.layout = $layoutModel
+
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
+
+            //Apply Profile Security Policy
+            applySecurityPolicy();
         });
     </script>
 </body>
