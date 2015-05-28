@@ -10,8 +10,8 @@
     04  $_logged-user
     05  $_notifications
     06  $_sidebar
-    07  $_
-    08  $_
+    07  $_icons
+    08  $_content-container
     09  $_
     10  $_
     11  $_
@@ -248,7 +248,6 @@ header .menu > div {
 
     .sidebar.minified {
         width: 58px;
-        margin-right: -40px;
         z-index: 10;
     }
 
@@ -499,6 +498,12 @@ header .menu > div {
     .sidebar.minified .nav-footer .icn.right {
         top: -10px;
         left: 4px;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
     }
 /*********************************************************************************
 
@@ -575,6 +580,10 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_content-container
+ Description:   Customize container for the main content.
+**********************************************************************************/
 .content-container {
     width: 87.5%;
     padding-left: 48px;
@@ -585,8 +594,10 @@ header .menu > div {
     }
 
     .content-container.expanded {
-        width: 99%;
+        width: 96.97%;
     }
+/**********************************************************************************/
+
 
 /* Media Queries */
 
