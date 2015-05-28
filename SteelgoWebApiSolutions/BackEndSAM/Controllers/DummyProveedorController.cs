@@ -9,7 +9,7 @@ using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DummyProveedorController : ApiController
     {
         // GET api/dummyproveedor
@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/dummyproveedor
-        public void Post([FromBody]string value)
+        public void Post(string proveedor, string username, string token)
         {
         }
 

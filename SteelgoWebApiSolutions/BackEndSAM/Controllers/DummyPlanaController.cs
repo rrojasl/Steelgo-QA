@@ -5,36 +5,36 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
-    public class ChoferController : ApiController
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class DummyPlanaController : ApiController
     {
-        // GET api/<controller>
+        // GET api/dummyplana
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
+        // GET api/dummyplana/5
         public string Get(int id)
         {
-
             return "value";
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        // POST api/dummyplana
+        public void Post(string plana, string username, string token)
         {
         }
 
-        // PUT api/<controller>/5
+        // PUT api/dummyplana/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/dummyplana/5
         public void Delete(int id)
         {
         }
