@@ -33,7 +33,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <header class="clearfix topbar">
+    <header class="clearfix">
         <div class="content-wrapper clearfix">
             <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
                 <a class="logo" href="#"></a>
@@ -93,7 +93,7 @@
             </div>
         </div>
     </header>
-    <div class="content">
+    <div class="content-frame">
         <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
         <div class="container">
             <div class="row">
@@ -104,17 +104,17 @@
                     <nav class="main-nav">
 
                         <ul class="main-menu">
-                            <li class="active">
+                            <li >
                                 <a href="#">
                                     <i class="icn dashboard"></i>
                                     <span class="text">Dashboard</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn transactions"></i>
                                     <span class="text">Transacciones</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <i class="toggle-icon icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
@@ -163,7 +163,7 @@
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn catalog"></i>
                                     <span class="text">Catálogo</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <i class="toggle-icon icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
@@ -199,7 +199,7 @@
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn documents"></i>
                                     <span class="text">Documentos</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <i class="toggle-icon icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
@@ -279,15 +279,19 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <img src="~/Content/images/FooterLogo.png" />
-                            </li>
                         </ul>
                     </nav>
                     <!-- /main-nav -->
 
-                    <div class="sidebar-minified js-toggle-minified">
-                        <i class="fa fa-angle-left"></i>
+                    <div class="nav-footer sidebar-minified js-toggle-minified">
+                        <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
+                        <i class="icn right minify"></i>
+                        <ul>
+                            <li><a hre="#">Acerca del Grupo</a></li>
+                            <li><a hre="#">Politica de Privacidad</a></li>
+                            <li><a hre="#">Politica de Uso</a></li>
+                            <li><a hre="#">Contacto</a></li>
+                        </ul>
                     </div>
 
                 </div>
@@ -295,16 +299,10 @@
 
 
                 <!-- content-wrapper -->
-                <div class="col-md-10 content-container">
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
                     <!-- main -->
                     <div class="content">
-                        @*<div class="main-header">
-                            <h2>DASHBOARD</h2>
-                            <em>the first priority information</em>
-
-                        </div>
-                        *@
-                        <div class="main-content">
+                        <div class="main-content">                            
                             @RenderBody()
                         </div>
                         <!-- /main-content -->
@@ -565,7 +563,7 @@
                 $(".search-bar").css("display", "none");
                 $(".notifications").css("display", "none");
                 $(".logged-user").css("display", "none");
-                $("header").removeClass("topbar");
+                $(".content-container").removeClass("topbar");
             }
         }
 
@@ -769,7 +767,7 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            //autoCookies(true);
+            autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);

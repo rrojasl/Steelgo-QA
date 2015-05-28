@@ -120,7 +120,102 @@ _dictionary = {
         "es-MX": "Tipo de Archivo",
         "en-US": "File type"
     },
-    
+    "DetalleAvisoLlegada0011": {
+        "es-MX": "Transportista",
+        "en-US": "Shipper"
+    },
+    "DetalleAvisoLlegada0012": {
+        "es-MX": "Contacto",
+        "en-US": "Contact"
+    },
+    "DetalleAvisoLlegada0013": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "DetalleAvisoLlegada0014": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "DetalleAvisoLlegada0015": {
+        "es-MX": "Dirección",
+        "en-US": "Address"
+    },
+    "DetalleAvisoLlegada0016": {
+        "es-MX": "Telefono",
+        "en-US": "Phone"
+    },
+    "DetalleAvisoLlegada0017": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0018": {
+        "es-MX": "Cancelar",
+        "en-US": "cancel"
+    },
+    "DetalleAvisoLlegada0019": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0020": {
+        "es-MX": "Contacto",
+        "en-US": "Contact"
+    },
+    "DetalleAvisoLlegada0021": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "DetalleAvisoLlegada0022": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "DetalleAvisoLlegada0023": {
+        "es-MX": "Dirección",
+        "en-US": "Address"
+    },
+    "DetalleAvisoLlegada0024": {
+        "es-MX": "Telefono",
+        "en-US": "Phone"
+    },
+    "DetalleAvisoLlegada0025": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0026": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "DetalleAvisoLlegada0027": {
+        "es-MX": "Propietario",
+        "en-US": "Owner"
+    },
+    "DetalleAvisoLlegada0028": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "DetalleAvisoLlegada0029": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0030": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "DetalleAvisoLlegada0031": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0032": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
+    "DetalleAvisoLlegada0033": {
+        "es-MX": "Placas",
+        "en-US": "license plate"
+    },
+    "DetalleAvisoLlegada0034": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

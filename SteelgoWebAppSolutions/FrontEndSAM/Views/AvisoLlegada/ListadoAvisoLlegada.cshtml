@@ -98,34 +98,39 @@
             });
         }
 
-        function CargarEventPopupModal(window)
+        @*function CargarEventPopupModal(window)
         {
             $("#Creacion").click(function (e) {
                 //window.data("kendoWindow").open();
                 var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
-        }
+        }*@
     }
 
     @section JavascriptDocumentReadyFunctions {
     //Your partial view document ready functions
-       @* var window = $("#window");
-        var win = window.kendoWindow({
-            actions: ["Maximize", "Minimize", "Close"],
-            modal: true,
-            resizable: false,
-            visible: false,
-            width: "60%",
-            height: "50%",
-            position: {
-                top: "10%",
-                left: "20%"
-            },
-            content: "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")",
-        }).data("kendoWindow");*@
+        //var window = $("#window");
+        //var win = window.kendoWindow({
+        //    actions: ["Maximize", "Minimize", "Close"],
+        //    modal: true,
+        //    resizable: false,
+        //    visible: false,
+        //    width: "60%",
+        //    height: "50%",
+        //    position: {
+        //        top: "10%",
+        //        left: "20%"
+        //    }           
+        //}).data("kendoWindow");
 
-        CargarEventPopupModal(window);
+        $("#Creacion").click(function (e) {
+            //window.data("kendoWindow").open();
+            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        //CargarEventPopupModal(window);
     }
 </script>
 
