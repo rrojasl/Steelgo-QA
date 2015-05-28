@@ -12,7 +12,7 @@
 <div class="form">
     <div class="form-group">
         <label id="DetalleAvisoLlegada0001"></label> 
-        <input id="Proyecto" class="form-control"/>
+        <input id="ProyectoID" class="form-control"/>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0002"></label> 
@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0003"></label> 
-        <input id="Transportista" class="form-control"/>
+        <input id="TransportistaID" class="form-control"/>
         <a href='javascript:void(0);' onclick="VentanaModal(1);">Icono</a>
     </div>
     <div class="form-group">
@@ -29,12 +29,12 @@
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0005"></label> 
-        <input id="Proveedor" class="form-control"/>
+        <input id="ProveedorID" class="form-control"/>
          <a href='javascript:void(0);' onclick="VentanaModal(2);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0006"></label> 
-        <input id="Plana" class="form-control"/>
+        <input id="PlanaID" class="form-control"/>
         <a href='javascript:void(0);' onclick="VentanaModal(3);">Icono</a>
     </div>
     <div class="form-group">
@@ -43,12 +43,12 @@
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0008"></label> 
-        <input id="Patio" class="form-control"/>
+        <input id="PatioID" class="form-control"/>
          <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0009"></label> 
-        <input id="Chofer" class="form-control"/>
+        <input id="ChoferID" class="form-control"/>
         <a href='javascript:void(0);' onclick="VentanaModal(5);">Icono</a>
     </div>
 
@@ -78,23 +78,23 @@
            modalTransportista
            <div class="form-group">           
                 <label id="DetalleAvisoLlegada0012"></label> 
-                <input id="ContactoID" class="form-control"/>
+                <input id="ContactoID_Transportista" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0013"></label> 
-                <input id="Nombre" class="form-control"/>
+                <input id="Nombre_Transportista" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0014"></label> 
-                <input id="Descripcion" class="form-control"/>
+                <input id="Descripcion_Transportista" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0015"></label> 
-                <input id="Direccion" class="form-control"/>
+                <input id="Direccion_Transportista" class="form-control"/>
             </div>
            <div class="form-group">           
                 <label id="DetalleAvisoLlegada0016"></label> 
-                <input id="Telefono" class="form-control"/>
+                <input id="Telefono_Transportista" class="form-control"/>
             </div>
            <div class="form-group">
                <a id="GuardarTransportista" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0019"></label></a>              
@@ -104,23 +104,23 @@
            modalProveedor
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0020"></label> 
-                <input id="mpContactoID" class="form-control"/>
+                <input id="ContactoID_Proveedor" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0021"></label> 
-                <input id="mpNombre" class="form-control"/>
+                <input id="Nombre_Proveedor" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0022"></label> 
-                <input id="mpDescripcion" class="form-control"/>
+                <input id="Descripcion_Proveedor" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0023"></label> 
-                <input id="mpDireccion" class="form-control"/>
+                <input id="Direccion_Proveedor" class="form-control"/>
             </div>
            <div class="form-group">           
                 <label id="DetalleAvisoLlegada0024"></label> 
-                <input id="mpTelefono" class="form-control"/>
+                <input id="Telefono_Proveedor" class="form-control"/>
             </div>
            <div class="form-group">
                <a id="GuardarProveedor" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0025"></label></a>
@@ -131,15 +131,15 @@
            modalPatio
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0026"></label> 
-                <input id="NombrePatio" class="form-control"/>
+                <input id="Nombre_Patio" class="form-control"/>
            </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0027"></label> 
-                <input id="Propietario" class="form-control"/>
+                <input id="Propietario_Patio" class="form-control"/>
             </div>
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0028"></label> 
-                <input id="DescripcionPatio" class="form-control"/>
+                <input id="Descripcion_Patio" class="form-control"/>
            </div>
            <div class="form-group">
                <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0029"></label></a>
@@ -150,12 +150,28 @@
            modalChofer
             <div class="form-group">           
                 <label id="DetalleAvisoLlegada0030"></label> 
-                <input id="NombreChofer" class="form-control"/>
+                <input id="Nombre_Chofer" class="form-control"/>
            </div>
            <div class="form-group">
                <a id="GuardarChofer" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0031"></label></a>
            </div>
         </div>
+
+        <div id="modalPlana" style="display:none">
+           modalPlana
+           <div class="form-group">           
+                <label id="DetalleAvisoLlegada0032"></label> 
+                <input id="CamionID_Plana" class="form-control"/>
+           </div>
+            <div class="form-group">           
+                <label id="DetalleAvisoLlegada0033"></label> 
+                <input id="Placas_Plana" class="form-control"/>
+           </div>
+           <div class="form-group">
+               <a id="GuardarPlana" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0034"></label></a>
+           </div>
+        </div>
+
     </div>
 <script>
     @section JavascriptGlobalVariables {
@@ -163,7 +179,7 @@
         var FechaRecepcion;
         var folio = getUrlParameter("folio", "-1");
         var Transportista = [], Proveedor = [], Patio = [],
-            Plana = [], Chofer = [], Contacto = [];
+            Plana = [], Chofer = [], Contacto = [], Camion = [];
     }
 
     @section JavascriptGlobalFunctions {
@@ -186,10 +202,12 @@
             $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
             $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
             $("#GuardarPatio").click(function (e) { GuardarPatio(); });
-            $("#GuardarChofer").click(function (e) { GuardarChofer();});
+            $("#GuardarChofer").click(function (e) { GuardarChofer(); });
+            $("#GuardarPlana").click(function (e) { GuardarPlana(); });
+            
             //**
 
-            $("#Proyecto").kendoMultiSelect({
+            $("#ProyectoID").kendoMultiSelect({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -204,7 +222,7 @@
                 filter: "contains",
             });
 
-            $("#Transportista").kendoAutoComplete({
+            $("#TransportistaID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -223,7 +241,7 @@
                 filter: "contains",
             });
 
-            $("#Proveedor").kendoAutoComplete({
+            $("#ProveedorID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -242,7 +260,7 @@
                 filter: "contains",
             });
 
-            $("#Plana").kendoAutoComplete({
+            $("#PlanaID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -252,16 +270,18 @@
                         }
                     }
                 },
-                dataTextField: "Nombre",
-                dataValueField: "PlanaID",
+                dataTextField: "value",
+                dataValueField: "id",
+                //dataTextField: "Nombre",
+                //dataValueField: "PlanaID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPlana(dataItem.PlanaID, dataItem.Nombre);
+                    CargarPlana(dataItem.id, dataItem.value);
                 },
                 filter: "contains",
             });
 
-            $("#Patio").kendoAutoComplete({
+            $("#PatioID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -271,16 +291,18 @@
                         }
                     }
                 },
-                dataTextField: "Nombre",
-                dataValueField: "PatioID",
+                dataTextField: "value",
+                dataValueField: "id",
+                //dataTextField: "Nombre",
+                //dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                    CargarPatio(dataItem.id, dataItem.value);
                 },
                 filter: "contains",
             });
 
-            $("#Chofer").kendoAutoComplete({
+            $("#ChoferID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -290,11 +312,13 @@
                         }
                     }
                 },
-                dataTextField: "Nombre",
-                dataValueField: "ChoferID",
+                dataTextField: "value",
+                dataValueField: "id",
+                //dataTextField: "Nombre",
+                //dataValueField: "ChoferID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarChofer(dataItem.ChoferID, dataItem.Nombre);
+                    CargarChofer(dataItem.id, dataItem.value);
 
                 },
                 filter: "contains",
@@ -328,7 +352,7 @@
             });
 
             //modal transportista
-            $("#ContactoID, #mpContactoID").kendoAutoComplete({
+            $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -346,6 +370,26 @@
                 },
                 filter: "contains",
             });
+
+            //modal Camion
+            $("#CamionID_Plana").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/DummyCamion",
+                        }
+                    }
+                },
+                dataTextField: "Placas",
+                dataValueField: "CamionID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarCamion(dataItem.CamionID, dataItem.Placas);
+                },
+                filter: "contains",
+            });
         };
 
         function onUpload(e) {
@@ -359,12 +403,12 @@
         {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportistas: "", FechaRecepcion: "", Proveedores: "", Planas: "", OrdenCompra: "", Patios: "", Choferes: "", Archivos: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "" };
                 //objeto para los proyectos y documentos.
                 ProyectoIDs = [];
                 Documentos = [];                
 
-                var proyectos = $("#Proyecto").data("kendoMultiSelect").value();
+                var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
                     alert(index + ":" + value);
                     item = {};
@@ -391,13 +435,13 @@
                 AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
                 AvisoLlegada[0].Proyectos = ProyectoIDs;
                 AvisoLlegada[0].Factura = $("#Factura").val();
-                AvisoLlegada[0].Transportistas = Transportista;
+                AvisoLlegada[0].Transportista = Transportista;
                 AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());;
-                AvisoLlegada[0].Proveedores = Proveedor;
-                AvisoLlegada[0].Planas = Plana;
+                AvisoLlegada[0].Proveedor = Proveedor;
+                AvisoLlegada[0].Plana = Plana;
                 AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-                AvisoLlegada[0].Patios = Patio;
-                AvisoLlegada[0].Choferes = Chofer;
+                AvisoLlegada[0].Patio = Patio;
+                AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
 
                 console.log(JSON.stringify(AvisoLlegada));
@@ -533,6 +577,22 @@
             Chofer.push(_chofer);
         };
 
+        function CargarContacto(id, value) {
+            Contacto = [];
+            _contacto = {};
+            _contacto["ContactoID"] = id;
+            _contacto["Nombre"] = value;
+            Contacto.push(_contacto);
+        };
+        
+        function CargarCamion(id, value) {
+            Camion = [];
+            _camion = {};
+            _camion["CamionID"] = id;
+            _camion["Placas"] = value;
+            Camion.push(_camion);
+        };
+
         function VentanaModal(id) {
 
             switch (id) {
@@ -540,27 +600,35 @@
                     $("#modalProveedor").hide();
                     $("#modalPatio").hide();
                     $("#modalChofer").hide();
+                    $("#modalPlana").hide();
                     $("#modalTransportista").show();
                     break;
                 case 2:
                     $("#modalTransportista").hide();
                     $("#modalPatio").hide();
                     $("#modalChofer").hide();
+                    $("#modalPlana").hide();
                     $("#modalProveedor").show();
                     break;
                 case 3:
-
+                    $("#modalTransportista").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalPlana").show();
                     break;
                 case 4:
                     $("#modalTransportista").hide();
                     $("#modalProveedor").hide();
                     $("#modalChofer").hide();
+                    $("#modalPlana").hide();
                     $("#modalPatio").show();
                     break;
                 case 5:
                     $("#modalTransportista").hide();
                     $("#modalProveedor").hide();
                     $("#modalPatio").hide();
+                    $("#modalPlana").hide();
                     $("#modalChofer").show();
                     break;
          };
@@ -581,23 +649,16 @@
             window.data("kendoWindow").open();
         };
 
-        function CargarContacto(id, value) {
-            Contacto = [];
-            _contacto = {};
-            _contacto["ContactoID"] = id;
-            _contacto["Nombre"] = value;
-            Contacto.push(_contacto);
-        };
 
         function GuardarTransportista() {
 
             TransportistaModal = [];
             TransportistaModal[0] = { Contacto: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
             TransportistaModal[0].Contacto = Contacto;
-            TransportistaModal[0].Nombre = $("#Nombre").val();
-            TransportistaModal[0].Descripcion = $("#Descripcion").val();
-            TransportistaModal[0].Direccion = $("#Direccion").val();
-            TransportistaModal[0].Telefono = $("#Telefono").val();
+            TransportistaModal[0].Nombre = $("#Nombre_Transportista").val();
+            TransportistaModal[0].Descripcion = $("#Descripcion_Transportista").val();
+            TransportistaModal[0].Direccion = $("#Direccion_Transportista").val();
+            TransportistaModal[0].Telefono = $("#Telefono_Transportista").val();
 
             console.log(JSON.stringify(TransportistaModal));
 
@@ -608,15 +669,15 @@
                 LimpiarModalTransportista();
             });
         };
-
+       
         function GuardarProveedor() {
             ProveedorModal = [];
             ProveedorModal[0] = { Contacto: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
             ProveedorModal[0].Contacto = Contacto;
-            ProveedorModal[0].Nombre = $("#mpNombre").val();
-            ProveedorModal[0].Descripcion = $("#pmDescripcion").val();
-            ProveedorModal[0].Direccion = $("#mpDireccion").val();
-            ProveedorModal[0].Telefono = $("#mpTelefono").val();
+            ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
+            ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
+            ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
+            ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
 
             console.log(JSON.stringify(ProveedorModal));
 
@@ -630,10 +691,10 @@
 
         function GuardarPatio() {
             PatioModal = [];
-            PatioModal[0] = { Nombre: "", Propietario: "", DescripcionPatio:"" };
-            PatioModal[0].Nombre = $("#NombrePatio").val();
-            PatioModal[0].Propietario = $("#Propietario").val();
-            PatioModal[0].DescripcionPatio = $("#DescripcionPatio").val();
+            PatioModal[0] = { Nombre: "", Propietario: "", Descripcion:"" };
+            PatioModal[0].Nombre = $("#Nombre_Patio").val();
+            PatioModal[0].Propietario = $("#Propietario_Patio").val();
+            PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
 
             console.log(JSON.stringify(PatioModal));
 
@@ -648,7 +709,7 @@
         function GuardarChofer() {
             ChoferModal = [];
             ChoferModal[0] = { Nombre: "" };
-            ChoferModal[0].Nombre = $("#NombreChofer").val();
+            ChoferModal[0].Nombre = $("#Nombre_Chofer").val();
 
             console.log(JSON.stringify(ChoferModal));
 
@@ -660,31 +721,53 @@
             });
         };
 
+        function GuardarPlana() {
+            PlanaModal = [];
+            PlanaModal[0] = { Camion: "" };
+            PlanaModal[0].Camion = Camion;
+            PlanaModal[0].Placas = $("#CamionID_Plana").val();
+
+            console.log(JSON.stringify(PlanaModal));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyPlana');
+            Client.DummyPlana.create({}, { plana: JSON.stringify(PlanaModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyPlana.create");
+                LimpiarModalPlana();
+            });
+        };
+        
         function LimpiarModalTransportista() {
-            $("#ContactoID").data("kendoAutoComplete").value("");
-            $("#Nombre").val("");
-            $("#Descripcion").val("");
-            $("#Direccion").val("");
-            $("#Telefono").val("");
+            $("#ContactoID_Transportista").data("kendoAutoComplete").value("");
+            $("#Nombre_Transportista").val("");
+            $("#Descripcion_Transportista").val("");
+            $("#Direccion_Transportista").val("");
+            $("#Telefono_Transportista").val("");
         };
 
         function LimpiarModalProveedor() {
-            $("#mpContactoID").data("kendoAutoComplete").value("");
-            $("#mpNombre").val("");
-            $("#mpDescripcion").val("");
-            $("#mpDireccion").val("");
-            $("#mpTelefono").val("");
+            $("#ContactoID_Proveedor").data("kendoAutoComplete").value("");
+            $("#Nombre_Proveedor").val("");
+            $("#Descripcion_Proveedor").val("");
+            $("#Direccion_Proveedor").val("");
+            $("#Telefono_Proveedor").val("");
         };
 
         function LimpiarModalPatio() {
-            $("#NombrePatio").val("");
-            $("#Propietario").val("");
-            $("#DescripcionPatio").val("");
+            $("#Nombre_Patio").val("");
+            $("#Propietario_Patio").val("");
+            $("#Descripcion_Patio").val("");
         };
 
         function LimpiarModalChofer() {
-            $("#NombreChofer").val("");
+            $("#Nombre_Chofer").val();
         };
+
+        function LimpiarModalPlana() {
+            $("#CamionID_Plana").data("kendoAutoComplete").value("");
+            $("#Placas_Plana").val("");
+        };
+
 }
 
     @section JavascriptDocumentReadyFunctions {

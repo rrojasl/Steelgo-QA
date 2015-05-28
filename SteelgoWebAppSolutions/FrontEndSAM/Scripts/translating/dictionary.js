@@ -204,6 +204,18 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "DetalleAvisoLlegada0032": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
+    "DetalleAvisoLlegada0033": {
+        "es-MX": "Placas",
+        "en-US": "license plate"
+    },
+    "DetalleAvisoLlegada0034": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
