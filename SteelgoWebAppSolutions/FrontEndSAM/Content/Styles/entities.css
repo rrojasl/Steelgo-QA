@@ -303,8 +303,13 @@ header .menu > div {
         letter-spacing: 1.3px;
     }
 
-    .sidebar ul.sub-menu.open {
+    .sidebar ul.sub-menu.open, .sidebar ul.sub-menu2.open,
+    .sidebar ul.sub-menu3.open {
         display: block !important;
+    }
+
+    .sidebar ul li span.active {
+        font-weight: 600 !important;
     }
 
     .sidebar .main-nav ul.main-menu li ul.sub-menu {
@@ -344,8 +349,9 @@ header .menu > div {
                     font-weight: 100;
                 }
 
-        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu {
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
             display: none;
+            border-top: 1px solid #102647;
             border-bottom: 1px solid #102647;
             background: #102647; /* Old browsers */
             background: -moz-linear-gradient(top, #102647 0%, #133468 100%); /* FF3.6+ */
@@ -360,14 +366,47 @@ header .menu > div {
             padding: 14px 12px 11px;
         }
 
-            .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu > li {
+            .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li {
+                position: relative;
                 margin-bottom: 9px;
                 margin-left: 8px;
+                clear: both;
             }
 
-                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu > li a span {
+                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li:last-child {
+                    margin-bottom: 0;
+                }
+
+                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li a span {
                     margin: 0;
                 }
+
+    .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 {
+        display: none;
+        position: absolute;
+        left: 98%;
+        top: -31px;
+        width: 188px;
+        clear: both;
+        background-color: #EC8B00;
+        list-style: none;
+        margin: 0;
+        padding: 8px 3px;
+        z-index: 5;
+    }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li {
+            margin-bottom: 6px;
+            margin-left: 8px;
+        }
+
+            .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li:last-child {
+                margin-bottom: 0;
+            }
+
+            .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li a span {
+                margin: 0;
+            }
 
     .sidebar .main-nav ul.main-menu li.shortcut {
         position: relative;
@@ -485,6 +524,20 @@ header .menu > div {
 
 .arrow {
     background-image: url("/Content/images/SAMC_MenuDropdownArrowA.png");
+}
+
+.subOne {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    background-image: url("/Content/images/SAMC_DashboardMenu_Icon_20.png");
+}
+
+.subTwo {
+    position: absolute;
+    top: 30px;
+    left: -13px;
+    background-image: url("/Content/images/SAMC_DashboardMenu_Icon_21.png");
 }
 /**********************************************************************************/
 .content-container {
