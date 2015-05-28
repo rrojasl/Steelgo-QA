@@ -33,7 +33,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <header class="clearfix topbar">
+    <header class="clearfix">
         <div class="content-wrapper clearfix">
             <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
                 <a class="logo" href="#"></a>
@@ -98,19 +98,19 @@
         <div class="container">
             <div class="row">
                 <!-- sidebar -->
-                <div class="col-md-2 sidebar">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
 
                     <!-- main-nav -->
                     <nav class="main-nav">
 
                         <ul class="main-menu">
-                            <li class="active">
+                            <li >
                                 <a href="#">
                                     <i class="icn dashboard"></i>
                                     <span class="text">Dashboard</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="#" class="js-sub-menu-toggle">
                                     <i class="icn transactions"></i>
                                     <span class="text">Transacciones</span>
@@ -299,10 +299,10 @@
 
 
                 <!-- content-wrapper -->
-                <div class="col-md-10 content-container">
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
                     <!-- main -->
                     <div class="content">
-                        <div class="main-content">
+                        <div class="main-content">                            
                             @RenderBody()
                         </div>
                         <!-- /main-content -->
@@ -352,7 +352,7 @@
                 $(".search-bar").css("display", "none");
                 $(".notifications").css("display", "none");
                 $(".logged-user").css("display", "none");
-                $("header").removeClass("topbar");
+                $(".content-container").removeClass("topbar");
             }
         }
 
