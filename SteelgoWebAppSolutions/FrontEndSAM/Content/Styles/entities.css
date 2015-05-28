@@ -237,11 +237,12 @@ header .menu > div {
     background-color: #305E8E;
     border-right: 1px solid #234568;
     border-top: 1px solid #234568;
-    height: 100%;
+    min-height: 100%;
+    height: auto;
     display: block;
     width: 12.5%;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     z-index: 2;
 }
 
