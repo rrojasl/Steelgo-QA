@@ -146,6 +146,7 @@
     <Content Include="Content\images\SAMC_DropdownArrow.png" />
     <Content Include="Content\images\SAMC_FilterDown.png" />
     <Content Include="Content\images\SAMC_FilterUp.png" />
+    <Content Include="Content\images\SAMC_HeaderBanner.png" />
     <Content Include="Content\images\SAMC_Logo.png" />
     <Content Include="Content\images\SAMC_Logo_Mobile.jpg" />
     <Content Include="Content\images\SAMC_MenuDropdownArrowA.png" />
