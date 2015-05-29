@@ -13,21 +13,32 @@ namespace BackEndSAM.Controllers
     public class DummyListadoAvisoLlegadaController : ApiController
     {
         // GET api/dummylistadoavisollegada
-        public List<ListadoFolioAvisoLlegada> Get()
+        public List<ListadoFolioAvisoLlegada> Get(string prueba,string folio,string username,string token)
         {
             List<ListadoFolioAvisoLlegada> lstfolioAvisoLlegada = new List<ListadoFolioAvisoLlegada>();
             ListadoFolioAvisoLlegada folioAvisoLlegada = new ListadoFolioAvisoLlegada();
-
-            folioAvisoLlegada.FolioAvisoLlegadaID = 1;
-            folioAvisoLlegada.NombreProyecto = "Prueba 1";
-            folioAvisoLlegada.FechaRecepcion = DateTime.Today;
-            lstfolioAvisoLlegada.Add(folioAvisoLlegada);
-
             ListadoFolioAvisoLlegada folioAvisoLlegada1 = new ListadoFolioAvisoLlegada();
-            folioAvisoLlegada1.FolioAvisoLlegadaID = 2;
-            folioAvisoLlegada1.NombreProyecto = "Prueba 2";
-            folioAvisoLlegada1.FechaRecepcion = DateTime.Today;
-            lstfolioAvisoLlegada.Add(folioAvisoLlegada1);
+
+            if (prueba == "1")
+            {
+
+                folioAvisoLlegada.FolioAvisoLlegadaID = 1;
+                folioAvisoLlegada.NombreProyecto = "Prueba 1";
+                folioAvisoLlegada.FechaRecepcion = DateTime.Today;
+                lstfolioAvisoLlegada.Add(folioAvisoLlegada);
+
+                
+                folioAvisoLlegada1.FolioAvisoLlegadaID = 2;
+                folioAvisoLlegada1.NombreProyecto = "Prueba 2";
+                folioAvisoLlegada1.FechaRecepcion = DateTime.Today;
+                lstfolioAvisoLlegada.Add(folioAvisoLlegada1);
+            }
+            else {
+                folioAvisoLlegada.FolioAvisoLlegadaID = 1;
+                folioAvisoLlegada.NombreProyecto = "Prueba 1";
+                folioAvisoLlegada.FechaRecepcion = DateTime.Today;
+                lstfolioAvisoLlegada.Add(folioAvisoLlegada);
+            }
 
             return lstfolioAvisoLlegada;
         }

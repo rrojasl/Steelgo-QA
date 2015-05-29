@@ -483,7 +483,6 @@
                 
                 var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
-                    alert(index + ":" + value);
                     item = {};
                     item["ProyectoID"] = value;
                     ProyectoIDs.push(item);
@@ -509,7 +508,7 @@
                 AvisoLlegada[0].Proyectos = ProyectoIDs;
                 AvisoLlegada[0].Factura = $("#Factura").val();
                 AvisoLlegada[0].Transportista = Transportista;
-                AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());;
+                AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
                 AvisoLlegada[0].Proveedor = Proveedor;
                 AvisoLlegada[0].Plana = Plana;
                 AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();

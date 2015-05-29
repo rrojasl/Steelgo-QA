@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "EntradaMaterial";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="form-group">
+        <label id="EntradaMaterial0001"></label> 
+        <input id="PatioID" class="form-control"/>
+         <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
+    </div>
+    <div class="form-group">
+        <label id="EntradaMaterial0002"></label> 
+        <input id="ProyectoID" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label id="EntradaMaterial0003"></label> 
+        <input id="FolioLlegadaID" class="form-control"/>        
+    </div>
+    <div class="form-group">
+        <label id="EntradaMaterial0004"></label> 
+        <input id="Estatus" class="form-control"/>
+    </div>
+    <div class="form-group">
+         <label id="EntradaMaterial0005"></label> 
+         <input name="AdjuntarArchivos" id="AdjuntarArchivos" type="file" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label id="EntradaMaterial0006"></label> 
+        <input id="Descripcion" class="form-control"/>
+    </div>
+
+@*Ventana Modal*@
+    <div id="window">
+        <div id="modalPatio" style="display:none">
+            <div class="form-group">           
+                <label id="EntradaMaterial0007"></label> 
+                <input id="Nombre_Patio" class="form-control"/>
+            </div>
+            <div class="form-group">           
+                <label id="EntradaMaterial0008"></label> 
+                <input id="Propietario_Patio" class="form-control"/>
+            </div>
+            <div class="form-group">           
+                <label id="EntradaMaterial0009"></label> 
+                <input id="Descripcion_Patio" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><label id="EntradaMaterial0010"></label></a>
+            </div>
+        </div>
+    </div>
+<script>
+  @section JavascriptGlobalVariables {
+        //your partial views variables
+        var FechaRecepcion;
+        var Patio = [];
+    };
+
+
+    @section JavascriptGlobalFunctions {
+    function CargaInicial() {
+
+            $("#PatioID").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                //dataTextField: "Nombre",
+                //dataValueField: "PatioID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarPatio(dataItem.id, dataItem.value);
+                },
+                filter: "contains",
+            });
+
+            $("#ProyectoID").kendoMultiSelect({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                        }
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                filter: "contains",
+            });
+
+    };
+
+        function VentanaModal(id) {
+
+            switch (id) {
+                case 1:
+                    $("#modalProveedor").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPlana").hide();
+                    $("#modalTransportista").show();
+                    break;
+                case 2:
+                    $("#modalTransportista").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPlana").hide();
+                    $("#modalProveedor").show();
+                    break;
+                case 3:
+                    $("#modalTransportista").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalPlana").show();
+                    break;
+                case 4:
+                    $("#modalTransportista").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPlana").hide();
+                    $("#modalPatio").show();
+                    break;
+                case 5:
+                    $("#modalTransportista").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalPatio").hide();
+                    $("#modalPlana").hide();
+                    $("#modalChofer").show();
+                    break;
+            };
+
+            var window = $("#window");
+            var win = window.kendoWindow({
+                actions: ["Maximize", "Minimize", "Close"],
+                modal: true,
+                resizable: false,
+                visible: false,
+                width: "60%",
+                height: "50%",
+                position: {
+                    top: "10%",
+                    left: "20%"
+                }
+            }).data("kendoWindow");
+            window.data("kendoWindow").open();
+        };
+
+        function CargarPatio(id, value) {
+            Patio = [];
+            _patio = {};
+            _patio["PatioID"] = id;
+            _patio["Nombre"] = value;
+            Patio.push(_patio);
+        };
+
+        $('#AdjuntarArchivos').kendoUpload({
+            async: {
+                saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                    autoUpload: false
+                },
+            success: function (data) {
+                $("#hdAdjuntarArchivos").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
+            },
+            error: function (data) { },
+            upload: onUploadAdjuntarArchivos
+        });
+
+        function onUploadAdjuntarArchivos() {
+
+        };
+    };
+   
+    @section JavascriptDocumentReadyFunctions {
+        CargaInicial();
+    };
+ </script>

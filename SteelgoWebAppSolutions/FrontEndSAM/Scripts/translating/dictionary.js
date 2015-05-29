@@ -56,28 +56,68 @@ _dictionary = {
         "en-US": "Add Folio"
     },
     "ListadoAvisoLlegada0002": {
-        "es-MX": "Folio Aviso Llegada",
+        "es-MX": "Folio Entrada",
         "en-US": "Folio Arrival Notice"
     },
     "ListadoAvisoLlegada0003": {
-        "es-MX": "Editar",
-        "en-US": "Edit"
+        "es-MX": "Patio",
+        "en-US": "Areway"
     },
     "ListadoAvisoLlegada0004": {
-        "es-MX": "Borrar",
-        "en-US": "Delete"
-    },
-    "ListadoAvisoLlegada0005": {
-        "es-MX": "Estas seguro de eliminar el folio de aviso de llegada?",
-        "en-US": "Are you sure you remove the foil arrival record?"
-    },
-    "ListadoAvisoLlegada0006": {
         "es-MX": "Proyecto",
         "en-US": "Proyect"
     },
+    "ListadoAvisoLlegada0005": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "ListadoAvisoLlegada0006": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
     "ListadoAvisoLlegada0007": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoAvisoLlegada0008": {
+        "es-MX": "Folio Entrada",
+        "en-US": "Folio Arrival Notice"
+    },
+    "ListadoAvisoLlegada0009": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "ListadoAvisoLlegada0010": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "ListadoAvisoLlegada0011": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
+    "ListadoAvisoLlegada0012": {
+        "es-MX": "Transportista",
+        "en-US": "Carrier"
+    },
+    "ListadoAvisoLlegada0013": {
         "es-MX": "Fecha Recepción",
-        "en-US": "Reception Date"
+        "en-US": "Date Reception"
+    },
+    "ListadoAvisoLlegada0014": {
+        "es-MX": "Estatus",
+        "en-US": "status"
+    },
+    "ListadoAvisoLlegada0015": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "ListadoAvisoLlegada0016": {
+        "es-MX": "Borrar",
+        "en-US": "Delete"
+    },
+    "ListadoAvisoLlegada0017": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
     },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
@@ -231,6 +271,47 @@ _dictionary = {
     "DetalleAvisoLlegada00038": {
         "es-MX": "Numero Permiso",
         "en-US": "Permit number"
+    },
+    //Entrada Material Partial view Labels
+    "EntradaMaterial0001": {
+        "es-MX": "Patio",
+        "en-US": "Areaway"
+    },
+    "EntradaMaterial0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "EntradaMaterial0003": {
+        "es-MX": "Folio Entrada",
+        "en-US": "Folio entry"
+    },
+    "EntradaMaterial0004": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "EntradaMaterial0005": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Permit number"
+    },
+    "EntradaMaterial0006": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "EntradaMaterial0007": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "EntradaMaterial0008": {
+        "es-MX": "Propietario",
+        "en-US": "Owner"
+    },
+    "EntradaMaterial0009": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "EntradaMaterial0010": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     //Home Partial View Labels
     "homeLabel0001": {
