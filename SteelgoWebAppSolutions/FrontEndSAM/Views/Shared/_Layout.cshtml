@@ -50,14 +50,14 @@
                             </div>
                         </div>
                         <div class="notifications">
-                            <a href="#">
+                            <a id="notifications" href="#">
                                 <img src="~/Content/images/SAMC_MenuIcon_02.png" />
                                 <span class="count">8</span>
                             </a>
                         </div>
                         <div class="logged-user">
                             <div class="btn-group">
-                                <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                                <a id="logged-user" href="#" class="btn dropdown-toggle" data-toggle="dropdown">
                                     <img src="/Content/images/SAMC_MenuIcon_03.png" />
                                     <span class="name">Carlos A. Gónzalez</span>
                                     <span class="caret"></span>
@@ -65,20 +65,17 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-user"></i>
-                                            <span class="text">Profile</span>
+                                            <span>Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-cog"></i>
-                                            <span class="text">Settings</span>
+                                        <a href="#">                                            
+                                            <span>Settings</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a id="logout" href="#">
-                                            <i class="fa fa-power-off"></i>
-                                            <span class="text">Logout</span>
+                                            <span>Logout</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -93,138 +90,255 @@
             </div>
         </div>
     </header>
-    <div class="content">
+    <div class="content-frame">
         <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
         <div class="container">
             <div class="row">
                 <!-- sidebar -->
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
-
+                <div id="sidebar" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
                     <!-- main-nav -->
                     <nav class="main-nav">
-
                         <ul class="main-menu">
-                            <li >
+                            <li class="active">
                                 <a href="#">
                                     <i class="icn dashboard"></i>
-                                    <span class="text">Dashboard</span>
+                                    <span>Dashboard</span>
                                 </a>
                             </li>
-                            <li class="active">
-                                <a href="#" class="js-sub-menu-toggle">
+                            <li>
+                                <a href="#">
                                     <i class="icn transactions"></i>
-                                    <span class="text">Transacciones</span>
-                                    <i class="toggle-icon icn right arrow"></i>
+                                    <span>Transacciones</span>
+                                    <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
                                         <a href="#">
-                                            <span class="text">Ingeniería</span>
+                                            <span>Ingeniería</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Materiales</span>
+                                            <span>Materiales</span>
+                                        </a>
+                                        <ul class="sub-menu2">
+                                            <i class="icn subOne"></i>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Solicitud de Folio de Entrada</span>
+                                                </a>
+                                                <ul class="sub-menu3">
+                                                    <i class="icn subTwo"></i>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Generación Folio Entrada</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Permiso de Aduana</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Autorización de Permisos</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Llegada de Material</span>
+                                                </a>
+                                                <ul class="sub-menu3">
+                                                    <i class="icn subTwo"></i>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Generación Inventario</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Permiso de Aduana</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Autorización de Permisos</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Despacho de Materiales</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Listado de Materiales</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Listado de Materiales por Item Code</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Segmentación de Tubería</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Otros Movimientos de Inventario</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Incidencias</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>PND</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">PND</span>
+                                            <span>PWHT</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">PWHT</span>
+                                            <span>Fabricación</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Fabricación</span>
+                                            <span>Pintura</span>
+                                        </a>
+                                        <ul class="sub-menu2">
+                                            <i class="icn subOne"></i>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Colores</span>
+                                                </a>
+                                                <ul class="sub-menu3">
+                                                    <i class="icn subTwo"></i>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Generación de Color</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Tonos</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <span>Catalogo</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Llegada de Pintura</span>
+                                                </a>
+                                            </li>                                            
+                                            <li>
+                                                <a href="#">
+                                                    <span>Otros Movimientos de Inventario</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>Incidencias</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>Control de Documentos</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Pintura</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">Control de Documentos</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="text">Embarques</span>
+                                            <span>Embarques</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#" class="js-sub-menu-toggle">
+                                <a href="#">
                                     <i class="icn catalog"></i>
-                                    <span class="text">Catálogo</span>
-                                    <i class="toggle-icon icn right arrow"></i>
+                                    <span>Catálogo</span>
+                                    <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#" class="js-sub-menu-toggle">
+                                <a href="#">
                                     <i class="icn report"></i>
-                                    <span class="text">Reportes</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <span>Reportes</span>                                    
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="js-sub-menu-toggle">
+                                <a href="#">
                                     <i class="icn documents"></i>
-                                    <span class="text">Documentos</span>
-                                    <i class="toggle-icon icn right arrow"></i>
+                                    <span>Documentos</span>
+                                    <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Submenu</span>
+                                            <span>Submenu</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -232,49 +346,47 @@
                             <li>
                                 <a href="#">
                                     <i class="icn config"></i>
-                                    <span class="text">Configuración</span>
+                                    <span>Configuración</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="js-sub-menu-toggle">
+                                <a href="#">
                                     <i class="icn support"></i>
-                                    <span class="text">Soporte</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <span>Soporte</span>                                    
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="js-sub-menu-toggle">
+                                <a href="#">
                                     <i class="icn kpi"></i>
-                                    <span class="text">KPI's</span>
-                                    <i class="toggle-icon fa fa-angle-left"></i>
+                                    <span>KPI's</span>                                   
                                 </a>
                             </li>
                             <li>
-                                <a href="typography.html">
+                                <a href="#">
                                     <i class="icn comm"></i>
-                                    <span class="text">Comunicación</span>
+                                    <span>Comunicación</span>
                                 </a>
                             </li>
                             <li class="shortcut">
-                                <a href="#" class="js-sub-menu-toggle quicklinks">
+                                <a class="quicklinks">
                                     <i class="icn links"></i>
-                                    <span class="text">Ligas Rápidas</span>
+                                    <span>Ligas Rápidas</span>
                                     <i class="icn right gear"></i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li>
                                         <a href="#">
-                                            <span class="text">Llegada de Material</span>
+                                            <span>Llegada de Material</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Generación Pase Salida</span>
+                                            <span>Generación Pase Salida</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <span class="text">Despacho de Tubos</span>
+                                            <span>Despacho de Tubos</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -283,14 +395,14 @@
                     </nav>
                     <!-- /main-nav -->
 
-                    <div class="nav-footer sidebar-minified js-toggle-minified">
+                    <div class="nav-footer">
                         <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <i class="icn right minify"></i>
                         <ul>
-                            <li><a hre="#">Acerca del Grupo</a></li>
-                            <li><a hre="#">Politica de Privacidad</a></li>
-                            <li><a hre="#">Politica de Uso</a></li>
-                            <li><a hre="#">Contacto</a></li>
+                            <li><a href="#">Acerca del Grupo</a></li>
+                            <li><a href="#">Politica de Privacidad</a></li>
+                            <li><a href="#">Politica de Uso</a></li>
+                            <li><a href="#">Contacto</a></li>
                         </ul>
                     </div>
 
@@ -300,16 +412,31 @@
 
                 <!-- content-wrapper -->
                 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
+                    <!-- breadcrumbs-->
+                    <div class="row">
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+                            <ul class="row breadcrumb">
+                                <li>
+                                    <a href="#">Transacciones</a>
+                                </li>
+                                <li>
+                                    <a href="#">Materiales</a>
+                                </li>
+                                <li class="active">Aviso Entrada de Material</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /breadcrumbs-->
                     <!-- main -->
                     <div class="content">
-                        <div class="main-content">                            
+                        <div class="main-content">
                             @RenderBody()
                         </div>
                         <!-- /main-content -->
                     </div>
                     <!-- /main -->
                 </div>
-                <!-- /content-wrapper -->
+                <!-- /content-container -->
             </div>
             <!-- /row -->
         </div>
@@ -324,6 +451,55 @@
     <iframe id="my_iframe" name="my_iframe" src="@Url.Action("notfound", "Errors")" style="visibility: hidden; display: none"></iframe>
 
     <script>
+        var returnOfSecurityCheck = {
+            "layout": {
+                "create": false,
+                "list": false,
+                "detail": false,
+                "destroy": false,
+                "properties": {
+                    "sidemenu": {
+                        "visible": true,
+                        "editable": true,
+                        "required": false
+                    },
+                    "search": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "notifications": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "useroptions": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            },
+            "login": {
+                "create": false,
+                "list": false,
+                "detail": true,
+                "destroy": false,
+                "properties": {
+                    "username": {
+                        "visible": true,
+                        "editable": true,
+                        "required": true
+                    },
+                    "password": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            }
+        };
+
         /****************************/
         /*     Global Variables     */
         /****************************/
@@ -336,6 +512,37 @@
         var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
         var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
         $SecurityManager.add('authentication');
+        var $authorizationModel = {};
+        var $layoutModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: ""
+                },
+                properties: {
+                    sidemenu: {
+                        visible: "#sidebar",
+                        editable: "#sidebar",
+                        required: "#sidebar"
+                    },
+                    search: {
+                        visible: ".search-bar",
+                        editable: "#layoutLabel0001",
+                        required: "#layoutLabel0001"
+                    },
+                    notifications: {
+                        visible: ".notifications",
+                        editable: "#notifications",
+                        required: "#notifications"
+                    },
+                    useroptions: {
+                        visible: ".logged-user",
+                        editable: "#logged-user",
+                        required: "#logged-user",
+                    }
+                }
+            };
 
         //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalVariables", required: false)
@@ -343,6 +550,137 @@
         /****************************/
         /*   Security Functions     */
         /****************************/
+
+        //Method to change the visibility, editability and required attributes of the elements
+        //
+        function applySecurityPolicy() {
+            loadingStart();
+            //Obtain the entity list from the $authorizationModel
+            var index, key, entityDefinition, entitySecurity;
+            var securityNotFound = true;
+            var authorizationModelKeys = Object.keys($authorizationModel);
+            //Call to the permissions api passing all the entities by authorizationModelKeys.toString();
+
+            //Apply the returned permissions to the $authorizationModel objects
+            for (key in $authorizationModel) {
+                if ($authorizationModel.hasOwnProperty(key)) {
+                    entityDefinition = $authorizationModel[key];
+                    if (returnOfSecurityCheck.hasOwnProperty(key)) {
+                        entitySecurity = returnOfSecurityCheck[key];
+                        securityNotFound = false;
+                    }
+                    applySecurityPolicyEachEntity(entityDefinition, entitySecurity, securityNotFound);
+                }
+            }
+            loadingStop();
+        }
+
+        //method to apply the security policy for the entities, if securityNotFound == true then dennies all permisions
+        function applySecurityPolicyEachEntity(entityDefinition, entitySecurity, securityNotFound) {
+            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+        }
+
+        //Method to apply the security policy in the entity
+        function applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound) {
+            var entityCreationPermission = false;
+            var entityListPermission = false;
+            var entityDetailPermission = false;
+            var entityDestroyPermission = false;
+
+            if (securityNotFound == false) {
+                if (entitySecurity.hasOwnProperty("create")) {
+                    entityCreationPermission = entitySecurity["create"];
+                }
+
+                if (entitySecurity.hasOwnProperty("list")) {
+                    entityListPermission = entitySecurity["list"];
+                }
+
+                if (entitySecurity.hasOwnProperty("detail")) {
+                    entityDetailPermission = entitySecurity["detail"];
+                }
+
+                if (entitySecurity.hasOwnProperty("destroy")) {
+                    entityDestroyPermission = entitySecurity["destroy"];
+                }
+            }
+
+            if (entityDefinition.hasOwnProperty("listContainer")) {
+                if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
+                    if (entityCreationPermission == false) {
+                        $(entityDefinition.listContainer["create"]).css("display", "none");
+                    }
+                }
+
+                if (entityDefinition["listContainer"].hasOwnProperty("list") && entityDefinition.listContainer["list"] != null && entityDefinition.listContainer["list"].length > 0) {
+                    if (entityListPermission == false) {
+                        $(entityDefinition.listContainer["list"]).css("display", "none");
+                    }
+                }
+
+                if (entityDefinition["listContainer"].hasOwnProperty("detail") && entityDefinition.listContainer["detail"] != null && entityDefinition.listContainer["detail"].length > 0) {
+                    if (entityDetailPermission == false) {
+                        $(entityDefinition.listContainer["detail"]).css("display", "none");
+                    }
+                }
+
+                if (entityDefinition["listContainer"].hasOwnProperty("destroy") && entityDefinition.listContainer["destroy"] != null && entityDefinition.listContainer["destroy"].length > 0) {
+                    if (entityDestroyPermission == false) {
+                        $(entityDefinition.listContainer["destroy"]).css("display", "none");
+                    }
+                }
+            }
+        }
+
+        //Method to apply the security policy in the entity properties
+        function applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound) {
+            if (entityDefinition.hasOwnProperty("properties")) {
+                for (key in entityDefinition["properties"]) {
+                    var propertyViewPermission = false;
+                    var propertyEditPermission = false;
+                    var propertyRequiredPermission = false;
+
+                    if (securityNotFound == false) {
+                        if (entitySecurity.hasOwnProperty("properties")) {
+                            if (entitySecurity.properties.hasOwnProperty(key)) {
+                                if (entitySecurity.properties[key].hasOwnProperty("visible")) {
+                                    propertyViewPermission = entitySecurity.properties[key]["visible"];
+                                }
+
+                                if (entitySecurity.properties[key].hasOwnProperty("editable")) {
+                                    propertyEditPermission = entitySecurity.properties[key]["editable"];
+                                }
+
+                                if (entitySecurity.properties[key].hasOwnProperty("required")) {
+                                    propertyRequiredPermission = entitySecurity.properties[key]["required"];
+                                }
+                            }
+                        }
+                    }
+
+                    if (entityDefinition.properties.hasOwnProperty(key)) {
+                        if (entityDefinition.properties[key].hasOwnProperty("visible") && entityDefinition.properties[key]["visible"] != null && entityDefinition.properties[key]["visible"].length > 0) {
+                            if (propertyViewPermission == false) {
+                                $(entityDefinition.properties[key]["visible"]).css("display", "none");
+                            }
+                        }
+
+                        if (entityDefinition.properties[key].hasOwnProperty("editable") && entityDefinition.properties[key]["editable"] != null && entityDefinition.properties[key]["editable"].length > 0) {
+                            if (propertyEditPermission == false) {
+                                $(entityDefinition.properties[key]["editable"]).prop('disabled', true);
+                            }
+                        }
+
+                        if (entityDefinition.properties[key].hasOwnProperty("required") && entityDefinition.properties[key]["required"] != null && entityDefinition.properties[key]["required"].length > 0) {
+                            if (propertyRequiredPermission == true) {
+                                $(entityDefinition.properties[key]["required"]).addClass("security_required");
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         //Method to hide elements if im in home
         function hideElements() {
@@ -353,6 +691,7 @@
                 $(".notifications").css("display", "none");
                 $(".logged-user").css("display", "none");
                 $(".content-container").removeClass("topbar");
+                $(".breadcrumb").css("display", "none");
             }
         }
 
@@ -411,6 +750,7 @@
                         document.location.href = '/';
                     } else {
                         $.cookie("home", false);
+                        //
                     }
                     loadingStop();
                 });
@@ -535,13 +875,16 @@
         function encrypt(toEncodData) {
             var encodedData = window.btoa(toEncodData);
             if (encodedData[encodedData.length - 1] == '=') {
-                encodedData[encodedData.length - 1] = '';
+                encodedData = encodedData.substr(0, encodedData.length - 1);
             }
             return encodedData;
         }
 
         //Function to decrypt base64 a string
         function decrypt(encodedData) {
+            if (encodedData[encodedData.length - 1] != '=') {
+                encodedData = encodedData + '=';
+            }
             return window.atob(encodedData);
         }
 
@@ -552,7 +895,7 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            autoCookies(true);
+            //autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);
@@ -562,6 +905,62 @@
 
             //Hide elements for Login
             hideElements();
+
+            //Toggle for main menu's submenus
+            $("li i.arrow").click(function () {               
+                if($(this).closest("li").hasClass('active')) {
+                    $(this).closest("li").removeClass('active').children("ul").removeClass("open");                    
+                }
+                else {
+                    $("li").removeClass('active');
+                    $("span").removeClass('active');
+                    $("ul").removeClass('open');
+                    $(this).closest("li").addClass('active').children("ul").addClass("open");
+                }
+            });
+
+            //Toggle for second submenu            
+            $("ul.sub-menu > li > a").click(function () {
+                if($(this).parent().children("ul.sub-menu2").hasClass('open')) {
+                    $(this).children("span").removeClass("active");                    
+                    $(this).parent().children("ul.sub-menu2").removeClass("open");                  
+                }
+                else {
+                    $("ul.sub-menu2").removeClass("open");
+                    $("span").removeClass("active");
+                    $(this).children("span").addClass("active");
+                    $(this).parent().children("ul.sub-menu2").addClass("open");
+                }
+            });
+
+            //Toggle for last submenu            
+            $("ul.sub-menu2 > li > a").click(function () {
+                if($(this).parent().children("ul.sub-menu3").hasClass('open')) {
+                    $(this).children("span").removeClass("active");                    
+                    $(this).parent().children("ul.sub-menu3").removeClass("open");                  
+                }
+                else {                    
+                    $("ul.sub-menu2 span").removeClass("active");
+                    $("ul.sub-menu3").removeClass("open");
+                    $(this).children("span").addClass("active");
+                    $(this).parent().children("ul.sub-menu3").addClass("open");
+                }
+            });
+
+            //Toggle for last submenu's links         
+            $("ul.sub-menu3 > li > a").click(function () {                
+                    $("ul.sub-menu2 span").removeClass("active");                  
+                    $("ul.sub-menu3").removeClass("open");                                                            
+            });
+
+            //Toggle sidebar's size
+            $("i.minify").click(function () {
+                $("ul").removeClass("open");
+                $("span").removeClass("active");
+                $("li.shortcut ul").toggleClass("close");
+                $("#sidebar").toggleClass("minified");            
+                $(".content-container").toggleClass("expanded");
+            });
 
             //Validate Logged User Credentials
             validateCredentials();
@@ -594,8 +993,14 @@
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
 
+            //Add layout element to the Authorization Model
+            $authorizationModel.layout = $layoutModel
+
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
+
+            //Apply Profile Security Policy
+            applySecurityPolicy();
         });
     </script>
 </body>

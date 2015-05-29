@@ -8,7 +8,7 @@
     02  $_body
     03  $_header
     04  $_footer
-    05  $_container
+    05  $_content-frame
     06  $_label
     07  $_links
     08  $_input
@@ -19,7 +19,7 @@
 
     Color Palette: 
 
-        
+    Do Not Use Class security_required        
 
 **********************************************************************************/
 
@@ -47,34 +47,6 @@ body {
     height: 100%;
     font-family: 'Lato', sans-serif;
 }
-
-/* Start by setting display:none to make this hidden.
-   Then we position it in relation to the viewport window
-   with position:fixed. Width, height, top and left speak
-   speak for themselves. Background we set to 80% white with
-   our animation centered, and no-repeating */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba( 255, 255, 255, .8 ) url(/Content/images/loadingGift/loading.gif) 50% 50% no-repeat;
-}
-
-/* When the body has the loading class, we turn
-   the scrollbar off with overflow:hidden */
-body.loading {
-    overflow: hidden;
-}
-
-    /* Anytime the body has the loading class, our
-   modal element will be visible */
-    body.loading .modal {
-        display: block;
-    }
 /**********************************************************************************/
 
 
@@ -135,21 +107,28 @@ footer {
 
 
 /**********************************************************************************
- Class name:    $_container
+ Class name:    $_content-frame
  Description:   Customize label tag.
 **********************************************************************************/
-.container {
-    max-width: 100%;
-    width: 100%;
+.content-frame {
     position: absolute;
-    top: 61px;
+    top: 60px;
     bottom: 0;
+    left: 0;
+    right: 0;
 }
 
-    .container > .row {
+    .content-frame .container {
+        max-width: 100%;
+        width: 100%;
         min-height: 100%;
         height: 100%;
     }
+
+        .content-frame .container > .row {
+            min-height: 100%;
+            height: 100%;
+        }
 /**********************************************************************************/
 
 
@@ -171,6 +150,7 @@ label {
 a, a:link, a:hover, a:visited {
     color: #305E8E;
     outline: none;
+    text-decoration: none;
 }
 /**********************************************************************************/
 
