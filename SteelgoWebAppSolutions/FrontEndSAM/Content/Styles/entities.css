@@ -636,6 +636,21 @@ header .menu > div {
     .notifications .count {
         left: 50.5%;
     }
+
+    /*$_sidebar*/
+    .sidebar.minified {
+        width: 6.5%;
+    }
+
+        .sidebar.minified .nav-footer .icn.right {
+            left: 8px;
+        }
+
+
+    /*$_content-container*/
+    .content-container.expanded {
+        width: 93.5%;
+    }
 }
 
 /* tablet viewport*/
@@ -659,6 +674,21 @@ header .menu > div {
 
 /* md viewport */
 @media (min-width: 992px) and (max-width: 1024px) {
+
+    /*$_sidebar*/
+    .sidebar.minified {
+        width: 5%;
+    }
+
+    .sidebar.minified .nav-footer .icn.right {
+            left: 7px;
+        }
+
+    /*$_content-container*/
+
+    .content-container.expanded {
+        width: 95%;
+    }
 }
 
 /* lg viewport */
