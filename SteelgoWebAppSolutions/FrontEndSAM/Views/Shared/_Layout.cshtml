@@ -569,19 +569,18 @@
                         entitySecurity = returnOfSecurityCheck[key];
                         securityNotFound = false;
                     }
-                    applySecurityPolicyEachEntity(entityDefinition, entitySecurity, securityNotFound);
+                    applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+                    applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
                 }
             }
             loadingStop();
         }
 
-        //method to apply the security policy for the entities, if securityNotFound == true then dennies all permisions
-        function applySecurityPolicyEachEntity(entityDefinition, entitySecurity, securityNotFound) {
-            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
-            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
-        }
-
         //Method to apply the security policy in the entity
+        //create :: applies to new item buttons
+        //list :: applies to grids, combos, multiselect, autocompletes
+        //detail :: applies to show details buttons
+        //destroy :: applies to remove item buttons
         function applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound) {
             var entityCreationPermission = false;
             var entityListPermission = false;
@@ -634,6 +633,10 @@
         }
 
         //Method to apply the security policy in the entity properties
+        //Iterate over all properties of an entity
+        //visible :: applies to containers of a properties, divs with labels and inpunts, etc inside
+        //editable :: applies to inputs, combos, autocompletes
+        //required :: applies to inputs, combos, autocompletes, add class "security_required" use this class to validate before submit actions
         function applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound) {
             if (entityDefinition.hasOwnProperty("properties")) {
                 for (key in entityDefinition["properties"]) {
@@ -895,7 +898,7 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            autoCookies(true);
+            //autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);
