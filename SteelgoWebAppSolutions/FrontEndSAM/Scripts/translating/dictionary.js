@@ -108,12 +108,12 @@ _dictionary = {
         "en-US": "status"
     },
     "ListadoAvisoLlegada0015": {
-        "es-MX": "Editar",
-        "en-US": "Edit"
+        "es-MX": "Detalle",
+        "en-US": "Detail"
     },
     "ListadoAvisoLlegada0016": {
-        "es-MX": "Borrar",
-        "en-US": "Delete"
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
     "ListadoAvisoLlegada0017": {
         "es-MX": "Mostrar",
