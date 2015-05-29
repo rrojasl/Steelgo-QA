@@ -13,7 +13,7 @@
     07  $_icons
     08  $_content-container
     09  $_breadcrumb
-    10  $_
+    10  $_alert-container
     11  $_
 
 
@@ -586,7 +586,6 @@ header .menu > div {
 **********************************************************************************/
 .content-container {
     width: 87.5%;
-    /*padding-left: 48px;*/
 }
 
     .content-container.topbar {
@@ -605,18 +604,75 @@ header .menu > div {
 **********************************************************************************/
 .breadcrumb {
     background-color: #F1F1F1;
+    background-image: url("/Content/images/SAMC_HeaderBanner.png");
+    background-repeat: no-repeat;
+    background-position: right top;
     border-bottom: 1px solid #D0D0D0;
+    border-radius: 0;
     height: 79px;
     max-height: 79px;
     padding: 31px 30px;
+    margin-bottom: 30px;
 }
 
-.breadcrumb li a {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
+    .breadcrumb li {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: #1A3F70;
+    }
+
+        .breadcrumb li.active {
+            color: #333333;
+        }
+
+    .breadcrumb > li + li:before {
+        padding: 0 3px;
+        color: #1A3F70;
+        content: ">";
+    }
+
+    .breadcrumb > li + li.active:before {
+        padding: 0 6px 0 4px;
+    }
+
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_alert-container
+ Description:   Customize warning/error message.
+**********************************************************************************/
+.alert-container {
+    display: none;
+}
+
+    .alert-container.active {
+        display: block;
+    }
+
+.message {
+    margin-left: 15px;
+    padding: 7px 0 7px 49px;
+    height: 34px;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+    .message.success {
+        color: #305E8D;
+        background-image: url("/Content/images/SAMC_Error_Icon_B.png");
+    }
+
+    .message.warning {
+        color: #EC8B00;
+        background-image: url("/Content/images/SAMC_Error_Icon_C.png");
+    }
+
+    .message.error {
+        color: #EB4D50;
+        background-image: url("/Content/images/SAMC_Error_Icon_A.png");
+    }
+/**********************************************************************************/
 
 /* Media Queries */
 
@@ -687,7 +743,6 @@ header .menu > div {
     /*$_content-container*/
     .content-container {
         width: 76.5%;
-        /*padding-left: 28px;*/
     }
 }
 

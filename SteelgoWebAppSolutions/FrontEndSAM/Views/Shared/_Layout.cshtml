@@ -411,22 +411,31 @@
 
 
                 <!-- content-wrapper -->
-                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
-                    <!-- breadcrumbs-->
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">                   
                     <div class="row">
-                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
-                            <ul class="row breadcrumb">
-                                <li>
-                                    <a href="#">Transacciones</a>
-                                </li>
-                                <li>
-                                    <a href="#">Materiales</a>
-                                </li>
-                                <li class="active">Aviso Entrada de Material</li>
-                            </ul>
+                        <!-- breadcrumb-->
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 breadcrumb-container">
+                            <div class="row">
+                                <ul class="breadcrumb">
+                                    <li>
+                                        <a href="#">Transacciones</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Materiales</a>
+                                    </li>
+                                    <li class="active">Aviso Entrada de Material</li>
+                                </ul>
+                            </div>
                         </div>
+                        <!-- /breadcrumb-->
+                        <!-- alerts -->
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                            <div class="message">
+                                Mensaje de éxito/error/advertencia
+                            </div>
+                        </div>
+                        <!-- alerts -->
                     </div>
-                    <!-- /breadcrumbs-->
                     <!-- main -->
                     <div class="content">
                         <div class="main-content">
@@ -694,7 +703,7 @@
                 $(".notifications").css("display", "none");
                 $(".logged-user").css("display", "none");
                 $(".content-container").removeClass("topbar");
-                $(".breadcrumb").css("display", "none");
+                $(".breadcrumb-container").css("display", "none");                
             }
         }
 
