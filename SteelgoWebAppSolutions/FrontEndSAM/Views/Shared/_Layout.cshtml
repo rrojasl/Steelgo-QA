@@ -414,12 +414,15 @@
                 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
                     <!-- breadcrumbs-->
                     <div class="row">
-                        <div class="col-md-4">
-                            <ul class="breadcrumb">
-                                <li><i class="fa fa-home"></i>
-                                    <a href="#">Home</a>
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+                            <ul class="row breadcrumb">
+                                <li>
+                                    <a href="#">Transacciones</a>
                                 </li>
-                                <li class="active">Dashboard</li>
+                                <li>
+                                    <a href="#">Materiales</a>
+                                </li>
+                                <li class="active">Aviso Entrada de Material</li>
                             </ul>
                         </div>
                     </div>
@@ -688,6 +691,7 @@
                 $(".notifications").css("display", "none");
                 $(".logged-user").css("display", "none");
                 $(".content-container").removeClass("topbar");
+                $(".breadcrumb").css("display", "none");
             }
         }
 

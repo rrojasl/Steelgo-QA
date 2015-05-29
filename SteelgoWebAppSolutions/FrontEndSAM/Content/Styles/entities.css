@@ -12,7 +12,7 @@
     06  $_sidebar
     07  $_icons
     08  $_content-container
-    09  $_
+    09  $_breadcrumb
     10  $_
     11  $_
 
@@ -586,16 +586,35 @@ header .menu > div {
 **********************************************************************************/
 .content-container {
     width: 87.5%;
-    padding-left: 48px;
+    /*padding-left: 48px;*/
 }
 
     .content-container.topbar {
-        border-top: 1px solid #C6C6C6;
+        border-top: 1px solid #BBBBBB;
     }
 
     .content-container.expanded {
         width: 96.97%;
     }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_breadcrumb
+ Description:   Customize breadcrumbs section for the main content.
+**********************************************************************************/
+.breadcrumb {
+    background-color: #F1F1F1;
+    border-bottom: 1px solid #D0D0D0;
+    height: 79px;
+    max-height: 79px;
+    padding: 31px 30px;
+}
+
+.breadcrumb li a {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
 /**********************************************************************************/
 
 
@@ -668,7 +687,7 @@ header .menu > div {
     /*$_content-container*/
     .content-container {
         width: 76.5%;
-        padding-left: 28px;
+        /*padding-left: 28px;*/
     }
 }
 
@@ -680,7 +699,7 @@ header .menu > div {
         width: 5%;
     }
 
-    .sidebar.minified .nav-footer .icn.right {
+        .sidebar.minified .nav-footer .icn.right {
             left: 7px;
         }
 
