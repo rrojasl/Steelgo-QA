@@ -33,6 +33,12 @@ namespace BackEndSAM.Controllers
             Files files2 = new Files();
             Chofer chofer = new Chofer();
             Plana plana = new Plana();
+            PermisoAduana permisoaduana1 = new PermisoAduana();
+            ArchivoAutorizado archivoautorizado1 = new ArchivoAutorizado();
+
+            //archivoautorizado1.ArchivoId = 99;
+            //archivoautorizado1.Extension = ".doc";
+            //archivoautorizado1.Nombre = "c://loca..coma";
 
             files.id = 1;
             files.Archivo = "Prueba1";
@@ -45,11 +51,11 @@ namespace BackEndSAM.Controllers
             listFiles.Add(files2);
 
             transportista.TransportistaID = 1;
-            transportista.Nombre = "value1";
+            transportista.Nombre = "Francisco Martinez";
             
 
             proveedor.ProveedorID = 1;
-            proveedor.Nombre = "value1";
+            proveedor.Nombre = "Femsa";
 
 
             patio.PatioID = 1;
@@ -80,6 +86,10 @@ namespace BackEndSAM.Controllers
             aviso.Choferes = chofer;
             aviso.Archivos = new List<Files>();
             aviso.Archivos = listFiles;
+            permisoaduana1.PermisoAutorizado = 0;
+            permisoaduana1.PermisoTramite = 1;
+            permisoaduana1.ArchivoAutorizado = archivoautorizado1;
+            aviso.PermisoAduana = permisoaduana1;
             lstAviso.Add(aviso);
 
             List<Proveedor> lstProveedor2 = new List<Proveedor>();
@@ -99,6 +109,8 @@ namespace BackEndSAM.Controllers
             Files files3 = new Files();
             Chofer chofer2 = new Chofer();
             Plana plana2 = new Plana();
+            PermisoAduana permisoaduana = new PermisoAduana();
+            ArchivoAutorizado archivoautorizado = new ArchivoAutorizado();
 
             files1.id = 1;
             files1.Archivo = "Prueba1";
@@ -109,9 +121,9 @@ namespace BackEndSAM.Controllers
             files3.Extension = ".docx";
             listFiles2.Add(files3);
             transportista2.TransportistaID = 1;
-            transportista2.Nombre = "value2";
+            transportista2.Nombre = "Sara Martinez";
             proveedor2.ProveedorID = 2;
-            proveedor2.Nombre = "value2";
+            proveedor2.Nombre = "Kentucky";
             patio2.PatioID = 2;
             patio2.Nombre = "value2";
             chofer2.ChoferID = 2;
@@ -119,8 +131,12 @@ namespace BackEndSAM.Controllers
             plana2.PlanaID = 1;
             plana2.Nombre = "value2";
             aviso1.FolioAvisoLlegadaID = 2;
-            proyecto.ProyectoID = 1;
+            proyecto1.ProyectoID = 1;
             lstProyecto2.Add(proyecto1);
+
+            archivoautorizado.ArchivoID = 99;
+            archivoautorizado.Extension = ".doc";
+            archivoautorizado.Nombre = "c://loca..coma";
 
             aviso1.Proyectos = lstProyecto2;
             aviso1.Factura = "RSE-Factfolio2";
@@ -133,6 +149,11 @@ namespace BackEndSAM.Controllers
             aviso1.Choferes = chofer2;
             aviso1.Archivos = new List<Files>();
             aviso1.Archivos = listFiles2;
+            permisoaduana.PermisoAutorizado = 1;
+            permisoaduana.PermisoTramite = 1;
+            permisoaduana.NumeroPermiso = 123;
+            permisoaduana.ArchivoAutorizado = archivoautorizado;
+            aviso1.PermisoAduana = permisoaduana;
             lstAviso.Add(aviso1);
 
             return lstAviso.Where(x => x.FolioAvisoLlegadaID == int.Parse(folio)).AsEnumerable();
@@ -145,8 +166,11 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/avisollegada
-        public void Post(string avisollegada, string username, string token)
+        public AvisoLlegada Post(string avisollegada, string username, string token)
         {
+            AvisoLlegada aviso1 = new AvisoLlegada();
+            aviso1.FolioAvisoLlegadaID = 12;
+            return aviso1;//
         }
 
         // PUT api/avisollegada/5
