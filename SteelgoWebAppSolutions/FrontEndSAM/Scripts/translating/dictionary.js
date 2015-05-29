@@ -47,8 +47,72 @@ _dictionary = {
         "en-US": "Search in whole site..."
     },
     "layoutLabel0002": {
-        "es-MX": "Derechos Reservados STEELGO",
-        "en-US": "Copyright STEELGO"
+        "es-MX": "Perfil",
+        "en-US": "Profile"
+    },
+    "layoutLabel0003": {
+        "es-MX": "Configuraciones",
+        "en-US": "Settings"
+    },
+    "layoutLabel0004": {
+        "es-MX": "Salir",
+        "en-US": "Logout"
+    },
+    "layoutLabel0005": {
+        "es-MX": "Dashboard",
+        "en-US": "Dashboard"
+    },
+    "layoutLabel0006": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "layoutLabel0007": {
+        "es-MX": "Catálogo",
+        "en-US": "Catalog"
+    },
+    "layoutLabel0008": {
+        "es-MX": "Reportes",
+        "en-US": "Reports"
+    },
+    "layoutLabel0009": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "layoutLabel0010": {
+        "es-MX": "Configuración",
+        "en-US": "Settings"
+    },
+    "layoutLabel0011": {
+        "es-MX": "Soporte",
+        "en-US": "Support"
+    },
+    "layoutLabel0012": {
+        "es-MX": "KPI's",
+        "en-US": "KPI's"
+    },
+    "layoutLabel0013": {
+        "es-MX": "Comunicación",
+        "en-US": "Comunication"
+    },
+    "layoutLabel0014": {
+        "es-MX": "Ligas Rápidas",
+        "en-US": "Shortcuts"
+    },
+    "layoutLabel0015": {
+        "es-MX": "Acerca del Grupo",
+        "en-US": "About the Group"
+    },
+    "layoutLabel0016": {
+        "es-MX": "Política de Privacidad",
+        "en-US": "Privacy Policy"
+    },
+    "layoutLabel0017": {
+        "es-MX": "Política de Uso",
+        "en-US": "Use Policy"
+    },
+    "layoutLabel0018": {
+        "es-MX": "Contacto",
+        "en-US": "Contact Us"
     },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
