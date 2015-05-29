@@ -216,6 +216,22 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "DetalleAvisoLlegada0035": {
+        "es-MX": "Permiso Aduana",
+        "en-US": "Customs Permission"
+    },
+    "DetalleAvisoLlegada0036": {
+        "es-MX": "Tramitar Permiso",
+        "en-US": "Permit Process"
+    },
+    "DetalleAvisoLlegada0037": {
+        "es-MX": "Permiso Autorizado",
+        "en-US": "Permit Authorized"
+    },
+    "DetalleAvisoLlegada00038": {
+        "es-MX": "Numero Permiso",
+        "en-US": "Permit number"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

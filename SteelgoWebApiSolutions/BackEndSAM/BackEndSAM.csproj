@@ -99,12 +99,14 @@
     <Compile Include="Controllers\DummyListadoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DummyPlanaController.cs" />
     <Compile Include="Controllers\DummyProveedorController.cs" />
+    <Compile Include="Controllers\DummyTramitarPermisoController.cs" />
     <Compile Include="Controllers\DummyTransportistaController.cs" />
     <Compile Include="Controllers\DummyPatioController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />
     <Compile Include="Models\Dummy\Chofer.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Models\Dummy\Files.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Patio.cs" />
+    <Compile Include="Models\Dummy\PermisoAduana.cs" />
     <Compile Include="Models\Dummy\Plana.cs" />
     <Compile Include="Models\Dummy\Proveedor.cs" />
     <Compile Include="Models\Dummy\Proyecto.cs" />

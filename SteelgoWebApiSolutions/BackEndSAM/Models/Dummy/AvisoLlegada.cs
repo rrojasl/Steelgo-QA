@@ -18,5 +18,6 @@ namespace BackEndSAM.Models
         public Patio Patios { get; set; }
         public Chofer Choferes { get; set; }
         public List<Files> Archivos { get; set; }
+        public PermisoAduana PermisoAduana { get; set; }
     }
 }

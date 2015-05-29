@@ -68,10 +68,33 @@
         </table>
 
     </div>
+@*Permiso Aduana*@
+    <div id="PermisoAduana" style="display:none">
+        <div class="form-group">
+            <h2><label id="DetalleAvisoLlegada0035"></label></h2>
+        </div>
+        <br />
+        <div class="form-group">
+            <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><label id="DetalleAvisoLlegada0036"></label></a>
+        </div>
+        <div class="form-group">
+             <label id="DetalleAvisoLlegada0037"></label> 
+            <div id="divArchivoAutorizar"><input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="form-control" /></div>
+            <div id="divLinkAutorizar" style="display:none"></div>
+        </div>
+        <div class="form-group">
+            <label id="DetalleAvisoLlegada00038"></label> 
+            <input id="NumeroPermiso" class="form-control"/>
+        </div>
+
+    </div>
+@****************@
+
     <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0017"></label></a>
     <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0018"></label></a>
 </div>
 
+@*Ventana Modal*@
     <div id="window">
         @*Content of the Window*@
        <div id="modalTransportista" style="display:none">
@@ -173,6 +196,11 @@
         </div>
 
     </div>
+
+<input id="hdPermisoAutorizado" type="hidden" />
+<input id="hdPermisoTramite" type="hidden" />
+<input id="hdArchivoAutorizado" type="hidden" value="155,c://prueba.com,.xlsx" />
+
 <script>
     @section JavascriptGlobalVariables {
         //your partial views variables
@@ -198,14 +226,16 @@
                 var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
-            //Modales
+            //**Modales
             $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
             $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
             $("#GuardarPatio").click(function (e) { GuardarPatio(); });
             $("#GuardarChofer").click(function (e) { GuardarChofer(); });
             $("#GuardarPlana").click(function (e) { GuardarPlana(); });
-            
             //**
+
+            //Permiso Aduana
+            $("#TramitarPermiso").click(function () { GenerarPermiso(); });
 
             $("#ProyectoID").kendoMultiSelect({
                 dataSource: {
@@ -345,7 +375,10 @@
                     autoUpload: false
                 },
                 success: function (data) {
-
+                    //Se crea la tabla dinamica con el archivo que  se dio de alta, [id], [Archivo], [Extension]
+                    $.each(data, function (index, value) {
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
+                    });
                 },
                 error: function (data) { },
                 upload: onUpload
@@ -390,12 +423,35 @@
                 },
                 filter: "contains",
             });
+
+            $('#ArchivoAutorizar').kendoUpload({
+                async: {
+                    saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                    autoUpload: false
+                },
+                success: function (data) {
+                    $("#hdArchivoAutorizado").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
+                    $("#hdPermisoAutorizado").val(1);
+                    $("#ArchivoAutorizar").data("kendoUpload").disable();
+                    $("#NumeroPermiso").attr("disabled", "disabled");
+                },
+                error: function (data) { },
+                upload: onUploadArchivoAutorizar
+            });
+            
+        };
+
+        function onUploadArchivoAutorizar() {
+            if (!$("#NumeroPermiso").val()) {
+                alert("Por favor, seleccionar el numero de permiso");
+                e.preventDefault();
+            }
         };
 
         function onUpload(e) {
             if (!$("#TipoArchivo").data("kendoComboBox").value()) {
                 alert("Por favor, seleccionar el tipo de archivo");
-                return false;
+                e.preventDefault();
             }
         };
 
@@ -403,11 +459,28 @@
         {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", PaseSalida: "" };
+                
+                _permisoAduana = [];
+                _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
+
                 //objeto para los proyectos y documentos.
                 ProyectoIDs = [];
                 Documentos = [];                
+                permiso = [];
 
+                var _archivoautorizado = $("#hdArchivoAutorizado").val();
+                item = {};
+                item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
+                item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
+                item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
+                permiso.push(item);
+
+                _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
+                _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
+                _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
+                _permisoAduana[0].ArchivoAutorizado = permiso;
+                
                 var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
                     alert(index + ":" + value);
@@ -443,23 +516,28 @@
                 AvisoLlegada[0].Patio = Patio;
                 AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
+                AvisoLlegada[0].PermisoAduana = _permisoAduana;
 
                 console.log(JSON.stringify(AvisoLlegada));
 
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyAvisoLlegada');
 
-                if (folio != -1)
+                if (folio != -1)//Edición
                 {
                     Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.update");
                     });
-                } else
+                } else //Alta
                 {
                     Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.create");
+                        folio = data.FolioAvisoLlegadaID;
+                        $("#PermisoAduana").show();
                     });
                 }
+
+
         };
 
         function descargarArchivo(id) {
@@ -494,13 +572,13 @@
                     console.log(" concat:" + concat);
                 });
 
-                $("#Proyecto").data("kendoMultiSelect").value(concat.split(","));
+                $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
                 $("#Factura").val(data[0].Factura);
 
                 //Se carga el arreglo transportista
                 if(data[0].Transportistas){
                     CargarTransportista(data[0].Transportistas.TransportistaID, data[0].Transportistas.Nombre);
-                    $("#Transportista").data("kendoAutoComplete").value(data[0].Transportistas.Nombre);
+                    $("#TransportistaID").data("kendoAutoComplete").value(data[0].Transportistas.Nombre);
                 }
                 //Fecha Recepcion
                 var d = new Date(data[0].FechaRecepcion);
@@ -509,12 +587,12 @@
                 //Se carga el arreglo Proveedores
                 if(data[0].Proveedores){
                     CargarProveedor(data[0].Proveedores.ProveedorID, data[0].Proveedores.Nombre);
-                    $("#Proveedor").data("kendoAutoComplete").value(data[0].Proveedores.Nombre);
+                    $("#ProveedorID").data("kendoAutoComplete").value(data[0].Proveedores.Nombre);
                 }
 
                 if(data[0].Planas) {
                     CargarPlana(data[0].Planas.PlanaID, data[0].Planas.Nombre);
-                    $("#Plana").data("kendoAutoComplete").value(data[0].Planas.Nombre);
+                    $("#PlanaID").data("kendoAutoComplete").value(data[0].Planas.Nombre);
                 }
 
                 $("#OrdenDeCompra").val(data[0].OrdenCompra);
@@ -522,18 +600,35 @@
                 //Se carga el arreglo Patio
                 if(data[0].Patios) {
                     CargarPatio(data[0].Patios.PatioID, data[0].Patios.Nombre);
-                    $("#Patio").data("kendoAutoComplete").value(data[0].Patios.Nombre);
+                    $("#PatioID").data("kendoAutoComplete").value(data[0].Patios.Nombre);
                 }
 
                 //Se carga el arreglo Chofer
                 if (data[0].Choferes) {
                     CargarChofer(data[0].Choferes.ChoferID, data[0].Choferes.Nombre);
-                    $("#Chofer").data("kendoAutoComplete").value(data[0].Choferes.Nombre);
+                    $("#ChoferID").data("kendoAutoComplete").value(data[0].Choferes.Nombre);
                 }
 
                 $.each(data[0].Archivos, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
                 });
+
+                $("#PermisoAduana").show();
+                if (data[0].PermisoAduana.PermisoTramite) {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#hdPermisoTramite").val(1);
+                }
+                
+                if (data[0].PermisoAduana.PermisoAutorizado) {
+                    $("#divArchivoAutorizar").hide();
+                    $("#divLinkAutorizar").show();
+                    $("#divLinkAutorizar").append("<a href=''>" + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "</a>");
+                    $("#hdArchivoAutorizado").val(data[0].PermisoAduana.ArchivoAutorizado.ArchivoID + "," + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "," + data[0].PermisoAduana.ArchivoAutorizado.Extension);
+                    $("#hdPermisoAutorizado").val(1);
+                    $("#NumeroPermiso").val(data[0].PermisoAduana.NumeroPermiso);
+                    $("#NumeroPermiso").attr('disabled', 'disabled');
+                };
+                console.log(data);
             });
         };
 
@@ -648,7 +743,6 @@
             }).data("kendoWindow");
             window.data("kendoWindow").open();
         };
-
 
         function GuardarTransportista() {
 
@@ -768,6 +862,23 @@
             $("#Placas_Plana").val("");
         };
 
+        function GenerarPermiso() {
+            TramitarPermiso = [];
+            TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
+            TramitarPermiso[0].FolioAvisoLlegadaID = folio;
+            TramitarPermiso[0].Status = 1;
+            
+            console.log(JSON.stringify(TramitarPermiso));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyTramitarPermiso');
+            Client.DummyTramitarPermiso.create({}, { permiso: JSON.stringify(TramitarPermiso), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyTramitarPermiso.create");
+                $("#hdPermisoTramite").val(1);//Permiso en tramite
+                $("#TramitarPermiso").attr("disabled", "disabled");
+            });
+
+        };
 }
 
     @section JavascriptDocumentReadyFunctions {
