@@ -12,6 +12,7 @@ using MessagesManager.Utils;
 using System.Web.Http;
 using System.Data;
 using System.Data.SqlClient;
+using DatabaseManager.Sam3;
 
 namespace MessagesManager.Controllers
 {
@@ -85,40 +86,66 @@ namespace MessagesManager.Controllers
             return p;
         }
 
+        //public List<Notificacion> GetNotificationsByUserID(int userId)
+        //{
+        //    List<Notificacion> notifications = new List<Notificacion>();
+
+        //    using (IDbConnection connection = DataAccessFactory.CreateConnection("SamDB"))
+        //    {
+        //        connection.Open();
+
+        //        IDbCommand cmd = connection.CreateCommand();
+        //        cmd.CommandText = "select * from Notificacion where usuerID = @UserID and activo = 1 ";
+
+        //        cmd.Parameters.Add(new SqlParameter("@UserId", userId));
+
+        //        IDataReader reader = cmd.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            Notificacion n = new Notificacion()
+        //            {
+        //                notificacionID = reader.GetInt32(0),
+        //                usuarioIDReceptorId = reader.GetInt32(1),
+        //                usuarioIDEmisorId = reader.GetInt32(2),
+        //                tipoNotificacionId = reader.GetInt32(3),
+        //                mensaje = reader.GetString(4),
+        //                fechaEnvio = reader.GetDateTime(5),
+        //                fechaRecepcion = reader.GetDateTime(6),
+        //                estatusLectura = reader.GetBoolean(7),
+        //                entidadId = reader.GetInt32(8),
+        //                activo = reader.GetBoolean(9)
+        //            };
+        //            notifications.Add(n);
+        //        }
+        //        connection.Close();
+
+        //        return notifications;
+        //    }
+        //}
+
+
         public List<Notificacion> GetNotificationsByUserID(int userId)
         {
             List<Notificacion> notifications = new List<Notificacion>();
 
-            using (IDbConnection connection = DataAccessFactory.CreateConnection("SamDB"))
+            using (SamContext ctx = new SamContext())
             {
-                connection.Open();
-
-                IDbCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "select * from Notificacion where usuerID = @UserID and activo = 1 ";
-
-                cmd.Parameters.Add(new SqlParameter("@UserId", userId));
-
-                IDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Notificacion n = new Notificacion()
-                    {
-                        notificacionID = reader.GetInt32(0),
-                        usuarioIDReceptorId = reader.GetInt32(1),
-                        usuarioIDEmisorId = reader.GetInt32(2),
-                        tipoNotificacionId = reader.GetInt32(3),
-                        mensaje = reader.GetString(4),
-                        fechaEnvio = reader.GetDateTime(5),
-                        fechaRecepcion = reader.GetDateTime(6),
-                        estatusLectura = reader.GetBoolean(7),
-                        entidadId = reader.GetInt32(8),
-                        activo = reader.GetBoolean(9)
-                    };
-                    notifications.Add(n);
-                }
-                connection.Close();
-
+                notifications = ctx.Notificacion.Where(x => x.UsuarioIDReceptor == userId).ToList();
                 return notifications;
+            }
+        }
+
+        /// <summary>
+        /// El manejo de la base de datos es similar a sam 3, con el entity framework 6 ya no se utilizan los metodos
+        /// como acceptChanges o applyChanges, pues el contexto se encarfa 
+        /// </summary>
+        public void UsoDataBaseManager()
+        {
+            using (SamContext ctx = new SamContext())
+            {
+                DatabaseManager.Sam3.Acero acero = ctx.Acero.FirstOrDefault();
+                acero.FamiliaAceroID = 10;
+                ctx.SaveChanges();
             }
         }
     }

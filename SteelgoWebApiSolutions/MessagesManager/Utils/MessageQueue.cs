@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Messaging;
-using MessagesManager.Models; 
+using MessagesManager.Models;
+using DatabaseManager.Sam3;
 
 namespace MessagesManager.Utils
 {   
@@ -22,8 +23,8 @@ namespace MessagesManager.Utils
             MessageQueue msg = new MessageQueue(QueueName);            
 
             Notificacion notificacion = new Notificacion() { 
-                tipoNotificacionId = tipoNotificacion,
-                entidadId = entidadId,
+                TipoNotificacionID = tipoNotificacion,
+                EntidadID = entidadId,
                            
             };
 

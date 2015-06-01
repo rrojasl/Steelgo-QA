@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MessagesManager.Models
 {
     [Serializable()]
-    public class Notificacion
+    public class NotificacionLocal
     {
         public int notificacionID { get; set; }
         public int usuarioIDReceptorId { get; set; }
