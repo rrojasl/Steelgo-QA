@@ -13,7 +13,8 @@ using System.Configuration;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*", SupportsCredentials = true)]
+    //[EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*", SupportsCredentials = true)]
+    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
     public class DummyFileManagerController : ApiController
     {
 
