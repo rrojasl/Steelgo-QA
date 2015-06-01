@@ -228,7 +228,7 @@
             Folio.push(_folio);
         };
 
-        $('#AdjuntarArchivos').kendoUpload({
+        @*$('#AdjuntarArchivos').kendoUpload({
             async: {
                 saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
                     autoUpload: false
@@ -240,7 +240,8 @@
             upload: onUploadAdjuntarArchivos
         });
 
-        function onUploadAdjuntarArchivos() {
+        *@
+    function onUploadAdjuntarArchivos() {
 
         };
     };
