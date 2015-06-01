@@ -19,5 +19,6 @@ namespace BackEndSAM.Models
         public Chofer Choferes { get; set; }
         public List<Files> Archivos { get; set; }
         public PermisoAduana PermisoAduana { get; set; }
+        public PaseSalida PaseSalida { get; set; }
     }
 }

@@ -332,9 +332,25 @@ _dictionary = {
         "es-MX": "Permiso Autorizado",
         "en-US": "Permit Authorized"
     },
-    "DetalleAvisoLlegada00038": {
+    "DetalleAvisoLlegada0038": {
         "es-MX": "Numero Permiso",
         "en-US": "Permit number"
+    },
+    "DetalleAvisoLlegada0039": {
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
+    },
+    "DetalleAvisoLlegada0040": {
+        "es-MX": "Packing List Firmado*",
+        "en-US": "Packing List Signed"
+    },
+    "DetalleAvisoLlegada0041": {
+        "es-MX": "Aviso de Entrega de Material",
+        "en-US": "Delivery Notice of Material"
+    },
+    "DetalleAvisoLlegada0042": {
+        "es-MX": "Folio: ",
+        "en-US": "Folio: "
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {

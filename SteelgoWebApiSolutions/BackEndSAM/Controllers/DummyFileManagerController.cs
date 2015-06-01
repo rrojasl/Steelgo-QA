@@ -9,6 +9,7 @@ using System.Web.Http.Cors;
 using BackEndSAM.Models;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace BackEndSAM.Controllers
 {
@@ -73,6 +74,37 @@ namespace BackEndSAM.Controllers
         public void Delete(string archivoID, string username, string token)
         {
            
+        }
+
+
+        public Task<HttpResponseMessage> Post()
+        {
+            // Check if the request contains multipart/form-data.
+            if (Request.Content.IsMimeMultipartContent() == false)
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            var task = Request.Content.ReadAsMultipartAsync(provider).
+                ContinueWith<HttpResponseMessage>(t =>
+                {
+                    if (t.IsFaulted || t.IsCanceled)
+                    {
+                        Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
+                    }
+
+                    foreach (MultipartFileData file in provider.FileData)
+                    {
+                        //string directory = Path.GetDirectoryName(file.LocalFileName);
+                       
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                });
+
+            return task;
         }
     }
 }
