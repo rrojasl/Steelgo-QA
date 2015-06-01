@@ -104,6 +104,7 @@
     <Compile Include="Controllers\DummyTransportistaController.cs" />
     <Compile Include="Controllers\DummyPatioController.cs" />
     <Compile Include="Controllers\DummyEntradaMaterialController.cs" />
+    <Compile Include="Controllers\DummyEstatusController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,6 +115,7 @@
     <Compile Include="Models\Dummy\Chofer.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />
+    <Compile Include="Models\Dummy\Estatus.cs" />
     <Compile Include="Models\Dummy\Files.cs" />
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />

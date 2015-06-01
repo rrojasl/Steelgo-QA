@@ -7,7 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Chofer
     {
-        public int ChoferID { get; set; }
+        public string ChoferID { get; set; }
         public string Nombre { get; set; }
     }
 }

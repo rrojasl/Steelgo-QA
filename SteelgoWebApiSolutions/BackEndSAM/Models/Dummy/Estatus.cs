@@ -5,9 +5,9 @@ using System.Web;
 
 namespace BackEndSAM.Models
 {
-    public class Plana
+    public class Estatus
     {
-        public string PlanaID { get; set; }
+        public string EstatusID { get; set; }
         public string Nombre { get; set; }
     }
 }

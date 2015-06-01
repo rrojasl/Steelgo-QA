@@ -4,7 +4,7 @@
 }
     <div class="form-group">
         <label id="EntradaMaterial0003"></label> 
-        <input id="FolioLlegadaID" class="form-control"/>
+        <input id="FolioEntradaID" class="form-control"/>
     </div>
     <div class="form-group">
         <label id="EntradaMaterial0002"></label> 
@@ -14,7 +14,7 @@
         <label id="EntradaMaterial0004"></label> 
         <input id="Estatus" class="form-control"/>
     </div>
-    <div class="form-group">
+    <div id="divPatio" class="form-group" style="display:none">
         <label id="EntradaMaterial0001"></label> 
         <input id="PatioID" />
          <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
@@ -60,6 +60,24 @@
 
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
+            $("#FolioEntradaID").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/DummyFolioEntrada",
+                        }
+                    }
+                },
+                dataTextField: "FolioAvisoLlegadaID",
+                dataValueField: "Consecutivo",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarFolio(dataItem.FolioAvisoLlegadaID);
+                },
+                filter: "contains"
+            });
 
             $("#PatioID").kendoAutoComplete({
                 dataSource: {
@@ -67,22 +85,20 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: "http://localhost:60960/backendsam/api/DummyPatio",
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
-                //dataTextField: "Nombre",
-                //dataValueField: "PatioID",
+                dataTextField: "Nombre",
+                dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.id, dataItem.value);
+                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 },
-                filter: "contains",
+                filter: "contains"
             });
 
-            $("#ProyectoID").kendoMultiSelect({
+            $("#ProyectoID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -97,6 +113,48 @@
                 filter: "contains",
             });
 
+            $("#Estatus").kendoComboBox({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/DummyEstatus",
+                        }
+                    }
+                },
+                dataTextField: "Nombre",
+                dataValueField: "EstatusID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    if(dataItem.Nombre=="En Patio"){
+                        $("#divPatio").show();
+                    } else
+                    {
+                        $("#divPatio").hide();
+                        $("#PatioID").data("kendoAutoComplete").value("");
+                    }
+                },
+                filter: "contains",
+            });
+
+
+            $('#AdjuntarArchivos').kendoUpload({
+                async: {
+                    saveUrl: "http://localhost:60960/backendsam/api/DummyFileManager?username=test&token=testt",
+                    autoUpload: true,
+                    withCredentials: false
+                },
+                success: function (data) {
+                    alert("hola");
+                    //Se crea la tabla dinamica con el archivo que  se dio de alta, [id], [Archivo], [Extension]
+                    $.each(data, function (index, value) {
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                    });
+                },
+                error: function (data) { },
+                upload: onUploadAdjuntarArchivos
+            });
     };
 
         function VentanaModal(id) {
@@ -161,6 +219,13 @@
             _patio["PatioID"] = id;
             _patio["Nombre"] = value;
             Patio.push(_patio);
+        };
+
+        function CargarFolio(id) {
+            Folio = [];
+            _folio = {};
+            _folio["FolioAvisoLlegadaID"] = id;
+            Folio.push(_folio);
         };
 
         $('#AdjuntarArchivos').kendoUpload({

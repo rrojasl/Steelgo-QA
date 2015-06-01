@@ -354,17 +354,15 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: "http://localhost:60960/backendsam/api/DummyPatio",
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
-                //dataTextField: "Nombre",
-                //dataValueField: "PatioID",
+                dataTextField: "Nombre",
+                dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.id, dataItem.value);
+                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
