@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MessagesManager.Models
 {
     [Serializable()]
-    public class Bitacora
+    public class BitacoraLocal
     {
         public int BitacoraID {get; set;}
         public int UsuarioID {get; set;}

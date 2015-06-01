@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MessagesManager.Models
 {
-    class Usuario
+    class UsuarioLocal
     {
     }
 }
