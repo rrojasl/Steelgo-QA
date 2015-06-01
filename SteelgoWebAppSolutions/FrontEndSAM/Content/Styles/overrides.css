@@ -201,6 +201,17 @@
     height: 36px;
     padding: 10px 9px;
 }
+
+    .k-grid-pager .k-pager-sizes {
+        float: right;
+    }
+
+        .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
+            min-height: 24px;
+            height: 24px;
+            font-size: 14px;
+            padding: 5px;
+        }
 /**********************************************************************************/
 
 

@@ -85,19 +85,19 @@
                             }
                         }
                     },
-                    pageSize: 20,
+                    pageSize: 10,
                     serverPaging: false,
                     serverFiltering: false,
                     serverSorting: false
                 },
                 autoHeight: true,
-                //height: 500,
                 sortable: true,
                 scrollable: false,
                 filterable: true,
                 pageable: {
                     refresh: false,
-                    pageSizes: false
+                    pageSizes: [10, 15, 20],
+                    info: false
                 },
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
