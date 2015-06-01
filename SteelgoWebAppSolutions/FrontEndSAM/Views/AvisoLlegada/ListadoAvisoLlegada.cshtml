@@ -15,7 +15,7 @@
             <input id="PatioID" class="" />
         </div>
         <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0004"></label>
+            <label id="ListadoAvisoLlegada0004" class="required"></label>
             <input id="ProyectoID" class="" />
         </div>
         <div class="form-group col-lg-2">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group col-lg-12">
-                <div id="grid"></div>
+            <div id="grid"></div>
         </div>
 
         <div id="window">
@@ -90,10 +90,10 @@
                     serverFiltering: false,
                     serverSorting: false
                 },
-                //autoHeight: true,
-                height: 500,
+                autoHeight: true,
+                //height: 500,
                 sortable: true,
-                //scrollable: false,
+                scrollable: false,
                 filterable: true,
                 pageable: {
                     refresh: false,
@@ -148,7 +148,7 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
     
-    $("#FolioAvisoLlegadaID").kendoAutoComplete({
+        $("#FolioAvisoLlegadaID").kendoAutoComplete({
             dataSource: {
                 serverFiltering: false,
                 type: "json",

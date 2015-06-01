@@ -218,8 +218,8 @@ header .menu > div {
         color: #FFFFFF;
         background: #e60404 !important;
         position: absolute;
-        top: -1px;
-        left: 52%;
+        top: 4px;
+        left: 51.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
         border-radius: 30px;
