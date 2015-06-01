@@ -20,8 +20,9 @@ namespace MessagesManager.Utils
                 MessageQueue.Create(QueueName);
             }
 
-            MessageQueue msg = new MessageQueue(QueueName);            
-
+            MessageQueue msg = new MessageQueue(QueueName);
+            
+            ///Cambie el nombre de las propiedades, acorde a la entidad
             Notificacion notificacion = new Notificacion() { 
                 TipoNotificacionID = tipoNotificacion,
                 EntidadID = entidadId,

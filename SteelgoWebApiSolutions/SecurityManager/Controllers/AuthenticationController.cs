@@ -1,5 +1,4 @@
-﻿using CommonTools.Libraries.Strings.Security;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +8,7 @@ using System.Web.Http;
 using System.Web.Script.Serialization;
 using SecurityManager.Api.Models;
 using System.Web.Http.Cors;
+using CommonTools.Libraries.Strings.Security;
 
 namespace SecurityManager
 {
