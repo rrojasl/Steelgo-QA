@@ -1,4 +1,285 @@
-﻿body {
+﻿/**********************************************************************************
+    File name: site.css
+    Description: CSS Framework customization.
+
+    Index: 
+
+    01  $_html
+    02  $_body
+    03  $_header
+    04  $_footer
+    05  $_content-frame
+    06  $_label
+    07  $_links
+    08  $_input
+    09  $_btn
+    10  $_
+    11  $_
+
+
+    Color Palette: 
+
+    Do Not Use Class security_required        
+
+**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_html
+ Description:   Customize html tag.
+**********************************************************************************/
+html {
+    position: relative;
+    min-height: 100%;
+    height: 100%;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_body
+ Description:   Customize body tag.
+**********************************************************************************/
+body {
+    color: #202020;
+    margin: 0;
+    min-height: 100%;
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_header
+ Description:   Customize header tag.
+**********************************************************************************/
+header {
+}
+
+    header .content-wrapper {
+        margin: 14px 0;
+    }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_footer
+ Description:   Customize footer tag.
+**********************************************************************************/
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+}
+
+    footer .content-wrapper {
+        width: 60%;
+        border-top: 1px solid #CCCCCC;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    footer .footerLinks {
+        text-align: right;
+    }
+
+    footer label {
+        color: #898989;
+        font-weight: normal;
+        font-size: 12px;
+        margin-left: 10px;
+        letter-spacing: 0.8px;
+    }
+
+    footer a {
+        margin-left: 27px;
+    }
+
+        footer a span {
+            color: #305E8E;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+        }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_content-frame
+ Description:   Customize label tag.
+**********************************************************************************/
+.content-frame {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+    .content-frame .container {
+        max-width: 100%;
+        width: 100%;
+        min-height: 100%;
+        height: 100%;
+    }
+
+        .content-frame .container > .row {
+            min-height: 100%;
+            height: 100%;
+        }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_label
+ Description:   Customize label tag.
+**********************************************************************************/
+label {
+    margin: 0;
+    padding: 0;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_links
+ Description:   Customize anchor tag.
+**********************************************************************************/
+a, a:link, a:hover, a:visited {
+    color: #305E8E;
+    outline: none;
+    text-decoration: none;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_input
+ Description:   Customize input tag.
+**********************************************************************************/
+input {
+    border-color: transparent;
+}
+
+    input:-moz-placeholder {
+        font-style: italic;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 600;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_btn
+ Description:   Customize button tag.
+**********************************************************************************/
+.btn, .btn:hover, .btn:focus {
+    color: #FFFFFF;
+    text-transform: capitalize;
+    display: block;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1.3px;
+}
+
+.btn-yellow {
+    width: 180px;
+    height: 40px;
+    background-color: #EC8B00;
+    border: none;
+    border-bottom: 3px solid #DF6600;
+}
+
+    .btn-yellow:hover {
+        background-color: rgba(236, 139, 000, 0.8);
+        border-bottom-color: rgba(223, 102, 0, 0.5);
+    }
+
+.btn-blue {
+    background-color: #305E8E;
+    border: 1px solid #234568;
+}
+
+    .btn-blue:hover {
+        background-color: #1C4070;
+        border-bottom-color: #152F52;
+    }
+/**********************************************************************************/
+
+
+/* Media Queries */
+
+/* xs viewport */
+@media screen and (max-width: 767px) {
+
+    /*$_footer*/
+    footer {
+        text-align: center;
+        bottom: 20px;
+    }
+
+        footer .content-wrapper {
+            border: none;
+            width: 90%;
+        }
+
+        footer label {
+            margin: 0;
+            display: block;
+            font-size: 9px;
+        }
+}
+
+/* sm viewport */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /*$_footer*/
+    footer {
+        text-align: center;
+    }
+}
+
+/* tablet viewport*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /*$_footer*/
+    footer .content-wrapper {
+        width: 80%;
+    }
+}
+
+/* md viewport */
+@media (min-width: 992px) and (max-width: 1024px) {
+
+    /*$_footer*/
+    footer label {
+        font-size: 11px;
+    }
+}
+
+/* lg viewport */
+@media (min-width: 1025px) {
 }
 
 

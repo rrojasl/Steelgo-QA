@@ -7,15 +7,22 @@ using System.Threading.Tasks;
 
 namespace MessagesManager.Utils
 {
-    public class Configuration
+    public class StringsConfiguration
     {
 
-        public static string QuequeMensajes
+        public static string QuequeBitacora
         {
             get
             {
-                return ConfigurationManager.AppSettings["Sam.QuequeMensajes"];
+                return ConfigurationManager.AppSettings["Sam.QuequeBitacora"];
             }
         }
+        public static string QuequeNotifications
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["Sam.QuequeNotifications"];
+            }
+        }       
     }
 }

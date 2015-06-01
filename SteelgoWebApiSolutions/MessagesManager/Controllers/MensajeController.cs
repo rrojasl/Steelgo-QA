@@ -3,82 +3,123 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 using Newtonsoft.Json;
+using CommonTools.Libraries.Strings.Security;
+using System.Messaging;
+using System.Text;
+using System.Threading.Tasks;
+using MessagesManager.Utils;
+using System.Web.Http;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace MessagesManager.Controllers
 {
     public class MensajeController : ApiController
     {
-        // GET api/mensaje
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        Base64Security dataSecurity = new Base64Security();
 
-        // GET api/mensaje/5
-        public string Get(int id)
+        private void SendMessageToQueue(string message, int typeMessage)
         {
-            return "value";
-        }
-
-        // POST api/mensaje
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/mensaje/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/mensaje/5
-        public void Delete(int id)
-        {
-        }
-
-        private void EnviarMensaje(string mensaje, int tipo)
-        {
-            if (tipo == 1)//Bitacora
+            if (typeMessage == 1)//Bitacora
             {
-            }
-            else if ( tipo== 2) //Notificacion
-            {
+                string path = StringsConfiguration.QuequeBitacora;
+                MessageQueue queueBitacora = new MessageQueue(path);
+                Bitacora bitacora = MappingLog(message);
+                queueBitacora.Send(bitacora);
 
             }
-
+            else if (typeMessage == 2) //Notificacion
+            {
+                string path = StringsConfiguration.QuequeNotifications;
+                MessageQueue queueNotifications = new MessageQueue(path);
+                Notificacion notification = MappingNotification(message);
+                queueNotifications.Send(notification);
+            }
         }
 
-       private Notificacion mapearMensajeNotificacion(string mensaje)
-       {
-           return null;
-       }
+        private void CreateMessage(string objectEncrypted, int typeMessage)
+        {
+            string message = dataSecurity.Decode(objectEncrypted);
+            //password = dataSecurity.Decode(password);
 
-       private Bitacora mapearMensajeBitacora(string mensaje)
-       {
-           Bitacora b = mensaje
-           return null;
-       }
+            if (typeMessage == 1)
+            {
+                MappingLog(message);
+            }
+            else if (typeMessage == 2)
+            {
+                MappingNotification(message);
+            }
 
+            SendMessageToQueue(message, typeMessage);
+        }
 
-       public T convertirObjToObj<T>(object objeto)
-       {
-           T p = default(T);
-           try
-           {
-               string json = JsonConvert.SerializeObject(objeto);
-               bool nulls = json.Contains("null");
+        private Notificacion MappingNotification(string message)
+        {
+            Notificacion notification = convertirObjToObj<Notificacion>(message);
+            return notification;
+        }
 
-               p = JsonConvert.DeserializeObject<T>(json);
-           }
-           catch (JsonSerializationException jsE)
-           {
-               string error = jsE.Message;
-           }
+        private Bitacora MappingLog(string message)
+        {
+            Bitacora log = convertirObjToObj<Bitacora>(message);
+            return log;
+        }
 
-           return p;
-       }
+        private T convertirObjToObj<T>(object objecto)
+        {
+            T p = default(T);
+            try
+            {
+                string json = JsonConvert.SerializeObject(objecto);
+                bool nulls = json.Contains("null");
 
+                p = JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (JsonSerializationException jsE)
+            {
+                string error = jsE.Message;
+            }
+
+            return p;
+        }
+
+        public List<Notificacion> GetNotificationsByUserID(int userId)
+        {
+            List<Notificacion> notifications = new List<Notificacion>();
+
+            using (IDbConnection connection = DataAccessFactory.CreateConnection("SamDB"))
+            {
+                connection.Open();
+
+                IDbCommand cmd = connection.CreateCommand();
+                cmd.CommandText = "select * from Notificacion where usuerID = @UserID and activo = 1 ";
+
+                cmd.Parameters.Add(new SqlParameter("@UserId", userId));
+
+                IDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Notificacion n = new Notificacion()
+                    {
+                        notificacionID = reader.GetInt32(0),
+                        usuarioIDReceptorId = reader.GetInt32(1),
+                        usuarioIDEmisorId = reader.GetInt32(2),
+                        tipoNotificacionId = reader.GetInt32(3),
+                        mensaje = reader.GetString(4),
+                        fechaEnvio = reader.GetDateTime(5),
+                        fechaRecepcion = reader.GetDateTime(6),
+                        estatusLectura = reader.GetBoolean(7),
+                        entidadId = reader.GetInt32(8),
+                        activo = reader.GetBoolean(9)
+                    };
+                    notifications.Add(n);
+                }
+                connection.Close();
+
+                return notifications;
+            }
+        }
     }
 }

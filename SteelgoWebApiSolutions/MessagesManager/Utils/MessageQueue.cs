@@ -10,7 +10,7 @@ namespace MessagesManager.Utils
 {   
     public class QueueMessage
     {
-        string QueueName = Configuration.QuequeMensajes;
+        string QueueName = StringsConfiguration.QuequeBitacora;
 
         public void SendMessage(int entidadId, int tipoNotificacion, int emisorId, int receptorId, string mensaje)
         {
@@ -24,11 +24,7 @@ namespace MessagesManager.Utils
             Notificacion notificacion = new Notificacion() { 
                 tipoNotificacionId = tipoNotificacion,
                 entidadId = entidadId,
-                emisorId = entidadId,
-                receptorId = receptorId,
-                mensaje = mensaje,
-                fechaEnvio = DateTime.Now,
-                leido = false               
+                           
             };
 
             msg.Send(notificacion);

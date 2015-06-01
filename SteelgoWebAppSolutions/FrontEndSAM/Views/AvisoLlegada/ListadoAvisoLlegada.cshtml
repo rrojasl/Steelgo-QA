@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "ListadoAvisoLlegada";
+}
+
+<h2>ListadoAvisoLlegada</h2>
+<div class="form">
+        <div class="form-group">
+            <label id="ListadoAvisoLlegada0002"></label> 
+            <input id="FolioAvisoLlegadaID" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label id="ListadoAvisoLlegada0003"></label> 
+            <input id="PatioID" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label id="ListadoAvisoLlegada0004"></label> 
+            <input id="ProyectoID" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label id="ListadoAvisoLlegada0005"></label> 
+            <input id="ProveedorID" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label id="ListadoAvisoLlegada0006"></label> 
+            <input id="FechaInicial" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label id="ListadoAvisoLlegada0007"></label> 
+            <input id="FechaFinal" class="form-control"/>
+        </div>
+        <div class="form-group">
+           <a id="Mostrar" href="javascript:void(0);" class="btn btn-primary"><label id="ListadoAvisoLlegada0017"></label></a>
+        </div>
+        <br />
+        <div class="form-group">
+           <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"><label id="ListadoAvisoLlegada0001"></label></a>
+        </div> 
+
+        <div class="form-group">
+           <div id="grid"></div>
+        </div>
+
+    <div id="window">
+        @*Content of the Window*@
+    </div>
+</div>
+   
+
+<script>
+    @section JavascriptGlobalVariables {
+    //your partial views variables
+        var Transportista = [], Proveedor = [], Patio = [], Folio = [];
+        var FechaInicial, FechaFinal, resultadoJson;
+    }
+
+    @section JavascriptGlobalFunctions {        
+    //Your partial views specific functions
+        function changeDatePickerDateFormat(datePickerOptions) {
+            FechaInicial.setOptions(datePickerOptions);
+            FechaFinal.setOptions(datePickerOptions);
+        };
+
+        function changeLanguageCall() {
+            CargarGridAvisoLlegada();
+        }
+
+        function CargarGridAvisoLlegada()
+        {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    data: resultadoJson,
+                    schema: {
+                        model: {
+                            fields: {
+                                FolioAvisoLlegadaID: { type: "number" },
+                                Patio: {type:"string"},
+                                NombreProyecto: { type: "string" },
+                                Proveedor: { type: "string" },
+                                Transportista: { type: "string" },
+                                FechaRecepcion: { type: "date" },
+                                Estatus: { type: "string"}
+                            }
+                        }
+                    },
+                    pageSize: 20,
+                    serverPaging: false,
+                    serverFiltering: false,
+                    serverSorting: false
+                },
+                height: 550,
+                sortable: true,
+                filterable: true,
+                pageable: {
+                    refresh: false,
+                    pageSizes: false
+                },
+                columns: [
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true, format: "{0:yyyy-MM-dd}" },
+                    { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                    { command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
+                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
+                    ]
+            });
+        }
+
+        function mostrarDetalle(e)
+        {
+            e.preventDefault();
+            var tr = $(e.target).closest("tr"); // get the current table row (tr)
+            var data = this.dataItem(tr);
+            //REDIRECT
+            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + data.FolioAvisoLlegadaID;
+        }
+
+        function eliminarFolio(e)
+        {
+            e.preventDefault();
+            var tr = $(e.target).closest("tr"); // get the current table row (tr)
+            var datatr = this.dataItem(tr);
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyListadoAvisoLlegada');
+
+            Client.DummyListadoAvisoLlegada.destroy({}, { folio: datatr.FolioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                dataSource.remove(datatr);
+            });
+        }
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+
+        $("#Mostrar").click(function () { Filtros(2); });
+        $("#Creacion").click(function (e) {
+            //window.data("kendoWindow").open();
+            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#FolioAvisoLlegadaID").kendoAutoComplete({
+            dataSource: {
+                serverFiltering: false,
+                type: "json",
+                transport: {
+                    read: {
+                        url: "http://localhost:60960/backendsam/api/Proyecto",
+                    }
+                }
+            },
+            dataTextField: "id",
+            dataValueField: "value",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFolio(dataItem.id);
+            },
+            filter: "contains",
+        });
+
+        $("#PatioID").kendoAutoComplete({
+            dataSource: {
+                serverFiltering: false,
+                type: "json",
+                transport: {
+                    read: {
+                        url: "http://localhost:60960/backendsam/api/Proyecto",
+                    }
+                }
+            },
+            dataTextField: "value",
+            dataValueField: "id",
+            //dataTextField: "Nombre",
+            //dataValueField: "PatioID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarPatio(dataItem.id, dataItem.value);
+            },
+            filter: "contains",
+        });
+
+        $("#ProyectoID").kendoMultiSelect({
+            dataSource: {
+                serverFiltering: false,
+                type: "json",
+                transport: {
+                    read: {
+                        url: "http://localhost:60960/backendsam/api/Proyecto",
+                    }
+                }
+            },
+            dataTextField: "value",
+            dataValueField: "id",
+            filter: "contains",
+        });
+
+        $("#ProveedorID").kendoAutoComplete({
+            dataSource: {
+                serverFiltering: false,
+                type: "json",
+                transport: {
+                    read: {
+                        url: "http://localhost:60960/backendsam/api/DummyProveedor",
+                    }
+                }
+            },
+            dataTextField: "Nombre",
+            dataValueField: "ProveedorID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
+            },
+            filter: "contains",
+        });
+
+        $("#TransportistaID").kendoAutoComplete({
+            dataSource: {
+                serverFiltering: false,
+                type: "json",
+                transport: {
+                    read: {
+                        url: "http://localhost:60960/backendsam/api/DummyTransportista",
+                    }
+                }
+            },
+            dataTextField: "Nombre",
+            dataValueField: "TransportistaID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+            },
+            filter: "contains",
+        });
+        FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
+        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+        ObtenerFechasporDefecto();
+        Filtros(1);
+    }
+
+    function ObtenerFechasporDefecto() {
+        var today = new Date();
+        var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
+
+        $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+        $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+    };
+
+    function CargarFolio(id) {
+        Folio = [];
+        _folio = {};
+        _folio["FolioAvisoLlegadaID"] = id;
+        Folio.push(_folio);
+    }
+    function CargarPatio(id, value) {
+        Patio = [];
+        _patio = {};
+        _patio["PatioID"] = id;
+        _patio["Nombre"] = value;
+        Patio.push(_patio);
+    };
+
+    function CargarProveedor(id, value) {
+        Proveedor = [];
+        _proveedor = {};
+        _proveedor["ProveedorID"] = id;
+        _proveedor["Nombre"] = value;
+        Proveedor.push(_proveedor);
+    };
+
+    function CargarTransportista(id, value) {
+        Transportista = [];
+        _transportista = {};
+        _transportista["TransportistaID"] = id;
+        _transportista["Nombre"] = value;
+        Transportista.push(_transportista);
+    };
+
+    function Filtros(prueba) {
+        ListadoModal = [];
+        ListadoModal[0] = { FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
+        ProyectoIDs = [];
+
+        var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
+        $.each(proyectos, function (index, value) {
+            item = {};
+            item["ProyectoID"] = value;
+            ProyectoIDs.push(item);
+        });
+
+        var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+        var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+        ListadoModal[0].FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
+        ListadoModal[0].Patio = Patio;
+        ListadoModal[0].Proyectos = ProyectoIDs;
+        ListadoModal[0].Proveedor = Proveedor;
+        ListadoModal[0].FechaInicial = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
+        ListadoModal[0].FechaFinal = d1.toLocaleDateString($("#language").data("kendoDropDownList").value());
+
+        console.log(JSON.stringify(ListadoModal));
+
+        var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        Client.add('DummyListadoAvisoLlegada');
+
+        Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            console.log(data);
+            resultadoJson = data;
+            CargarGridAvisoLlegada();
+        });
+    };
+</script>
+

@@ -18,7 +18,7 @@ namespace SecurityManager
     ///         POST Method creates a session
     ///         DELETE Method removes a session
     /// </summary>
-    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
         Base64Security dataSecurity = new Base64Security();
@@ -36,7 +36,7 @@ namespace SecurityManager
         /// </param>
         /// <returns> TransactionalInformation Object in a JSON Response  </returns>
         /// <example> GET securitymanager/api/authentication/ </example>
-        public string Get(string username, string token)
+        public TransactionalInformation Get(string username, string token)
         {
             username = dataSecurity.Decode(username);
             token = dataSecurity.Decode(token);
@@ -50,9 +50,7 @@ namespace SecurityManager
                 transaction.IsAuthenicated = true;    
             }
 
-            //Serialize the objecto to a json
-            var json = new JavaScriptSerializer().Serialize(transaction);
-            return json;
+            return transaction;
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace SecurityManager
         /// </param>
         /// <returns> TransactionalInformation Object in a JSON Response  </returns>
         /// <example> POST securitymanager/api/authentication/ </example>
-        public string Post(string username, string password)
+        public TransactionalInformation Post(string username, string password)
         {
             username = dataSecurity.Decode(username);
             password = dataSecurity.Decode(password);
@@ -85,9 +83,7 @@ namespace SecurityManager
                 transaction.ReturnMessage.Add(token);
             }
 
-            //Serialize the objecto to a json
-            var json = new JavaScriptSerializer().Serialize(transaction);
-            return json;
+            return transaction;
         }
 
         /// <summary>
@@ -103,7 +99,7 @@ namespace SecurityManager
         /// </param>
         /// <returns> TransactionalInformation Object in a JSON Response  </returns>
         /// <example> GET securitymanager/api/authentication/ </example>
-        public string Delete(string username, string token)
+        public TransactionalInformation Delete(string username, string token)
         {
             username = dataSecurity.Decode(username);
             token = dataSecurity.Decode(token);
@@ -117,9 +113,7 @@ namespace SecurityManager
                 transaction.IsAuthenicated = false;
             }
 
-            //Serialize the objecto to a json
-            var json = new JavaScriptSerializer().Serialize(transaction);
-            return json;
+            return transaction;
         }
     }
 }

@@ -10,15 +10,24 @@ namespace MessagesManager
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "MessagesManagerApi",
+                routeTemplate: "messagesmanager/api/{controller}/{username}/{token}/{parameter}",
+                defaults: new
+                {
+                    parameter = RouteParameter.Optional,
+                    username = RouteParameter.Optional,
+                    token = RouteParameter.Optional
+                }
             );
+
+            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
         }
     }
 }
