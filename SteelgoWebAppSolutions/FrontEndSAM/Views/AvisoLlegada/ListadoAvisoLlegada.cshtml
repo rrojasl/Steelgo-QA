@@ -154,12 +154,12 @@
                 type: "json",
                 transport: {
                     read: {
-                        url: "http://localhost:60960/backendsam/api/DummyFolioEntrada",
+                        url: "http://localhost:60960/backendsam/api/Proyecto",
                     }
                 }
             },
-            dataTextField: "consecutivo",
-            dataValueField: "FolioAvisoLlegadaID",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarFolio(dataItem.FolioAvisoLlegadaID);
