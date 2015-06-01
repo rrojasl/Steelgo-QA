@@ -7,7 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Proveedor
     {
-        public int ProveedorID { get; set; }
+        public string ProveedorID { get; set; }
         public string Nombre { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace BackEndSAM.Controllers
             List<Patio> lstPatio = new List<Patio>();
             List<Chofer> lstChofer = new List<Chofer>();
             List<Plana> lstPlana = new List<Plana>();
+            List<Files> lstfilespasesalida = new List<Files>();
 
             Proveedor proveedor = new Proveedor();
             Transportista transportista = new Transportista();
@@ -35,7 +36,21 @@ namespace BackEndSAM.Controllers
             Plana plana = new Plana();
             PermisoAduana permisoaduana1 = new PermisoAduana();
             ArchivoAutorizado archivoautorizado1 = new ArchivoAutorizado();
+            PaseSalida paseSalida = new PaseSalida();
+            Files archivosPaseSalida= new Files();
+            Files archivosPaseSalida1= new Files();
 
+            paseSalida.PaseEnviado = 1;
+            archivosPaseSalida.id = 12;
+            archivosPaseSalida.Extension = ".xlsx";
+            archivosPaseSalida.Archivo = "facebook.com";
+            lstfilespasesalida.Add(archivosPaseSalida);
+
+            archivosPaseSalida1.id = 15;
+            archivosPaseSalida1.Extension = ".txt";
+            archivosPaseSalida1.Archivo = "google.com";
+            lstfilespasesalida.Add(archivosPaseSalida1);
+            paseSalida.Archivos = lstfilespasesalida;
             //archivoautorizado1.ArchivoId = 99;
             //archivoautorizado1.Extension = ".doc";
             //archivoautorizado1.Nombre = "c://loca..coma";
@@ -54,7 +69,7 @@ namespace BackEndSAM.Controllers
             transportista.Nombre = "Francisco Martinez";
             
 
-            proveedor.ProveedorID = 1;
+            proveedor.ProveedorID = "1";
             proveedor.Nombre = "Femsa";
 
 
@@ -90,6 +105,7 @@ namespace BackEndSAM.Controllers
             permisoaduana1.PermisoTramite = 1;
             permisoaduana1.ArchivoAutorizado = archivoautorizado1;
             aviso.PermisoAduana = permisoaduana1;
+            aviso.PaseSalida = paseSalida;
             lstAviso.Add(aviso);
 
             List<Proveedor> lstProveedor2 = new List<Proveedor>();
@@ -122,7 +138,7 @@ namespace BackEndSAM.Controllers
             listFiles2.Add(files3);
             transportista2.TransportistaID = 1;
             transportista2.Nombre = "Sara Martinez";
-            proveedor2.ProveedorID = 2;
+            proveedor2.ProveedorID = "2";
             proveedor2.Nombre = "Kentucky";
             patio2.PatioID = 2;
             patio2.Nombre = "value2";

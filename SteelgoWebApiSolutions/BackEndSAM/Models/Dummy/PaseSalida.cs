@@ -5,9 +5,9 @@ using System.Web;
 
 namespace BackEndSAM.Models
 {
-    public class FolioEntrada
+    public class PaseSalida
     {
-        public int FolioAvisoLlegadaID { get; set; }
-        public int consecutivo { get; set; }
+        public int PaseEnviado { get; set; }
+        public List<Files> Archivos { get; set; }
     }
 }
