@@ -17,12 +17,12 @@ namespace BackEndSAM.Controllers
         {
             List<Proveedor> lstProveedor = new List<Proveedor>();
             Proveedor proveedor = new Proveedor();
-            proveedor.ProveedorID = 1999;
+            proveedor.ProveedorID = "1999";
             proveedor.Nombre = "Kentucky";
             lstProveedor.Add(proveedor);
 
             Proveedor proveedor1 = new Proveedor();
-            proveedor1.ProveedorID = 2000;
+            proveedor1.ProveedorID = "2000";
             proveedor1.Nombre = "Femsa";
             lstProveedor.Add(proveedor1);
             return lstProveedor.AsEnumerable();

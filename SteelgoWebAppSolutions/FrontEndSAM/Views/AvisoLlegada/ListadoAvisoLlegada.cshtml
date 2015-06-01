@@ -147,8 +147,8 @@
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-
-        $("#FolioAvisoLlegadaID").kendoAutoComplete({
+    
+    $("#FolioAvisoLlegadaID").kendoAutoComplete({
             dataSource: {
                 serverFiltering: false,
                 type: "json",
@@ -158,13 +158,13 @@
                     }
                 }
             },
-            dataTextField: "id",
-            dataValueField: "value",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
+                CargarFolio(dataItem.FolioAvisoLlegadaID);
             },
-            filter: "contains",
+
         });
 
         $("#PatioID").kendoAutoComplete({

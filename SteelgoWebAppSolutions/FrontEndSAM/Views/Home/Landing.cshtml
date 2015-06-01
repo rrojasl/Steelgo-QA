@@ -11,6 +11,22 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-        //Your partial view document ready functions
+    //Your partial view document ready functions
+
+    $("#files").kendoUpload({
+        async: {
+            saveUrl: "http://localhost:60960/backendsam/api/DummyFileManager?username=test&token=testt",
+            removeUrl: "remove",
+            autoUpload: true,
+            withCredentials: false
+        }
+    });
     }
 </script>
+
+
+            <div>
+                <div class="demo-section k-header">
+                    <input name="files" id="files" type="file" />
+                </div>
+            </div>

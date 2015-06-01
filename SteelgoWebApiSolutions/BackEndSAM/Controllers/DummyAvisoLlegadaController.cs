@@ -69,7 +69,7 @@ namespace BackEndSAM.Controllers
             transportista.Nombre = "Francisco Martinez";
             
 
-            proveedor.ProveedorID = 1;
+            proveedor.ProveedorID = "1";
             proveedor.Nombre = "Femsa";
 
 
@@ -138,7 +138,7 @@ namespace BackEndSAM.Controllers
             listFiles2.Add(files3);
             transportista2.TransportistaID = 1;
             transportista2.Nombre = "Sara Martinez";
-            proveedor2.ProveedorID = 2;
+            proveedor2.ProveedorID = "2";
             proveedor2.Nombre = "Kentucky";
             patio2.PatioID = 2;
             patio2.Nombre = "value2";
