@@ -5,11 +5,11 @@
 }
 
 
-
-<h2>DetalleAvisoLlegada</h2>
-
-
 <div class="form">
+    <h2><label id="DetalleAvisoLlegada0041"></label></h2>
+    <br />
+    <h3><label id="DetalleAvisoLlegada0042"></label><span id="divFolio"></span></h3>
+    <br />
     <div class="form-group">
         <label id="DetalleAvisoLlegada0001"></label> 
         <input id="ProyectoID" class="form-control"/>
@@ -54,7 +54,10 @@
 
     <div class="form-group">
         <label id="FileUpload"></label> 
-        <input name="files" id="files" type="file" class="form-control" />
+        <form method="post" enctype="multipart/form-data" action="http://localhost:61102/AvisoLlegada/Post">
+            <input name="files" id="files" type="file" class="form-control" />
+            <input type="submit" value="Upload" id="do" class="k-button"/>
+        </form>
     </div>
 
     <div class="form-group">
@@ -64,7 +67,7 @@
         <br />        
 
         <table id="listaArchivos">
-             <thead><tr><td>Archivo</td><td>Tipo de Archivo</td><td>&nbsp;</td></tr></thead>
+             <thead><tr><td>Archivo</td><td>Tipo de Archivo</td><td>Eliminar</td></tr></thead>
         </table>
 
     </div>
@@ -87,6 +90,22 @@
             <input id="NumeroPermiso" class="form-control"/>
         </div>
 
+    </div>
+@****************@
+@*Pase Salida*@
+    <div id="PaseSalida">
+        <div class="form-group">
+            <h2><label id="DetalleAvisoLlegada0039"></label></h2>
+        </div>
+        <br />
+        <div class="form-group">
+            <label id="DetalleAvisoLlegada0040"></label> 
+            <input name="files" id="PackingList" type="file" class="form-control" />
+        </div>
+        <table id="listaArchivosPaseSalida">
+             <thead><tr><td>Archivo</td><td>Eliminar</td></tr></thead>
+        </table>
+        <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary">Pase de Salida</a>
     </div>
 @****************@
 
@@ -196,9 +215,10 @@
         </div>
 
     </div>
-<a href="@Url.Action("FormatoPaseSalida", "AvisoLlegada")" target="_blank">Pase de Salida</a>
+
 <input id="hdPermisoAutorizado" type="hidden" />
 <input id="hdPermisoTramite" type="hidden" />
+<input id="hdPaseSalida" type="hidden" value="" />
 <input id="hdArchivoAutorizado" type="hidden" value="155,c://prueba.com,.xlsx" />
 
 <script>
@@ -220,7 +240,11 @@
         function CargaInicial() {
             FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
             //**Eventos
-            $("#Guardar").click(function (e) { GuardarAvisoLlegada(); });
+            $("#Guardar").click(function (e) {
+                GuardarAvisoLlegada();
+                var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
+            });
 
             $("#Cancelar").click(function (e) {
                 var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
@@ -236,6 +260,19 @@
 
             //Permiso Aduana
             $("#TramitarPermiso").click(function () { GenerarPermiso(); });
+            //Pase Salida
+            $("#ImprimirPase").click(function () {
+                if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
+                    alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
+                    return false;
+                };
+                $("#hdPaseSalida").val(1);                
+                $("#PackingList").kendoUpload({
+                    enabled: false
+                });
+                $("#ImprimirPase").attr("disabled", "disabled");
+                window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
+            });
 
             $("#ProyectoID").kendoMultiSelect({
                 dataSource: {
@@ -371,13 +408,14 @@
 
             $('#files').kendoUpload({
                 async: {
-                    saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                    autoUpload: false
+                    saveUrl: "http://localhost:61102/AvisoLlegada/Post",
+                    autoUpload: true
                 },
                 success: function (data) {
+                    alert("hola");
                     //Se crea la tabla dinamica con el archivo que  se dio de alta, [id], [Archivo], [Extension]
                     $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
                     });
                 },
                 error: function (data) { },
@@ -439,6 +477,24 @@
                 upload: onUploadArchivoAutorizar
             });
             
+            $('#PackingList').kendoUpload({
+                async: {
+                    saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                    autoUpload: false
+                },
+                success: function (data) {                    
+                    $.each(data, function (index, value) {
+                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                    });
+                },
+                error: function (data) { },
+                upload: onUploadArchivoPaseSalida
+            });
+            
+        };
+        
+        function onUploadArchivoPaseSalida() {
+
         };
 
         function onUploadArchivoAutorizar() {
@@ -464,10 +520,14 @@
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
 
+                _archivosPackingList = [];
+                _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
+
                 //objeto para los proyectos y documentos.
                 ProyectoIDs = [];
                 Documentos = [];                
                 permiso = [];
+                DocumentosPackingList = [];
 
                 var _archivoautorizado = $("#hdArchivoAutorizado").val();
                 item = {};
@@ -475,7 +535,7 @@
                 item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
                 item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
                 permiso.push(item);
-
+                
                 _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
                 _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
                 _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
@@ -501,7 +561,25 @@
                         Documentos.push(item);
                     }
                 });
+                
+                $('#listaArchivosPaseSalida > tbody  > tr').each(function () {
+                    if ($(this).find("td:first").length > 0) {
+                        var id = $(this).attr("id").split(",")[0];
+                        var archivo = $(this).find("td a").eq(0).html();
+                        var extencion = $(this).attr("id").split(",")[1];
 
+                        item = {};
+                        item["ArchivoID"] = id;
+                        item["Nombre"] = archivo;
+                        item["Extension"] = extencion;
+                        DocumentosPackingList.push(item);
+                    }
+                });
+
+                _archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
+                _archivosPackingList[0].Archivos = DocumentosPackingList;
+
+                
                 var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
 
                 AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
@@ -516,6 +594,7 @@
                 AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].PermisoAduana = _permisoAduana;
+                AvisoLlegada[0].PaseSalida = _archivosPackingList;
 
                 console.log(JSON.stringify(AvisoLlegada));
 
@@ -532,6 +611,7 @@
                     Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.create");
                         folio = data.FolioAvisoLlegadaID;
+                        $("#divFolio").html(folio);
                         $("#PermisoAduana").show();
                     });
                 }
@@ -559,6 +639,7 @@
         };
 
         function CargaInicialEdicion(id) {
+            $("#divFolio").html(folio);
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
 
@@ -609,23 +690,42 @@
                 }
 
                 $.each(data[0].Archivos, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
                 });
 
+                //Permiso Aduana
                 $("#PermisoAduana").show();
-                if (data[0].PermisoAduana.PermisoTramite) {
-                    $("#TramitarPermiso").attr('disabled', 'disabled');
-                    $("#hdPermisoTramite").val(1);
-                }
-                
-                if (data[0].PermisoAduana.PermisoAutorizado) {
-                    $("#divArchivoAutorizar").hide();
-                    $("#divLinkAutorizar").show();
-                    $("#divLinkAutorizar").append("<a href=''>" + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "</a>");
-                    $("#hdArchivoAutorizado").val(data[0].PermisoAduana.ArchivoAutorizado.ArchivoID + "," + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "," + data[0].PermisoAduana.ArchivoAutorizado.Extension);
-                    $("#hdPermisoAutorizado").val(1);
-                    $("#NumeroPermiso").val(data[0].PermisoAduana.NumeroPermiso);
-                    $("#NumeroPermiso").attr('disabled', 'disabled');
+                if (data[0].PermisoAduana) {
+                    if (data[0].PermisoAduana.PermisoTramite) {
+                        $("#TramitarPermiso").attr('disabled', 'disabled');
+                        $("#hdPermisoTramite").val(1);
+                    }
+                };
+
+                if (data[0].PermisoAduana) {
+                    if (data[0].PermisoAduana.PermisoAutorizado) {
+                        $("#divArchivoAutorizar").hide();
+                        $("#divLinkAutorizar").show();
+                        $("#divLinkAutorizar").append("<a href=''>" + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "</a>");
+                        $("#hdArchivoAutorizado").val(data[0].PermisoAduana.ArchivoAutorizado.ArchivoID + "," + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "," + data[0].PermisoAduana.ArchivoAutorizado.Extension);
+                        $("#hdPermisoAutorizado").val(1);
+                        $("#NumeroPermiso").val(data[0].PermisoAduana.NumeroPermiso);
+                        $("#NumeroPermiso").attr('disabled', 'disabled');
+                    };
+                };
+
+                //Pase Salida
+                if (data[0].PaseSalida) {
+                    if (data[0].PaseSalida.PaseEnviado) {
+                        $("#hdPaseSalida").val(1);
+                        $("#PackingList").kendoUpload({
+                            enabled: true
+                        })
+                        $("#ImprimirPase").attr("disabled", "disabled");
+                    };
+                    $.each(data[0].PaseSalida.Archivos, function (index, value) {
+                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                    });
                 };
                 console.log(data);
             });
@@ -897,10 +997,17 @@
 
             Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 $.each(data, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "cancelar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                });
+
+                $.each(data, function (index, value) {
+                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
                 });
         
             });
+
+
+
         }
     }
 </script>

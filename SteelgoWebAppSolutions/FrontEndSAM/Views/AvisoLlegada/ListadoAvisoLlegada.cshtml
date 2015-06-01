@@ -69,13 +69,12 @@
         {
             $("#grid").kendoGrid({
                 dataSource: {
-                    type: "json",
                     data: resultadoJson,
                     schema: {
                         model: {
                             fields: {
-                                FolioAvisoLlegadaID: { type: "number" },
-                                Patio: {type:"string"},
+                                FolioAvisoLlegadaID: { type: "string" },
+                                Patio: { type:"string" },
                                 NombreProyecto: { type: "string" },
                                 Proveedor: { type: "string" },
                                 Transportista: { type: "string" },
@@ -113,25 +112,25 @@
         function mostrarDetalle(e)
         {
             e.preventDefault();
-            var tr = $(e.target).closest("tr"); // get the current table row (tr)
-            var data = this.dataItem(tr);
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
             //REDIRECT
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + data.FolioAvisoLlegadaID;
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
         }
 
         function eliminarFolio(e)
         {
             e.preventDefault();
-            var tr = $(e.target).closest("tr"); // get the current table row (tr)
-            var datatr = this.dataItem(tr);
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
             var dataSource = $("#grid").data("kendoGrid").dataSource;
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyListadoAvisoLlegada');
 
-            Client.DummyListadoAvisoLlegada.destroy({}, { folio: datatr.FolioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                dataSource.remove(datatr);
+            Client.DummyListadoAvisoLlegada.destroy({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                dataSource.remove(dataItem);
             });
         }
     }
