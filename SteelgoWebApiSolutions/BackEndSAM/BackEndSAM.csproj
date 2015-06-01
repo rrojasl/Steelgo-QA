@@ -117,6 +117,7 @@
     <Compile Include="Models\Dummy\Files.cs" />
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
+    <Compile Include="Models\Dummy\PaseSalida.cs" />
     <Compile Include="Models\Dummy\Patio.cs" />
     <Compile Include="Models\Dummy\PermisoAduana.cs" />
     <Compile Include="Models\Dummy\Plana.cs" />

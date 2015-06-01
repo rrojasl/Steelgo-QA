@@ -19,8 +19,10 @@ namespace BackEndSAM.Controllers
             FolioEntrada folioentrada = new FolioEntrada();
             FolioEntrada folioentrada1 = new FolioEntrada();
             folioentrada.FolioAvisoLlegadaID = 1;
+            folioentrada.consecutivo = 2;
             lstfolioentrada.Add(folioentrada);
             folioentrada1.FolioAvisoLlegadaID = 2;
+            folioentrada1.consecutivo = 2;
             lstfolioentrada.Add(folioentrada1);
             return lstfolioentrada.AsEnumerable();
         }

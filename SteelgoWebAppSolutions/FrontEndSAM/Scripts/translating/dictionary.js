@@ -47,8 +47,72 @@ _dictionary = {
         "en-US": "Search in whole site..."
     },
     "layoutLabel0002": {
-        "es-MX": "Derechos Reservados STEELGO",
-        "en-US": "Copyright STEELGO"
+        "es-MX": "Perfil",
+        "en-US": "Profile"
+    },
+    "layoutLabel0003": {
+        "es-MX": "Configuraciones",
+        "en-US": "Settings"
+    },
+    "layoutLabel0004": {
+        "es-MX": "Salir",
+        "en-US": "Logout"
+    },
+    "layoutLabel0005": {
+        "es-MX": "Dashboard",
+        "en-US": "Dashboard"
+    },
+    "layoutLabel0006": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "layoutLabel0007": {
+        "es-MX": "Catálogo",
+        "en-US": "Catalog"
+    },
+    "layoutLabel0008": {
+        "es-MX": "Reportes",
+        "en-US": "Reports"
+    },
+    "layoutLabel0009": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "layoutLabel0010": {
+        "es-MX": "Configuración",
+        "en-US": "Settings"
+    },
+    "layoutLabel0011": {
+        "es-MX": "Soporte",
+        "en-US": "Support"
+    },
+    "layoutLabel0012": {
+        "es-MX": "KPI's",
+        "en-US": "KPI's"
+    },
+    "layoutLabel0013": {
+        "es-MX": "Comunicación",
+        "en-US": "Comunication"
+    },
+    "layoutLabel0014": {
+        "es-MX": "Ligas Rápidas",
+        "en-US": "Shortcuts"
+    },
+    "layoutLabel0015": {
+        "es-MX": "Acerca del Grupo",
+        "en-US": "About the Group"
+    },
+    "layoutLabel0016": {
+        "es-MX": "Política de Privacidad",
+        "en-US": "Privacy Policy"
+    },
+    "layoutLabel0017": {
+        "es-MX": "Política de Uso",
+        "en-US": "Use Policy"
+    },
+    "layoutLabel0018": {
+        "es-MX": "Contacto",
+        "en-US": "Contact Us"
     },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
@@ -108,12 +172,12 @@ _dictionary = {
         "en-US": "status"
     },
     "ListadoAvisoLlegada0015": {
-        "es-MX": "Editar",
-        "en-US": "Edit"
+        "es-MX": "Detalle",
+        "en-US": "Detail"
     },
     "ListadoAvisoLlegada0016": {
-        "es-MX": "Borrar",
-        "en-US": "Delete"
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
     "ListadoAvisoLlegada0017": {
         "es-MX": "Mostrar",
@@ -268,9 +332,25 @@ _dictionary = {
         "es-MX": "Permiso Autorizado",
         "en-US": "Permit Authorized"
     },
-    "DetalleAvisoLlegada00038": {
+    "DetalleAvisoLlegada0038": {
         "es-MX": "Numero Permiso",
         "en-US": "Permit number"
+    },
+    "DetalleAvisoLlegada0039": {
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
+    },
+    "DetalleAvisoLlegada0040": {
+        "es-MX": "Packing List Firmado*",
+        "en-US": "Packing List Signed"
+    },
+    "DetalleAvisoLlegada0041": {
+        "es-MX": "Aviso de Entrega de Material",
+        "en-US": "Delivery Notice of Material"
+    },
+    "DetalleAvisoLlegada0042": {
+        "es-MX": "Folio: ",
+        "en-US": "Folio: "
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {

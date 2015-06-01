@@ -1,61 +1,63 @@
-﻿
-@{
-    ViewBag.Title = "ListadoAvisoLlegada";
+﻿@{
+    ViewBag.Title = "Listado - Aviso Llegada";
 }
 
-<h2>ListadoAvisoLlegada</h2>
-<div class="form">
-        <div class="form-group">
-            <label id="ListadoAvisoLlegada0002"></label> 
-            <input id="FolioAvisoLlegadaID" class="form-control"/>
+@*<h2>ListadoAvisoLlegada</h2>
+*@
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="form-group col-lg-2">
+            <label id="ListadoAvisoLlegada0002"></label>
+            <input id="FolioAvisoLlegadaID" class="" />
         </div>
-        <div class="form-group">
-            <label id="ListadoAvisoLlegada0003"></label> 
-            <input id="PatioID" class="form-control"/>
+        <div class="form-group col-lg-2">
+            <label id="ListadoAvisoLlegada0003"></label>
+            <input id="PatioID" class="" />
         </div>
-        <div class="form-group">
-            <label id="ListadoAvisoLlegada0004"></label> 
-            <input id="ProyectoID" class="form-control"/>
+        <div class="form-group col-lg-2">
+            <label id="ListadoAvisoLlegada0004"></label>
+            <input id="ProyectoID" class="" />
         </div>
-        <div class="form-group">
-            <label id="ListadoAvisoLlegada0005"></label> 
-            <input id="ProveedorID" class="form-control"/>
+        <div class="form-group col-lg-2">
+            <label id="ListadoAvisoLlegada0005"></label>
+            <input id="ProveedorID" class="" />
         </div>
-        <div class="form-group">
-            <label id="ListadoAvisoLlegada0006"></label> 
-            <input id="FechaInicial" class="form-control"/>
+        <div class="form-group col-lg-2">
+            <label id="ListadoAvisoLlegada0006"></label>
+            <input id="FechaInicial" class="" />
         </div>
-        <div class="form-group">
-            <label id="ListadoAvisoLlegada0007"></label> 
-            <input id="FechaFinal" class="form-control"/>
+        <div class="form-group col-lg-2">
+            <label id="ListadoAvisoLlegada0007"></label>
+            <input id="FechaFinal" class="" />
         </div>
-        <div class="form-group">
-           <a id="Mostrar" href="javascript:void(0);" class="btn btn-primary"><label id="ListadoAvisoLlegada0017"></label></a>
+        <div class="form-group col-lg-2">
+            <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoAvisoLlegada0017"></span></a>
         </div>
         <br />
-        <div class="form-group">
-           <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"><label id="ListadoAvisoLlegada0001"></label></a>
-        </div> 
-
-        <div class="form-group">
-           <div id="grid"></div>
+        <div class="form-group col-lg-2">
+            <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"><span id="ListadoAvisoLlegada0001"></span></a>
         </div>
 
-    <div id="window">
-        @*Content of the Window*@
+        <div class="form-group col-lg-12">
+                <div id="grid"></div>
+        </div>
+
+        <div id="window">
+            @*Content of the Window*@
+        </div>
     </div>
 </div>
-   
+
 
 <script>
     @section JavascriptGlobalVariables {
-    //your partial views variables
+        //your partial views variables
         var Transportista = [], Proveedor = [], Patio = [], Folio = [];
         var FechaInicial, FechaFinal, resultadoJson;
     }
 
     @section JavascriptGlobalFunctions {        
-    //Your partial views specific functions
+        //Your partial views specific functions
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
             FechaFinal.setOptions(datePickerOptions);
@@ -69,13 +71,12 @@
         {
             $("#grid").kendoGrid({
                 dataSource: {
-                    type: "json",
                     data: resultadoJson,
                     schema: {
                         model: {
                             fields: {
-                                FolioAvisoLlegadaID: { type: "number" },
-                                Patio: {type:"string"},
+                                FolioAvisoLlegadaID: { type: "string" },
+                                Patio: { type:"string" },
                                 NombreProyecto: { type: "string" },
                                 Proveedor: { type: "string" },
                                 Transportista: { type: "string" },
@@ -89,8 +90,10 @@
                     serverFiltering: false,
                     serverSorting: false
                 },
-                height: 550,
+                //autoHeight: true,
+                height: 500,
                 sortable: true,
+                //scrollable: false,
                 filterable: true,
                 pageable: {
                     refresh: false,
@@ -106,32 +109,32 @@
                     { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
-                    ]
+                ]
             });
         }
 
         function mostrarDetalle(e)
         {
             e.preventDefault();
-            var tr = $(e.target).closest("tr"); // get the current table row (tr)
-            var data = this.dataItem(tr);
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
             //REDIRECT
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + data.FolioAvisoLlegadaID;
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
         }
 
         function eliminarFolio(e)
         {
             e.preventDefault();
-            var tr = $(e.target).closest("tr"); // get the current table row (tr)
-            var datatr = this.dataItem(tr);
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
             var dataSource = $("#grid").data("kendoGrid").dataSource;
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyListadoAvisoLlegada');
 
-            Client.DummyListadoAvisoLlegada.destroy({}, { folio: datatr.FolioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                dataSource.remove(datatr);
+            Client.DummyListadoAvisoLlegada.destroy({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                dataSource.remove(dataItem);
             });
         }
     }
@@ -144,24 +147,24 @@
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-
-        $("#FolioAvisoLlegadaID").kendoAutoComplete({
+    
+    $("#FolioAvisoLlegadaID").kendoAutoComplete({
             dataSource: {
                 serverFiltering: false,
                 type: "json",
                 transport: {
                     read: {
-                        url: "http://localhost:60960/backendsam/api/Proyecto",
+                        url: "http://localhost:60960/backendsam/api/DummyFolioEntrada",
                     }
                 }
             },
-            dataTextField: "id",
-            dataValueField: "value",
+            dataTextField: "consecutivo",
+            dataValueField: "FolioAvisoLlegadaID",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
+                CargarFolio(dataItem.FolioAvisoLlegadaID);
             },
-            filter: "contains",
+
         });
 
         $("#PatioID").kendoAutoComplete({

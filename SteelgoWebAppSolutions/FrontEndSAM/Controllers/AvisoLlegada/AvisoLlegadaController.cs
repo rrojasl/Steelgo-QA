@@ -38,6 +38,25 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
             
         //}
 
+        [HttpPost]
+        public JsonResult Post(IEnumerable<HttpPostedFileBase> attachments)
+        {
+            try
+            {
+                // The Name of the Upload component is "attachments" 
+                string json = null;
+                if (attachments.Any() && attachments.FirstOrDefault().ContentLength > 50000000)
+                {
+                    return this.Json(new { status = json }, "text/plain");
+                }
+                //json = AttachmentManager.Save(attachments, @"~/Attachment/FolderName", @"~/Attachment/FolderName/Thumb");
+                return this.Json(new { status = "OK" }, "text/plain");
+            }
+            catch (Exception ex)
+            {
+                return this.Json(string.Empty);
+            }
+        }
 
         public ActionResult FileUploadFile(IEnumerable<HttpPostedFileBase> fileUploader)//fileUploader name must be the name of uploader Control.
         {

@@ -129,6 +129,11 @@ footer {
             min-height: 100%;
             height: 100%;
         }
+
+        .content-frame .container .main-content {
+            margin-left: 15px;
+            margin-right: 15px;
+        }
 /**********************************************************************************/
 
 
@@ -139,6 +144,7 @@ footer {
 label {
     margin: 0;
     padding: 0;
+    display: block;
 }
 /**********************************************************************************/
 
@@ -162,6 +168,11 @@ a, a:link, a:hover, a:visited {
 input {
     border-color: transparent;
 }
+
+    input:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
 
     input:-moz-placeholder {
         font-style: italic;
@@ -201,11 +212,14 @@ input {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 1.3px;
+    height: 40px;
 }
 
+    .btn span, .btn label {
+        color: #FFFFFF;
+    }
+
 .btn-yellow {
-    width: 180px;
-    height: 40px;
     background-color: #EC8B00;
     border: none;
     border-bottom: 3px solid #DF6600;
@@ -224,6 +238,18 @@ input {
     .btn-blue:hover {
         background-color: #1C4070;
         border-bottom-color: #152F52;
+    }
+
+.btn-primary {
+    height: 40px;
+    background-color: #305E8E;
+    border: none;
+    border-bottom: 3px solid #234568;
+}
+
+    .btn-primary:hover {
+        background-color: #1C4070;
+        border-bottom-color: #305E8E;
     }
 /**********************************************************************************/
 

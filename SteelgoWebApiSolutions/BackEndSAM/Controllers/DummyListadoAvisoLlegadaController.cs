@@ -21,16 +21,23 @@ namespace BackEndSAM.Controllers
 
             if (prueba == "1")
             {
-
                 folioAvisoLlegada.FolioAvisoLlegadaID = 1;
-                folioAvisoLlegada.NombreProyecto = "Prueba 1";
+                folioAvisoLlegada.NombreProyecto = "Prueba";
                 folioAvisoLlegada.FechaRecepcion = DateTime.Today;
+                folioAvisoLlegada.Patio = "Patio";
+                folioAvisoLlegada.Proveedor = "Proveedor";
+                folioAvisoLlegada.Transportista = "Transportista";
+                folioAvisoLlegada.Estatus = "Prueba";
                 lstfolioAvisoLlegada.Add(folioAvisoLlegada);
 
                 
                 folioAvisoLlegada1.FolioAvisoLlegadaID = 2;
                 folioAvisoLlegada1.NombreProyecto = "Prueba 2";
                 folioAvisoLlegada1.FechaRecepcion = DateTime.Today;
+                folioAvisoLlegada1.Patio = "Patio2";
+                folioAvisoLlegada1.Proveedor = "Proveedor2";
+                folioAvisoLlegada1.Transportista = "Transportista2";
+                folioAvisoLlegada1.Estatus = "Prueba2";
                 lstfolioAvisoLlegada.Add(folioAvisoLlegada1);
             }
             else {
