@@ -130,12 +130,15 @@ namespace MessagesManager.Controllers
 
             using (SamContext ctx = new SamContext())
             {
+                ///Genoveva, en la tabla de notificacion no hay un usuerID, como en tu query del metodo de arriba es por eso que hago
+                /// la consulta hacia el ID del receptor, no se si deba hacer asi, por favor corrigelo como sea necesario
                 notifications = ctx.Notificacion.Where(x => x.UsuarioIDReceptor == userId).ToList();
                 return notifications;
             }
         }
 
         /// <summary>
+        /// EJEMPLO
         /// El manejo de la base de datos es similar a sam 3, con el entity framework 6 ya no se utilizan los metodos
         /// como acceptChanges o applyChanges, pues el contexto se encarfa 
         /// </summary>
