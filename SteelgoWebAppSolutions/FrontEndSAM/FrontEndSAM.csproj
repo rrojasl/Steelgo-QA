@@ -144,8 +144,12 @@
     <Content Include="Content\images\SAMC_Datepicker.png" />
     <Content Include="Content\images\SAMC_Delete.png" />
     <Content Include="Content\images\SAMC_DropdownArrow.png" />
+    <Content Include="Content\images\SAMC_Error_Icon_A.png" />
+    <Content Include="Content\images\SAMC_Error_Icon_B.png" />
+    <Content Include="Content\images\SAMC_Error_Icon_C.png" />
     <Content Include="Content\images\SAMC_FilterDown.png" />
     <Content Include="Content\images\SAMC_FilterUp.png" />
+    <Content Include="Content\images\SAMC_HeaderBanner.png" />
     <Content Include="Content\images\SAMC_Logo.png" />
     <Content Include="Content\images\SAMC_Logo_Mobile.jpg" />
     <Content Include="Content\images\SAMC_MenuDropdownArrowA.png" />

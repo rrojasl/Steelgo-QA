@@ -9,13 +9,13 @@
 
     <!-- Styles -->
     @Styles.Render("~/Content/bootstrap.css")
-    @Styles.Render("~/Content/Styles/site.css")
-    @Styles.Render("~/Content/Styles/entities.css")
-    @Styles.Render("~/Content/Styles/overrides.css")
     @Styles.Render("~/Content/kendo/2014.2.716/kendo.common.min.css")
     @Styles.Render("~/Content/kendo/2014.2.716/kendo.default.min.css")
     @Styles.Render("~/Content/kendo/2014.2.716/kendo.dataviz.min.css")
     @Styles.Render("~/Content/kendo/2014.2.716/kendo.dataviz.default.min.css")
+    @Styles.Render("~/Content/Styles/site.css")
+    @Styles.Render("~/Content/Styles/entities.css")
+    @Styles.Render("~/Content/Styles/overrides.css")
 
 
     <!-- Scripts -->
@@ -65,17 +65,17 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="#">
-                                            <span>Profile</span>
+                                            <span id="layoutLabel0002"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">                                            
-                                            <span>Settings</span>
+                                            <span id="layoutLabel0003"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a id="logout" href="#">
-                                            <span>Logout</span>
+                                            <span id="layoutLabel0004"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -102,13 +102,13 @@
                             <li class="active">
                                 <a href="#">
                                     <i class="icn dashboard"></i>
-                                    <span>Dashboard</span>
+                                    <span id="layoutLabel0005"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="icn transactions"></i>
-                                    <span>Transacciones</span>
+                                    <span id="layoutLabel0006"></span>
                                     <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
@@ -277,7 +277,7 @@
                             <li>
                                 <a href="#">
                                     <i class="icn catalog"></i>
-                                    <span>Catálogo</span>
+                                    <span id="layoutLabel0007"></span>
                                     <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
@@ -306,13 +306,13 @@
                             <li>
                                 <a href="#">
                                     <i class="icn report"></i>
-                                    <span>Reportes</span>                                    
+                                    <span id="layoutLabel0008"></span>                                    
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="icn documents"></i>
-                                    <span>Documentos</span>
+                                    <span id="layoutLabel0009"></span>
                                     <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
@@ -346,31 +346,31 @@
                             <li>
                                 <a href="#">
                                     <i class="icn config"></i>
-                                    <span>Configuración</span>
+                                    <span id="layoutLabel0010"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="icn support"></i>
-                                    <span>Soporte</span>                                    
+                                    <span id="layoutLabel0011"></span>                                    
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="icn kpi"></i>
-                                    <span>KPI's</span>                                   
+                                    <span id="layoutLabel0012"></span>                                   
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="icn comm"></i>
-                                    <span>Comunicación</span>
+                                    <span id="layoutLabel0013"></span>
                                 </a>
                             </li>
                             <li class="shortcut">
                                 <a class="quicklinks">
                                     <i class="icn links"></i>
-                                    <span>Ligas Rápidas</span>
+                                    <span id="layoutLabel0014"></span>
                                     <i class="icn right gear"></i>
                                 </a>
                                 <ul class="sub-menu">
@@ -399,49 +399,58 @@
                         <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <i class="icn right minify"></i>
                         <ul>
-                            <li><a href="#">Acerca del Grupo</a></li>
-                            <li><a href="#">Politica de Privacidad</a></li>
-                            <li><a href="#">Politica de Uso</a></li>
-                            <li><a href="#">Contacto</a></li>
+                            <li><a href="#"><span id="layoutLabel0015"></span></a></li>
+                            <li><a href="#"><span id="layoutLabel0016"></span></a></li>
+                            <li><a href="#"><span id="layoutLabel0017"></span></a></li>
+                            <li><a href="#"><span id="layoutLabel0018"></span></a></li>
                         </ul>
                     </div>
 
                 </div>
-                <!-- end left sidebar -->
+                <!-- end sidebar -->
 
 
                 <!-- content-wrapper -->
-                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">
-                    <!-- breadcrumbs-->
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 content-container topbar">                   
                     <div class="row">
-                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
-                            <ul class="row breadcrumb">
-                                <li>
-                                    <a href="#">Transacciones</a>
-                                </li>
-                                <li>
-                                    <a href="#">Materiales</a>
-                                </li>
-                                <li class="active">Aviso Entrada de Material</li>
-                            </ul>
+                        <!-- breadcrumb-->
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 breadcrumb-container">
+                            <div class="row">
+                                <ul class="breadcrumb">
+                                    <li>
+                                        <a href="#">Transacciones</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Materiales</a>
+                                    </li>
+                                    <li class="active">Aviso Entrada de Material</li>
+                                </ul>
+                            </div>
                         </div>
+                        <!-- /breadcrumb-->
+                        <!-- alerts -->
+                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                            <div class="message">
+                                Mensaje de éxito/error/advertencia
+                            </div>
+                        </div>
+                        <!-- alerts -->
                     </div>
-                    <!-- /breadcrumbs-->
                     <!-- main -->
-                    <div class="content">
-                        <div class="main-content">
+                    <div class="row content">
+                        <div class="main-content clearfix">
                             @RenderBody()
                         </div>
                         <!-- /main-content -->
                     </div>
                     <!-- /main -->
                 </div>
-                <!-- /content-container -->
+                <!-- /content-wrapper -->
             </div>
             <!-- /row -->
         </div>
-        <!-- /container -->
         <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
+        <!-- /container-frame -->
     </div>
 
 
@@ -694,7 +703,7 @@
                 $(".notifications").css("display", "none");
                 $(".logged-user").css("display", "none");
                 $(".content-container").removeClass("topbar");
-                $(".breadcrumb").css("display", "none");
+                $(".breadcrumb-container").css("display", "none");                
             }
         }
 
