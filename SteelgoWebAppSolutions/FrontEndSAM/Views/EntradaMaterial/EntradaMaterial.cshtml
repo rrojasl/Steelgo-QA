@@ -94,6 +94,10 @@
                 GuardarLlegadaMaterial();
             });
             $("#GuardarPatio").click(function (e) { GuardarPatio(); });
+            $("#Cancelar").click(function (e) {
+                var detalleIdeaUrl = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            });
             $("#FolioEntradaID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
@@ -181,7 +185,7 @@
             $('#AdjuntarArchivos').kendoUpload({
                 async: {
                     saveUrl: "http://localhost:60960/backendsam/api/DummyFileManager?username=test&token=testt",
-                    autoUpload: true,
+                    autoUpload: false,
                     withCredentials: false
                 },
                 success: function (data) {
@@ -400,7 +404,7 @@
 
         function AbrirArchivo(id) {
             var Listado = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
-            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + id;
+            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + id + "&folioAvisoLlegada=" + folioAvisoLlegada;
         };
 
         function GuardarPatio() {
