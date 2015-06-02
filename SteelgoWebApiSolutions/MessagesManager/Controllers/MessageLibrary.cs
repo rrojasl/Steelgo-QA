@@ -1,4 +1,4 @@
-﻿using MessagesManager.Models;
+﻿
 using MessagesManager.Utils;
 using Newtonsoft.Json;
 using System;
@@ -7,6 +7,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using DatabaseManager.Sam3;
+using System.Messaging;
 
 namespace MessagesManager.Controllers
 {
@@ -66,34 +68,23 @@ namespace MessagesManager.Controllers
         {
             List<Notificacion> notifications = new List<Notificacion>();
 
-            using (IDbConnection connection = DataAccessFactory.CreateConnection("SamDB"))
+            using (SamContext ctx = new SamContext())
             {
-                connection.Open();
-
-                IDbCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "select * from Notificacion where usuerID = @UserID and activo = 1 ";
-
-                cmd.Parameters.Add(new SqlParameter("@UserId", userId));
-
-                IDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Notificacion n = new Notificacion()
+                notifications = ctx.Notificacion
+                    .Where(x => x.UsuarioIDReceptor == userId && x.Activo == true).ToList()
+                    .Select(x => new Notificacion
                     {
-                        notificacionID = reader.GetInt32(0),
-                        usuarioIDReceptorId = reader.GetInt32(1),
-                        usuarioIDEmisorId = reader.GetInt32(2),
-                        tipoNotificacionId = reader.GetInt32(3),
-                        mensaje = reader.GetString(4),
-                        fechaEnvio = reader.GetDateTime(5),
-                        fechaRecepcion = reader.GetDateTime(6),
-                        estatusLectura = reader.GetBoolean(7),
-                        entidadId = reader.GetInt32(8),
-                        activo = reader.GetBoolean(9)
-                    };
-                    notifications.Add(n);
-                }
-                connection.Close();
+                        NotificacionID = x.NotificacionID,
+                        UsuarioIDReceptor = x.UsuarioIDReceptor,
+                        UsuarioIDEmisor = x.UsuarioIDEmisor,
+                        TipoNotificacionID = x.TipoNotificacionID,
+                        Mensaje = x.Mensaje,
+                        FechaEnvio = x.FechaEnvio,
+                        FechaRecepcion = x.FechaRecepcion,
+                        EstatusLectura = x.EstatusLectura,
+                        EntidadID = x.EntidadID,
+                        Activo = x.Activo
+                    }).ToList();
 
                 return notifications;
             }
