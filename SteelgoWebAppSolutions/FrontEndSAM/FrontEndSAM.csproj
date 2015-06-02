@@ -1048,6 +1048,7 @@
     <Content Include="Views\Errors\notfound.cshtml" />
     <Content Include="Views\EntradaMaterial\EntradaMaterial.cshtml" />
     <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
+    <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

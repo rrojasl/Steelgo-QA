@@ -393,6 +393,79 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "EntradaMaterial0011": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "EntradaMaterial0012": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EntradaMaterial0013": {
+        "es-MX": "Folio de Entrada",
+        "en-US": "Folio Entry"
+    },
+    "EntradaMaterial0014": {
+        "es-MX": "Folio de Llegada",
+        "en-US": "Arrival Folio"
+    },
+    //Listado Llegada Material
+    "ListadoLlegadaMaterial0001": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "ListadoLlegadaMaterial0002": {
+        "es-MX": "Folio de Llegada",
+        "en-US": "Arrival Folio"
+    },
+    "ListadoLlegadaMaterial0003": {
+        "es-MX": "Placas",
+        "en-US": "Placas"
+    },
+    "ListadoLlegadaMaterial0004": {
+        "es-MX": "Chofer",
+        "en-US": "Driver"
+    },
+    "ListadoLlegadaMaterial0005": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "ListadoLlegadaMaterial0006": {
+        "es-MX": "Agregar Folio",
+        "en-US": "Add Folio"
+    },
+    "ListadoLlegadaMaterial0007": {
+        "es-MX": "Folio de llegada",
+        "en-US": "Folio arrival"
+    },
+    "ListadoLlegadaMaterial0008": {
+        "es-MX": "Folio de entrada",
+        "en-US": "Folio input"
+    },
+    "ListadoLlegadaMaterial0009": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "ListadoLlegadaMaterial0010": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoLlegadaMaterial0011": {
+        "es-MX": "Patio",
+        "en-US": "Areaway"
+    },
+    "ListadoLlegadaMaterial0012": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "ListadoLlegadaMaterial0013": {
+        "es-MX": "Detalle",
+        "en-US": "Detail"
+    },
+    "ListadoLlegadaMaterial0014": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
