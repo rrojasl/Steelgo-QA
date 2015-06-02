@@ -7,7 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Contacto
     {
-        public int ContactoID { get; set; }
+        public string ContactoID { get; set; }
         public string Nombre { get; set; }
     }
 }

@@ -146,6 +146,28 @@ label {
     padding: 0;
     display: block;
 }
+
+.form label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    margin-bottom: 7px;
+}
+
+.form label.required {
+        position: relative;
+    }
+
+    .form label.required::after {
+        content: '*';
+        font-size: 18.5px;
+        position: absolute;
+        top: -4px;
+    }
+
+    .form label.required.error::after {
+        color: #EC4F50;
+    }
 /**********************************************************************************/
 
 
@@ -226,7 +248,7 @@ input {
 }
 
     .btn-yellow:hover {
-        background-color: rgba(236, 139, 000, 0.8);
+        background-color: rgba(236, 139, 000, 0.9);
         border-bottom-color: rgba(223, 102, 0, 0.5);
     }
 
@@ -241,15 +263,25 @@ input {
     }
 
 .btn-primary {
-    height: 40px;
     background-color: #305E8E;
     border: none;
     border-bottom: 3px solid #234568;
 }
 
     .btn-primary:hover {
-        background-color: #1C4070;
-        border-bottom-color: #305E8E;
+        background-color: rgba(048, 094, 142, 0.9);
+        border-bottom-color: rgba(035, 069, 104, 0.5);
+    }
+
+.btn-black {
+    background-color: #444444;
+    border: none;
+    border-bottom: 3px solid #2B2B2B;
+}
+
+    .btn-black:hover {
+        background-color: rgba(068, 068, 068, 0.9);
+        border-bottom-color: rgba(043, 043, 043, 0.5);
     }
 /**********************************************************************************/
 

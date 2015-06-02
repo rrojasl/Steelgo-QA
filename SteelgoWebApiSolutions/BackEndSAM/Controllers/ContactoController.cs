@@ -17,12 +17,12 @@ namespace BackEndSAM.Controllers
         {
             List<Contacto> lstcontacto = new List<Contacto>();
             Contacto contacto = new Contacto();
-            contacto.ContactoID = 12;
+            contacto.ContactoID = "12";
             contacto.Nombre = "Pako M.";
             lstcontacto.Add(contacto);
 
             Contacto contacto1 = new Contacto();
-            contacto1.ContactoID = 13;
+            contacto1.ContactoID = "13";
             contacto1.Nombre = "Fernanda M.";
             lstcontacto.Add(contacto1);
 

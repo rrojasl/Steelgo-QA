@@ -1,5 +1,4 @@
-﻿using MessagesManager.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -140,7 +139,7 @@ namespace MessagesManager.Controllers
         /// <summary>
         /// EJEMPLO
         /// El manejo de la base de datos es similar a sam 3, con el entity framework 6 ya no se utilizan los metodos
-        /// como acceptChanges o applyChanges, pues el contexto se encarfa 
+        /// como acceptChanges o applyChanges, pues el contexto se encarga de seguir los cambios
         /// </summary>
         public void UsoDataBaseManager()
         {

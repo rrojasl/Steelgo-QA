@@ -6,7 +6,7 @@
 
     01  $_languageSelector
     02  $_k-widget
-    03  $_
+    03  $_k-grid
     04  $_
     05  $_
     06  $_
@@ -59,16 +59,40 @@
     border-color: #CCCCCC;
 }
 
+    .k-widget.error {
+        border-color: #EC4F50;
+    }
+
+.k-state-default, .k-state-hover {
+    background: none;
+    background-color: #FFFFFF !important;
+}
+
+.k-widget.k-state-focused, .k-picker-wrap.k-state-focused,
+.k-multiselect.k-header.k-state-focused {
+    border-color: #4486CB;
+    -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+}
+
 .k-textbox > input, .k-autocomplete .k-input,
 .k-picker-wrap .k-input, .k-numeric-wrap .k-input,
 .k-dropdown-wrap .k-input, .k-selectbox .k-input {
     border-radius: 0;
     min-height: 34px;
     height: 34px;
-    font-weight: 600;
+    font-weight: normal;
+    font-size: 14px;
     color: #1B3F70;
     width: 100%;
     padding: 2px 0;
+}
+
+
+.k-multiselect, .k-combobox {
+    min-width: 240px;
+    width: 240px;
 }
 
 .k-multiselect-wrap {
@@ -77,29 +101,109 @@
     padding: 4px 0;
 }
 
+    .k-multiselect-wrap span {
+        line-height: normal;
+    }
+
 .k-block, .k-button, .k-textbox, .k-drag-clue,
 .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content,
 .k-window-action, .k-inline-block, .k-grid .k-filter-options,
 .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect,
-.k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker,
-.k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox,
-.k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container,
-.k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in,
-.k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection,
+.k-multiselect.k-state-border-down, .k-combobox, .k-dropdown, .k-dropdown-wrap,
+.k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification,
+.k-numerictextbox, .k-picker-wrap, .k-picker-wrap.k-state-border-down, .k-numeric-wrap,
+.k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link,
+.k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection,
 .k-upload {
     border-radius: 0;
 }
 
-.k-state-default, .k-state-hover {
-    background: none;
-    background-color: #FFFFFF !important;
+.k-datepicker {
+    min-width: 184px;
+    width: 184px;
 }
 
-/*max-height: 36px;
-    height: 36px;
-    margin-right: 20px;
-    width: 240px;*/
+    .k-datepicker .k-picker-wrap .k-select {
+        border: none;
+        width: 38px;
+    }
+
+    .k-datepicker .k-picker-wrap span.k-i-calendar {
+        height: 100%;
+        width: 100%;
+        background-image: url("/Content/images/SAMC_Datepicker.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 16px 16px;
+    }
+
+.k-combobox .k-dropdown-wrap .k-select {
+    border: none;
+    width: 38px;
+}
+
+.k-combobox .k-dropdown-wrap span.k-i-arrow-s {
+    height: 100%;
+    width: 100%;
+    background-image: url("/Content/images/SAMC_DropdownArrow.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 11px 6px;
+}
+
+.k-autocomplete {
+    min-width: 242px;
+    width: 242px;
+}
 /**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_k-grid
+ Description:   Override kendo grid.
+**********************************************************************************/
+.k-grid {
+}
+
+    .k-grid td {
+        padding: 6px 13px;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #666666;
+    }
+
+    .k-grid tr:hover {
+        background-color: #FCEED9;
+    }
+
+    .k-grid .k-grid-header tr {
+        min-height: 39px;
+        height: 39px;
+    }
+
+        .k-grid .k-grid-header tr th {
+            background: none;
+            background-color: #EEEEEE;
+        }
+
+            .k-grid .k-grid-header tr th a.k-link {
+                font-size: 10px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+.k-alt {
+    background-color: #F5F5F5;
+}
+
+.k-grid-pager {
+    background-color: #EEEEEE;
+    height: 36px;
+    padding: 10px 9px;
+}
+/**********************************************************************************/
+
+
 /* Media Queries */
 
 /* xs viewport */

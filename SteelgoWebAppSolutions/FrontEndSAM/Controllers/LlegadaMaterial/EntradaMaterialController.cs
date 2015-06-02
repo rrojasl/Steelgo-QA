@@ -15,6 +15,11 @@ namespace FrontEndSAM.Controllers.LlegadaMaterial
             return View();
         }
 
+        // GET: /EntradaMaterial/
+        public ActionResult ListadoLlegadaMaterial()
+        {
+            return View();
+        }
         //
         // GET: /EntradaMaterial/Details/5
         public ActionResult Details(int id)
