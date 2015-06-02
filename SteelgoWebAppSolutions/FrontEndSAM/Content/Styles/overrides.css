@@ -69,7 +69,7 @@
 }
 
 .k-widget.k-state-focused, .k-picker-wrap.k-state-focused,
-.k-multiselect.k-header.k-state-focused {
+.k-multiselect.k-header.k-state-focused, .k-dropdown-wrap.k-state-focused {
     border-color: #4486CB;
     -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
     -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
@@ -89,6 +89,10 @@
     padding: 2px 0;
 }
 
+.k-filter-menu .k-dropdown .k-input {
+    min-height: inherit;
+    height: inherit;
+}
 
 .k-multiselect, .k-combobox {
     min-width: 240px;
@@ -110,11 +114,11 @@
 .k-window-action, .k-inline-block, .k-grid .k-filter-options,
 .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect,
 .k-multiselect.k-state-border-down, .k-combobox, .k-dropdown, .k-dropdown-wrap,
-.k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification,
-.k-numerictextbox, .k-picker-wrap, .k-picker-wrap.k-state-border-down, .k-numeric-wrap,
-.k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link,
-.k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection,
-.k-upload {
+.k-dropdown-wrap.k-state-border-down, .k-datepicker, .k-timepicker, .k-colorpicker,
+.k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap,
+.k-picker-wrap.k-state-border-down, .k-numeric-wrap, .k-colorpicker, .k-list-container,
+.k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline,
+.k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
     border-radius: 0;
 }
 
@@ -142,7 +146,8 @@
     width: 38px;
 }
 
-.k-combobox .k-dropdown-wrap span.k-i-arrow-s {
+.k-combobox .k-dropdown-wrap span.k-i-arrow-s,
+.k-dropdown .k-dropdown-wrap span.k-i-arrow-s {
     height: 100%;
     width: 100%;
     background-image: url("/Content/images/SAMC_DropdownArrow.png");
@@ -202,15 +207,92 @@
     padding: 10px 9px;
 }
 
-    .k-grid-pager .k-pager-sizes {
-        float: right;
+    .k-grid-pager .k-pager-first,
+    .k-grid-pager .k-pager-last {
+        display: none;
     }
+
+    .k-grid-pager .k-pager-nav {
+        border-radius: 0;
+        background: none;
+        background-color: #FFFFFF;
+        height: 34px;
+        width: 34px;
+        border-color: #CCCCCC;
+    }
+
+        .k-grid-pager .k-pager-nav:hover {
+            background-color: #FCEED9;
+        }
+
+            .k-grid-pager .k-pager-nav .k-icon,
+            .k-grid-pager .k-pager-nav:hover .k-icon {
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                background-color: transparent;
+                height: 16px;
+                width: 9px;
+                position: relative;
+                top: 2px;
+            }
+
+        .k-grid-pager .k-pager-nav .k-i-arrow-w {
+            background-image: url("/Content/images/SAMC_NavigationLeft.png");
+            left: -2px;
+        }
+
+        .k-grid-pager .k-pager-nav .k-i-arrow-e {
+            background-image: url("/Content/images/SAMC_NavigationRight.png");
+            right: -1px;
+        }
+
+    .k-grid-pager .k-pager-input {
+        background-color: #FFFFFF;
+        height: 26px;
+        border-top: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+        margin: 0px -1px;
+        padding: 3px 16px 5px 7.5px;
+    }
+
+        .k-grid-pager .k-pager-input .k-textbox {
+            padding: 0;
+            margin: 0 0 4px 2px;
+            height: 20px;
+            width: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+        }
+
+    .k-grid-pager .k-pager-sizes {
+        color: #666666;
+        float: right;
+        padding: 3px 0 0;
+        margin-top: 1px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.9px;
+    }
+
+        .k-grid-pager .k-pager-sizes .k-dropdown {
+            float: right;
+            width: 63px;
+            margin-right: 0px;
+            margin-top: -4px;
+            margin-left: 10px;
+        }
 
         .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
             min-height: 24px;
             height: 24px;
             font-size: 14px;
             padding: 5px;
+            letter-spacing: normal;
+        }
+
+        .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
+            width: 35px;
         }
 /**********************************************************************************/
 

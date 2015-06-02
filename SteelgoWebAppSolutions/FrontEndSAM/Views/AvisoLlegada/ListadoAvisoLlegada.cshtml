@@ -97,8 +97,15 @@
                 pageable: {
                     refresh: false,
                     pageSizes: [10, 15, 20],
-                    info: false
-                },
+                    info: false,
+                    input: true,
+                    numeric: false,
+                    messages: {
+                        page: "",
+                        of: "de {0}",
+                        itemsPerPage: "Tamaño de Página",
+                    }
+                },                
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
@@ -111,6 +118,8 @@
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
                 ]
             });
+
+            $("input.k-textbox").attr("readonly", true);
         }
 
         function mostrarDetalle(e)
