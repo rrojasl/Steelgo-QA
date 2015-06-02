@@ -279,7 +279,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="Sam3\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
