@@ -7,6 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Proyecto
     {
-        public int ProyectoID { get; set; }
+        public string ProyectoID { get; set; }
+        public string Nombre { get; set; }
     }
 }

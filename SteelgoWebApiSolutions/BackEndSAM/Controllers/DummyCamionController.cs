@@ -17,12 +17,12 @@ namespace BackEndSAM.Controllers
         {
             List<Camion> lstcamion = new List<Camion>();
             Camion camion = new Camion();
-            camion.CamionID = 12;
+            camion.CamionID = "12";
             camion.Placas = "Ruta 128";
             lstcamion.Add(camion);
 
             Camion camion1 = new Camion();
-            camion1.CamionID = 13;
+            camion1.CamionID = "13";
             camion1.Placas = "Ruta 134";
             lstcamion.Add(camion1);
 

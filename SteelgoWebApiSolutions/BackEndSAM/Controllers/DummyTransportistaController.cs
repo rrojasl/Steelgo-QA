@@ -17,12 +17,12 @@ namespace BackEndSAM.Controllers
         {
             List<Transportista> lstTransportista = new List<Transportista>();
             Transportista transportista = new Transportista();
-            transportista.TransportistaID = 123;
+            transportista.TransportistaID = "123";
             transportista.Nombre = "Francisco Martinez";
             lstTransportista.Add(transportista);
 
             Transportista transportista1 = new Transportista();
-            transportista1.TransportistaID = 124;
+            transportista1.TransportistaID = "124";
             transportista1.Nombre = "Sara Martinez";
             lstTransportista.Add(transportista1);
             return lstTransportista.AsEnumerable();

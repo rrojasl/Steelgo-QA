@@ -7,7 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Patio
     {
-        public int PatioID { get; set; }
+        public string PatioID { get; set; }
         public string Nombre { get; set; }
     }
 }

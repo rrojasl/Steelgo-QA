@@ -26,45 +26,17 @@ namespace BackEndSAM.Controllers
             files.id = 1;
             files.Archivo = "Prueba1";
             files.Extension = ".doc";
+            files.Descripcion = "Prueba description 1";
             resultFiles.Add(files);
 
             Files files2= new Files();
             files2.id = 2;
             files2.Archivo = "Prueba2";
             files2.Extension = ".docx";
+            files2.Descripcion = "Prueba description 2";
             resultFiles.Add(files2);
-
             return resultFiles;
         }
-
-        // POST api/dummyfilemanager
-        //[HttpPost]
-        //public object Post()
-        //{
-        //    var request = HttpContext.Current.Request;
-        //    HttpResponseMessage result = null;
-
-        //    //if (request.Files.Count == 0)
-        //    //{
-        //    //    result = Request.CreateResponse(HttpStatusCode.BadRequest);
-        //    //}
-        //    //var resultFiles = new List<Files>();
-        //    //Files files = new Files();
-        //    //files.id = 1;
-        //    //files.Archivo = "Prueba1";
-        //    //files.status = "OK";
-        //    //resultFiles.Add(files);
-
-        //    //result = Request.CreateResponse(HttpStatusCode.Created, resultFiles);
-
-        //    //var s = new string[] { status="OK", id="12", archivo = "successfully uploaded" };
-        //    //Json(s, JsonRequestBehavior.AllowGet);
-
-        //    Files[] returnObject = new Files[2];
-        //    returnObject[0] = new Files(1, "value1", "OK");
-        //    returnObject[1] = new Files(2, "value2", "OK");
-        //    return Json(new { status = "OK" }, "text/plain");
-        //}
 
         // PUT api/dummyfilemanager/5
         public void Put(int id, [FromBody]string value)
@@ -78,7 +50,7 @@ namespace BackEndSAM.Controllers
         }
 
 
-        public Task<HttpResponseMessage> Post()
+        public Files Post(string username, string token)
         {
             // Check if the request contains multipart/form-data.
             if (Request.Content.IsMimeMultipartContent() == false)
@@ -86,26 +58,12 @@ namespace BackEndSAM.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
-
-            var task = Request.Content.ReadAsMultipartAsync(provider).
-                ContinueWith<HttpResponseMessage>(t =>
-                {
-                    if (t.IsFaulted || t.IsCanceled)
-                    {
-                        Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
-                    }
-
-                    foreach (MultipartFileData file in provider.FileData)
-                    {
-                        //string directory = Path.GetDirectoryName(file.LocalFileName);
-                       
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                });
-
-            return task;
+            Files files = new Files();
+            files.id = 1;
+            files.Archivo = "Prueba1";
+            files.Extension = ".doc";
+            files.status = "OK";
+            return files;
         }
     }
 }

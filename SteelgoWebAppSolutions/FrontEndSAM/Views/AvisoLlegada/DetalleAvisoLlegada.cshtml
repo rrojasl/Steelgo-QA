@@ -12,7 +12,7 @@
     <br />
     <div class="form-group">
         <label id="DetalleAvisoLlegada0001"></label> 
-        <input id="ProyectoID" class="form-control"/>
+        <input id="ProyectoID" class=""/>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0002"></label> 
@@ -20,21 +20,21 @@
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0003"></label> 
-        <input id="TransportistaID" class="form-control"/>
+        <input id="TransportistaID" class=""/>
         <a href='javascript:void(0);' onclick="VentanaModal(1);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0004"></label>
-        <input id="FechaRecepcion" class="form-control"/>
+        <input id="FechaRecepcion" class=""/>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0005"></label> 
-        <input id="ProveedorID" class="form-control"/>
+        <input id="ProveedorID" class=""/>
          <a href='javascript:void(0);' onclick="VentanaModal(2);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0006"></label> 
-        <input id="PlanaID" class="form-control"/>
+        <input id="PlanaID" class=""/>
         <a href='javascript:void(0);' onclick="VentanaModal(3);">Icono</a>
     </div>
     <div class="form-group">
@@ -43,12 +43,12 @@
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0008"></label> 
-        <input id="PatioID" class="form-control"/>
+        <input id="PatioID" class=""/>
          <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
     </div>
     <div class="form-group">
         <label id="DetalleAvisoLlegada0009"></label> 
-        <input id="ChoferID" class="form-control"/>
+        <input id="ChoferID" class=""/>
         <a href='javascript:void(0);' onclick="VentanaModal(5);">Icono</a>
     </div>
 
@@ -62,7 +62,7 @@
 
     <div class="form-group">
         <label id="DetalleAvisoLlegada0010"></label>
-        <input id="TipoArchivo" class="form-control"/>
+        <input id="TipoArchivo" class=""/>
         
         <br />        
 
@@ -109,8 +109,8 @@
     </div>
 @****************@
 
-    <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0017"></label></a>
-    <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0018"></label></a>
+    <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><span id="DetalleAvisoLlegada0017"></span></a>
+    <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><span id="DetalleAvisoLlegada0018"></span></a>
 </div>
 
 @*Ventana Modal*@
@@ -354,17 +354,15 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: "http://localhost:60960/backendsam/api/DummyPatio",
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
-                //dataTextField: "Nombre",
-                //dataValueField: "PatioID",
+                dataTextField: "Nombre",
+                dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.id, dataItem.value);
+                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
@@ -513,54 +511,54 @@
 
         function GuardarAvisoLlegada()
         {
-                //Arreglo Aviso de llegada
-                AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", PaseSalida: "" };
+            //Arreglo Aviso de llegada
+            AvisoLlegada = [];
+            AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", PaseSalida: "" };
                 
-                _permisoAduana = [];
-                _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
+            _permisoAduana = [];
+            _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
 
                 _archivosPackingList = [];
                 _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
 
-                //objeto para los proyectos y documentos.
-                ProyectoIDs = [];
-                Documentos = [];                
-                permiso = [];
+            //objeto para los proyectos y documentos.
+            ProyectoIDs = [];
+            Documentos = [];                
+            permiso = [];
                 DocumentosPackingList = [];
 
-                var _archivoautorizado = $("#hdArchivoAutorizado").val();
+            var _archivoautorizado = $("#hdArchivoAutorizado").val();
+            item = {};
+            item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
+            item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
+            item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
+            permiso.push(item);
+                
+            _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
+            _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
+            _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
+            _permisoAduana[0].ArchivoAutorizado = permiso;
+                
+            var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
+            $.each(proyectos, function (index, value) {
                 item = {};
-                item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
-                item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
-                item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
-                permiso.push(item);
-                
-                _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
-                _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
-                _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
-                _permisoAduana[0].ArchivoAutorizado = permiso;
-                
-                var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
-                $.each(proyectos, function (index, value) {
-                    item = {};
-                    item["ProyectoID"] = value;
-                    ProyectoIDs.push(item);
-                });
+                item["ProyectoID"] = value;
+                ProyectoIDs.push(item);
+            });
             
-                $('#listaArchivos > tbody  > tr').each(function () {
-                    if ($(this).find("td:first").length > 0) {
-                        var id = $(this).attr("id").split(",")[0];
-                        var archivo = $(this).find("td a").eq(0).html();
-                        var extencion = $(this).attr("id").split(",")[1];
+            $('#listaArchivos > tbody  > tr').each(function () {
+                if ($(this).find("td:first").length > 0) {
+                    var id = $(this).attr("id").split(",")[0];
+                    var archivo = $(this).find("td a").eq(0).html();
+                    var extencion = $(this).attr("id").split(",")[1];
 
-                        item = {};
-                        item["ArchivoID"] = id;
-                        item["Nombre"] = archivo;
-                        item["Extension"] = extencion;
-                        Documentos.push(item);
-                    }
-                });
+                    item = {};
+                    item["ArchivoID"] = id;
+                    item["Nombre"] = archivo;
+                    item["Extension"] = extencion;
+                    Documentos.push(item);
+                }
+            });
                 
                 $('#listaArchivosPaseSalida > tbody  > tr').each(function () {
                     if ($(this).find("td:first").length > 0) {
@@ -580,41 +578,41 @@
                 _archivosPackingList[0].Archivos = DocumentosPackingList;
 
                 
-                var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
+            var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
 
-                AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
-                AvisoLlegada[0].Proyectos = ProyectoIDs;
-                AvisoLlegada[0].Factura = $("#Factura").val();
-                AvisoLlegada[0].Transportista = Transportista;
-                AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
-                AvisoLlegada[0].Proveedor = Proveedor;
-                AvisoLlegada[0].Plana = Plana;
-                AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-                AvisoLlegada[0].Patio = Patio;
-                AvisoLlegada[0].Chofer = Chofer;
-                AvisoLlegada[0].Archivos = Documentos;
-                AvisoLlegada[0].PermisoAduana = _permisoAduana;
+            AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
+            AvisoLlegada[0].Proyectos = ProyectoIDs;
+            AvisoLlegada[0].Factura = $("#Factura").val();
+            AvisoLlegada[0].Transportista = Transportista;
+            AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
+            AvisoLlegada[0].Proveedor = Proveedor;
+            AvisoLlegada[0].Plana = Plana;
+            AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
+            AvisoLlegada[0].Patio = Patio;
+            AvisoLlegada[0].Chofer = Chofer;
+            AvisoLlegada[0].Archivos = Documentos;
+            AvisoLlegada[0].PermisoAduana = _permisoAduana;
                 AvisoLlegada[0].PaseSalida = _archivosPackingList;
 
-                console.log(JSON.stringify(AvisoLlegada));
+            console.log(JSON.stringify(AvisoLlegada));
 
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyAvisoLlegada');
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyAvisoLlegada');
 
-                if (folio != -1)//Edición
-                {
-                    Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                        console.log("Client.DummyAvisoLlegada.update");
-                    });
-                } else //Alta
-                {
-                    Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                        console.log("Client.DummyAvisoLlegada.create");
-                        folio = data.FolioAvisoLlegadaID;
+            if (folio != -1)//Edición
+            {
+                Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    console.log("Client.DummyAvisoLlegada.update");
+                });
+            } else //Alta
+            {
+                Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    console.log("Client.DummyAvisoLlegada.create");
+                    folio = data.FolioAvisoLlegadaID;
                         $("#divFolio").html(folio);
-                        $("#PermisoAduana").show();
-                    });
-                }
+                    $("#PermisoAduana").show();
+                });
+            }
 
 
         };
@@ -825,7 +823,7 @@
                     $("#modalPlana").hide();
                     $("#modalChofer").show();
                     break;
-         };
+            };
 
             var window = $("#window");
             var win = window.kendoWindow({
@@ -978,7 +976,7 @@
             });
 
         };
-}
+    }
 
     @section JavascriptDocumentReadyFunctions {
         //Your partial view document ready function

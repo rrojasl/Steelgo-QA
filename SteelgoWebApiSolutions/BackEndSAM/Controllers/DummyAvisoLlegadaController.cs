@@ -51,9 +51,6 @@ namespace BackEndSAM.Controllers
             archivosPaseSalida1.Archivo = "google.com";
             lstfilespasesalida.Add(archivosPaseSalida1);
             paseSalida.Archivos = lstfilespasesalida;
-            //archivoautorizado1.ArchivoId = 99;
-            //archivoautorizado1.Extension = ".doc";
-            //archivoautorizado1.Nombre = "c://loca..coma";
 
             files.id = 1;
             files.Archivo = "Prueba1";
@@ -65,7 +62,7 @@ namespace BackEndSAM.Controllers
             files2.Extension = ".docx";
             listFiles.Add(files2);
 
-            transportista.TransportistaID = 1;
+            transportista.TransportistaID = "1";
             transportista.Nombre = "Francisco Martinez";
             
 
@@ -73,21 +70,21 @@ namespace BackEndSAM.Controllers
             proveedor.Nombre = "Femsa";
 
 
-            patio.PatioID = 1;
+            patio.PatioID = "1";
             patio.Nombre = "value1";
            
 
-            chofer.ChoferID = 1;
+            chofer.ChoferID = "1";
             chofer.Nombre = "value1";
             
 
-            plana.PlanaID = 1;
+            plana.PlanaID = "1";
             plana.Nombre = "value1";
             
 
             aviso.FolioAvisoLlegadaID = 1;
 
-            proyecto.ProyectoID = 1;
+            proyecto.ProyectoID = "1";
             lstProyecto.Add(proyecto);
             aviso.Proyectos = lstProyecto;
 
@@ -136,18 +133,18 @@ namespace BackEndSAM.Controllers
             files3.Archivo = "Prueba2";
             files3.Extension = ".docx";
             listFiles2.Add(files3);
-            transportista2.TransportistaID = 1;
+            transportista2.TransportistaID = "1";
             transportista2.Nombre = "Sara Martinez";
             proveedor2.ProveedorID = "2";
             proveedor2.Nombre = "Kentucky";
-            patio2.PatioID = 2;
+            patio2.PatioID = "2";
             patio2.Nombre = "value2";
-            chofer2.ChoferID = 2;
+            chofer2.ChoferID = "2";
             chofer2.Nombre = "value2";
-            plana2.PlanaID = 1;
+            plana2.PlanaID = "1";
             plana2.Nombre = "value2";
             aviso1.FolioAvisoLlegadaID = 2;
-            proyecto1.ProyectoID = 1;
+            proyecto1.ProyectoID = "1";
             lstProyecto2.Add(proyecto1);
 
             archivoautorizado.ArchivoID = 99;

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
@@ -12,9 +13,21 @@ namespace BackEndSAM.Controllers
     public class DummyPatioController : ApiController
     {
         // GET api/patio
-        public IEnumerable<string> Get()
+        public IEnumerable<Patio> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Patio> lstpatio = new List<Patio>();
+            Patio patio = new Patio();
+            Patio patio1 = new Patio();
+
+            patio.PatioID = "1";
+            patio.Nombre = "Plaza Real";
+            lstpatio.Add(patio);
+
+            patio1.PatioID = "2";
+            patio1.Nombre = "Plaza Vasconcelos";
+            lstpatio.Add(patio1);
+
+            return lstpatio;
         }
 
         // GET api/patio/5

@@ -7,7 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Plana
     {
-        public int PlanaID { get; set; }
+        public string PlanaID { get; set; }
         public string Nombre { get; set; }
     }
 }

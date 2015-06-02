@@ -7,7 +7,7 @@ namespace BackEndSAM.Models
 {
     public class FolioEntrada
     {
-        public int FolioAvisoLlegadaID { get; set; }
-        public int consecutivo { get; set; }
+        public string FolioAvisoLlegadaID { get; set; }
+        public string Consecutivo { get; set; }
     }
 }
