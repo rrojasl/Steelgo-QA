@@ -2,7 +2,16 @@
     ViewBag.Title = "EntradaMaterial";
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <div class="form-group">
+
+    <div id="divTitulos" style="display:none">
+        <div class="form-group">
+            <h2><label id="EntradaMaterial0013"></label><span id="spanFolioEntrada"></span></h2>
+        </div>
+        <div class="form-group">
+             <h2><label id="EntradaMaterial0014"></label><span id="SpanFolioLlegada"></span></h2>
+        </div>
+    </div>
+    <div id="divFolioEntradaID" class="form-group">
         <label id="EntradaMaterial0003"></label> 
         <input id="FolioEntradaID" class="form-control"/>
     </div>
@@ -30,6 +39,19 @@
         <input id="Descripcion" class="form-control"/>
     </div>
 
+    <table id="listaArchivos">
+            <thead><tr><td>Archivo</td><td>Descripcion</td><td>Eliminar</td></tr></thead>
+    </table>
+
+    <div id="divFoliosGenerados" style="display:none">
+        <table id="listaFoliosGenerados">
+                <thead><tr><td>Folio de llegada</td><td>Folio de entrada</td><td>Packing List</td><td>Proyecto</td></tr></thead>
+        </table>
+    </div>
+
+    <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><span id="EntradaMaterial0011"></span></a>
+    <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><span id="EntradaMaterial0012"></span></a>
+
 @*Ventana Modal*@
     <div id="window">
         <div id="modalPatio" style="display:none">
@@ -50,16 +72,28 @@
             </div>
         </div>
     </div>
+
+
+        
+
 <script>
   @section JavascriptGlobalVariables {
+        var folioLlegada = getUrlParameter("folioLlegada", "-1");
+        var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");
         //your partial views variables
         var FechaRecepcion;
         var Patio = [];
+        var Proyecto = [];
     };
 
 
     @section JavascriptGlobalFunctions {
-    function CargaInicial() {
+        function CargaInicial() {
+
+            $("#Guardar").click(function (e) {
+                GuardarLlegadaMaterial();
+            });
+            $("#GuardarPatio").click(function (e) { GuardarPatio(); });
             $("#FolioEntradaID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
@@ -98,7 +132,7 @@
                 filter: "contains"
             });
 
-            $("#ProyectoID").kendoComboBox({
+            $("#ProyectoID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -110,6 +144,10 @@
                 },
                 dataTextField: "value",
                 dataValueField: "id",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarProyecto(dataItem.id, dataItem.value);
+                },
                 filter: "contains",
             });
 
@@ -133,6 +171,7 @@
                     {
                         $("#divPatio").hide();
                         $("#PatioID").data("kendoAutoComplete").value("");
+                        Patio = [];
                     }
                 },
                 filter: "contains",
@@ -146,56 +185,80 @@
                     withCredentials: false
                 },
                 success: function (data) {
-                    alert("hola");
                     //Se crea la tabla dinamica con el archivo que  se dio de alta, [id], [Archivo], [Extension]
                     $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#Descripcion").val() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
                     });
                 },
                 error: function (data) { },
                 upload: onUploadAdjuntarArchivos
             });
-    };
 
+    };
+        function CargaInicialEdicion() {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyEntradaMaterial');
+
+            Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                if(data.Proyecto){
+                    CargarProyecto(data.Proyecto.ProyectoID, data.Proyecto.Nombre);
+                    $("#ProyectoID").data("kendoAutoComplete").value(data.Proyecto.Nombre);
+                }
+
+                if(data.Estatus){
+                    $("#Estatus").data("kendoComboBox").value(data.Estatus)
+                    if (data.Estatus == "En Patio") {
+                        $("#divPatio").show();
+                        CargarPatio(data.Patio.PatioID, data.Patio.Nombre);
+                        $("#PatioID").data("kendoAutoComplete").value(data.Patio.Nombre);
+                    };
+                }
+
+                $.each(data.Archivos, function (index, value) {
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                });
+            
+            });
+        };
         function VentanaModal(id) {
 
-            switch (id) {
-                case 1:
-                    $("#modalProveedor").hide();
-                    $("#modalPatio").hide();
-                    $("#modalChofer").hide();
-                    $("#modalPlana").hide();
-                    $("#modalTransportista").show();
-                    break;
-                case 2:
-                    $("#modalTransportista").hide();
-                    $("#modalPatio").hide();
-                    $("#modalChofer").hide();
-                    $("#modalPlana").hide();
-                    $("#modalProveedor").show();
-                    break;
-                case 3:
-                    $("#modalTransportista").hide();
-                    $("#modalPatio").hide();
-                    $("#modalChofer").hide();
-                    $("#modalProveedor").hide();
-                    $("#modalPlana").show();
-                    break;
-                case 4:
-                    $("#modalTransportista").hide();
-                    $("#modalProveedor").hide();
-                    $("#modalChofer").hide();
-                    $("#modalPlana").hide();
-                    $("#modalPatio").show();
-                    break;
-                case 5:
-                    $("#modalTransportista").hide();
-                    $("#modalProveedor").hide();
-                    $("#modalPatio").hide();
-                    $("#modalPlana").hide();
-                    $("#modalChofer").show();
-                    break;
-            };
+        switch (id) {
+            case 1:
+                $("#modalProveedor").hide();
+                $("#modalPatio").hide();
+                $("#modalChofer").hide();
+                $("#modalPlana").hide();
+                $("#modalTransportista").show();
+                break;
+            case 2:
+                $("#modalTransportista").hide();
+                $("#modalPatio").hide();
+                $("#modalChofer").hide();
+                $("#modalPlana").hide();
+                $("#modalProveedor").show();
+                break;
+            case 3:
+                $("#modalTransportista").hide();
+                $("#modalPatio").hide();
+                $("#modalChofer").hide();
+                $("#modalProveedor").hide();
+                $("#modalPlana").show();
+                break;
+            case 4:
+                $("#modalTransportista").hide();
+                $("#modalProveedor").hide();
+                $("#modalChofer").hide();
+                $("#modalPlana").hide();
+                $("#modalPatio").show();
+                break;
+            case 5:
+                $("#modalTransportista").hide();
+                $("#modalProveedor").hide();
+                $("#modalPatio").hide();
+                $("#modalPlana").hide();
+                $("#modalChofer").show();
+                break;
+     };
 
             var window = $("#window");
             var win = window.kendoWindow({
@@ -213,6 +276,14 @@
             window.data("kendoWindow").open();
         };
 
+        function CargarProyecto(id, value) {
+            Proyecto = [];
+            _proyecto = {};
+            _proyecto["ProyectoID"] = id;
+            _proyecto["Nombre"] = value;
+            Proyecto.push(_proyecto);
+        };
+
         function CargarPatio(id, value) {
             Patio = [];
             _patio = {};
@@ -228,25 +299,154 @@
             Folio.push(_folio);
         };
 
-        @*$('#AdjuntarArchivos').kendoUpload({
-            async: {
-                saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                    autoUpload: false
-                },
-            success: function (data) {
-                $("#hdAdjuntarArchivos").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
-            },
-            error: function (data) { },
-            upload: onUploadAdjuntarArchivos
-        });
+        function onUploadAdjuntarArchivos() {
+            if (!$("#Descripcion").val()) {
+                alert("Por favor, debe llenar la descripción");
+                e.preventDefault();
+            }
+        };
 
-        *@
-    function onUploadAdjuntarArchivos() {
+        function descargarArchivo(id) {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyDescargarArchivo');
 
+            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyDescargarArchivo.read");
+            });
+        };
+
+        function borrarArchivo(id, fila) {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyFileManager');
+
+            Client.DummyFileManager.destroy({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                fila.closest("tr").remove();
+                console.log("Client.DummyFileManager.destroy");
+            });
+        };
+
+
+        function GuardarLlegadaMaterial() {
+            //Arreglo Llegada Material
+            FolioLlegada = [];
+            FolioLlegada[0] = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Proyecto: "", Patio: "", Archivos: "", Estatus: "" };
+            //objeto para los documentos.
+            Documentos = [];
+
+            $('#listaArchivos > tbody  > tr').each(function () {
+                if ($(this).find("td:first").length > 0) {
+                    var id = $(this).attr("id").split(",")[0];
+                    var archivo = $(this).find("td a").eq(0).html();
+                    var extencion = $(this).attr("id").split(",")[1];
+                    var descripcion = $(this).find("td").eq(1).html();
+
+                    item = {};
+                    item["ArchivoID"] = id;
+                    item["Nombre"] = archivo;
+                    item["Extension"] = extencion;
+                    item["Descripcion"] = descripcion;
+                    Documentos.push(item);
+                }
+            });
+            
+            FolioLlegada[0].FolioLlegadaID = folioLlegada != -1 ? folioLlegada : -1;
+            FolioLlegada[0].FolioAvisoLlegadaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : -1;
+            FolioLlegada[0].Proyecto = Proyecto;
+            FolioLlegada[0].Patio = Patio;
+            FolioLlegada[0].Archivos = Documentos;
+            FolioLlegada[0].Estatus = $("#Estatus").data("kendoComboBox").text();
+
+
+            console.log(JSON.stringify(FolioLlegada));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyFolioEntrada');
+
+            if (folioLlegada != -1 && folioAvisoLlegada != -1)//Edición
+            {
+                Client.DummyFolioEntrada.update({}, { folioLlegada: JSON.stringify(FolioLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    console.log("Client.DummyFolioEntrada.update");
+                    MostrarFoliosGenerados();
+                });
+            } else //Alta
+            {
+                Client.DummyFolioEntrada.create({}, { folioLlegada: JSON.stringify(FolioLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    console.log("Client.DummyFolioEntrada.create");
+                    folioLlegada = data.FolioLlegadaID;                   
+                    $("#FolioEntradaID, #ProyectoID").kendoAutoComplete({
+                        enable: false
+                    });
+                    MostrarFoliosGenerados();
+                    console.log(folioLlegada);
+                });
+            }
+
+
+        };
+
+        function MostrarFoliosGenerados() {
+            $("#listaFoliosGenerados tbody tr").empty();
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyFoliosGenerados');
+
+            Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                $.each(data, function (index, value) {
+                    $("#divFoliosGenerados").show();
+                    $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
+                });
+            });
+        };
+
+
+        function AbrirArchivo(id) {
+            var Listado = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
+            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + id;
+        };
+
+        function GuardarPatio() {
+            PatioModal = [];
+            PatioModal[0] = { Nombre: "", Propietario: "", Descripcion: "" };
+            PatioModal[0].Nombre = $("#Nombre_Patio").val();
+            PatioModal[0].Propietario = $("#Propietario_Patio").val();
+            PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
+
+            console.log(JSON.stringify(PatioModal));
+
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyPatio');
+            Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                console.log("Client.DummyPatio.create");
+                LimpiarModalPatio();
+            });
+        };
+
+        function LimpiarModalPatio() {
+            $("#Nombre_Patio").val("");
+            $("#Propietario_Patio").val("");
+            $("#Descripcion_Patio").val("");
         };
     };
    
     @section JavascriptDocumentReadyFunctions {
         CargaInicial();
+        if (folioLlegada != -1 && folioAvisoLlegada != -1)
+        {
+            $("#divFolioEntradaID").hide();
+            $("#divTitulos").show();
+            $("#spanFolioEntrada").html(folioAvisoLlegada);
+            $("#SpanFolioLlegada").html(folioLlegada);
+            CargaInicialEdicion();
+        } else
+        {
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyFileManager');
+
+            Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                $.each(data, function (index, value) {
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#Descripcion").val() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                });
+
+            });
+        }
     };
  </script>

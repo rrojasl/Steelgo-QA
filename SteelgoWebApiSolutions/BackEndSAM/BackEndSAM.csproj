@@ -97,7 +97,10 @@
     <Compile Include="Controllers\DummyDescargarArchivoController.cs" />
     <Compile Include="Controllers\DummyFileManagerController.cs" />
     <Compile Include="Controllers\DummyFolioEntradaController.cs" />
+    <Compile Include="Controllers\DummyFoliosGeneradosController.cs" />
     <Compile Include="Controllers\DummyListadoAvisoLlegadaController.cs" />
+    <Compile Include="Controllers\DummyListadoLlegadaMaterialController.cs" />
+    <Compile Include="Controllers\DummyPackingListController.cs" />
     <Compile Include="Controllers\DummyPlanaController.cs" />
     <Compile Include="Controllers\DummyProveedorController.cs" />
     <Compile Include="Controllers\DummyTramitarPermisoController.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Controllers\DummyPatioController.cs" />
     <Compile Include="Controllers\DummyEntradaMaterialController.cs" />
     <Compile Include="Controllers\DummyEstatusController.cs" />
+    <Compile Include="Controllers\FolioLlegadaController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,11 +118,16 @@
     <Compile Include="Models\Dummy\Camion.cs" />
     <Compile Include="Models\Dummy\Chofer.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
+    <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />
     <Compile Include="Models\Dummy\Estatus.cs" />
     <Compile Include="Models\Dummy\Files.cs" />
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
+    <Compile Include="Models\Dummy\FolioLlegada.cs" />
+    <Compile Include="Models\Dummy\FoliosGenerados.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
+    <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
+    <Compile Include="Models\Dummy\PackingList.cs" />
     <Compile Include="Models\Dummy\PaseSalida.cs" />
     <Compile Include="Models\Dummy\Patio.cs" />
     <Compile Include="Models\Dummy\PermisoAduana.cs" />

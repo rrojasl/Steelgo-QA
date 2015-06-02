@@ -34,12 +34,16 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/dummyfolioentrada
-        public void Post([FromBody]string value)
+        public FolioLlegada Post(string folioLlegada, string username, string token)
         {
+            FolioLlegada _folioLlegada = new FolioLlegada();
+            _folioLlegada.FolioLlegadaID = "12";
+
+            return _folioLlegada;
         }
 
         // PUT api/dummyfolioentrada/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(string folioLlegada, string username, string token)
         {
         }
 

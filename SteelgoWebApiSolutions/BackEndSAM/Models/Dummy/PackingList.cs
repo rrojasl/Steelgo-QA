@@ -5,9 +5,9 @@ using System.Web;
 
 namespace BackEndSAM.Models
 {
-    public class Proyecto
+    public class PackingList
     {
-        public string ProyectoID { get; set; }
-        public string Nombre { get; set; }
+        public string PackingListID { get; set; }
+        public string Consecutivo { get; set; }
     }
 }
