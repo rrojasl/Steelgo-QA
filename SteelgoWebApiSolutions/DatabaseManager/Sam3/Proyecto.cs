@@ -27,10 +27,10 @@ namespace DatabaseManager.Sam3
             this.OrdenTrabajo = new HashSet<OrdenTrabajo>();
             this.PackingList = new HashSet<PackingList>();
             this.PinturaNumeroUnico = new HashSet<PinturaNumeroUnico>();
+            this.Rel_Usuario_Proyecto = new HashSet<Rel_Usuario_Proyecto>();
             this.Rel_FolioAvisoLlegada_Proyecto = new HashSet<Rel_FolioAvisoLlegada_Proyecto>();
             this.RequisicionNumeroUnico = new HashSet<RequisicionNumeroUnico>();
             this.Spool = new HashSet<Spool>();
-            this.Rel_Usuario_Proyecto = new HashSet<Rel_Usuario_Proyecto>();
         }
     
         public int ProyectoID { get; set; }
@@ -60,9 +60,9 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<PackingList> PackingList { get; set; }
         public virtual Patio Patio { get; set; }
         public virtual ICollection<PinturaNumeroUnico> PinturaNumeroUnico { get; set; }
+        public virtual ICollection<Rel_Usuario_Proyecto> Rel_Usuario_Proyecto { get; set; }
         public virtual ICollection<Rel_FolioAvisoLlegada_Proyecto> Rel_FolioAvisoLlegada_Proyecto { get; set; }
         public virtual ICollection<RequisicionNumeroUnico> RequisicionNumeroUnico { get; set; }
         public virtual ICollection<Spool> Spool { get; set; }
-        public virtual ICollection<Rel_Usuario_Proyecto> Rel_Usuario_Proyecto { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>@ViewBag.Title</title>
 
     <!-- Styles -->
@@ -523,35 +524,35 @@
         $SecurityManager.add('authentication');
         var $authorizationModel = {};
         var $layoutModel = {
-                listContainer: {
-                    create: "",
-                    list: "",
-                    detail: "",
-                    destroy: ""
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                sidemenu: {
+                    visible: "#sidebar",
+                    editable: "#sidebar",
+                    required: "#sidebar"
                 },
-                properties: {
-                    sidemenu: {
-                        visible: "#sidebar",
-                        editable: "#sidebar",
-                        required: "#sidebar"
-                    },
-                    search: {
-                        visible: ".search-bar",
-                        editable: "#layoutLabel0001",
-                        required: "#layoutLabel0001"
-                    },
-                    notifications: {
-                        visible: ".notifications",
-                        editable: "#notifications",
-                        required: "#notifications"
-                    },
-                    useroptions: {
-                        visible: ".logged-user",
-                        editable: "#logged-user",
-                        required: "#logged-user",
-                    }
+                search: {
+                    visible: ".search-bar",
+                    editable: "#layoutLabel0001",
+                    required: "#layoutLabel0001"
+                },
+                notifications: {
+                    visible: ".notifications",
+                    editable: "#notifications",
+                    required: "#notifications"
+                },
+                useroptions: {
+                    visible: ".logged-user",
+                    editable: "#logged-user",
+                    required: "#logged-user",
                 }
-            };
+            }
+        };
 
         //Partial Views Javascript Code Container
             @RenderSection("JavascriptGlobalVariables", required: false)
@@ -961,8 +962,8 @@
 
             //Toggle for last submenu's links         
             $("ul.sub-menu3 > li > a").click(function () {                
-                    $("ul.sub-menu2 span").removeClass("active");                  
-                    $("ul.sub-menu3").removeClass("open");                                                            
+                $("ul.sub-menu2 span").removeClass("active");                  
+                $("ul.sub-menu3").removeClass("open");                                                            
             });
 
             //Toggle sidebar's size

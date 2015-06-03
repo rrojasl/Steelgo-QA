@@ -25,10 +25,10 @@ namespace DatabaseManager.Sam3
         public Nullable<bool> EstatusLectura { get; set; }
         public Nullable<int> EntidadID { get; set; }
         public Nullable<bool> Activo { get; set; }
-
+    
         [XmlIgnoreAttribute]
         public virtual Entidad Entidad { get; set; }
-        [XmlIgnoreAttribute]
+         [XmlIgnoreAttribute]
         public virtual TipoNotificacion TipoNotificacion { get; set; }
     }
 }

@@ -100,8 +100,13 @@
 }
 
 .k-multiselect, .k-combobox {
-    min-width: 240px;
-    width: 240px;
+    max-width: 240px;
+    width: 100%;
+}
+
+.k-autocomplete {
+    max-width: 242px;
+    width: 100%;
 }
 
 .k-multiselect-wrap {
@@ -128,8 +133,8 @@
 }
 
 .k-datepicker {
-    min-width: 184px;
-    width: 184px;
+    max-width: 184px;
+    width: 100%;
 }
 
     .k-datepicker .k-picker-wrap .k-select {
@@ -160,11 +165,6 @@
     background-position: center;
     background-size: 11px 6px;
 }
-
-.k-autocomplete {
-    min-width: 242px;
-    width: 242px;
-}
 /**********************************************************************************/
 
 
@@ -173,6 +173,7 @@
  Description:   Override kendo grid.
 **********************************************************************************/
 .k-grid {
+    margin-top: 15px;
 }
 
     .k-grid td {
@@ -236,11 +237,11 @@
 .k-grid tbody tr td a.k-button {
     color: transparent !important;
     height: 27px;
+    max-width: 18px;
     padding: 0;
-    margin: 0;
+    margin: 0 -22px;
     font-size: 0;
     border: none;
-    box-shadow: none !important;
     outline: none;
     background: none;
     background-color: transparent !important;
@@ -252,13 +253,19 @@
         box-shadow: none !important;
     }
 
-    .k-grid tbody tr td a.k-button.k-grid-Detalle {
+    .k-grid tbody tr td a.k-button.k-grid-Detalle,
+    .k-grid tbody tr td a.k-button.k-grid-Detail {
         background-image: url("/Content/images/SAMC_DetailIcon.png");
     }
 
-    .k-grid tbody tr td a.k-button.k-grid-Cancelar {
+    .k-grid tbody tr td a.k-button.k-grid-Cancelar,
+    .k-grid tbody tr td a.k-button.k-grid-Cancel {
         background-image: url("/Content/images/SAMC_Delete.png");
     }
+
+.expanded .k-grid tbody tr td a.k-button {
+    margin: 0 -20px;
+}
 
 .k-grid-pager {
     background-color: #EEEEEE;

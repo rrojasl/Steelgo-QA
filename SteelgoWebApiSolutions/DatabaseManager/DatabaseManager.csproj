@@ -50,291 +50,295 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sam3\Acero.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sam3\Bitacora.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Camion.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Chofer.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Cliente.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Colada.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Color.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Contacto.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Corte.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\CorteDetalle.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sam3\Despacho.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Diametro.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Entidad.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\EstatusOrden.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\ExtensionDocumento.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Fabricante.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\FamiliaAcero.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\FamiliaItemCode.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\FamiliaMaterial.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\FolioAvisoLlegada.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\FolioLlegada.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\FolioPackingList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Incidencia.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\ItemCode.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Maquina.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\MaterialSpool.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\MenuContextual.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\MenuGeneral.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Model.Context.cs">
+    <Compile Include="Sam3\ModelSam3.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
+      <DependentUpon>ModelSam3.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Model.cs">
+    <Compile Include="Sam3\ModelSam3.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Model.Designer.cs">
+    <Compile Include="Sam3\ModelSam3.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Sam3\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sam3\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sam3\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>ModelSam3.edmx</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Notificacion.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\NumeroUnico.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\NumeroUnicoCorte.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\NumeroUnicoInventario.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\NumeroUnicoMovimiento.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\NumeroUnicoSegmento.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\OrdenTrabajo.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\OrdenTrabajoSpool.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\PackingList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Pagina.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Patio.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Perfil.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\PermisoAduana.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\PinturaNumeroUnico.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Plana.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Preferencia.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Propiedad.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Proveedor.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Proyecto.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Recepcion.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Documento_Entidad.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_FolioAvisoLlegada_Proyecto.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Incidencia_Entidad.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Perfil_MenuContextual.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Perfil_MenuGeneral.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Perfil_Propiedad_Pagina.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Usuario_Preferencia.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Rel_Usuario_Proyecto.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Repositorio.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\RequisicionNumeroUnico.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\RequisicionNumeroUnicoDetalle.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sesion.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Spool.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\sysdiagrams.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Taller.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sam3\TipoActividad.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\TipoCorte.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\TipoDocumento.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\TipoMaterial.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\TipoMovimiento.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\TipoNotificacion.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Transportista.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\UbicacionFisica.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Usuario.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SamLogging\Bitacora.cs">
+      <DependentUpon>ModelSamLogging.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SamLogging\ModelSamLogging.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSamLogging.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SamLogging\ModelSamLogging.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSamLogging.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SamLogging\ModelSamLogging.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelSamLogging.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SamLogging\TipoActividad.cs">
+      <DependentUpon>ModelSamLogging.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-    <EntityDeploy Include="Sam3\Model1.edmx">
+    <EntityDeploy Include="Sam3\ModelSam3.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelSam3.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="Sam3\Model.edmx">
+    <None Include="Sam3\ModelSam3.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelSam3.edmx</DependentUpon>
+      <LastGenOutput>ModelSam3.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Sam3\ModelSam3.edmx.diagram">
+      <DependentUpon>ModelSam3.edmx</DependentUpon>
+    </None>
+    <None Include="Sam3\ModelSam3.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelSam3.edmx</DependentUpon>
+      <LastGenOutput>ModelSam3.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="SamLogging\ModelSamLogging.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelSamLogging.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Sam3\Model.Context.tt">
+    <None Include="SamLogging\ModelSamLogging.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
+      <DependentUpon>ModelSamLogging.edmx</DependentUpon>
+      <LastGenOutput>ModelSamLogging.Context.cs</LastGenOutput>
     </None>
-    <None Include="Sam3\Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
+    <None Include="SamLogging\ModelSamLogging.edmx.diagram">
+      <DependentUpon>ModelSamLogging.edmx</DependentUpon>
     </None>
-    <None Include="Sam3\Model.tt">
+    <None Include="SamLogging\ModelSamLogging.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
-    </None>
-    <None Include="Sam3\Model1.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
-    </None>
-    <None Include="Sam3\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </None>
-    <None Include="Sam3\Model1.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>ModelSamLogging.edmx</DependentUpon>
+      <LastGenOutput>ModelSamLogging.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -6,40 +6,61 @@
 *@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0002"></label>
-            <input id="FolioAvisoLlegadaID" class="" />
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label id="ListadoAvisoLlegada0003"></label>
+                    <input id="PatioID" class="" />
+                </div>
+                <div class="form-group col-lg-6">
+                    <label id="ListadoAvisoLlegada0004" class=""></label>
+                    <input id="ProyectoID" class="" />
+                </div>
+            </div>
         </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0003"></label>
-            <input id="PatioID" class="" />
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label id="ListadoAvisoLlegada0005"></label>
+                    <input id="ProveedorID" class="" />
+                </div>
+                <div class="form-group col-lg-6">
+                    <label id="ListadoAvisoLlegada0002"></label>
+                    <input id="FolioAvisoLlegadaID" class="" />
+                </div>
+            </div>
         </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0004" class="required"></label>
-            <input id="ProyectoID" class="" />
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label id="ListadoAvisoLlegada0006"></label>
+                    <input id="FechaInicial" class="" />
+                </div>
+                <div class="form-group col-lg-6">
+                    <label id="ListadoAvisoLlegada0007"></label>
+                    <input id="FechaFinal" class="" />
+                </div>
+            </div>
         </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0005"></label>
-            <input id="ProveedorID" class="" />
+        <div class="col-lg-2">
+            <div class="row">
+                <div class="form-group buttonBar col-lg-6">
+                    <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoAvisoLlegada0017"></span></a>
+                </div>
+                <div class="form-group buttonBar col-lg-3">
+                    <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
+                </div>
+                <div class="form-group buttonBar col-lg-3">
+                    <a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>
+                </div>
+            </div>
         </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0006"></label>
-            <input id="FechaInicial" class="" />
-        </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoAvisoLlegada0007"></label>
-            <input id="FechaFinal" class="" />
-        </div>
-        <div class="form-group col-lg-2">
-            <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoAvisoLlegada0017"></span></a>
-        </div>
-        <br />
-        <div class="form-group col-lg-2">
-            <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"><span id="ListadoAvisoLlegada0001"></span></a>
-        </div>
-
-        <div class="form-group col-lg-12">
-            <div id="grid"></div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="grid"></div>
+                </div>
+            </div>
         </div>
 
         <div id="window">
@@ -102,8 +123,8 @@
                     numeric: false,
                     messages: {
                         page: "",
-                        of: "de {0}",
-                        itemsPerPage: "Tamaño de Página",
+                        of: _dictionary.ListadoAvisoLlegada0018[$("#language").data("kendoDropDownList").value()],
+                        itemsPerPage: _dictionary.ListadoAvisoLlegada0019[$("#language").data("kendoDropDownList").value()],
                     }
                 },                
                 columns: [
@@ -114,9 +135,8 @@
                     { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "130px" }
+                    { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },                    
+                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
                 ]
             });
 

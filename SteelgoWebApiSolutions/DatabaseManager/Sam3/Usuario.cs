@@ -18,8 +18,8 @@ namespace DatabaseManager.Sam3
         {
             this.Incidencia = new HashSet<Incidencia>();
             this.Incidencia1 = new HashSet<Incidencia>();
-            this.Sesion = new HashSet<Sesion>();
             this.Rel_Usuario_Proyecto = new HashSet<Rel_Usuario_Proyecto>();
+            this.Sesion = new HashSet<Sesion>();
         }
     
         public int UsuarioID { get; set; }
@@ -38,7 +38,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Incidencia> Incidencia1 { get; set; }
         public virtual Perfil Perfil { get; set; }
         public virtual Rel_Usuario_Preferencia Rel_Usuario_Preferencia { get; set; }
-        public virtual ICollection<Sesion> Sesion { get; set; }
         public virtual ICollection<Rel_Usuario_Proyecto> Rel_Usuario_Proyecto { get; set; }
+        public virtual ICollection<Sesion> Sesion { get; set; }
     }
 }

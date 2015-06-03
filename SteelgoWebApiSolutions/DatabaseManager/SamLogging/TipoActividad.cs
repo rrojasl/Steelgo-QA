@@ -7,20 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseManager.Sam3
+namespace DatabaseManager.SamLogging
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Rel_Usuario_Proyecto
+    public partial class TipoActividad
     {
-        public int ProyectoID { get; set; }
-        public int UsuarioID { get; set; }
-        public int EntidadID { get; set; }
+        public TipoActividad()
+        {
+            this.Bitacora = new HashSet<Bitacora>();
+        }
+    
+        public int TipoActividadID { get; set; }
+        public string Nombre { get; set; }
         public bool Activo { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
-        public virtual Proyecto Proyecto { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Bitacora> Bitacora { get; set; }
     }
 }

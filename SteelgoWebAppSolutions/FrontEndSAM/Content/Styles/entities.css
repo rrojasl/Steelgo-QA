@@ -207,6 +207,7 @@ header .menu > div {
 **********************************************************************************/
 .notifications {
     margin-right: 17px;
+    position: relative;
 }
 
     .notifications img {
@@ -218,12 +219,14 @@ header .menu > div {
         color: #FFFFFF;
         background: #e60404 !important;
         position: absolute;
-        top: 4px;
+        top: -4px;
         left: 51.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
         border-radius: 30px;
-        line-height: 16px;
+        line-height: 15px;
         text-align: center;
         font-size: 9px;
         font-weight: 600;

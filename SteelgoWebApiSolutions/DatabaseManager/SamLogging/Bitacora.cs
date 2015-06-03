@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseManager.Sam3
+namespace DatabaseManager.SamLogging
 {
     using System;
     using System.Collections.Generic;
