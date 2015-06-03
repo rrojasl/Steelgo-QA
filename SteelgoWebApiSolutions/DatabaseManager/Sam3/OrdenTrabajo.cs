@@ -28,7 +28,9 @@ namespace DatabaseManager.Sam3
         public System.DateTime FechaOrden { get; set; }
         public bool EsAsignado { get; set; }
         public Nullable<int> VersionOrden { get; set; }
+        public int EntidadID { get; set; }
     
+        public virtual Entidad Entidad { get; set; }
         public virtual EstatusOrden EstatusOrden { get; set; }
         public virtual ICollection<NumeroUnicoCorte> NumeroUnicoCorte { get; set; }
         public virtual Proyecto Proyecto { get; set; }

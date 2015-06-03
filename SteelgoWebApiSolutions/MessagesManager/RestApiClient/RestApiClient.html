@@ -5,13 +5,17 @@
 <script src="jquery.rest.js"></script>
 
 
+
 <script>
-    var client = new $.RestClient('http://localhost:60921/messagesManager/api/');
+    var client = new $.RestClient('http://localhost:60966/messagesManager/api/');
     client.add('messageManager');
-    client.mensaje.read({ id: 1 }).done(function (data) {
+    client.messageManager.read({ id: 1 }).done(function (data) {
         console.log(data);
     });
-    client.mensaje.create({}, { objectEncrypted: "YWRtaW4", typeMessage: 1 }).done(function (data) {
+
+    //var notificacion = { "NotificacionID": 0, "UsuarioIDReceptor": 1, "UsuarioIDEmisor": 1, "TipoNotificacionID": 1, "Mensaje": "prueba", "FechaEnvio": "2015-06-02T18:10:32.2282278-05:00", "FechaRecepcion": "0001-01-01T00:00:00", "EstatusLectura": false, "EntidadID": 1, "Activo": true, "Entidad": null, "TipoNotificacion": null }
+
+    client.messageManager.create({}, { objectEncrypted: "eyAiTm90aWZpY2FjaW9uSUQiOiAwLCAiVXN1YXJpb0lEUmVjZXB0b3IiOiAxLCAiVXN1YXJpb0lERW1pc29yIjogMSwgIlRpcG9Ob3RpZmljYWNpb25JRCI6IDEsICJNZW5zYWplIjogInBydWViYSIsICJGZWNoYUVudmlvIjogIjIwMTUtMDYtMDJUMTg6MTA6MzIuMjI4MjI3OC0wNTowMCIsICJGZWNoYVJlY2VwY2lvbiI6ICIwMDAxLTAxLTAxVDAwOjAwOjAwIiwgIkVzdGF0dXNMZWN0dXJhIjogZmFsc2UsICJFbnRpZGFkSUQiOiAxLCAiQWN0aXZvIjogdHJ1ZSwgIkVudGlkYWQiOiBudWxsLCAiVGlwb05vdGlmaWNhY2lvbiI6IG51bGwgfQ==", typeMessage: 2 }).done(function (data) {
         console.log(data);
     });
 	//client.authentication.destroy({}, {username:"YWRtaW4",token:"RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE"}).done(function(data) {

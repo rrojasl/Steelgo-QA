@@ -32,7 +32,9 @@ namespace DatabaseManager.Sam3
         public Nullable<decimal> Diametro1 { get; set; }
         public Nullable<decimal> Diametro2 { get; set; }
         public Nullable<int> FamiliaAceroID { get; set; }
+        public int EntidadID { get; set; }
     
+        public virtual Entidad Entidad { get; set; }
         public virtual FamiliaAcero FamiliaAcero { get; set; }
         public virtual Proyecto Proyecto { get; set; }
         public virtual TipoMaterial TipoMaterial { get; set; }

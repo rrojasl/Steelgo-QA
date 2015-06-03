@@ -21,6 +21,8 @@ namespace MessagesManager.Controllers
             {
                 string path = StringsConfiguration.QuequeBitacora;
                 MessageQueue queueBitacora = new MessageQueue(path);
+
+                queueBitacora.Formatter = new XmlMessageFormatter(new Type[] { typeof(Bitacora) });
                 Bitacora bitacora = MappingLog(message);
                 queueBitacora.Send(bitacora);
 
@@ -29,6 +31,7 @@ namespace MessagesManager.Controllers
             {
                 string path = StringsConfiguration.QuequeNotifications;
                 MessageQueue queueNotifications = new MessageQueue(path);
+                queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
                 Notificacion notification = MappingNotification(message);
                 queueNotifications.Send(notification);
             }
@@ -46,15 +49,12 @@ namespace MessagesManager.Controllers
             return log;
         }
 
-        public T convertirObjToObj<T>(object objecto)
+        public T convertirObjToObj<T>(string json)
         {
             T p = default(T);
             try
             {
-                string json = JsonConvert.SerializeObject(objecto);
-                bool nulls = json.Contains("null");
-
-                p = JsonConvert.DeserializeObject<T>(json);
+                 p = JsonConvert.DeserializeObject<T>(json);
             }
             catch (JsonSerializationException jsE)
             {

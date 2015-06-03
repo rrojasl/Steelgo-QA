@@ -25,21 +25,13 @@ namespace MessagesManager.Controllers
         }
 
         // POST api/<controller>
-        public void Post(string objectEncrypted, int typeMessage)
+        public void Post(string objectEncrypted, string typeMessage)
         {
             string message = dataSecurity.Decode(objectEncrypted);
-            //password = dataSecurity.Decode(password);
+            int typeMsg = Convert.ToInt32(typeMessage);
+             
 
-            if (typeMessage == 1)
-            {
-                messages.MappingLog(message);
-            }
-            else if (typeMessage == 2)
-            {
-                messages.MappingNotification(message);
-            }
-
-            messages.SendMessageToQueue(message, typeMessage);
+            messages.SendMessageToQueue(message, typeMsg);
         }
 
         // PUT api/<controller>/5

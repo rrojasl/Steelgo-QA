@@ -14,11 +14,17 @@ namespace DatabaseManager.Sam3
     
     public partial class Propiedad
     {
+        public Propiedad()
+        {
+            this.Rel_Perfil_Propiedad_Pagina = new HashSet<Rel_Perfil_Propiedad_Pagina>();
+        }
+    
         public int PropiedadID { get; set; }
         public Nullable<int> EntidadID { get; set; }
         public string Nombre { get; set; }
         public Nullable<bool> Activo { get; set; }
     
         public virtual Entidad Entidad { get; set; }
+        public virtual ICollection<Rel_Perfil_Propiedad_Pagina> Rel_Perfil_Propiedad_Pagina { get; set; }
     }
 }

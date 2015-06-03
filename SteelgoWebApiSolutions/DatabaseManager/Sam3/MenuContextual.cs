@@ -14,11 +14,17 @@ namespace DatabaseManager.Sam3
     
     public partial class MenuContextual
     {
+        public MenuContextual()
+        {
+            this.Rel_Perfil_MenuContextual = new HashSet<Rel_Perfil_MenuContextual>();
+        }
+    
         public int MenuID { get; set; }
         public string Texto { get; set; }
         public string Liga { get; set; }
         public int EntidadID { get; set; }
     
         public virtual Entidad Entidad { get; set; }
+        public virtual ICollection<Rel_Perfil_MenuContextual> Rel_Perfil_MenuContextual { get; set; }
     }
 }

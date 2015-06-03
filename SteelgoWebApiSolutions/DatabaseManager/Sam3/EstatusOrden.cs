@@ -22,7 +22,9 @@ namespace DatabaseManager.Sam3
         public int EstatusOrdenID { get; set; }
         public string Nombre { get; set; }
         public string NombreIngles { get; set; }
+        public int EntidadID { get; set; }
     
+        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<OrdenTrabajo> OrdenTrabajo { get; set; }
     }
 }
