@@ -236,11 +236,11 @@
 .k-grid tbody tr td a.k-button {
     color: transparent !important;
     height: 27px;
+    max-width: 18px;
     padding: 0;
-    margin: 0;
+    margin: 0 -22px;
     font-size: 0;
     border: none;
-    box-shadow: none !important;
     outline: none;
     background: none;
     background-color: transparent !important;
@@ -259,6 +259,10 @@
     .k-grid tbody tr td a.k-button.k-grid-Cancelar {
         background-image: url("/Content/images/SAMC_Delete.png");
     }
+
+.expanded .k-grid tbody tr td a.k-button {
+    margin: 0 -20px;
+}
 
 .k-grid-pager {
     background-color: #EEEEEE;
