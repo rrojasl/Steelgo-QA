@@ -19,12 +19,12 @@ namespace MessagesManager.Controllers
         {
             if (typeMessage == 1)//Bitacora
             {
-                string path = StringsConfiguration.QuequeBitacora;
-                MessageQueue queueBitacora = new MessageQueue(path);
+                //string path = StringsConfiguration.QuequeBitacora;
+                //MessageQueue queueBitacora = new MessageQueue(path);
 
-                queueBitacora.Formatter = new XmlMessageFormatter(new Type[] { typeof(Bitacora) });
-                Bitacora bitacora = MappingLog(message);
-                queueBitacora.Send(bitacora);
+                //queueBitacora.Formatter = new XmlMessageFormatter(new Type[] { typeof(Bitacora) });
+                //Bitacora bitacora = MappingLog(message);
+                //queueBitacora.Send(bitacora);
 
             }
             else if (typeMessage == 2) //Notificacion
@@ -48,8 +48,8 @@ namespace MessagesManager.Controllers
                 noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
                 noti.TipoNotificacionID = notification.TipoNotificacionID;
                 noti.Mensaje = notification.Mensaje;
-                noti.FechaEnvio = notification.FechaEnvio;
-                noti.FechaRecepcion = notification.FechaRecepcion;
+                noti.FechaEnvio = DateTime.Now;
+                noti.FechaRecepcion = DateTime.Now;
                 noti.EstatusLectura = notification.EstatusLectura;
                 noti.EntidadID = notification.EntidadID;
                 noti.Activo = notification.Activo;
@@ -67,11 +67,11 @@ namespace MessagesManager.Controllers
             return notification;
         }
 
-        public Bitacora MappingLog(string message)
-        {
-            Bitacora log = convertirObjToObj<Bitacora>(message);
-            return log;
-        }
+        //public Bitacora MappingLog(string message)
+        //{
+        //    Bitacora log = convertirObjToObj<Bitacora>(message);
+        //    return log;
+        //}
 
         public T convertirObjToObj<T>(string json)
         {

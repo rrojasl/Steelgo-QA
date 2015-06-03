@@ -23,10 +23,10 @@ namespace MessagesManager.Controllers
         {
             if (typeMessage == 1)//Bitacora
             {
-                string path = StringsConfiguration.QuequeBitacora;
-                MessageQueue queueBitacora = new MessageQueue(path);
-                Bitacora bitacora = MappingLog(message);
-                queueBitacora.Send(bitacora);
+                //string path = StringsConfiguration.QuequeBitacora;
+                //MessageQueue queueBitacora = new MessageQueue(path);
+                //Bitacora bitacora = MappingLog(message);
+                //queueBitacora.Send(bitacora);
 
             }
             else if (typeMessage == 2) //Notificacion
@@ -45,7 +45,7 @@ namespace MessagesManager.Controllers
 
             if (typeMessage == 1)
             {
-                MappingLog(message);
+                //MappingLog(message);
             }
             else if (typeMessage == 2)
             {
@@ -61,11 +61,11 @@ namespace MessagesManager.Controllers
             return notification;
         }
 
-        private Bitacora MappingLog(string message)
-        {
-            Bitacora log = convertirObjToObj<Bitacora>(message);
-            return log;
-        }
+        //private Bitacora MappingLog(string message)
+        //{
+        //    Bitacora log = convertirObjToObj<Bitacora>(message);
+        //    return log;
+        //}
 
         private T convertirObjToObj<T>(object objecto)
         {

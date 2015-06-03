@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseManager.Sam3
+namespace DatabaseManager.SamLogging
 {
     using System;
     using System.Collections.Generic;
@@ -21,8 +21,6 @@ namespace DatabaseManager.Sam3
         public System.DateTime Fecha { get; set; }
         public int EntidadId { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual TipoActividad TipoActividad { get; set; }
-        public virtual Usuario Usuario { get; set; }
     }
 }

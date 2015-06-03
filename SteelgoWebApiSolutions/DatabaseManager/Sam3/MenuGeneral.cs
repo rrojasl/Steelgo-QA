@@ -14,9 +14,16 @@ namespace DatabaseManager.Sam3
     
     public partial class MenuGeneral
     {
+        public MenuGeneral()
+        {
+            this.Rel_Perfil_MenuGeneral = new HashSet<Rel_Perfil_MenuGeneral>();
+        }
+    
         public int MenuID { get; set; }
         public string Texto { get; set; }
         public string Liga { get; set; }
         public int IDPadre { get; set; }
+    
+        public virtual ICollection<Rel_Perfil_MenuGeneral> Rel_Perfil_MenuGeneral { get; set; }
     }
 }

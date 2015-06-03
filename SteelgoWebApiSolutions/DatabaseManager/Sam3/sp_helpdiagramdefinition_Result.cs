@@ -10,17 +10,10 @@
 namespace DatabaseManager.Sam3
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Rel_Usuario_Proyecto
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int ProyectoID { get; set; }
-        public int UsuarioID { get; set; }
-        public int EntidadID { get; set; }
-        public bool Activo { get; set; }
-    
-        public virtual Entidad Entidad { get; set; }
-        public virtual Proyecto Proyecto { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
