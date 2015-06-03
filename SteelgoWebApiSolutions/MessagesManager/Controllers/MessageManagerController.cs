@@ -1,4 +1,6 @@
 ﻿using CommonTools.Libraries.Strings.Security;
+using DatabaseManager.Sam3;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,11 @@ namespace MessagesManager.Controllers
         // GET api/<controller>/5
         public string Get(int id)
         {
-            return "value";
+            List<Notificacion> notifications = messages.GetNotificationsByUserID(id);
+
+            string json = convertirObjToJson<List<Notificacion>>(notifications);
+            string message = dataSecurity.Encode(json);
+            return message;
         }
 
         // POST api/<controller>
@@ -42,6 +48,21 @@ namespace MessagesManager.Controllers
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+        }
+
+        private string convertirObjToJson<T>(T objeto)
+        {
+            string json = string.Empty;
+            try
+            {
+                json = JsonConvert.SerializeObject(objeto);
+            }
+            catch (JsonSerializationException jsE)
+            {
+                string error = jsE.Message;
+            }
+
+            return json;
         }
     }
 }
