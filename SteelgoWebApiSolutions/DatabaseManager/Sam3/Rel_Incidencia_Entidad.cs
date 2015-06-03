@@ -20,5 +20,6 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
     
         public virtual Entidad Entidad { get; set; }
+        public virtual Incidencia Incidencia { get; set; }
     }
 }

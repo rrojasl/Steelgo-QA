@@ -23,7 +23,9 @@ namespace DatabaseManager.Sam3
         public int PatioID { get; set; }
         public string Nombre { get; set; }
         public bool EsAreaCorte { get; set; }
+        public int EntidadID { get; set; }
     
+        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<NumeroUnicoCorte> NumeroUnicoCorte { get; set; }
         public virtual Patio Patio { get; set; }
     }

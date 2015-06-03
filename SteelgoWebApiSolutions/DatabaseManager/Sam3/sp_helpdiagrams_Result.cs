@@ -10,21 +10,13 @@
 namespace DatabaseManager.Sam3
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TipoActividad
+    public partial class sp_helpdiagrams_Result
     {
-        public TipoActividad()
-        {
-            this.Bitacora = new HashSet<Bitacora>();
-        }
-    
-        public int TipoActividadID { get; set; }
-        public string Nombre { get; set; }
-        public int EntidadID { get; set; }
-        public bool Activo { get; set; }
-    
-        public virtual ICollection<Bitacora> Bitacora { get; set; }
-        public virtual Entidad Entidad { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

@@ -25,7 +25,9 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public bool VerificadoPorCalidad { get; set; }
+        public int EntidadID { get; set; }
     
+        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<NumeroUnico> NumeroUnico { get; set; }
         public virtual ICollection<NumeroUnico> NumeroUnico1 { get; set; }
     }

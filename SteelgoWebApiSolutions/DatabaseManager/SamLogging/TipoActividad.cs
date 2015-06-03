@@ -7,27 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseManager.Sam3
+namespace DatabaseManager.SamLogging
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class TipoActividad
     {
-        public Cliente()
+        public TipoActividad()
         {
-            this.Proyecto = new HashSet<Proyecto>();
+            this.Bitacora = new HashSet<Bitacora>();
         }
     
-        public int ClienteID { get; set; }
+        public int TipoActividadID { get; set; }
         public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Ciudad { get; set; }
-        public string Estado { get; set; }
-        public string Pais { get; set; }
-        public int EntidadID { get; set; }
+        public bool Activo { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
-        public virtual ICollection<Proyecto> Proyecto { get; set; }
+        public virtual ICollection<Bitacora> Bitacora { get; set; }
     }
 }

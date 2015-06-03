@@ -32,5 +32,6 @@ namespace DatabaseManager.Sam3
         public virtual Entidad Entidad { get; set; }
         public virtual ICollection<FolioLlegada> FolioLlegada { get; set; }
         public virtual ICollection<PermisoAduana> PermisoAduana { get; set; }
+        public virtual Rel_FolioAvisoLlegada_Proyecto Rel_FolioAvisoLlegada_Proyecto { get; set; }
     }
 }
