@@ -120,7 +120,7 @@ _dictionary = {
         "en-US": "Add Folio"
     },
     "ListadoAvisoLlegada0002": {
-        "es-MX": "Folio Entrada",
+        "es-MX": "Folio",
         "en-US": "Folio Arrival Notice"
     },
     "ListadoAvisoLlegada0003": {
@@ -136,15 +136,15 @@ _dictionary = {
         "en-US": "Provider"
     },
     "ListadoAvisoLlegada0006": {
-        "es-MX": "Fecha Inicial",
+        "es-MX": "Recepción Inicial",
         "en-US": "Start Date"
     },
     "ListadoAvisoLlegada0007": {
-        "es-MX": "Fecha Final",
+        "es-MX": "Recepción Final",
         "en-US": "Final Date"
     },
     "ListadoAvisoLlegada0008": {
-        "es-MX": "Folio Entrada",
+        "es-MX": "Folio",
         "en-US": "Folio Arrival Notice"
     },
     "ListadoAvisoLlegada0009": {

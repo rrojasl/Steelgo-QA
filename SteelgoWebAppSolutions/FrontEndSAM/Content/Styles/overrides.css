@@ -100,8 +100,13 @@
 }
 
 .k-multiselect, .k-combobox {
-    min-width: 240px;
-    width: 240px;
+    max-width: 240px;
+    width: 100%;
+}
+
+.k-autocomplete {
+    max-width: 242px;
+    width: 100%;
 }
 
 .k-multiselect-wrap {
@@ -128,8 +133,8 @@
 }
 
 .k-datepicker {
-    min-width: 184px;
-    width: 184px;
+    max-width: 184px;
+    width: 100%;
 }
 
     .k-datepicker .k-picker-wrap .k-select {
@@ -160,11 +165,6 @@
     background-position: center;
     background-size: 11px 6px;
 }
-
-.k-autocomplete {
-    min-width: 242px;
-    width: 242px;
-}
 /**********************************************************************************/
 
 
@@ -173,6 +173,7 @@
  Description:   Override kendo grid.
 **********************************************************************************/
 .k-grid {
+    margin-top: 15px;
 }
 
     .k-grid td {
