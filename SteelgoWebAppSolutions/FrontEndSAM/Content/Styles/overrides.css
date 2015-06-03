@@ -36,6 +36,11 @@
         width: 55px;
     }
 
+        .languageSelector .k-widget.k-dropdown .k-dropdown-wrap span.k-i-arrow-s {
+            background-size: 34% 14%;
+            background-position: 9px 14px;
+        }
+
     .languageSelector .k-dropdown-wrap.k-state-default {
         border-color: transparent;
         box-shadow: none;
@@ -209,7 +214,7 @@
                 background-size: auto;
                 background-position: center 1px;
             }
-            
+
             .k-grid .k-grid-header tr th .k-i-arrow-n {
                 background-image: url("/Content/images/SAMC_FilterUp.png");
                 background-size: auto;
