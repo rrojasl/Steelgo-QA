@@ -23,17 +23,17 @@ namespace BackEndSAM.Controllers
             {
                 folioAvisoLlegada.FolioAvisoLlegadaID = 1;
                 folioAvisoLlegada.NombreProyecto = "Prueba";
-                folioAvisoLlegada.FechaRecepcion = DateTime.Today;
+                folioAvisoLlegada.FechaRecepcion = DateTime.Today.ToShortDateString();
                 folioAvisoLlegada.Patio = "Patio";
                 folioAvisoLlegada.Proveedor = "Proveedor";
                 folioAvisoLlegada.Transportista = "Transportista";
                 folioAvisoLlegada.Estatus = "Prueba";
                 lstfolioAvisoLlegada.Add(folioAvisoLlegada);
 
-                
+                DateTime.Today.ToShortTimeString();
                 folioAvisoLlegada1.FolioAvisoLlegadaID = 2;
                 folioAvisoLlegada1.NombreProyecto = "Prueba 2";
-                folioAvisoLlegada1.FechaRecepcion = DateTime.Today;
+                folioAvisoLlegada1.FechaRecepcion = DateTime.Today.ToShortDateString();
                 folioAvisoLlegada1.Patio = "Patio2";
                 folioAvisoLlegada1.Proveedor = "Proveedor2";
                 folioAvisoLlegada1.Transportista = "Transportista2";
@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
             else {
                 folioAvisoLlegada.FolioAvisoLlegadaID = 1;
                 folioAvisoLlegada.NombreProyecto = "Prueba 1";
-                folioAvisoLlegada.FechaRecepcion = DateTime.Today;
+                folioAvisoLlegada.FechaRecepcion = DateTime.Today.ToShortDateString();
                 lstfolioAvisoLlegada.Add(folioAvisoLlegada);
             }
 

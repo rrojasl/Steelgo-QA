@@ -325,7 +325,7 @@ _dictionary = {
         "en-US": "Customs Permission"
     },
     "DetalleAvisoLlegada0036": {
-        "es-MX": "Tramitar Permiso",
+        "es-MX": "Enviar Permiso",
         "en-US": "Permit Process"
     },
     "DetalleAvisoLlegada0037": {
@@ -351,6 +351,10 @@ _dictionary = {
     "DetalleAvisoLlegada0042": {
         "es-MX": "Folio: ",
         "en-US": "Folio: "
+    },
+    "DetalleAvisoLlegada0043": {
+        "es-MX": "Imprimir Pase",
+        "en-US": "Print Pass"
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {

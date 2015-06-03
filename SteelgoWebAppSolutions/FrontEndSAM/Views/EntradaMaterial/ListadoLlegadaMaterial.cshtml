@@ -43,17 +43,15 @@
 
     @section JavascriptGlobalVariables 
     {
-    
-    var PackingList = [], FolioLlegada = [], Placa = [],
-        Chofer = [], resultadoJson;
+        var PackingList = [], FolioLlegada = [], Placa = [],
+            Chofer = [], resultadoJson;
     }
 
     @section JavascriptGlobalFunctions 
     {
             function changeLanguageCall() {
                 CargarGridLlegadaMaterial();
-            }
-
+            };
 
             function CargarGridLlegadaMaterial() {
                 $("#grid").kendoGrid({
@@ -97,14 +95,14 @@
             };
 
             function mostrarDetalle(e) {
-                    e.preventDefault();
-                    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-                    var FolioLlegadaID = dataItem.FolioLlegadaID
-                    var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-                    //REDIRECT
-                    var detalleIdeaUrl = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
-            }
+                e.preventDefault();
+                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                var FolioLlegadaID = dataItem.FolioLlegadaID
+                var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+                //REDIRECT
+                var detalleIdeaUrl = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
+            };
 
             function eliminarFolio(e) {
                 e.preventDefault();
@@ -119,9 +117,8 @@
                 Client.DummyListadoLlegadaMaterial.update({}, { folioavisollegadaid: FolioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyListadoLlegadaMaterial.update");
                     Filtros("2");
-                    CargarGridLlegadaMaterial();
                 });
-            }
+            };
 
             function CargaInicial() {
                 $("#Mostrar").click(function () { Filtros(2); });
@@ -223,7 +220,7 @@
             Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log(data);
                 resultadoJson = data;
-                CargarGridLlegadaMaterial();
+                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
             });
         };
 

@@ -54,10 +54,7 @@
 
     <div class="form-group">
         <label id="FileUpload"></label> 
-        <form method="post" enctype="multipart/form-data" action="http://localhost:61102/AvisoLlegada/Post">
-            <input name="files" id="files" type="file" class="form-control" />
-            <input type="submit" value="Upload" id="do" class="k-button"/>
-        </form>
+        <input name="files" id="files" type="file" class="form-control" />
     </div>
 
     <div class="form-group">
@@ -72,7 +69,7 @@
 
     </div>
 @*Permiso Aduana*@
-    <div id="PermisoAduana" style="display:none">
+    <div id="PermisoAduana">
         <div class="form-group">
             <h2><label id="DetalleAvisoLlegada0035"></label></h2>
         </div>
@@ -105,7 +102,7 @@
         <table id="listaArchivosPaseSalida">
              <thead><tr><td>Archivo</td><td>Eliminar</td></tr></thead>
         </table>
-        <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary">Pase de Salida</a>
+        <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary"><span id="DetalleAvisoLlegada0043"></span></a>
     </div>
 @****************@
 
@@ -243,7 +240,7 @@
             $("#Guardar").click(function (e) {
                 GuardarAvisoLlegada();
                 var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
+                //window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
             $("#Cancelar").click(function (e) {
@@ -407,11 +404,9 @@
             $('#files').kendoUpload({
                 async: {
                     saveUrl: "http://localhost:61102/AvisoLlegada/Post",
-                    autoUpload: true
+                    autoUpload: false
                 },
                 success: function (data) {
-                    alert("hola");
-                    //Se crea la tabla dinamica con el archivo que  se dio de alta, [id], [Archivo], [Extension]
                     $.each(data, function (index, value) {
                         $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
                     });
@@ -488,7 +483,8 @@
                 error: function (data) { },
                 upload: onUploadArchivoPaseSalida
             });
-            
+
+            ObtenerFechaDefault();
         };
         
         function onUploadArchivoPaseSalida() {
@@ -550,32 +546,34 @@
                 if ($(this).find("td:first").length > 0) {
                     var id = $(this).attr("id").split(",")[0];
                     var archivo = $(this).find("td a").eq(0).html();
+                    var tipoArchivo = $(this).find("td").eq(1).html();
                     var extencion = $(this).attr("id").split(",")[1];
 
                     item = {};
                     item["ArchivoID"] = id;
                     item["Nombre"] = archivo;
                     item["Extension"] = extencion;
+                    item["TipoArchivo"] = tipoArchivo;
                     Documentos.push(item);
-                }
+                };
             });
                 
-                $('#listaArchivosPaseSalida > tbody  > tr').each(function () {
-                    if ($(this).find("td:first").length > 0) {
-                        var id = $(this).attr("id").split(",")[0];
-                        var archivo = $(this).find("td a").eq(0).html();
-                        var extencion = $(this).attr("id").split(",")[1];
+            $('#listaArchivosPaseSalida > tbody  > tr').each(function () {
+                if ($(this).find("td:first").length > 0) {
+                    var id = $(this).attr("id").split(",")[0];
+                    var archivo = $(this).find("td a").eq(0).html();
+                    var extencion = $(this).attr("id").split(",")[1];
 
-                        item = {};
-                        item["ArchivoID"] = id;
-                        item["Nombre"] = archivo;
-                        item["Extension"] = extencion;
-                        DocumentosPackingList.push(item);
-                    }
-                });
+                    item = {};
+                    item["ArchivoID"] = id;
+                    item["Nombre"] = archivo;
+                    item["Extension"] = extencion;
+                    DocumentosPackingList.push(item);
+                }
+            });
 
-                _archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
-                _archivosPackingList[0].Archivos = DocumentosPackingList;
+            _archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
+            _archivosPackingList[0].Archivos = DocumentosPackingList;
 
                 
             var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
@@ -592,7 +590,7 @@
             AvisoLlegada[0].Chofer = Chofer;
             AvisoLlegada[0].Archivos = Documentos;
             AvisoLlegada[0].PermisoAduana = _permisoAduana;
-                AvisoLlegada[0].PaseSalida = _archivosPackingList;
+            AvisoLlegada[0].PaseSalida = _archivosPackingList;
 
             console.log(JSON.stringify(AvisoLlegada));
 
@@ -607,10 +605,9 @@
             } else //Alta
             {
                 Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    console.log("Client.DummyAvisoLlegada.create");
-                    folio = data.FolioAvisoLlegadaID;
+                        console.log("Client.DummyAvisoLlegada.create");
+                        folio = data.FolioAvisoLlegadaID;
                         $("#divFolio").html(folio);
-                    $("#PermisoAduana").show();
                 });
             }
 
@@ -824,7 +821,7 @@
                     $("#modalChofer").show();
                     break;
             };
-
+            
             var window = $("#window");
             var win = window.kendoWindow({
                 actions: ["Maximize", "Minimize", "Close"],
@@ -858,6 +855,7 @@
             Client.DummyTransportista.create({}, { transportista: JSON.stringify(TransportistaModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log("Client.DummyTransportista.create");
                 LimpiarModalTransportista();
+                $("#window").data("kendoWindow").close();
             });
         };
        
@@ -877,6 +875,7 @@
             Client.DummyProveedor.create({}, { proveedor: JSON.stringify(ProveedorModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log("Client.DummyProveedor.create");
                 LimpiarModalProveedor();
+                $("#window").data("kendoWindow").close();
             });
         };
 
@@ -894,6 +893,7 @@
             Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log("Client.DummyPatio.create");
                 LimpiarModalPatio();
+                $("#window").data("kendoWindow").close();
             });
         };
 
@@ -909,6 +909,7 @@
             Client.DummyChofer.create({}, { chofer: JSON.stringify(ChoferModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log("Client.DummyChofer.create");
                 LimpiarModalChofer();
+                $("#window").data("kendoWindow").close();
             });
         };
 
@@ -925,6 +926,7 @@
             Client.DummyPlana.create({}, { plana: JSON.stringify(PlanaModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log("Client.DummyPlana.create");
                 LimpiarModalPlana();
+                $("#window").data("kendoWindow").close();
             });
         };
         
@@ -976,6 +978,11 @@
             });
 
         };
+
+        function ObtenerFechaDefault() {
+            var today = new Date();
+            $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
@@ -995,7 +1002,7 @@
 
             Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 $.each(data, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
                 });
 
                 $.each(data, function (index, value) {

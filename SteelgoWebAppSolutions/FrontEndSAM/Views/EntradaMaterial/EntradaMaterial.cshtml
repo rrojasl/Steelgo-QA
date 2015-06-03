@@ -204,19 +204,19 @@
             Client.add('DummyEntradaMaterial');
 
             Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                if(data.Proyecto){
+                if (data.Proyecto) {
                     CargarProyecto(data.Proyecto.ProyectoID, data.Proyecto.Nombre);
                     $("#ProyectoID").data("kendoAutoComplete").value(data.Proyecto.Nombre);
-                }
+                };
 
-                if(data.Estatus){
+                if (data.Estatus) {
                     $("#Estatus").data("kendoComboBox").value(data.Estatus)
                     if (data.Estatus == "En Patio") {
                         $("#divPatio").show();
                         CargarPatio(data.Patio.PatioID, data.Patio.Nombre);
                         $("#PatioID").data("kendoAutoComplete").value(data.Patio.Nombre);
                     };
-                }
+                };
 
                 $.each(data.Archivos, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
@@ -329,7 +329,6 @@
             });
         };
 
-
         function GuardarLlegadaMaterial() {
             //Arreglo Llegada Material
             FolioLlegada = [];
@@ -429,6 +428,12 @@
             $("#Propietario_Patio").val("");
             $("#Descripcion_Patio").val("");
         };
+
+        function AbrirListadoEntrada(folioentrada, foliollegada) {
+            alert("folioentrada=" + folioentrada + ",foliollegada=" + foliollegada);
+            var detalleIdeaUrl = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + foliollegada + "&folioEntrada=" + folioentrada;
+        };
     };
    
     @section JavascriptDocumentReadyFunctions {
@@ -437,7 +442,7 @@
         {
             $("#divFolioEntradaID").hide();
             $("#divTitulos").show();
-            $("#spanFolioEntrada").html(folioAvisoLlegada);
+            $("#spanFolioEntrada").html("<a href='javascript:void(0);' onclick='AbrirListadoEntrada(" + folioAvisoLlegada + "," + folioLlegada + ");'>" + folioAvisoLlegada + "</a>");
             $("#SpanFolioLlegada").html(folioLlegada);
             CargaInicialEdicion();
         } else

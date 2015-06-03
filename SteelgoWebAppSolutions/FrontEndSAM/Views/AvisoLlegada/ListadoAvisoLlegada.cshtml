@@ -80,7 +80,7 @@
                                 NombreProyecto: { type: "string" },
                                 Proveedor: { type: "string" },
                                 Transportista: { type: "string" },
-                                FechaRecepcion: { type: "date" },
+                                FechaRecepcion: { type: "string"},
                                 Estatus: { type: "string"}
                             }
                         }
@@ -91,7 +91,6 @@
                     serverSorting: false
                 },
                 autoHeight: true,
-                //height: 500,
                 sortable: true,
                 scrollable: false,
                 filterable: true,
@@ -105,10 +104,10 @@
                     { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true, format: "{0:yyyy-MM-dd}" },
+                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
+                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "130px" }
                 ]
             });
         }
@@ -123,20 +122,24 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
         }
 
-        function eliminarFolio(e)
+        function cancelarFolio(e)
         {
             e.preventDefault();
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            if (confirm("Estas seguro de cancelar el folio de entrada?")) {
+                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyListadoAvisoLlegada');
+                //aki debe estar el de filtros()
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyCancelacionListadoAvisoLlegada');
 
-            Client.DummyListadoAvisoLlegada.destroy({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                dataSource.remove(dataItem);
-            });
-        }
+                Client.DummyCancelacionListadoAvisoLlegada.read({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    $("#grid").data("kendoGrid").dataSource.data(data);
+                });
+
+            };
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
@@ -314,7 +317,7 @@
         Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
             console.log(data);
             resultadoJson = data;
-            CargarGridAvisoLlegada();
+            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
         });
     };
 </script>

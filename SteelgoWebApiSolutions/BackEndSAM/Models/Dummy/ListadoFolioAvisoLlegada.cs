@@ -12,7 +12,7 @@ namespace BackEndSAM.Models
         public string NombreProyecto { get; set; }
         public string Proveedor { get; set; }
         public string Transportista { get; set; }
-        public DateTime FechaRecepcion { get; set; }
+        public string FechaRecepcion { get; set; }
         public string Estatus { get; set; }
     }
 }
