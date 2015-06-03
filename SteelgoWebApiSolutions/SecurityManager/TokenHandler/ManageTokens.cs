@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens;
-using System.IdentityModel;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Web;
 using JWT;
 using System.Runtime.Remoting;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel;
 using System.Configuration;
 
 namespace SecurityManager.TokenHandler
 {
     public class ManageTokens
     {
-         private static readonly object _mutex = new object();
+        private static readonly object _mutex = new object();
         private static ManageTokens _instance;
 
         /// <summary>
@@ -49,6 +45,7 @@ namespace SecurityManager.TokenHandler
         {
             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             double now = Math.Round((DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds);
+            var time = (DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds;
             //double now = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
 
             Dictionary<string, object> payload = new Dictionary<string, object>()
@@ -63,9 +60,17 @@ namespace SecurityManager.TokenHandler
             return token;
         }
 
-        public bool ValidateToken(string token)
+        public string ValidateToken(string token)
         {
-            return false;
+            try
+            {
+                string payLoad = JsonWebToken.Decode(token, ConfigurationManager.AppSettings["scrKey"]);
+                return payLoad;
+            }
+            catch (JWT.SignatureVerificationException ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }
