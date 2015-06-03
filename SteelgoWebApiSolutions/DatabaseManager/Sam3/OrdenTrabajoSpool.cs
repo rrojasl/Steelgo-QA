@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public OrdenTrabajoSpool()
         {
             this.CorteDetalle = new HashSet<CorteDetalle>();
+            this.Despacho = new HashSet<Despacho>();
         }
     
         public int OrdenTrabajoSpoolID { get; set; }
@@ -25,10 +26,9 @@ namespace DatabaseManager.Sam3
         public int Partida { get; set; }
         public string NumeroControl { get; set; }
         public bool EsAsignado { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual ICollection<CorteDetalle> CorteDetalle { get; set; }
-        public virtual Entidad Entidad { get; set; }
+        public virtual ICollection<Despacho> Despacho { get; set; }
         public virtual OrdenTrabajo OrdenTrabajo { get; set; }
         public virtual Spool Spool { get; set; }
     }

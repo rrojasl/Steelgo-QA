@@ -16,9 +16,7 @@ namespace DatabaseManager.Sam3
     {
         public Perfil()
         {
-            this.Rel_Perfil_MenuContextual = new HashSet<Rel_Perfil_MenuContextual>();
-            this.Rel_Perfil_MenuGeneral = new HashSet<Rel_Perfil_MenuGeneral>();
-            this.Rel_Perfil_Propiedad_Pagina = new HashSet<Rel_Perfil_Propiedad_Pagina>();
+            this.Entidad = new HashSet<Entidad>();
             this.Usuario = new HashSet<Usuario>();
         }
     
@@ -27,10 +25,8 @@ namespace DatabaseManager.Sam3
         public int EntidadID { get; set; }
         public bool Activo { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
-        public virtual ICollection<Rel_Perfil_MenuContextual> Rel_Perfil_MenuContextual { get; set; }
-        public virtual ICollection<Rel_Perfil_MenuGeneral> Rel_Perfil_MenuGeneral { get; set; }
-        public virtual ICollection<Rel_Perfil_Propiedad_Pagina> Rel_Perfil_Propiedad_Pagina { get; set; }
+        public virtual ICollection<Entidad> Entidad { get; set; }
+        public virtual Entidad Entidad1 { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

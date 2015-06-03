@@ -29,10 +29,8 @@ namespace DatabaseManager.Sam3
         public int Longitud { get; set; }
         public System.DateTime FechaTraspaso { get; set; }
         public bool TieneCorte { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual ICollection<Corte> Corte { get; set; }
-        public virtual Entidad Entidad { get; set; }
         public virtual NumeroUnico NumeroUnico { get; set; }
         public virtual NumeroUnicoMovimiento NumeroUnicoMovimiento { get; set; }
         public virtual OrdenTrabajo OrdenTrabajo { get; set; }

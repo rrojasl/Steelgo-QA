@@ -22,9 +22,7 @@ namespace DatabaseManager.Sam3
         public int FamiliaMaterialID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<FamiliaAcero> FamiliaAcero { get; set; }
     }
 }

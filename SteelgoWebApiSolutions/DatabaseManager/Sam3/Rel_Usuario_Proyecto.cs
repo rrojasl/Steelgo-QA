@@ -21,6 +21,5 @@ namespace DatabaseManager.Sam3
     
         public virtual Entidad Entidad { get; set; }
         public virtual Usuario Usuario { get; set; }
-        public virtual Proyecto Proyecto { get; set; }
     }
 }

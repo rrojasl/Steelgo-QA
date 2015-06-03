@@ -21,9 +21,7 @@ namespace DatabaseManager.Sam3
     
         public int ChoferID { get; set; }
         public string Nombre { get; set; }
-        public int EntidadId { get; set; }
     
         public virtual ICollection<Camion> Camion { get; set; }
-        public virtual Entidad Entidad { get; set; }
     }
 }

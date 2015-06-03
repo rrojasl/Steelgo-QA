@@ -22,9 +22,7 @@ namespace DatabaseManager.Sam3
         public int TipoMaterialID { get; set; }
         public string Nombre { get; set; }
         public string NombreIngles { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<ItemCode> ItemCode { get; set; }
     }
 }

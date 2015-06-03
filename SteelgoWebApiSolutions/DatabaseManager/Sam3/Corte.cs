@@ -29,9 +29,7 @@ namespace DatabaseManager.Sam3
         public bool Cancelado { get; set; }
         public int Rack { get; set; }
         public Nullable<int> CortadorID { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual NumeroUnicoCorte NumeroUnicoCorte { get; set; }
         public virtual NumeroUnicoMovimiento NumeroUnicoMovimiento { get; set; }
         public virtual NumeroUnicoMovimiento NumeroUnicoMovimiento1 { get; set; }

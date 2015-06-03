@@ -24,10 +24,8 @@ namespace DatabaseManager.Sam3
         public Nullable<int> MaquinaID { get; set; }
         public bool Cancelado { get; set; }
         public bool EsAjuste { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual Corte Corte { get; set; }
-        public virtual Entidad Entidad { get; set; }
         public virtual Maquina Maquina { get; set; }
         public virtual MaterialSpool MaterialSpool { get; set; }
         public virtual NumeroUnicoMovimiento NumeroUnicoMovimiento { get; set; }

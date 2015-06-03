@@ -25,10 +25,8 @@ namespace DatabaseManager.Sam3
         public string Descripcion { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual ICollection<Camion> Camion { get; set; }
         public virtual Contacto Contacto { get; set; }
-        public virtual Entidad Entidad { get; set; }
     }
 }

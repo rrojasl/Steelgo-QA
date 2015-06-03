@@ -26,9 +26,8 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public string Propietario { get; set; }
         public string Descripcion { get; set; }
-        public int EntidadID { get; set; }
+        public Nullable<System.Guid> UsuarioModifica { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<Maquina> Maquina { get; set; }
         public virtual ICollection<Proyecto> Proyecto { get; set; }
         public virtual ICollection<Taller> Taller { get; set; }

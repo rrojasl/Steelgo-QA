@@ -18,6 +18,7 @@ namespace DatabaseManager.Sam3
         {
             this.Colada = new HashSet<Colada>();
             this.Corte = new HashSet<Corte>();
+            this.Despacho = new HashSet<Despacho>();
             this.ItemCode = new HashSet<ItemCode>();
             this.NumeroUnico = new HashSet<NumeroUnico>();
             this.NumeroUnicoCorte = new HashSet<NumeroUnicoCorte>();
@@ -30,7 +31,6 @@ namespace DatabaseManager.Sam3
             this.Rel_FolioAvisoLlegada_Proyecto = new HashSet<Rel_FolioAvisoLlegada_Proyecto>();
             this.RequisicionNumeroUnico = new HashSet<RequisicionNumeroUnico>();
             this.Spool = new HashSet<Spool>();
-            this.Rel_Usuario_Proyecto = new HashSet<Rel_Usuario_Proyecto>();
         }
     
         public int ProyectoID { get; set; }
@@ -42,14 +42,13 @@ namespace DatabaseManager.Sam3
         public string Descripcion { get; set; }
         public Nullable<System.DateTime> FechaInicio { get; set; }
         public bool Activo { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual ICollection<Colada> Colada { get; set; }
         public virtual Color Color { get; set; }
         public virtual Contacto Contacto { get; set; }
         public virtual ICollection<Corte> Corte { get; set; }
-        public virtual Entidad Entidad { get; set; }
+        public virtual ICollection<Despacho> Despacho { get; set; }
         public virtual ICollection<ItemCode> ItemCode { get; set; }
         public virtual ICollection<NumeroUnico> NumeroUnico { get; set; }
         public virtual ICollection<NumeroUnicoCorte> NumeroUnicoCorte { get; set; }
@@ -63,6 +62,5 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Rel_FolioAvisoLlegada_Proyecto> Rel_FolioAvisoLlegada_Proyecto { get; set; }
         public virtual ICollection<RequisicionNumeroUnico> RequisicionNumeroUnico { get; set; }
         public virtual ICollection<Spool> Spool { get; set; }
-        public virtual ICollection<Rel_Usuario_Proyecto> Rel_Usuario_Proyecto { get; set; }
     }
 }

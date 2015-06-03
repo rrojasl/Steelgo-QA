@@ -20,6 +20,5 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
     
         public virtual Entidad Entidad { get; set; }
-        public virtual Rel_Documento_Entidad Rel_Documento_Entidad { get; set; }
     }
 }

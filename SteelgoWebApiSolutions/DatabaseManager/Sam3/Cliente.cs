@@ -25,9 +25,7 @@ namespace DatabaseManager.Sam3
         public string Ciudad { get; set; }
         public string Estado { get; set; }
         public string Pais { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<Proyecto> Proyecto { get; set; }
     }
 }

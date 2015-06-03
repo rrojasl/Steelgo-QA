@@ -23,9 +23,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaIntermedio { get; set; }
         public string ReporteIntermedio { get; set; }
         public bool Liberado { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual NumeroUnico NumeroUnico { get; set; }
         public virtual Proyecto Proyecto { get; set; }
         public virtual RequisicionNumeroUnicoDetalle RequisicionNumeroUnicoDetalle { get; set; }

@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public MaterialSpool()
         {
             this.CorteDetalle = new HashSet<CorteDetalle>();
+            this.Despacho = new HashSet<Despacho>();
         }
     
         public int MaterialSpoolID { get; set; }
@@ -37,10 +38,9 @@ namespace DatabaseManager.Sam3
         public string Campo4 { get; set; }
         public string Campo5 { get; set; }
         public string Reserva { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual ICollection<CorteDetalle> CorteDetalle { get; set; }
-        public virtual Entidad Entidad { get; set; }
+        public virtual ICollection<Despacho> Despacho { get; set; }
         public virtual ItemCode ItemCode { get; set; }
         public virtual Spool Spool { get; set; }
     }

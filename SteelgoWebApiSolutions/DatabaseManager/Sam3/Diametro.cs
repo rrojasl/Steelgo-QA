@@ -17,8 +17,5 @@ namespace DatabaseManager.Sam3
         public int DiametroID { get; set; }
         public decimal Valor { get; set; }
         public bool VerificadoPorCalidad { get; set; }
-        public int EntidadID { get; set; }
-    
-        public virtual Entidad Entidad { get; set; }
     }
 }

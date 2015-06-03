@@ -74,9 +74,7 @@ namespace DatabaseManager.Sam3
         public string Inox { get; set; }
         public string ClasifInox { get; set; }
         public Nullable<System.DateTime> FechaHomologacion { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual FamiliaAcero FamiliaAcero { get; set; }
         public virtual FamiliaAcero FamiliaAcero1 { get; set; }
         public virtual ICollection<MaterialSpool> MaterialSpool { get; set; }

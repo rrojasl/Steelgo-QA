@@ -27,10 +27,8 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public bool VerificadoPorCalidad { get; set; }
-        public int EntidadID { get; set; }
     
         public virtual ICollection<Acero> Acero { get; set; }
-        public virtual Entidad Entidad { get; set; }
         public virtual FamiliaMaterial FamiliaMaterial { get; set; }
         public virtual ICollection<ItemCode> ItemCode { get; set; }
         public virtual ICollection<Spool> Spool { get; set; }

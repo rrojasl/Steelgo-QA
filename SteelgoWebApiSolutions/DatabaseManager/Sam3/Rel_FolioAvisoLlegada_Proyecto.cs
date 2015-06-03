@@ -20,7 +20,6 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
     
         public virtual Entidad Entidad { get; set; }
-        public virtual FolioAvisoLlegada FolioAvisoLlegada { get; set; }
         public virtual Proyecto Proyecto { get; set; }
     }
 }

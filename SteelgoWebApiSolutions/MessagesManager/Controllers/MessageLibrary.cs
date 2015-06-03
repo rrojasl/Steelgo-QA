@@ -34,6 +34,30 @@ namespace MessagesManager.Controllers
                 queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
                 Notificacion notification = MappingNotification(message);
                 queueNotifications.Send(notification);
+                insertNotification(notification);
+            }
+        }
+
+        public void insertNotification(Notificacion notification)
+        {
+            using (SamContext ctx = new SamContext())
+            {
+                Notificacion noti = new Notificacion();
+                noti.NotificacionID = notification.NotificacionID;
+                noti.UsuarioIDReceptor = notification.UsuarioIDReceptor;
+                noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
+                noti.TipoNotificacionID = notification.TipoNotificacionID;
+                noti.Mensaje = notification.Mensaje;
+                noti.FechaEnvio = notification.FechaEnvio;
+                noti.FechaRecepcion = notification.FechaRecepcion;
+                noti.EstatusLectura = notification.EstatusLectura;
+                noti.EntidadID = notification.EntidadID;
+                noti.Activo = notification.Activo;
+                //noti.Entidad = notification.Entidad;
+                //noti.TipoNotificacion = notification.TipoNotificacion;
+
+                ctx.Notificacion.Add(noti);
+                ctx.SaveChanges();
             }
         }
 

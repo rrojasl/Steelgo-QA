@@ -12,7 +12,7 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
-    
+    [Serializable]
     public partial class Notificacion
     {
         public int NotificacionID { get; set; }
@@ -25,10 +25,14 @@ namespace DatabaseManager.Sam3
         public Nullable<bool> EstatusLectura { get; set; }
         public Nullable<int> EntidadID { get; set; }
         public Nullable<bool> Activo { get; set; }
-
+    
         [XmlIgnoreAttribute]
         public virtual Entidad Entidad { get; set; }
-        [XmlIgnoreAttribute]
+         [XmlIgnoreAttribute]
         public virtual TipoNotificacion TipoNotificacion { get; set; }
+         [XmlIgnoreAttribute]
+        public virtual Usuario Usuario { get; set; }
+         [XmlIgnoreAttribute]
+        public virtual Usuario Usuario1 { get; set; }
     }
 }

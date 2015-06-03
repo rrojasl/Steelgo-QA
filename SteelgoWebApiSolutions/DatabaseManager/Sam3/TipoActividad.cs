@@ -21,8 +21,10 @@ namespace DatabaseManager.Sam3
     
         public int TipoActividadID { get; set; }
         public string Nombre { get; set; }
+        public int EntidadID { get; set; }
         public bool Activo { get; set; }
     
         public virtual ICollection<Bitacora> Bitacora { get; set; }
+        public virtual Entidad Entidad { get; set; }
     }
 }

@@ -23,9 +23,7 @@ namespace DatabaseManager.Sam3
         public int FamiliaAceroID { get; set; }
         public string Nomenclatura { get; set; }
         public bool VerificadoPorCalidad { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual FamiliaAcero FamiliaAcero { get; set; }
         public virtual ICollection<Colada> Colada { get; set; }
     }

@@ -16,6 +16,7 @@ namespace DatabaseManager.Sam3
     {
         public NumeroUnico()
         {
+            this.Despacho = new HashSet<Despacho>();
             this.NumeroUnicoCorte = new HashSet<NumeroUnicoCorte>();
             this.NumeroUnicoMovimiento = new HashSet<NumeroUnicoMovimiento>();
             this.NumeroUnicoSegmento = new HashSet<NumeroUnicoSegmento>();
@@ -63,6 +64,7 @@ namespace DatabaseManager.Sam3
         public int EntidadID { get; set; }
     
         public virtual Colada Colada { get; set; }
+        public virtual ICollection<Despacho> Despacho { get; set; }
         public virtual Entidad Entidad { get; set; }
         public virtual Fabricante Fabricante { get; set; }
         public virtual ItemCode ItemCode { get; set; }

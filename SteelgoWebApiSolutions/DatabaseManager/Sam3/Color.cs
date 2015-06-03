@@ -23,9 +23,7 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public string NombreIngles { get; set; }
         public string CodigoHexadecimal { get; set; }
-        public int EntidadID { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<Proyecto> Proyecto { get; set; }
     }
 }

@@ -16,10 +16,14 @@ namespace DatabaseManager.Sam3
     {
         public Usuario()
         {
+            this.Bitacora = new HashSet<Bitacora>();
             this.Incidencia = new HashSet<Incidencia>();
             this.Incidencia1 = new HashSet<Incidencia>();
-            this.Sesion = new HashSet<Sesion>();
+            this.Notificacion = new HashSet<Notificacion>();
+            this.Notificacion1 = new HashSet<Notificacion>();
+            this.Rel_Documento_Entidad = new HashSet<Rel_Documento_Entidad>();
             this.Rel_Usuario_Proyecto = new HashSet<Rel_Usuario_Proyecto>();
+            this.Sesion = new HashSet<Sesion>();
         }
     
         public int UsuarioID { get; set; }
@@ -33,12 +37,15 @@ namespace DatabaseManager.Sam3
         public int EntidadID { get; set; }
         public bool Activo { get; set; }
     
+        public virtual ICollection<Bitacora> Bitacora { get; set; }
         public virtual Entidad Entidad { get; set; }
         public virtual ICollection<Incidencia> Incidencia { get; set; }
         public virtual ICollection<Incidencia> Incidencia1 { get; set; }
+        public virtual ICollection<Notificacion> Notificacion { get; set; }
+        public virtual ICollection<Notificacion> Notificacion1 { get; set; }
         public virtual Perfil Perfil { get; set; }
-        public virtual Rel_Usuario_Preferencia Rel_Usuario_Preferencia { get; set; }
-        public virtual ICollection<Sesion> Sesion { get; set; }
+        public virtual ICollection<Rel_Documento_Entidad> Rel_Documento_Entidad { get; set; }
         public virtual ICollection<Rel_Usuario_Proyecto> Rel_Usuario_Proyecto { get; set; }
+        public virtual ICollection<Sesion> Sesion { get; set; }
     }
 }
