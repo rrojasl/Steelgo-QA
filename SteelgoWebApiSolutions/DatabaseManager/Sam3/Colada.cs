@@ -26,8 +26,10 @@ namespace DatabaseManager.Sam3
         public string NumeroColada { get; set; }
         public string NumeroCertificado { get; set; }
         public bool HoldCalidad { get; set; }
+        public int EntidadID { get; set; }
     
         public virtual Acero Acero { get; set; }
+        public virtual Entidad Entidad { get; set; }
         public virtual Fabricante Fabricante { get; set; }
         public virtual Proyecto Proyecto { get; set; }
         public virtual ICollection<NumeroUnico> NumeroUnico { get; set; }

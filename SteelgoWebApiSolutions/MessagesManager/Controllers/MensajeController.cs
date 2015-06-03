@@ -32,7 +32,7 @@ namespace MessagesManager.Controllers
             else if (typeMessage == 2) //Notificacion
             {
                 string path = StringsConfiguration.QuequeNotifications;
-                MessageQueue queueNotifications = new MessageQueue(path);
+                MessageQueue queueNotifications = new MessageQueue("FormatName:Direct=OS:DF-APP-SQL-03\\Private$\\Notifications");
                 Notificacion notification = MappingNotification(message);
                 queueNotifications.Send(notification);
             }

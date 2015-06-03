@@ -22,5 +22,6 @@ namespace DatabaseManager.Sam3
     
         public virtual Entidad Entidad { get; set; }
         public virtual Preferencia Preferencia { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

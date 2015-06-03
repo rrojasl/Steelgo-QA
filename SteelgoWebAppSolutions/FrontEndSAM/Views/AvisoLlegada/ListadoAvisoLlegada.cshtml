@@ -85,7 +85,7 @@
                             }
                         }
                     },
-                    pageSize: 20,
+                    pageSize: 10,
                     serverPaging: false,
                     serverFiltering: false,
                     serverSorting: false
@@ -96,9 +96,18 @@
                 filterable: true,
                 pageable: {
                     refresh: false,
-                    pageSizes: false
-                },
+                    pageSizes: [10, 15, 20],
+                    info: false,
+                    input: true,
+                    numeric: false,
+                    messages: {
+                        page: "",
+                        of: "de {0}",
+                        itemsPerPage: "Tamaño de Página",
+                    }
+                },                
                 columns: [
+                    { command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px" },
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                     { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
@@ -110,6 +119,8 @@
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "130px" }
                 ]
             });
+
+            $("input.k-textbox").attr("readonly", true);
         }
 
         function mostrarDetalle(e)

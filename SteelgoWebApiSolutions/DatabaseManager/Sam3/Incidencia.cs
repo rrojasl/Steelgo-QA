@@ -39,5 +39,6 @@ namespace DatabaseManager.Sam3
         public virtual Incidencia Incidencia2 { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }
+        public virtual Rel_Incidencia_Entidad Rel_Incidencia_Entidad { get; set; }
     }
 }
