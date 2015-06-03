@@ -136,20 +136,30 @@
         function cancelarFolio(e)
         {
             e.preventDefault();
-            if (confirm("Estas seguro de cancelar el folio de entrada?")) {
-                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-                var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            var foliovalido = true;
 
-                //aki debe estar el de filtros()
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyCancelacionListadoAvisoLlegada');
+            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            Client.add('DummyVerificarCancelacion');
 
-                Client.DummyCancelacionListadoAvisoLlegada.read({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    $("#grid").data("kendoGrid").dataSource.data(data);
-                });
+            Client.DummyVerificarCancelacion.read({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                foliovalido = data;
+                if (foliovalido) {
+                    if (confirm("Estas seguro de cancelar el folio de entrada?")) {
+                        //aki debe estar el de filtros()
+                        var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                        Client.add('DummyCancelacionListadoAvisoLlegada');
 
-            };
+                        Client.DummyCancelacionListadoAvisoLlegada.read({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                            $("#grid").data("kendoGrid").dataSource.data(data);
+                        });
+                    };
+                } else {
+                    alert("El folio cuenta con permiso en tramite, permiso autorizado y/o pase de salida");
+                };
+            });
         };
     }
 

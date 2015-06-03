@@ -112,6 +112,7 @@ namespace BackEndSAM.Controllers
             List<Patio> lstPatio2 = new List<Patio>();
             List<Chofer> lstChofer2 = new List<Chofer>();
             List<Plana> lstPlana2 = new List<Plana>();
+            List<Files> lstfilespasesalida1 = new List<Files>();
 
             Transportista transportista2 = new Transportista();
             AvisoLlegada aviso1 = new AvisoLlegada();
@@ -125,13 +126,31 @@ namespace BackEndSAM.Controllers
             PermisoAduana permisoaduana = new PermisoAduana();
             ArchivoAutorizado archivoautorizado = new ArchivoAutorizado();
 
+            PaseSalida paseSalida1 = new PaseSalida();
+            Files archivosPaseSalidaaa1 = new Files();
+            Files archivosPaseSalidaaa2 = new Files();
+
+            paseSalida1.PaseEnviado = 1;
+            archivosPaseSalidaaa1.id = 12;
+            archivosPaseSalidaaa1.Extension = ".xlsx";
+            archivosPaseSalidaaa1.Archivo = "facebook.com";
+            lstfilespasesalida1.Add(archivosPaseSalidaaa1);
+
+            archivosPaseSalidaaa2.id = 15;
+            archivosPaseSalidaaa2.Extension = ".txt";
+            archivosPaseSalidaaa2.Archivo = "google.com";
+            lstfilespasesalida1.Add(archivosPaseSalidaaa2);
+            paseSalida1.Archivos = lstfilespasesalida1;
+
             files1.id = 1;
             files1.Archivo = "Prueba1";
             files1.Extension = ".doc";
+            files1.TipoArchivo = "TipoArchivo 1";
             listFiles2.Add(files1);
             files3.id = 2;
             files3.Archivo = "Prueba2";
             files3.Extension = ".docx";
+            files3.TipoArchivo = "TipoArchivo 2";
             listFiles2.Add(files3);
             transportista2.TransportistaID = "1";
             transportista2.Nombre = "Sara Martinez";
@@ -167,6 +186,7 @@ namespace BackEndSAM.Controllers
             permisoaduana.NumeroPermiso = 123;
             permisoaduana.ArchivoAutorizado = archivoautorizado;
             aviso1.PermisoAduana = permisoaduana;
+            aviso1.PaseSalida = paseSalida1;
             lstAviso.Add(aviso1);
 
             return lstAviso.Where(x => x.FolioAvisoLlegadaID == int.Parse(folio)).AsEnumerable();

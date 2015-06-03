@@ -52,8 +52,7 @@
         <a href='javascript:void(0);' onclick="VentanaModal(5);">Icono</a>
     </div>
 
-    <div class="form-group">
-        <label id="FileUpload"></label> 
+    <div class="form-group">        
         <input name="files" id="files" type="file" class="form-control" />
     </div>
 
@@ -64,17 +63,18 @@
         <br />        
 
         <table id="listaArchivos">
-             <thead><tr><td>Archivo</td><td>Tipo de Archivo</td><td>Eliminar</td></tr></thead>
+             <thead><tr><td><label id="DetalleAvisoLlegada0045"></label></td><td><label id="DetalleAvisoLlegada0046"></label></td><td><label id="DetalleAvisoLlegada0047"></label></td></tr></thead>
         </table>
 
     </div>
 @*Permiso Aduana*@
-    <div id="PermisoAduana">
+    <div id="PermisoAduana" style="display:none">
         <div class="form-group">
             <h2><label id="DetalleAvisoLlegada0035"></label></h2>
         </div>
         <br />
         <div class="form-group">
+            <label id="DetalleAvisoLlegada0044"></label>
             <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><label id="DetalleAvisoLlegada0036"></label></a>
         </div>
         <div class="form-group">
@@ -83,14 +83,14 @@
             <div id="divLinkAutorizar" style="display:none"></div>
         </div>
         <div class="form-group">
-            <label id="DetalleAvisoLlegada00038"></label> 
+            <label id="DetalleAvisoLlegada0038"></label> 
             <input id="NumeroPermiso" class="form-control"/>
         </div>
 
     </div>
 @****************@
 @*Pase Salida*@
-    <div id="PaseSalida">
+    <div id="PaseSalida" style="display:none">
         <div class="form-group">
             <h2><label id="DetalleAvisoLlegada0039"></label></h2>
         </div>
@@ -105,7 +105,6 @@
         <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary"><span id="DetalleAvisoLlegada0043"></span></a>
     </div>
 @****************@
-
     <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><span id="DetalleAvisoLlegada0017"></span></a>
     <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><span id="DetalleAvisoLlegada0018"></span></a>
 </div>
@@ -239,7 +238,9 @@
             //**Eventos
             $("#Guardar").click(function (e) {
                 GuardarAvisoLlegada();
-                var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                $("#PaseSalida").show();
+                $("#PermisoAduana").show();
+                //var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
                 //window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
@@ -608,6 +609,7 @@
                         console.log("Client.DummyAvisoLlegada.create");
                         folio = data.FolioAvisoLlegadaID;
                         $("#divFolio").html(folio);
+                        alert("El folio " + folio + "fue creado exitosamente.");
                 });
             }
 
@@ -635,6 +637,7 @@
 
         function CargaInicialEdicion(id) {
             $("#divFolio").html(folio);
+            $("#PaseSalida").show();
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
 
@@ -685,7 +688,7 @@
                 }
 
                 $.each(data[0].Archivos, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
                 });
 
                 //Permiso Aduana
@@ -713,9 +716,7 @@
                 if (data[0].PaseSalida) {
                     if (data[0].PaseSalida.PaseEnviado) {
                         $("#hdPaseSalida").val(1);
-                        $("#PackingList").kendoUpload({
-                            enabled: true
-                        })
+                        $("#PackingList").data("kendoUpload").disable();
                         $("#ImprimirPase").attr("disabled", "disabled");
                     };
                     $.each(data[0].PaseSalida.Archivos, function (index, value) {
