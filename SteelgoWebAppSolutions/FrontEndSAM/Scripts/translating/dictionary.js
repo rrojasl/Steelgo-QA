@@ -183,6 +183,14 @@ _dictionary = {
         "es-MX": "Mostrar",
         "en-US": "Show"
     },
+    "ListadoAvisoLlegada0018": {
+        "es-MX": "de {0}",
+        "en-US": "of {0}"
+    },
+    "ListadoAvisoLlegada0019": {
+        "es-MX": "Tamaño de Página",
+        "en-US": "Page Size"
+    },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",

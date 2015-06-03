@@ -252,11 +252,13 @@
         box-shadow: none !important;
     }
 
-    .k-grid tbody tr td a.k-button.k-grid-Detalle {
+    .k-grid tbody tr td a.k-button.k-grid-Detalle,
+    .k-grid tbody tr td a.k-button.k-grid-Detail {
         background-image: url("/Content/images/SAMC_DetailIcon.png");
     }
 
-    .k-grid tbody tr td a.k-button.k-grid-Cancelar {
+    .k-grid tbody tr td a.k-button.k-grid-Cancelar,
+    .k-grid tbody tr td a.k-button.k-grid-Cancel {
         background-image: url("/Content/images/SAMC_Delete.png");
     }
 
