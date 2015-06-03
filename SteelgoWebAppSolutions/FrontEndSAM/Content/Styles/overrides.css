@@ -171,10 +171,15 @@
 }
 
     .k-grid td {
-        padding: 6px 13px;
+        padding: 5.5px 13px;
         font-size: 12px;
         line-height: 1.4;
         color: #666666;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .k-grid tr:last-child td {
+        border-bottom: none;
     }
 
     .k-grid tr:hover {
@@ -189,6 +194,8 @@
         .k-grid .k-grid-header tr th {
             background: none;
             background-color: #EEEEEE;
+            padding-left: 15px;
+            padding-right: 19px;
         }
 
             .k-grid .k-grid-header tr th a.k-link {
@@ -197,9 +204,56 @@
                 text-transform: uppercase;
             }
 
+            .k-grid .k-grid-header tr th .k-filter {
+                background-image: url("/Content/images/SAMC_SearchIconChart.png");
+                background-size: auto;
+                background-position: center 1px;
+            }
+            
+            .k-grid .k-grid-header tr th .k-i-arrow-n {
+                background-image: url("/Content/images/SAMC_FilterUp.png");
+                background-size: auto;
+                background-position: center !important;
+                vertical-align: middle;
+            }
+
+            .k-grid .k-grid-header tr th .k-i-arrow-s {
+                background-image: url("/Content/images/SAMC_FilterDown.png");
+                background-size: auto;
+                background-position: center !important;
+                vertical-align: middle;
+            }
+
 .k-alt {
     background-color: #F5F5F5;
 }
+
+.k-grid tbody tr td a.k-button {
+    color: transparent !important;
+    height: 27px;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    border: none;
+    box-shadow: none !important;
+    outline: none;
+    background: none;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-position: center !important;
+}
+
+    .k-grid tbody tr td a.k-button:active:hover {
+        box-shadow: none !important;
+    }
+
+    .k-grid tbody tr td a.k-button.k-grid-Detalle {
+        background-image: url("/Content/images/SAMC_DetailIcon.png");
+    }
+
+    .k-grid tbody tr td a.k-button.k-grid-Cancelar {
+        background-image: url("/Content/images/SAMC_Delete.png");
+    }
 
 .k-grid-pager {
     background-color: #EEEEEE;
@@ -227,13 +281,14 @@
 
             .k-grid-pager .k-pager-nav .k-icon,
             .k-grid-pager .k-pager-nav:hover .k-icon {
-                background-repeat: no-repeat;
-                background-position: 0 0;
-                background-color: transparent;
                 height: 16px;
                 width: 9px;
                 position: relative;
                 top: 2px;
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                background-color: transparent;
+                background-size: auto;
             }
 
         .k-grid-pager .k-pager-nav .k-i-arrow-w {
