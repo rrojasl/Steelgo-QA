@@ -283,6 +283,26 @@ input {
         background-color: rgba(068, 068, 068, 0.9);
         border-bottom-color: rgba(043, 043, 043, 0.5);
     }
+
+
+.buttonBar {
+    position: relative;
+    top: 21px;
+}
+
+#Creacion.btn {
+    background-image: url("/Content/images/SAMC_AddIcon.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#Refrescar.btn {
+    background-image: url("/Content/images/SAMC_RefreshIcon.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 /**********************************************************************************/
 
 
