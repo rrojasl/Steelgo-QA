@@ -252,7 +252,6 @@ header .menu > div {
 }
 
     .sidebar.minified {
-        min-width: 58px;
         width: 58px;
         z-index: 10;
     }
