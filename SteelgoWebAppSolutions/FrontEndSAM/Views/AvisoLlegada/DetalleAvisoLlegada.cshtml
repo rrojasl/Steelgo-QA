@@ -267,8 +267,7 @@
                 $("#hdPaseSalida").val(1);                
                 $("#PackingList").kendoUpload({
                     enabled: false
-                });
-                $("#ImprimirPase").attr("disabled", "disabled");
+                });               
                 window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
             });
 
@@ -717,7 +716,6 @@
                     if (data[0].PaseSalida.PaseEnviado) {
                         $("#hdPaseSalida").val(1);
                         $("#PackingList").data("kendoUpload").disable();
-                        $("#ImprimirPase").attr("disabled", "disabled");
                     };
                     $.each(data[0].PaseSalida.Archivos, function (index, value) {
                         $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
