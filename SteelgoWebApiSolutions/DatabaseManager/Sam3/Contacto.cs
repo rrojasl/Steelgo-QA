@@ -30,7 +30,9 @@ namespace DatabaseManager.Sam3
         public string TelefonoOficina { get; set; }
         public string TelefonoParticular { get; set; }
         public string TelefonoCelular { get; set; }
+        public int EntidadID { get; set; }
     
+        public virtual Entidad Entidad { get; set; }
         public virtual ICollection<Fabricante> Fabricante { get; set; }
         public virtual ICollection<Proveedor> Proveedor { get; set; }
         public virtual ICollection<Proyecto> Proyecto { get; set; }

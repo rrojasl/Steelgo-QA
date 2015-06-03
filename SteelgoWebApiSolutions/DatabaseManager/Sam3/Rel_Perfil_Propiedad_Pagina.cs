@@ -24,5 +24,7 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
     
         public virtual Entidad Entidad { get; set; }
+        public virtual Perfil Perfil { get; set; }
+        public virtual Propiedad Propiedad { get; set; }
     }
 }

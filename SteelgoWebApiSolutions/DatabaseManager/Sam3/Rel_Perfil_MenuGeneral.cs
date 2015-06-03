@@ -12,22 +12,15 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class Rel_Perfil_MenuGeneral
     {
-        public Cliente()
-        {
-            this.Proyecto = new HashSet<Proyecto>();
-        }
-    
-        public int ClienteID { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Ciudad { get; set; }
-        public string Estado { get; set; }
-        public string Pais { get; set; }
+        public int Perfil_MenuID { get; set; }
+        public int PerfilID { get; set; }
+        public int MenuGeneralID { get; set; }
         public int EntidadID { get; set; }
+        public bool Activo { get; set; }
     
-        public virtual Entidad Entidad { get; set; }
-        public virtual ICollection<Proyecto> Proyecto { get; set; }
+        public virtual MenuGeneral MenuGeneral { get; set; }
+        public virtual Perfil Perfil { get; set; }
     }
 }

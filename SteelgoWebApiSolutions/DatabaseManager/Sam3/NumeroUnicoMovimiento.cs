@@ -19,7 +19,6 @@ namespace DatabaseManager.Sam3
             this.Corte = new HashSet<Corte>();
             this.Corte1 = new HashSet<Corte>();
             this.CorteDetalle = new HashSet<CorteDetalle>();
-            this.Despacho = new HashSet<Despacho>();
             this.NumeroUnicoCorte = new HashSet<NumeroUnicoCorte>();
         }
     
@@ -37,7 +36,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Corte> Corte { get; set; }
         public virtual ICollection<Corte> Corte1 { get; set; }
         public virtual ICollection<CorteDetalle> CorteDetalle { get; set; }
-        public virtual ICollection<Despacho> Despacho { get; set; }
         public virtual Entidad Entidad { get; set; }
         public virtual NumeroUnico NumeroUnico { get; set; }
         public virtual ICollection<NumeroUnicoCorte> NumeroUnicoCorte { get; set; }
