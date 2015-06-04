@@ -17,7 +17,7 @@ namespace LoggerDaemon
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new Service1() 
+                new DaemonService() 
             };
             ServiceBase.Run(ServicesToRun);
         }
