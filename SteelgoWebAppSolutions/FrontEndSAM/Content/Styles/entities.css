@@ -15,6 +15,7 @@
     09  $_breadcrumb
     10  $_alert-container
     11  $_filesTable
+    12  $_addedSection
 
 
     Color Palette: Look at site.css
@@ -724,14 +725,24 @@ header .menu > div {
             font-size: 12px;
         }
 
-            .filesTable td a span.delete {
-                padding: 3px 30.5px;
+            .filesTable td a .delete {
+                padding: 0 30px;
                 background-color: transparent;
                 background-image: url("/Content/images/SAMC_delete.png");
                 background-size: auto;
                 background-repeat: no-repeat;
                 background-position: center;
             }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_addedSection
+ Description:   Customize section added to a page.
+**********************************************************************************/
+.addedSection {
+      margin-top: 30px;
+}
 /**********************************************************************************/
 
 

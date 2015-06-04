@@ -123,6 +123,16 @@
         line-height: normal;
     }
 
+    .k-multiselect-wrap li {
+        border-color: transparent !important;
+        background: none;
+        padding: 3px;
+    }
+
+    .k-multiselect-wrap li span{
+        color: #1B3F70;
+    }
+
 .k-block, .k-button, .k-textbox, .k-drag-clue,
 .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content,
 .k-window-action, .k-inline-block, .k-grid .k-filter-options,

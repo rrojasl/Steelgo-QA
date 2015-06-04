@@ -349,7 +349,7 @@ _dictionary = {
         "en-US": "Pass Out"
     },
     "DetalleAvisoLlegada0040": {
-        "es-MX": "Packing List Firmado*",
+        "es-MX": "Packing List Firmado",
         "en-US": "Packing List Signed"
     },
     "DetalleAvisoLlegada0041": {
