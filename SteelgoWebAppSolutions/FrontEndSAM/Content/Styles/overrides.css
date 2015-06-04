@@ -298,6 +298,7 @@
         background-color: transparent !important;
         background-repeat: no-repeat;
         background-position: center !important;
+        box-shadow: none !important;
     }
 
         .k-grid tbody tr td a.k-button:active:hover {

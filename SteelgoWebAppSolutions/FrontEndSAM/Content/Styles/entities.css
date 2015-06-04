@@ -705,6 +705,14 @@ header .menu > div {
             padding: 12px 15px 5px;
         }
 
+    .filesTable tbody tr:nth-child(even) {
+        background-color: #F5F5F5;
+    }
+
+    .filesTable tbody tr:hover {
+        background-color: #FCEED9;
+    }
+
     .filesTable td {
         padding: 9px 13px;
         border-right: 1px solid #CCCCCC;
@@ -715,6 +723,15 @@ header .menu > div {
             font-weight: 600;
             font-size: 12px;
         }
+
+            .filesTable td a span.delete {
+                padding: 3px 30.5px;
+                background-color: transparent;
+                background-image: url("/Content/images/SAMC_delete.png");
+                background-size: auto;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 /**********************************************************************************/
 
 
