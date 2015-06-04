@@ -584,6 +584,10 @@ header .menu > div {
     left: -13px;
     background-image: url("/Content/images/SAMC_DashboardMenu_Icon_21.png");
 }
+
+.add {
+    background-image: url("/Content/images/SAMC_Add.png")
+}
 /**********************************************************************************/
 
 
