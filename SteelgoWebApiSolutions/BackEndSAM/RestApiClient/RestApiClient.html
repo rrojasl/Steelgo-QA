@@ -24,8 +24,9 @@
                 console.log(data);
             });
 
+            ids = [{id:1}];
             client.add("Perfil");
-            client.Perfil.read({ username: "SamPruebas", token: "adminPruebas" }).done(function (data) {
+            client.Perfil.read({ username: "c2FtQWRtaW4=", paginaID: 1, entidades: ids, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VyTmFtZSI6InNhbUFkbWluIiwiUGFzc3dvcmQiOiJzYW1hZG1pbiIsIlByb2ZpbGVJRCI6MSwiZXhwIjoxNDMzNDU5NTExfQ.KrUCE7V6xswERsOActBfbNpXy2z3BmLSZl2ed260wrE" }).done(function (data) {
                 console.log(data);
             });
 
@@ -36,17 +37,3 @@
 </script>
     </body>
 </html>
-
-
-
-<<<<<<< HEAD
-<script>
-	var client = new $.RestClient('http://localhost:60921/backendsam/api/');
-	client.add('proyecto');
-	client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
-	    alert("1");
-		console.log(data);
-	});
-</script>
-=======
->>>>>>> 2945d7648f58a3f5ef781ca65e8521f21c609cc1
