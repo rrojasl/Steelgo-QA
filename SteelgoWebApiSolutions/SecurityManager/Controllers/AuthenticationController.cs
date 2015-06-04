@@ -94,10 +94,6 @@ namespace SecurityManager
                 usuario = (from us in ctx.Sam3_Usuario
                            where us.NombreUsuario == username && us.ContrasenaHash == password
                            select us).SingleOrDefault();
-                if (usuario != null && usuario.PerfilID > 0)
-                {
-                    perfil = ctx.Sam3_Perfil.Where(x => x.PerfilID == usuario.PerfilID).Select(x => x.Nombre).SingleOrDefault();
-                }
             }
 
             //Create a generic return object
@@ -106,7 +102,7 @@ namespace SecurityManager
 
             if (usuario != null)
             {
-                string token = ManageTokens.Instance.CreateJwtToken(usuario.NombreUsuario, usuario.ContrasenaHash, "");
+                string token = ManageTokens.Instance.CreateJwtToken(usuario);
                 token = dataSecurity.Encode(token);
                 transaction.IsAuthenicated = true;
                 transaction.ReturnMessage.Add(token);

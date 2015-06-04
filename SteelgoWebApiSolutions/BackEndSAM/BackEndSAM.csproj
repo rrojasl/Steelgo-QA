@@ -150,6 +150,7 @@
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="Models\PerfilBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using DatabaseManager.EntidadesPersonalizadas;
-using CommonTools.Libraries.Strings.Security;
-using SecurityManager.TokenHandler;
 using System.Web.Script.Serialization;
+using CommonTools.Libraries.Strings.Security;
+using DatabaseManager.EntidadesPersonalizadas;
+using SecurityManager.TokenHandler;
+using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
@@ -17,21 +18,21 @@ namespace BackEndSAM.Controllers
     {
         Base64Security dataSecurity = new Base64Security();
 
-        public PerfilJson Get(string userName, string token)
+        public PerfilJson Get(string username, int paginaID, List<int> entidades, string token)
         {
-            userName = dataSecurity.Decode(userName);
-            token = dataSecurity.Decode(token);
+            PerfilJson perfil = new PerfilJson();
+            string user = dataSecurity.Decode(username);
 
             string payload = ManageTokens.Instance.ValidateToken(token);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             dynamic obj = serializer.DeserializeObject(payload);
 
-            if (obj.ContainsKey("Profile"))
+            if (obj.ContainsKey("ProfileID"))
             {
-                
+                int perfilId = Convert.ToInt32(obj["ProfileID"].ToString());
+                perfil = PerfilBd.Instance.ObtenerPerfilJsonPorID(perfilId, paginaID, entidades);
             }
-
-            return null;
+            return perfil;
         }
     }
 }
