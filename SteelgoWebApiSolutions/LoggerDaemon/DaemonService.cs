@@ -36,8 +36,8 @@ namespace LoggerDaemon
              
                 foreach (System.Messaging.Message message in mq.GetAllMessages())
                 {
-                    message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
-                    Notificacion p = (Notificacion)message.Body;
+                    message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Sam3_Notificacion) });
+                    Sam3_Notificacion p = (Sam3_Notificacion)message.Body;
                     var mensaje1 = new UTF8Encoding(true).GetBytes(p.Activo + " " + p.TipoNotificacionID + " " + p.UsuarioIDEmisor);
                   
                 }
