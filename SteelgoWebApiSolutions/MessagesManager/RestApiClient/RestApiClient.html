@@ -12,13 +12,10 @@
     client.messageManager.read({ id: 1 }).done(function (data) {
         console.log(data);
     });
+      
 
-    //var notificacion = { "NotificacionID": 0, "UsuarioIDReceptor": 1, "UsuarioIDEmisor": 1, "TipoNotificacionID": 1, "Mensaje": "prueba", "FechaEnvio": "2015-06-02T18:10:32.2282278-05:00", "FechaRecepcion": "0001-01-01T00:00:00", "EstatusLectura": false, "EntidadID": 1, "Activo": true, "Entidad": null, "TipoNotificacion": null }
-
-    client.messageManager.create({}, { objectEncrypted: "eyAiTm90aWZpY2FjaW9uSUQiOiAwLCAiVXN1YXJpb0lEUmVjZXB0b3IiOiAxLCAiVXN1YXJpb0lERW1pc29yIjogMSwgIlRpcG9Ob3RpZmljYWNpb25JRCI6IDEsICJNZW5zYWplIjogInBydWViYSIsICJGZWNoYUVudmlvIjogIjIwMTUtMDYtMDJUMTg6MTA6MzIuMjI4MjI3OC0wNTowMCIsICJGZWNoYVJlY2VwY2lvbiI6ICIwMDAxLTAxLTAxVDAwOjAwOjAwIiwgIkVzdGF0dXNMZWN0dXJhIjogZmFsc2UsICJFbnRpZGFkSUQiOiAxLCAiQWN0aXZvIjogdHJ1ZSwgIkVudGlkYWQiOiBudWxsLCAiVGlwb05vdGlmaWNhY2lvbiI6IG51bGwgfQ==", typeMessage: 2 }).done(function (data) {
+    client.messageManager.create({}, { objectEncrypted: "eyJOb3RpZmljYWNpb25JRCI6MCwiVXN1YXJpb0lEUmVjZXB0b3IiOjEsIlVzdWFyaW9JREVtaXNvciI6MSwiVGlwb05vdGlmaWNhY2lvbklEIjoxLCJNZW5zYWplIjoicHJ1ZWJhIiwiRmVjaGFFbnZpbyI6IjAwMDEtMDEtMDFUMDA6MDA6MDAiLCJGZWNoYVJlY2VwY2lvbiI6IjAwMDEtMDEtMDFUMDA6MDA6MDAiLCJFc3RhdHVzTGVjdHVyYSI6ZmFsc2UsIkVudGlkYWRJRCI6MSwiQWN0aXZvIjp0cnVlLCJFbnRpZGFkIjp7IkVudGlkYWRJRCI6MSwiTm9tYnJlIjoiRW50aWRhZCJ9LCJUaXBvTm90aWZpY2FjaW9uIjp7IlRpcG9Ob3RpZmljYWNpb25JRCI6MSwiTm9tYnJlIjoiRGVmaWNpdE1hdGVyaWFsZXMiLCJBY3Rpdm8iOnRydWUsIkVudGlkYWRJRCI6MiwiRW50aWRhZCI6eyJFbnRpZGFkSUQiOjEsIk5vbWJyZSI6ImNjYyJ9fX0=", typeMessage: 2 }).done(function (data) {
         console.log(data);
     });
-	//client.authentication.destroy({}, {username:"YWRtaW4",token:"RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE"}).done(function(data) {
-	//	console.log(data);
-	//});
+
 </script>

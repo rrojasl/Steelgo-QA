@@ -5,10 +5,12 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
-using System.Web.Script.Serialization;
-using SecurityManager.Api.Models;
 using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
 using CommonTools.Libraries.Strings.Security;
+using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
+using SecurityManager.TokenHandler;
 
 namespace SecurityManager
 {
@@ -44,10 +46,24 @@ namespace SecurityManager
             //Create a generic return object
             TransactionalInformation transaction = new TransactionalInformation();
             transaction.IsAuthenicated = false;
-            //transaction.ReturnMessage.Add(encodedData);
 
-            if (username == "admin" && token == "EsteEsUnTokenGeneradoDeAlgunaManera") {
-                transaction.IsAuthenicated = true;    
+            string payload = ManageTokens.Instance.ValidateToken(token);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            dynamic obj = serializer.DeserializeObject(payload);
+
+            if (obj != null)
+            {
+                transaction.ReturnStatus = true;
+                transaction.ReturnCode = 200;
+                transaction.ReturnMessage.Add("Token Valido");
+                transaction.IsAuthenicated = true;
+            }
+            else
+            {
+                transaction.ReturnStatus = false;
+                transaction.ReturnCode = 400;
+                transaction.ReturnMessage.Add("Token no Valido");
+                transaction.IsAuthenicated = false;
             }
 
             return transaction;
@@ -70,17 +86,40 @@ namespace SecurityManager
         {
             username = dataSecurity.Decode(username);
             password = dataSecurity.Decode(password);
-            
+            Sam3_Usuario usuario;
+            string perfil = "";
+            //Check in data base
+            using (SamContext ctx = new SamContext())
+            {
+                usuario = (from us in ctx.Sam3_Usuario
+                           where us.NombreUsuario == username && us.ContrasenaHash == password
+                           select us).SingleOrDefault();
+                if (usuario != null && usuario.PerfilID > 0)
+                {
+                    perfil = ctx.Sam3_Perfil.Where(x => x.PerfilID == usuario.PerfilID).Select(x => x.Nombre).SingleOrDefault();
+                }
+            }
+
             //Create a generic return object
             TransactionalInformation transaction = new TransactionalInformation();
             transaction.IsAuthenicated = false;
 
-            if (username == "admin" && password == "Chelsea102!")
+            if (usuario != null)
             {
-                string token = "EsteEsUnTokenGeneradoDeAlgunaManera";
+                string token = ManageTokens.Instance.CreateJwtToken(usuario.NombreUsuario, usuario.ContrasenaHash, "");
                 token = dataSecurity.Encode(token);
                 transaction.IsAuthenicated = true;
                 transaction.ReturnMessage.Add(token);
+                transaction.ReturnCode = 200;
+                transaction.ReturnStatus = true;
+            }
+            else
+            {
+                string message = "Datos de usuario no valido";
+                transaction.ReturnCode = 400;
+                transaction.ReturnMessage.Add(message);
+                transaction.IsAuthenicated = false;
+                transaction.ReturnStatus = false;
             }
 
             return transaction;

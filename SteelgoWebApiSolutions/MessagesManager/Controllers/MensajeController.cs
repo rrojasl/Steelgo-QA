@@ -33,7 +33,7 @@ namespace MessagesManager.Controllers
             {
                 string path = StringsConfiguration.QuequeNotifications;
                 MessageQueue queueNotifications = new MessageQueue("FormatName:Direct=OS:DF-APP-SQL-03\\Private$\\Notifications");
-                Notificacion notification = MappingNotification(message);
+                Sam3_Notificacion notification = MappingNotification(message);
                 queueNotifications.Send(notification);
             }
         }
@@ -55,9 +55,9 @@ namespace MessagesManager.Controllers
             SendMessageToQueue(message, typeMessage);
         }
 
-        private Notificacion MappingNotification(string message)
+        private Sam3_Notificacion MappingNotification(string message)
         {
-            Notificacion notification = convertirObjToObj<Notificacion>(message);
+            Sam3_Notificacion notification = convertirObjToObj<Sam3_Notificacion>(message);
             return notification;
         }
 
@@ -123,15 +123,15 @@ namespace MessagesManager.Controllers
         //}
 
 
-        public List<Notificacion> GetNotificationsByUserID(int userId)
+        public List<Sam3_Notificacion> GetNotificationsByUserID(int userId)
         {
-            List<Notificacion> notifications = new List<Notificacion>();
+            List<Sam3_Notificacion> notifications = new List<Sam3_Notificacion>();
 
             using (SamContext ctx = new SamContext())
             {
                 ///Genoveva, en la tabla de notificacion no hay un usuerID, como en tu query del metodo de arriba es por eso que hago
                 /// la consulta hacia el ID del receptor, no se si deba hacer asi, por favor corrigelo como sea necesario
-                notifications = ctx.Notificacion.Where(x => x.UsuarioIDReceptor == userId).ToList();
+                notifications = ctx.Sam3_Notificacion.Where(x => x.UsuarioIDReceptor == userId).ToList();
                 return notifications;
             }
         }
@@ -139,14 +139,13 @@ namespace MessagesManager.Controllers
         /// <summary>
         /// EJEMPLO
         /// El manejo de la base de datos es similar a sam 3, con el entity framework 6 ya no se utilizan los metodos
-        /// como acceptChanges o applyChanges, pues el contexto se encarfa4
-        ///   
+        /// como acceptChanges o applyChanges, pues el contexto se encarga de seguir los cambios
         /// </summary>
         public void UsoDataBaseManager()
         {
             using (SamContext ctx = new SamContext())
             {
-                DatabaseManager.Sam3.Acero acero = ctx.Acero.FirstOrDefault();
+                Sam3_Acero acero = ctx.Sam3_Acero.FirstOrDefault();
                 acero.FamiliaAceroID = 10;
                 ctx.SaveChanges();
             }

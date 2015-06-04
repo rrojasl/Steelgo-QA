@@ -364,6 +364,30 @@ _dictionary = {
         "es-MX": "Imprimir Pase",
         "en-US": "Print Pass"
     },
+    "DetalleAvisoLlegada0044": {
+        "es-MX": "Tramitar Permiso",
+        "en-US": "Permit Process"
+    },
+    "DetalleAvisoLlegada0045": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "DetalleAvisoLlegada0046": {
+        "es-MX": "Tipo Archivo",
+        "en-US": "File type"
+    },
+    "DetalleAvisoLlegada0047": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "DetalleAvisoLlegada0048": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "DetalleAvisoLlegada0049": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",

@@ -31,18 +31,18 @@ namespace MessagesManager.Controllers
             {
                 string path = StringsConfiguration.QuequeNotifications;
                 MessageQueue queueNotifications = new MessageQueue(path);
-                queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
-                Notificacion notification = MappingNotification(message);
+                queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Sam3_Notificacion) });
+                Sam3_Notificacion notification = MappingNotification(message);
                 queueNotifications.Send(notification);
                 insertNotification(notification);
             }
         }
 
-        public void insertNotification(Notificacion notification)
+        public void insertNotification(Sam3_Notificacion notification)
         {
             using (SamContext ctx = new SamContext())
             {
-                Notificacion noti = new Notificacion();
+                Sam3_Notificacion noti = new Sam3_Notificacion();
                 noti.NotificacionID = notification.NotificacionID;
                 noti.UsuarioIDReceptor = notification.UsuarioIDReceptor;
                 noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
@@ -51,19 +51,18 @@ namespace MessagesManager.Controllers
                 noti.FechaEnvio = DateTime.Now;
                 noti.FechaRecepcion = DateTime.Now;
                 noti.EstatusLectura = notification.EstatusLectura;
-                noti.EntidadID = notification.EntidadID;
                 noti.Activo = notification.Activo;
                 //noti.Entidad = notification.Entidad;
                 //noti.TipoNotificacion = notification.TipoNotificacion;
 
-                ctx.Notificacion.Add(noti);
+                ctx.Sam3_Notificacion.Add(noti);
                 ctx.SaveChanges();
             }
         }
 
-        public Notificacion MappingNotification(string message)
+        public Sam3_Notificacion MappingNotification(string message)
         {
-            Notificacion notification = convertirObjToObj<Notificacion>(message);
+            Sam3_Notificacion notification = convertirObjToObj<Sam3_Notificacion>(message);
             return notification;
         }
 
@@ -88,15 +87,15 @@ namespace MessagesManager.Controllers
             return p;
         }
 
-        public List<Notificacion> GetNotificationsByUserID(int userId)
+        public List<Sam3_Notificacion> GetNotificationsByUserID(int userId)
         {
-            List<Notificacion> notifications = new List<Notificacion>();
+            List<Sam3_Notificacion> notifications = new List<Sam3_Notificacion>();
 
             using (SamContext ctx = new SamContext())
             {
-                notifications = ctx.Notificacion
+                notifications = ctx.Sam3_Notificacion
                     .Where(x => x.UsuarioIDReceptor == userId && x.Activo == true).ToList()
-                    .Select(x => new Notificacion
+                    .Select(x => new Sam3_Notificacion
                     {
                         NotificacionID = x.NotificacionID,
                         UsuarioIDReceptor = x.UsuarioIDReceptor,
@@ -106,7 +105,6 @@ namespace MessagesManager.Controllers
                         FechaEnvio = x.FechaEnvio,
                         FechaRecepcion = x.FechaRecepcion,
                         EstatusLectura = x.EstatusLectura,
-                        EntidadID = x.EntidadID,
                         Activo = x.Activo
                     }).ToList();
 
