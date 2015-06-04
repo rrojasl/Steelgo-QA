@@ -696,7 +696,7 @@
                 Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.create");
                     folio = data.FolioAvisoLlegadaID;
-                    $("#divFolio").html(folio);
+                        cargarTituloFolio();
                     alert("El folio " + folio + " fue creado exitosamente.");
                 });
             }
@@ -723,8 +723,13 @@
             });
         };
 
+        function cargarTituloFolio() {
+            $("#divfolio").show();
+            $("#spanFolio").html(folio);
+        };
+
         function CargaInicialEdicion(id) {
-            $("#divFolio").html(folio);
+            cargarTituloFolio();
             $("#PaseSalida").show();
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
