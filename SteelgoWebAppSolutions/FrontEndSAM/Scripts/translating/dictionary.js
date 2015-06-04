@@ -380,6 +380,14 @@ _dictionary = {
         "es-MX": "Eliminar",
         "en-US": "Remove"
     },
+    "DetalleAvisoLlegada0048": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "DetalleAvisoLlegada0049": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",
