@@ -154,20 +154,20 @@ label {
     margin-bottom: 7px;
 }
 
-.form label.required {
+    .form label.required {
         position: relative;
     }
 
-    .form label.required::after {
-        content: '*';
-        font-size: 18.5px;
-        position: absolute;
-        top: -4px;
-    }
+        .form label.required::after {
+            content: '*';
+            font-size: 18.5px;
+            position: absolute;
+            top: -4px;
+        }
 
-    .form label.required.error::after {
-        color: #EC4F50;
-    }
+        .form label.required.error::after {
+            color: #EC4F50;
+        }
 /**********************************************************************************/
 
 
@@ -344,6 +344,11 @@ input {
     /*$_footer*/
     footer .content-wrapper {
         width: 80%;
+    }
+
+    /*$_btn*/
+    .buttonBar {
+        top: 0;
     }
 }
 
