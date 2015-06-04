@@ -23,9 +23,9 @@ namespace MessagesManager.Controllers
         // GET api/<controller>/5
         public string Get(int id)
         {
-            List<Notificacion> notifications = messages.GetNotificationsByUserID(id);
+            List<Sam3_Notificacion> notifications = messages.GetNotificationsByUserID(id);
 
-            string json = convertirObjToJson<List<Notificacion>>(notifications);
+            string json = convertirObjToJson<List<Sam3_Notificacion>>(notifications);
             string message = dataSecurity.Encode(json);
             return message;
         }

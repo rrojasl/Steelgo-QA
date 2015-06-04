@@ -8,13 +8,13 @@
 <script>
 	var client = new $.RestClient('http://localhost:60921/securitymanager/api/');
 	client.add('authentication');
-	client.authentication.read({username:"YWRtaW4",token:"RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE"}).done(function(data) {
+	client.authentication.read({ username: "c2FtQWRtaW4=", token: "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SlZjMlZ5VG1GdFpTSTZJbk5oYlVGa2JXbHVJaXdpVUdGemMzZHZjbVFpT2lKellXMWhaRzFwYmlJc0lsQnliMlpwYkdVaU9pSWlMQ0psZUhBaU9qRTBNek16TnprNE5EVjkud1V4WVQzQ213V3liUXJPY05DOVN2NGRoYl9RdmgtTlM5MWlpNEF5RG5hcw==" }).done(function (data) {
 		console.log(data);
 	});
-	client.authentication.create({}, {username:"YWRtaW4", password:"Q2hlbHNlYTEwMiE"}).done(function(data) {
+	client.authentication.create({}, { username: "c2FtQWRtaW4=", password: "c2FtYWRtaW4=" }).done(function (data) {
 		console.log(data);
 	});
-	client.authentication.destroy({}, {username:"YWRtaW4",token:"RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE"}).done(function(data) {
-		console.log(data);
-	});
+	//client.authentication.destroy({}, { username: "c2FtQWRtaW4=", token: "baseAdmin" }).done(function (data) {
+	//	console.log(data);
+	//});
 </script>

@@ -18,12 +18,12 @@ namespace SecurityManager.Api.Models
         public TransactionalInformation()
         {
             ReturnMessage = new List<String>();
-            ReturnStatus = true;
-            ReturnCode = 200;
+            //ReturnStatus = true;
+            //ReturnCode = 200;
             ValidationErrors = new Hashtable();
-            TotalPages = 0;
-            TotalPages = 0;
-            PageSize = 0;
+            //TotalPages = 0;
+            //TotalPages = 0;
+            //PageSize = 0;
             IsAuthenicated = false;
         }
     }

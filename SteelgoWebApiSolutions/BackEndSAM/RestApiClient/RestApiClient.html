@@ -24,6 +24,11 @@
                 console.log(data);
             });
 
+            client.add("Perfil");
+            client.Perfil.read({ username: "SamPruebas", token: "adminPruebas" }).done(function (data) {
+                console.log(data);
+            });
+
             $(document).ready(function () {
                 
             });
