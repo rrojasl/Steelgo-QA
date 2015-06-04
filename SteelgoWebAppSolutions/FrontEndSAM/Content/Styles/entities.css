@@ -14,7 +14,7 @@
     08  $_content-container
     09  $_breadcrumb
     10  $_alert-container
-    11  $_
+    11  $_filesTable
 
 
     Color Palette: Look at site.css
@@ -586,7 +586,7 @@ header .menu > div {
 }
 
 .add {
-    background-image: url("/Content/images/SAMC_Add.png")
+    background-image: url("/Content/images/SAMC_Add.png");
 }
 /**********************************************************************************/
 
@@ -686,6 +686,37 @@ header .menu > div {
         background-image: url("/Content/images/SAMC_Error_Icon_A.png");
     }
 /**********************************************************************************/
+
+
+
+/**********************************************************************************
+ Class name:    $_filesTable
+ Description:   Customize a file table section.
+**********************************************************************************/
+.filesTable {
+    border: 1px solid #CCCCCC;
+}
+
+    .filesTable thead {
+        background-color: #EEEEEE;
+    }
+
+        .filesTable thead td {
+            padding: 12px 15px 5px;
+        }
+
+    .filesTable td {
+        padding: 9px 13px;
+        border-right: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+        .filesTable td a {
+            font-weight: 600;
+            font-size: 12px;
+        }
+/**********************************************************************************/
+
 
 /* Media Queries */
 

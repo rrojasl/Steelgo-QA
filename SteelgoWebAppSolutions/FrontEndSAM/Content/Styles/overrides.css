@@ -169,6 +169,48 @@
     background-position: center;
     background-size: 11px 6px;
 }
+
+.k-upload, .k-upload-files, .k-file {
+    border-color: transparent;
+}
+
+.k-dropzone {
+    padding: 0;
+}
+
+    .k-dropzone .k-upload-button,
+    .k-dropzone .k-upload-button.k-state-focused,
+    .k-upload .k-upload-selected,
+    .k-upload .k-upload-selected.k-state-focused {
+        color: #FFFFFF;
+        background: none;
+        background-color: #305E8E;
+        border: none;
+        border-radius: 3px;
+        border-bottom: 3px solid #234568;
+        padding: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: none;
+    }
+
+        .k-upload .k-upload-selected,
+        .k-upload .k-upload-selected.k-state-focused {
+            margin-left: 0;
+        }
+
+            .k-dropzone .k-upload-button:hover,
+            .k-upload .k-upload-selected:hover {
+                background-color: rgba(048, 094, 142, 0.9);
+                border-bottom-color: rgba(035, 069, 104, 0.5);
+            }
+
+.k-upload .k-upload-files .k-file .k-icon {
+    background-image: url("/Content/images/SAMC_Attachtment.png");
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /**********************************************************************************/
 
 

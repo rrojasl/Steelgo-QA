@@ -4,7 +4,7 @@
 }
 
 
-<div class="form">   
+<div class="form">
     <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="row">
             <div id="divFolio" class="col-sm-12 col-md-12 col-lg-12">
@@ -84,15 +84,43 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-5">
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <label id="DetalleAvisoLlegada0010"></label>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <input id="TipoArchivo" class="" />
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input name="files" id="files" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
-                    </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
-                    </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <table id="listaArchivos" class="filesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0045"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0046"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0047"></label>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,28 +128,22 @@
     </div>
 
 
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0010"></label>
-        <input name="files" id="files" type="file" class="form-control" />
-        <input id="TipoArchivo" class="" />
-
-        <table id="listaArchivos">
-            <thead>
-                <tr>
-                    <td>
-                        <label id="DetalleAvisoLlegada0045"></label>
-                    </td>
-                    <td>
-                        <label id="DetalleAvisoLlegada0046"></label>
-                    </td>
-                    <td>
-                        <label id="DetalleAvisoLlegada0047"></label>
-                    </td>
-                </tr>
-            </thead>
-        </table>
-
+    @*
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="form-group col-sm-12 col-md-12 col-lg-3">
+            </div>
+            <div class="form-group col-sm-12 col-md-12 col-lg-3">
+            </div>
+            <div class="form-group col-sm-12 col-md-12 col-lg-3">
+            </div>
+            <div class="form-group col-sm-12 col-md-12 col-lg-3">
+            </div>
+        </div>
     </div>
+    *@
+
+    
 
     @*Permiso Aduana*@
     <div id="PermisoAduana" style="display: none">
@@ -690,7 +712,7 @@
                 Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.create");
                     folio = data.FolioAvisoLlegadaID;
-                        cargarTituloFolio();
+                    cargarTituloFolio();
                     alert("El folio " + folio + " fue creado exitosamente.");
                 });
             }
