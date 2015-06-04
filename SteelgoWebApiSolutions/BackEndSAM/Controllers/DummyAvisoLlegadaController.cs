@@ -55,11 +55,13 @@ namespace BackEndSAM.Controllers
             files.id = 1;
             files.Archivo = "Prueba1";
             files.Extension = ".doc";
+            files.TipoArchivo = "Tipo Archivo 1";
             listFiles.Add(files);
 
             files2.id = 2;
             files2.Archivo = "Prueba2";
             files2.Extension = ".docx";
+            files2.TipoArchivo = "Tipo Archivo 2";
             listFiles.Add(files2);
 
             transportista.TransportistaID = "1";
