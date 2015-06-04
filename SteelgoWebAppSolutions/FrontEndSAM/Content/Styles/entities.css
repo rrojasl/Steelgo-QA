@@ -245,6 +245,7 @@ header .menu > div {
     min-height: 100%;
     height: auto;
     display: block;
+    min-width: 12.5%;
     width: 12.5%;
     padding: 0;
     overflow: visible;
@@ -252,6 +253,7 @@ header .menu > div {
 }
 
     .sidebar.minified {
+        min-width: 58px;
         width: 58px;
         z-index: 10;
     }
@@ -582,6 +584,10 @@ header .menu > div {
     left: -13px;
     background-image: url("/Content/images/SAMC_DashboardMenu_Icon_21.png");
 }
+
+.add {
+    background-image: url("/Content/images/SAMC_Add.png")
+}
 /**********************************************************************************/
 
 
@@ -590,6 +596,7 @@ header .menu > div {
  Description:   Customize container for the main content.
 **********************************************************************************/
 .content-container {
+    min-width: 87.5%;
     width: 87.5%;
 }
 
@@ -598,6 +605,7 @@ header .menu > div {
     }
 
     .content-container.expanded {
+        min-width: 96.95%;
         width: 96.95%;
     }
 /**********************************************************************************/
@@ -719,6 +727,7 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar.minified {
+        min-width: 6.5%;
         width: 6.5%;
     }
 
@@ -729,6 +738,7 @@ header .menu > div {
 
     /*$_content-container*/
     .content-container.expanded {
+        min-width: 93.5%;
         width: 93.5%;
     }
 }
@@ -738,6 +748,7 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar {
+        min-width: 23.5%;
         width: 23.5%;
     }
 
@@ -747,6 +758,7 @@ header .menu > div {
 
     /*$_content-container*/
     .content-container {
+        min-width: 76.5%;
         width: 76.5%;
     }
 }
@@ -756,6 +768,7 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar.minified {
+        min-width: 5%;
         width: 5%;
     }
 
@@ -766,6 +779,7 @@ header .menu > div {
     /*$_content-container*/
 
     .content-container.expanded {
+        min-width: 95%;
         width: 95%;
     }
 }

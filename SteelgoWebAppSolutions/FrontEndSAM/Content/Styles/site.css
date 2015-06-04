@@ -154,20 +154,20 @@ label {
     margin-bottom: 7px;
 }
 
-.form label.required {
+    .form label.required {
         position: relative;
     }
 
-    .form label.required::after {
-        content: '*';
-        font-size: 18.5px;
-        position: absolute;
-        top: -4px;
-    }
+        .form label.required::after {
+            content: '*';
+            font-size: 18.5px;
+            position: absolute;
+            top: -4px;
+        }
 
-    .form label.required.error::after {
-        color: #EC4F50;
-    }
+        .form label.required.error::after {
+            color: #EC4F50;
+        }
 /**********************************************************************************/
 
 
@@ -189,11 +189,14 @@ a, a:link, a:hover, a:visited {
 **********************************************************************************/
 input {
     border-color: transparent;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
 }
 
     input:focus {
-        outline: none !important;
-        box-shadow: none !important;
+        outline: none;
+        box-shadow: none;
     }
 
     input:-moz-placeholder {
@@ -219,6 +222,32 @@ input {
     font-size: 12px;
     font-weight: 600;
 }
+
+.content-container .form input:not(.k-input) {
+    height: 40px;
+    min-height: 40px;
+    color: #1B3F70;
+    border: 1px solid #CCCCCC;
+    border-radius: 0;
+    font-size: 14px;
+}
+
+    .content-container .form input:not(.k-input):focus {
+        border-color: #4486CB;
+        -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
+        -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
+        box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+    }
+
+.content-container .input-group .input-group-btn a {
+    padding: 19px 18px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 /**********************************************************************************/
 
 
@@ -344,6 +373,11 @@ input {
     /*$_footer*/
     footer .content-wrapper {
         width: 80%;
+    }
+
+    /*$_btn*/
+    .buttonBar {
+        top: 0;
     }
 }
 
