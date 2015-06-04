@@ -34,10 +34,13 @@ namespace MessagesManager.Controllers
         public void Post(string objectEncrypted, string typeMessage)
         {
             string message = dataSecurity.Decode(objectEncrypted);
-            int typeMsg = Convert.ToInt32(typeMessage);
-             
+            int typeMsg = Convert.ToInt32(typeMessage);             
 
             messages.SendMessageToQueue(message, typeMsg);
+            for (int i = 0; i < 10; i++)
+            {
+                messages.SendMessageToQueuePrueba(message, typeMsg);
+            }
         }
 
         // PUT api/<controller>/5

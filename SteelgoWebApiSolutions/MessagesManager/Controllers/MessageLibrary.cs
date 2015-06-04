@@ -14,6 +14,16 @@ namespace MessagesManager.Controllers
 {
     public class MessageLibrary
     {
+        public void SendMessageToQueuePrueba(string message, int typeMessage)
+        {           
+            string path = StringsConfiguration.QuequePrueba;
+            MessageQueue queueNotifications = new MessageQueue(path);
+            queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Sam3_Notificacion) });
+            Sam3_Notificacion notification = MappingNotification(message);
+            queueNotifications.Send(notification);
+            insertNotification(notification);
+            
+        }
 
         public void SendMessageToQueue(string message, int typeMessage)
         {

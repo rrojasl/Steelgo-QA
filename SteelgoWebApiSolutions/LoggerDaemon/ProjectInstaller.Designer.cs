@@ -43,6 +43,7 @@
             this.serviceInstaller.Description = "DaemonService, servicio incertar mensajes de aplicacion sam a base de datos sam";
             this.serviceInstaller.DisplayName = "Daemon Service";
             this.serviceInstaller.ServiceName = "DaemonService";
+            this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 
