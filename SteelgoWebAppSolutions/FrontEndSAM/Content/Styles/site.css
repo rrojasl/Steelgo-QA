@@ -143,12 +143,12 @@ footer {
 **********************************************************************************/
 label {
     margin: 0;
-    padding: 0;
-    display: block;
+    padding: 0;    
 }
 
 .form label {
     text-transform: uppercase;
+    display: block;
     font-size: 10px;
     letter-spacing: 1.2px;
     margin-bottom: 7px;
