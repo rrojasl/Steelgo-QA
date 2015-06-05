@@ -31,6 +31,8 @@ namespace DatabaseManager.Sam3
         public string TelefonoParticular { get; set; }
         public string TelefonoCelular { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Fabricante> Sam3_Fabricante { get; set; }
         public virtual ICollection<Sam3_Proveedor> Sam3_Proveedor { get; set; }

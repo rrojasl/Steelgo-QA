@@ -17,6 +17,8 @@ namespace DatabaseManager.Sam3
         public int TipoDocumentoID { get; set; }
         public string Nombre { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Rel_Documento_Entidad Sam3_Rel_Documento_Entidad { get; set; }
     }

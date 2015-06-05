@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         public int CamionID { get; set; }
         public string Placas { get; set; }
         public int Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Camion Sam3_Camion { get; set; }
     }

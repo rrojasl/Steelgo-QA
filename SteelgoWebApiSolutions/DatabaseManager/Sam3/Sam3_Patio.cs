@@ -27,6 +27,8 @@ namespace DatabaseManager.Sam3
         public string Propietario { get; set; }
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Maquina> Sam3_Maquina { get; set; }
         public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }

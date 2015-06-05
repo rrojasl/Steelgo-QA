@@ -19,6 +19,8 @@ namespace DatabaseManager.Sam3
         public string Token { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Usuario Sam3_Usuario { get; set; }
     }

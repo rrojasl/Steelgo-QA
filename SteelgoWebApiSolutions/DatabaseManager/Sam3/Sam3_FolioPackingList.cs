@@ -27,6 +27,8 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public System.DateTime FechaCapturaCompleta { get; set; }
         public Nullable<bool> Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FolioLlegada Sam3_FolioLlegada { get; set; }
         public virtual Sam3_PackingList Sam3_PackingList { get; set; }

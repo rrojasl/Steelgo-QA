@@ -18,5 +18,7 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public string Extension { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     }
 }

@@ -30,6 +30,8 @@ namespace DatabaseManager.Sam3
         public System.DateTime FechaTraspaso { get; set; }
         public bool TieneCorte { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Corte> Sam3_Corte { get; set; }
         public virtual Sam3_NumeroUnico Sam3_NumeroUnico { get; set; }

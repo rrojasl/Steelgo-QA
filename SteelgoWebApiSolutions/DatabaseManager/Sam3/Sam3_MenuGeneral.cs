@@ -24,6 +24,8 @@ namespace DatabaseManager.Sam3
         public string Liga { get; set; }
         public int IDPadre { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Rel_Perfil_MenuGeneral> Sam3_Rel_Perfil_MenuGeneral { get; set; }
     }

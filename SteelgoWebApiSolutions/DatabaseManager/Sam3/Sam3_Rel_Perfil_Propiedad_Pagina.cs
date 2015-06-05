@@ -21,6 +21,8 @@ namespace DatabaseManager.Sam3
         public bool PermisoLectura { get; set; }
         public bool Requerido { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Perfil Sam3_Perfil { get; set; }
         public virtual Sam3_Propiedad Sam3_Propiedad { get; set; }

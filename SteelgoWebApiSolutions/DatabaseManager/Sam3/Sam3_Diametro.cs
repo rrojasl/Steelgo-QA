@@ -18,5 +18,7 @@ namespace DatabaseManager.Sam3
         public decimal Valor { get; set; }
         public bool VerificadoPorCalidad { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     }
 }

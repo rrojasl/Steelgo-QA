@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         public int PreferenciaID { get; set; }
         public string ValorPreferencia { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Preferencia Sam3_Preferencia { get; set; }
         public virtual Sam3_Usuario Sam3_Usuario { get; set; }
