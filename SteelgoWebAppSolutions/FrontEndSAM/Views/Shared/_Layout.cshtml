@@ -413,13 +413,7 @@
                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 breadcrumb-container">
                             <div class="row">
                                 <ul class="breadcrumb">
-                                    <li>
-                                        <a href="#">Transacciones</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Materiales</a>
-                                    </li>
-                                    <li class="active">Aviso Entrada de Material</li>
+                                    @RenderSection("breadcrumb", required: false)
                                 </ul>
                             </div>
                         </div>

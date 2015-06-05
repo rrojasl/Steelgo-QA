@@ -2,6 +2,15 @@
     ViewBag.Title = "Listado - Aviso Llegada";
 }
 
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0021"></span></a>
+    </li>
+}
+
 @*<h2>ListadoAvisoLlegada</h2>
 *@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
