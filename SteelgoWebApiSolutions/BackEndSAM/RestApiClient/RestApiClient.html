@@ -17,22 +17,21 @@
 
             client.add('proyecto');
 
-            client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
-                console.log(data);
-            });
-            client.proyecto.create({ proys: projects }, { proys: projects, username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
-                console.log(data);
-            });
+            //client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
+            //    console.log(data);
+            //});
+            //client.proyecto.create({ proys: projects }, { proys: projects, username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            ids = [{id:1}];
             client.add("Perfil");
-            client.Perfil.read({ username: "c2FtQWRtaW4=", paginaID: 1, entidades: ids, token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc2VyTmFtZSI6InNhbUFkbWluIiwiUGFzc3dvcmQiOiJzYW1hZG1pbiIsIlByb2ZpbGVJRCI6MSwiZXhwIjoxNDMzNDU5NTExfQ.KrUCE7V6xswERsOActBfbNpXy2z3BmLSZl2ed260wrE" }).done(function (data) {
+            client.Perfil.read({ token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzUyOTkyMn0.zLnB-XV5pPXkqYYmBWc4OQIr7TV9-eoTPnV3WY4r-FI", pageName: "Login" }).done(function (data) {
                 console.log(data);
             });
 
-            $(document).ready(function () {
+            //$(document).ready(function () {
                 
-            });
+            //});
             
 </script>
     </body>

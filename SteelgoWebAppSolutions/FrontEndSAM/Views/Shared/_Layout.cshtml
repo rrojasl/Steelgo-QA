@@ -746,20 +746,39 @@
         function validateCredentials() {
             if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
                 loadingStart();
-                $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    if (!data.IsAuthenicated) {
-                        //RedirectToHomePage
-                        document.location.href = '/';
-                    } else {
+                var request = $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") });
+                request.done(function (data) {
+                    if (data.IsAuthenicated) {
                         $.cookie("home", false);
-                        //
+                    } else {
+                        //RedirectToHomePage
+                        $.removeCookie("user", { path: '/' });
+                        $.removeCookie("token", { path: '/' });
+                        document.location.href = '/';
                     }
                     loadingStop();
                 });
+                request.error(function (data) {
+                    console.log("errorFunction");
+                    $.removeCookie("user", { path: '/' });
+                    $.removeCookie("token", { path: '/' });
+                    document.location.href = '/';
+                    loadingStop();
+                });
+                request.fail(function (data) {
+                    console.log("failFunction");
+                    $.removeCookie("user", { path: '/' });
+                    $.removeCookie("token", { path: '/' });
+                    document.location.href = '/';
+                    loadingStop();
+                });
+                
             } else {
                 if ($.cookie("home") != null && $.cookie("home") == "false") {
                     //RedirectToHomePage
                     document.location.href = '/';
+                } else if ($.cookie("home") != null && $.cookie("home") == "true" && $.cookie("user") != null && $.cookie("token") != null) {
+                    document.location.href = '@Url.Action("Landing", "Home")';
                 }
             }
         }

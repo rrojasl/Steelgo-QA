@@ -10,6 +10,7 @@ namespace DatabaseManager.EntidadesPersonalizadas
     {
         public Layout layout { get; set; }
         public List<Entidad> entidades { get; set; }
+        public string token { get; set; }
         public PerfilJson()
         {
             layout = new Layout();

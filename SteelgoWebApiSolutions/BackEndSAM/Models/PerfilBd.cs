@@ -40,17 +40,21 @@ namespace BackEndSAM.Models
         }
 
 
-        public PerfilJson ObtenerPerfilJsonPorID(int perfilID, int paginaID, List<int> endtidadIDs)
+        public PerfilJson ObtenerPerfilJsonPorID(int perfilID, int paginaID)
         {
             PerfilJson perfil;
             using (SamContext ctx = new SamContext())
             {
+                //Obtenermos el Id de la pagina
+                //int paginaID = ctx.Sam3_Pagina.Where(x => x.Accion == pageName).Select(x => x.PaginaID).SingleOrDefault();
+
                 //Obtenemos los datos de la relacion entidad perfil
                 Sam3_Rel_Perfil_Entidad_Pagina perfil_entidad = ctx.Sam3_Rel_Perfil_Entidad_Pagina
                     .Where(x => x.PerfilID == perfilID 
                         && x.EntidadID == (int)Enums.Entidades.Layout 
                         && x.PaginaID == (int)Enums.Paginas.Layout)
                     .FirstOrDefault();
+
 
                 //instanciamos el nuevo objeto de retorno de Json
                 perfil = new PerfilJson();
@@ -129,7 +133,7 @@ namespace BackEndSAM.Models
 
                 //obtnemos los datos para la entidad login
                 List<Sam3_Rel_Perfil_Entidad_Pagina> lstperfilesEntides = ctx.Sam3_Rel_Perfil_Entidad_Pagina
-                    .Where(x => endtidadIDs.Contains(x.EntidadID) && x.PerfilID == perfilID && x.PaginaID == paginaID).ToList();
+                    .Where(x => x.PerfilID == perfilID && x.PaginaID == paginaID).ToList();
 
                 //creamos la lista de entidades
                 List<Entidad> lstEntidades = (from lst in lstperfilesEntides
@@ -164,8 +168,8 @@ namespace BackEndSAM.Models
 
             }
 
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string json = serializer.Serialize(perfil);
+            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+            //string json = serializer.Serialize(perfil);
             return perfil;
         }
     }
