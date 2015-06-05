@@ -7,7 +7,7 @@
     01  $_languageSelector
     02  $_k-widget
     03  $_k-grid
-    04  $_
+    04  $_input-group
     05  $_
     06  $_
     07  $_
@@ -432,6 +432,15 @@
 
 /* xs viewport */
 @media screen and (max-width: 767px) {
+    /*$_input-group*/
+    /*Override bootstrap input group display for mobiles*/
+    .input-group {
+        display: block;
+    }
+
+        .input-group > .input-group-btn {
+            display: none;
+        }
 }
 
 /* sm viewport */
@@ -446,6 +455,16 @@
     .k-autocomplete, .k-datepicker {
         max-width: 100%;
     }
+
+    /*$_input-group*/
+    /*Override bootstrap input group display for tablets*/
+    .input-group {
+        display: block;
+    }
+
+        .input-group > .input-group-btn {
+            display: none;
+        }
 }
 
 /* md viewport */
