@@ -200,7 +200,8 @@ a, a:link, a:hover, a:visited {
  Description:   Customize input tag.
 **********************************************************************************/
 input {
-    border-color: transparent;
+    border-color: transparent;    
+    border-style: solid;
     outline: none;
     box-shadow: none;
     width: 100%;
