@@ -752,8 +752,6 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 #window {
-    width: 100%;
-    padding: 10px;
     overflow: hidden;
 }
 
@@ -837,6 +835,11 @@ header .menu > div {
     .content-container.expanded {
         max-width: 93.5%;
         width: 93.5%;
+    }
+
+    /*$_addedSection*/
+    .addedSection {
+        margin-top: 15px;
     }
 }
 
