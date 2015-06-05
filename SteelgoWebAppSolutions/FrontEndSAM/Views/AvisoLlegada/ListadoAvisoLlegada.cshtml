@@ -94,7 +94,7 @@
         };
 
         function changeLanguageCall() {
-            CargarGridAvisoLlegada();
+            CargarGridAvisoLlegada();            
         }
 
         function CargarGridAvisoLlegada()
@@ -146,10 +146,13 @@
                     { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], filterable: true },                    
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
-                ]
-            });
-
-            $("input.k-textbox").attr("readonly", true);
+                ],
+                dataBound: function (e) {
+                    $(".k-grid input.k-textbox").prop( 'readonly' , true);                    
+                    $(".k-grid td .k-button").text(''); 
+                    $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');                                                       
+                }
+            });                                
         }
 
         function mostrarDetalle(e)
