@@ -114,6 +114,22 @@ _dictionary = {
         "es-MX": "Contacto",
         "en-US": "Contact Us"
     },
+    "layoutLabel0019": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "layoutLabel0020": {
+        "es-MX": "Aviso Entrada de Material",
+        "en-US": "Notice Input Material"
+    },
+    "layoutLabel0021": {
+        "es-MX": "Listado de Avisos de Entrada",
+        "en-US": "List Input Material"
+    },
+    "layoutLabel0022": {
+        "es-MX": "Generar Aviso de Entrada",
+        "en-US": "Generate Input Material"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
