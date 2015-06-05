@@ -16,6 +16,7 @@
     10  $_alert-container
     11  $_filesTable
     12  $_addedSection
+    13  $_modal
 
 
     Color Palette: Look at site.css
@@ -741,10 +742,47 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .addedSection {
-      margin-top: 30px;
+    margin-top: 30px;
 }
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_modal
+ Description:   Customize section added to a page.
+**********************************************************************************/
+#window {
+    width: 100%;
+    padding: 10px;
+    overflow: hidden;
+}
+
+    #window input:not(.k-input) {
+        box-sizing: border-box;
+        height: 40px;
+        min-height: 40px;
+        color: #1B3F70;
+        border: 1px solid #CCCCCC;
+        border-radius: 0;
+        font-size: 14px;
+        padding: 0 5px;
+    }
+
+        #window input:not(.k-input):focus {
+            border-color: #4486CB;
+            -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
+            -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
+            box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+        }
+
+    #window h2 label {
+        font-size: 13px;
+    }
+
+    #window .btn {
+        margin-top: 30px;
+    }
+/**********************************************************************************/
 
 /* Media Queries */
 
