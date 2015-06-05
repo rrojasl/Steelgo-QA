@@ -126,8 +126,8 @@ namespace LoggerDaemon
                 noti.FechaRecepcion = notification.FechaRecepcion;
                 noti.EstatusLectura = notification.EstatusLectura;
                 noti.Activo = notification.Activo;
-                noti.UsuarioModificacionID = notification.UsuarioModificacionID;
-                noti.FechaModificacion = notification.FechaModificacion;
+                //noti.UsuarioModificacionID = notification.UsuarioModificacionID;
+                //noti.FechaModificacion = notification.FechaModificacion;
 
                 ctx.Sam3_Notificacion.Add( noti);
                 ctx.SaveChanges();               
