@@ -13,7 +13,7 @@ using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PerfilController : ApiController
     {
         Base64Security dataSecurity = new Base64Security();

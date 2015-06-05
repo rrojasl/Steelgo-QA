@@ -147,7 +147,7 @@ namespace SecurityManager
             {
                 transaction.IsAuthenicated = false;
             }
-
+            transaction.IsAuthenicated = false;
             return transaction;
         }
     }
