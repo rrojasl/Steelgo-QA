@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         public int FolioAvisoLlegadaID { get; set; }
         public string Estatus { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
     }

@@ -32,6 +32,8 @@ namespace DatabaseManager.Sam3
         public string Referencia { get; set; }
         public string Estatus { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Corte> Sam3_Corte { get; set; }
         public virtual ICollection<Sam3_Corte> Sam3_Corte1 { get; set; }

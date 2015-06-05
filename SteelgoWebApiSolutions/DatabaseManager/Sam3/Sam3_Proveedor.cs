@@ -26,6 +26,8 @@ namespace DatabaseManager.Sam3
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Contacto Sam3_Contacto { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }

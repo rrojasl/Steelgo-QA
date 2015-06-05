@@ -24,6 +24,8 @@ namespace DatabaseManager.Sam3
         public string Nomenclatura { get; set; }
         public bool VerificadoPorCalidad { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual ICollection<Sam3_Colada> Sam3_Colada { get; set; }

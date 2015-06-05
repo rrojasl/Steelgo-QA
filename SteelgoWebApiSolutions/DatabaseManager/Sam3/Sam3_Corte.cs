@@ -30,6 +30,8 @@ namespace DatabaseManager.Sam3
         public int Rack { get; set; }
         public Nullable<int> CortadorID { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_NumeroUnicoCorte Sam3_NumeroUnicoCorte { get; set; }
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento { get; set; }

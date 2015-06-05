@@ -22,6 +22,8 @@ namespace DatabaseManager.Sam3
         public int RepositorioId { get; set; }
         public string Nombre { get; set; }
         public Nullable<bool> Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Rel_Documento_Entidad> Sam3_Rel_Documento_Entidad { get; set; }
     }

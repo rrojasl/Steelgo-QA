@@ -28,6 +28,8 @@ namespace DatabaseManager.Sam3
         public string Descripcion { get; set; }
         public bool VerificadoPorCalidad { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Acero> Sam3_Acero { get; set; }
         public virtual Sam3_FamiliaMaterial Sam3_FamiliaMaterial { get; set; }

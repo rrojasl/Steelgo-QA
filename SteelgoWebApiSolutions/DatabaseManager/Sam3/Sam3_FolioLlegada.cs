@@ -25,6 +25,8 @@ namespace DatabaseManager.Sam3
         public Nullable<int> FolioAvisoLlegadaID { get; set; }
         public string Estatus { get; set; }
         public Nullable<bool> Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
         public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }

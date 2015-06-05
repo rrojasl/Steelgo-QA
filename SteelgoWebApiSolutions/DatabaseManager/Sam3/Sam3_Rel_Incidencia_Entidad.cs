@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         public int EntidadID { get; set; }
         public bool PermitidoLevantarIncidencias { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Entidad Sam3_Entidad { get; set; }
         public virtual Sam3_Incidencia Sam3_Incidencia { get; set; }

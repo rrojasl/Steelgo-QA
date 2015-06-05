@@ -31,6 +31,8 @@ namespace DatabaseManager.Sam3
         public string ApellidoMaterno { get; set; }
         public bool BloqueadoPorAdministracion { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia { get; set; }
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
