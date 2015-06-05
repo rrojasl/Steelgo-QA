@@ -38,31 +38,29 @@ namespace SecurityManager
         /// </param>
         /// <returns> TransactionalInformation Object in a JSON Response  </returns>
         /// <example> GET securitymanager/api/authentication/ </example>
-        public TransactionalInformation Get(string username, string token)
+        public TransactionalInformation Get(string token)
         {
-            username = dataSecurity.Decode(username);
-            token = dataSecurity.Decode(token);
-
             //Create a generic return object
             TransactionalInformation transaction = new TransactionalInformation();
             transaction.IsAuthenicated = false;
-
-            string payload = ManageTokens.Instance.ValidateToken(token);
+            string payload = "";
+            string newToken = "";
+            bool validToken = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             dynamic obj = serializer.DeserializeObject(payload);
 
-            if (obj != null)
+            if (validToken)
             {
                 transaction.ReturnStatus = true;
                 transaction.ReturnCode = 200;
-                transaction.ReturnMessage.Add("Token Valido");
+                transaction.ReturnMessage.Add(newToken);
                 transaction.IsAuthenicated = true;
             }
             else
             {
                 transaction.ReturnStatus = false;
                 transaction.ReturnCode = 400;
-                transaction.ReturnMessage.Add("Token no Valido");
+                transaction.ReturnMessage.Add(payload);
                 transaction.IsAuthenicated = false;
             }
 
@@ -103,7 +101,7 @@ namespace SecurityManager
             if (usuario != null)
             {
                 string token = ManageTokens.Instance.CreateJwtToken(usuario);
-                token = dataSecurity.Encode(token);
+                token = token;
                 transaction.IsAuthenicated = true;
                 transaction.ReturnMessage.Add(token);
                 transaction.ReturnCode = 200;

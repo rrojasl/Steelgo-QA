@@ -8,14 +8,14 @@
 <script>
     var client = new $.RestClient('http://localhost:60921/securitymanager/api/');
 	client.add('authentication');
-	//client.authentication.read({ username: "c2FtQWRtaW4=", token: "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SlZjMlZ5VG1GdFpTSTZJbk5oYlVGa2JXbHVJaXdpVUdGemMzZHZjbVFpT2lKellXMWhaRzFwYmlJc0lsQnliMlpwYkdVaU9pSWlMQ0psZUhBaU9qRTBNek16TnprNE5EVjkud1V4WVQzQ213V3liUXJPY05DOVN2NGRoYl9RdmgtTlM5MWlpNEF5RG5hcw==" }).done(function (data) {
-	//    console.log(data);
-	//    alert(data);
-	//});
-	client.authentication.create({}, { username: "c2FtQWRtaW4=", password: "c2FtYWRtaW4=" }).done(function (data) {
+	client.authentication.read({ token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzUyOTkyMn0.zLnB-XV5pPXkqYYmBWc4OQIr7TV9-eoTPnV3WY4r-FI" }).done(function (data) {
 	    console.log(data);
 	    alert(data);
 	});
+	//client.authentication.create({}, { username: "c2FtQWRtaW4=", password: "c2FtYWRtaW4=" }).done(function (data) {
+	//    console.log(data);
+	//    alert(data);
+	//});
 	//client.authentication.destroy({}, { username: "c2FtQWRtaW4=", token: "baseAdmin" }).done(function (data) {
 	//	console.log(data);
 	//});

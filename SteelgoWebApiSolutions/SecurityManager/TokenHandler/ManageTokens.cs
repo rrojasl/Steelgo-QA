@@ -8,6 +8,7 @@ using JWT;
 using System.Runtime.Remoting;
 using System.Configuration;
 using DatabaseManager.Sam3;
+using System.Web.Script.Serialization;
 
 namespace SecurityManager.TokenHandler
 {
@@ -47,13 +48,15 @@ namespace SecurityManager.TokenHandler
             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             double now = Math.Round((DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds);
             var time = (DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds;
-            //double now = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
 
             Dictionary<string, object> payload = new Dictionary<string, object>()
             {
-                { "UserName", usuario.NombreUsuario },
-                { "Password", usuario.ContrasenaHash },
-                { "ProfileID", usuario.PerfilID},
+                { "UsuarioID", usuario.UsuarioID},
+                { "NombreUsuario", usuario.NombreUsuario },
+                { "ContrasenaHash", usuario.ContrasenaHash },
+                { "PerfilID", usuario.PerfilID},
+                { "BloqueadoPorAdministracion", usuario.BloqueadoPorAdministracion},
+                { "Activo", usuario.Activo},
                 { "exp", now}
             };
 
@@ -61,16 +64,21 @@ namespace SecurityManager.TokenHandler
             return token;
         }
 
-        public string ValidateToken(string token)
+        public bool ValidateToken(string token, out string result, out string newToken)
         {
             try
             {
-                string payLoad = JsonWebToken.Decode(token, ConfigurationManager.AppSettings["scrKey"]);
-                return payLoad;
+                result = JsonWebToken.Decode(token, ConfigurationManager.AppSettings["scrKey"]);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(result);
+                newToken = CreateJwtToken(usuario);
+                return true;
             }
             catch (JWT.SignatureVerificationException ex)
             {
-                return ex.Message;
+                result = ex.Message;
+                newToken = "";
+                return false;
             }
         }
     }
