@@ -130,6 +130,10 @@ _dictionary = {
         "es-MX": "Generar Aviso de Entrada",
         "en-US": "Generate Input Material"
     },
+    "layoutLabel0023": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
@@ -206,6 +210,14 @@ _dictionary = {
     "ListadoAvisoLlegada0019": {
         "es-MX": "Tamaño de Página",
         "en-US": "Page Size"
+    },
+    "ListadoAvisoLlegada0020": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoAvisoLlegada0021": {
+        "es-MX": "Listado de Avisos de Entrada",
+        "en-US": "List Input Material"
     },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
@@ -403,6 +415,18 @@ _dictionary = {
     "DetalleAvisoLlegada0049": {
         "es-MX": "Eliminar",
         "en-US": "Remove"
+    },
+    "DetalleAvisoLlegada0050": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DetalleAvisoLlegada0051": {
+        "es-MX": "Listado de Avisos de Entrada",
+        "en-US": "List Input Material"
+    },
+    "DetalleAvisoLlegada0052": {
+        "es-MX": "Detalle de Avisos de Entrada",
+        "en-US": "Detail Input Material"
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
