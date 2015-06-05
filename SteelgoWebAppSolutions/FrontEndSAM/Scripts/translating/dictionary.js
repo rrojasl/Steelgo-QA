@@ -229,8 +229,8 @@ _dictionary = {
         "en-US": "Driver"
     },
     "DetalleAvisoLlegada0010": {
-        "es-MX": "Tipo de Archivo",
-        "en-US": "File type"
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Add Files"
     },
     "DetalleAvisoLlegada0011": {
         "es-MX": "Transportista",
@@ -322,7 +322,7 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0033": {
         "es-MX": "Placas",
-        "en-US": "license plate"
+        "en-US": "License plate"
     },
     "DetalleAvisoLlegada0034": {
         "es-MX": "Guardar",
@@ -349,7 +349,7 @@ _dictionary = {
         "en-US": "Pass Out"
     },
     "DetalleAvisoLlegada0040": {
-        "es-MX": "Packing List Firmado*",
+        "es-MX": "Packing List Firmado",
         "en-US": "Packing List Signed"
     },
     "DetalleAvisoLlegada0041": {
@@ -373,7 +373,7 @@ _dictionary = {
         "en-US": "File"
     },
     "DetalleAvisoLlegada0046": {
-        "es-MX": "Tipo Archivo",
+        "es-MX": "Tipo de Archivo",
         "en-US": "File type"
     },
     "DetalleAvisoLlegada0047": {

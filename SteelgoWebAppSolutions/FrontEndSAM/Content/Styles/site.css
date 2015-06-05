@@ -13,7 +13,7 @@
     07  $_links
     08  $_input
     09  $_btn
-    10  $_
+    10  $_$_headings
     11  $_
 
 
@@ -144,30 +144,42 @@ footer {
 label {
     margin: 0;
     padding: 0;
-    display: block;
 }
 
-.form label {
+.form label,
+#window label {
     text-transform: uppercase;
+    display: block;
     font-size: 10px;
     letter-spacing: 1.2px;
     margin-bottom: 7px;
 }
 
-.form label.required {
+    .form label.required {
         position: relative;
     }
 
-    .form label.required::after {
-        content: '*';
-        font-size: 18.5px;
-        position: absolute;
-        top: -4px;
-    }
+        .form label.required::after {
+            content: '*';
+            font-size: 18.5px;
+            position: absolute;
+            top: -4px;
+        }
 
-    .form label.required.error::after {
-        color: #EC4F50;
-    }
+        .form label.required.error::after {
+            color: #EC4F50;
+        }
+
+.form h2 label {
+    font-size: 13px;
+}
+
+.inlineLabel,
+.inlineLabel + span {
+    display: inline-block !important;
+    font-size: 16px !important;
+    font-weight: 600;
+}
 /**********************************************************************************/
 
 
@@ -189,11 +201,15 @@ a, a:link, a:hover, a:visited {
 **********************************************************************************/
 input {
     border-color: transparent;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    box-sizing: border-box
 }
 
     input:focus {
-        outline: none !important;
-        box-shadow: none !important;
+        outline: none;
+        box-shadow: none;
     }
 
     input:-moz-placeholder {
@@ -219,6 +235,33 @@ input {
     font-size: 12px;
     font-weight: 600;
 }
+
+.content-container .form input:not(.k-input) {
+    height: 40px;
+    min-height: 40px;
+    color: #1B3F70;
+    border: 1px solid #CCCCCC;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 0 5px;
+}
+
+    .content-container .form input:not(.k-input):focus {
+        border-color: #4486CB;
+        -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
+        -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
+        box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+    }
+
+.content-container .input-group .input-group-btn a {
+    padding: 19px 18px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 /**********************************************************************************/
 
 
@@ -235,11 +278,13 @@ input {
     font-weight: 600;
     letter-spacing: 1.3px;
     height: 40px;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
     .btn span, .btn label {
         color: #FFFFFF;
-    }
+    }    
 
 .btn-yellow {
     background-color: #EC8B00;
@@ -273,6 +318,11 @@ input {
         border-bottom-color: rgba(035, 069, 104, 0.5);
     }
 
+    .btn-primary.disabled, .btn-primary[disabled] {
+        background-color: #305E8E;
+        border-color: #234568;
+    }
+
 .btn-black {
     background-color: #444444;
     border: none;
@@ -303,8 +353,31 @@ input {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.formButtons {
+    margin-top: 50px;
+    padding: 20px 0 20px;
+    border-top: 1px solid #CCCCCC;
+}
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_headings
+ Description:   Customize headings tag.
+**********************************************************************************/
+h2 {
+    margin-top: 0;
+    border-bottom: 3px solid #202020;
+}
+
+    h2 label {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 7px;
+    }
+/**********************************************************************************/
 
 /* Media Queries */
 
@@ -344,6 +417,11 @@ input {
     /*$_footer*/
     footer .content-wrapper {
         width: 80%;
+    }
+
+    /*$_btn*/
+    .buttonBar {
+        top: 0;
     }
 }
 

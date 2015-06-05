@@ -14,7 +14,9 @@
     08  $_content-container
     09  $_breadcrumb
     10  $_alert-container
-    11  $_
+    11  $_filesTable
+    12  $_addedSection
+    13  $_modal
 
 
     Color Palette: Look at site.css
@@ -245,6 +247,7 @@ header .menu > div {
     min-height: 100%;
     height: auto;
     display: block;
+    min-width: 12.5%;
     width: 12.5%;
     padding: 0;
     overflow: visible;
@@ -252,6 +255,7 @@ header .menu > div {
 }
 
     .sidebar.minified {
+        min-width: 58px;
         width: 58px;
         z-index: 10;
     }
@@ -582,6 +586,10 @@ header .menu > div {
     left: -13px;
     background-image: url("/Content/images/SAMC_DashboardMenu_Icon_21.png");
 }
+
+.add {
+    background-image: url("/Content/images/SAMC_Add.png");
+}
 /**********************************************************************************/
 
 
@@ -590,6 +598,7 @@ header .menu > div {
  Description:   Customize container for the main content.
 **********************************************************************************/
 .content-container {
+    min-width: 87.5%;
     width: 87.5%;
 }
 
@@ -598,6 +607,7 @@ header .menu > div {
     }
 
     .content-container.expanded {
+        min-width: 96.95%;
         width: 96.95%;
     }
 /**********************************************************************************/
@@ -679,6 +689,101 @@ header .menu > div {
     }
 /**********************************************************************************/
 
+
+
+/**********************************************************************************
+ Class name:    $_filesTable
+ Description:   Customize a file table section.
+**********************************************************************************/
+.filesTable {
+    border: 1px solid #CCCCCC;
+}
+
+    .filesTable thead {
+        background-color: #EEEEEE;
+    }
+
+        .filesTable thead td {
+            padding: 12px 15px 5px;
+        }
+
+    .filesTable tbody tr:nth-child(even) {
+        background-color: #F5F5F5;
+    }
+
+    .filesTable tbody tr:hover {
+        background-color: #FCEED9;
+    }
+
+    .filesTable td {
+        padding: 9px 13px;
+        border-right: 1px solid #CCCCCC;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+        .filesTable td a {
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+            .filesTable td a .delete {
+                padding: 0 30px;
+                background-color: transparent;
+                background-image: url("/Content/images/SAMC_delete.png");
+                background-size: auto;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_addedSection
+ Description:   Customize section added to a page.
+**********************************************************************************/
+.addedSection {
+    margin-top: 30px;
+}
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_modal
+ Description:   Customize section added to a page.
+**********************************************************************************/
+#window {
+    width: 100%;
+    padding: 10px;
+    overflow: hidden;
+}
+
+    #window input:not(.k-input) {
+        box-sizing: border-box;
+        height: 40px;
+        min-height: 40px;
+        color: #1B3F70;
+        border: 1px solid #CCCCCC;
+        border-radius: 0;
+        font-size: 14px;
+        padding: 0 5px;
+    }
+
+        #window input:not(.k-input):focus {
+            border-color: #4486CB;
+            -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
+            -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
+            box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+        }
+
+    #window h2 label {
+        font-size: 13px;
+    }
+
+    #window .btn {
+        margin-top: 30px;
+    }
+/**********************************************************************************/
+
 /* Media Queries */
 
 /* xs viewport */
@@ -719,6 +824,7 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar.minified {
+        min-width: 6.5%;
         width: 6.5%;
     }
 
@@ -729,6 +835,7 @@ header .menu > div {
 
     /*$_content-container*/
     .content-container.expanded {
+        min-width: 93.5%;
         width: 93.5%;
     }
 }
@@ -738,6 +845,7 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar {
+        min-width: 23.5%;
         width: 23.5%;
     }
 
@@ -747,6 +855,7 @@ header .menu > div {
 
     /*$_content-container*/
     .content-container {
+        min-width: 76.5%;
         width: 76.5%;
     }
 }
@@ -756,6 +865,7 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar.minified {
+        min-width: 5%;
         width: 5%;
     }
 
@@ -766,6 +876,7 @@ header .menu > div {
     /*$_content-container*/
 
     .content-container.expanded {
+        min-width: 95%;
         width: 95%;
     }
 }

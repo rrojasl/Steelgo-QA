@@ -1,216 +1,355 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DetalleAvisoLlegada";
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <div class="form">
-    <h2><label id="DetalleAvisoLlegada0041"></label></h2>
-    <br />
-    <h3><label id="DetalleAvisoLlegada0042"></label><span id="divFolio"></span></h3>
-    <br />
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0001"></label> 
-        <input id="ProyectoID" class=""/>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0002"></label> 
-        <input id="Factura" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0003"></label> 
-        <input id="TransportistaID" class=""/>
-        <a href='javascript:void(0);' onclick="VentanaModal(1);">Icono</a>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0004"></label>
-        <input id="FechaRecepcion" class=""/>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0005"></label> 
-        <input id="ProveedorID" class=""/>
-         <a href='javascript:void(0);' onclick="VentanaModal(2);">Icono</a>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0006"></label> 
-        <input id="PlanaID" class=""/>
-        <a href='javascript:void(0);' onclick="VentanaModal(3);">Icono</a>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0007"></label> 
-        <input id="OrdenDeCompra" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0008"></label> 
-        <input id="PatioID" class=""/>
-         <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
-    </div>
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0009"></label> 
-        <input id="ChoferID" class=""/>
-        <a href='javascript:void(0);' onclick="VentanaModal(5);">Icono</a>
+    <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <h2>
+                            <label id="DetalleAvisoLlegada0041"></label>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div id="divFolio" class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                        <label id="DetalleAvisoLlegada0042" class="inlineLabel"></label>
+                        <span id="spanFolio"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                        <label id="DetalleAvisoLlegada0001" class="required"></label>
+                        <input id="ProyectoID" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                        <label id="DetalleAvisoLlegada0004" class="required"></label>
+                        <input id="FechaRecepcion" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                        <label id="DetalleAvisoLlegada0007"></label>
+                        <input id="OrdenDeCompra" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                        <label id="DetalleAvisoLlegada0002"></label>
+                        <input id="Factura" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                        <label id="DetalleAvisoLlegada0005"></label>
+                        <div class="input-group">
+                            <input id="ProveedorID" class="" />
+                            <span class="input-group-btn">
+                                <a class="add" href='javascript:void(0);' onclick="VentanaModal(2);"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                        <label id="DetalleAvisoLlegada0008" class="required"></label>
+                        <div class="input-group">
+                            <input id="PatioID" class="" />
+                            <span class="input-group-btn">
+                                <a class="add" href='javascript:void(0);' onclick="VentanaModal(4);"></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                        <label id="DetalleAvisoLlegada0003"></label>
+                        <div class="input-group">
+                            <input id="TransportistaID" class="" />
+                            <span class="input-group-btn">
+                                <a class="add" href='javascript:void(0);' onclick="VentanaModal(1);"></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                        <label id="DetalleAvisoLlegada0006"></label>
+                        <div class="input-group">
+                            <input id="PlanaID" class="" />
+                            <span class="input-group-btn">
+                                <a class="add" href='javascript:void(0);' onclick="VentanaModal(3);"></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                        <label id="DetalleAvisoLlegada0009"></label>
+                        <div class="input-group">
+                            <input id="ChoferID" class="" />
+                            <span class="input-group-btn">
+                                <a class="add" href='javascript:void(0);' onclick="VentanaModal(5);"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <label id="DetalleAvisoLlegada0010"></label>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <input id="TipoArchivo" class="" />
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input name="files" id="files" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <table id="listaArchivos" class="filesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0045"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0046"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0047"></label>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @********Permiso Aduana*********@
+            <div id="PermisoAduana" class="col-sm-12 col-md-12 col-lg-12 addedSection" style="display: none">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <h2>
+                            <label id="DetalleAvisoLlegada0035"></label>
+                        </h2>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-3">
+                                <label id="DetalleAvisoLlegada0044"></label>
+                                <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary">
+                                    <span id="DetalleAvisoLlegada0036"></span>
+                                </a>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-5">
+                                <label id="DetalleAvisoLlegada0037"></label>
+                                <div id="divArchivoAutorizar">
+                                    <input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="" />
+                                </div>
+                                <div id="divLinkAutorizar" style="display: none"></div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-4">
+                                <label id="DetalleAvisoLlegada0038"></label>
+                                <input id="NumeroPermiso" class="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @********Pase Salida*********@
+            <div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12 addedSection" style="display: none">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <h2>
+                            <label id="DetalleAvisoLlegada0039"></label>
+                        </h2>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-4">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-8">
+                                <label id="DetalleAvisoLlegada0040" class="required"></label>
+                                <input name="files" id="PackingList" type="file" class="" />
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-4">
+                                <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary buttonBar">
+                                    <span id="DetalleAvisoLlegada0043"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <table id="listaArchivosPaseSalida" class="filesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0048"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0049"></label>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="formButtons col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                        <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                        <a id="Guardar" href="javascript:void(0);" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">        
-        <input name="files" id="files" type="file" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label id="DetalleAvisoLlegada0010"></label>
-        <input id="TipoArchivo" class=""/>
-        
-        <br />        
-
-        <table id="listaArchivos">
-             <thead><tr><td><label id="DetalleAvisoLlegada0045"></label></td><td><label id="DetalleAvisoLlegada0046"></label></td><td><label id="DetalleAvisoLlegada0047"></label></td></tr></thead>
-        </table>
-
-    </div>
-@*Permiso Aduana*@
-    <div id="PermisoAduana" style="display:none">
-        <div class="form-group">
-            <h2><label id="DetalleAvisoLlegada0035"></label></h2>
-        </div>
-        <br />
-        <div class="form-group">
-            <label id="DetalleAvisoLlegada0044"></label>
-            <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><label id="DetalleAvisoLlegada0036"></label></a>
-        </div>
-        <div class="form-group">
-             <label id="DetalleAvisoLlegada0037"></label> 
-            <div id="divArchivoAutorizar"><input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="form-control" /></div>
-            <div id="divLinkAutorizar" style="display:none"></div>
-        </div>
-        <div class="form-group">
-            <label id="DetalleAvisoLlegada0038"></label> 
-            <input id="NumeroPermiso" class="form-control"/>
-        </div>
-
-    </div>
-@****************@
-@*Pase Salida*@
-    <div id="PaseSalida" style="display:none">
-        <div class="form-group">
-            <h2><label id="DetalleAvisoLlegada0039"></label></h2>
-        </div>
-        <br />
-        <div class="form-group">
-            <label id="DetalleAvisoLlegada0040"></label> 
-            <input name="files" id="PackingList" type="file" class="form-control" />
-        </div>
-        <table id="listaArchivosPaseSalida">
-             <thead><tr><td><label id="DetalleAvisoLlegada0048"></label></td><td><label id="DetalleAvisoLlegada0049"></label></td></tr></thead>
-        </table>
-        <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary"><span id="DetalleAvisoLlegada0043"></span></a>
-    </div>
-@****************@
-    <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><span id="DetalleAvisoLlegada0017"></span></a>
-    <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><span id="DetalleAvisoLlegada0018"></span></a>
-</div>
-
-@*Ventana Modal*@
+    @*Ventana Modal*@
     <div id="window">
         @*Content of the Window*@
-       <div id="modalTransportista" style="display:none">
-           modalTransportista
-           <div class="form-group">           
-                <label id="DetalleAvisoLlegada0012"></label> 
-                <input id="ContactoID_Transportista" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0013"></label> 
-                <input id="Nombre_Transportista" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0014"></label> 
-                <input id="Descripcion_Transportista" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0015"></label> 
-                <input id="Direccion_Transportista" class="form-control"/>
+        <div id="modalTransportista" style="display: none">
+            <div class="form-group">
+                <h2>
+                    <label>Transportista</label>
+                </h2>
             </div>
-           <div class="form-group">           
-                <label id="DetalleAvisoLlegada0016"></label> 
-                <input id="Telefono_Transportista" class="form-control"/>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0012"></label>
+                <input id="ContactoID_Transportista" class="" />
             </div>
-           <div class="form-group">
-               <a id="GuardarTransportista" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0019"></label></a>              
-           </div>
-       </div>
-       <div id="modalProveedor" style="display:none">
-           modalProveedor
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0020"></label> 
-                <input id="ContactoID_Proveedor" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0021"></label> 
-                <input id="Nombre_Proveedor" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0022"></label> 
-                <input id="Descripcion_Proveedor" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0023"></label> 
-                <input id="Direccion_Proveedor" class="form-control"/>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0013"></label>
+                <input id="Nombre_Transportista" class="" />
             </div>
-           <div class="form-group">           
-                <label id="DetalleAvisoLlegada0024"></label> 
-                <input id="Telefono_Proveedor" class="form-control"/>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0014"></label>
+                <input id="Descripcion_Transportista" class="" />
             </div>
-           <div class="form-group">
-               <a id="GuardarProveedor" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0025"></label></a>
-           </div>
-       </div>
-
-        <div id="modalPatio" style="display:none">
-           modalPatio
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0026"></label> 
-                <input id="Nombre_Patio" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0027"></label> 
-                <input id="Propietario_Patio" class="form-control"/>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0015"></label>
+                <input id="Direccion_Transportista" class="" />
             </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0028"></label> 
-                <input id="Descripcion_Patio" class="form-control"/>
-           </div>
-           <div class="form-group">
-               <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0029"></label></a>
-           </div>
-       </div>
-
-       <div id="modalChofer" style="display:none">
-           modalChofer
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0030"></label> 
-                <input id="Nombre_Chofer" class="form-control"/>
-           </div>
-           <div class="form-group">
-               <a id="GuardarChofer" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0031"></label></a>
-           </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0016"></label>
+                <input id="Telefono_Transportista" class="" />
+            </div>
+            <div class="form-group">
+                <a id="GuardarTransportista" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0019"></span>
+                </a>
+            </div>
+        </div>
+        <div id="modalProveedor" style="display: none">
+            <div class="form-group">
+                <h2>
+                    <label>Proveedor</label>
+                </h2>
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0020"></label>
+                <input id="ContactoID_Proveedor" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0021"></label>
+                <input id="Nombre_Proveedor" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0022"></label>
+                <input id="Descripcion_Proveedor" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0023"></label>
+                <input id="Direccion_Proveedor" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0024"></label>
+                <input id="Telefono_Proveedor" class="" />
+            </div>
+            <div class="form-group">
+                <a id="GuardarProveedor" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0025"></span>
+                </a>
+            </div>
         </div>
 
-        <div id="modalPlana" style="display:none">
-           modalPlana
-           <div class="form-group">           
-                <label id="DetalleAvisoLlegada0032"></label> 
-                <input id="CamionID_Plana" class="form-control"/>
-           </div>
-            <div class="form-group">           
-                <label id="DetalleAvisoLlegada0033"></label> 
-                <input id="Placas_Plana" class="form-control"/>
-           </div>
-           <div class="form-group">
-               <a id="GuardarPlana" href="javascript:void(0);"  class="btn btn-primary"><label id="DetalleAvisoLlegada0034"></label></a>
-           </div>
+        <div id="modalPatio" style="display: none">
+            <div class="form-group">
+                <h2>
+                    <label>Patio</label>
+                </h2>
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0026"></label>
+                <input id="Nombre_Patio" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0027"></label>
+                <input id="Propietario_Patio" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0028"></label>
+                <input id="Descripcion_Patio" class="l" />
+            </div>
+            <div class="form-group">
+                <a id="GuardarPatio" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0029"></span>
+                </a>
+            </div>
         </div>
 
+        <div id="modalChofer" style="display: none">
+            <div class="form-group">
+                <h2>
+                    <label>Chofer</label>
+                </h2>
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0030"></label>
+                <input id="Nombre_Chofer" class="" />
+            </div>
+            <div class="form-group">
+                <a id="GuardarChofer" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0031"></span>
+                </a>
+            </div>
+        </div>
+
+        <div id="modalPlana" style="display: none">
+            <div class="form-group">
+                <h2>
+                    <label>Plana</label>
+                </h2>
+            </div>
+           <div class="form-group">
+               <label id="DetalleAvisoLlegada0032"></label>
+               <input id="CamionID_Plana" class="" />
+           </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0033"></label>
+                <input id="Placas_Plana" class="" />
+            </div>
+            <div class="form-group">
+                <a id="GuardarPlana" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0034"></span>
+                </a>
+            </div>
+        </div>
     </div>
+</div>
 
 <input id="hdPermisoAutorizado" type="hidden" />
 <input id="hdPermisoTramite" type="hidden" />
@@ -408,7 +547,7 @@
                 },
                 success: function (data) {
                     $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                 },
                 error: function (data) { },
@@ -477,7 +616,7 @@
                 },
                 success: function (data) {                    
                     $.each(data, function (index, value) {
-                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                 },
                 error: function (data) { },
@@ -514,14 +653,14 @@
             _permisoAduana = [];
             _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
 
-                _archivosPackingList = [];
-                _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
+            _archivosPackingList = [];
+            _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
 
             //objeto para los proyectos y documentos.
             ProyectoIDs = [];
             Documentos = [];                
             permiso = [];
-                DocumentosPackingList = [];
+            DocumentosPackingList = [];
 
             var _archivoautorizado = $("#hdArchivoAutorizado").val();
             item = {};
@@ -605,10 +744,10 @@
             } else //Alta
             {
                 Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                        console.log("Client.DummyAvisoLlegada.create");
-                        folio = data.FolioAvisoLlegadaID;
-                        $("#divFolio").html(folio);
-                        alert("El folio " + folio + " fue creado exitosamente.");
+                    console.log("Client.DummyAvisoLlegada.create");
+                    folio = data.FolioAvisoLlegadaID;
+                    cargarTituloFolio();
+                    alert("El folio " + folio + " fue creado exitosamente.");
                 });
             }
 
@@ -634,8 +773,13 @@
             });
         };
 
+        function cargarTituloFolio() {
+            $("#divfolio").show();
+            $("#spanFolio").html(folio);
+        };
+
         function CargaInicialEdicion(id) {
-            $("#divFolio").html(folio);
+            cargarTituloFolio();
             $("#PaseSalida").show();
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
@@ -687,7 +831,7 @@
                 }
 
                 $.each(data[0].Archivos, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
 
                 //Permiso Aduana
@@ -718,7 +862,7 @@
                         $("#PackingList").data("kendoUpload").disable();
                     };
                     $.each(data[0].PaseSalida.Archivos, function (index, value) {
-                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                 };
                 console.log(data);
@@ -828,7 +972,7 @@
                 resizable: false,
                 visible: false,
                 width: "60%",
-                height: "50%",
+                //height: "50%",
                 position: {
                     top: "10%",
                     left: "20%"
@@ -1001,11 +1145,11 @@
 
             Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 $.each(data, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
 
                 $.each(data, function (index, value) {
-                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono cancelar" + "</a></td></tr>");
+                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
         
             });

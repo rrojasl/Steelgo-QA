@@ -23,6 +23,13 @@ namespace MessagesManager.Utils
             {
                 return ConfigurationManager.AppSettings["Sam.QuequeNotifications"];
             }
-        }       
+        }
+        public static string QuequePrueba
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["Sam.QuequePrueba"];
+            }
+        }
     }
 }

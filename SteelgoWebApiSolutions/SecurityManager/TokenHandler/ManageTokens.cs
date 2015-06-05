@@ -7,6 +7,7 @@ using System.Web;
 using JWT;
 using System.Runtime.Remoting;
 using System.Configuration;
+using DatabaseManager.Sam3;
 
 namespace SecurityManager.TokenHandler
 {
@@ -41,7 +42,7 @@ namespace SecurityManager.TokenHandler
         }
 
 
-        public string CreateJwtToken(string userName, string password, string profile)
+        public string CreateJwtToken(Sam3_Usuario usuario)
         {
             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             double now = Math.Round((DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds);
@@ -50,9 +51,9 @@ namespace SecurityManager.TokenHandler
 
             Dictionary<string, object> payload = new Dictionary<string, object>()
             {
-                { "UserName", userName },
-                { "Password", password },
-                { "Profile", profile},
+                { "UserName", usuario.NombreUsuario },
+                { "Password", usuario.ContrasenaHash },
+                { "ProfileID", usuario.PerfilID},
                 { "exp", now}
             };
 
