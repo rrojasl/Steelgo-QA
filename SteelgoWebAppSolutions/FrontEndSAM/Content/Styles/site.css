@@ -424,6 +424,10 @@ h2 {
     .buttonBar {
         top: 0;
     }
+
+    #ImprimirPase {
+        top: 21px;
+    }
 }
 
 /* md viewport */
