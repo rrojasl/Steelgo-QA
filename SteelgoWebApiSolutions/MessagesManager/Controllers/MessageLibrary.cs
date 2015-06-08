@@ -116,7 +116,9 @@ namespace MessagesManager.Controllers
                         FechaEnvio = x.FechaEnvio,
                         FechaRecepcion = x.FechaRecepcion,
                         EstatusLectura = x.EstatusLectura,
-                        Activo = x.Activo
+                        Activo = x.Activo,
+                        UsuarioModificacion = x.UsuarioModificacion,
+                        FechaModificacion = x.FechaModificacion
                     }).ToList();
 
                 return notifications;
