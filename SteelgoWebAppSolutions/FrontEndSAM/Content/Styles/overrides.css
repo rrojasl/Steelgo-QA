@@ -7,7 +7,7 @@
     01  $_languageSelector
     02  $_k-widget
     03  $_k-grid
-    04  $_
+    04  $_input-group
     05  $_
     06  $_
     07  $_
@@ -434,11 +434,11 @@
 @media screen and (max-width: 767px) {
     /*$_input-group*/
     /*Override bootstrap input group display for mobiles*/
-    .input-group {
+    .form .input-group {
         display: block;
     }
 
-        .input-group > .input-group-btn {
+        .form .input-group > .input-group-btn {
             display: none;
         }
 }
@@ -458,11 +458,11 @@
 
     /*$_input-group*/
     /*Override bootstrap input group display for tablets*/
-    .input-group {
+    .form .input-group {
         display: block;
     }
 
-        .input-group > .input-group-btn {
+        .form .input-group > .input-group-btn {
             display: none;
         }
 }
