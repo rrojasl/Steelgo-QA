@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Newtonsoft.Json;
 using CommonTools.Libraries.Strings.Security;
 using System.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using MessagesManager.Utils;
 using System.Web.Http;
-using System.Data;
-using System.Data.SqlClient;
 using DatabaseManager.Sam3;
+using DatabaseManager.SamLogging;
 
 namespace MessagesManager.Controllers
 {
@@ -23,16 +18,18 @@ namespace MessagesManager.Controllers
         {
             if (typeMessage == 1)//Bitacora
             {
-                //string path = StringsConfiguration.QuequeBitacora;
-                //MessageQueue queueBitacora = new MessageQueue(path);
-                //Bitacora bitacora = MappingLog(message);
-                //queueBitacora.Send(bitacora);
+                string path = StringsConfiguration.QuequeNotifications;
+                //MessageQueue queueNotifications = new MessageQueue("FormatName:Direct=OS:DF-APP-SQL-03\\Private$\\Bitacora");
+                MessageQueue queueNotifications = new MessageQueue(".\\Private$\\Bitacora");
+                Bitacora bitacora = MappingLog(message);
+                queueNotifications.Send(bitacora);
 
             }
             else if (typeMessage == 2) //Notificacion
             {
                 string path = StringsConfiguration.QuequeNotifications;
-                MessageQueue queueNotifications = new MessageQueue("FormatName:Direct=OS:DF-APP-SQL-03\\Private$\\Notifications");
+                //MessageQueue queueNotifications = new MessageQueue("FormatName:Direct=OS:DF-APP-SQL-03\\Private$\\Notifications");
+                MessageQueue queueNotifications = new MessageQueue(".\\Private$\\Notificaciones");
                 Sam3_Notificacion notification = MappingNotification(message);
                 queueNotifications.Send(notification);
             }
@@ -61,11 +58,11 @@ namespace MessagesManager.Controllers
             return notification;
         }
 
-        //private Bitacora MappingLog(string message)
-        //{
-        //    Bitacora log = convertirObjToObj<Bitacora>(message);
-        //    return log;
-        //}
+        private Bitacora MappingLog(string message)
+        {
+            Bitacora log = convertirObjToObj<Bitacora>(message);
+            return log;
+        }
 
         private T convertirObjToObj<T>(object objecto)
         {

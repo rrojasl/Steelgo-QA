@@ -1,12 +1,9 @@
 ﻿using DatabaseManager.Sam3;
 using DatabaseManager.SamLogging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Messaging;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LoggerDaemon
 {
@@ -14,9 +11,10 @@ namespace LoggerDaemon
     {
         public static void ReadMessagesNotificaciones()
         {
-             try
+            try
             {
-                MessageQueue mq = new MessageQueue(".\\Private$\\Notificaciones");
+                string path = StringsConfiguration.QuequeNotifications;
+                MessageQueue mq = new MessageQueue(path);
 
                 foreach (System.Messaging.Message message in mq.GetAllMessages())
                 {
@@ -35,9 +33,10 @@ namespace LoggerDaemon
 
         public static void ReadMessagesBitacora()
         {
-             try
+            try
             {
-                MessageQueue mq = new MessageQueue(".\\Private$\\Bitacora");
+                string path = StringsConfiguration.QuequeBitacora;
+                MessageQueue mq = new MessageQueue(path);
 
                 foreach (System.Messaging.Message message in mq.GetAllMessages())
                 {
@@ -47,27 +46,7 @@ namespace LoggerDaemon
                 }
 
                 mq.Purge();
-            }
-            catch (Exception ex)
-            {
-                var texto = new UTF8Encoding(true).GetBytes("ex: " + ex.Message);
-            }
-        }
 
-        public static void ReadPruebas()
-        {
-            try
-            {
-                MessageQueue mq = new MessageQueue(".\\Private$\\prueba");
-
-                foreach (System.Messaging.Message message in mq.GetAllMessages())
-                {
-                    message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
-                    Notificacion p = (Notificacion)message.Body;
-                    LoggerDaemonLibrary.insertNotification(p);
-                }
-
-                mq.Purge();
             }
             catch (Exception ex)
             {
