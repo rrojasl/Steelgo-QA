@@ -9,30 +9,43 @@ using System.Web.Script.Serialization;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.EntidadesPersonalizadas;
 using SecurityManager.TokenHandler;
+using SecurityManager.Api.Models;
 using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "http://localhost:61102", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PerfilController : ApiController
     {
         Base64Security dataSecurity = new Base64Security();
 
-        public PerfilJson Get(string username, int paginaID, List<int> entidades, string token)
+        public object Get(string token, int paginaID)
         {
             PerfilJson perfil = new PerfilJson();
-            string user = dataSecurity.Decode(username);
-
-            string payload = ManageTokens.Instance.ValidateToken(token);
+            string payload = "";
+            string newToken = "";
+            bool validToken = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            dynamic obj = serializer.DeserializeObject(payload);
+            
 
-            if (obj.ContainsKey("ProfileID"))
+            if (validToken)
             {
-                int perfilId = Convert.ToInt32(obj["ProfileID"].ToString());
-                perfil = PerfilBd.Instance.ObtenerPerfilJsonPorID(perfilId, paginaID, entidades);
+                dynamic obj = serializer.DeserializeObject(payload);
+                int perfilId = Convert.ToInt32(obj["PerfilID"].ToString());
+                perfil = PerfilBd.Instance.ObtenerPerfilJsonPorID(perfilId, paginaID);
+                perfil.token = newToken;
+                return perfil;
             }
-            return perfil;
+            else
+            {
+                TransactionalInformation infoError = new TransactionalInformation();
+                infoError.ReturnCode = 401;
+                infoError.ReturnStatus = false;
+                infoError.IsAuthenicated = false;
+                infoError.ReturnMessage.Add(payload);
+                return infoError;
+            }
+            
         }
     }
 }

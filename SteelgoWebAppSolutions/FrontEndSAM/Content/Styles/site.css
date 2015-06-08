@@ -201,10 +201,11 @@ a, a:link, a:hover, a:visited {
 **********************************************************************************/
 input {
     border-color: transparent;
+    border-style: solid;
     outline: none;
     box-shadow: none;
     width: 100%;
-    box-sizing: border-box
+    box-sizing: border-box;
 }
 
     input:focus {
@@ -284,7 +285,7 @@ input {
 
     .btn span, .btn label {
         color: #FFFFFF;
-    }    
+    }
 
 .btn-yellow {
     background-color: #EC8B00;
@@ -422,6 +423,14 @@ h2 {
     /*$_btn*/
     .buttonBar {
         top: 0;
+    }
+
+    #ImprimirPase {
+        top: 21px;
+    }
+
+    .formButtons {
+        margin-top: 25px;
     }
 }
 

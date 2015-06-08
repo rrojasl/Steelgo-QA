@@ -24,6 +24,8 @@ namespace DatabaseManager.Sam3
         public bool PermisoCapturaIncidencia { get; set; }
         public bool PermisoSolucionIncidencia { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Entidad Sam3_Entidad { get; set; }
         public virtual Sam3_Pagina Sam3_Pagina { get; set; }

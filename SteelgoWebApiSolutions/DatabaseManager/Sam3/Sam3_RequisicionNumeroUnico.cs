@@ -24,6 +24,8 @@ namespace DatabaseManager.Sam3
         public string NumeroRequisicion { get; set; }
         public Nullable<System.DateTime> FechaRequisicion { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual ICollection<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }

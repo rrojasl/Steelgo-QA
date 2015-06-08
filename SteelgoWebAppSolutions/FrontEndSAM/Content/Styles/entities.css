@@ -583,7 +583,7 @@ header .menu > div {
 .subTwo {
     position: absolute;
     top: 30px;
-    left: -13px;
+    left: -12.8px;
     background-image: url("/Content/images/SAMC_DashboardMenu_Icon_21.png");
 }
 
@@ -598,7 +598,7 @@ header .menu > div {
  Description:   Customize container for the main content.
 **********************************************************************************/
 .content-container {
-    min-width: 87.5%;
+    max-width: 87.5%;
     width: 87.5%;
 }
 
@@ -607,7 +607,7 @@ header .menu > div {
     }
 
     .content-container.expanded {
-        min-width: 96.95%;
+        max-width: 96.95%;
         width: 96.95%;
     }
 /**********************************************************************************/
@@ -752,8 +752,6 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 #window {
-    width: 100%;
-    padding: 10px;
     overflow: hidden;
 }
 
@@ -835,8 +833,13 @@ header .menu > div {
 
     /*$_content-container*/
     .content-container.expanded {
-        min-width: 93.5%;
+        max-width: 93.5%;
         width: 93.5%;
+    }
+
+    /*$_addedSection*/
+    .addedSection {
+        margin-top: 15px;
     }
 }
 
@@ -855,7 +858,7 @@ header .menu > div {
 
     /*$_content-container*/
     .content-container {
-        min-width: 76.5%;
+        max-width: 76.5%;
         width: 76.5%;
     }
 }
@@ -876,7 +879,7 @@ header .menu > div {
     /*$_content-container*/
 
     .content-container.expanded {
-        min-width: 95%;
+        max-width: 95%;
         width: 95%;
     }
 }

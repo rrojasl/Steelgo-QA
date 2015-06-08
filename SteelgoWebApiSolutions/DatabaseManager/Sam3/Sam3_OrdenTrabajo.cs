@@ -29,6 +29,8 @@ namespace DatabaseManager.Sam3
         public bool EsAsignado { get; set; }
         public Nullable<int> VersionOrden { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_EstatusOrden Sam3_EstatusOrden { get; set; }
         public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }

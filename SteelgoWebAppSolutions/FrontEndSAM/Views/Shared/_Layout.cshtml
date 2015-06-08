@@ -113,41 +113,36 @@
                                     <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li>
+ @*                                   <li>
                                         <a href="#">
                                             <span>Ingeniería</span>
                                         </a>
                                     </li>
-                                    <li>
+*@                                    <li>
                                         <a href="#">
-                                            <span>Materiales</span>
+                                            <span id="layoutLabel0019"></span>
                                         </a>
                                         <ul class="sub-menu2">
                                             <i class="icn subOne"></i>
                                             <li>
                                                 <a href="#">
-                                                    <span>Solicitud de Folio de Entrada</span>
+                                                    <span id="layoutLabel0020"></span>
                                                 </a>
                                                 <ul class="sub-menu3">
                                                     <i class="icn subTwo"></i>
                                                     <li>
-                                                        <a href="#">
-                                                            <span>Generación Folio Entrada</span>
+                                                        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")">
+                                                            <span id="layoutLabel0021"></span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            <span>Permiso de Aduana</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <span>Autorización de Permisos</span>
+                                                        <a href="@Url.Action("DetalleAvisoLlegada", "AvisoLlegada")">
+                                                            <span id="layoutLabel0022"></span>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li>
+@*                                            <li>
                                                 <a href="#">
                                                     <span>Llegada de Material</span>
                                                 </a>
@@ -200,9 +195,9 @@
                                                     <span>Incidencias</span>
                                                 </a>
                                             </li>
-                                        </ul>
+*@                                        </ul>
                                     </li>
-                                    <li>
+@*                                    <li>
                                         <a href="#">
                                             <span>PND</span>
                                         </a>
@@ -273,9 +268,9 @@
                                             <span>Embarques</span>
                                         </a>
                                     </li>
-                                </ul>
+*@                                </ul>
                             </li>
-                            <li>
+@*                            <li>
                                 <a href="#">
                                     <i class="icn catalog"></i>
                                     <span id="layoutLabel0007"></span>
@@ -368,7 +363,7 @@
                                     <span id="layoutLabel0013"></span>
                                 </a>
                             </li>
-                            <li class="shortcut">
+*@                            <li class="shortcut">
                                 <a class="quicklinks">
                                     <i class="icn links"></i>
                                     <span id="layoutLabel0014"></span>
@@ -418,13 +413,7 @@
                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 breadcrumb-container">
                             <div class="row">
                                 <ul class="breadcrumb">
-                                    <li>
-                                        <a href="#">Transacciones</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Materiales</a>
-                                    </li>
-                                    <li class="active">Aviso Entrada de Material</li>
+                                    @RenderSection("breadcrumb", required: false)
                                 </ul>
                             </div>
                         </div>
@@ -757,20 +746,39 @@
         function validateCredentials() {
             if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
                 loadingStart();
-                $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    if (!data.IsAuthenicated) {
-                        //RedirectToHomePage
-                        document.location.href = '/';
-                    } else {
+                var request = $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") });
+                request.done(function (data) {
+                    if (data.IsAuthenicated) {
                         $.cookie("home", false);
-                        //
+                    } else {
+                        //RedirectToHomePage
+                        $.removeCookie("user", { path: '/' });
+                        $.removeCookie("token", { path: '/' });
+                        document.location.href = '/';
                     }
                     loadingStop();
                 });
+                request.error(function (data) {
+                    console.log("errorFunction");
+                    $.removeCookie("user", { path: '/' });
+                    $.removeCookie("token", { path: '/' });
+                    document.location.href = '/';
+                    loadingStop();
+                });
+                request.fail(function (data) {
+                    console.log("failFunction");
+                    $.removeCookie("user", { path: '/' });
+                    $.removeCookie("token", { path: '/' });
+                    document.location.href = '/';
+                    loadingStop();
+                });
+                
             } else {
                 if ($.cookie("home") != null && $.cookie("home") == "false") {
                     //RedirectToHomePage
                     document.location.href = '/';
+                } else if ($.cookie("home") != null && $.cookie("home") == "true" && $.cookie("user") != null && $.cookie("token") != null) {
+                    document.location.href = '@Url.Action("Landing", "Home")';
                 }
             }
         }
@@ -908,7 +916,7 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            autoCookies(true);
+            //autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);

@@ -24,6 +24,8 @@ namespace DatabaseManager.Sam3
         public string NombreIngles { get; set; }
         public string CodigoHexadecimal { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
     }

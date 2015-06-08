@@ -18,10 +18,10 @@ namespace MessagesManager.Controllers
         {           
             string path = StringsConfiguration.QuequePrueba;
             MessageQueue queueNotifications = new MessageQueue(path);
-            queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Sam3_Notificacion) });
-            Sam3_Notificacion notification = MappingNotification(message);
+            queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
+            Notificacion notification = MappingNotification(message);
             queueNotifications.Send(notification);
-            insertNotification(notification);
+            //insertNotification(notification);
             
         }
 
@@ -41,38 +41,39 @@ namespace MessagesManager.Controllers
             {
                 string path = StringsConfiguration.QuequeNotifications;
                 MessageQueue queueNotifications = new MessageQueue(path);
-                queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Sam3_Notificacion) });
-                Sam3_Notificacion notification = MappingNotification(message);
+                queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
+                Notificacion notification = MappingNotification(message);
+              
                 queueNotifications.Send(notification);
-                insertNotification(notification);
+                //insertNotification(notification);
             }
         }
 
-        public void insertNotification(Sam3_Notificacion notification)
-        {
-            using (SamContext ctx = new SamContext())
-            {
-                Sam3_Notificacion noti = new Sam3_Notificacion();
-                noti.NotificacionID = notification.NotificacionID;
-                noti.UsuarioIDReceptor = notification.UsuarioIDReceptor;
-                noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
-                noti.TipoNotificacionID = notification.TipoNotificacionID;
-                noti.Mensaje = notification.Mensaje;
-                noti.FechaEnvio = DateTime.Now;
-                noti.FechaRecepcion = DateTime.Now;
-                noti.EstatusLectura = notification.EstatusLectura;
-                noti.Activo = notification.Activo;
-                //noti.Entidad = notification.Entidad;
-                //noti.TipoNotificacion = notification.TipoNotificacion;
+        //public void insertNotification(Notificacion notification)
+        //{
+        //    using (SamContext ctx = new SamContext())
+        //    {
+        //        Sam3_Notificacion noti = new Sam3_Notificacion();
+        //        noti.NotificacionID = notification.NotificacionID;
+        //        noti.UsuarioIDReceptor = notification.UsuarioIDReceptor;
+        //        noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
+        //        noti.TipoNotificacionID = notification.TipoNotificacionID;
+        //        noti.Mensaje = notification.Mensaje;
+        //        noti.FechaEnvio = DateTime.Now;
+        //        noti.FechaRecepcion = DateTime.Now;
+        //        noti.EstatusLectura = notification.EstatusLectura;
+        //        noti.Activo = notification.Activo;
+        //        //noti.Entidad = notification.Entidad;
+        //        //noti.TipoNotificacion = notification.TipoNotificacion;
 
-                ctx.Sam3_Notificacion.Add(noti);
-                ctx.SaveChanges();
-            }
-        }
+        //        ctx.Sam3_Notificacion.Add(noti);
+        //        ctx.SaveChanges();
+        //    }
+        //}
 
-        public Sam3_Notificacion MappingNotification(string message)
+        public Notificacion MappingNotification(string message)
         {
-            Sam3_Notificacion notification = convertirObjToObj<Sam3_Notificacion>(message);
+            Notificacion notification = convertirObjToObj<Notificacion>(message);
             return notification;
         }
 

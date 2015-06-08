@@ -28,6 +28,8 @@ namespace DatabaseManager.Sam3
         public string NombreIngles { get; set; }
         public string Descripcion { get; set; }
         public int Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
     }

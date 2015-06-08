@@ -7,7 +7,7 @@
     01  $_languageSelector
     02  $_k-widget
     03  $_k-grid
-    04  $_
+    04  $_input-group
     05  $_
     06  $_
     07  $_
@@ -129,9 +129,9 @@
         padding: 3px;
     }
 
-    .k-multiselect-wrap li span{
-        color: #1B3F70;
-    }
+        .k-multiselect-wrap li span {
+            color: #1B3F70;
+        }
 
 .k-block, .k-button, .k-textbox, .k-drag-clue,
 .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content,
@@ -233,6 +233,10 @@
     background-color: #EEEEEE;
 }
 
+    .k-grid > table /* header + data table */ {
+        table-layout: fixed;
+    }
+
     .k-grid td {
         padding: 5.5px 13px;
         font-size: 12px;
@@ -300,7 +304,7 @@
         height: 27px;
         max-width: 18px;
         padding: 0;
-        margin: 0 -22px;
+        margin: 0 -24px;
         font-size: 0;
         border: none;
         outline: none;
@@ -324,10 +328,6 @@
         .k-grid tbody tr td a.k-button.k-grid-Cancel {
             background-image: url("/Content/images/SAMC_Delete.png");
         }
-
-.expanded .k-grid tbody tr td a.k-button {
-    margin: 0 -20px;
-}
 
 .k-grid-pager {
     background-color: #EEEEEE;
@@ -432,6 +432,15 @@
 
 /* xs viewport */
 @media screen and (max-width: 767px) {
+    /*$_input-group*/
+    /*Override bootstrap input group display for mobiles*/
+    .input-group {
+        display: block;
+    }
+
+        .input-group > .input-group-btn {
+            display: none;
+        }
 }
 
 /* sm viewport */
@@ -446,15 +455,20 @@
     .k-autocomplete, .k-datepicker {
         max-width: 100%;
     }
+
+    /*$_input-group*/
+    /*Override bootstrap input group display for tablets*/
+    .input-group {
+        display: block;
+    }
+
+        .input-group > .input-group-btn {
+            display: none;
+        }
 }
 
 /* md viewport */
 @media (min-width: 992px) and (max-width: 1024px) {
-
-    /*$_k-grid*/
-    .expanded .k-grid tbody tr td a.k-button {
-        margin: 0 -27px;
-    }
 }
 
 /* lg viewport */

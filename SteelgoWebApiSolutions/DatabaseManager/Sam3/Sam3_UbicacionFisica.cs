@@ -24,6 +24,8 @@ namespace DatabaseManager.Sam3
         public string Nombre { get; set; }
         public bool EsAreaCorte { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }

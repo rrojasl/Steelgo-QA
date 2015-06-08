@@ -3,6 +3,17 @@
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="DetalleAvisoLlegada0050"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="DetalleAvisoLlegada0051"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DetalleAvisoLlegada", "AvisoLlegada")"><span id="DetalleAvisoLlegada0052"></span></a>
+    </li>
+}
 
 <div class="form">
     <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -26,23 +37,23 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-12 col-md-4 col-lg-3">
                         <label id="DetalleAvisoLlegada0001" class="required"></label>
                         <input id="ProyectoID" />
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
                         <label id="DetalleAvisoLlegada0004" class="required"></label>
                         <input id="FechaRecepcion" />
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
                         <label id="DetalleAvisoLlegada0007"></label>
                         <input id="OrdenDeCompra" />
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-2">
+                    <div class="form-group col-sm-4 col-md-6 col-lg-2">
                         <label id="DetalleAvisoLlegada0002"></label>
                         <input id="Factura" />
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label id="DetalleAvisoLlegada0005"></label>
                         <div class="input-group">
                             <input id="ProveedorID" class="" />
@@ -55,7 +66,7 @@
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-3">
                         <label id="DetalleAvisoLlegada0008" class="required"></label>
                         <div class="input-group">
                             <input id="PatioID" class="" />
@@ -64,7 +75,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-3">
                         <label id="DetalleAvisoLlegada0003"></label>
                         <div class="input-group">
                             <input id="TransportistaID" class="" />
@@ -73,7 +84,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-3">
                         <label id="DetalleAvisoLlegada0006"></label>
                         <div class="input-group">
                             <input id="PlanaID" class="" />
@@ -82,7 +93,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-3">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-3">
                         <label id="DetalleAvisoLlegada0009"></label>
                         <div class="input-group">
                             <input id="ChoferID" class="" />
@@ -100,10 +111,10 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <label id="DetalleAvisoLlegada0010"></label>
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-sm-5 col-md-4 col-lg-4">
                                         <input id="TipoArchivo" class="" />
                                     </div>
-                                    <div class="col-lg-8">
+                                    <div class="col-sm-7 col-md-8 col-lg-8">
                                         <input name="files" id="files" type="file" />
                                     </div>
                                 </div>
@@ -143,20 +154,20 @@
                     </div>
                     <div class="form-group col-sm-12 col-md-12 col-lg-6">
                         <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-3">
+                            <div class="col-sm-4 col-md-3 col-lg-3">
                                 <label id="DetalleAvisoLlegada0044"></label>
                                 <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary">
                                     <span id="DetalleAvisoLlegada0036"></span>
                                 </a>
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-5">
+                            <div class="col-sm-4 col-md-5 col-lg-5">
                                 <label id="DetalleAvisoLlegada0037"></label>
                                 <div id="divArchivoAutorizar">
                                     <input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="" />
                                 </div>
                                 <div id="divLinkAutorizar" style="display: none"></div>
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="col-sm-4 col-md-4 col-lg-4">
                                 <label id="DetalleAvisoLlegada0038"></label>
                                 <input id="NumeroPermiso" class="" />
                             </div>
@@ -172,13 +183,13 @@
                             <label id="DetalleAvisoLlegada0039"></label>
                         </h2>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-4">
+                    <div class="form-group col-sm-12 col-md-8 col-lg-4">
                         <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-8">
+                            <div class="col-sm-7 col-md-8 col-lg-8">
                                 <label id="DetalleAvisoLlegada0040" class="required"></label>
                                 <input name="files" id="PackingList" type="file" class="" />
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="col-sm-5 col-md-4 col-lg-4">
                                 <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary buttonBar">
                                     <span id="DetalleAvisoLlegada0043"></span>
                                 </a>
@@ -207,10 +218,10 @@
             </div>
             <div class="formButtons col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-2">
+                    <div class="col-sm-6 col-md-6 col-lg-2">
                         <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-2">
+                    <div class="col-sm-6 col-md-6 col-lg-2">
                         <a id="Guardar" href="javascript:void(0);" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></a>
                     </div>
                 </div>
@@ -978,7 +989,7 @@
                     left: "20%"
                 }
             }).data("kendoWindow");
-            window.data("kendoWindow").open();
+            window.data("kendoWindow").center().open();
         };
 
         function GuardarTransportista() {

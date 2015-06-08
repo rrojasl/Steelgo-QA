@@ -33,6 +33,8 @@ namespace DatabaseManager.Sam3
         public Nullable<decimal> Diametro2 { get; set; }
         public Nullable<int> FamiliaAceroID { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }

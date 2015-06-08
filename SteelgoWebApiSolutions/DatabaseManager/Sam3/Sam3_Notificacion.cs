@@ -11,6 +11,7 @@ namespace DatabaseManager.Sam3
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml.Serialization;
     
     public partial class Sam3_Notificacion
     {
@@ -23,7 +24,10 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaRecepcion { get; set; }
         public Nullable<bool> EstatusLectura { get; set; }
         public Nullable<bool> Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
+        [XmlIgnoreAttribute]
         public virtual Sam3_TipoNotificacion Sam3_TipoNotificacion { get; set; }
     }
 }

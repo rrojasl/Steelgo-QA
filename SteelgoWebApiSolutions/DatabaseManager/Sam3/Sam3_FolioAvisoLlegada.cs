@@ -26,6 +26,8 @@ namespace DatabaseManager.Sam3
         public Nullable<bool> EsVirtual { get; set; }
         public string Estatus { get; set; }
         public Nullable<bool> Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Camion Sam3_Camion { get; set; }
         public virtual ICollection<Sam3_FolioLlegada> Sam3_FolioLlegada { get; set; }

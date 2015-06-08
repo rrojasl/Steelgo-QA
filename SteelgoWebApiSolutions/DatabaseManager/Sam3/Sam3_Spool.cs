@@ -75,6 +75,8 @@ namespace DatabaseManager.Sam3
         public string ClasifInox { get; set; }
         public Nullable<System.DateTime> FechaHomologacion { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero1 { get; set; }

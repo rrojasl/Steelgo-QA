@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         public int PerfilID { get; set; }
         public int MenuContextualID { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_MenuContextual Sam3_MenuContextual { get; set; }
         public virtual Sam3_Perfil Sam3_Perfil { get; set; }

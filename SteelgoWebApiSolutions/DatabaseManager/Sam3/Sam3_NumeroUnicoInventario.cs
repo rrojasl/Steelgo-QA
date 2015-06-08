@@ -25,6 +25,8 @@ namespace DatabaseManager.Sam3
         public int InventarioDisponibleCruce { get; set; }
         public bool EsVirtual { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }

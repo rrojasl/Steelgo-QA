@@ -2,6 +2,15 @@
     ViewBag.Title = "Listado - Aviso Llegada";
 }
 
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0021"></span></a>
+    </li>
+}
+
 @*<h2>ListadoAvisoLlegada</h2>
 *@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -32,11 +41,11 @@
         </div>
         <div class="col-sm-12 col-md-4 col-lg-3">
             <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0006"></label>
                     <input id="FechaInicial" class="" />
                 </div>
-                <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0007"></label>
                     <input id="FechaFinal" class="" />
                 </div>
@@ -44,13 +53,13 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-2">
             <div class="row">
-                <div class="form-group buttonBar col-sm-12 col-md-4 col-lg-6">
+                <div class="form-group buttonBar col-sm-6 col-md-4 col-lg-6">
                     <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoAvisoLlegada0017"></span></a>
                 </div>
-                <div class="form-group buttonBar col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group buttonBar col-sm-3 col-md-4 col-lg-3">
                     <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
                 </div>
-                <div class="form-group buttonBar col-sm-12 col-md-4 col-lg-3">
+                <div class="form-group buttonBar col-sm-3 col-md-4 col-lg-3">
                     <a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>
                 </div>
             </div>
@@ -85,7 +94,7 @@
         };
 
         function changeLanguageCall() {
-            CargarGridAvisoLlegada();
+            CargarGridAvisoLlegada();            
         }
 
         function CargarGridAvisoLlegada()
@@ -129,18 +138,21 @@
                 },               
                 columns: [
                     { command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px" },
-                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                    { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },                    
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], filterable: true },                    
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
-                ]
-            });
-
-            $("input.k-textbox").attr("readonly", true);
+                ],
+                dataBound: function (e) {
+                    $(".k-grid input.k-textbox").prop( 'readonly' , true);                    
+                    $(".k-grid td .k-button").text(''); 
+                    $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');                                                       
+                }
+            });                                
         }
 
         function mostrarDetalle(e)

@@ -25,6 +25,8 @@ namespace DatabaseManager.Sam3
         public int FolioLlegadaID { get; set; }
         public Nullable<int> Consecutivo { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Camion Sam3_Camion { get; set; }
         public virtual Sam3_FolioLlegada Sam3_FolioLlegada { get; set; }

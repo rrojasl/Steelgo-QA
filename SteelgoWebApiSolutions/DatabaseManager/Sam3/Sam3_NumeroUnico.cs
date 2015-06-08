@@ -61,6 +61,8 @@ namespace DatabaseManager.Sam3
         public bool EsVirtual { get; set; }
         public Nullable<int> RecepcionID { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }

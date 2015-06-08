@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-using System.Xml.Serialization;
-
-namespace LoggerDaemon
+namespace MessagesManager
 {
-
-    [Serializable]
     public class Notificacion
     {
         public int NotificacionID { get; set; }
@@ -23,7 +18,5 @@ namespace LoggerDaemon
         public bool Activo { get; set; }
         //public DateTime FechaModificacion{ get; set; }
         //public int UsuarioModificacionID { get; set; }
-
-       
     }
 }

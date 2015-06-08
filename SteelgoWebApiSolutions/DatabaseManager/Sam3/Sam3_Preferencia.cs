@@ -22,6 +22,8 @@ namespace DatabaseManager.Sam3
         public int PreferenciaId { get; set; }
         public string Nombre { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Rel_Usuario_Preferencia> Sam3_Rel_Usuario_Preferencia { get; set; }
     }
