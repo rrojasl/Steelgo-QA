@@ -61,9 +61,9 @@ namespace LoggerDaemon
             string mensaje = string.Empty;
             // eliminar el fichero si ya existe
             // var archivo = @"C:\Users\luis.manriquez\Mensajes.txt";//C:\Users\genoveva.torres\Mensajes.txt";
-            var archivo = @"C:\Users\genoveva.torres\Mensajes.txt";
+            var archivo = @"C:\Users\daniela.zertuche\Mensajes.txt";
 
-            if (!File.Exists(archivo))
+            if (File.Exists(archivo))
             {
                 // crear el fichero
                 using (FileStream fileStream = File.OpenWrite(archivo))
@@ -83,11 +83,13 @@ namespace LoggerDaemon
                         {
                             //para prueba de lectura de mensajes comentar al liberar a prod
                             var texto1 = new UTF8Encoding(true).GetBytes(message.Id + "\t\n");
+                            //var texto1 = new UTF8Encoding(true).GetBytes("sdhbdas");
                             fileStream.Write(texto1, 0, texto1.Length);
+
 
                             message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
                             Notificacion p = (Notificacion)message.Body;
-                            LoggerDaemonLibrary.insertNotification(p);
+                            //LoggerDaemonLibrary.insertNotification(p);
                             //para prueba de lectura de mensajes comentar al liberar a prod
                             var mensaje1 = new UTF8Encoding(true).GetBytes(p.Activo + " " + p.TipoNotificacionID + " " + p.UsuarioIDEmisor);
                             fileStream.Write(mensaje1, 0, mensaje1.Length);
@@ -122,14 +124,14 @@ namespace LoggerDaemon
                 noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
                 noti.TipoNotificacionID = notification.TipoNotificacionID;
                 noti.Mensaje = notification.Mensaje;
-                noti.FechaEnvio = notification.FechaEnvio;
-                noti.FechaRecepcion = notification.FechaRecepcion;
+                noti.FechaEnvio = DateTime.Parse(notification.FechaEnvio);
+                noti.FechaRecepcion = DateTime.Parse(notification.FechaRecepcion);
                 noti.EstatusLectura = notification.EstatusLectura;
                 noti.Activo = notification.Activo;
                 //noti.UsuarioModificacionID = notification.UsuarioModificacionID;
                 //noti.FechaModificacion = notification.FechaModificacion;
 
-                ctx.Sam3_Notificacion.Add( noti);
+                ctx.Sam3_Notificacion.Add(noti);
                 ctx.SaveChanges();               
             }
         }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "EntradaMaterial";
+    ViewBag.Title = "DetalleEntradaMaterial";
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,15 +13,15 @@
     </div>
     <div id="divFolioEntradaID" class="form-group">
         <label id="EntradaMaterial0003"></label> 
-        <input id="FolioEntradaID" class="form-control"/>
+        <input id="FolioEntradaID"/>
     </div>
     <div class="form-group">
         <label id="EntradaMaterial0002"></label> 
-        <input id="ProyectoID" class="form-control"/>
+        <input id="ProyectoID"/>
     </div>
     <div class="form-group">
         <label id="EntradaMaterial0004"></label> 
-        <input id="Estatus" class="form-control"/>
+        <input id="Estatus"/>
     </div>
     <div id="divPatio" class="form-group" style="display:none">
         <label id="EntradaMaterial0001"></label> 
@@ -36,16 +36,16 @@
 
     <div class="form-group">
         <label id="EntradaMaterial0006"></label> 
-        <input id="Descripcion" class="form-control"/>
+        <input id="Descripcion"/>
     </div>
 
     <table id="listaArchivos">
-            <thead><tr><td>Archivo</td><td>Descripcion</td><td>Eliminar</td></tr></thead>
+            <thead><tr><td><label id="EntradaMaterial0015"></label></td><td><label id="EntradaMaterial0016"></label></td><td><label id="EntradaMaterial0017"></label></td></tr></thead>
     </table>
 
     <div id="divFoliosGenerados" style="display:none">
         <table id="listaFoliosGenerados">
-                <thead><tr><td>Folio de llegada</td><td>Folio de entrada</td><td>Packing List</td><td>Proyecto</td></tr></thead>
+                <thead><tr><td><label id="EntradaMaterial0018"></label></td><td><label id="EntradaMaterial0019"></label></td><td><label id="EntradaMaterial0020"></label></td><td><label id="EntradaMaterial0021"></label></td></tr></thead>
         </table>
     </div>
 
@@ -57,18 +57,18 @@
         <div id="modalPatio" style="display:none">
             <div class="form-group">           
                 <label id="EntradaMaterial0007"></label> 
-                <input id="Nombre_Patio" class="form-control"/>
+                <input id="Nombre_Patio"/>
             </div>
             <div class="form-group">           
                 <label id="EntradaMaterial0008"></label> 
-                <input id="Propietario_Patio" class="form-control"/>
+                <input id="Propietario_Patio"/>
             </div>
             <div class="form-group">           
                 <label id="EntradaMaterial0009"></label> 
-                <input id="Descripcion_Patio" class="form-control"/>
+                <input id="Descripcion_Patio"/>
             </div>
             <div class="form-group">
-                <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><label id="EntradaMaterial0010"></label></a>
+                <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><span id="EntradaMaterial0010"></span></a>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
 <script>
   @section JavascriptGlobalVariables {
         var folioLlegada = getUrlParameter("folioLlegada", "-1");
-        var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");
+        var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");//FolioEntradaID
         //your partial views variables
         var FechaRecepcion;
         var Patio = [];
@@ -98,6 +98,7 @@
                 var detalleIdeaUrl = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
+
             $("#FolioEntradaID").kendoAutoComplete({
                 dataSource: {
                     serverFiltering: false,
@@ -353,7 +354,7 @@
             });
             
             FolioLlegada[0].FolioLlegadaID = folioLlegada != -1 ? folioLlegada : -1;
-            FolioLlegada[0].FolioAvisoLlegadaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : -1;
+            FolioLlegada[0].FolioAvisoLlegadaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : $("#FolioEntradaID").data("kendoAutoComplete").value();
             FolioLlegada[0].Proyecto = Proyecto;
             FolioLlegada[0].Patio = Patio;
             FolioLlegada[0].Archivos = Documentos;
@@ -395,15 +396,17 @@
             Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#divFoliosGenerados").show();
-                    $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
+                    $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioLlegadaID + "," + value.FolioAvisoLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
                 });
             });
         };
 
 
-        function AbrirArchivo(id) {
-            var Listado = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
-            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + id + "&folioAvisoLlegada=" + folioAvisoLlegada;
+        function AbrirArchivo(entradaid, llegadaid) {
+            var Listado = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+            folioAvisoLlegada = entradaid;
+            folioLlegada = llegadaid;
+            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + folioLlegada + "&folioAvisoLlegada=" + folioAvisoLlegada;
         };
 
         function GuardarPatio() {
@@ -432,7 +435,8 @@
         function AbrirListadoEntrada(folioentrada, foliollegada) {
             alert("folioentrada=" + folioentrada + ",foliollegada=" + foliollegada);
             var detalleIdeaUrl = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + foliollegada + "&folioEntrada=" + folioentrada;
+
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + foliollegada + "&folioAvisoLlegada=" + folioentrada;
         };
     };
    
@@ -452,9 +456,8 @@
 
             Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 $.each(data, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#Descripcion").val() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "Icono Eliminar" + "</a></td></tr>");
                 });
-
             });
         }
     };

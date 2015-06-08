@@ -1053,7 +1053,7 @@
     <Content Include="Views\Home\Landing.cshtml" />
     <Content Include="Views\Shared\_LayoutErrors.cshtml" />
     <Content Include="Views\Errors\notfound.cshtml" />
-    <Content Include="Views\EntradaMaterial\EntradaMaterial.cshtml" />
+    <Content Include="Views\EntradaMaterial\DetalleLlegadaMaterial.cshtml" />
     <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
     <None Include="Web.Debug.config">

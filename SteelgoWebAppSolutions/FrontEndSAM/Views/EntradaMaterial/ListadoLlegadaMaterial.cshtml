@@ -65,7 +65,9 @@
                                     PackingListID: { type: "string" },
                                     Proyecto: { type: "string" },
                                     Patio: { type: "string" },
-                                    Estatus: { type: "string" }
+                                    Estatus: { type: "string" },
+                                    EstatusFolioEntrada: { type: "string" },
+                                    EstatusPackingList: { type: "string" }
                                 }
                             }
                         },
@@ -88,10 +90,22 @@
                         { field: "Proyecto", title: _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                         { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
                         { field: "Estatus", title: _dictionary.ListadoLlegadaMaterial0012[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                        { field: "EstatusFolioEntrada", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                        { field: "EstatusPackingList", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
+                        { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: complemento }, title: " ", width: "130px" },
+                        { command: { text: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], click: cuantificacion }, title: " ", width: "130px" },
                         { command: { text: _dictionary.ListadoLlegadaMaterial0013[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
                         { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
                     ]
                 });
+            };
+            
+            function complemento(e) {
+                alert("complemento");
+            };
+
+            function cuantificacion(e) {
+                alert("cuantificacion");
             };
 
             function mostrarDetalle(e) {
@@ -100,7 +114,7 @@
                 var FolioLlegadaID = dataItem.FolioLlegadaID
                 var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
                 //REDIRECT
-                var detalleIdeaUrl = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
+                var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
             };
 
@@ -123,7 +137,7 @@
             function CargaInicial() {
                 $("#Mostrar").click(function () { Filtros(2); });
                 $("#Creacion").click(function (e) {
-                    var detalleIdeaUrl = "@Url.Action("EntradaMaterial", "EntradaMaterial")";
+                    var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
 
