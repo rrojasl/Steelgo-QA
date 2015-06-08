@@ -505,12 +505,14 @@
 
         var $body = $("body");
         var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-        $BackEndSAM.add('DummyListadoAvisoLlegada');
         var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
         var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
         var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
         var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
+        $BackEndSAM.add('DummyListadoAvisoLlegada');
         $SecurityManager.add('authentication');
+
+
         var $authorizationModel = {};
         var $layoutModel = {
             listContainer: {
