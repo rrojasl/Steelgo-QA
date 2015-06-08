@@ -406,8 +406,8 @@ _dictionary = {
         "en-US": "Status"
     },
     "EntradaMaterial0005": {
-        "es-MX": "Adjuntar Archivos",
-        "en-US": "Permit number"
+        "es-MX": "Adjuntar Fotografias",
+        "en-US": "Attach Photos"
     },
     "EntradaMaterial0006": {
         "es-MX": "Descripción",
@@ -444,6 +444,34 @@ _dictionary = {
     "EntradaMaterial0014": {
         "es-MX": "Folio de Llegada",
         "en-US": "Arrival Folio"
+    },
+    "EntradaMaterial0015": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "EntradaMaterial0016": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "EntradaMaterial0017": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    },
+    "EntradaMaterial0018": {
+        "es-MX": "Folio de llegada",
+        "en-US": "Folio arrival"
+    },
+    "EntradaMaterial0019": {
+        "es-MX": "Folio de entrada",
+        "en-US": "Folio input"
+    },
+    "EntradaMaterial0020": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "EntradaMaterial0021": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
     },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
@@ -501,6 +529,22 @@ _dictionary = {
     "ListadoLlegadaMaterial0014": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
+    },
+    "ListadoLlegadaMaterial0015": {
+        "es-MX": "Estatus Folio Llegada",
+        "en-US": "Folio Arrival Status"
+    },
+    "ListadoLlegadaMaterial0016": {
+        "es-MX": "Estatus Packing List",
+        "en-US": " Packing List Status"
+    },
+    "ListadoLlegadaMaterial0017": {
+        "es-MX": "Complemento",
+        "en-US": "Complement"
+    },
+    "ListadoLlegadaMaterial0018": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
     },
     //Home Partial View Labels
     "homeLabel0001": {

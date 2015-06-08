@@ -28,6 +28,8 @@ namespace BackEndSAM.Controllers
                 llegadamaterial.Proyecto = "Prueba 1";
                 llegadamaterial.Patio = "Patio 1";
                 llegadamaterial.Estatus = "En Patio";
+                llegadamaterial.EstatusFolioEntrada = "Estatus 1";
+                llegadamaterial.EstatusPackingList = "Estatus 2";
                 lstllegadaMat.Add(llegadamaterial);
 
 
@@ -37,6 +39,8 @@ namespace BackEndSAM.Controllers
                 llegadamaterial1.Proyecto = "Prueba 2";
                 llegadamaterial1.Patio = "Patio 2";
                 llegadamaterial1.Estatus = "Devolución";
+                llegadamaterial1.EstatusFolioEntrada = "Estatus 1";
+                llegadamaterial1.EstatusPackingList = "Estatus 2";
                 lstllegadaMat.Add(llegadamaterial1);
             }
             else 
@@ -47,6 +51,8 @@ namespace BackEndSAM.Controllers
                 llegadamaterial.Proyecto = "Prueba 1";
                 llegadamaterial.Patio = "Patio 1";
                 llegadamaterial.Estatus = "En Patio";
+                llegadamaterial.EstatusFolioEntrada = "Estatus 1";
+                llegadamaterial.EstatusPackingList = "Estatus 2";
                 lstllegadaMat.Add(llegadamaterial);
             }
             return lstllegadaMat;

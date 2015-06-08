@@ -13,5 +13,7 @@ namespace BackEndSAM.Models
         public string Proyecto { get; set; }
         public string Patio { get; set; }
         public string Estatus { get; set; }
+        public string EstatusFolioEntrada { get; set; }
+        public string EstatusPackingList { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace FrontEndSAM.Controllers.LlegadaMaterial
     {
         //
         // GET: /EntradaMaterial/
-        public ActionResult EntradaMaterial()
+        public ActionResult DetalleLlegadaMaterial()
         {
             return View();
         }
