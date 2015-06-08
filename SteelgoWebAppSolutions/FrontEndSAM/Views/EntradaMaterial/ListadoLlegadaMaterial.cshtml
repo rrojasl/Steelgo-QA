@@ -114,6 +114,7 @@
                 var FolioLlegadaID = dataItem.FolioLlegadaID
                 var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
                 //REDIRECT
+
                 var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
             };
@@ -234,7 +235,9 @@
             Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log(data);
                 resultadoJson = data;
-                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                if ($("#grid").data("kendoGrid")) {
+                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                };
             });
         };
 

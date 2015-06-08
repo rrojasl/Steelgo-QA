@@ -84,6 +84,8 @@
         //your partial views variables
         var Transportista = [], Proveedor = [], Patio = [], Folio = [];
         var FechaInicial, FechaFinal, resultadoJson;
+        var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
+        var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
     }
 
     @section JavascriptGlobalFunctions {        
@@ -196,6 +198,10 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
+        if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material
+            $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value(folioEntradaID);
+            Filtros(3);
+        };
 
         $("#Mostrar").click(function () { Filtros(2); });
         $("#Creacion").click(function (e) {
@@ -370,7 +376,9 @@
         Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
             console.log(data);
             resultadoJson = data;
-            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+            if ($("#grid").data("kendoGrid")) {
+                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+            };
         });
     };
 </script>
