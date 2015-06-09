@@ -122,6 +122,7 @@
     <Compile Include="Controllers\DummyEntradaMaterialController.cs" />
     <Compile Include="Controllers\DummyEstatusController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
+    <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />

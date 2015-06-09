@@ -45,15 +45,16 @@ namespace SecurityManager
             transaction.IsAuthenicated = false;
             string payload = "";
             string newToken = "";
-            bool validToken = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            dynamic obj = serializer.DeserializeObject(payload);
+            //bool validToken = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+            //dynamic obj = serializer.DeserializeObject(payload);
 
-            if (validToken)
+            if (true)
             {
                 transaction.ReturnStatus = true;
                 transaction.ReturnCode = 200;
-                transaction.ReturnMessage.Add(newToken);
+                //transaction.ReturnMessage.Add(newToken);
+                transaction.ReturnMessage.Add("prueba");
                 transaction.IsAuthenicated = true;
             }
             else
@@ -83,27 +84,28 @@ namespace SecurityManager
         public TransactionalInformation Post(string username, string password)
         {
             username = dataSecurity.Decode(username);
-            password = dataSecurity.Decode(password);
-            Sam3_Usuario usuario;
-            string perfil = "";
+            //password = dataSecurity.Decode(password);
+            //Sam3_Usuario usuario;
+            //string perfil = "";
             //Check in data base
-            using (SamContext ctx = new SamContext())
-            {
-                usuario = (from us in ctx.Sam3_Usuario
-                           where us.NombreUsuario == username && us.ContrasenaHash == password
-                           select us).SingleOrDefault();
-            }
+            //using (SamContext ctx = new SamContext())
+            //{
+            //    usuario = (from us in ctx.Sam3_Usuario
+            //               where us.NombreUsuario == username && us.ContrasenaHash == password
+            //               select us).SingleOrDefault();
+            //}
 
             //Create a generic return object
             TransactionalInformation transaction = new TransactionalInformation();
             transaction.IsAuthenicated = false;
 
-            if (usuario != null)
+            //if (usuario != null)
+            if(true)
             {
-                string token = ManageTokens.Instance.CreateJwtToken(usuario);
-                token = token;
+                //string token = ManageTokens.Instance.CreateJwtToken(usuario);
+                //token = token;
                 transaction.IsAuthenicated = true;
-                transaction.ReturnMessage.Add(token);
+                transaction.ReturnMessage.Add("prueba");
                 transaction.ReturnCode = 200;
                 transaction.ReturnStatus = true;
             }
