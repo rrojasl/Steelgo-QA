@@ -40,16 +40,15 @@
             // 
             // serviceInstaller
             // 
-            this.serviceInstaller.Description = "DaemonService, servicio incertar mensajes de aplicacion sam a base de datos sam";
+            this.serviceInstaller.Description = "DaemonService, servicio insertar mensajes de aplicacion sam a base de datos sam";
             this.serviceInstaller.DisplayName = "Daemon Service";
             this.serviceInstaller.ServiceName = "DaemonService";
-            this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
-            this.serviceProcessInstaller,
-            this.serviceInstaller});
+            this.serviceInstaller,
+            this.serviceProcessInstaller});
 
         }
 
@@ -57,5 +56,6 @@
 
         private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller;
         private System.ServiceProcess.ServiceInstaller serviceInstaller;
+
     }
 }

@@ -5,32 +5,42 @@
 
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="form-group col-lg-2">
-            <label id="ListadoLlegadaMaterial0001"></label>
-            <input id="PackingListID" class="" />
+        <div class="col-sm-12 col-md-12 col-lg-10">
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label id="ListadoLlegadaMaterial0001"></label>
+                    <input id="PackingListID" class="" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label id="ListadoLlegadaMaterial0002"></label>
+                    <input id="FolioLlegadaID" class="" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label id="ListadoLlegadaMaterial0003"></label>
+                    <input id="Placas" class="" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label id="ListadoLlegadaMaterial0004"></label>
+                    <input id="ChoferID" class="" />
+                </div>
+            </div>
         </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoLlegadaMaterial0002"></label>
-            <input id="FolioLlegadaID" class="" />
+        <div class="col-sm-12 col-md-12 col-lg-2">
+            <div class="row">
+                <div class="form-group buttonBar col-sm-6 col-md-6 col-lg-9">
+                    <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoLlegadaMaterial0005"></span></a>
+                </div>
+                <div class="form-group buttonBar col-sm-6 col-md-6 col-lg-3">
+                    <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
+                </div>
+            </div>
         </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoLlegadaMaterial0003"></label>
-            <input id="Placas" class="" />
-        </div>
-        <div class="form-group col-lg-2">
-            <label id="ListadoLlegadaMaterial0004"></label>
-            <input id="ChoferID" class="" />
-        </div>        
-        <div class="form-group col-lg-2">
-            <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoLlegadaMaterial0005"></span></a>
-        </div>
-        <br />
-        <div class="form-group col-lg-2">
-            <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"><span id="ListadoLlegadaMaterial0006"></span></a>
-        </div>
-
-        <div class="form-group col-lg-12">
-                <div id="grid"></div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="grid"></div>
+                </div>
+            </div>
         </div>
 
         <div id="window">
@@ -49,171 +59,186 @@
 
     @section JavascriptGlobalFunctions 
     {
-            function changeLanguageCall() {
-                CargarGridLlegadaMaterial();
-            };
+        function changeLanguageCall() {
+            CargarGridLlegadaMaterial();
+        };
 
-            function CargarGridLlegadaMaterial() {
-                $("#grid").kendoGrid({
-                    dataSource: {
-                        data: resultadoJson,
-                        schema: {
-                            model: {
-                                fields: {
-                                    FolioLlegadaID: { type: "string" },
-                                    FolioAvisoLlegadaID: { type: "string" },
-                                    PackingListID: { type: "string" },
-                                    Proyecto: { type: "string" },
-                                    Patio: { type: "string" },
-                                    Estatus: { type: "string" },
-                                    EstatusFolioEntrada: { type: "string" },
-                                    EstatusPackingList: { type: "string" }
-                                }
+        function CargarGridLlegadaMaterial() {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    data: resultadoJson,
+                    schema: {
+                        model: {
+                            fields: {
+                                FolioLlegadaID: { type: "string" },
+                                FolioAvisoLlegadaID: { type: "string" },
+                                PackingListID: { type: "string" },
+                                Proyecto: { type: "string" },
+                                Patio: { type: "string" },
+                                Estatus: { type: "string" },
+                                EstatusFolioEntrada: { type: "string" },
+                                EstatusPackingList: { type: "string" }
                             }
-                        },
-                        pageSize: 20,
-                        serverPaging: false,
-                        serverFiltering: false,
-                        serverSorting: false
+                        }
                     },
-                    height: 500,
-                    sortable: true,
-                    filterable: true,
-                    pageable: {
-                        refresh: false,
-                        pageSizes: false
-                    },
-                    columns: [
-                        { field: "FolioLlegadaID", title: _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "Proyecto", title: _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "Estatus", title: _dictionary.ListadoLlegadaMaterial0012[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "EstatusFolioEntrada", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { field: "EstatusPackingList", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], width: "200px", filterable: true },
-                        { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: complemento }, title: " ", width: "130px" },
-                        { command: { text: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], click: cuantificacion }, title: " ", width: "130px" },
-                        { command: { text: _dictionary.ListadoLlegadaMaterial0013[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
-                        { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
-                    ]
-                });
-            };
+                    pageSize: 20,
+                    serverPaging: false,
+                    serverFiltering: false,
+                    serverSorting: false
+                },
+                autoHeight: true,
+                sortable: true,
+                scrollable: false,
+                filterable: true,
+                pageable: {
+                    refresh: false,
+                    pageSizes: [10, 15, 20],
+                    info: false,
+                    input: true,
+                    numeric: false,
+                    messages: {
+                        page: "",
+                        of: _dictionary.ListadoAvisoLlegada0018[$("#language").data("kendoDropDownList").value()],
+                        itemsPerPage: _dictionary.ListadoAvisoLlegada0019[$("#language").data("kendoDropDownList").value()],
+                    }
+                },
+                columns: [
+                    { field: "FolioLlegadaID", title: _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Proyecto", title: _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Estatus", title: _dictionary.ListadoLlegadaMaterial0012[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "EstatusFolioEntrada", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "EstatusPackingList", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: complemento }, title: " ", width: "40px"},
+                    { command: { text: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], click: cuantificacion }, title: " ", width: "40px"},
+                    { command: { text: _dictionary.ListadoLlegadaMaterial0013[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px"},
+                    { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
+                ]
+            });
+        };
+
             
-            function complemento(e) {
-                alert("complemento");
-            };
+        function complemento(e) {
+            alert("complemento");
+        };
 
-            function cuantificacion(e) {
-                alert("cuantificacion");
-            };
+        function cuantificacion(e) {
+            alert("cuantificacion");
+        };
 
-            function mostrarDetalle(e) {
+        function mostrarDetalle(e) {
+            e.preventDefault();
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var FolioLlegadaID = dataItem.FolioLlegadaID
+            var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+            //REDIRECT
+
+            var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
+        };
+
+        function cancelarFolio(e) {
                 e.preventDefault();
                 var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
                 var FolioLlegadaID = dataItem.FolioLlegadaID
-                var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-                //REDIRECT
-                var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
-            };
-
-            function eliminarFolio(e) {
-                e.preventDefault();
-                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-                var FolioLlegadaID = dataItem.FolioLlegadaID
-                var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+                var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
                 var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyListadoLlegadaMaterial');
+                if (confirm("Estas seguro de cancelar el folio de entrada?")) {
+                    var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                    Client.add('DummyCancelacionListadoLlegadaMaterial');
 
-                Client.DummyListadoLlegadaMaterial.update({}, { folioavisollegadaid: FolioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    console.log("Client.DummyListadoLlegadaMaterial.update");
-                    Filtros("2");
-                });
-            };
+                    Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: folioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        console.log("Client.DummyCancelacionListadoLlegadaMaterial.read");
+                        if ($("#grid").data("kendoGrid")) {
+                            $("#grid").data("kendoGrid").dataSource.data(data);
+                        };
+                    });
+                };
+        };
 
-            function CargaInicial() {
-                $("#Mostrar").click(function () { Filtros(2); });
-                $("#Creacion").click(function (e) {
-                    var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                });
+        function CargaInicial() {
+            $("#Mostrar").click(function () { Filtros(2); });
+            $("#Creacion").click(function (e) {
+                var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            });
 
-                $("#PackingListID").kendoAutoComplete({
-                        dataSource: {
-                        serverFiltering: false,
-                        type: "json",
-                        transport: {
-                            read: {
-                                url: "http://localhost:60960/backendsam/api/DummyPackingList",
-                            }
+            $("#PackingListID").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/DummyPackingList",
                         }
-                    },
-                    dataTextField: "PackingListID",
-                    dataValueField: "Consecutivo",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarPackingList(dataItem.PackingListID, dataItem.Consecutivo);
-                    },
-                    filter: "contains",
-                });
-                $("#FolioLlegadaID").kendoAutoComplete({
-                    dataSource: {
-                        serverFiltering: false,
-                        type: "json",
-                        transport: {
-                            read: {
-                                url: "http://localhost:60960/backendsam/api/FolioLlegada",
-                            }
+                    }
+                },
+                dataTextField: "PackingListID",
+                dataValueField: "Consecutivo",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarPackingList(dataItem.PackingListID, dataItem.Consecutivo);
+                },
+                filter: "contains",
+            });
+            $("#FolioLlegadaID").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/FolioLlegada",
                         }
-                    },
-                    dataTextField: "FolioLlegadaID",
-                    dataValueField: "Consecutivo",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarFolioLlegada(dataItem.FolioLlegadaID, dataItem.Consecutivo);
-                    },
-                    filter: "contains",
-                });
-                $("#Placas").kendoAutoComplete({
-                    dataSource: {
-                        serverFiltering: false,
-                        type: "json",
-                        transport: {
-                            read: {
-                                url: "http://localhost:60960/backendsam/api/DummyCamion",
-                            }
+                    }
+                },
+                dataTextField: "FolioLlegadaID",
+                dataValueField: "Consecutivo",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarFolioLlegada(dataItem.FolioLlegadaID, dataItem.Consecutivo);
+                },
+                filter: "contains",
+            });
+            $("#Placas").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/DummyCamion",
                         }
-                    },
-                    dataTextField: "Placas",
-                    dataValueField: "CamionID",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarPlacas(dataItem.CamionID, dataItem.Placas);
-                    },
-                    filter: "contains",
-                });
-                $("#ChoferID").kendoAutoComplete({
-                    dataSource: {
-                        serverFiltering: false,
-                        type: "json",
-                        transport: {
-                            read: {
-                                url: "http://localhost:60960/backendsam/api/Proyecto",
-                            }
+                    }
+                },
+                dataTextField: "Placas",
+                dataValueField: "CamionID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarPlacas(dataItem.CamionID, dataItem.Placas);
+                },
+                filter: "contains",
+            });
+            $("#ChoferID").kendoAutoComplete({
+                dataSource: {
+                    serverFiltering: false,
+                    type: "json",
+                    transport: {
+                        read: {
+                            url: "http://localhost:60960/backendsam/api/Proyecto",
                         }
-                    },
-                    dataTextField: "value",
-                    dataValueField: "id",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        CargarChofer(dataItem.id, dataItem.value);
-                    },
-                    filter: "contains",
-                });
-                Filtros(1);
+                    }
+                },
+                dataTextField: "value",
+                dataValueField: "id",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarChofer(dataItem.id, dataItem.value);
+                },
+                filter: "contains",
+            });
+            Filtros(1);
         };
 
         function Filtros(prueba)
@@ -234,7 +259,10 @@
             Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                 console.log(data);
                 resultadoJson = data;
-                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                if ($("#grid").data("kendoGrid")) {
+                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                };
+                
             });
         };
 

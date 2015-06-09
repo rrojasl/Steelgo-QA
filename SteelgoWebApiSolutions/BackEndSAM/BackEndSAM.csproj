@@ -104,6 +104,7 @@
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DummyAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DummyCamionController.cs" />
+    <Compile Include="Controllers\DummyCancelacionListadoLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyChoferController.cs" />
     <Compile Include="Controllers\DummyDescargarArchivoController.cs" />
     <Compile Include="Controllers\DummyFileManagerController.cs" />

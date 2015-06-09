@@ -15,7 +15,7 @@ namespace BackEndSAM.Controllers
         // GET api/DummyVerificarCancelacion
         public bool Get(string folio, string username, string token)
         {
-            return false;
+            return true;
         }
 
         // GET api/DummyVerificarCancelacion/5

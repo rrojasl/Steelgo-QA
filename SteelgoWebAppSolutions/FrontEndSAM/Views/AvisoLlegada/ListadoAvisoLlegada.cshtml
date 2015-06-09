@@ -11,8 +11,7 @@
     </li>
 }
 
-@*<h2>ListadoAvisoLlegada</h2>
-*@
+@*<h2>ListadoAvisoLlegada</h2>*@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-4 col-lg-4">
@@ -84,6 +83,8 @@
         //your partial views variables
         var Transportista = [], Proveedor = [], Patio = [], Folio = [];
         var FechaInicial, FechaFinal, resultadoJson;
+        var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
+        var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
     }
 
     @section JavascriptGlobalFunctions {        
@@ -298,7 +299,13 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         ObtenerFechasporDefecto();
-        Filtros(1);
+
+        if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material       
+            $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value(folioEntradaID);
+            Filtros(2);
+        } else {
+            Filtros(1);
+        };
     }
 
     function ObtenerFechasporDefecto() {
@@ -342,7 +349,7 @@
 
     function Filtros(prueba) {
         ListadoModal = [];
-        ListadoModal[0] = { FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
+        ListadoModal[0] = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
         ProyectoIDs = [];
 
         var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
@@ -355,6 +362,7 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
+        ListadoModal[0].FolioLlegadaID = folioLlegadaID;
         ListadoModal[0].FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
         ListadoModal[0].Patio = Patio;
         ListadoModal[0].Proyectos = ProyectoIDs;
@@ -370,7 +378,9 @@
         Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
             console.log(data);
             resultadoJson = data;
-            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+            if ($("#grid").data("kendoGrid")) {
+                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+            };
         });
     };
 </script>
