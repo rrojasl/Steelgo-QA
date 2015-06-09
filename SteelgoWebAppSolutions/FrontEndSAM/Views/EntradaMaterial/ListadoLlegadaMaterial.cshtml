@@ -114,7 +114,7 @@
                     { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: complemento }, title: " ", width: "40px"},
                     { command: { text: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], click: cuantificacion }, title: " ", width: "40px"},
                     { command: { text: _dictionary.ListadoLlegadaMaterial0013[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px"},
-                    { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "40px"}
+                    { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
                 ]
             });
         };
@@ -150,9 +150,11 @@
                     var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                     Client.add('DummyCancelacionListadoLlegadaMaterial');
 
-                    Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: FolioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: folioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyCancelacionListadoLlegadaMaterial.read");
-                        $("#grid").data("kendoGrid").dataSource.data(data);
+                        if ($("#grid").data("kendoGrid")) {
+                            $("#grid").data("kendoGrid").dataSource.data(data);
+                        };
                     });
                 };
         };
@@ -260,6 +262,7 @@
                 if ($("#grid").data("kendoGrid")) {
                     $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                 };
+                
             });
         };
 
