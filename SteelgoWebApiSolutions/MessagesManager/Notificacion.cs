@@ -9,14 +9,14 @@ namespace MessagesManager
     {
         public int NotificacionID { get; set; }
         public int UsuarioIDReceptor { get; set; }
-        public int UsuarioIDEmisor { get; set; }
-        public int TipoNotificacionID { get; set; }
+        public Nullable<int> UsuarioIDEmisor { get; set; }
+        public Nullable<int> TipoNotificacionID { get; set; }
         public string Mensaje { get; set; }
-        public string FechaEnvio { get; set; }
-        public string FechaRecepcion { get; set; }
-        public bool EstatusLectura { get; set; }
-        public bool Activo { get; set; }
-        //public DateTime FechaModificacion{ get; set; }
-        //public int UsuarioModificacionID { get; set; }
+        public System.DateTime FechaEnvio { get; set; }
+        public Nullable<System.DateTime> FechaRecepcion { get; set; }
+        public Nullable<bool> EstatusLectura { get; set; }
+        public Nullable<bool> Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     }
 }

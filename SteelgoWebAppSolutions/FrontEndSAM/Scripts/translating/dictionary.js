@@ -357,7 +357,7 @@ _dictionary = {
         "en-US": "Save"
     },
     "DetalleAvisoLlegada0035": {
-        "es-MX": "Permiso Aduana",
+        "es-MX": "Permiso de Aduana",
         "en-US": "Customs Permission"
     },
     "DetalleAvisoLlegada0036": {
@@ -369,7 +369,7 @@ _dictionary = {
         "en-US": "Permit Authorized"
     },
     "DetalleAvisoLlegada0038": {
-        "es-MX": "Numero Permiso",
+        "es-MX": "Numero de Permiso",
         "en-US": "Permit number"
     },
     "DetalleAvisoLlegada0039": {
@@ -381,19 +381,19 @@ _dictionary = {
         "en-US": "Packing List Signed"
     },
     "DetalleAvisoLlegada0041": {
-        "es-MX": "Aviso de Entrega de Material",
+        "es-MX": "Aviso de Entrada de Material",
         "en-US": "Delivery Notice of Material"
     },
     "DetalleAvisoLlegada0042": {
-        "es-MX": "Folio: ",
-        "en-US": "Folio: "
+        "es-MX": "Folio ",
+        "en-US": "Folio "
     },
     "DetalleAvisoLlegada0043": {
         "es-MX": "Imprimir Pase",
         "en-US": "Print Pass"
     },
     "DetalleAvisoLlegada0044": {
-        "es-MX": "Tramitar Permiso",
+        "es-MX": "Tramite de Permiso",
         "en-US": "Permit Process"
     },
     "DetalleAvisoLlegada0045": {
