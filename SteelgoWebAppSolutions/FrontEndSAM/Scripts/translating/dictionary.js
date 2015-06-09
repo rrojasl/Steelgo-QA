@@ -513,6 +513,18 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
+    "EntradaMaterial0022": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "EntradaMaterial0023": {
+        "es-MX": "Folios de Llegada de Material",
+        "en-US": "Arrival sheets Material"
+    },
+    "EntradaMaterial0024": {
+        "es-MX": "Llegada de Material",
+        "en-US": "Material's Arrival"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Packing List",
@@ -585,6 +597,31 @@ _dictionary = {
     "ListadoLlegadaMaterial0018": {
         "es-MX": "Cuantificación",
         "en-US": "Quantification"
+    },
+    "ListadoLlegadaMaterial0019": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoLlegadaMaterial0020": {
+        "es-MX": "Folios de Llegada de Material",
+        "en-US": "Arrival sheets Material"
+    },
+    //Cuantificacion
+    "Cuantificacion0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Cuantificacion0002": {
+        "es-MX": "Cuantificacion",
+        "en-US": "Quantification"
+    },
+    "Cuantificacion0003": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "Cuantificacion0004": {
+        "es-MX": "Folio de Llegada",
+        "en-US": "Arrival Folio"
     },
     //Home Partial View Labels
     "homeLabel0001": {

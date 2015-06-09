@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Cuantificación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="Cuantificacion0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("Cuantificacion", "Cuantificacion")"><span id="Cuantificacion0002"></span></a>
+    </li>
+}
+
+
+    <div class="form-group">
+        <label id="Cuantificacion0003"></label>
+        <input id="ProyectoID" />
+    </div>
+    <div class="form-group">
+        <label id="Cuantificacion0004"></label>
+        <input id="FolioLlegadaID" class="" />
+    </div>
+
+<script>
+    @section JavascriptGlobalVariables 
+    {
+    var folioLlegada, Proyecto = [], FolioLlegada = [];
+    };
+
+    @section JavascriptGlobalFunctions 
+    {
+        function cargaInicial() {
+            $("#ProyectoID").kendoAutoComplete({
+                dataTextField: "value",
+                dataValueField: "id",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarProyecto(dataItem.id, dataItem.value);
+                },
+                change: function (e) {
+                    cargarFolioLlegadaPorProyecto();
+                },
+                filter: "contains",
+            });
+
+            $("#FolioLlegadaID").kendoAutoComplete({
+                dataTextField: "FolioLlegadaID",
+                dataValueField: "Consecutivo",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarFolioLlegada(dataItem.FolioLlegadaID, dataItem.Consecutivo);
+                },
+                change: function (e) {
+                    
+                },
+                filter: "contains",
+            });
+
+            var ClientProy = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            ClientProy.add('Proyecto');
+
+            ClientProy.Proyecto.read({}, { foliollegadaid: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                $("#ProyectoID").data("kendoAutoComplete").dataSource.data(data);
+            });
+
+            var ClientFolioLlegadaID = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            ClientFolioLlegadaID.add('FolioLlegada');
+
+            ClientFolioLlegadaID.FolioLlegada.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                $("#FolioLlegadaID").data("kendoAutoComplete").dataSource.data(data);
+            });
+        };
+
+        function CargarProyecto(id, value) {
+            Proyecto = [];
+            _proyecto = {};
+            _proyecto["ProyectoID"] = id;
+            _proyecto["Nombre"] = value;
+            Proyecto.push(_proyecto);
+        };
+
+        function CargarFolioLlegada(id, value) {
+            FolioLlegada = [];
+            _folioLlegada = {};
+            _folioLlegada["FolioLlegadaID"] = id;
+            _folioLlegada["Consecutivo"] = value;
+            FolioLlegada.push(_folioLlegada);
+        };
+
+        function cargarFolioLlegadaPorProyecto() {
+            var proyectoID;
+            if (Proyecto) {//arreglo
+                proyectoID = Proyecto[0].ProyectoID;
+            };
+            var ClientFolioLlegadaID = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            ClientFolioLlegadaID.add('FolioLlegada');
+
+            ClientFolioLlegadaID.FolioLlegada.read({}, { proyectoid: proyectoID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                $("#FolioLlegadaID").data("kendoAutoComplete").dataSource.data(data);
+            });
+        };
+
+        function cargarProyectoPorFolio() {
+
+        };
+    }
+    
+    @section JavascriptDocumentReadyFunctions 
+    {
+        cargaInicial();
+    }
+</script>

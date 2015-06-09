@@ -200,7 +200,6 @@
 
         $("#Mostrar").click(function () { Filtros(2); });
         $("#Creacion").click(function (e) {
-            //window.data("kendoWindow").open();
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
@@ -265,6 +264,9 @@
                 transport: {
                     read: {
                         url: "http://localhost:60960/backendsam/api/DummyProveedor",
+                    },
+                    success: function (response) {
+                        alert("hola");
                     }
                 }
             },
