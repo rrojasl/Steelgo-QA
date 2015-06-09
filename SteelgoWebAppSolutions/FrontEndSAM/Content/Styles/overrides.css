@@ -99,19 +99,14 @@
     height: inherit;
 }
 
-.k-multiselect, .k-combobox {
-    /*min-width: 240px;*/
-    width: 100%;
-}
-
+.k-multiselect, .k-combobox,
 .k-autocomplete {
-    /*min-width: 242px;*/
     width: 100%;
 }
 
-.k-multiselect.k-header {
-    max-width: 99.5%;
-}
+    .k-multiselect.k-header {
+        max-width: 99.5%;
+    }
 
 .k-multiselect-wrap {
     min-height: 30px;
@@ -142,12 +137,11 @@
 .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap,
 .k-picker-wrap.k-state-border-down, .k-numeric-wrap, .k-colorpicker, .k-list-container,
 .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline,
-.k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+.k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload, .k-autocomplete.k-state-border-down {
     border-radius: 0;
 }
 
 .k-datepicker {
-    /*min-width: 184px;*/
     width: 100%;
 }
 
@@ -178,6 +172,16 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 11px 6px;
+}
+
+.k-combobox .k-dropdown-wrap.k-state-border-down span.k-i-arrow-s,
+.k-dropdown .k-dropdown-wrap.k-state-border-down span.k-i-arrow-s {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
 }
 
 .k-upload, .k-upload-files, .k-file {
@@ -221,6 +225,33 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.k-list-container {
+    color: #1B3F70;
+    background-color: white;
+    box-shadow: none;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+
+    .k-list-container .k-list .k-item {
+        box-shadow: none;
+        border: 0 !important;
+        padding: 4px 10px !important;
+        border-radius: 0;
+    }
+
+        .k-list-container .k-list .k-item.k-state-hover {
+            background-color: #FCEED9 !important;
+        }
+
+        .k-list-container .k-list .k-item.k-state-selected {
+            font-weight: 600;
+            color: #1B3F70;
+            background: none;
+            background-color: white;
+        }
+
 /**********************************************************************************/
 
 

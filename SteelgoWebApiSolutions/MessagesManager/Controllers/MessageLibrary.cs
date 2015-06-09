@@ -67,7 +67,7 @@ namespace MessagesManager.Controllers
             using (SamContext ctx = new SamContext())
             {
                 notifications = ctx.Sam3_Notificacion
-                    .Where(x => x.UsuarioIDReceptor == userId && x.Activo == true).ToList()
+                    .Where(x => x.UsuarioIDReceptor == userId && x.Activo == true && x.EstatusLectura == false).ToList()
                     .Select(x => new Sam3_Notificacion
                     {
                         NotificacionID = x.NotificacionID,
@@ -87,5 +87,15 @@ namespace MessagesManager.Controllers
             }
         }
 
+        public void GetnotificationsByNotificationID(int notificationID)
+        {
+            using (SamContext ctx = new SamContext())
+            {
+                Sam3_Notificacion notificacion = new Sam3_Notificacion();
+                notificacion = ctx.Sam3_Notificacion.Where(x => x.NotificacionID == notificationID).First();
+                notificacion.EstatusLectura = true;
+                ctx.SaveChanges();
+            }
+        }
     }
 }

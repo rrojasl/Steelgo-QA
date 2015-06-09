@@ -172,23 +172,31 @@ label {
 
 .form h2 label {
     color: #666666;
+    text-transform: none;
     font-size: 16.5px;
     font-weight: 400;
-    text-transform: none;
-    margin-bottom: 17px;
-    margin-right: 8px;
+    margin-bottom: 18px;
+    margin-right: 13px;
     letter-spacing: .8px;
-    display: inline-block;
 }
 
-.inlineLabel,
-.inlineLabel + span {
-    color: #202020 !important;
-    display: inline-block !important;
-    font-size: 16.5px;
-    margin-right: 2px !important;
-    font-weight: 600 !important;
-}
+    .form h2 label.title {
+        float: left;
+    }
+
+    .form h2 label.folioLabel {
+        visibility: hidden;
+        color: #202020;
+        font-weight: 600;
+    }
+
+        .form h2 label.folioLabel span {
+            margin-right: 1px;
+        }
+
+        .form h2 label.folioLabel.show {
+            visibility: visible;
+        }
 /**********************************************************************************/
 
 
