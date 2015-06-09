@@ -8,7 +8,7 @@
     02  $_k-widget
     03  $_k-grid
     04  $_input-group
-    05  $_
+    05  $_calendar
     06  $_
     07  $_
     08  $_
@@ -458,6 +458,64 @@
         }
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_calendar
+ Description:   Override kendo datepicker calendar.
+**********************************************************************************/
+.k-calendar-container {
+    padding: 0 !important;
+    background-color: #FFFFFF;
+    border-radius: 0;
+}
+
+    .k-calendar-container.k-group {
+        border-color: transparent;
+        border: 0;
+        border-bottom: 1px solid #c5c5c5;
+    }
+
+    .k-calendar-container.k-state-border-up {
+        border-radius: 0;
+    }
+
+.k-calendar {
+    font-size: 12px;
+    border-radius: 0;
+}
+
+    .k-calendar .k-header {
+        background: none;
+        font-weight: 600;
+        background-color: #1B3F70;
+        border: 1px solid #1B3F70;
+        border-bottom: 0;
+    }
+
+        .k-calendar .k-header .k-link,
+        .k-calendar .k-header .k-link.k-state-hover {
+            color: #FFFFFF;
+            background: none !important;
+            text-transform: uppercase;
+        }
+
+    .k-calendar table {
+        color: #202020 !important;
+        font-weight: 600;
+        border-right: 1px solid #c5c5c5;
+        border-left: 1px solid #c5c5c5;
+    }
+
+        .k-calendar table thead tr th {
+            background-color: #FFFFFF;
+            padding: 5.6px 7.5px;
+            font-weight: 600;
+        }
+
+        .k-calendar table tbody tr td {
+            padding: 3.6px 6.5px;
+        }
+/**********************************************************************************/
 
 /* Media Queries */
 
