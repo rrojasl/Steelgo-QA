@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AvisoLlegadaController.cs" />
     <Compile Include="Controllers\DummyCancelacionListadoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DummyAvisoLlegadaController.cs" />
@@ -121,9 +122,12 @@
     <Compile Include="Controllers\DummyEntradaMaterialController.cs" />
     <Compile Include="Controllers\DummyEstatusController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\PlanaController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />
+    <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -150,7 +154,7 @@
     <Compile Include="Models\Dummy\Proyecto.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\ListObject.cs" />
-    <Compile Include="Models\PerfilBd.cs" />
+    <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Enums.cs" />
   </ItemGroup>

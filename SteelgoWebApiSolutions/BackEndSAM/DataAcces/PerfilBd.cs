@@ -7,7 +7,7 @@ using DatabaseManager.EntidadesPersonalizadas;
 using BackEndSAM.Utilities;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Models
+namespace BackEndSAM.DataAcces
 {
     public class PerfilBd
     {

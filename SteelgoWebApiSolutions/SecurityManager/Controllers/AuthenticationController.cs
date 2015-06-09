@@ -47,7 +47,6 @@ namespace SecurityManager
             string newToken = "";
             bool validToken = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            dynamic obj = serializer.DeserializeObject(payload);
 
             if (validToken)
             {
@@ -63,6 +62,8 @@ namespace SecurityManager
                 transaction.ReturnMessage.Add(payload);
                 transaction.IsAuthenicated = false;
             }
+
+            //string json = serializer.Serialize(transaction);
 
             return transaction;
         }

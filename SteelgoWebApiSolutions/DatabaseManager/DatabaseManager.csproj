@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntidadesPersonalizadas\AvisoLlegadaJson.cs" />
+    <Compile Include="EntidadesPersonalizadas\ListadoPlanas.cs" />
     <Compile Include="EntidadesPersonalizadas\PerfilJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sam2\Acero.cs">
