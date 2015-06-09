@@ -198,10 +198,6 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-        if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material
-            $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value(folioEntradaID);
-            Filtros(3);
-        };
 
         $("#Mostrar").click(function () { Filtros(2); });
         $("#Creacion").click(function (e) {
@@ -304,7 +300,13 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         ObtenerFechasporDefecto();
-        Filtros(1);
+
+        if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material       
+            $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value(folioEntradaID);
+            Filtros(2);
+        } else {
+            Filtros(1);
+        };
     }
 
     function ObtenerFechasporDefecto() {
@@ -348,7 +350,7 @@
 
     function Filtros(prueba) {
         ListadoModal = [];
-        ListadoModal[0] = { FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
+        ListadoModal[0] = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
         ProyectoIDs = [];
 
         var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
@@ -361,6 +363,7 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
+        ListadoModal[0].FolioLlegadaID = folioLlegadaID;
         ListadoModal[0].FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
         ListadoModal[0].Patio = Patio;
         ListadoModal[0].Proyectos = ProyectoIDs;

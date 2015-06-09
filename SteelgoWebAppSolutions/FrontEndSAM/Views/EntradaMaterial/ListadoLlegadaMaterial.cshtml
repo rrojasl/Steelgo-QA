@@ -95,7 +95,7 @@
                         { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: complemento }, title: " ", width: "130px" },
                         { command: { text: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], click: cuantificacion }, title: " ", width: "130px" },
                         { command: { text: _dictionary.ListadoLlegadaMaterial0013[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "130px" },
-                        { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: eliminarFolio }, title: " ", width: "130px" }
+                        { command: { text: _dictionary.ListadoLlegadaMaterial0014[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "130px" }
                     ]
                 });
             };
@@ -119,20 +119,22 @@
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
             };
 
-            function eliminarFolio(e) {
+        function cancelarFolio(e) {
                 e.preventDefault();
                 var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
                 var FolioLlegadaID = dataItem.FolioLlegadaID
-                var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+                var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
                 var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyListadoLlegadaMaterial');
+                if (confirm("Estas seguro de cancelar el folio de entrada?")) {
+                    var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                    Client.add('DummyCancelacionListadoLlegadaMaterial');
 
-                Client.DummyListadoLlegadaMaterial.update({}, { folioavisollegadaid: FolioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                    console.log("Client.DummyListadoLlegadaMaterial.update");
-                    Filtros("2");
-                });
+                    Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: FolioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        console.log("Client.DummyCancelacionListadoLlegadaMaterial.read");
+                        $("#grid").data("kendoGrid").dataSource.data(data);
+                    });
+                };
             };
 
             function CargaInicial() {
