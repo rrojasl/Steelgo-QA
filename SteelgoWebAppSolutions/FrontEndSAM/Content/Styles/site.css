@@ -366,9 +366,14 @@ input {
 
 .formButtons {
     margin-top: 15px;
-    padding: 20px 0 20px;
-    border-top: 1px solid #CCCCCC;
+    padding-bottom: 20px;
 }
+
+    .formButtons .divisor {
+        margin: auto 15px;
+        padding-top: 20px;
+        border-top: 1px solid #CCCCCC;
+    }
 /**********************************************************************************/
 
 
