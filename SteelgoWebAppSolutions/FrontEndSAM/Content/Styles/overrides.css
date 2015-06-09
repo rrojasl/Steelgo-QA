@@ -496,6 +496,7 @@
         .k-calendar .k-header .k-link.k-state-hover {
             color: #FFFFFF;
             background: none !important;
+            padding: 6px 0;
             text-transform: uppercase;
         }
 
