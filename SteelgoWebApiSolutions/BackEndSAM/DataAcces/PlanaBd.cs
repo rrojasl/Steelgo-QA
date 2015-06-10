@@ -49,9 +49,9 @@ namespace BackEndSAM.DataAcces
                 results = (from p in ctx.Sam3_Plana
                            select new Plana
                            {
-                               PlanaID = Convert.ToString(p.PlanaID),
+                               PlanaID = p.PlanaID.ToString(),
                                Nombre = p.Placas
-                           }).ToList();
+                           }).AsParallel().ToList();
             }
             return results;
         }
@@ -101,12 +101,49 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    Sam3_Plana planaEnBd = ctx.Sam3_Plana.Where(x => x.PlanaID == cambios.PlanaID).SingleOrDefault();
+                    Sam3_Plana planaEnBd = ctx.Sam3_Plana.Where(x => x.PlanaID == cambios.PlanaID).AsParallel().SingleOrDefault();
                     planaEnBd.Activo = 1;
                     planaEnBd.CamionID = cambios.CamionID;
                     planaEnBd.Placas = cambios.Placas;
                     planaEnBd.UsuarioModificacion = usuario.UsuarioID;
                     planaEnBd.FechaModificacion = DateTime.Now;
+
+                    ctx.SaveChanges();
+
+                    result = new TransactionalInformation();
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.ReturnMessage.Add("OK");
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch(Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarPlana(int planaID, string payload)
+        {
+            try
+            {
+                TransactionalInformation result;
+                using (SamContext ctx = new SamContext())
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                    Sam3_Plana plana = ctx.Sam3_Plana.Where(x => x.PlanaID == planaID).AsParallel().SingleOrDefault();
+                    plana.Activo = 0;
+                    plana.UsuarioModificacion = usuario.UsuarioID;
+                    plana.FechaModificacion = DateTime.Now;
 
                     ctx.SaveChanges();
 

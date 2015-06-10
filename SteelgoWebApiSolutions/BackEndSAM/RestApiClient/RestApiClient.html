@@ -15,7 +15,7 @@
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
             var projects = [1, 2, 3, 4];
 
-            client.add('proyecto');
+            //client.add('proyecto');
 
             //client.proyecto.read({ username: "YWRtaW4", token: "RXN0ZUVzVW5Ub2tlbkdlbmVyYWRvRGVBbGd1bmFNYW5lcmE" }).done(function (data) {
             //    console.log(data);
@@ -24,11 +24,33 @@
             //    console.log(data);
             //});
 
-            client.add("Perfil");
-            client.Perfil.read({ token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzUyOTkyMn0.zLnB-XV5pPXkqYYmBWc4OQIr7TV9-eoTPnV3WY4r-FI", pageName: "Login" }).done(function (data) {
+            //client.add("Perfil");
+            //client.Perfil.read({ token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzg4OTE1N30.g8Z0YxMoUribLoRfRQ54f3FybaB-rbbI2povvU417L8", pageName: "Login" }).done(function (data) {
+            //    console.log(data);
+            //});
+
+            client.add("Plana");
+            //client.Plana.read({ token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzk2NDAwMn0.hgPcJBegfC0H__st3L0USWAmmNQYBDBcg-bVUgAb-fw", pageName: "Login" }).done(function (data) {
+            //    console.log(data);
+            //});
+
+            //client.Plana.create({}, { placas: "XXX-00-01", camionID: "1", token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzk2NDAwMn0.hgPcJBegfC0H__st3L0USWAmmNQYBDBcg-bVUgAb-fw" }).done(function (data) {
+            //    var json = JSON.stringify(data);
+            //    alert(json);
+            //    console.log(data);
+            //});
+
+            //client.Plana.update({ PlanaID: "3", CamionID: "2", Placas: "YXZ-11-22" }, { token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzk2NDAwMn0.hgPcJBegfC0H__st3L0USWAmmNQYBDBcg-bVUgAb-fw" }).done(function (data) {
+            //    var json = JSON.stringify(data);
+            //    alert(json);
+            //    console.log(data);
+            //});
+
+            client.Plana.destroy({},{ PlanaID: "3", token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzMzk2NDAwMn0.hgPcJBegfC0H__st3L0USWAmmNQYBDBcg-bVUgAb-fw" }).done(function (data) {
+                var json = JSON.stringify(data);
+                alert(json);
                 console.log(data);
             });
-
             //$(document).ready(function () {
                 
             //});

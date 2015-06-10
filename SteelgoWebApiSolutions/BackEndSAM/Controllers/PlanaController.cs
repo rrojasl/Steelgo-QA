@@ -79,10 +79,38 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
- 
+                return PlanaBd.Instance.ActualizarPlana(plana, payload);
             }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
-            return null;
+        public object Delete(string PlanaID, string token)
+        {
+            string newToken = "";
+            string payload = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                return PlanaBd.Instance.EliminarPlana(Convert.ToInt32(PlanaID), payload);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }
