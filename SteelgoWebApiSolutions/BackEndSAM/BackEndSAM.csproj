@@ -159,6 +159,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\BackEnd.pubxml" />
+    <None Include="Properties\PublishProfiles\backendSAM.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
