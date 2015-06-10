@@ -3,9 +3,6 @@ using DatabaseManager.Sam3;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MessagesManager.Controllers
@@ -28,24 +25,23 @@ namespace MessagesManager.Controllers
             string json = convertirObjToJson<List<Sam3_Notificacion>>(notifications);
             string message = dataSecurity.Encode(json);
             return message;
+
+
         }
 
         // POST api/<controller>
         public void Post(string objectEncrypted, string typeMessage)
         {
             string message = dataSecurity.Decode(objectEncrypted);
-            int typeMsg = Convert.ToInt32(typeMessage);             
+            int typeMsg = Convert.ToInt32(typeMessage);
 
             messages.SendMessageToQueue(message, typeMsg);
-            for (int i = 0; i < 10; i++)
-            {
-                messages.SendMessageToQueuePrueba(message, typeMsg);
-            }
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id)
         {
+            messages.GetnotificationsByNotificationID(id);
         }
 
         // DELETE api/<controller>/5

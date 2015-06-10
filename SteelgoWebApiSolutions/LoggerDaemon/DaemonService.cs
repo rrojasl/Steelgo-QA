@@ -27,11 +27,8 @@ namespace LoggerDaemon
         protected override void OnStart(string[] args)
         {
             detener = 0;
-
-          
-                LoggerDaemonLibrary.ReadPruebas();
-                //LoggerDaemonLibrary.ReadMessagesNotificaciones();
-                //LoggerDaemonLibrary.ReadMessagesBitacora();
+            LoggerDaemonLibrary.ReadMessagesNotificaciones();
+            LoggerDaemonLibrary.ReadMessagesBitacora();
             
         }
 

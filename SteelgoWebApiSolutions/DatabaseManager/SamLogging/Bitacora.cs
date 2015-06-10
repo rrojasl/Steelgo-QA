@@ -11,6 +11,7 @@ namespace DatabaseManager.SamLogging
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml.Serialization;
     
     public partial class Bitacora
     {
@@ -20,7 +21,8 @@ namespace DatabaseManager.SamLogging
         public string Mensaje { get; set; }
         public System.DateTime Fecha { get; set; }
         public int EntidadId { get; set; }
-    
+
+        [XmlIgnoreAttribute]
         public virtual TipoActividad TipoActividad { get; set; }
     }
 }

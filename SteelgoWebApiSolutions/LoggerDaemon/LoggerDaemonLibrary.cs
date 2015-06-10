@@ -1,11 +1,9 @@
 ﻿using DatabaseManager.Sam3;
+using DatabaseManager.SamLogging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Messaging;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LoggerDaemon
 {
@@ -15,15 +13,14 @@ namespace LoggerDaemon
         {
             try
             {
-                MessageQueue mq = new MessageQueue(".\\Private$\\Notificaciones");
-
-                bool x = mq.CanRead;
+                string path = StringsConfiguration.QuequeNotifications;
+                MessageQueue mq = new MessageQueue(path);
 
                 foreach (System.Messaging.Message message in mq.GetAllMessages())
                 {
-
                     message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
                     Notificacion p = (Notificacion)message.Body;
+                    LoggerDaemonLibrary.insertNotification(p);
                 }
 
                 mq.Purge();
@@ -38,80 +35,23 @@ namespace LoggerDaemon
         {
             try
             {
-                MessageQueue mq = new MessageQueue(".\\Private$\\Bitacora");
-
-                bool x = mq.CanRead;
+                string path = StringsConfiguration.QuequeBitacora;
+                MessageQueue mq = new MessageQueue(path);
 
                 foreach (System.Messaging.Message message in mq.GetAllMessages())
                 {
                     message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Bitacora) });
                     Bitacora p = (Bitacora)message.Body;
+                    LoggerDaemonLibrary.insertBitacora(p);
                 }
 
                 mq.Purge();
+
             }
             catch (Exception ex)
             {
                 var texto = new UTF8Encoding(true).GetBytes("ex: " + ex.Message);
             }
-        }
-
-        public static void ReadPruebas()
-        {
-            string mensaje = string.Empty;
-            // eliminar el fichero si ya existe
-            // var archivo = @"C:\Users\luis.manriquez\Mensajes.txt";//C:\Users\genoveva.torres\Mensajes.txt";
-            var archivo = @"C:\Users\daniela.zertuche\Mensajes.txt";
-
-            if (File.Exists(archivo))
-            {
-                // crear el fichero
-                using (FileStream fileStream = File.OpenWrite(archivo))
-                {
-                    try
-                    {
-                        MessageQueue mq = new MessageQueue(".\\Private$\\prueba");
-
-                        var texto = new UTF8Encoding(true).GetBytes("Aqui va el texto que desean volvar al fichero");
-                        fileStream.Write(texto, 0, texto.Length);
-
-                        bool x = mq.CanRead;
-                        texto = new UTF8Encoding(true).GetBytes("111: " + x);
-                        fileStream.Write(texto, 0, texto.Length); ;
-
-                        foreach (System.Messaging.Message message in mq.GetAllMessages())
-                        {
-                            //para prueba de lectura de mensajes comentar al liberar a prod
-                            var texto1 = new UTF8Encoding(true).GetBytes(message.Id + "\t\n");
-                            //var texto1 = new UTF8Encoding(true).GetBytes("sdhbdas");
-                            fileStream.Write(texto1, 0, texto1.Length);
-
-
-                            message.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
-                            Notificacion p = (Notificacion)message.Body;
-                            //LoggerDaemonLibrary.insertNotification(p);
-                            //para prueba de lectura de mensajes comentar al liberar a prod
-                            var mensaje1 = new UTF8Encoding(true).GetBytes(p.Activo + " " + p.TipoNotificacionID + " " + p.UsuarioIDEmisor);
-                            fileStream.Write(mensaje1, 0, mensaje1.Length);
-
-                        }
-
-                        mq.Purge();
-                        //para prueba de lectura de mensajes comentar al liberar a prod
-                        fileStream.Flush();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        var texto = new UTF8Encoding(true).GetBytes("ex: " + ex.Message);
-                        fileStream.Write(texto, 0, texto.Length);
-                        fileStream.Flush();
-
-                        mensaje = "No Message";
-                    }
-                }
-            }
-            
         }
 
         public static void insertNotification(Notificacion notification)
@@ -124,15 +64,32 @@ namespace LoggerDaemon
                 noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
                 noti.TipoNotificacionID = notification.TipoNotificacionID;
                 noti.Mensaje = notification.Mensaje;
-                noti.FechaEnvio = DateTime.Parse(notification.FechaEnvio);
-                noti.FechaRecepcion = DateTime.Parse(notification.FechaRecepcion);
+                noti.FechaEnvio = notification.FechaEnvio;
+                noti.FechaRecepcion = notification.FechaRecepcion;
                 noti.EstatusLectura = notification.EstatusLectura;
                 noti.Activo = notification.Activo;
-                //noti.UsuarioModificacionID = notification.UsuarioModificacionID;
-                //noti.FechaModificacion = notification.FechaModificacion;
+                noti.UsuarioModificacion = notification.UsuarioModificacion;
+                noti.FechaModificacion = notification.FechaModificacion;
 
                 ctx.Sam3_Notificacion.Add(noti);
-                ctx.SaveChanges();               
+                ctx.SaveChanges();
+            }
+        }
+
+        public static void insertBitacora(Bitacora log)
+        {
+            using (SamLogging ctx = new SamLogging())
+            {
+                DatabaseManager.SamLogging.Bitacora bitacora = new DatabaseManager.SamLogging.Bitacora();
+                bitacora.BitacoraId = log.BitacoraId;
+                bitacora.UsuarioId = log.UsuarioId;
+                bitacora.TipoActividadID = log.TipoActividadID;
+                bitacora.Mensaje = log.Mensaje;
+                bitacora.Fecha = log.Fecha;
+                bitacora.EntidadId = log.EntidadId;
+
+                ctx.Bitacora.Add(bitacora);
+                ctx.SaveChanges();
             }
         }
     }

@@ -3,88 +3,178 @@
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div id="divTitulos" style="display:none">
-        <div class="form-group">
-            <h2><label id="EntradaMaterial0013"></label><span id="spanFolioEntrada"></span></h2>
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="EntradaMaterial0022"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")"><span id="EntradaMaterial0023"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")"><span id="EntradaMaterial0024"></span></a>
+    </li>
+}
+
+<div>
+    <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <h2>
+                            <label id="" class="title">Detalle de Entrada de Material</label>
+                            <label id="divTitulos" class="folioLabel">
+                                <span id="EntradaMaterial0013"></span>
+                                <span id="spanFolioEntrada"></span>
+                                <span id="EntradaMaterial0014"></span>
+                                <span id="SpanFolioLlegada"></span>
+                            </label>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-8">
+                <div class="row">
+                    <div id="divFolioEntradaID" class="form-group col-sm-12 col-md-4 col-lg-3">
+                        <label id="EntradaMaterial0003"></label>
+                        <input id="FolioEntradaID" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-4 col-lg-3">
+                        <label id="EntradaMaterial0002"></label>
+                        <input id="ProyectoID" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-4 col-lg-3">
+                        <label id="EntradaMaterial0004"></label>
+                        <input id="Estatus" />
+                    </div>
+                    <div id="divPatio" class="form-group col-sm-12 col-md-4 col-lg-3" style="display: none">
+                        <label id="EntradaMaterial0001"></label>
+                        <div class="input-group">
+                            <input id="PatioID" />
+                            <span class="input-group-btn">
+                                <a class="add" href='javascript:void(0);' onclick="VentanaModal(4);"></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-8">
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <label id="EntradaMaterial0005"></label>
+                                <input name="files" id="AdjuntarArchivos" type="file" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-4">
+                                <label id="EntradaMaterial0006"></label>
+                                <input id="Descripcion" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <table id="listaArchivos" class="filesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <label id="EntradaMaterial0015"></label>
+                                            </td>
+                                            <td>
+                                                <label id="EntradaMaterial0016"></label>
+                                            </td>
+                                            <td>
+                                                <label id="EntradaMaterial0017"></label>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divFoliosGenerados" class="form-group col-sm-12 col-md-12 col-lg-12" style="display: none">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <table id="listaFoliosGenerados" class="filesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <label id="EntradaMaterial0018"></label>
+                                            </td>
+                                            <td>
+                                                <label id="EntradaMaterial0019"></label>
+                                            </td>
+                                            <td>
+                                                <label id="EntradaMaterial0020"></label>
+                                            </td>
+                                            <td>
+                                                <label id="EntradaMaterial0021"></label>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="formButtons col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="divisor"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="EntradaMaterial0012"></span></a>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <a id="Guardar" href="javascript:void(0);" class="btn btn-yellow"><span id="EntradaMaterial0011"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-             <h2><label id="EntradaMaterial0014"></label><span id="SpanFolioLlegada"></span></h2>
-        </div>
     </div>
-    <div id="divFolioEntradaID" class="form-group">
-        <label id="EntradaMaterial0003"></label> 
-        <input id="FolioEntradaID"/>
-    </div>
-    <div class="form-group">
-        <label id="EntradaMaterial0002"></label> 
-        <input id="ProyectoID"/>
-    </div>
-    <div class="form-group">
-        <label id="EntradaMaterial0004"></label> 
-        <input id="Estatus"/>
-    </div>
-    <div id="divPatio" class="form-group" style="display:none">
-        <label id="EntradaMaterial0001"></label> 
-        <input id="PatioID" />
-         <a href='javascript:void(0);' onclick="VentanaModal(4);">Icono</a>
-    </div>
-
-    <div class="form-group">
-         <label id="EntradaMaterial0005"></label> 
-         <input name="files" id="AdjuntarArchivos" type="file"/>
-    </div>
-
-    <div class="form-group">
-        <label id="EntradaMaterial0006"></label> 
-        <input id="Descripcion"/>
-    </div>
-
-    <table id="listaArchivos">
-            <thead><tr><td><label id="EntradaMaterial0015"></label></td><td><label id="EntradaMaterial0016"></label></td><td><label id="EntradaMaterial0017"></label></td></tr></thead>
-    </table>
-
-    <div id="divFoliosGenerados" style="display:none">
-        <table id="listaFoliosGenerados">
-                <thead><tr><td><label id="EntradaMaterial0018"></label></td><td><label id="EntradaMaterial0019"></label></td><td><label id="EntradaMaterial0020"></label></td><td><label id="EntradaMaterial0021"></label></td></tr></thead>
-        </table>
-    </div>
-
-    <a id="Guardar" href="javascript:void(0);"  class="btn btn-primary"><span id="EntradaMaterial0011"></span></a>
-    <a id="Cancelar" href="javascript:void(0);"  class="btn btn-primary"><span id="EntradaMaterial0012"></span></a>
+</div>
 
 @*Ventana Modal*@
     <div id="window">
-        <div id="modalPatio" style="display:none">
-            <div class="form-group">           
-                <label id="EntradaMaterial0007"></label> 
-                <input id="Nombre_Patio"/>
-            </div>
-            <div class="form-group">           
-                <label id="EntradaMaterial0008"></label> 
-                <input id="Propietario_Patio"/>
-            </div>
-            <div class="form-group">           
-                <label id="EntradaMaterial0009"></label> 
-                <input id="Descripcion_Patio"/>
+        <div id="modalPatio" style="display: none">
+            <div class="form-group">
+                <label id="EntradaMaterial0007"></label>
+                <input id="Nombre_Patio" />
             </div>
             <div class="form-group">
-                <a id="GuardarPatio" href="javascript:void(0);"  class="btn btn-primary"><span id="EntradaMaterial0010"></span></a>
+                <label id="EntradaMaterial0008"></label>
+                <input id="Propietario_Patio" />
+            </div>
+            <div class="form-group">
+                <label id="EntradaMaterial0009"></label>
+                <input id="Descripcion_Patio" />
+            </div>
+            <div class="form-group">
+                <a id="GuardarPatio" href="javascript:void(0);" class="btn btn-primary"><span id="EntradaMaterial0010"></span></a>
             </div>
         </div>
     </div>
 
 
-        
+
 
 <script>
   @section JavascriptGlobalVariables {
-        var folioLlegada = getUrlParameter("folioLlegada", "-1");
-        var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");//FolioEntradaID
-        //your partial views variables
-        var FechaRecepcion;
-        var Patio = [];
-        var Proyecto = [];
-    };
+      var folioLlegada = getUrlParameter("folioLlegada", "-1");
+      var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");//FolioEntradaID
+      //your partial views variables
+      var FechaRecepcion;
+      var Patio = [];
+      var Proyecto = [];
+  };
 
 
     @section JavascriptGlobalFunctions {
@@ -199,7 +289,7 @@
                 upload: onUploadAdjuntarArchivos
             });
 
-    };
+        };
         function CargaInicialEdicion() {
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyEntradaMaterial');
@@ -227,43 +317,43 @@
         };
         function VentanaModal(id) {
 
-        switch (id) {
-            case 1:
-                $("#modalProveedor").hide();
-                $("#modalPatio").hide();
-                $("#modalChofer").hide();
-                $("#modalPlana").hide();
-                $("#modalTransportista").show();
-                break;
-            case 2:
-                $("#modalTransportista").hide();
-                $("#modalPatio").hide();
-                $("#modalChofer").hide();
-                $("#modalPlana").hide();
-                $("#modalProveedor").show();
-                break;
-            case 3:
-                $("#modalTransportista").hide();
-                $("#modalPatio").hide();
-                $("#modalChofer").hide();
-                $("#modalProveedor").hide();
-                $("#modalPlana").show();
-                break;
-            case 4:
-                $("#modalTransportista").hide();
-                $("#modalProveedor").hide();
-                $("#modalChofer").hide();
-                $("#modalPlana").hide();
-                $("#modalPatio").show();
-                break;
-            case 5:
-                $("#modalTransportista").hide();
-                $("#modalProveedor").hide();
-                $("#modalPatio").hide();
-                $("#modalPlana").hide();
-                $("#modalChofer").show();
-                break;
-     };
+            switch (id) {
+                case 1:
+                    $("#modalProveedor").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPlana").hide();
+                    $("#modalTransportista").show();
+                    break;
+                case 2:
+                    $("#modalTransportista").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPlana").hide();
+                    $("#modalProveedor").show();
+                    break;
+                case 3:
+                    $("#modalTransportista").hide();
+                    $("#modalPatio").hide();
+                    $("#modalChofer").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalPlana").show();
+                    break;
+                case 4:
+                    $("#modalTransportista").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalChofer").hide();
+                    $("#modalPlana").hide();
+                    $("#modalPatio").show();
+                    break;
+                case 5:
+                    $("#modalTransportista").hide();
+                    $("#modalProveedor").hide();
+                    $("#modalPatio").hide();
+                    $("#modalPlana").hide();
+                    $("#modalChofer").show();
+                    break;
+            };
 
             var window = $("#window");
             var win = window.kendoWindow({
@@ -461,4 +551,4 @@
             });
         }
     };
- </script>
+</script>
