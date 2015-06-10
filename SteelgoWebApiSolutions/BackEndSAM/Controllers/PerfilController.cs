@@ -10,7 +10,7 @@ using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.EntidadesPersonalizadas;
 using SecurityManager.TokenHandler;
 using SecurityManager.Api.Models;
-using BackEndSAM.Models;
+using BackEndSAM.DataAcces;
 
 namespace BackEndSAM.Controllers
 {

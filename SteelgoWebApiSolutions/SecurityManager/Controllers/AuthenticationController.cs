@@ -64,6 +64,8 @@ namespace SecurityManager
                 transaction.IsAuthenicated = false;
             }
 
+            //string json = serializer.Serialize(transaction);
+
             return transaction;
         }
 
