@@ -922,6 +922,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
+    <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
     <Compile Include="Controllers\Errors\ErrorsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
@@ -1056,6 +1057,7 @@
     <Content Include="Views\EntradaMaterial\DetalleLlegadaMaterial.cshtml" />
     <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
+    <Content Include="Views\Cuantificacion\Cuantificacion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

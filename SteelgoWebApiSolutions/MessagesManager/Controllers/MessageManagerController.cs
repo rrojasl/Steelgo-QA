@@ -25,6 +25,8 @@ namespace MessagesManager.Controllers
             string json = convertirObjToJson<List<Sam3_Notificacion>>(notifications);
             string message = dataSecurity.Encode(json);
             return message;
+
+
         }
 
         // POST api/<controller>
@@ -37,8 +39,9 @@ namespace MessagesManager.Controllers
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id)
         {
+            messages.GetnotificationsByNotificationID(id);
         }
 
         // DELETE api/<controller>/5
