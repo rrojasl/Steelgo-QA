@@ -9,7 +9,7 @@
 <script>
     var client = new $.RestClient('http://localhost:60966/messagesManager/api/');
     client.add('messageManager');
-    client.messageManager.read({ id: 1 }).done(function (data) {
+    client.messageManager.read({ id: 5 }).done(function (data) {
         console.log(data);
     });
       
