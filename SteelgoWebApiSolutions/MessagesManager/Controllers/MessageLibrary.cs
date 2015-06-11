@@ -60,15 +60,31 @@ namespace MessagesManager.Controllers
             return p;
         }
 
-        public List<Sam3_Notificacion> GetNotificationsByUserID(int userId)
+        public List<Notificacion> GetNotificationsByUserID(int userId)
         {
-            List<Sam3_Notificacion> notifications = new List<Sam3_Notificacion>();
+            List<Notificacion> notifications = new List<Notificacion>();
 
             using (SamContext ctx = new SamContext())
             {
                 notifications = ctx.Sam3_Notificacion
+                    .Join(ctx.Sam3_Usuario, n => n.UsuarioIDEmisor, u => u.UsuarioID,
+                          (n, u) => new
+                          {
+                              n.NotificacionID,
+                              n.UsuarioIDReceptor,
+                              n.UsuarioIDEmisor,
+                              n.TipoNotificacionID,
+                              n.Mensaje,
+                              n.FechaEnvio,
+                              n.FechaRecepcion,
+                              n.EstatusLectura,
+                              n.Activo,
+                              n.UsuarioModificacion,
+                              n.FechaModificacion,
+                              u.NombreUsuario
+                          }).ToList()
                     .Where(x => x.UsuarioIDReceptor == userId && x.Activo == true && x.EstatusLectura == false).ToList()
-                    .Select(x => new Sam3_Notificacion
+                    .Select(x => new Notificacion
                     {
                         NotificacionID = x.NotificacionID,
                         UsuarioIDReceptor = x.UsuarioIDReceptor,
@@ -80,9 +96,9 @@ namespace MessagesManager.Controllers
                         EstatusLectura = x.EstatusLectura,
                         Activo = x.Activo,
                         UsuarioModificacion = x.UsuarioModificacion,
-                        FechaModificacion = x.FechaModificacion
+                        FechaModificacion = x.FechaModificacion,
+                        NombreUsuarioEmisor = x.NombreUsuario
                     }).ToList();
-
                 return notifications;
             }
         }
