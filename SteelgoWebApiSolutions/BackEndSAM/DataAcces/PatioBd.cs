@@ -11,22 +11,22 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
-    public class TransportistaBd
+    public class PatioBd
     {
         private static readonly object _mutex = new object();
-        private static TransportistaBd _instance;
+        private static PatioBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private TransportistaBd()
+        private PatioBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static TransportistaBd Instance
+        public static PatioBd Instance
         {
             get
             {
@@ -34,29 +34,28 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new TransportistaBd();
+                        _instance = new PatioBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerListadoTransportistas()
+        public object ObtenerlistadoPatios()
         {
             try
             {
-                List<Transportista> lstTransportista;
                 using (SamContext ctx = new SamContext())
                 {
-                    lstTransportista = (from t in ctx.Sam3_Transportista
-                                        where t.Activo
-                                        select new Transportista
-                                        {
-                                            Nombre = t.Nombre,
-                                            TransportistaID = t.TransportistaID.ToString()
-                                        }).AsParallel().ToList();
+                    List<Patio> lstPatios = (from p in ctx.Sam3_Patio
+                                             where p.Activo
+                                             select new Patio
+                                             {
+                                                 Nombre = p.Nombre,
+                                                 PatioID = p.PatioID.ToString()
+                                             }).AsParallel().ToList();
+                    return lstPatios;
                 }
-                return lstTransportista;
             }
             catch (Exception ex)
             {
@@ -67,27 +66,23 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
- 
             }
         }
 
-        public object InsertarTransportista(Sam3_Transportista nuevoRegistro, string payload)
+        public object InsertarPatio(Sam3_Patio cambios, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                    cambios.Activo = true;
+                    cambios.UsuarioModificacion = usuario.UsuarioID;
+                    cambios.FechaModificacion = DateTime.Now;
 
-                    nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
-                    nuevoRegistro.FechaModificacion = DateTime.Now;
-
-                    ctx.Sam3_Transportista.Add(nuevoRegistro);
-
+                    ctx.Sam3_Patio.Add(cambios);
                     ctx.SaveChanges();
 
-                    return new Transportista { Nombre = nuevoRegistro.Nombre, TransportistaID = nuevoRegistro.TransportistaID.ToString() };
+                    return new Patio { Nombre = cambios.Nombre, PatioID = cambios.PatioID.ToString() };
                 }
             }
             catch (Exception ex)
@@ -99,35 +94,26 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
-
             }
         }
 
-        public object ActualizarTransportista(Sam3_Transportista cambios, Sam3_Usuario usuario)
+        public object ActualizarPatio(Sam3_Patio cambios, Sam3_Usuario Usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Transportista registroEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID == cambios.TransportistaID)
-                        .AsParallel().SingleOrDefault();
-
-                    registroEnBd.Activo = registroEnBd.Activo != null && cambios.Activo != registroEnBd.Activo ?
-                        cambios.Activo : registroEnBd.Activo;
-                    registroEnBd.ContactoID = cambios.ContactoID != null && cambios.ContactoID != registroEnBd.ContactoID ? 
-                        cambios.ContactoID : registroEnBd.ContactoID;
-                    registroEnBd.Descripcion = cambios.Descripcion != null && cambios.Descripcion != registroEnBd.Descripcion ?
-                        cambios.Descripcion : registroEnBd.Descripcion;
-                    registroEnBd.Direccion = cambios.Direccion != null && cambios.Direccion != registroEnBd.Direccion ?
-                        cambios.Direccion : registroEnBd.Direccion;
-                    registroEnBd.Nombre = cambios.Nombre != null && cambios.Nombre != registroEnBd.Nombre ?
-                        cambios.Nombre : registroEnBd.Nombre;
-                    registroEnBd.Telefono = cambios.Telefono != null && cambios.Telefono != registroEnBd.Telefono ?
-                        cambios.Telefono : registroEnBd.Telefono;
-                    registroEnBd.TransportistaID = cambios.TransportistaID != null && cambios.TransportistaID != registroEnBd.TransportistaID ?
-                        cambios.TransportistaID : registroEnBd.TransportistaID;
-                    registroEnBd.UsuarioModificacion = usuario.UsuarioID;
-                    registroEnBd.FechaModificacion = DateTime.Now;
+                    Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == cambios.PatioID && x.Activo).AsParallel().SingleOrDefault();
+                    patioEnBd.Activo = cambios.Activo != null && cambios.Activo != patioEnBd.Activo ?
+                        cambios.Activo : patioEnBd.Activo;
+                    patioEnBd.Descripcion = cambios.Descripcion != null && cambios.Descripcion != patioEnBd.Descripcion ?
+                        cambios.Descripcion : patioEnBd.Descripcion;
+                    patioEnBd.Nombre = cambios.Nombre != null && cambios.Nombre != patioEnBd.Nombre ?
+                        cambios.Nombre : patioEnBd.Nombre;
+                    patioEnBd.Propietario = cambios.Propietario != null && cambios.Propietario != patioEnBd.Propietario ?
+                        cambios.Propietario : patioEnBd.Propietario;
+                    patioEnBd.UsuarioModificacion = Usuario.UsuarioID;
+                    patioEnBd.FechaModificacion = DateTime.Now;
 
                     ctx.SaveChanges();
 
@@ -149,22 +135,19 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
-
             }
         }
 
-        public object EliminarTransportista(int transportistaID, Sam3_Usuario usuario)
+        public object EliminarPatio(int patioID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Transportista registroEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID == transportistaID)
-                        .AsParallel().SingleOrDefault();
-
-                    registroEnBd.Activo = false;
-                    registroEnBd.UsuarioModificacion = usuario.UsuarioID;
-                    registroEnBd.FechaModificacion = DateTime.Now;
+                    Sam3_Patio patio = ctx.Sam3_Patio.Where(x => x.PatioID == patioID).AsParallel().SingleOrDefault();
+                    patio.Activo = false;
+                    patio.UsuarioModificacion = usuario.UsuarioID;
+                    patio.FechaModificacion = DateTime.Now;
 
                     ctx.SaveChanges();
 
@@ -186,10 +169,8 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
-
             }
         }
 
-
-    }
+    }//Fin clase
 }

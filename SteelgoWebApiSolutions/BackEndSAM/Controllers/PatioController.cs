@@ -16,7 +16,7 @@ using BackEndSAM.DataAcces;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ProveedorController
+    public class PatioController
     {
         public object Get(string token)
         {
@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ProveedorBd.Instance.ObtenerListadoProveedores();
+                return PatioBd.Instance.ObtenerlistadoPatios();
             }
             else
             {
@@ -38,7 +38,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(Sam3_Proveedor proveedor, string token)
+        public object Post(Sam3_Patio patio, string token)
         {
             string payload = "";
             string newToken = "";
@@ -47,7 +47,8 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ProveedorBd.Instance.InsertarProveedor(proveedor, usuario);
+
+                return PatioBd.Instance.InsertarPatio(patio, usuario);
             }
             else
             {
@@ -60,7 +61,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(Sam3_Proveedor proveedor, string token)
+        public object Put(Sam3_Patio patio, string token)
         {
             string payload = "";
             string newToken = "";
@@ -69,7 +70,8 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ProveedorBd.Instance.ActualizarProveedor(proveedor, usuario);
+
+                return PatioBd.Instance.ActualizarPatio(patio, usuario); 
             }
             else
             {
@@ -82,7 +84,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Delete(string proveedorID, string token)
+        public object Delete(string patioID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -91,7 +93,8 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ProveedorBd.Instance.EliminarProveedor(Convert.ToInt32(proveedorID), usuario);
+
+                return PatioBd.Instance.EliminarPatio(Convert.ToInt32(patioID), usuario);
             }
             else
             {
@@ -104,5 +107,5 @@ namespace BackEndSAM.Controllers
             }
         }
 
-    }//fin calse
+    }// Fin clase
 }
