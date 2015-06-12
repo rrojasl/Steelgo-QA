@@ -9,10 +9,15 @@ namespace LoggerDaemon
 {
     public class LoggerDaemonLibrary
     {
+        /// <summary>
+        /// Método para Leer los mensajes de la cola de Mensajes tipo Notificación
+        /// e insertarlos en la base de datos
+        /// </summary>
         public static void ReadMessagesNotificaciones()
         {
             try
             {
+                //Dirección del servidor para los mensajes de tipo Notificacion
                 string path = StringsConfiguration.QuequeNotifications;
                 MessageQueue mq = new MessageQueue(path);
 
@@ -22,19 +27,23 @@ namespace LoggerDaemon
                     Notificacion p = (Notificacion)message.Body;
                     LoggerDaemonLibrary.insertNotification(p);
                 }
-
+                //Elimina todos los mensajes de la cola
                 mq.Purge();
             }
             catch (Exception ex)
             {
-                var texto = new UTF8Encoding(true).GetBytes("ex: " + ex.Message);
             }
         }
 
+        /// <summary>
+        /// Método para leer los mensajes de la cola de Mensajes Tipo Bitácora
+        /// e insertarlos en la base de datos
+        /// </summary>
         public static void ReadMessagesBitacora()
         {
             try
             {
+                //Dirección del servidor para los mensajes de tipo Bitácora
                 string path = StringsConfiguration.QuequeBitacora;
                 MessageQueue mq = new MessageQueue(path);
 
@@ -44,16 +53,19 @@ namespace LoggerDaemon
                     Bitacora p = (Bitacora)message.Body;
                     LoggerDaemonLibrary.insertBitacora(p);
                 }
-
+                //Elimina todos los mensajes de la cola
                 mq.Purge();
-
             }
             catch (Exception ex)
             {
-                var texto = new UTF8Encoding(true).GetBytes("ex: " + ex.Message);
             }
         }
 
+        /// <summary>
+        /// Método para Insertar el mensaje de tipo Notificación obtenido de la cola de mensajes
+        /// a la Base de datos
+        /// </summary>
+        /// <param name="notification">Mensaje tipo Notificacion</param>
         public static void insertNotification(Notificacion notification)
         {
             using (SamContext ctx = new SamContext())
@@ -76,6 +88,11 @@ namespace LoggerDaemon
             }
         }
 
+        /// <summary>
+        /// Método para insertar el mensaje de Tipo Bitácora obtenido de la cola de mensajes
+        /// a la base de datos
+        /// </summary>
+        /// <param name="log">Mensaje Tipo Bitácora</param>
         public static void insertBitacora(Bitacora log)
         {
             using (SamLogging ctx = new SamLogging())
