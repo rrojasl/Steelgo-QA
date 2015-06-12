@@ -17,19 +17,24 @@ namespace MessagesManager.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
+       /// <summary>
+       /// Obtiene las notificaciones por ID de usuario
+       /// </summary>
+       /// <param name="id">ID de usuario</param>
+       /// <returns>Notificaciones en formato JSON codificado</returns>
         public string Get(int id)
         {
             List<Notificacion> notifications = messages.GetNotificationsByUserID(id);
-
             string json = convertirObjToJson<List<Notificacion>>(notifications);
             string message = dataSecurity.Encode(json);
             return message;
-
-
         }
 
-        // POST api/<controller>
+        /// <summary>
+        /// Crea el mensaje en la cola de mensajes
+        /// </summary>
+        /// <param name="objectEncrypted">Mensaje encriptado</param>
+        /// <param name="typeMessage">Tipo de Mensaje (1: Bitácora, 2: Notificación)</param>
         public void Post(string objectEncrypted, string typeMessage)
         {
             string message = dataSecurity.Decode(objectEncrypted);
@@ -38,17 +43,25 @@ namespace MessagesManager.Controllers
             messages.SendMessageToQueue(message, typeMsg);
         }
 
-        // PUT api/<controller>/5
+       /// <summary>
+       /// Cambia Estatus Lectura de una Notificación a Leida
+       /// </summary>
+       /// <param name="id">ID de notificación</param>
         public void Put(int id)
         {
             messages.GetnotificationsByNotificationID(id);
         }
-
-        // DELETE api/<controller>/5
+        
         public void Delete(int id)
         {
         }
 
+        /// <summary>
+        /// Método para convertir las Listas de Notificaciones a JSON
+        /// </summary>
+        /// <typeparam name="T">Objeto tipo Notificacion/typeparam>
+        /// <param name="objeto">Lista tipo Notificación</param>
+        /// <returns>Lista de notificaciones en formato JSON</returns>
         private string convertirObjToJson<T>(T objeto)
         {
             string json = string.Empty;

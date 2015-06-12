@@ -11,40 +11,67 @@ namespace MessagesManager.Controllers
 {
     public class MessageLibrary
     {
+        /// <summary>
+        /// Método que envía el mensaje a la cola de mensajes dependiendo de su tipo
+        /// 1 es tipo Bitácora
+        /// 2 es tipo Notificación
+        /// </summary>
+        /// <param name="message">Texto del mensaje (json)</param>
+        /// <param name="typeMessage">Tipo de Mensaje</param>
         public void SendMessageToQueue(string message, int typeMessage)
         {
             if (typeMessage == 1)//Bitacora
             {
-                string path = StringsConfiguration.QuequeBitacora;
+                //Dirección del servidor para la cola de tipo Bitácora
+                string path = StringsConfiguration.QuequeBitacora; 
                 MessageQueue queueBitacora = new MessageQueue(path);
-                //MessageQueue queueBitacora = new MessageQueue(".\\Private$\\Bitacora");
                 queueBitacora.Formatter = new XmlMessageFormatter(new Type[] { typeof(Bitacora) });
                 Bitacora bitacora = MappingLog(message);
-
+                //Enviar mensaje a la cola de mensajes
                 queueBitacora.Send(bitacora);
             }
             else if (typeMessage == 2) //Notificacion
             {
-                string path = StringsConfiguration.QuequeNotifications;
+                //Dirección del servidor para la cola de tipo Notificación
+                string path = StringsConfiguration.QuequeNotifications; 
                 MessageQueue queueNotifications = new MessageQueue(path);
-                //MessageQueue queueNotifications = new MessageQueue(".\\Private$\\Notificacion");
                 queueNotifications.Formatter = new XmlMessageFormatter(new Type[] { typeof(Notificacion) });
                 Notificacion notification = MappingNotification(message);
+                //Enviar mensaje a la cola de mensajes
                 queueNotifications.Send(notification);
             }
         }
-        public Notificacion MappingNotification(string message)
-        {
-            Notificacion notification = convertirObjToObj<Notificacion>(message);
-            return notification;
-        }
 
+        /// <summary>
+        /// Método para mapear el mensaje de Bitácora
+        /// El mensaje es recibido en JSON y se convierte a Objeto de tipo Bitácora
+        /// </summary>
+        /// <param name="message">Texto del mensaje (json)</param>
+        /// <returns>Objeto tipo Bitácora</returns>
         public Bitacora MappingLog(string message)
         {
             Bitacora log = convertirObjToObj<Bitacora>(message);
             return log;
         }
 
+        /// <summary>
+        /// Método para mapear el mensaje de Notificación
+        /// El mensaje es recibido en JSON y se convierte a Objeto de tipo Notificación
+        /// </summary>
+        /// <param name="message">Texto del mensaje (json)</param>
+        /// <returns>Objeto de tipo Notificación</returns>
+        public Notificacion MappingNotification(string message)
+        {
+            Notificacion notification = convertirObjToObj<Notificacion>(message);
+            return notification;
+        }
+
+        /// <summary>
+        /// Método que convierte JSON a Objeto tipo T
+        /// </summary>
+        /// <typeparam name="T">Objeto tipo T (Bitácora/Notificación)</typeparam>
+        /// <param name="json">Texto del mensaje </param>
+        /// <returns>Objeto tipo T (Bitácora/Notificación)</returns>
         public T convertirObjToObj<T>(string json)
         {
             T p = default(T);
@@ -60,6 +87,12 @@ namespace MessagesManager.Controllers
             return p;
         }
 
+        /// <summary>
+        /// Método que obtiene las notificaciones de un usuario
+        /// Notificaciones Activas y que no hayan sido leidas
+        /// </summary>
+        /// <param name="userId">ID del usuario</param>
+        /// <returns>Lista de Notificaciones</returns>
         public List<Notificacion> GetNotificationsByUserID(int userId)
         {
             List<Notificacion> notifications = new List<Notificacion>();
@@ -103,6 +136,10 @@ namespace MessagesManager.Controllers
             }
         }
 
+        /// <summary>
+        /// Método para marcar una notificación como Leida
+        /// </summary>
+        /// <param name="notificationID">ID de la notificación</param>
         public void GetnotificationsByNotificationID(int notificationID)
         {
             using (SamContext ctx = new SamContext())
