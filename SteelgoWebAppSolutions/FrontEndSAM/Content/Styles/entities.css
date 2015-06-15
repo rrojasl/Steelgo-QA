@@ -909,7 +909,6 @@ header .menu > div {
         }
 
     /*$_content-container*/
-
     .content-container.expanded {
         max-width: 95%;
         width: 95%;
@@ -917,5 +916,35 @@ header .menu > div {
 }
 
 /* lg viewport */
+@media (min-width: 1025px) and (max-width: 1279px) {
+
+    /*$_sidebar*/
+    .sidebar {
+        min-width: 18%;
+        width: 18%;
+    }
+
+    /*$_content-container*/
+    .content-container {
+        max-width: 82%;
+        width: 82%;
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1460px) {
+
+    /*$_sidebar*/
+    .sidebar {
+        min-width: 15%;
+        width: 15%;
+    }
+
+    /*$_content-container*/
+    .content-container {
+        max-width: 85%;
+        width: 85%;
+    }
+}
+
 @media (min-width: 1025px) {
 }
