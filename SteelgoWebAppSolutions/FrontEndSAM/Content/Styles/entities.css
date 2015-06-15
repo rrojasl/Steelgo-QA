@@ -607,8 +607,10 @@ header .menu > div {
     }
 
     .content-container.expanded {
-        max-width: 96.95%;
-        width: 96.95%;
+        max-width: 100%;
+        width: 100%;
+        margin-left: -58px;
+        padding-left: 58px;
     }
 /**********************************************************************************/
 
@@ -852,23 +854,6 @@ header .menu > div {
         left: 50.5%;
     }
 
-    /*$_sidebar*/
-    .sidebar.minified {
-        min-width: 6.5%;
-        width: 6.5%;
-    }
-
-        .sidebar.minified .nav-footer .icn.right {
-            left: 8px;
-        }
-
-
-    /*$_content-container*/
-    .content-container.expanded {
-        max-width: 93.5%;
-        width: 93.5%;
-    }
-
     /*$_addedSection*/
     .addedSection {
         margin-top: 15px;
@@ -888,6 +873,11 @@ header .menu > div {
             padding: 12px 10px 12px 15px;
         }
 
+        .sidebar.minified .main-nav ul > li a {
+            padding: 12px 10px 12px 10px;
+            text-align: center;
+        }
+
     /*$_content-container*/
     .content-container {
         max-width: 76.5%;
@@ -898,21 +888,6 @@ header .menu > div {
 /* md viewport */
 @media (min-width: 992px) and (max-width: 1024px) {
 
-    /*$_sidebar*/
-    .sidebar.minified {
-        min-width: 5%;
-        width: 5%;
-    }
-
-        .sidebar.minified .nav-footer .icn.right {
-            left: 7px;
-        }
-
-    /*$_content-container*/
-    .content-container.expanded {
-        max-width: 95%;
-        width: 95%;
-    }
 }
 
 /* lg viewport */
