@@ -595,7 +595,7 @@ _dictionary = {
         "en-US": "Complement"
     },
     "ListadoLlegadaMaterial0018": {
-        "es-MX": "Cuantificación",
+        "es-MX": "Cuantificacion",
         "en-US": "Quantification"
     },
     "ListadoLlegadaMaterial0019": {
