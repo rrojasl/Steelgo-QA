@@ -930,7 +930,7 @@
             hideElements();
 
             //Toggle for main menu's submenus
-            $("li i.arrow").click(function () {               
+            $("ul.main-menu > li > a").click(function () {               
                 if($(this).closest("li").hasClass('active')) {
                     $(this).closest("li").removeClass('active').children("ul").removeClass("open");                    
                 }
