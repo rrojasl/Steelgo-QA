@@ -20,6 +20,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Proyecto = new HashSet<Sam3_Proyecto>();
             this.Sam3_Taller = new HashSet<Sam3_Taller>();
             this.Sam3_UbicacionFisica = new HashSet<Sam3_UbicacionFisica>();
+            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
         }
     
         public int PatioID { get; set; }
@@ -34,5 +35,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
         public virtual ICollection<Sam3_Taller> Sam3_Taller { get; set; }
         public virtual ICollection<Sam3_UbicacionFisica> Sam3_UbicacionFisica { get; set; }
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
     }
 }

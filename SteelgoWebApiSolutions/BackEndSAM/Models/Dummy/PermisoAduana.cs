@@ -10,6 +10,6 @@ namespace BackEndSAM.Models
         public int NumeroPermiso { get; set; }
         public int PermisoTramite { get; set; }
         public int PermisoAutorizado { get; set; }
-        public ArchivoAutorizado ArchivoAutorizado { get; set; }
+        public ArchivoAutorizadoAV ArchivoAutorizado { get; set; }
     }
 }

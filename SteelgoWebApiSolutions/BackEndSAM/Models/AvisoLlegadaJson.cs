@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseManager.EntidadesPersonalizadas
+namespace BackEndSAM.Models
 {
     public class AvisoLlegadaJson
     {
-        public int FolioAvisoLlegada { get; set; }
+        public int FolioAvisoLlegadaID { get; set; }
         public string Factura { get; set; }
         public DateTime FechaRecepcion { get; set; }
         public string OrdenCompra { get; set; }
@@ -84,15 +84,15 @@ namespace DatabaseManager.EntidadesPersonalizadas
         public bool PermisoAutorizado { get; set; }
         public bool PermisoTramite { get; set; }
         public string NumeroPermiso { get; set; }
-        public List<ArchivoAutorizado> ArchivoAutorizado { get; set; }
+        public List<ArchivoAutorizadoAV> ArchivoAutorizado { get; set; }
         
         public PermisoAduanaAV()
         {
-            ArchivoAutorizado = new List<ArchivoAutorizado>();
+            ArchivoAutorizado = new List<ArchivoAutorizadoAV>();
         }
     }
 
-    public class ArchivoAutorizado
+    public class ArchivoAutorizadoAV
     {
         public int ArchivoID { get; set; }
         public string Nombre { get; set; }
@@ -114,7 +114,7 @@ namespace DatabaseManager.EntidadesPersonalizadas
     {
         public string Nombre { get; set; }
         public string Extension { get; set; }
-        public string TipoArchivo { get; set; }
+        public string ArchivoID { get; set; }
     }
 
 

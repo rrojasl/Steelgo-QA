@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BackEndSAM.Utilities
 {
-    public class Enums
+    public class Enumeraciones
     {
         // <nombre pagina> , <PaginaID>
         public enum Paginas
