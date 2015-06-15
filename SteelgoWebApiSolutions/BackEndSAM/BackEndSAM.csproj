@@ -132,6 +132,7 @@
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
+    <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\PatioBd.cs" />
     <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="DataAcces\ProveedorBd.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />

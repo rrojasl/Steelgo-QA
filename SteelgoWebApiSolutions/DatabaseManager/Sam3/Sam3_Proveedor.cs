@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_Proveedor()
         {
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
+            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
         }
     
         public int ProveedorID { get; set; }
@@ -31,5 +32,6 @@ namespace DatabaseManager.Sam3
     
         public virtual Sam3_Contacto Sam3_Contacto { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
     }
 }

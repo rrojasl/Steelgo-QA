@@ -18,6 +18,9 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_FolioLlegada = new HashSet<Sam3_FolioLlegada>();
             this.Sam3_PermisoAduana = new HashSet<Sam3_PermisoAduana>();
+            this.Sam3_Rel_AvisoLlegada_Plana = new HashSet<Sam3_Rel_AvisoLlegada_Plana>();
+            this.Sam3_Rel_FolioAvisoLlegada_Documento = new HashSet<Sam3_Rel_FolioAvisoLlegada_Documento>();
+            this.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo = new HashSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo>();
         }
     
         public int FolioAvisoLlegadaID { get; set; }
@@ -28,10 +31,25 @@ namespace DatabaseManager.Sam3
         public Nullable<bool> Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int TransportistaID { get; set; }
+        public int ProveedorID { get; set; }
+        public int PatioID { get; set; }
+        public int ChoferID { get; set; }
+        public Nullable<bool> PaseSalidaEnviado { get; set; }
+        public string OrdenCompra { get; set; }
+        public Nullable<System.DateTime> FechaRecepcion { get; set; }
+        public string Factura { get; set; }
     
         public virtual Sam3_Camion Sam3_Camion { get; set; }
         public virtual ICollection<Sam3_FolioLlegada> Sam3_FolioLlegada { get; set; }
         public virtual ICollection<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
         public virtual Sam3_Rel_FolioAvisoLlegada_Proyecto Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
+        public virtual Sam3_Chofer Sam3_Chofer { get; set; }
+        public virtual Sam3_Patio Sam3_Patio { get; set; }
+        public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
+        public virtual Sam3_Transportista Sam3_Transportista { get; set; }
+        public virtual ICollection<Sam3_Rel_AvisoLlegada_Plana> Sam3_Rel_AvisoLlegada_Plana { get; set; }
+        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
+        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
     }
 }
