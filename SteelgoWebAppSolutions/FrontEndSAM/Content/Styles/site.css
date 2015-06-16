@@ -208,6 +208,7 @@ a, a:link, a:hover, a:visited {
     color: #305E8E;
     outline: none;
     text-decoration: none;
+    cursor: pointer;
 }
 /**********************************************************************************/
 
