@@ -917,8 +917,8 @@
                 if($(this).closest("li").hasClass('active') && !$("#sidebar").hasClass("minified")) {
                     $("ul.sub-menu2").removeClass("open");
                     $("ul.sub-menu > li").removeClass("active expand");
-                    $(this).closest("li").children("ul").addClass("open");
-                    $(this).children("i.arrow").addClass("down");                    
+                    $(this).closest("li").children("ul").toggleClass("open");
+                    $(this).children("i.arrow").toggleClass("down");                    
                 }
                 else if (!$("#sidebar").hasClass("minified")) {
                     $("li").removeClass('active');
