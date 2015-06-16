@@ -137,6 +137,7 @@
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
     <Compile Include="Controllers\PatioController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\PermisoAduanaController.cs" />
     <Compile Include="Controllers\PlanaController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
