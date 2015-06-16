@@ -137,6 +137,7 @@
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
     <Compile Include="Controllers\PatioController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\PermisoAduanaController.cs" />
     <Compile Include="Controllers\PlanaController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Models\Dummy\Proyecto.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
+    <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
