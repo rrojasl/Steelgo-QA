@@ -294,7 +294,6 @@ namespace BackEndSAM.DataAcces
                                        where (p.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID)
                                        select new PlanaAV
                                        {
-                                           Nombre = r.Placas,
                                            PlanaID = r.PlanaID
                                        }).AsParallel().ToList();
 
