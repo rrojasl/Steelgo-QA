@@ -190,15 +190,28 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoAvisoLlegada(int proyectoID)
+        public object ObtenerListadoAvisoLlegada(FiltrosJson filtros)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> lstFoliosAvisoLlegada = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                        .Where(x => x.ProyectoID == proyectoID && x.Activo)
-                        .Select(x => x.FolioAvisoLlegadaID).AsParallel().ToList();
+                    List<int> lstFoliosAvisoLlegada;
+                    if (filtros.FolioLlegadaID > 0)
+                    {
+                        lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioLlegada
+                                                 join a in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals a.FolioAvisoLlegadaID
+                                                 where r.FolioLlegadaID == filtros.FolioLlegadaID
+                                                 && r.Activo.Value
+                                                 && (a.FechaRecepcion >= filtros.FechaInicial && a.FechaRecepcion <= filtros.FechaFinal)
+                                                 select a.FolioAvisoLlegadaID).AsParallel().ToList();
+                    }
+                    else
+                    {
+                        lstFoliosAvisoLlegada = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                            .Where(x => x.ProyectoID == filtros.Proyectos[0].ProyectoID && x.Activo)
+                            .Select(x => x.FolioAvisoLlegadaID).AsParallel().ToList();
+                    }
 
                     List<AvisoLlegadaJson> resultados = new List<AvisoLlegadaJson>();
 
@@ -226,7 +239,7 @@ namespace BackEndSAM.DataAcces
                         aviso.FechaRecepcion = registroBd.FechaRecepcion.Value;
                         aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
                         aviso.OrdenCompra = registroBd.OrdenCompra;
-                        
+
                         //Obtenemos el listado de archivos de pase de salida
                         List<ArchivosPaseSalida> archivosPaseSalida = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
                                                                        where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID
@@ -260,13 +273,13 @@ namespace BackEndSAM.DataAcces
                         foreach (Sam3_PermisoAduana p in lstpermisosAduana)
                         {
                             List<ArchivoAutorizadoAV> lstarchivosPermisoAduana = (from r in ctx.Sam3_Rel_PermisoAduana_Documento
-                                                                               where r.PermisoAduanaID == p.PermisoAduanaID && r.Activo
-                                                                               select new ArchivoAutorizadoAV
-                                                                               {
-                                                                                   ArchivoID = r.DocumentoID,
-                                                                                   Extension = r.Extencion,
-                                                                                   Nombre = r.Nombre
-                                                                               }).AsParallel().ToList();
+                                                                                  where r.PermisoAduanaID == p.PermisoAduanaID && r.Activo
+                                                                                  select new ArchivoAutorizadoAV
+                                                                                  {
+                                                                                      ArchivoID = r.DocumentoID,
+                                                                                      Extension = r.Extencion,
+                                                                                      Nombre = r.Nombre
+                                                                                  }).AsParallel().ToList();
                             aviso.PermisoAduana.Add(new PermisoAduanaAV
                             {
                                 ArchivoAutorizado = lstarchivosPermisoAduana,
@@ -309,7 +322,7 @@ namespace BackEndSAM.DataAcces
                                                }).AsParallel().ToList();
 
                         resultados.Add(aviso);
-                        
+
 
                     }
 
