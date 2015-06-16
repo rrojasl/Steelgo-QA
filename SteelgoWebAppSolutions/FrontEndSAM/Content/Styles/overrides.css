@@ -8,7 +8,7 @@
     02  $_k-widget
     03  $_k-grid
     04  $_input-group
-    05  $_
+    05  $_calendar
     06  $_
     07  $_
     08  $_
@@ -335,7 +335,7 @@
         height: 27px;
         max-width: 18px;
         padding: 0;
-        margin: 0 -24px;
+        margin: 0 -25px;
         font-size: 0;
         border: none;
         outline: none;
@@ -358,6 +358,16 @@
         .k-grid tbody tr td a.k-button.k-grid-Cancelar,
         .k-grid tbody tr td a.k-button.k-grid-Cancel {
             background-image: url("/Content/images/SAMC_Delete.png");
+        }
+
+        .k-grid tbody tr td a.k-button.k-grid-Complemento,
+        .k-grid tbody tr td a.k-button.k-grid-Complement {
+            background-image: url("/Content/images/SAMC_Checkmark.png");
+        }
+
+        .k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
+        .k-grid tbody tr td a.k-button.k-grid-Quantification {
+            background-image: url("/Content/images/SAMC_Add.png");
         }
 
 .k-grid-pager {
@@ -458,6 +468,96 @@
         }
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_calendar
+ Description:   Override kendo datepicker calendar.
+**********************************************************************************/
+.k-calendar-container {
+    padding: 0 !important;
+    background-color: #FFFFFF;
+    border-radius: 0;
+}
+
+    .k-calendar-container.k-group {
+        border-color: transparent;
+        border: 0;
+        border-bottom: 1px solid #c5c5c5;
+    }
+
+    .k-calendar-container.k-state-border-up {
+        border-radius: 0;
+    }
+
+.k-calendar {
+    font-size: 12px;
+    border-radius: 0;
+}
+
+    .k-calendar .k-header {
+        background: none;
+        font-weight: 600;
+        background-color: #1B3F70;
+        border: 1px solid #1B3F70;
+        border-bottom: 0;
+    }
+
+        .k-calendar .k-header .k-i-arrow-w {
+            background-image: url("/Content/images/SAMC_Icon_Calendar_Left.png");
+            background-position: center 2px !important;
+        }
+
+        .k-calendar .k-header .k-i-arrow-e {
+            background-image: url("/Content/images/SAMC_Icon_Calendar_Right.png");
+            background-position: center 2px !important;
+        }
+
+        .k-calendar .k-header .k-link,
+        .k-calendar .k-header .k-link.k-state-hover {
+            color: #FFFFFF;
+            background: none !important;
+            padding: 6px 0;
+            text-transform: uppercase;
+        }
+
+    .k-calendar table {
+        color: #202020 !important;
+        font-weight: 600;
+        border-right: 1px solid #c5c5c5;
+        border-left: 1px solid #c5c5c5;
+    }
+
+        .k-calendar table thead tr th {
+            background-color: #FFFFFF;
+            padding: 5.6px 7.5px;
+            font-weight: 600;
+        }
+
+        .k-calendar table tbody tr td {
+            padding: 3.6px 6.5px;
+        }
+
+            .k-calendar table tbody tr td.k-state-focused {
+                box-shadow: inset 0 0 5px 1px #1B3F70;
+                background: none;
+            }
+
+            .k-calendar table tbody tr td.k-state-selected {
+                box-shadow: none;
+                background: none;
+                background-color: #1B3F70;
+            }
+
+            .k-calendar table tbody tr td.k-state-hover {
+                box-shadow: none;
+                background: none;
+                background-color: #FCEED9 !important;
+            }
+
+    .k-calendar .k-footer {
+        display: none;
+    }
+/**********************************************************************************/
 
 /* Media Queries */
 

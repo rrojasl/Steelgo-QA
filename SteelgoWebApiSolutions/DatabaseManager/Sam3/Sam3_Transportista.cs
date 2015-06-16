@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_Transportista()
         {
             this.Sam3_Camion = new HashSet<Sam3_Camion>();
+            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
         }
     
         public int TransportistaID { get; set; }
@@ -31,5 +32,6 @@ namespace DatabaseManager.Sam3
     
         public virtual ICollection<Sam3_Camion> Sam3_Camion { get; set; }
         public virtual Sam3_Contacto Sam3_Contacto { get; set; }
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
     }
 }

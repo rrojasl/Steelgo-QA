@@ -101,7 +101,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bitacora.cs" />
-    <Compile Include="Controllers\MensajeController.cs" />
     <Compile Include="Controllers\MessageLibrary.cs" />
     <Compile Include="Controllers\MessageManagerController.cs" />
     <Compile Include="Global.asax.cs">

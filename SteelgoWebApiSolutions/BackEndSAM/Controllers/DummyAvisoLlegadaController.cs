@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
             Chofer chofer = new Chofer();
             Plana plana = new Plana();
             PermisoAduana permisoaduana1 = new PermisoAduana();
-            ArchivoAutorizado archivoautorizado1 = new ArchivoAutorizado();
+            ArchivoAutorizadoAV archivoautorizado1 = new ArchivoAutorizadoAV();
             PaseSalida paseSalida = new PaseSalida();
             Files archivosPaseSalida= new Files();
             Files archivosPaseSalida1= new Files();
@@ -126,7 +126,7 @@ namespace BackEndSAM.Controllers
             Chofer chofer2 = new Chofer();
             Plana plana2 = new Plana();
             PermisoAduana permisoaduana = new PermisoAduana();
-            ArchivoAutorizado archivoautorizado = new ArchivoAutorizado();
+            ArchivoAutorizadoAV archivoautorizado = new ArchivoAutorizadoAV();
 
             PaseSalida paseSalida1 = new PaseSalida();
             Files archivosPaseSalidaaa1 = new Files();

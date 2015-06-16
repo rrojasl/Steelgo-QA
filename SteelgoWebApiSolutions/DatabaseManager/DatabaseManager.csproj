@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntidadesPersonalizadas\ListadoPlanas.cs" />
     <Compile Include="EntidadesPersonalizadas\PerfilJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sam2\Acero.cs">
@@ -1060,7 +1061,16 @@
     <Compile Include="Sam3\Sam3_Recepcion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_AvisoLlegada_Plana.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_Documento_Entidad.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_Documento.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_Proyecto.cs">
@@ -1079,6 +1089,12 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_Perfil_Propiedad_Pagina.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_PermisoAduana_Documento.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_TiposDocumentos_ExtencionesDocumentos.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_Usuario_Preferencia.cs">

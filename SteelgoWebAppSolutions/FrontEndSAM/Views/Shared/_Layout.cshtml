@@ -97,7 +97,7 @@
     </header>
     <div class="content-frame">
         <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
-        <div class="container">
+        <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <!-- sidebar -->
                 <div id="sidebar" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
@@ -509,12 +509,14 @@
 
         var $body = $("body");
         var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-        $BackEndSAM.add('DummyListadoAvisoLlegada');
         var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
         var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
         var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
         var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
+        $BackEndSAM.add('DummyListadoAvisoLlegada');
         $SecurityManager.add('authentication');
+
+
         var $authorizationModel = {};
         var $layoutModel = {
             listContainer: {
@@ -932,7 +934,7 @@
             hideElements();
 
             //Toggle for main menu's submenus
-            $("li i.arrow").click(function () {               
+            $("ul.main-menu > li > a").click(function () {               
                 if($(this).closest("li").hasClass('active')) {
                     $(this).closest("li").removeClass('active').children("ul").removeClass("open");                    
                 }

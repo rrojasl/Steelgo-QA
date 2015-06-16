@@ -152,6 +152,8 @@
     <Content Include="Content\images\SAMC_FilterDown.png" />
     <Content Include="Content\images\SAMC_FilterUp.png" />
     <Content Include="Content\images\SAMC_HeaderBanner.png" />
+    <Content Include="Content\images\SAMC_Icon_Calendar_Left.png" />
+    <Content Include="Content\images\SAMC_Icon_Calendar_Right.png" />
     <Content Include="Content\images\SAMC_Logo.png" />
     <Content Include="Content\images\SAMC_Logo_Mobile.jpg" />
     <Content Include="Content\images\SAMC_MenuDropdownArrowA.png" />
@@ -426,6 +428,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />

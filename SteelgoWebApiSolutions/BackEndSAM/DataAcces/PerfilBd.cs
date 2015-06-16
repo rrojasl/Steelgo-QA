@@ -7,7 +7,7 @@ using DatabaseManager.EntidadesPersonalizadas;
 using BackEndSAM.Utilities;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Models
+namespace BackEndSAM.DataAcces
 {
     public class PerfilBd
     {
@@ -51,8 +51,8 @@ namespace BackEndSAM.Models
                 //Obtenemos los datos de la relacion entidad perfil
                 Sam3_Rel_Perfil_Entidad_Pagina perfil_entidad = ctx.Sam3_Rel_Perfil_Entidad_Pagina
                     .Where(x => x.PerfilID == perfilID 
-                        && x.EntidadID == (int)Enums.Entidades.Layout 
-                        && x.PaginaID == (int)Enums.Paginas.Layout)
+                        && x.EntidadID == (int)Enumeraciones.Entidades.Layout 
+                        && x.PaginaID == (int)Enumeraciones.Paginas.Layout)
                     .FirstOrDefault();
 
 

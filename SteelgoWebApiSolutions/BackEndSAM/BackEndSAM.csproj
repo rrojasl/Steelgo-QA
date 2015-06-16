@@ -103,6 +103,7 @@
     <Compile Include="Controllers\DummyCambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\DummyCargarGridPackingListController.cs" />
     <Compile Include="Controllers\DummyCedulaController.cs" />
+    <Compile Include="Controllers\AvisoLlegadaController.cs" />
     <Compile Include="Controllers\DummyCancelacionListadoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DummyAvisoLlegadaController.cs" />
@@ -132,14 +133,26 @@
     <Compile Include="Controllers\DummyEstatusController.cs" />
     <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
+    <Compile Include="Controllers\PatioController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
+    <Compile Include="Controllers\PlanaController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
+    <Compile Include="Controllers\TransportistaController.cs" />
+    <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
+    <Compile Include="DataAcces\PatioBd.cs" />
+    <Compile Include="DataAcces\PlanaBd.cs" />
+    <Compile Include="DataAcces\ProveedorBd.cs" />
+    <Compile Include="DataAcces\TransportistaBd.cs" />
+
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />
@@ -171,13 +184,14 @@
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\ListObject.cs" />
-    <Compile Include="Models\PerfilBd.cs" />
+    <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\BackEnd.pubxml" />
+    <None Include="Properties\PublishProfiles\backendSAM.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,7 +229,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>55447</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:60960/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
