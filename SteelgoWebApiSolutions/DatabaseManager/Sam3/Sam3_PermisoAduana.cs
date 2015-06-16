@@ -14,13 +14,22 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_PermisoAduana
     {
+        public Sam3_PermisoAduana()
+        {
+            this.Sam3_Rel_PermisoAduana_Documento = new HashSet<Sam3_Rel_PermisoAduana_Documento>();
+        }
+    
         public int PermisoAduanaID { get; set; }
         public int FolioAvisoLlegadaID { get; set; }
         public string Estatus { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<bool> PermisoAutorizado { get; set; }
+        public Nullable<bool> PermisoTramite { get; set; }
+        public Nullable<int> NumeroPermiso { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
+        public virtual ICollection<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
     }
 }

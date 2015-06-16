@@ -134,16 +134,24 @@
         };
 
         function cuantificacion(e) {
-            alert("cuantificacion");
+            e.preventDefault();
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            var FolioLlegadaID = dataItem.FolioLlegadaID;
+            var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID;
+            var PackingListID = dataItem.PackingListID;
+            
+            //REDIRECT
+            var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegadaID=" + FolioLlegadaID + "&folioEntradaID=" + FolioAvisoLlegadaID + "&packingListID=" + PackingListID;
         };
 
         function mostrarDetalle(e) {
             e.preventDefault();
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var FolioLlegadaID = dataItem.FolioLlegadaID
-            var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-            //REDIRECT
+            var FolioLlegadaID = dataItem.FolioLlegadaID;
+            var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID;
 
+            //REDIRECT
             var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + FolioLlegadaID + "&folioAvisoLlegada=" + FolioAvisoLlegadaID;
         };

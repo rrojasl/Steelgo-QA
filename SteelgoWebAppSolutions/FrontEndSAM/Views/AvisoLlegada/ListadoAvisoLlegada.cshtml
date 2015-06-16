@@ -264,9 +264,6 @@
                 transport: {
                     read: {
                         url: "http://localhost:60960/backendsam/api/DummyProveedor",
-                    },
-                    success: function (response) {
-                        alert("hola");
                     }
                 }
             },
@@ -316,6 +313,8 @@
 
         $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
         $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+        $("#FechaInicial").kendoDatePicker({ footer: false });
+        $("#FechaFinal").kendoDatePicker({ footer: false });
     };
 
     function CargarFolio(id) {

@@ -335,7 +335,7 @@
         height: 27px;
         max-width: 18px;
         padding: 0;
-        margin: 0 -24px;
+        margin: 0 -25px;
         font-size: 0;
         border: none;
         outline: none;
@@ -358,6 +358,16 @@
         .k-grid tbody tr td a.k-button.k-grid-Cancelar,
         .k-grid tbody tr td a.k-button.k-grid-Cancel {
             background-image: url("/Content/images/SAMC_Delete.png");
+        }
+
+        .k-grid tbody tr td a.k-button.k-grid-Complemento,
+        .k-grid tbody tr td a.k-button.k-grid-Complement {
+            background-image: url("/Content/images/SAMC_Checkmark.png");
+        }
+
+        .k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
+        .k-grid tbody tr td a.k-button.k-grid-Quantification {
+            background-image: url("/Content/images/SAMC_Add.png");
         }
 
 .k-grid-pager {
@@ -492,6 +502,16 @@
         border-bottom: 0;
     }
 
+        .k-calendar .k-header .k-i-arrow-w {
+            background-image: url("/Content/images/SAMC_Icon_Calendar_Left.png");
+            background-position: center 2px !important;
+        }
+
+        .k-calendar .k-header .k-i-arrow-e {
+            background-image: url("/Content/images/SAMC_Icon_Calendar_Right.png");
+            background-position: center 2px !important;
+        }
+
         .k-calendar .k-header .k-link,
         .k-calendar .k-header .k-link.k-state-hover {
             color: #FFFFFF;
@@ -533,6 +553,10 @@
                 background: none;
                 background-color: #FCEED9 !important;
             }
+
+    .k-calendar .k-footer {
+        display: none;
+    }
 /**********************************************************************************/
 
 /* Media Queries */

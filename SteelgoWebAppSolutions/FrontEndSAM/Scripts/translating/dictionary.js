@@ -595,7 +595,7 @@ _dictionary = {
         "en-US": "Complement"
     },
     "ListadoLlegadaMaterial0018": {
-        "es-MX": "Cuantificación",
+        "es-MX": "Cuantificacion",
         "en-US": "Quantification"
     },
     "ListadoLlegadaMaterial0019": {
@@ -622,6 +622,147 @@ _dictionary = {
     "Cuantificacion0004": {
         "es-MX": "Folio de Llegada",
         "en-US": "Arrival Folio"
+    },
+    "Cuantificacion0005": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Cuantificacion0006": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Cuantificacion0007": {
+        "es-MX": "Familia",
+        "en-US": "Family"
+    },
+    "Cuantificacion0008": {
+        "es-MX": "Cédula",
+        "en-US": "Cedula"
+    },
+    "Cuantificacion0009": {
+        "es-MX": "Tipo Acero",
+        "en-US": "Steel type"
+    },
+    "Cuantificacion0010": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "Cuantificacion0011": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "Cuantificacion0012": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Cuantificacion0013": {
+        "es-MX": "Tiene NU",
+        "en-US": "it has NU"
+    },
+    "Cuantificacion0014": {
+        "es-MX": "de {0}",
+        "en-US": "of {0}"
+    },
+    "Cuantificacion0015": {
+        "es-MX": "Tamaño de Página",
+        "en-US": "Page Size"
+    },
+    "Cuantificacion0016": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "Cuantificacion0017": {
+        "es-MX": "Guardar Parcialmente",
+        "en-US": "Save Partially"
+    },
+    "Cuantificacion0018": {
+        "es-MX": "Generar Numeros Unicos",
+        "en-US": "Generate Unique Numbers"
+    },
+    "Cuantificacion0019": {
+        "es-MX": "Tiene Error",
+        "en-US": "it has Error"
+    },
+    "Cuantificacion0020": {
+        "es-MX": "Terminar Cuantificacion",
+        "en-US": "Quantification Finish"
+    },
+    "Cuantificacion0021": {
+        "es-MX": "Cargar",
+        "en-US": "Load"
+    },
+    "Cuantificacion0022": {
+        "es-MX": "Familia",
+        "en-US": "Family"
+    },
+    "Cuantificacion0023": {
+        "es-MX": "Cédula",
+        "en-US": "Cedula"
+    },
+    "Cuantificacion0024": {
+        "es-MX": "Tipo Acero",
+        "en-US": "Steel Type"
+    },
+    "Cuantificacion0025": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "Cuantificacion0026": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "Cuantificacion0027": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Cuantificacion0028": {
+        "es-MX": "Imprimir Etiquetas",
+        "en-US": "Print Tags"
+    },
+    //Formato Etiquetas
+    "FormatoEtiquetas0001": {
+        "es-MX": "Número Único: ",
+        "en-US": "Unique Number: "
+    },
+    "FormatoEtiquetas0002": {
+        "es-MX": "Proyecto: ",
+        "en-US": "Project: "
+    },
+    "FormatoEtiquetas0003": {
+        "es-MX": "Item Code: ",
+        "en-US": "Item Code: "
+    },
+    "FormatoEtiquetas0004": {
+        "es-MX": "Diam 1: ",
+        "en-US": "Diam 1: "
+    },
+    "FormatoEtiquetas0005": {
+        "es-MX": "Diam 2: ",
+        "en-US": "Diam 2: "
+    },
+    "FormatoEtiquetas0006": {
+        "es-MX": "Colada: ",
+        "en-US": "Colada: "
+    },
+    "FormatoEtiquetas0007": {
+        "es-MX": "Certificado: ",
+        "en-US": "Certificate: "
+    },
+    "FormatoEtiquetas0008": {
+        "es-MX": "Material: ",
+        "en-US": "Material: "
+    },
+    "FormatoEtiquetas0009": {
+        "es-MX": "Cédula: ",
+        "en-US": "Cedula: "
+    },
+    "FormatoEtiquetas0010": {
+        "es-MX": "Descripción: ",
+        "en-US": "Description: "
+    },
+    "FormatoEtiquetas0011": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
     },
     //Home Partial View Labels
     "homeLabel0001": {

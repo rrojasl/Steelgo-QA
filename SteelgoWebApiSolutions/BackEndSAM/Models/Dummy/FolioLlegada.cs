@@ -8,6 +8,7 @@ namespace BackEndSAM.Models
     public class FolioLlegada
     {
         public string FolioLlegadaID { get; set; }
+        public int ProyectoID { get; set; }
         public string Consecutivo { get; set; }
     }
 }

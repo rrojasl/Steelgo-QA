@@ -29,6 +29,10 @@
     @Scripts.Render("~/Scripts/kendo/2014.2.716/cultures/kendo.culture.es-MX.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Scripts.Render("~/Scripts/translating/dictionary.js")
+    @Scripts.Render("~/Scripts/JsBarcode.js")
+    @Scripts.Render("~/Scripts/CODE128.js")
+    @Scripts.Render("~/Scripts/CODE39.js")
+
 
     @RenderSection("HtmlHead", required: false)
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -93,7 +97,7 @@
     </header>
     <div class="content-frame">
         <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
-        <div class="container">
+        <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <!-- sidebar -->
                 <div id="sidebar" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
@@ -930,7 +934,7 @@
             hideElements();
 
             //Toggle for main menu's submenus
-            $("li i.arrow").click(function () {               
+            $("ul.main-menu > li > a").click(function () {               
                 if($(this).closest("li").hasClass('active')) {
                     $(this).closest("li").removeClass('active').children("ul").removeClass("open");                    
                 }

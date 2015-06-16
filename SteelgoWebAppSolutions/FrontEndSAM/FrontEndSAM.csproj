@@ -152,6 +152,8 @@
     <Content Include="Content\images\SAMC_FilterDown.png" />
     <Content Include="Content\images\SAMC_FilterUp.png" />
     <Content Include="Content\images\SAMC_HeaderBanner.png" />
+    <Content Include="Content\images\SAMC_Icon_Calendar_Left.png" />
+    <Content Include="Content\images\SAMC_Icon_Calendar_Right.png" />
     <Content Include="Content\images\SAMC_Logo.png" />
     <Content Include="Content\images\SAMC_Logo_Mobile.jpg" />
     <Content Include="Content\images\SAMC_MenuDropdownArrowA.png" />
@@ -431,6 +433,8 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CODE128.js" />
+    <Content Include="Scripts\CODE39.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -442,6 +446,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JsBarcode.js" />
     <Content Include="Scripts\kendo\2014.2.716\angular.min.js" />
     <Content Include="Scripts\kendo\2014.2.716\cultures\kendo.culture.af-ZA.min.js" />
     <Content Include="Scripts\kendo\2014.2.716\cultures\kendo.culture.af.min.js" />
@@ -1058,6 +1063,7 @@
     <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
     <Content Include="Views\Cuantificacion\Cuantificacion.cshtml" />
+    <Content Include="Views\Cuantificacion\FormatoEtiquetas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

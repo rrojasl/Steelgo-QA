@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_Chofer()
         {
             this.Sam3_Camion = new HashSet<Sam3_Camion>();
+            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
         }
     
         public int ChoferID { get; set; }
@@ -26,5 +27,6 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_Camion> Sam3_Camion { get; set; }
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
     }
 }

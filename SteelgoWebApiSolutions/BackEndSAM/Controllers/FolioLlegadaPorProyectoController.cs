@@ -13,9 +13,29 @@ namespace BackEndSAM.Controllers
     public class FolioLlegadaPorProyectoController : ApiController
     {
         // GET api/foliollegadaporproyecto
-        public IEnumerable<string> Get()
+        public IEnumerable<FolioLlegada> Get(string proyectoID, string username, string token)
         {
-            return new string[] { "value1", "value2" };
+            List<FolioLlegada> lstFolioLlegada = new List<FolioLlegada>();
+            FolioLlegada folioLlegada = new FolioLlegada();
+            FolioLlegada folioLlegada1 = new FolioLlegada();
+            FolioLlegada folioLlegada2 = new FolioLlegada();
+
+            folioLlegada.FolioLlegadaID = "12";
+            folioLlegada.Consecutivo = "12222";
+            folioLlegada.ProyectoID=155;
+            lstFolioLlegada.Add(folioLlegada);
+
+            folioLlegada1.FolioLlegadaID = "13";
+            folioLlegada1.Consecutivo = "12333";
+            folioLlegada1.ProyectoID=156;
+            lstFolioLlegada.Add(folioLlegada1);
+
+            if (string.IsNullOrEmpty(proyectoID)) {
+                return lstFolioLlegada.AsEnumerable();
+            }
+            else {
+                return lstFolioLlegada.Where(x => x.ProyectoID == int.Parse(proyectoID)).AsEnumerable();
+            }
         }
 
         // GET api/foliollegadaporproyecto/5

@@ -67,7 +67,7 @@ namespace BackEndSAM.DataAcces
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                     nuevaPlana = new Sam3_Plana
                     {
-                        Activo = 1,
+                        Activo = true,
                         CamionID = camionID,
                         Placas = placas,
                         FechaModificacion = DateTime.Now,
@@ -102,7 +102,7 @@ namespace BackEndSAM.DataAcces
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                     Sam3_Plana planaEnBd = ctx.Sam3_Plana.Where(x => x.PlanaID == cambios.PlanaID).AsParallel().SingleOrDefault();
-                    planaEnBd.Activo = 1;
+                    planaEnBd.Activo = true;
                     planaEnBd.CamionID = cambios.CamionID;
                     planaEnBd.Placas = cambios.Placas;
                     planaEnBd.UsuarioModificacion = usuario.UsuarioID;
@@ -141,7 +141,7 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                     Sam3_Plana plana = ctx.Sam3_Plana.Where(x => x.PlanaID == planaID).AsParallel().SingleOrDefault();
-                    plana.Activo = 0;
+                    plana.Activo = false;
                     plana.UsuarioModificacion = usuario.UsuarioID;
                     plana.FechaModificacion = DateTime.Now;
 

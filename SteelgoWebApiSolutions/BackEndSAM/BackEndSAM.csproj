@@ -100,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DummyCambiarEstatusCuantificacionController.cs" />
+    <Compile Include="Controllers\DummyCargarGridPackingListController.cs" />
+    <Compile Include="Controllers\DummyCedulaController.cs" />
     <Compile Include="Controllers\AvisoLlegadaController.cs" />
     <Compile Include="Controllers\DummyCancelacionListadoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
@@ -108,20 +111,27 @@
     <Compile Include="Controllers\DummyCancelacionListadoLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyChoferController.cs" />
     <Compile Include="Controllers\DummyDescargarArchivoController.cs" />
+    <Compile Include="Controllers\DummyEdicionCuantificacionController.cs" />
+    <Compile Include="Controllers\DummyFamiliaController.cs" />
     <Compile Include="Controllers\DummyFileManagerController.cs" />
     <Compile Include="Controllers\DummyFolioEntradaController.cs" />
     <Compile Include="Controllers\DummyFoliosEntradaLlegadaController.cs" />
     <Compile Include="Controllers\DummyFoliosGeneradosController.cs" />
+    <Compile Include="Controllers\DummyItemCodeController.cs" />
     <Compile Include="Controllers\DummyListadoAvisoLlegadaController.cs" />
+    <Compile Include="Controllers\DummyListadoCuantificacionController.cs" />
     <Compile Include="Controllers\DummyListadoLlegadaMaterialController.cs" />
+    <Compile Include="Controllers\DummyObtenerItemCodesController.cs" />
     <Compile Include="Controllers\DummyPackingListController.cs" />
     <Compile Include="Controllers\DummyPlanaController.cs" />
     <Compile Include="Controllers\DummyProveedorController.cs" />
+    <Compile Include="Controllers\DummyTipoAceroController.cs" />
     <Compile Include="Controllers\DummyTramitarPermisoController.cs" />
     <Compile Include="Controllers\DummyTransportistaController.cs" />
     <Compile Include="Controllers\DummyPatioController.cs" />
     <Compile Include="Controllers\DummyEntradaMaterialController.cs" />
     <Compile Include="Controllers\DummyEstatusController.cs" />
+    <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
@@ -131,27 +141,38 @@
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />
+    <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
+    <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\PatioBd.cs" />
     <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="DataAcces\ProveedorBd.cs" />
     <Compile Include="DataAcces\TransportistaBd.cs" />
+
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />
+    <Compile Include="Models\Dummy\Cedula.cs" />
     <Compile Include="Models\Dummy\Chofer.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
+    <Compile Include="Models\Dummy\EdicionCuantificacion.cs" />
     <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />
     <Compile Include="Models\Dummy\Estatus.cs" />
+    <Compile Include="Models\Dummy\Familia.cs" />
     <Compile Include="Models\Dummy\Files.cs" />
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
     <Compile Include="Models\Dummy\FolioLlegada.cs" />
     <Compile Include="Models\Dummy\FoliosGenerados.cs" />
+    <Compile Include="Models\Dummy\GridCuantificacion.cs" />
+    <Compile Include="Models\Dummy\ItemCode.cs" />
+    <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
+    <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\PackingList.cs" />
     <Compile Include="Models\Dummy\PaseSalida.cs" />
@@ -160,6 +181,7 @@
     <Compile Include="Models\Dummy\Plana.cs" />
     <Compile Include="Models\Dummy\Proveedor.cs" />
     <Compile Include="Models\Dummy\Proyecto.cs" />
+    <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
