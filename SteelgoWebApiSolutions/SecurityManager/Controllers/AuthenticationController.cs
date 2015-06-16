@@ -134,21 +134,21 @@ namespace SecurityManager
         /// </param>
         /// <returns> TransactionalInformation Object in a JSON Response  </returns>
         /// <example> GET securitymanager/api/authentication/ </example>
-        //public TransactionalInformation Delete(string username, string token)
-        //{
-        //    username = dataSecurity.Decode(username);
-        //    token = dataSecurity.Decode(token);
+        public TransactionalInformation Delete(string username, string token)
+        {
+            username = dataSecurity.Decode(username);
+            token = dataSecurity.Decode(token);
 
-        //    //Create a generic return object
-        //    TransactionalInformation transaction = new TransactionalInformation();
-        //    transaction.IsAuthenicated = true;
+            //Create a generic return object
+            TransactionalInformation transaction = new TransactionalInformation();
+            transaction.IsAuthenicated = true;
 
-        //    if (username == "admin" && token == "EsteEsUnTokenGeneradoDeAlgunaManera")
-        //    {
-        //        transaction.IsAuthenicated = false;
-        //    }
-        //    transaction.IsAuthenicated = false;
-        //    return transaction;
-        //}
+            if (username == "admin" && token == "EsteEsUnTokenGeneradoDeAlgunaManera")
+            {
+                transaction.IsAuthenicated = false;
+            }
+            transaction.IsAuthenicated = false;
+            return transaction;
+        }
     }
 }

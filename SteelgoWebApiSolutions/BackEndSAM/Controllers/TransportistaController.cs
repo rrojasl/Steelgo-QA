@@ -16,7 +16,7 @@ using BackEndSAM.DataAcces;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class TransportistaController
+    public class TransportistaController : ApiController
     {
 
         public object GET(string token)

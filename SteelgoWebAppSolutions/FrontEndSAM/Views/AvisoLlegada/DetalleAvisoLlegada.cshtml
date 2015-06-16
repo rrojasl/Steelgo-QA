@@ -417,15 +417,6 @@
             });
 
             $("#TransportistaID").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/DummyTransportista",
-                        }
-                    }
-                },
                 dataTextField: "Nombre",
                 dataValueField: "TransportistaID",
                 select: function (e) {
@@ -434,6 +425,7 @@
                 },
                 filter: "contains",
             });
+            ObtenerTransportista();
 
             $("#ProveedorID").kendoAutoComplete({
                 dataSource: {
@@ -455,25 +447,15 @@
             });
 
             $("#PlanaID").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
-                dataTextField: "value",
-                dataValueField: "id",
-                //dataTextField: "Nombre",
-                //dataValueField: "PlanaID",
+                dataTextField: "Nombre",
+                dataValueField: "PlanaID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPlana(dataItem.id, dataItem.value);
+                    CargarPlana(dataItem.PlanaID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
+            ObtenerPlanas();
 
             $("#PatioID").kendoAutoComplete({
                 dataSource: {
@@ -493,6 +475,7 @@
                 },
                 filter: "contains",
             });
+            ObtenerPatio();
 
             $("#ChoferID").kendoAutoComplete({
                 dataSource: {
@@ -722,19 +705,19 @@
             AvisoLlegada[0].PermisoAduana = _permisoAduana;
             AvisoLlegada[0].PaseSalida = _archivosPackingList;
 
-            console.log(JSON.stringify(AvisoLlegada));
+            console.log(AvisoLlegada[0]);
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyAvisoLlegada');
+            Client.add('AvisoLlegada');
 
             if (folio != -1)//Edición
             {
-                Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.update");
                 });
             } else //Alta
             {
-                Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.create");
                     folio = data.FolioAvisoLlegadaID;
                     cargarTituloFolio();
@@ -982,21 +965,19 @@
         function GuardarTransportista() {
 
             TransportistaModal = [];
-            TransportistaModal[0] = { Contacto: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-            TransportistaModal[0].Contacto = Contacto;
+            TransportistaModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+            TransportistaModal[0].ContactoID = Contacto[0].ContactoID;
             TransportistaModal[0].Nombre = $("#Nombre_Transportista").val();
             TransportistaModal[0].Descripcion = $("#Descripcion_Transportista").val();
             TransportistaModal[0].Direccion = $("#Direccion_Transportista").val();
             TransportistaModal[0].Telefono = $("#Telefono_Transportista").val();
 
-            console.log(JSON.stringify(TransportistaModal));
+            console.log(TransportistaModal[0]);
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyTransportista');
-            Client.DummyTransportista.create({}, { transportista: JSON.stringify(TransportistaModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                console.log("Client.DummyTransportista.create");
+            $Transportista.Transportista.create(TransportistaModal[0], {token: $.cookie("token") }).done(function (data) {
                 LimpiarModalTransportista();
                 $("#window").data("kendoWindow").close();
+                ObtenerTransportista();
             });
         };
        
@@ -1027,14 +1008,12 @@
             PatioModal[0].Propietario = $("#Propietario_Patio").val();
             PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
 
-            console.log(JSON.stringify(PatioModal));
+            console.log(PatioModal[0]);
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyPatio');
-            Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                console.log("Client.DummyPatio.create");
+            $Patio.Patio.create(PatioModal[0], { token: $.cookie("token") }).done(function (data) {
                 LimpiarModalPatio();
                 $("#window").data("kendoWindow").close();
+                ObtenerPatio();
             });
         };
 
@@ -1055,19 +1034,10 @@
         };
 
         function GuardarPlana() {
-            PlanaModal = [];
-            PlanaModal[0] = { Camion: "" };
-            PlanaModal[0].Camion = Camion;
-            PlanaModal[0].Placas = $("#CamionID_Plana").val();
-
-            console.log(JSON.stringify(PlanaModal));
-
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyPlana');
-            Client.DummyPlana.create({}, { plana: JSON.stringify(PlanaModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                console.log("Client.DummyPlana.create");
+            $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: Camion[0].CamionID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {                
                 LimpiarModalPlana();
                 $("#window").data("kendoWindow").close();
+                ObtenerPlanas();
             });
         };
         
@@ -1125,6 +1095,38 @@
             $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
             $("#FechaRecepcion").kendoDatePicker({ footer: false });
         };
+
+        function ObtenerPlanas() {
+            $Plana.Plana.read({ token: $.cookie("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#PlanaID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+
+
+        function ObtenerTransportista() {
+            $Transportista.Transportista.read({ token: $.cookie("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+
+        function ObtenerPatio() {
+            $Patio.Patio.read({ token: $.cookie("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+        
     }
 
     @section JavascriptDocumentReadyFunctions {

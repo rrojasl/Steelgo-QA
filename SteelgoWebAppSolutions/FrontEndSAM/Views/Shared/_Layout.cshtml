@@ -516,6 +516,16 @@
         $BackEndSAM.add('DummyListadoAvisoLlegada');
         $SecurityManager.add('authentication');
 
+        //DetalleAvisoLlegada
+        var $Plana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');        
+        var $Transportista = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Patio = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Proveedor = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+
+        $Plana.add("Plana");
+        $Transportista.add("Transportista");
+        $Patio.add("Patio");
+        $Proveedor.add("Proveedor");
 
         var $authorizationModel = {};
         var $layoutModel = {
