@@ -51,10 +51,24 @@ namespace BackEndSAM.DataAcces
                     AvisoLlegadaJson jsonAvisoLlegada = new AvisoLlegadaJson();
 
                     //Buscamos el folio maximo en los avisos de Legada
-                    Nullable<int> nuevoFolio = ctx.Sam3_FolioAvisoLlegada.Max(x => x.Consecutivo).Value;
-                    if (nuevoFolio.HasValue)
+                    int? nuevoFolio;
+
+                    if (ctx.Sam3_FolioAvisoLlegada.Any())
+                    {
+                        nuevoFolio = ctx.Sam3_FolioAvisoLlegada.Select(x => x.Consecutivo).Max();
+                    }
+                    else
+                    {
+                        nuevoFolio = 0;
+                    }
+
+                    if (nuevoFolio > 0)
                     {
                         nuevoFolio = nuevoFolio + 1;
+                    }
+                    else
+                    {
+                        nuevoFolio = 1;
                     }
 
                     //asignamos campos al nueva aviso de llegada
