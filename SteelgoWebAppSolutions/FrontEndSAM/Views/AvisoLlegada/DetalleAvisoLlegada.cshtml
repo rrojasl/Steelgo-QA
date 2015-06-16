@@ -428,15 +428,6 @@
             ObtenerTransportista();
 
             $("#ProveedorID").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/DummyProveedor",
-                        }
-                    }
-                },
                 dataTextField: "Nombre",
                 dataValueField: "ProveedorID",
                 select: function (e) {
@@ -445,14 +436,11 @@
                 },
                 filter: "contains",
             });
+            ObtenerProveedor();
 
-            $("#PlanaID").kendoAutoComplete({
+            $("#PlanaID").kendoMultiSelect({
                 dataTextField: "Nombre",
                 dataValueField: "PlanaID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarPlana(dataItem.PlanaID, dataItem.Nombre);
-                },
                 filter: "contains",
             });
             ObtenerPlanas();
@@ -632,6 +620,7 @@
 
             //objeto para los proyectos y documentos.
             ProyectoIDs = [];
+            PlanaIDs = [];
             Documentos = [];                
             permiso = [];
             DocumentosPackingList = [];
@@ -647,14 +636,21 @@
             _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
             _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
             _permisoAduana[0].ArchivoAutorizado = permiso;
-                
+
             var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
             $.each(proyectos, function (index, value) {
                 item = {};
                 item["ProyectoID"] = value;
                 ProyectoIDs.push(item);
             });
-            
+
+            var planas = $("#PlanaID").data("kendoMultiSelect").value();
+            $.each(planas, function (index, value) {
+                item = {};
+                item["PlanaID"] = value;
+                PlanaIDs.push(item);
+            });
+
             $('#listaArchivos > tbody  > tr').each(function () {
                 if ($(this).find("td:first").length > 0) {
                     var id = $(this).attr("id").split(",")[0];
@@ -697,7 +693,7 @@
             AvisoLlegada[0].Transportista = Transportista;
             AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
             AvisoLlegada[0].Proveedor = Proveedor;
-            AvisoLlegada[0].Plana = Plana;
+            AvisoLlegada[0].Plana = PlanaIDs;
             AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
             AvisoLlegada[0].Patio = Patio;
             AvisoLlegada[0].Chofer = Chofer;
@@ -708,16 +704,16 @@
             console.log(AvisoLlegada[0]);
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('AvisoLlegada');
+            Client.add('DummyAvisoLlegada');
 
             if (folio != -1)//Edición
             {
-                Client.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                Client.DummyAvisoLlegada.update({}, { avisollegada: AvisoLlegada[0], token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.update");
                 });
             } else //Alta
             {
-                Client.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                Client.DummyAvisoLlegada.create({}, { avisollegada: AvisoLlegada[0], token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.create");
                     folio = data.FolioAvisoLlegadaID;
                     cargarTituloFolio();
@@ -867,14 +863,6 @@
             Proveedor.push(_proveedor);
         };
 
-        function CargarPlana(id, value) {
-            Plana = [];
-            _plana = {};
-            _plana["PlanaID"] = id;
-            _plana["Nombre"] = value;
-            Plana.push(_plana);
-        };
-
         function CargarChofer(id, value) {
             Chofer = [];
             _chofer = {};
@@ -983,21 +971,19 @@
        
         function GuardarProveedor() {
             ProveedorModal = [];
-            ProveedorModal[0] = { Contacto: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-            ProveedorModal[0].Contacto = Contacto;
+            ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+            ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
             ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
             ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
             ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
             ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
 
-            console.log(JSON.stringify(ProveedorModal));
+            console.log(ProveedorModal[0]);
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyProveedor');
-            Client.DummyProveedor.create({}, { proveedor: JSON.stringify(ProveedorModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
-                console.log("Client.DummyProveedor.create");
+            $Proveedor.Proveedor.create(ProveedorModal[0], { token: $.cookie("token") }).done(function (data) {
                 LimpiarModalProveedor();
                 $("#window").data("kendoWindow").close();
+                ObtenerProveedor();
             });
         };
 
@@ -1106,7 +1092,6 @@
             });
         };
 
-
         function ObtenerTransportista() {
             $Transportista.Transportista.read({ token: $.cookie("token") }).done(function (result) {
                 if (result.ReturnCode) {
@@ -1123,6 +1108,16 @@
                     removeUserSession();
                 } else {
                     $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+
+        function ObtenerProveedor() {
+            $Proveedor.Proveedor.read({ token: $.cookie("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
                 };
             });
         };

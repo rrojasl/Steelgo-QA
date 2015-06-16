@@ -51,10 +51,24 @@ namespace BackEndSAM.DataAcces
                     AvisoLlegadaJson jsonAvisoLlegada = new AvisoLlegadaJson();
 
                     //Buscamos el folio maximo en los avisos de Legada
-                    Nullable<int> nuevoFolio = ctx.Sam3_FolioAvisoLlegada.Max(x => x.Consecutivo).Value;
-                    if (nuevoFolio.HasValue)
+                    int? nuevoFolio;
+
+                    if (ctx.Sam3_FolioAvisoLlegada.Any())
+                    {
+                        nuevoFolio = ctx.Sam3_FolioAvisoLlegada.Select(x => x.Consecutivo).Max();
+                    }
+                    else
+                    {
+                        nuevoFolio = 0;
+                    }
+
+                    if (nuevoFolio > 0)
                     {
                         nuevoFolio = nuevoFolio + 1;
+                    }
+                    else
+                    {
+                        nuevoFolio = 1;
                     }
 
                     //asignamos campos al nueva aviso de llegada
@@ -197,6 +211,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<int> lstFoliosAvisoLlegada;
+
                     if (filtros.FolioLlegadaID > 0)
                     {
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioLlegada
@@ -208,9 +223,15 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        lstFoliosAvisoLlegada = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                            .Where(x => x.ProyectoID == filtros.Proyectos[0].ProyectoID && x.Activo)
-                            .Select(x => x.FolioAvisoLlegadaID).AsParallel().ToList();
+                        lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                 join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                 where r.FolioAvisoLlegadaID == filtros.FolioAvisoLlegadaID
+                                                 && r.Activo.Value
+                                                 && filtros.Proyectos.Select(y => y.ProyectoID).Contains(p.ProyectoID)
+                                                 && (r.FechaRecepcion >= filtros.FechaInicial && r.FechaRecepcion <= filtros.FechaFinal)
+                                                 && filtros.Patio.Select(z => z.PatioID).Contains(r.PatioID)
+                                                 && filtros.Proveedor.Select(x => x.ProveedorID).Contains(r.ProveedorID)
+                                                 select r.FolioAvisoLlegadaID).AsParallel().ToList();
                     }
 
                     List<AvisoLlegadaJson> resultados = new List<AvisoLlegadaJson>();
@@ -294,7 +315,6 @@ namespace BackEndSAM.DataAcces
                                        where (p.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID)
                                        select new PlanaAV
                                        {
-                                           Nombre = r.Placas,
                                            PlanaID = r.PlanaID
                                        }).AsParallel().ToList();
 
@@ -327,6 +347,132 @@ namespace BackEndSAM.DataAcces
                     }
 
                     return resultados;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerAvisoLlegadaPorID(int avisoLlegadaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    AvisoLlegadaJson aviso = new AvisoLlegadaJson();
+                    Sam3_FolioAvisoLlegada registroBd = ctx.Sam3_FolioAvisoLlegada.Where(x =>
+                        x.FolioAvisoLlegadaID == avisoLlegadaID && x.Activo.Value)
+                        .AsParallel().SingleOrDefault();
+                    //agregamos el listado de archivos del aviso de llegada
+                    aviso.Archivos = (from r in registroBd.Sam3_Rel_FolioAvisoLlegada_Documento
+                                      where r.Activo
+                                      select new ArchivosAV
+                                      {
+                                          ArchivoID = r.DocumentoID,
+                                          Extension = r.Extencion,
+                                          Nombre = r.Nombre,
+                                          TipoArchivo = ""
+                                      }).ToList();
+
+                    //agregamog los choferes
+                    aviso.Chofer = (from r in ctx.Sam3_Chofer
+                                    where r.ChoferID == registroBd.ChoferID && r.Activo
+                                    select new ChoferAV { ChoferID = r.ChoferID, Nombre = r.Nombre }).AsParallel().ToList();
+                    aviso.Factura = registroBd.Factura;
+                    aviso.FechaRecepcion = registroBd.FechaRecepcion.Value;
+                    aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
+                    aviso.OrdenCompra = registroBd.OrdenCompra;
+
+                    //Obtenemos el listado de archivos de pase de salida
+                    List<ArchivosPaseSalida> archivosPaseSalida = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
+                                                                   where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID
+                                                                   && r.Activo
+                                                                   select new ArchivosPaseSalida
+                                                                   {
+                                                                       Nombre = r.Nombre,
+                                                                       Extension = r.Extencion,
+                                                                       ArchivoID = r.DocumentoID.ToString()
+                                                                   }).AsParallel().ToList();
+                    aviso.PaseSalida.Add(new PaseSalidaAV
+                    {
+                        PaseSalidaEnviado = registroBd.PaseSalidaEnviado.Value,
+                        Archivos = archivosPaseSalida
+                    });
+
+                    //agregamos los patios
+                    aviso.Patio = (from r in ctx.Sam3_Patio
+                                   where r.PatioID == registroBd.PatioID && r.Activo
+                                   select new PatioAV
+                                   {
+                                       Nombre = r.Nombre,
+                                       PatioID = r.PatioID
+                                   }).AsParallel().ToList();
+
+                    //agregar permisos de aduana
+                    //primero obtenemos los archivos de permisos de aduana
+                    List<Sam3_PermisoAduana> lstpermisosAduana = ctx.Sam3_PermisoAduana
+                        .Where(x => x.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID && x.Activo)
+                        .AsParallel().ToList();
+                    foreach (Sam3_PermisoAduana p in lstpermisosAduana)
+                    {
+                        List<ArchivoAutorizadoAV> lstarchivosPermisoAduana = (from r in ctx.Sam3_Rel_PermisoAduana_Documento
+                                                                              where r.PermisoAduanaID == p.PermisoAduanaID && r.Activo
+                                                                              select new ArchivoAutorizadoAV
+                                                                              {
+                                                                                  ArchivoID = r.DocumentoID,
+                                                                                  Extension = r.Extencion,
+                                                                                  Nombre = r.Nombre
+                                                                              }).AsParallel().ToList();
+                        aviso.PermisoAduana.Add(new PermisoAduanaAV
+                        {
+                            ArchivoAutorizado = lstarchivosPermisoAduana,
+                            NumeroPermiso = p.NumeroPermiso.ToString(),
+                            PermisoAutorizado = p.PermisoAutorizado.Value,
+                            PermisoTramite = p.PermisoTramite.Value
+                        });
+                    }
+
+                    aviso.Plana = (from r in ctx.Sam3_Plana
+                                   join p in ctx.Sam3_Rel_AvisoLlegada_Plana on r.PlanaID equals p.PlanaID
+                                   where (p.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID)
+                                   select new PlanaAV
+                                   {
+                                       PlanaID = r.PlanaID
+                                   }).AsParallel().ToList();
+
+                    aviso.Proveedor = (from r in ctx.Sam3_Proveedor
+                                       where r.ProveedorID == registroBd.ProveedorID && r.Activo
+                                       select new ProveedorAV
+                                       {
+                                           Nombre = r.Nombre,
+                                           ProveedorID = r.ProveedorID
+                                       }).AsParallel().ToList();
+
+                    aviso.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                       where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID && r.Activo
+                                       select new ProyectosAV
+                                       {
+                                           ProyectoID = r.ProyectoID
+                                       }).AsParallel().ToList();
+
+                    aviso.Transportista = (from r in ctx.Sam3_Transportista
+                                           where r.TransportistaID == registroBd.TransportistaID && r.Activo
+                                           select new TransportistaAV
+                                           {
+                                               Nombre = r.Nombre,
+                                               TransportistaID = r.TransportistaID
+                                           }).AsParallel().ToList();
+
+                    return aviso;
                 }
             }
             catch (Exception ex)

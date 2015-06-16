@@ -9,17 +9,17 @@ namespace BackEndSAM.Models
     {
         public int FolioLlegadaID { get; set; }
         public int FolioAvisoLlegadaID { get; set; }
-        public List<Patio> Patio { get; set; }
+        public List<PatioAV> Patio { get; set; }
         public List<ProyectosAV> Proyectos { get; set; }
-        public List<Proveedor> Proveedor { get; set; }
+        public List<ProveedorAV> Proveedor { get; set; }
         public DateTime FechaInicial { get; set; }
         public DateTime FechaFinal { get; set; }
 
         public FiltrosJson()
         {
-            Patio = new List<Patio>();
+            Patio = new List<PatioAV>();
             Proyectos = new List<ProyectosAV>();
-            Proveedor = new List<Proveedor>();
+            Proveedor = new List<ProveedorAV>();
         }
     }
 }
