@@ -335,11 +335,11 @@
                                 </a>
                             </li>*@
                             <li class="shortcut">
-                                <a class="quicklinks">
+                                <div class="quicklinks">
                                     <i class="icn links"></i>
                                     <span id="layoutLabel0014"></span>
                                     <i class="icn right gear"></i>
-                                </a>
+                                </div>
                                 <ul class="sub-menu">
                                     <li>
                                         <a href="#">
@@ -914,14 +914,22 @@
 
             //Toggle for main menu's submenus
             $("ul.main-menu > li > a").click(function () {               
-                if($(this).closest("li").hasClass('active')) {
-                    $(this).closest("li").removeClass('active').children("ul").removeClass("open");                    
+                if($(this).closest("li").hasClass('active') && !$("#sidebar").hasClass("minified")) {
+                    $("ul.sub-menu2").removeClass("open");
+                    $("ul.sub-menu > li").removeClass("active expand");
+                    $(this).closest("li").children("ul").addClass("open");
+                    $(this).children("i.arrow").addClass("down");                    
+                }
+                else if (!$("#sidebar").hasClass("minified")) {
+                    $("li").removeClass('active');
+                    $("ul").removeClass('open');
+                    $(this).closest("li").addClass('active').children("ul").addClass("open");
+                    $(this).children("i.arrow").addClass("down");
                 }
                 else {
                     $("li").removeClass('active');
-                    $("span").removeClass('active');
-                    $("ul").removeClass('open');
-                    $(this).closest("li").addClass('active').children("ul").addClass("open");
+                    $("ul").removeClass('open'); 
+                    $(this).closest("li").addClass('active');                  
                 }
             });
 
@@ -957,13 +965,13 @@
             //Toggle for last submenu's links         
             $("ul.sub-menu3 > li > a").click(function () {                
                 $("ul.sub-menu2 li").removeClass("active");                  
-                $("ul.sub-menu3").removeClass("open");                                                            
+                $("ul.sub-menu3").removeClass("open");                                                          
             });
 
             //Toggle sidebar's size
             $("i.minify").click(function () {
                 $("ul").removeClass("open");
-                $("span").removeClass("active");
+                $("i.arrow").removeClass("down");
                 $("li.shortcut ul").toggleClass("close");
                 $("#sidebar").toggleClass("minified");            
                 $(".content-container").toggleClass("expanded");
