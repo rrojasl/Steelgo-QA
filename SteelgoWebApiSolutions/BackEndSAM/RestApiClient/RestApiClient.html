@@ -38,23 +38,23 @@
             //    console.log(data);
             //});
 
-            //client.Plana.create({}, { placas: "XXX-00-01", camionID: "1", token: tokenActual }).done(function (data) {
-            //    var json = JSON.stringify(data);
-            //    alert(json);
-            //    console.log(data);
-            //});
+            client.Plana.create({}, { placas: "XXX-00-01", camionID: "1", token: tokenActual }).done(function (data) {
+                var json = JSON.stringify(data);
+                alert(json);
+                console.log(data);
+            });
 
-            //client.Plana.update({ PlanaID: "3", CamionID: "2", Placas: "YXZ-11-22" }, { token: tokenActual }).done(function (data) {
-            //    var json = JSON.stringify(data);
-            //    alert(json);
-            //    console.log(data);
-            //});
+            client.Plana.update({ PlanaID: "3", CamionID: "2", Placas: "YXZ-11-22" }, { token: tokenActual }).done(function (data) {
+                var json = JSON.stringify(data);
+                alert(json);
+                console.log(data);
+            });
 
-            //client.Plana.destroy({}, { PlanaID: "3", token: tokenActual }).done(function (data) {
-            //    var json = JSON.stringify(data);
-            //    alert(json);
-            //    console.log(data);
-            //});
+            client.Plana.destroy({}, { PlanaID: "3", token: tokenActual }).done(function (data) {
+                var json = JSON.stringify(data);
+                alert(json);
+                console.log(data);
+            });
 
             var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDA0MTM3MX0.p9tzPtHNim5VbIy4y5FhJh1X0JVIuSgMCdf2Jum2Oao";
 

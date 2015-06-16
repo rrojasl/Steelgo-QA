@@ -184,6 +184,7 @@
     <Compile Include="Models\Dummy\Proyecto.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
+    <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
