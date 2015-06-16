@@ -197,6 +197,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<int> lstFoliosAvisoLlegada;
+
                     if (filtros.FolioLlegadaID > 0)
                     {
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioLlegada
@@ -208,9 +209,15 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        lstFoliosAvisoLlegada = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                            .Where(x => x.ProyectoID == filtros.Proyectos[0].ProyectoID && x.Activo)
-                            .Select(x => x.FolioAvisoLlegadaID).AsParallel().ToList();
+                        lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                 join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                 where r.FolioAvisoLlegadaID == filtros.FolioAvisoLlegadaID
+                                                 && r.Activo.Value
+                                                 && filtros.Proyectos.Select(y => y.ProyectoID).Contains(p.ProyectoID)
+                                                 && (r.FechaRecepcion >= filtros.FechaInicial && r.FechaRecepcion <= filtros.FechaFinal)
+                                                 && filtros.Patio.Select(z => z.PatioID).Contains(r.PatioID)
+                                                 && filtros.Proveedor.Select(x => x.ProveedorID).Contains(r.ProveedorID)
+                                                 select r.FolioAvisoLlegadaID).AsParallel().ToList();
                     }
 
                     List<AvisoLlegadaJson> resultados = new List<AvisoLlegadaJson>();

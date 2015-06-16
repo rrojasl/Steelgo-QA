@@ -12,7 +12,7 @@
 
         <script>
 
-            var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDA0MTM3MX0.p9tzPtHNim5VbIy4y5FhJh1X0JVIuSgMCdf2Jum2Oao";
+            //var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDA0MTM3MX0.p9tzPtHNim5VbIy4y5FhJh1X0JVIuSgMCdf2Jum2Oao";
 
             //var dataReturned;
             //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
@@ -38,114 +38,111 @@
             //    console.log(data);
             //});
 
-            client.Plana.create({}, { placas: "XXX-00-01", camionID: "1", token: tokenActual }).done(function (data) {
-                var json = JSON.stringify(data);
-                alert(json);
-                console.log(data);
-            });
+            //client.Plana.create({}, { placas: "XXX-00-01", camionID: "1", token: tokenActual }).done(function (data) {
+            //    var json = JSON.stringify(data);
+            //    alert(json);
+            //    console.log(data);
+            //});
 
-            client.Plana.update({ PlanaID: "3", CamionID: "2", Placas: "YXZ-11-22" }, { token: tokenActual }).done(function (data) {
-                var json = JSON.stringify(data);
-                alert(json);
-                console.log(data);
-            });
+            //client.Plana.update({ PlanaID: "3", CamionID: "2", Placas: "YXZ-11-22" }, { token: tokenActual }).done(function (data) {
+            //    var json = JSON.stringify(data);
+            //    alert(json);
+            //    console.log(data);
+            //});
 
-            client.Plana.destroy({}, { PlanaID: "3", token: tokenActual }).done(function (data) {
-                var json = JSON.stringify(data);
-                alert(json);
-                console.log(data);
-            });
+            //client.Plana.destroy({}, { PlanaID: "3", token: tokenActual }).done(function (data) {
+            //    var json = JSON.stringify(data);
+            //    alert(json);
+            //    console.log(data);
+            //});
 
-            var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDA0MTM3MX0.p9tzPtHNim5VbIy4y5FhJh1X0JVIuSgMCdf2Jum2Oao";
+            var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDQ3MzIzOX0.t1gD6UMiFoIFphTQWWLuArCiL0NKcVc3hIcJectZlWI";
 
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
             client.add("Transportista");
 
-            client.Transportista.read({ token: tokenActual }).done(function (data) {
+            //client.Transportista.read({ token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
+
+            var json = { "ContactoID": "12", "Nombre": "a", "Descripcion": "a", "Direccion": "a", "Telefono": "a" };
+            var result = JSON.stringify(json);
+
+            client.Transportista.create({ "ContactoID": "12", "Nombre": "a", "Descripcion": "a", "Direccion": "a", "Telefono": "a" }, { token: tokenActual }).done(function (data) {
                 console.log(data);
             });
 
-            client.Transportista.create({
-                ContatoID: "1",
-                Nombre: "Transportista de Prueba 01",
-                Descripcion: "Pruebas",
-                Direccion: "Av. Vasconcelos 124, Tampiquito, San Pedro Garza Garcia. Cp. 66240",
-                Telefono: "81922554"
-            }, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Transportista.update({
+            //    ContatoID: "1",
+            //    Nombre: "Transportista de prueba Editado",
+            //    Descripcion: "Pruebas 02",
+            //    Direccion: "Av. Vasconcelos 124, Tampiquito, San Pedro Garza Garcia. Cp. 66240",
+            //    Telefono: "81922554"
+            //}, { token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Transportista.update({
-                ContatoID: "1",
-                Nombre: "Transportista de prueba Editado",
-                Descripcion: "Pruebas 02",
-                Direccion: "Av. Vasconcelos 124, Tampiquito, San Pedro Garza Garcia. Cp. 66240",
-                Telefono: "81922554"
-            }, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Transportista.destroy({}, { trasnportistaID: "", token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Transportista.delete({}, { trasnportistaID: "", token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            ////var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+            //client.add("Proveedor");
 
-            //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
-            client.add("Proveedor");
+            //client.Proveedor.read({ token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Proveedor.read({ token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Proveedor.create({
+            //    ContactoID: "1",
+            //    Nombre: "Proveedor prueba 01",
+            //    Descripcion: "Proveedro de pruebas",
+            //    Direccion: "Av. Jose Vasconceslos 124",
+            //    Telefono: "81922554"
+            //}, { token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Proveedor.create({
-                ContactoID: "1",
-                Nombre: "Proveedor prueba 01",
-                Descripcion: "Proveedro de pruebas",
-                Direccion: "Av. Jose Vasconceslos 124",
-                Telefono: "81922554"
-            }, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Proveedor.update({
+            //    ContactoID: "1",
+            //    Nombre: "Proveedor prueba 01",
+            //    Descripcion: "Proveedro de pruebas Editado",
+            //    Direccion: "Av. Jose Vasconceslos 124 Editado",
+            //    Telefono: "81922554"
+            //}, { token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Proveedor.update({
-                ContactoID: "1",
-                Nombre: "Proveedor prueba 01",
-                Descripcion: "Proveedro de pruebas Editado",
-                Direccion: "Av. Jose Vasconceslos 124 Editado",
-                Telefono: "81922554"
-            }, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Proveedor.delete({}, { trasnportistaID: "", token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Proveedor.delete({}, { trasnportistaID: "", token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.add("Patio");
 
-            client.add("Patio");
+            //client.Patio.read({ token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Patio.read({ token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Patio.create({
+            //    Nombre: "Patio Pruebas",
+            //    Propietario: "Sam 3.0",
+            //    Descripcion: "Registro de prueba"
+            //}, { token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Patio.create({
-                Nombre: "Patio Pruebas",
-                Propietario: "Sam 3.0",
-                Descripcion: "Registro de prueba"
-            }, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Patio.update({
+            //    Nombre: "Patio Pruebas Editado",
+            //    Propietario: "Sam 3.0 Editado",
+            //    Descripcion: "Registro de prueba Editado"
+            //}, { token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
-            client.Patio.update({
-                Nombre: "Patio Pruebas Editado",
-                Propietario: "Sam 3.0 Editado",
-                Descripcion: "Registro de prueba Editado"
-            }, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
-
-            client.Patio.delete({}, { trasnportistaID: "", token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.Patio.destroy({}, { trasnportistaID: "", token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
             //$(document).ready(function () {
                 
