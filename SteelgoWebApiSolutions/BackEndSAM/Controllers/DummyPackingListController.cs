@@ -35,8 +35,12 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/dummypackinglist
-        public void Post([FromBody]string value)
+        public PackingList Post(string foliollegadaid,string proyectoid, string username, string token)
         {
+            PackingList packinglist = new PackingList();
+            packinglist.PackingListID = "123789456";
+
+            return packinglist;
         }
 
         // PUT api/dummypackinglist/5

@@ -17,9 +17,16 @@ namespace BackEndSAM.Controllers
         {
             List<FolioLlegada> lstFolioLlegada = new List<FolioLlegada>();
             FolioLlegada foliollegada = new FolioLlegada();
-            foliollegada.FolioLlegadaID = "1";
-            foliollegada.Consecutivo = "2";
-            lstFolioLlegada.Add(foliollegada);
+            FolioLlegada foliollegada1 = new FolioLlegada();
+            FolioLlegada foliollegada2 = new FolioLlegada();
+
+            foliollegada1.FolioLlegadaID = "12";
+            foliollegada1.Consecutivo = "21";
+            lstFolioLlegada.Add(foliollegada1);
+
+            foliollegada2.FolioLlegadaID = "13";
+            foliollegada2.Consecutivo = "22";
+            lstFolioLlegada.Add(foliollegada2);
 
             return lstFolioLlegada;
         }

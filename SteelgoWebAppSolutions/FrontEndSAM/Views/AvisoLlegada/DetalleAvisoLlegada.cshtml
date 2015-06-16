@@ -1141,6 +1141,7 @@
         function ObtenerFechaDefault() {
             var today = new Date();
             $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+            $("#FechaRecepcion").kendoDatePicker({ footer: false });
         };
     }
 
