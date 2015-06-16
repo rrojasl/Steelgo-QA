@@ -317,7 +317,7 @@ header .menu > div {
             float: right;
         }
 
-    .sidebar .main-nav ul.main-menu > li span {
+    .sidebar .main-nav ul.main-menu > li a > span {
         margin-left: 7px;
         letter-spacing: 1.3px;
     }
@@ -381,7 +381,6 @@ header .menu > div {
                 color: #152F52;
                 font-size: 13px;
                 font-weight: 600;
-                margin: 0;
             }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
