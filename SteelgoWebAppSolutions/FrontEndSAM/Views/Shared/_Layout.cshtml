@@ -117,23 +117,19 @@
                                     <i class="icn right arrow"></i>
                                 </a>
                                 <ul class="sub-menu">
- @*                                   <li>
+                                   @*<li>
                                         <a href="#">
                                             <span>Ingeniería</span>
                                         </a>
-                                    </li>
-*@                                    <li>
+                                    </li>*@
+                                    <li>
                                         <a href="#">
                                             <span id="layoutLabel0019"></span>
                                         </a>
-                                        <ul class="sub-menu2">
-                                            <i class="icn subOne"></i>
+                                        <ul class="sub-menu2">                                           
                                             <li>
-                                                <a href="#">
-                                                    <span id="layoutLabel0020"></span>
-                                                </a>
-                                                <ul class="sub-menu3">
-                                                    <i class="icn subTwo"></i>
+                                                <span id="layoutLabel0020"></span>
+                                                <ul class="sub-menu3">                                     
                                                     <li>
                                                         <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")">
                                                             <span id="layoutLabel0021"></span>
@@ -146,12 +142,9 @@
                                                     </li>
                                                 </ul>
                                             </li>
-@*                                            <li>
-                                                <a href="#">
-                                                    <span>Llegada de Material</span>
-                                                </a>
-                                                <ul class="sub-menu3">
-                                                    <i class="icn subTwo"></i>
+                                            @*<li>                                                
+                                                <span>Llegada de Material</span>
+                                                <ul class="sub-menu3">                                                    
                                                     <li>
                                                         <a href="#">
                                                             <span>Generación Inventario</span>
@@ -168,40 +161,16 @@
                                                         </a>
                                                     </li>
                                                 </ul>
+                                            </li>*@
+                                            @*<li>
+                                                <span>Despacho de Materiales</span>
                                             </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span>Despacho de Materiales</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span>Listado de Materiales</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span>Listado de Materiales por Item Code</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span>Segmentación de Tubería</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span>Otros Movimientos de Inventario</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <span>Incidencias</span>
-                                                </a>
-                                            </li>
-*@                                        </ul>
+                                            <li>                                                
+                                                <span>Listado de Materiales</span>                                                
+                                            </li>  *@                                          
+                                        </ul>
                                     </li>
-@*                                    <li>
+                                   @*<li>
                                         <a href="#">
                                             <span>PND</span>
                                         </a>
@@ -221,13 +190,11 @@
                                             <span>Pintura</span>
                                         </a>
                                         <ul class="sub-menu2">
-                                            <i class="icn subOne"></i>
+                                            
                                             <li>
-                                                <a href="#">
-                                                    <span>Colores</span>
-                                                </a>
+                                                <span>Colores</span>
                                                 <ul class="sub-menu3">
-                                                    <i class="icn subTwo"></i>
+                                                    
                                                     <li>
                                                         <a href="#">
                                                             <span>Generación de Color</span>
@@ -271,10 +238,10 @@
                                         <a href="#">
                                             <span>Embarques</span>
                                         </a>
-                                    </li>
-*@                                </ul>
+                                    </li>*@
+                               </ul>
                             </li>
-@*                            <li>
+                           @*<li>
                                 <a href="#">
                                     <i class="icn catalog"></i>
                                     <span id="layoutLabel0007"></span>
@@ -366,13 +333,13 @@
                                     <i class="icn comm"></i>
                                     <span id="layoutLabel0013"></span>
                                 </a>
-                            </li>
-*@                            <li class="shortcut">
-                                <a class="quicklinks">
+                            </li>*@
+                            <li class="shortcut">
+                                <div class="quicklinks">
                                     <i class="icn links"></i>
                                     <span id="layoutLabel0014"></span>
                                     <i class="icn right gear"></i>
-                                </a>
+                                </div>
                                 <ul class="sub-menu">
                                     <li>
                                         <a href="#">
@@ -396,8 +363,8 @@
                     <!-- /main-nav -->
 
                     <div class="nav-footer">
-                        <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <i class="icn right minify"></i>
+                        <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <ul>
                             <li><a href="#"><span id="layoutLabel0015"></span></a></li>
                             <li><a href="#"><span id="layoutLabel0016"></span></a></li>
@@ -947,55 +914,64 @@
 
             //Toggle for main menu's submenus
             $("ul.main-menu > li > a").click(function () {               
-                if($(this).closest("li").hasClass('active')) {
-                    $(this).closest("li").removeClass('active').children("ul").removeClass("open");                    
+                if($(this).closest("li").hasClass('active') && !$("#sidebar").hasClass("minified")) {
+                    $("ul.sub-menu2").removeClass("open");
+                    $("ul.sub-menu > li").removeClass("active expand");
+                    $(this).closest("li").children("ul").toggleClass("open");
+                    $(this).children("i.arrow").toggleClass("down");                    
+                }
+                else if (!$("#sidebar").hasClass("minified")) {
+                    $("li").removeClass('active');
+                    $("ul").removeClass('open');
+                    $(this).closest("li").addClass('active').children("ul").addClass("open");
+                    $(this).children("i.arrow").addClass("down");
                 }
                 else {
                     $("li").removeClass('active');
-                    $("span").removeClass('active');
-                    $("ul").removeClass('open');
-                    $(this).closest("li").addClass('active').children("ul").addClass("open");
+                    $("ul").removeClass('open'); 
+                    $(this).closest("li").addClass('active');                  
                 }
             });
 
             //Toggle for second submenu            
             $("ul.sub-menu > li > a").click(function () {
                 if($(this).parent().children("ul.sub-menu2").hasClass('open')) {
-                    $(this).children("span").removeClass("active");                    
+                    $(this).parent("li").removeClass("active expand");                    
                     $(this).parent().children("ul.sub-menu2").removeClass("open");                  
                 }
                 else {
                     $("ul.sub-menu2").removeClass("open");
-                    $("span").removeClass("active");
-                    $(this).children("span").addClass("active");
+                    $("ul.sub-menu > li").removeClass("active expand");
+                    $(this).parent("li").addClass("active");
+                    $(this).parent("li").has("ul").addClass("expand");                    
                     $(this).parent().children("ul.sub-menu2").addClass("open");
                 }
             });
 
             //Toggle for last submenu            
-            $("ul.sub-menu2 > li > a").click(function () {
-                if($(this).parent().children("ul.sub-menu3").hasClass('open')) {
-                    $(this).children("span").removeClass("active");                    
-                    $(this).parent().children("ul.sub-menu3").removeClass("open");                  
-                }
-                else {                    
-                    $("ul.sub-menu2 span").removeClass("active");
-                    $("ul.sub-menu3").removeClass("open");
-                    $(this).children("span").addClass("active");
-                    $(this).parent().children("ul.sub-menu3").addClass("open");
-                }
-            });
+            //$("ul.sub-menu2 > li > a").click(function () {
+            //    if($(this).parent().children("ul.sub-menu3").hasClass('open')) {
+            //        $(this).children("span").removeClass("active");                    
+            //        $(this).parent().children("ul.sub-menu3").removeClass("open");                  
+            //    }
+            //    else {                    
+            //        $("ul.sub-menu2 span").removeClass("active");
+            //        $("ul.sub-menu3").removeClass("open");
+            //        $(this).children("span").addClass("active");
+            //        $(this).parent().children("ul.sub-menu3").addClass("open");
+            //    }
+            //});
 
             //Toggle for last submenu's links         
             $("ul.sub-menu3 > li > a").click(function () {                
-                $("ul.sub-menu2 span").removeClass("active");                  
-                $("ul.sub-menu3").removeClass("open");                                                            
+                $("ul.sub-menu2 li").removeClass("active");                  
+                $("ul.sub-menu3").removeClass("open");                                                          
             });
 
             //Toggle sidebar's size
             $("i.minify").click(function () {
                 $("ul").removeClass("open");
-                $("span").removeClass("active");
+                $("i.arrow").removeClass("down");
                 $("li.shortcut ul").toggleClass("close");
                 $("#sidebar").toggleClass("minified");            
                 $(".content-container").toggleClass("expanded");
