@@ -514,6 +514,7 @@
         var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
         var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
         $BackEndSAM.add('DummyListadoAvisoLlegada');
+        $BackEndSAM.add('perfil');
         $SecurityManager.add('authentication');
 
 
@@ -565,20 +566,40 @@
             var securityNotFound = true;
             var authorizationModelKeys = Object.keys($authorizationModel);
             //Call to the permissions api passing all the entities by authorizationModelKeys.toString();
-
-            //Apply the returned permissions to the $authorizationModel objects
-            for (key in $authorizationModel) {
-                if ($authorizationModel.hasOwnProperty(key)) {
-                    entityDefinition = $authorizationModel[key];
-                    if (returnOfSecurityCheck.hasOwnProperty(key)) {
-                        entitySecurity = returnOfSecurityCheck[key];
-                        securityNotFound = false;
+            console.log($.cookie("navegacion"));
+            if ($.cookie("navegacion") != "1") {
+                $BackEndSAM.perfil.read({}, { token: $.cookie("token"), paginaID: $.cookie("navegacion") }).done(function (data) {
+                    returnOfSecurityCheck = data;
+                    console.log(data);
+                    for (key in $authorizationModel) {
+                        if ($authorizationModel.hasOwnProperty(key)) {
+                            entityDefinition = $authorizationModel[key];
+                            if (returnOfSecurityCheck.hasOwnProperty(key)) {
+                                entitySecurity = returnOfSecurityCheck[key];
+                                securityNotFound = false;
+                            }
+                            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+                            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+                        }
                     }
-                    applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
-                    applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+                    loadingStop();
+                });
+            } else {
+                //Apply the returned permissions to the $authorizationModel objects
+                for (key in $authorizationModel) {
+                    if ($authorizationModel.hasOwnProperty(key)) {
+                        entityDefinition = $authorizationModel[key];
+                        if (returnOfSecurityCheck.hasOwnProperty(key)) {
+                            entitySecurity = returnOfSecurityCheck[key];
+                            securityNotFound = false;
+                        }
+                        applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+                        applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+                    }
                 }
+                loadingStop();
             }
-            loadingStop();
+            
         }
 
         //Method to apply the security policy in the entity
@@ -783,7 +804,10 @@
                 if ($.cookie("home") != null && $.cookie("home") == "false") {
                     //RedirectToHomePage
                     document.location.href = '/';
-                } else if ($.cookie("home") != null && $.cookie("home") == "true" && $.cookie("user") != null && $.cookie("token") != null) {
+                } else if ($.cookie("home") != null && $.cookie("home") == "true"
+                            && $.cookie("user") != null
+                            && $.cookie("token") != null
+                            && $.cookie("navegacion") != null && $.cookie("navegacion") == "1") {
                     document.location.href = '@Url.Action("Landing", "Home")';
                 }
             }
@@ -922,7 +946,7 @@
         //Document Ready Section
         $(document).ready(function () {
             //FOR DEVELOPONLY
-            autoCookies(true);
+            //autoCookies(true);
 
             //Set cookie of homepage to false
             $.cookie("home", false);
