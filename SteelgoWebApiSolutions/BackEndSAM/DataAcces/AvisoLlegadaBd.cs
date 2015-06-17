@@ -185,6 +185,7 @@ namespace BackEndSAM.DataAcces
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
+                    result.ReturnMessage.Add(nuevoAvisoLlegada.FolioAvisoLlegadaID.ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
@@ -473,6 +474,129 @@ namespace BackEndSAM.DataAcces
                                            }).AsParallel().ToList();
 
                     return aviso;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarAvisoLlegada(int avisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try 
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == avisoLlegadaID)
+                        .AsParallel().SingleOrDefault();
+
+                    aviso.Activo = false;
+                    aviso.UsuarioModificacion = usuario.UsuarioID;
+                    aviso.FechaModificacion = DateTime.Now;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ActualizarAvisoLlegada(AvisoLlegadaJson cambios, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_FolioAvisoLlegada avisoBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID)
+                        .AsParallel().SingleOrDefault();
+                    if (avisoBd != null)
+                    {
+                        //modificamos los parametros generales
+                        avisoBd.Activo = true;
+                        avisoBd.CamionID = ctx.Sam3_Plana.Where(x => x.PlanaID == cambios.Plana[0].PlanaID).Select(x => x.CamionID).SingleOrDefault();
+                        avisoBd.ChoferID = cambios.Chofer[0].ChoferID;
+                        avisoBd.Factura = cambios.Factura;
+                        avisoBd.FechaModificacion = DateTime.Now;
+                        avisoBd.FechaRecepcion = cambios.FechaRecepcion;
+                        avisoBd.OrdenCompra = cambios.OrdenCompra;
+                        avisoBd.PaseSalidaEnviado = cambios.PaseSalida[0].PaseSalidaEnviado;
+                        avisoBd.PatioID = cambios.Patio[0].PatioID;
+                        avisoBd.ProveedorID = cambios.Proveedor[0].ProveedorID;
+                        avisoBd.TransportistaID = cambios.Transportista[0].TransportistaID;
+                        avisoBd.UsuarioModificacion = usuario.UsuarioID;
+
+                        
+                        //Actualizar informacion de las planas
+                        foreach (PlanaAV plana in cambios.Plana)
+                        {
+                            if (!avisoBd.Sam3_Rel_AvisoLlegada_Plana.Where(x => x.PlanaID == plana.PlanaID).Any()) // varificamos si existe la plana
+                            {
+                                //agregamos una nuevo registro a la relacion de aviso y planas
+                                Sam3_Rel_AvisoLlegada_Plana nuevoRegistro = new Sam3_Rel_AvisoLlegada_Plana();
+                                nuevoRegistro.Activo = true;
+                                nuevoRegistro.FechaModificacion = DateTime.Now;
+                                nuevoRegistro.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
+                                nuevoRegistro.PlanaID = plana.PlanaID;
+                                nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_AvisoLlegada_Plana.Add(nuevoRegistro);
+                            }
+                        }
+
+                        //actualizar la información de los documentos de Aviso de llegada
+                        foreach (ArchivosAV archivo in cambios.Archivos)
+                        {
+                            //verificamos si ya existe el archivo actual
+                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
+                                .Where(x => x.DocumentoID == archivo.ArchivoID && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                            {
+                                //si el archivo no existe, agregamos uno nuevo
+                                Sam3_Rel_FolioAvisoLlegada_Documento nuenoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
+                                nuenoDoc.Activo = true;
+                                nuenoDoc.DocumentoID = archivo.ArchivoID;
+                                nuenoDoc.Extencion = archivo.Extension;
+                                nuenoDoc.FechaModificacion = DateTime.Now;
+                                nuenoDoc.FolioAvisoLlegadaID = avisoBd.FolioAvisoLlegadaID;
+                                nuenoDoc.Nombre = archivo.Nombre;
+                                nuenoDoc.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuenoDoc);
+                            }
+                        }
+
+
+                    }
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)

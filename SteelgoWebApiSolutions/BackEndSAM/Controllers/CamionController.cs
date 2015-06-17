@@ -16,7 +16,7 @@ using BackEndSAM.DataAcces;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ContactoController : ApiController
+    public class CamionController : ApiController
     {
 
         public object Get(string token)
@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ContactoBd.Instance.ObtenerListadoContacto();
+                return CamionBd.Instance.ObtenerListadoCamiones();
             }
             else
             {
@@ -39,7 +39,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(Sam3_Contacto contacto, string token)
+        public object Post(Sam3_Camion camion, string token)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +49,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ContactoBd.Instance.InsertatContacto(contacto, usuario);
+                return CamionBd.Instance.InsertarCamion(camion, usuario);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(Sam3_Contacto contacto, string token)
+        public object Put(Sam3_Camion camion, string token)
         {
             string payload = "";
             string newToken = "";
@@ -85,7 +85,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Delete(string contactoID, string token)
+        public object Delete(string camionID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -95,7 +95,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ContactoBd.Instance.EliminarContacto(Convert.ToInt32(contactoID), usuario);
+                return CamionBd.Instance.EliminarCamion(Convert.ToInt32(camionID), usuario);
             }
             else
             {
@@ -108,5 +108,5 @@ namespace BackEndSAM.Controllers
             }
         }
 
-    }//Fin Clase
+    }//Fin clase
 }

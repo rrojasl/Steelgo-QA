@@ -16,6 +16,9 @@ namespace BackEndSAM.Controllers
         public IEnumerable<Camion> Get()
         {
             List<Camion> lstcamion = new List<Camion>();
+
+            lstcamion.Add(new Camion { Placas = "Agregar nuevo", CamionID = "0" });
+
             Camion camion = new Camion();
             camion.CamionID = "12";
             camion.Placas = "Ruta 128";

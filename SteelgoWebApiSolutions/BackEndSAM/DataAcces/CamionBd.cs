@@ -11,22 +11,22 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
-    public class PatioBd
+    public class CamionBd
     {
         private static readonly object _mutex = new object();
-        private static PatioBd _instance;
+        private static CamionBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private PatioBd()
+        private CamionBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static PatioBd Instance
+        public static CamionBd Instance
         {
             get
             {
@@ -34,33 +34,32 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new PatioBd();
+                        _instance = new CamionBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerlistadoPatios()
+        public object ObtenerListadoCamiones()
         {
             try
             {
-                List<Patio> lstPatios = new List<Patio>();
+                List<Camion> lstCamiones = new List<Camion>();
+                //lstCamiones.Add(new Camion { CamionID = "0", Placas = "Agregar nuevo" });
                 using (SamContext ctx = new SamContext())
                 {
-                    lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
+                    List<Camion> result = (from r in ctx.Sam3_Camion
+                                           where r.Activo
+                                           select new Camion
+                                           {
+                                               CamionID = r.CamionID.ToString(),
+                                               Placas = r.Placas
+                                           }).AsParallel().ToList();
 
-                    List<Patio> result = (from p in ctx.Sam3_Patio
-                                          where p.Activo
-                                          select new Patio
-                                          {
-                                              Nombre = p.Nombre,
-                                              PatioID = p.PatioID.ToString()
-                                          }).AsParallel().ToList();
-                    
-                    lstPatios.AddRange(result);
+                    lstCamiones.AddRange(result);
 
-                    return lstPatios;
+                    return lstCamiones;
                 }
             }
             catch (Exception ex)
@@ -75,20 +74,27 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object InsertarPatio(Sam3_Patio cambios, Sam3_Usuario usuario)
+        public object InsertarCamion(Sam3_Camion cambios, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    cambios.Activo = true;
-                    cambios.UsuarioModificacion = usuario.UsuarioID;
-                    cambios.FechaModificacion = DateTime.Now;
+                    Sam3_Camion nuevoCamion = new Sam3_Camion();
+                    nuevoCamion.Activo = true;
+                    nuevoCamion.ChoferID = cambios.ChoferID;
+                    nuevoCamion.Estatus = "";
+                    nuevoCamion.FechaModificacion = DateTime.Now;
+                    nuevoCamion.Placas = cambios.Placas;
+                    nuevoCamion.PolizaSeguro = cambios.PolizaSeguro;
+                    nuevoCamion.TarjetaCirulacion = cambios.TarjetaCirulacion;
+                    nuevoCamion.TransportistaID = cambios.TransportistaID;
+                    nuevoCamion.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Patio.Add(cambios);
+                    ctx.Sam3_Camion.Add(nuevoCamion);
                     ctx.SaveChanges();
 
-                    return new Patio { Nombre = cambios.Nombre, PatioID = cambios.PatioID.ToString() };
+                    return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.CamionID.ToString() };
                 }
             }
             catch (Exception ex)
@@ -103,33 +109,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ActualizarPatio(Sam3_Patio cambios, Sam3_Usuario Usuario)
+        public object ActualizarCamion(Sam3_Camion cambios, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == cambios.PatioID && x.Activo).AsParallel().SingleOrDefault();
-                    patioEnBd.Activo = cambios.Activo != null && cambios.Activo != patioEnBd.Activo ?
-                        cambios.Activo : patioEnBd.Activo;
-                    patioEnBd.Descripcion = cambios.Descripcion != null && cambios.Descripcion != patioEnBd.Descripcion ?
-                        cambios.Descripcion : patioEnBd.Descripcion;
-                    patioEnBd.Nombre = cambios.Nombre != null && cambios.Nombre != patioEnBd.Nombre ?
-                        cambios.Nombre : patioEnBd.Nombre;
-                    patioEnBd.Propietario = cambios.Propietario != null && cambios.Propietario != patioEnBd.Propietario ?
-                        cambios.Propietario : patioEnBd.Propietario;
-                    patioEnBd.UsuarioModificacion = Usuario.UsuarioID;
-                    patioEnBd.FechaModificacion = DateTime.Now;
-
-                    ctx.SaveChanges();
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                    return null;
                 }
             }
             catch (Exception ex)
@@ -144,16 +130,16 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object EliminarPatio(int patioID, Sam3_Usuario usuario)
+        public object EliminarCamion(int camionID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Patio patio = ctx.Sam3_Patio.Where(x => x.PatioID == patioID).AsParallel().SingleOrDefault();
-                    patio.Activo = false;
-                    patio.UsuarioModificacion = usuario.UsuarioID;
-                    patio.FechaModificacion = DateTime.Now;
+                    Sam3_Camion camion = ctx.Sam3_Camion.Where(x => x.CamionID == camionID).AsParallel().SingleOrDefault();
+                    camion.Activo = false;
+                    camion.FechaModificacion = DateTime.Now;
+                    camion.UsuarioModificacion = usuario.UsuarioID;
 
                     ctx.SaveChanges();
 

@@ -1,50 +1,111 @@
-﻿using BackEndSAM.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
+using CommonTools.Libraries.Strings.Security;
+using DatabaseManager.Sam3;
+using SecurityManager.TokenHandler;
+using SecurityManager.Api.Models;
+using BackEndSAM.Models;
+using BackEndSAM.DataAcces;
 
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProyectoController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<Proyecto> Get()
+        public object Get(string token)
         {
-            List<Proyecto> lstProyecto = new List<Proyecto>();
-            Proyecto proyecto = new Proyecto();
-            Proyecto proyecto1 = new Proyecto();
-            Proyecto proyecto2 = new Proyecto();
-            Proyecto proyecto3 = new Proyecto();
-
-            proyecto.ProyectoID = "1";
-            proyecto.Nombre = "Proyecto 1";
-            lstProyecto.Add(proyecto);
-
-            proyecto1.ProyectoID = "2";
-            proyecto1.Nombre = "Proyecto 2";
-            lstProyecto.Add(proyecto1);
-
-            proyecto2.ProyectoID = "155";
-            proyecto2.Nombre = "Proyecto 3";
-            lstProyecto.Add(proyecto2);
-
-            proyecto3.ProyectoID = "156";
-            proyecto3.Nombre = "Proyecto 4";
-            lstProyecto.Add(proyecto3);
-
-
-            return lstProyecto;
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return ProyectoBd.Instance.ObtenerListadoProyectos();
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
-        // POST api/<controller>
-        public void Post([FromUri] int[] proys, [FromUri] string username)
+        public object Post(Sam3_Proyecto proyecto, string token)
         {
-            var content = Request.Content;
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return null;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
-    }
+
+        public object Put(Sam3_Proyecto proyecto, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return null;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Delete(string proyectoID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return null;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+    }//Fin clase
 }

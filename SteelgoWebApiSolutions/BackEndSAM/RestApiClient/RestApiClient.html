@@ -60,11 +60,11 @@
 
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-            //client.add("Transportista");
+            client.add("Transportista");
 
-            ////client.Transportista.read({ token: tokenActual }).done(function (data) {
-            ////    console.log(data);
-            ////});
+            client.Transportista.read({ token: tokenActual }).done(function (data) {
+                console.log(data);
+            });
 
             //var json = { "ContactoID": "12", "Nombre": "a", "Descripcion": "a", "Direccion": "a", "Telefono": "a" };
             //var result = JSON.stringify(json);
@@ -146,17 +146,17 @@
 
             //$(document).ready(function () {
 
-            var json = {"FolioAvisoLlegadaID":12,"Proyectos":[{"ProyectoID":"2"}],"Factura":"F001-001","Transportista":[{"TransportistaID":"123","Nombre":"Francisco Martinez"}],"FechaRecepcion":"5/6/2015","Proveedor":[{"ProveedorID":"2000","Nombre":"Femsa"}],"Plana":[{"PlanaID":"1","Nombre":"value1"}],"OrdenCompra":"Odt1","Patio":[{"PatioID":"1","Nombre":"Plaza Real"}],"Chofer":[{"ChoferID":"2","Nombre":"value2"}],"Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc","TipoArchivo":"Prueba tipo 1"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx","TipoArchivo":"Prueba tipo 1"}],"PermisoAduana":[{"PermisoAutorizado":"","PermisoTramite":"1","NumeroPermiso":"661242401","ArchivoAutorizado":[{"ArchivoID":"155","Nombre":"c://prueba.com","Extension":".xlsx"}]}],"PaseSalida":[{"PaseSalidaEnviado":"1","Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx"}]}]};
+            //var json = {"FolioAvisoLlegadaID":12,"Proyectos":[{"ProyectoID":"2"}],"Factura":"F001-001","Transportista":[{"TransportistaID":"123","Nombre":"Francisco Martinez"}],"FechaRecepcion":"5/6/2015","Proveedor":[{"ProveedorID":"2000","Nombre":"Femsa"}],"Plana":[{"PlanaID":"1","Nombre":"value1"}],"OrdenCompra":"Odt1","Patio":[{"PatioID":"1","Nombre":"Plaza Real"}],"Chofer":[{"ChoferID":"2","Nombre":"value2"}],"Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc","TipoArchivo":"Prueba tipo 1"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx","TipoArchivo":"Prueba tipo 1"}],"PermisoAduana":[{"PermisoAutorizado":"","PermisoTramite":"1","NumeroPermiso":"661242401","ArchivoAutorizado":[{"ArchivoID":"155","Nombre":"c://prueba.com","Extension":".xlsx"}]}],"PaseSalida":[{"PaseSalidaEnviado":"1","Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx"}]}]};
 
-            client.add("AvisoLlegada");
+            //client.add("AvisoLlegada");
 
             //client.AvisoLlegada.read({avisoLlegadaID: 1, token: tokenActual}).done(function (data){
             //    console.log(data);
             //});
 
-            client.AvisoLlegada.create(json, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
+            //client.AvisoLlegada.create(json, { token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
                 
             //});
             

@@ -16,9 +16,8 @@ using BackEndSAM.DataAcces;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ContactoController : ApiController
+    public class ChoferController : ApiController
     {
-
         public object Get(string token)
         {
             string payload = "";
@@ -26,7 +25,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ContactoBd.Instance.ObtenerListadoContacto();
+                return ChoferBd.Instance.ObtenerListadoChoferes();
             }
             else
             {
@@ -39,7 +38,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(Sam3_Contacto contacto, string token)
+        public object Post(Sam3_Chofer chofer, string token)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +48,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ContactoBd.Instance.InsertatContacto(contacto, usuario);
+                return ChoferBd.Instance.InsertarChofer(chofer, usuario);
             }
             else
             {
@@ -62,7 +61,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(Sam3_Contacto contacto, string token)
+        public object Put(Sam3_Chofer chofer, string token)
         {
             string payload = "";
             string newToken = "";
@@ -85,7 +84,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Delete(string contactoID, string token)
+        public object Delete(string choferID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -95,7 +94,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ContactoBd.Instance.EliminarContacto(Convert.ToInt32(contactoID), usuario);
+                return ChoferBd.Instance.EliminarChofer(Convert.ToInt32(choferID), usuario);
             }
             else
             {
@@ -108,5 +107,6 @@ namespace BackEndSAM.Controllers
             }
         }
 
-    }//Fin Clase
+
+    } //Fin clase
 }

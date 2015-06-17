@@ -45,15 +45,21 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                List<Proveedor> lstProveedores = new List<Proveedor>();
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Proveedor> lstProveedores = (from p in ctx.Sam3_Proveedor
-                                                      where p.Activo
-                                                      select new Proveedor
-                                                      {
-                                                          Nombre = p.Nombre,
-                                                          ProveedorID = p.ProveedorID.ToString()
-                                                      }).AsParallel().ToList();
+                    lstProveedores.Add(new Proveedor { Nombre = "Agregar nuevo", ProveedorID = "0" });
+
+                    List<Proveedor> result = (from p in ctx.Sam3_Proveedor
+                                              where p.Activo
+                                              select new Proveedor
+                                              {
+                                                  Nombre = p.Nombre,
+                                                  ProveedorID = p.ProveedorID.ToString()
+                                              }).AsParallel().ToList();
+
+                    lstProveedores.AddRange(result);
+
                     return lstProveedores;
                 }
             }

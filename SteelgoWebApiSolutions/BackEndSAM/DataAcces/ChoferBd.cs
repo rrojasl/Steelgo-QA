@@ -11,22 +11,22 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
-    public class PatioBd
+    public class ChoferBd
     {
         private static readonly object _mutex = new object();
-        private static PatioBd _instance;
+        private static ChoferBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private PatioBd()
+        private ChoferBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static PatioBd Instance
+        public static ChoferBd Instance
         {
             get
             {
@@ -34,33 +34,33 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new PatioBd();
+                        _instance = new ChoferBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerlistadoPatios()
+        public object ObtenerListadoChoferes()
         {
             try
             {
-                List<Patio> lstPatios = new List<Patio>();
+                List<Chofer> lstChoferes = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
-                    lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
+                    lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
 
-                    List<Patio> result = (from p in ctx.Sam3_Patio
-                                          where p.Activo
-                                          select new Patio
-                                          {
-                                              Nombre = p.Nombre,
-                                              PatioID = p.PatioID.ToString()
-                                          }).AsParallel().ToList();
-                    
-                    lstPatios.AddRange(result);
+                    List<Chofer> result = (from r in ctx.Sam3_Chofer
+                                           where r.Activo
+                                           select new Chofer
+                                           {
+                                               Nombre = r.Nombre,
+                                               ChoferID = r.ChoferID.ToString()
+                                           }).AsParallel().ToList();
 
-                    return lstPatios;
+                    lstChoferes.AddRange(result);
+
+                    return lstChoferes;
                 }
             }
             catch (Exception ex)
@@ -75,20 +75,22 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object InsertarPatio(Sam3_Patio cambios, Sam3_Usuario usuario)
+        public object InsertarChofer(Sam3_Chofer chofer, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    cambios.Activo = true;
-                    cambios.UsuarioModificacion = usuario.UsuarioID;
-                    cambios.FechaModificacion = DateTime.Now;
+                    Sam3_Chofer nuevoChofer = new Sam3_Chofer();
+                    nuevoChofer.Activo = true;
+                    nuevoChofer.FechaModificacion = DateTime.Now;
+                    nuevoChofer.Nombre = chofer.Nombre;
+                    nuevoChofer.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Patio.Add(cambios);
+                    ctx.Sam3_Chofer.Add(nuevoChofer);
                     ctx.SaveChanges();
 
-                    return new Patio { Nombre = cambios.Nombre, PatioID = cambios.PatioID.ToString() };
+                    return new Chofer { Nombre = chofer.Nombre, ChoferID = nuevoChofer.ChoferID.ToString() };
                 }
             }
             catch (Exception ex)
@@ -103,25 +105,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ActualizarPatio(Sam3_Patio cambios, Sam3_Usuario Usuario)
+        public object ActualizarChofer(Sam3_Chofer chofer, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == cambios.PatioID && x.Activo).AsParallel().SingleOrDefault();
-                    patioEnBd.Activo = cambios.Activo != null && cambios.Activo != patioEnBd.Activo ?
-                        cambios.Activo : patioEnBd.Activo;
-                    patioEnBd.Descripcion = cambios.Descripcion != null && cambios.Descripcion != patioEnBd.Descripcion ?
-                        cambios.Descripcion : patioEnBd.Descripcion;
-                    patioEnBd.Nombre = cambios.Nombre != null && cambios.Nombre != patioEnBd.Nombre ?
-                        cambios.Nombre : patioEnBd.Nombre;
-                    patioEnBd.Propietario = cambios.Propietario != null && cambios.Propietario != patioEnBd.Propietario ?
-                        cambios.Propietario : patioEnBd.Propietario;
-                    patioEnBd.UsuarioModificacion = Usuario.UsuarioID;
-                    patioEnBd.FechaModificacion = DateTime.Now;
-
-                    ctx.SaveChanges();
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -144,16 +133,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object EliminarPatio(int patioID, Sam3_Usuario usuario)
+        public object EliminarChofer(int choferID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Patio patio = ctx.Sam3_Patio.Where(x => x.PatioID == patioID).AsParallel().SingleOrDefault();
-                    patio.Activo = false;
-                    patio.UsuarioModificacion = usuario.UsuarioID;
-                    patio.FechaModificacion = DateTime.Now;
+                    Sam3_Chofer chofer = ctx.Sam3_Chofer.Where(x => x.ChoferID == choferID).AsParallel().SingleOrDefault();
+
+                    chofer.Activo = false;
+                    chofer.FechaModificacion = DateTime.Now;
+                    chofer.UsuarioModificacion = usuario.UsuarioID;
 
                     ctx.SaveChanges();
 

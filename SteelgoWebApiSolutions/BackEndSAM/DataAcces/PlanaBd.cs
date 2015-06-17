@@ -46,12 +46,17 @@ namespace BackEndSAM.DataAcces
             List<Plana> results = new List<Plana>();
             using (SamContext ctx = new SamContext())
             {
-                results = (from p in ctx.Sam3_Plana
-                           select new Plana
-                           {
-                               PlanaID = p.PlanaID.ToString(),
-                               Nombre = p.Placas
-                           }).AsParallel().ToList();
+                results.Add(new Plana { Nombre = "Agregar nuevo", PlanaID = "0" });
+
+                List<Plana> encontrados = (from p in ctx.Sam3_Plana
+                                           select new Plana
+                                           {
+                                               PlanaID = p.PlanaID.ToString(),
+                                               Nombre = p.Placas
+                                           }).AsParallel().ToList();
+
+                results.AddRange(encontrados);
+
             }
             return results;
         }

@@ -45,16 +45,19 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<Transportista> lstTransportista;
+                List<Transportista> lstTransportista = new List<Transportista>();
+                lstTransportista.Add(new Transportista { Nombre = "Agregar nuevo", TransportistaID = "0" });
                 using (SamContext ctx = new SamContext())
                 {
-                    lstTransportista = (from t in ctx.Sam3_Transportista
-                                        where t.Activo
-                                        select new Transportista
-                                        {
-                                            Nombre = t.Nombre,
-                                            TransportistaID = t.TransportistaID.ToString()
-                                        }).AsParallel().ToList();
+                    List<Transportista> result = (from t in ctx.Sam3_Transportista
+                                                  where t.Activo
+                                                  select new Transportista
+                                                  {
+                                                      Nombre = t.Nombre,
+                                                      TransportistaID = t.TransportistaID.ToString()
+                                                  }).AsParallel().ToList();
+
+                    lstTransportista.AddRange(result);
                 }
                 return lstTransportista;
             }
