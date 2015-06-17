@@ -82,7 +82,7 @@ namespace BackEndSAM.DataAcces
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
+                    nuevoRegistro.Activo = true;
                     nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
                     nuevoRegistro.FechaModificacion = DateTime.Now;
 
