@@ -167,7 +167,7 @@
                     var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                     Client.add('DummyCancelacionListadoLlegadaMaterial');
 
-                    Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: folioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: folioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                         console.log("Client.DummyCancelacionListadoLlegadaMaterial.read");
                         if ($("#grid").data("kendoGrid")) {
                             $("#grid").data("kendoGrid").dataSource.data(data);
@@ -273,7 +273,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyListadoLlegadaMaterial');
 
-            Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(ListadoModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log(data);
                 resultadoJson = data;
                 if ($("#grid").data("kendoGrid")) {

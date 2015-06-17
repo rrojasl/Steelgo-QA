@@ -24,7 +24,7 @@
     @Scripts.Render("~/Scripts/jquery-2.1.4.js")
     @Scripts.Render("~/Scripts/jquery.validate.js")
     @Scripts.Render("~/Scripts/jquery.rest.js")
-    @Scripts.Render("~/Scripts/jquery.cookie.js")
+    @Scripts.Render("~/Scripts/js.cookie.js")
     @Scripts.Render("~/Scripts/kendo/2014.2.716/kendo.all.min.js")
     @Scripts.Render("~/Scripts/kendo/2014.2.716/cultures/kendo.culture.es-MX.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
@@ -545,10 +545,11 @@
             var securityNotFound = true;
             var authorizationModelKeys = Object.keys($authorizationModel);
             //Call to the permissions api passing all the entities by authorizationModelKeys.toString();
-            console.log($.cookie("navegacion"));
-            if ($.cookie("navegacion") != "1") {
-                $BackEndSAM.perfil.read({}, { token: $.cookie("token"), paginaID: $.cookie("navegacion") }).done(function (data) {
+            console.log(Cookies.get("navegacion"));
+            if (Cookies.get("navegacion") != "1") {
+                $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
                     returnOfSecurityCheck = data;
+                    Cookies.set("token", data.token, {path: '/'});
                     console.log(data);
                     for (key in $authorizationModel) {
                         if ($authorizationModel.hasOwnProperty(key)) {
@@ -692,7 +693,7 @@
 
         //Method to hide elements if im in home
         function hideElements() {
-            if ($.cookie("home") != null && $.cookie("home") == "true") {
+            if (Cookies.get("home") != null && Cookies.get("home") == "true") {
                 $(".sidebar").css("display", "none");
                 $(".logo").css("display", "none");
                 $(".search-bar").css("display", "none");
@@ -705,7 +706,7 @@
 
         //Method to autogenerate a cookie
         function autoCookies(correctCredentials) {
-            if ($.cookie("user") == null && $.cookie("token") == null) {
+            if (Cookies.get("user") == null && Cookies.get("token") == null) {
                 if (correctCredentials) {
                     createUserSession("YWRtaW4", "Q2hlbHNlYTEwMiE");
                 } else {
@@ -716,7 +717,7 @@
         
         //Method to autogenerate a cookie
         function authenticate(username, password) {
-            if ($.cookie("user") == null && $.cookie("token") == null) {
+            if (Cookies.get("user") == null && Cookies.get("token") == null) {
                 createUserSession(encrypt(username), encrypt(password));
             } else {
                 validateCredentials();
@@ -727,9 +728,9 @@
             //Create Login
             $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
                 if (data.IsAuthenicated) {
-                    $.cookie("home", false);
-                    $.cookie("user", username);
-                    $.cookie("token", data.ReturnMessage[0]);
+                    Cookies.set("home", false, {path: '/'});
+                    Cookies.set("user", username, { path: '/' });
+                    Cookies.set("token", data.ReturnMessage[0], { path: '/' });
                     //RedirectToLanding
                     document.location.href = '@Url.Action("Landing", "Home")';
                 }
@@ -737,12 +738,12 @@
         }
 
         function removeUserSession() {
-            if ($.cookie("user") != null && $.cookie("token") != null) {
-                $SecurityManager.authentication.destroy({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            if (Cookies.get("user") != null && Cookies.get("token") != null) {
+                $SecurityManager.authentication.destroy({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     if (!data.IsAuthenicated) {
-                        $.removeCookie("user", { path: '/' });
-                        $.removeCookie("token", { path: '/' });
-                        $.removeCookie("home", { path: '/' });
+                        Cookies.remove("user", { path: '/' });
+                        Cookies.remove("token", { path: '/' });
+                        Cookies.remove("home", { path: '/' });
                         validateCredentials();
                     }
                 });
@@ -750,43 +751,43 @@
         }
 
         function validateCredentials() {
-            if ($.cookie("home") != null && $.cookie("home") == "false" && $.cookie("user") != null && $.cookie("token") != null) {
+            if (Cookies.get("home") != null && Cookies.get("home") == "false" && Cookies.get("user") != null && Cookies.get("token") != null) {
                 loadingStart();
-                var request = $SecurityManager.authentication.read({ username: $.cookie("user"), token: $.cookie("token") });
+                var request = $SecurityManager.authentication.read({ username: Cookies.get("user"), token: Cookies.get("token") });
                 request.done(function (data) {
                     if (data.IsAuthenicated) {
-                        $.cookie("home", false);
+                        Cookies.set("home", false, { path: '/' });
                     } else {
                         //RedirectToHomePage
-                        $.removeCookie("user", { path: '/' });
-                        $.removeCookie("token", { path: '/' });
+                        Cookies.remove("user", { path: '/' });
+                        Cookies.remove("token", { path: '/' });
                         document.location.href = '/';
                     }
                     loadingStop();
                 });
                 request.error(function (data) {
                     console.log("errorFunction");
-                    $.removeCookie("user", { path: '/' });
-                    $.removeCookie("token", { path: '/' });
+                    Cookies.remove("user", { path: '/' });
+                    Cookies.remove("token", { path: '/' });
                     document.location.href = '/';
                     loadingStop();
                 });
                 request.fail(function (data) {
                     console.log("failFunction");
-                    $.removeCookie("user", { path: '/' });
-                    $.removeCookie("token", { path: '/' });
+                    Cookies.remove("user", { path: '/' });
+                    Cookies.remove("token", { path: '/' });
                     document.location.href = '/';
                     loadingStop();
                 });
                 
             } else {
-                if ($.cookie("home") != null && $.cookie("home") == "false") {
+                if (Cookies.get("home") != null && Cookies.get("home") == "false") {
                     //RedirectToHomePage
                     document.location.href = '/';
-                } else if ($.cookie("home") != null && $.cookie("home") == "true"
-                            && $.cookie("user") != null
-                            && $.cookie("token") != null
-                            && $.cookie("navegacion") != null && $.cookie("navegacion") == "1") {
+                } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
+                            && Cookies.get("user") != null
+                            && Cookies.get("token") != null
+                            && Cookies.get("navegacion") != null && Cookies.get("navegacion") == "1") {
                     document.location.href = '@Url.Action("Landing", "Home")';
                 }
             }
@@ -928,7 +929,7 @@
             //autoCookies(true);
 
             //Set cookie of homepage to false
-            $.cookie("home", false);
+            Cookies.set("home", false, {path: '/'});
 
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyHomeCookie", required: false)

@@ -749,12 +749,12 @@
 
             if (folio != -1)//Edición
             {
-                Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify( AvisoLlegada[0]), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.update");
                 });
             } else //Alta
             {
-                Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.create");
                     folio = data.FolioAvisoLlegadaID;
                     cargarTituloFolio();
@@ -771,7 +771,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyDescargarArchivo');
 
-            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyDescargarArchivo.read");
             });
         };
@@ -780,7 +780,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFileManager');
 
-            Client.DummyFileManager.destroy({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 fila.closest("tr").remove();
                 console.log("Client.DummyFileManager.destroy");
             });
@@ -797,7 +797,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
 
-            Client.DummyAvisoLlegada.read({}, { folio: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyAvisoLlegada.read({}, { folio: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log(data);
                 var concat = "";
                 var concatPlanas = "";
@@ -1007,7 +1007,7 @@
 
             console.log(TransportistaModal[0]);
 
-            $Transportista.Transportista.create(TransportistaModal[0], {token: $.cookie("token") }).done(function (data) {
+            $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalTransportista();
                 $("#window").data("kendoWindow").close();
                 ObtenerTransportista();
@@ -1025,7 +1025,7 @@
 
             console.log(ProveedorModal[0]);
 
-            $Proveedor.Proveedor.create(ProveedorModal[0], { token: $.cookie("token") }).done(function (data) {
+            $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalProveedor();
                 $("#window").data("kendoWindow").close();
                 ObtenerProveedor();
@@ -1041,7 +1041,7 @@
 
             console.log(PatioModal[0]);
 
-            $Patio.Patio.create(PatioModal[0], { token: $.cookie("token") }).done(function (data) {
+            $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalPatio();
                 $("#window").data("kendoWindow").close();
                 ObtenerPatio();
@@ -1057,7 +1057,7 @@
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyChofer');
-            Client.DummyChofer.create({}, { chofer: JSON.stringify(ChoferModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyChofer.create({}, { chofer: JSON.stringify(ChoferModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyChofer.create");
                 LimpiarModalChofer();
                 $("#window").data("kendoWindow").close();
@@ -1065,7 +1065,7 @@
         };
 
         function GuardarPlana() {
-            $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: Camion[0].CamionID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {                
+            $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: Camion[0].CamionID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalPlana();
                 $("#window").data("kendoWindow").close();
                 ObtenerPlanas();
@@ -1113,7 +1113,7 @@
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyTramitarPermiso');
-            Client.DummyTramitarPermiso.create({}, { permiso: JSON.stringify(TramitarPermiso), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyTramitarPermiso.create({}, { permiso: JSON.stringify(TramitarPermiso), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyTramitarPermiso.create");
                 $("#hdPermisoTramite").val(1);//Permiso en tramite
                 $("#TramitarPermiso").attr("disabled", "disabled");
@@ -1128,7 +1128,7 @@
         };
 
         function ObtenerPlanas() {
-            $Plana.Plana.read({ token: $.cookie("token") }).done(function (result) {
+            $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
@@ -1138,7 +1138,7 @@
         };
 
         function ObtenerTransportista() {
-            $Transportista.Transportista.read({ token: $.cookie("token") }).done(function (result) {
+            $Transportista.Transportista.read({ token: Cookies.get("token") }).done(function (result) {
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
@@ -1148,7 +1148,7 @@
         };
 
         function ObtenerPatio() {
-            $Patio.Patio.read({ token: $.cookie("token") }).done(function (result) {
+            $Patio.Patio.read({ token: Cookies.get("token") }).done(function (result) {
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
@@ -1158,7 +1158,7 @@
         };
 
         function ObtenerProveedor() {
-            $Proveedor.Proveedor.read({ token: $.cookie("token") }).done(function (result) {
+            $Proveedor.Proveedor.read({ token: Cookies.get("token") }).done(function (result) {
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
@@ -1184,7 +1184,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFileManager');
 
-            Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });

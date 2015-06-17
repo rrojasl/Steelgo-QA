@@ -81,8 +81,8 @@
 <script>
 
     @section JavascriptDocumentReadyHomeCookie {
-    $.cookie("home", true);
-    $.cookie("navegacion", "3");
+    Cookies.set("home", true, {path: '/'});
+    Cookies.set("navegacion", "3", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
@@ -183,7 +183,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyVerificarCancelacion');
 
-            Client.DummyVerificarCancelacion.read({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyVerificarCancelacion.read({}, { folio: folioAvisoLlegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 foliovalido = data;
                 if (foliovalido) {
                     if (confirm("Estas seguro de cancelar el folio de entrada?")) {
@@ -191,7 +191,7 @@
                         var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                         Client.add('DummyCancelacionListadoAvisoLlegada');
 
-                        Client.DummyCancelacionListadoAvisoLlegada.read({}, { folio: folioAvisoLlegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                        Client.DummyCancelacionListadoAvisoLlegada.read({}, { folio: folioAvisoLlegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                             $("#grid").data("kendoGrid").dataSource.data(data);
                         });
                     };
@@ -382,7 +382,7 @@
         var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         Client.add('DummyListadoAvisoLlegada');
 
-        Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+        Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
             console.log(data);
             resultadoJson = data;
             if ($("#grid").data("kendoGrid")) {
