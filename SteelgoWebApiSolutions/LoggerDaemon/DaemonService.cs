@@ -17,8 +17,6 @@ namespace LoggerDaemon
 {
     public partial class DaemonService : ServiceBase
     {
-        int detener = 0;
-
         public DaemonService()
         {
             InitializeComponent();
@@ -26,16 +24,12 @@ namespace LoggerDaemon
 
         protected override void OnStart(string[] args)
         {
-            detener = 0;
             LoggerDaemonLibrary.ReadMessagesNotificaciones();
             LoggerDaemonLibrary.ReadMessagesBitacora();
-            
         }
-
 
         protected override void OnStop()
         {
-            detener = 1;
         }       
     }
 }

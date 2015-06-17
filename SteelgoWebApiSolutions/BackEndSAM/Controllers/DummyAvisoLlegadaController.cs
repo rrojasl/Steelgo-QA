@@ -33,7 +33,7 @@ namespace BackEndSAM.Controllers
             Files files = new Files();
             Files files2 = new Files();
             Chofer chofer = new Chofer();
-            Plana plana = new Plana();
+            PlanaEntradaMat plana = new PlanaEntradaMat();
             PermisoAduana permisoaduana1 = new PermisoAduana();
             ArchivoAutorizadoAV archivoautorizado1 = new ArchivoAutorizadoAV();
             PaseSalida paseSalida = new PaseSalida();
@@ -78,11 +78,15 @@ namespace BackEndSAM.Controllers
 
             chofer.ChoferID = "1";
             chofer.Nombre = "value1";
-            
+
+            List<PlanaEntradaMat> lstPlana1 = new List<PlanaEntradaMat>();
+            PlanaEntradaMat plana1 = new PlanaEntradaMat();
 
             plana.PlanaID = "1";
-            plana.Nombre = "value1";
-            
+            lstPlana1.Add(plana);
+
+            plana1.PlanaID = "2";
+            lstPlana1.Add(plana1);
 
             aviso.FolioAvisoLlegadaID = 1;
 
@@ -94,7 +98,7 @@ namespace BackEndSAM.Controllers
             aviso.Transportistas = transportista;
             aviso.FechaRecepcion = Convert.ToDateTime("2015/05/25");
             aviso.Proveedores = proveedor;
-            aviso.Planas = plana;
+            aviso.Planas = lstPlana1;
             aviso.OrdenCompra = "RSE-Factfolio1";
             aviso.Patios = patio;
             aviso.Choferes = chofer;
@@ -124,7 +128,7 @@ namespace BackEndSAM.Controllers
             Files files1 = new Files();
             Files files3 = new Files();
             Chofer chofer2 = new Chofer();
-            Plana plana2 = new Plana();
+            PlanaEntradaMat plana2 = new PlanaEntradaMat();
             PermisoAduana permisoaduana = new PermisoAduana();
             ArchivoAutorizadoAV archivoautorizado = new ArchivoAutorizadoAV();
 
@@ -162,8 +166,17 @@ namespace BackEndSAM.Controllers
             patio2.Nombre = "value2";
             chofer2.ChoferID = "2";
             chofer2.Nombre = "value2";
+
+            List<PlanaEntradaMat> lstPlana3 = new List<PlanaEntradaMat>();
+            PlanaEntradaMat plana3 = new PlanaEntradaMat();
+
             plana2.PlanaID = "1";
-            plana2.Nombre = "value2";
+            lstPlana3.Add(plana2);
+
+            plana3.PlanaID = "2";
+            lstPlana3.Add(plana3);
+
+
             aviso1.FolioAvisoLlegadaID = 2;
             proyecto1.ProyectoID = "1";
             lstProyecto2.Add(proyecto1);
@@ -177,7 +190,7 @@ namespace BackEndSAM.Controllers
             aviso1.Transportistas = transportista2;
             aviso1.FechaRecepcion = Convert.ToDateTime("2015/05/25");
             aviso1.Proveedores = proveedor2;
-            aviso1.Planas = plana2;
+            aviso1.Planas = lstPlana3;
             aviso1.OrdenCompra = "RSE-Factfolio2";
             aviso1.Patios = patio2;
             aviso1.Choferes = chofer2;

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.DataAcces;
 using BackEndSAM.Models;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
@@ -17,14 +18,15 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AvisoLlegadaController : ApiController
     {
-        public object Get(string token)
+
+        public object Get(FiltrosJson filtros, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return null;
+                return AvisoLlegadaBd.Instance.ObtenerListadoAvisoLlegada(filtros);
             }
             else
             {
@@ -37,6 +39,27 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(int avisollegadaID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return AvisoLlegadaBd.Instance.ObtenerAvisoLlegadaPorID(avisollegadaID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+
         public object Post(AvisoLlegadaJson avisoLlegada, string token)
         {
             string payload = "";
@@ -46,7 +69,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return AvisoLlegadaBd.Instance.GenerarAvisoLlegada(avisoLlegada, usuario);
             }
             else
             {

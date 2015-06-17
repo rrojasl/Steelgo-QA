@@ -13,7 +13,7 @@
     07  $_links
     08  $_input
     09  $_btn
-    10  $_$_headings
+    10  $_headings
     11  $_
 
 
@@ -208,6 +208,7 @@ a, a:link, a:hover, a:visited {
     color: #305E8E;
     outline: none;
     text-decoration: none;
+    cursor: pointer;
 }
 /**********************************************************************************/
 

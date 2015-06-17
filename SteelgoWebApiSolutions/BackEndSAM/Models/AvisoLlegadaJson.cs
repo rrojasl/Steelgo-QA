@@ -56,7 +56,6 @@ namespace BackEndSAM.Models
     public class PlanaAV
     {
         public int PlanaID { get; set; }
-        public string Nombre { get; set; }
     }
 
     public class PatioAV

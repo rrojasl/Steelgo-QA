@@ -264,7 +264,8 @@
     background-color: #EEEEEE;
 }
 
-    .k-grid > table /* header + data table */ {
+    /* header + data table */
+    .k-grid > table {
         table-layout: fixed;
     }
 
@@ -272,7 +273,8 @@
         padding: 5.5px 13px;
         font-size: 12px;
         line-height: 1.4;
-        color: #666666;
+        color: #111111;
+        font-weight: 600;
         border-bottom: 1px solid #CCCCCC;
     }
 

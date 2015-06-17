@@ -13,7 +13,7 @@ namespace BackEndSAM.Models
         public Transportista Transportistas { get; set; }
         public DateTime FechaRecepcion { get; set; }
         public Proveedor Proveedores { get; set; }
-        public Plana Planas { get; set; }
+        public List<PlanaEntradaMat> Planas { get; set; }
         public string OrdenCompra { get; set; }
         public Patio Patios { get; set; }
         public Chofer Choferes { get; set; }
