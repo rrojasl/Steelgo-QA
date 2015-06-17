@@ -441,22 +441,30 @@
                 filter: "contains",
             });
 
-            $("#TransportistaID").kendoAutoComplete({
+            $("#TransportistaID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "TransportistaID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
+                    if (dataItem.value == 0) {
+                        VentanaModal(2);
+                        e.preventDefault();
+                    }
                     CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
             ObtenerTransportista();
 
-            $("#ProveedorID").kendoAutoComplete({
+            $("#ProveedorID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "ProveedorID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
+                    if (dataItem.value == 0) {
+                        VentanaModal(1);
+                        e.preventDefault();
+                    }
                     CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
                 },
                 filter: "contains",
@@ -467,10 +475,17 @@
                 dataTextField: "Nombre",
                 dataValueField: "PlanaID",
                 filter: "contains",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    if (dataItem.value == 0) {
+                        VentanaModal(3);
+                        e.preventDefault();
+                    }
+                }
             });
             ObtenerPlanas();
 
-            $("#PatioID").kendoAutoComplete({
+            $("#PatioID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -484,13 +499,17 @@
                 dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
+                    if (dataItem.value == 0) {
+                        VentanaModal(4);
+                        e.preventDefault();
+                    }
                     CargarPatio(dataItem.PatioID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
             ObtenerPatio();
 
-            $("#ChoferID").kendoAutoComplete({
+            $("#ChoferID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -506,6 +525,10 @@
                 //dataValueField: "ChoferID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
+                    if (dataItem.value == 0) {
+                        VentanaModal(5);
+                        e.preventDefault();
+                    }
                     CargarChofer(dataItem.ProyectoID, dataItem.Nombre);
 
                 },
@@ -1142,7 +1165,7 @@
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
-                    $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
+                    $("#TransportistaID").data("kendoComboBox").dataSource.data(result);
                 };
             });
         };
@@ -1152,7 +1175,7 @@
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
-                    $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+                    $("#PatioID").data("kendoComboBox").dataSource.data(result);
                 };
             });
         };
@@ -1162,7 +1185,7 @@
                 if (result.ReturnCode) {
                     removeUserSession();
                 } else {
-                    $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
+                    $("#ProveedorID").data("kendoComboBox").dataSource.data(result);
                 };
             });
         };
