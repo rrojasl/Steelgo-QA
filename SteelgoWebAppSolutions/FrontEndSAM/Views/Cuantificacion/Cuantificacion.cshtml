@@ -92,7 +92,7 @@
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyCambiarEstatusCuantificacion');
 
-                Client.DummyCambiarEstatusCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packinglistid: $("#PackingList").val(), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyCambiarEstatusCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packinglistid: $("#PackingList").val(), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyCambiarEstatusCuantificacion.update");
                     alert("Se termino el proceso de cuantificación");
                     deshabilitarControles();
@@ -151,7 +151,7 @@
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyListadoCuantificacion');
 
-                Client.DummyListadoCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packingList: $("#PackingList").val(), cuantificacion: JSON.stringify(ListadoCuantificacion), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyListadoCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packingList: $("#PackingList").val(), cuantificacion: JSON.stringify(ListadoCuantificacion), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyListadoCuantificacion.update");
                     llenarGridTerminarCuantificacionGenerarNU(data, ListadoCuantificacionIncompletos);
                     ordenamientoGrid();
@@ -161,14 +161,14 @@
                 var ClientPackingList = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 ClientPackingList.add('DummyPackingList');
 
-                ClientPackingList.DummyPackingList.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                ClientPackingList.DummyPackingList.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyPackingList");
                     $("#PackingList").val(data.PackingListID);
 
                     var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                     Client.add('DummyListadoCuantificacion');
 
-                    Client.DummyListadoCuantificacion.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, cuantificacion: JSON.stringify(ListadoCuantificacion), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    Client.DummyListadoCuantificacion.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, cuantificacion: JSON.stringify(ListadoCuantificacion), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                         console.log("DummyListadoCuantificacion.create");
                         llenarGridTerminarCuantificacionGenerarNU(data, ListadoCuantificacionIncompletos);
                         ordenamientoGrid();
@@ -240,7 +240,7 @@
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyListadoCuantificacion');
 
-                Client.DummyListadoCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packingList: $("#PackingList").val(), cuantificacion: JSON.stringify(ListadoCuantificacion), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyListadoCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packingList: $("#PackingList").val(), cuantificacion: JSON.stringify(ListadoCuantificacion), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyListadoCuantificacion.update");                    
                     llenarGridTerminarCuantificacionGenerarNU(data, ListadoCuantificacionIncompletos);
                     ordenamientoGrid();
@@ -251,14 +251,14 @@
                 var ClientPackingList = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 ClientPackingList.add('DummyPackingList');
 
-                ClientPackingList.DummyPackingList.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                ClientPackingList.DummyPackingList.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyPackingList");
                     $("#PackingList").val(data.PackingListID);
 
                     var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                     Client.add('DummyListadoCuantificacion');
 
-                    Client.DummyListadoCuantificacion.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, cuantificacion: JSON.stringify(ListadoCuantificacion), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    Client.DummyListadoCuantificacion.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, cuantificacion: JSON.stringify(ListadoCuantificacion), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                         console.log("DummyListadoCuantificacion.create");                        
                         llenarGridTerminarCuantificacionGenerarNU(data, ListadoCuantificacionIncompletos);
                         ordenamientoGrid();
@@ -303,7 +303,7 @@
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyListadoCuantificacion');
 
-                Client.DummyListadoCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packingList: $("#PackingList").val(), cuantificacion: JSON.stringify(result), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyListadoCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packingList: $("#PackingList").val(), cuantificacion: JSON.stringify(result), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyListadoCuantificacion.update");
                     $("#grid").data("kendoGrid").dataSource.data(data);
                     ordenamientoGrid();
@@ -312,14 +312,14 @@
                 var ClientPackingList = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 ClientPackingList.add('DummyPackingList');
 
-                ClientPackingList.DummyPackingList.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                ClientPackingList.DummyPackingList.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyPackingList");
                     $("#PackingList").val(data.PackingListID);
 
                     var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                     Client.add('DummyListadoCuantificacion');
 
-                    Client.DummyListadoCuantificacion.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, cuantificacion: JSON.stringify(result), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                    Client.DummyListadoCuantificacion.create({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, cuantificacion: JSON.stringify(result), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                         console.log("DummyListadoCuantificacion.create");
                         $("#grid").data("kendoGrid").dataSource.data(data);
                         ordenamientoGrid();
@@ -402,7 +402,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyEdicionCuantificacion');
 
-            Client.DummyEdicionCuantificacion.read({}, { folioLlegadaID: _folioLlegadaID, folioEntradaID: _folioEntradaID, packingListID: _packingListID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyEdicionCuantificacion.read({}, { folioLlegadaID: _folioLlegadaID, folioEntradaID: _folioEntradaID, packingListID: _packingListID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
 
                 if (data.Proyecto) {
                     CargarProyecto(data.Proyecto.ProyectoID, data.Proyecto.Nombre);
@@ -436,7 +436,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyCargarGridPackingList');
 
-            Client.DummyCargarGridPackingList.read({}, { gridPackingList: JSON.stringify(GridPackingList), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyCargarGridPackingList.read({}, { gridPackingList: JSON.stringify(GridPackingList), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("DummyCargarGridPackingList=" + data.PackingList);
                 $("#PackingList").val(data.PackingList.PackingListID);
                 if ($("#grid").data("kendoGrid")) {
@@ -453,7 +453,7 @@
             var ClientProy = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             ClientProy.add('Proyecto');
 
-            ClientProy.Proyecto.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            ClientProy.Proyecto.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $("#ProyectoID").data("kendoAutoComplete").dataSource.data(data);
             });
         };
@@ -462,7 +462,7 @@
             var ClientFolioLlegadaID = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             ClientFolioLlegadaID.add('FolioLlegada');
 
-            ClientFolioLlegadaID.FolioLlegada.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            ClientFolioLlegadaID.FolioLlegada.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $("#FolioLlegadaID").data("kendoAutoComplete").dataSource.data(data);
             });
         };
@@ -491,7 +491,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('FolioLlegadaPorProyecto');
 
-            Client.FolioLlegadaPorProyecto.read({}, { proyectoid: proyectoID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.FolioLlegadaPorProyecto.read({}, { proyectoid: proyectoID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 if (data.length == 0) {
                     $("#FolioLlegadaID").data("kendoAutoComplete").value("");
                 }
@@ -507,7 +507,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('ProyectoPorFolioLlegada');
 
-            Client.ProyectoPorFolioLlegada.read({}, { foliollegadaid: foliollegadaID, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {               
+            Client.ProyectoPorFolioLlegada.read({}, { foliollegadaid: foliollegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $("#ProyectoID").data("kendoAutoComplete").value(data[0].Nombre);
                 CargarProyecto(data[0].ProyectoID, data[0].Nombre);
             });
@@ -581,7 +581,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyItemCode');
 
-            Client.DummyItemCode.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyItemCode.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log(data);
                 itemCodesJson = data;
             });
@@ -618,7 +618,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFamilia');
 
-            Client.DummyFamilia.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyFamilia.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log(data);
                 familiasJson = data;
             });
@@ -639,7 +639,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyCedula');
 
-            Client.DummyCedula.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyCedula.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log(data);
                 cedulasJson = data;
             });
@@ -660,7 +660,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyTipoAcero');
 
-            Client.DummyTipoAcero.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyTipoAcero.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("DummyTipoAcero="+ data);
                 tipoAceroJson = data;
             });
@@ -761,7 +761,7 @@ function imprimirEtiquetas() {
     };
 
     if (_tieneNU) {
-        $.cookie("ItemCodes", strItemCodes);
+        Cookies.set("ItemCodes", strItemCodes, {path: '/'});
         window.open("@Url.Action("FormatoEtiquetas", "Cuantificacion")");
     } else {
         alert("Los item codes no tienen asignado un numero unico");

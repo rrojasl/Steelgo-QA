@@ -27,7 +27,8 @@
 }
 
 @section JavascriptDocumentReadyHomeCookie {
-    $.cookie("home", true);
+    Cookies.set("home", true, {path: '/'});
+    Cookies.set("navegacion", "1", { path: '/' });
 }
 
 @section JavascriptDocumentReadyFunctions {

@@ -294,7 +294,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyEntradaMaterial');
 
-            Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 if (data.Proyecto) {
                     CargarProyecto(data.Proyecto.ProyectoID, data.Proyecto.Nombre);
                     $("#ProyectoID").data("kendoAutoComplete").value(data.Proyecto.Nombre);
@@ -405,7 +405,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyDescargarArchivo');
 
-            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyDescargarArchivo.read");
             });
         };
@@ -414,7 +414,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFileManager');
 
-            Client.DummyFileManager.destroy({}, { archivoID: id, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 fila.closest("tr").remove();
                 console.log("Client.DummyFileManager.destroy");
             });
@@ -458,13 +458,13 @@
 
             if (folioLlegada != -1 && folioAvisoLlegada != -1)//Edición
             {
-                Client.DummyFolioEntrada.update({}, { folioLlegada: JSON.stringify(FolioLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyFolioEntrada.update({}, { folioLlegada: JSON.stringify(FolioLlegada), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyFolioEntrada.update");
                     MostrarFoliosGenerados();
                 });
             } else //Alta
             {
-                Client.DummyFolioEntrada.create({}, { folioLlegada: JSON.stringify(FolioLlegada), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+                Client.DummyFolioEntrada.create({}, { folioLlegada: JSON.stringify(FolioLlegada), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyFolioEntrada.create");
                     folioLlegada = data.FolioLlegadaID;                   
                     $("#FolioEntradaID, #ProyectoID").kendoAutoComplete({
@@ -483,7 +483,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFoliosGenerados');
 
-            Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#divFoliosGenerados").show();
                     $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioLlegadaID + "," + value.FolioAvisoLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
@@ -510,7 +510,7 @@
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyPatio');
-            Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyPatio.create");
                 LimpiarModalPatio();
             });
@@ -544,7 +544,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyFileManager');
 
-            Client.DummyFileManager.read({}, { username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });

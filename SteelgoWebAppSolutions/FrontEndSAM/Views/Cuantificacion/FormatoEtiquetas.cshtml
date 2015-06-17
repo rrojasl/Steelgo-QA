@@ -9,7 +9,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
-        var itemCodes = $.cookie("ItemCodes");
+    var itemCodes = Cookies.get("ItemCodes");
 
     }
 
@@ -44,7 +44,7 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyObtenerItemCodes');
 
-            Client.DummyObtenerItemCodes.read({}, { itemcodes: JSON.stringify(ArrItemCodes), username: $.cookie("user"), token: $.cookie("token") }).done(function (data) {
+            Client.DummyObtenerItemCodes.read({}, { itemcodes: JSON.stringify(ArrItemCodes), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyObtenerItemCodes.read");
                 $.each(data, function (key) {
                     htmlstring = "";
