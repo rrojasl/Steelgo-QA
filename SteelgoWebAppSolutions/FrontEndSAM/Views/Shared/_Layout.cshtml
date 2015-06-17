@@ -490,12 +490,20 @@
         var $Patio = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $Proveedor = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $AvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Chofer = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Proyecto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Camion = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Contacto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 
         $Plana.add("Plana");
         $Transportista.add("Transportista");
         $Patio.add("Patio");
         $Proveedor.add("Proveedor");
         $AvisoLlegada.add("AvisoLlegada");
+        $Chofer.add("Chofer");
+        $Proyecto.add("Proyecto");
+        $Camion.add("Camion");
+        $Contacto.add("Contacto");
 
         var $authorizationModel = {};
         var $layoutModel = {

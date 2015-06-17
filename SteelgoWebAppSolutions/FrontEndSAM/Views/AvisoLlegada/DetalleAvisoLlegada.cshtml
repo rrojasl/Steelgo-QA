@@ -356,10 +356,10 @@
         </div>
     </div>
 
-<input id="hdPermisoAutorizado" type="hidden" />
+<input id="hdPermisoAutorizado" type="hidden" value="true" />
 <input id="hdPermisoTramite" type="hidden" />
 <input id="hdPaseSalida" type="hidden" value="" />
-<input id="hdArchivoAutorizado" type="hidden" value="155,c://prueba.com,.xlsx" />
+<input id="hdArchivoAutorizado" type="hidden" value="" />
 
 <script>
     @section JavascriptGlobalVariables {
@@ -427,27 +427,19 @@
             });
 
             $("#ProyectoID").kendoMultiSelect({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
                 dataTextField: "Nombre",
                 dataValueField: "ProyectoID",
                 filter: "contains",
             });
+            ObtenerProyectos();
 
             $("#TransportistaID").kendoComboBox({
                 dataTextField: "Nombre",
                 dataValueField: "TransportistaID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    if (dataItem.value == 0) {
-                        VentanaModal(2);
+                    if (dataItem.TransportistaID == 0) {
+                        VentanaModal(1);
                         e.preventDefault();
                     }
                     CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
@@ -461,8 +453,8 @@
                 dataValueField: "ProveedorID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    if (dataItem.value == 0) {
-                        VentanaModal(1);
+                    if (dataItem.ProveedorID == 0) {
+                        VentanaModal(2);
                         e.preventDefault();
                     }
                     CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
@@ -477,7 +469,7 @@
                 filter: "contains",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    if (dataItem.value == 0) {
+                    if (dataItem.PlanaID == 0) {
                         VentanaModal(3);
                         e.preventDefault();
                     }
@@ -486,20 +478,11 @@
             ObtenerPlanas();
 
             $("#PatioID").kendoComboBox({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/DummyPatio",
-                        }
-                    }
-                },
                 dataTextField: "Nombre",
                 dataValueField: "PatioID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    if (dataItem.value == 0) {
+                    if (dataItem.PatioID == 0) {
                         VentanaModal(4);
                         e.preventDefault();
                     }
@@ -510,30 +493,22 @@
             ObtenerPatio();
 
             $("#ChoferID").kendoComboBox({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
                 dataTextField: "Nombre",
-                dataValueField: "ProyectoID",
+                dataValueField: "ChoferID",
                 //dataTextField: "Nombre",
                 //dataValueField: "ChoferID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    if (dataItem.value == 0) {
+                    if (dataItem.ChoferID == 0) {
                         VentanaModal(5);
                         e.preventDefault();
                     }
-                    CargarChofer(dataItem.ProyectoID, dataItem.Nombre);
+                    CargarChofer(dataItem.ChoferID, dataItem.Nombre);
 
                 },
                 filter: "contains",
             });
+            ObtenerChofer();
 
             $("#TipoArchivo").kendoComboBox({
                 dataSource: {
@@ -566,15 +541,6 @@
 
             //modal transportista
             $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Contacto",
-                        }
-                    }
-                },
                 dataTextField: "Nombre",
                 dataValueField: "ContactoID",
                 select: function (e) {
@@ -583,18 +549,10 @@
                 },
                 filter: "contains",
             });
+            ObtenerContacto();
 
             //modal Camion
             $("#CamionID_Plana").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/DummyCamion",
-                        }
-                    }
-                },
                 dataTextField: "Placas",
                 dataValueField: "CamionID",
                 select: function (e) {
@@ -603,7 +561,8 @@
                 },
                 filter: "contains",
             });
-
+            ObtenerCamion();
+        
             $('#ArchivoAutorizar').kendoUpload({
                 async: {
                     saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
@@ -754,30 +713,14 @@
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyAvisoLlegada');
 
-            //if (folio != -1)//Edición
-            //{
-            //    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-            //        console.log("Client.DummyAvisoLlegada.update");
-            //    });
-            //} else //Alta
-            //{
-            //    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-            //        console.log("Client.DummyAvisoLlegada.create");
-            //        folio = data.FolioAvisoLlegadaID;
-            //        cargarTituloFolio();
-            //        alert("El folio " + folio + " fue creado exitosamente.");
-            //    });
-            //}
-
-
             if (folio != -1)//Edición
             {
-                Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.update");
                 });
             } else //Alta
             {
-                Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                     console.log("Client.DummyAvisoLlegada.create");
                     folio = data.FolioAvisoLlegadaID;
                     cargarTituloFolio();
@@ -786,6 +729,24 @@
                     alert("El folio " + folio + " fue creado exitosamente.");
                 });
             }
+
+
+            //if (folio != -1)//Edición
+            //{
+            //    Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+            //        console.log("Client.DummyAvisoLlegada.update");
+            //    });
+            //} else //Alta
+            //{
+            //    Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+            //        console.log("Client.DummyAvisoLlegada.create");
+            //        folio = data.FolioAvisoLlegadaID;
+            //        cargarTituloFolio();
+            //        var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+            //        tabStrip.enable(tabStrip.tabGroup.children().eq(1));
+            //        alert("El folio " + folio + " fue creado exitosamente.");
+            //    });
+            //}
 
 
         };
@@ -1076,14 +1037,13 @@
             ChoferModal[0] = { Nombre: "" };
             ChoferModal[0].Nombre = $("#Nombre_Chofer").val();
 
-            console.log(JSON.stringify(ChoferModal));
+            console.log(ChoferModal[0]);
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyChofer');
-            Client.DummyChofer.create({}, { chofer: JSON.stringify(ChoferModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+            $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyChofer.create");
                 LimpiarModalChofer();
                 $("#window").data("kendoWindow").close();
+                ObtenerChofer();
             });
         };
 
@@ -1150,6 +1110,16 @@
             $("#FechaRecepcion").kendoDatePicker({ footer: false });
         };
 
+        function ObtenerProyectos() {
+            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
+                };
+            });
+        };
+
         function ObtenerPlanas() {
             $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
                 if (result.ReturnCode) {
@@ -1189,7 +1159,38 @@
                 };
             });
         };
+
+        function ObtenerChofer() {
+            $Chofer.Chofer.read({ token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                };
+            });
+        }
         
+        function ObtenerCamion() {
+            $Camion.Camion.read({ token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#CamionID_Plana").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+
+        function ObtenerContacto() {
+            $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ContactoID_Transportista, #ContactoID_Proveedor").data("kendoAutoComplete").dataSource.data(result);
+                    $("#ContactoID_Proveedor").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
