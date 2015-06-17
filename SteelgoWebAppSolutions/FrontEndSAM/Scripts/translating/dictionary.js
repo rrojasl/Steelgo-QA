@@ -428,6 +428,14 @@ _dictionary = {
         "es-MX": "Detalle de Avisos de Entrada",
         "en-US": "Detail Input Material"
     },
+    "DetalleAvisoLlegada0053": {
+        "es-MX": "Aviso de Entrada de Material",
+        "en-US": "Notice of Entry Material"
+    },
+    "DetalleAvisoLlegada0054": {
+        "es-MX": "Permiso Aduana",
+        "en-US": "Customs permission"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",

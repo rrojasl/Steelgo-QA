@@ -149,7 +149,6 @@
     <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="DataAcces\ProveedorBd.cs" />
     <Compile Include="DataAcces\TransportistaBd.cs" />
-
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,6 +179,7 @@
     <Compile Include="Models\Dummy\Patio.cs" />
     <Compile Include="Models\Dummy\PermisoAduana.cs" />
     <Compile Include="Models\Dummy\Plana.cs" />
+    <Compile Include="Models\Dummy\PlanaEntradaMat.cs" />
     <Compile Include="Models\Dummy\Proveedor.cs" />
     <Compile Include="Models\Dummy\Proyecto.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
