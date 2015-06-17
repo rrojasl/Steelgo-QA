@@ -48,8 +48,6 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    AvisoLlegadaJson jsonAvisoLlegada = new AvisoLlegadaJson();
-
                     //Buscamos el folio maximo en los avisos de Legada
                     int? nuevoFolio;
 
@@ -74,19 +72,19 @@ namespace BackEndSAM.DataAcces
                     //asignamos campos al nueva aviso de llegada
                     Sam3_FolioAvisoLlegada nuevoAvisoLlegada = new Sam3_FolioAvisoLlegada();
                     nuevoAvisoLlegada.Activo = true;
-                    nuevoAvisoLlegada.CamionID = ctx.Sam3_Plana.Where(x => x.PlanaID == jsonAvisoLlegada.Plana[0].PlanaID)
+                    nuevoAvisoLlegada.CamionID = ctx.Sam3_Plana.Where(x => x.PlanaID == avisoJson.Plana[0].PlanaID)
                         .Select(x => x.CamionID).SingleOrDefault();
-                    nuevoAvisoLlegada.ChoferID = jsonAvisoLlegada.Chofer[0].ChoferID;
+                    nuevoAvisoLlegada.ChoferID = avisoJson.Chofer[0].ChoferID;
                     nuevoAvisoLlegada.Consecutivo = nuevoFolio;
                     nuevoAvisoLlegada.Estatus = "Creado";
                     nuevoAvisoLlegada.EsVirtual = false;
-                    nuevoAvisoLlegada.PaseSalidaEnviado = jsonAvisoLlegada.PaseSalida[0].PaseSalidaEnviado;
-                    nuevoAvisoLlegada.PatioID = jsonAvisoLlegada.Patio[0].PatioID;
-                    nuevoAvisoLlegada.ProveedorID = jsonAvisoLlegada.Proveedor[0].ProveedorID;
-                    nuevoAvisoLlegada.TransportistaID = jsonAvisoLlegada.Transportista[0].TransportistaID;
-                    nuevoAvisoLlegada.OrdenCompra = jsonAvisoLlegada.OrdenCompra;
-                    nuevoAvisoLlegada.FechaRecepcion = jsonAvisoLlegada.FechaRecepcion;
-                    nuevoAvisoLlegada.PaseSalidaEnviado = jsonAvisoLlegada.PaseSalida[0].PaseSalidaEnviado;
+                    nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
+                    nuevoAvisoLlegada.PatioID = avisoJson.Patio[0].PatioID;
+                    nuevoAvisoLlegada.ProveedorID = avisoJson.Proveedor[0].ProveedorID;
+                    nuevoAvisoLlegada.TransportistaID = avisoJson.Transportista[0].TransportistaID;
+                    nuevoAvisoLlegada.OrdenCompra = avisoJson.OrdenCompra;
+                    nuevoAvisoLlegada.FechaRecepcion = avisoJson.FechaRecepcion;
+                    nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     //Guardamos los cambios
@@ -94,7 +92,7 @@ namespace BackEndSAM.DataAcces
                     ctx.SaveChanges();
 
                     //Guardamos el permisos aduana
-                    foreach (PermisoAduanaAV permisoAv in jsonAvisoLlegada.PermisoAduana)
+                    foreach (PermisoAduanaAV permisoAv in avisoJson.PermisoAduana)
                     {
                         Sam3_PermisoAduana nuevoPermiso = new Sam3_PermisoAduana();
                         nuevoPermiso.Activo = true;
@@ -124,7 +122,7 @@ namespace BackEndSAM.DataAcces
 
 
                     //guardamos en la relacion entre folios y proyectos
-                    foreach (ProyectosAV p in jsonAvisoLlegada.Proyectos)
+                    foreach (ProyectosAV p in avisoJson.Proyectos)
                     {
                         Sam3_Rel_FolioAvisoLlegada_Proyecto avisoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
                         avisoProyecto.Activo = true;
@@ -137,7 +135,7 @@ namespace BackEndSAM.DataAcces
                     }
 
                     //Guardamos en la relacion de Avisos y planas
-                    foreach (PlanaAV plana in jsonAvisoLlegada.Plana)
+                    foreach (PlanaAV plana in avisoJson.Plana)
                     {
                         Sam3_Rel_AvisoLlegada_Plana nuevaPlana = new Sam3_Rel_AvisoLlegada_Plana();
                         nuevaPlana.Activo = true;
@@ -150,7 +148,7 @@ namespace BackEndSAM.DataAcces
                     }
 
                     //guardamos en relacion de documentos de pases de salida, Folios
-                    foreach (PaseSalidaAV paseSalidaAv in jsonAvisoLlegada.PaseSalida)
+                    foreach (PaseSalidaAV paseSalidaAv in avisoJson.PaseSalida)
                     {
                         foreach (ArchivosPaseSalida archivoSalida in paseSalidaAv.Archivos)
                         {
@@ -167,7 +165,7 @@ namespace BackEndSAM.DataAcces
                     }
 
                     //Guardamos los archivos del pase de salida
-                    foreach (ArchivosAV archivosAvisollegada in jsonAvisoLlegada.Archivos)
+                    foreach (ArchivosAV archivosAvisollegada in avisoJson.Archivos)
                     {
                         Sam3_Rel_FolioAvisoLlegada_Documento documentoLlegada = new Sam3_Rel_FolioAvisoLlegada_Documento();
                         documentoLlegada.Activo = true;
