@@ -72,8 +72,7 @@ namespace BackEndSAM.DataAcces
                     //asignamos campos al nueva aviso de llegada
                     Sam3_FolioAvisoLlegada nuevoAvisoLlegada = new Sam3_FolioAvisoLlegada();
                     nuevoAvisoLlegada.Activo = true;
-                    nuevoAvisoLlegada.CamionID = ctx.Sam3_Plana.Where(x => x.PlanaID == avisoJson.Plana[0].PlanaID)
-                        .Select(x => x.CamionID).SingleOrDefault();
+                    nuevoAvisoLlegada.CamionID = 1;
                     nuevoAvisoLlegada.ChoferID = avisoJson.Chofer[0].ChoferID;
                     nuevoAvisoLlegada.Consecutivo = nuevoFolio;
                     nuevoAvisoLlegada.Estatus = "Creado";
