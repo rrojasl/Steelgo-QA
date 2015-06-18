@@ -19,6 +19,7 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int Rel_FolioAviso_ProyectoID { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }

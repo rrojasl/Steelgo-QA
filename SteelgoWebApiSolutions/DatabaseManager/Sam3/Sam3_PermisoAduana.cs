@@ -28,6 +28,8 @@ namespace DatabaseManager.Sam3
         public Nullable<bool> PermisoAutorizado { get; set; }
         public Nullable<bool> PermisoTramite { get; set; }
         public Nullable<int> NumeroPermiso { get; set; }
+        public Nullable<System.DateTime> FechaGeneracion { get; set; }
+        public Nullable<System.DateTime> FechaAutorización { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
         public virtual ICollection<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }

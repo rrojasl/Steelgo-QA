@@ -17,7 +17,6 @@ namespace DatabaseManager.Sam3
         public Sam3_Camion()
         {
             this.Sam3_PackingList = new HashSet<Sam3_PackingList>();
-            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
             this.Sam3_Plana = new HashSet<Sam3_Plana>();
         }
     
@@ -27,7 +26,6 @@ namespace DatabaseManager.Sam3
         public string Placas { get; set; }
         public string TarjetaCirulacion { get; set; }
         public string PolizaSeguro { get; set; }
-        public string Estatus { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
@@ -35,7 +33,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_Chofer Sam3_Chofer { get; set; }
         public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual Sam3_Transportista Sam3_Transportista { get; set; }
-        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
         public virtual ICollection<Sam3_Plana> Sam3_Plana { get; set; }
     }
 }

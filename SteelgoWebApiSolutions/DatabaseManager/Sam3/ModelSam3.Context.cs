@@ -96,8 +96,8 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Rel_Perfil_Entidad_Pagina> Sam3_Rel_Perfil_Entidad_Pagina { get; set; }
         public virtual DbSet<Sam3_Rel_AvisoLlegada_Plana> Sam3_Rel_AvisoLlegada_Plana { get; set; }
         public virtual DbSet<Sam3_Rel_TiposDocumentos_ExtencionesDocumentos> Sam3_Rel_TiposDocumentos_ExtencionesDocumentos { get; set; }
+        public virtual DbSet<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
-        public virtual DbSet<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
     }
 }

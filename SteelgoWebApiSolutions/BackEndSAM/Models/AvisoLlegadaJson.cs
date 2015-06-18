@@ -10,7 +10,7 @@ namespace BackEndSAM.Models
     {
         public int FolioAvisoLlegadaID { get; set; }
         public string Factura { get; set; }
-        public DateTime FechaRecepcion { get; set; }
+        public string FechaRecepcion { get; set; }
         public string OrdenCompra { get; set; }
         public List<ProyectosAV> Proyectos { get; set; }
         public List<TransportistaAV> Transportista { get; set; }
@@ -84,6 +84,8 @@ namespace BackEndSAM.Models
         public bool PermisoTramite { get; set; }
         public string NumeroPermiso { get; set; }
         public List<ArchivoAutorizadoAV> ArchivoAutorizado { get; set; }
+        public string FechaAutorizacion { get; set; }
+        public string FechaGeneracion { get; set; }
         
         public PermisoAduanaAV()
         {

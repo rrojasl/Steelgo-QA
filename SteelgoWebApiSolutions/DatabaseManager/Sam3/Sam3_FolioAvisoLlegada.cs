@@ -18,13 +18,13 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_FolioLlegada = new HashSet<Sam3_FolioLlegada>();
             this.Sam3_PermisoAduana = new HashSet<Sam3_PermisoAduana>();
+            this.Sam3_Rel_FolioAvisoLlegada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoLlegada_Proyecto>();
             this.Sam3_Rel_AvisoLlegada_Plana = new HashSet<Sam3_Rel_AvisoLlegada_Plana>();
             this.Sam3_Rel_FolioAvisoLlegada_Documento = new HashSet<Sam3_Rel_FolioAvisoLlegada_Documento>();
             this.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo = new HashSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo>();
         }
     
         public int FolioAvisoLlegadaID { get; set; }
-        public Nullable<int> CamionID { get; set; }
         public Nullable<int> Consecutivo { get; set; }
         public Nullable<bool> EsVirtual { get; set; }
         public string Estatus { get; set; }
@@ -40,10 +40,9 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaRecepcion { get; set; }
         public string Factura { get; set; }
     
-        public virtual Sam3_Camion Sam3_Camion { get; set; }
         public virtual ICollection<Sam3_FolioLlegada> Sam3_FolioLlegada { get; set; }
         public virtual ICollection<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
-        public virtual Sam3_Rel_FolioAvisoLlegada_Proyecto Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
+        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
         public virtual Sam3_Chofer Sam3_Chofer { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
         public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
