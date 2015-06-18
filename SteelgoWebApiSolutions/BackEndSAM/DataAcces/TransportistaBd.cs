@@ -41,12 +41,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoTransportistas()
+        public object ObtenerListadoTransportistas(string esAvisoEntrada)
         {
             try
             {
                 List<Transportista> lstTransportista = new List<Transportista>();
-                lstTransportista.Add(new Transportista { Nombre = "Agregar nuevo", TransportistaID = "0" });
+
+                if (int.Parse(esAvisoEntrada) == 1)
+                {
+                    lstTransportista.Add(new Transportista { Nombre = "Agregar nuevo", TransportistaID = "0" });
+                }
+
                 using (SamContext ctx = new SamContext())
                 {
                     List<Transportista> result = (from t in ctx.Sam3_Transportista

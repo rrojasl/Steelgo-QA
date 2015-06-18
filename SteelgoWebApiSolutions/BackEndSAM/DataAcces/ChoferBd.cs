@@ -41,14 +41,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoChoferes()
+        public object ObtenerListadoChoferes(string esAvisoEntrada)
         {
             try
             {
                 List<Chofer> lstChoferes = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
-                    lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                    if (int.Parse(esAvisoEntrada) == 1)
+                    {
+                        lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                    }
 
                     List<Chofer> result = (from r in ctx.Sam3_Chofer
                                            where r.Activo
