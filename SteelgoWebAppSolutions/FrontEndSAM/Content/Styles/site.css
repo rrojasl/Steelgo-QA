@@ -180,23 +180,24 @@ label {
     letter-spacing: .8px;
 }
 
-    .form h2 label.title {
+/*.form h2 label.title {
         float: left;
-    }
+    }*/
 
-    .form h2 label.folioLabel {
-        visibility: hidden;
-        color: #202020;
-        font-weight: 600;
-    }
+.form .folioLabel {
+    visibility: hidden;
+    color: #333333;
+    font-weight: 600;
+    cursor: auto;
+}
 
-        .form h2 label.folioLabel span {
+    /*.form .folioLabel span {
             margin-right: 1px;
-        }
+        }*/
 
-        .form h2 label.folioLabel.show {
-            visibility: visible;
-        }
+    .form .folioLabel.show {
+        visibility: visible;
+    }
 /**********************************************************************************/
 
 

@@ -9,7 +9,7 @@
     03  $_k-grid
     04  $_input-group
     05  $_calendar
-    06  $_
+    06  $_tabstrip
     07  $_
     08  $_
     09  $_
@@ -558,6 +558,59 @@
 
     .k-calendar .k-footer {
         display: none;
+    }
+/**********************************************************************************/
+
+/**********************************************************************************
+ Class name:    $_tabstrip
+ Description:   Override kendo tabstrip.
+**********************************************************************************/
+#tabstrip {
+    padding: 0 15px;
+    border: none;
+}
+
+.k-tabstrip .k-tabstrip-items {
+    padding: 0;
+}
+
+.k-tabstrip-items .k-loading.k-complete {
+    border: none;
+}
+
+.k-tabstrip-items .k-item {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+    z-index: 1;
+}
+
+    .k-tabstrip-items .k-item .k-link {
+        color: #305E8E;
+        letter-spacing: .8px;
+        padding: 0 25px 14px 0;
+    }
+
+    .k-tabstrip-items .k-item.k-state-active .k-link {
+        color: #333333;
+    }
+
+.k-tabstrip .k-content {
+    border: none;
+    border-top: 1px solid #CCCCCC;
+    margin: 0;
+    padding: 17px 0 0;
+}
+
+    .k-tabstrip .k-content > div, 
+    .k-tabstrip .k-content > div *{
+        box-sizing: border-box;
+    }
+
+    .k-tabstrip .k-content.k-state-active {
     }
 /**********************************************************************************/
 
