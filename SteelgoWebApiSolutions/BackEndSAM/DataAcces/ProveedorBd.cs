@@ -41,14 +41,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoProveedores()
+        public object ObtenerListadoProveedores(string esAvisoEntrada)
         {
             try
             {
                 List<Proveedor> lstProveedores = new List<Proveedor>();
                 using (SamContext ctx = new SamContext())
                 {
-                    lstProveedores.Add(new Proveedor { Nombre = "Agregar nuevo", ProveedorID = "0" });
+                    if (int.Parse(esAvisoEntrada) == 1)
+                    {
+                        lstProveedores.Add(new Proveedor { Nombre = "Agregar nuevo", ProveedorID = "0" });
+                    }
 
                     List<Proveedor> result = (from p in ctx.Sam3_Proveedor
                                               where p.Activo
