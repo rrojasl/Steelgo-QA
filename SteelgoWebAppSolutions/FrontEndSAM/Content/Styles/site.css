@@ -184,8 +184,7 @@ label {
         float: left;
     }*/
 
-.form .folioLabel {
-    visibility: hidden;
+.form .folioLabel {    
     color: #333333;
     font-weight: 600;
     cursor: auto;
