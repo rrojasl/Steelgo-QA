@@ -18,14 +18,14 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProveedorController : ApiController
     {
-        public object Get(string token)
+        public object Get(string esAvisoEntrada,string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ProveedorBd.Instance.ObtenerListadoProveedores();
+                return ProveedorBd.Instance.ObtenerListadoProveedores(esAvisoEntrada);
             }
             else
             {

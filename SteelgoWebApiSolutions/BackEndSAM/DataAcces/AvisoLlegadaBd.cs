@@ -79,7 +79,7 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.Consecutivo = nuevoFolio;
                     nuevoAvisoLlegada.Estatus = "Creado";
                     nuevoAvisoLlegada.EsVirtual = false;
-                    nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
+                    nuevoAvisoLlegada.PaseSalidaEnviado = false;
                     nuevoAvisoLlegada.PatioID = avisoJson.Patio[0].PatioID;
                     nuevoAvisoLlegada.ProveedorID = avisoJson.Proveedor[0].ProveedorID;
                     nuevoAvisoLlegada.TransportistaID = avisoJson.Transportista[0].TransportistaID;
@@ -624,6 +624,35 @@ namespace BackEndSAM.DataAcces
                     result.IsAuthenicated = true;
 
                     return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoFoliosParaFiltro()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                  where r.Activo.Value
+                                                   select new ListaCombos
+                                                  {
+                                                      id = r.FolioAvisoLlegadaID.ToString(),
+                                                      value = r.Consecutivo.ToString()
+                                                  }).AsParallel().ToList();
+
+                    return lstFolios;
                 }
             }
             catch (Exception ex)

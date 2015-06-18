@@ -1428,7 +1428,7 @@
             };
 
             function ObtenerPatio() {
-                $Patio.Patio.read({ token: Cookies.get("token") }).done(function (result) {
+                $Patio.Patio.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
                         removeUserSession();
                     } else {
@@ -1438,7 +1438,7 @@
             };
 
             function ObtenerProveedor() {
-                $Proveedor.Proveedor.read({ token: Cookies.get("token") }).done(function (result) {
+                $Proveedor.Proveedor.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
                         removeUserSession();
                     } else {

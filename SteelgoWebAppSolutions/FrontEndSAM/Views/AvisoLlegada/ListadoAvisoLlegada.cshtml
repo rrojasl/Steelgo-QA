@@ -93,6 +93,7 @@
         var FechaInicial, FechaFinal, resultadoJson;
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
+        var AccionFiltrado = getUrlParameter("AccionFiltrado", "-1");// 1.-Todos.   2.- Folios sin permisos.  3.-Permiso pero sin autorizacion
     }
 
     @section JavascriptGlobalFunctions {        
@@ -227,20 +228,10 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarFolio(dataItem.FolioAvisoLlegadaID);
-            },
-
+            }
         });
 
         $("#PatioID").kendoAutoComplete({
-            dataSource: {
-                serverFiltering: false,
-                type: "json",
-                transport: {
-                    read: {
-                        url: "http://localhost:60960/backendsam/api/DummyPatio",
-                    }
-                }
-            },
             dataTextField: "Nombre",
             dataValueField: "PatioID",
             select: function (e) {
@@ -249,32 +240,16 @@
             },
             filter: "contains",
         });
+        ObtenerPatio();
 
         $("#ProyectoID").kendoMultiSelect({
-            dataSource: {
-                serverFiltering: false,
-                type: "json",
-                transport: {
-                    read: {
-                        url: "http://localhost:60960/backendsam/api/Proyecto",
-                    }
-                }
-            },
-            dataTextField: "value",
-            dataValueField: "id",
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
             filter: "contains",
         });
+        ObtenerProyectos();
 
         $("#ProveedorID").kendoAutoComplete({
-            dataSource: {
-                serverFiltering: false,
-                type: "json",
-                transport: {
-                    read: {
-                        url: "http://localhost:60960/backendsam/api/DummyProveedor",
-                    }
-                }
-            },
             dataTextField: "Nombre",
             dataValueField: "ProveedorID",
             select: function (e) {
@@ -283,17 +258,9 @@
             },
             filter: "contains",
         });
+        ObtenerProveedor();
 
         $("#TransportistaID").kendoAutoComplete({
-            dataSource: {
-                serverFiltering: false,
-                type: "json",
-                transport: {
-                    read: {
-                        url: "http://localhost:60960/backendsam/api/DummyTransportista",
-                    }
-                }
-            },
             dataTextField: "Nombre",
             dataValueField: "TransportistaID",
             select: function (e) {
@@ -302,6 +269,8 @@
             },
             filter: "contains",
         });
+        ObtenerTransportista();
+
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
@@ -354,6 +323,46 @@
         _transportista["TransportistaID"] = id;
         _transportista["Nombre"] = value;
         Transportista.push(_transportista);
+    };
+
+    function ObtenerProyectos() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            if (result.ReturnCode) {
+                removeUserSession();
+            } else {
+                $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
+            };
+        });
+    };
+
+    function ObtenerProveedor() {
+        $Proveedor.Proveedor.read({ esAvisoEntrada:0, token: Cookies.get("token") }).done(function (result) {
+            if (result.ReturnCode) {
+                removeUserSession();
+            } else {
+                $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
+            };
+        });
+    };
+
+    function ObtenerTransportista() {
+        $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+            if (result.ReturnCode) {
+                removeUserSession();
+            } else {
+                $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
+            };
+        });
+    };
+
+    function ObtenerPatio() {
+        $Patio.Patio.read({ esAvisoEntrada:0, token: Cookies.get("token") }).done(function (result) {
+            if (result.ReturnCode) {
+                removeUserSession();
+            } else {
+                $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+            };
+        });
     };
 
     function Filtros(prueba) {

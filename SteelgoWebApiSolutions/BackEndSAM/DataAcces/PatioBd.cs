@@ -41,14 +41,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerlistadoPatios()
+        public object ObtenerlistadoPatios(string esAvisoEntrada)
         {
             try
             {
                 List<Patio> lstPatios = new List<Patio>();
                 using (SamContext ctx = new SamContext())
                 {
-                    lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
+                    if (int.Parse(esAvisoEntrada) == 1)
+                    {
+                        lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
+                    }
 
                     List<Patio> result = (from p in ctx.Sam3_Patio
                                           where p.Activo
