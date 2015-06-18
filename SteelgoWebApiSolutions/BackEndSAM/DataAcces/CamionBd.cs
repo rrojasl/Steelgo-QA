@@ -88,7 +88,6 @@ namespace BackEndSAM.DataAcces
                     Sam3_Camion nuevoCamion = new Sam3_Camion();
                     nuevoCamion.Activo = true;
                     nuevoCamion.ChoferID = cambios.ChoferID;
-                    nuevoCamion.Estatus = "";
                     nuevoCamion.FechaModificacion = DateTime.Now;
                     nuevoCamion.Placas = cambios.Placas;
                     nuevoCamion.PolizaSeguro = cambios.PolizaSeguro;
