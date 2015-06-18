@@ -89,6 +89,7 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
+                    nuevoAvisoLlegada.CamionID = avisoJson.CamionID;
                     //Guardamos los cambios
                     ctx.Sam3_FolioAvisoLlegada.Add(nuevoAvisoLlegada);
                     ctx.SaveChanges();
@@ -158,22 +159,6 @@ namespace BackEndSAM.DataAcces
                         }
                     }
 
-                    //guardamos en relacion de documentos de pases de salida, Folios
-                    //foreach (PaseSalidaAV paseSalidaAv in avisoJson.PaseSalida)
-                    //{
-                    //    foreach (ArchivosPaseSalida archivoSalida in paseSalidaAv.Archivos)
-                    //    {
-                    //        Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo nuevoArchivoSalida = new Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo();
-                    //        nuevoArchivoSalida.Activo = true;
-                    //        nuevoArchivoSalida.DocumentoID = Convert.ToInt32(archivoSalida.ArchivoID);
-                    //        nuevoArchivoSalida.Extencion = archivoSalida.Extension;
-                    //        nuevoArchivoSalida.FolioAvisoLlegadaID = nuevoAvisoLlegada.FolioAvisoLlegadaID;
-                    //        nuevoArchivoSalida.Nombre = archivoSalida.Nombre;
-                    //        nuevoArchivoSalida.UsuarioModificacion = usuario.UsuarioID;
-                    //        nuevoArchivoSalida.FechaModificacion = DateTime.Now;
-                    //        ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo.Add(nuevoArchivoSalida);
-                    //    }
-                    //}
 
                     //Guardamos los archivos del pase de salida
                     foreach (ArchivosAV archivosAvisollegada in avisoJson.Archivos)
@@ -270,6 +255,7 @@ namespace BackEndSAM.DataAcces
                         aviso.FechaRecepcion = registroBd.FechaRecepcion.ToString();
                         aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
                         aviso.OrdenCompra = registroBd.OrdenCompra;
+                        aviso.CamionID = registroBd.CamionID != null ? registroBd.CamionID.Value : 0;
 
                         //Obtenemos el listado de archivos de pase de salida
                         List<ArchivosPaseSalida> archivosPaseSalida = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
@@ -319,6 +305,18 @@ namespace BackEndSAM.DataAcces
                                 PermisoTramite = p.PermisoTramite.Value,
                                 FechaGeneracion = p.FechaGeneracion.ToString(),
                                 FechaAutorizacion = p.FechaAutorización.ToString()
+                            });
+                        }
+
+                        if (aviso.PermisoAduana.Count <= 0)
+                        {
+                            aviso.PermisoAduana.Add(new PermisoAduanaAV
+                            {
+                                NumeroPermiso = string.Empty,
+                                PermisoAutorizado = false,
+                                PermisoTramite = false,
+                                FechaAutorizacion = string.Empty,
+                                FechaGeneracion = string.Empty
                             });
                         }
 
@@ -403,6 +401,7 @@ namespace BackEndSAM.DataAcces
                     aviso.FechaRecepcion = registroBd.FechaRecepcion.ToString();
                     aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
                     aviso.OrdenCompra = registroBd.OrdenCompra;
+                    aviso.CamionID = registroBd.CamionID != null ? registroBd.CamionID.Value : 0;
 
                     //Obtenemos el listado de archivos de pase de salida
                     List<ArchivosPaseSalida> archivosPaseSalida = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
@@ -498,8 +497,8 @@ namespace BackEndSAM.DataAcces
                                                TransportistaID = r.TransportistaID
                                            }).AsParallel().ToList();
 
-                    //JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    //string json = serializer.Serialize(aviso);
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(aviso);
 
                     return aviso;
                 }
@@ -569,17 +568,18 @@ namespace BackEndSAM.DataAcces
                         avisoBd.FechaModificacion = DateTime.Now;
                         avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
                         avisoBd.OrdenCompra = cambios.OrdenCompra;
-                        avisoBd.PaseSalidaEnviado = cambios.PaseSalida[0].PaseSalidaEnviado;
                         avisoBd.PatioID = cambios.Patio[0].PatioID;
                         avisoBd.ProveedorID = cambios.Proveedor[0].ProveedorID;
                         avisoBd.TransportistaID = cambios.Transportista[0].TransportistaID;
                         avisoBd.UsuarioModificacion = usuario.UsuarioID;
+                        avisoBd.CamionID = cambios.CamionID;
 
                         
                         //Actualizar informacion de las planas
                         foreach (PlanaAV plana in cambios.Plana)
                         {
-                            if (!avisoBd.Sam3_Rel_AvisoLlegada_Plana.Where(x => x.PlanaID == plana.PlanaID).Any()) // varificamos si existe la plana
+                            if (!avisoBd.Sam3_Rel_AvisoLlegada_Plana
+                                .Where(x => x.PlanaID == plana.PlanaID && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any()) // varificamos si existe la plana
                             {
                                 //agregamos una nuevo registro a la relacion de aviso y planas
                                 Sam3_Rel_AvisoLlegada_Plana nuevoRegistro = new Sam3_Rel_AvisoLlegada_Plana();
@@ -614,6 +614,24 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
+                        foreach (ProyectosAV proyecto in cambios.Proyectos)
+                        {
+                            //verificamos si existe el registro
+                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.ProyectoID == proyecto.ProyectoID
+                                && x.FolioAvisoLlegadaID == cambios.FolioAvisoLlegadaID).Any())
+                            {
+                                Sam3_Rel_FolioAvisoLlegada_Proyecto nuevoProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                nuevoProyecto.Activo = true;
+                                nuevoProyecto.FechaModificacion = DateTime.Now;
+                                nuevoProyecto.FolioAvisoLlegadaID = cambios.FolioAvisoLlegadaID;
+                                nuevoProyecto.ProyectoID = proyecto.ProyectoID;
+                                nuevoProyecto.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
+                            }
+                        }
+
+                        ctx.SaveChanges();
 
                     }
 

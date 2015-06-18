@@ -189,6 +189,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__4865BE2A" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Width="1.5" PointX="9.75" PointY="71.25" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__4B422AD5" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Camio__52E34C9D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

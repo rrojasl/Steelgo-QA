@@ -12,6 +12,7 @@ namespace BackEndSAM.Models
         public string Factura { get; set; }
         public string FechaRecepcion { get; set; }
         public string OrdenCompra { get; set; }
+        public int CamionID { get; set; }
         public List<ProyectosAV> Proyectos { get; set; }
         public List<TransportistaAV> Transportista { get; set; }
         public List<ProveedorAV> Proveedor { get; set; }
