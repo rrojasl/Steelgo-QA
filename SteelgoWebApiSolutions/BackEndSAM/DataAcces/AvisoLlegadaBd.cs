@@ -79,7 +79,7 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.Consecutivo = nuevoFolio;
                     nuevoAvisoLlegada.Estatus = "Creado";
                     nuevoAvisoLlegada.EsVirtual = false;
-                    nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
+                    nuevoAvisoLlegada.PaseSalidaEnviado = false;
                     nuevoAvisoLlegada.PatioID = avisoJson.Patio[0].PatioID;
                     nuevoAvisoLlegada.ProveedorID = avisoJson.Proveedor[0].ProveedorID;
                     nuevoAvisoLlegada.TransportistaID = avisoJson.Transportista[0].TransportistaID;
