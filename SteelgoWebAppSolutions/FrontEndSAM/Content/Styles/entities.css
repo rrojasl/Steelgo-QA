@@ -387,7 +387,7 @@ header .menu > div {
             display: none;
             list-style: none;
             position: absolute;
-            right: -240px;
+            right: -101%;
             top: 0;
             background: #FFFFFF;
             margin: 0;
