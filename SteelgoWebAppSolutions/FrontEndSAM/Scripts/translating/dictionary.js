@@ -436,6 +436,34 @@ _dictionary = {
         "es-MX": "Permiso Aduana",
         "en-US": "Customs permission"
     },
+    "DetalleAvisoLlegada0055": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
+    "DetalleAvisoLlegada0056": {
+        "es-MX": "Transportista",
+        "en-US": "Carrier"
+    },
+    "DetalleAvisoLlegada0057": {
+        "es-MX": "Chofer",
+        "en-US": "Driver"
+    },
+    "DetalleAvisoLlegada0058": {
+        "es-MX": "Placas",
+        "en-US": "Plates"
+    },
+    "DetalleAvisoLlegada0059": {
+        "es-MX": "Tarjeta de Circulación",
+        "en-US": "Circulation Card"
+    },
+    "DetalleAvisoLlegada0060": {
+        "es-MX": "Poliza de Seguro",
+        "en-US": "Insurance Policy"
+    },
+    "DetalleAvisoLlegada0061": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",

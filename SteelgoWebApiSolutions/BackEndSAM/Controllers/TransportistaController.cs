@@ -19,14 +19,14 @@ namespace BackEndSAM.Controllers
     public class TransportistaController : ApiController
     {
 
-        public object GET(string token)
+        public object GET(string esAvisoEntrada, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return TransportistaBd.Instance.ObtenerListadoTransportistas();
+                return TransportistaBd.Instance.ObtenerListadoTransportistas(esAvisoEntrada);
             }
             else
             {
