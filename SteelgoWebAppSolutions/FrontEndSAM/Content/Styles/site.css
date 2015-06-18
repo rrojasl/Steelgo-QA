@@ -184,7 +184,7 @@ label {
         float: left;
     }*/
 
-.form .folioLabel {    
+.form .folioLabel {
     color: #333333;
     font-weight: 600;
     cursor: auto;
@@ -445,11 +445,6 @@ h2 {
         width: 80%;
     }
 
-    /*$_btn*/
-    .buttonBar {
-        top: 0;
-    }
-
     #ImprimirPase {
         top: 21px;
     }
@@ -471,6 +466,14 @@ h2 {
 /* lg viewport */
 @media (min-width: 1025px) {
 }
+
+@media (max-width: 1393px) {
+    /*$_btn*/
+    .buttonBar {
+        top: 0;        
+    }
+}
+
 
 
 /* Start by setting display:none to make this hidden.
