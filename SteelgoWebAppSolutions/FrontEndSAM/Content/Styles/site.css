@@ -297,13 +297,14 @@ input {
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 1.3px;
-    height: 40px;
+    height: 38px;
     padding: 8px;
     box-sizing: border-box;
 }
 
     .btn span, .btn label {
         color: #FFFFFF;
+        vertical-align: baseline;
     }
 
 .btn-yellow {
