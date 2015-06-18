@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
     {
+        public int Rel_Folio_PaseSalida_Archivo_ID { get; set; }
         public int FolioAvisoLlegadaID { get; set; }
         public int DocumentoID { get; set; }
         public string Nombre { get; set; }

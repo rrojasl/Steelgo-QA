@@ -56,15 +56,15 @@
             //    console.log(data);
             //});
 
-            var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDQ3MzIzOX0.t1gD6UMiFoIFphTQWWLuArCiL0NKcVc3hIcJectZlWI";
+            //var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDQ3MzIzOX0.t1gD6UMiFoIFphTQWWLuArCiL0NKcVc3hIcJectZlWI";
 
-            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+            //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
             //client.add("Transportista");
 
-            ////client.Transportista.read({ token: tokenActual }).done(function (data) {
-            ////    console.log(data);
-            ////});
+            //client.Transportista.read({ token: tokenActual }).done(function (data) {
+            //    console.log(data);
+            //});
 
             //var json = { "ContactoID": "12", "Nombre": "a", "Descripcion": "a", "Direccion": "a", "Telefono": "a" };
             //var result = JSON.stringify(json);
@@ -146,19 +146,25 @@
 
             //$(document).ready(function () {
 
-            var json = {"FolioAvisoLlegadaID":12,"Proyectos":[{"ProyectoID":"2"}],"Factura":"F001-001","Transportista":[{"TransportistaID":"123","Nombre":"Francisco Martinez"}],"FechaRecepcion":"5/6/2015","Proveedor":[{"ProveedorID":"2000","Nombre":"Femsa"}],"Plana":[{"PlanaID":"1","Nombre":"value1"}],"OrdenCompra":"Odt1","Patio":[{"PatioID":"1","Nombre":"Plaza Real"}],"Chofer":[{"ChoferID":"2","Nombre":"value2"}],"Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc","TipoArchivo":"Prueba tipo 1"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx","TipoArchivo":"Prueba tipo 1"}],"PermisoAduana":[{"PermisoAutorizado":"","PermisoTramite":"1","NumeroPermiso":"661242401","ArchivoAutorizado":[{"ArchivoID":"155","Nombre":"c://prueba.com","Extension":".xlsx"}]}],"PaseSalida":[{"PaseSalidaEnviado":"1","Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx"}]}]};
+            var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDY0Mzc4OX0.Rtymsiei5868-CIwv26wvqd40pTgD54OjzVEKBkPmak";
 
-            client.add("AvisoLlegada");
+            var json = {"FolioAvisoLlegadaID":-1,"Proyectos":[{"ProyectoID":"1"}],"Factura":"Factura 1","Transportista":[{"TransportistaID":"1","Nombre":"Transportiste Default"}],"FechaRecepcion":"2015-6-17","Proveedor":[{"ProveedorID":"1","Nombre":"Proveedor Default"}],"Plana":[{"PlanaID":"2"},{"PlanaID":"1"}],"OrdenCompra":"ORDEN 1","Patio":[{"PatioID":"1","Nombre":"Patio Default"}],"Chofer":[{"ChoferID":"1","Nombre":"Chofer Default"}],"Archivos":[{"ArchivoID":"1","Nombre":"Prueba1","Extension":".doc","TipoArchivo":"Prueba tipo 1"},{"ArchivoID":"2","Nombre":"Prueba2","Extension":".docx","TipoArchivo":"Prueba tipo 1"}],"PermisoAduana":[{"PermisoAutorizado":"false","PermisoTramite":"","NumeroPermiso":"","ArchivoAutorizado":[{"ArchivoID":"","Nombre":"","Extension":""}]}],"PaseSalida":[{"PaseSalidaEnviado":"","Archivos":[]}]};
 
-            //client.AvisoLlegada.read({avisoLlegadaID: 1, token: tokenActual}).done(function (data){
+            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+
+            //client.add("AvisoLlegada");
+
+            //client.AvisoLlegada.read({avisoLlegadaID: 8, token: tokenActual}).done(function (data){
+            //    console.log(JSON.stringify(data));
+            //});
+
+            //client.AvisoLlegada.create(json, { token: tokenActual }).done(function (data) {
             //    console.log(data);
             //});
 
-            client.AvisoLlegada.create(json, { token: tokenActual }).done(function (data) {
-                console.log(data);
-            });
-                
-            //});
+
+            client.add("Listado");
+            client.Listado.read({tipoListado: 1, token: tokenActual}).done(function (data) { console.log(data) });
             
 </script>
     </body>

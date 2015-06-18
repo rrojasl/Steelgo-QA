@@ -106,6 +106,15 @@
                                     </span>*@
                                 </div>
                             </div>
+                             <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <label id="DetalleAvisoLlegada0055"></label>
+                                <div @*class="input-group"*@>
+                                    <input id="CamionID" class="" />
+                                    @*<span class="input-group-btn">
+                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(5);"></a>
+                                    </span>*@
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-5">
@@ -354,12 +363,39 @@
                 </a>
             </div>
         </div>
+        <div id="modalCamion" style="display: none">            
+           <div class="form-group">
+               <label id="DetalleAvisoLlegada0056"></label>
+               <input id="TransportistaID_Camion" class="" />
+           </div>
+           <div class="form-group">
+                <label id="DetalleAvisoLlegada0057"></label>
+                <input id="ChoferID_Camion" class="" />
+           </div>
+           <div class="form-group">
+                <label id="DetalleAvisoLlegada0058"></label>
+                <input id="Placas_Camion" class="" />
+           </div>
+           <div class="form-group">
+                <label id="DetalleAvisoLlegada0059"></label>
+                <input id="TarjetaCirculacion_Camion" class="" />
+           </div>
+           <div class="form-group">
+                <label id="DetalleAvisoLlegada0060"></label>
+                <input id="PolizaSeguro" class="" />
+           </div>
+           <div class="buttonSave">
+                <a id="GuardarCamion" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0061"></span>
+                </a>
+           </div>
+        </div>
     </div>
 
-<input id="hdPermisoAutorizado" type="hidden" />
+<input id="hdPermisoAutorizado" type="hidden" value="false" />
 <input id="hdPermisoTramite" type="hidden" />
 <input id="hdPaseSalida" type="hidden" value="" />
-<input id="hdArchivoAutorizado" type="hidden" value="155,c://prueba.com,.xlsx" />
+<input id="hdArchivoAutorizado" type="hidden" value="" />
 
 <script>
     @section JavascriptGlobalVariables {
@@ -367,836 +403,1005 @@
         var FechaRecepcion;
         var folio = getUrlParameter("folio", "-1");
         var Transportista = [], Proveedor = [], Patio = [],
-            Plana = [], Chofer = [], Contacto = [], Camion = [];
+            Plana = [], Chofer = [], Contacto = [], Camion = [],
+            CamionEntradaMaterial = [], TransportistaCamion = [],
+            ChoferCamion = [];
     }
 
     @section JavascriptGlobalFunctions {
-        function changeDatePickerDateFormat(datePickerOptions)
-        {
-            FechaRecepcion.setOptions(datePickerOptions);
-        };
-
-        //Your partial views specific functions
-        function CargaInicial() {
-            $("#tabstrip").kendoTabStrip({
-                animation: {
-                    open: {
-                        effects: "fadeIn"
-                    }
-                }
-            });
-
-            var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-            tabStrip.disable(tabStrip.tabGroup.children().eq(1));
-
-            FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
-            //**Eventos
-            $("#Guardar").click(function (e) {
-                GuardarAvisoLlegada();
-                $("#PaseSalida").show();
-                $("#PermisoAduana").show();
-                //var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                //window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
-            });
-
-            $("#Cancelar").click(function (e) {
-                var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-            });
-            //**Modales
-            $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
-            $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
-            $("#GuardarPatio").click(function (e) { GuardarPatio(); });
-            $("#GuardarChofer").click(function (e) { GuardarChofer(); });
-            $("#GuardarPlana").click(function (e) { GuardarPlana(); });
-            //**
-
-            //Permiso Aduana
-            $("#TramitarPermiso").click(function () { GenerarPermiso(); });
-            //Pase Salida
-            $("#ImprimirPase").click(function () {
-                if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
-                    alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
-                    return false;
-                };
-                $("#hdPaseSalida").val(1);                
-                $("#PackingList").kendoUpload({
-                    enabled: false
-                });               
-                window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
-            });
-
-            $("#ProyectoID").kendoMultiSelect({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
-                dataTextField: "Nombre",
-                dataValueField: "ProyectoID",
-                filter: "contains",
-            });
-
-            $("#TransportistaID").kendoAutoComplete({
-                dataTextField: "Nombre",
-                dataValueField: "TransportistaID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
-                },
-                filter: "contains",
-            });
-            ObtenerTransportista();
-
-            $("#ProveedorID").kendoAutoComplete({
-                dataTextField: "Nombre",
-                dataValueField: "ProveedorID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-                },
-                filter: "contains",
-            });
-            ObtenerProveedor();
-
-            $("#PlanaID").kendoMultiSelect({
-                dataTextField: "Nombre",
-                dataValueField: "PlanaID",
-                filter: "contains",
-            });
-            ObtenerPlanas();
-
-            $("#PatioID").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/DummyPatio",
-                        }
-                    }
-                },
-                dataTextField: "Nombre",
-                dataValueField: "PatioID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
-                },
-                filter: "contains",
-            });
-            ObtenerPatio();
-
-            $("#ChoferID").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
-                dataTextField: "Nombre",
-                dataValueField: "ProyectoID",
-                //dataTextField: "Nombre",
-                //dataValueField: "ChoferID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarChofer(dataItem.ProyectoID, dataItem.Nombre);
-
-                },
-                filter: "contains",
-            });
-
-            $("#TipoArchivo").kendoComboBox({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
-                dataTextField: "value",
-                dataValueField: "id",
-                filter: "contains",
-            });
-
-            $('#files').kendoUpload({
-                async: {
-                    saveUrl: "http://localhost:61102/AvisoLlegada/Post",
-                    autoUpload: false
-                },
-                success: function (data) {
-                    $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-                },
-                error: function (data) { },
-                upload: onUpload
-            });
-
-            //modal transportista
-            $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Contacto",
-                        }
-                    }
-                },
-                dataTextField: "Nombre",
-                dataValueField: "ContactoID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarContacto(dataItem.ContactoID, dataItem.Nombre);
-                },
-                filter: "contains",
-            });
-
-            //modal Camion
-            $("#CamionID_Plana").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/DummyCamion",
-                        }
-                    }
-                },
-                dataTextField: "Placas",
-                dataValueField: "CamionID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarCamion(dataItem.CamionID, dataItem.Placas);
-                },
-                filter: "contains",
-            });
-
-            $('#ArchivoAutorizar').kendoUpload({
-                async: {
-                    saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                    autoUpload: false
-                },
-                success: function (data) {
-                    $("#hdArchivoAutorizado").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
-                    $("#hdPermisoAutorizado").val(1);
-                    $("#ArchivoAutorizar").data("kendoUpload").disable();
-                    $("#NumeroPermiso").attr("disabled", "disabled");
-                },
-                error: function (data) { },
-                upload: onUploadArchivoAutorizar
-            });
-            
-            $('#PackingList').kendoUpload({
-                async: {
-                    saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                    autoUpload: false
-                },
-                success: function (data) {                    
-                    $.each(data, function (index, value) {
-                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-                },
-                error: function (data) { },
-                upload: onUploadArchivoPaseSalida
-            });
-
-            ObtenerFechaDefault();
-        };
-        
-        function onUploadArchivoPaseSalida() {
-
-        };
-
-        function onUploadArchivoAutorizar() {
-            if (!$("#NumeroPermiso").val()) {
-                alert("Por favor, seleccionar el numero de permiso");
-                e.preventDefault();
-            }
-        };
-
-        function onUpload(e) {
-            if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                alert("Por favor, seleccionar el tipo de archivo");
-                e.preventDefault();
-            }
-        };
-
-        function GuardarAvisoLlegada()
-        {
-            //Arreglo Aviso de llegada
-            AvisoLlegada = [];
-            AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", PaseSalida: "" };
-                
-            _permisoAduana = [];
-            _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
-
-            _archivosPackingList = [];
-            _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
-
-            //objeto para los proyectos y documentos.
-            ProyectoIDs = [];
-            PlanaIDs = [];
-            Documentos = [];                
-            permiso = [];
-            DocumentosPackingList = [];
-
-            var _archivoautorizado = $("#hdArchivoAutorizado").val();
-            item = {};
-            item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
-            item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
-            item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
-            permiso.push(item);
-                
-            _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
-            _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
-            _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
-            _permisoAduana[0].ArchivoAutorizado = permiso;
-
-            var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
-            $.each(proyectos, function (index, value) {
-                item = {};
-                item["ProyectoID"] = value;
-                ProyectoIDs.push(item);
-            });
-
-            var planas = $("#PlanaID").data("kendoMultiSelect").value();
-            $.each(planas, function (index, value) {
-                item = {};
-                item["PlanaID"] = value;
-                PlanaIDs.push(item);
-            });
-
-            $('#listaArchivos > tbody  > tr').each(function () {
-                if ($(this).find("td:first").length > 0) {
-                    var id = $(this).attr("id").split(",")[0];
-                    var archivo = $(this).find("td a").eq(0).html();
-                    var tipoArchivo = $(this).find("td").eq(1).html();
-                    var extencion = $(this).attr("id").split(",")[1];
-
-                    item = {};
-                    item["ArchivoID"] = id;
-                    item["Nombre"] = archivo;
-                    item["Extension"] = extencion;
-                    item["TipoArchivo"] = tipoArchivo;
-                    Documentos.push(item);
-                };
-            });
-                
-            $('#listaArchivosPaseSalida > tbody  > tr').each(function () {
-                if ($(this).find("td:first").length > 0) {
-                    var id = $(this).attr("id").split(",")[0];
-                    var archivo = $(this).find("td a").eq(0).html();
-                    var extencion = $(this).attr("id").split(",")[1];
-
-                    item = {};
-                    item["ArchivoID"] = id;
-                    item["Nombre"] = archivo;
-                    item["Extension"] = extencion;
-                    DocumentosPackingList.push(item);
-                }
-            });
-
-            _archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
-            _archivosPackingList[0].Archivos = DocumentosPackingList;
-
-                
-            var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
-
-            AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
-            AvisoLlegada[0].Proyectos = ProyectoIDs;
-            AvisoLlegada[0].Factura = $("#Factura").val();
-            AvisoLlegada[0].Transportista = Transportista;
-            AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
-            AvisoLlegada[0].Proveedor = Proveedor;
-            AvisoLlegada[0].Plana = PlanaIDs;
-            AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-            AvisoLlegada[0].Patio = Patio;
-            AvisoLlegada[0].Chofer = Chofer;
-            AvisoLlegada[0].Archivos = Documentos;
-            AvisoLlegada[0].PermisoAduana = _permisoAduana;
-            AvisoLlegada[0].PaseSalida = _archivosPackingList;
-
-            console.log(AvisoLlegada[0]);
-
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyAvisoLlegada');
-
-            //if (folio != -1)//Edición
-            //{
-            //    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-            //        console.log("Client.DummyAvisoLlegada.update");
-            //    });
-            //} else //Alta
-            //{
-            //    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-            //        console.log("Client.DummyAvisoLlegada.create");
-            //        folio = data.FolioAvisoLlegadaID;
-            //        cargarTituloFolio();
-            //        alert("El folio " + folio + " fue creado exitosamente.");
-            //    });
-            //}
-
-
-            if (folio != -1)//Edición
+            function changeDatePickerDateFormat(datePickerOptions)
             {
-                Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyAvisoLlegada.update");
-                });
-            } else //Alta
-            {
-                Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyAvisoLlegada.create");
-                    folio = data.FolioAvisoLlegadaID;
-                    cargarTituloFolio();
-                    var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-                    tabStrip.enable(tabStrip.tabGroup.children().eq(1));
-                    alert("El folio " + folio + " fue creado exitosamente.");
-                });
-            }
+                FechaRecepcion.setOptions(datePickerOptions);
+            };
 
-
-        };
-
-        function descargarArchivo(id) {
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyDescargarArchivo');
-
-            Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                console.log("Client.DummyDescargarArchivo.read");
-            });
-        };
-
-        function borrarArchivo(id,fila) {
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyFileManager');
-
-            Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                fila.closest("tr").remove();
-                console.log("Client.DummyFileManager.destroy");
-            });
-        };
-
-        function cargarTituloFolio() {
-            $("#divfolio").addClass("show");
-            $("#spanFolio").html(folio);
-        };
-
-        function CargaInicialEdicion(id) {
-            cargarTituloFolio();
-            $("#PaseSalida").show();
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyAvisoLlegada');
-
-            Client.DummyAvisoLlegada.read({}, { folio: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                console.log(data);
-                var concat = "";
-                var concatPlanas = "";
-
-                $.each(data[0].Proyectos, function (index, value) {
-                    concat += "," + value.ProyectoID;
-                    console.log(" concat:" + concat);
+            //Your partial views specific functions
+            function CargaInicial() {
+                $("#tabstrip").kendoTabStrip({
+                    animation: {
+                        open: {
+                            effects: "fadeIn"
+                        }
+                    }
                 });
 
-                $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
-                $("#Factura").val(data[0].Factura);
+                var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                tabStrip.disable(tabStrip.tabGroup.children().eq(1));
 
-                //Se carga el arreglo transportista
-                if(data[0].Transportistas){
-                    CargarTransportista(data[0].Transportistas.TransportistaID, data[0].Transportistas.Nombre);
-                    $("#TransportistaID").data("kendoAutoComplete").value(data[0].Transportistas.Nombre);
-                }
-                //Fecha Recepcion
-                var d = new Date(data[0].FechaRecepcion);
-                $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-
-                //Se carga el arreglo Proveedores
-                if(data[0].Proveedores){
-                    CargarProveedor(data[0].Proveedores.ProveedorID, data[0].Proveedores.Nombre);
-                    $("#ProveedorID").data("kendoAutoComplete").value(data[0].Proveedores.Nombre);
-                }
-
-                $.each(data[0].Planas, function (index, value) {
-                    concatPlanas += "," + value.PlanaID;
-                    console.log(" concatPlanas:" + concatPlanas);
+                FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
+                //**Eventos
+                $("#Guardar").click(function (e) {
+                    GuardarAvisoLlegada();
+                    $("#PaseSalida").show();
+                    $("#PermisoAduana").show();
+                    //var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                    //window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
-                $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
 
-                $("#OrdenDeCompra").val(data[0].OrdenCompra);
-
-                //Se carga el arreglo Patio
-                if(data[0].Patios) {
-                    CargarPatio(data[0].Patios.PatioID, data[0].Patios.Nombre);
-                    $("#PatioID").data("kendoAutoComplete").value(data[0].Patios.Nombre);
-                }
-
-                //Se carga el arreglo Chofer
-                if (data[0].Choferes) {
-                    CargarChofer(data[0].Choferes.ChoferID, data[0].Choferes.Nombre);
-                    $("#ChoferID").data("kendoAutoComplete").value(data[0].Choferes.Nombre);
-                }
-
-                $.each(data[0].Archivos, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                $("#Cancelar").click(function (e) {
+                    var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
+                //**Modales
+                $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
+                $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
+                $("#GuardarPatio").click(function (e) { GuardarPatio(); });
+                $("#GuardarChofer").click(function (e) { GuardarChofer(); });
+                $("#GuardarPlana").click(function (e) { GuardarPlana(); });
+                $("#GuardarCamion").click(function (e) { GuardarCamion(); });
+                //**
 
                 //Permiso Aduana
-                $("#PermisoAduana").show();
-                if (data[0].PermisoAduana) {
-                    if (data[0].PermisoAduana.PermisoTramite) {
-                        $("#TramitarPermiso").attr('disabled', 'disabled');
-                        $("#hdPermisoTramite").val(1);
-                    }
-                };
-
-                if (data[0].PermisoAduana) {
-                    if (data[0].PermisoAduana.PermisoAutorizado) {
-                        $("#divArchivoAutorizar").hide();
-                        $("#divLinkAutorizar").show();
-                        $("#divLinkAutorizar").append("<a href=''>" + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "</a>");
-                        $("#hdArchivoAutorizado").val(data[0].PermisoAduana.ArchivoAutorizado.ArchivoID + "," + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "," + data[0].PermisoAduana.ArchivoAutorizado.Extension);
-                        $("#hdPermisoAutorizado").val(1);
-                        $("#NumeroPermiso").val(data[0].PermisoAduana.NumeroPermiso);
-                        $("#NumeroPermiso").attr('disabled', 'disabled');
-                    };
-                };
-
+                $("#TramitarPermiso").click(function () { GenerarPermiso(); });
                 //Pase Salida
-                if (data[0].PaseSalida) {
-                    if (data[0].PaseSalida.PaseEnviado) {
-                        $("#hdPaseSalida").val(1);
-                        $("#PackingList").data("kendoUpload").disable();
+                $("#ImprimirPase").click(function () {
+                    if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
+                        alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
+                        return false;
                     };
-                    $.each(data[0].PaseSalida.Archivos, function (index, value) {
+                    $("#hdPaseSalida").val(1);                
+                    $("#PackingList").kendoUpload({
+                        enabled: false
+                    });               
+                    window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
+                });
+
+                $("#ProyectoID").kendoMultiSelect({
+                    dataTextField: "Nombre",
+                    dataValueField: "ProyectoID",
+                    filter: "contains",
+                });
+                ObtenerProyectos();
+
+                $("#TransportistaID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "TransportistaID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.TransportistaID == 0) {
+                            VentanaModal(1);
+                            e.preventDefault();
+                        }
+                        CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerTransportista();
+
+                $("#ProveedorID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "ProveedorID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.ProveedorID == 0) {
+                            VentanaModal(2);
+                            e.preventDefault();
+                        }
+                        CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerProveedor();
+
+                $("#PlanaID").kendoMultiSelect({
+                    dataTextField: "Nombre",
+                    dataValueField: "PlanaID",
+                    filter: "contains",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.PlanaID == 0) {
+                            VentanaModal(3);
+                            e.preventDefault();
+                        }
+                    }
+                });
+                ObtenerPlanas();
+
+                $("#PatioID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "PatioID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.PatioID == 0) {
+                            VentanaModal(4);
+                            e.preventDefault();
+                        }
+                        CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerPatio();
+
+                $("#ChoferID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "ChoferID",
+                    //dataTextField: "Nombre",
+                    //dataValueField: "ChoferID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.ChoferID == 0) {
+                            VentanaModal(5);
+                            e.preventDefault();
+                        }
+                        CargarChofer(dataItem.ChoferID, dataItem.Nombre);
+
+                    },
+                    filter: "contains",
+                });
+                ObtenerChofer();
+
+                $("#TipoArchivo").kendoComboBox({
+                    dataSource: {
+                        serverFiltering: false,
+                        type: "json",
+                        transport: {
+                            read: {
+                                url: "http://localhost:60960/backendsam/api/Proyecto",
+                            }
+                        }
+                    },
+                    dataTextField: "value",
+                    dataValueField: "id",
+                    filter: "contains",
+                });
+
+                $('#files').kendoUpload({
+                    async: {
+                        saveUrl: "http://localhost:61102/AvisoLlegada/Post",
+                        autoUpload: false
+                    },
+                    success: function (data) {
+                        $.each(data, function (index, value) {
+                            $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    },
+                    error: function (data) { },
+                    upload: onUpload
+                });
+
+                //modal transportista
+                $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "ContactoID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarContacto(dataItem.ContactoID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerContacto();
+
+                //modal Camion
+                $("#CamionID_Plana").kendoComboBox({
+                    dataTextField: "Placas",
+                    dataValueField: "CamionID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarCamion(dataItem.CamionID, dataItem.Placas);
+                    },
+                    filter: "contains",
+                });
+                ObtenerCamion();
+
+                //Camion
+                $("#CamionID").kendoComboBox({
+                    dataTextField: "Placas",
+                    dataValueField: "CamionID",
+                    select: function (e) {
+
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.CamionID == 0) {
+                            VentanaModal(6);
+                            e.preventDefault();
+                        }
+
+                        CargarCamionEntradaMaterial(dataItem.CamionID, dataItem.Placas);
+                    },
+                    filter: "contains",
+                });
+                ObtenerCamionEntradaMaterial();
+
+                $("#TransportistaID_Camion").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "TransportistaID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerTransportistaCamion();
+
+                $("#ChoferID_Camion").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "ChoferID",
+                    //dataTextField: "Nombre",
+                    //dataValueField: "ChoferID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarChoferCamion(dataItem.ChoferID, dataItem.Nombre);
+
+                    },
+                    filter: "contains",
+                });
+                ObtenerChoferCamion();
+
+                $('#ArchivoAutorizar').kendoUpload({
+                    async: {
+                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                        autoUpload: false
+                    },
+                    success: function (data) {
+                        $("#hdArchivoAutorizado").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
+                        $("#hdPermisoAutorizado").val(1);
+                        $("#ArchivoAutorizar").data("kendoUpload").disable();
+                        $("#NumeroPermiso").attr("disabled", "disabled");
+                    },
+                    error: function (data) { },
+                    upload: onUploadArchivoAutorizar
+                });
+            
+                $('#PackingList').kendoUpload({
+                    async: {
+                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                        autoUpload: false
+                    },
+                    success: function (data) {                    
+                        $.each(data, function (index, value) {
+                            $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    },
+                    error: function (data) { },
+                    upload: onUploadArchivoPaseSalida
+                });
+
+                ObtenerFechaDefault();
+            };
+        
+            function onUploadArchivoPaseSalida() {
+
+            };
+
+            function onUploadArchivoAutorizar() {
+                if (!$("#NumeroPermiso").val()) {
+                    alert("Por favor, seleccionar el numero de permiso");
+                    e.preventDefault();
+                }
+            };
+
+            function onUpload(e) {
+                if (!$("#TipoArchivo").data("kendoComboBox").value()) {
+                    alert("Por favor, seleccionar el tipo de archivo");
+                    e.preventDefault();
+                }
+            };
+
+            function GuardarAvisoLlegada()
+            {
+                //Arreglo Aviso de llegada
+                AvisoLlegada = [];
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", CamionID: "" };
+                
+                _permisoAduana = [];
+                _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
+
+                _archivosPackingList = [];
+                _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
+
+                //objeto para los proyectos y documentos.
+                ProyectoIDs = [];
+                PlanaIDs = [];
+                Documentos = [];                
+                permiso = [];
+                DocumentosPackingList = [];
+
+                var _archivoautorizado = $("#hdArchivoAutorizado").val();
+                item = {};
+                item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
+                item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
+                item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
+                permiso.push(item);
+                
+                _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
+                _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
+                _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
+                _permisoAduana[0].ArchivoAutorizado = permiso;
+
+                var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
+                $.each(proyectos, function (index, value) {
+                    item = {};
+                    item["ProyectoID"] = value;
+                    ProyectoIDs.push(item);
+                });
+
+                var planas = $("#PlanaID").data("kendoMultiSelect").value();
+                $.each(planas, function (index, value) {
+                    item = {};
+                    item["PlanaID"] = value;
+                    PlanaIDs.push(item);
+                });
+
+                $('#listaArchivos > tbody  > tr').each(function () {
+                    if ($(this).find("td:first").length > 0) {
+                        var id = $(this).attr("id").split(",")[0];
+                        var archivo = $(this).find("td a").eq(0).html();
+                        var tipoArchivo = $(this).find("td").eq(1).html();
+                        var extencion = $(this).attr("id").split(",")[1];
+
+                        item = {};
+                        item["ArchivoID"] = id;
+                        item["Nombre"] = archivo;
+                        item["Extension"] = extencion;
+                        item["TipoArchivo"] = tipoArchivo;
+                        Documentos.push(item);
+                    };
+                });
+                
+                //$('#listaArchivosPaseSalida > tbody  > tr').each(function () {
+                //    if ($(this).find("td:first").length > 0) {
+                //        var id = $(this).attr("id").split(",")[0];
+                //        var archivo = $(this).find("td a").eq(0).html();
+                //        var extencion = $(this).attr("id").split(",")[1];
+
+                //        item = {};
+                //        item["ArchivoID"] = id;
+                //        item["Nombre"] = archivo;
+                //        item["Extension"] = extencion;
+                //        DocumentosPackingList.push(item);
+                //    }
+                //});
+
+                //_archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
+                //_archivosPackingList[0].Archivos = DocumentosPackingList;
+
+                
+                var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
+
+                AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
+                AvisoLlegada[0].Proyectos = ProyectoIDs;
+                AvisoLlegada[0].Factura = $("#Factura").val();
+                AvisoLlegada[0].Transportista = Transportista;
+                AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
+                AvisoLlegada[0].Proveedor = Proveedor;
+                AvisoLlegada[0].Plana = PlanaIDs;
+                AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
+                AvisoLlegada[0].Patio = Patio;
+                AvisoLlegada[0].Chofer = Chofer;
+                AvisoLlegada[0].Archivos = Documentos;
+                AvisoLlegada[0].PermisoAduana = _permisoAduana;
+                AvisoLlegada[0].CamionID = CamionEntradaMaterial.length > 0 ? CamionEntradaMaterial[0].CamionID : "-1";
+                //AvisoLlegada[0].PaseSalida = _archivosPackingList;
+
+                console.log(AvisoLlegada[0]);
+
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyAvisoLlegada');
+
+                console.log(JSON.stringify(AvisoLlegada[0]));
+                if (folio != -1)//Edición
+                {
+                    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                        console.log("Client.DummyAvisoLlegada.update");
+                    });
+                } else //Alta
+                {
+                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                        console.log("Client.DummyAvisoLlegada.create");
+                        folio = data.FolioAvisoLlegadaID;
+                        cargarTituloFolio();
+                        var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                        tabStrip.enable(tabStrip.tabGroup.children().eq(1));
+                        alert("El folio " + folio + " fue creado exitosamente.");
+                    });
+                }
+
+                //if (folio != -1)//Edición
+                //{
+                //    Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                //        console.log("Client.DummyAvisoLlegada.update");
+                //    });
+                //} else //Alta
+                //{
+                //    Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                //        console.log("Client.DummyAvisoLlegada.create");
+                //        folio = data.FolioAvisoLlegadaID;
+                //        cargarTituloFolio();
+                //        var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                //        tabStrip.enable(tabStrip.tabGroup.children().eq(1));
+                //        alert("El folio " + folio + " fue creado exitosamente.");
+                //    });
+                //}
+            };
+
+            function descargarArchivo(id) {
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyDescargarArchivo');
+
+                Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    console.log("Client.DummyDescargarArchivo.read");
+                });
+            };
+
+            function borrarArchivo(id,fila) {
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyFileManager');
+
+                Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    fila.closest("tr").remove();
+                    console.log("Client.DummyFileManager.destroy");
+                });
+            };
+
+            function cargarTituloFolio() {
+                $("#divfolio").addClass("show");
+                $("#spanFolio").html(folio);
+            };
+
+            function CargaInicialEdicion(id) {
+                cargarTituloFolio();
+                $("#PaseSalida").show();
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyAvisoLlegada');
+
+                Client.DummyAvisoLlegada.read({}, { folio: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    console.log(data);
+                    var concat = "";
+                    var concatPlanas = "";
+
+                    $.each(data[0].Proyectos, function (index, value) {
+                        concat += "," + value.ProyectoID;
+                        console.log(" concat:" + concat);
+                    });
+
+                    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
+                    $("#Factura").val(data[0].Factura);
+
+                    //Se carga el arreglo transportista
+                    if(data[0].Transportistas){
+                        CargarTransportista(data[0].Transportistas.TransportistaID, data[0].Transportistas.Nombre);
+                        $("#TransportistaID").data("kendoComboBox").value(data[0].Transportistas.Nombre);
+                    }
+                    //Fecha Recepcion
+                    var d = new Date(data[0].FechaRecepcion);
+                    $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+
+                    //Se carga el arreglo Proveedores
+                    if(data[0].Proveedores){
+                        CargarProveedor(data[0].Proveedores.ProveedorID, data[0].Proveedores.Nombre);
+                        $("#ProveedorID").data("kendoComboBox").value(data[0].Proveedores.Nombre);
+                    }
+
+                    $.each(data[0].Planas, function (index, value) {
+                        concatPlanas += "," + value.PlanaID;
+                        console.log(" concatPlanas:" + concatPlanas);
+                    });
+                    $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
+
+                    $("#OrdenDeCompra").val(data[0].OrdenCompra);
+
+                    //Se carga el arreglo Patio
+                    if(data[0].Patios) {
+                        CargarPatio(data[0].Patios.PatioID, data[0].Patios.Nombre);
+                        $("#PatioID").data("kendoComboBox").value(data[0].Patios.Nombre);
+                    }
+
+                    //Se carga el arreglo Chofer
+                    if (data[0].Choferes) {
+                        CargarChofer(data[0].Choferes.ChoferID, data[0].Choferes.Nombre);
+                        $("#ChoferID").data("kendoComboBox").value(data[0].Choferes.Nombre);
+                    }
+
+                    if (data[0].Camion) {
+                        CargarProveedor(data[0].Camion.CamionID, data[0].Camion.Nombre);
+                        $("#CamionID").data("kendoComboBox").value(data[0].Proveedores.Nombre);
+                    }
+
+                    $.each(data[0].Archivos, function (index, value) {
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    });
+
+                    //Permiso Aduana
+                    $("#PermisoAduana").show();
+                    if (data[0].PermisoAduana) {
+                        if (data[0].PermisoAduana.PermisoTramite) {
+                            $("#TramitarPermiso").attr('disabled', 'disabled');
+                            $("#hdPermisoTramite").val(1);
+                        }
+                    };
+
+                    if (data[0].PermisoAduana) {
+                        if (data[0].PermisoAduana.PermisoAutorizado) {
+                            $("#divArchivoAutorizar").hide();
+                            $("#divLinkAutorizar").show();
+                            $("#divLinkAutorizar").append("<a href=''>" + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "</a>");
+                            $("#hdArchivoAutorizado").val(data[0].PermisoAduana.ArchivoAutorizado.ArchivoID + "," + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "," + data[0].PermisoAduana.ArchivoAutorizado.Extension);
+                            $("#hdPermisoAutorizado").val(1);
+                            $("#NumeroPermiso").val(data[0].PermisoAduana.NumeroPermiso);
+                            $("#NumeroPermiso").attr('disabled', 'disabled');
+                        };
+                    };
+
+                    //Pase Salida
+                    if (data[0].PaseSalida) {
+                        if (data[0].PaseSalida.PaseEnviado) {
+                            $("#hdPaseSalida").val(1);
+                            $("#PackingList").data("kendoUpload").disable();
+                        };
+                        $.each(data[0].PaseSalida.Archivos, function (index, value) {
+                            $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    };
+                    console.log(data);
+                });
+            };
+
+            function CargarTransportista(id, value) {
+                Transportista = [];
+                _transportista = {};
+                _transportista["TransportistaID"] = id;
+                _transportista["Nombre"] = value;
+                Transportista.push(_transportista);
+            };
+
+            function CargarTransportistaCamion(id, value) {
+                TransportistaCamion = [];
+                _transportista = {};
+                _transportista["TransportistaID"] = id;
+                _transportista["Nombre"] = value;
+                TransportistaCamion.push(_transportista);
+            };
+
+            function CargarPatio(id, value) {
+                Patio = [];
+                _patio = {};
+                _patio["PatioID"] = id;
+                _patio["Nombre"] = value;
+                Patio.push(_patio);
+            };
+
+            function CargarProveedor(id, value) {
+                Proveedor = [];
+                _proveedor = {};
+                _proveedor["ProveedorID"] = id;
+                _proveedor["Nombre"] = value;
+                Proveedor.push(_proveedor);
+            };
+
+            function CargarChofer(id, value) {
+                Chofer = [];
+                _chofer = {};
+                _chofer["ChoferID"] = id;
+                _chofer["Nombre"] = value;
+                Chofer.push(_chofer);
+            };
+
+            function CargarChoferCamion(id, value) {
+                ChoferCamion = [];
+                _chofer = {};
+                _chofer["ChoferID"] = id;
+                _chofer["Nombre"] = value;
+                ChoferCamion.push(_chofer);
+            };
+
+            function CargarContacto(id, value) {
+                Contacto = [];
+                _contacto = {};
+                _contacto["ContactoID"] = id;
+                _contacto["Nombre"] = value;
+                Contacto.push(_contacto);
+            };
+        
+            function CargarCamion(id, value) {
+                Camion = [];
+                _camion = {};
+                _camion["CamionID"] = id;
+                _camion["Placas"] = value;
+                Camion.push(_camion);
+            };
+
+            function CargarCamionEntradaMaterial(id, value) {
+                CamionEntradaMaterial = [];
+                _camion = {};
+                _camion["CamionID"] = id;
+                _camion["Placas"] = value;
+                CamionEntradaMaterial.push(_camion);
+            };
+            function VentanaModal(id) {
+            
+                var modalTitle = "";
+
+                switch (id) {
+                    case 1:
+                        $("#modalProveedor").hide();
+                        $("#modalPatio").hide();
+                        $("#modalChofer").hide();
+                        $("#modalPlana").hide();
+                        $("#modalTransportista").show();
+                        modalTitle = "Transportista";
+                        break;
+                    case 2:
+                        $("#modalTransportista").hide();
+                        $("#modalPatio").hide();
+                        $("#modalChofer").hide();
+                        $("#modalPlana").hide();
+                        $("#modalProveedor").show();
+                        modalTitle = "Proveedor";
+                        break;
+                    case 3:
+                        $("#modalTransportista").hide();
+                        $("#modalPatio").hide();
+                        $("#modalChofer").hide();
+                        $("#modalProveedor").hide();
+                        $("#modalPlana").show();
+                        modalTitle = "Plana";
+                        break;
+                    case 4:
+                        $("#modalTransportista").hide();
+                        $("#modalProveedor").hide();
+                        $("#modalChofer").hide();
+                        $("#modalPlana").hide();
+                        $("#modalPatio").show();
+                        modalTitle = "Patio";
+                        break;
+                    case 5:
+                        $("#modalTransportista").hide();
+                        $("#modalProveedor").hide();
+                        $("#modalPatio").hide();
+                        $("#modalPlana").hide();
+                        $("#modalChofer").show();
+                        modalTitle = "Chofer";
+                        break;
+                    case 6:
+                        $("#modalTransportista").hide();
+                        $("#modalProveedor").hide();
+                        $("#modalPatio").hide();
+                        $("#modalPlana").hide();
+                        $("#modalChofer").hide();
+                        $("#modalCamion").show();
+                        modalTitle = "Camion";
+                        break;
+                };
+            
+                var window = $("#window");
+                var win = window.kendoWindow({
+                    actions: false,
+                    modal: true,
+                    title: modalTitle,
+                    resizable: false,
+                    visible: false,
+                    width: "32.6%",
+                    position: {
+                        top: "10%",
+                        left: "20%"
+                    }
+                }).data("kendoWindow");
+                window.data("kendoWindow").center().open();
+            };
+
+            function GuardarTransportista() {
+
+                TransportistaModal = [];
+                TransportistaModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+                TransportistaModal[0].ContactoID = Contacto[0].ContactoID;
+                TransportistaModal[0].Nombre = $("#Nombre_Transportista").val();
+                TransportistaModal[0].Descripcion = $("#Descripcion_Transportista").val();
+                TransportistaModal[0].Direccion = $("#Direccion_Transportista").val();
+                TransportistaModal[0].Telefono = $("#Telefono_Transportista").val();
+
+                console.log(TransportistaModal[0]);
+
+                $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    LimpiarModalTransportista();
+                    $("#window").data("kendoWindow").close();
+                    ObtenerTransportista();
+                
+                });
+            };
+       
+            function GuardarProveedor() {
+                ProveedorModal = [];
+                ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+                ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
+                ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
+                ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
+                ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
+                ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
+
+                console.log(ProveedorModal[0]);
+
+                $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    LimpiarModalProveedor();
+                    $("#window").data("kendoWindow").close();
+                    ObtenerProveedor();
+                });
+            };
+
+            function GuardarPatio() {
+                PatioModal = [];
+                PatioModal[0] = { Nombre: "", Propietario: "", Descripcion:"" };
+                PatioModal[0].Nombre = $("#Nombre_Patio").val();
+                PatioModal[0].Propietario = $("#Propietario_Patio").val();
+                PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
+
+                console.log(PatioModal[0]);
+
+                $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    LimpiarModalPatio();
+                    $("#window").data("kendoWindow").close();
+                    ObtenerPatio();
+                });
+            };
+
+            function GuardarChofer() {
+                ChoferModal = [];
+                ChoferModal[0] = { Nombre: "" };
+                ChoferModal[0].Nombre = $("#Nombre_Chofer").val();
+
+                console.log(ChoferModal[0]);
+
+                $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    console.log("Client.DummyChofer.create");
+                    LimpiarModalChofer();
+                    $("#window").data("kendoWindow").close();
+                    ObtenerChofer();
+                });
+            };
+
+            function GuardarPlana() {
+                var camionid = Camion.length > 0 ? Camion[0].CamionID : "-1";
+                $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: camionid, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    LimpiarModalPlana();
+                    $("#window").data("kendoWindow").close();
+                    ObtenerPlanas();
+                });
+            };
+        
+            function GuardarCamion() {
+                var transportistaID = TransportistaCamion.length > 0 ? TransportistaCamion[0].TransportistaID : "-1";
+                var choferid = ChoferCamion.length > 0 ? ChoferCamion[0].ChoferID : "-1";
+
+                CamionModal = [];
+                CamionModal[0] = { TransportistaID: "", ChoferID: "", Placas: "", TarjetaCirulacion: "", PolizaSeguro: "" };
+                CamionModal[0].TransportistaID = transportistaID;
+                CamionModal[0].ChoferID = choferid;
+                CamionModal[0].Placas = $("#Placas_Camion").val();
+                CamionModal[0].TarjetaCirulacion = $("#TarjetaCirculacion_Camion").val();
+                CamionModal[0].PolizaSeguro = $("#PolizaSeguro").val();
+            
+
+                $Camion.Camion.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    console.log("Client.Camion.create");
+                    LimpiarModalCamion();
+                    $("#window").data("kendoWindow").close();
+                    ObtenerCamionEntradaMaterial();
+                });
+            };
+
+            function LimpiarModalTransportista() {
+                $("#ContactoID_Transportista").data("kendoComboBox").value("");
+                $("#Nombre_Transportista").val("");
+                $("#Descripcion_Transportista").val("");
+                $("#Direccion_Transportista").val("");
+                $("#Telefono_Transportista").val("");
+                Contacto = [];
+            };
+
+            function LimpiarModalProveedor() {
+                $("#ContactoID_Proveedor").data("kendoComboBox").value("");
+                $("#Nombre_Proveedor").val("");
+                $("#Descripcion_Proveedor").val("");
+                $("#Direccion_Proveedor").val("");
+                $("#Telefono_Proveedor").val("");
+                Contacto = [];
+            };
+
+            function LimpiarModalPatio() {
+                $("#Nombre_Patio").val("");
+                $("#Propietario_Patio").val("");
+                $("#Descripcion_Patio").val("");
+            };
+
+            function LimpiarModalChofer() {
+                $("#Nombre_Chofer").val();
+            };
+
+            function LimpiarModalPlana() {
+                $("#CamionID_Plana").data("kendoComboBox").value("");
+                $("#Placas_Plana").val("");
+                Camion = [];
+            };
+            function LimpiarModalCamion() {
+                $("#TransportistaID_Camion").data("kendoComboBox").value("");
+                $("#ChoferID_Camion").data("kendoComboBox").value("");
+                $("#Placas_Camion").val("");
+                $("#TarjetaCirculacion_Camion").val("");
+                $("#PolizaSeguro").val("");
+                TransportistaCamion = [];
+                ChoferCamion = [];
+            };
+            function GenerarPermiso() {
+                TramitarPermiso = [];
+                TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
+                TramitarPermiso[0].FolioAvisoLlegadaID = folio;
+                TramitarPermiso[0].Status = 1;
+            
+                console.log(JSON.stringify(TramitarPermiso));
+
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyTramitarPermiso');
+                Client.DummyTramitarPermiso.create({}, { permiso: JSON.stringify(TramitarPermiso), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    console.log("Client.DummyTramitarPermiso.create");
+                    $("#hdPermisoTramite").val(1);//Permiso en tramite
+                    $("#TramitarPermiso").attr("disabled", "disabled");
+                });
+
+            };
+
+            function ObtenerFechaDefault() {
+                var today = new Date();
+                $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+                $("#FechaRecepcion").kendoDatePicker({ footer: false });
+            };
+
+            function ObtenerProyectos() {
+                $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerPlanas() {
+                $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#PlanaID").data("kendoMultiSelect").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerTransportista() {
+                $Transportista.Transportista.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#TransportistaID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerPatio() {
+                $Patio.Patio.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#PatioID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerProveedor() {
+                $Proveedor.Proveedor.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ProveedorID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerChofer() {
+                $Chofer.Chofer.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            }
+
+            function ObtenerChoferCamion() {
+                $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ChoferID_Camion").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+        
+            function ObtenerCamion() {
+                $Camion.Camion.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#CamionID_Plana").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerCamionEntradaMaterial() {
+                $Camion.Camion.read({ esAvisoEntrada:1, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#CamionID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+            function ObtenerContacto() {
+                $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ContactoID_Transportista").data("kendoComboBox").dataSource.data(result);
+                        $("#ContactoID_Proveedor").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+
+            };
+
+            function ObtenerTransportistaCamion() {
+                $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#TransportistaID_Camion").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+            }
+
+            @section JavascriptDocumentReadyFunctions {
+            //Your partial view document ready function
+            CargaInicial();
+
+            if (folio != -1)
+            {
+                CargaInicialEdicion(folio);
+            }
+            else
+            {
+
+                // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.        
+                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                Client.add('DummyFileManager');
+
+                Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    $.each(data, function (index, value) {
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    });
+
+                    $.each(data, function (index, value) {
                         $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
-                };
-                console.log(data);
-            });
-        };
-
-        function CargarTransportista(id, value) {
-            Transportista = [];
-            _transportista = {};
-            _transportista["TransportistaID"] = id;
-            _transportista["Nombre"] = value;
-            Transportista.push(_transportista);
-        };
-
-        function CargarPatio(id, value) {
-            Patio = [];
-            _patio = {};
-            _patio["PatioID"] = id;
-            _patio["Nombre"] = value;
-            Patio.push(_patio);
-        };
-
-        function CargarProveedor(id, value) {
-            Proveedor = [];
-            _proveedor = {};
-            _proveedor["ProveedorID"] = id;
-            _proveedor["Nombre"] = value;
-            Proveedor.push(_proveedor);
-        };
-
-        function CargarChofer(id, value) {
-            Chofer = [];
-            _chofer = {};
-            _chofer["ChoferID"] = id;
-            _chofer["Nombre"] = value;
-            Chofer.push(_chofer);
-        };
-
-        function CargarContacto(id, value) {
-            Contacto = [];
-            _contacto = {};
-            _contacto["ContactoID"] = id;
-            _contacto["Nombre"] = value;
-            Contacto.push(_contacto);
-        };
         
-        function CargarCamion(id, value) {
-            Camion = [];
-            _camion = {};
-            _camion["CamionID"] = id;
-            _camion["Placas"] = value;
-            Camion.push(_camion);
-        };
-
-        function VentanaModal(id) {
-            
-            var modalTitle = "";
-
-            switch (id) {
-                case 1:
-                    $("#modalProveedor").hide();
-                    $("#modalPatio").hide();
-                    $("#modalChofer").hide();
-                    $("#modalPlana").hide();
-                    $("#modalTransportista").show();
-                    modalTitle = "Transportista";
-                    break;
-                case 2:
-                    $("#modalTransportista").hide();
-                    $("#modalPatio").hide();
-                    $("#modalChofer").hide();
-                    $("#modalPlana").hide();
-                    $("#modalProveedor").show();
-                    modalTitle = "Proveedor";
-                    break;
-                case 3:
-                    $("#modalTransportista").hide();
-                    $("#modalPatio").hide();
-                    $("#modalChofer").hide();
-                    $("#modalProveedor").hide();
-                    $("#modalPlana").show();
-                    modalTitle = "Plana";
-                    break;
-                case 4:
-                    $("#modalTransportista").hide();
-                    $("#modalProveedor").hide();
-                    $("#modalChofer").hide();
-                    $("#modalPlana").hide();
-                    $("#modalPatio").show();
-                    modalTitle = "Patio";
-                    break;
-                case 5:
-                    $("#modalTransportista").hide();
-                    $("#modalProveedor").hide();
-                    $("#modalPatio").hide();
-                    $("#modalPlana").hide();
-                    $("#modalChofer").show();
-                    modalTitle = "Chofer";
-                    break;
-            };
-            
-            var window = $("#window");
-            var win = window.kendoWindow({
-                actions: false,
-                modal: true,
-                title: modalTitle,
-                resizable: false,
-                visible: false,
-                width: "32.6%",
-                position: {
-                    top: "10%",
-                    left: "20%"
-                }
-            }).data("kendoWindow");
-            window.data("kendoWindow").center().open();
-        };
-
-        function GuardarTransportista() {
-
-            TransportistaModal = [];
-            TransportistaModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-            TransportistaModal[0].ContactoID = Contacto[0].ContactoID;
-            TransportistaModal[0].Nombre = $("#Nombre_Transportista").val();
-            TransportistaModal[0].Descripcion = $("#Descripcion_Transportista").val();
-            TransportistaModal[0].Direccion = $("#Direccion_Transportista").val();
-            TransportistaModal[0].Telefono = $("#Telefono_Transportista").val();
-
-            console.log(TransportistaModal[0]);
-
-            $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalTransportista();
-                $("#window").data("kendoWindow").close();
-                ObtenerTransportista();
-            });
-        };
-       
-        function GuardarProveedor() {
-            ProveedorModal = [];
-            ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-            ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
-            ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
-            ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
-            ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
-            ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
-
-            console.log(ProveedorModal[0]);
-
-            $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalProveedor();
-                $("#window").data("kendoWindow").close();
-                ObtenerProveedor();
-            });
-        };
-
-        function GuardarPatio() {
-            PatioModal = [];
-            PatioModal[0] = { Nombre: "", Propietario: "", Descripcion:"" };
-            PatioModal[0].Nombre = $("#Nombre_Patio").val();
-            PatioModal[0].Propietario = $("#Propietario_Patio").val();
-            PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
-
-            console.log(PatioModal[0]);
-
-            $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalPatio();
-                $("#window").data("kendoWindow").close();
-                ObtenerPatio();
-            });
-        };
-
-        function GuardarChofer() {
-            ChoferModal = [];
-            ChoferModal[0] = { Nombre: "" };
-            ChoferModal[0].Nombre = $("#Nombre_Chofer").val();
-
-            console.log(JSON.stringify(ChoferModal));
-
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyChofer');
-            Client.DummyChofer.create({}, { chofer: JSON.stringify(ChoferModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                console.log("Client.DummyChofer.create");
-                LimpiarModalChofer();
-                $("#window").data("kendoWindow").close();
-            });
-        };
-
-        function GuardarPlana() {
-            $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: Camion[0].CamionID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalPlana();
-                $("#window").data("kendoWindow").close();
-                ObtenerPlanas();
-            });
-        };
-        
-        function LimpiarModalTransportista() {
-            $("#ContactoID_Transportista").data("kendoAutoComplete").value("");
-            $("#Nombre_Transportista").val("");
-            $("#Descripcion_Transportista").val("");
-            $("#Direccion_Transportista").val("");
-            $("#Telefono_Transportista").val("");
-        };
-
-        function LimpiarModalProveedor() {
-            $("#ContactoID_Proveedor").data("kendoAutoComplete").value("");
-            $("#Nombre_Proveedor").val("");
-            $("#Descripcion_Proveedor").val("");
-            $("#Direccion_Proveedor").val("");
-            $("#Telefono_Proveedor").val("");
-        };
-
-        function LimpiarModalPatio() {
-            $("#Nombre_Patio").val("");
-            $("#Propietario_Patio").val("");
-            $("#Descripcion_Patio").val("");
-        };
-
-        function LimpiarModalChofer() {
-            $("#Nombre_Chofer").val();
-        };
-
-        function LimpiarModalPlana() {
-            $("#CamionID_Plana").data("kendoAutoComplete").value("");
-            $("#Placas_Plana").val("");
-        };
-
-        function GenerarPermiso() {
-            TramitarPermiso = [];
-            TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
-            TramitarPermiso[0].FolioAvisoLlegadaID = folio;
-            TramitarPermiso[0].Status = 1;
-            
-            console.log(JSON.stringify(TramitarPermiso));
-
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyTramitarPermiso');
-            Client.DummyTramitarPermiso.create({}, { permiso: JSON.stringify(TramitarPermiso), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                console.log("Client.DummyTramitarPermiso.create");
-                $("#hdPermisoTramite").val(1);//Permiso en tramite
-                $("#TramitarPermiso").attr("disabled", "disabled");
-            });
-
-        };
-
-        function ObtenerFechaDefault() {
-            var today = new Date();
-            $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaRecepcion").kendoDatePicker({ footer: false });
-        };
-
-        function ObtenerPlanas() {
-            $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
-                if (result.ReturnCode) {
-                    removeUserSession();
-                } else {
-                    $("#PlanaID").data("kendoMultiSelect").dataSource.data(result);
-                };
-            });
-        };
-
-        function ObtenerTransportista() {
-            $Transportista.Transportista.read({ token: Cookies.get("token") }).done(function (result) {
-                if (result.ReturnCode) {
-                    removeUserSession();
-                } else {
-                    $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
-                };
-            });
-        };
-
-        function ObtenerPatio() {
-            $Patio.Patio.read({ token: Cookies.get("token") }).done(function (result) {
-                if (result.ReturnCode) {
-                    removeUserSession();
-                } else {
-                    $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
-                };
-            });
-        };
-
-        function ObtenerProveedor() {
-            $Proveedor.Proveedor.read({ token: Cookies.get("token") }).done(function (result) {
-                if (result.ReturnCode) {
-                    removeUserSession();
-                } else {
-                    $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
-                };
-            });
-        };
-        
-    }
-
-    @section JavascriptDocumentReadyFunctions {
-        //Your partial view document ready function
-        CargaInicial();
-
-        if (folio != -1)
-        {
-            CargaInicialEdicion(folio);
-        }
-        else
-        {
-
-            // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.        
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyFileManager');
-
-            Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                $.each(data, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
 
-                $.each(data, function (index, value) {
-                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                });
-        
-            });
 
 
-
-        }
-    }
+            }
+            }
 </script>

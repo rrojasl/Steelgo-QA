@@ -41,20 +41,28 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoTransportistas()
+        public object ObtenerListadoTransportistas(string esAvisoEntrada)
         {
             try
             {
-                List<Transportista> lstTransportista;
+                List<Transportista> lstTransportista = new List<Transportista>();
+
+                if (int.Parse(esAvisoEntrada) == 1)
+                {
+                    lstTransportista.Add(new Transportista { Nombre = "Agregar nuevo", TransportistaID = "0" });
+                }
+
                 using (SamContext ctx = new SamContext())
                 {
-                    lstTransportista = (from t in ctx.Sam3_Transportista
-                                        where t.Activo
-                                        select new Transportista
-                                        {
-                                            Nombre = t.Nombre,
-                                            TransportistaID = t.TransportistaID.ToString()
-                                        }).AsParallel().ToList();
+                    List<Transportista> result = (from t in ctx.Sam3_Transportista
+                                                  where t.Activo
+                                                  select new Transportista
+                                                  {
+                                                      Nombre = t.Nombre,
+                                                      TransportistaID = t.TransportistaID.ToString()
+                                                  }).AsParallel().ToList();
+
+                    lstTransportista.AddRange(result);
                 }
                 return lstTransportista;
             }
@@ -79,7 +87,7 @@ namespace BackEndSAM.DataAcces
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
+                    nuevoRegistro.Activo = true;
                     nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
                     nuevoRegistro.FechaModificacion = DateTime.Now;
 

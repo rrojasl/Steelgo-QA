@@ -27,7 +27,6 @@
           <Property Name="Placas" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="TarjetaCirulacion" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="PolizaSeguro" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Estatus" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
@@ -231,7 +230,6 @@
             <PropertyRef Name="FolioAvisoLlegadaID" />
           </Key>
           <Property Name="FolioAvisoLlegadaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CamionID" Type="int" />
           <Property Name="Consecutivo" Type="int" />
           <Property Name="EsVirtual" Type="bit" />
           <Property Name="Estatus" Type="nvarchar" MaxLength="50" />
@@ -597,6 +595,8 @@
           <Property Name="PermisoAutorizado" Type="bit" />
           <Property Name="PermisoTramite" Type="bit" />
           <Property Name="NumeroPermiso" Type="int" />
+          <Property Name="FechaGeneracion" Type="datetime" />
+          <Property Name="FechaAutorización" Type="datetime" />
         </EntityType>
         <EntityType Name="Sam3_PinturaNumeroUnico">
           <Key>
@@ -721,16 +721,11 @@
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_FolioAvisoLlegada_Documento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Documento">
           <Key>
-            <PropertyRef Name="FolioAvisoLlegadaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Extencion" />
-            <PropertyRef Name="Activo" />
+            <PropertyRef Name="Rel_FolioAvisoLlegada_DocumentoID" />
           </Key>
+          <Property Name="Rel_FolioAvisoLlegada_DocumentoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FolioAvisoLlegadaID" Type="int" Nullable="false" />
           <Property Name="DocumentoID" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
@@ -739,16 +734,11 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_FolioAvisoLlegada_Docume
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
           <Key>
-            <PropertyRef Name="FolioAvisoLlegadaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Extencion" />
-            <PropertyRef Name="Activo" />
+            <PropertyRef Name="Rel_Folio_PaseSalida_Archivo_ID" />
           </Key>
+          <Property Name="Rel_Folio_PaseSalida_Archivo_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FolioAvisoLlegadaID" Type="int" Nullable="false" />
           <Property Name="DocumentoID" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
@@ -759,9 +749,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_FolioAvisoLlegada_PaseSa
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Proyecto">
           <Key>
-            <PropertyRef Name="FolioAvisoLlegadaID" />
+            <PropertyRef Name="Rel_FolioAviso_ProyectoID" />
           </Key>
-          <Property Name="FolioAvisoLlegadaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rel_FolioAviso_ProyectoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FolioAvisoLlegadaID" Type="int" Nullable="false" />
           <Property Name="ProyectoID" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -1188,7 +1179,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Folio__308E3499">
+        <Association Name="FK__Sam3_Rel___Folio__40C49C62">
+          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Folio__4865BE2A">
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" Type="Self.Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1200,7 +1203,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Folio__3B0BC30C">
+        <Association Name="FK__Sam3_Rel___Folio__4B422AD5">
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Type="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1305,6 +1308,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Principal>
             <Dependent Role="Sam3_Rel_AvisoLlegada_Plana">
               <PropertyRef Name="PlanaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Proye__41B8C09B">
+          <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Proyecto">
+              <PropertyRef Name="ProyectoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
+              <PropertyRef Name="ProyectoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1533,18 +1548,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Principal>
             <Dependent Role="Sam3_FamiliaAcero">
               <PropertyRef Name="FamiliaMaterialID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FolioAvisoLlegada_Camion">
-          <End Role="Sam3_Camion" Type="Self.Sam3_Camion" Multiplicity="0..1" />
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Camion">
-              <PropertyRef Name="CamionID" />
-            </Principal>
-            <Dependent Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="CamionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2280,30 +2283,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada">
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RelFolioAvisoLlegadaProyecto_Proyecto">
-          <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Proyecto">
-              <PropertyRef Name="ProyectoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
-              <PropertyRef Name="ProyectoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RequisicionNumeroUnico_Proyecto">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_RequisicionNumeroUnico" Type="Self.Sam3_RequisicionNumeroUnico" Multiplicity="*" />
@@ -2485,6 +2464,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <EntitySet Name="Sam3_Recepcion" EntityType="Self.Sam3_Recepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_AvisoLlegada_Plana" EntityType="Self.Sam3_Rel_AvisoLlegada_Plana" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Documento_Entidad" EntityType="Self.Sam3_Rel_Documento_Entidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_Documento" EntityType="Self.Sam3_Rel_FolioAvisoLlegada_Documento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntityType="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntityType="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_Entidad" EntityType="Self.Sam3_Rel_Incidencia_Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Perfil_MenuContextual" EntityType="Self.Sam3_Rel_Perfil_MenuContextual" Schema="dbo" store:Type="Tables" />
@@ -2507,28 +2488,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <EntitySet Name="Sam3_Transportista" EntityType="Self.Sam3_Transportista" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_UbicacionFisica" EntityType="Self.Sam3_UbicacionFisica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Usuario" EntityType="Self.Sam3_Usuario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_Documento" EntityType="Self.Sam3_Rel_FolioAvisoLlegada_Documento" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[FolioAvisoLlegadaID] AS [FolioAvisoLlegadaID], 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[DocumentoID] AS [DocumentoID], 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[Nombre] AS [Nombre], 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[Extencion] AS [Extencion], 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[Activo] AS [Activo], 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[UsuarioModificacion] AS [UsuarioModificacion], 
-    [Sam3_Rel_FolioAvisoLlegada_Documento].[FechaModificacion] AS [FechaModificacion]
-    FROM [dbo].[Sam3_Rel_FolioAvisoLlegada_Documento] AS [Sam3_Rel_FolioAvisoLlegada_Documento]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntityType="Self.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[FolioAvisoLlegadaID] AS [FolioAvisoLlegadaID], 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[DocumentoID] AS [DocumentoID], 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[Nombre] AS [Nombre], 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[Extencion] AS [Extencion], 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[Activo] AS [Activo], 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[UsuarioModificacion] AS [UsuarioModificacion], 
-    [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo].[FechaModificacion] AS [FechaModificacion]
-    FROM [dbo].[Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo] AS [Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Sam3_Rel_Perfil_Entidad_Pagina" EntityType="Self.Sam3_Rel_Perfil_Entidad_Pagina" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Sam3_Rel_Perfil_Entidad_Pagina].[PerfilID] AS [PerfilID], 
@@ -2580,11 +2539,15 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
             <End Role="Sam3_Rel_AvisoLlegada_Plana" EntitySet="Sam3_Rel_AvisoLlegada_Plana" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__308E3499" Association="Self.FK__Sam3_Rel___Folio__308E3499">
+          <AssociationSet Name="FK__Sam3_Rel___Folio__40C49C62" Association="Self.FK__Sam3_Rel___Folio__40C49C62">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Folio__4865BE2A" Association="Self.FK__Sam3_Rel___Folio__4865BE2A">
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__3B0BC30C" Association="Self.FK__Sam3_Rel___Folio__3B0BC30C">
+          <AssociationSet Name="FK__Sam3_Rel___Folio__4B422AD5" Association="Self.FK__Sam3_Rel___Folio__4B422AD5">
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
           </AssociationSet>
@@ -2619,6 +2582,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <AssociationSet Name="FK__Sam3_Rel___Plana__27F8EE98" Association="Self.FK__Sam3_Rel___Plana__27F8EE98">
             <End Role="Sam3_Plana" EntitySet="Sam3_Plana" />
             <End Role="Sam3_Rel_AvisoLlegada_Plana" EntitySet="Sam3_Rel_AvisoLlegada_Plana" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Proye__41B8C09B" Association="Self.FK__Sam3_Rel___Proye__41B8C09B">
+            <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
           </AssociationSet>
           <AssociationSet Name="FK_Acero_FamiliaAcero" Association="Self.FK_Acero_FamiliaAcero">
             <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
@@ -2695,10 +2662,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <AssociationSet Name="FK_FamiliaAcero_FamiliaMaterial" Association="Self.FK_FamiliaAcero_FamiliaMaterial">
             <End Role="Sam3_FamiliaMaterial" EntitySet="Sam3_FamiliaMaterial" />
             <End Role="Sam3_FamiliaAcero" EntitySet="Sam3_FamiliaAcero" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FolioAvisoLlegada_Camion" Association="Self.FK_FolioAvisoLlegada_Camion">
-            <End Role="Sam3_Camion" EntitySet="Sam3_Camion" />
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
           <AssociationSet Name="FK_FolioLlegada_FolioAvisoLlegada" Association="Self.FK_FolioLlegada_FolioAvisoLlegada">
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
@@ -2944,14 +2907,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_Rel_Usuario_Proyecto" EntitySet="Sam3_Rel_Usuario_Proyecto" />
           </AssociationSet>
-          <AssociationSet Name="FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada" Association="Self.FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelFolioAvisoLlegadaProyecto_Proyecto" Association="Self.FK_RelFolioAvisoLlegadaProyecto_Proyecto">
-            <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
-          </AssociationSet>
           <AssociationSet Name="FK_RequisicionNumeroUnico_Proyecto" Association="Self.FK_RequisicionNumeroUnico_Proyecto">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_RequisicionNumeroUnico" EntitySet="Sam3_RequisicionNumeroUnico" />
@@ -3025,12 +2980,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <Property Name="Placas" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TarjetaCirulacion" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PolizaSeguro" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Estatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_Chofer" Relationship="Self.FK_Camion_Chofer" FromRole="Sam3_Camion" ToRole="Sam3_Chofer" />
           <NavigationProperty Name="Sam3_PackingList" Relationship="Self.FK_Camion_PackingList" FromRole="Sam3_Camion" ToRole="Sam3_PackingList" />
           <NavigationProperty Name="Sam3_Transportista" Relationship="Self.FK_Camion_Transportista" FromRole="Sam3_Camion" ToRole="Sam3_Transportista" />
-          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="Self.FK_FolioAvisoLlegada_Camion" FromRole="Sam3_Camion" ToRole="Sam3_FolioAvisoLlegada" />
           <NavigationProperty Name="Sam3_Plana" Relationship="Self.FK_Plana_Camion" FromRole="Sam3_Camion" ToRole="Sam3_Plana" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
@@ -3270,15 +3223,13 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             <PropertyRef Name="FolioAvisoLlegadaID" />
           </Key>
           <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CamionID" Type="Int32" />
           <Property Name="Consecutivo" Type="Int32" />
           <Property Name="EsVirtual" Type="Boolean" />
           <Property Name="Estatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Boolean" />
-          <NavigationProperty Name="Sam3_Camion" Relationship="Self.FK_FolioAvisoLlegada_Camion" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Camion" />
           <NavigationProperty Name="Sam3_FolioLlegada" Relationship="Self.FK_FolioLlegada_FolioAvisoLlegada" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_FolioLlegada" />
           <NavigationProperty Name="Sam3_PermisoAduana" Relationship="Self.FK_PermisoAduana_FolioAvisoLlegada" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_PermisoAduana" />
-          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_Proyecto" Relationship="Self.FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
+          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_Proyecto" Relationship="ModelSam3.FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="TransportistaID" Type="Int32" Nullable="false" />
@@ -3291,11 +3242,11 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <NavigationProperty Name="Sam3_Proveedor" Relationship="ModelSam3.FK__Sam3_Foli__Prove__22401542" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Proveedor" />
           <NavigationProperty Name="Sam3_Transportista" Relationship="ModelSam3.FK__Sam3_Foli__Trans__214BF109" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Transportista" />
           <NavigationProperty Name="Sam3_Rel_AvisoLlegada_Plana" Relationship="ModelSam3.FK__Sam3_Rel___Folio__2704CA5F" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_AvisoLlegada_Plana" />
-          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Folio__308E3499" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_FolioAvisoLlegada_Documento" />
-          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Relationship="ModelSam3.FK__Sam3_Rel___Folio__3B0BC30C" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
           <Property Name="OrdenCompra" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FechaRecepcion" Type="DateTime" Precision="3" />
           <Property Name="Factura" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Folio__4865BE2A" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_FolioAvisoLlegada_Documento" />
+          <NavigationProperty Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Relationship="ModelSam3.FK__Sam3_Rel___Folio__4B422AD5" FromRole="Sam3_FolioAvisoLlegada" ToRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
         </EntityType>
         <EntityType Name="Sam3_FolioLlegada">
           <Key>
@@ -3725,6 +3676,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <Property Name="PermisoTramite" Type="Boolean" />
           <Property Name="NumeroPermiso" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_PermisoAduana_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Permi__36470DEF" FromRole="Sam3_PermisoAduana" ToRole="Sam3_Rel_PermisoAduana_Documento" />
+          <Property Name="FechaGeneracion" Type="DateTime" Precision="3" />
+          <Property Name="FechaAutorización" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sam3_PinturaNumeroUnico">
           <Key>
@@ -3875,15 +3828,16 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Proyecto">
           <Key>
-            <PropertyRef Name="FolioAvisoLlegadaID" />
+            <PropertyRef Name="Rel_FolioAviso_ProyectoID" />
           </Key>
-          <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="ProyectoID" Type="Int32" Nullable="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="Self.FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada" FromRole="Sam3_Rel_FolioAvisoLlegada_Proyecto" ToRole="Sam3_FolioAvisoLlegada" />
           <NavigationProperty Name="Sam3_Proyecto" Relationship="Self.FK_RelFolioAvisoLlegadaProyecto_Proyecto" FromRole="Sam3_Rel_FolioAvisoLlegada_Proyecto" ToRole="Sam3_Proyecto" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Rel_FolioAviso_ProyectoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Incidencia_Entidad">
           <Key>
@@ -4308,18 +4262,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FolioAvisoLlegada_Camion">
-          <End Role="Sam3_Camion" Type="Self.Sam3_Camion" Multiplicity="0..1" />
-          <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Camion">
-              <PropertyRef Name="CamionID" />
-            </Principal>
-            <Dependent Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="CamionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Plana_Camion">
           <End Role="Sam3_Camion" Type="Self.Sam3_Camion" Multiplicity="1" />
           <End Role="Sam3_Plana" Type="Self.Sam3_Plana" Multiplicity="*" />
@@ -4694,7 +4636,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
         </Association>
         <Association Name="FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada">
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_FolioAvisoLlegada">
               <PropertyRef Name="FolioAvisoLlegadaID" />
@@ -5550,10 +5492,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
             <End Role="Sam3_Camion" EntitySet="Sam3_Camion" />
           </AssociationSet>
-          <AssociationSet Name="FK_FolioAvisoLlegada_Camion" Association="Self.FK_FolioAvisoLlegada_Camion">
-            <End Role="Sam3_Camion" EntitySet="Sam3_Camion" />
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-          </AssociationSet>
           <AssociationSet Name="FK_Plana_Camion" Association="Self.FK_Plana_Camion">
             <End Role="Sam3_Camion" EntitySet="Sam3_Camion" />
             <End Role="Sam3_Plana" EntitySet="Sam3_Plana" />
@@ -5936,8 +5874,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           </AssociationSet>
           <EntitySet Name="Sam3_Rel_AvisoLlegada_Plana" EntityType="ModelSam3.Sam3_Rel_AvisoLlegada_Plana" />
           <EntitySet Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos" EntityType="ModelSam3.Sam3_Rel_TiposDocumentos_ExtencionesDocumentos" />
-          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_Documento" EntityType="ModelSam3.Sam3_Rel_FolioAvisoLlegada_Documento" />
-          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntityType="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
           <EntitySet Name="Sam3_Rel_PermisoAduana_Documento" EntityType="ModelSam3.Sam3_Rel_PermisoAduana_Documento" />
           <AssociationSet Name="FK__Sam3_Foli__Chofe__24285DB4" Association="ModelSam3.FK__Sam3_Foli__Chofe__24285DB4">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
@@ -5959,14 +5895,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
             <End Role="Sam3_Rel_AvisoLlegada_Plana" EntitySet="Sam3_Rel_AvisoLlegada_Plana" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__308E3499" Association="ModelSam3.FK__Sam3_Rel___Folio__308E3499">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___Folio__3B0BC30C" Association="ModelSam3.FK__Sam3_Rel___Folio__3B0BC30C">
-            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
-            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
-          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Permi__36470DEF" Association="ModelSam3.FK__Sam3_Rel___Permi__36470DEF">
             <End Role="Sam3_PermisoAduana" EntitySet="Sam3_PermisoAduana" />
             <End Role="Sam3_Rel_PermisoAduana_Documento" EntitySet="Sam3_Rel_PermisoAduana_Documento" />
@@ -5974,6 +5902,16 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <AssociationSet Name="FK__Sam3_Rel___Plana__27F8EE98" Association="ModelSam3.FK__Sam3_Rel___Plana__27F8EE98">
             <End Role="Sam3_Plana" EntitySet="Sam3_Plana" />
             <End Role="Sam3_Rel_AvisoLlegada_Plana" EntitySet="Sam3_Rel_AvisoLlegada_Plana" />
+          </AssociationSet>
+          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_Documento" EntityType="ModelSam3.Sam3_Rel_FolioAvisoLlegada_Documento" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__4865BE2A" Association="ModelSam3.FK__Sam3_Rel___Folio__4865BE2A">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_Documento" EntitySet="Sam3_Rel_FolioAvisoLlegada_Documento" />
+          </AssociationSet>
+          <EntitySet Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntityType="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
+          <AssociationSet Name="FK__Sam3_Rel___Folio__4B422AD5" Association="ModelSam3.FK__Sam3_Rel___Folio__4B422AD5">
+            <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+            <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Sam3_Rel_AvisoLlegada_Plana">
@@ -6001,40 +5939,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Documento">
-          <Key>
-            <PropertyRef Name="FolioAvisoLlegadaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Extencion" />
-            <PropertyRef Name="Activo" />
-          </Key>
-          <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" />
-          <Property Name="DocumentoID" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Extencion" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="UsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__308E3499" FromRole="Sam3_Rel_FolioAvisoLlegada_Documento" ToRole="Sam3_FolioAvisoLlegada" />
-        </EntityType>
-        <EntityType Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
-          <Key>
-            <PropertyRef Name="FolioAvisoLlegadaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Extencion" />
-            <PropertyRef Name="Activo" />
-          </Key>
-          <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" />
-          <Property Name="DocumentoID" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Extencion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <Property Name="UsuarioModificacion" Type="Int32" />
-          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__3B0BC30C" FromRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" ToRole="Sam3_FolioAvisoLlegada" />
         </EntityType>
         <EntityType Name="Sam3_Rel_PermisoAduana_Documento">
           <Key>
@@ -6112,30 +6016,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___Folio__308E3499">
-          <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_FolioAvisoLlegada_Documento" Role="Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Documento">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___Folio__3B0BC30C">
-          <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_FolioAvisoLlegada">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
-              <PropertyRef Name="FolioAvisoLlegadaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Sam3_Rel___Permi__36470DEF">
           <End Type="ModelSam3.Sam3_PermisoAduana" Role="Sam3_PermisoAduana" Multiplicity="1" />
           <End Type="ModelSam3.Sam3_Rel_PermisoAduana_Documento" Role="Sam3_Rel_PermisoAduana_Documento" Multiplicity="*" />
@@ -6157,6 +6037,58 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
             </Principal>
             <Dependent Role="Sam3_Rel_AvisoLlegada_Plana">
               <PropertyRef Name="PlanaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Documento">
+          <Key>
+            <PropertyRef Name="Rel_FolioAvisoLlegada_DocumentoID" />
+          </Key>
+          <Property Name="Rel_FolioAvisoLlegada_DocumentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentoID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Extencion" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__4865BE2A" FromRole="Sam3_Rel_FolioAvisoLlegada_Documento" ToRole="Sam3_FolioAvisoLlegada" />
+        </EntityType>
+        <Association Name="FK__Sam3_Rel___Folio__4865BE2A">
+          <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_FolioAvisoLlegada_Documento" Role="Sam3_Rel_FolioAvisoLlegada_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Documento">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
+          <Key>
+            <PropertyRef Name="Rel_Folio_PaseSalida_Archivo_ID" />
+          </Key>
+          <Property Name="Rel_Folio_PaseSalida_Archivo_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolioAvisoLlegadaID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentoID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Extencion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__4B422AD5" FromRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" ToRole="Sam3_FolioAvisoLlegada" />
+        </EntityType>
+        <Association Name="FK__Sam3_Rel___Folio__4B422AD5">
+          <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FolioAvisoLlegada">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
+              <PropertyRef Name="FolioAvisoLlegadaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6190,7 +6122,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
                 <ScalarProperty Name="Placas" ColumnName="Placas" />
                 <ScalarProperty Name="TarjetaCirulacion" ColumnName="TarjetaCirulacion" />
                 <ScalarProperty Name="PolizaSeguro" ColumnName="PolizaSeguro" />
-                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -6418,7 +6349,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FolioAvisoLlegadaID" ColumnName="FolioAvisoLlegadaID" />
-                <ScalarProperty Name="CamionID" ColumnName="CamionID" />
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
                 <ScalarProperty Name="EsVirtual" ColumnName="EsVirtual" />
                 <ScalarProperty Name="Estatus" ColumnName="Estatus" />
@@ -6786,6 +6716,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <EntitySetMapping Name="Sam3_PermisoAduana">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_PermisoAduana">
               <MappingFragment StoreEntitySet="Sam3_PermisoAduana">
+                <ScalarProperty Name="FechaAutorización" ColumnName="FechaAutorización" />
+                <ScalarProperty Name="FechaGeneracion" ColumnName="FechaGeneracion" />
                 <ScalarProperty Name="NumeroPermiso" ColumnName="NumeroPermiso" />
                 <ScalarProperty Name="PermisoTramite" ColumnName="PermisoTramite" />
                 <ScalarProperty Name="PermisoAutorizado" ColumnName="PermisoAutorizado" />
@@ -6921,6 +6853,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <EntitySetMapping Name="Sam3_Rel_FolioAvisoLlegada_Proyecto">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_FolioAvisoLlegada_Proyecto">
               <MappingFragment StoreEntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto">
+                <ScalarProperty Name="Rel_FolioAviso_ProyectoID" ColumnName="Rel_FolioAviso_ProyectoID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FolioAvisoLlegadaID" ColumnName="FolioAvisoLlegadaID" />
@@ -7280,6 +7213,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Rel_PermisoAduana_Documento">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_PermisoAduana_Documento">
+              <MappingFragment StoreEntitySet="Sam3_Rel_PermisoAduana_Documento">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Extencion" ColumnName="Extencion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
+                <ScalarProperty Name="PermisoAduanaID" ColumnName="PermisoAduanaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sam3_Rel_FolioAvisoLlegada_Documento">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_FolioAvisoLlegada_Documento">
               <MappingFragment StoreEntitySet="Sam3_Rel_FolioAvisoLlegada_Documento">
@@ -7290,6 +7236,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
                 <ScalarProperty Name="FolioAvisoLlegadaID" ColumnName="FolioAvisoLlegadaID" />
+                <ScalarProperty Name="Rel_FolioAvisoLlegada_DocumentoID" ColumnName="Rel_FolioAvisoLlegada_DocumentoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7303,19 +7250,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
                 <ScalarProperty Name="FolioAvisoLlegadaID" ColumnName="FolioAvisoLlegadaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sam3_Rel_PermisoAduana_Documento">
-            <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_PermisoAduana_Documento">
-              <MappingFragment StoreEntitySet="Sam3_Rel_PermisoAduana_Documento">
-                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
-                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
-                <ScalarProperty Name="Activo" ColumnName="Activo" />
-                <ScalarProperty Name="Extencion" ColumnName="Extencion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
-                <ScalarProperty Name="PermisoAduanaID" ColumnName="PermisoAduanaID" />
+                <ScalarProperty Name="Rel_Folio_PaseSalida_Archivo_ID" ColumnName="Rel_Folio_PaseSalida_Archivo_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

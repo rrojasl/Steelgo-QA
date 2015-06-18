@@ -100,6 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CamionController.cs" />
+    <Compile Include="Controllers\ChoferController.cs" />
     <Compile Include="Controllers\DummyCambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\DummyCargarGridPackingListController.cs" />
     <Compile Include="Controllers\DummyCedulaController.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="Controllers\DummyEstatusController.cs" />
     <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
+    <Compile Include="Controllers\ListadoController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
     <Compile Include="Controllers\PatioController.cs" />
@@ -145,9 +148,13 @@
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
+    <Compile Include="DataAcces\CamionBd.cs" />
+    <Compile Include="DataAcces\ChoferBd.cs" />
+    <Compile Include="DataAcces\ContactoBd.cs" />
     <Compile Include="DataAcces\PatioBd.cs" />
     <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="DataAcces\ProveedorBd.cs" />
+    <Compile Include="DataAcces\ProyectoBd.cs" />
     <Compile Include="DataAcces\TransportistaBd.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +192,7 @@
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
+    <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
