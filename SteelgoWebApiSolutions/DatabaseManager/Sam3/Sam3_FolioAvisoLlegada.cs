@@ -39,6 +39,7 @@ namespace DatabaseManager.Sam3
         public string OrdenCompra { get; set; }
         public Nullable<System.DateTime> FechaRecepcion { get; set; }
         public string Factura { get; set; }
+        public Nullable<int> CamionID { get; set; }
     
         public virtual ICollection<Sam3_FolioLlegada> Sam3_FolioLlegada { get; set; }
         public virtual ICollection<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
@@ -50,5 +51,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_AvisoLlegada_Plana> Sam3_Rel_AvisoLlegada_Plana { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
+        public virtual Sam3_Camion Sam3_Camion { get; set; }
     }
 }
