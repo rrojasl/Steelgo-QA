@@ -579,10 +579,32 @@
                         }
 
                     }
-                    console.log(data);
-                    console.log(returnOfSecurityCheck);
-                    //returnOfSecurityCheck = data;
-                    
+                    returnOfSecurityCheck.Layout = {};
+                    returnOfSecurityCheck.Layout.create = data.layout.create;
+                    returnOfSecurityCheck.Layout.destroy = data.layout.destroy;
+                    returnOfSecurityCheck.Layout.detail = data.layout.detail;
+                    returnOfSecurityCheck.Layout.list = data.layout.list;
+
+                    returnOfSecurityCheck.Layout.properties = {};
+                    returnOfSecurityCheck.Layout.properties.search = {};
+                    returnOfSecurityCheck.Layout.properties.search.editable = data.layout.properties[0].editable;
+                    returnOfSecurityCheck.Layout.properties.search.required = data.layout.properties[0].required;
+                    returnOfSecurityCheck.Layout.properties.search.visible = data.layout.properties[0].visible;
+
+                    returnOfSecurityCheck.Layout.properties.notifications = {};
+                    returnOfSecurityCheck.Layout.properties.notifications.editable = data.layout.properties[1].editable;
+                    returnOfSecurityCheck.Layout.properties.notifications.required = data.layout.properties[1].required;
+                    returnOfSecurityCheck.Layout.properties.notifications.visible = data.layout.properties[1].visible;
+
+                    returnOfSecurityCheck.Layout.properties.useroptions = {};
+                    returnOfSecurityCheck.Layout.properties.useroptions.editable = data.layout.properties[2].editable;
+                    returnOfSecurityCheck.Layout.properties.useroptions.required = data.layout.properties[2].required;
+                    returnOfSecurityCheck.Layout.properties.useroptions.visible = data.layout.properties[2].visible;
+
+                    returnOfSecurityCheck.Layout.properties.navigation = {};
+                    returnOfSecurityCheck.Layout.properties.navigation.editable = data.layout.properties[3].editable;
+                    returnOfSecurityCheck.Layout.properties.navigation.required = data.layout.properties[3].required;
+                    returnOfSecurityCheck.Layout.properties.navigation.visible = data.layout.properties[3].visible;
 
                     //Update the token cookie
                     if (typeof data.token === 'undefined' && data.token != null && data.token.length > 0) {
@@ -591,17 +613,12 @@
 
                     //For each entity available for the current page
                     for (key in $authorizationModel) {
-                        console.log(key);
                         //It the page contains the key to be threated
                         if ($authorizationModel.hasOwnProperty(key)) {
-                            console.log(true);
                             //obtain the entity definition
                             entityDefinition = $authorizationModel[key];
-                            console.log(entityDefinition);
                             if (returnOfSecurityCheck.hasOwnProperty(key)) {
-                                console.log(true);
                                 entitySecurity = returnOfSecurityCheck[key];
-                                console.log(entitySecurity);
                                 securityNotFound = false;
                             }
                             applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
@@ -739,7 +756,8 @@
 
         //Method to hide elements if im in home
         function hideElements() {
-            if (Cookies.get("home") != null && Cookies.get("home") == "true") {
+            if (Cookies.get("home") != null && Cookies.get("home") == "true" &&
+                    Cookies.get("navegacion") != null && Cookies.get("navegacion") == "1") {
                 $(".sidebar").css("display", "none");
                 $(".logo").css("display", "none");
                 $(".search-bar").css("display", "none");
@@ -787,6 +805,7 @@
             if (Cookies.get("user") != null && Cookies.get("token") != null) {
                 $SecurityManager.authentication.destroy({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     if (!data.IsAuthenicated) {
+                        Cookies.set("LogOut", true, { path: "/" });
                         Cookies.remove("user", { path: '/' });
                         Cookies.remove("token", { path: '/' });
                         Cookies.remove("home", { path: '/' });
@@ -812,14 +831,12 @@
                     loadingStop();
                 });
                 request.error(function (data) {
-                    console.log("errorFunction");
                     Cookies.remove("user", { path: '/' });
                     Cookies.remove("token", { path: '/' });
                     document.location.href = '/';
                     loadingStop();
                 });
                 request.fail(function (data) {
-                    console.log("failFunction");
                     Cookies.remove("user", { path: '/' });
                     Cookies.remove("token", { path: '/' });
                     document.location.href = '/';
@@ -835,7 +852,9 @@
                             && Cookies.get("token") != null
                             && Cookies.get("navegacion") != null && Cookies.get("navegacion") == "1") {
                     document.location.href = '@Url.Action("Landing", "Home")';
-                } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1") {
+                } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" 
+                            && Cookies.get("LogOut") != null) {
+                    Cookies.remove("LogOut", { path: '/' });
                     document.location.href = '/';
                 }
             }
