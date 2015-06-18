@@ -606,6 +606,7 @@
                     returnOfSecurityCheck.Layout.properties.navigation.required = data.layout.properties[3].required;
                     returnOfSecurityCheck.Layout.properties.navigation.visible = data.layout.properties[3].visible;
 
+                    console.log(returnOfSecurityCheck);
                     //Update the token cookie
                     if (typeof data.token === 'undefined' && data.token != null && data.token.length > 0) {
                         Cookies.set("token", data.token, { path: '/' });

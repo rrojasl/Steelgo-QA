@@ -94,6 +94,22 @@
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
         var AccionFiltrado = getUrlParameter("AccionFiltrado", "-1");// 1.-Todos.   2.- Folios sin permisos.  3.-Permiso pero sin autorizacion
+
+        var $AvisoLLegadaModel = {
+            listContainer: {
+                create: "#Creacion",
+                list: "#grid",
+                detail: ".detailLink",
+                destroy: ".k-grid-Cancelar"
+            },
+            properties: {
+                username: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                }
+            }
+        };
     }
 
     @section JavascriptGlobalFunctions {        
@@ -148,7 +164,7 @@
                 },               
                 columns: [
                     //{ command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px" },
-                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
                     { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -206,6 +222,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel
 
         $("#Mostrar").click(function () { Filtros(2); });
         $("#Creacion").click(function (e) {
