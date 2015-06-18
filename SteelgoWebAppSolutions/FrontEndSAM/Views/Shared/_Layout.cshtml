@@ -1013,14 +1013,14 @@
                     $(this).children("i.arrow").toggleClass("down");                    
                 }
                 else if (!$("#sidebar").hasClass("minified")) {
-                    $("li").removeClass('active');
-                    $("ul").removeClass('open');
+                    $("#sidebar li").removeClass('active');
+                    $("#sidebar ul").removeClass('open');
                     $(this).closest("li").addClass('active').children("ul").addClass("open");
                     $(this).children("i.arrow").addClass("down");
                 }
                 else {
-                    $("li").removeClass('active');
-                    $("ul").removeClass('open'); 
+                    $("#sidebar li").removeClass('active');
+                    $("#sidebar ul").removeClass('open'); 
                     $(this).closest("li").addClass('active');                  
                 }
             });
