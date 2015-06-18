@@ -152,15 +152,19 @@
 
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-            client.add("AvisoLlegada");
+            //client.add("AvisoLlegada");
 
-            client.AvisoLlegada.read({avisoLlegadaID: 8, token: tokenActual}).done(function (data){
-                console.log(JSON.stringify(data));
-            });
+            //client.AvisoLlegada.read({avisoLlegadaID: 8, token: tokenActual}).done(function (data){
+            //    console.log(JSON.stringify(data));
+            //});
 
             //client.AvisoLlegada.create(json, { token: tokenActual }).done(function (data) {
             //    console.log(data);
             //});
+
+
+            client.add("Listado");
+            client.Listado.read({tipoListado: 1, token: tokenActual}).done(function (data) { console.log(data) });
             
 </script>
     </body>

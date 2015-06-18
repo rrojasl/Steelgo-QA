@@ -638,6 +638,35 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerListadoFoliosParaFiltro()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                  where r.Activo.Value
+                                                   select new ListaCombos
+                                                  {
+                                                      id = r.FolioAvisoLlegadaID.ToString(),
+                                                      value = r.Consecutivo.ToString()
+                                                  }).AsParallel().ToList();
+
+                    return lstFolios;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
 
     }//Fin Clase
 }
