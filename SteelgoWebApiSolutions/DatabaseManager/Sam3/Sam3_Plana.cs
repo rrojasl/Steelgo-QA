@@ -25,6 +25,8 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public string Unidad { get; set; }
+        public string Modelo { get; set; }
     
         public virtual Sam3_Camion Sam3_Camion { get; set; }
         public virtual ICollection<Sam3_Rel_AvisoLlegada_Plana> Sam3_Rel_AvisoLlegada_Plana { get; set; }

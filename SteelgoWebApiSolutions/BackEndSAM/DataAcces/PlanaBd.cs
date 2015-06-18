@@ -61,20 +61,21 @@ namespace BackEndSAM.DataAcces
             return results;
         }
 
-        public object InsertarPlana(string payload, string placas, int camionID)
+        public object InsertarPlana(Sam3_Plana plana, Sam3_Usuario usuario)
         {
             try
             {
                 Sam3_Plana nuevaPlana;
                 using (SamContext ctx = new SamContext())
                 {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                    
                     nuevaPlana = new Sam3_Plana
                     {
                         Activo = true,
-                        CamionID = camionID,
-                        Placas = placas,
+                        CamionID = plana.CamionID,
+                        Placas = plana.Placas,
+                        Unidad = plana.Unidad,
+                        Modelo = plana.Modelo,
                         FechaModificacion = DateTime.Now,
                         UsuarioModificacion = usuario.UsuarioID
                     };
