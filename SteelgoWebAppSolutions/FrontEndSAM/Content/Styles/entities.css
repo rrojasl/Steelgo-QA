@@ -633,7 +633,7 @@ header .menu > div {
 
     .breadcrumb li {
         font-weight: 600;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
         color: #1A3F70;
     }
 
@@ -642,13 +642,13 @@ header .menu > div {
         }
 
     .breadcrumb > li + li:before {
-        padding: 0 3px;
+        padding: 0 4px;
         color: #1A3F70;
         content: ">";
     }
 
     .breadcrumb > li + li.active:before {
-        padding: 0 6px 0 4px;
+        padding: 0 4px 0 4px;
     }
 
 /**********************************************************************************/

@@ -275,7 +275,7 @@
     }
 
     .k-grid td {
-        padding: 5.5px 13px;
+        padding: 7.5px 13px;
         font-size: 12px;
         line-height: 1.4;
         color: #111111;
@@ -312,7 +312,7 @@
         }
 
             .k-grid .k-grid-header tr th a.k-link {
-                font-size: 10px;
+                font-size: 11.5px;
                 font-weight: 600;
                 text-transform: uppercase;
             }
