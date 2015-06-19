@@ -912,7 +912,7 @@ header .menu > div {
     }
 }
 
-@media (min-width: 1200px) and (max-width: 1440px) {
+@media (min-width: 1200px) and (max-width: 1540px) {
 
     /*$_content-container*/
     .form > .row > div.filters {
