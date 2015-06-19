@@ -4,11 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using BackEndSAM.DataAcces;
 
 namespace BackEndSAM.Controllers
 {
     public class PermisoAduanaController : ApiController
     {
+        PermisoAduana permiso = new PermisoAduana();
+
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
@@ -16,9 +19,14 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public List<BackEndSAM.Models.FormatoPermisoAduana> Get(int folio)
         {
-            return "value";
+            List<BackEndSAM.Models.FormatoPermisoAduana> listaDatosAduana = permiso.ObtenerDatosAvisoLlegada(folio);
+            List<string> planas = permiso.ObtenerPlanas(folio);
+            List<string> proyectos = permiso.ObtenerProyectos(folio);
+
+            permiso.EnviarCorreo(listaDatosAduana, planas, proyectos);
+          return listaDatosAduana;
         }
 
         // POST api/<controller>
