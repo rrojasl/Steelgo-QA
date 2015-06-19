@@ -50,7 +50,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(string placas, string camionID, string token)
+        public object Post(Sam3_Plana plana, string token)
         {
             string newToken = "";
             string payload = "";
@@ -58,7 +58,10 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                return PlanaBd.Instance.InsertarPlana(payload, placas, Convert.ToInt32(camionID));
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return PlanaBd.Instance.InsertarPlana(plana, usuario);
             }
             else
             {

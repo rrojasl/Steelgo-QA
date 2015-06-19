@@ -136,6 +136,7 @@
     <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
     <Compile Include="Controllers\ListadoController.cs" />
+    <Compile Include="Controllers\ListadoFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
     <Compile Include="Controllers\PatioController.cs" />

@@ -18,12 +18,16 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AvisoLlegadaController : ApiController
     {
-
-        public object Get(FiltrosJson filtros, string token)
+        public object Get(string data)
         {
+            Base64Security baseSecurity = new Base64Security();
+            var jsonFiltros = baseSecurity.Decode(data);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            FiltrosJson filtros = serializer.Deserialize<FiltrosJson>(jsonFiltros);
             string payload = "";
             string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.token, out payload, out newToken);
+
             if (tokenValido)
             {
                 return AvisoLlegadaBd.Instance.ObtenerListadoAvisoLlegada(filtros);
@@ -38,7 +42,6 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
         public object Get(int avisollegadaID, string token)
         {
             string payload = "";
@@ -91,7 +94,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return AvisoLlegadaBd.Instance.ActualizarAvisoLlegada(avisoLlegada, usuario);
             }
             else
             {

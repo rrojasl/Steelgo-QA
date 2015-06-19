@@ -428,7 +428,7 @@
                 "detail": false,
                 "destroy": false,
                 "properties": {
-                    "sidemenu": {
+                    "navigation": {
                         "visible": true,
                         "editable": true,
                         "required": false
@@ -514,7 +514,7 @@
                 destroy: ""
             },
             properties: {
-                sidemenu: {
+                navigation: {
                     visible: "#sidebar",
                     editable: "#sidebar",
                     required: "#sidebar"
@@ -545,22 +545,78 @@
         /****************************/
 
         //Method to change the visibility, editability and required attributes of the elements
-        //
         function applySecurityPolicy() {
+            //Block the screen
             loadingStart();
+
             //Obtain the entity list from the $authorizationModel
             var index, key, entityDefinition, entitySecurity;
             var securityNotFound = true;
             var authorizationModelKeys = Object.keys($authorizationModel);
-            //Call to the permissions api passing all the entities by authorizationModelKeys.toString();
-            console.log(Cookies.get("navegacion"));
+
+            //If this page its not the login page
             if (Cookies.get("navegacion") != "1") {
+
+                //Execute REST Petition to obtain the user access
                 $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
-                    returnOfSecurityCheck = data;
-                    Cookies.set("token", data.token, {path: '/'});
-                    console.log(data);
+
+                    //Retrieve the obtained data
+                    returnOfSecurityCheck = {};
+                    for (key in data.entidades) {
+                        var keyRetreived = data.entidades[key];
+                        returnOfSecurityCheck[keyRetreived.entityName] = {};
+                        returnOfSecurityCheck[keyRetreived.entityName].create = keyRetreived.create;
+                        returnOfSecurityCheck[keyRetreived.entityName].destroy = keyRetreived.destroy;
+                        returnOfSecurityCheck[keyRetreived.entityName].detail = keyRetreived.detail;
+                        returnOfSecurityCheck[keyRetreived.entityName].list = keyRetreived.list;
+                        returnOfSecurityCheck[keyRetreived.entityName].properties = {};
+                        for (property in keyRetreived.properties) {
+                            var propertyRetreived = keyRetreived.properties[property];
+                            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName] = {};
+                            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].editable = propertyRetreived.editable;
+                            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].required = propertyRetreived.required;
+                            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].visible = propertyRetreived.visible;
+                        }
+
+                    }
+                    returnOfSecurityCheck.Layout = {};
+                    returnOfSecurityCheck.Layout.create = data.layout.create;
+                    returnOfSecurityCheck.Layout.destroy = data.layout.destroy;
+                    returnOfSecurityCheck.Layout.detail = data.layout.detail;
+                    returnOfSecurityCheck.Layout.list = data.layout.list;
+
+                    returnOfSecurityCheck.Layout.properties = {};
+                    returnOfSecurityCheck.Layout.properties.search = {};
+                    returnOfSecurityCheck.Layout.properties.search.editable = data.layout.properties[0].editable;
+                    returnOfSecurityCheck.Layout.properties.search.required = data.layout.properties[0].required;
+                    returnOfSecurityCheck.Layout.properties.search.visible = data.layout.properties[0].visible;
+
+                    returnOfSecurityCheck.Layout.properties.notifications = {};
+                    returnOfSecurityCheck.Layout.properties.notifications.editable = data.layout.properties[1].editable;
+                    returnOfSecurityCheck.Layout.properties.notifications.required = data.layout.properties[1].required;
+                    returnOfSecurityCheck.Layout.properties.notifications.visible = data.layout.properties[1].visible;
+
+                    returnOfSecurityCheck.Layout.properties.useroptions = {};
+                    returnOfSecurityCheck.Layout.properties.useroptions.editable = data.layout.properties[2].editable;
+                    returnOfSecurityCheck.Layout.properties.useroptions.required = data.layout.properties[2].required;
+                    returnOfSecurityCheck.Layout.properties.useroptions.visible = data.layout.properties[2].visible;
+
+                    returnOfSecurityCheck.Layout.properties.navigation = {};
+                    returnOfSecurityCheck.Layout.properties.navigation.editable = data.layout.properties[3].editable;
+                    returnOfSecurityCheck.Layout.properties.navigation.required = data.layout.properties[3].required;
+                    returnOfSecurityCheck.Layout.properties.navigation.visible = data.layout.properties[3].visible;
+
+                    console.log(returnOfSecurityCheck);
+                    //Update the token cookie
+                    if (typeof data.token === 'undefined' && data.token != null && data.token.length > 0) {
+                        Cookies.set("token", data.token, { path: '/' });
+                    }
+
+                    //For each entity available for the current page
                     for (key in $authorizationModel) {
+                        //It the page contains the key to be threated
                         if ($authorizationModel.hasOwnProperty(key)) {
+                            //obtain the entity definition
                             entityDefinition = $authorizationModel[key];
                             if (returnOfSecurityCheck.hasOwnProperty(key)) {
                                 entitySecurity = returnOfSecurityCheck[key];
@@ -701,7 +757,8 @@
 
         //Method to hide elements if im in home
         function hideElements() {
-            if (Cookies.get("home") != null && Cookies.get("home") == "true") {
+            if (Cookies.get("home") != null && Cookies.get("home") == "true" &&
+                    Cookies.get("navegacion") != null && Cookies.get("navegacion") == "1") {
                 $(".sidebar").css("display", "none");
                 $(".logo").css("display", "none");
                 $(".search-bar").css("display", "none");
@@ -749,6 +806,7 @@
             if (Cookies.get("user") != null && Cookies.get("token") != null) {
                 $SecurityManager.authentication.destroy({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     if (!data.IsAuthenicated) {
+                        Cookies.set("LogOut", true, { path: "/" });
                         Cookies.remove("user", { path: '/' });
                         Cookies.remove("token", { path: '/' });
                         Cookies.remove("home", { path: '/' });
@@ -774,14 +832,12 @@
                     loadingStop();
                 });
                 request.error(function (data) {
-                    console.log("errorFunction");
                     Cookies.remove("user", { path: '/' });
                     Cookies.remove("token", { path: '/' });
                     document.location.href = '/';
                     loadingStop();
                 });
                 request.fail(function (data) {
-                    console.log("failFunction");
                     Cookies.remove("user", { path: '/' });
                     Cookies.remove("token", { path: '/' });
                     document.location.href = '/';
@@ -797,6 +853,10 @@
                             && Cookies.get("token") != null
                             && Cookies.get("navegacion") != null && Cookies.get("navegacion") == "1") {
                     document.location.href = '@Url.Action("Landing", "Home")';
+                } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" 
+                            && Cookies.get("LogOut") != null) {
+                    Cookies.remove("LogOut", { path: '/' });
+                    document.location.href = '/';
                 }
             }
         }
@@ -1042,7 +1102,7 @@
             $("#language").data("kendoDropDownList").trigger("change");
 
             //Add layout element to the Authorization Model
-            $authorizationModel.layout = $layoutModel
+            $authorizationModel.Layout = $layoutModel
 
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
