@@ -14,194 +14,182 @@
         <a href="@Url.Action("DetalleAvisoLlegada", "AvisoLlegada")"><span id="DetalleAvisoLlegada0052"></span></a>
     </li>
 }
-<div id="tabstrip">
-    <ul>
-        <li class="k-state-active">
-            <label id="DetalleAvisoLlegada0053" class="title"></label>
-        </li>
-        <li>
-            <label id="DetalleAvisoLlegada0054" class="title"></label>
-        </li>
-    </ul>
 
-            <div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h2>
-                                    <label id="DetalleAvisoLlegada0041" class="title"></label>
-                                    <label id="divFolio" class="folioLabel">
-                                        <span id="DetalleAvisoLlegada0042"></span>
-                                        <span id="spanFolio"></span>
-                                    </label>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>            
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <div class="form-group col-sm-12 col-md-4 col-lg-3">
-                                <label id="DetalleAvisoLlegada0001" class="required"></label>
-                                <input id="ProyectoID" />
-                            </div>
-                            <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                                <label id="DetalleAvisoLlegada0004" class="required"></label>
-                                <input id="FechaRecepcion" />
-                            </div>
-                            <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                                <label id="DetalleAvisoLlegada0007"></label>
-                                <input id="OrdenDeCompra" />
-                            </div>
-                            <div class="form-group col-sm-4 col-md-6 col-lg-2">
-                                <label id="DetalleAvisoLlegada0002"></label>
-                                <input id="Factura" />
-                            </div>
-                            <div class="form-group col-sm-12 col-md-6 col-lg-3">
-                                <label id="DetalleAvisoLlegada0005"></label>
-                                <div @*class="input-group"*@>
-                                    <input id="ProveedorID" class="" />
-                                    @*<span class="input-group-btn">
-                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(2);"></a>
-                                    </span>*@
-                                </div>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h2>
+                        <label id="DetalleAvisoLlegada0041" class="title"></label>
+                        <label id="divFolio" class="folioLabel">
+                            <span id="DetalleAvisoLlegada0042"></span>
+                            <span id="spanFolio"></span>
+                        </label>
+                    </h2>
+                </div>
+            </div>
+        </div>            
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-4 col-lg-3">
+                    <label id="DetalleAvisoLlegada0001" class="required"></label>
+                    <input id="ProyectoID" />
+                </div>
+                <div class="form-group col-sm-4 col-md-4 col-lg-2">
+                    <label id="DetalleAvisoLlegada0004" class="required"></label>
+                    <input id="FechaRecepcion" />
+                </div>
+                @*<div class="form-group col-sm-4 col-md-4 col-lg-2">
+                    <label id="DetalleAvisoLlegada0007"></label>
+                    <input id="OrdenDeCompra" />
+                </div>
+                <div class="form-group col-sm-4 col-md-6 col-lg-2">
+                    <label id="DetalleAvisoLlegada0002"></label>
+                    <input id="Factura" />
+                </div>*@
+                @*<div class="form-group col-sm-12 col-md-6 col-lg-3">
+                    <label id="DetalleAvisoLlegada0005"></label>
+                    <div class="input-group">
+                        <input id="ProveedorID" class="" />
+                        <span class="input-group-btn">
+                            <a class="add" href='javascript:void(0);' onclick="VentanaModal(2);"></a>
+                        </span>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                <label id="DetalleAvisoLlegada0008" class="required"></label>
-                                <div @*class="input-group"*@>
-                                    <input id="PatioID" class="" />
-                                    @*<span class="input-group-btn">
-                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(4);"></a>
-                                    </span>*@
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                <label id="DetalleAvisoLlegada0003"></label>
-                                <div @*class="input-group"*@>
-                                    <input id="TransportistaID" class="" />
-                                    @*<span class="input-group-btn">
-                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(1);"></a>
-                                    </span>*@
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                <label id="DetalleAvisoLlegada0006"></label>
-                                <div @*class="input-group"*@>
-                                    <input id="PlanaID" class="" />
-                                    @*<span class="input-group-btn">
-                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(3);"></a>
-                                    </span>*@
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                <label id="DetalleAvisoLlegada0009"></label>
-                                <div @*class="input-group"*@>
-                                    <input id="ChoferID" class="" />
-                                    @*<span class="input-group-btn">
-                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(5);"></a>
-                                    </span>*@
-                                </div>
-                            </div>
-                             <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                <label id="DetalleAvisoLlegada0055"></label>
-                                <div @*class="input-group"*@>
-                                    <input id="CamionID" class="" />
-                                    @*<span class="input-group-btn">
-                                        <a class="add" href='javascript:void(0);' onclick="VentanaModal(5);"></a>
-                                    </span>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-5">
-                        <div class="row">
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12">
-                                        <label id="DetalleAvisoLlegada0010"></label>
-                                        <div class="row">
-                                            <div class="col-sm-5 col-md-4 col-lg-4">
-                                                <input id="TipoArchivo" class="" />
-                                            </div>
-                                            <div class="col-sm-7 col-md-8 col-lg-8">
-                                                <input name="files" id="files" type="file" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12">
-                                        <table id="listaArchivos" class="filesTable">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                        <label id="DetalleAvisoLlegada0045"></label>
-                                                    </td>
-                                                    <td>
-                                                        <label id="DetalleAvisoLlegada0046"></label>
-                                                    </td>
-                                                    <td>
-                                                        <label id="DetalleAvisoLlegada0047"></label>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            
-                    @********Pase Salida*********@
-        @*            <div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12 addedSection" style="display: none">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h2>
-                                    <label id="DetalleAvisoLlegada0039"></label>
-                                </h2>
-                            </div>
-                            <div class="form-group col-sm-12 col-md-8 col-lg-4">
-                                <div class="row">
-                                    <div class="col-sm-7 col-md-8 col-lg-8">
-                                        <label id="DetalleAvisoLlegada0040"></label>
-                                        <input name="files" id="PackingList" type="file" class="" />
-                                    </div>
-                                    <div class="col-sm-5 col-md-4 col-lg-4">
-                                        <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary buttonBar">
-                                            <span id="DetalleAvisoLlegada0043"></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12">
-                                        <table id="listaArchivosPaseSalida" class="filesTable">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                        <label id="DetalleAvisoLlegada0048"></label>
-                                                    </td>
-                                                    <td>
-                                                        <label id="DetalleAvisoLlegada0049"></label>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
-            
+                </div>*@
             </div>
         </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="DetalleAvisoLlegada0008" class="required"></label>
+                    <div @*class="input-group"*@>
+                        <input id="PatioID" class="" />
+                        @*<span class="input-group-btn">
+                            <a class="add" href='javascript:void(0);' onclick="VentanaModal(4);"></a>
+                        </span>*@
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="DetalleAvisoLlegada0003"></label>
+                    <div @*class="input-group"*@>
+                        <input id="TransportistaID" class="" />
+                        @*<span class="input-group-btn">
+                            <a class="add" href='javascript:void(0);' onclick="VentanaModal(1);"></a>
+                        </span>*@
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="DetalleAvisoLlegada0006"></label>
+                    <div @*class="input-group"*@>
+                        <input id="PlanaID" class="" />
+                        @*<span class="input-group-btn">
+                            <a class="add" href='javascript:void(0);' onclick="VentanaModal(3);"></a>
+                        </span>*@
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="DetalleAvisoLlegada0009"></label>
+                    <div @*class="input-group"*@>
+                        <input id="ChoferID" class="" />
+                        @*<span class="input-group-btn">
+                            <a class="add" href='javascript:void(0);' onclick="VentanaModal(5);"></a>
+                        </span>*@
+                    </div>
+                </div>
+                    <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="DetalleAvisoLlegada0055"></label>
+                    <div @*class="input-group"*@>
+                        <input id="CamionID" class="" />
+                        @*<span class="input-group-btn">
+                            <a class="add" href='javascript:void(0);' onclick="VentanaModal(5);"></a>
+                        </span>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-5">
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <label id="DetalleAvisoLlegada0010"></label>
+                            <div class="row">
+                                <div class="col-sm-5 col-md-4 col-lg-4">
+                                    <input id="TipoArchivo" class="" />
+                                </div>
+                                <div class="col-sm-7 col-md-8 col-lg-8">
+                                    <input name="files" id="files" type="file" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <table id="listaArchivos" class="filesTable">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0045"></label>
+                                        </td>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0046"></label>
+                                        </td>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0047"></label>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        @********Pase Salida*********@
+@*            <div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12 addedSection" style="display: none">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h2>
+                        <label id="DetalleAvisoLlegada0039"></label>
+                    </h2>
+                </div>
+                <div class="form-group col-sm-12 col-md-8 col-lg-4">
+                    <div class="row">
+                        <div class="col-sm-7 col-md-8 col-lg-8">
+                            <label id="DetalleAvisoLlegada0040"></label>
+                            <input name="files" id="PackingList" type="file" class="" />
+                        </div>
+                        <div class="col-sm-5 col-md-4 col-lg-4">
+                            <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary buttonBar">
+                                <span id="DetalleAvisoLlegada0043"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <table id="listaArchivosPaseSalida" class="filesTable">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0048"></label>
+                                        </td>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0049"></label>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+</div>
 
 
 
@@ -236,7 +224,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <div class="formButtons col-sm-12 col-md-12 col-lg-12">
         <div class="row">
@@ -416,16 +404,6 @@
 
             //Your partial views specific functions
             function CargaInicial() {
-                $("#tabstrip").kendoTabStrip({
-                    animation: {
-                        open: {
-                            effects: "fadeIn"
-                        }
-                    }
-                });
-
-                var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-                tabStrip.disable(tabStrip.tabGroup.children().eq(1));
 
                 FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
                 //**Eventos
@@ -699,7 +677,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Factura: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", OrdenCompra: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", CamionID: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", CamionID: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -714,17 +692,17 @@
                 permiso = [];
                 DocumentosPackingList = [];
 
-                var _archivoautorizado = $("#hdArchivoAutorizado").val();
-                item = {};
-                item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
-                item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
-                item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
-                permiso.push(item);
+                //var _archivoautorizado = $("#hdArchivoAutorizado").val();
+                //item = {};
+                //item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
+                //item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
+                //item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
+                //permiso.push(item);
                 
-                _permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
-                _permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
+                //_permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
+                //_permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
                 _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
-                _permisoAduana[0].ArchivoAutorizado = permiso;
+                //_permisoAduana[0].ArchivoAutorizado = permiso;
 
                 var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
@@ -775,15 +753,18 @@
 
                 
                 var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
+                var curr_date = d.getDate();
+                var curr_month = d.getMonth() + 1; //Months are zero based
+                var curr_year = d.getFullYear();
 
                 AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
                 AvisoLlegada[0].Proyectos = ProyectoIDs;
-                AvisoLlegada[0].Factura = $("#Factura").val();
+                //AvisoLlegada[0].Factura = $("#Factura").val();
                 AvisoLlegada[0].Transportista = Transportista;
-                AvisoLlegada[0].FechaRecepcion = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
-                AvisoLlegada[0].Proveedor = Proveedor;
+                AvisoLlegada[0].FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date;
+                //AvisoLlegada[0].Proveedor = Proveedor;
                 AvisoLlegada[0].Plana = PlanaIDs;
-                AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
+                //AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
                 AvisoLlegada[0].Patio = Patio;
                 AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
@@ -806,10 +787,14 @@
                 {
                     $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.create");
-                        folio = data.FolioAvisoLlegadaID;
+
+                        if (data.ReturnCode != 200) {
+                            removeUserSession();
+                        } else {
+                            folio = ReturnMessage[1];
+                        };
+
                         cargarTituloFolio();
-                        var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-                        tabStrip.enable(tabStrip.tabGroup.children().eq(1));
                         alert("El folio " + folio + " fue creado exitosamente.");
                     });
                 }
@@ -857,100 +842,107 @@
             };
 
             function CargaInicialEdicion(id) {
-                cargarTituloFolio();
-                $("#PaseSalida").show();
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyAvisoLlegada');
-
-                Client.DummyAvisoLlegada.read({}, { folio: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                cargarTituloFolio();                
+                $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
                     console.log(data);
                     var concat = "";
                     var concatPlanas = "";
 
-                    $.each(data[0].Proyectos, function (index, value) {
+                    if(data.ReturnCode) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("ReturnMessage: " + data.ReturnMessage);
+                            return;
+                        }
+                    }
+
+                    $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
                         console.log(" concat:" + concat);
                     });
 
                     $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
-                    $("#Factura").val(data[0].Factura);
+                    //$("#Factura").val(data.Factura);
 
                     //Se carga el arreglo transportista
-                    if(data[0].Transportistas){
-                        CargarTransportista(data[0].Transportistas.TransportistaID, data[0].Transportistas.Nombre);
-                        $("#TransportistaID").data("kendoComboBox").value(data[0].Transportistas.Nombre);
+                    if(data.Transportista.length > 0){
+                        CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
+                        $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                     }
                     //Fecha Recepcion
-                    var d = new Date(data[0].FechaRecepcion);
+                    var d = new Date(data.FechaRecepcion);
                     $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
 
                     //Se carga el arreglo Proveedores
-                    if(data[0].Proveedores){
-                        CargarProveedor(data[0].Proveedores.ProveedorID, data[0].Proveedores.Nombre);
-                        $("#ProveedorID").data("kendoComboBox").value(data[0].Proveedores.Nombre);
-                    }
+                    //if(data.Proveedor.length > 0) {
+                    //    CargarProveedor(data.Proveedor[0].ProveedorID, data.Proveedor[0].Nombre);
+                    //    $("#ProveedorID").data("kendoComboBox").value(data.Proveedor[0].Nombre);
+                    //}
 
-                    $.each(data[0].Planas, function (index, value) {
+                    $.each(data.Plana, function (index, value) {
                         concatPlanas += "," + value.PlanaID;
                         console.log(" concatPlanas:" + concatPlanas);
                     });
                     $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
 
-                    $("#OrdenDeCompra").val(data[0].OrdenCompra);
+                    //$("#OrdenDeCompra").val(data.OrdenCompra);
 
                     //Se carga el arreglo Patio
-                    if(data[0].Patios) {
-                        CargarPatio(data[0].Patios.PatioID, data[0].Patios.Nombre);
-                        $("#PatioID").data("kendoComboBox").value(data[0].Patios.Nombre);
+                    if(data.Patio.length > 0) {
+                        CargarPatio(data.Patio[0].PatioID, data.Patio[0].Nombre);
+                        $("#PatioID").data("kendoComboBox").value(data.Patio[0].Nombre);
                     }
 
                     //Se carga el arreglo Chofer
-                    if (data[0].Choferes) {
-                        CargarChofer(data[0].Choferes.ChoferID, data[0].Choferes.Nombre);
-                        $("#ChoferID").data("kendoComboBox").value(data[0].Choferes.Nombre);
+                    if (data.Chofer.length > 0) {
+                        CargarChofer(data.Chofer[0].ChoferID, data.Chofer[0].Nombre);
+                        $("#ChoferID").data("kendoComboBox").value(data.Chofer[0].Nombre);
                     }
 
-                    if (data[0].Camion) {
-                        CargarProveedor(data[0].Camion.CamionID, data[0].Camion.Nombre);
-                        $("#CamionID").data("kendoComboBox").value(data[0].Proveedores.Nombre);
+                    if (data.Camion) {
+                        CargarCamion(data.Camion.CamionID, data.Camion.Nombre);
+                        $("#CamionID").data("kendoComboBox").value(data.Proveedores.Nombre);
                     }
 
-                    $.each(data[0].Archivos, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $.each(data.Archivos, function (index, value) {
+                        $("#listaArchivos").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.ArchivoID + ");'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.ArchivoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
 
                     //Permiso Aduana
                     $("#PermisoAduana").show();
-                    if (data[0].PermisoAduana) {
-                        if (data[0].PermisoAduana.PermisoTramite) {
+                    if (data.PermisoAduana.length > 0) {
+                        if (data.PermisoAduana[0].PermisoTramite) {
                             $("#TramitarPermiso").attr('disabled', 'disabled');
                             $("#hdPermisoTramite").val(1);
                         }
                     };
 
-                    if (data[0].PermisoAduana) {
-                        if (data[0].PermisoAduana.PermisoAutorizado) {
-                            $("#divArchivoAutorizar").hide();
-                            $("#divLinkAutorizar").show();
-                            $("#divLinkAutorizar").append("<a href=''>" + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "</a>");
-                            $("#hdArchivoAutorizado").val(data[0].PermisoAduana.ArchivoAutorizado.ArchivoID + "," + data[0].PermisoAduana.ArchivoAutorizado.Nombre + "," + data[0].PermisoAduana.ArchivoAutorizado.Extension);
-                            $("#hdPermisoAutorizado").val(1);
-                            $("#NumeroPermiso").val(data[0].PermisoAduana.NumeroPermiso);
-                            $("#NumeroPermiso").attr('disabled', 'disabled');
-                        };
-                    };
+                    //if (data.PermisoAduana.length > 0) {
+                    //    if (data.PermisoAduana[0].PermisoAutorizado) {
+                    //        $("#divArchivoAutorizar").hide();
+                    //        $("#divLinkAutorizar").show();
+                    //        $("#divLinkAutorizar").append("<a href=''>" + data.PermisoAduana[0].ArchivoAutorizado.Nombre + "</a>");
+                    //        $("#hdArchivoAutorizado").val(data.PermisoAduana[0].ArchivoAutorizado[0].ArchivoID + "," + data.PermisoAduana[0].ArchivoAutorizado[0].Nombre + "," + data.PermisoAduana[0].ArchivoAutorizado[0].Extension);
+                    //        $("#hdPermisoAutorizado").val(1);
+                    //        $("#NumeroPermiso").val(data.PermisoAduana[0].NumeroPermiso);
+                    //        $("#NumeroPermiso").attr('disabled', 'disabled');
+                    //    };
+                    //};
 
                     //Pase Salida
-                    if (data[0].PaseSalida) {
-                        if (data[0].PaseSalida.PaseEnviado) {
-                            $("#hdPaseSalida").val(1);
-                            $("#PackingList").data("kendoUpload").disable();
-                        };
-                        $.each(data[0].PaseSalida.Archivos, function (index, value) {
-                            $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                        });
-                    };
-                    console.log(data);
+                    //if (data[0].PaseSalida) {
+                    //    if (data[0].PaseSalida.PaseEnviado) {
+                    //        $("#hdPaseSalida").val(1);
+                    //        $("#PackingList").data("kendoUpload").disable();
+                    //    };
+                    //    $.each(data[0].PaseSalida.Archivos, function (index, value) {
+                    //        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    //    });
+                    //};
+
+                    //var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
+                    //tabStrip.enable(tabStrip.tabGroup.children().eq(1));
                 });
             };
 
@@ -1110,6 +1102,14 @@
                 console.log(TransportistaModal[0]);
 
                 $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    if (data.ReturnCode) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("ReturnMessage: " + data.ReturnMessage);
+                            return;
+                        }
+                    }
                     LimpiarModalTransportista();
                     $("#window").data("kendoWindow").close();
                     ObtenerTransportista();
@@ -1145,6 +1145,14 @@
                 console.log(PatioModal[0]);
 
                 $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
+                    if (data.ReturnCode) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("ReturnMessage: " + data.ReturnMessage);
+                            return;
+                        }
+                    }
                     LimpiarModalPatio();
                     $("#window").data("kendoWindow").close();
                     ObtenerPatio();
@@ -1160,6 +1168,14 @@
 
                 $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyChofer.create");
+                    if (data.ReturnCode) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("ReturnMessage: " + data.ReturnMessage);
+                            return;
+                        }
+                    }
                     LimpiarModalChofer();
                     $("#window").data("kendoWindow").close();
                     ObtenerChofer();
@@ -1169,6 +1185,14 @@
             function GuardarPlana() {
                 var camionid = Camion.length > 0 ? Camion[0].CamionID : "-1";
                 $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: camionid, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                    if (data.ReturnCode) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("ReturnMessage: " + data.ReturnMessage);
+                            return;
+                        }
+                    }
                     LimpiarModalPlana();
                     $("#window").data("kendoWindow").close();
                     ObtenerPlanas();
@@ -1190,6 +1214,14 @@
 
                 $Camion.Camion.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.Camion.create");
+                    if (data.ReturnCode) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("ReturnMessage: " + data.ReturnMessage);
+                            return;
+                        }
+                    }
                     LimpiarModalCamion();
                     $("#window").data("kendoWindow").close();
                     ObtenerCamionEntradaMaterial();
@@ -1394,9 +1426,9 @@
                         $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
 
-                    $.each(data, function (index, value) {
-                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
+                    //$.each(data, function (index, value) {
+                    //    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    //});
         
                 });
 

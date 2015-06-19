@@ -86,7 +86,6 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.OrdenCompra = avisoJson.OrdenCompra;
                     nuevoAvisoLlegada.Factura = avisoJson.Factura;
                     nuevoAvisoLlegada.FechaRecepcion = Convert.ToDateTime(avisoJson.FechaRecepcion);
-                    nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     //Guardamos los cambios
@@ -220,7 +219,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> lstFoliosAvisoLlegada;
+                    List<int> lstFoliosAvisoLlegada = new List<int>();
 
                     if (filtros.FolioLlegadaID > 0)
                     {

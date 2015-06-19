@@ -32,7 +32,8 @@
     @Scripts.Render("~/Scripts/JsBarcode.js")
     @Scripts.Render("~/Scripts/CODE128.js")
     @Scripts.Render("~/Scripts/CODE39.js")
-
+    @Scripts.Render("~/Scripts/core-min.js")
+    @Scripts.Render("~/Scripts/enc-base64.js")
 
     @RenderSection("HtmlHead", required: false)
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -494,6 +495,9 @@
         var $Proyecto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $Camion = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $Contacto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $folioEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $FiltrosListadoEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        
 
         $Plana.add("Plana");
         $Transportista.add("Transportista");
@@ -504,6 +508,8 @@
         $Proyecto.add("Proyecto");
         $Camion.add("Camion");
         $Contacto.add("Contacto");
+        $folioEntradaMaterial.add("Listado");
+        $FiltrosListadoEntradaMaterial.add("AvisoLlegada");
 
         var $authorizationModel = {};
         var $layoutModel = {
