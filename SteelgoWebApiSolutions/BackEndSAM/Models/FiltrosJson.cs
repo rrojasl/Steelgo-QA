@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BackEndSAM.Models
 {
     public class FiltrosJson
     {
-        public int FolioLlegadaID { get; set; }
-        public int FolioAvisoLlegadaID { get; set; }
+        public string FolioLlegadaID { get; set; }
+        public string FolioAvisoLlegadaID { get; set; }
         public List<PatioAV> Patio { get; set; }
         public List<ProyectosAV> Proyectos { get; set; }
         public List<ProveedorAV> Proveedor { get; set; }
-        public DateTime FechaInicial { get; set; }
-        public DateTime FechaFinal { get; set; }
+        public string FechaInicial { get; set; }
+        public string FechaFinal { get; set; }
+        public string token { get; set; }
 
         public FiltrosJson()
         {

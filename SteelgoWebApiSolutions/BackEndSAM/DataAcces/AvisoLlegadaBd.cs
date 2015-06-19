@@ -206,24 +206,31 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<int> lstFoliosAvisoLlegada;
+                    DateTime fechaInicial = new DateTime();
+                    DateTime fechaFinal = new DateTime();
+                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
 
-                    if (filtros.FolioLlegadaID > 0)
+                    int folioLlegadaID = Convert.ToInt32(filtros.FolioLlegadaID);
+                    int folioAvisoLlegadaID = Convert.ToInt32(filtros.FolioAvisoLlegadaID);
+
+                    if (folioLlegadaID > 0)
                     {
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioLlegada
                                                  join a in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals a.FolioAvisoLlegadaID
-                                                 where r.FolioLlegadaID == filtros.FolioLlegadaID
+                                                 where r.FolioLlegadaID == folioLlegadaID
                                                  && r.Activo.Value
-                                                 && (a.FechaRecepcion >= filtros.FechaInicial && a.FechaRecepcion <= filtros.FechaFinal)
+                                                 && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
                                                  select a.FolioAvisoLlegadaID).AsParallel().ToList();
                     }
                     else
                     {
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoLlegada
                                                  join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                                 where r.FolioAvisoLlegadaID == filtros.FolioAvisoLlegadaID
+                                                 where r.FolioAvisoLlegadaID == folioAvisoLlegadaID
                                                  && r.Activo.Value
                                                  && filtros.Proyectos.Select(y => y.ProyectoID).Contains(p.ProyectoID)
-                                                 && (r.FechaRecepcion >= filtros.FechaInicial && r.FechaRecepcion <= filtros.FechaFinal)
+                                                 && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
                                                  && filtros.Patio.Select(z => z.PatioID).Contains(r.PatioID)
                                                  && filtros.Proveedor.Select(x => x.ProveedorID).Contains(r.ProveedorID)
                                                  select r.FolioAvisoLlegadaID).AsParallel().ToList();
