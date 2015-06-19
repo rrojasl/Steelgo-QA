@@ -184,17 +184,17 @@ header .menu > div {
         box-shadow: none;
     }
 
-    .logged-user .btn-group a img {
+    /*.logged-user .btn-group a img {
         position: relative;
         top: -1px;
-    }
+    }*/
 
     .logged-user .btn-group a span.name,
     .logged-user .btn-group a span.caret {
         color: #1C4070;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 1.1px;
+        letter-spacing: 0.9px;
     }
 
     .logged-user .btn-group ul {
@@ -210,20 +210,20 @@ header .menu > div {
  Description:   Customize notifications section in header.
 **********************************************************************************/
 .notifications {
-    margin-right: 17px;
+    margin-right: 16px;
     position: relative;
 }
 
     .notifications img {
         position: relative;
-        top: 3px;
+        top: -1px;
     }
 
     .notifications .count {
         color: #FFFFFF;
         background: #e60404 !important;
         position: absolute;
-        top: -4px;
+        top: -9px;
         left: 51.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
@@ -232,7 +232,7 @@ header .menu > div {
         border-radius: 30px;
         line-height: 15px;
         text-align: center;
-        font-size: 9px;
+        font-size: 10px;
         font-weight: 600;
     }
 /**********************************************************************************/

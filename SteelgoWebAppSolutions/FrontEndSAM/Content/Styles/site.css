@@ -292,11 +292,10 @@ input {
     color: #FFFFFF;
     text-transform: capitalize;
     border-radius: 3px;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 1.3px;
+    font-size: 14px;
+    letter-spacing: 0.6px;
     height: 38px;
-    padding: 8px;
+    padding: 8px 14px;
     box-sizing: border-box;
 }
 
@@ -308,7 +307,7 @@ input {
 .btn-yellow {
     background-color: #EC8B00;
     border: none;
-    border-bottom: 3px solid #DF6600;
+    border-bottom: 1px solid #DF6600;
 }
 
     .btn-yellow:hover {
@@ -329,7 +328,7 @@ input {
 .btn-primary {
     background-color: #305E8E;
     border: none;
-    border-bottom: 3px solid #234568;
+    border-bottom: 1px solid #234568;
 }
 
     .btn-primary:hover {
@@ -345,7 +344,7 @@ input {
 .btn-black {
     background-color: #444444;
     border: none;
-    border-bottom: 3px solid #2B2B2B;
+    border-bottom: 1px solid #2B2B2B;
 }
 
     .btn-black:hover {
