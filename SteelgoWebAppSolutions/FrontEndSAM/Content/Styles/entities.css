@@ -88,6 +88,7 @@
         }
 
         .login form input[type="submit"] {
+            display: block;
             width: 180px;
             margin: 31px auto 10px;
         }
@@ -319,8 +320,8 @@ header .menu > div {
         }
 
     .sidebar .main-nav ul.main-menu > li a > span {
-        margin-left: 7px;
-        letter-spacing: 1.3px;
+        margin-left: 5px;
+        letter-spacing: 0.7px;
     }
 
     .sidebar.minified .main-nav ul.main-menu > li span,
@@ -328,8 +329,7 @@ header .menu > div {
         display: none;
     }
 
-    .sidebar ul.sub-menu.open, .sidebar ul.sub-menu2.open,
-    .sidebar ul.sub-menu3.open {
+    .sidebar ul.sub-menu.open, .sidebar ul.sub-menu2.open {
         display: block !important;
     }
 
@@ -446,7 +446,7 @@ header .menu > div {
             padding: 0 0 16px;
         }
 
-            .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu.close {
+            .sidebar.minified .main-nav ul.main-menu li.shortcut ul.sub-menu {
                 display: none !important;
             }
 
@@ -912,15 +912,16 @@ header .menu > div {
     }
 }
 
-@media (min-width: 1200px) and (max-width: 1393px) {
+@media (min-width: 1200px) and (max-width: 1440px) {
 
     /*$_content-container*/
-    .form.arriveList > .row > div.filters {
-        width: 100%;
+    .form > .row > div.filters {
+        width: 33.33%;
     }
 
-        .form.arriveList > .row > div.filters .buttonBar {
-            width: 50%;
+        .form > .row > div.filterBtns {
+            width: 100%;
+            text-align: right;        
         }
 }
 

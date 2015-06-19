@@ -45,7 +45,7 @@ body {
     margin: 0;
     min-height: 100%;
     height: 100%;
-    font-family: 'Lato', sans-serif;
+    font-family: Arial, 'Open Sans', sans-serif;
 }
 /**********************************************************************************/
 
@@ -291,7 +291,6 @@ input {
 .btn, .btn:hover, .btn:focus {
     color: #FFFFFF;
     text-transform: capitalize;
-    display: block;
     border-radius: 3px;
     font-size: 16px;
     font-weight: 600;
@@ -303,7 +302,7 @@ input {
 
     .btn span, .btn label {
         color: #FFFFFF;
-        vertical-align: baseline;
+        /*vertical-align: baseline;*/
     }
 
 .btn-yellow {
@@ -356,15 +355,19 @@ input {
 
 
 .buttonBar {
-    position: relative;
-    top: 21px;
+    margin-top: 21px;
 }
+
+    .buttonBar a:nth-child(even) {
+        margin-left: 30px;
+    }
 
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
+    width: 38px;
 }
 
 #Refrescar.btn {
@@ -372,6 +375,7 @@ input {
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
+    width: 38px;
 }
 
 .formButtons {
@@ -445,12 +449,22 @@ h2 {
         width: 80%;
     }
 
+    /*$_btn*/
     #ImprimirPase {
-        top: 21px;
+        margin-top: 21px;
     }
 
     .formButtons {
         margin-top: 25px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+
+    /*$_btn*/
+    .buttonBar {
+        margin-top: 0;
+        text-align: right;        
     }
 }
 
@@ -466,15 +480,6 @@ h2 {
 /* lg viewport */
 @media (min-width: 1025px) {
 }
-
-@media (max-width: 1393px) {
-    /*$_btn*/
-    .buttonBar {
-        top: 0;        
-    }
-}
-
-
 
 /* Start by setting display:none to make this hidden.
    Then we position it in relation to the viewport window

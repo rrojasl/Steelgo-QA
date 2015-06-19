@@ -85,8 +85,8 @@
 .k-picker-wrap .k-input, .k-numeric-wrap .k-input,
 .k-dropdown-wrap .k-input, .k-selectbox .k-input {
     border-radius: 0;
-    min-height: 34px;
-    height: 34px;
+    min-height: 32px;
+    height: 32px;
     font-weight: normal;
     font-size: 14px;
     color: #1B3F70;
@@ -109,8 +109,8 @@
     }
 
 .k-multiselect-wrap {
-    min-height: 30px;
-    height: 30px;
+    min-height: 28px;
+    height: 28px;
     padding: 4px 0;
 }
 
@@ -615,9 +615,9 @@
 
 /**Widgets and inputs inside tabs**/
 .k-tabstrip .k-multiselect-wrap,
-.k-tabstrip .k-textbox > input, .k-autocomplete .k-input,
-.k-tabstrip .k-picker-wrap .k-input, .k-numeric-wrap .k-input,
-.k-tabstrip .k-dropdown-wrap .k-input, .k-selectbox .k-input,
+.k-tabstrip .k-textbox > input, .k-tabstrip .k-autocomplete .k-input,
+.k-tabstrip .k-picker-wrap .k-input, .k-tabstrip .k-numeric-wrap .k-input,
+.k-tabstrip .k-dropdown-wrap .k-input, .k-tabstrip .k-selectbox .k-input,
 .k-tabstrip.form input:not(.k-input) {
     min-height: 36px;
     height: 36px;
