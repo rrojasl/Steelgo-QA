@@ -34,8 +34,8 @@
     @Scripts.Render("~/Scripts/CODE39.js")
 
 
-    @RenderSection("HtmlHead", required: false)
-    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    @RenderSection("HtmlHead", required: false)    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <header class="clearfix">
@@ -161,13 +161,13 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                            </li>*@
-                                            @*<li>
+                                            </li>
+                                            <li>
                                                 <span>Despacho de Materiales</span>
                                             </li>
                                             <li>                                                
                                                 <span>Listado de Materiales</span>                                                
-                                            </li>  *@                                          
+                                            </li>*@                                        
                                         </ul>
                                     </li>
                                    @*<li>
@@ -1005,8 +1005,37 @@
             //Hide elements for Login
             hideElements();
 
-            //Toggle for main menu's submenus
-            $("ul.main-menu > li > a").click(function () {               
+            //Toggle for main menu's submenus           
+            /*Open menus on hover*/
+            $("ul.main-menu > li:not('.shortcut')").hover(
+                function () {               
+                    if($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
+                        $("ul.sub-menu2").removeClass("open");
+                        $("ul.sub-menu > li").removeClass("active expand");
+                        $(this).children("ul").toggleClass("open");
+                        $("i.arrow").toggleClass("down");                    
+                    }
+                    else if (!$("#sidebar").hasClass("minified")) {
+                        $("#sidebar li").removeClass('active');
+                        $("#sidebar ul").removeClass('open');
+                        $(this).closest("li").addClass('active').children("ul").addClass("open");
+                        $("i.arrow").addClass("down");
+                    }
+                    else {
+                        $("#sidebar li").removeClass('active');
+                        $("#sidebar ul").removeClass('open'); 
+                        $(this).addClass('active');                  
+                    }
+                },
+                function () {
+                    $("#sidebar li").removeClass('active');
+                    $("#sidebar ul").removeClass('open'); 
+                    $(this).removeClass('active');
+                }
+            );
+            
+            /*Open menus on click*/
+            $("ul.main-menu > li:not('.shortcut') > a").click(function () {               
                 if($(this).closest("li").hasClass('active') && !$("#sidebar").hasClass("minified")) {
                     $("ul.sub-menu2").removeClass("open");
                     $("ul.sub-menu > li").removeClass("active expand");
@@ -1024,9 +1053,25 @@
                     $("#sidebar ul").removeClass('open'); 
                     $(this).closest("li").addClass('active');                  
                 }
-            });
+            });            
 
-            //Toggle for second submenu            
+            //Toggle for second submenu
+            /*Open menus on hover*/
+            $("ul.sub-menu > li").hover(function () {
+                if($(this).children("ul.sub-menu2").hasClass('open')) {
+                    $(this).removeClass("active expand");                    
+                    $(this).children("ul.sub-menu2").removeClass("open");                  
+                }
+                else {
+                    $("ul.sub-menu2").removeClass("open");
+                    $("ul.sub-menu > li").removeClass("active expand");
+                    $(this).addClass("active");
+                    $(this).has("ul").addClass("expand");                    
+                    $(this).children("ul.sub-menu2").addClass("open");
+                }
+            });            
+            
+            /*Open menus on click*/
             $("ul.sub-menu > li > a").click(function () {
                 if($(this).parent().children("ul.sub-menu2").hasClass('open')) {
                     $(this).parent("li").removeClass("active expand");                    
@@ -1040,32 +1085,31 @@
                     $(this).parent().children("ul.sub-menu2").addClass("open");
                 }
             });
-
-            //Toggle for last submenu            
-            //$("ul.sub-menu2 > li > a").click(function () {
-            //    if($(this).parent().children("ul.sub-menu3").hasClass('open')) {
-            //        $(this).children("span").removeClass("active");                    
-            //        $(this).parent().children("ul.sub-menu3").removeClass("open");                  
-            //    }
-            //    else {                    
-            //        $("ul.sub-menu2 span").removeClass("active");
-            //        $("ul.sub-menu3").removeClass("open");
-            //        $(this).children("span").addClass("active");
-            //        $(this).parent().children("ul.sub-menu3").addClass("open");
-            //    }
-            //});
+            
+            //Toggle for last submenu                        
+            /*$("ul.sub-menu2 > li > a").click(function () {
+                if($(this).parent().children("ul.sub-menu3").hasClass('open')) {
+                    $(this).children("span").removeClass("active");                    
+                    $(this).parent().children("ul.sub-menu3").removeClass("open");                  
+                }
+                else {                    
+                    $("ul.sub-menu2 span").removeClass("active");
+                    $("ul.sub-menu3").removeClass("open");
+                    $(this).children("span").addClass("active");
+                    $(this).parent().children("ul.sub-menu3").addClass("open");
+                }
+            });*/
 
             //Toggle for last submenu's links         
             $("ul.sub-menu3 > li > a").click(function () {                
                 $("ul.sub-menu2 li").removeClass("active");                  
-                $("ul.sub-menu3").removeClass("open");                                                          
+                $("ul.sub-menu3").removeClass("open");                                                                         
             });
 
             //Toggle sidebar's size
             $("i.minify").click(function () {
                 $("ul").removeClass("open");
                 $("i.arrow").removeClass("down");
-                $("li.shortcut ul").toggleClass("close");
                 $("#sidebar").toggleClass("minified");            
                 $(".content-container").toggleClass("expanded");
             });
