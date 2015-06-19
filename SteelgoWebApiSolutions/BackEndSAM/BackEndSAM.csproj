@@ -153,6 +153,7 @@
     <Compile Include="DataAcces\ChoferBd.cs" />
     <Compile Include="DataAcces\ContactoBd.cs" />
     <Compile Include="DataAcces\PatioBd.cs" />
+    <Compile Include="DataAcces\PermisoAduana.cs" />
     <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="DataAcces\ProveedorBd.cs" />
     <Compile Include="DataAcces\ProyectoBd.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
+    <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
