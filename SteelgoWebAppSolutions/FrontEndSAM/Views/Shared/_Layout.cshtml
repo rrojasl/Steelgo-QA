@@ -495,7 +495,7 @@
         var $Contacto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $folioEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $FiltrosListadoEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-        var redireccionAutomatica = false;
+        var redireccionAutomatica = true;
 
         $Plana.add("Plana");
         $Transportista.add("Transportista");
@@ -1022,7 +1022,7 @@
         $(document).ready(function () {
             //FOR DEVELOPONLY
             //autoCookies(true);
-            //redireccionAutomatica = true;
+            //redireccionAutomatica = false;
 
             //Set cookie of homepage to false
             Cookies.set("home", false, {path: '/'});
