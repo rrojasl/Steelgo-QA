@@ -30,8 +30,8 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual Sam3_FolioLlegada Sam3_FolioLlegada { get; set; }
         public virtual Sam3_PackingList Sam3_PackingList { get; set; }
         public virtual ICollection<Sam3_Recepcion> Sam3_Recepcion { get; set; }
+        public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }
     }
 }

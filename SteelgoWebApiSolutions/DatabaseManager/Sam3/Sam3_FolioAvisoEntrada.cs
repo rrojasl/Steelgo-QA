@@ -12,29 +12,26 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Camion
+    public partial class Sam3_FolioAvisoEntrada
     {
-        public Sam3_Camion()
+        public Sam3_FolioAvisoEntrada()
         {
             this.Sam3_PackingList = new HashSet<Sam3_PackingList>();
-            this.Sam3_Plana = new HashSet<Sam3_Plana>();
-            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
+            this.Sam3_FolioPackingList = new HashSet<Sam3_FolioPackingList>();
         }
     
-        public int CamionID { get; set; }
-        public int TransportistaID { get; set; }
-        public int ChoferID { get; set; }
-        public string Placas { get; set; }
-        public string TarjetaCirulacion { get; set; }
-        public string PolizaSeguro { get; set; }
-        public bool Activo { get; set; }
+        public int FolioAvisoEntradaID { get; set; }
+        public Nullable<int> Consecutivo { get; set; }
+        public Nullable<int> FolioAvisoLlegadaID { get; set; }
+        public string Estatus { get; set; }
+        public Nullable<bool> Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public string Factura { get; set; }
+        public string OrdenCompra { get; set; }
     
-        public virtual Sam3_Chofer Sam3_Chofer { get; set; }
         public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
-        public virtual Sam3_Transportista Sam3_Transportista { get; set; }
-        public virtual ICollection<Sam3_Plana> Sam3_Plana { get; set; }
-        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
+        public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
+        public virtual ICollection<Sam3_FolioPackingList> Sam3_FolioPackingList { get; set; }
     }
 }
