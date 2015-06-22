@@ -26,17 +26,35 @@
             <div class="formNav clearfix">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-container">
-                            <a id="Guardar" href="javascript:void(0);" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></a>
+                        <div class="button-container">                        
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
+                                <button type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Guardar y Nuevo</a></li>
+                                    <li><a href="#">Guardar e Imprimir</a></li>
+                                </ul>
+                            </div>
                             <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
                         <div class="button-container">
                             <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
                         <div class="button-container">
-                            <a id="" href="" class="btn btn-default"><span id="">Acciones</span></a>
+                            <div class="dropdown">
+                                <a id="" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="">Acciones</span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Guardar">
+                                    <li><a>Ir a Listado</a></li>
+                                    <li><a>Levantar Incidencia</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <a id="" href="" class="btn btn-default"><span id="">Imprimir</span></a>
+                        <a id="" href="" class="btn btn-fadeBlue"><span id="">Imprimir</span></a>
                     </div>
                 </div>
             </div>

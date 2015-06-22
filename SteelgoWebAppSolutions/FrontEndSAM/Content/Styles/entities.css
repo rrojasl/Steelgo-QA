@@ -841,10 +841,20 @@ header .menu > div {
     border-left: none;
 }
 
-    .formNav a.btn {
+    .formNav .btn, .formNav .btn-group {
         margin-top: 2px;
         margin-right: 16px;
+        box-shadow: 0px 2px 2px #ccc;
     }
+
+        .formNav .btn-group .btn {
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .formNav .btn-group .btn-yellow.dropdown-toggle {
+            border-left: 1px solid #DF6600;
+        }
 
     .formNav .button-container {
         display: inline-block;
@@ -852,6 +862,25 @@ header .menu > div {
         padding-right: 14px;
         border-right: 1px solid #CCCCCC;
     }
+
+    .formNav .dropdown {
+        display: inline-block;
+    }
+
+    .formNav .save-group #Guardar {
+        min-width: 110px;
+        text-align: left;
+    }
+
+    .formNav .save-group.open button {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+.save-group .dropdown-menu > li > a:hover,
+.save-group .dropdown-menu > li > a:focus {
+    background-color: #FCEED9;
+}
 /**********************************************************************************/
 
 
