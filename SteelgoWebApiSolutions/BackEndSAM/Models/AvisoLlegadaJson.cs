@@ -12,7 +12,7 @@ namespace BackEndSAM.Models
         public string Factura { get; set; }
         public string FechaRecepcion { get; set; }
         public string OrdenCompra { get; set; }
-        public int CamionID { get; set; }
+        public TractoAV Tracto { get; set; }
         public List<ProyectosAV> Proyectos { get; set; }
         public List<TransportistaAV> Transportista { get; set; }
         public List<ProveedorAV> Proveedor { get; set; }
@@ -34,12 +34,13 @@ namespace BackEndSAM.Models
             Archivos = new List<ArchivosAV>();
             PermisoAduana = new List<PermisoAduanaAV>();
             PaseSalida = new List<PaseSalidaAV>();
+            Tracto = new TractoAV();
         }
     }
 
-    public class CamionAV
+    public class TractoAV
     {
-        public string CamionID { get; set; }
+        public string VehiculoID { get; set; }
         public string Placas { get; set; }
     }
 

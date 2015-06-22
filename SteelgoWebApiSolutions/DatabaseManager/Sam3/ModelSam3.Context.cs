@@ -26,7 +26,6 @@ namespace DatabaseManager.Sam3
         }
     
         public virtual DbSet<Sam3_Acero> Sam3_Acero { get; set; }
-        public virtual DbSet<Sam3_Camion> Sam3_Camion { get; set; }
         public virtual DbSet<Sam3_Chofer> Sam3_Chofer { get; set; }
         public virtual DbSet<Sam3_Cliente> Sam3_Cliente { get; set; }
         public virtual DbSet<Sam3_Colada> Sam3_Colada { get; set; }
@@ -43,7 +42,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_FamiliaItemCode> Sam3_FamiliaItemCode { get; set; }
         public virtual DbSet<Sam3_FamiliaMaterial> Sam3_FamiliaMaterial { get; set; }
         public virtual DbSet<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
-        public virtual DbSet<Sam3_FolioLlegada> Sam3_FolioLlegada { get; set; }
         public virtual DbSet<Sam3_FolioPackingList> Sam3_FolioPackingList { get; set; }
         public virtual DbSet<Sam3_Incidencia> Sam3_Incidencia { get; set; }
         public virtual DbSet<Sam3_ItemCode> Sam3_ItemCode { get; set; }
@@ -65,7 +63,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Perfil> Sam3_Perfil { get; set; }
         public virtual DbSet<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
         public virtual DbSet<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
-        public virtual DbSet<Sam3_Plana> Sam3_Plana { get; set; }
         public virtual DbSet<Sam3_Preferencia> Sam3_Preferencia { get; set; }
         public virtual DbSet<Sam3_Propiedad> Sam3_Propiedad { get; set; }
         public virtual DbSet<Sam3_Proveedor> Sam3_Proveedor { get; set; }
@@ -94,10 +91,17 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_UbicacionFisica> Sam3_UbicacionFisica { get; set; }
         public virtual DbSet<Sam3_Usuario> Sam3_Usuario { get; set; }
         public virtual DbSet<Sam3_Rel_Perfil_Entidad_Pagina> Sam3_Rel_Perfil_Entidad_Pagina { get; set; }
-        public virtual DbSet<Sam3_Rel_AvisoLlegada_Plana> Sam3_Rel_AvisoLlegada_Plana { get; set; }
         public virtual DbSet<Sam3_Rel_TiposDocumentos_ExtencionesDocumentos> Sam3_Rel_TiposDocumentos_ExtencionesDocumentos { get; set; }
         public virtual DbSet<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Vehiculo> Sam3_Rel_FolioAvisoLlegada_Vehiculo { get; set; }
+        public virtual DbSet<Sam3_Rel_Vehiculo_Chofer> Sam3_Rel_Vehiculo_Chofer { get; set; }
+        public virtual DbSet<Sam3_Rel_Vehiculo_Transportista> Sam3_Rel_Vehiculo_Transportista { get; set; }
+        public virtual DbSet<Sam3_TipoArchivo> Sam3_TipoArchivo { get; set; }
+        public virtual DbSet<Sam3_TipoAviso> Sam3_TipoAviso { get; set; }
+        public virtual DbSet<Sam3_TipoVehiculo> Sam3_TipoVehiculo { get; set; }
+        public virtual DbSet<Sam3_Vehiculo> Sam3_Vehiculo { get; set; }
+        public virtual DbSet<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
     }
 }

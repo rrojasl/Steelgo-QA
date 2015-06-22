@@ -12,6 +12,7 @@ using DatabaseManager.Sam3;
 using SecurityManager.TokenHandler;
 using SecurityManager.Api.Models;
 using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 
 namespace BackEndSAM.Controllers
 {
@@ -27,7 +28,10 @@ namespace BackEndSAM.Controllers
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
                 if (tokenValido)
                 {
-                    return PlanaBd.Instance.ObtenerListadoPlanas(payload);
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return PlanaBd.Instance.ObtenerListadoPlanas(usuario);
                 }
                 else
                 {
@@ -50,7 +54,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(Sam3_Plana plana, string token)
+        public object Post(VehiculoJson plana, string token)
         {
             string newToken = "";
             string payload = "";
@@ -74,7 +78,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(Sam3_Plana plana, string token)
+        public object Put(VehiculoJson plana, string token)
         {
             string newToken = "";
             string payload = "";
@@ -82,7 +86,10 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                return PlanaBd.Instance.ActualizarPlana(plana, payload);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return PlanaBd.Instance.ActualizarPlana(plana, usuario);
             }
             else
             {
@@ -95,7 +102,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Delete(string PlanaID, string token)
+        public object Delete(string vehiculoID, string token)
         {
             string newToken = "";
             string payload = "";
@@ -103,7 +110,10 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                return PlanaBd.Instance.EliminarPlana(Convert.ToInt32(PlanaID), payload);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return PlanaBd.Instance.EliminarPlana(Convert.ToInt32(vehiculoID), usuario);
             }
             else
             {

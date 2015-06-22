@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CamionController.cs" />
+    <Compile Include="Controllers\TractoController.cs" />
     <Compile Include="Controllers\ChoferController.cs" />
     <Compile Include="Controllers\DummyCambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\DummyCargarGridPackingListController.cs" />
@@ -150,7 +150,7 @@
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
-    <Compile Include="DataAcces\CamionBd.cs" />
+    <Compile Include="DataAcces\TractoBd.cs" />
     <Compile Include="DataAcces\ChoferBd.cs" />
     <Compile Include="DataAcces\ContactoBd.cs" />
     <Compile Include="DataAcces\PatioBd.cs" />
@@ -202,6 +202,7 @@
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
+    <Compile Include="Models\VehiculoJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Enums.cs" />
   </ItemGroup>

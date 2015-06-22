@@ -21,16 +21,16 @@ namespace DatabaseManager.Sam3
     
         public int PackingListID { get; set; }
         public int ProyectoID { get; set; }
-        public int CamionID { get; set; }
         public int FolioLlegadaID { get; set; }
         public Nullable<int> Consecutivo { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int VehiculoID { get; set; }
     
-        public virtual Sam3_Camion Sam3_Camion { get; set; }
-        public virtual Sam3_FolioLlegada Sam3_FolioLlegada { get; set; }
         public virtual ICollection<Sam3_FolioPackingList> Sam3_FolioPackingList { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        public virtual Sam3_Vehiculo Sam3_Vehiculo { get; set; }
+        public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }
     }
 }

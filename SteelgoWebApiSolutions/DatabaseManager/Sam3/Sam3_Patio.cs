@@ -30,6 +30,7 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public bool RequierePermisoAduana { get; set; }
     
         public virtual ICollection<Sam3_Maquina> Sam3_Maquina { get; set; }
         public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
