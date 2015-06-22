@@ -43,14 +43,23 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
                     <div class="form-group col-sm-12 col-md-4 col-lg-3">
+                        <label id="" class="required">Cliente</label>
+                        <input id="" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-4 col-lg-3">
                         <label id="DetalleAvisoLlegada0001" class="required"></label>
                         <input id="ProyectoID" />
                     </div>
-                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
+                    <div class="form-group col-sm-4 col-md-4 col-lg-3">
                         <label id="DetalleAvisoLlegada0004" class="required"></label>
                         <input id="FechaRecepcion" />
                     </div>
-                    @*<div class="form-group col-sm-4 col-md-4 col-lg-2">
+                    <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <label id="DetalleAvisoLlegada0008" class="required"></label>
+                        <input id="PatioID" class="" />
+                    </div>
+                    @*
+                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
                         <label id="DetalleAvisoLlegada0007"></label>
                         <input id="OrdenDeCompra" />
                     </div>
@@ -61,152 +70,74 @@
                     <div class="form-group col-sm-12 col-md-6 col-lg-3">
                         <label id="DetalleAvisoLlegada0005"></label>
                         <input id="ProveedorID" class="" />
-                    </div>*@
+                    </div>
+                    *@
                 </div>
                 <div class="row">
-                    <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                        <label id="DetalleAvisoLlegada0008" class="required"></label>
-                        <input id="PatioID" class="" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4 col-lg-2">
+                    <div class="form-group col-sm-6 col-md-4 col-lg-4">
                         <label id="DetalleAvisoLlegada0003"></label>
                         <input id="TransportistaID" class="" />
                     </div>
-                    <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                    <div class="form-group col-sm-6 col-md-4 col-lg-4">
                         <label id="DetalleAvisoLlegada0006"></label>
                         <input id="PlanaID" class="" />
                     </div>
-                    <div class="form-group col-sm-6 col-md-6 col-lg-2">
+                    <div class="form-group col-sm-6 col-md-6 col-lg-4">
                         <label id="DetalleAvisoLlegada0009"></label>
                         <input id="ChoferID" class="" />
                     </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-2">
+                    @*
+                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label id="DetalleAvisoLlegada0055"></label>
                         <input id="CamionID" class="" />
                     </div>
+                    *@
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@*<div class="clearfix">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="branchCut"></div>
-        <div class="row">
-            <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                <div class="branchCut"></div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <label id="DetalleAvisoLlegada0010"></label>
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <div class="row">
-                            <div class="col-sm-5 col-md-5 col-lg-2">
-                                <input id="TipoArchivo" class="" />
-                            </div>
-                            <div class="col-sm-7 col-md-7 col-lg-6">
-                                <input name="files" id="files" type="file" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                        <table id="listaArchivos" class="filesTable">
-                            <thead>
-                                <tr>
-                                    <td>
-                                        <label id="DetalleAvisoLlegada0045"></label>
-                                    </td>
-                                    <td>
-                                        <label id="DetalleAvisoLlegada0046"></label>
-                                    </td>
-                                    <td>
-                                        <label id="DetalleAvisoLlegada0047"></label>
-                                    </td>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
-
-    @*<div class="clearfix">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-6">
-                        <div class="row">
-                            <div class="col-sm-4 col-md-3 col-lg-3">
-                                <label id="DetalleAvisoLlegada0044"></label>
-                                <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary">
-                                    <span id="DetalleAvisoLlegada0036"></span>
-                                </a>
-                            </div>
-                            <div class="col-sm-4 col-md-5 col-lg-5">
-                                <label id="DetalleAvisoLlegada0037"></label>
-                                <div id="divArchivoAutorizar">
-                                    <input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="" />
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <label id="DetalleAvisoLlegada0010"></label>
+                                <div class="row">
+                                    <div class="col-sm-5 col-md-5 col-lg-2">
+                                        <input id="TipoArchivo" class="" />
+                                    </div>
+                                    <div class="col-sm-7 col-md-7 col-lg-6">
+                                        <input name="files" id="files" type="file" />
+                                    </div>
                                 </div>
-                                <div id="divLinkAutorizar" style="display: none"></div>
-                            </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4">
-                                <label id="DetalleAvisoLlegada0038"></label>
-                                <input id="NumeroPermiso" class="" />
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-        
-@*<div class="col-sm-12 col-md-12 col-lg-5">
-    <div class="row">
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <label id="DetalleAvisoLlegada0010"></label>
-                    <div class="row">
-                        <div class="col-sm-5 col-md-4 col-lg-4">
-                            <input id="TipoArchivo" class="" />
-                        </div>
-                        <div class="col-sm-7 col-md-8 col-lg-8">
-                            <input name="files" id="files" type="file" />
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <table id="listaArchivos" class="filesTable">
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0045"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0046"></label>
+                                            </td>
+                                            <td>
+                                                <label id="DetalleAvisoLlegada0047"></label>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <table id="listaArchivos" class="filesTable">
-                        <thead>
-                            <tr>
-                                <td>
-                                    <label id="DetalleAvisoLlegada0045"></label>
-                                </td>
-                                <td>
-                                    <label id="DetalleAvisoLlegada0046"></label>
-                                </td>
-                                <td>
-                                    <label id="DetalleAvisoLlegada0047"></label>
-                                </td>
-                            </tr>
-                        </thead>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-*@
-            
-        @********Pase Salida*********@
+
+@********Pase Salida*********@
 @*           
 <div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12 addedSection" style="display: none">
     <div class="row">
