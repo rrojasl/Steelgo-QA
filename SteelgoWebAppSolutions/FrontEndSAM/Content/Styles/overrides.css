@@ -9,7 +9,7 @@
     03  $_k-grid
     04  $_input-group
     05  $_calendar
-    06  $_
+    06  $_tabstrip
     07  $_
     08  $_
     09  $_
@@ -85,8 +85,8 @@
 .k-picker-wrap .k-input, .k-numeric-wrap .k-input,
 .k-dropdown-wrap .k-input, .k-selectbox .k-input {
     border-radius: 0;
-    min-height: 34px;
-    height: 34px;
+    min-height: 32px;
+    height: 32px;
     font-weight: normal;
     font-size: 14px;
     color: #1B3F70;
@@ -109,8 +109,8 @@
     }
 
 .k-multiselect-wrap {
-    min-height: 30px;
-    height: 30px;
+    min-height: 28px;
+    height: 28px;
     padding: 4px 0;
 }
 
@@ -201,11 +201,16 @@
         background-color: #305E8E;
         border: none;
         border-radius: 3px;
-        border-bottom: 3px solid #234568;
-        padding: 5px;
-        font-size: 16px;
-        font-weight: 600;
-        box-shadow: none;
+        border-bottom: 1px solid #234568;
+        padding: 8px 14px;
+        font-size: 14px;
+        box-sizing: border-box;
+        letter-spacing: 0.6px;
+        height: 34px;
+        -moz-box-shadow: 0px 2px 2px #ccc; /* FF3.5+ */
+        -webkit-box-shadow: 0px 2px 2px #ccc; /* Saf3.0+, Chrome */
+        box-shadow: 0px 2px 2px #ccc; /* Opera 10.5, IE9, Chrome 10+ */
+        vertical-align: text-top;
     }
 
         .k-upload .k-upload-selected,
@@ -270,7 +275,7 @@
     }
 
     .k-grid td {
-        padding: 5.5px 13px;
+        padding: 7.5px 13px;
         font-size: 12px;
         line-height: 1.4;
         color: #111111;
@@ -307,7 +312,7 @@
         }
 
             .k-grid .k-grid-header tr th a.k-link {
-                font-size: 10px;
+                font-size: 11.5px;
                 font-weight: 600;
                 text-transform: uppercase;
             }
@@ -559,6 +564,80 @@
     .k-calendar .k-footer {
         display: none;
     }
+/**********************************************************************************/
+
+/**********************************************************************************
+ Class name:    $_tabstrip
+ Description:   Override kendo tabstrip.
+**********************************************************************************/
+#tabstrip {
+    padding: 0 15px;
+    border: none;
+}
+
+.k-tabstrip .k-tabstrip-items {
+    padding: 0;
+}
+
+.k-tabstrip-items .k-loading.k-complete {
+    border: none;
+}
+
+.k-tabstrip-items .k-item {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 600;
+    z-index: 1;
+}
+
+    .k-tabstrip-items .k-item .k-link {
+        color: #305E8E;
+        letter-spacing: .8px;
+        padding: 0 25px 14px 0;
+    }
+
+    .k-tabstrip-items .k-item.k-state-active .k-link {
+        color: #333333;
+    }
+
+.k-tabstrip .k-content {
+    border: none;
+    border-top: 1px solid #CCCCCC;
+    margin: 0;
+    padding: 17px 0 0;
+}
+
+    .k-tabstrip .k-content > div,
+    .k-tabstrip .k-content > div * {
+        box-sizing: border-box;
+    }
+
+    .k-tabstrip .k-content.k-state-active {
+    }
+
+/**Widgets and inputs inside tabs**/
+.k-tabstrip .k-multiselect-wrap,
+.k-tabstrip .k-textbox > input, .k-tabstrip .k-autocomplete .k-input,
+.k-tabstrip .k-picker-wrap .k-input, .k-tabstrip .k-numeric-wrap .k-input,
+.k-tabstrip .k-dropdown-wrap .k-input, .k-tabstrip .k-selectbox .k-input,
+.k-tabstrip.form input:not(.k-input) {
+    min-height: 36px;
+    height: 36px;
+}
+
+.k-tabstrip.form input:not(.k-input),
+.k-tabstrip .k-dropzone .k-upload-button,
+.k-tabstrip .k-upload .k-upload-selected {
+    min-height: 38px;
+    height: 38px;
+}
+
+.k-tabstrip .k-multiselect.k-header {
+    max-width: 100%;
+}
 /**********************************************************************************/
 
 /* Media Queries */

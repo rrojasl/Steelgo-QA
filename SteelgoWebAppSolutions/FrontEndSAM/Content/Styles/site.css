@@ -45,7 +45,7 @@ body {
     margin: 0;
     min-height: 100%;
     height: 100%;
-    font-family: 'Lato', sans-serif;
+    font-family: Arial, 'Open Sans', sans-serif;
 }
 /**********************************************************************************/
 
@@ -150,9 +150,9 @@ label {
 #window label {
     text-transform: uppercase;
     display: block;
-    font-size: 10px;
-    letter-spacing: 1.2px;
-    margin-bottom: 7px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
 }
 
     .form label.required {
@@ -180,23 +180,23 @@ label {
     letter-spacing: .8px;
 }
 
-    .form h2 label.title {
+/*.form h2 label.title {
         float: left;
-    }
+    }*/
 
-    .form h2 label.folioLabel {
-        visibility: hidden;
-        color: #202020;
-        font-weight: 600;
-    }
+.form .folioLabel {
+    color: #333333;
+    font-weight: 600;
+    cursor: auto;
+}
 
-        .form h2 label.folioLabel span {
+    /*.form .folioLabel span {
             margin-right: 1px;
-        }
+        }*/
 
-        .form h2 label.folioLabel.show {
-            visibility: visible;
-        }
+    .form .folioLabel.show {
+        visibility: visible;
+    }
 /**********************************************************************************/
 
 
@@ -291,24 +291,27 @@ input {
 .btn, .btn:hover, .btn:focus {
     color: #FFFFFF;
     text-transform: capitalize;
-    display: block;
     border-radius: 3px;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 1.3px;
-    height: 40px;
-    padding: 8px;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    height: 34px;
+    padding: 8px 14px;
     box-sizing: border-box;
+    -moz-box-shadow: 0px 2px 2px #ccc; /* FF3.5+ */
+    -webkit-box-shadow: 0px 2px 2px #ccc; /* Saf3.0+, Chrome */
+    box-shadow: 0px 2px 2px #ccc; /* Opera 10.5, IE9, Chrome 10+ */
+    vertical-align: text-top;
 }
 
     .btn span, .btn label {
         color: #FFFFFF;
+        /*vertical-align: baseline;*/
     }
 
 .btn-yellow {
     background-color: #EC8B00;
     border: none;
-    border-bottom: 3px solid #DF6600;
+    border-bottom: 1px solid #DF6600;
 }
 
     .btn-yellow:hover {
@@ -329,7 +332,7 @@ input {
 .btn-primary {
     background-color: #305E8E;
     border: none;
-    border-bottom: 3px solid #234568;
+    border-bottom: 1px solid #234568;
 }
 
     .btn-primary:hover {
@@ -345,7 +348,7 @@ input {
 .btn-black {
     background-color: #444444;
     border: none;
-    border-bottom: 3px solid #2B2B2B;
+    border-bottom: 1px solid #2B2B2B;
 }
 
     .btn-black:hover {
@@ -355,15 +358,20 @@ input {
 
 
 .buttonBar {
-    position: relative;
-    top: 21px;
+    margin-top: 21px;
+    text-align: right;
 }
+
+    .buttonBar a:nth-child(even) {
+        margin: 0 16px;
+    }
 
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
+    width: 34px;
 }
 
 #Refrescar.btn {
@@ -371,6 +379,7 @@ input {
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
+    width: 34px;
 }
 
 .formButtons {
@@ -445,16 +454,20 @@ h2 {
     }
 
     /*$_btn*/
-    .buttonBar {
-        top: 0;
-    }
-
     #ImprimirPase {
-        top: 21px;
+        margin-top: 21px;
     }
 
     .formButtons {
         margin-top: 25px;
+    }
+}
+
+@media (max-width: 1540px) {
+
+    /*$_btn*/
+    .buttonBar {
+        margin-top: 0;
     }
 }
 
@@ -470,7 +483,6 @@ h2 {
 /* lg viewport */
 @media (min-width: 1025px) {
 }
-
 
 /* Start by setting display:none to make this hidden.
    Then we position it in relation to the viewport window

@@ -67,7 +67,7 @@ _dictionary = {
         "en-US": "Transactions"
     },
     "layoutLabel0007": {
-        "es-MX": "Catálogo",
+        "es-MX": "Catálogos",
         "en-US": "Catalog"
     },
     "layoutLabel0008": {

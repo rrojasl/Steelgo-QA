@@ -55,6 +55,7 @@
             padding: 14px 24px 17px;
             text-transform: uppercase;
             font-size: 10px;
+            white-space: nowrap;
         }
 
             .login form div.form-title {
@@ -87,6 +88,7 @@
         }
 
         .login form input[type="submit"] {
+            display: block;
             width: 180px;
             margin: 31px auto 10px;
         }
@@ -182,17 +184,17 @@ header .menu > div {
         box-shadow: none;
     }
 
-    .logged-user .btn-group a img {
+    /*.logged-user .btn-group a img {
         position: relative;
         top: -1px;
-    }
+    }*/
 
     .logged-user .btn-group a span.name,
     .logged-user .btn-group a span.caret {
         color: #1C4070;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 1.1px;
+        letter-spacing: 0.9px;
     }
 
     .logged-user .btn-group ul {
@@ -208,20 +210,20 @@ header .menu > div {
  Description:   Customize notifications section in header.
 **********************************************************************************/
 .notifications {
-    margin-right: 17px;
+    margin-right: 16px;
     position: relative;
 }
 
     .notifications img {
         position: relative;
-        top: 3px;
+        top: -1px;
     }
 
     .notifications .count {
         color: #FFFFFF;
         background: #e60404 !important;
         position: absolute;
-        top: -4px;
+        top: -9px;
         left: 51.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
@@ -230,7 +232,7 @@ header .menu > div {
         border-radius: 30px;
         line-height: 15px;
         text-align: center;
-        font-size: 9px;
+        font-size: 10px;
         font-weight: 600;
     }
 /**********************************************************************************/
@@ -318,8 +320,8 @@ header .menu > div {
         }
 
     .sidebar .main-nav ul.main-menu > li a > span {
-        margin-left: 7px;
-        letter-spacing: 1.3px;
+        margin-left: 5px;
+        letter-spacing: 0.7px;
     }
 
     .sidebar.minified .main-nav ul.main-menu > li span,
@@ -327,8 +329,7 @@ header .menu > div {
         display: none;
     }
 
-    .sidebar ul.sub-menu.open, .sidebar ul.sub-menu2.open,
-    .sidebar ul.sub-menu3.open {
+    .sidebar ul.sub-menu.open, .sidebar ul.sub-menu2.open {
         display: block !important;
     }
 
@@ -387,7 +388,7 @@ header .menu > div {
             display: none;
             list-style: none;
             position: absolute;
-            right: -240px;
+            right: -101%;
             top: 0;
             background: #FFFFFF;
             margin: 0;
@@ -445,23 +446,23 @@ header .menu > div {
             padding: 0 0 16px;
         }
 
-            .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu.close {
-                display: none !important;
+    .sidebar.minified .main-nav ul.main-menu li.shortcut ul.sub-menu {
+        display: none !important;
+    }
+
+    .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
+        padding: 11px 9px 0;
+        margin-bottom: -5px;
+    }
+
+        .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a {
+            color: #305E8D;
+        }
+
+            .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
+                letter-spacing: 1px;
+                font-weight: 600;
             }
-
-            .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
-                padding: 11px 9px 0;
-                margin-bottom: -5px;
-            }
-
-                .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a {
-                    color: #305E8D;
-                }
-
-                    .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
-                        letter-spacing: 1px;
-                        font-weight: 600;
-                    }
 
     .sidebar .nav-footer {
         background: #305E8E;
@@ -632,7 +633,7 @@ header .menu > div {
 
     .breadcrumb li {
         font-weight: 600;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
         color: #1A3F70;
     }
 
@@ -641,13 +642,13 @@ header .menu > div {
         }
 
     .breadcrumb > li + li:before {
-        padding: 0 3px;
+        padding: 0 4px;
         color: #1A3F70;
         content: ">";
     }
 
     .breadcrumb > li + li.active:before {
-        padding: 0 6px 0 4px;
+        padding: 0 4px 0 4px;
     }
 
 /**********************************************************************************/
@@ -811,6 +812,17 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_divider
+ Description:   Customize section added to a page.
+**********************************************************************************/
+.divider {
+    margin: 15px 0 30px;
+    border-top: 1px solid #CCCCCC;
+}
+/**********************************************************************************/
+
+
 /* Media Queries */
 
 /* xs viewport */
@@ -897,6 +909,18 @@ header .menu > div {
     .content-container {
         max-width: 82%;
         width: 82%;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1540px) {
+
+    /*$_content-container*/
+    .form > .row > div.filters {
+        width: 33.33%;
+    }
+
+    .form > .row > div.filterBtns {
+        width: 100%;
     }
 }
 

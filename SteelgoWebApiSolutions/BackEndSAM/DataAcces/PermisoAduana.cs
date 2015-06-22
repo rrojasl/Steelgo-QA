@@ -1,5 +1,6 @@
 ﻿using BackEndSAM.Models;
 using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace BackEndSAM.DataAcces
                                      join p in ctx.Sam3_Proveedor on x.ProveedorID equals p.ProveedorID
                                      join ch in ctx.Sam3_Chofer on x.ChoferID equals ch.ChoferID
                                      join tr in ctx.Sam3_Transportista on x.TransportistaID equals tr.TransportistaID
-                                     //join ca in ctx.Sam3_Camion on x.CamionID equals ca.CamionID
+                                     join ca in ctx.Sam3_Camion on x.CamionID equals ca.CamionID
                                      where (x.FolioAvisoLlegadaID == folio)
                                      select new FormatoPermisoAduana
                                      {
@@ -33,7 +34,7 @@ namespace BackEndSAM.DataAcces
                                          NombreProveedor = p.Nombre,
                                          NombreChofer = ch.Nombre,
                                          NombreTransportista = tr.Nombre,
-                                         //PlacasCamion = ca.Placas
+                                         PlacasCamion = ca.Placas
                                      }).ToList();
             }
             return listaAvisoLlegada;
@@ -113,17 +114,53 @@ namespace BackEndSAM.DataAcces
                             + "Proyecto: " + listadoProyectos + "<br />"
                             + "Operador: " + listaAvisoLlegada[0].NombreChofer + "<br />"
                             + "L&iacute;nea Transportista: " + listaAvisoLlegada[0].NombreTransportista + "<br />"
-                            + "Placas: " + listaAvisoLlegada[0].PlacasCamion + "<br />" /*Placas del camión*/
+                            + "Placas: " + listaAvisoLlegada[0].PlacasCamion + "<br />"
                             + body;
 
                 SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("usuario", "password");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("user", "password");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
             }
             catch (Exception ex)
             {
+            }
+        }
+
+       /// <summary>
+       /// Insertar permiso de aduana en base de datos
+       /// </summary>
+       /// <param name="folio">Folio seleccionado por el usuario</param>
+       /// <param name="usuario">Usuario Actual</param>
+       /// <returns></returns>
+        public object InsertarPermisoADuana(int folio, Sam3_Usuario usuario)
+        {
+            using (SamContext ctx = new SamContext())
+            {
+                Sam3_PermisoAduana permisoAduana = new Sam3_PermisoAduana();
+                permisoAduana.FolioAvisoLlegadaID = folio;
+                permisoAduana.Estatus = "Creado";
+                permisoAduana.Activo = true;
+                permisoAduana.UsuarioModificacion = usuario.UsuarioID;
+                permisoAduana.FechaModificacion = DateTime.Now;
+                permisoAduana.PermisoAutorizado = false;
+                permisoAduana.PermisoTramite = true;
+                permisoAduana.NumeroPermiso = null;
+                permisoAduana.FechaGeneracion = DateTime.Now;
+                permisoAduana.FechaAutorización = null;
+
+                ctx.Sam3_PermisoAduana.Add(permisoAduana);
+                ctx.SaveChanges();
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnMessage.Add(permisoAduana.PermisoAduanaID.ToString());
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
     }
