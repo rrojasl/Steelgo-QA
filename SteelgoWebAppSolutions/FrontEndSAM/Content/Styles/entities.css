@@ -17,7 +17,8 @@
     11  $_filesTable
     12  $_addedSection
     13  $_modal
-    14  $_formNav
+    14  $_branchCut
+    15  $_formNav
 
 
     Color Palette: Look at site.css
@@ -706,8 +707,12 @@ header .menu > div {
     }
 
         .filesTable thead td {
-            padding: 12px 15px 5px;
+            padding: 12px 15px 6px;
         }
+
+            .filesTable thead td label {
+                font-size: 9.5px;
+            }
 
     .filesTable tbody tr:nth-child(even) {
         background-color: #F5F5F5;
@@ -718,11 +723,11 @@ header .menu > div {
     }
 
     .filesTable td {
-        padding: 10px 13px;
+        padding: 12px 14px 8px;
         border-right: 1px solid #CCCCCC;
         border-bottom: 1px solid #CCCCCC;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 12.5px;
     }
 
         .filesTable td a .delete {
@@ -814,17 +819,13 @@ header .menu > div {
 
 
 /**********************************************************************************
- Class name:    $_divider
+ Class name:    $_branchCut
  Description:   Customize section added to a page.
 **********************************************************************************/
 .branchCut {
-    margin: 15px -15px 30px;
+    margin: 8px -30px 32px;
     border-top: 1px solid #CCCCCC;
 }
-
-/*div.form-group .branchCut {
-    margin: 15px -30px 30px;
-}*/
 /**********************************************************************************/
 
 
@@ -833,7 +834,7 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .formNav {
-    margin: 13px -30px;
+    margin: 13px -30px 32px;
     padding: 18px 0 20px;
     border: 1px solid #CCCCCC;
     border-right: none;
@@ -841,6 +842,7 @@ header .menu > div {
 }
 
     .formNav a.btn {
+        margin-top: 2px;
         margin-right: 16px;
     }
 

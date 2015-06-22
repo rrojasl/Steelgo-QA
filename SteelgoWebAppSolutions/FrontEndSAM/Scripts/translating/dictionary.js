@@ -233,7 +233,7 @@ _dictionary = {
         "en-US": "Shipper"
     },
     "DetalleAvisoLlegada0004": {
-        "es-MX": "Fecha Recepción",
+        "es-MX": "Fecha Estimada de Llegada",
         "en-US": "Reception Date"
     },
     "DetalleAvisoLlegada0005": {
