@@ -593,6 +593,18 @@ _dictionary = {
         "es-MX": "Tipo de Archivo",
         "en-US": "File Type"
     },
+    "EntradaMaterial0033": {
+        "es-MX": "Orden de Compra",
+        "en-US": "Purchase Order"
+    },
+    "EntradaMaterial0034": {
+        "es-MX": "Factura",
+        "en-US": "Invoice"
+    },
+    "EntradaMaterial0035": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Packing List",
@@ -888,6 +900,22 @@ _dictionary = {
     "FormatoPaseSalida0014": {
         "es-MX": "Hora fin descarga",
         "en-US": "End time download"
+    },
+    "FormatoPaseSalida0015": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidencia"
+    },
+    "FormatoPaseSalida0016": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "FormatoPaseSalida0017": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
+    "FormatoPaseSalida0018": {
+        "es-MX": "Número",
+        "en-US": "Number"
     },
     //Home Partial View Labels
     "homeLabel0001": {
