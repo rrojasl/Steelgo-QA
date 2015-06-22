@@ -42,6 +42,7 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
         public object Get(int avisollegadaID, string token)
         {
             string payload = "";
@@ -61,7 +62,6 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
 
         public object Post(AvisoLlegadaJson avisoLlegada, string token)
         {
@@ -128,7 +128,5 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
-
-    }//Fin Clase
+    }
 }

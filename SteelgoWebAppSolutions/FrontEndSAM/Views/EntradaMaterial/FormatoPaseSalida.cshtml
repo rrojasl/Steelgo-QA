@@ -1,17 +1,78 @@
-﻿@{
-    Layout = null;
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div><label id="FormatoPaseSalida0001"></label></div>
 
-<!DOCTYPE html>
+<div>
+    <label id="FormatoPaseSalida0002"></label>
+    <input id="Proyecto" type="text" />
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
-    </div>
-</body>
-</html>
+
+<table id="tblPaseSalida">
+    <thead>
+        <tr>
+           @* <th><label id="FormatoPaseSalida003"></label></th>
+            <th><label id="FormatoPaseSalida004"></label></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+        </tr>
+    </tbody>
+</table>
+
+
+<script>
+    @section JavascriptGlobalVariables {
+        var folioLlegadaid = getUrlParameter("FolioLlegadaID", "-1");
+        var folioentradaid = getUrlParameter("FolioEntradaID", "-1");
+        alert(folioLlegadaid);
+        alert(folioentradaid);
+    }
+
+    @section JavascriptGlobalFunctions {
+        function obtenerFormatoFecha(date) {
+            var d = new Date(date);
+            return d.toLocaleDateString();
+        };
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+        //ocultar menu y sidebar
+        $(".pull-right").hide();
+        $(".sidebar").hide();
+        $(".breadcrumb-container").hide();
+
+        var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        Client.add('FormatoPaseSalida');
+        Client.FormatoPaseSalida.read({}, { folioentradaid: folioentradaid, folioLlegadaid: folioLlegadaid, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+
+            $("#Proyecto").val(data.NombreProyecto);
+
+            $("#tblPaseSalida thead tr").append("");
+
+            var strhtml = "", strThead = "", i = 1, strTbodyRow1 = "", strTbodyPlanas = "";
+            strThead = "<th><label id='FormatoPaseSalida0003'></label></th><th><label id='FormatoPaseSalida0004'></label></th><th><label id='FormatoPaseSalida0005'></label></th><th><label id='FormatoPaseSalida0006'></label></th>";
+
+            $.each(data.Plana, function (index, key) {
+                strThead += "<th><label>Placa Plana " + i + "</label></th>";
+                strTbodyPlanas += "<td>" + key.Nombre + "</td>";
+                i++;
+            });
+            
+            $("#tblPaseSalida thead tr").append(strThead);
+
+            strTbodyRow1 = "<td>" + obtenerFormatoFecha(data.FechaHoy) + "</td><td>" + data.NombreOperador + "</td><td>" + data.CantidadPlanas + "</td><td>" + data.PlacaTracto + "</td>" + strTbodyPlanas;
+            $("#tblPaseSalida tbody tr").append(strTbodyRow1);
+
+
+            $("#tblPaseSalida thead").append("<tr><td colspan='2'></td></tr>");
+            changeLayoutLabels($("#language").data("kendoDropDownList").value());
+
+        });
+
+    }
+</script>

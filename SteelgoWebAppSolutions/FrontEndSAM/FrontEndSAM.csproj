@@ -435,8 +435,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CODE128.js" />
     <Content Include="Scripts\CODE39.js" />
-    <Content Include="Scripts\core-min.js" />
-    <Content Include="Scripts\enc-base64.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -1062,10 +1060,10 @@
     <Content Include="Views\Shared\_LayoutErrors.cshtml" />
     <Content Include="Views\Errors\notfound.cshtml" />
     <Content Include="Views\EntradaMaterial\DetalleLlegadaMaterial.cshtml" />
-    <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
     <Content Include="Views\Cuantificacion\Cuantificacion.cshtml" />
     <Content Include="Views\Cuantificacion\FormatoEtiquetas.cshtml" />
+    <Content Include="Views\EntradaMaterial\FormatoPaseSalida.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
