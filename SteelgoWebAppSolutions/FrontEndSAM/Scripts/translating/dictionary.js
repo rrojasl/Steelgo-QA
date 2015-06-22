@@ -585,6 +585,14 @@ _dictionary = {
         "es-MX": "Eliminar",
         "en-US": "Delete"
     },
+    "EntradaMaterial0031": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File Type"
+    },
+    "EntradaMaterial0032": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File Type"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Packing List",
@@ -823,6 +831,63 @@ _dictionary = {
     "FormatoEtiquetas0011": {
         "es-MX": "Imprimir",
         "en-US": "Print"
+    },
+    //Formato Pase Salida
+    "FormatoPaseSalida0001": {
+        "es-MX": "Pase de Salida de Transportista",
+        "en-US": "Carrier Pass Out"
+    },
+    "FormatoPaseSalida0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "FormatoPaseSalida0003": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "FormatoPaseSalida0004": {
+        "es-MX": "Nombre del Operador",
+        "en-US": "Name Operator"
+    },
+    "FormatoPaseSalida0005": {
+        "es-MX": "No. Plana",
+        "en-US": "No. Plana"
+    },
+    "FormatoPaseSalida0006": {
+        "es-MX": "Placa Tracto",
+        "en-US": "Placa Tracto"
+    },
+    "FormatoPaseSalida0007": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "FormatoPaseSalida0008": {
+        "es-MX": "Pedimiento",
+        "en-US": "Pedimiento"
+    },
+    "FormatoPaseSalida0009": {
+        "es-MX": "Factura",
+        "en-US": "Factura"
+    },
+    "FormatoPaseSalida0010": {
+        "es-MX": "Remisión",
+        "en-US": "Remisión"
+    },
+    "FormatoPaseSalida0011": {
+        "es-MX": "Registros de Tiempos",
+        "en-US": "Times Records"
+    },
+    "FormatoPaseSalida0012": {
+        "es-MX": "Hora de llegada unidad",
+        "en-US": "Check unit"
+    },
+    "FormatoPaseSalida0013": {
+        "es-MX": "Hora inicio descarga",
+        "en-US": "Start time download"
+    },
+    "FormatoPaseSalida0014": {
+        "es-MX": "Hora fin descarga",
+        "en-US": "End time download"
     },
     //Home Partial View Labels
     "homeLabel0001": {

@@ -135,6 +135,7 @@
     <Compile Include="Controllers\DummyEstatusController.cs" />
     <Compile Include="Controllers\FamiliaController.cs" />
     <Compile Include="Controllers\FolioLlegadaController.cs" />
+    <Compile Include="Controllers\FormatoPaseSalidaController.cs" />
     <Compile Include="Controllers\ListadoController.cs" />
     <Compile Include="Controllers\ListadoFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
@@ -177,7 +178,9 @@
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
     <Compile Include="Models\Dummy\FolioLlegada.cs" />
     <Compile Include="Models\Dummy\FoliosGenerados.cs" />
+    <Compile Include="Models\Dummy\FormatoPaseSalida.cs" />
     <Compile Include="Models\Dummy\GridCuantificacion.cs" />
+    <Compile Include="Models\Dummy\Incidencia.cs" />
     <Compile Include="Models\Dummy\ItemCode.cs" />
     <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
@@ -191,6 +194,7 @@
     <Compile Include="Models\Dummy\PlanaEntradaMat.cs" />
     <Compile Include="Models\Dummy\Proveedor.cs" />
     <Compile Include="Models\Dummy\Proyecto.cs" />
+    <Compile Include="Models\Dummy\RegistroTiempos.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
