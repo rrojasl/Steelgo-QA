@@ -17,6 +17,7 @@
     11  $_filesTable
     12  $_addedSection
     13  $_modal
+    14  $_formNav
 
 
     Color Palette: Look at site.css
@@ -816,10 +817,39 @@ header .menu > div {
  Class name:    $_divider
  Description:   Customize section added to a page.
 **********************************************************************************/
-.divider {
-    margin: 15px 0 30px;
+.branchCut {
+    margin: 15px -15px 30px;
     border-top: 1px solid #CCCCCC;
 }
+
+/*div.form-group .branchCut {
+    margin: 15px -30px 30px;
+}*/
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_formNav
+ Description:   Customize section added to a page.
+**********************************************************************************/
+.formNav {
+    margin: 13px -30px;
+    padding: 18px 0 20px;
+    border: 1px solid #CCCCCC;
+    border-right: none;
+    border-left: none;
+}
+
+    .formNav a.btn {
+        margin-right: 16px;
+    }
+
+    .formNav .button-container {
+        display: inline-block;
+        margin-right: 26px;
+        padding-right: 14px;
+        border-right: 1px solid #CCCCCC;
+    }
 /**********************************************************************************/
 
 

@@ -202,7 +202,8 @@
         border: none;
         border-radius: 3px;
         border-bottom: 1px solid #234568;
-        padding: 8px 14px;
+        margin-top: 2px;
+        padding: 5px 14px;
         font-size: 14px;
         box-sizing: border-box;
         letter-spacing: 0.6px;
