@@ -24,10 +24,10 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
 
         //
         // GET: /AvisoLlegada/
-        public ActionResult FormatoPaseSalida()
-        {
-            return View();
-        }
+        //public ActionResult FormatoPaseSalida()
+        //{
+        //    return View();
+        //}
 
         //[HttpPost]
         //public ActionResult FileUploadFile() 

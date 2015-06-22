@@ -92,6 +92,23 @@
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
         var AccionFiltrado = getUrlParameter("AccionFiltrado", "-1");// 1.-Todos.  2.- Folios sin permisos.  3.-Permiso pero sin autorizacion  4.-Pase Salida
+
+
+        var $AvisoLLegadaModel = {
+            listContainer: {
+                create: "#Creacion",
+                list: "#grid",
+                detail: ".detailLink",
+                destroy: ".k-grid-Cancelar"
+            },
+            properties: {
+                username: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                }
+            }
+        };
     }
 
     @section JavascriptGlobalFunctions {        
@@ -146,7 +163,7 @@
                 },               
                 columns: [
                     //{ command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px" },
-                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
+                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
                     { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -204,6 +221,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel
 
         $("#Mostrar").click(function () { Filtros(2); });
         $("#Creacion").click(function (e) {
@@ -365,8 +383,8 @@
     }
 
     function Filtros(prueba) {
-        ListadoModal = [];
-        ListadoModal[0] = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
+        var ListadoModal;
+        ListadoModal = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "", token: "" };
         ProyectoIDs = [];
 
         var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
@@ -379,19 +397,18 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-        ListadoModal[0].FolioLlegadaID = folioLlegadaID;
-        ListadoModal[0].FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
-        ListadoModal[0].Patio = Patio;
-        ListadoModal[0].Proyectos = ProyectoIDs;
-        ListadoModal[0].Proveedor = Proveedor;
-        ListadoModal[0].FechaInicial = obtenerFormatoFecha(d);
-        ListadoModal[0].FechaFinal = obtenerFormatoFecha(d1);
+        ListadoModal.FolioLlegadaID = folioLlegadaID;
+        ListadoModal.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
+        ListadoModal.Patio = Patio;
+        ListadoModal.Proyectos = ProyectoIDs;
+        ListadoModal.Proveedor = Proveedor;
+        ListadoModal.FechaInicial = obtenerFormatoFecha(d);
+        ListadoModal.FechaFinal = obtenerFormatoFecha(d1);
+        ListadoModal.token = Cookies.get("token");
 
         console.log(JSON.stringify(ListadoModal));
 
-        var base64 = CryptoJS.enc.Base64.stringify(ListadoModal[0]);
-
-        $FiltrosListadoEntradaMaterial.AvisoLlegada.read(ListadoModal[0], { token: Cookies.get("token") }).done(function (data) {
+        $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(ListadoModal) }).done(function (data) {
             if (data.ReturnCode) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
@@ -405,7 +422,6 @@
             if ($("#grid").data("kendoGrid")) {
                 $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
             };
-            
         });
     };
 
