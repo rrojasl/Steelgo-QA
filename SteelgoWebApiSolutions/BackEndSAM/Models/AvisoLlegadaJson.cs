@@ -37,6 +37,12 @@ namespace BackEndSAM.Models
         }
     }
 
+    public class CamionAV
+    {
+        public string CamionID { get; set; }
+        public string Placas { get; set; }
+    }
+
     public class ProyectosAV
     {
         public int ProyectoID { get; set; }

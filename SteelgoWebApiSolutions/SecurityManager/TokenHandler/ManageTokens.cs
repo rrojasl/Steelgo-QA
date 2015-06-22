@@ -80,6 +80,12 @@ namespace SecurityManager.TokenHandler
                 newToken = "";
                 return false;
             }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+                newToken = "";
+                return false;
+            }
         }
     }
 }

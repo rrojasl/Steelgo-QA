@@ -213,26 +213,30 @@ namespace BackEndSAM.DataAcces
                     int folioLlegadaID = Convert.ToInt32(filtros.FolioLlegadaID);
                     int folioAvisoLlegadaID = Convert.ToInt32(filtros.FolioAvisoLlegadaID);
 
+                    List<int> proyectos = filtros.Proyectos.Select(x => x.ProyectoID).ToList();
+                    List<int> proveedores = filtros.Proveedor.Select(x => x.ProveedorID).ToList();
+                    List<int> patios = filtros.Patio.Select(x => x.PatioID).ToList();
+
                     if (folioLlegadaID > 0)
                     {
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioLlegada
                                                  join a in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals a.FolioAvisoLlegadaID
                                                  where r.FolioLlegadaID == folioLlegadaID
-                                                 && r.Activo.Value
+                                                 && r.Activo.Value == true
                                                  && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
                                                  select a.FolioAvisoLlegadaID).AsParallel().ToList();
                     }
                     else
                     {
-                        lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                 join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                                 where r.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                                 && r.Activo.Value
-                                                 && filtros.Proyectos.Select(y => y.ProyectoID).Contains(p.ProyectoID)
-                                                 && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
-                                                 && filtros.Patio.Select(z => z.PatioID).Contains(r.PatioID)
-                                                 && filtros.Proveedor.Select(x => x.ProveedorID).Contains(r.ProveedorID)
-                                                 select r.FolioAvisoLlegadaID).AsParallel().ToList();
+                        lstFoliosAvisoLlegada = (from a in ctx.Sam3_FolioAvisoLlegada
+                                                 join apr in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on
+                                                 a.FolioAvisoLlegadaID equals apr.FolioAvisoLlegadaID
+                                                 where a.Activo.Value == true
+                                                 && patios.Contains(a.PatioID)
+                                                 && proveedores.Contains(a.ProveedorID)
+                                                 && proyectos.Contains(apr.ProyectoID)
+                                                 && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
+                                                 select a.FolioAvisoLlegadaID).AsParallel().ToList();
                     }
 
                     List<AvisoLlegadaJson> resultados = new List<AvisoLlegadaJson>();
@@ -523,7 +527,7 @@ namespace BackEndSAM.DataAcces
 
         public object EliminarAvisoLlegada(int avisoLlegadaID, Sam3_Usuario usuario)
         {
-            try 
+            try
             {
                 using (SamContext ctx = new SamContext())
                 {
@@ -580,7 +584,7 @@ namespace BackEndSAM.DataAcces
                         avisoBd.UsuarioModificacion = usuario.UsuarioID;
                         avisoBd.CamionID = cambios.CamionID;
 
-                        
+
                         //Actualizar informacion de las planas
                         foreach (PlanaAV plana in cambios.Plana)
                         {
@@ -669,7 +673,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                  where r.Activo.Value
+                                                   where r.Activo.Value
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
