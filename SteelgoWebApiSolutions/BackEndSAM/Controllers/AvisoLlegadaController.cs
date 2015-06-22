@@ -20,10 +20,8 @@ namespace BackEndSAM.Controllers
     {
         public object Get(string data)
         {
-            Base64Security baseSecurity = new Base64Security();
-            var jsonFiltros = baseSecurity.Decode(data);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            FiltrosJson filtros = serializer.Deserialize<FiltrosJson>(jsonFiltros);
+            FiltrosJson filtros = serializer.Deserialize<FiltrosJson>(data);
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.token, out payload, out newToken);
