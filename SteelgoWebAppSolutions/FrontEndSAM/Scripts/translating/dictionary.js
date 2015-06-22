@@ -561,6 +561,30 @@ _dictionary = {
         "es-MX": "Llegada de Material",
         "en-US": "Material's Arrival"
     },
+    "EntradaMaterial0025": {
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
+    },
+    "EntradaMaterial0026": {
+        "es-MX": "Packing List Firmado",
+        "en-US": "Packing List Signed"
+    },
+    "EntradaMaterial0027": {
+        "es-MX": "Imprimir Pase",
+        "en-US": "Print Pass"
+    },
+    "EntradaMaterial0028": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "EntradaMaterial0029": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "EntradaMaterial0030": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Packing List",

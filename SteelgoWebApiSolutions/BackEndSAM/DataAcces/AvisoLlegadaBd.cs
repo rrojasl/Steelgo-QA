@@ -86,7 +86,6 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.OrdenCompra = avisoJson.OrdenCompra;
                     nuevoAvisoLlegada.Factura = avisoJson.Factura;
                     nuevoAvisoLlegada.FechaRecepcion = Convert.ToDateTime(avisoJson.FechaRecepcion);
-                    nuevoAvisoLlegada.PaseSalidaEnviado = avisoJson.PaseSalida[0].PaseSalidaEnviado;
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     nuevoAvisoLlegada.CamionID = avisoJson.CamionID;
@@ -205,7 +204,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> lstFoliosAvisoLlegada;
+                    List<int> lstFoliosAvisoLlegada = new List<int>();
                     DateTime fechaInicial = new DateTime();
                     DateTime fechaFinal = new DateTime();
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);

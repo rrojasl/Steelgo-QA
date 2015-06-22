@@ -139,8 +139,52 @@
                 </div>
             </div>
         </div>
+
+                @********Pase Salida*********@
+        <div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12 addedSection">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <h2>
+                        <label id="EntradaMaterial0025"></label>
+                    </h2>
+                </div>
+                <div class="form-group col-sm-12 col-md-8 col-lg-4">
+                    <div class="row">
+                        <div class="col-sm-7 col-md-8 col-lg-8">
+                            <label id="EntradaMaterial0026"></label>
+                            <input name="files" id="PackingList" type="file" class="" />
+                        </div>
+                        <div class="col-sm-5 col-md-4 col-lg-4">
+                            <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary buttonBar">
+                                <span id="EntradaMaterial0027"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <table id="listaArchivosPaseSalida" class="filesTable">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <label id="EntradaMaterial0028"></label>
+                                        </td>
+                                        <td>
+                                            <label id="EntradaMaterial0029"></label>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 @*Ventana Modal*@
     <div id="window">
@@ -187,6 +231,15 @@
             $("#Cancelar").click(function (e) {
                 var detalleIdeaUrl = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            });
+
+            $("#ImprimirPase").click(function () {
+                if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
+                    alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
+                    return false;
+                };
+               
+                window.open("@Url.Action("FormatoPaseSalida", "EntradaMaterial")");
             });
 
             $("#FolioEntradaID").kendoAutoComplete({
@@ -547,6 +600,10 @@
             Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                });
+
+                $.each(data, function (index, value) {
+                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
             });
         }

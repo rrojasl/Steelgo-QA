@@ -27,6 +27,11 @@ namespace FrontEndSAM.Controllers.LlegadaMaterial
             return View();
         }
 
+        public ActionResult FormatoPaseSalida()
+        {
+            return View();
+        }
+
         //
         // GET: /EntradaMaterial/Create
         public ActionResult Create()

@@ -95,7 +95,8 @@
         var FechaInicial, FechaFinal, resultadoJson;
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
-        var AccionFiltrado = getUrlParameter("AccionFiltrado", "-1");// 1.-Todos.   2.- Folios sin permisos.  3.-Permiso pero sin autorizacion
+        var AccionFiltrado = getUrlParameter("AccionFiltrado", "-1");// 1.-Todos.  2.- Folios sin permisos.  3.-Permiso pero sin autorizacion  4.-Pase Salida
+
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -232,23 +233,15 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
     
-        $("#FolioAvisoLlegadaID").kendoAutoComplete({
-            dataSource: {
-                serverFiltering: false,
-                type: "json",
-                transport: {
-                    read: {
-                        url: "http://localhost:60960/backendsam/api/DummyFolioEntrada",
-                    }
-                }
-            },
-            dataTextField: "FolioAvisoLlegadaID",
-            dataValueField: "Consecutivo",
+        $("#FolioAvisoLlegadaID").kendoAutoComplete({            
+            dataTextField: "id",
+            dataValueField: "value",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.FolioAvisoLlegadaID);
+                CargarFolio(dataItem.id);
             }
         });
+        ObtenerFolioEntradaMaterial();
 
         $("#PatioID").kendoAutoComplete({
             dataTextField: "Nombre",
@@ -279,16 +272,16 @@
         });
         ObtenerProveedor();
 
-        $("#TransportistaID").kendoAutoComplete({
-            dataTextField: "Nombre",
-            dataValueField: "TransportistaID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
-            },
-            filter: "contains",
-        });
-        ObtenerTransportista();
+        //$("#TransportistaID").kendoAutoComplete({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "TransportistaID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerTransportista();
 
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
@@ -336,13 +329,13 @@
         Proveedor.push(_proveedor);
     };
 
-    function CargarTransportista(id, value) {
-        Transportista = [];
-        _transportista = {};
-        _transportista["TransportistaID"] = id;
-        _transportista["Nombre"] = value;
-        Transportista.push(_transportista);
-    };
+    //function CargarTransportista(id, value) {
+    //    Transportista = [];
+    //    _transportista = {};
+    //    _transportista["TransportistaID"] = id;
+    //    _transportista["Nombre"] = value;
+    //    Transportista.push(_transportista);
+    //};
 
     function ObtenerProyectos() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
@@ -364,15 +357,15 @@
         });
     };
 
-    function ObtenerTransportista() {
-        $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-            if (result.ReturnCode) {
-                removeUserSession();
-            } else {
-                $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
-            };
-        });
-    };
+    //function ObtenerTransportista() {
+    //    $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+    //        if (result.ReturnCode) {
+    //            removeUserSession();
+    //        } else {
+    //            $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
+    //        };
+    //    });
+    //};
 
     function ObtenerPatio() {
         $Patio.Patio.read({ esAvisoEntrada:0, token: Cookies.get("token") }).done(function (result) {
@@ -383,10 +376,19 @@
             };
         });
     };
+    function ObtenerFolioEntradaMaterial() {
+        $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
+            if (result.ReturnCode) {
+                removeUserSession();
+            } else {
+                $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
+            };
+        });
+    }
 
     function Filtros(prueba) {
-        ListadoModal = [];
-        ListadoModal[0] = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "" };
+        var ListadoModal;
+        ListadoModal = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "", token: "" };
         ProyectoIDs = [];
 
         var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
@@ -399,26 +401,40 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-        ListadoModal[0].FolioLlegadaID = folioLlegadaID;
-        ListadoModal[0].FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
-        ListadoModal[0].Patio = Patio;
-        ListadoModal[0].Proyectos = ProyectoIDs;
-        ListadoModal[0].Proveedor = Proveedor;
-        ListadoModal[0].FechaInicial = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
-        ListadoModal[0].FechaFinal = d1.toLocaleDateString($("#language").data("kendoDropDownList").value());
+        ListadoModal.FolioLlegadaID = folioLlegadaID;
+        ListadoModal.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
+        ListadoModal.Patio = Patio;
+        ListadoModal.Proyectos = ProyectoIDs;
+        ListadoModal.Proveedor = Proveedor;
+        ListadoModal.FechaInicial = obtenerFormatoFecha(d);
+        ListadoModal.FechaFinal = obtenerFormatoFecha(d1);
+        ListadoModal.token = Cookies.get("token");
 
         console.log(JSON.stringify(ListadoModal));
 
-        var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-        Client.add('DummyListadoAvisoLlegada');
+        $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(ListadoModal) }).done(function (data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                } else {
+                    alert("ReturnMessage: " + data.ReturnMessage);
+                    return;
+                }
+            }
 
-        Client.DummyListadoAvisoLlegada.read({}, { prueba: prueba, folio: JSON.stringify(ListadoModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-            console.log(data);
             resultadoJson = data;
             if ($("#grid").data("kendoGrid")) {
                 $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
             };
         });
+    };
+
+    function obtenerFormatoFecha(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+
+        return curr_year + "-" + curr_month + "-" + curr_date;
     };
 </script>
 
