@@ -446,23 +446,23 @@ header .menu > div {
             padding: 0 0 16px;
         }
 
-            .sidebar.minified .main-nav ul.main-menu li.shortcut ul.sub-menu {
-                display: none !important;
+    .sidebar.minified .main-nav ul.main-menu li.shortcut ul.sub-menu {
+        display: none !important;
+    }
+
+    .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
+        padding: 11px 9px 0;
+        margin-bottom: -5px;
+    }
+
+        .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a {
+            color: #305E8D;
+        }
+
+            .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
+                letter-spacing: 1px;
+                font-weight: 600;
             }
-
-            .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
-                padding: 11px 9px 0;
-                margin-bottom: -5px;
-            }
-
-                .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a {
-                    color: #305E8D;
-                }
-
-                    .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
-                        letter-spacing: 1px;
-                        font-weight: 600;
-                    }
 
     .sidebar .nav-footer {
         background: #305E8E;
@@ -919,10 +919,9 @@ header .menu > div {
         width: 33.33%;
     }
 
-        .form > .row > div.filterBtns {
-            width: 100%;
-            text-align: right;        
-        }
+    .form > .row > div.filterBtns {
+        width: 100%;
+    }
 }
 
 @media (min-width: 1280px) and (max-width: 1460px) {
