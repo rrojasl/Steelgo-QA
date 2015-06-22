@@ -47,6 +47,18 @@
                         <label id="EntradaMaterial0004"></label>
                         <input id="Estatus" />
                     </div>
+                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
+                        <label id="EntradaMaterial0033"></label>
+                        <input id="OrdenDeCompra" />
+                    </div>
+                    <div class="form-group col-sm-4 col-md-6 col-lg-2">
+                        <label id="EntradaMaterial0034"></label>
+                        <input id="Factura" />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
+                        <label id="EntradaMaterial0035"></label>
+                        <input id="ProveedorID" class="" />
+                    </div>
                     <div id="divPatio" class="form-group col-sm-12 col-md-4 col-lg-3" style="display: none">
                         <label id="EntradaMaterial0001"></label>
                         <div class="input-group">
@@ -223,9 +235,8 @@
       var folioLlegada = getUrlParameter("folioLlegada", "-1");
       var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");//FolioEntradaID
       //your partial views variables
-      var FechaRecepcion;
-      var Patio = [];
-      var Proyecto = [];
+      var FechaRecepcion, Patio = [],
+          Proyecto = [], Proveedor = []
   };
 
 
@@ -382,6 +393,35 @@
                 upload: onUploadArchivoPaseSalida
             });
 
+            $("#ProveedorID").kendoComboBox({
+                dataTextField: "Nombre",
+                dataValueField: "ProveedorID",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
+                },
+                filter: "contains",
+            });
+            ObtenerProveedor();
+
+        };
+
+        function ObtenerProveedor() {
+            $Proveedor.Proveedor.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ProveedorID").data("kendoComboBox").dataSource.data(result);
+                };
+            });
+        };
+
+        function CargarProveedor(id, value) {
+            Proveedor = [];
+            _proveedor = {};
+            _proveedor["ProveedorID"] = id;
+            _proveedor["Nombre"] = value;
+            Proveedor.push(_proveedor);
         };
 
         function onUploadArchivoPaseSalida() {
