@@ -401,8 +401,8 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-        ListadoModal.FolioLlegadaID = folioLlegadaID;
-        ListadoModal.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value();
+        ListadoModal.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
+        ListadoModal.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() ? $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() : -1;
         ListadoModal.Patio = Patio;
         ListadoModal.Proyectos = ProyectoIDs;
         ListadoModal.Proveedor = Proveedor;

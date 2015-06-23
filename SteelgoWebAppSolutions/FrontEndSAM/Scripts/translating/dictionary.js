@@ -969,6 +969,11 @@ _dictionary = {
         "es-MX": "Número",
         "en-US": "Number"
     },
+    //Autorizar Permiso
+    "AutorizarPermiso0001": {
+        "es-MX": "Folio",
+        "en-US": "Folio Arrival Notice"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

@@ -22,21 +22,10 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
             return View();
         }
 
-        //
-        // GET: /AvisoLlegada/
-        //public ActionResult FormatoPaseSalida()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult FileUploadFile() 
-        //{
-        //    // When returning JSON the mime-type must be set to text/plain
-        //    //return Json(new { status = "OK" }, "text/plain");
-        //    return Content("success");
-            
-        //}
+        public ActionResult AutorizarPermiso() 
+        {
+            return View();
+        }
 
         [HttpPost]
         public JsonResult Post(IEnumerable<HttpPostedFileBase> attachments)
