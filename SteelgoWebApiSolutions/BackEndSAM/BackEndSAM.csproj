@@ -100,6 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\TipoAvisoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
     <Compile Include="Controllers\TractoController.cs" />
     <Compile Include="Controllers\ChoferController.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Models\Dummy\Camion.cs" />
     <Compile Include="Models\Dummy\Cedula.cs" />
     <Compile Include="Models\Dummy\Chofer.cs" />
+    <Compile Include="Models\Dummy\Cliente.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
     <Compile Include="Models\Dummy\EdicionCuantificacion.cs" />
     <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="Models\Dummy\Proyecto.cs" />
     <Compile Include="Models\Dummy\RegistroTiempos.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
+    <Compile Include="Models\Dummy\TipoAviso.cs" />
     <Compile Include="Models\Dummy\TipoVehiculo.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\FiltrosJson.cs" />

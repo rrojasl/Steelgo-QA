@@ -512,6 +512,10 @@ _dictionary = {
         "es-MX": "Modelo",
         "en-US": "Model"
     },
+    "DetalleAvisoLlegada0074": {
+        "es-MX": "Tipos de Avisos",
+        "en-US": "Types of Notices"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",

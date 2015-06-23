@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="form-group col-sm-6 col-md-6 col-lg-3">
                             <label id="DetalleAvisoLlegada0067" class="required"></label>
-                            <input id="" />
+                            <input id="ClienteID" />
                         </div>
                         <div class="form-group col-sm-6 col-md-6 col-lg-3">
                             <label id="DetalleAvisoLlegada0001"></label>
@@ -99,6 +99,10 @@
                         <div class="form-group col-sm-12 col-md-6 col-lg-4">
                             <label id="DetalleAvisoLlegada0055"></label>
                             <input id="CamionID" class="" />
+                        </div>
+                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                            <label id="DetalleAvisoLlegada0074"></label>
+                            <input id="TipoAvisoID" class="" />
                         </div>
                     </div>
                 </div>
@@ -393,7 +397,8 @@
         var Transportista = [], Proveedor = [], Patio = [],
             Plana = [], Chofer = [], Contacto = [], Camion = [],
             CamionEntradaMaterial = [], TransportistaCamion = [],
-            ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [];
+            ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
+            Cliente = [], TipoAvisos = [];
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -536,6 +541,28 @@
                     window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
                 });
 
+                $("#ClienteID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "ClienteID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerCliente();
+
+                $("#TipoAvisoID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "TipoAvisoID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerTipoAviso();
+                
                 $("#ProyectoID").kendoMultiSelect({
                     dataTextField: "Nombre",
                     dataValueField: "ProyectoID",
@@ -567,6 +594,14 @@
                         if (dataItem.PlanaID == 0) {
                             VentanaModal(3);
                             e.preventDefault();
+
+                            var combobox = $("#TipoVehiculo_Plana").data("kendoComboBox");
+                            combobox.select(function (dataItem) {
+                                if (dataItem.Nombre == "Plana") {
+                                    CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
+                                    return dataItem.Nombre === "Plana";
+                                }
+                            });
                         }
                     }
                 });
@@ -690,6 +725,14 @@
                         if (dataItem.VehiculoID == 0) {
                             VentanaModal(6);
                             e.preventDefault();
+                            var combobox = $("#TipoVehiculo_Camion").data("kendoComboBox");
+                            combobox.select(function (dataItem) {
+                                if (dataItem.Nombre == "Tracto") {
+                                    CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
+                                    return dataItem.Nombre === "Tracto";
+                                }
+                            });
+
                         }
 
                         CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas);
@@ -777,7 +820,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", CamionID: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAvisoID: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -869,8 +912,10 @@
                 AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].PermisoAduana = _permisoAduana;
-                AvisoLlegada[0].CamionID = CamionEntradaMaterial.length > 0 ? CamionEntradaMaterial[0].CamionID : "-1";
+                AvisoLlegada[0].Tracto = CamionEntradaMaterial.length > 0 ? CamionEntradaMaterial[0].CamionID : "-1";
                 //AvisoLlegada[0].PaseSalida = _archivosPackingList;
+                AvisoLlegada[0].ClienteID = Cliente.length > 0 ? Cliente[0].ClienteID : "-1";
+                AvisoLlegada[0].TipoAvisoID = TipoAvisos.length > 0 ? TipoAvisos[0].TipoAvisoID : "-1";
 
                 console.log(AvisoLlegada[0]);
 
@@ -970,6 +1015,17 @@
                         CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                     }
+
+                    if (data.Cliente.length > 0) {
+                        CargarTransportista(data.Cliente[0].ClienteID, data.Cliente[0].Nombre);
+                        $("#ClienteID").data("kendoComboBox").value(data.Cliente[0].Nombre);
+                    }
+
+                    if (data.TipoAviso.length > 0) {
+                        CargarTransportista(data.TipoAviso[0].TipoAvisoID, data.TipoAviso[0].Nombre);
+                        $("#TipoAvisoID").data("kendoComboBox").value(data.TipoAviso[0].Nombre);
+                    }
+
                     //Fecha Recepcion
                     var d = new Date(data.FechaRecepcion);
                     $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
@@ -1125,7 +1181,23 @@
                 _tipovehiculo["Nombre"] = value;
                 TipoVehiculoPlana.push(_tipovehiculo);
             };
+        
+            function CargarCliente(id, value) {
+                Cliente = [];
+                _cliente = {};
+                _cliente["ClienteID"] = id;
+                _cliente["Nombre"] = value;
+                Cliente.push(_cliente);
+            };
 
+            function CargarTipoAviso(id, value) {
+                TipoAvisos = [];
+                _tipoavisos = {};
+                _tipoavisos["TipoAvisoID"] = id;
+                _tipoavisos["Nombre"] = value;
+                TipoAvisos.push(_tipoavisos);
+            };
+            
             function CargarCamionEntradaMaterial(id, value) {
                 CamionEntradaMaterial = [];
                 _camion = {};
@@ -1547,6 +1619,27 @@
                     };
                 });
             };
+
+            function ObtenerCliente() {
+                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ClienteID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerTipoAviso() {
+                $TipoAviso.TipoAviso.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#TipoAvisoID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
             function ObtenerContacto() {
                 $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
