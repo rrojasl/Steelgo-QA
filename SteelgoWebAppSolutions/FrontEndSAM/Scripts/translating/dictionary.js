@@ -381,8 +381,8 @@ _dictionary = {
         "en-US": "Packing List Signed"
     },
     "DetalleAvisoLlegada0041": {
-        "es-MX": "Aviso de Entrada de Material",
-        "en-US": "Delivery Notice of Material"
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Delivery Notice"
     },
     "DetalleAvisoLlegada0042": {
         "es-MX": "Folio ",
@@ -463,6 +463,30 @@ _dictionary = {
     "DetalleAvisoLlegada0061": {
         "es-MX": "Guardar",
         "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0062": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "DetalleAvisoLlegada0063": {
+        "es-MX": "Guardar e Imprimir",
+        "en-US": "Save and Print"
+    },
+    "DetalleAvisoLlegada0064": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "DetalleAvisoLlegada0065": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "DetalleAvisoLlegada0066": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DetalleAvisoLlegada0067": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {

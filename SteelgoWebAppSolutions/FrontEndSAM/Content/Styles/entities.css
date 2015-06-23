@@ -630,7 +630,7 @@ header .menu > div {
     height: 79px;
     max-height: 79px;
     padding: 31px 30px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
     .breadcrumb li {
@@ -892,7 +892,7 @@ header .menu > div {
             margin-right: 0px;
         }
 
-        .formNav .action-group a span:first-child {
+        .formNav .action-group #Acciones > span:first-child {
             float: left;
         }
 /**********************************************************************************/
