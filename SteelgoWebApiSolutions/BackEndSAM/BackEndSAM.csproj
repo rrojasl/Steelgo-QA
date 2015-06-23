@@ -153,6 +153,8 @@
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
+    <Compile Include="DataAcces\TipoArchivoBd.cs" />
+    <Compile Include="DataAcces\TipoAvisoBd.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
     <Compile Include="DataAcces\ChoferBd.cs" />
     <Compile Include="DataAcces\ContactoBd.cs" />

@@ -81,12 +81,13 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.EsVirtual = false;
                     nuevoAvisoLlegada.PaseSalidaEnviado = false;
                     nuevoAvisoLlegada.PatioID = avisoJson.Patio[0].PatioID;
-                    nuevoAvisoLlegada.ProveedorID = avisoJson.Proveedor[0].ProveedorID;
                     nuevoAvisoLlegada.TransportistaID = avisoJson.Transportista[0].TransportistaID;
                     nuevoAvisoLlegada.FechaRecepcion = Convert.ToDateTime(avisoJson.FechaRecepcion);
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
-                    nuevoAvisoLlegada.VehiculoID = Convert.ToInt32(avisoJson.Tracto.VehiculoID);
+                    nuevoAvisoLlegada.VehiculoID = avisoJson.Tracto.VehiculoID != null ? Convert.ToInt32(avisoJson.Tracto.VehiculoID) : 0;
+                    nuevoAvisoLlegada.ClienteID = avisoJson.ClienteID != null ? Convert.ToInt32(avisoJson.ClienteID) : 0;
+                    nuevoAvisoLlegada.TipoAvisoID = avisoJson.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(avisoJson.TipoAviso.TipoAvisoID) : 0;
                     //Guardamos los cambios
                     ctx.Sam3_FolioAvisoLlegada.Add(nuevoAvisoLlegada);
                     ctx.SaveChanges();
@@ -102,7 +103,7 @@ namespace BackEndSAM.DataAcces
                             nuevoPermiso.Activo = true;
                             nuevoPermiso.Estatus = "Creado";
                             nuevoPermiso.FolioAvisoLlegadaID = nuevoID;
-                            nuevoPermiso.NumeroPermiso = Convert.ToInt32(permisoAv.NumeroPermiso);
+                            nuevoPermiso.NumeroPermiso = permisoAv.NumeroPermiso != null ? Convert.ToInt32(permisoAv.NumeroPermiso) : 0;
                             nuevoPermiso.PermisoAutorizado = permisoAv.PermisoAutorizado;
                             nuevoPermiso.PermisoTramite = permisoAv.PermisoTramite;
                             nuevoPermiso.UsuarioModificacion = usuario.UsuarioID;
@@ -156,21 +157,6 @@ namespace BackEndSAM.DataAcces
                         }
                     }
 
-
-                    //Guardamos los archivos del pase de salida
-                    //foreach (ArchivosAV archivosAvisollegada in avisoJson.Archivos)
-                    //{
-                    //    Sam3_Rel_FolioAvisoLlegada_Documento documentoLlegada = new Sam3_Rel_FolioAvisoLlegada_Documento();
-                    //    documentoLlegada.Activo = true;
-                    //    documentoLlegada.DocumentoID = archivosAvisollegada.ArchivoID;
-                    //    documentoLlegada.Extencion = archivosAvisollegada.Extension;
-                    //    documentoLlegada.Nombre = archivosAvisollegada.Nombre;
-                    //    documentoLlegada.FolioAvisoLlegadaID = nuevoID;
-                    //    documentoLlegada.UsuarioModificacion = usuario.UsuarioID;
-                    //    documentoLlegada.FechaModificacion = DateTime.Now;
-                    //    ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(documentoLlegada);
-                    //}
-
                     //guardamos todos los cambios pendientes
                     ctx.SaveChanges();
 
@@ -212,7 +198,6 @@ namespace BackEndSAM.DataAcces
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
                     List<int> proyectos = filtros.Proyectos.Select(x => x.ProyectoID).ToList();
-                    List<int> proveedores = filtros.Proveedor.Select(x => x.ProveedorID).ToList();
                     List<int> patios = filtros.Patio.Select(x => x.PatioID).ToList();
 
                     if (folioLlegadaID > 0)
@@ -231,7 +216,6 @@ namespace BackEndSAM.DataAcces
                                                  a.FolioAvisoLlegadaID equals apr.FolioAvisoLlegadaID
                                                  where a.Activo.Value == true
                                                  && patios.Contains(a.PatioID)
-                                                 && proveedores.Contains(a.ProveedorID)
                                                  && proyectos.Contains(apr.ProyectoID)
                                                  && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
                                                  select a.FolioAvisoLlegadaID).AsParallel().ToList();
@@ -273,22 +257,17 @@ namespace BackEndSAM.DataAcces
                                              }).AsParallel().SingleOrDefault();
 
                         aviso.Tracto = tractoBd != null ? tractoBd : new TractoAV { VehiculoID = "0", Placas = string.Empty };
+                        aviso.ClienteID = registroBd.ClienteID.ToString();
 
-                        //Obtenemos el listado de archivos de pase de salida
-                        List<ArchivosPaseSalida> archivosPaseSalida = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
-                                                                       where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID
-                                                                       && r.Activo
-                                                                       select new ArchivosPaseSalida
-                                                                       {
-                                                                           Nombre = r.Nombre,
-                                                                           Extension = r.Extencion,
-                                                                           ArchivoID = r.DocumentoID.ToString()
-                                                                       }).AsParallel().ToList();
-                        aviso.PaseSalida.Add(new PaseSalidaAV
-                        {
-                            PaseSalidaEnviado = registroBd.PaseSalidaEnviado.Value,
-                            Archivos = archivosPaseSalida
-                        });
+                        TipoAvisoAV tipoAvisoBD = (from r in ctx.Sam3_TipoAviso
+                                                   join a in ctx.Sam3_FolioAvisoLlegada on r.TipoAvisoID equals a.TipoAvisoID
+                                                   select new TipoAvisoAV
+                                                   {
+                                                       Nombre = r.Nombre,
+                                                       TipoAvisoID = r.TipoAvisoID.ToString()
+                                                   }).AsParallel().SingleOrDefault();
+
+                        aviso.TipoAviso = tipoAvisoBD != null ? tipoAvisoBD : new TipoAvisoAV { Nombre = string.Empty, TipoAvisoID = "0" };
 
                         //agregamos los patios
                         aviso.Patio = (from r in ctx.Sam3_Patio
@@ -296,7 +275,8 @@ namespace BackEndSAM.DataAcces
                                        select new PatioAV
                                        {
                                            Nombre = r.Nombre,
-                                           PatioID = r.PatioID
+                                           PatioID = r.PatioID,
+                                           RequierePermisoAduana = r.RequierePermisoAduana
                                        }).AsParallel().ToList();
 
                         //agregar permisos de aduana
@@ -345,13 +325,6 @@ namespace BackEndSAM.DataAcces
                                            PlanaID = r.VehiculoID
                                        }).AsParallel().ToList();
 
-                        aviso.Proveedor = (from r in ctx.Sam3_Proveedor
-                                           where r.ProveedorID == registroBd.ProveedorID && r.Activo
-                                           select new ProveedorAV
-                                           {
-                                               Nombre = r.Nombre,
-                                               ProveedorID = r.ProveedorID
-                                           }).AsParallel().ToList();
 
                         aviso.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                            where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID && r.Activo
@@ -428,22 +401,19 @@ namespace BackEndSAM.DataAcces
                                          }).AsParallel().SingleOrDefault();
 
                     aviso.Tracto = tractoBd != null ? tractoBd : new TractoAV { VehiculoID = "0", Placas = string.Empty };
+                    aviso.ClienteID = registroBd.ClienteID.ToString();
 
-                    //Obtenemos el listado de archivos de pase de salida
-                    List<ArchivosPaseSalida> archivosPaseSalida = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
-                                                                   where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID
-                                                                   && r.Activo
-                                                                   select new ArchivosPaseSalida
-                                                                   {
-                                                                       Nombre = r.Nombre,
-                                                                       Extension = r.Extencion,
-                                                                       ArchivoID = r.DocumentoID.ToString()
-                                                                   }).AsParallel().ToList();
-                    aviso.PaseSalida.Add(new PaseSalidaAV
-                    {
-                        PaseSalidaEnviado = registroBd.PaseSalidaEnviado.Value,
-                        Archivos = archivosPaseSalida
-                    });
+                    TipoAvisoAV tipoAvisoBD = (from r in ctx.Sam3_TipoAviso
+                                               join a in ctx.Sam3_FolioAvisoLlegada on r.TipoAvisoID equals a.TipoAvisoID
+                                               select new TipoAvisoAV
+                                               {
+                                                   Nombre = r.Nombre,
+                                                   TipoAvisoID = r.TipoAvisoID.ToString()
+                                               }).AsParallel().SingleOrDefault();
+
+                    aviso.TipoAviso = tipoAvisoBD != null ? tipoAvisoBD : new TipoAvisoAV { Nombre = string.Empty, TipoAvisoID = "0" };
+
+                    
 
                     //agregamos los patios
                     aviso.Patio = (from r in ctx.Sam3_Patio
@@ -451,7 +421,8 @@ namespace BackEndSAM.DataAcces
                                    select new PatioAV
                                    {
                                        Nombre = r.Nombre,
-                                       PatioID = r.PatioID
+                                       PatioID = r.PatioID,
+                                       RequierePermisoAduana = r.RequierePermisoAduana
                                    }).AsParallel().ToList();
 
                     //agregar permisos de aduana
@@ -499,14 +470,6 @@ namespace BackEndSAM.DataAcces
                                    {
                                        PlanaID = r.VehiculoID
                                    }).AsParallel().ToList();
-
-                    aviso.Proveedor = (from r in ctx.Sam3_Proveedor
-                                       where r.ProveedorID == registroBd.ProveedorID && r.Activo
-                                       select new ProveedorAV
-                                       {
-                                           Nombre = r.Nombre,
-                                           ProveedorID = r.ProveedorID
-                                       }).AsParallel().ToList();
 
                     aviso.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                        where r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID && r.Activo
@@ -593,11 +556,12 @@ namespace BackEndSAM.DataAcces
                         avisoBd.FechaModificacion = DateTime.Now;
                         avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
                         avisoBd.PatioID = cambios.Patio[0].PatioID;
-                        avisoBd.ProveedorID = cambios.Proveedor[0].ProveedorID;
                         avisoBd.TransportistaID = cambios.Transportista[0].TransportistaID;
                         avisoBd.UsuarioModificacion = usuario.UsuarioID;
-                        avisoBd.VehiculoID = Convert.ToInt32(cambios.Tracto.VehiculoID);
-
+                        avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 0;
+                        avisoBd.ClienteID = cambios.ClienteID != null ? Convert.ToInt32(cambios.ClienteID) : 0;
+                        avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 0;
+                        avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
 
                         //Actualizar informacion de las planas
                         foreach (PlanaAV plana in cambios.Plana)
@@ -654,6 +618,9 @@ namespace BackEndSAM.DataAcces
                                 ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevoProyecto);
                             }
                         }
+
+                        avisoBd.UsuarioModificacion = usuario.UsuarioID;
+                        avisoBd.FechaModificacion = DateTime.Now;
 
                         ctx.SaveChanges();
 

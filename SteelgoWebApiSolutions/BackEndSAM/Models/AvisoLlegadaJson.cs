@@ -9,33 +9,37 @@ namespace BackEndSAM.Models
     public class AvisoLlegadaJson
     {
         public int FolioAvisoLlegadaID { get; set; }
-        public string Factura { get; set; }
         public string FechaRecepcion { get; set; }
-        public string OrdenCompra { get; set; }
         public TractoAV Tracto { get; set; }
         public List<ProyectosAV> Proyectos { get; set; }
         public List<TransportistaAV> Transportista { get; set; }
-        public List<ProveedorAV> Proveedor { get; set; }
         public List<PlanaAV> Plana { get; set; }
         public List<PatioAV> Patio { get; set; }
         public List<ChoferAV> Chofer { get; set; }
         public List<ArchivosAV> Archivos { get; set; }
         public List<PermisoAduanaAV> PermisoAduana { get; set; }
-        public List<PaseSalidaAV> PaseSalida { get; set; }
+        public bool PaseSalidaEnviado { get; set; }
+        public string ClienteID { get; set; }
+        public TipoAvisoAV TipoAviso { get; set; } 
 
         public AvisoLlegadaJson()
         {
             Proyectos = new List<ProyectosAV>();
             Transportista = new List<TransportistaAV>();
-            Proveedor = new List<ProveedorAV>();
             Plana = new List<PlanaAV>();
             Patio = new List<PatioAV>();
             Chofer = new List<ChoferAV>();
             Archivos = new List<ArchivosAV>();
             PermisoAduana = new List<PermisoAduanaAV>();
-            PaseSalida = new List<PaseSalidaAV>();
             Tracto = new TractoAV();
+            TipoAviso = new TipoAvisoAV();
         }
+    }
+
+    public class TipoAvisoAV
+    {
+        public string TipoAvisoID { get; set;}
+        public string Nombre { get; set;}
     }
 
     public class TractoAV
@@ -70,6 +74,7 @@ namespace BackEndSAM.Models
     {
         public int PatioID { get; set; }
         public string Nombre { get; set; }
+        public bool RequierePermisoAduana { get; set; }
     }
 
     public class ChoferAV
@@ -110,7 +115,6 @@ namespace BackEndSAM.Models
 
     public class PaseSalidaAV
     {
-        public bool PaseSalidaEnviado { get; set; }
         public List<ArchivosPaseSalida> Archivos { get; set; }
 
         public PaseSalidaAV()
