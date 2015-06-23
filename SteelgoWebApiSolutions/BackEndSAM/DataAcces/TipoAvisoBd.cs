@@ -13,7 +13,33 @@ namespace BackEndSAM.DataAcces
 {
     public class TipoAvisoBd
     {
+        private static readonly object _mutex = new object();
+        private static TipoAvisoBd _instance;
 
+        /// <summary>
+        /// constructor privado para implementar el patron Singleton
+        /// </summary>
+        private TipoAvisoBd()
+        {
+        }
+
+        /// <summary>
+        /// crea una instancia de la clase
+        /// </summary>
+        public static TipoAvisoBd Instance
+        {
+            get
+            {
+                lock (_mutex)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new TipoAvisoBd();
+                    }
+                }
+                return _instance;
+            }
+        }
 
         public object ObtenerListadoTipoAviso(Sam3_Usuario usuario)
         {
@@ -44,13 +70,23 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object insertarTipoAviso(TipoAviso aviso, Sam3_Usuario usuario)
+        public object insertarTipoAviso(Sam3_TipoAviso aviso, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    return null;
+                    Sam3_TipoAviso nuevoAviso = new Sam3_TipoAviso();
+                    nuevoAviso.Activo = true;
+                    nuevoAviso.FechaModificacion = DateTime.Now;
+                    nuevoAviso.Nombre = aviso.Nombre;
+                    nuevoAviso.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.Sam3_TipoAviso.Add(nuevoAviso);
+
+                    ctx.SaveChanges();
+
+                    return new TipoAviso { Nombre = nuevoAviso.Nombre, TipoAvisoID = nuevoAviso.TipoAvisoID.ToString() };
                 }
             }
             catch (Exception ex)
@@ -65,13 +101,28 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ActualizarTipoAviso(TipoAviso aviso, Sam3_Usuario usuario)
+        public object ActualizarTipoAviso(Sam3_TipoAviso aviso, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    return null;
+
+                    Sam3_TipoAviso avisoBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID == aviso.TipoAvisoID).AsParallel().SingleOrDefault();
+                    avisoBd.Nombre = aviso.Nombre;
+                    avisoBd.FechaModificacion = DateTime.Now;
+                    avisoBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -92,7 +143,20 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    return null;
+                    Sam3_TipoAviso avisoBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID == tipoAvisoID).AsParallel().SingleOrDefault();
+                    avisoBd.Activo = false;
+                    avisoBd.FechaModificacion = DateTime.Now;
+                    avisoBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)

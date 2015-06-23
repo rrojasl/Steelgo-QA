@@ -17,9 +17,9 @@ using BackEndSAM.Models;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class TipoAvisoController : ApiController
+    public class TipoArchivoController : ApiController
     {
-        // GET api/tipoaviso
+        // GET api/TipoArchivo
         public object Get(string token)
         {
             try
@@ -32,7 +32,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return TipoAvisoBd.Instance.ObtenerListadoTipoAviso(usuario);
+                    return null;
                 }
                 else
                 {
@@ -55,8 +55,8 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        // POST api/tipoaviso
-        public object Post(Sam3_TipoAviso aviso, string token)
+        // POST api/TipoArchivo
+        public object Post(Sam3_TipoArchivo tipoArchivo, string token)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return TipoAvisoBd.Instance.insertarTipoAviso(aviso, usuario);
+                    return null;
                 }
                 else
                 {
@@ -91,8 +91,8 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        // PUT api/tipoaviso/5
-        public object Put(Sam3_TipoAviso aviso, string token)
+        // PUT api/TipoArchivo
+        public object Put(Sam3_TipoArchivo tipoArchivo, string token)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return TipoAvisoBd.Instance.ActualizarTipoAviso(aviso, usuario);
+                    return null;
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        // DELETE api/tipoaviso/5
+        // DELETE api/TipoArchivo/5
         public object Delete(int id, string token)
         {
             try
@@ -140,7 +140,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return TipoAvisoBd.Instance.EliminarTipoAviso(id, usuario);
+                    return null;
                 }
                 else
                 {
