@@ -495,8 +495,9 @@
         var $Contacto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $folioEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $FiltrosListadoEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $TipoVehiculo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var redireccionAutomatica = true;
-
+        
         $Plana.add("Plana");
         $Transportista.add("Transportista");
         $Patio.add("Patio");
@@ -504,10 +505,11 @@
         $AvisoLlegada.add("AvisoLlegada");
         $Chofer.add("Chofer");
         $Proyecto.add("Proyecto");
-        $Camion.add("Camion");
+        $Camion.add("Tracto");
         $Contacto.add("Contacto");
         $folioEntradaMaterial.add("Listado");
         $FiltrosListadoEntradaMaterial.add("AvisoLlegada");
+        $TipoVehiculo.add("TipoVehiculo");
 
         var $authorizationModel = {};
         var $layoutModel = {

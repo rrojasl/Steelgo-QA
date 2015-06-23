@@ -18,7 +18,7 @@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <span id="divFolio" class="folioLabel">
+            <span id="divFolio" class="folioLabel hidden">
                 <span id="DetalleAvisoLlegada0042"></span>
                 <span id="spanFolio"></span>
             </span>
@@ -26,109 +26,118 @@
             <div class="formNav clearfix">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-container">
-                            <a id="Guardar" href="javascript:void(0);" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></a>
+                        <div class="button-container">                        
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
+                                <button type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><span id="DetalleAvisoLlegada0062"></span></a></li>
+                                    <li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>
+                                </ul>
+                            </div>
                             <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
                         <div class="button-container">
                             <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
                         <div class="button-container">
-                            <a id="" href="" class="btn btn-default"><span id="">Acciones</span></a>
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <a id="" href="" class="btn btn-default"><span id="">Imprimir</span></a>
+                        <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="form-group col-sm-12 col-md-4 col-lg-3">
-                        <label id="" class="required">Cliente</label>
-                        <input id="" />
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0067" class="required"></label>
+                            <input id="" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0001"></label>
+                            <input id="ProyectoID" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0004"></label>
+                            <input id="FechaRecepcion" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0008" class="required"></label>
+                            <input id="PatioID" class="" />
+                        </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-4 col-lg-3">
-                        <label id="DetalleAvisoLlegada0001" class="required"></label>
-                        <input id="ProyectoID" />
-                    </div>
-                    <div class="form-group col-sm-4 col-md-4 col-lg-3">
-                        <label id="DetalleAvisoLlegada0004" class="required"></label>
-                        <input id="FechaRecepcion" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                        <label id="DetalleAvisoLlegada0008" class="required"></label>
-                        <input id="PatioID" class="" />
-                    </div>
-                    @*
-                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                        <label id="DetalleAvisoLlegada0007"></label>
-                        <input id="OrdenDeCompra" />
-                    </div>
-                    <div class="form-group col-sm-4 col-md-6 col-lg-2">
-                        <label id="DetalleAvisoLlegada0002"></label>
-                        <input id="Factura" />
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-                        <label id="DetalleAvisoLlegada0005"></label>
-                        <input id="ProveedorID" class="" />
-                    </div>
-                    *@
                 </div>
-                <div class="row">
-                    <div class="form-group col-sm-6 col-md-4 col-lg-4">
-                        <label id="DetalleAvisoLlegada0003"></label>
-                        <input id="TransportistaID" class="" />
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0003"></label>
+                            <input id="TransportistaID" class="" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0006"></label>
+                            <input id="PlanaID" class="" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                            <label id="DetalleAvisoLlegada0009"></label>
+                            <input id="ChoferID" class="" />
+                        </div>                        
+                        <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                            <label id="DetalleAvisoLlegada0055"></label>
+                            <input id="CamionID" class="" />
+                        </div>
                     </div>
-                    <div class="form-group col-sm-6 col-md-4 col-lg-4">
-                        <label id="DetalleAvisoLlegada0006"></label>
-                        <input id="PlanaID" class="" />
-                    </div>
-                    <div class="form-group col-sm-6 col-md-6 col-lg-4">
-                        <label id="DetalleAvisoLlegada0009"></label>
-                        <input id="ChoferID" class="" />
-                    </div>
-                    @*
-                    <div class="form-group col-sm-12 col-md-6 col-lg-4">
-                        <label id="DetalleAvisoLlegada0055"></label>
-                        <input id="CamionID" class="" />
-                    </div>
-                    *@
                 </div>
-                <div class="branchCut"></div>
-                <div class="row">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <label id="DetalleAvisoLlegada0010"></label>
-                                <div class="row">
-                                    <div class="col-sm-5 col-md-5 col-lg-2">
-                                        <input id="TipoArchivo" class="" />
-                                    </div>
-                                    <div class="col-sm-7 col-md-7 col-lg-6">
-                                        <input name="files" id="files" type="file" />
-                                    </div>
+            </div>
+            <div class="branchCut"></div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <label id="DetalleAvisoLlegada0010"></label>
+                            <div class="row">
+                                <div class="col-sm-5 col-md-6 col-lg-2">
+                                    <input id="TipoArchivo" class="" />
+                                </div>
+                                <div class="col-sm-7 col-md-6 col-lg-6">
+                                    <input name="files" id="files" type="file" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <table id="listaArchivos" class="filesTable">
-                                    <thead>
-                                        <tr>
-                                            <td>
-                                                <label id="DetalleAvisoLlegada0045"></label>
-                                            </td>
-                                            <td>
-                                                <label id="DetalleAvisoLlegada0046"></label>
-                                            </td>
-                                            <td>
-                                                <label id="DetalleAvisoLlegada0047"></label>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <table id="listaArchivos" class="filesTable">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0045"></label>
+                                        </td>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0046"></label>
+                                        </td>
+                                        <td>
+                                            <label id="DetalleAvisoLlegada0047"></label>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -305,12 +314,24 @@
 
         <div id="modalPlana" style="display: none">
             <div class="form-group">
+                <label id="DetalleAvisoLlegada0068"></label>
+                <input id="TipoVehiculo_Plana" class="" />
+            </div>
+            <div class="form-group">
                 <label id="DetalleAvisoLlegada0032"></label>
                 <input id="CamionID_Plana" class="" />
             </div>
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0033"></label>
                 <input id="Placas_Plana" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0069"></label>
+                <input id="Unidad_Plana" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0070"></label>
+                <input id="Modelo_Plana" class="" />
             </div>
             <div class="buttonSave">
                 <a id="GuardarPlana" href="javascript:void(0);" class="btn btn-primary">
@@ -319,6 +340,10 @@
             </div>
         </div>
         <div id="modalCamion" style="display: none">
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0071"></label>
+                <input id="TipoVehiculo_Camion" class="" />
+            </div>
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0056"></label>
                 <input id="TransportistaID_Camion" class="" />
@@ -338,6 +363,14 @@
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0060"></label>
                 <input id="PolizaSeguro" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0072"></label>
+                <input id="Unidad_Camion" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0073"></label>
+                <input id="Modelo_Camion" class="" />
             </div>
             <div class="buttonSave">
                 <a id="GuardarCamion" href="javascript:void(0);" class="btn btn-primary">
@@ -360,7 +393,7 @@
         var Transportista = [], Proveedor = [], Patio = [],
             Plana = [], Chofer = [], Contacto = [], Camion = [],
             CamionEntradaMaterial = [], TransportistaCamion = [],
-            ChoferCamion = [];
+            ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [];
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -525,21 +558,6 @@
                 });
                 ObtenerTransportista();
 
-                $("#ProveedorID").kendoComboBox({
-                    dataTextField: "Nombre",
-                    dataValueField: "ProveedorID",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        if (dataItem.ProveedorID == 0) {
-                            VentanaModal(2);
-                            e.preventDefault();
-                        }
-                        CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-                    },
-                    filter: "contains",
-                });
-                ObtenerProveedor();
-
                 $("#PlanaID").kendoMultiSelect({
                     dataTextField: "Nombre",
                     dataValueField: "PlanaID",
@@ -588,15 +606,15 @@
                 ObtenerChofer();
 
                 $("#TipoArchivo").kendoComboBox({
-                    dataSource: {
-                        serverFiltering: false,
-                        type: "json",
-                        transport: {
-                            read: {
-                                url: "http://localhost:60960/backendsam/api/Proyecto",
-                            }
-                        }
-                    },
+                    //dataSource: {
+                    //    serverFiltering: false,
+                    //    type: "json",
+                    //    transport: {
+                    //        read: {
+                    //            url: "http://localhost:60960/backendsam/api/Proyecto",
+                    //        }
+                    //    }
+                    //},
                     dataTextField: "value",
                     dataValueField: "id",
                     filter: "contains",
@@ -631,28 +649,50 @@
                 //modal Camion
                 $("#CamionID_Plana").kendoComboBox({
                     dataTextField: "Placas",
-                    dataValueField: "CamionID",
+                    dataValueField: "VehiculoID",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
-                        CargarCamion(dataItem.CamionID, dataItem.Placas);
+                        CargarCamion(dataItem.VehiculoID, dataItem.Placas);
                     },
                     filter: "contains",
                 });
                 ObtenerCamion();
 
+                $("#TipoVehiculo_Plana").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "TipoVehiculoID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerTipoVehiculoPlana();
+
+                $("#TipoVehiculo_Camion").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "TipoVehiculoID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerTipoVehiculoTracto();
+
                 //Camion
                 $("#CamionID").kendoComboBox({
                     dataTextField: "Placas",
-                    dataValueField: "CamionID",
+                    dataValueField: "VehiculoID",
                     select: function (e) {
 
                         var dataItem = this.dataItem(e.item.index());
-                        if (dataItem.CamionID == 0) {
+                        if (dataItem.VehiculoID == 0) {
                             VentanaModal(6);
                             e.preventDefault();
                         }
 
-                        CargarCamionEntradaMaterial(dataItem.CamionID, dataItem.Placas);
+                        CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas);
                     },
                     filter: "contains",
                 });
@@ -1070,6 +1110,22 @@
                 Camion.push(_camion);
             };
 
+            function CargarTipoVehiculoTracto(id, value) {
+                TipoVehiculoTracto = [];
+                _tipovehiculo = {};
+                _tipovehiculo["TipoVehiculoID"] = id;
+                _tipovehiculo["Nombre"] = value;
+                TipoVehiculoTracto.push(_tipovehiculo);
+            };
+
+            function CargarTipoVehiculoPlana(id, value) {
+                TipoVehiculoPlana = [];
+                _tipovehiculo = {};
+                _tipovehiculo["TipoVehiculoID"] = id;
+                _tipovehiculo["Nombre"] = value;
+                TipoVehiculoPlana.push(_tipovehiculo);
+            };
+
             function CargarCamionEntradaMaterial(id, value) {
                 CamionEntradaMaterial = [];
                 _camion = {};
@@ -1244,7 +1300,22 @@
 
             function GuardarPlana() {
                 var camionid = Camion.length > 0 ? Camion[0].CamionID : "-1";
-                $Plana.Plana.create({}, { placas: $("#Placas_Plana").val(), camionID: camionid, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                PlanaModal = [];
+                PlanaModal[0] = { TipoVehiculoID: "", Placas: "", TarjetaCirculacion: "", PolizaSeguro: "", Unidad: "", Modelo: "", VehiculoID: "", ChoferID: "", TransPortistaID: "", TractoID: "" };
+
+                PlanaModal[0].TipoVehiculoID = TipoVehiculoPlana.length > 0 ? TipoVehiculoPlana[0].TipoVehiculoID : "-1";
+                PlanaModal[0].Placas = $("#Placas_Plana").val();
+                PlanaModal[0].TarjetaCirculacion = "";
+                PlanaModal[0].PolizaSeguro = "";
+                PlanaModal[0].Unidad = $("#Unidad_Plana").val();
+                PlanaModal[0].Modelo = $("#Modelo_Plana").val();
+                PlanaModal[0].VehiculoID = "";
+                PlanaModal[0].ChoferID = "";
+                PlanaModal[0].TransPortistaID = "";
+                PlanaModal[0].TractoID = camionid;
+                console.log("camionid: " + camionid);
+
+                $Plana.Plana.create(PlanaModal[0], { token: Cookies.get("token") }).done(function (data) {
                     if (data.ReturnCode) {
                         if (data.ReturnCode == 401) {
                             removeUserSession();
@@ -1258,21 +1329,26 @@
                     ObtenerPlanas();
                 });
             };
-        
+
             function GuardarCamion() {
                 var transportistaID = TransportistaCamion.length > 0 ? TransportistaCamion[0].TransportistaID : "-1";
                 var choferid = ChoferCamion.length > 0 ? ChoferCamion[0].ChoferID : "-1";
 
                 CamionModal = [];
-                CamionModal[0] = { TransportistaID: "", ChoferID: "", Placas: "", TarjetaCirulacion: "", PolizaSeguro: "" };
-                CamionModal[0].TransportistaID = transportistaID;
-                CamionModal[0].ChoferID = choferid;
+                CamionModal[0] = { TipoVehiculoID: "", Placas: "", TarjetaCirulacion: "", PolizaSeguro: "", Unidad: "", Modelo: "", VehiculoID: "", ChoferID: "", TransportistaID: "", TractoID: "" };
+
+                CamionModal[0].TipoVehiculoID = TipoVehiculoTracto.length > 0 ? TipoVehiculoTracto[0].TipoVehiculoID : "-1";
                 CamionModal[0].Placas = $("#Placas_Camion").val();
                 CamionModal[0].TarjetaCirulacion = $("#TarjetaCirculacion_Camion").val();
                 CamionModal[0].PolizaSeguro = $("#PolizaSeguro").val();
-            
+                CamionModal[0].Unidad = $("#Unidad_Camion").val();
+                CamionModal[0].Modelo = $("#Modelo_Camion").val();
+                CamionModal[0].VehiculoID = "";
+                CamionModal[0].ChoferID = choferid;
+                CamionModal[0].TransportistaID = transportistaID;
+                CamionModal[0].TractoID = "";
 
-                $Camion.Camion.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
+                $Camion.Tracto.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.Camion.create");
                     if (data.ReturnCode) {
                         if (data.ReturnCode == 401) {
@@ -1319,17 +1395,25 @@
             function LimpiarModalPlana() {
                 $("#CamionID_Plana").data("kendoComboBox").value("");
                 $("#Placas_Plana").val("");
+                $("#Unidad_Plana").val("");
+                $("#Modelo_Plana").val("");
                 Camion = [];
+                TipoVehiculoPlana = [];
             };
+
             function LimpiarModalCamion() {
                 $("#TransportistaID_Camion").data("kendoComboBox").value("");
                 $("#ChoferID_Camion").data("kendoComboBox").value("");
                 $("#Placas_Camion").val("");
                 $("#TarjetaCirculacion_Camion").val("");
                 $("#PolizaSeguro").val("");
+                $("#Unidad_Camion").val("");
+                $("#Modelo_Camion").val("");
                 TransportistaCamion = [];
                 ChoferCamion = [];
+                TipoVehiculoTracto = [];
             };
+
             function GenerarPermiso() {
                 TramitarPermiso = [];
                 TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
@@ -1425,7 +1509,7 @@
             };
         
             function ObtenerCamion() {
-                $Camion.Camion.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                $Camion.Tracto.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
                         removeUserSession();
                     } else {
@@ -1434,8 +1518,28 @@
                 });
             };
 
+            function ObtenerTipoVehiculoPlana() {
+                $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#TipoVehiculo_Plana").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
+            function ObtenerTipoVehiculoTracto() {
+                $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#TipoVehiculo_Camion").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Camion.read({ esAvisoEntrada:1, token: Cookies.get("token") }).done(function (result) {
+                $Camion.Tracto.read({ esAvisoEntrada:1, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
                         removeUserSession();
                     } else {
@@ -1454,7 +1558,6 @@
                 });
 
             };
-
             function ObtenerTransportistaCamion() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
@@ -1489,7 +1592,7 @@
                     //$.each(data, function (index, value) {
                     //    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     //});
-        
+
                 });
             }
 
