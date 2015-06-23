@@ -25,7 +25,6 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listaAvisoLlegada = (from x in ctx.Sam3_FolioAvisoLlegada
-                                     join p in ctx.Sam3_Proveedor on x.ProveedorID equals p.ProveedorID
                                      join ch in ctx.Sam3_Chofer on x.ChoferID equals ch.ChoferID
                                      join tr in ctx.Sam3_Transportista on x.TransportistaID equals tr.TransportistaID
                                      join v in ctx.Sam3_Vehiculo on x.VehiculoID equals v.VehiculoID
@@ -33,11 +32,11 @@ namespace BackEndSAM.DataAcces
                                      select new FormatoPermisoAduana
                                      {
                                          FechaRecepcion = x.FechaRecepcion,
-                                         NombreProveedor = p.Nombre,
+                                         NombreProveedor = x.ClienteID.ToString(),
                                          NombreChofer = ch.Nombre,
                                          NombreTransportista = tr.Nombre,
                                          PlacasCamion = v.Placas
-                                     }).ToList();
+                                     }).AsParallel().ToList();
                 }
                 return listaAvisoLlegada;
             }
