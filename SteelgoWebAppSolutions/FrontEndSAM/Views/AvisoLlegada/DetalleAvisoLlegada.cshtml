@@ -501,6 +501,14 @@
                         if (dataItem.PlanaID == 0) {
                             VentanaModal(3);
                             e.preventDefault();
+
+                            var combobox = $("#TipoVehiculo_Plana").data("kendoComboBox");
+                            combobox.select(function (dataItem) {
+                                if (dataItem.Nombre == "Plana") {
+                                    CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
+                                    return dataItem.Nombre === "Plana";
+                                }
+                            });
                         }
                     }
                 });
@@ -624,6 +632,14 @@
                         if (dataItem.VehiculoID == 0) {
                             VentanaModal(6);
                             e.preventDefault();
+                            var combobox = $("#TipoVehiculo_Camion").data("kendoComboBox");
+                            combobox.select(function (dataItem) {
+                                if (dataItem.Nombre == "Tracto") {
+                                    CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
+                                    return dataItem.Nombre === "Tracto";
+                                }
+                            });
+
                         }
 
                         CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas);
@@ -711,7 +727,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", CamionID: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAvisoID: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -803,8 +819,10 @@
                 AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].PermisoAduana = _permisoAduana;
-                AvisoLlegada[0].CamionID = CamionEntradaMaterial.length > 0 ? CamionEntradaMaterial[0].CamionID : "-1";
+                AvisoLlegada[0].Tracto = CamionEntradaMaterial.length > 0 ? CamionEntradaMaterial[0].CamionID : "-1";
                 //AvisoLlegada[0].PaseSalida = _archivosPackingList;
+                AvisoLlegada[0].ClienteID = Cliente.length > 0 ? Cliente[0].ClienteID : "-1";
+                AvisoLlegada[0].TipoAvisoID = TipoAvisos.length > 0 ? TipoAvisos[0].TipoAvisoID : "-1";
 
                 console.log(AvisoLlegada[0]);
 
@@ -904,6 +922,17 @@
                         CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                     }
+
+                    if (data.Cliente.length > 0) {
+                        CargarTransportista(data.Cliente[0].ClienteID, data.Cliente[0].Nombre);
+                        $("#ClienteID").data("kendoComboBox").value(data.Cliente[0].Nombre);
+                    }
+
+                    if (data.TipoAviso.length > 0) {
+                        CargarTransportista(data.TipoAviso[0].TipoAvisoID, data.TipoAviso[0].Nombre);
+                        $("#TipoAvisoID").data("kendoComboBox").value(data.TipoAviso[0].Nombre);
+                    }
+
                     //Fecha Recepcion
                     var d = new Date(data.FechaRecepcion);
                     $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
