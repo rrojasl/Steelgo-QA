@@ -25,19 +25,19 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listaAvisoLlegada = (from x in ctx.Sam3_FolioAvisoLlegada
-                                         join p in ctx.Sam3_Proveedor on x.ProveedorID equals p.ProveedorID
-                                         join ch in ctx.Sam3_Chofer on x.ChoferID equals ch.ChoferID
-                                         join tr in ctx.Sam3_Transportista on x.TransportistaID equals tr.TransportistaID
-                                         join ca in ctx.Sam3_Camion on x.CamionID equals ca.CamionID
-                                         where (x.FolioAvisoLlegadaID == folio)
-                                         select new FormatoPermisoAduana
-                                         {
-                                             FechaRecepcion = x.FechaRecepcion,
-                                             NombreProveedor = p.Nombre,
-                                             NombreChofer = ch.Nombre,
-                                             NombreTransportista = tr.Nombre,
-                                             PlacasCamion = ca.Placas
-                                         }).ToList();
+                                     join p in ctx.Sam3_Proveedor on x.ProveedorID equals p.ProveedorID
+                                     join ch in ctx.Sam3_Chofer on x.ChoferID equals ch.ChoferID
+                                     join tr in ctx.Sam3_Transportista on x.TransportistaID equals tr.TransportistaID
+                                     join v in ctx.Sam3_Vehiculo on x.VehiculoID equals v.VehiculoID
+                                     where (x.FolioAvisoLlegadaID == folio)
+                                     select new FormatoPermisoAduana
+                                     {
+                                         FechaRecepcion = x.FechaRecepcion,
+                                         NombreProveedor = p.Nombre,
+                                         NombreChofer = ch.Nombre,
+                                         NombreTransportista = tr.Nombre,
+                                         PlacasCamion = v.Placas
+                                     }).ToList();
                 }
                 return listaAvisoLlegada;
             }
@@ -65,10 +65,10 @@ namespace BackEndSAM.DataAcces
                 List<string> listaPlana = new List<string>();
                 using (SamContext ctx = new SamContext())
                 {
-                    listaPlana = (from avPlana in ctx.Sam3_Rel_AvisoLlegada_Plana
-                                  join plana in ctx.Sam3_Plana on avPlana.PlanaID equals plana.PlanaID
-                                  where (avPlana.FolioAvisoLlegadaID == folio)
-                                  select plana.Placas).ToList();
+               listaPlana = (from avPlana in ctx.Sam3_Rel_FolioAvisoLlegada_Vehiculo
+                              join plana in ctx.Sam3_Vehiculo on avPlana.VehiculoID equals plana.VehiculoID
+                              where (avPlana.FolioAvisoLlegadaID == folio)
+                              select plana.Placas).ToList();
                 }
                 return listaPlana;
             }

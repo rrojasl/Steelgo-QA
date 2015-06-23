@@ -233,7 +233,7 @@ _dictionary = {
         "en-US": "Shipper"
     },
     "DetalleAvisoLlegada0004": {
-        "es-MX": "Fecha Recepción",
+        "es-MX": "Fecha Estimada de Llegada",
         "en-US": "Reception Date"
     },
     "DetalleAvisoLlegada0005": {
@@ -381,8 +381,8 @@ _dictionary = {
         "en-US": "Packing List Signed"
     },
     "DetalleAvisoLlegada0041": {
-        "es-MX": "Aviso de Entrada de Material",
-        "en-US": "Delivery Notice of Material"
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Delivery Notice"
     },
     "DetalleAvisoLlegada0042": {
         "es-MX": "Folio ",
@@ -437,8 +437,8 @@ _dictionary = {
         "en-US": "Customs permission"
     },
     "DetalleAvisoLlegada0055": {
-        "es-MX": "Camión",
-        "en-US": "Truck"
+        "es-MX": "Tracto",
+        "en-US": "Tract"
     },
     "DetalleAvisoLlegada0056": {
         "es-MX": "Transportista",
@@ -463,6 +463,58 @@ _dictionary = {
     "DetalleAvisoLlegada0061": {
         "es-MX": "Guardar",
         "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0062": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "DetalleAvisoLlegada0063": {
+        "es-MX": "Guardar e Imprimir",
+        "en-US": "Save and Print"
+    },
+    "DetalleAvisoLlegada0064": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "DetalleAvisoLlegada0065": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "DetalleAvisoLlegada0066": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DetalleAvisoLlegada0067": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DetalleAvisoLlegada0068": {
+        "es-MX": "Tipo de Vehiculo",
+        "en-US": "Vehicle Type"
+    },
+    "DetalleAvisoLlegada0069": {
+        "es-MX": "Unidad",
+        "en-US": "Client"
+    },
+    "DetalleAvisoLlegada0070": {
+        "es-MX": "Modelo",
+        "en-US": "Client"
+    },
+    "DetalleAvisoLlegada0071": {
+        "es-MX": "Tipo de Vehiculo",
+        "en-US": "Vehicle Type"
+    },
+    "DetalleAvisoLlegada0072": {
+        "es-MX": "Unidad",
+        "en-US": "Unit"
+    },
+    "DetalleAvisoLlegada0073": {
+        "es-MX": "Modelo",
+        "en-US": "Model"
+    },
+    "DetalleAvisoLlegada0074": {
+        "es-MX": "Tipos de Avisos",
+        "en-US": "Types of Notices"
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
@@ -584,6 +636,26 @@ _dictionary = {
     "EntradaMaterial0030": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
+    },
+    "EntradaMaterial0031": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File Type"
+    },
+    "EntradaMaterial0032": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File Type"
+    },
+    "EntradaMaterial0033": {
+        "es-MX": "Orden de Compra",
+        "en-US": "Purchase Order"
+    },
+    "EntradaMaterial0034": {
+        "es-MX": "Factura",
+        "en-US": "Invoice"
+    },
+    "EntradaMaterial0035": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
     },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
@@ -823,6 +895,79 @@ _dictionary = {
     "FormatoEtiquetas0011": {
         "es-MX": "Imprimir",
         "en-US": "Print"
+    },
+    //Formato Pase Salida
+    "FormatoPaseSalida0001": {
+        "es-MX": "Pase de Salida de Transportista",
+        "en-US": "Carrier Pass Out"
+    },
+    "FormatoPaseSalida0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "FormatoPaseSalida0003": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "FormatoPaseSalida0004": {
+        "es-MX": "Nombre del Operador",
+        "en-US": "Name Operator"
+    },
+    "FormatoPaseSalida0005": {
+        "es-MX": "No. Plana",
+        "en-US": "No. Plana"
+    },
+    "FormatoPaseSalida0006": {
+        "es-MX": "Placa Tracto",
+        "en-US": "Placa Tracto"
+    },
+    "FormatoPaseSalida0007": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "FormatoPaseSalida0008": {
+        "es-MX": "Pedimiento",
+        "en-US": "Pedimiento"
+    },
+    "FormatoPaseSalida0009": {
+        "es-MX": "Factura",
+        "en-US": "Factura"
+    },
+    "FormatoPaseSalida0010": {
+        "es-MX": "Remisión",
+        "en-US": "Remisión"
+    },
+    "FormatoPaseSalida0011": {
+        "es-MX": "Registros de Tiempos",
+        "en-US": "Times Records"
+    },
+    "FormatoPaseSalida0012": {
+        "es-MX": "Hora de llegada unidad",
+        "en-US": "Check unit"
+    },
+    "FormatoPaseSalida0013": {
+        "es-MX": "Hora inicio descarga",
+        "en-US": "Start time download"
+    },
+    "FormatoPaseSalida0014": {
+        "es-MX": "Hora fin descarga",
+        "en-US": "End time download"
+    },
+    "FormatoPaseSalida0015": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidencia"
+    },
+    "FormatoPaseSalida0016": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "FormatoPaseSalida0017": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
+    "FormatoPaseSalida0018": {
+        "es-MX": "Número",
+        "en-US": "Number"
     },
     //Home Partial View Labels
     "homeLabel0001": {

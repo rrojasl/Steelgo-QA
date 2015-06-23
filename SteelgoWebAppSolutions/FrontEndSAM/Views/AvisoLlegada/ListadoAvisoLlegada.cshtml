@@ -16,11 +16,11 @@
     <div class="row">
         <div class="col-sm-12 col-md-4 col-lg-4 filters">
             <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0003"></label>
                     <input id="PatioID" class="" />
                 </div>
-                <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0004" class=""></label>
                     <input id="ProyectoID" class="" />
                 </div>
@@ -28,11 +28,11 @@
         </div>
         <div class="col-sm-12 col-md-4 col-lg-3 filters">
             <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0005"></label>
                     <input id="ProveedorID" class="" />
                 </div>
-                <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0002"></label>
                     <input id="FolioAvisoLlegadaID" class="" />
                 </div>
@@ -69,7 +69,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    @*<div class="divider"></div>*@
+                    @*<div class="branchCut"></div>*@
                     <div id="grid"></div>
                 </div>
             </div>
@@ -225,7 +225,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel
+    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
 
         $("#Mostrar").click(function () { Filtros(2); });
         $("#Creacion").click(function (e) {

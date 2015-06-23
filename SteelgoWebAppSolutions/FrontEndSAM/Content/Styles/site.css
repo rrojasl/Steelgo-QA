@@ -161,9 +161,9 @@ label {
 
         .form label.required::after {
             content: '*';
-            font-size: 18.5px;
+            font-size: 19px;
             position: absolute;
-            top: -4px;
+            top: -6px;
         }
 
         .form label.required.error::after {
@@ -180,23 +180,17 @@ label {
     letter-spacing: .8px;
 }
 
-/*.form h2 label.title {
-        float: left;
-    }*/
-
-.form .folioLabel {
-    color: #333333;
+.form .folioLabel,
+.form .title {
+    color: rgba(051, 051, 051, .7);
     font-weight: 600;
-    cursor: auto;
+    font-size: 18px;
+    letter-spacing: 0px;
 }
 
-    /*.form .folioLabel span {
-            margin-right: 1px;
-        }*/
-
-    .form .folioLabel.show {
-        visibility: visible;
-    }
+.form .title {
+    color: #202020;
+}
 /**********************************************************************************/
 
 
@@ -292,21 +286,24 @@ input {
     color: #FFFFFF;
     text-transform: capitalize;
     border-radius: 3px;
-    font-size: 14px;
-    letter-spacing: 0.6px;
+    font-size: 12.5px;
+    letter-spacing: 1.6px;
     height: 34px;
-    padding: 8px 14px;
+    margin-top: 3px;
+    padding: 9px 14px;
     box-sizing: border-box;
     -moz-box-shadow: 0px 2px 2px #ccc; /* FF3.5+ */
     -webkit-box-shadow: 0px 2px 2px #ccc; /* Saf3.0+, Chrome */
     box-shadow: 0px 2px 2px #ccc; /* Opera 10.5, IE9, Chrome 10+ */
-    vertical-align: text-top;
 }
 
     .btn span, .btn label {
         color: #FFFFFF;
-        /*vertical-align: baseline;*/
     }
+
+.btn-default span, .btn-default label {
+    color: #305E8E;
+}
 
 .btn-yellow {
     background-color: #EC8B00;
@@ -317,6 +314,10 @@ input {
     .btn-yellow:hover {
         background-color: rgba(236, 139, 000, 0.9);
         border-bottom-color: rgba(223, 102, 0, 0.5);
+    }
+
+    .btn-yellow:focus {
+        background-color: #DF6600;
     }
 
 .btn-blue {
@@ -356,6 +357,26 @@ input {
         border-bottom-color: rgba(043, 043, 043, 0.5);
     }
 
+.btn-default {
+}
+
+    .btn-default:hover {
+        background-color: rgba(048, 094, 142, 0.2);
+    }
+
+    .btn-default:focus {
+        background-color: #FFFFFF;
+    }
+
+.btn-fadeBlue {
+    background-color: rgba(048, 094, 142, 0.5);
+    border: none;
+}
+
+    .btn-fadeBlue:hover {
+        background-color: rgba(048, 094, 142, 0.7);
+        border: none;
+    }
 
 .buttonBar {
     margin-top: 21px;
@@ -363,7 +384,8 @@ input {
 }
 
     .buttonBar a:nth-child(even) {
-        margin: 0 16px;
+        margin-right: 16px;
+        margin-left: 16px;
     }
 
 #Creacion.btn {
@@ -392,6 +414,19 @@ input {
         padding-top: 20px;
         border-top: 1px solid #CCCCCC;
     }
+
+.btn-group > .btn + .dropdown-toggle {
+    padding-right: 13px;
+    padding-left: 13px;
+}
+
+#Imprimir.btn {
+    /*background-image: url("/Content/images/SAMC_RefreshIcon.png");*/
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 34px;
+}
 /**********************************************************************************/
 
 
@@ -412,6 +447,41 @@ h2 {
         margin-bottom: 7px;
     }
 /**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_dropdown
+ Description:   Customize headings tag.
+**********************************************************************************/
+.dropdown {
+}
+
+    .dropdown.open a {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+.dropdown-menu {
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border-color: #CCCCCC;
+}
+
+    .dropdown-menu > li > a {
+        padding: 5.6px 7px;
+        color: #305E8E;
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+        .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            color: #305E8E;
+            background-color: rgba(048, 094, 142, 0.2);
+        }
+/**********************************************************************************/
+
 
 /* Media Queries */
 

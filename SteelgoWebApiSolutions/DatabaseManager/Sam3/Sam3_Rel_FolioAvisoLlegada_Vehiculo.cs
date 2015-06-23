@@ -12,16 +12,16 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Rel_AvisoLlegada_Plana
+    public partial class Sam3_Rel_FolioAvisoLlegada_Vehiculo
     {
-        public int Rel_AvisoPlanaID { get; set; }
+        public int Rel_FolioAvisoLlegada_Vehiculo_ID { get; set; }
         public int FolioAvisoLlegadaID { get; set; }
-        public int PlanaID { get; set; }
+        public int VehiculoID { get; set; }
         public bool Activo { get; set; }
-        public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
-        public virtual Sam3_Plana Sam3_Plana { get; set; }
+        public virtual Sam3_Vehiculo Sam3_Vehiculo { get; set; }
     }
 }

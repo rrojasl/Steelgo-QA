@@ -12,21 +12,16 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Chofer
+    public partial class Sam3_Rel_Vehiculo_Transportista
     {
-        public Sam3_Chofer()
-        {
-            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
-            this.Sam3_Rel_Vehiculo_Chofer = new HashSet<Sam3_Rel_Vehiculo_Chofer>();
-        }
-    
-        public int ChoferID { get; set; }
-        public string Nombre { get; set; }
+        public int Rel_Vehiculo_Transportista_ID { get; set; }
+        public int VehiculoID { get; set; }
+        public int TransportistaID { get; set; }
         public bool Activo { get; set; }
-        public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
-        public virtual ICollection<Sam3_Rel_Vehiculo_Chofer> Sam3_Rel_Vehiculo_Chofer { get; set; }
+        public virtual Sam3_Transportista Sam3_Transportista { get; set; }
+        public virtual Sam3_Vehiculo Sam3_Vehiculo { get; set; }
     }
 }

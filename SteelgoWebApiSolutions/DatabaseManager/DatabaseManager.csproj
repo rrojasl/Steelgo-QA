@@ -926,9 +926,6 @@
     <Compile Include="Sam3\Sam3_Acero.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_Camion.cs">
-      <DependentUpon>ModelSam3.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sam3\Sam3_Chofer.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -974,10 +971,10 @@
     <Compile Include="Sam3\Sam3_FamiliaMaterial.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_FolioAvisoLlegada.cs">
+    <Compile Include="Sam3\Sam3_FolioAvisoEntrada.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_FolioLlegada.cs">
+    <Compile Include="Sam3\Sam3_FolioAvisoLlegada.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_FolioPackingList.cs">
@@ -1043,9 +1040,6 @@
     <Compile Include="Sam3\Sam3_PinturaNumeroUnico.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_Plana.cs">
-      <DependentUpon>ModelSam3.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sam3\Sam3_Preferencia.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1061,9 +1055,6 @@
     <Compile Include="Sam3\Sam3_Recepcion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_Rel_AvisoLlegada_Plana.cs">
-      <DependentUpon>ModelSam3.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sam3\Sam3_Rel_Documento_Entidad.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1074,6 +1065,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_Proyecto.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_Vehiculo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_Incidencia_Entidad.cs">
@@ -1103,6 +1097,12 @@
     <Compile Include="Sam3\Sam3_Rel_Usuario_Proyecto.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Vehiculo_Chofer.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Vehiculo_Transportista.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Repositorio.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1121,6 +1121,12 @@
     <Compile Include="Sam3\Sam3_Taller.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_TipoArchivo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TipoAviso.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_TipoCorte.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1136,6 +1142,9 @@
     <Compile Include="Sam3\Sam3_TipoNotificacion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_TipoVehiculo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Transportista.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1143,6 +1152,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Usuario.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Vehiculo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="SamLogging\Bitacora.cs">

@@ -495,8 +495,11 @@
         var $Contacto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $folioEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $FiltrosListadoEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $TipoVehiculo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $Cliente = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $TipoAviso = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var redireccionAutomatica = true;
         
-
         $Plana.add("Plana");
         $Transportista.add("Transportista");
         $Patio.add("Patio");
@@ -504,10 +507,13 @@
         $AvisoLlegada.add("AvisoLlegada");
         $Chofer.add("Chofer");
         $Proyecto.add("Proyecto");
-        $Camion.add("Camion");
+        $Camion.add("Tracto");
         $Contacto.add("Contacto");
         $folioEntradaMaterial.add("Listado");
         $FiltrosListadoEntradaMaterial.add("AvisoLlegada");
+        $TipoVehiculo.add("TipoVehiculo");
+        $Cliente.add("Cliente");
+        $TipoAviso.add("TipoAviso");
 
         var $authorizationModel = {};
         var $layoutModel = {
@@ -831,27 +837,46 @@
                         //RedirectToHomePage
                         Cookies.remove("user", { path: '/' });
                         Cookies.remove("token", { path: '/' });
-                        document.location.href = '/';
+                        if (redireccionAutomatica) {
+                            document.location.href = '/';
+                        } else {
+                            alert("Se redireccona a home por error de credenciales");
+                        }
                     }
                     loadingStop();
                 });
                 request.error(function (data) {
                     Cookies.remove("user", { path: '/' });
                     Cookies.remove("token", { path: '/' });
-                    document.location.href = '/';
+                    if (redireccionAutomatica) {
+                        document.location.href = '/';
+                    } else {
+                        alert("Se redireccona a home por error en la llamada");
+                    }
+                    
                     loadingStop();
                 });
                 request.fail(function (data) {
                     Cookies.remove("user", { path: '/' });
                     Cookies.remove("token", { path: '/' });
-                    document.location.href = '/';
+                    if (redireccionAutomatica) {
+                        document.location.href = '/';
+                    } else {
+                        alert("Se redireccona a home por fallo en la llamada");
+                    }
+                    
                     loadingStop();
                 });
                 
             } else {
                 if (Cookies.get("home") != null && Cookies.get("home") == "false") {
                     //RedirectToHomePage
-                    document.location.href = '/';
+                    if (redireccionAutomatica) {
+                        document.location.href = '/';
+                    } else {
+                        alert("Se redireccona a home por error inesperado");
+                    }
+                    
                 } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
                             && Cookies.get("user") != null
                             && Cookies.get("token") != null
@@ -860,7 +885,11 @@
                 } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" 
                             && Cookies.get("LogOut") != null) {
                     Cookies.remove("LogOut", { path: '/' });
-                    document.location.href = '/';
+                    if (redireccionAutomatica) {
+                        document.location.href = '/';
+                    } else {
+                        alert("Se redireccona a home por que hice logour");
+                    }
                 }
             }
         }
@@ -999,6 +1028,7 @@
         $(document).ready(function () {
             //FOR DEVELOPONLY
             //autoCookies(true);
+            //redireccionAutomatica = false;
 
             //Set cookie of homepage to false
             Cookies.set("home", false, {path: '/'});
@@ -1150,7 +1180,7 @@
             $("#language").data("kendoDropDownList").trigger("change");
 
             //Add layout element to the Authorization Model
-            $authorizationModel.Layout = $layoutModel
+            $authorizationModel.Layout = $layoutModel;
 
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)

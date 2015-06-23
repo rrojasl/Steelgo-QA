@@ -41,17 +41,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<Plana> ObtenerListadoPlanas(string payload)
+        public List<Plana> ObtenerListadoPlanas(Sam3_Usuario usuario)
         {
             List<Plana> results = new List<Plana>();
             using (SamContext ctx = new SamContext())
             {
                 results.Add(new Plana { Nombre = "Agregar nuevo", PlanaID = "0" });
 
-                List<Plana> encontrados = (from p in ctx.Sam3_Plana
+                List<Plana> encontrados = (from p in ctx.Sam3_Vehiculo
                                            select new Plana
                                            {
-                                               PlanaID = p.PlanaID.ToString(),
+                                               PlanaID = p.VehiculoID.ToString(),
                                                Nombre = p.Placas
                                            }).AsParallel().ToList();
 
@@ -61,28 +61,28 @@ namespace BackEndSAM.DataAcces
             return results;
         }
 
-        public object InsertarPlana(Sam3_Plana plana, Sam3_Usuario usuario)
+        public object InsertarPlana(VehiculoJson plana, Sam3_Usuario usuario)
         {
             try
             {
-                Sam3_Plana nuevaPlana;
+                Sam3_Vehiculo nuevaPlana;
                 using (SamContext ctx = new SamContext())
                 {
-                    
-                    nuevaPlana = new Sam3_Plana
+
+                    nuevaPlana = new Sam3_Vehiculo
                     {
                         Activo = true,
-                        CamionID = plana.CamionID,
+                        TractoID = Convert.ToInt32(plana.TractoID),
                         Placas = plana.Placas,
                         Unidad = plana.Unidad,
                         Modelo = plana.Modelo,
                         FechaModificacion = DateTime.Now,
                         UsuarioModificacion = usuario.UsuarioID
                     };
-                    ctx.Sam3_Plana.Add(nuevaPlana);
+                    ctx.Sam3_Vehiculo.Add(nuevaPlana);
                     ctx.SaveChanges();
 
-                    return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.PlanaID) };
+                    return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.VehiculoID) };
                 }
             }
             catch (Exception ex)
@@ -97,20 +97,20 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ActualizarPlana(Sam3_Plana cambios, string payload)
+        public object ActualizarPlana(VehiculoJson cambios, Sam3_Usuario usuario)
         {
             try
             {
                 TransactionalInformation result;
                 using (SamContext ctx = new SamContext())
                 {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                    Sam3_Plana planaEnBd = ctx.Sam3_Plana.Where(x => x.PlanaID == cambios.PlanaID).AsParallel().SingleOrDefault();
+                    int vehiculoID = Convert.ToInt32(cambios.VehiculoID);
+                    Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
                     planaEnBd.Activo = true;
-                    planaEnBd.CamionID = cambios.CamionID;
+                    planaEnBd.TractoID = Convert.ToInt32(cambios.TractoID);
                     planaEnBd.Placas = cambios.Placas;
+                    planaEnBd.Unidad = cambios.Unidad;
+                    planaEnBd.Modelo = cambios.Modelo;
                     planaEnBd.UsuarioModificacion = usuario.UsuarioID;
                     planaEnBd.FechaModificacion = DateTime.Now;
 
@@ -125,7 +125,7 @@ namespace BackEndSAM.DataAcces
                     return result;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
@@ -137,16 +137,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object EliminarPlana(int planaID, string payload)
+        public object EliminarPlana(int vehiculoID, Sam3_Usuario usuario)
         {
             try
             {
                 TransactionalInformation result;
                 using (SamContext ctx = new SamContext())
                 {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    Sam3_Plana plana = ctx.Sam3_Plana.Where(x => x.PlanaID == planaID).AsParallel().SingleOrDefault();
+                    Sam3_Vehiculo plana = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
                     plana.Activo = false;
                     plana.UsuarioModificacion = usuario.UsuarioID;
                     plana.FechaModificacion = DateTime.Now;
@@ -162,7 +160,7 @@ namespace BackEndSAM.DataAcces
                     return result;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);

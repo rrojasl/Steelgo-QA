@@ -11,22 +11,22 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
-    public class CamionBd
+    public class TractoBd
     {
         private static readonly object _mutex = new object();
-        private static CamionBd _instance;
+        private static TractoBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private CamionBd()
+        private TractoBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static CamionBd Instance
+        public static TractoBd Instance
         {
             get
             {
@@ -34,31 +34,31 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new CamionBd();
+                        _instance = new TractoBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerListadoCamiones(string esAvisoEntrada)
+        public object ObtenerListadoTractos(string esAvisoEntrada)
         {
             try
             {
-                List<Camion> lstCamiones = new List<Camion>();
+                List<TractoAV> lstCamiones = new List<TractoAV>();
 
                 if (int.Parse(esAvisoEntrada) == 1)
                 {
-                    lstCamiones.Add(new Camion { CamionID = "0", Placas = "Agregar nuevo" });
+                    lstCamiones.Add(new TractoAV { VehiculoID = "0", Placas = "Agregar nuevo" });
                 }
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Camion> result = (from r in ctx.Sam3_Camion
-                                           where r.Activo
-                                           select new Camion
+                    List<TractoAV> result = (from r in ctx.Sam3_Vehiculo
+                                           where r.Activo && r.TipoVehiculoID == 1
+                                             select new TractoAV
                                            {
-                                               CamionID = r.CamionID.ToString(),
+                                               VehiculoID = r.VehiculoID.ToString(),
                                                Placas = r.Placas
                                            }).AsParallel().ToList();
 
@@ -79,26 +79,44 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object InsertarCamion(Sam3_Camion cambios, Sam3_Usuario usuario)
+        public object InsertarTracto(VehiculoJson cambios, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Camion nuevoCamion = new Sam3_Camion();
+                    Sam3_Vehiculo nuevoCamion = new Sam3_Vehiculo();
                     nuevoCamion.Activo = true;
-                    nuevoCamion.ChoferID = cambios.ChoferID;
                     nuevoCamion.FechaModificacion = DateTime.Now;
                     nuevoCamion.Placas = cambios.Placas;
                     nuevoCamion.PolizaSeguro = cambios.PolizaSeguro;
-                    nuevoCamion.TarjetaCirulacion = cambios.TarjetaCirulacion;
-                    nuevoCamion.TransportistaID = cambios.TransportistaID;
+                    nuevoCamion.TarjetaCirculacion = cambios.TarjetaCirculacion;
                     nuevoCamion.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Camion.Add(nuevoCamion);
+                    ctx.Sam3_Vehiculo.Add(nuevoCamion);
                     ctx.SaveChanges();
 
-                    return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.CamionID.ToString() };
+                    Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
+                    nuevoRegistroChofer.VehiculoID = nuevoCamion.VehiculoID;
+                    nuevoRegistroChofer.Activo = true;
+                    nuevoRegistroChofer.ChoferID = Convert.ToInt32(cambios.ChoferID);
+                    nuevoRegistroChofer.FechaModificacion = DateTime.Now;
+                    nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
+
+                    Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
+                    transportista.Activo = true;
+                    transportista.FechaModificacion = DateTime.Now;
+                    transportista.TransportistaID = Convert.ToInt32(cambios.TransportistaID);
+                    transportista.VehiculoID = nuevoCamion.VehiculoID;
+                    transportista.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
+
+                    ctx.SaveChanges();
+
+                    return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.VehiculoID.ToString() };
                 }
             }
             catch (Exception ex)
@@ -113,7 +131,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ActualizarCamion(Sam3_Camion cambios, Sam3_Usuario usuario)
+        public object ActualizarTracto(VehiculoJson cambios, Sam3_Usuario usuario)
         {
             try
             {
@@ -134,13 +152,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object EliminarCamion(int camionID, Sam3_Usuario usuario)
+        public object EliminarTracto(int vehiculoID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Camion camion = ctx.Sam3_Camion.Where(x => x.CamionID == camionID).AsParallel().SingleOrDefault();
+                    Sam3_Vehiculo camion = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
                     camion.Activo = false;
                     camion.FechaModificacion = DateTime.Now;
                     camion.UsuarioModificacion = usuario.UsuarioID;

@@ -22,6 +22,7 @@
 **********************************************************************************/
 
 
+
 /**********************************************************************************
  Class name:    $_languageSelector
  Description:   Override kendo language input section.
@@ -56,12 +57,17 @@
  Class name:    $_k-widget
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
+.form-group {
+  margin-bottom: 27px;
+}
+
 .k-widget {
     background: #FFFFFF;
     padding: 0;
     margin: 0;
     border-radius: 0;
     border-color: #CCCCCC;
+    box-sizing: border-box;
 }
 
     .k-widget.error {
@@ -85,8 +91,8 @@
 .k-picker-wrap .k-input, .k-numeric-wrap .k-input,
 .k-dropdown-wrap .k-input, .k-selectbox .k-input {
     border-radius: 0;
-    min-height: 32px;
-    height: 32px;
+    min-height: 34px;
+    height: 34px;
     font-weight: normal;
     font-size: 14px;
     color: #1B3F70;
@@ -104,13 +110,9 @@
     width: 100%;
 }
 
-    .k-multiselect.k-header {
-        max-width: 99.5%;
-    }
-
 .k-multiselect-wrap {
-    min-height: 28px;
-    height: 28px;
+    min-height: 30px;
+    height: 30px;
     padding: 4px 0;
 }
 
@@ -202,7 +204,8 @@
         border: none;
         border-radius: 3px;
         border-bottom: 1px solid #234568;
-        padding: 8px 14px;
+        margin-top: 4px;
+        padding: 5px 14px;
         font-size: 14px;
         box-sizing: border-box;
         letter-spacing: 0.6px;
@@ -265,7 +268,7 @@
  Description:   Override kendo grid.
 **********************************************************************************/
 .k-grid {
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     background-color: #EEEEEE;
 }
 
@@ -379,7 +382,7 @@
 
 .k-grid-pager {
     background-color: #EEEEEE;
-    height: 36px;
+    height: 57px;
     padding: 10px 9px;
 }
 
