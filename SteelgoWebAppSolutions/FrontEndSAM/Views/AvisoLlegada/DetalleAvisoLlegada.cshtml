@@ -820,7 +820,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAvisoID: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAvisoID: "", PaseSalidaEnviado: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -842,10 +842,10 @@
                 //item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
                 //permiso.push(item);
                 
-                //_permisoAduana[0].NumeroPermiso = $("#NumeroPermiso").val();
-                //_permisoAduana[0].PermisoAutorizado = $("#hdPermisoAutorizado").val();
+                _permisoAduana[0].NumeroPermiso = "";
+                _permisoAduana[0].PermisoAutorizado = false;
                 _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
-                //_permisoAduana[0].ArchivoAutorizado = permiso;
+                _permisoAduana[0].ArchivoAutorizado = permiso;
 
                 var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
@@ -912,10 +912,11 @@
                 AvisoLlegada[0].Chofer = Chofer;
                 AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].PermisoAduana = _permisoAduana;
-                AvisoLlegada[0].Tracto = CamionEntradaMaterial.length > 0 ? CamionEntradaMaterial[0].CamionID : "-1";
+                AvisoLlegada[0].Tracto = CamionEntradaMaterial;
                 //AvisoLlegada[0].PaseSalida = _archivosPackingList;
                 AvisoLlegada[0].ClienteID = Cliente.length > 0 ? Cliente[0].ClienteID : "-1";
-                AvisoLlegada[0].TipoAvisoID = TipoAvisos.length > 0 ? TipoAvisos[0].TipoAvisoID : "-1";
+                AvisoLlegada[0].TipoAvisoID = TipoAvisos;
+                AvisoLlegada[0].PaseSalidaEnviado = false;
 
                 console.log(AvisoLlegada[0]);
 
@@ -1201,7 +1202,7 @@
             function CargarCamionEntradaMaterial(id, value) {
                 CamionEntradaMaterial = [];
                 _camion = {};
-                _camion["CamionID"] = id;
+                _camion["VehiculoID"] = id;
                 _camion["Placas"] = value;
                 CamionEntradaMaterial.push(_camion);
             };
