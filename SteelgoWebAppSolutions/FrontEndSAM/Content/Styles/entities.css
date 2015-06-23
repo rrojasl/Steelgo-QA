@@ -1007,8 +1007,7 @@ header .menu > div {
 
 @media (min-width: 1200px) and (max-width: 1540px) {
 
-    /*$_content-container*/
-    .form > .row > div.filters,
+    /*$_content-container*/    
     .form .row > div.filterForm .row > div {
         width: 33.33%;
     }
