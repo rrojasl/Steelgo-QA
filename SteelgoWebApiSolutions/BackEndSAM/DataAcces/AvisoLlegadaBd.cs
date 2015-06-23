@@ -261,7 +261,7 @@ namespace BackEndSAM.DataAcces
                         aviso.ClienteID = registroBd.ClienteID.ToString();
 
                         TipoAvisoAV tipoAvisoBD = (from r in ctx.Sam3_TipoAviso
-                                                   join a in ctx.Sam3_FolioAvisoLlegada on r.TipoAvisoID equals a.TipoAvisoID
+                                                   where r.TipoAvisoID == registroBd.TipoAvisoID
                                                    select new TipoAvisoAV
                                                    {
                                                        Nombre = r.Nombre,
@@ -405,7 +405,7 @@ namespace BackEndSAM.DataAcces
                     aviso.ClienteID = registroBd.ClienteID.ToString();
 
                     TipoAvisoAV tipoAvisoBD = (from r in ctx.Sam3_TipoAviso
-                                               join a in ctx.Sam3_FolioAvisoLlegada on r.TipoAvisoID equals a.TipoAvisoID
+                                               where r.TipoAvisoID == registroBd.TipoAvisoID
                                                select new TipoAvisoAV
                                                {
                                                    Nombre = r.Nombre,
