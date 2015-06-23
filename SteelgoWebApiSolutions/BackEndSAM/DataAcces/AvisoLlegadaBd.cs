@@ -208,8 +208,8 @@ namespace BackEndSAM.DataAcces
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
 
-                    int folioLlegadaID = Convert.ToInt32(filtros.FolioLlegadaID);
-                    int folioAvisoLlegadaID = Convert.ToInt32(filtros.FolioAvisoLlegadaID);
+                    int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
+                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
                     List<int> proyectos = filtros.Proyectos.Select(x => x.ProyectoID).ToList();
                     List<int> proveedores = filtros.Proveedor.Select(x => x.ProveedorID).ToList();
