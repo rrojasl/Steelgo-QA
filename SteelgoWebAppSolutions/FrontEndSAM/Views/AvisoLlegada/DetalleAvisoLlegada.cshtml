@@ -58,20 +58,6 @@
                         <label id="DetalleAvisoLlegada0008" class="required"></label>
                         <input id="PatioID" class="" />
                     </div>
-                    @*
-                    <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                        <label id="DetalleAvisoLlegada0007"></label>
-                        <input id="OrdenDeCompra" />
-                    </div>
-                    <div class="form-group col-sm-4 col-md-6 col-lg-2">
-                        <label id="DetalleAvisoLlegada0002"></label>
-                        <input id="Factura" />
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6 col-lg-3">
-                        <label id="DetalleAvisoLlegada0005"></label>
-                        <input id="ProveedorID" class="" />
-                    </div>
-                    *@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-6 col-md-4 col-lg-4">
@@ -86,12 +72,12 @@
                         <label id="DetalleAvisoLlegada0009"></label>
                         <input id="ChoferID" class="" />
                     </div>
-                    @*
+                    
                     <div class="form-group col-sm-12 col-md-6 col-lg-4">
                         <label id="DetalleAvisoLlegada0055"></label>
                         <input id="CamionID" class="" />
                     </div>
-                    *@
+                    
                 </div>
                 <div class="branchCut"></div>
                 <div class="row">
@@ -305,12 +291,24 @@
 
         <div id="modalPlana" style="display: none">
             <div class="form-group">
+                <label id="DetalleAvisoLlegada0064"></label>
+                <input id="TipoVehiculo_Plana" class="" />
+            </div>
+            <div class="form-group">
                 <label id="DetalleAvisoLlegada0032"></label>
                 <input id="CamionID_Plana" class="" />
             </div>
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0033"></label>
                 <input id="Placas_Plana" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0062"></label>
+                <input id="Unidad_Plana" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0063"></label>
+                <input id="Modelo_Plana" class="" />
             </div>
             <div class="buttonSave">
                 <a id="GuardarPlana" href="javascript:void(0);" class="btn btn-primary">
@@ -319,6 +317,10 @@
             </div>
         </div>
         <div id="modalCamion" style="display: none">
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0065"></label>
+                <input id="TipoVehiculo_Camion" class="" />
+            </div>
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0056"></label>
                 <input id="TransportistaID_Camion" class="" />
@@ -338,6 +340,14 @@
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0060"></label>
                 <input id="PolizaSeguro" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0066"></label>
+                <input id="Unidad_Camion" class="" />
+            </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0067"></label>
+                <input id="Modelo_Camion" class="" />
             </div>
             <div class="buttonSave">
                 <a id="GuardarCamion" href="javascript:void(0);" class="btn btn-primary">
@@ -432,21 +442,6 @@
                 });
                 ObtenerTransportista();
 
-                $("#ProveedorID").kendoComboBox({
-                    dataTextField: "Nombre",
-                    dataValueField: "ProveedorID",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        if (dataItem.ProveedorID == 0) {
-                            VentanaModal(2);
-                            e.preventDefault();
-                        }
-                        CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-                    },
-                    filter: "contains",
-                });
-                ObtenerProveedor();
-
                 $("#PlanaID").kendoMultiSelect({
                     dataTextField: "Nombre",
                     dataValueField: "PlanaID",
@@ -495,15 +490,15 @@
                 ObtenerChofer();
 
                 $("#TipoArchivo").kendoComboBox({
-                    dataSource: {
-                        serverFiltering: false,
-                        type: "json",
-                        transport: {
-                            read: {
-                                url: "http://localhost:60960/backendsam/api/Proyecto",
-                            }
-                        }
-                    },
+                    //dataSource: {
+                    //    serverFiltering: false,
+                    //    type: "json",
+                    //    transport: {
+                    //        read: {
+                    //            url: "http://localhost:60960/backendsam/api/Proyecto",
+                    //        }
+                    //    }
+                    //},
                     dataTextField: "value",
                     dataValueField: "id",
                     filter: "contains",
@@ -1237,6 +1232,7 @@
                 TransportistaCamion = [];
                 ChoferCamion = [];
             };
+
             function GenerarPermiso() {
                 TramitarPermiso = [];
                 TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
@@ -1332,7 +1328,7 @@
             };
         
             function ObtenerCamion() {
-                $Camion.Camion.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                $Camion.Tracto.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
                         removeUserSession();
                     } else {
@@ -1342,7 +1338,7 @@
             };
 
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Camion.read({ esAvisoEntrada:1, token: Cookies.get("token") }).done(function (result) {
+                $Camion.Tracto.read({ esAvisoEntrada:1, token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
                         removeUserSession();
                     } else {
@@ -1396,7 +1392,7 @@
                     //$.each(data, function (index, value) {
                     //    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     //});
-        
+
                 });
 
 

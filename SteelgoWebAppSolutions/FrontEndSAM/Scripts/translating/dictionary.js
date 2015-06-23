@@ -437,8 +437,8 @@ _dictionary = {
         "en-US": "Customs permission"
     },
     "DetalleAvisoLlegada0055": {
-        "es-MX": "Camión",
-        "en-US": "Truck"
+        "es-MX": "Tracto",
+        "en-US": "Tract"
     },
     "DetalleAvisoLlegada0056": {
         "es-MX": "Transportista",
@@ -462,6 +462,18 @@ _dictionary = {
     },
     "DetalleAvisoLlegada0061": {
         "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0062": {
+        "es-MX": "Unidad",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0063": {
+        "es-MX": "Modelo",
+        "en-US": "Save"
+    },
+    "DetalleAvisoLlegada0064": {
+        "es-MX": "Tipo de Vehiculo",
         "en-US": "Save"
     },
     //Entrada Material Partial view Labels
