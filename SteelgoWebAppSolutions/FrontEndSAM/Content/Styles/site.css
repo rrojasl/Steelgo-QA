@@ -14,7 +14,8 @@
     08  $_input
     09  $_btn
     10  $_headings
-    11  $_
+    11  $_dropdown
+    12  $_
 
 
     Color Palette: 
@@ -386,6 +387,10 @@ input {
     .buttonBar a:nth-child(even) {
         margin-right: 16px;
         margin-left: 16px;
+    }
+
+    .buttonBar a:last-child {
+        margin-right: 0;
     }
 
 #Creacion.btn {

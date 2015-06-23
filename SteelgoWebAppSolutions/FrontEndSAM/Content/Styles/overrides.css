@@ -58,7 +58,7 @@
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
 .form-group {
-  margin-bottom: 27px;
+    margin-bottom: 27px;
 }
 
 .k-widget {

@@ -47,7 +47,114 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    return null;
+                    List<TipoArchivo> lstTipoArchivo = (from r in ctx.Sam3_TipoArchivo
+                                                        where r.Activo
+                                                        select new TipoArchivo
+                                                        {
+                                                            Nombre = r.Nombre,
+                                                            TipoArchivoID = r.TipoArchivoID.ToString()
+                                                        }).AsParallel().ToList();
+                    return lstTipoArchivo;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object InsertarTipoArchivo(Sam3_TipoArchivo nuevo, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_TipoArchivo tipoArchivo = new Sam3_TipoArchivo();
+                    tipoArchivo.Activo = true;
+                    tipoArchivo.FechaModificacion = DateTime.Now;
+                    tipoArchivo.Nombre = nuevo.Nombre;
+                    tipoArchivo.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.Sam3_TipoArchivo.Add(tipoArchivo);
+                    ctx.SaveChanges();
+
+                    return new TipoArchivo { Nombre = tipoArchivo.Nombre, TipoArchivoID = tipoArchivo.TipoArchivoID.ToString() };
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ActualizarTipoArchivo(Sam3_TipoArchivo cambios, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_TipoArchivo tipoArchivoBd = ctx.Sam3_TipoArchivo.Where(x => x.TipoArchivoID == cambios.TipoArchivoID)
+                        .AsParallel().SingleOrDefault();
+                    tipoArchivoBd.Nombre = cambios.Nombre;
+                    tipoArchivoBd.FechaModificacion = DateTime.Now;
+                    tipoArchivoBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarTipoArchivo(int tipoArchivoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_TipoArchivo tipoArchivoBd = ctx.Sam3_TipoArchivo.Where(x => x.TipoArchivoID == tipoArchivoID)
+                        .AsParallel().SingleOrDefault();
+                    tipoArchivoBd.Activo = false;
+                    tipoArchivoBd.FechaModificacion = DateTime.Now;
+                    tipoArchivoBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)
