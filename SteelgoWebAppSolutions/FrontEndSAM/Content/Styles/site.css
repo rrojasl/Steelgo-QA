@@ -393,6 +393,10 @@ input {
         margin-right: 0;
     }
 
+    .buttonBar.left {
+        text-align: justify;
+    }
+
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");
     background-size: auto;
