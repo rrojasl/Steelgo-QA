@@ -389,6 +389,10 @@ input {
         margin-left: 16px;
     }
 
+    .buttonBar a:last-child {
+        margin-right: 0;
+    }
+
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");
     background-size: auto;

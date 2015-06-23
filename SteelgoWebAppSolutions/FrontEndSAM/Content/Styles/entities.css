@@ -1013,6 +1013,7 @@ header .menu > div {
         width: 33.33%;
     }
 
+    .form > .row .filterStretch,
     .form > .row > div.filterBtns {
         width: 100%;
     }
