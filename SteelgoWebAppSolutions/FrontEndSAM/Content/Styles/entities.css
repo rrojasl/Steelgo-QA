@@ -162,6 +162,7 @@ header .menu > div {
     }
 
         .search-bar .input-group span button.spyglass {
+            margin: 0;
             background-image: url("/Content/images/SAMC_MenuIcon_01.png");
             background-position: center;
             background-repeat: no-repeat;
@@ -178,6 +179,7 @@ header .menu > div {
 
     .logged-user .btn-group .dropdown-toggle {
         padding: 4px 10px;
+        margin: 0;
         box-shadow: none;
         border-radius: 0;
     }
@@ -186,10 +188,10 @@ header .menu > div {
         box-shadow: none;
     }
 
-    /*.logged-user .btn-group a img {
+    .logged-user .btn-group a img {
         position: relative;
-        top: -1px;
-    }*/
+        top: -2px;
+    }
 
     .logged-user .btn-group a span.name,
     .logged-user .btn-group a span.caret {
@@ -218,7 +220,7 @@ header .menu > div {
 
     .notifications img {
         position: relative;
-        top: -1px;
+        top: -2px;
     }
 
     .notifications .count {
