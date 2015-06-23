@@ -877,10 +877,24 @@ header .menu > div {
         border-bottom-right-radius: 0;
     }
 
-.save-group .dropdown-menu > li > a:hover,
-.save-group .dropdown-menu > li > a:focus {
-    background-color: #FCEED9;
-}
+    .formNav .save-group .dropdown-menu > li > a:hover,
+    .formNav .save-group .dropdown-menu > li > a:focus {
+        background-color: #FCEED9;
+    }
+
+    .formNav .action-group {
+        margin-right: 16px;
+    }
+
+        .formNav .action-group #Acciones {
+            min-width: 148px;
+            text-align: right;
+            margin-right: 0px;
+        }
+
+        .formNav .action-group a span:first-child {
+            float: left;
+        }
 /**********************************************************************************/
 
 

@@ -292,11 +292,11 @@ input {
     color: #FFFFFF;
     text-transform: capitalize;
     border-radius: 3px;
-    font-size: 14px;
-    letter-spacing: 0.6px;
+    font-size: 12.5px;
+    letter-spacing: 1.6px;
     height: 34px;
     margin-top: 3px;
-    padding: 8px 14px;
+    padding: 9px 14px;
     box-sizing: border-box;
     -moz-box-shadow: 0px 2px 2px #ccc; /* FF3.5+ */
     -webkit-box-shadow: 0px 2px 2px #ccc; /* Saf3.0+, Chrome */
@@ -425,6 +425,14 @@ input {
     padding-right: 13px;
     padding-left: 13px;
 }
+
+#Imprimir.btn {
+    /*background-image: url("/Content/images/SAMC_RefreshIcon.png");*/
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 34px;
+}
 /**********************************************************************************/
 
 
@@ -453,6 +461,11 @@ h2 {
 **********************************************************************************/
 .dropdown {
 }
+
+    .dropdown.open a {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
 
 .dropdown-menu {
     min-width: 100%;
