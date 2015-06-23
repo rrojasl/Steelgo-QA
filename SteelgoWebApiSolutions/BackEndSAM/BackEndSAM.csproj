@@ -157,7 +157,7 @@
     <Compile Include="DataAcces\ChoferBd.cs" />
     <Compile Include="DataAcces\ContactoBd.cs" />
     <Compile Include="DataAcces\PatioBd.cs" />
-    <Compile Include="DataAcces\PermisoAduana.cs" />
+    <Compile Include="DataAcces\PermisoAduanaBd.cs" />
     <Compile Include="DataAcces\PlanaBd.cs" />
     <Compile Include="DataAcces\ProveedorBd.cs" />
     <Compile Include="DataAcces\ProyectoBd.cs" />

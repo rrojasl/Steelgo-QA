@@ -399,6 +399,99 @@
             CamionEntradaMaterial = [], TransportistaCamion = [],
             ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
             Cliente = [], TipoAvisos = [];
+
+        var $AvisoLLegadaModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                tipoAviso: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                cliente: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                proyecto: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                fechaRecepcion: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                patio: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                transportista: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                plana: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                chofer: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                tipoArchivo: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                seleccionarArchivo: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                enviarArchivo: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                listarArchivos: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                descargarArchivos: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                },
+                eliminarArchivos: {
+                    visible: "",
+                    editable: "",
+                    required: ""
+                }
+
+            }
+        };
+
+        var $PermisoAduanaModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+            }
+        };
     }
 
     @section JavascriptGlobalFunctions {
@@ -1594,9 +1687,14 @@
                     //});
 
                 });
-
-
-
             }
-            }
+
+            $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
+            $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+    }
+
+    @section JavascriptDocumentReadyHomeCookie {
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "4", { path: '/' });
+    }
 </script>
