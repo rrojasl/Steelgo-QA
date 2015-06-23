@@ -233,7 +233,7 @@ _dictionary = {
         "en-US": "Shipper"
     },
     "DetalleAvisoLlegada0004": {
-        "es-MX": "Fecha Recepción",
+        "es-MX": "Fecha Estimada de Llegada",
         "en-US": "Reception Date"
     },
     "DetalleAvisoLlegada0005": {
@@ -381,8 +381,8 @@ _dictionary = {
         "en-US": "Packing List Signed"
     },
     "DetalleAvisoLlegada0041": {
-        "es-MX": "Aviso de Entrada de Material",
-        "en-US": "Delivery Notice of Material"
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Delivery Notice"
     },
     "DetalleAvisoLlegada0042": {
         "es-MX": "Folio ",
@@ -465,16 +465,52 @@ _dictionary = {
         "en-US": "Save"
     },
     "DetalleAvisoLlegada0062": {
-        "es-MX": "Unidad",
-        "en-US": "Save"
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
     },
     "DetalleAvisoLlegada0063": {
-        "es-MX": "Modelo",
-        "en-US": "Save"
+        "es-MX": "Guardar e Imprimir",
+        "en-US": "Save and Print"
     },
     "DetalleAvisoLlegada0064": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "DetalleAvisoLlegada0065": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "DetalleAvisoLlegada0066": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DetalleAvisoLlegada0067": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DetalleAvisoLlegada0068": {
         "es-MX": "Tipo de Vehiculo",
-        "en-US": "Save"
+        "en-US": "Vehicle Type"
+    },
+    "DetalleAvisoLlegada0069": {
+        "es-MX": "Unidad",
+        "en-US": "Client"
+    },
+    "DetalleAvisoLlegada0070": {
+        "es-MX": "Modelo",
+        "en-US": "Client"
+    },
+    "DetalleAvisoLlegada0071": {
+        "es-MX": "Tipo de Vehiculo",
+        "en-US": "Vehicle Type"
+    },
+    "DetalleAvisoLlegada0072": {
+        "es-MX": "Unidad",
+        "en-US": "Unit"
+    },
+    "DetalleAvisoLlegada0073": {
+        "es-MX": "Modelo",
+        "en-US": "Model"
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
