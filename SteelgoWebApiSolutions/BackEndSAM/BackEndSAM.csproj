@@ -207,6 +207,7 @@
     <Compile Include="Models\Dummy\TipoAviso.cs" />
     <Compile Include="Models\Dummy\TipoVehiculo.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
+    <Compile Include="Models\ElementoListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\ListaCombos.cs" />

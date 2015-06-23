@@ -19,8 +19,8 @@ namespace BackEndSAM.Models
         public List<ArchivosAV> Archivos { get; set; }
         public List<PermisoAduanaAV> PermisoAduana { get; set; }
         public bool PaseSalidaEnviado { get; set; }
-        public string ClienteID { get; set; }
-        public TipoAvisoAV TipoAviso { get; set; } 
+        public TipoAvisoAV TipoAviso { get; set; }
+        public Cliente Cliente { get; set; }
 
         public AvisoLlegadaJson()
         {
@@ -33,6 +33,7 @@ namespace BackEndSAM.Models
             PermisoAduana = new List<PermisoAduanaAV>();
             Tracto = new TractoAV();
             TipoAviso = new TipoAvisoAV();
+            Cliente = new Cliente();
         }
     }
 

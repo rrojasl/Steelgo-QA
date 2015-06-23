@@ -69,5 +69,27 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtnerElementoClientePorID(int clienteID)
+        {
+            try
+            {
+                using (Sam2Context ctx = new Sam2Context())
+                {
+                    Models.Cliente clienteBd = (from r in ctx.Cliente
+                                                where r.ClienteID == clienteID
+                                                select new Models.Cliente
+                                                {
+                                                    Nombre = r.Nombre,
+                                                    ClienteID = r.ClienteID.ToString()
+                                                }).AsParallel().SingleOrDefault();
+                    return clienteBd;
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
     }// Fin clase
 }
