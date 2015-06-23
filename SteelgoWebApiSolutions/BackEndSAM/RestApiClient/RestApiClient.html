@@ -148,13 +148,13 @@
 
             var tokenActual = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNDY2MzQzN30.ZU2E8v29beNG9OKmXH9t0x7eZlJeZQ5Sf3o7NX0SmCI";
 
-            //var json = { "FolioAvisoLlegadaID": 8, "Factura": "Edicion: Factura 1", "FechaRecepcion": "6/17/2015 12:00:00 AM", "OrdenCompra": "Edicion: ORDEN 2", "CamionID": 0, "Proyectos": [{ "ProyectoID": 1 }, { "ProyectoID": 2 }], "Transportista": [{ "TransportistaID": 1, "Nombre": "Transportiste Default" }], "Proveedor": [{ "ProveedorID": 1, "Nombre": "Proveedor Default" }], "Plana": [{ "PlanaID": 2 }, { "PlanaID": 1 }], "Patio": [{ "PatioID": 1, "Nombre": "Patio Default" }], "Chofer": [{ "ChoferID": 3, "Nombre": "chofer 1" }], "Archivos": [{ "ArchivoID": 1, "Nombre": "Prueba1", "Extension": ".doc", "TipoArchivo": "" }, { "ArchivoID": 2, "Nombre": "Prueba2", "Extension": ".docx", "TipoArchivo": "" }, { "ArchivoID": 3, "Nombre": "Prueba Edicion 01", "Extension": ".docx", "TipoArchivo": "" }], "PermisoAduana": [{ "PermisoAutorizado": false, "PermisoTramite": false, "NumeroPermiso": "", "ArchivoAutorizado": [], "FechaAutorizacion": "", "FechaGeneracion": "" }], "PaseSalida": [{ "PaseSalidaEnviado": false, "Archivos": [] }] };
+            var json = { "FolioLlegadaID": "-1", "FolioAvisoLlegadaID": "-1", "Patio": [{ "PatioID": "-1", "Nombre": "" }], "Proyectos": [{ "ProyectoID": -1 }], "Proveedor": [{ "ProveedorID": "-1", "Nombre": "" }], "FechaInicial": "2015-6-22", "FechaFinal": "2015-6-23", "token": "123456" };
 
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
             client.add("AvisoLlegada");
 
-            var json = { "FolioLlegadaID": "-1", "FolioAvisoLlegadaID": "1", "Patio": [{ "PatioID": "1", "Nombre": "Plaza Real" }], "Proyectos": [{ "ProyectoID": 1 }], "Proveedor": [{ "ProveedorID": "1", "Nombre": "Femsa" }], "FechaInicial": "2015-6-15", "FechaFinal": "2015-6-19", "token": "123456" };
+            //var json = { "FolioLlegadaID": "-1", "FolioAvisoLlegadaID": "1", "Patio": [{ "PatioID": "1", "Nombre": "Plaza Real" }], "Proyectos": [{ "ProyectoID": 1 }], "Proveedor": [{ "ProveedorID": "1", "Nombre": "Femsa" }], "FechaInicial": "2015-6-15", "FechaFinal": "2015-6-19", "token": "123456" };
 
             client.AvisoLlegada.read({ data: JSON.stringify(json) }).done(function (data) { console.log(data) });
 
@@ -172,10 +172,17 @@
             //client.add("Listado");
             //client.Listado.read({tipoListado: 1, token: tokenActual}).done(function (data) { console.log(data) });
 
+            //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+
+            //client.add("Cliente");
+
+            //client.Cliente.read({token: '123456'}).done(function (data) { console.log(data); });
+
             //client.add("PermisoAduana");
             //client.PermisoAduana.read({ folio: 8, token: tokenActual }).done(function (data) { console.log(data) });
             //client.PermisoAduana.create({}, { numeroPermiso: 130313, nombre: "DocumentoPrueba", extension: ".docx", folio: 8, documentoID: 0, token: tokenActual }).done(function (data) { console.log(data); });
 
+            
 </script>
     </body>
 </html>

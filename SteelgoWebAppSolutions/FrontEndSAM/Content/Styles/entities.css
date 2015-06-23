@@ -858,7 +858,7 @@ header .menu > div {
             border-left: 1px solid #DF6600;
         }
 
-    .formNav .button-container {
+    .formNav .button-section {
         display: inline-block;
         margin-right: 26px;
         padding-right: 14px;
@@ -894,9 +894,9 @@ header .menu > div {
             margin-right: 0px;
         }
 
-        .formNav .action-group #Acciones > span:first-child {
-            float: left;
-        }
+            .formNav .action-group #Acciones > span:first-child {
+                float: left;
+            }
 /**********************************************************************************/
 
 
@@ -942,6 +942,11 @@ header .menu > div {
     .addedSection {
         margin-top: 15px;
     }
+
+    /*$_formNav*/
+    .formNav .button-section {
+        margin: 10px 0;
+    }
 }
 
 /* tablet viewport*/
@@ -967,6 +972,17 @@ header .menu > div {
         max-width: 76.5%;
         width: 76.5%;
     }
+
+    /*$_formNav*/
+    .formNav .btn, .formNav .btn-group,
+    .formNav .action-group {
+        margin-right: 14px;
+    }
+
+    .formNav .button-section {
+        margin-right: 12px;
+        padding-right: 0;
+    }
 }
 
 /* md viewport */
@@ -991,11 +1007,12 @@ header .menu > div {
 
 @media (min-width: 1200px) and (max-width: 1540px) {
 
-    /*$_content-container*/
-    .form > .row > div.filters {
+    /*$_content-container*/    
+    .form .row > div.filterForm .row > div {
         width: 33.33%;
     }
 
+    .form > .row .filterStretch,
     .form > .row > div.filterBtns {
         width: 100%;
     }

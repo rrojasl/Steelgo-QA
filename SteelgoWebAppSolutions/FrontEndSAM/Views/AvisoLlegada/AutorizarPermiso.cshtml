@@ -5,27 +5,167 @@
 }
 
 @section breadcrumb {
- 
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="AutorizarPermiso0002"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("AutorizarPermiso", "AvisoLlegada")"><span id="AutorizarPermiso0003"></span></a>
+    </li>
 }
 
-<div class="form-group col-sm-6 col-md-12 col-lg-6">
-    <label id="AutorizarPermiso0001"></label>
-    <input id="FolioAvisoLlegadaID" class="" />
+<div id="PermisoAduana" class="form clearfix col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <span id="AutorizarPermiso0004" class="title"></span>
+            <div class="branchCut"></div>
+            @*<div class="formNav clearfix">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
+                                <button type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><span id="DetalleAvisoLlegada0062"></span></a></li>
+                                    <li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>
+                                </ul>
+                            </div>
+                            <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
+                        </div>
+                        <div class="button-section">
+                            <a id="" href="" class="btn btn-primary"><span id="">Nueva Acción</span></a>
+                        </div>
+                        <div class="button-section">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-7">
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-3 col-lg-3">
+                    <label id="AutorizarPermiso0001"></label>
+                    <input id="FolioAvisoLlegadaID" class="" />
+                </div>
+                <div class="form-group col-sm-6 col-md-4 col-lg-4">
+                    <label id="AutorizarPermiso0005"></label>
+                    <input id="NumeroPermiso" class="" />
+                </div>
+                <div class="form-group col-sm-12 col-md-5 col-lg-5">
+                    <label id="AutorizarPermiso0006"></label>
+                    <div id="divArchivoAutorizar">
+                        <input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="" />
+                    </div>
+                    <div id="divLinkAutorizar" style="display: none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-     @section JavascriptDocumentReadyHomeCookie {
+    @section JavascriptDocumentReadyHomeCookie {
         Cookies.set("home", true, { path: '/' });
         Cookies.set("navegacion", "8", { path: '/' });
     }
 
-     @section JavascriptGlobalVariables {
+    @section JavascriptGlobalVariables {
+        var Folio = [];
+    }
 
-     }
-     @section JavascriptGlobalFunctions {
+    @section JavascriptGlobalFunctions {
+        function CargarFolio(id) {
+            Folio = [];
+            _folio = {};
+            _folio["FolioAvisoLlegadaID"] = id;
+            Folio.push(_folio);
+        };
 
-     }
-     @section JavascriptDocumentReadyFunctions {
+        function ObtenerFolioEntradaMaterial() {
+            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
 
-     }
+        function ChecarAutorizacion() {
+                var folio=Folio.length> 0 ? Folio[0].FolioAvisoLlegadaID:"-1";
+
+                $PermisoAutorizado.PermisoAutorizado.read({ folio: folio ,token: Cookies.get("token") }).done(function (data) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        if(data.PermisoAutorizado)
+                        {
+                            $("#ArchivoAutorizar").data("kendoUpload").disable();
+                            $("#NumeroPermiso").attr("disabled", "disabled");
+                            $("#divArchivoAutorizar").hide();
+                            $("#divLinkAutorizar").show();
+                            $("#divLinkAutorizar").append("<a href=''>" + data.ArchivoAutorizado[0].Nombre + "</a>");
+                            $("#NumeroPermiso").val(data.NumeroPermiso);
+                        }
+                        else
+                        {
+                            $("#divArchivoAutorizar").show();
+                            $("#divLinkAutorizar").empty();
+                            $("#divLinkAutorizar").hide();
+                            $("#ArchivoAutorizar").data("kendoUpload").enable();
+                            $("#NumeroPermiso").attr("disabled", "");
+                        }
+                    };
+                });
+        };
+
+        function onUploadArchivoAutorizar() {
+            if (!$("#NumeroPermiso").val()) {
+                alert("Por favor, seleccionar el numero de permiso");
+                e.preventDefault();
+            }
+        };
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+        $("#FolioAvisoLlegadaID").kendoComboBox({
+            dataTextField: "id",
+            dataValueField: "value",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFolio(dataItem.id);
+                ChecarAutorizacion(dataItem.id);
+            },
+            filter: "contains"
+        });
+
+        $('#ArchivoAutorizar').kendoUpload({
+            async: {
+                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                        autoUpload: false
+                    },
+             success: function (data) {
+                 $("#ArchivoAutorizar").data("kendoUpload").disable();
+                 $("#NumeroPermiso").attr("disabled", "disabled");
+             },
+             error: function (data) { },
+             upload: onUploadArchivoAutorizar
+        });
+
+        ObtenerFolioEntradaMaterial();
+    }
+
 </script>

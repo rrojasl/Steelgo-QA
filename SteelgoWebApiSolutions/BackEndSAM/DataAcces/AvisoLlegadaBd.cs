@@ -197,8 +197,8 @@ namespace BackEndSAM.DataAcces
                     int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
-                    List<int> proyectos = filtros.Proyectos.Select(x => x.ProyectoID).ToList();
-                    List<int> patios = filtros.Patio.Select(x => x.PatioID).ToList();
+                    List<int> proyectos = filtros.Proyectos.Where(x => x.ProyectoID > 0).Select(x => x.ProyectoID).ToList();
+                    List<int> patios = filtros.Patio.Where(x => x.PatioID > 0).Select(x => x.PatioID).ToList();
 
                     if (folioLlegadaID > 0)
                     {
@@ -215,10 +215,11 @@ namespace BackEndSAM.DataAcces
                                                  join apr in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on
                                                  a.FolioAvisoLlegadaID equals apr.FolioAvisoLlegadaID
                                                  where a.Activo.Value == true
-                                                 && patios.Contains(a.PatioID)
-                                                 && proyectos.Contains(apr.ProyectoID)
-                                                 && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
-                                                 select a.FolioAvisoLlegadaID).AsParallel().ToList();
+                                                 && (patios.Contains(a.PatioID)
+                                                 || proyectos.Contains(apr.ProyectoID)
+                                                 || (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
+                                                 || a.FolioAvisoLlegadaID == folioAvisoLlegadaID)
+                                                 select a.FolioAvisoLlegadaID).AsParallel().Distinct().ToList();
                     }
 
                     List<AvisoLlegadaJson> resultados = new List<AvisoLlegadaJson>();
@@ -260,7 +261,7 @@ namespace BackEndSAM.DataAcces
                         aviso.ClienteID = registroBd.ClienteID.ToString();
 
                         TipoAvisoAV tipoAvisoBD = (from r in ctx.Sam3_TipoAviso
-                                                   join a in ctx.Sam3_FolioAvisoLlegada on r.TipoAvisoID equals a.TipoAvisoID
+                                                   where r.TipoAvisoID == registroBd.TipoAvisoID
                                                    select new TipoAvisoAV
                                                    {
                                                        Nombre = r.Nombre,
@@ -404,7 +405,7 @@ namespace BackEndSAM.DataAcces
                     aviso.ClienteID = registroBd.ClienteID.ToString();
 
                     TipoAvisoAV tipoAvisoBD = (from r in ctx.Sam3_TipoAviso
-                                               join a in ctx.Sam3_FolioAvisoLlegada on r.TipoAvisoID equals a.TipoAvisoID
+                                               where r.TipoAvisoID == registroBd.TipoAvisoID
                                                select new TipoAvisoAV
                                                {
                                                    Nombre = r.Nombre,

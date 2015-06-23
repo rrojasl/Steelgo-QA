@@ -498,6 +498,8 @@
         var $TipoVehiculo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $Cliente = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $TipoAviso = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $PermisoAutorizado = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var redireccionAutomatica = true;
         
         $Plana.add("Plana");
@@ -514,6 +516,8 @@
         $TipoVehiculo.add("TipoVehiculo");
         $Cliente.add("Cliente");
         $TipoAviso.add("TipoAviso");
+        $PermisoAutorizado.add("PermisoAutorizado");
+        $TipoArchivo.add("TipoArchivo");
 
         var $authorizationModel = {};
         var $layoutModel = {

@@ -14,7 +14,8 @@
     08  $_input
     09  $_btn
     10  $_headings
-    11  $_
+    11  $_dropdown
+    12  $_
 
 
     Color Palette: 
@@ -155,18 +156,18 @@ label {
     margin-bottom: 6px;
 }
 
-    .form label.required {
+    .form label.security_required {
         position: relative;
     }
 
-        .form label.required::after {
+        .form label.security_required::after {
             content: '*';
             font-size: 19px;
             position: absolute;
             top: -6px;
         }
 
-        .form label.required.error::after {
+        .form label.security_required.error::after {
             color: #EC4F50;
         }
 
@@ -229,6 +230,10 @@ input {
         font-style: italic;
         font-size: 12px;
         font-weight: 600;
+    }
+
+    input:not(.k-input).error {
+        border-color: #EC4F50 !important; 
     }
 
 ::-webkit-input-placeholder {
@@ -388,6 +393,14 @@ input {
         margin-left: 16px;
     }
 
+    .buttonBar a:last-child {
+        margin-right: 0;
+    }
+
+    .buttonBar.left {
+        text-align: justify;
+    }
+
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");
     background-size: auto;
@@ -404,7 +417,7 @@ input {
     width: 34px;
 }
 
-.formButtons {
+/*.formButtons {
     margin-top: 15px;
     padding-bottom: 20px;
 }
@@ -413,7 +426,7 @@ input {
         margin: auto 15px;
         padding-top: 20px;
         border-top: 1px solid #CCCCCC;
-    }
+    }*/
 
 .btn-group > .btn + .dropdown-toggle {
     padding-right: 13px;
@@ -421,7 +434,7 @@ input {
 }
 
 #Imprimir.btn {
-    /*background-image: url("/Content/images/SAMC_RefreshIcon.png");*/
+    background-image: url("/Content/images/SAMC_Printer.png");
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
@@ -528,9 +541,9 @@ h2 {
         margin-top: 21px;
     }
 
-    .formButtons {
+    /*.formButtons {
         margin-top: 25px;
-    }
+    }*/
 }
 
 @media (max-width: 1540px) {

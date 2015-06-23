@@ -974,6 +974,26 @@ _dictionary = {
         "es-MX": "Folio",
         "en-US": "Folio Arrival Notice"
     },
+    "AutorizarPermiso0002": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "AutorizarPermiso0003": {
+        "es-MX": "Autorizar Permiso",
+        "en-US": "Authorize Permit"
+    },
+    "AutorizarPermiso0004": {
+        "es-MX": "Permiso de Aduana",
+        "en-US": "Customs Permission"
+    },
+    "AutorizarPermiso0005": {
+        "es-MX": "Numero de Permiso",
+        "en-US": "Permit number"
+    },
+    "AutorizarPermiso0006": {
+        "es-MX": "Permiso Autorizado",
+        "en-US": "Permit Authorized"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

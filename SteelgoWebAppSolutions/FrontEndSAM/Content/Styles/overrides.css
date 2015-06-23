@@ -58,7 +58,7 @@
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
 .form-group {
-  margin-bottom: 27px;
+    margin-bottom: 27px;
 }
 
 .k-widget {
@@ -70,14 +70,14 @@
     box-sizing: border-box;
 }
 
-    .k-widget.error {
-        border-color: #EC4F50;
-    }
-
 .k-state-default, .k-state-hover {
     background: none;
     background-color: #FFFFFF !important;
 }
+
+    .k-state-default.error {
+        border-color: #EC4F50;
+    }
 
 .k-widget.k-state-focused, .k-picker-wrap.k-state-focused,
 .k-multiselect.k-header.k-state-focused, .k-dropdown-wrap.k-state-focused {
@@ -204,7 +204,7 @@
         border: none;
         border-radius: 3px;
         border-bottom: 1px solid #234568;
-        margin-top: 4px;
+        margin-top: 2px;
         padding: 5px 14px;
         font-size: 14px;
         box-sizing: border-box;
