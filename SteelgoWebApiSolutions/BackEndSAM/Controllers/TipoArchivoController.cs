@@ -32,7 +32,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return null;
+                    return TipoArchivoBd.Instance.ObtenerListadoTipoArchivos(usuario);
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return null;
+                    return TipoArchivoBd.Instance.InsertarTipoArchivo(tipoArchivo, usuario);
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return null;
+                    return TipoArchivoBd.Instance.ActualizarTipoArchivo(tipoArchivo, usuario);
                 }
                 else
                 {
@@ -140,7 +140,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return null;
+                    return TipoArchivoBd.Instance.EliminarTipoArchivo(id, usuario);
                 }
                 else
                 {
