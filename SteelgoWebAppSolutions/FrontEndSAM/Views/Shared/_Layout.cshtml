@@ -1174,7 +1174,7 @@
             $("#language").data("kendoDropDownList").trigger("change");
 
             //Add layout element to the Authorization Model
-            $authorizationModel.Layout = $layoutModel
+            $authorizationModel.Layout = $layoutModel;
 
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
