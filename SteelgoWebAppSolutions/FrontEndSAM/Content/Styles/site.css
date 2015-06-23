@@ -409,7 +409,7 @@ input {
     width: 34px;
 }
 
-.formButtons {
+/*.formButtons {
     margin-top: 15px;
     padding-bottom: 20px;
 }
@@ -418,7 +418,7 @@ input {
         margin: auto 15px;
         padding-top: 20px;
         border-top: 1px solid #CCCCCC;
-    }
+    }*/
 
 .btn-group > .btn + .dropdown-toggle {
     padding-right: 13px;
@@ -533,9 +533,9 @@ h2 {
         margin-top: 21px;
     }
 
-    .formButtons {
+    /*.formButtons {
         margin-top: 25px;
-    }
+    }*/
 }
 
 @media (max-width: 1540px) {
