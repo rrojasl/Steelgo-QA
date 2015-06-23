@@ -894,9 +894,9 @@ header .menu > div {
             margin-right: 0px;
         }
 
-        .formNav .action-group #Acciones > span:first-child {
-            float: left;
-        }
+            .formNav .action-group #Acciones > span:first-child {
+                float: left;
+            }
 /**********************************************************************************/
 
 
@@ -942,6 +942,11 @@ header .menu > div {
     .addedSection {
         margin-top: 15px;
     }
+
+    /*$_formNav*/
+    .formNav .button-container {
+        margin: 10px 0;
+    }
 }
 
 /* tablet viewport*/
@@ -966,6 +971,17 @@ header .menu > div {
     .content-container {
         max-width: 76.5%;
         width: 76.5%;
+    }
+
+    /*$_formNav*/
+    .formNav .btn, .formNav .btn-group,
+    .formNav .action-group {
+        margin-right: 14px;
+    }
+
+    .formNav .button-container {
+        margin-right: 12px;
+        padding-right: 0;
     }
 }
 
@@ -992,7 +1008,8 @@ header .menu > div {
 @media (min-width: 1200px) and (max-width: 1540px) {
 
     /*$_content-container*/
-    .form > .row > div.filters {
+    .form > .row > div.filters,
+    .form .row > div.filterForm .row > div {
         width: 33.33%;
     }
 
