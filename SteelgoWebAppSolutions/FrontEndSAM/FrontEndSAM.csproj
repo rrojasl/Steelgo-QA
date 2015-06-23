@@ -163,6 +163,7 @@
     <Content Include="Content\images\SAMC_MenuIcon_03.png" />
     <Content Include="Content\images\SAMC_NavigationLeft.png" />
     <Content Include="Content\images\SAMC_NavigationRight.png" />
+    <Content Include="Content\images\SAMC_Printer.png" />
     <Content Include="Content\images\SAMC_RefreshIcon.png" />
     <Content Include="Content\images\SAMC_SearchIconChart.png" />
     <Content Include="Content\images\SAMC_SteelLogo_Mobile.jpg" />

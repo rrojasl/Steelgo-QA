@@ -426,7 +426,7 @@ input {
 }
 
 #Imprimir.btn {
-    /*background-image: url("/Content/images/SAMC_RefreshIcon.png");*/
+    background-image: url("/Content/images/SAMC_Printer.png");
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
