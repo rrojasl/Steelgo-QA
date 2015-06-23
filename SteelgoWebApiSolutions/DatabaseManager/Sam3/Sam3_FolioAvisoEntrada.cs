@@ -18,6 +18,7 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_PackingList = new HashSet<Sam3_PackingList>();
             this.Sam3_FolioPackingList = new HashSet<Sam3_FolioPackingList>();
+            this.Sam3_Rel_FolioAvisoEntrada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoEntrada_Proyecto>();
         }
     
         public int FolioAvisoEntradaID { get; set; }
@@ -29,9 +30,12 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string Factura { get; set; }
         public string OrdenCompra { get; set; }
+        public Nullable<int> ProveedorID { get; set; }
     
         public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
         public virtual ICollection<Sam3_FolioPackingList> Sam3_FolioPackingList { get; set; }
+        public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
+        public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
     }
 }

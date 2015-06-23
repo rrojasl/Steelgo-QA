@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="116">
+      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="98">
         <EntityTypeShape EntityType="ModelSam3.Sam3_Acero" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Chofer" Width="1.5" PointX="3" PointY="43.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Cliente" Width="1.5" PointX="3.75" PointY="40.75" IsExpanded="true" />
@@ -196,6 +196,11 @@
         <AssociationConnector Association="ModelSam3.FK_Camion_FolioLlegada1" />
         <AssociationConnector Association="ModelSam3.FK_FolioLlegada_FolioAvisoLlegada1" />
         <AssociationConnector Association="ModelSam3.FK_FolioPackingList_FolioLlegada1" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_Proyecto" Width="1.5" PointX="19" PointY="53.75" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Prove__16B953FD" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__1A89E4E1" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoA__17AD7836" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__1B7E091A" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -103,5 +103,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_TipoVehiculo> Sam3_TipoVehiculo { get; set; }
         public virtual DbSet<Sam3_Vehiculo> Sam3_Vehiculo { get; set; }
         public virtual DbSet<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
     }
 }

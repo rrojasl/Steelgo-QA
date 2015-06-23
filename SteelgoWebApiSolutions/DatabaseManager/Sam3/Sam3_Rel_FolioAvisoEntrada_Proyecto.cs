@@ -12,19 +12,16 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_TipoAviso
+    public partial class Sam3_Rel_FolioAvisoEntrada_Proyecto
     {
-        public Sam3_TipoAviso()
-        {
-            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
-        }
-    
-        public int TipoAvisoID { get; set; }
-        public string Nombre { get; set; }
+        public int Rel_FolioAvisoEntrada_Proyecto_ID { get; set; }
+        public int FolioAvisoEntradaID { get; set; }
+        public int ProyectoID { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
+        public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }
+        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }
 }

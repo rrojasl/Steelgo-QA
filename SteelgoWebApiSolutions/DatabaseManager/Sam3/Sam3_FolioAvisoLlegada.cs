@@ -32,23 +32,24 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public int TransportistaID { get; set; }
-        public int ProveedorID { get; set; }
         public int PatioID { get; set; }
         public int ChoferID { get; set; }
         public Nullable<bool> PaseSalidaEnviado { get; set; }
         public Nullable<System.DateTime> FechaRecepcion { get; set; }
         public int VehiculoID { get; set; }
+        public Nullable<int> ClienteID { get; set; }
+        public Nullable<int> TipoAvisoID { get; set; }
     
         public virtual ICollection<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
         public virtual Sam3_Chofer Sam3_Chofer { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
-        public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
         public virtual Sam3_Transportista Sam3_Transportista { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
         public virtual Sam3_Vehiculo Sam3_Vehiculo { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Vehiculo> Sam3_Rel_FolioAvisoLlegada_Vehiculo { get; set; }
         public virtual ICollection<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
+        public virtual Sam3_TipoAviso Sam3_TipoAviso { get; set; }
     }
 }
