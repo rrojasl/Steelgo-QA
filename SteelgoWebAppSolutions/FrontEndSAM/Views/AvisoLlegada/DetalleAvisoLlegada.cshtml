@@ -389,9 +389,9 @@
         var folio = getUrlParameter("folio", "-1");
         var Transportista = [], Proveedor = [], Patio = [],
             Plana = [], Chofer = [], Contacto = [], Camion = [],
-            CamionEntradaMaterial = [], TransportistaCamion = [],
+            CamionEntradaMaterial = {}, TransportistaCamion = [],
             ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
-            Cliente = [], TipoAvisos = [];
+            Cliente = [], TipoAvisos = {}, TipoArchivo = [];
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -634,19 +634,15 @@
                 ObtenerChofer();
 
                 $("#TipoArchivo").kendoComboBox({
-                    //dataSource: {
-                    //    serverFiltering: false,
-                    //    type: "json",
-                    //    transport: {
-                    //        read: {
-                    //            url: "http://localhost:60960/backendsam/api/Proyecto",
-                    //        }
-                    //    }
-                    //},
-                    dataTextField: "value",
-                    dataValueField: "id",
+                    dataTextField: "Nombre",
+                    dataValueField: "TipoArchivoID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
+                    },
                     filter: "contains",
                 });
+                ObtenerTipoArchivo();
 
                 $('#files').kendoUpload({
                     async: {
@@ -813,7 +809,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Proveedor: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAvisoID: "", PaseSalidaEnviado: "" };
+                AvisoLlegada = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAviso: "", PaseSalidaEnviado: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -893,67 +889,50 @@
                 var curr_month = d.getMonth() + 1; //Months are zero based
                 var curr_year = d.getFullYear();
 
-                AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
-                AvisoLlegada[0].Proyectos = ProyectoIDs;
+                AvisoLlegada.FolioAvisoLlegadaID = folio != -1 ? folio : -1;
+                AvisoLlegada.Proyectos = ProyectoIDs;
                 //AvisoLlegada[0].Factura = $("#Factura").val();
-                AvisoLlegada[0].Transportista = Transportista;
-                AvisoLlegada[0].FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date;
+                AvisoLlegada.Transportista = Transportista;
+                AvisoLlegada.FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date;
                 //AvisoLlegada[0].Proveedor = Proveedor;
-                AvisoLlegada[0].Plana = PlanaIDs;
+                AvisoLlegada.Plana = PlanaIDs;
                 //AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-                AvisoLlegada[0].Patio = Patio;
-                AvisoLlegada[0].Chofer = Chofer;
-                AvisoLlegada[0].Archivos = Documentos;
-                AvisoLlegada[0].PermisoAduana = _permisoAduana;
-                AvisoLlegada[0].Tracto = CamionEntradaMaterial;
+                AvisoLlegada.Patio = Patio;
+                AvisoLlegada.Chofer = Chofer;
+                AvisoLlegada.Archivos = Documentos;
+                AvisoLlegada.PermisoAduana = _permisoAduana;
+                AvisoLlegada.Tracto = CamionEntradaMaterial;
                 //AvisoLlegada[0].PaseSalida = _archivosPackingList;
-                AvisoLlegada[0].ClienteID = Cliente.length > 0 ? Cliente[0].ClienteID : "-1";
-                AvisoLlegada[0].TipoAvisoID = TipoAvisos;
-                AvisoLlegada[0].PaseSalidaEnviado = false;
+                AvisoLlegada.ClienteID = Cliente.length > 0 ? Cliente[0].ClienteID : "-1";
+                AvisoLlegada.TipoAviso = TipoAvisos;
+                AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
 
-                console.log(AvisoLlegada[0]);
+                console.log(AvisoLlegada);
 
                 var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                 Client.add('DummyAvisoLlegada');
 
-                console.log(JSON.stringify(AvisoLlegada[0]));
+                console.log(JSON.stringify(AvisoLlegada));
                 if (folio != -1)//Edición
                 {
-                    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.update");
                     });
                 } else //Alta
                 {
-                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.create");
 
                         if (data.ReturnCode != 200) {
                             removeUserSession();
                         } else {
-                            folio = ReturnMessage[1];
+                            folio = data.ReturnMessage[1];
                         };
 
                         cargarTituloFolio();
                         alert("El folio " + folio + " fue creado exitosamente.");
                     });
                 }
-
-                //if (folio != -1)//Edición
-                //{
-                //    Client.DummyAvisoLlegada.update({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                //        console.log("Client.DummyAvisoLlegada.update");
-                //    });
-                //} else //Alta
-                //{
-                //    Client.DummyAvisoLlegada.create({}, { avisollegada: JSON.stringify(AvisoLlegada[0]), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                //        console.log("Client.DummyAvisoLlegada.create");
-                //        folio = data.FolioAvisoLlegadaID;
-                //        cargarTituloFolio();
-            //        var tabStrip = $("#tabstrip").data("kendoTabStrip");
-                //        tabStrip.enable(tabStrip.tabGroup.children().eq(1));
-                //        alert("El folio " + folio + " fue creado exitosamente.");
-                //    });
-                //}
             };
 
             function descargarArchivo(id) {
@@ -1185,20 +1164,21 @@
             };
 
             function CargarTipoAviso(id, value) {
-                TipoAvisos = [];
-                _tipoavisos = {};
-                _tipoavisos["TipoAvisoID"] = id;
-                _tipoavisos["Nombre"] = value;
-                TipoAvisos.push(_tipoavisos);
+                TipoAvisos = { TipoAvisoID: id, Nombre: value };
             };
             
             function CargarCamionEntradaMaterial(id, value) {
-                CamionEntradaMaterial = [];
-                _camion = {};
-                _camion["VehiculoID"] = id;
-                _camion["Placas"] = value;
-                CamionEntradaMaterial.push(_camion);
+                CamionEntradaMaterial = { VehiculoID: id, Placas: value };
             };
+
+            function CargarTipoArchivo(id, value) {
+                TipoArchivo = [];
+                _tipoarchivo = {};
+                _tipoarchivo["TipoArchivoID"] = id;
+                _tipoarchivo["Nombre"] = value;
+                TipoArchivo.push(_tipoarchivo);
+            };
+
             function VentanaModal(id) {
             
                 var modalTitle = "";
@@ -1481,6 +1461,10 @@
             };
 
             function GenerarPermiso() {
+                if (folio == -1) {
+                    alert("Favor de guardar el aviso de llegada, antes de enviar el permiso");
+                    return;
+                };
                 TramitarPermiso = [];
                 TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
                 TramitarPermiso[0].FolioAvisoLlegadaID = folio;
@@ -1651,6 +1635,16 @@
                         removeUserSession();
                     } else {
                         $("#TransportistaID_Camion").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+            
+            function ObtenerTipoArchivo() {
+                $TipoArchivo.TipoArchivo.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#TipoArchivo").data("kendoComboBox").dataSource.data(result);
                     };
                 });
             };

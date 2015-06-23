@@ -28,11 +28,11 @@
         </div>
         <div class="col-sm-12 col-md-4 col-lg-3 filters">
             <div class="row">
-                <div class="form-group col-sm-6 col-md-12 col-lg-6">
+               @* <div class="form-group col-sm-6 col-md-12 col-lg-6">
                     <label id="ListadoAvisoLlegada0005"></label>
                     <input id="ProveedorID" class="" />
-                </div>
-                <div class="form-group col-sm-6 col-md-12 col-lg-6">
+                </div>*@
+                <div class="form-group col-sm-6 col-md-12 col-lg-12">
                     <label id="ListadoAvisoLlegada0002"></label>
                     <input id="FolioAvisoLlegadaID" class="" />
                 </div>
@@ -261,16 +261,16 @@
         });
         ObtenerProyectos();
 
-        $("#ProveedorID").kendoAutoComplete({
-            dataTextField: "Nombre",
-            dataValueField: "ProveedorID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-            },
-            filter: "contains",
-        });
-        ObtenerProveedor();
+        //$("#ProveedorID").kendoAutoComplete({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ProveedorID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerProveedor();
 
         //$("#TransportistaID").kendoAutoComplete({
         //    dataTextField: "Nombre",
