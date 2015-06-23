@@ -497,6 +497,7 @@
         var $FiltrosListadoEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $TipoVehiculo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $Cliente = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $TipoAviso = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var redireccionAutomatica = true;
         
         $Plana.add("Plana");
@@ -512,6 +513,7 @@
         $FiltrosListadoEntradaMaterial.add("AvisoLlegada");
         $TipoVehiculo.add("TipoVehiculo");
         $Cliente.add("Cliente");
+        $TipoAviso.add("TipoAviso");
 
         var $authorizationModel = {};
         var $layoutModel = {
