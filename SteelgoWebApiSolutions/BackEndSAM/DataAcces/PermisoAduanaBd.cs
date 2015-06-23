@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BackEndSAM.DataAcces
 {
-    public class PermisoAduana
+    public class PermisoAduanaBd
     {
         /// <summary>
         /// Método para obtener los datos del aviso de llegada correspondientes al folio

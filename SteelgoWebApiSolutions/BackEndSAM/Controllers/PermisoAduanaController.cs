@@ -16,7 +16,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PermisoAduanaController : ApiController
     {
-        PermisoAduana permiso = new PermisoAduana();
+        PermisoAduanaBd permiso = new PermisoAduanaBd();
 
         // GET api/<controller>
         public IEnumerable<string> Get()
