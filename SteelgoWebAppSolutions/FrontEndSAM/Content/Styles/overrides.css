@@ -70,14 +70,14 @@
     box-sizing: border-box;
 }
 
-    .k-widget.error {
-        border-color: #EC4F50;
-    }
-
 .k-state-default, .k-state-hover {
     background: none;
     background-color: #FFFFFF !important;
 }
+
+    .k-state-default.error {
+        border-color: #EC4F50;
+    }
 
 .k-widget.k-state-focused, .k-picker-wrap.k-state-focused,
 .k-multiselect.k-header.k-state-focused, .k-dropdown-wrap.k-state-focused {
