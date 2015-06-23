@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="form-group col-sm-6 col-md-6 col-lg-3">
                             <label id="DetalleAvisoLlegada0067" class="required"></label>
-                            <input id="" />
+                            <input id="ClienteID" />
                         </div>
                         <div class="form-group col-sm-6 col-md-6 col-lg-3">
                             <label id="DetalleAvisoLlegada0001"></label>
@@ -393,7 +393,8 @@
         var Transportista = [], Proveedor = [], Patio = [],
             Plana = [], Chofer = [], Contacto = [], Camion = [],
             CamionEntradaMaterial = [], TransportistaCamion = [],
-            ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [];
+            ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
+            Cliente = [];
     }
 
     @section JavascriptGlobalFunctions {
@@ -442,6 +443,17 @@
                     });               
                     window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
                 });
+
+                $("#ClienteID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "ClienteID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                    },
+                    filter: "contains",
+                });
+                ObtenerCliente();
 
                 $("#ProyectoID").kendoMultiSelect({
                     dataTextField: "Nombre",
@@ -1032,6 +1044,14 @@
                 _tipovehiculo["Nombre"] = value;
                 TipoVehiculoPlana.push(_tipovehiculo);
             };
+        
+            function CargarCliente(id, value) {
+                Cliente = [];
+                _cliente = {};
+                _cliente["ClienteID"] = id;
+                _cliente["Nombre"] = value;
+                Cliente.push(_cliente);
+            };
 
             function CargarCamionEntradaMaterial(id, value) {
                 CamionEntradaMaterial = [];
@@ -1454,6 +1474,17 @@
                     };
                 });
             };
+
+            function ObtenerCliente() {
+                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                    if (result.ReturnCode) {
+                        removeUserSession();
+                    } else {
+                        $("#ClienteID").data("kendoComboBox").dataSource.data(result);
+                    };
+                });
+            };
+
             function ObtenerContacto() {
                 $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
                     if (result.ReturnCode) {
