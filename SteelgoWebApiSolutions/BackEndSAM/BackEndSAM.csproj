@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\TipoVehiculoController.cs" />
     <Compile Include="Controllers\TractoController.cs" />
     <Compile Include="Controllers\ChoferController.cs" />
     <Compile Include="Controllers\DummyCambiarEstatusCuantificacionController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Models\Dummy\Proyecto.cs" />
     <Compile Include="Models\Dummy\RegistroTiempos.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
+    <Compile Include="Models\Dummy\TipoVehiculo.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
