@@ -127,7 +127,6 @@
                                 FolioAvisoLlegadaID: { type: "string" },
                                 Patio: { type:"string" },
                                 NombreProyecto: { type: "string" },
-                                Proveedor: { type: "string" },
                                 Transportista: { type: "string" },
                                 FechaRecepcion: { type: "string"},
                                 Estatus: { type: "string"}
@@ -158,8 +157,7 @@
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
                     { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Proveedor", title: _dictionary.ListadoAvisoLlegada0011[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },                   
                     { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], filterable: true },                    
@@ -228,7 +226,14 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarFolio(dataItem.id);
-            }
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Folio = [];
+                };
+            },
+            filter: "contains"
         });
         ObtenerFolioEntradaMaterial();
 
@@ -238,6 +243,12 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarPatio(dataItem.PatioID, dataItem.Nombre);
+            },
+            change: function(e) {
+                var value = this.value();
+                if (!value) {
+                    Patio = [];
+                };
             },
             filter: "contains",
         });
@@ -336,7 +347,7 @@
 
     function Filtros(prueba) {
         var ListadoModal;
-        ListadoModal = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", Proveedor: "", FechaInicial: "", FechaFinal: "", token: "" };
+        ListadoModal = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", FechaInicial: "", FechaFinal: "", token: "" };
         ProyectoIDs = [];
 
         var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
@@ -352,8 +363,7 @@
         ListadoModal.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
         ListadoModal.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() ? $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() : -1;
         ListadoModal.Patio = Patio;
-        ListadoModal.Proyectos = ProyectoIDs;
-        ListadoModal.Proveedor = Proveedor;
+        ListadoModal.Proyectos = ProyectoIDs;      
         ListadoModal.FechaInicial = obtenerFormatoFecha(d);
         ListadoModal.FechaFinal = obtenerFormatoFecha(d1);
         ListadoModal.token = Cookies.get("token");
