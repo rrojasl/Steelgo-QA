@@ -10,6 +10,7 @@ namespace BackEndSAM.Models
         public Nullable<System.DateTime> FechaRecepcion { get; set; }
         public string NombreTransportista { get; set; }
         public string NombreCliente { get; set; }
+        public int ClienteID { get; set; }
         public string NombreChofer { get; set; }
         public string TipoVehiculo { get; set; }
         public string PlacasPlana { get; set; }
