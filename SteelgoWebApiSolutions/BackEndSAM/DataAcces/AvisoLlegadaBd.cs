@@ -247,11 +247,13 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
-                            else if (patios.Count > 0)
+                            
+                            if (patios.Count > 0)
                             {
                                 result = result.Where(x => patios.Contains(x.PatioID)).ToList();
                             }
-                            else if (proyectos.Count > 0)
+                            
+                            if (proyectos.Count > 0)
                             {
                                 result = (from x in result
                                           join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
@@ -265,7 +267,8 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
-                            else if (patios.Count > 0)
+                            
+                            if (patios.Count > 0)
                             {
                                 if (result != null)
                                 {
@@ -276,7 +279,8 @@ namespace BackEndSAM.DataAcces
                                     result = ctx.Sam3_FolioAvisoLlegada.Where(x => patios.Contains(x.PatioID)).ToList();
                                 }
                             }
-                            else if (proyectos.Count > 0)
+                            
+                            if (proyectos.Count > 0)
                             {
                                 if (result != null)
                                 {
@@ -355,7 +359,21 @@ namespace BackEndSAM.DataAcces
 
                     }
 
-                    return resultados;
+                    if (resultados.Count > 0)
+                    {
+                        return resultados;
+                    }
+                    else
+                    {
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("OK");
+                        result.ReturnMessage.Add("Ningun elemento coincide con los parametros de busqueda");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
+
+                        return result;
+                    }
                 }
             }
             catch (Exception ex)
