@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models;
+using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -45,22 +46,51 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="folio">Folio seleccionado</param>
         /// <returns>Lista de Formato Permiso aduana</returns>
-        public object ObtenerDatosAvisoLlegada(int folio)
+        public object ObtenerDatosAvisoLlegada(int folio, Sam3_Usuario usuario)
         {
             try
             {
                 List<FormatoPermisoAduana> listaAvisoLlegada = new List<FormatoPermisoAduana>();
                 List<FormatoPermisoAduana> listaProyectos = new List<FormatoPermisoAduana>();
                 List<FormatoPermisoAduana> listaVehiculos = new List<FormatoPermisoAduana>();
+                List<FormatoPermisoAduana> listaClientes = new List<FormatoPermisoAduana>();
+                int clienteFolioAviso = 0;
+                string nombreClienteFolioAviso = "";
+
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    listaClientes = (from cl in ctx2.Cliente
+                                     select new FormatoPermisoAduana
+                                     {
+                                         ClienteID = cl.ClienteID,
+                                         NombreCliente = cl.Nombre
+                                     }).AsParallel().ToList();
+                }
+
                 using (SamContext ctx = new SamContext())
                 {
+                    var cliente = (from av in ctx.Sam3_FolioAvisoLlegada
+                                   where (av.FolioAvisoLlegadaID == folio)
+                                   select av.ClienteID).FirstOrDefault();
+
+                    for (int i = 0; i < listaClientes.Count; i++)
+                    {
+                        if (cliente == listaClientes[i].ClienteID)
+                        {
+                            clienteFolioAviso = listaClientes[i].ClienteID;
+                            nombreClienteFolioAviso = listaClientes[i].NombreCliente;
+                            break;
+                        }
+
+                    }
+
                     listaAvisoLlegada = (from av in ctx.Sam3_FolioAvisoLlegada
-                                         join cl in ctx.Sam3_Cliente on av.ClienteID equals cl.ClienteID
+                                         //join cl in ctx.Clientes on av.ClienteID equals cl.ClienteID
                                          where (av.FolioAvisoLlegadaID == folio)
                                          select new FormatoPermisoAduana
                                          {
                                              FechaRecepcion = av.FechaRecepcion,
-                                             NombreCliente = cl.Nombre
+                                             NombreCliente = nombreClienteFolioAviso
                                          }).AsParallel().ToList();
 
                     listaProyectos = (from avp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
@@ -92,7 +122,17 @@ namespace BackEndSAM.DataAcces
                     listaAvisoLlegada.AddRange(listaProyectos);
                     listaAvisoLlegada.AddRange(listaVehiculos);
                 }
-                return listaAvisoLlegada;
+
+                InsertarPermisoADuana(folio, usuario);
+                EnviarCorreo(listaAvisoLlegada);
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnCode = 200;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -106,11 +146,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-/// <summary>
-/// Método para enviar el formato de Permiso de Aduana por correo
-/// </summary>
-/// <param name="listaAvisoLlegada">lista con los datos del permiso de aduana seleccionado</param>
-/// <returns></returns>
+        /// <summary>
+        /// Método para enviar el formato de Permiso de Aduana por correo
+        /// </summary>
+        /// <param name="listaAvisoLlegada">lista con los datos del permiso de aduana seleccionado</param>
+        /// <returns></returns>
         public object EnviarCorreo(object listaAvisoLlegada)
         {
             try
@@ -185,7 +225,7 @@ namespace BackEndSAM.DataAcces
                             + body;
 
                 SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("user", "password");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("usuario", "password");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
@@ -211,7 +251,7 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// Insertar permiso de aduana en base de datos
+        /// Insertar permiso de aduana en base de datos, si ya existe un permiso con ese folio de aviso de llegada, se hace update, sino se inserta
         /// </summary>
         /// <param name="folio">Folio seleccionado por el usuario</param>
         /// <param name="usuario">Usuario Actual</param>

@@ -32,10 +32,9 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            
 
-                object listaDatosAduana = PermisoAduanaBd.Instance.ObtenerDatosAvisoLlegada(folio);
-                PermisoAduanaBd.Instance.InsertarPermisoADuana(folio, usuario);
-                return PermisoAduanaBd.Instance.EnviarCorreo(listaDatosAduana); ;
+                return PermisoAduanaBd.Instance.ObtenerDatosAvisoLlegada(folio, usuario);
             }
             else
             {
@@ -59,7 +58,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
+            
                return PermisoAduanaBd.Instance.GuardarDatosPermisoAutorizado(numeroPermiso, nombre, extension, folio, documentoID, usuario);
             }
             else
