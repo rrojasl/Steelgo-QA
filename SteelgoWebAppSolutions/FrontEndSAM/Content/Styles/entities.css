@@ -19,6 +19,7 @@
     13  $_modal
     14  $_branchCut
     15  $_formNav
+    15  $_departurePermit
 
 
     Color Palette: Look at site.css
@@ -615,6 +616,11 @@ header .menu > div {
         margin-left: -58px;
         padding-left: 73px;
     }
+
+    .content-container.printView {
+        max-width: 100%;
+        width: 100%;
+    }
 /**********************************************************************************/
 
 
@@ -900,6 +906,117 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_departurePermit
+ Description:   Customize section added to a page.
+**********************************************************************************/
+.departurePermit {
+    max-width: 790px;
+    margin: auto 10px;
+}
+
+    .departurePermit .header {
+        text-align: center;
+        padding: 21px 0 15px;
+    }
+
+        .departurePermit .header .title {
+            display: block;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+            padding-left: 29px;
+            margin-bottom: 18px;
+        }
+
+        .departurePermit .header .projectName {
+            text-align: left;
+            padding-left: 63px;
+        }
+
+            .departurePermit .header .projectName * {
+                display: inline-block;
+                width: auto;
+                font-size: 11px;
+                letter-spacing: -0.2px;
+            }
+
+            .departurePermit .header .projectName input {
+                border: none;
+                border-bottom: 1px solid black;
+                margin: 0px 0px 0 -3px;
+                padding-bottom: 0px;
+                min-width: 79.5%;
+            }
+
+    .departurePermit img {
+        float: right;
+        margin-right: 10px;
+    }
+
+        .departurePermit img.logo {
+            height: auto;
+            width: 100px;
+        }
+
+    .departurePermit .departureTable,
+    .departurePermit .departureTable table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+        .departurePermit .departureTable * {
+            text-align: center;
+            font-weight: normal;
+            border: none;
+        }
+
+        .departurePermit .departureTable th,
+        .departurePermit .departureTable thead td {
+            background-color: #CCCCCC;
+            border: 1px solid #000;
+            border-right: none;
+            padding: 7px 0px 3px;
+        }
+
+            .departurePermit .departureTable th:last-child {
+                border-right: 1px solid #000;
+            }
+
+        .departurePermit .departureTable > tbody > tr > td {
+            border-left: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+            .departurePermit .departureTable > tbody > tr > td:last-child {
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+
+        .departurePermit .departureTable table td,
+        .departurePermit .departureTable table thead th {
+            padding: 0;
+            border: 0;
+        }
+
+        .departurePermit .departureTable table thead th {
+            border: 0;
+            border-bottom: 1px solid #000;
+            border-right: 0 !important;
+        }
+
+        .departurePermit .departureTable > table:first-child tbody tr td {
+            text-align: right;
+        }
+
+            .departurePermit .departureTable table tbody td * {
+                width: auto;
+                display: inline-block;
+            }
+/**********************************************************************************/
+
+
+
 /* Media Queries */
 
 /* xs viewport */
@@ -1007,7 +1124,7 @@ header .menu > div {
 
 @media (min-width: 1200px) and (max-width: 1540px) {
 
-    /*$_content-container*/    
+    /*$_content-container*/
     .form .row > div.filterForm .row > div {
         width: 33.33%;
     }

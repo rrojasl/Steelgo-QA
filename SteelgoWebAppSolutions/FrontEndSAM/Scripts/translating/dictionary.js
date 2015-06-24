@@ -938,8 +938,8 @@ _dictionary = {
         "en-US": "Carrier Pass Out"
     },
     "FormatoPaseSalida0002": {
-        "es-MX": "Proyecto",
-        "en-US": "Project"
+        "es-MX": "Proyecto:",
+        "en-US": "Project:"
     },
     "FormatoPaseSalida0003": {
         "es-MX": "Fecha",
@@ -994,8 +994,8 @@ _dictionary = {
         "en-US": "Incidencia"
     },
     "FormatoPaseSalida0016": {
-        "es-MX": "Si",
-        "en-US": "Yes"
+        "es-MX": "Si, ",
+        "en-US": "Yes, "
     },
     "FormatoPaseSalida0017": {
         "es-MX": "No",
