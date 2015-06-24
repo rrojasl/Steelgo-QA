@@ -1002,8 +1002,8 @@ _dictionary = {
         "en-US": "No"
     },
     "FormatoPaseSalida0018": {
-        "es-MX": "Número",
-        "en-US": "Number"
+        "es-MX": "número:",
+        "en-US": "number:"
     },
     //Autorizar Permiso
     "AutorizarPermiso0001": {

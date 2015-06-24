@@ -91,13 +91,11 @@
             if (data.Incidencia.TieneIncidencia)
             {
                 strTbodyIncidencia = "<tr><td><input id='CheckNo' type='checkbox' disabled> <label id='FormatoPaseSalida0017'></label></td></tr>";
-                strTbodyIncidencia += "<tr><td><input  id='CheckSi' type='checkbox' checked='checked' disabled> <label id='FormatoPaseSalida0016'></label></td></tr>";
+                strTbodyIncidencia += "<tr><td><input  id='CheckSi' type='checkbox' checked='checked' disabled> <label id='FormatoPaseSalida0016'></label> <label id='FormatoPaseSalida0018'></label> " + data.Incidencia.Numero + "</td></td></tr>";
             } else {
                 strTbodyIncidencia = "<tr><td><input id='CheckNo' type='checkbox' checked='checked' disabled> <label id='FormatoPaseSalida0017'></label></td></tr>";
-                strTbodyIncidencia += "<tr><td><input id='CheckSi' type='checkbox' disabled> <label id='FormatoPaseSalida0016'></label></td></tr>";
+                strTbodyIncidencia += "<tr><td><input id='CheckSi' type='checkbox' disabled> <label id='FormatoPaseSalida0016'></label> <label id='FormatoPaseSalida0018'></label> " + data.Incidencia.Numero + "</td></td></tr>";
             }
-
-            strTbodyIncidencia += "<tr><td><label id='FormatoPaseSalida0018'></label> " + data.Incidencia.Numero + "</td></tr>";
 
             $("#tblPaseSalida tbody").append("<tr><td colspan='2'><table>" + strHeadRow2 + "<tbody>" + strTbodyRow2 + "</tboby></table></td><td colspan=" + (col) + "><table>" + strHeadRowIncidencia + "<tbody>" + strTbodyIncidencia + "</tbody>" + "</table></td></tr>");
             changeLayoutLabels($("#language").data("kendoDropDownList").value());
