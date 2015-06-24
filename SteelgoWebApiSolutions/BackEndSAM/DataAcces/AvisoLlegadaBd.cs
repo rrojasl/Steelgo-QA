@@ -96,20 +96,20 @@ namespace BackEndSAM.DataAcces
                     int nuevoID = nuevoAvisoLlegada.FolioAvisoLlegadaID;
 
                     //Guardamos el permisos aduana
-                    foreach (PermisoAduanaAV permisoAv in avisoJson.PermisoAduana)
-                    {
-                        Sam3_PermisoAduana nuevoPermiso = new Sam3_PermisoAduana();
-                        nuevoPermiso.Activo = true;
-                        nuevoPermiso.Estatus = "En Tramite";
+                    //foreach (PermisoAduanaAV permisoAv in avisoJson.PermisoAduana)
+                    //{
+                        //Sam3_PermisoAduana nuevoPermiso = new Sam3_PermisoAduana();
+                        //nuevoPermiso.Activo = true;
+                        //nuevoPermiso.Estatus = "En Tramite";
                         //nuevoPermiso.FolioAvisoLlegadaID = nuevoID;
                         //nuevoPermiso.NumeroPermiso = permisoAv.NumeroPermiso != null ? Convert.ToInt32(permisoAv.NumeroPermiso) : 0;
                         //nuevoPermiso.PermisoAutorizado = permisoAv.PermisoAutorizado;
-                        nuevoPermiso.PermisoTramite = permisoAv.PermisoTramite;
+                        //nuevoPermiso.PermisoTramite = permisoAv.PermisoTramite;
                         //nuevoPermiso.UsuarioModificacion = usuario.UsuarioID;
                         //nuevoPermiso.FechaModificacion = DateTime.Now;
                         //nuevoPermiso.FechaGeneracion = DateTime.Now;
-                        ctx.Sam3_PermisoAduana.Add(nuevoPermiso);
-                        ctx.SaveChanges();
+                        //ctx.Sam3_PermisoAduana.Add(nuevoPermiso);
+                        //ctx.SaveChanges();
                         //guardamos en la relacion de Permiso de aduana y documentos
                         //foreach (ArchivoAutorizadoAV archivosPermiso in permisoAv.ArchivoAutorizado)
                         //{
@@ -123,7 +123,7 @@ namespace BackEndSAM.DataAcces
                         //    permisoDocumento.FechaModificacion = DateTime.Now;
                         //    ctx.Sam3_Rel_PermisoAduana_Documento.Add(permisoDocumento);
                         //}
-                    }
+                    //}
 
 
                     //guardamos en la relacion entre folios y proyectos
@@ -210,15 +210,16 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        lstFoliosAvisoLlegada = (from a in ctx.Sam3_FolioAvisoLlegada
-                                                 join apr in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on
-                                                 a.FolioAvisoLlegadaID equals apr.FolioAvisoLlegadaID
-                                                 where a.Activo.Value == true
-                                                 && (patios.Contains(a.PatioID)
-                                                 || proyectos.Contains(apr.ProyectoID)
-                                                 || (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
-                                                 || a.FolioAvisoLlegadaID == folioAvisoLlegadaID)
-                                                 select a.FolioAvisoLlegadaID).AsParallel().Distinct().ToList();
+                        IQueryable<Sam3_FolioAvisoLlegada> result = (from a in ctx.Sam3_FolioAvisoLlegada
+                                  join apr in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on
+                                  a.FolioAvisoLlegadaID equals apr.FolioAvisoLlegadaID
+                                  where a.Activo.Value == true
+                                  select a).Distinct();
+
+                        result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID);
+
+                        lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
+
                     }
 
                     List<ElementoListadoFolioAvisoLlegada> resultados = new List<ElementoListadoFolioAvisoLlegada>();
@@ -267,7 +268,7 @@ namespace BackEndSAM.DataAcces
                                             FechaGeneracion = string.Empty,
                                             TienePaseSalida = r.PaseSalidaEnviado.Value
                                         }).AsParallel().Distinct().SingleOrDefault();
- 
+
                         }
 
 
@@ -366,14 +367,15 @@ namespace BackEndSAM.DataAcces
 
                     foreach (Sam3_PermisoAduana p in lstpermisosAduana)
                     {
-                        List<ArchivoAutorizadoAV> lstarchivosPermisoAduana = (from r in ctx.Sam3_Rel_PermisoAduana_Documento
-                                                                              where r.PermisoAduanaID == p.PermisoAduanaID && r.Activo
-                                                                              select new ArchivoAutorizadoAV
-                                                                              {
-                                                                                  ArchivoID = r.DocumentoID,
-                                                                                  Extension = r.Extencion,
-                                                                                  Nombre = r.Nombre
-                                                                              }).AsParallel().ToList();
+                        //List<ArchivoAutorizadoAV> lstarchivosPermisoAduana = (from r in ctx.Sam3_Rel_PermisoAduana_Documento
+                        //                                                      where r.PermisoAduanaID == p.PermisoAduanaID && r.Activo
+                        //                                                      select new ArchivoAutorizadoAV
+                        //                                                      {
+                        //                                                          ArchivoID = r.DocumentoID,
+                        //                                                          Extension = r.Extencion,
+                        //                                                          Nombre = r.Nombre
+                        //                                                      }).AsParallel().ToList();
+
                         aviso.PermisoAduana.Add(new PermisoAduanaAV
                         {
                             NumeroPermiso = p.NumeroPermiso.ToString(),
