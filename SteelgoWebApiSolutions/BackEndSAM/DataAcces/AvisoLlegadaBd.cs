@@ -193,6 +193,18 @@ namespace BackEndSAM.DataAcces
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
 
+                    if (fechaFinal.ToShortDateString() == "1/1/0001")
+                    {
+                        fechaFinal = DateTime.Now;
+                    }
+                    
+                    if (fechaInicial.ToShortDateString() == "1/1/0001")
+                    {
+                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                    }
+
                     int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
@@ -210,13 +222,79 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        IQueryable<Sam3_FolioAvisoLlegada> result = (from a in ctx.Sam3_FolioAvisoLlegada
-                                  join apr in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on
-                                  a.FolioAvisoLlegadaID equals apr.FolioAvisoLlegadaID
-                                  where a.Activo.Value == true
-                                  select a).Distinct();
+                        List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
+                        if (fechaInicial != null && fechaFinal != null )
+                        {
+                            result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal).ToList();
 
-                        result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID);
+                        }
+                        else
+                        {
+                            if (fechaInicial != null)
+                            {
+                                result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion >= fechaInicial).ToList();
+                            }
+
+                            if (fechaFinal != null)
+                            {
+                                result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion <= fechaFinal).ToList();
+                            }
+                        }
+
+                        if (result != null)
+                        {
+                            if (folioAvisoLlegadaID > 0)
+                            {
+                                result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
+                            }
+                            else if (patios.Count > 0)
+                            {
+                                result = result.Where(x => patios.Contains(x.PatioID)).ToList();
+                            }
+                            else if (proyectos.Count > 0)
+                            {
+                                result = (from x in result
+                                          join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                          where proyectos.Contains(p.ProyectoID)
+                                          select x).ToList();
+                            }
+                        }
+                        else
+                        {
+                            if (folioAvisoLlegadaID > 0)
+                            {
+                                result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
+                            }
+                            else if (patios.Count > 0)
+                            {
+                                if (result != null)
+                                {
+                                    result = result.Where(x => patios.Contains(x.PatioID)).ToList();
+                                }
+                                else
+                                {
+                                    result = ctx.Sam3_FolioAvisoLlegada.Where(x => patios.Contains(x.PatioID)).ToList();
+                                }
+                            }
+                            else if (proyectos.Count > 0)
+                            {
+                                if (result != null)
+                                {
+                                    result = (from x in result
+                                              join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                              where proyectos.Contains(p.ProyectoID)
+                                              select x).ToList();
+                                }
+                                else
+                                {
+                                    result = (from a in ctx.Sam3_FolioAvisoLlegada
+                                              join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on a.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                              where a.Activo.Value == true
+                                              && proyectos.Contains(p.ProyectoID)
+                                              select a).ToList();
+                                }
+                            }
+                        }
 
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
 
