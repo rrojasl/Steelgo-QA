@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard - Aviso Llegada";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="DashboardAvisoLlegada0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="DashboardAvisoLlegada0002"></span></a>
+    </li>
+}
+<button id="btnCreados"><span id="ListadoAvisoLlegada0022"></span><span id="spanCreados"></span></button>
+<button id="btnSinPermiso"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
+<button id="btnSinAutorizacion"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
+<button id="btnCompletos"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
+
+
+<script>
+
+    @section JavascriptGlobalVariables {
+        
+    }
+
+    @section JavascriptGlobalFunctions {
+        function ObtenerAccionesListado() {
+
+            $("#spanCreados").html("(1)");
+            $("#spanSinPermiso").html("(10)");
+            $("#spanSinPermiso").html("(15)");
+            $("#spanSinAutorizacion").html("(11)");
+            $("#spanCompletos").html("(16)");
+
+
+            //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+            //    if (data.ReturnCode) {
+            //        if (data.ReturnCode == 401) {
+            //            removeUserSession();
+            //        } else {
+            //            alert("ReturnMessage: " + data.ReturnMessage);
+            //            return;
+            //        }
+            //    }
+
+            //    $("#spanCreados").html("("+ data.Creados +")");
+            //    $("#spanSinPermiso").html("(" + data.SinPermiso + ")");
+            //    $("#spanSinAutorizacion").html("(" + data.SinAutorizacion + ")");
+            //    $("#spanCompletos").html("(" + data.Completos + ")");
+            //});
+        };
+
+        function AccionesListado(accion) {
+            var url = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
+            window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion);
+        };
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+        ObtenerAccionesListado();
+
+        setTimeout(function () {
+            console.log("prueba time out");
+            ObtenerAccionesListado();
+        }, 60000);
+
+        //Botones Dashboard
+        $("#btnCreados").click(function () { AccionesListado(1); });
+        $("#btnSinPermiso").click(function () { AccionesListado(2); });
+        $("#btnSinAutorizacion").click(function () { AccionesListado(3); });
+        $("#btnCompletos").click(function () { AccionesListado(4); });
+
+    }
+</script>

@@ -1066,6 +1066,7 @@
     <Content Include="Views\Cuantificacion\FormatoEtiquetas.cshtml" />
     <Content Include="Views\EntradaMaterial\FormatoPaseSalida.cshtml" />
     <Content Include="Views\AvisoLlegada\AutorizarPermiso.cshtml" />
+    <Content Include="Views\AvisoLlegada\DashboardAvisoLlegada.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

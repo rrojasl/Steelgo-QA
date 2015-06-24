@@ -10,10 +10,10 @@
         <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0021"></span></a>
     </li>
 }
-<button id="btnCreados"><span id=""></span><span id="spanCreados"></span></button>
-<button id="btnSinPermiso"><span id=""></span><span id="spanSinPermiso"></span></button>
-<button id="btnSinAutorizacion"><span id=""></span><span id="spanSinAutorizacion"></span></button>
-<button id="btnCompletos"><span id=""></span><span id="spanCompletos"></span></button>
+<button id="btnCreados"><span id="ListadoAvisoLlegada0022"></span><span id="spanCreados"></span></button>
+<button id="btnSinPermiso"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
+<button id="btnSinAutorizacion"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
+<button id="btnCompletos"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
 
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
@@ -75,6 +75,7 @@
     </div>
 </div>
 
+<input id="hdAccionFiltrado" type="hidden" />
 
 <script>
 
@@ -89,8 +90,8 @@
         var FechaInicial, FechaFinal, resultadoJson;
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
-        var AccionFiltrado = getUrlParameter("AccionFiltrado", "-1");// 1.-Todos.  2.- Folios sin permisos.  3.-Permiso pero sin autorizacion  4.-Pase Salida
-
+        var DashBoardAccionListado = getUrlParameter("DashBoardAccionListado", "-1");
+        alert(DashBoardAccionListado);
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -213,12 +214,50 @@
                 };
             });
         };
+
+        function ObtenerAccionesListado() {
+
+            $("#spanCreados").html("(1)");
+            $("#spanSinPermiso").html("(10)");
+            $("#spanSinPermiso").html("(15)");
+            $("#spanSinAutorizacion").html("(11)");
+            $("#spanCompletos").html("(16)");
+            
+            
+            //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+            //    if (data.ReturnCode) {
+            //        if (data.ReturnCode == 401) {
+            //            removeUserSession();
+            //        } else {
+            //            alert("ReturnMessage: " + data.ReturnMessage);
+            //            return;
+            //        }
+            //    }
+
+            //    $("#spanCreados").html("("+ data.Creados +")");
+            //    $("#spanSinPermiso").html("(" + data.SinPermiso + ")");
+            //    $("#spanSinAutorizacion").html("(" + data.SinAutorizacion + ")");
+            //    $("#spanCompletos").html("(" + data.Completos + ")");
+            //});
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+        ObtenerAccionesListado();
 
-        $("#Mostrar").click(function () { Filtros(2); });
+        setTimeout(function () {
+            console.log("prueba time out");
+            ObtenerAccionesListado();
+        }, 60000);
+
+        //Botones Dashboard
+        $("#btnCreados").click(function () { AccionesListado(1); });
+        $("#btnSinPermiso").click(function () { AccionesListado(2); });
+        $("#btnSinAutorizacion").click(function () { AccionesListado(3); });
+        $("#btnCompletos").click(function () { AccionesListado(4); });
+
+        $("#Mostrar").click(function () { Filtros(0); });
         $("#Creacion").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -273,7 +312,11 @@
             $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value(folioEntradaID);
             Filtros(2);
         } else {
-            Filtros(1);
+            if (DashBoardAccionListado != -1) {
+                AccionesListado(DashBoardAccionListado);
+            } else {
+                Filtros(1);//default hoy menos 7 dias
+            };
         };
     }
 
@@ -347,11 +390,11 @@
                 $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
             };
         });
-    }
+    };
 
-    function Filtros(prueba) {
-        var ListadoModal;
-        ListadoModal = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", FechaInicial: "", FechaFinal: "", token: "" };
+    function ArregloListado(accion) {
+        var Listado;
+        Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "" };
         ProyectoIDs = [];
 
         var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
@@ -364,16 +407,28 @@
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-        ListadoModal.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
-        ListadoModal.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() ? $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() : -1;
-        ListadoModal.Patio = Patio;
-        ListadoModal.Proyectos = ProyectoIDs;      
-        ListadoModal.FechaInicial = obtenerFormatoFecha(d);
-        ListadoModal.FechaFinal = obtenerFormatoFecha(d1);
-        ListadoModal.token = Cookies.get("token");
-        console.log(JSON.stringify(ListadoModal));
+        Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
+        Listado.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() ? $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() : -1;
+        Listado.Patio = Patio;
+        Listado.Proyectos = ProyectoIDs;
+        Listado.FechaInicial = obtenerFormatoFecha(d);
+        Listado.FechaFinal = obtenerFormatoFecha(d1);
+        Listado.Creados = accion == 1 ? true : false;
+        Listado.SinPermiso = accion == 2 ? true : false;
+        Listado.SinAutorizacion = accion == 3 ? true : false;
+        Listado.Completos = accion == 4 ? true : false;
+        Listado.token = Cookies.get("token");
+        console.log(JSON.stringify(Listado));
+        return Listado;
+    };
 
-        $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(ListadoModal) }).done(function (data) {
+    function AccionesListado(accion) {
+        var Listado;
+        Listado = ArregloListado(accion);
+
+        $("#hdAccionFiltrado").val(accion);
+
+        $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
             if (data.ReturnCode) {
                 if (data.ReturnCode == 401) {
                     removeUserSession();
@@ -388,6 +443,12 @@
                 $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
             };
         });
+    };
+
+    function Filtros(prueba) {
+        var Listado;
+        var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
+        AccionesListado(accion);
     };
 
     function obtenerFormatoFecha(d) {

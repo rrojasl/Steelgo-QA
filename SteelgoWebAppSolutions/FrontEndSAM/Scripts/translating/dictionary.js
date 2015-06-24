@@ -219,6 +219,22 @@ _dictionary = {
         "es-MX": "Listado de Avisos de Entrada",
         "en-US": "List Input Material"
     },
+    "ListadoAvisoLlegada0022": {
+        "es-MX": "Creados",
+        "en-US": "Created"
+    },
+    "ListadoAvisoLlegada0023": {
+        "es-MX": "Sin Permiso",
+        "en-US": "Without Permission"
+    },
+    "ListadoAvisoLlegada0024": {
+        "es-MX": "Sin Autorizacion",
+        "en-US": "Without Authorization"
+    },
+    "ListadoAvisoLlegada0025": {
+        "es-MX": "Completos",
+        "en-US": "Full"
+    },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",
@@ -1029,6 +1045,15 @@ _dictionary = {
     "AutorizarPermiso0006": {
         "es-MX": "Permiso Autorizado",
         "en-US": "Permit Authorized"
+    },
+    //Dashboard Aviso Legada
+    "DashboardAvisoLlegada0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DashboardAvisoLlegada0002": {
+        "es-MX": "Dashboard Aviso Llegada",
+        "en-US": "Dashboard Aviso Llegada"
     },
     //Home Partial View Labels
     "homeLabel0001": {
