@@ -413,7 +413,7 @@
             Plana = [], Chofer = [], Contacto = [], Camion = [],
             CamionEntradaMaterial = {}, TransportistaCamion = [],
             ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
-            Cliente = [], TipoAvisos = {}, TipoArchivo = [];
+            Cliente = {}, TipoAvisos = {}, TipoArchivo = [];
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -886,7 +886,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", ClienteID: "", TipoAviso: "", PaseSalidaEnviado: "" };
+                AvisoLlegada = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", Cliente: "", TipoAviso: "", PaseSalidaEnviado: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -980,7 +980,7 @@
                 AvisoLlegada.PermisoAduana = _permisoAduana;
                 AvisoLlegada.Tracto = CamionEntradaMaterial;
                 //AvisoLlegada[0].PaseSalida = _archivosPackingList;
-                AvisoLlegada.ClienteID = Cliente.length > 0 ? Cliente[0].ClienteID : "-1";
+                AvisoLlegada.Cliente = Cliente;
                 AvisoLlegada.TipoAviso = TipoAvisos;
                 AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
 
@@ -1236,18 +1236,17 @@
             };
         
             function CargarCliente(id, value) {
-                Cliente = [];
-                _cliente = {};
-                _cliente["ClienteID"] = id;
-                _cliente["Nombre"] = value;
-                Cliente.push(_cliente);
+                Cliente = {};
+                Cliente = { ClienteID: id, Nombre: value };
             };
 
             function CargarTipoAviso(id, value) {
+                TipoAvisos = {};
                 TipoAvisos = { TipoAvisoID: id, Nombre: value };
             };
             
             function CargarCamionEntradaMaterial(id, value) {
+                CamionEntradaMaterial = {};
                 CamionEntradaMaterial = { VehiculoID: id, Placas: value };
             };
 
