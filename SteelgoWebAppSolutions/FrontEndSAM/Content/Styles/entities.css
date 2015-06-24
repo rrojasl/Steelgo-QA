@@ -979,9 +979,14 @@ header .menu > div {
             padding: 7px 0px 3px;
         }
 
-            .departurePermit .departureTable th:last-child {
-                border-right: 1px solid #000;
-            }
+        .departurePermit .departureTable > thead th:last-child {
+            border-right: 1px solid #000;
+        }
+
+        .departurePermit .departureTable > tbody > tr:first-child {
+            padding: 9px 0;
+            height: 35px;
+        }
 
         .departurePermit .departureTable > tbody > tr > td {
             border-left: 1px solid #000;
@@ -1002,17 +1007,21 @@ header .menu > div {
         .departurePermit .departureTable table thead th {
             border: 0;
             border-bottom: 1px solid #000;
-            border-right: 0 !important;
         }
 
-        .departurePermit .departureTable > table:first-child tbody tr td {
+        .departurePermit .departureTable table:first-child thead th:nth-child(2),
+        .departurePermit .departureTable table:first-child tbody td:nth-child(2) {
+            border-left: 1px solid #000;
+        }
+
+        .departurePermit .departureTable table tbody td * {
+            width: auto;
+            display: inline-block;
+        }
+
+        .departurePermit .departureTable table:first-child tbody tr td {
             text-align: right;
         }
-
-            .departurePermit .departureTable table tbody td * {
-                width: auto;
-                display: inline-block;
-            }
 /**********************************************************************************/
 
 
