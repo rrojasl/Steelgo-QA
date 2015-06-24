@@ -2,26 +2,38 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div><label id="FormatoPaseSalida0001"></label></div>
 
-<div>
-    <label id="FormatoPaseSalida0002"></label>
-    <input id="Proyecto" type="text" />
+<div class="departurePermit clearfix">
+    <div class="header col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <label id="FormatoPaseSalida0001" class="title"></label>
+                <div class="projectName">
+                    <label id="FormatoPaseSalida0002"></label>
+                    <input id="Proyecto" type="text" />
+                </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <img src="~/Content/images/Logo_Login.jpg" class="logo" />
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <table id="tblPaseSalida" class="departureTable clearfix">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-
-<table id="tblPaseSalida">
-    <thead>
-        <tr>
-
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-
-        </tr>
-    </tbody>
-</table>
 
 
 <script>
@@ -42,12 +54,15 @@
         $(".pull-right").hide();
         $(".sidebar").hide();
         $(".breadcrumb-container").hide();
+        $("header").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".content-frame").removeClass("content-frame");
 
         var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         Client.add('FormatoPaseSalida');
         Client.FormatoPaseSalida.read({}, { folioentradaid: folioentradaid, folioLlegadaid: folioLlegadaid, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
 
-            $("#Proyecto").val(data.NombreProyecto);
+            $("#Proyecto").val(data.NombreProyecto).prop("readonly", "true");
 
             var strhtml = "", strThead = "", i = 1, strTbodyRow1 = "", strTbodyPlanas = "";
             strThead = "<th><label id='FormatoPaseSalida0003'></label></th><th><label id='FormatoPaseSalida0004'></label></th><th><label id='FormatoPaseSalida0005'></label></th><th><label id='FormatoPaseSalida0006'></label></th>";
