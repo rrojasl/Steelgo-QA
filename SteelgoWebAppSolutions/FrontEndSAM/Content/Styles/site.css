@@ -156,18 +156,18 @@ label {
     margin-bottom: 6px;
 }
 
-    .form label.required {
+    .form label.security_required {
         position: relative;
     }
 
-        .form label.required::after {
+        .form label.security_required::after {
             content: '*';
             font-size: 19px;
             position: absolute;
             top: -6px;
         }
 
-        .form label.required.error::after {
+        .form label.security_required.error::after {
             color: #EC4F50;
         }
 
@@ -230,6 +230,10 @@ input {
         font-style: italic;
         font-size: 12px;
         font-weight: 600;
+    }
+
+    input:not(.k-input).error {
+        border-color: #EC4F50 !important; 
     }
 
 ::-webkit-input-placeholder {
