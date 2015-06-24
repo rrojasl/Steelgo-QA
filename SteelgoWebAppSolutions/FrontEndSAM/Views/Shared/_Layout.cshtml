@@ -499,6 +499,7 @@
         var $Cliente = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $TipoAviso = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $PermisoAutorizado = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $PermisoTramite = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var redireccionAutomatica = true;
         
@@ -518,6 +519,7 @@
         $TipoAviso.add("TipoAviso");
         $PermisoAutorizado.add("PermisoAutorizado");
         $TipoArchivo.add("TipoArchivo");
+        $PermisoTramite.add("PermisoAduana");
 
         var $authorizationModel = {};
         var $layoutModel = {

@@ -570,6 +570,12 @@
                         var dataItem = this.dataItem(e.item.index());
                         CargarCliente(dataItem.ClienteID, dataItem.Nombre);
                     },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            Cliente = [];
+                        };
+                    },
                     filter: "contains",
                 });
                 ObtenerCliente();
@@ -580,6 +586,12 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         CargarTipoAviso(dataItem.TipoAvisoID, dataItem.Nombre);
+                    },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            TipoAvisos = {};
+                        };
                     },
                     filter: "contains",
                 });
@@ -602,6 +614,12 @@
                             e.preventDefault();
                         }
                         CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+                    },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            Transportista = [];
+                        };
                     },
                     filter: "contains",
                 });
@@ -640,6 +658,12 @@
                         }
                         CargarPatio(dataItem.PatioID, dataItem.Nombre);
                     },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            Patio = [];
+                        };
+                    },
                     filter: "contains",
                 });
                 ObtenerPatio();
@@ -657,6 +681,12 @@
                         }
                         CargarChofer(dataItem.ChoferID, dataItem.Nombre);
 
+                    },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            Chofer = [];
+                        };
                     },
                     filter: "contains",
                 });
@@ -718,6 +748,12 @@
                         var dataItem = this.dataItem(e.item.index());
                         CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
                     },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            TipoVehiculoPlana = [];
+                        };
+                    },
                     filter: "contains",
                 });
                 ObtenerTipoVehiculoPlana();
@@ -728,6 +764,12 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         CargarTipoVehiculoTracto(dataItem.TipoVehiculoID, dataItem.Nombre);
+                    },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            TipoVehiculoTracto = [];
+                        };
                     },
                     filter: "contains",
                 });
@@ -754,6 +796,12 @@
                         }
 
                         CargarCamionEntradaMaterial(dataItem.VehiculoID, dataItem.Placas);
+                    },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value) {
+                            CamionEntradaMaterial = [];
+                        };
                     },
                     filter: "contains",
                 });
@@ -1018,10 +1066,10 @@
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                     }
 
-                    //if (data.Cliente.length > 0) {
-                    //    CargarCliente(data.Cliente[0].ClienteID, data.Cliente[0].Nombre);
-                    //    $("#ClienteID").data("kendoComboBox").value(data.Cliente[0].Nombre);
-                    //}
+                    if (data.Cliente) {
+                        CargarCliente(data.Cliente.ClienteID, data.Cliente.Nombre);
+                        $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
+                    }
 
                     if (data.TipoAviso) {
                         CargarTipoAviso(data.TipoAviso.TipoAvisoID, data.TipoAviso.Nombre);
@@ -1050,6 +1098,9 @@
                     if(data.Patio.length > 0) {
                         CargarPatio(data.Patio[0].PatioID, data.Patio[0].Nombre);
                         $("#PatioID").data("kendoComboBox").value(data.Patio[0].Nombre);
+                        if (!data.Patio[0].RequierePermisoAduana) {
+                            $("#TramitarPermiso").attr('disabled', 'disabled');
+                        };
                     }
 
                     //Se carga el arreglo Chofer
@@ -1068,7 +1119,7 @@
                     });
 
                     //Permiso Aduana
-                    $("#PermisoAduana").show();
+                    //$("#PermisoAduana").show();
                     if (data.PermisoAduana.length > 0) {
                         if (data.PermisoAduana[0].PermisoTramite) {
                             $("#TramitarPermiso").attr('disabled', 'disabled');
@@ -1532,21 +1583,18 @@
                     alert("Favor de guardar el aviso de llegada, antes de enviar el permiso");
                     return;
                 };
-                TramitarPermiso = [];
-                TramitarPermiso[0] = { FolioAvisoLlegadaID: "", Status: "" };
-                TramitarPermiso[0].FolioAvisoLlegadaID = folio;
-                TramitarPermiso[0].Status = 1;
-            
-                console.log(JSON.stringify(TramitarPermiso));
 
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyTramitarPermiso');
-                Client.DummyTramitarPermiso.create({}, { permiso: JSON.stringify(TramitarPermiso), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyTramitarPermiso.create");
-                    $("#hdPermisoTramite").val(1);//Permiso en tramite
-                    $("#TramitarPermiso").attr("disabled", "disabled");
+                $PermisoTramite.PermisoAduana.read({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
+                    console.log("$PermisoTramite.PermisoAduana.read");
+                    if (result.ReturnCode != 200)
+                    {
+                        removeUserSession();
+                    } else
+                    {
+                        $("#hdPermisoTramite").val(1);//Permiso en tramite
+                        $("#TramitarPermiso").attr("disabled", "disabled");
+                    };
                 });
-
             };
 
             function ObtenerFechaDefault() {
