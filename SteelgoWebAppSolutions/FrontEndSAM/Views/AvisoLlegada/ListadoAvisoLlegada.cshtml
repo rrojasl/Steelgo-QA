@@ -399,7 +399,6 @@
         ListadoModal.FechaInicial = obtenerFormatoFecha(d);
         ListadoModal.FechaFinal = obtenerFormatoFecha(d1);
         ListadoModal.token = Cookies.get("token");
-
         console.log(JSON.stringify(ListadoModal));
 
         $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(ListadoModal) }).done(function (data) {

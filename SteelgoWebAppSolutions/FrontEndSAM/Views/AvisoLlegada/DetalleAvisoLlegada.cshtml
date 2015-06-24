@@ -989,14 +989,14 @@
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                     }
 
-                    if (data.Cliente.length > 0) {
-                        CargarTransportista(data.Cliente[0].ClienteID, data.Cliente[0].Nombre);
-                        $("#ClienteID").data("kendoComboBox").value(data.Cliente[0].Nombre);
-                    }
+                    //if (data.Cliente.length > 0) {
+                    //    CargarCliente(data.Cliente[0].ClienteID, data.Cliente[0].Nombre);
+                    //    $("#ClienteID").data("kendoComboBox").value(data.Cliente[0].Nombre);
+                    //}
 
-                    if (data.TipoAviso.length > 0) {
-                        CargarTransportista(data.TipoAviso[0].TipoAvisoID, data.TipoAviso[0].Nombre);
-                        $("#TipoAvisoID").data("kendoComboBox").value(data.TipoAviso[0].Nombre);
+                    if (data.TipoAviso) {
+                        CargarTipoAviso(data.TipoAviso.TipoAvisoID, data.TipoAviso.Nombre);
+                        $("#TipoAvisoID").data("kendoComboBox").value(data.TipoAviso.Nombre);
                     }
 
                     //Fecha Recepcion
@@ -1029,9 +1029,9 @@
                         $("#ChoferID").data("kendoComboBox").value(data.Chofer[0].Nombre);
                     }
 
-                    if (data.Camion) {
-                        CargarCamion(data.Camion.CamionID, data.Camion.Nombre);
-                        $("#CamionID").data("kendoComboBox").value(data.Proveedores.Nombre);
+                    if (data.Tracto) {
+                        CargarCamionEntradaMaterial(data.Tracto.VehiculoID, data.Tracto.Placas);
+                        $("#CamionID").data("kendoComboBox").value(data.Tracto.Placas);
                     }
 
                     $.each(data.Archivos, function (index, value) {
