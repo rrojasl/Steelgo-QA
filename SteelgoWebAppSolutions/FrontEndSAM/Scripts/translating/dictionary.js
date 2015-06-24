@@ -516,6 +516,34 @@ _dictionary = {
         "es-MX": "Tipos de Avisos",
         "en-US": "Types of Notices"
     },
+    "DetalleAvisoLlegada0075": {
+        "es-MX": "Requiere Permiso Aduana",
+        "en-US": "Customs Permit Required"
+    },
+    "DetalleAvisoLlegada0076": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleAvisoLlegada0077": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleAvisoLlegada0078": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleAvisoLlegada0079": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleAvisoLlegada0080": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleAvisoLlegada0081": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",

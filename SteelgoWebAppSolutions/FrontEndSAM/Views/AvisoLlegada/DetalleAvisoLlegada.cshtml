@@ -247,6 +247,9 @@
                 <a id="GuardarTransportista" href="javascript:void(0);" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0019"></span>
                 </a>
+                <a id="CancelarTransportista" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0076"></span>
+                </a>
             </div>
         </div>
         <div id="modalProveedor" style="display: none">
@@ -274,6 +277,9 @@
                 <a id="GuardarProveedor" href="javascript:void(0);" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0025"></span>
                 </a>
+                <a id="CancelarProveedor" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0077"></span>
+                </a>
             </div>
         </div>
 
@@ -290,9 +296,16 @@
                 <label id="DetalleAvisoLlegada0028"></label>
                 <input id="Descripcion_Patio" class="l" />
             </div>
+            <div class="form-group">
+                <label id="DetalleAvisoLlegada0075"></label>
+                <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
+            </div>
             <div class="buttonSave">
                 <a id="GuardarPatio" href="javascript:void(0);" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0029"></span>
+                </a>
+                <a id="CancelarPatio" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0078"></span>
                 </a>
             </div>
         </div>
@@ -305,6 +318,9 @@
             <div class="buttonSave">
                 <a id="GuardarChofer" href="javascript:void(0);" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0031"></span>
+                </a>
+                <a id="CancelarChofer" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0079"></span>
                 </a>
             </div>
         </div>
@@ -333,6 +349,9 @@
             <div class="buttonSave">
                 <a id="GuardarPlana" href="javascript:void(0);" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0034"></span>
+                </a>
+                <a id="CancelarPlana" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0080"></span>
                 </a>
             </div>
         </div>
@@ -372,6 +391,9 @@
             <div class="buttonSave">
                 <a id="GuardarCamion" href="javascript:void(0);" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0061"></span>
+                </a>
+                <a id="CancelarCamion" href="javascript:void(0);" class="btn btn-primary">
+                    <span id="DetalleAvisoLlegada0081"></span>
                 </a>
             </div>
         </div>
@@ -518,7 +540,14 @@
                 $("#GuardarPlana").click(function (e) { GuardarPlana(); });
                 $("#GuardarCamion").click(function (e) { GuardarCamion(); });
                 //**
-
+                //Cancelar modales
+                $("#CancelarTransportista").click(function (e) { CancelarTransportista(); });
+                $("#CancelarProveedor").click(function (e) { CancelarProveedor(); });
+                $("#CancelarPatio").click(function (e) { CancelarPatio(); });
+                $("#CancelarChofer").click(function (e) { CancelarChofer(); });
+                $("#CancelarPlana").click(function (e) { CancelarPlana(); });
+                $("#CancelarCamion").click(function (e) { CancelarCamion(); });
+                
                 //Permiso Aduana
                 $("#TramitarPermiso").click(function () { GenerarPermiso(); });
                 //Pase Salida
@@ -1189,6 +1218,7 @@
                         $("#modalPatio").hide();
                         $("#modalChofer").hide();
                         $("#modalPlana").hide();
+                        $("#modalCamion").hide();
                         $("#modalTransportista").show();
                         modalTitle = "Transportista";
                         break;
@@ -1197,6 +1227,7 @@
                         $("#modalPatio").hide();
                         $("#modalChofer").hide();
                         $("#modalPlana").hide();
+                        $("#modalCamion").hide();
                         $("#modalProveedor").show();
                         modalTitle = "Proveedor";
                         break;
@@ -1205,6 +1236,7 @@
                         $("#modalPatio").hide();
                         $("#modalChofer").hide();
                         $("#modalProveedor").hide();
+                        $("#modalCamion").hide();
                         $("#modalPlana").show();
                         modalTitle = "Plana";
                         break;
@@ -1213,6 +1245,7 @@
                         $("#modalProveedor").hide();
                         $("#modalChofer").hide();
                         $("#modalPlana").hide();
+                        $("#modalCamion").hide();
                         $("#modalPatio").show();
                         modalTitle = "Patio";
                         break;
@@ -1221,6 +1254,7 @@
                         $("#modalProveedor").hide();
                         $("#modalPatio").hide();
                         $("#modalPlana").hide();
+                        $("#modalCamion").hide();
                         $("#modalChofer").show();
                         modalTitle = "Chofer";
                         break;
@@ -1231,7 +1265,7 @@
                         $("#modalPlana").hide();
                         $("#modalChofer").hide();
                         $("#modalCamion").show();
-                        modalTitle = "Camion";
+                        modalTitle = "Tracto";
                         break;
                 };
             
@@ -1249,8 +1283,10 @@
                         left: "20%"
                     }
                 }).data("kendoWindow");
+                window.data("kendoWindow").title(modalTitle);
                 window.data("kendoWindow").center().open();
             };
+            
 
             function GuardarTransportista() {
 
@@ -1300,10 +1336,11 @@
 
             function GuardarPatio() {
                 PatioModal = [];
-                PatioModal[0] = { Nombre: "", Propietario: "", Descripcion:"" };
+                PatioModal[0] = { Nombre: "", Propietario: "", Descripcion: "", RequierePermisoAduana: "" };
                 PatioModal[0].Nombre = $("#Nombre_Patio").val();
                 PatioModal[0].Propietario = $("#Propietario_Patio").val();
                 PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
+                PatioModal[0].RequierePermisoAduana = $("#RequierePermisoAduana_Patio").is(":checked");
 
                 console.log(PatioModal[0]);
 
@@ -1411,6 +1448,34 @@
                 });
             };
 
+            function CancelarTransportista() {
+                cerrarVentanaModal();
+            };
+
+            function CancelarProveedor() {
+                cerrarVentanaModal();
+            };
+
+            function CancelarPatio() {
+                cerrarVentanaModal();
+            };
+
+            function CancelarChofer() {
+                cerrarVentanaModal();
+            };
+
+            function CancelarPlana() {
+                cerrarVentanaModal();
+            };
+
+            function CancelarCamion() {
+                cerrarVentanaModal();
+            };
+
+            function cerrarVentanaModal() {
+                $("#window").data("kendoWindow").close();
+            };
+
             function LimpiarModalTransportista() {
                 $("#ContactoID_Transportista").data("kendoComboBox").value("");
                 $("#Nombre_Transportista").val("");
@@ -1433,6 +1498,7 @@
                 $("#Nombre_Patio").val("");
                 $("#Propietario_Patio").val("");
                 $("#Descripcion_Patio").val("");
+                $("#RequierePermisoAduana_Patio").attr("checked", false);
             };
 
             function LimpiarModalChofer() {

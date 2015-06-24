@@ -52,7 +52,7 @@
                         <span id="ListadoAvisoLlegada0017"></span>
                     </a>
                     <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
-                    <a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>
+                    @*<a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>*@
                 </div>
             </div>
         </div>
@@ -156,7 +156,6 @@
                     }
                 },               
                 columns: [
-                    //{ command: { text: _dictionary.ListadoAvisoLlegada0015[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px" },
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
                     { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -250,29 +249,6 @@
             filter: "contains",
         });
         ObtenerProyectos();
-
-        //$("#ProveedorID").kendoAutoComplete({
-        //    dataTextField: "Nombre",
-        //    dataValueField: "ProveedorID",
-        //    select: function (e) {
-        //        var dataItem = this.dataItem(e.item.index());
-        //        CargarProveedor(dataItem.ProveedorID, dataItem.Nombre);
-        //    },
-        //    filter: "contains",
-        //});
-        //ObtenerProveedor();
-
-        //$("#TransportistaID").kendoAutoComplete({
-        //    dataTextField: "Nombre",
-        //    dataValueField: "TransportistaID",
-        //    select: function (e) {
-        //        var dataItem = this.dataItem(e.item.index());
-        //        CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
-        //    },
-        //    filter: "contains",
-        //});
-        //ObtenerTransportista();
-
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
@@ -319,14 +295,6 @@
         Proveedor.push(_proveedor);
     };
 
-    //function CargarTransportista(id, value) {
-    //    Transportista = [];
-    //    _transportista = {};
-    //    _transportista["TransportistaID"] = id;
-    //    _transportista["Nombre"] = value;
-    //    Transportista.push(_transportista);
-    //};
-
     function ObtenerProyectos() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             if (result.ReturnCode) {
@@ -346,16 +314,6 @@
             };
         });
     };
-
-    //function ObtenerTransportista() {
-    //    $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-    //        if (result.ReturnCode) {
-    //            removeUserSession();
-    //        } else {
-    //            $("#TransportistaID").data("kendoAutoComplete").dataSource.data(result);
-    //        };
-    //    });
-    //};
 
     function ObtenerPatio() {
         $Patio.Patio.read({ esAvisoEntrada:0, token: Cookies.get("token") }).done(function (result) {
