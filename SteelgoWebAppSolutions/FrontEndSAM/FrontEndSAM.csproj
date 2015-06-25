@@ -117,6 +117,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Delete_Grey.png" />
+    <Content Include="Content\images\Dropdown_Arrow.png" />
     <Content Include="Content\images\flags\en-US-16.png" />
     <Content Include="Content\images\flags\en-US.png" />
     <Content Include="Content\images\flags\es-MX-16.png" />
@@ -168,6 +170,7 @@
     <Content Include="Content\images\SAMC_SearchIconChart.png" />
     <Content Include="Content\images\SAMC_SteelLogo_Mobile.jpg" />
     <Content Include="Content\images\SAMC_SteelLogo_Web_00.png" />
+    <Content Include="Content\images\Text_Add_Button.png" />
     <Content Include="Content\kendo\2014.2.716\Black\editor.png" />
     <Content Include="Content\kendo\2014.2.716\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.2.716\Black\indeterminate.gif" />
