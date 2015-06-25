@@ -225,7 +225,8 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
                         if (fechaInicial != null && fechaFinal != null)
                         {
-                            result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal).ToList();
+                            result = ctx.Sam3_FolioAvisoLlegada
+                                .Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal && x.Activo.Value == true).ToList();
 
                         }
                         else
@@ -308,6 +309,9 @@ namespace BackEndSAM.DataAcces
                     ElementoListadoFolioAvisoLlegada elemento = new ElementoListadoFolioAvisoLlegada();
                     foreach (int folio in lstFoliosAvisoLlegada)
                     {
+                        int proyectoId = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == folio)
+                            .Select(x => x.ProyectoID).FirstOrDefault();
+
                         if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio).Any())
                         {
                             elemento = (from r in ctx.Sam3_FolioAvisoLlegada
@@ -316,7 +320,7 @@ namespace BackEndSAM.DataAcces
                                         join rp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rp.FolioAvisoLlegadaID
                                         join py in ctx.Sam3_Proyecto on rp.ProyectoID equals py.ProyectoID
                                         join pad in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pad.FolioAvisoLlegadaID
-                                        where r.FolioAvisoLlegadaID == folio
+                                        where r.FolioAvisoLlegadaID == folio && rp.ProyectoID == proyectoId
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
@@ -337,7 +341,7 @@ namespace BackEndSAM.DataAcces
                                         join t in ctx.Sam3_Transportista on r.TransportistaID equals t.TransportistaID
                                         join rp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rp.FolioAvisoLlegadaID
                                         join py in ctx.Sam3_Proyecto on rp.ProyectoID equals py.ProyectoID
-                                        where r.FolioAvisoLlegadaID == folio
+                                        where r.FolioAvisoLlegadaID == folio && rp.ProyectoID == proyectoId
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
@@ -354,8 +358,10 @@ namespace BackEndSAM.DataAcces
                         }
 
 
-
-                        resultados.Add(elemento);
+                        if (elemento != null)
+                        {
+                            resultados.Add(elemento);
+                        }
 
                     }
 
@@ -709,15 +715,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoFoliosPermisoAutorizado()
+        public object ObtenerListadoFoliosRequierePermiso()
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                   join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                                   where r.Activo.Value && p.PermisoAutorizado.Value == true
+                                                   join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                                   where r.Activo.Value && p.RequierePermisoAduana
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -739,6 +745,31 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object VerificarPermisoAduana(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    bool permisoAutorizado = (from r in ctx.Sam3_FolioAvisoLlegada
+                                              join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                              where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && p.PermisoAutorizado.Value == true
+                                              select p.PermisoAduanaID).AsParallel().Any();
+                    
+                    return permisoAutorizado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
     }//Fin Clase
 }

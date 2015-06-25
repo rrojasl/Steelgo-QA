@@ -202,25 +202,28 @@
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
             var dataSource = $("#grid").data("kendoGrid").dataSource;
-            var foliovalido = true;
+            var TienePermiso = false;
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-            Client.add('DummyVerificarCancelacion');
+            Client.add('ValidacionesFolioAvisoLlegada');
 
-            Client.DummyVerificarCancelacion.read({}, { folio: folioAvisoLlegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                foliovalido = data;
-                if (foliovalido) {
+            Client.ValidacionesFolioAvisoLlegada.read({ folio: folioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
+                TienePermiso = data;
+                if (!TienePermiso) {
+                    //debugger;
                     if (confirm("Estas seguro de cancelar el folio de entrada?")) {
                         //aki debe estar el de filtros()
                         var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                        Client.add('DummyCancelacionListadoAvisoLlegada');
+                        Client.add('AvisoLlegada');
+                        
 
-                        Client.DummyCancelacionListadoAvisoLlegada.read({}, { folio: folioAvisoLlegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                            $("#grid").data("kendoGrid").dataSource.data(data);
+                        Client.AvisoLlegada.destroy({}, { folio: folioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
+                            //debugger;
+                            $("#grid").data("kendoGrid").dataSource.data(data); // Que esperas que regrese???, aqui deberias volver a cargar el grid, cierto???
                         });
                     };
                 } else {
-                    alert("El folio cuenta con permiso en tramite, permiso autorizado y/o pase de salida");
+                    alert("El folio cuenta con permiso de auduana autorizado");
                 };
             });
         };

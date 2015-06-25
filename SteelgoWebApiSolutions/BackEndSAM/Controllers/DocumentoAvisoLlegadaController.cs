@@ -84,7 +84,7 @@ namespace BackEndSAM.Controllers
         //    }
         //}
 
-        public object Post(int folioAvisoLlegadaID, string token)
+        public object Post(int folioAvisoLlegadaID, int TipoArchivoID, string token)
         {
             try
             {
@@ -108,27 +108,32 @@ namespace BackEndSAM.Controllers
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
                         foreach (string file in httpRequest.Files)
                         {
+                            Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
-                            var filePath = HttpContext.Current.Server.MapPath("~/App_Data/uploads" + postedFile.FileName);
-
+                            //var filePath = HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + docguID + "." + postedFile.FileName);
+                            string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName; 
+                            string[] st = postedFile.FileName.Split('.');
+                            string extencion = "." + st[1]; 
                             lstArchivos.Add(new DocumentoPosteado
                             {
-                                fileName = postedFile.FileName,
-                                contentType = postedFile.ContentType,
-                                size = postedFile.ContentLength,
-                                path = filePath,
-                                docGuid = Guid.NewGuid(),
-                                folioAvisoLlegadaID = folioAvisoLlegadaID,
-                                userId = usuario.UsuarioID
+                                FileName = postedFile.FileName,
+                                ContentType = postedFile.ContentType,
+                                Size = postedFile.ContentLength,
+                                Path = ruta,
+                                DocGuid = docguID,
+                                FolioAvisoLlegadaID = folioAvisoLlegadaID,
+                                UserId = usuario.UsuarioID,
+                                TipoArchivoID = TipoArchivoID,
+                                Extencion = extencion
                             });
 
-                            postedFile.SaveAs(filePath);
-                            docfiles.Add(filePath);
+                            postedFile.SaveAs(ruta);
+                            docfiles.Add(ruta);
                         }
 
                         if (DocumentosBd.Instance.GuardarArchivosFolioAvisoLlegada(lstArchivos))
                         {
-                            result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+                            return "";
                         }
                         else
                         {

@@ -7,12 +7,14 @@ namespace BackEndSAM.Models
 {
     public class DocumentoPosteado
     {
-        public string fileName { get; set; }
-        public string contentType { get; set; }
-        public int size { get; set; }
-        public string path { get; set; }
-        public Guid docGuid { get; set; }
-        public int folioAvisoLlegadaID { get; set; }
-        public int userId { get; set; }
+        public string FileName { get; set; }
+        public string ContentType { get; set; }
+        public string Extencion { get; set; }
+        public int Size { get; set; }
+        public string Path { get; set; }
+        public Guid DocGuid { get; set; }
+        public int FolioAvisoLlegadaID { get; set; }
+        public int UserId { get; set; }
+        public int TipoArchivoID { get; set; }
     }
 }
