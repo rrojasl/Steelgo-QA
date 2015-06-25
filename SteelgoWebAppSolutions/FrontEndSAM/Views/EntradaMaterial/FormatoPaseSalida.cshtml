@@ -81,20 +81,20 @@
             var strTbodyRow2 = "", col = 2 + i;
             var strHeadRow2 = "<thead><tr><th><label id='FormatoPaseSalida0007'></label></th><th><label id='FormatoPaseSalida0011'></label></th></tr></thead>";
 
-            strTbodyRow2 = "<tr><td><label id='FormatoPaseSalida0008'></label> " + data.TienePedimento + "</td><td><label id='FormatoPaseSalida0012'></label>" + data.RegistroTiempos.HoraLlegada + "</td></tr>";
-            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0009'></label> " + data.TieneFactura + "</td><td><label id='FormatoPaseSalida0013'></label>" + data.RegistroTiempos.HoraInicio + "</td></tr>";
-            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0010'></label> " + data.TieneRemision + "</td><td><label id='FormatoPaseSalida0014'></label>" + data.RegistroTiempos.HoraFin + "</td></tr>";
+            strTbodyRow2 = "<tr><td><label id='FormatoPaseSalida0008'></label> <span>" + data.TienePedimento + "</span></td><td><label id='FormatoPaseSalida0012'></label> <span>" + data.RegistroTiempos.HoraLlegada + "</span></td></tr>";
+            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0009'></label> <span>" + data.TieneFactura + "</span></td><td><label id='FormatoPaseSalida0013'></label> <span>" + data.RegistroTiempos.HoraInicio + "</span></td></tr>";
+            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0010'></label> <span>" + data.TieneRemision + "</span></td><td><label id='FormatoPaseSalida0014'></label> <span>" + data.RegistroTiempos.HoraFin + "</span></td></tr>";
 
             var strHeadRowIncidencia = "", strTbodyIncidencia = "", si=true, no=false;
             var strHeadRowIncidencia = "<thead><th><label id='FormatoPaseSalida0015'></label></th></thead>";
 
             if (data.Incidencia.TieneIncidencia)
             {
-                strTbodyIncidencia = "<tr><td><input id='CheckNo' type='checkbox' disabled> <label id='FormatoPaseSalida0017'></label></td></tr>";
-                strTbodyIncidencia += "<tr><td><input  id='CheckSi' type='checkbox' checked='checked' disabled> <label id='FormatoPaseSalida0016'></label> <label id='FormatoPaseSalida0018'></label> " + data.Incidencia.Numero + "</td></td></tr>";
+                strTbodyIncidencia = "<tr><td><input id='CheckNo' type='checkbox' disabled> <label for='CheckNo' id='FormatoPaseSalida0017'></label></td></tr>";
+                strTbodyIncidencia += "<tr><td><input  id='CheckSi' type='checkbox' checked='checked' disabled> <label for='CheckSi' id='FormatoPaseSalida0016'></label> <label id='FormatoPaseSalida0018'></label> <span class='incidenceNumber'>" + data.Incidencia.Numero + "</span></td></td></tr>";
             } else {
-                strTbodyIncidencia = "<tr><td><input id='CheckNo' type='checkbox' checked='checked' disabled> <label id='FormatoPaseSalida0017'></label></td></tr>";
-                strTbodyIncidencia += "<tr><td><input id='CheckSi' type='checkbox' disabled> <label id='FormatoPaseSalida0016'></label> <label id='FormatoPaseSalida0018'></label> " + data.Incidencia.Numero + "</td></td></tr>";
+                strTbodyIncidencia = "<tr><td><input id='CheckNo' type='checkbox' checked='checked' disabled> <label for='CheckNo' id='FormatoPaseSalida0017'></label></td></tr>";
+                strTbodyIncidencia += "<tr><td><input id='CheckSi' type='checkbox' disabled> <label for='CheckSi' id='FormatoPaseSalida0016'></label> <label id='FormatoPaseSalida0018'></label> <span class='incidenceNumber'>" + data.Incidencia.Numero + "</span></td></td></tr>";
             }
 
             $("#tblPaseSalida tbody").append("<tr><td colspan='2'><table>" + strHeadRow2 + "<tbody>" + strTbodyRow2 + "</tboby></table></td><td colspan=" + (col) + "><table>" + strHeadRowIncidencia + "<tbody>" + strTbodyIncidencia + "</tbody>" + "</table></td></tr>");
