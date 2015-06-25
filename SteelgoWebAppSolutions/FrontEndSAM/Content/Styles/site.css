@@ -47,6 +47,7 @@ body {
     min-height: 100%;
     height: 100%;
     font-family: Arial, 'Open Sans', sans-serif;
+    -webkit-print-color-adjust: exact;
 }
 /**********************************************************************************/
 
@@ -233,7 +234,7 @@ input {
     }
 
     input:not(.k-input).error {
-        border-color: #EC4F50 !important; 
+        border-color: #EC4F50 !important;
     }
 
 ::-webkit-input-placeholder {
@@ -380,7 +381,22 @@ input {
 
     .btn-fadeBlue:hover {
         background-color: rgba(048, 094, 142, 0.7);
-        border: none;
+    }
+
+.btn-tab {
+    background-color: #FFFFFF;
+}
+
+    .btn-tab span {
+        color: #202020;
+    }
+
+    .btn-tab:hover {
+        background-color: rgba(048, 094, 142, 0.7);
+    }
+
+    .btn-tab.active {
+        background-color: rgba(048, 094, 142, 0.7);
     }
 
 .buttonBar {
@@ -388,18 +404,30 @@ input {
     text-align: right;
 }
 
-    .buttonBar a:nth-child(even) {
+    .buttonBar .btn:nth-child(even) {
         margin-right: 16px;
         margin-left: 16px;
     }
 
-    .buttonBar a:last-child {
+    .buttonBar .btn:last-child {
         margin-right: 0;
     }
 
     .buttonBar.left {
         text-align: justify;
     }
+
+    .buttonBar.top,
+    .buttonBar.top .btn {
+        margin-top: 0;
+    }
+
+        .buttonBar.top .btn {
+            margin-right: -5px;
+            margin-left: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
 
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");

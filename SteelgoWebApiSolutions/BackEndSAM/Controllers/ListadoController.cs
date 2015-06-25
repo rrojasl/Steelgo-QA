@@ -29,6 +29,8 @@ namespace BackEndSAM.Controllers
                 {
                     case 1: //Folios aviso llegada
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
+                    case 2: // Folios de aviso de llegada con permiso de aduana autorizados
+                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosPermisoAutorizado();
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

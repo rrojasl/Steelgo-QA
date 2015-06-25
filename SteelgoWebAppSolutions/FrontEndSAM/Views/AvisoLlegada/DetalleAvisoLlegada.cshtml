@@ -30,7 +30,7 @@
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
-                                <button type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -50,19 +50,23 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                    <li><a><span id="DetalleAvisoLlegada0083"></span></a></li>
+                                    <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    <li><a id="CancelarFolio" href="javascript:void(0);"><span id="DetalleAvisoLlegada0083"></span></a></li>
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
+                        <a id="Imprimir" href="javascript:void(0);" class="btn btn-fadeBlue"></a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="filterForm col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="DetalleAvisoLlegada0074"></label>
+                            <input id="TipoAvisoID" class="" />
+                        </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="DetalleAvisoLlegada0067" class="security_required"></label>
                             <input id="ClienteID" />
@@ -84,10 +88,6 @@
                             <input id="TransportistaID" class="" />
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0006"></label>
-                            <input id="PlanaID" class="" />
-                        </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="DetalleAvisoLlegada0009"></label>
                             <input id="ChoferID" class="" />
                         </div>                        
@@ -96,8 +96,8 @@
                             <input id="CamionID" class="" />
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0074"></label>
-                            <input id="TipoAvisoID" class="" />
+                            <label id="DetalleAvisoLlegada0006"></label>
+                            <input id="PlanaID" class="" />
                         </div>
                     </div>
                 </div>
@@ -542,6 +542,11 @@
                     var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
+
+                $("#CancelarFolio").click(function (e) {
+                    cancelarFolio();
+                });
+
                 //**Modales
                 $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
                 $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
@@ -712,11 +717,12 @@
                     filter: "contains",
                 });
                 ObtenerTipoArchivo();
-
+                
                 $('#files').kendoUpload({
                     async: {
-                        saveUrl: "http://localhost:61102/AvisoLlegada/Post",
-                        autoUpload: false
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
+                        autoUpload: false,
+                        withCredentials: false
                     },
                     success: function (data) {
                         $.each(data, function (index, value) {
@@ -842,9 +848,9 @@
                 });
                 ObtenerChoferCamion();
 
-                $('#ArchivoAutorizar').kendoUpload({
+               @* $('#ArchivoAutorizar').kendoUpload({
                     async: {
-                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
+                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")' + "?",
                         autoUpload: false
                     },
                     success: function (data) {
@@ -869,7 +875,7 @@
                     },
                     error: function (data) { },
                     upload: onUploadArchivoPaseSalida
-                });
+                });*@
 
                 ObtenerFechaDefault();
             };
@@ -883,6 +889,7 @@
                     alert("Por favor, seleccionar el numero de permiso");
                     e.preventDefault();
                 }
+
             };
 
             function onUpload(e) {
@@ -890,6 +897,10 @@
                     alert("Por favor, seleccionar el tipo de archivo");
                     e.preventDefault();
                 }
+                //if (folio == -1) {
+                //    alert("Favor de guardar el aviso de llegada antes de subir archivos");
+                //    e.preventDefault();
+                //};
             };
 
             function GuardarAvisoLlegada()
@@ -987,12 +998,12 @@
                 AvisoLlegada.Patio = Patio;
                 AvisoLlegada.Chofer = Chofer;
                 AvisoLlegada.Archivos = Documentos;
-                AvisoLlegada.PermisoAduana = _permisoAduana;
+                //AvisoLlegada.PermisoAduana = _permisoAduana;
                 AvisoLlegada.Tracto = CamionEntradaMaterial;
                 //AvisoLlegada[0].PaseSalida = _archivosPackingList;
                 AvisoLlegada.Cliente = Cliente;
                 AvisoLlegada.TipoAviso = TipoAvisos;
-                AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
+                //AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
 
                 console.log(AvisoLlegada);
 
@@ -1000,11 +1011,13 @@
                 Client.add('DummyAvisoLlegada');
 
                 console.log(JSON.stringify(AvisoLlegada));
+                loadingStart();
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
                     $AvisoLlegada.AvisoLlegada.update(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.update");
+                        loadingStop();
                     });
                 } else //Alta
                 {
@@ -1018,15 +1031,57 @@
                         };
 
                         cargarTituloFolio();
-                        BotonEdicion();
+                        BotonAlta();
+                        loadingStop();
                         alert("El folio " + folio + " fue creado exitosamente.");
                     });
                 }
             };
-            
+
             function BotonEdicion() {
+                $("#dropdown-toggle").show();
+                $("#Editar").css("display", "none");
+                $("#Guardar").css("display", "block");
+                habilitarControles();
+            };
+
+            function BotonAlta() {
+                $("#dropdown-toggle").hide();
                 $("#Editar").css("display", "block");
                 $("#Guardar").css("display", "none");
+                deshabilitarControles();
+            };
+
+            function habilitarControles() {
+                $("#TipoAvisoID").data("kendoComboBox").enable();
+                $("#ClienteID").data("kendoComboBox").enable();
+                $("#PatioID").data("kendoComboBox").enable();
+                $("#TransportistaID").data("kendoComboBox").enable();
+                $("#ChoferID").data("kendoComboBox").enable();
+                $("#CamionID").data("kendoComboBox").enable();
+                $("#TipoArchivo").data("kendoComboBox").enable();
+
+                $("#ProyectoID").data("kendoMultiSelect").enable();
+                $("#PlanaID").data("kendoMultiSelect").enable();
+
+                $("#FechaRecepcion").data("kendoDatePicker").enable();
+                $("#files").data("kendoUpload").enable();
+            };
+
+            function deshabilitarControles() {
+                $("#TipoAvisoID").data("kendoComboBox").enable(false);
+                $("#ClienteID").data("kendoComboBox").enable(false);
+                $("#PatioID").data("kendoComboBox").enable(false);
+                $("#TransportistaID").data("kendoComboBox").enable(false);
+                $("#ChoferID").data("kendoComboBox").enable(false);
+                $("#CamionID").data("kendoComboBox").enable(false);
+                $("#TipoArchivo").data("kendoComboBox").enable(false);
+
+                $("#ProyectoID").data("kendoMultiSelect").enable(false);
+                $("#PlanaID").data("kendoMultiSelect").enable(false);
+
+                $("#FechaRecepcion").data("kendoDatePicker").enable(false);
+                $("#files").data("kendoUpload").enable(false);
             };
 
             function descargarArchivo(id) {
@@ -1602,14 +1657,9 @@
 
                 $PermisoTramite.PermisoAduana.read({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
                     console.log("$PermisoTramite.PermisoAduana.read");
-                    if (result.ReturnCode != 200)
-                    {
-                        removeUserSession();
-                    } else
-                    {
-                        $("#hdPermisoTramite").val(1);//Permiso en tramite
-                        $("#TramitarPermiso").attr("disabled", "disabled");
-                    };
+                    Error(result);
+                    $("#hdPermisoTramite").val(1);//Permiso en tramite
+                    $("#TramitarPermiso").attr("disabled", "disabled");
                 });
             };
 
@@ -1621,163 +1671,139 @@
 
             function ObtenerProyectos() {
                 $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
                 });
             };
 
             function ObtenerPlanas() {
                 $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#PlanaID").data("kendoMultiSelect").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#PlanaID").data("kendoMultiSelect").dataSource.data(result);
                 });
             };
 
             function ObtenerTransportista() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#TransportistaID").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#TransportistaID").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerPatio() {
                 $Patio.Patio.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#PatioID").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#PatioID").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerProveedor() {
                 $Proveedor.Proveedor.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#ProveedorID").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#ProveedorID").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerChofer() {
                 $Chofer.Chofer.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#ChoferID").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#ChoferID").data("kendoComboBox").dataSource.data(result);
                 });
             }
 
             function ObtenerChoferCamion() {
                 $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#ChoferID_Camion").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#ChoferID_Camion").data("kendoComboBox").dataSource.data(result);
                 });
             };
         
             function ObtenerCamion() {
                 $Camion.Tracto.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#CamionID_Plana").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#CamionID_Plana").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerTipoVehiculoPlana() {
                 $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#TipoVehiculo_Plana").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#TipoVehiculo_Plana").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerTipoVehiculoTracto() {
                 $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#TipoVehiculo_Camion").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#TipoVehiculo_Camion").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Tracto.read({ esAvisoEntrada:1, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#CamionID").data("kendoComboBox").dataSource.data(result);
-                    };
+                $Camion.Tracto.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    $("#CamionID").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerCliente() {
                 $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#ClienteID").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#ClienteID").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerTipoAviso() {
                 $TipoAviso.TipoAviso.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#TipoAvisoID").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#TipoAvisoID").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
             function ObtenerContacto() {
                 $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#ContactoID_Transportista").data("kendoComboBox").dataSource.data(result);
-                        $("#ContactoID_Proveedor").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#ContactoID_Transportista").data("kendoComboBox").dataSource.data(result);
+                    $("#ContactoID_Proveedor").data("kendoComboBox").dataSource.data(result);
                 });
 
             };
             function ObtenerTransportistaCamion() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        $("#TransportistaID_Camion").data("kendoComboBox").dataSource.data(result);
-                    };
+                    Error(result);
+                    $("#TransportistaID_Camion").data("kendoComboBox").dataSource.data(result);
                 });
             };
             
             function ObtenerTipoArchivo() {
                 $TipoArchivo.TipoArchivo.read({ token: Cookies.get("token") }).done(function (result) {
-                    if (result.ReturnCode) {
+                    Error(result);
+                    $("#TipoArchivo").data("kendoComboBox").dataSource.data(result);
+                });
+            };
+
+            function cancelarFolio() {
+                if (folio == -1) {
+                    alert("Favor de guardar el aviso de llegada, para poder realizar la siguiente acción");
+                    return;
+                };
+
+                //loadingStart();
+                $AvisoLlegada.AvisoLlegada.destroy({ avisoLlegadaID: folio, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    //loadingStop();
+                });
+            };
+
+            function Error(data) {
+                if (data.ReturnCode) {
+                    if (data.ReturnCode == 401) {
                         removeUserSession();
                     } else {
-                        $("#TipoArchivo").data("kendoComboBox").dataSource.data(result);
-                    };
-                });
+                        alert("Mensaje de error: " + data.ReturnMessage);
+                        return;
+                    }
+                }
             };
             }
 

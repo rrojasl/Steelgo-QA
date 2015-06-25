@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.Activo = true;
                     nuevoAvisoLlegada.ChoferID = avisoJson.Chofer[0].ChoferID;
                     nuevoAvisoLlegada.Consecutivo = nuevoFolio;
-                    nuevoAvisoLlegada.Estatus = "Creado";
+                    nuevoAvisoLlegada.Estatus = "Generado";
                     nuevoAvisoLlegada.EsVirtual = false;
                     nuevoAvisoLlegada.PaseSalidaEnviado = false;
                     nuevoAvisoLlegada.PatioID = avisoJson.Patio[0].PatioID;
@@ -98,31 +98,31 @@ namespace BackEndSAM.DataAcces
                     //Guardamos el permisos aduana
                     //foreach (PermisoAduanaAV permisoAv in avisoJson.PermisoAduana)
                     //{
-                        //Sam3_PermisoAduana nuevoPermiso = new Sam3_PermisoAduana();
-                        //nuevoPermiso.Activo = true;
-                        //nuevoPermiso.Estatus = "En Tramite";
-                        //nuevoPermiso.FolioAvisoLlegadaID = nuevoID;
-                        //nuevoPermiso.NumeroPermiso = permisoAv.NumeroPermiso != null ? Convert.ToInt32(permisoAv.NumeroPermiso) : 0;
-                        //nuevoPermiso.PermisoAutorizado = permisoAv.PermisoAutorizado;
-                        //nuevoPermiso.PermisoTramite = permisoAv.PermisoTramite;
-                        //nuevoPermiso.UsuarioModificacion = usuario.UsuarioID;
-                        //nuevoPermiso.FechaModificacion = DateTime.Now;
-                        //nuevoPermiso.FechaGeneracion = DateTime.Now;
-                        //ctx.Sam3_PermisoAduana.Add(nuevoPermiso);
-                        //ctx.SaveChanges();
-                        //guardamos en la relacion de Permiso de aduana y documentos
-                        //foreach (ArchivoAutorizadoAV archivosPermiso in permisoAv.ArchivoAutorizado)
-                        //{
-                        //    Sam3_Rel_PermisoAduana_Documento permisoDocumento = new Sam3_Rel_PermisoAduana_Documento();
-                        //    permisoDocumento.Activo = true;
-                        //    permisoDocumento.PermisoAduanaID = nuevoPermiso.PermisoAduanaID;
-                        //    permisoDocumento.DocumentoID = archivosPermiso.ArchivoID;
-                        //    permisoDocumento.Extencion = archivosPermiso.Extension;
-                        //    permisoDocumento.Nombre = archivosPermiso.Nombre;
-                        //    permisoDocumento.UsuarioModificacion = usuario.UsuarioID;
-                        //    permisoDocumento.FechaModificacion = DateTime.Now;
-                        //    ctx.Sam3_Rel_PermisoAduana_Documento.Add(permisoDocumento);
-                        //}
+                    //Sam3_PermisoAduana nuevoPermiso = new Sam3_PermisoAduana();
+                    //nuevoPermiso.Activo = true;
+                    //nuevoPermiso.Estatus = "En Tramite";
+                    //nuevoPermiso.FolioAvisoLlegadaID = nuevoID;
+                    //nuevoPermiso.NumeroPermiso = permisoAv.NumeroPermiso != null ? Convert.ToInt32(permisoAv.NumeroPermiso) : 0;
+                    //nuevoPermiso.PermisoAutorizado = permisoAv.PermisoAutorizado;
+                    //nuevoPermiso.PermisoTramite = permisoAv.PermisoTramite;
+                    //nuevoPermiso.UsuarioModificacion = usuario.UsuarioID;
+                    //nuevoPermiso.FechaModificacion = DateTime.Now;
+                    //nuevoPermiso.FechaGeneracion = DateTime.Now;
+                    //ctx.Sam3_PermisoAduana.Add(nuevoPermiso);
+                    //ctx.SaveChanges();
+                    //guardamos en la relacion de Permiso de aduana y documentos
+                    //foreach (ArchivoAutorizadoAV archivosPermiso in permisoAv.ArchivoAutorizado)
+                    //{
+                    //    Sam3_Rel_PermisoAduana_Documento permisoDocumento = new Sam3_Rel_PermisoAduana_Documento();
+                    //    permisoDocumento.Activo = true;
+                    //    permisoDocumento.PermisoAduanaID = nuevoPermiso.PermisoAduanaID;
+                    //    permisoDocumento.DocumentoID = archivosPermiso.ArchivoID;
+                    //    permisoDocumento.Extencion = archivosPermiso.Extension;
+                    //    permisoDocumento.Nombre = archivosPermiso.Nombre;
+                    //    permisoDocumento.UsuarioModificacion = usuario.UsuarioID;
+                    //    permisoDocumento.FechaModificacion = DateTime.Now;
+                    //    ctx.Sam3_Rel_PermisoAduana_Documento.Add(permisoDocumento);
+                    //}
                     //}
 
 
@@ -197,7 +197,7 @@ namespace BackEndSAM.DataAcces
                     {
                         fechaFinal = DateTime.Now;
                     }
-                    
+
                     if (fechaInicial.ToShortDateString() == "1/1/0001")
                     {
                         int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
@@ -223,7 +223,7 @@ namespace BackEndSAM.DataAcces
                     else
                     {
                         List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
-                        if (fechaInicial != null && fechaFinal != null )
+                        if (fechaInicial != null && fechaFinal != null)
                         {
                             result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal).ToList();
 
@@ -247,12 +247,12 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
-                            
+
                             if (patios.Count > 0)
                             {
                                 result = result.Where(x => patios.Contains(x.PatioID)).ToList();
                             }
-                            
+
                             if (proyectos.Count > 0)
                             {
                                 result = (from x in result
@@ -267,7 +267,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
-                            
+
                             if (patios.Count > 0)
                             {
                                 if (result != null)
@@ -279,7 +279,7 @@ namespace BackEndSAM.DataAcces
                                     result = ctx.Sam3_FolioAvisoLlegada.Where(x => patios.Contains(x.PatioID)).ToList();
                                 }
                             }
-                            
+
                             if (proyectos.Count > 0)
                             {
                                 if (result != null)
@@ -544,6 +544,7 @@ namespace BackEndSAM.DataAcces
                     Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == avisoLlegadaID)
                         .AsParallel().SingleOrDefault();
 
+
                     aviso.Activo = false;
                     aviso.UsuarioModificacion = usuario.UsuarioID;
                     aviso.FechaModificacion = DateTime.Now;
@@ -692,6 +693,36 @@ namespace BackEndSAM.DataAcces
                                                       id = r.FolioAvisoLlegadaID.ToString(),
                                                       value = r.Consecutivo.ToString()
                                                   }).AsParallel().ToList();
+
+                    return lstFolios;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoFoliosPermisoAutorizado()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                   join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                   where r.Activo.Value && p.PermisoAutorizado.Value == true
+                                                   select new ListaCombos
+                                                   {
+                                                       id = r.FolioAvisoLlegadaID.ToString(),
+                                                       value = r.Consecutivo.ToString()
+                                                   }).AsParallel().ToList();
 
                     return lstFolios;
                 }
