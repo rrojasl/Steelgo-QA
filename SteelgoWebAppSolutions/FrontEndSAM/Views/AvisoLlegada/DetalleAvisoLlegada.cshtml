@@ -720,7 +720,7 @@
                 
                 $('#files').kendoUpload({
                     async: {
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false
                     },

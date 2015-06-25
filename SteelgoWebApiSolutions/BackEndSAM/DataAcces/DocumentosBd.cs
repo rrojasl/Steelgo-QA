@@ -52,13 +52,15 @@ namespace BackEndSAM.DataAcces
                         Sam3_Rel_FolioAvisoLlegada_Documento nuevoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
                         nuevoDoc.Activo = true;
                         nuevoDoc.DocumentoID = 0;
-                        nuevoDoc.DocGuid = f.docGuid;
-                        nuevoDoc.Extencion = f.contentType;
+                        nuevoDoc.DocGuid = f.DocGuid;
+                        nuevoDoc.Extencion = f.Extencion;
                         nuevoDoc.FechaModificacion = DateTime.Now;
-                        nuevoDoc.FolioAvisoLlegadaID = f.folioAvisoLlegadaID;
-                        nuevoDoc.Nombre = f.fileName;
-                        nuevoDoc.Url = f.path;
-                        nuevoDoc.UsuarioModificacion = f.userId;
+                        nuevoDoc.FolioAvisoLlegadaID = f.FolioAvisoLlegadaID;
+                        nuevoDoc.Nombre = f.FileName;
+                        nuevoDoc.Url = f.Path;
+                        nuevoDoc.UsuarioModificacion = f.UserId;
+                        nuevoDoc.TipoArchivoID = f.TipoArchivoID;
+                        nuevoDoc.ContentType = f.ContentType;
 
                         ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuevoDoc);
                     }

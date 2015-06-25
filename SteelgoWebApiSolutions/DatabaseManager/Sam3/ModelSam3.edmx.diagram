@@ -201,6 +201,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__1A89E4E1" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoA__17AD7836" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__1B7E091A" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__2042BE37" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

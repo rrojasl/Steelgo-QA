@@ -14,10 +14,17 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_TipoArchivo
     {
+        public Sam3_TipoArchivo()
+        {
+            this.Sam3_Rel_FolioAvisoLlegada_Documento = new HashSet<Sam3_Rel_FolioAvisoLlegada_Documento>();
+        }
+    
         public int TipoArchivoID { get; set; }
         public string Nombre { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
+    
+        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
     }
 }

@@ -308,6 +308,9 @@ namespace BackEndSAM.DataAcces
                     ElementoListadoFolioAvisoLlegada elemento = new ElementoListadoFolioAvisoLlegada();
                     foreach (int folio in lstFoliosAvisoLlegada)
                     {
+                        int proyectoId = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == folio)
+                            .Select(x => x.ProyectoID).FirstOrDefault();
+
                         if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio).Any())
                         {
                             elemento = (from r in ctx.Sam3_FolioAvisoLlegada
@@ -316,7 +319,7 @@ namespace BackEndSAM.DataAcces
                                         join rp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rp.FolioAvisoLlegadaID
                                         join py in ctx.Sam3_Proyecto on rp.ProyectoID equals py.ProyectoID
                                         join pad in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pad.FolioAvisoLlegadaID
-                                        where r.FolioAvisoLlegadaID == folio
+                                        where r.FolioAvisoLlegadaID == folio && rp.ProyectoID == proyectoId
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
@@ -337,7 +340,7 @@ namespace BackEndSAM.DataAcces
                                         join t in ctx.Sam3_Transportista on r.TransportistaID equals t.TransportistaID
                                         join rp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rp.FolioAvisoLlegadaID
                                         join py in ctx.Sam3_Proyecto on rp.ProyectoID equals py.ProyectoID
-                                        where r.FolioAvisoLlegadaID == folio
+                                        where r.FolioAvisoLlegadaID == folio && rp.ProyectoID == proyectoId
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
@@ -354,8 +357,10 @@ namespace BackEndSAM.DataAcces
                         }
 
 
-
-                        resultados.Add(elemento);
+                        if (elemento != null)
+                        {
+                            resultados.Add(elemento);
+                        }
 
                     }
 
