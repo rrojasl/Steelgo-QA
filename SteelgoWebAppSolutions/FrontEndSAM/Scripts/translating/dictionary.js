@@ -235,6 +235,10 @@ _dictionary = {
         "es-MX": "Completos",
         "en-US": "Full"
     },
+    "ListadoAvisoLlegada0026": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",
@@ -1054,6 +1058,26 @@ _dictionary = {
     "DashboardAvisoLlegada0002": {
         "es-MX": "Dashboard Aviso Llegada",
         "en-US": "Dashboard Aviso Llegada"
+    },
+    "DashboardAvisoLlegada0003": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "DashboardAvisoLlegada0004": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardAvisoLlegada0005": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "DashboardAvisoLlegada0006": {
+        "es-MX": "Recepción Inicial",
+        "en-US": "Start Date"
+    },
+    "DashboardAvisoLlegada0007": {
+        "es-MX": "Recepción Final",
+        "en-US": "Final Date"
     },
     //Home Partial View Labels
     "homeLabel0001": {

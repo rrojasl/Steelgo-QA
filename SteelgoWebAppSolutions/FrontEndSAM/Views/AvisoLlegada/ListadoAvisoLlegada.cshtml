@@ -20,17 +20,21 @@
         <div class="col-sm-12 col-md-12 col-lg-10 filterStretch">
             <div class="row">
                 <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="ListadoAvisoLlegada0026"></label>
+                    <input id="ClienteID" class="" />
+                </div>
+                <div class="form-group col-sm-6 col-md-6 col-lg-3">
                     <label id="ListadoAvisoLlegada0003"></label>
                     <input id="PatioID" class="" />
                 </div>
-                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                @*<div class="form-group col-sm-6 col-md-6 col-lg-3">
                     <label id="ListadoAvisoLlegada0004" class=""></label>
                     <input id="ProyectoID" class="" />
-                </div>
-                <div class="form-group col-sm-4 col-md-4 col-lg-2">
+                </div>*@
+                @*<div class="form-group col-sm-4 col-md-4 col-lg-2">
                     <label id="ListadoAvisoLlegada0002"></label>
                     <input id="FolioAvisoLlegadaID" class="" />
-                </div>
+                </div>*@
                 <div class="form-group col-sm-4 col-md-4 col-lg-2">
                     <label id="ListadoAvisoLlegada0006"></label>
                     <input id="FechaInicial" class="" />
@@ -86,12 +90,18 @@
 
     @section JavascriptGlobalVariables {
         //your partial views variables
-        var Transportista = [], Proveedor = [], Patio = [], Folio = [];
+        var Transportista = [], Proveedor = [], Patio = [], Folio = [], Cliente = {};
         var FechaInicial, FechaFinal, resultadoJson;
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
+        //vars Dashboard
         var DashBoardAccionListado = getUrlParameter("DashBoardAccionListado", "-1");
-        alert(DashBoardAccionListado);
+        var DashPatioID = getUrlParameter("DashPatioID", "-1");
+        var DashClienteID = getUrlParameter("DashClienteID", "-1");
+        var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
+        var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
+
+        alert("DashBoardAccionListado=" + DashBoardAccionListado + ", DashPatioID=" + DashPatioID + " , DashClienteID=" + DashClienteID + " , DashFechaInicial=" + DashFechaInicial + " , DashFechaFinal=" + DashFechaFinal);
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -240,6 +250,155 @@
             //    $("#spanCompletos").html("(" + data.Completos + ")");
             //});
         };
+
+        function CargarControlesFiltrado() { };
+        function ObtenerFechasporDefecto() {
+            var today = new Date();
+            var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
+
+            $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+            $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+            $("#FechaInicial").kendoDatePicker({ footer: false });
+            $("#FechaFinal").kendoDatePicker({ footer: false });
+        };
+
+        function CargarFolio(id) {
+            Folio = [];
+            _folio = {};
+            _folio["FolioAvisoLlegadaID"] = id;
+            Folio.push(_folio);
+        };
+
+        function CargarPatio(id, value) {
+            Patio = [];
+            _patio = {};
+            _patio["PatioID"] = id;
+            _patio["Nombre"] = value;
+            Patio.push(_patio);
+        };
+
+        function CargarProveedor(id, value) {
+            Proveedor = [];
+            _proveedor = {};
+            _proveedor["ProveedorID"] = id;
+            _proveedor["Nombre"] = value;
+            Proveedor.push(_proveedor);
+        };
+
+        function ObtenerProyectos() {
+            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
+                };
+            });
+        };
+
+        function ObtenerProveedor() {
+            $Proveedor.Proveedor.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+
+        function ObtenerPatio() {
+            $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+        function ObtenerFolioEntradaMaterial() {
+            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
+                if (result.ReturnCode) {
+                    removeUserSession();
+                } else {
+                    $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
+                };
+            });
+        };
+
+        function ArregloListado(accion) {
+            var Listado;
+            Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Cliente: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "" };
+            //ProyectoIDs = [];
+
+            //var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
+            //$.each(proyectos, function (index, value) {
+            //    item = {};
+            //    item["ProyectoID"] = value;
+            //    ProyectoIDs.push(item);
+            //});
+
+            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+            Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
+            Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
+            Listado.Patio = Patio;
+            Listado.FechaInicial = obtenerFormatoFecha(d);
+            Listado.FechaFinal = obtenerFormatoFecha(d1);
+            Listado.Creados = accion == 1 ? true : false;
+            Listado.SinPermiso = accion == 2 ? true : false;
+            Listado.SinAutorizacion = accion == 3 ? true : false;
+            Listado.Completos = accion == 4 ? true : false;
+            Listado.Cliente = Cliente;
+            Listado.token = Cookies.get("token");
+            console.log(JSON.stringify(Listado));
+            return Listado;
+        };
+
+        function AccionesListado(accion) {
+            var Listado;
+            Listado = ArregloListado(accion);
+
+            $("#hdAccionFiltrado").val(accion);
+
+            $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+                if (data.ReturnCode) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                    } else {
+                        alert("ReturnMessage: " + data.ReturnMessage);
+                        return;
+                    }
+                }
+
+                resultadoJson = data;
+                if ($("#grid").data("kendoGrid")) {
+                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                };
+            });
+        };
+
+        function Filtros(prueba) {
+            var Listado;
+            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
+            AccionesListado(accion);
+        };
+
+        function CargarCliente(id, value) {
+            Cliente = {};
+            Cliente = { ClienteID: id, Nombre: value };
+        };
+
+        function ObtenerCliente() {
+            $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                $("#ClienteID").data("kendoAutoComplete").dataSource.data(result);
+
+            });
+        };
+
+        function CargarControlesFiltrado() {
+
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
@@ -250,6 +409,8 @@
             console.log("prueba time out");
             ObtenerAccionesListado();
         }, 60000);
+
+
 
         //Botones Dashboard
         $("#btnCreados").click(function () { AccionesListado(1); });
@@ -263,22 +424,39 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
     
-        $("#FolioAvisoLlegadaID").kendoAutoComplete({            
-            dataTextField: "id",
-            dataValueField: "value",
+        //$("#FolioAvisoLlegadaID").kendoAutoComplete({            
+        //    dataTextField: "id",
+        //    dataValueField: "value",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarFolio(dataItem.id);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value) {
+        //            Folio = [];
+        //        };
+        //    },
+        //    filter: "contains"
+        //});
+        //ObtenerFolioEntradaMaterial();
+
+        $("#ClienteID").kendoAutoComplete({
+            dataTextField: "Nombre",
+            dataValueField: "ClienteID",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
             },
             change: function (e) {
                 var value = this.value();
                 if (!value) {
-                    Folio = [];
+                    Cliente = [];
                 };
             },
-            filter: "contains"
+            filter: "contains",
         });
-        ObtenerFolioEntradaMaterial();
+        ObtenerCliente();
 
         $("#PatioID").kendoAutoComplete({
             dataTextField: "Nombre",
@@ -297,159 +475,38 @@
         });
         ObtenerPatio();
 
-        $("#ProyectoID").kendoMultiSelect({
-            dataTextField: "Nombre",
-            dataValueField: "ProyectoID",
-            filter: "contains",
-        });
-        ObtenerProyectos();
+        //$("#ProyectoID").kendoMultiSelect({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ProyectoID",
+        //    filter: "contains",
+        //});
+        //ObtenerProyectos();
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         ObtenerFechasporDefecto();
 
         if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material       
-            $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value(folioEntradaID);
             Filtros(2);
         } else {
             if (DashBoardAccionListado != -1) {
+                CargarControlesFiltrado();
                 AccionesListado(DashBoardAccionListado);
             } else {
                 Filtros(1);//default hoy menos 7 dias
             };
         };
+
+
+        var autocomplete = $("#ClienteID").data("kendoAutoComplete");
+        autocomplete.select(function (dataItem) {
+            if (dataItem.Nombre == "Plana") {
+                CargarTipoVehiculoPlana(dataItem.TipoVehiculoID, dataItem.Nombre);
+                return dataItem.Nombre === "Plana";
+            }
+        });
     }
 
-    function ObtenerFechasporDefecto() {
-        var today = new Date();
-        var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
-
-        $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-        $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-        $("#FechaInicial").kendoDatePicker({ footer: false });
-        $("#FechaFinal").kendoDatePicker({ footer: false });
-    };
-
-    function CargarFolio(id) {
-        Folio = [];
-        _folio = {};
-        _folio["FolioAvisoLlegadaID"] = id;
-        Folio.push(_folio);
-    };
-
-    function CargarPatio(id, value) {
-        Patio = [];
-        _patio = {};
-        _patio["PatioID"] = id;
-        _patio["Nombre"] = value;
-        Patio.push(_patio);
-    };
-
-    function CargarProveedor(id, value) {
-        Proveedor = [];
-        _proveedor = {};
-        _proveedor["ProveedorID"] = id;
-        _proveedor["Nombre"] = value;
-        Proveedor.push(_proveedor);
-    };
-
-    function ObtenerProyectos() {
-        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-            if (result.ReturnCode) {
-                removeUserSession();
-            } else {
-                $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
-            };
-        });
-    };
-
-    function ObtenerProveedor() {
-        $Proveedor.Proveedor.read({ esAvisoEntrada:0, token: Cookies.get("token") }).done(function (result) {
-            if (result.ReturnCode) {
-                removeUserSession();
-            } else {
-                $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
-            };
-        });
-    };
-
-    function ObtenerPatio() {
-        $Patio.Patio.read({ esAvisoEntrada:0, token: Cookies.get("token") }).done(function (result) {
-            if (result.ReturnCode) {
-                removeUserSession();
-            } else {
-                $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
-            };
-        });
-    };
-    function ObtenerFolioEntradaMaterial() {
-        $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
-            if (result.ReturnCode) {
-                removeUserSession();
-            } else {
-                $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
-            };
-        });
-    };
-
-    function ArregloListado(accion) {
-        var Listado;
-        Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", Patio: "", Proyectos: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "" };
-        ProyectoIDs = [];
-
-        var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
-        $.each(proyectos, function (index, value) {
-            item = {};
-            item["ProyectoID"] = value;
-            ProyectoIDs.push(item);
-        });
-
-        var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
-        var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
-
-        Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
-        Listado.FolioAvisoLlegadaID = $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() ? $("#FolioAvisoLlegadaID").data("kendoAutoComplete").value() : -1;
-        Listado.Patio = Patio;
-        Listado.Proyectos = ProyectoIDs;
-        Listado.FechaInicial = obtenerFormatoFecha(d);
-        Listado.FechaFinal = obtenerFormatoFecha(d1);
-        Listado.Creados = accion == 1 ? true : false;
-        Listado.SinPermiso = accion == 2 ? true : false;
-        Listado.SinAutorizacion = accion == 3 ? true : false;
-        Listado.Completos = accion == 4 ? true : false;
-        Listado.token = Cookies.get("token");
-        console.log(JSON.stringify(Listado));
-        return Listado;
-    };
-
-    function AccionesListado(accion) {
-        var Listado;
-        Listado = ArregloListado(accion);
-
-        $("#hdAccionFiltrado").val(accion);
-
-        $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-            if (data.ReturnCode) {
-                if (data.ReturnCode == 401) {
-                    removeUserSession();
-                } else {
-                    alert("ReturnMessage: " + data.ReturnMessage);
-                    return;
-                }
-            }
-
-            resultadoJson = data;
-            if ($("#grid").data("kendoGrid")) {
-                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-            };
-        });
-    };
-
-    function Filtros(prueba) {
-        var Listado;
-        var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
-        AccionesListado(accion);
-    };
 
     function obtenerFormatoFecha(d) {
         var curr_date = d.getDate();

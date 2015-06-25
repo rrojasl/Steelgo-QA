@@ -1797,11 +1797,13 @@
 
             function Error(data) {
                 if (data.ReturnCode) {
-                    if (data.ReturnCode == 401) {
-                        removeUserSession();
-                    } else {
-                        alert("Mensaje de error: " + data.ReturnMessage);
-                        return;
+                    if (data.ReturnCode != 200) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            alert("Mensaje de error: " + data.ReturnMessage);
+                            return;
+                        }
                     }
                 }
             };
