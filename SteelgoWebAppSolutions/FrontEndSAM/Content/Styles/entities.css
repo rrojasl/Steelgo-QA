@@ -148,9 +148,9 @@ header .menu > div {
         border-color: #E1DDDC;
         border-radius: 0;
         border-right: none;
-        font-size: 12px;
+        font-size: 11px;
         padding: 6px 10px;
-        letter-spacing: 0.8px;
+        letter-spacing: 0.1px;
         box-shadow: none;
     }
 
@@ -179,7 +179,7 @@ header .menu > div {
 }
 
     .logged-user .btn-group .dropdown-toggle {
-        padding: 4px 10px;
+        padding: 4px 3px 4px 10px;
         margin: 0;
         box-shadow: none;
         border-radius: 0;
@@ -194,12 +194,16 @@ header .menu > div {
         top: -2px;
     }
 
-    .logged-user .btn-group a span.name,
-    .logged-user .btn-group a span.caret {
+    .logged-user .btn-group a span.name {
         color: #1C4070;
         font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.9px;
+        letter-spacing: 0.75px;
+    }
+
+    .logged-user .btn-group a span.caret {
+        color: #1C4070;
+        margin-bottom: 1px;
     }
 
     .logged-user .btn-group ul {
@@ -228,8 +232,8 @@ header .menu > div {
         color: #FFFFFF;
         background: #e60404 !important;
         position: absolute;
-        top: -9px;
-        left: 51.6%;
+        top: -10px;
+        left: 50.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
         -webkit-border-radius: 30px;
