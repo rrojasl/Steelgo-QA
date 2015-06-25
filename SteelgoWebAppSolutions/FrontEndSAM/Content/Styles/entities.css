@@ -233,7 +233,7 @@ header .menu > div {
         background: #e60404 !important;
         position: absolute;
         top: -10px;
-        left: 50.6%;
+        left: 46.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
         -webkit-border-radius: 30px;
@@ -301,7 +301,8 @@ header .menu > div {
         border-bottom: 1px solid #CECECE;
         color: #DF6600;
         font-weight: 600;
-        padding: 18px 10px 18px 20px;
+        letter-spacing: -0.5px;
+        padding: 18px 10px 17px 19px;
     }
 
     .sidebar .main-nav ul.main-menu > li.active a {
@@ -363,7 +364,7 @@ header .menu > div {
     }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu > li {
-            padding: 11.5px 11px 11.5px;
+            padding: 11.5px 12px 11.5px;
         }
 
             .sidebar .main-nav ul.main-menu li ul.sub-menu > li.active {
@@ -383,14 +384,15 @@ header .menu > div {
 
                 .sidebar .main-nav ul.main-menu li ul.sub-menu > li a span {
                     margin-left: 8px;
-                    letter-spacing: 0.4px;
+                    letter-spacing: 0.5px;
                     font-weight: 100;
                 }
 
-            .sidebar .main-nav ul.main-menu li ul.sub-menu > li.active span {
+            .sidebar .main-nav ul.main-menu li ul.sub-menu > li.active a span {
                 color: #152F52;
                 font-size: 13px;
                 font-weight: 600;
+                letter-spacing: 0.6px;
             }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
@@ -420,14 +422,16 @@ header .menu > div {
                     margin-bottom: 0;
                 }
 
-                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li a span {
+                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 li span {
                     margin: 0;
+                    letter-spacing: 0.3px;
+                    font-size: 13px;
                 }
 
     .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 {
         list-style: none;
         margin: 0;
-        padding: 8px 0;
+        padding: 7px 0;
     }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li {
@@ -441,6 +445,7 @@ header .menu > div {
             .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li a span {
                 margin: 0;
                 color: #305E8E;
+                letter-spacing: -0.3px;
             }
 
     .sidebar .main-nav ul.main-menu li.shortcut {
@@ -452,7 +457,7 @@ header .menu > div {
             background: #FFFFFF;
             display: block;
             border: none;
-            padding: 0 0 16px;
+            padding: 0 0 15px;
         }
 
     .sidebar.minified .main-nav ul.main-menu li.shortcut ul.sub-menu {
@@ -460,7 +465,7 @@ header .menu > div {
     }
 
     .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
-        padding: 11px 9px 0;
+        padding: 11.5px 9px 0;
         margin-bottom: -5px;
     }
 
@@ -469,7 +474,7 @@ header .menu > div {
         }
 
             .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
-                letter-spacing: 1px;
+                letter-spacing: .3px;
                 font-weight: 600;
             }
 
@@ -480,8 +485,8 @@ header .menu > div {
     }
 
         .sidebar .nav-footer .icn.right {
-            height: 40px;
-            width: 40px;
+            height: 39px;
+            width: 39px;
             float: right;
             position: relative;
             top: -8px;
@@ -496,15 +501,14 @@ header .menu > div {
         .sidebar .nav-footer ul {
             list-style: none;
             margin: 0;
-            margin-top: 13px;
+            margin-top: 12px;
             padding: 0;
         }
 
             .sidebar .nav-footer ul li a {
                 color: #FFFFFF;
                 font-size: 10px;
-                font-weight: 600;
-                letter-spacing: 1.2px;
+                letter-spacing: .5px;
             }
 
     .sidebar.minified .nav-footer img,
@@ -514,7 +518,7 @@ header .menu > div {
 
     .sidebar.minified .nav-footer .icn.right {
         top: -10px;
-        left: 4px;
+        left: 3px;
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
@@ -567,6 +571,7 @@ header .menu > div {
 
 .links {
     background-image: url("/Content/images/SAMC_DashboardIcon_10.png");
+    margin-right: 6px;
 }
 
 .gear {
