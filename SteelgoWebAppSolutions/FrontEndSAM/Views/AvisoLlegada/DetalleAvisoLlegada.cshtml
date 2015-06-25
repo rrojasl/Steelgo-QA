@@ -720,7 +720,7 @@
                 
                 $('#files').kendoUpload({
                     async: {
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false
                     },
@@ -1789,7 +1789,7 @@
                 };
 
                 //loadingStart();
-                $AvisoLlegada.AvisoLlegada.destroy({ avisoLlegadaID: folio, token: Cookies.get("token") }).done(function (result) {
+                $AvisoLlegada.AvisoLlegada.destroy({}, { avisoLlegadaID: folio, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
                     //loadingStop();
                 });

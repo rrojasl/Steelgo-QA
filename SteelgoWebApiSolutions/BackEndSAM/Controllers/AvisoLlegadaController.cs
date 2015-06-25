@@ -105,7 +105,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Delete(string avisoLlegadaID, string token)
+        public object Delete(int folio, string token)
         {
             string payload = "";
             string newToken = "";
@@ -114,7 +114,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return AvisoLlegadaBd.Instance.EliminarAvisoLlegada(Convert.ToInt32(avisoLlegadaID), usuario);
+                return AvisoLlegadaBd.Instance.EliminarAvisoLlegada(folio, usuario);
             }
             else
             {

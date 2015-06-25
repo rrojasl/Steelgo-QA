@@ -6,40 +6,29 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
-using SecurityManager.TokenHandler;
 using SecurityManager.Api.Models;
-using BackEndSAM.Models;
-using BackEndSAM.DataAcces;
+using SecurityManager.TokenHandler;
 
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ListadoController : ApiController
+    public class ValidacionesFolioAvisoLlegadaController : ApiController
     {
-        public object Get(int tipoListado, string token)
+
+        public object Get(int folio, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                switch (tipoListado)
-                {
-                    case 1: //Folios aviso llegada
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
-                    case 2: // Folios de aviso de llegada con permiso de aduana autorizados
-                        return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
-                    default:
-                        TransactionalInformation result = new TransactionalInformation();
-                        result.ReturnMessage.Add("Listado no encontrado");
-                        result.ReturnCode = 500;
-                        result.ReturnStatus = false;
-                        result.IsAuthenicated = false;
-                        return result;
-                }
-
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return AvisoLlegadaBd.Instance.VerificarPermisoAduana(folio, usuario);
             }
             else
             {

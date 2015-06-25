@@ -225,7 +225,8 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
                         if (fechaInicial != null && fechaFinal != null)
                         {
-                            result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal).ToList();
+                            result = ctx.Sam3_FolioAvisoLlegada
+                                .Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal && x.Activo.Value == true).ToList();
 
                         }
                         else
@@ -714,15 +715,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoFoliosPermisoAutorizado()
+        public object ObtenerListadoFoliosRequierePermiso()
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                   join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                                   where r.Activo.Value && p.PermisoAutorizado.Value == true
+                                                   join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                                   where r.Activo.Value && p.RequierePermisoAduana
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -744,6 +745,31 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object VerificarPermisoAduana(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    bool permisoAutorizado = (from r in ctx.Sam3_FolioAvisoLlegada
+                                              join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                              where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && p.PermisoAutorizado.Value == true
+                                              select p.PermisoAduanaID).AsParallel().Any();
+                    
+                    return permisoAutorizado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
     }//Fin Clase
 }
