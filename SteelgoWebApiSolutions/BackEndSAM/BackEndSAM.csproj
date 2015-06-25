@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
@@ -141,7 +142,6 @@
     <Compile Include="Controllers\FolioLlegadaController.cs" />
     <Compile Include="Controllers\FormatoPaseSalidaController.cs" />
     <Compile Include="Controllers\ListadoController.cs" />
-    <Compile Include="Controllers\ListadoFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\FolioLlegadaPorProyectoController.cs" />
     <Compile Include="Controllers\PatioController.cs" />
@@ -155,6 +155,7 @@
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
+    <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
@@ -170,6 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AvisoLlegadaJson.cs" />
+    <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />
@@ -230,7 +232,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
