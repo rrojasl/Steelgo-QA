@@ -445,7 +445,8 @@ header .menu > div {
             .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li a span {
                 margin: 0;
                 color: #305E8E;
-                letter-spacing: -0.3px;
+                font-weight: 100;
+                letter-spacing: 0px;
             }
 
     .sidebar .main-nav ul.main-menu li.shortcut {
