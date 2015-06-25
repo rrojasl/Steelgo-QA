@@ -720,7 +720,7 @@
                 
                 $('#files').kendoUpload({
                     async: {
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID="+ folio + "&token=" + Cookies.get("token"),
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false
                     },
@@ -897,10 +897,10 @@
                     alert("Por favor, seleccionar el tipo de archivo");
                     e.preventDefault();
                 }
-                if (folio == -1) {
-                    alert("Favor de guardar el aviso de llegada antes de subir archivos");
-                    e.preventDefault();
-                };
+                //if (folio == -1) {
+                //    alert("Favor de guardar el aviso de llegada antes de subir archivos");
+                //    e.preventDefault();
+                //};
             };
 
             function GuardarAvisoLlegada()
