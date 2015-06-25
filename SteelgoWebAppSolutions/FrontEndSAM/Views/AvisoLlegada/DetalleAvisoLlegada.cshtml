@@ -717,11 +717,12 @@
                     filter: "contains",
                 });
                 ObtenerTipoArchivo();
-
+                
                 $('#files').kendoUpload({
                     async: {
-                        saveUrl: "http://localhost:61102/AvisoLlegada/Post",
-                        autoUpload: false
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID="+ folio + "&token=" + Cookies.get("token"),
+                        autoUpload: false,
+                        withCredentials: false
                     },
                     success: function (data) {
                         $.each(data, function (index, value) {
@@ -847,7 +848,7 @@
                 });
                 ObtenerChoferCamion();
 
-                $('#ArchivoAutorizar').kendoUpload({
+               @* $('#ArchivoAutorizar').kendoUpload({
                     async: {
                         saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")' + "?",
                         autoUpload: false
@@ -874,7 +875,7 @@
                     },
                     error: function (data) { },
                     upload: onUploadArchivoPaseSalida
-                });
+                });*@
 
                 ObtenerFechaDefault();
             };
@@ -896,9 +897,7 @@
                     alert("Por favor, seleccionar el tipo de archivo");
                     e.preventDefault();
                 }
-                if (folio != 1) {
-                    e.data = { folio: folio, token: $.cookie("token") };
-                } else {
+                if (folio == -1) {
                     alert("Favor de guardar el aviso de llegada antes de subir archivos");
                     e.preventDefault();
                 };
