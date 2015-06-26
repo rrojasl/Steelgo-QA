@@ -766,7 +766,12 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .addedSection {
-    margin-top: 18px;
+    margin: 3px -15px 32px;
+    padding-top: 31px;
+    padding-bottom: 5px;
+    border-top: 1px solid #F8F8F8;
+    border-bottom: 1px solid #F8F8F8;
+    background-color: #F8F8F8;
 }
 /**********************************************************************************/
 
@@ -886,8 +891,8 @@ header .menu > div {
 
     .formNav .button-section {
         display: inline-block;
-        margin-right: 26px;
-        padding-right: 14px;
+        margin-right: 24px;
+        padding-right: 15px;
         border-right: 1px solid #DCDCDC;
     }
 
