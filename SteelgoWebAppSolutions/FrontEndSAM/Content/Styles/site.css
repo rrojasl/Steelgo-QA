@@ -560,8 +560,8 @@ input.quickFilters {
     }*/
 
 .btn-group > .btn + .dropdown-toggle {
-    padding-right: 13px;
-    padding-left: 13px;
+    padding-right: 11px;
+    padding-left: 11px;
 }
 
 #Imprimir.btn {

@@ -927,19 +927,46 @@ header .menu > div {
             min-width: 148px;
             text-align: right;
             margin-right: 0px;
+            padding-right: 13px;
         }
 
             .formNav .action-group #Acciones > span:first-child {
                 float: left;
             }
 
-            .formNav .action-group #Acciones .caretBlue {
-                background: none;
-                background-image: url("/Content/images/SAMC_DropdownArrow.png");
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: 11px 6px;
-            }
+    .formNav .caretBlue {
+        display: inline-block;
+        background: none;
+        background-image: url("/Content/images/SAMC_DropdownArrow.png");
+        background-repeat: no-repeat;
+        background-position: 1px 1px;
+        background-size: 11px 6px;
+        vertical-align: middle;
+        height: 10px;
+        width: 12px;
+    }
+
+    .formNav .caretWhite {
+        display: inline-block;
+        background: none;
+        background-image: url("/Content/images/Dropdown_Arrow.png");
+        background-repeat: no-repeat;
+        background-position: center -1px;
+        background-size: auto;
+        vertical-align: middle;
+        height: 10px;
+        width: 12px;
+    }
+
+    .formNav .dropdown.open .caretBlue,
+    .formNav .btn-group.open .caretWhite {
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+        filter: FlipV;
+        -ms-filter: "FlipV";
+    }
 /**********************************************************************************/
 
 
