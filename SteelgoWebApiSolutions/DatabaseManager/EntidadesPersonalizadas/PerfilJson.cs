@@ -104,6 +104,8 @@ namespace DatabaseManager.EntidadesPersonalizadas
         public int idPadre { get; set; }
         public string texto { get; set; }
         public string liga { get; set; }
+        public string icono { get; set; }
+        public int nivel { get; set; }
     }
 
     public class ContextMenuElement

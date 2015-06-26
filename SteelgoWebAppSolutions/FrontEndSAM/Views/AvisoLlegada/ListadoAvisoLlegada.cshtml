@@ -89,6 +89,7 @@
                             <input id="FolioID" class="quickFilters" />
                             <input id="FechaCreacion" class="quickFilters" />
                             <input id="FechaEstimada" class="quickFilters" />
+                            <input id="Cancel" class="" />
                         </div>
                     </div>
                     <div id="grid"></div>
@@ -454,16 +455,52 @@
 
         //Botones Dashboard
         $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
-        $("#btnSinPermiso").click(function () { tabActivo("2"); AccionesListado(2); });
+        $("#btnSinPermiso").click(function () {
+            alert("1");
+            tabActivo("2");
+            AccionesListado(2);
+        });
         $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
         $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
 
         $("#Mostrar").click(function () { Filtros(0); });
-        $("#Creacion").click(function (e) {
+        $("#Nuevo").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-    
+
+        $("#FolioID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioAvisoLlegadaID",
+                    "operator": "startswith",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaCreacion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaCreacion",
+                    "operator": "startswith",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaEstimada").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaEstimada",
+                    "operator": "startswith",
+                    "value": this.value
+                }
+            ]);
+        });
         //$("#FolioAvisoLlegadaID").kendoAutoComplete({            
         //    dataTextField: "id",
         //    dataValueField: "value",
