@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.EntidadesPersonalizadas;
@@ -17,15 +16,13 @@ using BackEndSAM.DataAcces;
 using BackEndSAM.Models;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class DocumentoAvisoLlegadaController : ApiController
+    public class DocumentoPermisoAduanaController :ApiController
     {
-
-        public object Post(int folioAvisoLlegadaID, int TipoArchivoID, string token)
+        public object Post(int folioAvisoLlegadaID, int NumeroPermiso, string token)
         {
             try
             {
@@ -52,9 +49,9 @@ namespace BackEndSAM.Controllers
                             Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
                             //var filePath = HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + docguID + "." + postedFile.FileName);
-                            string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName; 
+                            string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName;
                             string[] st = postedFile.FileName.Split('.');
-                            string extencion = "." + st[1]; 
+                            string extencion = "." + st[1];
                             lstArchivos.Add(new DocumentoPosteado
                             {
                                 FileName = postedFile.FileName,
@@ -64,7 +61,7 @@ namespace BackEndSAM.Controllers
                                 DocGuid = docguID,
                                 FolioAvisoLlegadaID = folioAvisoLlegadaID,
                                 UserId = usuario.UsuarioID,
-                                TipoArchivoID = TipoArchivoID,
+                                TipoArchivoID = -1,
                                 Extencion = extencion
                             });
 
@@ -74,7 +71,7 @@ namespace BackEndSAM.Controllers
 
                         if (DocumentosBd.Instance.GuardarArchivosFolioAvisoLlegada(lstArchivos))
                         {
-                            return Ok();
+                            return "";
                         }
                         else
                         {
@@ -115,6 +112,5 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
-    }//fin clase
+    }
 }

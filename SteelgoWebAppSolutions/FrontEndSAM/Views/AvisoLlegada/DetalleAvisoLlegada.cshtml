@@ -725,19 +725,23 @@
                 
                 $('#files').kendoUpload({
                     async: {
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
-                        withCredentials: false
+                        withCredentials: false,
+                        batch: true
                     },
                     success: function (data) {
+                        debugger;
                         $.each(data, function (index, value) {
+                            debugger;
                             $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                         });
                     },
                     error: function (data) { },
                     upload: onUpload
                 });
-
+                
+                
                 //modal transportista
                 $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoComboBox({
                     dataTextField: "Nombre",
@@ -853,7 +857,7 @@
                 });
                 ObtenerChoferCamion();
 
-               @* $('#ArchivoAutorizar').kendoUpload({
+               /* $('#ArchivoAutorizar').kendoUpload({
                     async: {
                         saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")' + "?",
                         autoUpload: false
@@ -880,7 +884,7 @@
                     },
                     error: function (data) { },
                     upload: onUploadArchivoPaseSalida
-                });*@
+                });*/
 
                 ObtenerFechaDefault();
             };
