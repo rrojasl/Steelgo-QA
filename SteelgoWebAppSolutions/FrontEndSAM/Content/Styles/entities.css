@@ -148,9 +148,9 @@ header .menu > div {
         border-color: #E1DDDC;
         border-radius: 0;
         border-right: none;
-        font-size: 12px;
+        font-size: 11px;
         padding: 6px 10px;
-        letter-spacing: 0.8px;
+        letter-spacing: 0.1px;
         box-shadow: none;
     }
 
@@ -179,7 +179,7 @@ header .menu > div {
 }
 
     .logged-user .btn-group .dropdown-toggle {
-        padding: 4px 10px;
+        padding: 4px 3px 4px 10px;
         margin: 0;
         box-shadow: none;
         border-radius: 0;
@@ -194,12 +194,16 @@ header .menu > div {
         top: -2px;
     }
 
-    .logged-user .btn-group a span.name,
-    .logged-user .btn-group a span.caret {
+    .logged-user .btn-group a span.name {
         color: #1C4070;
         font-size: 12px;
         font-weight: 600;
-        letter-spacing: 0.9px;
+        letter-spacing: 0.75px;
+    }
+
+    .logged-user .btn-group a span.caret {
+        color: #1C4070;
+        margin-bottom: 1px;
     }
 
     .logged-user .btn-group ul {
@@ -228,8 +232,8 @@ header .menu > div {
         color: #FFFFFF;
         background: #e60404 !important;
         position: absolute;
-        top: -9px;
-        left: 51.6%;
+        top: -10px;
+        left: 46.6%;
         padding: 0px 5px;
         border: 2px solid #FFFFFF;
         -webkit-border-radius: 30px;
@@ -297,7 +301,8 @@ header .menu > div {
         border-bottom: 1px solid #CECECE;
         color: #DF6600;
         font-weight: 600;
-        padding: 18px 10px 18px 20px;
+        letter-spacing: -0.5px;
+        padding: 18px 10px 17px 19px;
     }
 
     .sidebar .main-nav ul.main-menu > li.active a {
@@ -359,7 +364,7 @@ header .menu > div {
     }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu > li {
-            padding: 11.5px 11px 11.5px;
+            padding: 11.5px 12px 11.5px;
         }
 
             .sidebar .main-nav ul.main-menu li ul.sub-menu > li.active {
@@ -379,14 +384,15 @@ header .menu > div {
 
                 .sidebar .main-nav ul.main-menu li ul.sub-menu > li a span {
                     margin-left: 8px;
-                    letter-spacing: 0.4px;
+                    letter-spacing: 0.5px;
                     font-weight: 100;
                 }
 
-            .sidebar .main-nav ul.main-menu li ul.sub-menu > li.active span {
+            .sidebar .main-nav ul.main-menu li ul.sub-menu > li.active a span {
                 color: #152F52;
                 font-size: 13px;
                 font-weight: 600;
+                letter-spacing: 0.6px;
             }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
@@ -416,14 +422,16 @@ header .menu > div {
                     margin-bottom: 0;
                 }
 
-                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li a span {
-                    margin: 0;
-                }
+            .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 li span {
+                margin: 0;
+                letter-spacing: 0.3px;
+                font-size: 13px;
+            }
 
     .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 {
         list-style: none;
         margin: 0;
-        padding: 8px 0;
+        padding: 7px 0;
     }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li {
@@ -437,6 +445,8 @@ header .menu > div {
             .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li a span {
                 margin: 0;
                 color: #305E8E;
+                font-weight: 100;
+                letter-spacing: 0px;
             }
 
     .sidebar .main-nav ul.main-menu li.shortcut {
@@ -448,7 +458,7 @@ header .menu > div {
             background: #FFFFFF;
             display: block;
             border: none;
-            padding: 0 0 16px;
+            padding: 0 0 15px;
         }
 
     .sidebar.minified .main-nav ul.main-menu li.shortcut ul.sub-menu {
@@ -456,7 +466,7 @@ header .menu > div {
     }
 
     .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li {
-        padding: 11px 9px 0;
+        padding: 11.5px 9px 0;
         margin-bottom: -5px;
     }
 
@@ -465,7 +475,7 @@ header .menu > div {
         }
 
             .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a > span {
-                letter-spacing: 1px;
+                letter-spacing: .3px;
                 font-weight: 600;
             }
 
@@ -476,8 +486,8 @@ header .menu > div {
     }
 
         .sidebar .nav-footer .icn.right {
-            height: 40px;
-            width: 40px;
+            height: 39px;
+            width: 39px;
             float: right;
             position: relative;
             top: -8px;
@@ -492,15 +502,14 @@ header .menu > div {
         .sidebar .nav-footer ul {
             list-style: none;
             margin: 0;
-            margin-top: 13px;
+            margin-top: 12px;
             padding: 0;
         }
 
             .sidebar .nav-footer ul li a {
                 color: #FFFFFF;
                 font-size: 10px;
-                font-weight: 600;
-                letter-spacing: 1.2px;
+                letter-spacing: .5px;
             }
 
     .sidebar.minified .nav-footer img,
@@ -510,7 +519,7 @@ header .menu > div {
 
     .sidebar.minified .nav-footer .icn.right {
         top: -10px;
-        left: 4px;
+        left: 3px;
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
@@ -563,6 +572,7 @@ header .menu > div {
 
 .links {
     background-image: url("/Content/images/SAMC_DashboardIcon_10.png");
+    margin-right: 6px;
 }
 
 .gear {
@@ -649,6 +659,7 @@ header .menu > div {
 
         .breadcrumb li.active a {
             color: #333333;
+            font-weight: 100;
         }
 
     .breadcrumb > li + li:before {
@@ -658,7 +669,7 @@ header .menu > div {
     }
 
     .breadcrumb > li + li.active:before {
-        padding: 0 4px 0 4px;
+        padding: 0 6px 0 4px;
     }
 
 /**********************************************************************************/
@@ -842,12 +853,21 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .formNav {
-    margin: 13px -30px 32px;
-    padding: 18px 0 20px;
-    border: 1px solid #CCCCCC;
-    border-right: none;
-    border-left: none;
+    margin: 13px 0px 32px;
+    padding: 11px 0 33px;
+    border-bottom: 1px solid #CCCCCC;
 }
+
+    .formNav.filtersFields {
+        margin: 2px 0px 35px;
+        padding: 0px 0 30px;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+        .formNav.filtersFields .button-section {
+            margin-top: 21px;
+            padding-right: 5px;
+        }
 
     .formNav .btn, .formNav .btn-group {
         margin-top: 2px;
@@ -1143,10 +1163,27 @@ header .menu > div {
         margin-right: 12px;
         padding-right: 0;
     }
+
+    .formNav.filtersFields .button-section {
+        border: none;
+    }
 }
 
 /* md viewport */
 @media (min-width: 992px) and (max-width: 1024px) {
+}
+
+@media (max-width: 1200px) {
+
+    /*$_formNav*/
+
+    .formNav.filtersFields {
+        padding: 0px 0 15px;
+    }
+
+        .formNav.filtersFields .filter-section .row > div {
+            margin-bottom: 15px;
+        }
 }
 
 /* lg viewport */
@@ -1194,4 +1231,9 @@ header .menu > div {
 }
 
 @media (min-width: 1025px) {
+
+    /*$_formNav*/
+    .formNav.filtersFields .row > div.col-lg-1 {
+        min-width: 134px;
+    }
 }

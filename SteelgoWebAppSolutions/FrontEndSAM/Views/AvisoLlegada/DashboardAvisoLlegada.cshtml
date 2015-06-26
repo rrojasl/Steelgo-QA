@@ -11,26 +11,85 @@
         <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="DashboardAvisoLlegada0002"></span></a>
     </li>
 }
-<button id="btnCreados"><span id="ListadoAvisoLlegada0022"></span><span id="spanCreados"></span></button>
-<button id="btnSinPermiso"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
-<button id="btnSinAutorizacion"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
-<button id="btnCompletos"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
+
+<div class="form clearfix col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav filtersFields clearfix">
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-1">
+                        <div class="button-section">
+                            <button id="Nuevo" type="button" class="btn btn-yellow"><span id="DashboardAvisoLlegada0003"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardAvisoLlegada0005"></label>
+                                <input id="PatioID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardAvisoLlegada0004"></label>
+                                <input id="ClienteID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardAvisoLlegada0006"></label>
+                                <input id="FechaInicial" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardAvisoLlegada0007"></label>
+                                <input id="FechaFinal" class="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="btn-group col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+                    <button id="btnCreados" class="btn btn-tab">
+                        <label id="ListadoAvisoLlegada0022"></label>
+                        <span id="spanCreados"></span>
+                    </button>
+                    <button id="btnSinPermiso" class="btn btn-tab">
+                        <label id="ListadoAvisoLlegada0023"></label>
+                        <span id="spanSinPermiso"></span>
+                    </button>
+                    <button id="btnSinAutorizacion" class="btn btn-tab">
+                        <label id="ListadoAvisoLlegada0024"></label>
+                        <span id="spanSinAutorizacion"></span>
+                    </button>
+                    <button id="btnCompletos" class="btn btn-tab">
+                        <label id="ListadoAvisoLlegada0025"></label>
+                        <span id="spanCompletos"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
 
     @section JavascriptGlobalVariables {
-        
+        var Patio = {}, Cliente = {};
+        var FechaInicial, FechaFinal;
     }
 
     @section JavascriptGlobalFunctions {
+        function changeDatePickerDateFormat(datePickerOptions) {
+            FechaInicial.setOptions(datePickerOptions);
+            FechaFinal.setOptions(datePickerOptions);
+        };
+
         function ObtenerAccionesListado() {
 
-            $("#spanCreados").html("(1)");
-            $("#spanSinPermiso").html("(10)");
-            $("#spanSinPermiso").html("(15)");
-            $("#spanSinAutorizacion").html("(11)");
-            $("#spanCompletos").html("(16)");
+            $("#spanCreados").html("115");
+            $("#spanSinPermiso").html("12");
+            $("#spanSinAutorizacion").html("32");
+            $("#spanCompletos").html("71");
 
 
             //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
@@ -51,8 +110,74 @@
         };
 
         function AccionesListado(accion) {
+            var PatioID = Patio.PatioID ? Patio.PatioID : "";
+            var PatioNombre = Patio.Nombre ? Patio.Nombre : "";
+            var ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
+            var ClienteNombre = Cliente.Nombre ? Cliente.Nombre : "";
+
+            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+            var fechainicial = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
+            var fechafinal = d1.toLocaleDateString($("#language").data("kendoDropDownList").value());
+
+            Cookies.set("clienteid", ClienteID, { path: '/' });
+            Cookies.set("clientenombre", ClienteNombre, { path: '/' });
+            Cookies.set("patioid", PatioID, { path: '/' });
+            Cookies.set("pationombre", PatioNombre, { path: '/' });
+            //var cookie = Cookies.get("cliente");
+            //alert(cookie);
+            alert("ClienteID: " + ClienteID + ", PatioID: " + PatioID);
             var url = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
-            window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion);
+            //window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal);
+        };
+
+        function CargarPatio(id, value) {
+            Patio = {};
+            Patio = { PatioID: id, Nombre: value };
+        };
+
+        function CargarCliente(id, value) {
+            Cliente = {};
+            Cliente = { ClienteID: id, Nombre: value };
+        };
+
+        function ObtenerPatio() {
+            $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+                
+            });
+        };
+
+        function ObtenerCliente() {
+            $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                $("#ClienteID").data("kendoAutoComplete").dataSource.data(result);
+                
+            });
+        };
+
+        function ObtenerFechasporDefecto() {
+            var today = new Date();
+            var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
+
+            $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+            $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+            $("#FechaInicial").kendoDatePicker({ footer: false });
+            $("#FechaFinal").kendoDatePicker({ footer: false });
+        };
+
+        function Error(data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode!=200){
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                    } else {
+                        alert("Mensaje de error: " + data.ReturnMessage);
+                        return;
+                    }
+                }
+            }
         };
     }
 
@@ -64,11 +189,54 @@
             ObtenerAccionesListado();
         }, 60000);
 
+        $("#Nuevo").click(function () {
+            var url = "@Url.Action("DetalleAvisoLlegada", "AvisoLlegada")";
+            window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value());
+        });
+
         //Botones Dashboard
         $("#btnCreados").click(function () { AccionesListado(1); });
         $("#btnSinPermiso").click(function () { AccionesListado(2); });
         $("#btnSinAutorizacion").click(function () { AccionesListado(3); });
         $("#btnCompletos").click(function () { AccionesListado(4); });
 
+
+        $("#PatioID").kendoAutoComplete({
+            dataTextField: "Nombre",
+            dataValueField: "PatioID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarPatio(dataItem.PatioID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Patio = [];
+                };
+            },
+            filter: "contains",
+        });
+        ObtenerPatio();
+
+        $("#ClienteID").kendoAutoComplete({
+            dataTextField: "Nombre",
+            dataValueField: "ClienteID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Cliente = [];
+                };
+            },
+            filter: "contains",
+        });
+        ObtenerCliente();
+
+        FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
+        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+        ObtenerFechasporDefecto();
     }
 </script>

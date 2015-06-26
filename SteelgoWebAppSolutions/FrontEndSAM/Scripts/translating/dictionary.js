@@ -220,20 +220,28 @@ _dictionary = {
         "en-US": "List Input Material"
     },
     "ListadoAvisoLlegada0022": {
-        "es-MX": "Creados",
-        "en-US": "Created"
+        "es-MX": "Folios Creados",
+        "en-US": "Created Folios"
     },
     "ListadoAvisoLlegada0023": {
-        "es-MX": "Sin Permiso",
-        "en-US": "Without Permission"
+        "es-MX": "Sin Permiso ",
+        "en-US": "Without Permission "
     },
     "ListadoAvisoLlegada0024": {
-        "es-MX": "Sin Autorizacion",
-        "en-US": "Without Authorization"
+        "es-MX": "Sin Autorizacion ",
+        "en-US": "Without Authorization "
     },
     "ListadoAvisoLlegada0025": {
-        "es-MX": "Completos",
-        "en-US": "Full"
+        "es-MX": "Completos ",
+        "en-US": "Full "
+    },
+    "ListadoAvisoLlegada0026": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoAvisoLlegada0027": {
+        "es-MX": "Todos ",
+        "en-US": "All "
     },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
@@ -1054,6 +1062,26 @@ _dictionary = {
     "DashboardAvisoLlegada0002": {
         "es-MX": "Dashboard Aviso Llegada",
         "en-US": "Dashboard Aviso Llegada"
+    },
+    "DashboardAvisoLlegada0003": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "DashboardAvisoLlegada0004": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardAvisoLlegada0005": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "DashboardAvisoLlegada0006": {
+        "es-MX": "Recepción Inicial",
+        "en-US": "Start Date"
+    },
+    "DashboardAvisoLlegada0007": {
+        "es-MX": "Recepción Final",
+        "en-US": "Final Date"
     },
     //Home Partial View Labels
     "homeLabel0001": {
