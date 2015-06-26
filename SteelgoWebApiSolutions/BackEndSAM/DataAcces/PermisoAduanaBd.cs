@@ -198,8 +198,12 @@ namespace BackEndSAM.DataAcces
                 StringBuilder body = new StringBuilder();
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.office365.com");
-                mail.From = new MailAddress("daniela.zertuche@definityfirst.com");
-                mail.To.Add("daniela.zertuche@definityfirst.com");
+                //por definir displayName y correo
+                mail.From = new MailAddress("ejemplo@sysgo.com.mx", "Sysgo");
+                //Correo Sam2
+                mail.Sender = new MailAddress("board@mimoss.com");
+                mail.To.Add("sam@sysgo.com.mx");
+                //Por definir Subject
                 mail.Subject = "Permiso de Aduana";
                 mail.IsBodyHtml = true;
 

@@ -182,13 +182,19 @@ label {
     letter-spacing: .8px;
 }
 
-.form .folioLabel,
-.form .title {
-    color: rgba(051, 051, 051, .7);
-    font-weight: 600;
+.form .folioLabel {
+    color: #666666;
+    font-weight: 100;
     font-size: 18px;
     letter-spacing: 0px;
+    position: relative;
+    top: -4px;
 }
+
+    .form .folioLabel span:nth-child(even) {
+        color: #000000;
+        margin-right: 28px;
+    }
 
 .form .title {
     color: #202020;

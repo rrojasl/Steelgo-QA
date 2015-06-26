@@ -361,6 +361,8 @@
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Icono" Type="varchar(max)" />
+          <Property Name="Nivel" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Notificacion">
           <Key>
@@ -3571,6 +3573,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Rel_Perfil_MenuGeneral" Relationship="Self.FK__Sam3_Rel___MenuG__756D6ECB" FromRole="Sam3_MenuGeneral" ToRole="Sam3_Rel_Perfil_MenuGeneral" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Icono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Nivel" Type="Int32" />
         </EntityType>
         <EntityType Name="Sam3_Notificacion">
           <Key>
@@ -6894,6 +6898,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_MenuGeneral">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_MenuGeneral">
               <MappingFragment StoreEntitySet="Sam3_MenuGeneral">
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Icono" ColumnName="Icono" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="MenuID" ColumnName="MenuID" />

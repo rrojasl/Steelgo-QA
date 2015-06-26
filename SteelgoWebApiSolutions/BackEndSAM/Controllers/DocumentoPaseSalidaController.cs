@@ -43,5 +43,118 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
+        public object Post(int folioAvisoLlegada, string token)
+        {
+            try
+            {
+                string newToken = "";
+                string payload = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (tokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    HttpResponseMessage result = null;
+
+                    var httpRequest = HttpContext.Current.Request;
+
+                    if (httpRequest.Files.Count > 0)
+                    {
+
+                        var docfiles = new List<string>();
+                        HttpPostedFile postedFile;
+                        List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
+                        foreach (string file in httpRequest.Files)
+                        {
+                            Guid docguID = Guid.NewGuid();
+                            postedFile = httpRequest.Files[file];
+                            var ruta = HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + docguID + "." + postedFile.FileName);
+                            //string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName;
+                            string[] st = postedFile.FileName.Split('.');
+                            string extencion = "." + st[1];
+                            lstArchivos.Add(new DocumentoPosteado
+                            {
+                                FileName = postedFile.FileName,
+                                ContentType = postedFile.ContentType,
+                                Size = postedFile.ContentLength,
+                                Path = ruta,
+                                DocGuid = docguID,
+                                FolioAvisoLlegadaID = folioAvisoLlegada,
+                                UserId = usuario.UsuarioID,
+                                TipoArchivoID = -1,
+                                Extencion = extencion,
+                            });
+
+                            postedFile.SaveAs(ruta);
+                            docfiles.Add(ruta);
+                        }
+
+                        if ((bool)DocumentosBd.Instance.GuardarDocumentoPaseSalida(lstArchivos))
+                        {
+                            return Ok();
+                        }
+                        else
+                        {
+                            foreach (string path in docfiles)
+                            {
+                                if (File.Exists(path))
+                                {
+                                    File.Delete(path);
+                                }
+                            }
+                            result = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                        }
+                    }
+                    else
+                    {
+                        result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.ReturnMessage.Add(payload);
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.ReturnMessage.Add(ex.Message);
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Delete(int documentoID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return DocumentosBd.Instance.EliminarDocumentoPaseSalida(documentoID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }

@@ -47,7 +47,6 @@ namespace SecurityManager.TokenHandler
         {
             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             double now = Math.Round((DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds);
-            var time = (DateTime.UtcNow.AddMinutes(30) - unixEpoch).TotalSeconds;
 
             Dictionary<string, object> payload = new Dictionary<string, object>()
             {

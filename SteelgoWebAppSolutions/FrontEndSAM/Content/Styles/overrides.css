@@ -192,19 +192,20 @@
 
 .k-upload, .k-upload-files, .k-file {
     border-color: transparent;
-}
-
-div.k-dropzone {
-    border: 1px solid #c5c5c5; /* For Default; Different for each theme */
-}
-
-div.k-dropzone em {
-    visibility: visible;
+    background-color: transparent;
 }
 
 .k-dropzone {
+    margin-top: 2px;
     padding: 0;
+    border: 1px solid #c5c5c5; /* For Default; Different for each theme */
 }
+
+    .k-dropzone em {
+        visibility: visible;
+        position: relative;
+        top: 8px;
+    }
 
     .k-dropzone .k-upload-button,
     .k-dropzone .k-upload-button.k-state-focused,
@@ -216,7 +217,6 @@ div.k-dropzone em {
         border: none;
         border-radius: 3px;
         border-bottom: 1px solid #234568;
-        margin-top: 2px;
         padding: 5px 14px;
         font-size: 14px;
         box-sizing: border-box;
