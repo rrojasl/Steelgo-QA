@@ -396,6 +396,7 @@ header .menu > div {
             }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
+            z-index: 10;
             display: none;
             list-style: none;
             position: absolute;
@@ -861,18 +862,17 @@ header .menu > div {
     .formNav.filtersFields {
         margin: 2px 0px 35px;
         padding: 0px 0 30px;
-        border-bottom: 1px solid #CCCCCC;
     }
 
         .formNav.filtersFields .button-section {
-            margin-top: 21px;
-            padding-right: 5px;
+            margin-top: 23px;
+            padding-right: 7px;
         }
 
     .formNav .btn, .formNav .btn-group {
-        margin-top: 2px;
+        margin-top: 0px;
         margin-right: 16px;
-        box-shadow: 0px 2px 2px #ccc;
+        box-shadow: 0px 2px 2px #CCCCCC;
     }
 
         .formNav .btn-group .btn {
@@ -881,14 +881,14 @@ header .menu > div {
         }
 
         .formNav .btn-group .btn-yellow.dropdown-toggle {
-            border-left: 1px solid #DF6600;
+            border-left: 1px solid #C56E00;
         }
 
     .formNav .button-section {
         display: inline-block;
         margin-right: 26px;
         padding-right: 14px;
-        border-right: 1px solid #CCCCCC;
+        border-right: 1px solid #DCDCDC;
     }
 
     .formNav .dropdown {
@@ -971,12 +971,13 @@ header .menu > div {
 
     .departurePermit img {
         float: right;
-        margin-right: 10px;
+        margin-top: -16px;
+        margin-right: 6px;
     }
 
         .departurePermit img.logo {
             height: auto;
-            width: 100px;
+            width: 167px;
         }
 
     .departurePermit .departureTable,
@@ -1234,6 +1235,6 @@ header .menu > div {
 
     /*$_formNav*/
     .formNav.filtersFields .row > div.col-lg-1 {
-        min-width: 134px;
+        min-width: 132px;
     }
 }
