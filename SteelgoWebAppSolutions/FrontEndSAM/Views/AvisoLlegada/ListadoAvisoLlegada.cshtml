@@ -88,6 +88,7 @@
                             <input id="FolioID" class="" />
                             <input id="FechaCreacion" class="" />
                             <input id="FechaEstimada" class="" />
+                            <input id="Cancel" class="" />
                     </div>
                     <div id="grid"></div>
                 </div>
@@ -461,7 +462,7 @@
         $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
 
         $("#Mostrar").click(function () { Filtros(0); });
-        $("#Creacion").click(function (e) {
+        $("#Nuevo").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
