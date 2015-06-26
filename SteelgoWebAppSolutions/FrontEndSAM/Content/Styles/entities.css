@@ -854,8 +854,8 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .formNav {
-    margin: 13px 0px 32px;
-    padding: 11px 0 33px;
+    margin: -5px 0px 33px;
+    padding: 0px 0 20px;
     border-bottom: 1px solid #CCCCCC;
 }
 
@@ -930,6 +930,8 @@ header .menu > div {
  Class name:    $_departurePermit
  Description:   Customize section added to a page.
 **********************************************************************************/
+/*@media print{@page {size: landscape; margin: 10px 1in 0}}*/
+
 .departurePermit {
     max-width: 790px;
     margin: auto 10px;
@@ -1040,35 +1042,39 @@ header .menu > div {
 
         .departurePermit .departureTable table tbody td {
             padding: 6px 0 3px 12px;
+            text-align: right;
+        }
+
+        .departurePermit .departureTable tbody td:last-of-type table tbody td {
             text-align: left;
         }
 
-            .departurePermit .departureTable table tbody td * {
-                width: auto;
-                display: inline-block;
+        .departurePermit .departureTable table tbody td * {
+            width: auto;
+            display: inline-block;
+        }
+
+        .departurePermit .departureTable table tbody td span {
+            border-bottom: 1px solid #000;
+            float: right;
+            width: 46%;
+            margin-top: -2px;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+            .departurePermit .departureTable table tbody td span.incidenceNumber {
+                width: 64%;
+                text-align: left;
+                margin-top: 2px;
             }
 
-            .departurePermit .departureTable table tbody td span {
-                border-bottom: 1px solid #000;
-                float: right;
-                width: 46%;
-                margin-top: -2px;
-                white-space: nowrap;
-                text-align: center;
-            }
-
-                .departurePermit .departureTable table tbody td span.incidenceNumber {
-                    width: 64%;
-                    text-align: left;
-                    margin-top: 2px;
+                .departurePermit .departureTable table tbody td span.incidenceNumber:after {
+                    content: "* se anexa copia";
+                    position: relative;
+                    top: 19px;
+                    left: -54px;
                 }
-
-                    .departurePermit .departureTable table tbody td span.incidenceNumber:after {
-                        content: "* se anexa copia";
-                        position: relative;
-                        top: 19px;
-                        left: -54px;
-                    }
 
         .departurePermit .departureTable tbody td:last-child table {
             margin-top: -16px;
