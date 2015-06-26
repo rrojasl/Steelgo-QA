@@ -28,9 +28,9 @@
  Description:   Override kendo language input section.
 **********************************************************************************/
 .languageSelector {
-    display: inline-block;
     position: relative;
-    right: -4px;
+    margin-left: 15px;
+    top: 1px;
 }
 
     .languageSelector .k-widget.k-dropdown {
@@ -38,8 +38,12 @@
     }
 
         .languageSelector .k-widget.k-dropdown .k-dropdown-wrap span.k-i-arrow-s {
-            background-size: 34% 14%;
-            background-position: 9px 14px;
+            background-size: 32% 13%;
+            background-position: 10px 13px;
+        }
+
+        .languageSelector .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-down span.k-i-arrow-s {
+            background-position: 10px 21px;
         }
 
     .languageSelector .k-dropdown-wrap.k-state-default {
@@ -270,6 +274,7 @@
 .k-grid {
     /*margin-top: 15px;*/
     background-color: #EEEEEE;
+    z-index: 2;
 }
 
     /* header + data table */
