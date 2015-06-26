@@ -216,6 +216,8 @@
         background-color: #305E8E;
         border: none;
         border-radius: 3px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         border-bottom: 1px solid #234568;
         padding: 5px 14px;
         font-size: 14px;
@@ -247,7 +249,7 @@
 }
 
 .k-list-container {
-    color: #1B3F70;
+    color: #000000;
     background-color: white;
     box-shadow: none;
     border-radius: 0 !important;
@@ -262,12 +264,13 @@
     }
 
         .k-list-container .k-list .k-item.k-state-hover {
-            background-color: #FCEED9 !important;
+            background: none;
+            background-color: rgba(048, 094, 142, 0.2) !important;            
         }
 
         .k-list-container .k-list .k-item.k-state-selected {
             font-weight: 600;
-            color: #1B3F70;
+            color: #000000;
             background: none;
             background-color: white;
         }
