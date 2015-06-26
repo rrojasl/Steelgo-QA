@@ -422,11 +422,11 @@ header .menu > div {
                     margin-bottom: 0;
                 }
 
-                .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 li span {
-                    margin: 0;
-                    letter-spacing: 0.3px;
-                    font-size: 13px;
-                }
+            .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 li span {
+                margin: 0;
+                letter-spacing: 0.3px;
+                font-size: 13px;
+            }
 
     .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 {
         list-style: none;
@@ -659,6 +659,7 @@ header .menu > div {
 
         .breadcrumb li.active a {
             color: #333333;
+            font-weight: 100;
         }
 
     .breadcrumb > li + li:before {
@@ -668,7 +669,7 @@ header .menu > div {
     }
 
     .breadcrumb > li + li.active:before {
-        padding: 0 4px 0 4px;
+        padding: 0 6px 0 4px;
     }
 
 /**********************************************************************************/
@@ -852,12 +853,21 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .formNav {
-    margin: 13px -30px 32px;
-    padding: 18px 0 20px;
-    border: 1px solid #CCCCCC;
-    border-right: none;
-    border-left: none;
+    margin: 13px 0px 32px;
+    padding: 11px 0 33px;
+    border-bottom: 1px solid #CCCCCC;
 }
+
+    .formNav.filtersFields {
+        margin: 2px 0px 35px;
+        padding: 0px 0 30px;
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+        .formNav.filtersFields .button-section {
+            margin-top: 21px;
+            padding-right: 7px;
+        }
 
     .formNav .btn, .formNav .btn-group {
         margin-top: 2px;
@@ -1153,10 +1163,27 @@ header .menu > div {
         margin-right: 12px;
         padding-right: 0;
     }
+
+    .formNav.filtersFields .button-section {
+        border: none;
+    }
 }
 
 /* md viewport */
 @media (min-width: 992px) and (max-width: 1024px) {
+}
+
+@media (max-width: 1200px) {
+
+    /*$_formNav*/
+
+    .formNav.filtersFields {
+        padding: 0px 0 15px;
+    }
+
+        .formNav.filtersFields .filter-section .row > div {
+            margin-bottom: 15px;
+        }
 }
 
 /* lg viewport */
@@ -1204,4 +1231,9 @@ header .menu > div {
 }
 
 @media (min-width: 1025px) {
+
+    /*$_formNav*/
+    .formNav.filtersFields .row > div.col-lg-1 {
+        min-width: 135px;
+    }
 }

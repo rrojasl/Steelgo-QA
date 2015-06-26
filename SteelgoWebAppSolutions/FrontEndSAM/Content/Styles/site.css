@@ -377,27 +377,50 @@ input {
 .btn-fadeBlue {
     background-color: rgba(048, 094, 142, 0.5);
     border: none;
+    box-shadow: none;
 }
 
     .btn-fadeBlue:hover {
         background-color: rgba(048, 094, 142, 0.7);
     }
 
-.btn-tab {
+.btn.btn-tab {
     background-color: #FFFFFF;
+    border-color: #CCCCCC;
+    margin: 0;
+    height: 113px;
+    width: 25%;
+    box-shadow: none;
+    padding-right: 0;
+    padding-left: 0;
 }
 
-    .btn-tab span {
-        color: #202020;
+.btn-tab label {
+    color: #202020;
+    font-size: 13px;
+    margin: 8px 0px 3px 0;
+    white-space: normal;
+}
+
+.btn-tab span {
+    color: #305E8E;
+    font-size: 50px;
+    letter-spacing: 1px;
+}
+
+    .btn-tab span#spanSinAutorizacion {
+        color: #E60404;
     }
 
-    .btn-tab:hover {
-        background-color: rgba(048, 094, 142, 0.7);
-    }
+.btn-tab:hover {
+    -moz-box-shadow: 0px 0px 7px #ccc inset; /* FF3.5+ */
+    -webkit-box-shadow: 0px 0px 7px #ccc inset; /* Saf3.0+, Chrome */
+    box-shadow: 0px 0px 7px #ccc inset; /* Opera 10.5, IE9, Chrome 10+ */
+}
 
-    .btn-tab.active {
-        background-color: rgba(048, 094, 142, 0.7);
-    }
+.btn-tab.active {
+    background-color: rgba(048, 094, 142, 0.7);
+}
 
 .buttonBar {
     margin-top: 21px;
@@ -467,6 +490,14 @@ input {
     background-repeat: no-repeat;
     background-position: center;
     width: 34px;
+}
+
+#Nuevo.btn {
+    padding: 2px 37px 0 9px;
+    background-image: url("/Content/images/Text_Add_Button.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 86% center;
 }
 /**********************************************************************************/
 
@@ -553,6 +584,11 @@ h2 {
     /*$_footer*/
     footer {
         text-align: center;
+    }
+
+    /*$_btn*/
+    .btn-tab label {
+        font-size: 11px;
     }
 }
 

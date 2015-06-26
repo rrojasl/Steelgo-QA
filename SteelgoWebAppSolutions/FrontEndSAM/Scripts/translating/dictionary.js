@@ -220,8 +220,8 @@ _dictionary = {
         "en-US": "List Input Material"
     },
     "ListadoAvisoLlegada0022": {
-        "es-MX": "Creados",
-        "en-US": "Created"
+        "es-MX": "Folios Creados",
+        "en-US": "Created Folios"
     },
     "ListadoAvisoLlegada0023": {
         "es-MX": "Sin Permiso",
