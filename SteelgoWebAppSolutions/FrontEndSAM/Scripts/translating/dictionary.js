@@ -224,20 +224,24 @@ _dictionary = {
         "en-US": "Created Folios"
     },
     "ListadoAvisoLlegada0023": {
-        "es-MX": "Sin Permiso",
-        "en-US": "Without Permission"
+        "es-MX": "Sin Permiso ",
+        "en-US": "Without Permission "
     },
     "ListadoAvisoLlegada0024": {
-        "es-MX": "Sin Autorizacion",
-        "en-US": "Without Authorization"
+        "es-MX": "Sin Autorizacion ",
+        "en-US": "Without Authorization "
     },
     "ListadoAvisoLlegada0025": {
-        "es-MX": "Completos",
-        "en-US": "Full"
+        "es-MX": "Completos ",
+        "en-US": "Full "
     },
     "ListadoAvisoLlegada0026": {
         "es-MX": "Cliente",
         "en-US": "Client"
+    },
+    "ListadoAvisoLlegada0027": {
+        "es-MX": "Todos ",
+        "en-US": "All "
     },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {

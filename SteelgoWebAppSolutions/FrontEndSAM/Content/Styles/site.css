@@ -422,6 +422,48 @@ input {
     background-color: rgba(048, 094, 142, 0.7);
 }
 
+.btn.btn-tabList {
+    margin: 0;
+    background-color: #FFFFFF;
+    border-color: #CCCCCC;
+    border-bottom: none;
+    border-left: none;
+    box-shadow: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 25%;
+    height: 40px;
+}
+
+    .btn.btn-tabList:focus {
+        outline: 0;
+    }
+
+    .btn.btn-tabList:first-of-type {
+        border-left: 1px solid #CCCCCC;
+    }
+
+    .btn.btn-tabList.active {
+        height: 44px;
+        margin-top: -4px;
+        border-top-left-radius: 4px !important;
+        border-top-right-radius: 4px !important;
+        box-shadow: 0px 7px 10px #CCCCCC;
+    }
+
+.btn-tabList span {
+    color: #305E8E;
+    text-transform: uppercase;
+}
+
+.btn-tabList.active span {
+    color: #202020;
+}
+
+.btn-group.tabList .btn + .btn {
+    margin-left: 0;
+}
+
 .buttonBar {
     margin-top: 21px;
     text-align: right;

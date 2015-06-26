@@ -10,40 +10,49 @@
         <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0021"></span></a>
     </li>
 }
-<button id="btnCreados"><span id="ListadoAvisoLlegada0022"></span><span id="spanCreados"></span></button>
-<button id="btnSinPermiso"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
-<button id="btnSinAutorizacion"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
-<button id="btnCompletos"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
 
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-10 filterStretch">
-            <div class="row">
-                <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                    <label id="ListadoAvisoLlegada0026"></label>
-                    <input id="ClienteID" class="" />
-                </div>
-                <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                    <label id="ListadoAvisoLlegada0003"></label>
-                    <input id="PatioID" class="" />
-                </div>
-                @*<div class="form-group col-sm-6 col-md-6 col-lg-3">
-                    <label id="ListadoAvisoLlegada0004" class=""></label>
-                    <input id="ProyectoID" class="" />
-                </div>*@
-                @*<div class="form-group col-sm-4 col-md-4 col-lg-2">
-                    <label id="ListadoAvisoLlegada0002"></label>
-                    <input id="FolioAvisoLlegadaID" class="" />
-                </div>*@
-                <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                    <label id="ListadoAvisoLlegada0006"></label>
-                    <input id="FechaInicial" class="" />
-                </div>
-                <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                    <label id="ListadoAvisoLlegada0007"></label>
-                    <input id="FechaFinal" class="" />
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav filtersFields clearfix">
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-1">
+                        <div class="button-section">
+                            <button id="Nuevo" type="button" class="btn btn-yellow"><span id="DashboardAvisoLlegada0003"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoAvisoLlegada0003"></label>
+                                <input id="PatioID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoAvisoLlegada0026"></label>
+                                <input id="ClienteID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoAvisoLlegada0006"></label>
+                                <input id="FechaInicial" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoAvisoLlegada0007"></label>
+                                <input id="FechaFinal" class="" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            @*<div class="row">
+                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                    <label id="ListadoAvisoLlegada0004" class=""></label>
+                    <input id="ProyectoID" class="" />
+                </div>
+                <div class="form-group col-sm-4 col-md-4 col-lg-2">
+                    <label id="ListadoAvisoLlegada0002"></label>
+                    <input id="FolioAvisoLlegadaID" class="" />
+                </div>
+            </div>*@
         </div>
         @*<div class="col-sm-12 col-md-4 col-lg-3 filters">
             <div class="row">
@@ -53,21 +62,28 @@
                 </div>
             </div>
         </div>*@
-        <div class="col-sm-12 col-md-12 col-lg-2 filterBtns">
+        @*<div class="col-sm-12 col-md-12 col-lg-2 filterBtns">
             <div class="row">
                 <div class="form-group buttonBar col-sm-12 col-md-12 col-lg-12">
                     <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow">
                         <span id="ListadoAvisoLlegada0017"></span>
                     </a>
                     <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
-                    @*<a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>*@
+                    <a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    @*<div class="branchCut"></div>*@
+                    <div class="row">
+                        <div class="btn-group tabList col-lg-12" role="group" arial-label="tabList">
+                            <button id="btnCreados" class="btn btn-tabList"><span id="ListadoAvisoLlegada0027"></span><span id="spanCreados"></span></button>
+                            <button id="btnSinPermiso" class="btn btn-tabList"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
+                            <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
+                            <button id="btnCompletos" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
+                        </div>
+                    </div>
                     <div id="grid"></div>
                 </div>
             </div>
@@ -230,11 +246,10 @@
 
         function ObtenerAccionesListado() {
 
-            $("#spanCreados").html("(1)");
-            $("#spanSinPermiso").html("(10)");
-            $("#spanSinPermiso").html("(15)");
-            $("#spanSinAutorizacion").html("(11)");
-            $("#spanCompletos").html("(16)");
+            $("#spanCreados").html("(115)");
+            $("#spanSinPermiso").html("(12)");
+            $("#spanSinAutorizacion").html("(32)");
+            $("#spanCompletos").html("(71)");
             
             
             //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {

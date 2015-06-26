@@ -866,7 +866,7 @@ header .menu > div {
 
         .formNav.filtersFields .button-section {
             margin-top: 21px;
-            padding-right: 7px;
+            padding-right: 5px;
         }
 
     .formNav .btn, .formNav .btn-group {
@@ -1234,6 +1234,6 @@ header .menu > div {
 
     /*$_formNav*/
     .formNav.filtersFields .row > div.col-lg-1 {
-        min-width: 135px;
+        min-width: 134px;
     }
 }

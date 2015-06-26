@@ -274,6 +274,7 @@
 .k-grid {
     /*margin-top: 15px;*/
     background-color: #EEEEEE;
+    z-index: 2;
 }
 
     /* header + data table */
