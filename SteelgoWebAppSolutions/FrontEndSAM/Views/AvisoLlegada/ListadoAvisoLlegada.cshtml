@@ -80,7 +80,7 @@
                         <div class="btn-group tabList col-lg-12" role="group" arial-label="tabList">
                             <button id="btnCreados" class="btn btn-tabList"><span id="ListadoAvisoLlegada0027"></span><span id="spanCreados"></span></button>
                             <button id="btnSinPermiso" class="btn btn-tabList"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
-                            <button id="btnSinAutorizacion" class="btn btn-tabList active"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
+                            <button id="btnSinAutorizacion" class="btn btn-tabList"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
                             <button id="btnCompletos" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
                         </div>
                     </div>
@@ -418,6 +418,27 @@
 
             return curr_year + "-" + curr_month + "-" + curr_date;
         };
+
+        function tabActivo(dashBoardAccionListado) {
+            $(".btn-tabList").removeClass("active");
+            switch (dashBoardAccionListado) {
+                case "1":
+                    $("#btnCreados").addClass("active");
+                    break;
+                case "2":
+                    $("#btnSinPermiso").addClass("active");
+                    break;
+                case "3":
+                    $("#btnSinAutorizacion").addClass("active");
+                    break;
+                case "4":
+                    $("#btnCompletos").addClass("active");
+                    break;
+                default:
+                    $("#btnCreados").addClass("active");
+                    break;
+            };
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
@@ -429,13 +450,11 @@
             ObtenerAccionesListado();
         }, 60000);
 
-
-
         //Botones Dashboard
-        $("#btnCreados").click(function () { AccionesListado(1); });
-        $("#btnSinPermiso").click(function () { AccionesListado(2); });
-        $("#btnSinAutorizacion").click(function () { AccionesListado(3); });
-        $("#btnCompletos").click(function () { AccionesListado(4); });
+        $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
+        $("#btnSinPermiso").click(function () { tabActivo("2"); AccionesListado(2); });
+        $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
+        $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
 
         $("#Mostrar").click(function () { Filtros(0); });
         $("#Creacion").click(function (e) {
@@ -503,17 +522,18 @@
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
-        
         if (DashBoardAccionListado != -1) {
+            tabActivo(DashBoardAccionListado);
             CargarControlesFiltrado();
             AccionesListado(DashBoardAccionListado);
         } else {
             ObtenerFechasporDefecto();
-            if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material       
-                Filtros(2);
-             } else {
-                Filtros(1);//default hoy menos 7 dias
-             };
+            tabActivo(1);//default 1 creados
+            //if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material
+                //Filtros(2);
+            //} else {
+                Filtros(1);
+             //};
         }
     }
 
