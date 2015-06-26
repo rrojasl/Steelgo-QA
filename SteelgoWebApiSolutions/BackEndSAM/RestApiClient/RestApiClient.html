@@ -182,6 +182,13 @@
             //client.PermisoAduana.read({ folio: 1029 }).done(function (data) { console.log(data) });
             //client.PermisoAduana.create({}, { numeroPermiso: 130313, nombre: "DocumentoPrueba", extension: ".docx", folio: 8, documentoID: 0, token: tokenActual }).done(function (data) { console.log(data); });
 
+
+            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+
+            client.add("Listado");
+
+            client.Listado.read({tipoListado: 4, token "123"}).done(function (data) {console.log(data)});
+
 </script>
     </body>
 </html>

@@ -84,6 +84,11 @@
                             <button id="btnCompletos" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
                         </div>
                     </div>
+                    <div class="row">
+                            <input id="FolioID" class="" />
+                            <input id="FechaCreacion" class="" />
+                            <input id="FechaEstimada" class="" />
+                    </div>
                     <div id="grid"></div>
                 </div>
             </div>
@@ -156,10 +161,8 @@
                         model: {
                             fields: {
                                 FolioAvisoLlegadaID: { type: "string" },
-                                Patio: { type:"string" },
-                                NombreProyecto: { type: "string" },
-                                Transportista: { type: "string" },
-                                FechaRecepcion: { type: "string"},
+                                FechaCreacion: {type: "string" },
+                                FechaEstimada: { type: "string"},
                                 Estatus: { type: "string"}
                             }
                         }
@@ -187,11 +190,8 @@
                 },               
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
-                    { field: "Patio", title: _dictionary.ListadoAvisoLlegada0009[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "NombreProyecto", title: _dictionary.ListadoAvisoLlegada0010[$("#language").data("kendoDropDownList").value()], filterable: true },                   
-                    { field: "Transportista", title: _dictionary.ListadoAvisoLlegada0012[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Estatus", title: _dictionary.ListadoAvisoLlegada0014[$("#language").data("kendoDropDownList").value()], filterable: true },                    
+                    { field: "FechaCreacion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FechaEstimada", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
                 ],
                 dataBound: function (e) {

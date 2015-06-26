@@ -156,11 +156,11 @@ _dictionary = {
         "en-US": "Provider"
     },
     "ListadoAvisoLlegada0006": {
-        "es-MX": "Recepción Inicial",
+        "es-MX": "Fecha Inicial",
         "en-US": "Start Date"
     },
     "ListadoAvisoLlegada0007": {
-        "es-MX": "Recepción Final",
+        "es-MX": "Fecha Final",
         "en-US": "Final Date"
     },
     "ListadoAvisoLlegada0008": {
@@ -184,8 +184,8 @@ _dictionary = {
         "en-US": "Carrier"
     },
     "ListadoAvisoLlegada0013": {
-        "es-MX": "Fecha Recepción",
-        "en-US": "Date Reception"
+        "es-MX": "Fecha Creacion",
+        "en-US": "Creation date"
     },
     "ListadoAvisoLlegada0014": {
         "es-MX": "Estatus",
@@ -242,6 +242,10 @@ _dictionary = {
     "ListadoAvisoLlegada0027": {
         "es-MX": "Todos ",
         "en-US": "All "
+    },
+    "ListadoAvisoLlegada0028": {
+        "es-MX": "Fecha Estimada",
+        "en-US": "Estimated Date"
     },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
@@ -1076,11 +1080,11 @@ _dictionary = {
         "en-US": "Areway"
     },
     "DashboardAvisoLlegada0006": {
-        "es-MX": "Recepción Inicial",
+        "es-MX": "Fecha Inicial",
         "en-US": "Start Date"
     },
     "DashboardAvisoLlegada0007": {
-        "es-MX": "Recepción Final",
+        "es-MX": "Fecha Final",
         "en-US": "Final Date"
     },
     //Home Partial View Labels

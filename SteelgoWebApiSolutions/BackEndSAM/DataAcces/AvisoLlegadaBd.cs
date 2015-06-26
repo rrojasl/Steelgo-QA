@@ -100,37 +100,6 @@ namespace BackEndSAM.DataAcces
 
                     int nuevoID = nuevoAvisoLlegada.FolioAvisoLlegadaID;
 
-                    //Guardamos el permisos aduana
-                    //foreach (PermisoAduanaAV permisoAv in avisoJson.PermisoAduana)
-                    //{
-                    //Sam3_PermisoAduana nuevoPermiso = new Sam3_PermisoAduana();
-                    //nuevoPermiso.Activo = true;
-                    //nuevoPermiso.Estatus = "En Tramite";
-                    //nuevoPermiso.FolioAvisoLlegadaID = nuevoID;
-                    //nuevoPermiso.NumeroPermiso = permisoAv.NumeroPermiso != null ? Convert.ToInt32(permisoAv.NumeroPermiso) : 0;
-                    //nuevoPermiso.PermisoAutorizado = permisoAv.PermisoAutorizado;
-                    //nuevoPermiso.PermisoTramite = permisoAv.PermisoTramite;
-                    //nuevoPermiso.UsuarioModificacion = usuario.UsuarioID;
-                    //nuevoPermiso.FechaModificacion = DateTime.Now;
-                    //nuevoPermiso.FechaGeneracion = DateTime.Now;
-                    //ctx.Sam3_PermisoAduana.Add(nuevoPermiso);
-                    //ctx.SaveChanges();
-                    //guardamos en la relacion de Permiso de aduana y documentos
-                    //foreach (ArchivoAutorizadoAV archivosPermiso in permisoAv.ArchivoAutorizado)
-                    //{
-                    //    Sam3_Rel_PermisoAduana_Documento permisoDocumento = new Sam3_Rel_PermisoAduana_Documento();
-                    //    permisoDocumento.Activo = true;
-                    //    permisoDocumento.PermisoAduanaID = nuevoPermiso.PermisoAduanaID;
-                    //    permisoDocumento.DocumentoID = archivosPermiso.ArchivoID;
-                    //    permisoDocumento.Extencion = archivosPermiso.Extension;
-                    //    permisoDocumento.Nombre = archivosPermiso.Nombre;
-                    //    permisoDocumento.UsuarioModificacion = usuario.UsuarioID;
-                    //    permisoDocumento.FechaModificacion = DateTime.Now;
-                    //    ctx.Sam3_Rel_PermisoAduana_Documento.Add(permisoDocumento);
-                    //}
-                    //}
-
-
                     //guardamos en la relacion entre folios y proyectos
                     List<int> lstProyectos = avisoJson.Proyectos.Select(x => x.ProyectoID).Distinct().ToList();
                     foreach (int proyectoId in lstProyectos)

@@ -46,7 +46,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegadaID, int TipoArchivoID, string token)
+        public object Post(int folioAvisoLlegadaID,int tipoArchivoID, string token)
         {
             try
             {
@@ -72,8 +72,8 @@ namespace BackEndSAM.Controllers
                         {
                             Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
-                            //var filePath = HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + docguID + "." + postedFile.FileName);
-                            string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName; 
+                            var ruta = HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + docguID + "." + postedFile.FileName);
+                            //string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName; 
                             string[] st = postedFile.FileName.Split('.');
                             string extencion = "." + st[1]; 
                             lstArchivos.Add(new DocumentoPosteado
@@ -85,7 +85,7 @@ namespace BackEndSAM.Controllers
                                 DocGuid = docguID,
                                 FolioAvisoLlegadaID = folioAvisoLlegadaID,
                                 UserId = usuario.UsuarioID,
-                                TipoArchivoID = TipoArchivoID,
+                                TipoArchivoID = tipoArchivoID,
                                 Extencion = extencion
                             });
 
@@ -132,6 +132,28 @@ namespace BackEndSAM.Controllers
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.ReturnMessage.Add(ex.Message);
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Delete(int documentoID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return DocumentosBd.Instance.EliminarDocumentoAvisoLlegada(documentoID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
                 result.IsAuthenicated = false;
                 return result;
             }
