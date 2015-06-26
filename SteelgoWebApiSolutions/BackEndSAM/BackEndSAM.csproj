@@ -134,6 +134,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
+    <Compile Include="Controllers\DocumentoController.cs" />
+    <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="Controllers\ValidacionesFolioAvisoLlegadaController.cs" />
+    <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
@@ -247,6 +250,7 @@
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\ListaCombos.cs" />
+    <Compile Include="Models\ListaDocumentos.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\TipoArchivo.cs" />

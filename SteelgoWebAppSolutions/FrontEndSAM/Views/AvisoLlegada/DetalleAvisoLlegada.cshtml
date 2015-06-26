@@ -22,9 +22,9 @@
                 <span id="DetalleAvisoLlegada0042"></span>
                 <span id="spanFolio"></span>
             </span>
-            <span id="DetalleAvisoLlegada0041" class="title"></span>
+            @*<span id="DetalleAvisoLlegada0041" class="title"></span>*@
             <div class="formNav clearfix">
-                <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">                        
                             <div class="btn-group save-group">
@@ -725,6 +725,7 @@
                 
                 $('#files').kendoUpload({
                     async: {
+                        ////VAlida que este tomando todos los parametros por favor
                         saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,

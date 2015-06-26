@@ -577,6 +577,8 @@
                 //Execute REST Petition to obtain the user access
                 $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
 
+                    console.log(data);
+
                     //Retrieve the obtained data
                     returnOfSecurityCheck = {};
                     for (key in data.entidades) {
@@ -808,13 +810,16 @@
 
         function createUserSession(username, password) {
             //Create Login
+            loadingStart();
             $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
                 if (data.IsAuthenicated) {
-                    Cookies.set("home", false, {path: '/'});
+                    Cookies.set("home", false, { path: '/' });
                     Cookies.set("user", username, { path: '/' });
                     Cookies.set("token", data.ReturnMessage[0], { path: '/' });
                     //RedirectToLanding
                     document.location.href = '@Url.Action("Landing", "Home")';
+                } else {
+                    loadingStop();
                 }
             });
         }

@@ -833,15 +833,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sam3_Rel_PermisoAduana_Documento">
           <Key>
-            <PropertyRef Name="PermisoAduanaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Activo" />
-            <PropertyRef Name="TipoArchivoID" />
+            <PropertyRef Name="Rel_Permiso_Documento_ID" />
           </Key>
           <Property Name="PermisoAduanaID" Type="int" Nullable="false" />
           <Property Name="DocumentoID" Type="int" Nullable="false" />
@@ -854,6 +848,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="ContentType" Type="varchar" MaxLength="50" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
+          <Property Name="Rel_Permiso_Documento_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -2649,6 +2644,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <EntitySet Name="Sam3_Rel_Perfil_MenuContextual" EntityType="Self.Sam3_Rel_Perfil_MenuContextual" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Perfil_MenuGeneral" EntityType="Self.Sam3_Rel_Perfil_MenuGeneral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Perfil_Propiedad_Pagina" EntityType="Self.Sam3_Rel_Perfil_Propiedad_Pagina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_PermisoAduana_Documento" EntityType="Self.Sam3_Rel_PermisoAduana_Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos" EntityType="Self.Sam3_Rel_TiposDocumentos_ExtencionesDocumentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Usuario_Preferencia" EntityType="Self.Sam3_Rel_Usuario_Preferencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Usuario_Proyecto" EntityType="Self.Sam3_Rel_Usuario_Proyecto" Schema="dbo" store:Type="Tables" />
@@ -2687,21 +2683,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
     [Sam3_Rel_Perfil_Entidad_Pagina].[UsuarioModificacion] AS [UsuarioModificacion], 
     [Sam3_Rel_Perfil_Entidad_Pagina].[FechaModificacion] AS [FechaModificacion]
     FROM [dbo].[Sam3_Rel_Perfil_Entidad_Pagina] AS [Sam3_Rel_Perfil_Entidad_Pagina]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Sam3_Rel_PermisoAduana_Documento" EntityType="Self.Sam3_Rel_PermisoAduana_Documento" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Sam3_Rel_PermisoAduana_Documento].[PermisoAduanaID] AS [PermisoAduanaID], 
-    [Sam3_Rel_PermisoAduana_Documento].[DocumentoID] AS [DocumentoID], 
-    [Sam3_Rel_PermisoAduana_Documento].[Nombre] AS [Nombre], 
-    [Sam3_Rel_PermisoAduana_Documento].[Extencion] AS [Extencion], 
-    [Sam3_Rel_PermisoAduana_Documento].[Activo] AS [Activo], 
-    [Sam3_Rel_PermisoAduana_Documento].[UsuarioModificacion] AS [UsuarioModificacion], 
-    [Sam3_Rel_PermisoAduana_Documento].[FechaModificacion] AS [FechaModificacion], 
-    [Sam3_Rel_PermisoAduana_Documento].[DocGuid] AS [DocGuid], 
-    [Sam3_Rel_PermisoAduana_Documento].[Url] AS [Url], 
-    [Sam3_Rel_PermisoAduana_Documento].[ContentType] AS [ContentType], 
-    [Sam3_Rel_PermisoAduana_Documento].[TipoArchivoID] AS [TipoArchivoID]
-    FROM [dbo].[Sam3_Rel_PermisoAduana_Documento] AS [Sam3_Rel_PermisoAduana_Documento]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Sam3_Foli__Chofe__24285DB4" Association="Self.FK__Sam3_Foli__Chofe__24285DB4">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
@@ -6067,11 +6048,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
         </EntityType>
         <EntityType Name="Sam3_Rel_PermisoAduana_Documento">
           <Key>
-            <PropertyRef Name="PermisoAduanaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Activo" />
-            <PropertyRef Name="TipoArchivoID" />
+            <PropertyRef Name="Rel_Permiso_Documento_ID" />
           </Key>
           <Property Name="PermisoAduanaID" Type="Int32" Nullable="false" />
           <Property Name="DocumentoID" Type="Int32" Nullable="false" />
@@ -6086,6 +6063,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoArchivo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__2136E270" FromRole="Sam3_Rel_PermisoAduana_Documento" ToRole="Sam3_TipoArchivo" />
+          <Property Name="Rel_Permiso_Documento_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK__Sam3_Foli__Chofe__24285DB4">
           <End Type="ModelSam3.Sam3_Chofer" Role="Sam3_Chofer" Multiplicity="1" />
@@ -7627,6 +7605,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_PermisoAduana_Documento'
           <EntitySetMapping Name="Sam3_Rel_PermisoAduana_Documento">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_PermisoAduana_Documento">
               <MappingFragment StoreEntitySet="Sam3_Rel_PermisoAduana_Documento">
+                <ScalarProperty Name="Rel_Permiso_Documento_ID" ColumnName="Rel_Permiso_Documento_ID" />
                 <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="Url" ColumnName="Url" />

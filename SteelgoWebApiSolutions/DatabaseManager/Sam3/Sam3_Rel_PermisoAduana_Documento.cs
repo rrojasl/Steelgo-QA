@@ -25,6 +25,7 @@ namespace DatabaseManager.Sam3
         public string Url { get; set; }
         public string ContentType { get; set; }
         public int TipoArchivoID { get; set; }
+        public int Rel_Permiso_Documento_ID { get; set; }
     
         public virtual Sam3_PermisoAduana Sam3_PermisoAduana { get; set; }
         public virtual Sam3_TipoArchivo Sam3_TipoArchivo { get; set; }
