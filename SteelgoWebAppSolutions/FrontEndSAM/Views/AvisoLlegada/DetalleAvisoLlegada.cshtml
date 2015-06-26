@@ -1115,14 +1115,7 @@
                     var concat = "";
                     var concatPlanas = "";
 
-                    if(data.ReturnCode) {
-                        if (data.ReturnCode == 401) {
-                            removeUserSession();
-                        } else {
-                            alert("ReturnMessage: " + data.ReturnMessage);
-                            return;
-                        }
-                    }
+                    Error(data);
 
                     $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
@@ -1655,11 +1648,14 @@
                     return;
                 };
 
+                loadingStart();
                 $PermisoTramite.PermisoAduana.read({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
                     console.log("$PermisoTramite.PermisoAduana.read");
+                    loadingStop();
                     Error(result);
                     $("#hdPermisoTramite").val(1);//Permiso en tramite
                     $("#TramitarPermiso").attr("disabled", "disabled");
+                    
                 });
             };
 
@@ -1788,10 +1784,10 @@
                     return;
                 };
 
-                //loadingStart();
-                $AvisoLlegada.AvisoLlegada.destroy({}, { avisoLlegadaID: folio, token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                $AvisoLlegada.AvisoLlegada.destroy({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
-                    //loadingStop();
+                    loadingStop();
                 });
             };
 

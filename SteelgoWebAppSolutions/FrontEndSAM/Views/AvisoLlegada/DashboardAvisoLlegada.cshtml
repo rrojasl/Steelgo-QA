@@ -83,24 +83,14 @@
 
         function AccionesListado(accion) {
             var PatioID = Patio.PatioID ? Patio.PatioID : "";
-            var PatioNombre = Patio.Nombre ? Patio.Nombre : "";
             var ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
-            var ClienteNombre = Cliente.Nombre ? Cliente.Nombre : "";
-
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
             var fechainicial = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
             var fechafinal = d1.toLocaleDateString($("#language").data("kendoDropDownList").value());
 
-            Cookies.set("clienteid", ClienteID, { path: '/' });
-            Cookies.set("clientenombre", ClienteNombre, { path: '/' });
-            Cookies.set("patioid", PatioID, { path: '/' });
-            Cookies.set("pationombre", PatioNombre, { path: '/' });
-            //var cookie = Cookies.get("cliente");
-            //alert(cookie);
-            alert("ClienteID: " + ClienteID + ", PatioID: " + PatioID);
             var url = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
-            //window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal);
+            window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal);
         };
 
         function CargarPatio(id, value) {
@@ -116,7 +106,7 @@
         function ObtenerPatio() {
             $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                 Error(result);
-                $("#PatioID").data("kendoAutoComplete").dataSource.data(result);
+                $("#PatioID").data("kendoComboBox").dataSource.data(result);
                 
             });
         };
@@ -124,7 +114,7 @@
         function ObtenerCliente() {
             $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
                 Error(result);
-                $("#ClienteID").data("kendoAutoComplete").dataSource.data(result);
+                $("#ClienteID").data("kendoComboBox").dataSource.data(result);
                 
             });
         };
@@ -173,7 +163,7 @@
         $("#btnCompletos").click(function () { AccionesListado(4); });
 
 
-        $("#PatioID").kendoAutoComplete({
+        $("#PatioID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "PatioID",
             select: function (e) {
@@ -190,7 +180,7 @@
         });
         ObtenerPatio();
 
-        $("#ClienteID").kendoAutoComplete({
+        $("#ClienteID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ClienteID",
             select: function (e) {
