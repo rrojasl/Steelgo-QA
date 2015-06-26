@@ -194,6 +194,14 @@
     border-color: transparent;
 }
 
+div.k-dropzone {
+    border: 1px solid #c5c5c5; /* For Default; Different for each theme */
+}
+
+div.k-dropzone em {
+    visibility: visible;
+}
+
 .k-dropzone {
     padding: 0;
 }
@@ -286,7 +294,7 @@
         font-size: 12px;
         line-height: 1.4;
         color: #111111;
-        font-weight: 600;
+        font-weight: 100;
         border-bottom: 1px solid #CCCCCC;
     }
 

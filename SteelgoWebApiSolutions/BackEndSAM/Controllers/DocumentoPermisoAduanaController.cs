@@ -22,7 +22,30 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DocumentoPermisoAduanaController :ApiController
     {
-        public object Post(int folioAvisoLlegadaID, int NumeroPermiso, string token)
+
+        public object Get(int folio, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return DocumentosBd.Instance.ObtenerDocumentosPermisoAduana(folio, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Post(int folioAvisoLlegada, string token)
         {
             try
             {
@@ -59,19 +82,19 @@ namespace BackEndSAM.Controllers
                                 Size = postedFile.ContentLength,
                                 Path = ruta,
                                 DocGuid = docguID,
-                                FolioAvisoLlegadaID = folioAvisoLlegadaID,
+                                FolioAvisoLlegadaID = folioAvisoLlegada,
                                 UserId = usuario.UsuarioID,
                                 TipoArchivoID = -1,
-                                Extencion = extencion
+                                Extencion = extencion,
                             });
 
                             postedFile.SaveAs(ruta);
                             docfiles.Add(ruta);
                         }
 
-                        if (DocumentosBd.Instance.GuardarArchivosFolioAvisoLlegada(lstArchivos))
+                        if ((bool)DocumentosBd.Instance.GuardarDocumentoPermisoAduana(lstArchivos))
                         {
-                            return "";
+                            return Ok();
                         }
                         else
                         {

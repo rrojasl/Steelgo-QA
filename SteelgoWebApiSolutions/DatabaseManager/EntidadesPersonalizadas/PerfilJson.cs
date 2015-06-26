@@ -100,6 +100,7 @@ namespace DatabaseManager.EntidadesPersonalizadas
 
     public class SideMenuElement
     {
+        public int elemetId { get; set; }
         public int idPadre { get; set; }
         public string texto { get; set; }
         public string liga { get; set; }

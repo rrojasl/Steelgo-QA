@@ -50,7 +50,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a id="RedirectDashboard" href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
                                     <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                     <li><a id="CancelarFolio" href="javascript:void(0);"><span id="DetalleAvisoLlegada0083"></span></a></li>
                                 </ul>
@@ -547,6 +547,11 @@
                     cancelarFolio();
                 });
 
+                $("#RedirectDashboard").click(function (e) {
+                    var detalleIdeaUrl = "@Url.Action("DashboardAvisoLlegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                });
+
                 //**Modales
                 $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
                 $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
@@ -720,6 +725,7 @@
                 
                 $('#files').kendoUpload({
                     async: {
+                        ////VAlida que este tomando todos los parametros por favor
                         saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,
