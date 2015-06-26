@@ -758,6 +758,10 @@ header .menu > div {
             background-repeat: no-repeat;
             background-position: center;
         }
+
+            .filesTable td a .delete.disable {
+                background-image: url("/Content/images/Delete_Grey.png");
+            }
 /**********************************************************************************/
 
 
@@ -927,6 +931,14 @@ header .menu > div {
 
             .formNav .action-group #Acciones > span:first-child {
                 float: left;
+            }
+
+            .formNav .action-group #Acciones .caretBlue {
+                background: none;
+                background-image: url("/Content/images/SAMC_DropdownArrow.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 11px 6px;
             }
 /**********************************************************************************/
 

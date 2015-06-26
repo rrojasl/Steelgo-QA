@@ -243,6 +243,10 @@ input {
         border-color: #EC4F50 !important;
     }
 
+    input.disabled, input[disabled] {
+        background-color: #F5F5F5;
+    }
+
 ::-webkit-input-placeholder {
     font-style: italic;
     font-size: 12px;
@@ -269,7 +273,6 @@ input {
     border-radius: 0;
     font-size: 14px;
     padding: 0 5px;
-    position: relative;
     z-index: 2;
 }
 
@@ -282,6 +285,7 @@ input {
     }
 
 input.quickFilters {
+    position: relative;
     width: 31.33%;
     margin: 0 -5px -1px 0;
 }
@@ -290,9 +294,9 @@ input.quickFilters {
         width: 6.2%;
     }
 
-    input.quickFilters:last-of-type[disabled]{
-        background: #FFFFFF;
-    }
+        input.quickFilters:last-of-type[disabled] {
+            background: #FFFFFF;
+        }
 
 .content-container .input-group .input-group-btn a {
     padding: 19px 18px;
@@ -438,7 +442,7 @@ input.quickFilters {
     box-shadow: 0px 0px 20px -6px #888888 inset; /* Opera 10.5, IE9, Chrome 10+ */
 }
 
-.btn.btn-tabList {
+.btn.btn-tabList, .btn.btn-tabList:hover {
     margin: 0;
     background-color: #FFFFFF;
     border-color: #CCCCCC;
@@ -449,6 +453,7 @@ input.quickFilters {
     border-bottom-right-radius: 0;
     width: 25%;
     height: 40px;
+    z-index: 1;
 }
 
     .btn.btn-tabList:focus {
@@ -467,6 +472,19 @@ input.quickFilters {
         -moz-box-shadow: 0px 5px 10px #888888; /* FF3.5+ */
         -webkit-box-shadow: 0px 5px 10px #888888; /* Saf3.0+, Chrome */
         box-shadow: 0px 5px 10px #888888; /* Opera 10.5, IE9, Chrome 10+ */
+        z-index: 2;
+    }
+
+    .btn.btn-tabList:first-of-type.active {
+        -moz-box-shadow: 5px 2px 10px -3px #888888; /* FF3.5+ */
+        -webkit-box-shadow: 5px 2px 10px -3px #888888; /* Saf3.0+, Chrome */
+        box-shadow: 5px 2px 10px -3px #888888; /* Opera 10.5, IE9, Chrome 10+ */
+    }
+
+    .btn.btn-tabList:last-of-type.active {
+        -moz-box-shadow: -5px 2px 10px -3px #888888; /* FF3.5+ */
+        -webkit-box-shadow: -5px 2px 10px -3px #888888; /* Saf3.0+, Chrome */
+        box-shadow: -5px 2px 10px -3px #888888; /* Opera 10.5, IE9, Chrome 10+ */
     }
 
 .btn-tabList span {

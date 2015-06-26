@@ -115,9 +115,11 @@
 }
 
 .k-multiselect-wrap {
+    color: #000000;
+    background: none;
     min-height: 30px;
-    height: 30px;
-    padding: 4px 0;
+    height: auto;
+    padding: 4px;
 }
 
     .k-multiselect-wrap span {
@@ -125,14 +127,22 @@
     }
 
     .k-multiselect-wrap li {
-        border-color: transparent !important;
-        background: none;
-        padding: 3px;
+        border-color: #305E8E !important;
+        box-shadow: none !important;
+        background: #305E8E !important;
+        padding: 3px 7px;
+        margin-right: 5px;
+        border-radius: 3px;
+        color: #fff;
     }
 
         .k-multiselect-wrap li span {
-            color: #1B3F70;
+            color: #FFFFFF;
         }
+
+            .k-multiselect-wrap li span.k-delete {
+                display: none;
+            }
 
 .k-block, .k-button, .k-textbox, .k-drag-clue,
 .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content,
@@ -174,6 +184,7 @@
 .k-dropdown .k-dropdown-wrap span.k-i-arrow-s {
     height: 100%;
     width: 100%;
+    background: none;
     background-image: url("/Content/images/SAMC_DropdownArrow.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -265,7 +276,7 @@
 
         .k-list-container .k-list .k-item.k-state-hover {
             background: none;
-            background-color: rgba(048, 094, 142, 0.2) !important;            
+            background-color: rgba(048, 094, 142, 0.2) !important;
         }
 
         .k-list-container .k-list .k-item.k-state-selected {
@@ -274,6 +285,15 @@
             background: none;
             background-color: white;
         }
+
+.k-state-hover, .k-state-focused.k-state-border-down {
+    background: red;
+}
+
+.k-state-disabled {
+    background-color: #F5F5F5;
+}
+
 
 /**********************************************************************************/
 
