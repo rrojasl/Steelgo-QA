@@ -278,17 +278,20 @@ input {
         -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
         -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
         box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+        z-index: 3;
     }
 
 input.quickFilters {
-    width: 33.33%;
-    border-left: none !important;
-    border-bottom: none !important;
-    margin: 0 -4px 0px 0;
+    width: 507.5px;
+    margin: 0 -5px -1px 0;
 }
 
-    input.quickFilters:first-of-type {
-        border-left: 1px solid #CCCCCC !important;
+    input.quickFilters:last-of-type {
+        width: 6.2%;
+    }
+
+    input.quickFilters:last-of-type[disabled]{
+        background: none;
     }
 
 .content-container .input-group .input-group-btn a {
