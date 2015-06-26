@@ -92,7 +92,8 @@ namespace BackEndSAM.DataAcces
                                                      where rsm.PerfilID == perfilID
                                                      select new SideMenuElement
                                                      {
-                                                         idPadre = mg.MenuID,
+                                                         elemetId = mg.MenuID,
+                                                         idPadre = mg.IDPadre,
                                                          liga = mg.Liga,
                                                          texto = mg.Texto
                                                      }).ToList();

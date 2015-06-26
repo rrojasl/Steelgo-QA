@@ -55,7 +55,7 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.DocGuid = f.DocGuid;
                         nuevoDoc.Extencion = f.Extencion;
                         nuevoDoc.FechaModificacion = DateTime.Now;
-                        nuevoDoc.FolioAvisoLlegadaID = f.FolioAvisoLlegadaID;
+                        nuevoDoc.FolioAvisoLlegadaID = f.FolioAvisoLlegadaID.Value;
                         nuevoDoc.Nombre = f.FileName;
                         nuevoDoc.Url = f.Path;
                         nuevoDoc.UsuarioModificacion = f.UserId;
@@ -63,6 +63,149 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.ContentType = f.ContentType;
 
                         ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuevoDoc);
+                    }
+
+                    ctx.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public object ObtenerDocumentosFolioAvisoLlegada(int folioAvisoLlegadaId, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                        join d in ctx.Sam3_Rel_FolioAvisoLlegada_Documento on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        select new ListaDocumentos
+                                                        {
+                                                            DocumentoID = d.Rel_FolioAvisoLlegada_DocumentoID.ToString(),
+                                                            Nombre = d.Nombre,
+                                                            Extencion = d.Extencion,
+                                                            Url = d.Url
+                                                        }).AsParallel().ToList();
+                    return documentos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerDocumentosPermisoAduana(int folioAvisoLlegadaId, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                        join d in ctx.Sam3_Rel_PermisoAduana_Documento on p.PermisoAduanaID equals d.PermisoAduanaID
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        select new ListaDocumentos
+                                                        {
+                                                            DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
+                                                            Nombre = d.Nombre,
+                                                            Extencion = d.Extencion,
+                                                            Url = d.Url
+                                                        }).AsParallel().ToList();
+                    return documentos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerDocumentosPaseSalida(int folioAvisoLlegadaId, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                        join d in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        select new ListaDocumentos
+                                                        {
+                                                            DocumentoID = d.Rel_Folio_PaseSalida_Archivo_ID.ToString(),
+                                                            Nombre = d.Nombre,
+                                                            Extencion = d.Extencion,
+                                                            Url = d.Url
+                                                        }).AsParallel().ToList();
+                    return documentos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GuardarDocumentoPermisoAduana(List<DocumentoPosteado> documentos)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int tipoArchivoID = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == "Permiso Aduana").Select(x => x.TipoArchivoID).SingleOrDefault();
+
+                    //Actualizamos el permiso de aduana
+                    Sam3_PermisoAduana permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == documentos[0].FolioAvisoLlegadaID.Value && x.Activo)
+                        .AsParallel().SingleOrDefault();
+
+                    permisoBd.PermisoAutorizado = true;
+                    permisoBd.PermisoTramite = false;
+                    permisoBd.Estatus = "Autorizado";
+                    permisoBd.FechaAutorización = DateTime.Now;
+                    permisoBd.FechaModificacion = DateTime.Now;
+                    permisoBd.UsuarioModificacion = documentos[0].UserId;
+
+                    //Guardamos la informacion de los documentos
+                    foreach (DocumentoPosteado d in documentos)
+                    {
+                        Sam3_Rel_PermisoAduana_Documento nuevoDoc = new Sam3_Rel_PermisoAduana_Documento();
+                        nuevoDoc.Activo = true;
+                        nuevoDoc.ContentType = d.ContentType;
+                        nuevoDoc.DocGuid = d.DocGuid;
+                        nuevoDoc.DocumentoID = 0;
+                        nuevoDoc.Extencion = d.Extencion;
+                        nuevoDoc.FechaModificacion = DateTime.Now;
+                        nuevoDoc.Nombre = d.FileName;
+                        nuevoDoc.PermisoAduanaID = permisoBd.PermisoAduanaID;
+                        nuevoDoc.TipoArchivoID = tipoArchivoID;
+                        nuevoDoc.Url = d.Path;
+                        nuevoDoc.UsuarioModificacion = d.UserId;
+
+                        ctx.Sam3_Rel_PermisoAduana_Documento.Add(nuevoDoc);
                     }
 
                     ctx.SaveChanges();

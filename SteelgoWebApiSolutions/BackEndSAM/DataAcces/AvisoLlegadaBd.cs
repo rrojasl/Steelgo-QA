@@ -9,6 +9,11 @@ using System.Web.Script.Serialization;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using BackEndSAM.Utilities;
+using System.Web.Mvc;
+using System.Net.Http;
+using System.Net;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace BackEndSAM.DataAcces
 {
@@ -757,6 +762,39 @@ namespace BackEndSAM.DataAcces
                                               select p.PermisoAduanaID).AsParallel().Any();
                     
                     return permisoAutorizado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object VerificarDocumentoAduana(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_PermisoAduana_Documento permiso = (from r in ctx.Sam3_PermisoAduana
+                                                                join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
+                                                                where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo
+                                                                select d).SingleOrDefault();
+
+                    HttpResponseMessage result = new HttpResponseMessage();
+                    result.StatusCode = HttpStatusCode.OK;
+                    FileStream stream = new FileStream(permiso.Url, FileMode.Open);
+                    result.Content = new StreamContent(stream);
+                    result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    result.Content = new StringContent(permiso.Sam3_PermisoAduana.NumeroPermiso.ToString());
+
+                    return result;
                 }
             }
             catch (Exception ex)
