@@ -62,7 +62,7 @@
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
 .form-group {
-    margin-bottom: 27px;
+    margin-bottom: 31px;
 }
 
 .k-widget {
@@ -282,7 +282,6 @@ div.k-dropzone em {
 .k-grid {
     /*margin-top: 15px;*/
     background-color: #EEEEEE;
-    z-index: 2;
 }
 
     /* header + data table */

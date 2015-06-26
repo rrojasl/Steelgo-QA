@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <img src="~/Content/images/Logo_Login.jpg" class="logo" />
+                <img src="~/Content/images/logoPase.png" class="logo" />
             </div>
         </div>
     </div>
@@ -81,9 +81,9 @@
             var strTbodyRow2 = "", col = 2 + i;
             var strHeadRow2 = "<thead><tr><th><label id='FormatoPaseSalida0007'></label></th><th><label id='FormatoPaseSalida0011'></label></th></tr></thead>";
 
-            strTbodyRow2 = "<tr><td><label id='FormatoPaseSalida0008'></label> <span>" + data.TienePedimento + "</span></td><td><label id='FormatoPaseSalida0012'></label> <span>" + data.RegistroTiempos.HoraLlegada + "</span></td></tr>";
-            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0009'></label> <span>" + data.TieneFactura + "</span></td><td><label id='FormatoPaseSalida0013'></label> <span>" + data.RegistroTiempos.HoraInicio + "</span></td></tr>";
-            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0010'></label> <span>" + data.TieneRemision + "</span></td><td><label id='FormatoPaseSalida0014'></label> <span>" + data.RegistroTiempos.HoraFin + "</span></td></tr>";
+            strTbodyRow2 = "<tr><td><label id='FormatoPaseSalida0008'></label> <span class='iconDoc " + data.TienePedimento + "'></span></td><td><label id='FormatoPaseSalida0012'></label> <span>" + data.RegistroTiempos.HoraLlegada + "</span></td></tr>";
+            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0009'></label> <span class='iconDoc " + data.TieneFactura + "'></span></td><td><label id='FormatoPaseSalida0013'></label> <span>" + data.RegistroTiempos.HoraInicio + "</span></td></tr>";
+            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0010'></label> <span class='iconDoc " + data.TieneRemision + "'></span></td><td><label id='FormatoPaseSalida0014'></label> <span>" + data.RegistroTiempos.HoraFin + "</span></td></tr>";
 
             var strHeadRowIncidencia = "", strTbodyIncidencia = "", si=true, no=false;
             var strHeadRowIncidencia = "<thead><th><label id='FormatoPaseSalida0015'></label></th></thead>";

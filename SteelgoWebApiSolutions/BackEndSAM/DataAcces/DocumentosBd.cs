@@ -47,6 +47,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+
                     foreach (DocumentoPosteado f in files)
                     {
                         Sam3_Rel_FolioAvisoLlegada_Documento nuevoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
@@ -216,6 +217,159 @@ namespace BackEndSAM.DataAcces
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public object GuardarDocumentoPaseSalida(List<DocumentoPosteado> documentos)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //Actualizamos el dato de Pase Salida Enviado del Folio aviso Llegada
+                    Sam3_FolioAvisoLlegada folioBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == documentos[0].FolioAvisoLlegadaID)
+                        .AsParallel().SingleOrDefault();
+
+                    folioBd.PaseSalidaEnviado = true;
+                    folioBd.FechaModificacion = DateTime.Now;
+
+                    int tipoArchivoId = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == "Pase Salida").Select(x => x.TipoArchivoID)
+                        .AsParallel().SingleOrDefault();
+
+                    foreach (DocumentoPosteado d in documentos)
+                    {
+                        Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo nuevoDoc = new Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo();
+                        nuevoDoc.Activo = true;
+                        nuevoDoc.ContentType = d.ContentType;
+                        nuevoDoc.DocGuid = d.DocGuid;
+                        nuevoDoc.DocumentoID = 0;
+                        nuevoDoc.Extencion = d.Extencion;
+                        nuevoDoc.FechaModificacion = DateTime.Now;
+                        nuevoDoc.FolioAvisoLlegadaID = folioBd.FolioAvisoLlegadaID;
+                        nuevoDoc.Nombre = d.FileName;
+                        nuevoDoc.TipoArchivoID = tipoArchivoId;
+                        nuevoDoc.Url = d.Path;
+                        nuevoDoc.UsuarioModificacion = d.UserId;
+
+                        ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo.Add(nuevoDoc);
+                    }
+
+                    ctx.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public object EliminarDocumentoAvisoLlegada(int documentoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_FolioAvisoLlegada_Documento docDb = ctx.Sam3_Rel_FolioAvisoLlegada_Documento
+                        .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == documentoID).AsParallel().SingleOrDefault();
+
+                    docDb.Activo = false;
+                    docDb.FechaModificacion = DateTime.Now;
+                    docDb.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarDocumentoPermisoAduana(int documentoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_PermisoAduana_Documento docBd = ctx.Sam3_Rel_PermisoAduana_Documento
+                        .Where(x => x.Rel_Permiso_Documento_ID == documentoID).AsParallel().SingleOrDefault();
+
+                    docBd.Activo = false;
+                    docBd.FechaModificacion = DateTime.Now;
+                    docBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarDocumentoPaseSalida(int documentoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo docBd = ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo
+                        .Where(x => x.Rel_Folio_PaseSalida_Archivo_ID == documentoID).AsParallel().SingleOrDefault();
+
+                    docBd.Activo = false;
+                    docBd.FechaModificacion = DateTime.Now;
+                    docBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 

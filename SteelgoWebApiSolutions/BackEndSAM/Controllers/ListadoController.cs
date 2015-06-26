@@ -18,19 +18,26 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListadoController : ApiController
     {
-        public object Get(int tipoListado, string token)
+        public object Get(int tipoListado, string token, string parametroBusqueda = "")
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
                 switch (tipoListado)
                 {
                     case 1: //Folios aviso llegada
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosParaFiltro();
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
+                    case 3: // listado de choferes por transportista
+                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), usuario);
+                    case 4: //Obtener cantidades para dashboard
+                        return ListadoBd.Instance.ObtenerCantidadesDashboard(usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
