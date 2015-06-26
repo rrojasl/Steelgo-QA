@@ -566,13 +566,19 @@
         /****************************/
 
         //Recursive Method to generate the side menu
-        function recursiveMenu(idPadre) {
+        function recursiveMenu(idPadre, nivel) {
+            var hijos = {};
+            if (typeof ($sideMenuLayout[idPadre]) == null) {
+                $sideMenuLayout[idPadre]
+            }
             for (key in $sideMenu) {
                 var element = $sideMenu[key];
                 if (element.idPadre == idPadre) {
-
+                    if (typeof ($sideMenuLayout[idPadre]) != null)
+                    $sideMenuLayout[idPadre][key] = recursiveMenu(key);
                 }
             }
+            return 
         }
         //Method to generate the Side Menu
         function generateSideMenu(data) {
@@ -591,7 +597,7 @@
             console.log($sideMenuElements);
             console.log("$sideMenu");
             console.log($sideMenu);
-            recursiveMenu(0);
+            recursiveMenu(0, 0);
             console.log("$sideMenu");
             console.log($sideMenu);
         }
