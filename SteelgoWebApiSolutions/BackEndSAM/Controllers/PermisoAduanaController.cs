@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int folio, string token)
+        public TransactionalInformation Get(int folio, string token)
         {
             string payload = "";
             string newToken = "";
@@ -33,9 +33,21 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
             
-
-                return PermisoAduanaBd.Instance.ObtenerDatosAvisoLlegada(folio, usuario);
-            }
+            
+           
+                TransactionalInformation resultObtener = PermisoAduanaBd.Instance.ObtenerDatosAvisoLlegada(folio);
+                if (resultObtener.ReturnCode == 200)
+                {
+                      return PermisoAduanaBd.Instance.InsertarPermisoADuana(folio, usuario);
+                }
+                else
+                {
+                    resultObtener.ReturnCode = 500;
+                    resultObtener.ReturnStatus = false;
+                    resultObtener.IsAuthenicated = false;
+                    return resultObtener;
+                }
+             }
             else
             {
                 TransactionalInformation result = new TransactionalInformation();

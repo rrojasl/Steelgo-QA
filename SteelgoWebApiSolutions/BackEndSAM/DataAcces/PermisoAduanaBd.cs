@@ -46,7 +46,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="folio">Folio seleccionado</param>
         /// <returns>Lista de Formato Permiso aduana</returns>
-        public object ObtenerDatosAvisoLlegada(int folio, Sam3_Usuario usuario)
+        public TransactionalInformation ObtenerDatosAvisoLlegada(int folio)
         {
             try
             {
@@ -85,7 +85,6 @@ namespace BackEndSAM.DataAcces
                     }
 
                     listaAvisoLlegada = (from av in ctx.Sam3_FolioAvisoLlegada
-                                         //join cl in ctx.Clientes on av.ClienteID equals cl.ClienteID
                                          where (av.FolioAvisoLlegadaID == folio)
                                          select new FormatoPermisoAduana
                                          {
@@ -122,17 +121,25 @@ namespace BackEndSAM.DataAcces
                     listaAvisoLlegada.AddRange(listaProyectos);
                     listaAvisoLlegada.AddRange(listaVehiculos);
                 }
+                TransactionalInformation resultEmail = EnviarCorreo(listaAvisoLlegada);
+                if (resultEmail.ReturnCode == 200)
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
 
-                InsertarPermisoADuana(folio, usuario);
-                EnviarCorreo(listaAvisoLlegada);
+                    return result;
+                }
+                else
+                {
+                    resultEmail.ReturnCode = 500;
+                    resultEmail.ReturnStatus = false;
+                    resultEmail.IsAuthenicated = true;
 
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("Ok");
-                result.ReturnCode = 200;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
+                    return resultEmail;
+                }
             }
             catch (Exception ex)
             {
@@ -151,7 +158,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="listaAvisoLlegada">lista con los datos del permiso de aduana seleccionado</param>
         /// <returns></returns>
-        public object EnviarCorreo(object listaAvisoLlegada)
+        public TransactionalInformation EnviarCorreo(object listaAvisoLlegada)
         {
             try
             {
@@ -256,7 +263,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="folio">Folio seleccionado por el usuario</param>
         /// <param name="usuario">Usuario Actual</param>
         /// <returns></returns>
-        public object InsertarPermisoADuana(int folio, Sam3_Usuario usuario)
+        public TransactionalInformation InsertarPermisoADuana(int folio, Sam3_Usuario usuario)
         {
             try
             {
@@ -325,50 +332,8 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// Método que guarda el documento del permiso autorizado en la base de datos, una vez que se insertó el número de permiso
-        /// </summary>
-        /// <param name="PermisoAduanaID">Id del permiso generado</param>
-        /// <param name="nombre">Nombre del archivo</param>
-        /// <param name="extension">Entension del archivo</param>
-        /// <param name="folio">Folio del aviso de llegada seleccionado</param>
-        /// <param name="documentoID">ID del documento</param>
-        /// <param name="usuario">usuario actual</param>
-        public void GuardarDocumento(int PermisoAduanaID, string nombre, string extension, int folio, int documentoID, Sam3_Usuario usuario)
-        {
-            using (SamContext ctx = new SamContext())
-            {
-                Sam3_Rel_PermisoAduana_Documento permisoAduana_Documento = new Sam3_Rel_PermisoAduana_Documento();
-                bool PermisoAduanaExists = ctx.Sam3_Rel_PermisoAduana_Documento.Any(r => r.PermisoAduanaID == PermisoAduanaID);
-
-                if (PermisoAduanaExists)
-                {
-                    permisoAduana_Documento.PermisoAduanaID = PermisoAduanaID;
-                    permisoAduana_Documento.DocumentoID = documentoID;
-                    permisoAduana_Documento.Nombre = nombre;
-                    permisoAduana_Documento.Extencion = extension;
-                    permisoAduana_Documento.Activo = true;
-                    permisoAduana_Documento.UsuarioModificacion = usuario.UsuarioID;
-                    permisoAduana_Documento.FechaModificacion = DateTime.Now;
-                    ctx.SaveChanges();
-                }
-                else
-                {
-                    permisoAduana_Documento.PermisoAduanaID = PermisoAduanaID;
-                    permisoAduana_Documento.DocumentoID = documentoID;
-                    permisoAduana_Documento.Nombre = nombre;
-                    permisoAduana_Documento.Extencion = extension;
-                    permisoAduana_Documento.Activo = true;
-                    permisoAduana_Documento.UsuarioModificacion = usuario.UsuarioID;
-                    permisoAduana_Documento.FechaModificacion = DateTime.Now;
-
-                    ctx.Sam3_Rel_PermisoAduana_Documento.Add(permisoAduana_Documento);
-                    ctx.SaveChanges();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Método para guardar los datos del permiso autorizado que capturó el cliente
+        /// Método para guardar los datos del permiso autorizado que capturó el usuario
+        /// Inserta el documento que adjuntó el usuario
         /// </summary>
         /// <param name="numeroPermiso">Número del permiso de ADuana autorizado</param>
         /// <param name="nombre">Nombre del documento </param>
@@ -381,6 +346,8 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                int PermisoAduanaID = 0;
+                //Actualizar numero de permiso en el permiso tramitado anteriormente en PErmisoAduana
                 using (SamContext ctx = new SamContext())
                 {
                     var nuevoPermiso = (from pa in ctx.Sam3_PermisoAduana
@@ -395,11 +362,40 @@ namespace BackEndSAM.DataAcces
                     nuevoPermiso.FechaAutorización = DateTime.Now;
                     ctx.SaveChanges();
 
-                    GuardarDocumento(nuevoPermiso.PermisoAduanaID, nombre, extension, folio, documentoID, usuario);
+                    //Guardar Documento en Rel_PermisoAduana_Documento
+                    Sam3_Rel_PermisoAduana_Documento permisoAduana_Documento = new Sam3_Rel_PermisoAduana_Documento();
+                    PermisoAduanaID = nuevoPermiso.PermisoAduanaID;
+                    bool PermisoAduanaExists = ctx.Sam3_Rel_PermisoAduana_Documento.Any(r => r.PermisoAduanaID == PermisoAduanaID);
+
+                    if (PermisoAduanaExists)
+                    {
+                        permisoAduana_Documento.PermisoAduanaID = PermisoAduanaID;
+                        permisoAduana_Documento.DocumentoID = documentoID;
+                        permisoAduana_Documento.Nombre = nombre;
+                        permisoAduana_Documento.Extencion = extension;
+                        permisoAduana_Documento.Activo = true;
+                        permisoAduana_Documento.UsuarioModificacion = usuario.UsuarioID;
+                        permisoAduana_Documento.FechaModificacion = DateTime.Now;
+                        ctx.SaveChanges();
+                    }
+                    else
+                    {
+                        permisoAduana_Documento.PermisoAduanaID = PermisoAduanaID;
+                        permisoAduana_Documento.DocumentoID = documentoID;
+                        permisoAduana_Documento.Nombre = nombre;
+                        permisoAduana_Documento.Extencion = extension;
+                        permisoAduana_Documento.Activo = true;
+                        permisoAduana_Documento.UsuarioModificacion = usuario.UsuarioID;
+                        permisoAduana_Documento.FechaModificacion = DateTime.Now;
+
+                        ctx.Sam3_Rel_PermisoAduana_Documento.Add(permisoAduana_Documento);
+                        ctx.SaveChanges();
+                    }
                 }
 
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("Ok");
+                result.ReturnMessage.Add(PermisoAduanaID.ToString());
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;

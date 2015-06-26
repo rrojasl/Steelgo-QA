@@ -50,7 +50,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a id="RedirectDashboard" href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
                                     <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                     <li><a id="CancelarFolio" href="javascript:void(0);"><span id="DetalleAvisoLlegada0083"></span></a></li>
                                 </ul>
@@ -545,6 +545,11 @@
 
                 $("#CancelarFolio").click(function (e) {
                     cancelarFolio();
+                });
+
+                $("#RedirectDashboard").click(function (e) {
+                    var detalleIdeaUrl = "@Url.Action("DashboardAvisoLlegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
 
                 //**Modales
