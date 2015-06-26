@@ -1062,7 +1062,7 @@ header .menu > div {
         .departurePermit .departureTable table tbody td span {
             border-bottom: 1px solid #000;
             float: right;
-            width: 46%;
+            width: 44%;
             margin-top: -2px;
             white-space: nowrap;
             text-align: center;
@@ -1090,17 +1090,17 @@ header .menu > div {
             }
 
     .departurePermit .iconDoc {
-        height: 18px;
-        background-repeat: no-repeat;
-        background-position: center 2px;
+        height: 18.5px;
+        background-repeat: no-repeat !important;
+        background-position: center 2px !important;
     }
 
     .departurePermit .true {
-        background-image: url("/Content/images/SAMC_Checkmark.png");
+        background-image: url("/Content/images/SAMC_Checkmark.png") !important;
     }
 
     .departurePermit .false {
-        background-image: url("/Content/images/SAMC_Delete.png");
+        background-image: url("/Content/images/SAMC_Delete.png") !important;
     }
 /**********************************************************************************/
 
