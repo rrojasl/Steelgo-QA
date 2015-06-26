@@ -766,7 +766,12 @@ header .menu > div {
  Description:   Customize section added to a page.
 **********************************************************************************/
 .addedSection {
-    margin-top: 18px;
+    margin: 3px -15px 32px;
+    padding-top: 31px;
+    padding-bottom: 5px;
+    border-top: 1px solid #F8F8F8;
+    border-bottom: 1px solid #F8F8F8;
+    background-color: #F8F8F8;
 }
 /**********************************************************************************/
 
@@ -886,8 +891,8 @@ header .menu > div {
 
     .formNav .button-section {
         display: inline-block;
-        margin-right: 26px;
-        padding-right: 14px;
+        margin-right: 24px;
+        padding-right: 15px;
         border-right: 1px solid #DCDCDC;
     }
 
@@ -1057,7 +1062,7 @@ header .menu > div {
         .departurePermit .departureTable table tbody td span {
             border-bottom: 1px solid #000;
             float: right;
-            width: 46%;
+            width: 44%;
             margin-top: -2px;
             white-space: nowrap;
             text-align: center;
@@ -1083,6 +1088,20 @@ header .menu > div {
             .departurePermit .departureTable tbody td:last-child table tbody input {
                 margin-right: 8px;
             }
+
+    .departurePermit .iconDoc {
+        height: 18.5px;
+        background-repeat: no-repeat !important;
+        background-position: center 2px !important;
+    }
+
+    .departurePermit .true {
+        background-image: url("/Content/images/SAMC_Checkmark.png") !important;
+    }
+
+    .departurePermit .false {
+        background-image: url("/Content/images/SAMC_Delete.png") !important;
+    }
 /**********************************************************************************/
 
 
