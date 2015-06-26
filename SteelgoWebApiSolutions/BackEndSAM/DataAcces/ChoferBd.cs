@@ -171,5 +171,40 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerChoferesProTransportista(int transportistaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Chofer> lstChoferes = (from r in ctx.Sam3_Chofer
+                                                join rvc in ctx.Sam3_Rel_Vehiculo_Chofer on r.ChoferID equals rvc.ChoferID
+                                                join v in ctx.Sam3_Vehiculo on rvc.VehiculoID equals v.VehiculoID
+                                                join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on v.VehiculoID equals rvt.VehiculoID
+                                                where rvt.TransportistaID == transportistaID && r.Activo
+                                                select new Chofer
+                                                {
+                                                    Nombre = r.Nombre,
+                                                    ChoferID = r.ChoferID.ToString()
+                                                }).AsParallel().ToList();
+
+                    lstChoferes = lstChoferes.GroupBy(x => x.ChoferID).Select(x => x.First()).ToList();
+
+                    return lstChoferes;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }//Fin clase
 }

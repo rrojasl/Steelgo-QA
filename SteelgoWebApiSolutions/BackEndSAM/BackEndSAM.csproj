@@ -193,6 +193,7 @@
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
+    <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
@@ -208,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AvisoLlegadaJson.cs" />
+    <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
