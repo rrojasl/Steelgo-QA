@@ -291,7 +291,7 @@ input.quickFilters {
     }
 
     input.quickFilters:last-of-type[disabled]{
-        background: none;
+        background: #FFFFFF;
     }
 
 .content-container .input-group .input-group-btn a {
