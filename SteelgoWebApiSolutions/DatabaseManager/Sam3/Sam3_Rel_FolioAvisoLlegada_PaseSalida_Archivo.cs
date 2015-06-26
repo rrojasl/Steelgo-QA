@@ -22,7 +22,12 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<System.Guid> DocGuid { get; set; }
+        public string Url { get; set; }
+        public string ContentType { get; set; }
+        public int TipoArchivoID { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
+        public virtual Sam3_TipoArchivo Sam3_TipoArchivo { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace BackEndSAM.Models
         public int FolioAvisoLlegadaID { get; set; }
         public int UserId { get; set; }
         public int TipoArchivoID { get; set; }
+        public int NumeroPermisoAduana { get; set; }
     }
 }
