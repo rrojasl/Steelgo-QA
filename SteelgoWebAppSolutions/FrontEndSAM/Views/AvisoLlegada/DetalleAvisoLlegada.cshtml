@@ -720,6 +720,7 @@
                 
                 $('#files').kendoUpload({
                     async: {
+                        ////VAlida que este tomando todos los parametros por favor
                         saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,
