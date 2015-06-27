@@ -172,6 +172,10 @@ label {
             color: #EC4F50;
         }
 
+    #window label.checkLabel {
+        display: inline-block;
+    }
+
 .form h2 label {
     color: #666666;
     text-transform: none;

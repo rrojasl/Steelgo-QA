@@ -813,6 +813,16 @@ header .menu > div {
             box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
         }
 
+    #window input[type="checkbox"] {
+        width: auto;
+        display: inline-block;
+        min-height: 13px;
+        height: auto;
+        position: relative;
+        top: 3px;
+        margin-left: 10px;
+    }
+
     #window h2 label {
         font-size: 13px;
     }
