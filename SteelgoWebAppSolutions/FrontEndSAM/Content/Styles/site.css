@@ -518,9 +518,14 @@ input.quickFilters {
 
     .buttonBar.left {
         text-align: justify;
+        margin-bottom: 20px;
     }
 
-    .buttonBar.top,
+        .buttonBar.left .btn {
+            margin-left: 0;
+        }
+
+/*.buttonBar.top,
     .buttonBar.top .btn {
         margin-top: 0;
     }
@@ -530,7 +535,7 @@ input.quickFilters {
             margin-left: 0;
             border-radius: 0;
             box-shadow: none;
-        }
+        }*/
 
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");

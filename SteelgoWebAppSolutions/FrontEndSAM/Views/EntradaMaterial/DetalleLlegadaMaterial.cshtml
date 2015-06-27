@@ -18,21 +18,20 @@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <span id="divTitulos" class="folioLabel hidden">
+            @*<span id="divTitulos" class="folioLabel">
                 <span id="EntradaMaterial0013"></span>
                 <span id="spanFolioEntrada"></span>
                 <span id="EntradaMaterial0014"></span>
                 <span id="SpanFolioLlegada"></span>
-            </span>
-            <span id="" class="title">Detalle de Entrada de Material</span>
+            </span>*@
             <div class="formNav clearfix">
-                <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="EntradaMaterial0011"></span></button>
                                 <button type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caret"></span>
+                                    <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#"><span id="DetalleAvisoLlegada0062"></span></a></li>
@@ -48,7 +47,7 @@
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleAvisoLlegada0064"></span>
-                                    <span class="caret"></span>
+                                    <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
@@ -94,22 +93,19 @@
                     </div>
                 </div>
             </div>
-            <div class="branchCut"></div>
             <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-11">
-                    <div class="row">
+                <div class="addedSection clearfix">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-11">
                         <div class="col-sm-5 col-md-4 col-lg-3">
                             <label id="EntradaMaterial0006"></label>
                             <input id="Descripcion" />
                         </div>
-                        <div class="col-sm-7 col-md-8 col-lg-9">
+                        <div class="col-sm-7 col-md-8 col-lg-5">
                             <label id="EntradaMaterial0005"></label>
                             <input name="files" id="AdjuntarArchivos" type="file" />
                         </div>
                     </div>
-                </div>
-                <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                    <div class="row">
+                    <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <table id="listaArchivos" class="filesTable">
                                 <thead>
@@ -130,7 +126,6 @@
                     </div>
                 </div>
                 <div id="divFoliosGenerados" class="form-group col-sm-12 col-md-12 col-lg-12" style="display: none">
-                    <div class="branchCut"></div>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <table id="listaFoliosGenerados" class="filesTable">
@@ -160,22 +155,23 @@
                 @********Pase Salida*********@
                 <div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12" style="display: none">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
+                        @*<div class="col-sm-12 col-md-12 col-lg-12">
                             <span id="EntradaMaterial0025" class="title"></span>
                         </div>
-                        <div class="form-group col-sm-12 col-md-8 col-lg-4">
+                        *@
+                        <div class="form-group col-sm-12 col-md-12 col-lg-11">
                             <div class="row">
-                                <div class="col-sm-5 col-md-4 col-lg-4">
+                                <div class="col-sm-5 col-md-4 col-lg-3">
                                     <label id="EntradaMaterial0031"></label>
                                     <input id="TipoArchivo" class="" />
                                 </div>
-                                <div class="col-sm-7 col-md-8 col-lg-8">
+                                <div class="col-sm-7 col-md-8 col-lg-5">
                                     <label id="EntradaMaterial0026"></label>
                                     <input name="files" id="PackingList" type="file" class="" />
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <table id="listaArchivosPaseSalida" class="filesTable">
@@ -194,7 +190,8 @@
                                         </thead>
                                     </table>
                                 </div>
-                                <div class="buttonBar left col-sm-5 col-md-4 col-lg-4">
+                                <div class="buttonBar left col-sm-12 col-md-12 col-lg-12">
+                                    <div class="branchCut"></div>
                                     <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary">
                                         <span id="EntradaMaterial0027"></span>
                                     </a>
