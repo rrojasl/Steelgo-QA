@@ -218,6 +218,8 @@ namespace BackEndSAM.DataAcces
 
                         if (result != null)
                         {
+                            int temp = 0;
+
                             if (folioAvisoLlegadaID > 0)
                             {
                                 result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
@@ -225,8 +227,14 @@ namespace BackEndSAM.DataAcces
 
                             if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
                             {
-                                int temp = Convert.ToInt32(filtros.PatioID);
+                                temp = Convert.ToInt32(filtros.PatioID);
                                 result = result.Where(x => x.PatioID == temp).ToList();
+                            }
+
+                            if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
+                            {
+                                temp = Convert.ToInt32(filtros.ClienteID);
+                                result = result.Where(x => x.ClienteID == temp).ToList();
                             }
 
                             //if (proyectos.Count > 0)
@@ -239,6 +247,7 @@ namespace BackEndSAM.DataAcces
                         }
                         else
                         {
+                            int temp = 0;
                             if (folioAvisoLlegadaID > 0)
                             {
                                 result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
@@ -246,7 +255,7 @@ namespace BackEndSAM.DataAcces
 
                             if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
                             {
-                                int temp = Convert.ToInt32(filtros.PatioID);
+                                temp = Convert.ToInt32(filtros.PatioID);
                                 if (result != null)
                                 {
                                     result = result.Where(x => x.PatioID == temp).ToList();
@@ -254,6 +263,20 @@ namespace BackEndSAM.DataAcces
                                 else
                                 {
                                     result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.PatioID == temp).ToList();
+                                }
+                            }
+
+                            if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
+                            {
+                                temp = Convert.ToInt32(filtros.ClienteID);
+
+                                if (result != null)
+                                {
+                                    result = result.Where(x => x.ClienteID == temp).ToList();
+                                }
+                                else
+                                {
+                                    result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.ClienteID == temp).AsParallel().ToList();
                                 }
                             }
 
@@ -277,6 +300,65 @@ namespace BackEndSAM.DataAcces
                             //}
                         }
 
+                        //Filtros Rapidos
+
+                        if (filtros.Completos)
+                        {
+                            if (result != null)
+                            {
+                                result = (from r in result
+                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                          where p.PermisoAutorizado == true
+                                          select r).AsParallel().ToList();
+                            }
+                            else
+                            {
+                                result = (from r in ctx.Sam3_FolioAvisoLlegada
+                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                          where r.Activo.Value == true && p.PermisoAutorizado == true
+                                          select r).AsParallel().ToList();
+                            }
+                        }
+
+                        if (filtros.SinAutorizacion)
+                        {
+                            if (result != null)
+                            {
+                                result = (from r in result
+                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                          where r.Activo.Value == true && p.PermisoAutorizado == false
+                                          select r).AsParallel().ToList();
+
+                            }
+                            else
+                            {
+                                result = (from r in ctx.Sam3_FolioAvisoLlegada
+                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                          where r.Activo.Value == true && p.PermisoAutorizado == false
+                                          select r).AsParallel().ToList();
+                            }
+                        }
+
+                        if (filtros.SinPermiso)
+                        {
+                            if (result != null)
+                            {
+                                result = (from r in result
+                                          where r.Activo.Value == true
+                                          && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                          select r).AsParallel().ToList();
+                            }
+                            else
+                            {
+                                result = (from r in ctx.Sam3_FolioAvisoLlegada
+                                          where r.Activo.Value == true
+                                          && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                          select r).AsParallel().ToList();
+                            }
+                        }
+
+
+
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
 
                     }
@@ -291,44 +373,25 @@ namespace BackEndSAM.DataAcces
                         if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio).Any())
                         {
                             elemento = (from r in ctx.Sam3_FolioAvisoLlegada
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        join t in ctx.Sam3_Transportista on r.TransportistaID equals t.TransportistaID
-                                        join rp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rp.FolioAvisoLlegadaID
-                                        join py in ctx.Sam3_Proyecto on rp.ProyectoID equals py.ProyectoID
-                                        join pad in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pad.FolioAvisoLlegadaID
-                                        where r.FolioAvisoLlegadaID == folio && rp.ProyectoID == proyectoId
+                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                        where r.Activo.Value == true
+                                        && r.FolioAvisoLlegadaID == folio
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
-                                            Patio = p.Nombre,
-                                            NombreProyecto = py.Nombre,
-                                            Transportista = t.Nombre,
-                                            FechaRecepcion = r.FechaRecepcion.ToString(),
-                                            Estatus = r.Estatus,
-                                            FechaAutorizacion = pad.FechaAutorización.ToString(),
-                                            FechaGeneracion = pad.FechaGeneracion.ToString(),
-                                            TienePaseSalida = r.PaseSalidaEnviado.Value
+                                            FechaGeneracion = p.FechaGeneracion.HasValue ? p.FechaGeneracion.ToString() : "",
+                                            FechaRecepcion = r.FechaRecepcion.HasValue ? r.FechaRecepcion.ToString() : ""
                                         }).AsParallel().Distinct().SingleOrDefault();
                         }
                         else
                         {
                             elemento = (from r in ctx.Sam3_FolioAvisoLlegada
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        join t in ctx.Sam3_Transportista on r.TransportistaID equals t.TransportistaID
-                                        join rp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rp.FolioAvisoLlegadaID
-                                        join py in ctx.Sam3_Proyecto on rp.ProyectoID equals py.ProyectoID
-                                        where r.FolioAvisoLlegadaID == folio && rp.ProyectoID == proyectoId
+                                        where r.Activo == true && r.FolioAvisoLlegadaID == folio
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
-                                            Patio = p.Nombre,
-                                            NombreProyecto = py.Nombre,
-                                            Transportista = t.Nombre,
                                             FechaRecepcion = r.FechaRecepcion.ToString(),
-                                            Estatus = r.Estatus,
-                                            FechaAutorizacion = string.Empty,
                                             FechaGeneracion = string.Empty,
-                                            TienePaseSalida = r.PaseSalidaEnviado.Value
                                         }).AsParallel().Distinct().SingleOrDefault();
 
                         }
@@ -341,21 +404,7 @@ namespace BackEndSAM.DataAcces
 
                     }
 
-                    if (resultados.Count > 0)
-                    {
-                        return resultados;
-                    }
-                    else
-                    {
-                        TransactionalInformation result = new TransactionalInformation();
-                        result.ReturnMessage.Add("OK");
-                        result.ReturnMessage.Add("Ningun elemento coincide con los parametros de busqueda");
-                        result.ReturnCode = 200;
-                        result.ReturnStatus = false;
-                        result.IsAuthenicated = true;
-
-                        return result;
-                    }
+                    return resultados;
                 }
             }
             catch (Exception ex)
@@ -401,6 +450,7 @@ namespace BackEndSAM.DataAcces
 
                     aviso.FechaRecepcion = registroBd.FechaRecepcion.ToString();
                     aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
+                    aviso.Estatus = registroBd.Estatus;
 
                     TractoAV tractoBd = (from r in ctx.Sam3_Vehiculo
                                          where r.Activo
@@ -701,7 +751,8 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                                   where r.Activo.Value && p.RequierePermisoAduana
+                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID
+                                                   where r.Activo.Value && p.RequierePermisoAduana && pe.Activo
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -733,7 +784,7 @@ namespace BackEndSAM.DataAcces
                                               join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                               where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && p.PermisoAutorizado.Value == true
                                               select p.PermisoAduanaID).AsParallel().Any();
-                    
+
                     return permisoAutorizado;
                 }
             }
@@ -755,19 +806,21 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Rel_PermisoAduana_Documento permiso = (from r in ctx.Sam3_PermisoAduana
-                                                                join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
-                                                                where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo
-                                                                select d).SingleOrDefault();
+                    DocumentoPermisoAduana permiso = (from r in ctx.Sam3_PermisoAduana
+                                                      join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
+                                                      join p in ctx.Sam3_PermisoAduana on d.PermisoAduanaID equals p.PermisoAduanaID
+                                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo && d.Activo
+                                                      select new DocumentoPermisoAduana
+                                                      {
+                                                          DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
+                                                          NumeroPermiso = p.NumeroPermiso.ToString(),
+                                                          PermisoAutorizado = p.PermisoAutorizado.Value,
+                                                          Url = d.Url
+                                  
+                                                      }).AsParallel().SingleOrDefault();
 
-                    HttpResponseMessage result = new HttpResponseMessage();
-                    result.StatusCode = HttpStatusCode.OK;
-                    FileStream stream = new FileStream(permiso.Url, FileMode.Open);
-                    result.Content = new StreamContent(stream);
-                    result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    result.Content = new StringContent(permiso.Sam3_PermisoAduana.NumeroPermiso.ToString());
-
-                    return result;
+                   
+                    return permiso;
                 }
             }
             catch (Exception ex)

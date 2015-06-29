@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join d in ctx.Sam3_Rel_FolioAvisoLlegada_Documento on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
                                                         join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
-                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_FolioAvisoLlegada_DocumentoID.ToString(),
@@ -119,7 +119,7 @@ namespace BackEndSAM.DataAcces
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                                         join d in ctx.Sam3_Rel_PermisoAduana_Documento on p.PermisoAduanaID equals d.PermisoAduanaID
-                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
@@ -150,7 +150,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join d in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
-                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_Folio_PaseSalida_Archivo_ID.ToString(),
@@ -180,17 +180,46 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     int tipoArchivoID = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == "Permiso Aduana").Select(x => x.TipoArchivoID).SingleOrDefault();
-
+                    Sam3_PermisoAduana permisoBd;
+                    int folioAviso = documentos[0].FolioAvisoLlegadaID.Value;
                     //Actualizamos el permiso de aduana
-                    Sam3_PermisoAduana permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == documentos[0].FolioAvisoLlegadaID.Value && x.Activo)
-                        .AsParallel().SingleOrDefault();
+                    if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folioAviso).Any())
+                    {
+                        permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folioAviso && x.Activo)
+                            .AsParallel().SingleOrDefault();
 
-                    permisoBd.PermisoAutorizado = true;
-                    permisoBd.PermisoTramite = false;
-                    permisoBd.Estatus = "Autorizado";
-                    permisoBd.FechaAutorización = DateTime.Now;
-                    permisoBd.FechaModificacion = DateTime.Now;
-                    permisoBd.UsuarioModificacion = documentos[0].UserId;
+                        permisoBd.PermisoAutorizado = true;
+                        permisoBd.PermisoTramite = false;
+                        permisoBd.NumeroPermiso = documentos[0].NumeroPermisoAduana;
+                        permisoBd.Estatus = "Autorizado";
+                        permisoBd.FechaAutorización = DateTime.Now;
+                        permisoBd.FechaModificacion = DateTime.Now;
+                        permisoBd.UsuarioModificacion = documentos[0].UserId;
+                    }
+                    else 
+                    {
+                        permisoBd = new Sam3_PermisoAduana();
+
+                        permisoBd.PermisoAutorizado = true;
+                        permisoBd.PermisoTramite = false;
+                        permisoBd.NumeroPermiso = documentos[0].NumeroPermisoAduana;
+                        permisoBd.Estatus = "Autorizado";
+                        permisoBd.FechaAutorización = DateTime.Now;
+                        permisoBd.FechaModificacion = DateTime.Now;
+                        permisoBd.UsuarioModificacion = documentos[0].UserId;
+
+                        ctx.Sam3_PermisoAduana.Add(permisoBd);
+                        ctx.SaveChanges();
+ 
+                    }
+
+                    //Actualizar estatus de FolioAvisoLlegada
+                    Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAviso)
+                        .AsParallel().SingleOrDefault();
+                    aviso.Estatus = "Autorizado";
+                    aviso.FechaModificacion = DateTime.Now;
+                    aviso.UsuarioModificacion = documentos[0].UserId;
+
 
                     //Guardamos la informacion de los documentos
                     foreach (DocumentoPosteado d in documentos)

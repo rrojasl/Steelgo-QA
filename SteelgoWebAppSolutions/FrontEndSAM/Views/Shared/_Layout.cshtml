@@ -270,6 +270,65 @@
             }
         };
 
+        /****************************/
+        /*     Global Variables     */
+        /****************************/
+        console.log("@Url.Action("Landing", "Home")");
+        console.log("@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")");
+        var $body = $("body");
+        var $homeURI = '@Url.Action("Landing", "Home")';
+        var $contextMenu = {};
+        var $sideMenu = {};
+        var $sideMenuLayout = { 0: {}, 1: {}, 2: {}, 3: {} };
+        var returnOfSecurityCheck = {
+            "layout": {
+                "create": false,
+                "list": false,
+                "detail": false,
+                "destroy": false,
+                "properties": {
+                    "navigation": {
+                        "visible": true,
+                        "editable": true,
+                        "required": false
+                    },
+                    "search": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "notifications": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "useroptions": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            },
+            "login": {
+                "create": false,
+                "list": false,
+                "detail": true,
+                "destroy": false,
+                "properties": {
+                    "username": {
+                        "visible": true,
+                        "editable": true,
+                        "required": true
+                    },
+                    "password": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            }
+        };
+
         var $authorizationModel = {};
         var $layoutModel = {
             listContainer: {

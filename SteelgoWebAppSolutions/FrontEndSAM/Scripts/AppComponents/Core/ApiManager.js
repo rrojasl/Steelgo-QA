@@ -2,7 +2,6 @@
 /*    API REST Functions    */
 /****************************/
 
-//Declare base API Managers
 var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
 var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
@@ -31,7 +30,9 @@ var $PermisoAutorizado = new $.RestClient('http://localhost:60960' + '/backendsa
 var $PermisoTramite = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $DocumentoAvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+var $ValidacionFolioConPermisoAduana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var redireccionAutomatica = true;
+
 $Plana.add("Plana");
 $Transportista.add("Transportista");
 $Patio.add("Patio");
@@ -50,3 +51,4 @@ $PermisoAutorizado.add("PermisoAutorizado");
 $TipoArchivo.add("TipoArchivo");
 $PermisoTramite.add("PermisoAduana");
 $DocumentoAvisoLlegada.add("DocumentoAvisoLlegada");
+$ValidacionFolioConPermisoAduana.add("ValidacionFolioConPermisoAduana");

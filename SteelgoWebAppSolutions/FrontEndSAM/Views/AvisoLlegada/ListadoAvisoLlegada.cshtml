@@ -164,8 +164,8 @@
                         model: {
                             fields: {
                                 FolioAvisoLlegadaID: { type: "string" },
-                                FechaCreacion: {type: "string" },
-                                FechaEstimada: { type: "string"},
+                                FechaGeneracion: { type: "string" },
+                                FechaRecepcion: { type: "string" },
                                 Estatus: { type: "string"}
                             }
                         }
@@ -193,8 +193,8 @@
                 },               
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
-                    { field: "FechaCreacion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "FechaEstimada", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FechaGeneracion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
                 ],
                 dataBound: function (e) {
@@ -245,28 +245,15 @@
         };
 
         function ObtenerAccionesListado() {
-
-            $("#spanCreados").html("(115)");
-            $("#spanSinPermiso").html("(12)");
-            $("#spanSinAutorizacion").html("(32)");
-            $("#spanCompletos").html("(71)");
             
-            
-            //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-            //    if (data.ReturnCode) {
-            //        if (data.ReturnCode == 401) {
-            //            removeUserSession();
-            //        } else {
-            //            alert("ReturnMessage: " + data.ReturnMessage);
-            //            return;
-            //        }
-            //    }
+            $folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+                Error(result);
 
-            //    $("#spanCreados").html("("+ data.Creados +")");
-            //    $("#spanSinPermiso").html("(" + data.SinPermiso + ")");
-            //    $("#spanSinAutorizacion").html("(" + data.SinAutorizacion + ")");
-            //    $("#spanCompletos").html("(" + data.Completos + ")");
-            //});
+                $("#spanCreados").html(result.Creados);
+                $("#spanSinPermiso").html(result.SinPermiso);
+                $("#spanSinAutorizacion").html(result.SinAutorizacion);
+                $("#spanCompletos").html(result.Completos);
+            });
         };
 
         function CargarControlesFiltrado() { };

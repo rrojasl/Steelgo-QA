@@ -46,7 +46,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegada, string token)
+        public object Post(int folioAvisoLlegada, int NumeroPermiso, string token)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace BackEndSAM.Controllers
                         {
                             Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
-                            var path = HttpContext.Current.Server.MapPath("~/uploads/" + docguID + "_" + postedFile.FileName);
+                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + postedFile.FileName);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + postedFile.FileName; 
                             string[] st = postedFile.FileName.Split('.');
                             string extencion = "." + st[1];
@@ -86,7 +86,8 @@ namespace BackEndSAM.Controllers
                                 FolioAvisoLlegadaID = folioAvisoLlegada,
                                 UserId = usuario.UsuarioID,
                                 TipoArchivoID = -1,
-                                Extencion = extencion,
+                                Extencion = extencion, 
+                                NumeroPermisoAduana = NumeroPermiso
                             });
 
                             postedFile.SaveAs(path);

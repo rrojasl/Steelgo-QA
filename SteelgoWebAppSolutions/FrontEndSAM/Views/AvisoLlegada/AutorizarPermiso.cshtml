@@ -82,52 +82,49 @@
     }
 
     @section JavascriptGlobalVariables {
-        var Folio = [];
+        var Folio = {};
     }
 
     @section JavascriptGlobalFunctions {
         function CargarFolio(id) {
-            Folio = [];
-            _folio = {};
-            _folio["FolioAvisoLlegadaID"] = id;
-            Folio.push(_folio);
+            Folio = {};
+            Folio = { FolioAvisoLlegadaID: id };
         };
 
         function ObtenerFolioEntradaMaterial() {
-            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
-                if (result.ReturnCode) {
-                    removeUserSession();
-                } else {
-                    $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
-                };
+            $folioEntradaMaterial.Listado.read({ tipoListado: 2, token: Cookies.get("token"), parametroBusqueda:"" }).done(function (result) {
+                Error(result);
+                $("#FolioAvisoLlegadaID").data("kendoComboBox").dataSource.data(result);
             });
         };
 
         function ChecarAutorizacion() {
-                var folio=Folio.length> 0 ? Folio[0].FolioAvisoLlegadaID:"-1";
+                var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
 
-                $PermisoAutorizado.PermisoAutorizado.read({ folio: folio ,token: Cookies.get("token") }).done(function (data) {
-                    if (result.ReturnCode) {
-                        removeUserSession();
-                    } else {
-                        if(data.PermisoAutorizado)
+                $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
+                    if (!result) {
+                        $("#divArchivoAutorizar").show();
+                        $("#divLinkAutorizar").empty();
+                        $("#divLinkAutorizar").hide();
+                        $("#ArchivoAutorizar").data("kendoUpload").enable();
+                        $("#NumeroPermiso").removeAttr("disabled");
+                        $(".k-upload-files").remove();
+                        $(".k-upload-status").remove();
+                        $(".k-upload.k-header").addClass("k-upload-empty");
+                        $(".k-upload-button").removeClass("k-state-focused");
+                        $("#NumeroPermiso").val("");
+                    }else{
+
+                        if (result.PermisoAutorizado)
                         {
                             $("#ArchivoAutorizar").data("kendoUpload").disable();
                             $("#NumeroPermiso").attr("disabled", "disabled");
                             $("#divArchivoAutorizar").hide();
                             $("#divLinkAutorizar").show();
-                            $("#divLinkAutorizar").append("<a href=''>" + data.ArchivoAutorizado[0].Nombre + "</a>");
-                            $("#NumeroPermiso").val(data.NumeroPermiso);
+                            $("#divLinkAutorizar").append("<a href=''>" + result.Url + "</a>");
+                            $("#NumeroPermiso").val(result.NumeroPermiso);
                         }
-                        else
-                        {
-                            $("#divArchivoAutorizar").show();
-                            $("#divLinkAutorizar").empty();
-                            $("#divLinkAutorizar").hide();
-                            $("#ArchivoAutorizar").data("kendoUpload").enable();
-                            $("#NumeroPermiso").attr("disabled", "");
-                        }
-                    };
+                    }
                 });
         };
 
@@ -135,6 +132,21 @@
             if (!$("#NumeroPermiso").val()) {
                 alert("Por favor, seleccionar el numero de permiso");
                 e.preventDefault();
+            }
+            var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + $("#NumeroPermiso").val() + "&token=" + Cookies.get("token");
+        };
+
+        function Error(data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                    } else {
+                        alert("Mensaje de error: " + data.ReturnMessage);
+                        return false;
+                    }
+                }
             }
         };
     }
@@ -153,9 +165,11 @@
 
         $('#ArchivoAutorizar').kendoUpload({
             async: {
-                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                        autoUpload: false
-                    },
+                saveUrl: "http://localhost:60960/backendsam/api/DocumentoPermisoAduana",
+                autoUpload: false,
+                withCredentials: false,
+                batch: true
+             },
              success: function (data) {
                  $("#ArchivoAutorizar").data("kendoUpload").disable();
                  $("#NumeroPermiso").attr("disabled", "disabled");

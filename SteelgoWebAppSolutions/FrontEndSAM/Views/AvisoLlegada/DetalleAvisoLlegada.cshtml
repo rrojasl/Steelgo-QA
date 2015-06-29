@@ -22,7 +22,9 @@
                 <span id="DetalleAvisoLlegada0042"></span>
                 <span id="spanFolio"></span>
                 <span id="DetalleAvisoLlegada0053">Status</span>
-                <span id="">Pendiente de Permiso</span>                
+                <span id="DetalleAvisoLlegada0084"></span>
+                <span id="DetalleAvisoLlegada0085"></span>
+                <span id="DetalleAvisoLlegada0086"></span>
                 <div class="branchCut"></div>
             </span>
             <div class="formNav clearfix">
@@ -523,6 +525,7 @@
 
             //Your partial views specific functions
             function CargaInicial() {
+                ocultarStatus();
 
                 FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
                 //**Eventos
@@ -531,12 +534,13 @@
                 });
 
                 $("#GuardarNuevo").click(function (e) {
-                    GuardarAvisoLlegada();
+                    var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
                 
                 $("#Editar").click(function (e) {
                     BotonEdicion();
-                    $("#TramitarPermiso").removeAttr('disabled');
+                    ObtenerPatioRequierePermiso();
                     $("#files").data("kendoUpload").enable();
                 });
 
@@ -682,6 +686,7 @@
                             e.preventDefault();
                         }
                         CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                        ObtenerPatioRequierePermiso();
                     },
                     change: function (e) {
                         var value = this.value();
@@ -1005,6 +1010,7 @@
                     $AvisoLlegada.AvisoLlegada.update(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.update");
                         loadingStop();
+                        BotonAlta();
                     });
                 } else //Alta
                 {
@@ -1021,6 +1027,7 @@
                         BotonAlta();
                         loadingStop();
                         alert("El folio " + folio + " fue creado exitosamente.");
+                        $("#DetalleAvisoLlegada0084").show();
                     });
                 }
             };
@@ -1073,6 +1080,7 @@
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
+                $("#TramitarPermiso").attr('disabled', 'disabled');
                 DesahabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1089,13 +1097,16 @@
             };
 
             function CargaInicialEdicion(id) {
-                cargarTituloFolio();                
+                cargarTituloFolio();
+                BotonAlta();
                 $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
                     console.log(data);
                     var concat = "";
                     var concatPlanas = "";
 
                     Error(data);
+
+                    $("#TramitarPermiso").removeAttr('disabled');
 
                     $("#files").data("kendoUpload").enable();
                     $.each(data.Proyectos, function (index, value) {
@@ -1132,6 +1143,11 @@
                     //    $("#ProveedorID").data("kendoComboBox").value(data.Proveedor[0].Nombre);
                     //}
 
+                    if (data.Estatus == "Autorizado") {
+                        ocultarStatus();
+                        $("#DetalleAvisoLlegada0085").show();
+                    };
+
                     $.each(data.Plana, function (index, value) {
                         concatPlanas += "," + value.PlanaID;
                         console.log(" concatPlanas:" + concatPlanas);
@@ -1160,8 +1176,9 @@
                         $("#CamionID").data("kendoComboBox").value(data.Tracto.Placas);
                     }
 
+                    $("#listaArchivos tbody").empty();
                     $.each(data.Archivos, function (index, value) {
-                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.ArchivoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
 
                     //Permiso Aduana
@@ -1757,6 +1774,19 @@
                 });
             };
 
+            function ObtenerPatioRequierePermiso() {
+                var patioid = Patio.length > 0 ? Patio[0].PatioID : 0;
+
+                $Patio.Patio.read({ patioID: patioid, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    if (result) {
+                        $("#TramitarPermiso").removeAttr('disabled');
+                    } else {
+                        $("#TramitarPermiso").attr('disabled', 'disabled');
+                    };
+                });
+            }
+
             function cancelarFolio() {
                 if (folio == -1) {
                     alert("Favor de guardar el aviso de llegada, para poder realizar la siguiente acción");
@@ -1767,9 +1797,15 @@
                 $AvisoLlegada.AvisoLlegada.destroy({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
                     loadingStop();
+                    ocultarStatus();
+                    $("#DetalleAvisoLlegada0086").show();
                 });
             };
-
+            function ocultarStatus() {
+                $("#DetalleAvisoLlegada0084").hide();
+                $("#DetalleAvisoLlegada0085").hide();
+                $("#DetalleAvisoLlegada0086").hide();
+            };
             function DesahabilitarObtenerDocumentosAvisoLlegada() {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
                     Error(result);

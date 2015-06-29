@@ -78,6 +78,32 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object PatioRequierePermiso(int patioID)
+        {
+            try
+            {
+                List<Patio> lstPatios = new List<Patio>();
+                using (SamContext ctx = new SamContext())
+                {
+                    bool result = (from r in ctx.Sam3_Patio
+                                   where r.PatioID == patioID
+                                   select r.RequierePermisoAduana).AsParallel().SingleOrDefault();
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object InsertarPatio(Sam3_Patio cambios, Sam3_Usuario usuario)
         {
             try
