@@ -10,18 +10,14 @@ namespace BackEndSAM.Models
     {
         public string FolioLlegadaID { get; set; }
         public string FolioAvisoLlegadaID { get; set; }
-        public List<PatioAV> Patio { get; set; }
-        public List<ProyectosAV> Proyectos { get; set; }
-        public List<ProveedorAV> Proveedor { get; set; }
+        public string PatioID { get; set; }
+        public string ClienteID { get; set; }
         public string FechaInicial { get; set; }
         public string FechaFinal { get; set; }
         public string token { get; set; }
-
-        public FiltrosJson()
-        {
-            Patio = new List<PatioAV>();
-            Proyectos = new List<ProyectosAV>();
-            Proveedor = new List<ProveedorAV>();
-        }
+        public bool Creados { get; set; }
+        public bool SinPermiso { get; set; }
+        public bool SinAutorizacion { get; set; }
+        public bool Completos { get; set; }
     }
 }
