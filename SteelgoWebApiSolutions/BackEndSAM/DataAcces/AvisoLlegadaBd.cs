@@ -182,8 +182,8 @@ namespace BackEndSAM.DataAcces
                     int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
-                    List<int> proyectos = filtros.Proyectos.Where(x => x.ProyectoID > 0).Select(x => x.ProyectoID).ToList();
-                    List<int> patios = filtros.Patio.Where(x => x.PatioID > 0).Select(x => x.PatioID).ToList();
+                    //List<int> proyectos = filtros.Proyectos.Where(x => x.ProyectoID > 0).Select(x => x.ProyectoID).ToList();
+                    //List<int> patios = filtros.Patio.Where(x => x.PatioID > 0).Select(x => x.PatioID).ToList();
 
                     if (folioLlegadaID > 0)
                     {
@@ -223,18 +223,19 @@ namespace BackEndSAM.DataAcces
                                 result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
 
-                            if (patios.Count > 0)
+                            if (Convert.ToInt32(filtros.PatioID) > 0)
                             {
-                                result = result.Where(x => patios.Contains(x.PatioID)).ToList();
+                                int temp = Convert.ToInt32(filtros.PatioID);
+                                result = result.Where(x => x.PatioID == temp).ToList();
                             }
 
-                            if (proyectos.Count > 0)
-                            {
-                                result = (from x in result
-                                          join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where proyectos.Contains(p.ProyectoID)
-                                          select x).ToList();
-                            }
+                            //if (proyectos.Count > 0)
+                            //{
+                            //    result = (from x in result
+                            //              join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                            //              where proyectos.Contains(p.ProyectoID)
+                            //              select x).ToList();
+                            //}
                         }
                         else
                         {
@@ -243,36 +244,37 @@ namespace BackEndSAM.DataAcces
                                 result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
 
-                            if (patios.Count > 0)
+                            if (Convert.ToInt32(filtros.PatioID) > 0)
                             {
+                                int temp = Convert.ToInt32(filtros.PatioID);
                                 if (result != null)
                                 {
-                                    result = result.Where(x => patios.Contains(x.PatioID)).ToList();
+                                    result = result.Where(x => x.PatioID == temp).ToList();
                                 }
                                 else
                                 {
-                                    result = ctx.Sam3_FolioAvisoLlegada.Where(x => patios.Contains(x.PatioID)).ToList();
+                                    result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.PatioID == temp).ToList();
                                 }
                             }
 
-                            if (proyectos.Count > 0)
-                            {
-                                if (result != null)
-                                {
-                                    result = (from x in result
-                                              join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                              where proyectos.Contains(p.ProyectoID)
-                                              select x).ToList();
-                                }
-                                else
-                                {
-                                    result = (from a in ctx.Sam3_FolioAvisoLlegada
-                                              join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on a.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                              where a.Activo.Value == true
-                                              && proyectos.Contains(p.ProyectoID)
-                                              select a).ToList();
-                                }
-                            }
+                            //if (proyectos.Count > 0)
+                            //{
+                            //    if (result != null)
+                            //    {
+                            //        result = (from x in result
+                            //                  join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                            //                  where proyectos.Contains(p.ProyectoID)
+                            //                  select x).ToList();
+                            //    }
+                            //    else
+                            //    {
+                            //        result = (from a in ctx.Sam3_FolioAvisoLlegada
+                            //                  join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on a.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                            //                  where a.Activo.Value == true
+                            //                  && proyectos.Contains(p.ProyectoID)
+                            //                  select a).ToList();
+                            //    }
+                            //}
                         }
 
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
