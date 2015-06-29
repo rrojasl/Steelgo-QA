@@ -26,6 +26,8 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public string Icono { get; set; }
+        public Nullable<int> Nivel { get; set; }
     
         public virtual ICollection<Sam3_Rel_Perfil_MenuGeneral> Sam3_Rel_Perfil_MenuGeneral { get; set; }
     }

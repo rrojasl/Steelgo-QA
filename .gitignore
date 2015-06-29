@@ -195,3 +195,8 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+SteelgoWebApiSolutions/BackEndSAM/App_Data/uploads/91d76525-7cba-4ed1-87b5-bf9499c6babc.popUpGenerarOdt.png
+SteelgoWebApiSolutions/BackEndSAM/App_Data/uploads/*
+SteelgoWebApiSolutions/uploads/*
+SteelgoWebApiSolutions/BackEndSAM/uploads/5a592118-0826-45e7-bc7f-192ad7a2309a_listadoOdts.png
+SteelgoWebApiSolutions/BackEndSAM/uploads/*

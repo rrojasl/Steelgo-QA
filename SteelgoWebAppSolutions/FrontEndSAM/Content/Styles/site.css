@@ -172,6 +172,10 @@ label {
             color: #EC4F50;
         }
 
+    #window label.checkLabel {
+        display: inline-block;
+    }
+
 .form h2 label {
     color: #666666;
     text-transform: none;
@@ -182,13 +186,19 @@ label {
     letter-spacing: .8px;
 }
 
-.form .folioLabel,
-.form .title {
-    color: rgba(051, 051, 051, .7);
-    font-weight: 600;
+.form .folioLabel {
+    color: #666666;
+    font-weight: 100;
     font-size: 18px;
     letter-spacing: 0px;
+    position: relative;
+    top: -4px;
 }
+
+    .form .folioLabel span:nth-child(even) {
+        color: #000000;
+        margin-right: 28px;
+    }
 
 .form .title {
     color: #202020;
@@ -237,6 +247,10 @@ input {
         border-color: #EC4F50 !important;
     }
 
+    input.disabled, input[disabled] {
+        background-color: #F5F5F5;
+    }
+
 ::-webkit-input-placeholder {
     font-style: italic;
     font-size: 12px;
@@ -263,6 +277,7 @@ input {
     border-radius: 0;
     font-size: 14px;
     padding: 0 5px;
+    z-index: 2;
 }
 
     .content-container .form input:not(.k-input):focus {
@@ -270,7 +285,22 @@ input {
         -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
         -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
         box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
+        z-index: 3;
     }
+
+input.quickFilters {
+    position: relative;
+    width: 31.33%;
+    margin: 0 -5px -1px 0;
+}
+
+    input.quickFilters:last-of-type {
+        width: 6.2%;
+    }
+
+        input.quickFilters:last-of-type[disabled] {
+            background: #FFFFFF;
+        }
 
 .content-container .input-group .input-group-btn a {
     padding: 19px 18px;
@@ -416,7 +446,7 @@ input {
     box-shadow: 0px 0px 20px -6px #888888 inset; /* Opera 10.5, IE9, Chrome 10+ */
 }
 
-.btn.btn-tabList {
+.btn.btn-tabList, .btn.btn-tabList:hover {
     margin: 0;
     background-color: #FFFFFF;
     border-color: #CCCCCC;
@@ -427,7 +457,7 @@ input {
     border-bottom-right-radius: 0;
     width: 25%;
     height: 40px;
-    z-index: -1;
+    z-index: 1;
 }
 
     .btn.btn-tabList:focus {
@@ -446,7 +476,19 @@ input {
         -moz-box-shadow: 0px 5px 10px #888888; /* FF3.5+ */
         -webkit-box-shadow: 0px 5px 10px #888888; /* Saf3.0+, Chrome */
         box-shadow: 0px 5px 10px #888888; /* Opera 10.5, IE9, Chrome 10+ */
-        z-index: 0;
+        z-index: 2;
+    }
+
+    .btn.btn-tabList:first-of-type.active {
+        -moz-box-shadow: 5px 2px 10px -3px #888888; /* FF3.5+ */
+        -webkit-box-shadow: 5px 2px 10px -3px #888888; /* Saf3.0+, Chrome */
+        box-shadow: 5px 2px 10px -3px #888888; /* Opera 10.5, IE9, Chrome 10+ */
+    }
+
+    .btn.btn-tabList:last-of-type.active {
+        -moz-box-shadow: -5px 2px 10px -3px #888888; /* FF3.5+ */
+        -webkit-box-shadow: -5px 2px 10px -3px #888888; /* Saf3.0+, Chrome */
+        box-shadow: -5px 2px 10px -3px #888888; /* Opera 10.5, IE9, Chrome 10+ */
     }
 
 .btn-tabList span {
@@ -480,9 +522,14 @@ input {
 
     .buttonBar.left {
         text-align: justify;
+        margin-bottom: 20px;
     }
 
-    .buttonBar.top,
+        .buttonBar.left .btn {
+            margin-left: 0;
+        }
+
+/*.buttonBar.top,
     .buttonBar.top .btn {
         margin-top: 0;
     }
@@ -492,7 +539,7 @@ input {
             margin-left: 0;
             border-radius: 0;
             box-shadow: none;
-        }
+        }*/
 
 #Creacion.btn {
     background-image: url("/Content/images/SAMC_AddIcon.png");
@@ -522,8 +569,8 @@ input {
     }*/
 
 .btn-group > .btn + .dropdown-toggle {
-    padding-right: 13px;
-    padding-left: 13px;
+    padding-right: 11px;
+    padding-left: 11px;
 }
 
 #Imprimir.btn {
@@ -651,7 +698,7 @@ h2 {
     }*/
 }
 
-@media (max-width: 1540px) {
+@media (max-width: 1199px) {
 
     /*$_btn*/
     .buttonBar {

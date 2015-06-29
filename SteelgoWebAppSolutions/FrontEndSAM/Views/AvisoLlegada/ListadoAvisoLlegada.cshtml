@@ -64,7 +64,7 @@
         </div>*@
         @*<div class="col-sm-12 col-md-12 col-lg-2 filterBtns">
             <div class="row">
-                <div class="form-group buttonBar col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
                     <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow">
                         <span id="ListadoAvisoLlegada0017"></span>
                     </a>
@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <div class="btn-group tabList col-lg-12" role="group" arial-label="tabList">
+                        <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
                             <button id="btnCreados" class="btn btn-tabList"><span id="ListadoAvisoLlegada0027"></span><span id="spanCreados"></span></button>
                             <button id="btnSinPermiso" class="btn btn-tabList"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso"></span></button>
                             <button id="btnSinAutorizacion" class="btn btn-tabList"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion"></span></button>
@@ -85,9 +85,12 @@
                         </div>
                     </div>
                     <div class="row">
-                            <input id="FolioID" class="" />
-                            <input id="FechaCreacion" class="" />
-                            <input id="FechaEstimada" class="" />
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input id="FolioID" class="quickFilters" />
+                            <input id="FechaCreacion" class="quickFilters" />
+                            <input id="FechaEstimada" class="quickFilters" />
+                            <input id="Cancel" class="quickFilters" disabled />
+                        </div>
                     </div>
                     <div id="grid"></div>
                 </div>
@@ -192,7 +195,7 @@
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
                     { field: "FechaCreacion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FechaEstimada", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
+                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
                 ],
                 dataBound: function (e) {
                     $(".k-grid input.k-textbox").prop( 'readonly' , true);                    
@@ -452,16 +455,52 @@
 
         //Botones Dashboard
         $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
-        $("#btnSinPermiso").click(function () { tabActivo("2"); AccionesListado(2); });
+        $("#btnSinPermiso").click(function () {
+            alert("1");
+            tabActivo("2");
+            AccionesListado(2);
+        });
         $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
         $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
 
         $("#Mostrar").click(function () { Filtros(0); });
-        $("#Creacion").click(function (e) {
+        $("#Nuevo").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-    
+
+        $("#FolioID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioAvisoLlegadaID",
+                    "operator": "startswith",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaCreacion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaCreacion",
+                    "operator": "startswith",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaEstimada").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaEstimada",
+                    "operator": "startswith",
+                    "value": this.value
+                }
+            ]);
+        });
         //$("#FolioAvisoLlegadaID").kendoAutoComplete({            
         //    dataTextField: "id",
         //    dataValueField: "value",

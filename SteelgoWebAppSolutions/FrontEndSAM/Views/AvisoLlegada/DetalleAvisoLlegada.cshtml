@@ -21,8 +21,10 @@
             <span id="divFolio" class="folioLabel hidden">
                 <span id="DetalleAvisoLlegada0042"></span>
                 <span id="spanFolio"></span>
+                <span id="DetalleAvisoLlegada0053">Status</span>
+                <span id="">Pendiente de Permiso</span>                
+                <div class="branchCut"></div>
             </span>
-            @*<span id="DetalleAvisoLlegada0041" class="title"></span>*@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -31,7 +33,7 @@
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caret"></span>
+                                    <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" id="GuardarNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
@@ -47,7 +49,7 @@
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleAvisoLlegada0064"></span>
-                                    <span class="caret"></span>
+                                    <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectDashboard" href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
@@ -111,7 +113,7 @@
                                 <div class="col-sm-5 col-md-6 col-lg-2">
                                     <input id="TipoArchivo" class="" />
                                 </div>
-                                <div class="col-sm-7 col-md-6 col-lg-6">
+                                <div class="col-sm-7 col-md-6 col-lg-5">
                                     <input name="files" id="files" type="file" />
                                 </div>
                             </div>
@@ -133,6 +135,10 @@
                                         </td>
                                     </tr>
                                 </thead>
+                                <tbody>
+
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -158,7 +164,7 @@
                     <input name="files" id="PackingList" type="file" class="" />
                 </div>
                 <div class="col-sm-5 col-md-4 col-lg-4">
-                    <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary buttonBar">
+                    <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary">
                         <span id="DetalleAvisoLlegada0043"></span>
                     </a>
                 </div>
@@ -296,7 +302,7 @@
                 <input id="Descripcion_Patio" class="l" />
             </div>
             <div class="form-group">
-                <label id="DetalleAvisoLlegada0075"></label>
+                <label id="DetalleAvisoLlegada0075" class="checkLabel"></label>
                 <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
             </div>
             <div class="buttonSave">
@@ -408,11 +414,12 @@
         //your partial views variables
         var FechaRecepcion;
         var folio = getUrlParameter("folio", "-1");
+        var _tipoArchivo = 0;
         var Transportista = [], Proveedor = [], Patio = [],
             Plana = [], Chofer = [], Contacto = [], Camion = [],
             CamionEntradaMaterial = {}, TransportistaCamion = [],
             ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
-            Cliente = {}, TipoAvisos = {}, TipoArchivo = [];
+            Cliente = {}, TipoAvisos = {}, TipoArchivo = {};
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -521,10 +528,6 @@
                 //**Eventos
                 $("#Guardar").click(function (e) {
                     GuardarAvisoLlegada();
-                    //$("#PaseSalida").show();
-                    //$("#PermisoAduana").show();
-                    //var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                    //window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
 
                 $("#GuardarNuevo").click(function (e) {
@@ -532,7 +535,9 @@
                 });
                 
                 $("#Editar").click(function (e) {
-                    GuardarAvisoLlegada();
+                    BotonEdicion();
+                    $("#TramitarPermiso").removeAttr('disabled');
+                    $("#files").data("kendoUpload").enable();
                 });
 
                 $("#Cancelar").click(function (e) {
@@ -565,7 +570,9 @@
                 $("#CancelarPlana").click(function (e) { CancelarPlana(); });
                 $("#CancelarCamion").click(function (e) { CancelarCamion(); });
                 
+               
                 //Permiso Aduana
+                $("#TramitarPermiso").attr('disabled', 'disabled');
                 $("#TramitarPermiso").click(function () { GenerarPermiso(); });
                 //Pase Salida
                 $("#ImprimirPase").click(function () {
@@ -630,6 +637,7 @@
                             VentanaModal(1);
                             e.preventDefault();
                         }
+                        ObtenerChofer(dataItem.TransportistaID);
                         CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
                     },
                     change: function (e) {
@@ -707,13 +715,15 @@
                     },
                     filter: "contains",
                 });
-                ObtenerChofer();
+                //ObtenerChofer();
 
                 $("#TipoArchivo").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "TipoArchivoID",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
+                        _tipoArchivo = dataItem.TipoArchivoID;
+                        alert("_tipoArchivo: " + _tipoArchivo);
                         CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
                     },
                     filter: "contains",
@@ -723,23 +733,22 @@
                 $('#files').kendoUpload({
                     async: {
                         ////VAlida que este tomando todos los parametros por favor
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,
                         batch: true
                     },
                     success: function (data) {
                         debugger;
-                        $.each(data, function (index, value) {
-                            debugger;
-                            $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                        });
+                        HabilitarObtenerDocumentosAvisoLlegada();
                     },
                     error: function (data) { },
                     upload: onUpload
                 });
-                
-                
+                $("#files").data("kendoUpload").enable(false);
+                $("#files").on('drop', function (event) {
+                    event.preventDefault();
+                });
                 //modal transportista
                 $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoComboBox({
                     dataTextField: "Nombre",
@@ -854,36 +863,6 @@
                     filter: "contains",
                 });
                 ObtenerChoferCamion();
-
-               /* $('#ArchivoAutorizar').kendoUpload({
-                    async: {
-                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")' + "?",
-                        autoUpload: false
-                    },
-                    success: function (data) {
-                        $("#hdArchivoAutorizado").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
-                        $("#hdPermisoAutorizado").val(1);
-                        $("#ArchivoAutorizar").data("kendoUpload").disable();
-                        $("#NumeroPermiso").attr("disabled", "disabled");
-                    },
-                    error: function (data) { },
-                    upload: onUploadArchivoAutorizar
-                });
-            
-                $('#PackingList').kendoUpload({
-                    async: {
-                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                        autoUpload: false
-                    },
-                    success: function (data) {                    
-                        $.each(data, function (index, value) {
-                            $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                        });
-                    },
-                    error: function (data) { },
-                    upload: onUploadArchivoPaseSalida
-                });*/
-
                 ObtenerFechaDefault();
             };
         
@@ -904,6 +883,7 @@
                     alert("Por favor, seleccionar el tipo de archivo");
                     e.preventDefault();
                 }
+                $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
                 //if (folio == -1) {
                 //    alert("Favor de guardar el aviso de llegada antes de subir archivos");
                 //    e.preventDefault();
@@ -1073,6 +1053,7 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").enable();
                 $("#files").data("kendoUpload").enable();
+                HabilitarObtenerDocumentosAvisoLlegada();
             };
 
             function deshabilitarControles() {
@@ -1089,24 +1070,16 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").enable(false);
                 $("#files").data("kendoUpload").enable(false);
-            };
-
-            function descargarArchivo(id) {
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyDescargarArchivo');
-
-                Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyDescargarArchivo.read");
+                $("#files").on('drop', function (event) {
+                    event.preventDefault();
                 });
+                DesahabilitarObtenerDocumentosAvisoLlegada();
             };
 
             function borrarArchivo(id,fila) {
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyFileManager');
-
-                Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                $DocumentoAvisoLlegada.DocumentoAvisoLlegada.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
                     fila.closest("tr").remove();
-                    console.log("Client.DummyFileManager.destroy");
+                    console.log("Client.DocumentoAvisoLlegada.destroy");
                 });
             };
 
@@ -1124,6 +1097,7 @@
 
                     Error(data);
 
+                    $("#files").data("kendoUpload").enable();
                     $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
                         console.log(" concat:" + concat);
@@ -1187,7 +1161,7 @@
                     }
 
                     $.each(data.Archivos, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.ArchivoID + ");'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.ArchivoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.ArchivoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
 
                     //Permiso Aduana
@@ -1323,11 +1297,8 @@
             };
 
             function CargarTipoArchivo(id, value) {
-                TipoArchivo = [];
-                _tipoarchivo = {};
-                _tipoarchivo["TipoArchivoID"] = id;
-                _tipoarchivo["Nombre"] = value;
-                TipoArchivo.push(_tipoarchivo);
+                TipoArchivo = {};
+                TipoArchivo = {TipoArchivoID: id, Nombre: value};
             };
 
             function VentanaModal(id) {
@@ -1707,13 +1678,14 @@
                 });
             };
 
-            function ObtenerChofer() {
-                $Chofer.Chofer.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+            function ObtenerChofer(transportistaID) {
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     Error(result);
                     $("#ChoferID").data("kendoComboBox").dataSource.data(result);
                 });
-            }
+            };
 
+            
             function ObtenerChoferCamion() {
                 $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
@@ -1798,6 +1770,31 @@
                 });
             };
 
+            function DesahabilitarObtenerDocumentosAvisoLlegada() {
+                $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    loadingStart();
+                    if (result.length > 0) {
+                        $("#listaArchivos tbody").empty();
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a href='" + result.Url + "'>" + result.Nombre + "</a></td><td>" + result.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    }
+                    loadingStop();
+                });
+            };
+            function HabilitarObtenerDocumentosAvisoLlegada() {
+                $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    loadingStart();
+                    if (result.length > 0) {
+                        $("#listaArchivos tbody").empty();
+                        $.each(result, function (index, value) {
+                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                    }
+                    loadingStop();
+                });
+            };
+
             function Error(data) {
                 if (data.ReturnCode) {
                     if (data.ReturnCode != 200) {
@@ -1820,24 +1817,7 @@
             {
                 CargaInicialEdicion(folio);
             }
-            else
-            {
 
-                // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.        
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyFileManager');
-
-                Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    });
-
-                    //$.each(data, function (index, value) {
-                    //    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    //});
-
-                });
-            }
 
             $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
             $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;

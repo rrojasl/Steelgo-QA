@@ -95,7 +95,9 @@ namespace BackEndSAM.DataAcces
                                                          elemetId = mg.MenuID,
                                                          idPadre = mg.IDPadre,
                                                          liga = mg.Liga,
-                                                         texto = mg.Texto
+                                                         texto = mg.Texto,
+                                                         icono = mg.Icono,
+                                                         nivel = mg.Nivel.Value
                                                      }).ToList();
 
                 objsidemenu.elements = lstElements;

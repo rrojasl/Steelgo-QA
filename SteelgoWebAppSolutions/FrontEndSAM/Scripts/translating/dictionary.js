@@ -457,8 +457,8 @@ _dictionary = {
         "en-US": "Detail Input Material"
     },
     "DetalleAvisoLlegada0053": {
-        "es-MX": "Aviso de Entrada de Material",
-        "en-US": "Notice of Entry Material"
+        "es-MX": "Estatus",
+        "en-US": "Status"
     },
     "DetalleAvisoLlegada0054": {
         "es-MX": "Permiso Aduana",
