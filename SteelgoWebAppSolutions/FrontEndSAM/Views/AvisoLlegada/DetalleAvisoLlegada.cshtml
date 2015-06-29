@@ -686,6 +686,7 @@
                             e.preventDefault();
                         }
                         CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                        ObtenerPatioRequierePermiso();
                     },
                     change: function (e) {
                         var value = this.value();
@@ -1141,6 +1142,11 @@
                     //    CargarProveedor(data.Proveedor[0].ProveedorID, data.Proveedor[0].Nombre);
                     //    $("#ProveedorID").data("kendoComboBox").value(data.Proveedor[0].Nombre);
                     //}
+
+                    if (data.Estatus == "Autorizado") {
+                        ocultarStatus();
+                        $("#DetalleAvisoLlegada0085").show();
+                    };
 
                     $.each(data.Plana, function (index, value) {
                         concatPlanas += "," + value.PlanaID;
