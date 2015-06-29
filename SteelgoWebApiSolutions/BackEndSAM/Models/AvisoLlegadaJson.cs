@@ -21,6 +21,7 @@ namespace BackEndSAM.Models
         public bool PaseSalidaEnviado { get; set; }
         public TipoAvisoAV TipoAviso { get; set; }
         public Cliente Cliente { get; set; }
+        public string Estatus { get; set; }
 
         public AvisoLlegadaJson()
         {

@@ -450,6 +450,7 @@ namespace BackEndSAM.DataAcces
 
                     aviso.FechaRecepcion = registroBd.FechaRecepcion.ToString();
                     aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
+                    aviso.Estatus = registroBd.Estatus;
 
                     TractoAV tractoBd = (from r in ctx.Sam3_Vehiculo
                                          where r.Activo
