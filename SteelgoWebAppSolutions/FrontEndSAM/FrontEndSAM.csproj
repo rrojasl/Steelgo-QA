@@ -436,6 +436,15 @@
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Icon.png" />
+    <Content Include="Scripts\AppComponents\AvisoLlegada\Dashboard.js" />
+    <Content Include="Scripts\AppComponents\AvisoLlegada\ListadoEspecifico.js" />
+    <Content Include="Scripts\AppComponents\Core\ApiManager.js" />
+    <Content Include="Scripts\AppComponents\Core\TranslationManager.js" />
+    <Content Include="Scripts\AppComponents\Core\UtilitiesManager.js" />
+    <Content Include="Scripts\AppComponents\LlegadaMaterial\Dashboard.js" />
+    <Content Include="Scripts\AppComponents\LlegadaMaterial\ListadoEspecifico.js" />
+    <Content Include="Scripts\AppComponents\RecepcionMaterial\Dashboard.js" />
+    <Content Include="Scripts\AppComponents\RecepcionMaterial\ListadoEspecifico.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CODE128.js" />
@@ -921,6 +930,7 @@
     <Content Include="Scripts\kendo\2014.2.716\messages\kendo.messages.en-US.js" />
     <Content Include="Scripts\kendo\2014.2.716\messages\kendo.messages.es-MX.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\AppComponents\Core\SecurityManager.js" />
     <Content Include="Scripts\translating\dictionary.js" />
     <Content Include="Scripts\xdomain.js" />
     <Content Include="Web.config">
