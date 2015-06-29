@@ -205,6 +205,7 @@
     <Compile Include="DataAcces\ProveedorBd.cs" />
     <Compile Include="DataAcces\ProyectoBd.cs" />
     <Compile Include="DataAcces\TransportistaBd.cs" />
+    <Compile Include="DataAcces\UsuarioBd.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

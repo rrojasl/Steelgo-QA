@@ -41,14 +41,18 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoProyectos()
+        public object ObtenerListadoProyectos(Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<int> patios;
+                    List<int> proyectos;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     List<Proyecto> lstProyectos = (from r in ctx.Sam3_Proyecto
-                                                   where r.Activo
+                                                   where r.Activo && proyectos.Contains(r.ProyectoID)
                                                    select new Proyecto
                                                    {
                                                        Nombre = r.Nombre,

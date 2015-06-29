@@ -28,7 +28,9 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                return AvisoLlegadaBd.Instance.ObtenerListadoAvisoLlegada(filtros);
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                return AvisoLlegadaBd.Instance.ObtenerListadoAvisoLlegada(filtros, usuario);
             }
             else
             {
@@ -48,6 +50,8 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 return AvisoLlegadaBd.Instance.ObtenerAvisoLlegadaPorID(avisollegadaID);
             }
             else
