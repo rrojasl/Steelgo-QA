@@ -414,11 +414,12 @@
         //your partial views variables
         var FechaRecepcion;
         var folio = getUrlParameter("folio", "-1");
+        var _tipoArchivo = 0;
         var Transportista = [], Proveedor = [], Patio = [],
             Plana = [], Chofer = [], Contacto = [], Camion = [],
             CamionEntradaMaterial = {}, TransportistaCamion = [],
             ChoferCamion = [], TipoVehiculoTracto = [], TipoVehiculoPlana = [],
-            Cliente = {}, TipoAvisos = {}, TipoArchivo = [];
+            Cliente = {}, TipoAvisos = {}, TipoArchivo = {};
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -636,6 +637,7 @@
                             VentanaModal(1);
                             e.preventDefault();
                         }
+                        ObtenerChofer(dataItem.TransportistaID);
                         CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
                     },
                     change: function (e) {
@@ -713,13 +715,15 @@
                     },
                     filter: "contains",
                 });
-                ObtenerChofer();
+                //ObtenerChofer();
 
                 $("#TipoArchivo").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "TipoArchivoID",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
+                        _tipoArchivo = dataItem.TipoArchivoID;
+                        alert("_tipoArchivo: " + _tipoArchivo);
                         CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
                     },
                     filter: "contains",
@@ -729,14 +733,14 @@
                 $('#files').kendoUpload({
                     async: {
                         ////VAlida que este tomando todos los parametros por favor
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&TipoArchivoID=" + $("#TipoArchivo").data("kendoComboBox").value() + "&token=" + Cookies.get("token"),
+                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,
                         batch: true
                     },
                     success: function (data) {
                         debugger;
-                        ObtenerDocumentosAvisoLlegada();
+                        HabilitarObtenerDocumentosAvisoLlegada();
                     },
                     error: function (data) { },
                     upload: onUpload
@@ -877,6 +881,7 @@
                     alert("Por favor, seleccionar el tipo de archivo");
                     e.preventDefault();
                 }
+                $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
                 //if (folio == -1) {
                 //    alert("Favor de guardar el aviso de llegada antes de subir archivos");
                 //    e.preventDefault();
@@ -1087,6 +1092,7 @@
 
                     Error(data);
 
+                    $("#files").data("kendoUpload").enable();
                     $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
                         console.log(" concat:" + concat);
@@ -1286,11 +1292,8 @@
             };
 
             function CargarTipoArchivo(id, value) {
-                TipoArchivo = [];
-                _tipoarchivo = {};
-                _tipoarchivo["TipoArchivoID"] = id;
-                _tipoarchivo["Nombre"] = value;
-                TipoArchivo.push(_tipoarchivo);
+                TipoArchivo = {};
+                TipoArchivo = {TipoArchivoID: id, Nombre: value};
             };
 
             function VentanaModal(id) {
@@ -1670,13 +1673,14 @@
                 });
             };
 
-            function ObtenerChofer() {
-                $Chofer.Chofer.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+            function ObtenerChofer(transportistaID) {
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     Error(result);
                     $("#ChoferID").data("kendoComboBox").dataSource.data(result);
                 });
-            }
+            };
 
+            
             function ObtenerChoferCamion() {
                 $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
