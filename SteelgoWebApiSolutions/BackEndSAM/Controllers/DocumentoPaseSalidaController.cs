@@ -71,7 +71,7 @@ namespace BackEndSAM.Controllers
                         {
                             Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
-                            var path = HttpContext.Current.Server.MapPath("~/uploads/" + docguID + "_" + postedFile.FileName);
+                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + postedFile.FileName);
                             string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + postedFile.FileName; 
                             string[] st = postedFile.FileName.Split('.');
                             string extencion = "." + st[1];
