@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join d in ctx.Sam3_Rel_FolioAvisoLlegada_Documento on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
                                                         join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
-                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_FolioAvisoLlegada_DocumentoID.ToString(),
@@ -119,7 +119,7 @@ namespace BackEndSAM.DataAcces
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                                         join d in ctx.Sam3_Rel_PermisoAduana_Documento on p.PermisoAduanaID equals d.PermisoAduanaID
-                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
@@ -150,7 +150,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join d in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
-                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId
+                                                        where r.Activo.Value == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_Folio_PaseSalida_Archivo_ID.ToString(),
