@@ -213,6 +213,14 @@ namespace BackEndSAM.DataAcces
  
                     }
 
+                    //Actualizar estatus de FolioAvisoLlegada
+                    Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAviso)
+                        .AsParallel().SingleOrDefault();
+                    aviso.Estatus = "Autorizado";
+                    aviso.FechaModificacion = DateTime.Now;
+                    aviso.UsuarioModificacion = documentos[0].UserId;
+
+
                     //Guardamos la informacion de los documentos
                     foreach (DocumentoPosteado d in documentos)
                     {
