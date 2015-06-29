@@ -804,19 +804,21 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Rel_PermisoAduana_Documento permiso = (from r in ctx.Sam3_PermisoAduana
-                                                                join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
-                                                                where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo
-                                                                select d).SingleOrDefault();
+                    DocumentoPermisoAduana permiso = (from r in ctx.Sam3_PermisoAduana
+                                                      join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
+                                                      join p in ctx.Sam3_PermisoAduana on d.PermisoAduanaID equals p.PermisoAduanaID
+                                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo && d.Activo
+                                                      select new DocumentoPermisoAduana
+                                                      {
+                                                          DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
+                                                          NumeroPermiso = p.NumeroPermiso.ToString(),
+                                                          PermisoAutorizado = p.PermisoAutorizado.Value,
+                                                          Url = d.Url
+                                  
+                                                      }).AsParallel().SingleOrDefault();
 
-                    HttpResponseMessage result = new HttpResponseMessage();
-                    result.StatusCode = HttpStatusCode.OK;
-                    FileStream stream = new FileStream(permiso.Url, FileMode.Open);
-                    result.Content = new StreamContent(stream);
-                    result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    result.Content = new StringContent(permiso.Sam3_PermisoAduana.NumeroPermiso.ToString());
-
-                    return result;
+                   
+                    return permiso;
                 }
             }
             catch (Exception ex)
