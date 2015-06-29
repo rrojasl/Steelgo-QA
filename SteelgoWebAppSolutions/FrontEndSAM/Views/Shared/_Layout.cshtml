@@ -388,35 +388,32 @@
 
             //Toggle for main menu's submenus           
             /*Open menus on hover*/
-            $("ul.main-menu > li:not('.shortcut')").hover(
-                function () {               
-                    if($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
-                        $("ul.sub-menu2").removeClass("open");
-                        $("ul.sub-menu > li").removeClass("active expand");
-                        $(this).children("ul").toggleClass("open");
-                        $("i.arrow").toggleClass("down");                    
-                    }
-                    else if (!$("#sidebar").hasClass("minified")) {
-                        $("#sidebar li").removeClass('active');
-                        $("#sidebar ul").removeClass('open');
-                        $(this).closest("li").addClass('active').children("ul").addClass("open");
-                        $("i.arrow").addClass("down");
-                    }
-                    else {
-                        $("#sidebar li").removeClass('active');
-                        $("#sidebar ul").removeClass('open'); 
-                        $(this).addClass('active');                  
-                    }
-                },
-                function () {
+            $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {               
+                if($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
+                    $("ul.sub-menu2").removeClass("open");
+                    $("ul.sub-menu > li").removeClass("active expand");
+                    $(this).children("ul").toggleClass("open");
+                    $("i.arrow").toggleClass("down");                    
+                }
+                else if (!$("#sidebar").hasClass("minified")) {
+                    $("#sidebar li").removeClass('active');
+                    $("#sidebar ul").removeClass('open');
+                    $(this).closest("li").has("ul").addClass('active').children("ul").addClass("open");
+                    $("i.arrow").addClass("down");
+                }
+                else {
                     $("#sidebar li").removeClass('active');
                     $("#sidebar ul").removeClass('open'); 
-                    $(this).removeClass('active');
+                    $(this).addClass('active');                  
                 }
-            );
+            }).on("mouseleave", "ul.main-menu > li:not('.shortcut')", function () {
+                $("#sidebar li").removeClass('active');
+                $("#sidebar ul").removeClass('open'); 
+                $(this).removeClass('active');
+            });
             
             /*Open menus on click*/
-            $("ul.main-menu > li:not('.shortcut') > a").click(function () {               
+            $(document).on("click", "ul.main-menu > li:not('.shortcut') > a", function () {               
                 if($(this).closest("li").hasClass('active') && !$("#sidebar").hasClass("minified")) {
                     $("ul.sub-menu2").removeClass("open");
                     $("ul.sub-menu > li").removeClass("active expand");
@@ -438,7 +435,7 @@
 
             //Toggle for second submenu
             /*Open menus on hover*/
-            $("ul.sub-menu > li").hover(function () {
+            $(document).on("mouseenter", "ul.sub-menu > li", function () {
                 if($(this).children("ul.sub-menu2").hasClass('open')) {
                     $(this).removeClass("active expand");                    
                     $(this).children("ul.sub-menu2").removeClass("open");                  
@@ -453,7 +450,7 @@
             });            
             
             /*Open menus on click*/
-            $("ul.sub-menu > li > a").click(function () {
+            $(document).on("click", "ul.sub-menu > li > a", function () {
                 if($(this).parent().children("ul.sub-menu2").hasClass('open')) {
                     $(this).parent("li").removeClass("active expand");                    
                     $(this).parent().children("ul.sub-menu2").removeClass("open");                  
@@ -482,7 +479,7 @@
             });*/
 
             //Toggle for last submenu's links         
-            $("ul.sub-menu3 > li > a").click(function () {                
+            $(document).on("click", "ul.sub-menu3 > li > a", function () {                
                 $("ul.sub-menu2 li").removeClass("active");                  
                 $("ul.sub-menu3").removeClass("open");                                                                         
             });
