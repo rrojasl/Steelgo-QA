@@ -245,28 +245,15 @@
         };
 
         function ObtenerAccionesListado() {
-
-            $("#spanCreados").html("(115)");
-            $("#spanSinPermiso").html("(12)");
-            $("#spanSinAutorizacion").html("(32)");
-            $("#spanCompletos").html("(71)");
             
-            
-            //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-            //    if (data.ReturnCode) {
-            //        if (data.ReturnCode == 401) {
-            //            removeUserSession();
-            //        } else {
-            //            alert("ReturnMessage: " + data.ReturnMessage);
-            //            return;
-            //        }
-            //    }
+            $folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+                Error(result);
 
-            //    $("#spanCreados").html("("+ data.Creados +")");
-            //    $("#spanSinPermiso").html("(" + data.SinPermiso + ")");
-            //    $("#spanSinAutorizacion").html("(" + data.SinAutorizacion + ")");
-            //    $("#spanCompletos").html("(" + data.Completos + ")");
-            //});
+                $("#spanCreados").html(result.Creados);
+                $("#spanSinPermiso").html(result.SinPermiso);
+                $("#spanSinAutorizacion").html(result.SinAutorizacion);
+                $("#spanCompletos").html(result.Completos);
+            });
         };
 
         function CargarControlesFiltrado() { };

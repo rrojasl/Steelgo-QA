@@ -501,6 +501,7 @@
         var $PermisoTramite = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var $DocumentoAvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var $ValidacionFolioConPermisoAduana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         var redireccionAutomatica = true;
         
         $Plana.add("Plana");
@@ -521,6 +522,7 @@
         $TipoArchivo.add("TipoArchivo");
         $PermisoTramite.add("PermisoAduana");        
         $DocumentoAvisoLlegada.add("DocumentoAvisoLlegada");
+        $ValidacionFolioConPermisoAduana.add("ValidacionFolioConPermisoAduana");
 
         var $authorizationModel = {};
         var $layoutModel = {
