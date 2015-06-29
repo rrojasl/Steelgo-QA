@@ -187,6 +187,7 @@ namespace BackEndSAM.DataAcces
 
                     permisoBd.PermisoAutorizado = true;
                     permisoBd.PermisoTramite = false;
+                    permisoBd.NumeroPermiso = documentos[0].NumeroPermisoAduana;
                     permisoBd.Estatus = "Autorizado";
                     permisoBd.FechaAutorización = DateTime.Now;
                     permisoBd.FechaModificacion = DateTime.Now;
