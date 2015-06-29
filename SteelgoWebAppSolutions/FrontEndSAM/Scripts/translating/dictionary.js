@@ -580,6 +580,18 @@ _dictionary = {
         "es-MX": "Cancelar Folio",
         "en-US": "Cancel Folio"
     },
+    "DetalleAvisoLlegada0084": {
+        "es-MX": "Generado",
+        "en-US": "Generated"
+    },
+    "DetalleAvisoLlegada0085": {
+        "es-MX": "Autorizado",
+        "en-US": "Authorized"
+    },
+    "DetalleAvisoLlegada0086": {
+        "es-MX": "Cancelado",
+        "en-US": "Canceled"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",
