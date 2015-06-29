@@ -18,6 +18,7 @@ using BackEndSAM.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Configuration;
 
 namespace BackEndSAM.Controllers
 {
@@ -72,8 +73,8 @@ namespace BackEndSAM.Controllers
                         {
                             Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
-                            var ruta = HttpContext.Current.Server.MapPath("~/App_Data/uploads/" + docguID + "." + postedFile.FileName);
-                            //string ruta = @"C:\Sam3Files\Uploads\" + docguID + "." + postedFile.FileName; 
+                            var path = HttpContext.Current.Server.MapPath("~/uploads/" + docguID + "_" + postedFile.FileName);
+                            string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + postedFile.FileName; 
                             string[] st = postedFile.FileName.Split('.');
                             string extencion = "." + st[1]; 
                             lstArchivos.Add(new DocumentoPosteado
@@ -89,7 +90,7 @@ namespace BackEndSAM.Controllers
                                 Extencion = extencion
                             });
 
-                            postedFile.SaveAs(ruta);
+                            postedFile.SaveAs(path);
                             docfiles.Add(ruta);
                         }
 

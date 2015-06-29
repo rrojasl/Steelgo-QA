@@ -223,7 +223,7 @@ namespace BackEndSAM.DataAcces
                                 result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
 
-                            if (Convert.ToInt32(filtros.PatioID) > 0)
+                            if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
                             {
                                 int temp = Convert.ToInt32(filtros.PatioID);
                                 result = result.Where(x => x.PatioID == temp).ToList();
@@ -244,7 +244,7 @@ namespace BackEndSAM.DataAcces
                                 result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
 
-                            if (Convert.ToInt32(filtros.PatioID) > 0)
+                            if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
                             {
                                 int temp = Convert.ToInt32(filtros.PatioID);
                                 if (result != null)
