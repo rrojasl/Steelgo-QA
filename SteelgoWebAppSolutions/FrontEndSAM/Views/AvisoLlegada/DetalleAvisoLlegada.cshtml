@@ -135,6 +135,10 @@
                                         </td>
                                     </tr>
                                 </thead>
+                                <tbody>
+
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -523,10 +527,6 @@
                 //**Eventos
                 $("#Guardar").click(function (e) {
                     GuardarAvisoLlegada();
-                    //$("#PaseSalida").show();
-                    //$("#PermisoAduana").show();
-                    //var Listado = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                    //window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
 
                 $("#GuardarNuevo").click(function (e) {
@@ -534,7 +534,9 @@
                 });
                 
                 $("#Editar").click(function (e) {
-                    GuardarAvisoLlegada();
+                    BotonEdicion();
+                    $("#TramitarPermiso").removeAttr('disabled');
+                    $("#files").data("kendoUpload").enable();
                 });
 
                 $("#Cancelar").click(function (e) {
@@ -567,7 +569,9 @@
                 $("#CancelarPlana").click(function (e) { CancelarPlana(); });
                 $("#CancelarCamion").click(function (e) { CancelarCamion(); });
                 
+               
                 //Permiso Aduana
+                $("#TramitarPermiso").attr('disabled', 'disabled');
                 $("#TramitarPermiso").click(function () { GenerarPermiso(); });
                 //Pase Salida
                 $("#ImprimirPase").click(function () {
@@ -732,15 +736,12 @@
                     },
                     success: function (data) {
                         debugger;
-                        $.each(data, function (index, value) {
-                            debugger;
-                            $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#TipoArchivo").data("kendoComboBox").value() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                        });
+                        ObtenerDocumentosAvisoLlegada();
                     },
                     error: function (data) { },
                     upload: onUpload
                 });
-                
+                $("#files").data("kendoUpload").enable(false);
                 
                 //modal transportista
                 $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoComboBox({
@@ -856,36 +857,6 @@
                     filter: "contains",
                 });
                 ObtenerChoferCamion();
-
-               /* $('#ArchivoAutorizar').kendoUpload({
-                    async: {
-                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")' + "?",
-                        autoUpload: false
-                    },
-                    success: function (data) {
-                        $("#hdArchivoAutorizado").val(data.id + ',' + data.Archivo + "," + data.Extension);//Se guarda en un hidden el archivo autorizado
-                        $("#hdPermisoAutorizado").val(1);
-                        $("#ArchivoAutorizar").data("kendoUpload").disable();
-                        $("#NumeroPermiso").attr("disabled", "disabled");
-                    },
-                    error: function (data) { },
-                    upload: onUploadArchivoAutorizar
-                });
-            
-                $('#PackingList').kendoUpload({
-                    async: {
-                        saveUrl: '@Url.Action("AvisoLlegada", "FileUploadFile")',
-                        autoUpload: false
-                    },
-                    success: function (data) {                    
-                        $.each(data, function (index, value) {
-                            $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                        });
-                    },
-                    error: function (data) { },
-                    upload: onUploadArchivoPaseSalida
-                });*/
-
                 ObtenerFechaDefault();
             };
         
@@ -1075,6 +1046,7 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").enable();
                 $("#files").data("kendoUpload").enable();
+                HabilitarObtenerDocumentosAvisoLlegada();
             };
 
             function deshabilitarControles() {
@@ -1091,24 +1063,13 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").enable(false);
                 $("#files").data("kendoUpload").enable(false);
-            };
-
-            function descargarArchivo(id) {
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyDescargarArchivo');
-
-                Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyDescargarArchivo.read");
-                });
+                DesahabilitarObtenerDocumentosAvisoLlegada();
             };
 
             function borrarArchivo(id,fila) {
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyFileManager');
-
-                Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+                $DocumentoAvisoLlegada.DocumentoAvisoLlegada.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
                     fila.closest("tr").remove();
-                    console.log("Client.DummyFileManager.destroy");
+                    console.log("Client.DocumentoAvisoLlegada.destroy");
                 });
             };
 
@@ -1189,7 +1150,7 @@
                     }
 
                     $.each(data.Archivos, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.ArchivoID + ");'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.ArchivoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.ArchivoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
 
                     //Permiso Aduana
@@ -1800,6 +1761,29 @@
                 });
             };
 
+            function DesahabilitarObtenerDocumentosAvisoLlegada() {
+                $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    loadingStart();
+                    if (result.length > 0) {
+                        $("#listaArchivos tbody").empty();
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a href='" + result.Url + "'>" + result.Nombre + "</a></td><td>" + result.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    }
+                    loadingStop();
+                });
+            };
+            function HabilitarObtenerDocumentosAvisoLlegada() {
+                $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
+                    Error(result);
+                    loadingStart();
+                    if(result.length > 0) {
+                        $("#listaArchivos tbody").empty();
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a href='" + result.Url + "'>" + result.Nombre + "</a></td><td>" + result.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    }
+                    loadingStop();
+                });
+            };
+
             function Error(data) {
                 if (data.ReturnCode) {
                     if (data.ReturnCode != 200) {
@@ -1822,24 +1806,7 @@
             {
                 CargaInicialEdicion(folio);
             }
-            else
-            {
 
-                // simulacion de la alta de archivos ya que manda error y no termina en el success, checar consola al parecer es algo del servicio de la api, por que la peticion si llega.        
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyFileManager');
-
-                Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                    $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + "Prueba tipo 1" + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                    });
-
-                    //$.each(data, function (index, value) {
-                    //    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    //});
-
-                });
-            }
 
             $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
             $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;

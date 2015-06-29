@@ -381,13 +381,15 @@ namespace BackEndSAM.DataAcces
                         .AsParallel().SingleOrDefault();
                     //agregamos el listado de archivos del aviso de llegada
                     aviso.Archivos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Documento
+                                      join t in ctx.Sam3_TipoArchivo on r.TipoArchivoID equals t.TipoArchivoID
                                       where r.Activo && r.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID
                                       select new ArchivosAV
                                       {
                                           ArchivoID = r.DocumentoID,
                                           Extension = r.Extencion,
                                           Nombre = r.Nombre,
-                                          TipoArchivo = ""
+                                          Url = r.Url,
+                                          TipoArchivo = t.Nombre
                                       }).ToList();
 
                     //agregamog los choferes
