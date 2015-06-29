@@ -99,11 +99,22 @@
         };
 
         function ChecarAutorizacion() {
-            var folio = Folio.length > 0 ? Folio.FolioAvisoLlegadaID : "-1";
+                var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
 
                 $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
-                        Error(result);
-                        if (result.NumeroPermiso)
+                    if (!result) {
+                        $("#divArchivoAutorizar").show();
+                        $("#divLinkAutorizar").empty();
+                        $("#divLinkAutorizar").hide();
+                        $("#ArchivoAutorizar").data("kendoUpload").enable();
+                        $("#NumeroPermiso").removeAttr("disabled");
+                        $(".k-upload-files").remove();
+                        $(".k-upload-status").remove();
+                        $(".k-upload.k-header").addClass("k-upload-empty");
+                        $(".k-upload-button").removeClass("k-state-focused");
+                    }else{
+
+                        if (result.PermisoAutorizado)
                         {
                             $("#ArchivoAutorizar").data("kendoUpload").disable();
                             $("#NumeroPermiso").attr("disabled", "disabled");
@@ -112,14 +123,7 @@
                             $("#divLinkAutorizar").append("<a href=''>" + result.Url + "</a>");
                             $("#NumeroPermiso").val(result.NumeroPermiso);
                         }
-                        else
-                        {
-                            $("#divArchivoAutorizar").show();
-                            $("#divLinkAutorizar").empty();
-                            $("#divLinkAutorizar").hide();
-                            $("#ArchivoAutorizar").data("kendoUpload").enable();
-                            $("#NumeroPermiso").attr("disabled", "");
-                        }
+                    }
                 });
         };
 
@@ -128,8 +132,8 @@
                 alert("Por favor, seleccionar el numero de permiso");
                 e.preventDefault();
             }
-
-            $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&numeroPermiso=" + $("#NumeroPermiso").val() + "&token=" + Cookies.get("token");
+            var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + $("#NumeroPermiso").val() + "&token=" + Cookies.get("token");
         };
 
         function Error(data) {
@@ -139,7 +143,7 @@
                         removeUserSession();
                     } else {
                         alert("Mensaje de error: " + data.ReturnMessage);
-                        return;
+                        return false;
                     }
                 }
             }
@@ -160,7 +164,7 @@
 
         $('#ArchivoAutorizar').kendoUpload({
             async: {
-                saveUrl: "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&numeroPermiso=" + $("#NumeroPermiso").val() + "&token=" + Cookies.get("token"),
+                saveUrl: "http://localhost:60960/backendsam/api/DocumentoPermisoAduana",
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
