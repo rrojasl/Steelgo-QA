@@ -68,8 +68,6 @@
                     <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow">
                         <span id="ListadoAvisoLlegada0017"></span>
                     </a>
-                    <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
-                    <a id="Refrescar" href="javascript:void(0);" class="btn btn-primary"></a>
                 </div>
             </div>
         </div>*@
@@ -124,8 +122,6 @@
         var DashClienteID = getUrlParameter("DashClienteID", "-1");
         var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
         var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
-
-        alert("DashBoardAccionListado=" + DashBoardAccionListado + ", DashPatioID=" + DashPatioID + " , DashClienteID=" + DashClienteID + " , DashFechaInicial=" + DashFechaInicial + " , DashFechaFinal=" + DashFechaFinal);
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -235,7 +231,7 @@
                         var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
                         Client.add('AvisoLlegada');
                         Client.AvisoLlegada.destroy({}, { folio: folioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
-                            Filtros(1);
+                            Filtros();
                         });
                     };
                 } else {
@@ -244,15 +240,31 @@
             });
         };
 
-        function ObtenerAccionesListado() {
+        function ObtenerAccionesListado(Listado) {
             
-            $folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
-                Error(result);
+            //$folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            //    Error(result);
 
-                $("#spanCreados").html(result.Creados);
-                $("#spanSinPermiso").html(result.SinPermiso);
-                $("#spanSinAutorizacion").html(result.SinAutorizacion);
-                $("#spanCompletos").html(result.Completos);
+            //    $("#spanCreados").html(result.Creados);
+            //    $("#spanSinPermiso").html(result.SinPermiso);
+            //    $("#spanSinAutorizacion").html(result.SinAutorizacion);
+            //    $("#spanCompletos").html(result.Completos);
+            //});
+
+            $folioEntradaMaterial.Listado.read({}, {data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+                Error(result);
+                if (result.length > 0) {
+                    $("#spanCreados").html(result.Creados);
+                    $("#spanSinPermiso").html(result.SinPermiso);
+                    $("#spanSinAutorizacion").html(result.SinAutorizacion);
+                    $("#spanCompletos").html(result.Completos);
+                } else {
+                    $("#spanCreados").html(0);
+                    $("#spanSinPermiso").html(0);
+                    $("#spanSinAutorizacion").html(0);
+                    $("#spanCompletos").html(0);
+                }
+                
             });
         };
 
@@ -362,9 +374,10 @@
             });
         };
 
-        function Filtros(prueba) {
+        function Filtros() {
             var Listado;
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
+            console.log(accion);
             AccionesListado(accion);
         };
 
@@ -429,28 +442,52 @@
                     break;
             };
         };
+
+        function CantidadesDelMenuDashboard() {
+            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
+            var Listado;
+            Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "", TipoListado: "" };
+
+            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+            Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
+            Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
+            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
+            Listado.FechaInicial = obtenerFormatoFecha(d);
+            Listado.FechaFinal = obtenerFormatoFecha(d1);
+            Listado.Creados = accion == 1 ? true : false;
+            Listado.SinPermiso = accion == 2 ? true : false;
+            Listado.SinAutorizacion = accion == 3 ? true : false;
+            Listado.Completos = accion == 4 ? true : false;
+            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.token = Cookies.get("token");
+            Listado.TipoListado = 4;
+            console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
+
+            ObtenerAccionesListado(Listado);
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-        ObtenerAccionesListado();
+        
 
-        setTimeout(function () {
-            console.log("prueba time out");
-            ObtenerAccionesListado();
-        }, 60000);
+        //setTimeout(function () {
+        //    console.log("prueba time out");
+        //    CantidadesDelMenuDashboard();
+        //}, 60000);
 
         //Botones Dashboard
         $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
         $("#btnSinPermiso").click(function () {
-            alert("1");
             tabActivo("2");
             AccionesListado(2);
         });
         $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
         $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
 
-        $("#Mostrar").click(function () { Filtros(0); });
+        $("#Mostrar").click(function () { Filtros(); });
         $("#Nuevo").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -488,22 +525,6 @@
                 }
             ]);
         });
-        //$("#FolioAvisoLlegadaID").kendoAutoComplete({            
-        //    dataTextField: "id",
-        //    dataValueField: "value",
-        //    select: function (e) {
-        //        var dataItem = this.dataItem(e.item.index());
-        //        CargarFolio(dataItem.id);
-        //    },
-        //    change: function (e) {
-        //        var value = this.value();
-        //        if (!value) {
-        //            Folio = [];
-        //        };
-        //    },
-        //    filter: "contains"
-        //});
-        //ObtenerFolioEntradaMaterial();
 
         $("#ClienteID").kendoComboBox({
             dataTextField: "Nombre",
@@ -511,11 +532,15 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+                
             },
             change: function (e) {
                 var value = this.value();
                 if (!value) {
                     Cliente = [];
+                } else {
+                    Filtros();
+                    CantidadesDelMenuDashboard();
                 };
             },
             filter: "contains",
@@ -533,20 +558,29 @@
                 var value = this.value();
                 if (!value) {
                     Patio = [];
+                } else {
+                    Filtros();
+                    CantidadesDelMenuDashboard();
                 };
             },
             filter: "contains",
         });
         ObtenerPatio();
 
-        //$("#ProyectoID").kendoMultiSelect({
-        //    dataTextField: "Nombre",
-        //    dataValueField: "ProyectoID",
-        //    filter: "contains",
-        //});
-        //ObtenerProyectos();
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+        CantidadesDelMenuDashboard();
+
+        $("#FechaInicial").bind("change", function () {
+            Filtros();
+            CantidadesDelMenuDashboard();
+        });
+
+        $("#FechaFinal").bind("change", function () {
+            Filtros();
+            CantidadesDelMenuDashboard();
+        });
 
         if (DashBoardAccionListado != -1) {
             tabActivo(DashBoardAccionListado);
@@ -555,11 +589,7 @@
         } else {
             ObtenerFechasporDefecto();
             tabActivo(1);//default 1 creados
-            //if (folioLlegadaID != -1 && folioEntradaID != -1) {// viene de la llegada de material
-                //Filtros(2);
-            //} else {
-                Filtros(1);
-             //};
+            Filtros();
         }
     }
 

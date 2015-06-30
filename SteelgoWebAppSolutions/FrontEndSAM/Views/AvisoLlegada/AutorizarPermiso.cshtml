@@ -76,6 +76,7 @@
 </div>
 
 <script>
+    kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptDocumentReadyHomeCookie {
         Cookies.set("home", true, { path: '/' });
         Cookies.set("navegacion", "8", { path: '/' });
@@ -108,10 +109,7 @@
                         $("#divLinkAutorizar").hide();
                         $("#ArchivoAutorizar").data("kendoUpload").enable();
                         $("#NumeroPermiso").removeAttr("disabled");
-                        $(".k-upload-files").remove();
-                        $(".k-upload-status").remove();
-                        $(".k-upload.k-header").addClass("k-upload-empty");
-                        $(".k-upload-button").removeClass("k-state-focused");
+                        limpiarUploadFiles();
                         $("#NumeroPermiso").val("");
                     }else{
 
@@ -120,8 +118,9 @@
                             $("#ArchivoAutorizar").data("kendoUpload").disable();
                             $("#NumeroPermiso").attr("disabled", "disabled");
                             $("#divArchivoAutorizar").hide();
+                            $("#divLinkAutorizar").empty();
                             $("#divLinkAutorizar").show();
-                            $("#divLinkAutorizar").append("<a href=''>" + result.Url + "</a>");
+                            $("#divLinkAutorizar").append("<a target='_blank' href='" + result.Url + "'>" + result.Url + "</a>");
                             $("#NumeroPermiso").val(result.NumeroPermiso);
                         }
                     }
@@ -129,11 +128,17 @@
         };
 
         function onUploadArchivoAutorizar() {
+            var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
             if (!$("#NumeroPermiso").val()) {
                 alert("Por favor, seleccionar el numero de permiso");
                 e.preventDefault();
-            }
-            var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            };
+
+            if (folio == -1) {
+                alert("Por favor, seleccionar un folio");
+                e.preventDefault();
+            };
+            
             $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + $("#NumeroPermiso").val() + "&token=" + Cookies.get("token");
         };
 
@@ -149,6 +154,14 @@
                 }
             }
         };
+
+        function limpiarUploadFiles() {
+            $(".k-upload-files").remove();
+            $(".k-upload-status").remove();
+            $(".k-upload-selected").remove();
+            $(".k-upload.k-header").addClass("k-upload-empty");
+            $(".k-upload-button").removeClass("k-state-focused");
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
@@ -159,6 +172,13 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarFolio(dataItem.id);
                 ChecarAutorizacion(dataItem.id);
+            },
+            change: function () {
+                $(".k-upload-files").remove();
+                $(".k-upload-status").remove();
+                $(".k-upload-selected").remove();
+                $(".k-upload.k-header").addClass("k-upload-empty");
+                $(".k-upload-button").removeClass("k-state-focused");
             },
             filter: "contains"
         });

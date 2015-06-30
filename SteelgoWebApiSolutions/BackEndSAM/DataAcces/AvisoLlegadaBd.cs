@@ -736,8 +736,8 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID
-                                                   where r.Activo.Value && p.RequierePermisoAduana && pe.Activo
+                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID  
+                                                   where r.Activo.Value && p.RequierePermisoAduana && pe.Activo 
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
