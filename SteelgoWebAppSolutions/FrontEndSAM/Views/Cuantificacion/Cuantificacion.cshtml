@@ -14,53 +14,78 @@
     </li>
 }
 
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <a id="GuardarParcialmente" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0017"></span></a>
+                            <a id="GenerarNumerosUnicos" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0018"></span></a>
+                            <a id="TerminarCuantificacion" href="javascript:void(0);" class="btn btn-black"><span id="Cuantificacion0020"></span></a>
+                        </div>
+                        <div class="button-section">
+                            <a id="ImprimirEtiquetas" href="javascript:void(0);" class="btn btn-primary"><span id="Cuantificacion0028"></span></a>
+                        </div>
+                        <a id="Imprimir" href="javascript:void(0);" class="btn btn-fadeBlue"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0003"></label>
+                            <input id="ProyectoID" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0004"></label>
+                            <input id="FolioLlegadaID" class="" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0016"></label>
+                            <input id="PackingList" disabled="disabled" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0029">Carga Masiva</label>
+                            <button id="massiveUpload" class="btn btn-primary"><span id="Cuantificacion0030">Cargar</span></button>
+                            <input name="txtFileUpload" id="txtFileUpload" type="file" class="hidden"/>
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0022"></label>
+                            <input id="FamiliaID" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0023"></label>
+                            <input id="CedulaID" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0024"></label>
+                            <input id="TipoAceroID" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0025"></label>
+                            <input id="Diametro1" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0026"></label>
+                            <input id="Diametro2" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Cuantificacion0027"></label>
+                            <input id="Cantidad" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
 
-    <div class="form-group">
-        <label id="Cuantificacion0003"></label>
-        <input id="ProyectoID" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0004"></label>
-        <input id="FolioLlegadaID" class="" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0016"></label>
-        <input id="PackingList" disabled="disabled"/>
-    </div>
-    <div class="form-group">
-       <input type="file" name="File Upload" id="txtFileUpload" />
-    </div>    
-    <div class="form-group">
-        <label id="Cuantificacion0022"></label>
-        <input id="FamiliaID" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0023"></label>
-        <input id="CedulaID" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0024"></label>
-        <input id="TipoAceroID" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0025"></label>
-        <input id="Diametro1" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0026"></label>
-        <input id="Diametro2" />
-    </div>
-    <div class="form-group">
-        <label id="Cuantificacion0027"></label>
-        <input id="Cantidad" />
-    </div>
-
-    <div id="grid"></div>
-
-    <a id="GuardarParcialmente" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0017"></span></a>
-    <a id="GenerarNumerosUnicos" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0018"></span></a>
-    <a id="TerminarCuantificacion" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0020"></span></a>
-    <a id="ImprimirEtiquetas" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0028"></span></a>
 
 <script>
     @section JavascriptGlobalVariables 
@@ -804,5 +829,9 @@ function csvJSON(csv) {
         if (_folioLlegadaID || _folioEntradaID || _packingListID) {
             cargaInicialEdicion();
         };
+
+        $("#massiveUpload").click( function () {
+            $("#txtFileUpload").click();
+        });
     }
 </script>

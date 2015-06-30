@@ -134,6 +134,71 @@ _dictionary = {
         "es-MX": "Inicio",
         "en-US": "Home"
     },
+    //Items del Menú
+    "menuLabel0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "menuLabel0002": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "menuLabel0005": {
+        "es-MX": "Administración",
+        "en-US": "Administration"
+    },
+    "menuLabel0006": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "menuLabel0007": {
+        "es-MX": "Dashboard de Avisos de Entrada",
+        "en-US": "Dashboard Notice of Entry"
+    },
+    "menuLabel0008": {
+        "es-MX": "Avisos de Entrada",
+        "en-US": "Entry Notices"
+    },
+    "menuLabel0010": {
+        "es-MX": "Generación de Aviso de Entrada",
+        "en-US": "Entry Notice generation"
+    },
+    "menuLabel0011": {
+        "es-MX": "Autorización de Aviso de Entrada",
+        "en-US": "Authorization Notice of Entry"
+    },
+    "menuLabel0013": {
+        "es-MX": "Dashboard de Llegada de Material",
+        "en-US": "Dashboard Arrival of Material"
+    },
+    "menuLabel0014": {
+        "es-MX": "Llegadas de Material",
+        "en-US": "Material Arrivals"
+    },
+    "menuLabel0016": {
+        "es-MX": "Generación de Llegada de Material",
+        "en-US": "Generation of Arrival of Material"
+    },
+    "menuLabel0017": {
+        "es-MX": "Generación de Pase de Salida",
+        "en-US": "Generation Pass Out"
+    },
+    "menuLabel0018": {
+        "es-MX": "Dashboard de Despacho de Material",
+        "en-US": "Dashboard Material Dispatch"
+    },
+    "menuLabel0019": {
+        "es-MX": "Despachos de Materiales",
+        "en-US": "Dispatches of Material"
+    },
+    "menuLabel0020": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "menuLabel0021": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
@@ -926,6 +991,14 @@ _dictionary = {
     "Cuantificacion0028": {
         "es-MX": "Imprimir Etiquetas",
         "en-US": "Print Tags"
+    },
+    "Cuantificacion0029": {
+        "es-MX": "Carga Masiva",
+        "en-US": "Massive Upload"
+    },
+    "Cuantificacion0030": {
+        "es-MX": "Cargar",
+        "en-US": "Upload"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
