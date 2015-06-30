@@ -73,7 +73,6 @@
         <div>
             <canvas id="ChartPie" width="400" height="400"></canvas>
             <div>
-                
                 <span id="spanPorcentajeCompletos"></span><label id="DashboardAvisoLlegada0008"></label>
                 <span id="spanPorcentajeSinAutorizacion"></span><label id="DashboardAvisoLlegada0009"></label>
                 <span id="spanPorcentajeSinPermiso"></span><label id="DashboardAvisoLlegada0010"></label>
@@ -178,7 +177,8 @@
             var fechafinal = d1.toLocaleDateString($("#language").data("kendoDropDownList").value());
 
             var url = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
-            window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal);
+            window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal;
+
         };
 
         function CargarPatio(id, value) {
