@@ -1099,6 +1099,18 @@ _dictionary = {
         "es-MX": "Fecha Final",
         "en-US": "Final Date"
     },
+    "DashboardAvisoLlegada0008": {
+        "es-MX": "Completos",
+        "en-US": "Full"
+    },
+    "DashboardAvisoLlegada0009": {
+        "es-MX": "Sin Autorización",
+        "en-US": "No Authorization"
+    },
+    "DashboardAvisoLlegada0010": {
+        "es-MX": "Sin Permiso",
+        "en-US": "No permission"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",

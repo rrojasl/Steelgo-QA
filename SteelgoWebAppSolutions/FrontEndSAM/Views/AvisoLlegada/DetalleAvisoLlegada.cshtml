@@ -412,6 +412,7 @@
 <input id="hdArchivoAutorizado" type="hidden" value="" />
 
 <script>
+    kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
         //your partial views variables
         var FechaRecepcion;
@@ -728,7 +729,6 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         _tipoArchivo = dataItem.TipoArchivoID;
-                        alert("_tipoArchivo: " + _tipoArchivo);
                         CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
                     },
                     filter: "contains",
@@ -1801,22 +1801,27 @@
                     $("#DetalleAvisoLlegada0086").show();
                 });
             };
+
             function ocultarStatus() {
                 $("#DetalleAvisoLlegada0084").hide();
                 $("#DetalleAvisoLlegada0085").hide();
                 $("#DetalleAvisoLlegada0086").hide();
             };
+
             function DesahabilitarObtenerDocumentosAvisoLlegada() {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
                     loadingStart();
                     if (result.length > 0) {
                         $("#listaArchivos tbody").empty();
-                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a href='" + result.Url + "'>" + result.Nombre + "</a></td><td>" + result.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        $.each(result, function (index, value) {
+                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
                     }
                     loadingStop();
                 });
             };
+
             function HabilitarObtenerDocumentosAvisoLlegada() {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
@@ -1824,11 +1829,15 @@
                     if (result.length > 0) {
                         $("#listaArchivos tbody").empty();
                         $.each(result, function (index, value) {
-                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                         });
                     }
                     loadingStop();
                 });
+            };
+
+            function DescargarArchivo(a) {
+                window.open(a.innerHTML);
             };
 
             function Error(data) {
