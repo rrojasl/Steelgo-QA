@@ -68,7 +68,7 @@ namespace BackEndSAM.DataAcces
 
                     result.Creados = (from r in ctx.Sam3_FolioAvisoLlegada
                                    join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                   where r.Activo.Value == true
+                                   where r.Activo.Value == true && p.Activo
                                    && patios.Contains(r.PatioID)
                                    && proyectos.Contains(p.ProyectoID)
                                    select r.FolioAvisoLlegadaID).AsParallel().Count();
@@ -76,7 +76,7 @@ namespace BackEndSAM.DataAcces
                     result.Completos = (from r in ctx.Sam3_FolioAvisoLlegada
                                         join py in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals py.FolioAvisoLlegadaID
                                         join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                        where r.Activo.Value == true
+                                        where r.Activo.Value == true && py.Activo && p.Activo
                                         && patios.Contains(r.PatioID)
                                         && proyectos.Contains(py.ProyectoID)
                                         && p.PermisoAutorizado.Value == true
@@ -85,7 +85,7 @@ namespace BackEndSAM.DataAcces
                     result.SinAutorizacion = (from r in ctx.Sam3_FolioAvisoLlegada
                                               join py in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals py.FolioAvisoLlegadaID
                                               join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                              where r.Activo.Value == true
+                                              where r.Activo.Value == true && py.Activo && p.Activo
                                               && patios.Contains(r.PatioID)
                                               && proyectos.Contains(py.ProyectoID)
                                               && p.PermisoAutorizado.Value == false
@@ -93,7 +93,7 @@ namespace BackEndSAM.DataAcces
 
                     result.SinPermiso = (from r in ctx.Sam3_FolioAvisoLlegada
                                          join py in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals py.FolioAvisoLlegadaID
-                                         where r.Activo.Value == true
+                                         where r.Activo.Value == true && py.Activo
                                          && patios.Contains(r.PatioID)
                                          && proyectos.Contains(py.ProyectoID)
                                          && !(from x in ctx.Sam3_PermisoAduana

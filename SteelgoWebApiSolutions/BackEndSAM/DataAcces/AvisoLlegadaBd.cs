@@ -155,7 +155,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoAvisoLlegada(FiltrosJson filtros)
+        public object ObtenerListadoAvisoLlegada(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
             {
@@ -166,6 +166,10 @@ namespace BackEndSAM.DataAcces
                     DateTime fechaFinal = new DateTime();
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
                     DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+
+                    List<int> patiosUsuario;
+                    List<int> proyectosUsuario;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
 
                     if (fechaFinal.ToShortDateString() == "1/1/0001")
                     {
@@ -199,8 +203,16 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_FolioAvisoLlegada> result = new List<Sam3_FolioAvisoLlegada>();
                         if (fechaInicial != null && fechaFinal != null)
                         {
-                            result = ctx.Sam3_FolioAvisoLlegada
-                                .Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal && x.Activo.Value == true).ToList();
+                            result = (from r in ctx.Sam3_FolioAvisoLlegada
+                                      join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                      where r.Activo.Value == true && p.Activo
+                                      && patiosUsuario.Contains(r.PatioID)
+                                      && proyectosUsuario.Contains(p.ProyectoID)
+                                      && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
+                                      select r).AsParallel().ToList();
+                                
+                                //ctx.Sam3_FolioAvisoLlegada
+                                //.Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal && x.Activo.Value == true).ToList();
 
                         }
                         else
@@ -216,7 +228,7 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
-                        if (result != null)
+                        if (result.Count > 0)
                         {
                             int temp = 0;
 
@@ -236,14 +248,6 @@ namespace BackEndSAM.DataAcces
                                 temp = Convert.ToInt32(filtros.ClienteID);
                                 result = result.Where(x => x.ClienteID == temp).ToList();
                             }
-
-                            //if (proyectos.Count > 0)
-                            //{
-                            //    result = (from x in result
-                            //              join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                            //              where proyectos.Contains(p.ProyectoID)
-                            //              select x).ToList();
-                            //}
                         }
                         else
                         {
@@ -256,7 +260,7 @@ namespace BackEndSAM.DataAcces
                             if (filtros.PatioID != "" && Convert.ToInt32(filtros.PatioID) > 0)
                             {
                                 temp = Convert.ToInt32(filtros.PatioID);
-                                if (result != null)
+                                if (result.Count > 0)
                                 {
                                     result = result.Where(x => x.PatioID == temp).ToList();
                                 }
@@ -270,7 +274,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 temp = Convert.ToInt32(filtros.ClienteID);
 
-                                if (result != null)
+                                if (result.Count > 0)
                                 {
                                     result = result.Where(x => x.ClienteID == temp).ToList();
                                 }
@@ -279,32 +283,13 @@ namespace BackEndSAM.DataAcces
                                     result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.ClienteID == temp).AsParallel().ToList();
                                 }
                             }
-
-                            //if (proyectos.Count > 0)
-                            //{
-                            //    if (result != null)
-                            //    {
-                            //        result = (from x in result
-                            //                  join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on x.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                            //                  where proyectos.Contains(p.ProyectoID)
-                            //                  select x).ToList();
-                            //    }
-                            //    else
-                            //    {
-                            //        result = (from a in ctx.Sam3_FolioAvisoLlegada
-                            //                  join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on a.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                            //                  where a.Activo.Value == true
-                            //                  && proyectos.Contains(p.ProyectoID)
-                            //                  select a).ToList();
-                            //    }
-                            //}
                         }
 
                         //Filtros Rapidos
 
                         if (filtros.Completos)
                         {
-                            if (result != null)
+                            if (result.Count > 0)
                             {
                                 result = (from r in result
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
@@ -322,7 +307,7 @@ namespace BackEndSAM.DataAcces
 
                         if (filtros.SinAutorizacion)
                         {
-                            if (result != null)
+                            if (result.Count > 0)
                             {
                                 result = (from r in result
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
@@ -341,7 +326,7 @@ namespace BackEndSAM.DataAcces
 
                         if (filtros.SinPermiso)
                         {
-                            if (result != null)
+                            if (result.Count > 0)
                             {
                                 result = (from r in result
                                           where r.Activo.Value == true
@@ -379,8 +364,8 @@ namespace BackEndSAM.DataAcces
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
-                                            FechaGeneracion = p.FechaGeneracion.HasValue ? p.FechaGeneracion.ToString() : "",
-                                            FechaRecepcion = r.FechaRecepcion.HasValue ? r.FechaRecepcion.ToString() : ""
+                                            FechaGeneracion = p.FechaGeneracion.HasValue ? p.FechaGeneracion.Value.ToString() : "",
+                                            FechaRecepcion = r.FechaRecepcion.HasValue ? r.FechaRecepcion.Value.ToString() : ""
                                         }).AsParallel().Distinct().SingleOrDefault();
                         }
                         else
@@ -390,7 +375,7 @@ namespace BackEndSAM.DataAcces
                                         select new ElementoListadoFolioAvisoLlegada
                                         {
                                             FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
-                                            FechaRecepcion = r.FechaRecepcion.ToString(),
+                                            FechaRecepcion = r.FechaRecepcion.Value.ToString(),
                                             FechaGeneracion = string.Empty,
                                         }).AsParallel().Distinct().SingleOrDefault();
 

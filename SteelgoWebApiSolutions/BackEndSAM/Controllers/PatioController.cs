@@ -25,7 +25,9 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return PatioBd.Instance.ObtenerlistadoPatios(esAvisoEntrada);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return PatioBd.Instance.ObtenerlistadoPatios(esAvisoEntrada,usuario);
             }
             else
             {

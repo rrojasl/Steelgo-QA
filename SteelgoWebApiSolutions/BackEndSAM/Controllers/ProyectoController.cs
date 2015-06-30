@@ -25,7 +25,9 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ProyectoBd.Instance.ObtenerListadoProyectos();
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ProyectoBd.Instance.ObtenerListadoProyectos(usuario);
             }
             else
             {

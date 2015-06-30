@@ -277,7 +277,7 @@ input {
     border-radius: 0;
     font-size: 14px;
     padding: 0 5px;
-    z-index: 2;
+    z-index: 1;
 }
 
     .content-container .form input:not(.k-input):focus {
@@ -457,7 +457,7 @@ input.quickFilters {
     border-bottom-right-radius: 0;
     width: 25%;
     height: 40px;
-    z-index: 1;
+    z-index: 0;
 }
 
     .btn.btn-tabList:focus {
@@ -476,7 +476,7 @@ input.quickFilters {
         -moz-box-shadow: 0px 5px 10px #888888; /* FF3.5+ */
         -webkit-box-shadow: 0px 5px 10px #888888; /* Saf3.0+, Chrome */
         box-shadow: 0px 5px 10px #888888; /* Opera 10.5, IE9, Chrome 10+ */
-        z-index: 2;
+        z-index: 1;
     }
 
     .btn.btn-tabList:first-of-type.active {
