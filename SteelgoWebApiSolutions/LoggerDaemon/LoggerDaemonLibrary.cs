@@ -77,9 +77,9 @@ namespace LoggerDaemon
                 noti.TipoNotificacionID = notification.TipoNotificacionID;
                 noti.Mensaje = notification.Mensaje;
                 noti.FechaEnvio = notification.FechaEnvio;
-                noti.FechaRecepcion = notification.FechaRecepcion;
-                noti.EstatusLectura = notification.EstatusLectura;
-                noti.Activo = notification.Activo;
+                noti.FechaRecepcion = DateTime.Now; //????
+                noti.EstatusLectura = false;
+                noti.Activo = true;
                 noti.UsuarioModificacion = notification.UsuarioModificacion;
                 noti.FechaModificacion = notification.FechaModificacion;
 
