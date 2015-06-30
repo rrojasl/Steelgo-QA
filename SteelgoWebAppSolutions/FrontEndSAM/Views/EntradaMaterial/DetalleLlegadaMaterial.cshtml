@@ -18,12 +18,12 @@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            @*<span id="divTitulos" class="folioLabel">
+            <span id="divTitulos" class="folioLabel">
                 <span id="EntradaMaterial0013"></span>
                 <span id="spanFolioEntrada"></span>
                 <span id="EntradaMaterial0014"></span>
                 <span id="SpanFolioLlegada"></span>
-            </span>*@
+            </span>
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -241,7 +241,8 @@
 
 
     @section JavascriptGlobalFunctions {
-        function CargaInicial() {
+    function CargaInicial() {
+        
             $("#Guardar").click(function (e) {
                 GuardarLlegadaMaterial();
             });
@@ -257,12 +258,12 @@
                     alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
                     return false;
                 }
-                var FolioEntradaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : $("#FolioEntradaID").data("kendoAutoComplete").value();
+                var FolioEntradaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : $("#FolioEntradaID").data("kendoComboBox").value();
                 var url = "@Url.Action("FormatoPaseSalida", "EntradaMaterial")" + "?FolioLlegadaID=" + folioLlegada + "&FolioEntradaID=" + FolioEntradaID;
                 window.open(url);
             });
 
-            $("#FolioEntradaID").kendoAutoComplete({
+            $("#FolioEntradaID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -281,7 +282,7 @@
                 filter: "contains"
             });
 
-            $("#PatioID").kendoAutoComplete({
+            $("#PatioID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -300,7 +301,7 @@
                 filter: "contains"
             });
 
-            $("#ProyectoID").kendoAutoComplete({
+            $("#ProyectoID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -310,14 +311,15 @@
                         }
                     }
                 },
-                dataTextField: "value",
-                dataValueField: "id",
+                dataTextField: "Nombre",
+                dataValueField: "ProyectoID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarProyecto(dataItem.id, dataItem.value);
+                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
                 },
                 filter: "contains",
             });
+            ObtenerProyectos();
 
             $("#Estatus").kendoComboBox({
                 dataSource: {
@@ -338,7 +340,7 @@
                     } else
                     {
                         $("#divPatio").hide();
-                        $("#PatioID").data("kendoAutoComplete").value("");
+                        $("#PatioID").data("kendoComboBox").value("");
                         Patio = [];
                     }
                 },
@@ -438,7 +440,7 @@
             Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 if (data.Proyecto) {
                     CargarProyecto(data.Proyecto.ProyectoID, data.Proyecto.Nombre);
-                    $("#ProyectoID").data("kendoAutoComplete").value(data.Proyecto.Nombre);
+                    $("#ProyectoID").data("kendoComboBox").value(data.Proyecto.Nombre);
                 };
 
                 if (data.Estatus) {
@@ -446,13 +448,32 @@
                     if (data.Estatus == "En Patio") {
                         $("#divPatio").show();
                         CargarPatio(data.Patio.PatioID, data.Patio.Nombre);
-                        $("#PatioID").data("kendoAutoComplete").value(data.Patio.Nombre);
+                        $("#PatioID").data("kendoComboBox").value(data.Patio.Nombre);
                     };
+                };
+
+                if (data.OrdenCompra) {
+                    $("#OrdenDeCompra").val(data.OrdenCompra);
+                };
+
+                if (data.Factura) {
+                    $("#Factura").val(data.Factura);
+                };
+
+                if (data.Proveedor) {
+                    CargarProveedor(data.Proveedor.ProveedorID, data.Proveedor.Nombre);
+                    $("#ProveedorID").data("kendoComboBox").value(data.Proveedor.Nombre);
                 };
 
                 $.each(data.Archivos, function (index, value) {
                     $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
+
+
+                $.each(data.ArchivosPaseSalida, function (index, value) {
+                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                });
+               
             
             });
         };
@@ -591,7 +612,7 @@
             });
             
             FolioLlegada[0].FolioLlegadaID = folioLlegada != -1 ? folioLlegada : -1;
-            FolioLlegada[0].FolioAvisoLlegadaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : $("#FolioEntradaID").data("kendoAutoComplete").value();
+            FolioLlegada[0].FolioAvisoLlegadaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : $("#FolioEntradaID").data("kendoComboBox").value();
             FolioLlegada[0].Proyecto = Proyecto;
             FolioLlegada[0].Patio = Patio;
             FolioLlegada[0].Archivos = Documentos;
@@ -615,7 +636,7 @@
                 Client.DummyFolioEntrada.create({}, { folioLlegada: JSON.stringify(FolioLlegada), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyFolioEntrada.create");
                     folioLlegada = data.FolioLlegadaID;                   
-                    $("#FolioEntradaID, #ProyectoID").kendoAutoComplete({
+                    $("#FolioEntradaID, #ProyectoID").kendoComboBox({
                         enable: false
                     });
                     MostrarFoliosGenerados();
@@ -634,7 +655,7 @@
             Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#divFoliosGenerados").show();
-                    $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioLlegadaID + "," + value.FolioAvisoLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
+                    $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioAvisoLlegadaID + "," + value.FolioLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
                 });
             });
         };
@@ -683,6 +704,13 @@
                 return false;
             }
         }
+
+        function ObtenerProyectos() {
+            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                $("#ProyectoID").data("kendoComboBox").dataSource.data(result);
+            });
+        };
     };
    
     @section JavascriptDocumentReadyFunctions {

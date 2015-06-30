@@ -447,6 +447,7 @@
     <Content Include="Scripts\AppComponents\RecepcionMaterial\ListadoEspecifico.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\CODE128.js" />
     <Content Include="Scripts\CODE39.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />

@@ -67,6 +67,18 @@
                 </div>
             </div>
         </div>
+        <div>
+            <canvas id="ChartBar" width="400" height="400"></canvas>
+        </div>
+        <div>
+            <canvas id="ChartPie" width="400" height="400"></canvas>
+            <div>
+                
+                <span id="spanPorcentajeCompletos"></span><label id="DashboardAvisoLlegada0008"></label>
+                <span id="spanPorcentajeSinAutorizacion"></span><label id="DashboardAvisoLlegada0009"></label>
+                <span id="spanPorcentajeSinPermiso"></span><label id="DashboardAvisoLlegada0010"></label>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -75,7 +87,7 @@
 
     @section JavascriptGlobalVariables {
         var Patio = {}, Cliente = {};
-        var FechaInicial, FechaFinal;
+        var FechaInicial, FechaFinal, myBarChart, myPieChart;
     }
 
     @section JavascriptGlobalFunctions {
@@ -84,17 +96,78 @@
             FechaFinal.setOptions(datePickerOptions);
         };
 
-        function ObtenerAccionesListado() {
+        function ObtenerAccionesListado(Listado) {
 
-            $folioEntradaMaterial.Listado.read({}, {tipoListado:4, token: Cookies.get("token"),parametroBusqueda:"" }).done(function (result) {
+            //$folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            //    Error(result);
+
+            //    $("#spanCreados").html(result.Creados);
+            //    $("#spanSinPermiso").html(result.SinPermiso);
+            //    $("#spanSinAutorizacion").html(result.SinAutorizacion);
+            //    $("#spanCompletos").html(result.Completos);
+            //});
+
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 Error(result);
-
-                $("#spanCreados").html( result.Creados );
-                $("#spanSinPermiso").html(result.SinPermiso );
-                $("#spanSinAutorizacion").html( result.SinAutorizacion );
-                $("#spanCompletos").html( result.Completos );
+                
+                if (result.length > 0) {
+                    $("#spanCreados").html(result.Creados);
+                    $("#spanSinPermiso").html(result.SinPermiso);
+                    $("#spanSinAutorizacion").html(result.SinAutorizacion);
+                    $("#spanCompletos").html(result.Completos);
+                    actualizarGraficaDeBarras(result);
+                    actualizarGraficaDePastel(result);
+                } else {
+                    $("#spanCreados").html(0);
+                    $("#spanSinPermiso").html(0);
+                    $("#spanSinAutorizacion").html(0);
+                    $("#spanCompletos").html(0);
+                    limpiarGraficaDeBarras();
+                    limpiarGraficaDePastel();
+                }
             });
         };
+
+        function actualizarGraficaDePastel(result) {
+            myPieChart.segments[0].value = 10;
+            myPieChart.segments[1].value = 150;
+            myPieChart.segments[2].value = 200;
+            myPieChart.update();
+        };
+        function limpiarGraficaDePastel() {
+            myPieChart.segments[0].value = -1;
+            myPieChart.segments[1].value = 0;
+            myPieChart.segments[2].value = 0;
+            myPieChart.update();
+        };
+
+        function actualizarGraficaDeBarras(result) {
+            myBarChart.datasets[0].bars[0].value = 15;
+            myBarChart.datasets[0].bars[1].value = 10;
+            myBarChart.datasets[0].bars[2].value = 20;
+            myBarChart.datasets[0].bars[3].value = 12;
+            myBarChart.update();
+        };
+
+        function limpiarGraficaDeBarras() {
+            myBarChart.datasets[0].bars[0].value = 0;
+            myBarChart.datasets[0].bars[1].value = 0;
+            myBarChart.datasets[0].bars[2].value = 0;
+            myBarChart.datasets[0].bars[3].value = 0;
+            myBarChart.update();
+        };
+        
+        //function ObtenerAccionesListado() {
+
+        //    $folioEntradaMaterial.Listado.read({}, {tipoListado:4, token: Cookies.get("token"),parametroBusqueda:"" }).done(function (result) {
+        //        Error(result);
+
+        //        $("#spanCreados").html( result.Creados );
+        //        $("#spanSinPermiso").html(result.SinPermiso );
+        //        $("#spanSinAutorizacion").html( result.SinAutorizacion );
+        //        $("#spanCompletos").html( result.Completos );
+        //    });
+        //};
 
         function AccionesListado(accion) {
             var PatioID = Patio.PatioID ? Patio.PatioID : "";
@@ -156,15 +229,144 @@
                 }
             }
         };
+
+        function CantidadesDelMenuDashboard() {
+            var Listado;
+            Listado = {  PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
+
+            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
+            Listado.FechaInicial = obtenerFormatoFecha(d);
+            Listado.FechaFinal = obtenerFormatoFecha(d1);
+            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.token = Cookies.get("token");
+            Listado.TipoListado = 4;
+            console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
+
+            ObtenerAccionesListado(Listado);
+        };
+
+        function obtenerFormatoFecha(d) {
+            var curr_date = d.getDate();
+            var curr_month = d.getMonth() + 1; //Months are zero based
+            var curr_year = d.getFullYear();
+
+            return curr_year + "-" + curr_month + "-" + curr_date;
+        };
+
+        function chartBar() {// con la funcion de las cantidadesdashboard llenar la data
+            var ctx = document.getElementById("ChartBar").getContext("2d");
+            var data = {
+                labels: ["Creados", "Sin Permiso", "Sin Autorizacion", "Completos"],
+                datasets: [
+                    {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,0.8)",
+                        highlightFill: "rgba(151,187,205,0.75)",
+                        highlightStroke: "rgba(151,187,205,1)",
+                        data: [0, 0, 0, 0]
+                    }
+                ]
+            };
+
+            myBarChart = new Chart(ctx).Bar(data, {
+                //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+                scaleBeginAtZero: true,
+
+                //Boolean - Whether grid lines are shown across the chart
+                scaleShowGridLines: true,
+
+                //String - Colour of the grid lines
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+
+                //Number - Width of the grid lines
+                scaleGridLineWidth: 1,
+
+                //Boolean - Whether to show horizontal lines (except X axis)
+                scaleShowHorizontalLines: true,
+
+                //Boolean - Whether to show vertical lines (except Y axis)
+                scaleShowVerticalLines: true,
+
+                //Boolean - If there is a stroke on each bar
+                barShowStroke: true,
+
+                //Number - Pixel width of the bar stroke
+                barStrokeWidth: 2,
+
+                //Number - Spacing between each of the X value sets
+                barValueSpacing: 5,
+
+                //Number - Spacing between data sets within X values
+                barDatasetSpacing: 1,
+
+                //String - A legend template
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+            });
+        };
+
+        function chartPie() {
+            var ctx = document.getElementById("ChartPie").getContext("2d");
+            var data = [
+                        {
+                            value: -1,
+                            color: "#F7464A",
+                            highlight: "#FF5A5E",
+                            label: "Completos"
+                        },
+                        {
+                            value: 0,
+                            color: "#46BFBD",
+                            highlight: "#5AD3D1",
+                            label: "Sin Autorizacion"
+                        },
+                        {
+                            value: 0,
+                            color: "#FDB45C",
+                            highlight: "#FFC870",
+                            label: "Sin Permiso"
+                        }
+                      ];
+
+            myPieChart = new Chart(ctx).Pie(data, {
+                //Boolean - Whether we should show a stroke on each segment
+                segmentShowStroke: true,
+
+                //String - The colour of each segment stroke
+                segmentStrokeColor: "#fff",
+
+                //Number - The width of each segment stroke
+                segmentStrokeWidth: 2,
+
+                //Number - The percentage of the chart that we cut out of the middle
+                percentageInnerCutout: 0, // This is 0 for Pie charts
+
+                //Number - Amount of animation steps
+                animationSteps: 100,
+
+                //String - Animation easing effect
+                animationEasing: "easeOutBounce",
+
+                //Boolean - Whether we animate the rotation of the Doughnut
+                animateRotate: true,
+
+                //Boolean - Whether we animate scaling the Doughnut from the centre
+                animateScale: false,
+
+                //String - A legend template
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+
+            });
+        };
     }
 
     @section JavascriptDocumentReadyFunctions {
-        ObtenerAccionesListado();
-
-        setTimeout(function () {
-            console.log("prueba time out");
-            ObtenerAccionesListado();
-        }, 60000);
+        //carga inicial graficas en cero
+        chartBar();
+        chartPie();
 
         $("#Nuevo").click(function () {
             var url = "@Url.Action("DetalleAvisoLlegada", "AvisoLlegada")";
@@ -189,6 +391,10 @@
                 var value = this.value();
                 if (!value) {
                     Patio = [];
+                } else {
+                    actualizarGraficaDeBarras();
+                    actualizarGraficaDePastel();
+                    CantidadesDelMenuDashboard();
                 };
             },
             filter: "contains",
@@ -206,6 +412,8 @@
                 var value = this.value();
                 if (!value) {
                     Cliente = [];
+                } else {
+                    CantidadesDelMenuDashboard();
                 };
             },
             filter: "contains",
@@ -214,6 +422,17 @@
 
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+        CantidadesDelMenuDashboard();
+
+        $("#FechaInicial").bind("change", function () {
+            CantidadesDelMenuDashboard();
+        });
+
+        $("#FechaFinal").bind("change", function () {
+            CantidadesDelMenuDashboard();
+        });
+
         ObtenerFechasporDefecto();
     }
 </script>

@@ -992,6 +992,14 @@ _dictionary = {
         "es-MX": "Imprimir Etiquetas",
         "en-US": "Print Tags"
     },
+    "Cuantificacion0029": {
+        "es-MX": "Carga Masiva",
+        "en-US": "Massive Upload"
+    },
+    "Cuantificacion0030": {
+        "es-MX": "Cargar",
+        "en-US": "Upload"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -1163,6 +1171,18 @@ _dictionary = {
     "DashboardAvisoLlegada0007": {
         "es-MX": "Fecha Final",
         "en-US": "Final Date"
+    },
+    "DashboardAvisoLlegada0008": {
+        "es-MX": "Completos",
+        "en-US": "Full"
+    },
+    "DashboardAvisoLlegada0009": {
+        "es-MX": "Sin Autorización",
+        "en-US": "No Authorization"
+    },
+    "DashboardAvisoLlegada0010": {
+        "es-MX": "Sin Permiso",
+        "en-US": "No permission"
     },
     //Home Partial View Labels
     "homeLabel0001": {
