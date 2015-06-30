@@ -927,6 +927,14 @@ _dictionary = {
         "es-MX": "Imprimir Etiquetas",
         "en-US": "Print Tags"
     },
+    "Cuantificacion0029": {
+        "es-MX": "Carga Masiva",
+        "en-US": "Massive Upload"
+    },
+    "Cuantificacion0030": {
+        "es-MX": "Cargar",
+        "en-US": "Upload"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

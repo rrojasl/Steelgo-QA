@@ -588,6 +588,10 @@ input.quickFilters {
     background-repeat: no-repeat;
     background-position: 86% center;
 }
+
+#massiveUpload.btn {
+    margin-bottom: 3px;
+}
 /**********************************************************************************/
 
 

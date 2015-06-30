@@ -48,7 +48,9 @@
                             <input id="PackingList" disabled="disabled" />
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <input name="File Upload" id="txtFileUpload" type="file" />
+                            <label id="Cuantificacion0029">Carga Masiva</label>
+                            <button id="massiveUpload" class="btn btn-primary"><span id="Cuantificacion0030">Cargar</span></button>
+                            <input name="txtFileUpload" id="txtFileUpload" type="file" class="hidden"/>
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0022"></label>
@@ -827,5 +829,9 @@ function csvJSON(csv) {
         if (_folioLlegadaID || _folioEntradaID || _packingListID) {
             cargaInicialEdicion();
         };
+
+        $("#massiveUpload").click( function () {
+            $("#txtFileUpload").click();
+        });
     }
 </script>
