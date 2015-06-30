@@ -223,115 +223,57 @@
         var $contextMenu = {};
         var $sideMenu = {};
         var $sideMenuLayout = { 0: {}, 1: {}, 2: {}, 3: {} };
-        var returnOfSecurityCheck = {
-            "layout": {
-                "create": false,
-                "list": false,
-                "detail": false,
-                "destroy": false,
-                "properties": {
-                    "navigation": {
-                        "visible": true,
-                        "editable": true,
-                        "required": false
-                    },
-                    "search": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    },
-                    "notifications": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    },
-                    "useroptions": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    }
-                }
-            },
-            "login": {
-                "create": false,
-                "list": false,
-                "detail": true,
-                "destroy": false,
-                "properties": {
-                    "username": {
-                        "visible": true,
-                        "editable": true,
-                        "required": true
-                    },
-                    "password": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    }
-                }
-            }
-        };
-
-        /****************************/
-        /*     Global Variables     */
-        /****************************/
-        console.log("@Url.Action("Landing", "Home")");
-        console.log("@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")");
-        var $body = $("body");
-        var $homeURI = '@Url.Action("Landing", "Home")';
-        var $contextMenu = {};
-        var $sideMenu = {};
-        var $sideMenuLayout = { 0: {}, 1: {}, 2: {}, 3: {} };
-        var returnOfSecurityCheck = {
-            "layout": {
-                "create": false,
-                "list": false,
-                "detail": false,
-                "destroy": false,
-                "properties": {
-                    "navigation": {
-                        "visible": true,
-                        "editable": true,
-                        "required": false
-                    },
-                    "search": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    },
-                    "notifications": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    },
-                    "useroptions": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    }
-                }
-            },
-            "login": {
-                "create": false,
-                "list": false,
-                "detail": true,
-                "destroy": false,
-                "properties": {
-                    "username": {
-                        "visible": true,
-                        "editable": true,
-                        "required": true
-                    },
-                    "password": {
-                        "visible": true,
-                        "editable": true,
-                        "required ": false
-                    }
-                }
-            }
-        };
-
         var $authorizationModel = {};
+
+        var returnOfSecurityCheck = {
+            "layout": {
+                "create": false,
+                "list": false,
+                "detail": false,
+                "destroy": false,
+                "properties": {
+                    "navigation": {
+                        "visible": true,
+                        "editable": true,
+                        "required": false
+                    },
+                    "search": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "notifications": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    },
+                    "useroptions": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            },
+            "login": {
+                "create": false,
+                "list": false,
+                "detail": true,
+                "destroy": false,
+                "properties": {
+                    "username": {
+                        "visible": true,
+                        "editable": true,
+                        "required": true
+                    },
+                    "password": {
+                        "visible": true,
+                        "editable": true,
+                        "required ": false
+                    }
+                }
+            }
+        };
+
         var $layoutModel = {
             listContainer: {
                 create: "",
@@ -368,6 +310,15 @@
 
         //Partial Views Javascript Code Container
         @RenderSection("JavascriptGlobalFunctions", required: false)
+
+        function toggleSideMenu() {
+            if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" && Cookies.get("navegacion") != "2") {
+                $("ul").removeClass("open");
+                $("i.arrow").removeClass("down");
+                $("#sidebar").toggleClass("minified");
+                $(".content-container").toggleClass("expanded");
+            }
+        }
 
         /****************************/
         /* Document Ready Variables */
@@ -465,25 +416,17 @@
                     $(this).parent().children("ul.sub-menu2").addClass("open");
                 }
             });
-            
-            //Toggle for last submenu                        
-            /*$("ul.sub-menu2 > li > a").click(function () {
-                if($(this).parent().children("ul.sub-menu3").hasClass('open')) {
-                    $(this).children("span").removeClass("active");                    
-                    $(this).parent().children("ul.sub-menu3").removeClass("open");                  
-                }
-                else {                    
-                    $("ul.sub-menu2 span").removeClass("active");
-                    $("ul.sub-menu3").removeClass("open");
-                    $(this).children("span").addClass("active");
-                    $(this).parent().children("ul.sub-menu3").addClass("open");
-                }
-            });*/
+
+            //Toggle for last submenu's links         
+            $(document).on("click", "ul.sub-menu2 > li > a", function () {
+                $("ul.sub-menu2 li").removeClass("active");
+                $("ul.sub-menu3").removeClass("open");
+            });
 
             //Toggle for last submenu's links         
             $(document).on("click", "ul.sub-menu3 > li > a", function () {                
                 $("ul.sub-menu2 li").removeClass("active");                  
-                $("ul.sub-menu3").removeClass("open");                                                                         
+                $("ul.sub-menu3").removeClass("open");
             });
 
             //Toggle sidebar's size
@@ -533,6 +476,9 @@
             //Set on the dropdownlist the url language and change the current language
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
+
+            //Hide side menu for all pages except landing and home
+            toggleSideMenu();
         });
     </script>
 </body>
