@@ -15,19 +15,13 @@ namespace MessagesManager.Controllers
     public class MessageManagerController : ApiController
     {
         Base64Security dataSecurity = new Base64Security();
-        //MessageLibrary messages = new MessageLibrary();
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+       
        /// <summary>
        /// Obtiene las notificaciones por ID de usuario
        /// </summary>
        /// <param name="id">ID de usuario</param>
-       /// <returns>Notificaciones en formato JSON codificado</returns>
-        public object Get(string token, int id)
+       /// <returns>Notificaciones en formato JSON</returns>
+        public object Get(string token)
         {
             string payload = "";
             string newToken = "";
@@ -36,8 +30,8 @@ namespace MessagesManager.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                return MessageLibrary.Instance.GetNotificationsByUserID(id);
+            
+                return MessageLibrary.Instance.GetNotificationsByUserID(usuario.UsuarioID);
             }
             else
             {
@@ -108,8 +102,33 @@ namespace MessagesManager.Controllers
             }
         }
         
-        public void Delete(int id)
+        /// <summary>
+        /// Marca el mensaje como inactivo
+        /// </summary>
+        /// <param name="token">Token de la sesion de usuario</param>
+        /// <param name="id"> id de notificacion</param>
+        /// <returns>estatus 500 OK</returns>
+        public object Delete(string token, int id)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            
+                return MessageLibrary.Instance.DeleteMessage(id);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }

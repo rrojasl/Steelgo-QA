@@ -1198,13 +1198,11 @@
                             folio = data.ReturnMessage[1];
                             cargarTituloFolio();
                             BotonAlta();
-                            alert("El folio " + folio + " fue creado exitosamente.");
+                            displayMessage("notificationslabel0013", folio, 0);
                             $("#DetalleAvisoLlegada0084").show();
                         }
 
                         loadingStop();
-                        displayMessage("notificationslabel0013", folio, 0);
-                        $("#DetalleAvisoLlegada0084").show();
                     });
                 }
             };
