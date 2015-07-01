@@ -207,9 +207,10 @@
 }
 
 .k-dropzone {
-    margin-top: 2px;
+    margin-top: 7px;
     padding: 0;
     border: 1px solid #c5c5c5; /* For Default; Different for each theme */
+    border-radius: 5px;
 }
 
     .k-dropzone em {
@@ -220,6 +221,7 @@
 
     .k-dropzone .k-upload-button,
     .k-dropzone .k-upload-button.k-state-focused,
+    .k-upload .k-upload-button,
     .k-upload .k-upload-selected,
     .k-upload .k-upload-selected.k-state-focused {
         color: #FFFFFF;
@@ -241,16 +243,26 @@
         vertical-align: text-top;
     }
 
-        .k-upload .k-upload-selected,
-        .k-upload .k-upload-selected.k-state-focused {
-            margin-left: 0;
-        }
+.k-upload > .k-upload-button {
+    border-radius: 3px;
+    margin-top: 2px;
+}
 
-            .k-dropzone .k-upload-button:hover,
-            .k-upload .k-upload-selected:hover {
-                background-color: rgba(048, 094, 142, 0.9);
-                border-bottom-color: rgba(035, 069, 104, 0.5);
-            }
+.k-upload .k-upload-selected,
+.k-upload .k-upload-selected.k-state-focused {
+    margin-left: 0;
+    border-radius: 3px;
+}
+
+    .k-dropzone .k-upload-button:hover,
+    .k-upload .k-upload-button:hover,
+    .k-upload .k-upload-selected:hover,
+    .k-upload .k-button:focus:not(.k-state-disabled):not([disabled]) {
+        background-color: rgba(048, 094, 142, 0.9);
+        border-color: transparent;
+        border-bottom-color: rgba(035, 069, 104, 0.5);
+        box-shadow: none;
+    }
 
 .k-upload .k-upload-files .k-file .k-icon {
     background-image: url("/Content/images/SAMC_Attachtment.png");

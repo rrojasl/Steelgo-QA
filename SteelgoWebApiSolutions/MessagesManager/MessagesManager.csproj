@@ -135,6 +135,10 @@
       <Project>{6b1ad69e-07da-4d33-9d07-0868aaaaa780}</Project>
       <Name>DatabaseManager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SecurityManager\SecurityManager.csproj">
+      <Project>{fadb83c7-600e-43cd-8493-0ea5929e1536}</Project>
+      <Name>SecurityManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
