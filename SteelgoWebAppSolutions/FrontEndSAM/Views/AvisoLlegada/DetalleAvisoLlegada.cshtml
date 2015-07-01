@@ -672,6 +672,7 @@
                 });
                 return bool;
             };
+
             //Your partial views specific functions
             function CargaInicial() {
                 ocultarStatus();
@@ -684,7 +685,7 @@
                     if(validarRequeridosFormaAvisoLlegada()){
                         GuardarAvisoLlegada();
                     } else {
-                        alert("Favor de validar los campos requeridos de la forma");
+                        displayMessage("notificationslabel0031", "", 1);
                     }
                 });
 
@@ -693,7 +694,7 @@
                         var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                     } else {
-                        alert("Favor de validar los campos requeridos de la forma");
+                        displayMessage("notificationslabel0031", "", 1);
                     };
                 });
                 
@@ -722,7 +723,7 @@
                     if (validarRequeridosModalTransportista()) {
                         GuardarTransportista();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0031", "", 1);
                     };
                 });
 
@@ -731,7 +732,7 @@
                     if (validarRequeridosModalPatio()) {
                         GuardarPatio();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0031", "", 1);
                     };
                 });
                 $("#GuardarChofer").click(function (e) { GuardarChofer(); });
@@ -739,14 +740,14 @@
                     if (validarRequeridosModalPlana()) {
                         GuardarPlana();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0031", "", 1);
                     };
                 });
                 $("#GuardarCamion").click(function (e) {
                     if (validarRequeridosModalCamion()) {
                         GuardarCamion();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0031", "", 1);
                     };
                 });
                 //**

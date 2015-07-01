@@ -83,7 +83,10 @@
 
 
 <script>
-
+    @section JavascriptDocumentReadyHomeCookie {
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "9", { path: '/' });
+    }
     @section JavascriptGlobalVariables {
         var Patio = {}, Cliente = {};
         var FechaInicial, FechaFinal, myBarChart, myPieChart;
@@ -199,10 +202,20 @@
             var today = new Date();
             var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
 
-            $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaInicial").kendoDatePicker({ footer: false });
-            $("#FechaFinal").kendoDatePicker({ footer: false });
+            var fechainicial = fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value());
+            var fechafinal = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
+
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            };
+
+            var fechaInicialkendo = kendo.parseDate(fechainicial, format);
+            var fechaFinalkendo = kendo.parseDate(fechafinal, format);
+
+            $("#FechaInicial").data("kendoDatePicker").value(fechaInicialkendo);
+            $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
         };
 
         function Error(data) {
@@ -421,6 +434,6 @@
             CantidadesDelMenuDashboard();
         });
 
-        //ObtenerFechasporDefecto();
+        ObtenerFechasporDefecto();
     }
 </script>

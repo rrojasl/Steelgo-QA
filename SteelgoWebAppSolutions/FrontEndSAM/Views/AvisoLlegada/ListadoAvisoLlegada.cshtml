@@ -6,6 +6,9 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
     </li>
+    <li>
+        <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0029"></span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0021"></span></a>
     </li>
@@ -375,7 +378,7 @@
                         removeUserSession();
                         return true;
                     } else {
-                        displayMessage("", data.ReturnMessage, 2);
+                        displayMessage("notificationslabel0008", data.ReturnMessage, 2);
                         return false;
                     }
                 }
