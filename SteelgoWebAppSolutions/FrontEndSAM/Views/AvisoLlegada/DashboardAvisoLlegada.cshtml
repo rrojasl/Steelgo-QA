@@ -96,43 +96,31 @@
         };
 
         function ObtenerAccionesListado(Listado) {
-
-            //$folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
-            //    Error(result);
-
-            //    $("#spanCreados").html(result.Creados);
-            //    $("#spanSinPermiso").html(result.SinPermiso);
-            //    $("#spanSinAutorizacion").html(result.SinAutorizacion);
-            //    $("#spanCompletos").html(result.Completos);
-            //});
-
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
                 
-                if (result.length > 0) {
-                    $("#spanCreados").html(result.Creados);
-                    $("#spanSinPermiso").html(result.SinPermiso);
-                    $("#spanSinAutorizacion").html(result.SinAutorizacion);
-                    $("#spanCompletos").html(result.Completos);
-                    actualizarGraficaDeBarras(result);
-                    actualizarGraficaDePastel(result);
-                } else {
-                    $("#spanCreados").html(0);
-                    $("#spanSinPermiso").html(0);
-                    $("#spanSinAutorizacion").html(0);
-                    $("#spanCompletos").html(0);
-                    limpiarGraficaDeBarras();
-                    limpiarGraficaDePastel();
-                }
+                $("#spanCreados").html(result.Creados ? result.Creados : 0);
+                $("#spanSinPermiso").html(result.SinPermiso ? result.SinPermiso : 0);
+                $("#spanSinAutorizacion").html(result.SinAutorizacion ? result.SinAutorizacion : 0);
+                $("#spanCompletos").html(result.Completos ? result.Completos : 0);
+
+                $("#spanPorcentajeCompletos").html(result.PorcentajeCompletos ? result.PorcentajeCompletos : 0);
+                $("#spanPorcentajeSinAutorizacion").html(result.ProcentajeSinAutorizacion ? result.ProcentajeSinAutorizacion : 0);
+                $("#spanPorcentajeSinPermiso").html(result.PorcentajeSinPermiso ? result.PorcentajeSinPermiso : 0);
+
+                actualizarGraficaDeBarras(result);
+                actualizarGraficaDePastel(result);
+               
             });
         };
 
         function actualizarGraficaDePastel(result) {
-            myPieChart.segments[0].value = 10;
-            myPieChart.segments[1].value = 150;
-            myPieChart.segments[2].value = 200;
+            myPieChart.segments[0].value = result.PorcentajeCompletos ? result.PorcentajeCompletos : -1;
+            myPieChart.segments[1].value = result.PorcentajeSinPermiso ? result.PorcentajeSinPermiso : 0;
+            myPieChart.segments[2].value = result.ProcentajeSinAutorizacion ? result.ProcentajeSinAutorizacion : 0;
             myPieChart.update();
         };
+
         function limpiarGraficaDePastel() {
             myPieChart.segments[0].value = -1;
             myPieChart.segments[1].value = 0;
@@ -141,10 +129,10 @@
         };
 
         function actualizarGraficaDeBarras(result) {
-            myBarChart.datasets[0].bars[0].value = 15;
-            myBarChart.datasets[0].bars[1].value = 10;
-            myBarChart.datasets[0].bars[2].value = 20;
-            myBarChart.datasets[0].bars[3].value = 12;
+            myBarChart.datasets[0].bars[0].value = result.Creados ? result.Creados : 0;
+            myBarChart.datasets[0].bars[1].value = result.SinPermiso ? result.SinPermiso : 0;
+            myBarChart.datasets[0].bars[2].value = result.SinAutorizacion ? result.SinAutorizacion : 0;
+            myBarChart.datasets[0].bars[3].value = result.Completos ? result.Completos : 0;
             myBarChart.update();
         };
 
@@ -433,6 +421,6 @@
             CantidadesDelMenuDashboard();
         });
 
-        ObtenerFechasporDefecto();
+        //ObtenerFechasporDefecto();
     }
 </script>

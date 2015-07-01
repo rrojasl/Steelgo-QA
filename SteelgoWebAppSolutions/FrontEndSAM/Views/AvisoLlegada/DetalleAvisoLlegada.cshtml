@@ -1170,12 +1170,6 @@
                 AvisoLlegada.Cliente = Cliente;
                 AvisoLlegada.TipoAviso = TipoAvisos;
                 //AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
-
-                console.log(AvisoLlegada);
-
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyAvisoLlegada');
-
                 console.log(JSON.stringify(AvisoLlegada));
                 loadingStart();
 
