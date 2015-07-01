@@ -1,8 +1,7 @@
 ﻿/********************************************/
 /********************************************/
 /*********                          *********/
-/*********      Aviso Llegada       *********/
-/*********        Dashboard         *********/
+/********* Notifications Manager    *********/
 /*********                          *********/
 /********************************************/
 /********************************************/
@@ -18,7 +17,7 @@
 /****************************/
 
 //Method to be called on the document ready and contains all the pertinent code for a partial view
-function avisoLlegadaDashboardToBeExecutedOnDocumentReady() {
+function notificationsManagertoBeExecutedOnDocumentReady() {
     //CODE
 }
 

@@ -65,43 +65,49 @@
                 </div>
             </div>
             <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                <div class="col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div id="TipoAvisoDiv" class="form-group col-sm-6 col-md-4 col-lg-2">
-                            <label id="DetalleAvisoLlegada0074"></label>
-                            <input id="TipoAvisoID" class="" />
-                        </div>
-                        <div id="ClienteDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0067"></label>
-                            <input id="ClienteID" />
-                        </div>
-                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0001"></label>
-                            <input id="ProyectoID" />
-                        </div>
-                        <div id="FechaRecepcionDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0004"></label>
-                            <input id="FechaRecepcion" />
-                        </div>
-                        <div id="PatioDiv" class="form-group col-sm-6 col-md-4 col-lg-2">
-                            <label id="DetalleAvisoLlegada0008" ></label>
-                            <input id="PatioID" class="" />
-                        </div>                  
-                        <div id="TransportistaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0003"></label>
-                            <input id="TransportistaID" class="" />
-                        </div>
-                        <div id="ChoferDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0009"></label>
-                            <input id="ChoferID" class="" />
-                        </div>                        
-                        <div id="TractoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0055"></label>
-                            <input id="Tracto" class="" />
-                        </div>
-                        <div id="PlanaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="DetalleAvisoLlegada0006"></label>
-                            <input id="PlanaID" class="" />
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div id="TipoAvisoDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0074"></label>
+                                    <input id="TipoAvisoID" class="" />
+                                </div>
+                                <div id="ClienteDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0067" ></label>
+                                    <input id="ClienteID" />
+                                </div>
+                                <div id="ProyectoDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0001"></label>
+                                    <input id="ProyectoID" />
+                                </div>
+                                <div id="FechaRecepcionDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0004"></label>
+                                    <input id="FechaRecepcion" />
+                                </div>
+                                <div class="visible-lg col-sm-12 col-md-12 col-lg-12"></div>
+                                <div id="PatioDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0008" ></label>
+                                    <input id="PatioID" class="" />
+                                </div>
+                                <div id="TransportistaDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0003"></label>
+                                    <input id="TransportistaID" class="" />
+                                </div>
+                                <div id="ChoferDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0009"></label>
+                                    <input id="ChoferID" class="" />
+                                </div>
+                                <div id="TractoDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0055"></label>
+                                    <input id="Tracto" class="" />
+                                </div>
+                                <div class="visible-lg col-sm-12 col-md-12 col-lg-12"></div>
+                                <div id="PlanaDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0006"></label>
+                                    <input id="PlanaID" class="" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -666,6 +672,8 @@
                 ocultarStatus();
 
                 FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
+
+
                 //**Eventos
                 $("#Guardar").click(function (e) {
                     if(validarRequeridosFormaAvisoLlegada()){
@@ -748,7 +756,7 @@
                 //Pase Salida
                 $("#ImprimirPase").click(function () {
                     if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
-                        alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
+                        displayMessage("notificationslabel0010", "", 1);
                         return false;
                     };
                     $("#hdPaseSalida").val(1);
@@ -1034,7 +1042,7 @@
                     filter: "contains",
                 });
                 ObtenerChoferCamion();
-                ObtenerFechaDefault();
+                //ObtenerFechaDefault();
             };
         
             function onUploadArchivoPaseSalida() {
@@ -1043,7 +1051,7 @@
 
             function onUploadArchivoAutorizar() {
                 if (!$("#NumeroPermiso").val()) {
-                    alert("Por favor, seleccionar el numero de permiso");
+                    displayMessage("notificationslabel0011", "", 1);
                     e.preventDefault();
                 }
 
@@ -1051,7 +1059,7 @@
 
             function onUpload(e) {
                 if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                    alert("Por favor, seleccionar el tipo de archivo");
+                    displayMessage("notificationslabel0012", "", 1);
                     e.preventDefault();
                 }
                 $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
@@ -1195,6 +1203,8 @@
                         }
 
                         loadingStop();
+                        displayMessage("notificationslabel0013", folio, 0);
+                        $("#DetalleAvisoLlegada0084").show();
                     });
                 }
             };
@@ -1735,7 +1745,7 @@
 
             function GenerarPermiso() {
                 if (folio == -1) {
-                    alert("Favor de guardar el aviso de llegada, antes de enviar el permiso");
+                    displayMessage("notificationslabel0014", "", 1);
                     return;
                 };
 
@@ -1752,8 +1762,9 @@
 
             function ObtenerFechaDefault() {
                 var today = new Date();
-                $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+                $("#FechaRecepcion").data("kendoDatePicker").value("01/07/2015");
                 $("#FechaRecepcion").kendoDatePicker({ footer: false });
+                //changeLanguage();
             };
 
             function ObtenerProyectos() {
@@ -1885,7 +1896,7 @@
 
             function cancelarFolio() {
                 if (folio == -1) {
-                    alert("Favor de guardar el aviso de llegada, para poder realizar la siguiente acción");
+                    displayMessage("notificationslabel0015", "", 1);
                     return;
                 };
 
@@ -1943,7 +1954,7 @@
                             removeUserSession();
                             return true;
                         } else {
-                            alert("Mensaje de error: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return false;
                         }
                     }

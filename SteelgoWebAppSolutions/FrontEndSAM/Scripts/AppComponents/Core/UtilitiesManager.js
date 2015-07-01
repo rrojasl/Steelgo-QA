@@ -1,5 +1,28 @@
-﻿/****************************/
-/*    Utilities Functions   */
+﻿/********************************************/
+/********************************************/
+/*********                          *********/
+/*********    Utilities Manager     *********/
+/*********                          *********/
+/********************************************/
+/********************************************/
+
+/****************************/
+/*    Global Variables      */
+/****************************/
+
+//Add all global variables for your partial view here
+
+/****************************/
+/*    Document Ready        */
+/****************************/
+
+//Method to be called on the document ready and contains all the pertinent code for a partial view
+function utilitiesManagerToBeExecutedOnDocumentReady() {
+    //CODE
+}
+
+/****************************/
+/*    Global Functions      */
 /****************************/
 
 //Function to obtain an url parameter if is not present then return the notFindValue parameter
@@ -49,4 +72,14 @@ function decrypt(encodedData) {
         encodedData = encodedData + '=';
     }
     return window.atob(encodedData);
+}
+
+//Function to show or hide the side menu
+function toggleSideMenu() {
+    if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" && Cookies.get("navegacion") != "2") {
+        $("ul").removeClass("open");
+        $("i.arrow").removeClass("down");
+        $("#sidebar").toggleClass("minified");
+        $(".content-container").toggleClass("expanded");
+    }
 }

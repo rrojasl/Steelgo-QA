@@ -1,16 +1,21 @@
-﻿/****************************/
-/*    API REST Functions    */
+﻿/********************************************/
+/********************************************/
+/*********                          *********/
+/*********    API Manager           *********/
+/*********                          *********/
+/********************************************/
+/********************************************/
+
+/****************************/
+/*    Global Variables      */
 /****************************/
 
+//Base API's
 var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
 var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
 var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
 var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
-$BackEndSAM.add('DummyListadoAvisoLlegada');
-$BackEndSAM.add('perfil');
-$SecurityManager.add('authentication');
-
 //DetalleAvisoLlegada
 var $Plana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $Transportista = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
@@ -31,8 +36,25 @@ var $PermisoTramite = new $.RestClient('http://localhost:60960' + '/backendsam/a
 var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $DocumentoAvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $ValidacionFolioConPermisoAduana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var redireccionAutomatica = true;
 
+/****************************/
+/*    Document Ready        */
+/****************************/
+
+//Method to be called on the document ready and contains all the pertinent code for a partial view
+function apiManagerToBeExecutedOnDocumentReady() {
+    //CODE
+}
+
+/****************************/
+/*    Global Functions      */
+/****************************/
+
+$BackEndSAM.add('DummyListadoAvisoLlegada');
+$BackEndSAM.add('perfil');
+$SecurityManager.add('authentication');
+
+//Detalle Aviso Llegada
 $Plana.add("Plana");
 $Transportista.add("Transportista");
 $Patio.add("Patio");

@@ -1247,6 +1247,127 @@ _dictionary = {
         "en-US": "Home"
     },
     //Default to copy
+    "notificationslabel0001": {
+        "es-MX": "Se redireccona a home por error de credenciales",
+        "en-US": ""
+    },
+    "notificationslabel0002": {
+        "es-MX": "Se redireccona a home por error en la llamada",
+        "en-US": ""
+    },
+    "notificationslabel0003": {
+        "es-MX": "Se redireccona a home por fallo en la llamada",
+        "en-US": ""
+    },
+    "notificationslabel0004": {
+        "es-MX": "Se redireccona a home por error inesperado",
+        "en-US": ""
+    },
+    "notificationslabel0005": {
+        "es-MX": "Se redireccona a home por que hice logout",
+        "en-US": ""
+    },
+    "notificationslabel0006": {
+        "es-MX": "Por favor, seleccionar el numero de permiso",
+        "en-US": ""
+    },
+    "notificationslabel0007": {
+        "es-MX": "Por favor, seleccionar un folio",
+        "en-US": ""
+    },
+    "notificationslabel0008": {
+        "es-MX": "Mensaje de error: ",
+        "en-US": ""
+    },
+    "notificationslabel0009": {
+        "es-MX": "Mensaje de error: ",
+        "en-US": ""
+    },
+    "notificationslabel0010": {
+        "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida",
+        "en-US": ""
+    },
+    "notificationslabel0011": {
+        "es-MX": "Por favor, seleccionar el numero de permiso",
+        "en-US": ""
+    },
+    "notificationslabel0012": {
+        "es-MX": "Por favor, seleccionar el tipo de archivo",
+        "en-US": ""
+    },
+    "notificationslabel0013": {
+        "es-MX": "Fue creado exitosamente el folio #",
+        "en-US": ""
+    },
+    "notificationslabel0014": {
+        "es-MX": "Favor de guardar el aviso de llegada, antes de enviar el permiso",
+        "en-US": ""
+    },
+    "notificationslabel0015": {
+        "es-MX": "Favor de guardar el aviso de llegada, para poder realizar la siguiente acción",
+        "en-US": ""
+    },
+    "notificationslabel0016": {
+        "es-MX": "El folio cuenta con permiso de auduana autorizado",
+        "en-US": ""
+    },
+    "notificationslabel0017": {
+        "es-MX": "Se termino el proceso de cuantificación",
+        "en-US": ""
+    },
+    "notificationslabel0018": {
+        "es-MX": "You must select an csv file only",
+        "en-US": ""
+    },
+    "notificationslabel0019": {
+        "es-MX": "El browser que maneja no tiene compatibilidad con las funcionalidad de archivos",
+        "en-US": "The File APIs are not fully supported in this browser!"
+    },
+    "notificationslabel0020": {
+        "es-MX": "No hay datos para importar",
+        "en-US": ""
+    },
+    "notificationslabel0021": {
+        "es-MX": "Imposible leer el archivo: ",
+        "en-US": "Unable to read the file: "
+    },
+    "notificationslabel0022": {
+        "es-MX": "Los item codes no tienen asignado un numero unico",
+        "en-US": ""
+    },
+    "notificationslabel0023": {
+        "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida",
+        "en-US": ""
+    },
+    "notificationslabel0024": {
+        "es-MX": "Por favor, seleccionar el tipo de archivo",
+        "en-US": ""
+    },
+    "notificationslabel0025": {
+        "es-MX": "Por favor, debe llenar la descripción",
+        "en-US": ""
+    },
+    "notificationslabel0026": {
+        "es-MX": "Folio de Entrada / Folio de Llegada: ",
+        "en-US": ""
+    },
+    "notificationslabel0027": {
+        "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida",
+        "en-US": ""
+    },
+    "notificationslabel0028": {
+        "es-MX": "complemento",
+        "en-US": ""
+    },
+    "notificationslabel0029": {
+        "es-MX": "",
+        "en-US": ""
+    },
+    "notificationslabel0030": {
+        "es-MX": "",
+        "en-US": ""
+    },
+    //Default to copy
     "label9999": {
         "es-MX": "",
         "en-US": ""

@@ -23,6 +23,8 @@
                         <div class="button-section">
                             <a id="GuardarParcialmente" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0017"></span></a>
                             <a id="GenerarNumerosUnicos" href="javascript:void(0);" class="btn btn-yellow"><span id="Cuantificacion0018"></span></a>
+                        </div>
+                        <div class="button-section">
                             <a id="TerminarCuantificacion" href="javascript:void(0);" class="btn btn-black"><span id="Cuantificacion0020"></span></a>
                         </div>
                         <div class="button-section">
@@ -119,7 +121,7 @@
 
                 Client.DummyCambiarEstatusCuantificacion.update({}, { foliollegadaid: foliollegadaID, proyectoid: proyectoID, packinglistid: $("#PackingList").val(), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                     console.log("DummyCambiarEstatusCuantificacion.update");
-                    alert("Se termino el proceso de cuantificación");
+                    displayMessage("notificationslabel0017", "", 0);
                     deshabilitarControles();
 
                     var detalleIdeaUrl = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
@@ -728,11 +730,11 @@
 
         function upload(evt) {
             if (!(/\.(csv)$/i).test(evt.target.files[0].name)) {
-                alert('You must select an csv file only');
+                displayMessage("notificationslabel0018", "", 1);
                 event.preventDefault();
             } else {
                 if (!browserSupportFileUpload()) {
-                    alert('The File APIs are not fully supported in this browser!');
+                    displayMessage("notificationslabel0019", "", 1);
                 } else {
                     var dataJson = null;
                     var file = evt.target.files[0];
@@ -750,11 +752,11 @@
                                 $("#grid").data("kendoGrid").dataSource.insert(item);
                             });
                         } else {
-                            alert('No data to import!');
+                            displayMessage("notificationslabel0020", "", 1);
                         }
                     };
                     reader.onerror = function () {
-                        alert('Unable to read ' + file.fileName);
+                        displayMessage("notificationslabel0021", file.fileName, 1);
                     };
                 }
             }
@@ -789,7 +791,7 @@ function imprimirEtiquetas() {
         Cookies.set("ItemCodes", strItemCodes, {path: '/'});
         window.open("@Url.Action("FormatoEtiquetas", "Cuantificacion")");
     } else {
-        alert("Los item codes no tienen asignado un numero unico");
+        displayMessage("notificationslabel0022", "", 1);
         return;
     }
 

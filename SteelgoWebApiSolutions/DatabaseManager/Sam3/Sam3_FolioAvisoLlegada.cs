@@ -28,7 +28,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> Consecutivo { get; set; }
         public Nullable<bool> EsVirtual { get; set; }
         public string Estatus { get; set; }
-        public Nullable<bool> Activo { get; set; }
+        public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public int TransportistaID { get; set; }

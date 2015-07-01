@@ -106,7 +106,7 @@
             //    $("#spanCompletos").html(result.Completos);
             //});
 
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
                 
                 if (result.length > 0) {
@@ -223,7 +223,7 @@
                     if (data.ReturnCode == 401) {
                         removeUserSession();
                     } else {
-                        alert("Mensaje de error: " + data.ReturnMessage);
+                        displayMessage("notificationslabel0009", data.ReturnMessage, 2);
                         return;
                     }
                 }

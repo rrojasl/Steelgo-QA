@@ -244,6 +244,27 @@ header .menu > div {
         font-size: 10px;
         font-weight: 600;
     }
+
+    .notifications .notification-menu {
+        right: -10px;
+        left: inherit;
+        margin-top: 10px;
+        border-radius: 3px;
+    }
+
+        .notifications .notification-menu a {
+            padding: 10px;
+            font-weight: 600;
+        }
+
+            .notifications .notification-menu a.read {
+                font-weight: 100;
+            }
+
+        .notifications .notification-menu li.footer {
+            border-top: 1px solid #CCCCCC;
+            text-align: right;
+        }
 /**********************************************************************************/
 
 
@@ -690,6 +711,7 @@ header .menu > div {
 
 .message {
     margin-left: 15px;
+    margin-bottom: 20px;
     padding: 7px 0 7px 49px;
     height: 34px;
     background-position: left center;

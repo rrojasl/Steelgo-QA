@@ -118,7 +118,9 @@
     color: #000000;
     background: none;
     min-height: 30px;
-    height: auto;
+    height: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 4px;
 }
 

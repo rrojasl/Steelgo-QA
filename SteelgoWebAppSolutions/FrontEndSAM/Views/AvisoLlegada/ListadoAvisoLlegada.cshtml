@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoAvisoLlegada0006"></label>
-                                <input id="FechaInicial" class="" />
+                                <input id="FechaInic" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoAvisoLlegada0007"></label>
@@ -113,7 +113,7 @@
     @section JavascriptGlobalVariables {
         //your partial views variables
         var Transportista = [], Proveedor = [], Patio = [], Folio = [], Cliente = {};
-        var FechaInicial, FechaFinal, resultadoJson;
+        var FechaInic, FechaFinal, resultadoJson;
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
         //vars Dashboard
@@ -143,7 +143,7 @@
     @section JavascriptGlobalFunctions {        
         //Your partial views specific functions
         function changeDatePickerDateFormat(datePickerOptions) {
-            FechaInicial.setOptions(datePickerOptions);
+            FechaInic.setOptions(datePickerOptions);
             FechaFinal.setOptions(datePickerOptions);
         };
 
@@ -235,7 +235,7 @@
                         });
                     };
                 } else {
-                    alert("El folio cuenta con permiso de auduana autorizado");
+                    displayMessage("notificationslabel0016", "", 1);
                 };
             });
         };
@@ -253,31 +253,15 @@
 
             $folioEntradaMaterial.Listado.read({}, {data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 Error(result);
-                if (result.length > 0) {
-                    $("#spanCreados").html(result.Creados);
-                    $("#spanSinPermiso").html(result.SinPermiso);
-                    $("#spanSinAutorizacion").html(result.SinAutorizacion);
-                    $("#spanCompletos").html(result.Completos);
-                } else {
-                    $("#spanCreados").html(0);
-                    $("#spanSinPermiso").html(0);
-                    $("#spanSinAutorizacion").html(0);
-                    $("#spanCompletos").html(0);
-                }
-                
+                $("#spanCreados").html(result.Creados ? result.Creados : 0);
+                $("#spanSinPermiso").html(result.SinPermiso ? result.SinPermiso : 0);
+                $("#spanSinAutorizacion").html(result.SinAutorizacion ? result.SinAutorizacion : 0);
+                $("#spanCompletos").html(result.Completos ? result.Completos : 0);
+
             });
         };
 
-        function CargarControlesFiltrado() { };
-        function ObtenerFechasporDefecto() {
-            var today = new Date();
-            var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
-
-            $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaInicial").kendoDatePicker({ footer: false });
-            $("#FechaFinal").kendoDatePicker({ footer: false });
-        };
+        
 
         function CargarFolio(id) {
             Folio = [];
@@ -341,7 +325,7 @@
             //    ProyectoIDs.push(item);
             //});
 
-            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
@@ -397,7 +381,7 @@
         function CargarControlesFiltrado() {
             $("#ClienteID").data("kendoComboBox").value(DashClienteID);
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
-            $("#FechaInicial").data("kendoDatePicker").value(DashFechaInicial);
+            $("#FechaInic").data("kendoDatePicker").value(DashFechaInicial);
             $("#FechaFinal").data("kendoDatePicker").value(DashFechaFinal);
         };
 
@@ -406,11 +390,14 @@
                 if (data.ReturnCode != 200) {
                     if (data.ReturnCode == 401) {
                         removeUserSession();
+                        return true;
                     } else {
-                        alert("Mensaje de error: " + data.ReturnMessage);
-                        return;
+                        displayMessage("", data.ReturnMessage, 2);
+                        return false;
                     }
                 }
+            } else {
+                return true;
             }
         };
 
@@ -448,7 +435,7 @@
             var Listado;
             Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "", TipoListado: "" };
 
-            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
@@ -469,15 +456,19 @@
         };
     }
 
+    function ObtenerFechasporDefecto() {
+        var today = new Date();
+        var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
+
+        $("#FechaInic").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+        $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+        $("#FechaInic").kendoDatePicker({ footer: false });
+        $("#FechaFinal").kendoDatePicker({ footer: false });
+
+    };
+
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-        
-
-        //setTimeout(function () {
-        //    console.log("prueba time out");
-        //    CantidadesDelMenuDashboard();
-        //}, 60000);
-
+        $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
         //Botones Dashboard
         $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
         $("#btnSinPermiso").click(function () {
@@ -538,10 +529,10 @@
                 var value = this.value();
                 if (!value) {
                     Cliente = [];
-                } else {
-                    Filtros();
-                    CantidadesDelMenuDashboard();
-                };
+                }
+                Filtros();
+                CantidadesDelMenuDashboard();
+                
             },
             filter: "contains",
         });
@@ -558,21 +549,21 @@
                 var value = this.value();
                 if (!value) {
                     Patio = [];
-                } else {
-                    Filtros();
-                    CantidadesDelMenuDashboard();
-                };
+                }
+                Filtros();
+                CantidadesDelMenuDashboard();
+                
             },
             filter: "contains",
         });
         ObtenerPatio();
 
-        FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
+        FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         CantidadesDelMenuDashboard();
 
-        $("#FechaInicial").bind("change", function () {
+        $("#FechaInic").bind("change", function () {
             Filtros();
             CantidadesDelMenuDashboard();
         });
@@ -587,7 +578,7 @@
             CargarControlesFiltrado();
             AccionesListado(DashBoardAccionListado);
         } else {
-            ObtenerFechasporDefecto();
+            //ObtenerFechasporDefecto();
             tabActivo(1);//default 1 creados
             Filtros();
         }
