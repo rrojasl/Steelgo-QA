@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Dashboard - Llegada Material";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="DashboardLlegadaMaterial0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DashboardLlegadaMaterial", "EntradaMaterial")"><span id="DashboardLlegadaMaterial0002"></span></a>
+    </li>
+}
+
+
+<div class="form clearfix col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav filtersFields clearfix">
+                <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-1">
+                        <div class="button-section">
+                            <button id="Nuevo" type="button" class="btn btn-yellow"><span id="DashboardLlegadaMaterial0014"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardLlegadaMaterial0004"></label>
+                                <input id="PatioID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardLlegadaMaterial0003"></label>
+                                <input id="ClienteID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardLlegadaMaterial0005"></label>
+                                <input id="FechaInicial" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardLlegadaMaterial0006"></label>
+                                <input id="FechaFinal" class="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="btn-group col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+                    <button id="btnCreados" class="btn btn-tab">
+                        <label id="DashboardLlegadaMaterial0007"></label>
+                        <span id="spanCreados"></span>
+                    </button>
+                    <button id="btnSinPermiso" class="btn btn-tab">
+                        <label id="DashboardLlegadaMaterial0008"></label>
+                        <span id="spanSinPermiso"></span>
+                    </button>
+                    <button id="btnSinAutorizacion" class="btn btn-tab active">
+                        <label id="DashboardLlegadaMaterial0009"></label>
+                        <span id="spanSinAutorizacion"></span>
+                    </button>
+                    <button id="btnCompletos" class="btn btn-tab">
+                        <label id="DashboardLlegadaMaterial0010"></label>
+                        <span id="spanCompletos"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <canvas id="ChartBar" width="400" height="400"></canvas>
+        </div>
+        <div>
+            <canvas id="ChartPie" width="400" height="400"></canvas>
+            <div>
+                <span id="spanPorcentajeCompletos"></span><label id="DashboardLlegadaMaterial0011"></label>
+                <span id="spanPorcentajeSinAutorizacion"></span><label id="DashboardLlegadaMaterial0012"></label>
+                <span id="spanPorcentajeSinPermiso"></span><label id="DashboardLlegadaMaterial0013"></label>
+            </div>
+        </div>
+    </div>
+</div>

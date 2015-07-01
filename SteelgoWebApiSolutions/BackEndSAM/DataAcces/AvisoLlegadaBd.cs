@@ -194,7 +194,7 @@ namespace BackEndSAM.DataAcces
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoEntrada
                                                  join a in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals a.FolioAvisoLlegadaID
                                                  where r.FolioAvisoEntradaID == folioLlegadaID
-                                                 && r.Activo.Value == true
+                                                 && r.Activo == true
                                                  && (a.FechaRecepcion >= fechaInicial && a.FechaRecepcion <= fechaFinal)
                                                  select a.FolioAvisoLlegadaID).AsParallel().ToList();
                     }
@@ -205,7 +205,7 @@ namespace BackEndSAM.DataAcces
                         {
                             result = (from r in ctx.Sam3_FolioAvisoLlegada
                                       join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                      where r.Activo.Value == true && p.Activo
+                                      where r.Activo == true && p.Activo
                                       && patiosUsuario.Contains(r.PatioID)
                                       && proyectosUsuario.Contains(p.ProyectoID)
                                       && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
@@ -300,7 +300,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = (from r in ctx.Sam3_FolioAvisoLlegada
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo.Value == true && p.PermisoAutorizado == true
+                                          where r.Activo == true && p.PermisoAutorizado == true
                                           select r).AsParallel().ToList();
                             }
                         }
@@ -311,7 +311,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = (from r in result
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo.Value == true && p.PermisoAutorizado == false
+                                          where r.Activo == true && p.PermisoAutorizado == false
                                           select r).AsParallel().ToList();
 
                             }
@@ -319,7 +319,7 @@ namespace BackEndSAM.DataAcces
                             {
                                 result = (from r in ctx.Sam3_FolioAvisoLlegada
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo.Value == true && p.PermisoAutorizado == false
+                                          where r.Activo == true && p.PermisoAutorizado == false
                                           select r).AsParallel().ToList();
                             }
                         }
@@ -329,14 +329,14 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
-                                          where r.Activo.Value == true
+                                          where r.Activo == true
                                           && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
                                           select r).AsParallel().ToList();
                             }
                             else
                             {
                                 result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                          where r.Activo.Value == true
+                                          where r.Activo == true
                                           && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
                                           select r).AsParallel().ToList();
                             }
@@ -357,27 +357,43 @@ namespace BackEndSAM.DataAcces
 
                         if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio).Any())
                         {
-                            elemento = (from r in ctx.Sam3_FolioAvisoLlegada
+                            Sam3_FolioAvisoLlegada temp = (from r in ctx.Sam3_FolioAvisoLlegada
                                         join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                        where r.Activo.Value == true
+                                        where r.Activo == true
                                         && r.FolioAvisoLlegadaID == folio
-                                        select new ElementoListadoFolioAvisoLlegada
-                                        {
-                                            FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
-                                            FechaGeneracion = p.FechaGeneracion.HasValue ? p.FechaGeneracion.Value.ToString() : "",
-                                            FechaRecepcion = r.FechaRecepcion.HasValue ? r.FechaRecepcion.Value.ToString() : ""
-                                        }).AsParallel().Distinct().SingleOrDefault();
+                                        select r).AsParallel().SingleOrDefault();
+
+                            //Sam3_PermisoAduana tempP = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio)
+                            //    .AsParallel().SingleOrDefault();
+
+                            string fechaR = temp.FechaRecepcion.Value.ToString("dd/MM/yyyy");
+                            string fechag = temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault()
+                                .Value.ToString("dd/MM/yyyy");
+                            //tempP.FechaGeneracion.Value.ToString("dd/MM/yyyy");
+
+                            elemento = new ElementoListadoFolioAvisoLlegada
+                            {
+                                FolioAvisoLlegadaID = temp.FolioAvisoLlegadaID.ToString(),
+                                FechaGeneracion = fechag,
+                                FechaRecepcion = fechaR
+                            };
                         }
                         else
                         {
-                            elemento = (from r in ctx.Sam3_FolioAvisoLlegada
-                                        where r.Activo == true && r.FolioAvisoLlegadaID == folio
-                                        select new ElementoListadoFolioAvisoLlegada
-                                        {
-                                            FolioAvisoLlegadaID = r.FolioAvisoLlegadaID.ToString(),
-                                            FechaRecepcion = r.FechaRecepcion.Value.ToString(),
-                                            FechaGeneracion = string.Empty,
-                                        }).AsParallel().Distinct().SingleOrDefault();
+                            Sam3_FolioAvisoLlegada temp = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                           where r.Activo == true
+                                                           && r.FolioAvisoLlegadaID == folio
+                                                           select r).AsParallel().SingleOrDefault();
+
+                            string fechaR = temp.FechaRecepcion.Value.ToString("dd/MM/yyyy");
+
+                            elemento = new ElementoListadoFolioAvisoLlegada
+                            {
+                                FolioAvisoLlegadaID = temp.FolioAvisoLlegadaID.ToString(),
+                                FechaGeneracion = string.Empty,
+                                FechaRecepcion = fechaR
+                            };
 
                         }
 
@@ -413,7 +429,7 @@ namespace BackEndSAM.DataAcces
 
                     AvisoLlegadaJson aviso = new AvisoLlegadaJson();
                     Sam3_FolioAvisoLlegada registroBd = ctx.Sam3_FolioAvisoLlegada.Where(x =>
-                        x.FolioAvisoLlegadaID == avisoLlegadaID && x.Activo.Value)
+                        x.FolioAvisoLlegadaID == avisoLlegadaID && x.Activo)
                         .AsParallel().SingleOrDefault();
                     //agregamos el listado de archivos del aviso de llegada
                     aviso.Archivos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Documento
@@ -494,8 +510,8 @@ namespace BackEndSAM.DataAcces
                         aviso.PermisoAduana.Add(new PermisoAduanaAV
                         {
                             NumeroPermiso = p.NumeroPermiso.ToString(),
-                            PermisoAutorizado = p.PermisoAutorizado.Value,
-                            PermisoTramite = p.PermisoTramite.Value,
+                            PermisoAutorizado = p.PermisoAutorizado,
+                            PermisoTramite = p.PermisoTramite,
                             FechaAutorizacion = p.FechaAutorización.ToString(),
                             FechaGeneracion = p.FechaGeneracion.ToString()
                         });
@@ -706,7 +722,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                   where r.Activo.Value
+                                                   where r.Activo
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
@@ -737,7 +753,7 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
                                                    join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID  
-                                                   where r.Activo.Value && p.RequierePermisoAduana && pe.Activo 
+                                                   where r.Activo && p.RequierePermisoAduana && pe.Activo 
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -767,7 +783,7 @@ namespace BackEndSAM.DataAcces
                 {
                     bool permisoAutorizado = (from r in ctx.Sam3_FolioAvisoLlegada
                                               join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                              where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && p.PermisoAutorizado.Value == true
+                                              where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && p.PermisoAutorizado == true
                                               select p.PermisoAduanaID).AsParallel().Any();
 
                     return permisoAutorizado;
@@ -799,7 +815,7 @@ namespace BackEndSAM.DataAcces
                                                       {
                                                           DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
                                                           NumeroPermiso = p.NumeroPermiso.ToString(),
-                                                          PermisoAutorizado = p.PermisoAutorizado.Value,
+                                                          PermisoAutorizado = p.PermisoAutorizado,
                                                           Url = d.Url
                                   
                                                       }).AsParallel().SingleOrDefault();

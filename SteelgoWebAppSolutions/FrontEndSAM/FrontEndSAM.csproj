@@ -446,6 +446,7 @@
     <Content Include="Scripts\AppComponents\Core\ApiManager.js" />
     <Content Include="Scripts\AppComponents\Core\GridExtensionsManager.js" />
     <Content Include="Scripts\AppComponents\Core\MenuManager.js" />
+    <Content Include="Scripts\AppComponents\Core\AlertsManager.js" />
     <Content Include="Scripts\AppComponents\Core\NotificationsManager.js" />
     <Content Include="Scripts\AppComponents\Core\TranslationManager.js" />
     <Content Include="Scripts\AppComponents\Core\UtilitiesManager.js" />
@@ -1090,6 +1091,7 @@
     <Content Include="Views\EntradaMaterial\FormatoPaseSalida.cshtml" />
     <Content Include="Views\AvisoLlegada\AutorizarPermiso.cshtml" />
     <Content Include="Views\AvisoLlegada\DashboardAvisoLlegada.cshtml" />
+    <Content Include="Views\EntradaMaterial\DashboardLlegadaMaterial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

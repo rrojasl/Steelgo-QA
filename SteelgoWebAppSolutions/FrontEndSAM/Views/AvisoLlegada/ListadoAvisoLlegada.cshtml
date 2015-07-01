@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoAvisoLlegada0006"></label>
-                                <input id="FechaInicial" class="" />
+                                <input id="FechaInic" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoAvisoLlegada0007"></label>
@@ -43,34 +43,7 @@
                     </div>
                 </div>
             </div>
-            @*<div class="row">
-                <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                    <label id="ListadoAvisoLlegada0004" class=""></label>
-                    <input id="ProyectoID" class="" />
-                </div>
-                <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                    <label id="ListadoAvisoLlegada0002"></label>
-                    <input id="FolioAvisoLlegadaID" class="" />
-                </div>
-            </div>*@
         </div>
-        @*<div class="col-sm-12 col-md-4 col-lg-3 filters">
-            <div class="row">
-                <div class="form-group col-sm-6 col-md-12 col-lg-6">
-                    <label id="ListadoAvisoLlegada0005"></label>
-                    <input id="ProveedorID" class="" />
-                </div>
-            </div>
-        </div>*@
-        @*<div class="col-sm-12 col-md-12 col-lg-2 filterBtns">
-            <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                    <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow">
-                        <span id="ListadoAvisoLlegada0017"></span>
-                    </a>
-                </div>
-            </div>
-        </div>*@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -113,7 +86,7 @@
     @section JavascriptGlobalVariables {
         //your partial views variables
         var Transportista = [], Proveedor = [], Patio = [], Folio = [], Cliente = {};
-        var FechaInicial, FechaFinal, resultadoJson;
+        var FechaInic, FechaFinal, resultadoJson;
         var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
         var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
         //vars Dashboard
@@ -143,7 +116,7 @@
     @section JavascriptGlobalFunctions {        
         //Your partial views specific functions
         function changeDatePickerDateFormat(datePickerOptions) {
-            FechaInicial.setOptions(datePickerOptions);
+            FechaInic.setOptions(datePickerOptions);
             FechaFinal.setOptions(datePickerOptions);
         };
 
@@ -253,31 +226,15 @@
 
             $folioEntradaMaterial.Listado.read({}, {data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 Error(result);
-                if (result.length > 0) {
-                    $("#spanCreados").html(result.Creados);
-                    $("#spanSinPermiso").html(result.SinPermiso);
-                    $("#spanSinAutorizacion").html(result.SinAutorizacion);
-                    $("#spanCompletos").html(result.Completos);
-                } else {
-                    $("#spanCreados").html(0);
-                    $("#spanSinPermiso").html(0);
-                    $("#spanSinAutorizacion").html(0);
-                    $("#spanCompletos").html(0);
-                }
-                
+                $("#spanCreados").html(result.Creados ? result.Creados : 0);
+                $("#spanSinPermiso").html(result.SinPermiso ? result.SinPermiso : 0);
+                $("#spanSinAutorizacion").html(result.SinAutorizacion ? result.SinAutorizacion : 0);
+                $("#spanCompletos").html(result.Completos ? result.Completos : 0);
+
             });
         };
 
-        function CargarControlesFiltrado() { };
-        function ObtenerFechasporDefecto() {
-            var today = new Date();
-            var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
-
-            $("#FechaInicial").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-            $("#FechaInicial").kendoDatePicker({ footer: false });
-            $("#FechaFinal").kendoDatePicker({ footer: false });
-        };
+        
 
         function CargarFolio(id) {
             Folio = [];
@@ -341,7 +298,7 @@
             //    ProyectoIDs.push(item);
             //});
 
-            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
@@ -366,11 +323,12 @@
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                Error(data);
-                resultadoJson = data;
-                if ($("#grid").data("kendoGrid")) {
-                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                };
+                if(Error(data)){
+                    resultadoJson = data;
+                    if ($("#grid").data("kendoGrid")) {
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                    };
+                }
             });
         };
 
@@ -395,10 +353,19 @@
         };
 
         function CargarControlesFiltrado() {
+            var date, format;
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            };            
+            var fechaInicialkendo = kendo.parseDate(DashFechaInicial, format);
+            var fechaFinalkendo = kendo.parseDate(DashFechaFinal, format);
+
             $("#ClienteID").data("kendoComboBox").value(DashClienteID);
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
-            $("#FechaInicial").data("kendoDatePicker").value(DashFechaInicial);
-            $("#FechaFinal").data("kendoDatePicker").value(DashFechaFinal);
+            $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+            $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
         };
 
         function Error(data) {
@@ -406,11 +373,14 @@
                 if (data.ReturnCode != 200) {
                     if (data.ReturnCode == 401) {
                         removeUserSession();
+                        return true;
                     } else {
                         displayMessage("", data.ReturnMessage, 2);
-                        return;
+                        return false;
                     }
                 }
+            } else {
+                return true;
             }
         };
 
@@ -448,7 +418,7 @@
             var Listado;
             Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "", TipoListado: "" };
 
-            var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+            var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
@@ -469,15 +439,28 @@
         };
     }
 
+    function ObtenerFechasporDefecto() {
+        var today = new Date();
+        var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
+
+        var fechainicial = fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value());
+        var fechafinal = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
+
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        };
+
+        var fechaInicialkendo = kendo.parseDate(fechainicial, format);
+        var fechaFinalkendo = kendo.parseDate(fechafinal, format);
+
+        $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+        $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+    };
+
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-        
-
-        //setTimeout(function () {
-        //    console.log("prueba time out");
-        //    CantidadesDelMenuDashboard();
-        //}, 60000);
-
+        $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
         //Botones Dashboard
         $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
         $("#btnSinPermiso").click(function () {
@@ -538,10 +521,10 @@
                 var value = this.value();
                 if (!value) {
                     Cliente = [];
-                } else {
-                    Filtros();
-                    CantidadesDelMenuDashboard();
-                };
+                }
+                Filtros();
+                CantidadesDelMenuDashboard();
+                
             },
             filter: "contains",
         });
@@ -558,21 +541,21 @@
                 var value = this.value();
                 if (!value) {
                     Patio = [];
-                } else {
-                    Filtros();
-                    CantidadesDelMenuDashboard();
-                };
+                }
+                Filtros();
+                CantidadesDelMenuDashboard();
+                
             },
             filter: "contains",
         });
         ObtenerPatio();
 
-        FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
+        FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
-        CantidadesDelMenuDashboard();
+        
 
-        $("#FechaInicial").bind("change", function () {
+        $("#FechaInic").bind("change", function () {
             Filtros();
             CantidadesDelMenuDashboard();
         });
@@ -586,10 +569,12 @@
             tabActivo(DashBoardAccionListado);
             CargarControlesFiltrado();
             AccionesListado(DashBoardAccionListado);
+            CantidadesDelMenuDashboard();
         } else {
             ObtenerFechasporDefecto();
             tabActivo(1);//default 1 creados
             Filtros();
+            CantidadesDelMenuDashboard();
         }
     }
 

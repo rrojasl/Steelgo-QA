@@ -15,7 +15,7 @@ namespace FrontEndSAM.Controllers.LlegadaMaterial
             return View();
         }
 
-        // GET: /EntradaMaterial/
+        // GET: /EntradaMaterial/ListadoLlegadaMaterial
         public ActionResult ListadoLlegadaMaterial()
         {
             return View();
@@ -27,7 +27,13 @@ namespace FrontEndSAM.Controllers.LlegadaMaterial
             return View();
         }
 
+        // GET: /EntradaMaterial/FormatoPaseSalida
         public ActionResult FormatoPaseSalida()
+        {
+            return View();
+        }
+        // GET: /EntradaMaterial/DashboardLlegadaMaterial
+        public ActionResult DashboardLlegadaMaterial()
         {
             return View();
         }

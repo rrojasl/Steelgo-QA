@@ -25,29 +25,6 @@ function securityManagerToBeExecutedOnDocumentReady() {
 /*    Global Functions      */
 /****************************/
 
-//Method to update the visibility, required and editable attributes of all elements
-function applySecurity() {
-    //Obtain the entity list from the $authorizationModel
-    var key, entityDefinition, entitySecurity;
-    var securityNotFound = true;
-    var authorizationModelKeys = Object.keys($authorizationModel);
-
-    //For each entity available for the current page
-    for (key in $authorizationModel) {
-        //It the page contains the key to be threated
-        if ($authorizationModel.hasOwnProperty(key)) {
-            //obtain the entity definition
-            entityDefinition = $authorizationModel[key];
-            if (returnOfSecurityCheck.hasOwnProperty(key)) {
-                entitySecurity = returnOfSecurityCheck[key];
-                securityNotFound = false;
-            }
-            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
-            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
-        }
-    }
-}
-
 //Method to change the visibility, editability and required attributes of the elements
 function applySecurityPolicy() {
     //Block the screen
@@ -93,6 +70,29 @@ function applySecurityPolicy() {
         loadingStop();
     }
 
+}
+
+//Method to update the visibility, required and editable attributes of all elements
+function applySecurity() {
+    //Obtain the entity list from the $authorizationModel
+    var key, entityDefinition, entitySecurity;
+    var securityNotFound = true;
+    var authorizationModelKeys = Object.keys($authorizationModel);
+
+    //For each entity available for the current page
+    for (key in $authorizationModel) {
+        //It the page contains the key to be threated
+        if ($authorizationModel.hasOwnProperty(key)) {
+            //obtain the entity definition
+            entityDefinition = $authorizationModel[key];
+            if (returnOfSecurityCheck.hasOwnProperty(key)) {
+                entitySecurity = returnOfSecurityCheck[key];
+                securityNotFound = false;
+            }
+            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+        }
+    }
 }
 
 //Method to apply the security policy in the entity
@@ -279,33 +279,23 @@ function validateCredentials() {
                 //RedirectToHomePage
                 Cookies.remove("user", { path: '/' });
                 Cookies.remove("token", { path: '/' });
-                if (redireccionAutomatica) {
-                    document.location.href = '/';
-                } else {
-                    displayMessage("notificationslabel0001", "", 2);
-                }
+                displayMessage("notificationslabel0001", "", 2);
+                document.location.href = '/';
             }
             loadingStop();
         });
         request.error(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0002", "", 2);
-            }
-
+            displayMessage("notificationslabel0002", "", 2);
+            document.location.href = '/';
             loadingStop();
         });
         request.fail(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0003", "", 2);
-            }
+            displayMessage("notificationslabel0003", "", 2);
+            document.location.href = '/';
 
             loadingStop();
         });
@@ -313,11 +303,8 @@ function validateCredentials() {
     } else {
         if (Cookies.get("home") != null && Cookies.get("home") == "false") {
             //RedirectToHomePage
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0004", "", 2);
-            }
+            document.location.href = '/';
+            displayMessage("notificationslabel0004", "", 2);
 
         } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
                     && Cookies.get("user") != null
@@ -327,11 +314,8 @@ function validateCredentials() {
         } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1"
                     && Cookies.get("LogOut") != null) {
             Cookies.remove("LogOut", { path: '/' });
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0005", "", 2);
-            }
+            displayMessage("notificationslabel0005", "", 2);
+            document.location.href = '/';
         }
     }
 }

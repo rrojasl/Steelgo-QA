@@ -1184,6 +1184,63 @@ _dictionary = {
         "es-MX": "Sin Permiso",
         "en-US": "No permission"
     },
+    //Dashboard Llegada Material
+    "DashboardLlegadaMaterial0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DashboardLlegadaMaterial0002": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Dashboard Llegada de Material"
+    },
+    "DashboardLlegadaMaterial0003": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardLlegadaMaterial0004": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "DashboardLlegadaMaterial0005": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "DashboardLlegadaMaterial0006": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "DashboardLlegadaMaterial0007": {
+        "es-MX": "Folios Creados",
+        "en-US": "Created Folios"
+    },
+    "DashboardLlegadaMaterial0008": {
+        "es-MX": "Sin Permiso ",
+        "en-US": "Without Permission "
+    },
+    "DashboardLlegadaMaterial0009": {
+        "es-MX": "Sin Autorizacion ",
+        "en-US": "Without Authorization "
+    },
+    "DashboardLlegadaMaterial0010": {
+        "es-MX": "Completos ",
+        "en-US": "Full "
+    },
+    "DashboardLlegadaMaterial0011": {
+        "es-MX": "Completos",
+        "en-US": "Full"
+    },
+    "DashboardLlegadaMaterial0012": {
+        "es-MX": "Sin Autorización",
+        "en-US": "No Authorization"
+    },
+    "DashboardLlegadaMaterial0013": {
+        "es-MX": "Sin Permiso",
+        "en-US": "No permission"
+    },
+    "DashboardLlegadaMaterial0014": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
     //Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
@@ -1207,7 +1264,7 @@ _dictionary = {
         "en-US": ""
     },
     "notificationslabel0005": {
-        "es-MX": "Se redireccona a home por que hice logour",
+        "es-MX": "Se redireccona a home por que hice logout",
         "en-US": ""
     },
     "notificationslabel0006": {

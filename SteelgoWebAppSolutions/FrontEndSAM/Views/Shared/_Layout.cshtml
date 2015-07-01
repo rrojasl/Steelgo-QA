@@ -32,6 +32,8 @@
     @Scripts.Render("~/Scripts/CODE128.js")
     @Scripts.Render("~/Scripts/CODE39.js")
     @Scripts.Render("~/Scripts/Chart.js")
+
+    @Scripts.Render("~/Scripts/AppComponents/Core/AlertsManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/ApiManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/DictionaryManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/GridExtensionsManager.js")
@@ -393,8 +395,8 @@
             //Menu Interactions Code 
             menuManagerToBeExecutedOnDocumentReady();
 
-            //Notification Interactions Code
-            notificationsManagertoBeExecutedOnDocumentReady();
+            //Alerts Interactions Code
+            alertsManagertoBeExecutedOnDocumentReady();
 
             //Add layout element to the Authorization Model
             $authorizationModel.Layout = $layoutModel;
