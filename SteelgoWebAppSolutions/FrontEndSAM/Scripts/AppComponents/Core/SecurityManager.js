@@ -1,148 +1,29 @@
-﻿/****************************/
-/*   Security Functions     */
+﻿/********************************************/
+/********************************************/
+/*********                          *********/
+/*********    Security Manager      *********/
+/*********                          *********/
+/********************************************/
+/********************************************/
+
+/****************************/
+/*    Global Variables      */
 /****************************/
 
-//Create the QuickLinks
-function generateQuickLinks() {
-    var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>    <li>        <a href='#'>            <span>Llegada de Material</span>        </a>    </li>    <li>        <a href='#'><span>Generación Pase Salida</span></a></li><li><a href='#'><span>Despacho de Tubos</span></a></li></ul></li>";
-    $(".main-menu").append(htmlToAppend);
+//Add all global variables for your partial view here
+
+/****************************/
+/*    Document Ready        */
+/****************************/
+
+//Method to be called on the document ready and contains all the pertinent code for a partial view
+function securityManagerToBeExecutedOnDocumentReady() {
+    //CODE
 }
 
-//Create Level 0 DOM Elements for SideMenu
-function generateSideMenuDOMElementsLevel0(elementOfMenu, appendingTarget) {
-    
-    //var htmlToAppend = "<li class='active'><a href='" + elementOfMenu.liga + "'>";
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><i class='" + elementOfMenu.icono + "'></i><span id='" + elementOfMenu.texto + "'></span><i class='icn right arrow'></i></a></li>");
-    var htmlSubMenu = $("<ul class='sub-menu'></ul>");
-    htmlToAppend.append(htmlSubMenu);
-    console.log("->" + elementOfMenu.texto);
-    appendingTarget.append(htmlToAppend);
-    return htmlSubMenu;
-}
-
-//Create Level 1 DOM Elements for SideMenu
-function generateSideMenuDOMElementsLevel1(elementOfMenu, appendingTarget) {
-    
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><span id='" + elementOfMenu.texto + "'></span></a></li>");
-    var htmlSubMenu2 = $("<ul class='sub-menu2'></ul>");
-    htmlToAppend.append(htmlSubMenu2);
-    console.log("-->" + elementOfMenu.texto);
-    appendingTarget.append(htmlToAppend);
-    return htmlSubMenu2;
-}
-
-//Create Level 2 DOM Elements for SideMenu
-function generateSideMenuDOMElementsLevel2(elementOfMenu, appendingTarget) {
-    
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><span id='" + elementOfMenu.texto + "'></span></a></li>");
-    var htmlSubMenu3 = $("<ul class='sub-menu3'></ul>");
-    htmlToAppend.append(htmlSubMenu3);
-    console.log("--->" + elementOfMenu.texto);
-    appendingTarget.append(htmlToAppend);
-    return htmlSubMenu3;
-}
-
-//Create Level 3 DOM Elements for SideMenu
-function generateSideMenuDOMElementsLevel3(elementOfMenu, appendingTarget) {
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><span id='" + elementOfMenu.texto + "'></span></a></li>");
-    console.log("--->" + elementOfMenu.texto);
-    appendingTarget.append(htmlToAppend);
-    return htmlToAppend;
-}
-
-//Recursive Method to generate the side menu
-function generateSideMenuDOMElements(idPadre, nivel, appendingTarget) {
-    if ($sideMenuLayout[nivel] != undefined && $sideMenuLayout[nivel][idPadre] != undefined) {
-        for (key in $sideMenuLayout[nivel][idPadre]) {
-            var newAppendingTarget;
-            switch (nivel) {
-                case 0: newAppendingTarget = generateSideMenuDOMElementsLevel0($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
-                case 1: newAppendingTarget = generateSideMenuDOMElementsLevel1($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
-                case 2: newAppendingTarget = generateSideMenuDOMElementsLevel2($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
-                case 3: newAppendingTarget = generateSideMenuDOMElementsLevel3($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
-            }
-            generateSideMenuDOMElements(key, nivel + 1, newAppendingTarget);
-        }
-    }
-}
-//Method to generate the Side Menu
-function generateSideMenu(data) {
-    $sideMenu = {};
-    $sideMenuLayout = {};
-
-    if (typeof (data.layout) != null && typeof (data.layout.navigation) != null && data.layout.navigation[0].type == "sidemenu") {
-        for (key in data.layout.navigation[0].elements) {
-            var element = data.layout.navigation[0].elements[key];
-
-            if ($sideMenuLayout[element.nivel] == undefined) {
-                $sideMenuLayout[element.nivel] = {};
-            }
-
-            if ($sideMenuLayout[element.nivel][element.idPadre] == undefined) {
-                $sideMenuLayout[element.nivel][element.idPadre] = {};
-            }
-
-
-            if ($sideMenuLayout[element.nivel][element.idPadre][element.elemetId] == undefined) {
-                $sideMenuLayout[element.nivel][element.idPadre][element.elemetId] = {};
-            }
-
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].texto = element.texto;
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].liga = element.liga;
-            $sideMenuLayout[element.nivel][element.idPadre][element.elemetId].icono = element.icono;
-        }
-    }
-}
-
-//Method to populate the returnOfSecurityCheck
-function generateReturnOFSecurityCheck(data) {
-    returnOfSecurityCheck = {};
-    //Populate entities
-    for (key in data.entidades) {
-        var keyRetreived = data.entidades[key];
-        returnOfSecurityCheck[keyRetreived.entityName] = {};
-        returnOfSecurityCheck[keyRetreived.entityName].create = keyRetreived.create;
-        returnOfSecurityCheck[keyRetreived.entityName].destroy = keyRetreived.destroy;
-        returnOfSecurityCheck[keyRetreived.entityName].detail = keyRetreived.detail;
-        returnOfSecurityCheck[keyRetreived.entityName].list = keyRetreived.list;
-        returnOfSecurityCheck[keyRetreived.entityName].properties = {};
-        for (property in keyRetreived.properties) {
-            var propertyRetreived = keyRetreived.properties[property];
-            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName] = {};
-            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].editable = propertyRetreived.editable;
-            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].required = propertyRetreived.required;
-            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].visible = propertyRetreived.visible;
-        }
-
-    }
-    //Populate Layout
-    returnOfSecurityCheck.Layout = {};
-    returnOfSecurityCheck.Layout.create = data.layout.create;
-    returnOfSecurityCheck.Layout.destroy = data.layout.destroy;
-    returnOfSecurityCheck.Layout.detail = data.layout.detail;
-    returnOfSecurityCheck.Layout.list = data.layout.list;
-
-    returnOfSecurityCheck.Layout.properties = {};
-    returnOfSecurityCheck.Layout.properties.search = {};
-    returnOfSecurityCheck.Layout.properties.search.editable = data.layout.properties[0].editable;
-    returnOfSecurityCheck.Layout.properties.search.required = data.layout.properties[0].required;
-    returnOfSecurityCheck.Layout.properties.search.visible = data.layout.properties[0].visible;
-
-    returnOfSecurityCheck.Layout.properties.notifications = {};
-    returnOfSecurityCheck.Layout.properties.notifications.editable = data.layout.properties[1].editable;
-    returnOfSecurityCheck.Layout.properties.notifications.required = data.layout.properties[1].required;
-    returnOfSecurityCheck.Layout.properties.notifications.visible = data.layout.properties[1].visible;
-
-    returnOfSecurityCheck.Layout.properties.useroptions = {};
-    returnOfSecurityCheck.Layout.properties.useroptions.editable = data.layout.properties[2].editable;
-    returnOfSecurityCheck.Layout.properties.useroptions.required = data.layout.properties[2].required;
-    returnOfSecurityCheck.Layout.properties.useroptions.visible = data.layout.properties[2].visible;
-
-    returnOfSecurityCheck.Layout.properties.navigation = {};
-    returnOfSecurityCheck.Layout.properties.navigation.editable = data.layout.properties[3].editable;
-    returnOfSecurityCheck.Layout.properties.navigation.required = data.layout.properties[3].required;
-    returnOfSecurityCheck.Layout.properties.navigation.visible = data.layout.properties[3].visible;
-}
+/****************************/
+/*    Global Functions      */
+/****************************/
 
 //Method to update the visibility, required and editable attributes of all elements
 function applySecurity() {
@@ -177,8 +58,6 @@ function applySecurityPolicy() {
 
         //Execute REST Petition to obtain the user access
         $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
-            console.log("data");
-            console.log(data);
 
             //Retrieve the context menu definition**
             $contextMenu = {};
@@ -403,7 +282,7 @@ function validateCredentials() {
                 if (redireccionAutomatica) {
                     document.location.href = '/';
                 } else {
-                    alert("Se redireccona a home por error de credenciales");
+                    displayMessage("notificationslabel0001", "", 2);
                 }
             }
             loadingStop();
@@ -414,7 +293,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por error en la llamada");
+                displayMessage("notificationslabel0002", "", 2);
             }
 
             loadingStop();
@@ -425,7 +304,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por fallo en la llamada");
+                displayMessage("notificationslabel0003", "", 2);
             }
 
             loadingStop();
@@ -437,7 +316,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por error inesperado");
+                displayMessage("notificationslabel0004", "", 2);
             }
 
         } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
@@ -451,7 +330,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por que hice logour");
+                displayMessage("notificationslabel0005", "", 2);
             }
         }
     }

@@ -1,7 +1,30 @@
-﻿/****************************/
-/*   Traslation Functions   */
+﻿/********************************************/
+/********************************************/
+/*********                          *********/
+/*********    Traslation Manager    *********/
+/*********                          *********/
+/********************************************/
+/********************************************/
+
 /****************************/
-            
+/*    Global Variables      */
+/****************************/
+
+//Add all global variables for your partial view here
+
+/****************************/
+/*    Document Ready        */
+/****************************/
+
+//Method to be called on the document ready and contains all the pertinent code for a partial view
+function traslationManagerToBeExecutedOnDocumentReady() {
+    //CODE
+}
+
+/****************************/
+/*    Global Functions      */
+/****************************/
+    
 //Function to change the labels to the corresponding language of the layout page
 function changeLayoutLabels(language) {
     $("label").each(function (index) {

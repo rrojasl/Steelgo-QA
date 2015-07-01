@@ -235,7 +235,7 @@
                         });
                     };
                 } else {
-                    alert("El folio cuenta con permiso de auduana autorizado");
+                    displayMessage("notificationslabel0016", "", 1);
                 };
             });
         };
@@ -407,7 +407,7 @@
                     if (data.ReturnCode == 401) {
                         removeUserSession();
                     } else {
-                        alert("Mensaje de error: " + data.ReturnMessage);
+                        displayMessage("", data.ReturnMessage, 2);
                         return;
                     }
                 }
