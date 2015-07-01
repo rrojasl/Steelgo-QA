@@ -34,6 +34,9 @@
     @Scripts.Render("~/Scripts/CODE39.js")
     @Scripts.Render("~/Scripts/Chart.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/ApiManager.js")
+    @Scripts.Render("~/Scripts/AppComponents/Core/GridExtensionsManager.js")
+    @Scripts.Render("~/Scripts/AppComponents/Core/MenuManager.js")
+    @Scripts.Render("~/Scripts/AppComponents/Core/NotificationsManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/SecurityManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/TranslationManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/UtilitiesManager.js")
@@ -68,7 +71,7 @@
                             <div class="btn-group">
                                 <a id="logged-user" href="#" class="btn dropdown-toggle" data-toggle="dropdown">
                                     <img src="/Content/images/SAMC_MenuIcon_03.png" />
-                                    <span class="name">Mario A. Gónzalez</span>
+                                    <span class="name" id="nameSpan">Mario A. Gónzalez</span>
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
@@ -108,48 +111,7 @@
                     <!-- main-nav -->
                     <nav class="main-nav">
                         <ul class="main-menu" id ="main-menu">
-                            @*
-                            <li class="active">
-                                <a href="#">
-                                    <i class="icn dashboard"></i>
-                                    <span id="layoutLabel0005"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icn transactions"></i>
-                                    <span id="layoutLabel0006"></span>
-                                    <i class="icn right arrow"></i>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a href="#">
-                                            <span id="layoutLabel0019"></span>
-                                        </a>
-                                        <ul class="sub-menu2">                                           
-                                            <li>
-                                                <span id="layoutLabel0020"></span>
-                                                <ul class="sub-menu3">                                     
-                                                    <li>
-                                                        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")">
-                                                            <span id="layoutLabel0021"></span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="@Url.Action("DetalleAvisoLlegada", "AvisoLlegada")">
-                                                            <span id="layoutLabel0022"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                                                               
-                                        </ul>
-                                    </li>
-                                   
-                               </ul>
-                            </li>
-                            *@
-                            
+                            <!-- The main menu is generated automatically here -->
                         </ul>
                     </nav>
                     <!-- /main-nav -->
@@ -224,7 +186,7 @@
         var $sideMenu = {};
         var $sideMenuLayout = { 0: {}, 1: {}, 2: {}, 3: {} };
         var $authorizationModel = {};
-
+        var redireccionAutomatica = true;
         var returnOfSecurityCheck = {
             "layout": {
                 "create": false,
@@ -311,15 +273,6 @@
         //Partial Views Javascript Code Container
         @RenderSection("JavascriptGlobalFunctions", required: false)
 
-        function toggleSideMenu() {
-            if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" && Cookies.get("navegacion") != "2") {
-                $("ul").removeClass("open");
-                $("i.arrow").removeClass("down");
-                $("#sidebar").toggleClass("minified");
-                $(".content-container").toggleClass("expanded");
-            }
-        }
-
         /****************************/
         /* Document Ready Variables */
         /****************************/
@@ -339,103 +292,8 @@
             //Hide elements for Login
             hideElements();
 
-            //Toggle for main menu's submenus           
-            /*Open menus on hover*/
-            $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {               
-                if($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
-                    $("ul.sub-menu2").removeClass("open");
-                    $("ul.sub-menu > li").removeClass("active expand");
-                    $(this).children("ul").toggleClass("open");
-                    $("i.arrow").toggleClass("down");                    
-                }
-                else if (!$("#sidebar").hasClass("minified")) {
-                    $("#sidebar li").removeClass('active');
-                    $("#sidebar ul").removeClass('open');
-                    $(this).closest("li").has("ul").addClass('active').children("ul").addClass("open");
-                    $("i.arrow").addClass("down");
-                }
-                else {
-                    $("#sidebar li").removeClass('active');
-                    $("#sidebar ul").removeClass('open'); 
-                    $(this).addClass('active');                  
-                }
-            }).on("mouseleave", "ul.main-menu > li:not('.shortcut')", function () {
-                $("#sidebar li").removeClass('active');
-                $("#sidebar ul").removeClass('open'); 
-                $(this).removeClass('active');
-            });
-            
-            /*Open menus on click*/
-            $(document).on("click", "ul.main-menu > li:not('.shortcut') > a", function () {               
-                if($(this).closest("li").hasClass('active') && !$("#sidebar").hasClass("minified")) {
-                    $("ul.sub-menu2").removeClass("open");
-                    $("ul.sub-menu > li").removeClass("active expand");
-                    $(this).closest("li").children("ul").toggleClass("open");
-                    $(this).children("i.arrow").toggleClass("down");                    
-                }
-                else if (!$("#sidebar").hasClass("minified")) {
-                    $("#sidebar li").removeClass('active');
-                    $("#sidebar ul").removeClass('open');
-                    $(this).closest("li").addClass('active').children("ul").addClass("open");
-                    $(this).children("i.arrow").addClass("down");
-                }
-                else {
-                    $("#sidebar li").removeClass('active');
-                    $("#sidebar ul").removeClass('open'); 
-                    $(this).closest("li").addClass('active');                  
-                }
-            });            
-
-            //Toggle for second submenu
-            /*Open menus on hover*/
-            $(document).on("mouseenter", "ul.sub-menu > li", function () {
-                if($(this).children("ul.sub-menu2").hasClass('open')) {
-                    $(this).removeClass("active expand");                    
-                    $(this).children("ul.sub-menu2").removeClass("open");                  
-                }
-                else {
-                    $("ul.sub-menu2").removeClass("open");
-                    $("ul.sub-menu > li").removeClass("active expand");
-                    $(this).addClass("active");
-                    $(this).has("ul").addClass("expand");                    
-                    $(this).children("ul.sub-menu2").addClass("open");
-                }
-            });            
-            
-            /*Open menus on click*/
-            $(document).on("click", "ul.sub-menu > li > a", function () {
-                if($(this).parent().children("ul.sub-menu2").hasClass('open')) {
-                    $(this).parent("li").removeClass("active expand");                    
-                    $(this).parent().children("ul.sub-menu2").removeClass("open");                  
-                }
-                else {
-                    $("ul.sub-menu2").removeClass("open");
-                    $("ul.sub-menu > li").removeClass("active expand");
-                    $(this).parent("li").addClass("active");
-                    $(this).parent("li").has("ul").addClass("expand");                    
-                    $(this).parent().children("ul.sub-menu2").addClass("open");
-                }
-            });
-
-            //Toggle for last submenu's links         
-            $(document).on("click", "ul.sub-menu2 > li > a", function () {
-                $("ul.sub-menu2 li").removeClass("active");
-                $("ul.sub-menu3").removeClass("open");
-            });
-
-            //Toggle for last submenu's links         
-            $(document).on("click", "ul.sub-menu3 > li > a", function () {                
-                $("ul.sub-menu2 li").removeClass("active");                  
-                $("ul.sub-menu3").removeClass("open");
-            });
-
-            //Toggle sidebar's size
-            $("i.minify").click(function () {
-                $("ul").removeClass("open");
-                $("i.arrow").removeClass("down");
-                $("#sidebar").toggleClass("minified");            
-                $(".content-container").toggleClass("expanded");
-            });
+            //Menu Interactions Code 
+            menuManagerToBeExecutedOnDocumentReady();
 
             //Validate Logged User Credentials
             validateCredentials();
@@ -479,6 +337,9 @@
 
             //Hide side menu for all pages except landing and home
             toggleSideMenu();
+
+            //Set the user name to the 
+            $("#nameSpan").text(decrypt(Cookies.get("user")));
         });
     </script>
 </body>
