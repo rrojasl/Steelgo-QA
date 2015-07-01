@@ -190,6 +190,20 @@ function applySecurityPolicyForProperties(entityDefinition, entitySecurity, secu
                 if (entityDefinition.properties[key].hasOwnProperty("editable") && entityDefinition.properties[key]["editable"] != null && entityDefinition.properties[key]["editable"].length > 0) {
                     if (propertyEditPermission == false) {
                         $(entityDefinition.properties[key]["editable"]).prop('disabled', true);
+                        if ($(entityDefinition.properties[key]["required"]).closest('div').hasClass("k-multiselect")) {
+                            $(entityDefinition.properties[key]["required"]).data("kendoMultiSelect").enable(false);
+
+                        } /*else if ($(entityDefinition.properties[key]["required"]).closest('div').find('span').hasClass("k-combobox")) {
+                            $(entityDefinition.properties[key]["required"]).data("combobox").enable(false);
+
+                        } else if ($(entityDefinition.properties[key]["required"]).closest('div').find('span').hasClass("k-dropdownlist")) {
+                            $(entityDefinition.properties[key]["required"]).data("dropdownlist").enable(false);
+                            
+                        }*/ else {
+                            $(entityDefinition.properties[key]["required"]).closest('div').find('span').children('span').children('input').prop('disabled', true);
+                            $(entityDefinition.properties[key]["required"]).closest('div').find('span').children('span').children('span').remove();
+                        }
+                        
                     }
                 }
 
