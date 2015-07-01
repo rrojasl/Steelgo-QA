@@ -18,6 +18,7 @@
 
 //Method to be called on the document ready and contains all the pertinent code for a partial view
 function notificationsManagertoBeExecutedOnDocumentReady() {
+    displayMessage("notificationslabel0001", "", 0);
     if (Cookies.get("messageBody") != null && Cookies.get("messageComplement") != null && Cookies.get("messageType") != null) {
         displayMessage(Cookies.get("messageBody"), Cookies.get("messageComplement"), Cookies.get("messageType"))
     }
@@ -41,17 +42,25 @@ function cleanDisplayMessage() {
 
 //Method to display a message on the proper area Types(o:success | 1:warning | 2:error)
 function displayMessage(message, messageComplement, type) {
+
     cleanDisplayMessage();
+
     $(".alert-container").addClass("active");
-    $(".message").text(message);
+
+    if (message.length > 0) {
+        $(".message").text(_dictionary[message][$("#language").data("kendoDropDownList").value()]);
+    }
+
     Cookies.set("messageBody", message, { path: '/' });
     Cookies.set("messageComplement", messageComplement, { path: '/' });
     Cookies.set("messageType", type, { path: '/' });
+
     switch (type) {
-        case 0: $(".message").addClass("success"); break;
-        case 0: $(".message").addClass("warning"); break;
-        case 0: $(".message").addClass("error"); break;
+        case '0': $(".message").addClass("success"); break;
+        case '1': $(".message").addClass("warning"); break;
+        case '2': $(".message").addClass("error"); break;
     }
+
     setTimeout(function () {
         cleanDisplayMessage();
     }, 5000);

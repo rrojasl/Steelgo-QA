@@ -287,17 +287,9 @@
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyHomeCookie", required: false)
 
-            //Hide elements for Login
-            hideElements();
-
-            //Menu Interactions Code 
-            menuManagerToBeExecutedOnDocumentReady();
-
-            //Notification Interactions Code
-            notificationsManagertoBeExecutedOnDocumentReady();
-
             //Validate Logged User Credentials
             validateCredentials();
+
 
             $("#logout").click(function (event) {
                 event.preventDefault();
@@ -322,6 +314,15 @@
                     { text: "es-MX" }, { text: "en-US" }
                 ]
             });
+
+            //Hide elements for Login
+            hideElements();
+
+            //Menu Interactions Code 
+            menuManagerToBeExecutedOnDocumentReady();
+
+            //Notification Interactions Code
+            notificationsManagertoBeExecutedOnDocumentReady();
 
             //Add layout element to the Authorization Model
             $authorizationModel.Layout = $layoutModel;
