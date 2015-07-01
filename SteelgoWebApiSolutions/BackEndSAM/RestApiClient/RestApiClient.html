@@ -171,17 +171,18 @@
             var json = {
                 "FolioLlegadaID": "-1",
                 "FolioAvisoLlegadaID": "-1",
-                "PatioID": "",
-                "ClienteID": "1",
-                "FechaInicial": "2015-06-01",
-                "FechaFinal": "2015-06-30",
-                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNTY3Mjc4MH0.UUiZ7RX0W0P6263KLIgSVCXsNeIhpDdsdc03vtH02MQ",
+                "PatioID": "1",
+                "ClienteID": "",
+                "FechaInicial": "2015-6-9",
+                "FechaFinal": "2015-7-1",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNTc4NDI1NH0.2im1vI_SizhDny7u18ozIkfsTrfu5MGywf3x6Nflzog",
                 "Creados": true,
                 "SinPermiso": false,
                 "SinAutorizacion": false,
                 "Completos": false,
                 "TipoListado": 4
             };
+
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
             client.add("Listado");
             client.Listado.read({ data: JSON.stringify(json)}).done(function (data) { console.log(data) });
