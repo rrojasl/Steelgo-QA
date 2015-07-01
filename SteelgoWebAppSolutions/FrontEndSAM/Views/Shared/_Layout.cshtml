@@ -59,10 +59,17 @@
                             </div>
                         </div>
                         <div class="notifications">
-                            <a id="notifications" href="#">
-                                <img src="~/Content/images/SAMC_MenuIcon_02.png" />
-                                <span class="count">8</span>
-                            </a>
+                            <div class="dropdown">
+                                <a id="notifications"  role="button" data-toggle="dropdown" data-target="#" href="#">
+                                    <img src="~/Content/images/SAMC_MenuIcon_02.png" />
+                                    <span class="count">8</span>
+                                </a>
+                                <ul class="dropdown-menu notification-menu" role="menu" aria-labelledby="notifications">
+                                    <li><a href="#">Aviso de Entrada de Material</a></li>
+                                    <li><a href="#" class="read">Aviso de mensaje</a></li>
+                                    <li class="footer"><a href="#">Ver más</a></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="logged-user">
                             <div class="btn-group">
@@ -99,9 +106,9 @@
             </div>
         </div>
     </header>
-    <div class="content-frame">
+    <div class="content-frame clearfix">
         <!-- LEFT NAV AND RIGHT MAIN CONTENT -->
-        <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="container clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <!-- sidebar -->
                 <div id="sidebar" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 sidebar">
