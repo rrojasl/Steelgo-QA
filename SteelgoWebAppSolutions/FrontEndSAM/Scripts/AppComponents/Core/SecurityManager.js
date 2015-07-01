@@ -25,29 +25,6 @@ function securityManagerToBeExecutedOnDocumentReady() {
 /*    Global Functions      */
 /****************************/
 
-//Method to update the visibility, required and editable attributes of all elements
-function applySecurity() {
-    //Obtain the entity list from the $authorizationModel
-    var key, entityDefinition, entitySecurity;
-    var securityNotFound = true;
-    var authorizationModelKeys = Object.keys($authorizationModel);
-
-    //For each entity available for the current page
-    for (key in $authorizationModel) {
-        //It the page contains the key to be threated
-        if ($authorizationModel.hasOwnProperty(key)) {
-            //obtain the entity definition
-            entityDefinition = $authorizationModel[key];
-            if (returnOfSecurityCheck.hasOwnProperty(key)) {
-                entitySecurity = returnOfSecurityCheck[key];
-                securityNotFound = false;
-            }
-            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
-            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
-        }
-    }
-}
-
 //Method to change the visibility, editability and required attributes of the elements
 function applySecurityPolicy() {
     //Block the screen
@@ -93,6 +70,29 @@ function applySecurityPolicy() {
         loadingStop();
     }
 
+}
+
+//Method to update the visibility, required and editable attributes of all elements
+function applySecurity() {
+    //Obtain the entity list from the $authorizationModel
+    var key, entityDefinition, entitySecurity;
+    var securityNotFound = true;
+    var authorizationModelKeys = Object.keys($authorizationModel);
+
+    //For each entity available for the current page
+    for (key in $authorizationModel) {
+        //It the page contains the key to be threated
+        if ($authorizationModel.hasOwnProperty(key)) {
+            //obtain the entity definition
+            entityDefinition = $authorizationModel[key];
+            if (returnOfSecurityCheck.hasOwnProperty(key)) {
+                entitySecurity = returnOfSecurityCheck[key];
+                securityNotFound = false;
+            }
+            applySecurityPolicyForEntity(entityDefinition, entitySecurity, securityNotFound);
+            applySecurityPolicyForProperties(entityDefinition, entitySecurity, securityNotFound);
+        }
+    }
 }
 
 //Method to apply the security policy in the entity
