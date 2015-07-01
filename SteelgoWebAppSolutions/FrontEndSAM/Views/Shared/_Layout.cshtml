@@ -28,12 +28,12 @@
     @Scripts.Render("~/Scripts/kendo/2014.2.716/kendo.all.min.js")
     @Scripts.Render("~/Scripts/kendo/2014.2.716/cultures/kendo.culture.es-MX.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
-    @Scripts.Render("~/Scripts/translating/dictionary.js")
     @Scripts.Render("~/Scripts/JsBarcode.js")
     @Scripts.Render("~/Scripts/CODE128.js")
     @Scripts.Render("~/Scripts/CODE39.js")
     @Scripts.Render("~/Scripts/Chart.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/ApiManager.js")
+    @Scripts.Render("~/Scripts/AppComponents/Core/DictionaryManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/GridExtensionsManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/MenuManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/NotificationsManager.js")
@@ -178,8 +178,6 @@
         /****************************/
         /*     Global Variables     */
         /****************************/
-        console.log("@Url.Action("Landing", "Home")");
-        console.log("@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")");
         var $body = $("body");
         var $homeURI = '@Url.Action("Landing", "Home")';
         var $contextMenu = {};
@@ -294,6 +292,9 @@
 
             //Menu Interactions Code 
             menuManagerToBeExecutedOnDocumentReady();
+
+            //Notification Interactions Code
+            notificationsManagertoBeExecutedOnDocumentReady();
 
             //Validate Logged User Credentials
             validateCredentials();

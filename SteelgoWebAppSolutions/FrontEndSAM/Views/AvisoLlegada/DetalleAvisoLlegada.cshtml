@@ -582,7 +582,7 @@
                 //Pase Salida
                 $("#ImprimirPase").click(function () {
                     if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
-                        alert("Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida");
+                        displayMessage("notificationslabel0010", "", 1);
                         return false;
                     };
                     $("#hdPaseSalida").val(1);
@@ -877,7 +877,7 @@
 
             function onUploadArchivoAutorizar() {
                 if (!$("#NumeroPermiso").val()) {
-                    alert("Por favor, seleccionar el numero de permiso");
+                    displayMessage("notificationslabel0011", "", 1);
                     e.preventDefault();
                 }
 
@@ -885,7 +885,7 @@
 
             function onUpload(e) {
                 if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                    alert("Por favor, seleccionar el tipo de archivo");
+                    displayMessage("notificationslabel0012", "", 1);
                     e.preventDefault();
                 }
                 $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
@@ -1026,7 +1026,7 @@
                         cargarTituloFolio();
                         BotonAlta();
                         loadingStop();
-                        alert("El folio " + folio + " fue creado exitosamente.");
+                        displayMessage("notificationslabel0013", folio, 0);
                         $("#DetalleAvisoLlegada0084").show();
                     });
                 }
@@ -1415,7 +1415,7 @@
                         if (data.ReturnCode == 401) {
                             removeUserSession();
                         } else {
-                            alert("ReturnMessage: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return;
                         }
                     }
@@ -1459,7 +1459,7 @@
                         if (data.ReturnCode == 401) {
                             removeUserSession();
                         } else {
-                            alert("ReturnMessage: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return;
                         }
                     }
@@ -1482,7 +1482,7 @@
                         if (data.ReturnCode == 401) {
                             removeUserSession();
                         } else {
-                            alert("ReturnMessage: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return;
                         }
                     }
@@ -1514,7 +1514,7 @@
                         if (data.ReturnCode == 401) {
                             removeUserSession();
                         } else {
-                            alert("ReturnMessage: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return;
                         }
                     }
@@ -1548,7 +1548,7 @@
                         if (data.ReturnCode == 401) {
                             removeUserSession();
                         } else {
-                            alert("ReturnMessage: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return;
                         }
                     }
@@ -1639,7 +1639,7 @@
 
             function GenerarPermiso() {
                 if (folio == -1) {
-                    alert("Favor de guardar el aviso de llegada, antes de enviar el permiso");
+                    displayMessage("notificationslabel0014", "", 1);
                     return;
                 };
 
@@ -1789,7 +1789,7 @@
 
             function cancelarFolio() {
                 if (folio == -1) {
-                    alert("Favor de guardar el aviso de llegada, para poder realizar la siguiente acción");
+                    displayMessage("notificationslabel0015", "", 1);
                     return;
                 };
 
@@ -1846,7 +1846,7 @@
                         if (data.ReturnCode == 401) {
                             removeUserSession();
                         } else {
-                            alert("Mensaje de error: " + data.ReturnMessage);
+                            displayMessage("", data.ReturnMessage, 2);
                             return;
                         }
                     }

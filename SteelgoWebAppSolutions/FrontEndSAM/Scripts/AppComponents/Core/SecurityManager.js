@@ -282,7 +282,7 @@ function validateCredentials() {
                 if (redireccionAutomatica) {
                     document.location.href = '/';
                 } else {
-                    alert("Se redireccona a home por error de credenciales");
+                    displayMessage("notificationslabel0001", "", 2);
                 }
             }
             loadingStop();
@@ -293,7 +293,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por error en la llamada");
+                displayMessage("notificationslabel0002", "", 2);
             }
 
             loadingStop();
@@ -304,7 +304,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por fallo en la llamada");
+                displayMessage("notificationslabel0003", "", 2);
             }
 
             loadingStop();
@@ -316,7 +316,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por error inesperado");
+                displayMessage("notificationslabel0004", "", 2);
             }
 
         } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
@@ -330,7 +330,7 @@ function validateCredentials() {
             if (redireccionAutomatica) {
                 document.location.href = '/';
             } else {
-                alert("Se redireccona a home por que hice logour");
+                displayMessage("notificationslabel0005", "", 2);
             }
         }
     }
