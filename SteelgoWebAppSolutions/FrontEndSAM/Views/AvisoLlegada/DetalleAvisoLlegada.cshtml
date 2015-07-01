@@ -618,7 +618,8 @@
                 $("#formAvisoLlegada .security_required").each(function (i,elem) {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error");
                     }
                 });
                 return bool;
@@ -629,7 +630,8 @@
                 $("#modalTransportista .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -640,7 +642,8 @@
                 $("#modalPatio .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -651,7 +654,8 @@
                 $("#modalPlana .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -662,7 +666,8 @@
                 $("#modalCamion .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -684,8 +689,12 @@
                 });
 
                 $("#GuardarNuevo").click(function (e) {
-                    var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                    if (validarRequeridosFormaAvisoLlegada()) {
+                        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                    } else {
+                        alert("Favor de validar los campos requeridos de la forma");
+                    };
                 });
                 
                 $("#Editar").click(function (e) {

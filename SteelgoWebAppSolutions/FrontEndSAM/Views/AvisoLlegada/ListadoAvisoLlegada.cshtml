@@ -43,34 +43,7 @@
                     </div>
                 </div>
             </div>
-            @*<div class="row">
-                <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                    <label id="ListadoAvisoLlegada0004" class=""></label>
-                    <input id="ProyectoID" class="" />
-                </div>
-                <div class="form-group col-sm-4 col-md-4 col-lg-2">
-                    <label id="ListadoAvisoLlegada0002"></label>
-                    <input id="FolioAvisoLlegadaID" class="" />
-                </div>
-            </div>*@
         </div>
-        @*<div class="col-sm-12 col-md-4 col-lg-3 filters">
-            <div class="row">
-                <div class="form-group col-sm-6 col-md-12 col-lg-6">
-                    <label id="ListadoAvisoLlegada0005"></label>
-                    <input id="ProveedorID" class="" />
-                </div>
-            </div>
-        </div>*@
-        @*<div class="col-sm-12 col-md-12 col-lg-2 filterBtns">
-            <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                    <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow">
-                        <span id="ListadoAvisoLlegada0017"></span>
-                    </a>
-                </div>
-            </div>
-        </div>*@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -350,11 +323,12 @@
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                Error(data);
-                resultadoJson = data;
-                if ($("#grid").data("kendoGrid")) {
-                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                };
+                if(Error(data)){
+                    resultadoJson = data;
+                    if ($("#grid").data("kendoGrid")) {
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                    };
+                }
             });
         };
 
@@ -379,10 +353,19 @@
         };
 
         function CargarControlesFiltrado() {
+            var date, format;
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            };            
+            var fechaInicialkendo = kendo.parseDate(DashFechaInicial, format);
+            var fechaFinalkendo = kendo.parseDate(DashFechaFinal, format);
+
             $("#ClienteID").data("kendoComboBox").value(DashClienteID);
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
-            $("#FechaInic").data("kendoDatePicker").value(DashFechaInicial);
-            $("#FechaFinal").data("kendoDatePicker").value(DashFechaFinal);
+            $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+            $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
         };
 
         function Error(data) {
@@ -460,11 +443,20 @@
         var today = new Date();
         var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
 
-        $("#FechaInic").data("kendoDatePicker").value(fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-        $("#FechaFinal").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
-        $("#FechaInic").kendoDatePicker({ footer: false });
-        $("#FechaFinal").kendoDatePicker({ footer: false });
+        var fechainicial = fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value());
+        var fechafinal = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
 
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        };
+
+        var fechaInicialkendo = kendo.parseDate(fechainicial, format);
+        var fechaFinalkendo = kendo.parseDate(fechafinal, format);
+
+        $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+        $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
     };
 
     @section JavascriptDocumentReadyFunctions {
@@ -561,7 +553,7 @@
         FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
-        CantidadesDelMenuDashboard();
+        
 
         $("#FechaInic").bind("change", function () {
             Filtros();
@@ -577,10 +569,12 @@
             tabActivo(DashBoardAccionListado);
             CargarControlesFiltrado();
             AccionesListado(DashBoardAccionListado);
+            CantidadesDelMenuDashboard();
         } else {
-            //ObtenerFechasporDefecto();
+            ObtenerFechasporDefecto();
             tabActivo(1);//default 1 creados
             Filtros();
+            CantidadesDelMenuDashboard();
         }
     }
 
