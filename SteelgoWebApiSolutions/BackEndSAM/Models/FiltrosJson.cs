@@ -19,5 +19,7 @@ namespace BackEndSAM.Models
         public bool SinPermiso { get; set; }
         public bool SinAutorizacion { get; set; }
         public bool Completos { get; set; }
+        public string TipoListado { get; set; }
+        public string ParametroBusqueda { get; set; } 
     }
 }
