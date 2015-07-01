@@ -679,7 +679,7 @@
                     if(validarRequeridosFormaAvisoLlegada()){
                         GuardarAvisoLlegada();
                     } else {
-                        alert("Favor de validar los campos requeridos de la forma");
+                        displayMessage("notificationslabel0029", "", '2');
                     }
                 });
 
@@ -713,7 +713,7 @@
                     if (validarRequeridosModalTransportista()) {
                         GuardarTransportista();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0030", "", '2');
                     };
                 });
 
@@ -722,7 +722,7 @@
                     if (validarRequeridosModalPatio()) {
                         GuardarPatio();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0030", "", '2');
                     };
                 });
                 $("#GuardarChofer").click(function (e) { GuardarChofer(); });
@@ -730,14 +730,14 @@
                     if (validarRequeridosModalPlana()) {
                         GuardarPlana();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0030", "", '2');
                     };
                 });
                 $("#GuardarCamion").click(function (e) {
                     if (validarRequeridosModalCamion()) {
                         GuardarCamion();
                     } else {
-                        alert("Favor de validar los campos requeridos");
+                        displayMessage("notificationslabel0030", "", '2');
                     };
                 });
                 //**
@@ -756,7 +756,7 @@
                 //Pase Salida
                 $("#ImprimirPase").click(function () {
                     if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
-                        displayMessage("notificationslabel0010", "", 1);
+                        displayMessage("notificationslabel0010", "", '1');
                         return false;
                     };
                     $("#hdPaseSalida").val(1);
@@ -1051,7 +1051,7 @@
 
             function onUploadArchivoAutorizar() {
                 if (!$("#NumeroPermiso").val()) {
-                    displayMessage("notificationslabel0011", "", 1);
+                    displayMessage("notificationslabel0011", "", '1');
                     e.preventDefault();
                 }
 
@@ -1059,7 +1059,7 @@
 
             function onUpload(e) {
                 if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                    displayMessage("notificationslabel0012", "", 1);
+                    displayMessage("notificationslabel0012", "", '1');
                     e.preventDefault();
                 }
                 $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
@@ -1198,7 +1198,7 @@
                             folio = data.ReturnMessage[1];
                             cargarTituloFolio();
                             BotonAlta();
-                            displayMessage("notificationslabel0013", folio, 0);
+                            displayMessage("notificationslabel0013", folio, '0');
                             $("#DetalleAvisoLlegada0084").show();
                         }
 
@@ -1743,7 +1743,7 @@
 
             function GenerarPermiso() {
                 if (folio == -1) {
-                    displayMessage("notificationslabel0014", "", 1);
+                    displayMessage("notificationslabel0014", "", '1');
                     return;
                 };
 
@@ -1894,7 +1894,7 @@
 
             function cancelarFolio() {
                 if (folio == -1) {
-                    displayMessage("notificationslabel0015", "", 1);
+                    displayMessage("notificationslabel0015", "", '1');
                     return;
                 };
 
@@ -1952,7 +1952,7 @@
                             removeUserSession();
                             return true;
                         } else {
-                            displayMessage("", data.ReturnMessage, 2);
+                            displayMessage("", data.ReturnMessage, '2');
                             return false;
                         }
                     }

@@ -46,9 +46,14 @@ function displayMessage(message, messageComplement, type) {
 
     $(".alert-container").addClass("active");
 
+    var messageText = "";
     if (message.length > 0) {
-        $(".message").text(_dictionary[message][$("#language").data("kendoDropDownList").value()]);
+        messageText = _dictionary[message][$("#language").data("kendoDropDownList").value()];
     }
+
+    messageText = messageText + messageComplement;
+
+    $(".message").text(messageText);
 
     Cookies.set("messageBody", message, { path: '/' });
     Cookies.set("messageComplement", messageComplement, { path: '/' });

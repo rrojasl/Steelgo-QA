@@ -196,6 +196,7 @@ function applySecurityPolicyForProperties(entityDefinition, entitySecurity, secu
                 if (entityDefinition.properties[key].hasOwnProperty("required") && entityDefinition.properties[key]["required"] != null && entityDefinition.properties[key]["required"].length > 0) {
                     if (propertyRequiredPermission == true) {
                         $(entityDefinition.properties[key]["required"]).addClass("security_required");
+                        $(entityDefinition.properties[key]["required"]).closest('div').find('label').addClass("security_required");
                     }
                 }
             }
@@ -278,7 +279,7 @@ function validateCredentials() {
                 //RedirectToHomePage
                 Cookies.remove("user", { path: '/' });
                 Cookies.remove("token", { path: '/' });
-                displayMessage("notificationslabel0001", "", 2);
+                displayMessage("notificationslabel0001", "", '2');
                 document.location.href = '/';
             }
             loadingStop();
@@ -286,14 +287,14 @@ function validateCredentials() {
         request.error(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            displayMessage("notificationslabel0002", "", 2);
+            displayMessage("notificationslabel0002", "", '2');
             document.location.href = '/';
             loadingStop();
         });
         request.fail(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            displayMessage("notificationslabel0003", "", 2);
+            displayMessage("notificationslabel0003", "", '2');
             document.location.href = '/';
 
             loadingStop();
@@ -303,7 +304,7 @@ function validateCredentials() {
         if (Cookies.get("home") != null && Cookies.get("home") == "false") {
             //RedirectToHomePage
             document.location.href = '/';
-            displayMessage("notificationslabel0004", "", 2);
+            displayMessage("notificationslabel0004", "", '2');
 
         } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
                     && Cookies.get("user") != null
@@ -313,7 +314,7 @@ function validateCredentials() {
         } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1"
                     && Cookies.get("LogOut") != null) {
             Cookies.remove("LogOut", { path: '/' });
-            displayMessage("notificationslabel0005", "", 2);
+            displayMessage("notificationslabel0005", "", '2');
             document.location.href = '/';
         }
     }

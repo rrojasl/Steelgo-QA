@@ -256,7 +256,7 @@
             $("#ImprimirPase").click(function () {
                 var count = $('#listaArchivosPaseSalida > tbody  > tr').length;
                 if (!(count > 0)) {
-                    displayMessage("notificationslabel0023", "", 1);
+                    displayMessage("notificationslabel0023", "", '1');
                     return false;
                 }
                 var FolioEntradaID = folioAvisoLlegada != -1 ? folioAvisoLlegada : $("#FolioEntradaID").data("kendoComboBox").value();
@@ -429,7 +429,7 @@
 
         function onUploadArchivoPaseSalida() {
             if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                displayMessage("notificationslabel0024", "", 1);
+                displayMessage("notificationslabel0024", "", '1');
                 e.preventDefault();
             }
         };
@@ -565,7 +565,7 @@
 
         function onUploadAdjuntarArchivos() {
             if (!$("#Descripcion").val()) {
-                displayMessage("notificationslabel0025", "", 1);
+                displayMessage("notificationslabel0025", "", '1');
                 e.preventDefault();
             }
         };
@@ -693,7 +693,7 @@
         };
 
         function AbrirListadoEntrada(folioentrada, foliollegada) {
-            displayMessage("notificationslabel0026", folioentrada + "/" + foliollegada, 1);
+            displayMessage("notificationslabel0026", folioentrada + "/" + foliollegada, '1');
             var detalleIdeaUrl = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
 
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegadaID=" + foliollegada + "&folioEntradaID=" + folioentrada;
@@ -701,7 +701,7 @@
         function validarArchivoPaseSalida() {
             if ($('#listaArchivosPaseSalida > tbody  > tr').length)
             {
-                displayMessage("notificationslabel0027", "", 1);
+                displayMessage("notificationslabel0027", "", '1');
                 return false;
             }
         }
