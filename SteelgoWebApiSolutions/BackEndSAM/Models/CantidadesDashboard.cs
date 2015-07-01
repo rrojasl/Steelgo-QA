@@ -11,5 +11,8 @@ namespace BackEndSAM.Models
         public int SinPermiso { get; set; }
         public int Completos { get; set; }
         public int SinAutorizacion { get; set; }
+        public decimal PorcentajeCompletos { get; set; }
+        public decimal PorcentajeSinPermiso { get; set; }
+        public decimal ProcentajeSinAutorizacion { get; set; }
     }
 }

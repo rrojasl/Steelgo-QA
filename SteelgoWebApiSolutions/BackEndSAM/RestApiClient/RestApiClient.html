@@ -168,9 +168,23 @@
 
             //client.AvisoLlegada.update(json, { token: tokenActual }).done(function (data) { console.log(data); });
 
-
-            //client.add("Listado");
-            //client.Listado.read({tipoListado: 1, token: tokenActual}).done(function (data) { console.log(data) });
+            var json = {
+                "FolioLlegadaID": "-1",
+                "FolioAvisoLlegadaID": "-1",
+                "PatioID": "",
+                "ClienteID": "1",
+                "FechaInicial": "2015-06-01",
+                "FechaFinal": "2015-06-30",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNTY3Mjc4MH0.UUiZ7RX0W0P6263KLIgSVCXsNeIhpDdsdc03vtH02MQ",
+                "Creados": true,
+                "SinPermiso": false,
+                "SinAutorizacion": false,
+                "Completos": false,
+                "TipoListado": 4
+            };
+            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+            client.add("Listado");
+            client.Listado.read({ data: JSON.stringify(json)}).done(function (data) { console.log(data) });
 
             //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
@@ -183,11 +197,11 @@
             //client.PermisoAduana.create({}, { numeroPermiso: 130313, nombre: "DocumentoPrueba", extension: ".docx", folio: 8, documentoID: 0, token: tokenActual }).done(function (data) { console.log(data); });
 
 
-            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+            //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-            client.add("ValidacionFolioConPermisoAduana");
+            //client.add("ValidacionFolioConPermisoAduana");
 
-            client.ValidacionFolioConPermisoAduana.read({folio: 1017, token "123"}).done(function (data) {console.log(data)});
+            //client.ValidacionFolioConPermisoAduana.read({folio: 1017, token "123"}).done(function (data) {console.log(data)});
 
 </script>
     </body>
