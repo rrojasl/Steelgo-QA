@@ -33,6 +33,7 @@
     @Scripts.Render("~/Scripts/CODE39.js")
     @Scripts.Render("~/Scripts/Chart.js")
 
+    <!-- App Scripts CORE -->
     @Scripts.Render("~/Scripts/AppComponents/Core/AlertsManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/ApiManager.js")
     @Scripts.Render("~/Scripts/AppComponents/Core/DictionaryManager.js")
@@ -84,16 +85,6 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <span id="layoutLabel0002"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">                                            
-                                            <span id="layoutLabel0003"></span>
-                                        </a>
-                                    </li>
                                     <li>
                                         <a id="logout" href="#">
                                             <span id="layoutLabel0004"></span>
@@ -193,7 +184,6 @@
         var $sideMenu = {};
         var $sideMenuLayout = { 0: {}, 1: {}, 2: {}, 3: {} };
         var $authorizationModel = {};
-        var redireccionAutomatica = true;
         var returnOfSecurityCheck = {
             "layout": {
                 "create": false,
@@ -286,9 +276,6 @@
 
         //Document Ready Section
         $(document).ready(function () {
-            //FOR DEVELOPONLY
-            //autoCookies(true);
-            //redireccionAutomatica = false;
 
             //Set cookie of homepage to false
             Cookies.set("home", false, {path: '/'});
@@ -350,7 +337,9 @@
             toggleSideMenu();
 
             //Set the user name to the 
-            $("#nameSpan").text(decrypt(Cookies.get("user")));
+            if (Cookies.get("user") != null) {
+                $("#nameSpan").text(decrypt(Cookies.get("user")));
+            }
         });
     </script>
 </body>
