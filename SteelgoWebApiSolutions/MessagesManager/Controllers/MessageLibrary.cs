@@ -157,7 +157,7 @@ namespace MessagesManager.Controllers
 
         /// <summary>
         /// Método que obtiene las notificaciones de un usuario
-        /// Notificaciones Activas y que no hayan sido leidas
+        /// Notificaciones Activas , leidas y no leidas
         /// </summary>
         /// <param name="userId">ID del usuario</param>
         /// <returns>Lista de Notificaciones</returns>
@@ -186,7 +186,7 @@ namespace MessagesManager.Controllers
                                   n.FechaModificacion,
                                   u.NombreUsuario
                               }).ToList()
-                        .Where(x => x.UsuarioIDReceptor == userId && x.Activo == true && x.EstatusLectura == false).ToList()
+                        .Where(x => x.UsuarioIDReceptor == userId).ToList()
                         .Select(x => new Notificacion
                         {
                             NotificacionID = x.NotificacionID,
@@ -230,6 +230,38 @@ namespace MessagesManager.Controllers
                     Sam3_Notificacion notificacion = new Sam3_Notificacion();
                     notificacion = ctx.Sam3_Notificacion.Where(x => x.NotificacionID == notificationID).First();
                     notificacion.EstatusLectura = true;
+                    ctx.SaveChanges();
+                }
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnCode = 200;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object DeleteMessage(int notificationID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Notificacion notificacion = new Sam3_Notificacion();
+                    notificacion = ctx.Sam3_Notificacion.Where(x => x.NotificacionID == notificationID).First();
+                    notificacion.Activo = false;
                     ctx.SaveChanges();
                 }
 
