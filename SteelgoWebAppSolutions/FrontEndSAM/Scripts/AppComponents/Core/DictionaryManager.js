@@ -1207,7 +1207,7 @@ _dictionary = {
         "en-US": ""
     },
     "notificationslabel0005": {
-        "es-MX": "Se redireccona a home por que hice logour",
+        "es-MX": "Se redireccona a home por que hice logout",
         "en-US": ""
     },
     "notificationslabel0006": {

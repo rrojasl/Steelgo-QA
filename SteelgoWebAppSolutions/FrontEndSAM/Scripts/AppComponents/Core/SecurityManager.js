@@ -279,33 +279,23 @@ function validateCredentials() {
                 //RedirectToHomePage
                 Cookies.remove("user", { path: '/' });
                 Cookies.remove("token", { path: '/' });
-                if (redireccionAutomatica) {
-                    document.location.href = '/';
-                } else {
-                    displayMessage("notificationslabel0001", "", 2);
-                }
+                displayMessage("notificationslabel0001", "", 2);
+                document.location.href = '/';
             }
             loadingStop();
         });
         request.error(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0002", "", 2);
-            }
-
+            displayMessage("notificationslabel0002", "", 2);
+            document.location.href = '/';
             loadingStop();
         });
         request.fail(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0003", "", 2);
-            }
+            displayMessage("notificationslabel0003", "", 2);
+            document.location.href = '/';
 
             loadingStop();
         });
@@ -313,11 +303,8 @@ function validateCredentials() {
     } else {
         if (Cookies.get("home") != null && Cookies.get("home") == "false") {
             //RedirectToHomePage
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0004", "", 2);
-            }
+            document.location.href = '/';
+            displayMessage("notificationslabel0004", "", 2);
 
         } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
                     && Cookies.get("user") != null
@@ -327,11 +314,8 @@ function validateCredentials() {
         } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1"
                     && Cookies.get("LogOut") != null) {
             Cookies.remove("LogOut", { path: '/' });
-            if (redireccionAutomatica) {
-                document.location.href = '/';
-            } else {
-                displayMessage("notificationslabel0005", "", 2);
-            }
+            displayMessage("notificationslabel0005", "", 2);
+            document.location.href = '/';
         }
     }
 }
