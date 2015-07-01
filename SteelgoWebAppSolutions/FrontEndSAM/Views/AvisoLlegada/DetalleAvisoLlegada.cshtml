@@ -15,7 +15,7 @@
     </li>
 }
 
-<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="formAvisoLlegada" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <span id="divFolio" class="folioLabel hidden">
@@ -44,7 +44,7 @@
                             </div>
                             <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div id="TramitarPermisoDiv" class="button-section">
                             <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
                         <div class="button-section">
@@ -69,41 +69,41 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="TipoAvisoDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0074"></label>
                                     <input id="TipoAvisoID" class="" />
                                 </div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                    <label id="DetalleAvisoLlegada0067" class="security_required"></label>
+                                <div id="ClienteDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0067" ></label>
                                     <input id="ClienteID" />
                                 </div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="ProyectoDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0001"></label>
                                     <input id="ProyectoID" />
                                 </div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="FechaRecepcionDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0004"></label>
                                     <input id="FechaRecepcion" />
                                 </div>
                                 <div class="visible-lg col-sm-12 col-md-12 col-lg-12"></div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
-                                    <label id="DetalleAvisoLlegada0008" class="security_required"></label>
+                                <div id="PatioDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
+                                    <label id="DetalleAvisoLlegada0008" ></label>
                                     <input id="PatioID" class="" />
                                 </div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="TransportistaDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0003"></label>
                                     <input id="TransportistaID" class="" />
                                 </div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="ChoferDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0009"></label>
                                     <input id="ChoferID" class="" />
                                 </div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="TractoDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0055"></label>
-                                    <input id="CamionID" class="" />
+                                    <input id="Tracto" class="" />
                                 </div>
                                 <div class="visible-lg col-sm-12 col-md-12 col-lg-12"></div>
-                                <div class="form-group col-sm-6 col-md-6 col-lg-3">
+                                <div id="PlanaDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="DetalleAvisoLlegada0006"></label>
                                     <input id="PlanaID" class="" />
                                 </div>
@@ -118,17 +118,17 @@
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <label id="DetalleAvisoLlegada0010"></label>
                             <div class="row">
-                                <div class="col-sm-5 col-md-6 col-lg-2">
+                                <div id="TipoArchivoDiv" class="col-sm-5 col-md-6 col-lg-2">
                                     <input id="TipoArchivo" class="" />
                                 </div>
-                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                <div id="filesDiv" class="col-sm-7 col-md-6 col-lg-5">
                                     <input name="files" id="files" type="file" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div id="listaArchivosDiv" class="col-sm-12 col-md-12 col-lg-12">
                             <table id="listaArchivos" class="filesTable">
                                 <thead>
                                     <tr>
@@ -156,103 +156,27 @@
     </div>
 </div>
 
-@********Pase Salida*********@
-@*           
-<div id="PaseSalida" class="col-sm-12 col-md-12 col-lg-12" style="display: none">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <h2>
-                <label id="DetalleAvisoLlegada0039"></label>
-            </h2>
-        </div>
-        <div class="form-group col-sm-12 col-md-8 col-lg-4">
-            <div class="row">
-                <div class="col-sm-7 col-md-8 col-lg-8">
-                    <label id="DetalleAvisoLlegada0040"></label>
-                    <input name="files" id="PackingList" type="file" class="" />
-                </div>
-                <div class="col-sm-5 col-md-4 col-lg-4">
-                    <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary">
-                        <span id="DetalleAvisoLlegada0043"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <table id="listaArchivosPaseSalida" class="filesTable">
-                        <thead>
-                            <tr>
-                                <td>
-                                    <label id="DetalleAvisoLlegada0048"></label>
-                                </td>
-                                <td>
-                                    <label id="DetalleAvisoLlegada0049"></label>
-                                </td>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-*@
-
-@********Permiso Aduana*********@
-@*<div id="PermisoAduana" class="col-sm-12 col-md-12 col-lg-12 addedSection" style="display: none">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <h2>
-                <label id="DetalleAvisoLlegada0035"></label>
-            </h2>
-        </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-6">
-            <div class="row">
-                <div class="col-sm-4 col-md-3 col-lg-3">
-                    <label id="DetalleAvisoLlegada0044"></label>
-                    <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary">
-                        <span id="DetalleAvisoLlegada0036"></span>
-                    </a>
-                </div>
-                <div class="col-sm-4 col-md-5 col-lg-5">
-                    <label id="DetalleAvisoLlegada0037"></label>
-                    <div id="divArchivoAutorizar">
-                        <input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="" />
-                    </div>
-                    <div id="divLinkAutorizar" style="display: none"></div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <label id="DetalleAvisoLlegada0038"></label>
-                    <input id="NumeroPermiso" class="" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
-
 @*Ventana Modal*@
     <div id="window">
         @*Content of the Window*@
         <div id="modalTransportista" style="display: none">
-            <div class="form-group">
+            <div id="ContactoID_TransportistaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0012"></label>
                 <input id="ContactoID_Transportista" class="" />
             </div>
-            <div class="form-group">
+            <div id="Nombre_TransportistaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0013"></label>
                 <input id="Nombre_Transportista" class="" />
             </div>
-            <div class="form-group">
+            <div id="Descripcion_TransportistaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0014"></label>
                 <input id="Descripcion_Transportista" class="" />
             </div>
-            <div class="form-group">
+            <div id="Direccion_TransportistaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0015"></label>
                 <input id="Direccion_Transportista" class="" />
             </div>
-            <div class="form-group">
+            <div id="Telefono_TransportistaDiv" class ="form-group">
                 <label id="DetalleAvisoLlegada0016"></label>
                 <input id="Telefono_Transportista" class="" />
             </div>
@@ -297,19 +221,19 @@
         </div>
 
         <div id="modalPatio" style="display: none">
-            <div class="form-group">
+            <div id="Nombre_PatioDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0026"></label>
                 <input id="Nombre_Patio" class="" />
             </div>
-            <div class="form-group">
+            <div id="Propietario_PatioDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0027"></label>
                 <input id="Propietario_Patio" class="" />
             </div>
-            <div class="form-group">
+            <div id="Descripcion_PatioDiv" class ="form-group">
                 <label id="DetalleAvisoLlegada0028"></label>
                 <input id="Descripcion_Patio" class="l" />
             </div>
-            <div class="form-group">
+            <div id="RequierePermisoAduana_PatioDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0075" class="checkLabel"></label>
                 <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
             </div>
@@ -324,7 +248,7 @@
         </div>
 
         <div id="modalChofer" style="display: none">
-            <div class="form-group">
+            <div id="Nombre_ChoferDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0030"></label>
                 <input id="Nombre_Chofer" class="" />
             </div>
@@ -339,23 +263,23 @@
         </div>
 
         <div id="modalPlana" style="display: none">
-            <div class="form-group">
+            <div id="TipoVehiculo_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0068"></label>
                 <input id="TipoVehiculo_Plana" class="" />
             </div>
-            <div class="form-group">
+            <div id="CamionID_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0032"></label>
                 <input id="CamionID_Plana" class="" />
             </div>
-            <div class="form-group">
+            <div id="Placas_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0033"></label>
                 <input id="Placas_Plana" class="" />
             </div>
-            <div class="form-group">
+            <div id="Unidad_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0069"></label>
                 <input id="Unidad_Plana" class="" />
             </div>
-            <div class="form-group">
+            <div id="Modelo_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0070"></label>
                 <input id="Modelo_Plana" class="" />
             </div>
@@ -369,35 +293,35 @@
             </div>
         </div>
         <div id="modalCamion" style="display: none">
-            <div class="form-group">
+            <div id="TipoVehiculo_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0071"></label>
                 <input id="TipoVehiculo_Camion" class="" />
             </div>
-            <div class="form-group">
+            <div id="TransportistaID_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0056"></label>
                 <input id="TransportistaID_Camion" class="" />
             </div>
-            <div class="form-group">
+            <div id="ChoferID_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0057"></label>
                 <input id="ChoferID_Camion" class="" />
             </div>
-            <div class="form-group">
+            <div id="Placas_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0058"></label>
                 <input id="Placas_Camion" class="" />
             </div>
-            <div class="form-group">
+            <div id="TarjetaCirculacion_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0059"></label>
                 <input id="TarjetaCirculacion_Camion" class="" />
             </div>
-            <div class="form-group">
+            <div id="PolizaSeguroDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0060"></label>
                 <input id="PolizaSeguro" class="" />
             </div>
-            <div class="form-group">
+            <div id="Unidad_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0072"></label>
                 <input id="Unidad_Camion" class="" />
             </div>
-            <div class="form-group">
+            <div id="Modelo_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0073"></label>
                 <input id="Modelo_Camion" class="" />
             </div>
@@ -439,76 +363,65 @@
             },
             properties: {
                 tipoAviso: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#TipoAvisoDiv",
+                    editable: "#TipoAvisoID",
+                    required: "#TipoAvisoID"
                 },
                 cliente: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#ClienteDiv",
+                    editable: "#ClienteID",
+                    required: "#ClienteID"
                 },
                 proyecto: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#ProyectoDiv",
+                    editable: "#ProyectoID",
+                    required: "#ProyectoID"
                 },
-                fechaRecepcion: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                fecharecepcion: {
+                    visible: "#FechaRecepcionDiv",
+                    editable: "#FechaRecepcion",
+                    required: "#FechaRecepcion"
                 },
                 patio: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#PatioDiv",
+                    editable: "#PatioID",
+                    required: "#PatioID"
                 },
                 transportista: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#TransportistaDiv",
+                    editable: "#TransportistaID",
+                    required: "#TransportistaID"
+                },
+                tracto: {
+                    visible: "#TractoDiv",
+                    editable: "#Tracto",
+                    required: "#Tracto"
                 },
                 plana: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#PlanaDiv",
+                    editable: "#PlanaID",
+                    required: "#PlanaID"
                 },
                 chofer: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#ChoferDiv",
+                    editable: "#ChoferID",
+                    required: "#ChoferID"
                 },
                 tipoArchivo: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#TipoArchivoDiv",
+                    editable: "#TipoArchivo",
+                    required: "#TipoArchivo"
                 },
                 seleccionarArchivo: {
-                    visible: "",
-                    editable: "",
-                    required: ""
-                },
-                enviarArchivo: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#filesDiv",
+                    editable: "#files",
+                    required: "#files"
                 },
                 listarArchivos: {
-                    visible: "",
-                    editable: "",
-                    required: ""
-                },
-                descargarArchivos: {
-                    visible: "",
-                    editable: "",
-                    required: ""
-                },
-                eliminarArchivos: {
-                    visible: "",
-                    editable: "",
-                    required: ""
+                    visible: "#listaArchivosDiv",
+                    editable: "#listaArchivos",
+                    required: "#listaArchivos"
                 }
-
             }
         };
 
@@ -520,6 +433,176 @@
                 destroy: ""
             },
             properties: {
+                generar: {
+                    visible: "#TramitarPermisoDiv",
+                    editable: "#TramitarPermiso",
+                    required: "#TramitarPermiso"
+                }
+            }
+        };
+
+        var $PatioModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                nombre: {
+                    visible: "#Nombre_PatioDiv",
+                    editable: "#Nombre_Patio",
+                    required: "#Nombre_Patio"
+                },
+                propietario: {
+                    visible: "#Propietario_PatioDiv",
+                    editable: "#Propietario_Patio",
+                    required: "#Propietario_Patio"
+                },
+                descripcion: {
+                    visible: "#Descripcion_PatioDiv",
+                    editable: "#Descripcion_Patio",
+                    required: "#Descripcion_Patio"
+                },
+                requierepermiso: {
+                    visible: "#RequierePermisoAduana_PatioDiv",
+                    editable: "#RequierePermisoAduana_Patio",
+                    required: "#RequierePermisoAduana_Patio"
+                }
+            }
+        };
+
+        var $TransportistaModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                contacto: {
+                    visible: "#ContactoID_TransportistaDiv",
+                    editable: "#ContactoID_Transportista",
+                    required: "#ContactoID_Transportista"
+                },
+                nombre: {
+                    visible: "#Nombre_TransportistaDiv",
+                    editable: "#Nombre_Transportista",
+                    required: "#Nombre_Transportista"
+                },
+                descripcion: {
+                    visible: "#Descripcion_TransportistaDiv",
+                    editable: "#Descripcion_Transportista",
+                    required: "#Descripcion_Transportista"
+                },
+                direccion: {
+                    visible: "#Direccion_TransportistaDiv",
+                    editable: "#Direccion_Transportista",
+                    required: "#Direccion_Transportista"
+                },
+                telefono: {
+                    visible: "#Telefono_TransportistaDiv",
+                    editable: "#Telefono_Transportista",
+                    required: "#Telefono_Transportista"
+                }
+            }
+        };
+
+        var $ChoferModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                contacto: {
+                    visible: "#Nombre_ChoferDiv",
+                    editable: "#Nombre_Chofer",
+                    required: "#Nombre_Chofer"
+                }
+            }
+        };
+
+        var $TractoModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                tipoVehiculo: {
+                    visible: "#TipoVehiculo_CamionDiv",
+                    editable: "#TipoVehiculo_Camion",
+                    required: "#TipoVehiculo_Camion"
+                },
+                chofer: {
+                    visible: "#ChoferID_CamionDiv",
+                    editable: "#ChoferID_Camion",
+                    required: "#ChoferID_Camion"
+                },
+                placas: {
+                    visible: "#Placas_CamionDiv",
+                    editable: "#Placas_Camion",
+                    required: "#Placas_Camion"
+                },
+                tarjetacirculacion: {
+                    visible: "#TarjetaCirculacion_CamionDiv",
+                    editable: "#TarjetaCirculacion_Camion",
+                    required: "#TarjetaCirculacion_Camion"
+                },
+                poliza: {
+                    visible: "#PolizaSeguroDiv",
+                    editable: "#PolizaSeguro",
+                    required: "#PolizaSeguro"
+                },
+                unidad: {
+                    visible: "#Unidad_CamionDiv",
+                    editable: "#Unidad_Camion",
+                    required: "#Unidad_Camion"
+                },
+                modelo: {
+                    visible: "#Modelo_CamionDiv",
+                    editable: "#Modelo_Camion",
+                    required: "#Modelo_Camion"
+                },
+            }
+        };
+
+        var $PlanaModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                tipoVehiculo: {
+                    visible: "#TipoVehiculo_PlanaDiv",
+                    editable: "#TipoVehiculo_Plana",
+                    required: "#TipoVehiculo_Plana"
+                },
+                camion: {
+                    visible: "#CamionID_PlanaDiv",
+                    editable: "#CamionID_Plana",
+                    required: "#CamionID_Plana"
+                },
+                placas: {
+                    visible: "#Placas_PlanaDiv",
+                    editable: "#Placas_Plana",
+                    required: "#Placas_Plana"
+                },
+                unidad: {
+                    visible: "#Unidad_PlanaDiv",
+                    editable: "#Unidad_Plana",
+                    required: "#Unidad_Plana"
+                },
+                modelo: {
+                    visible: "#Modelo_PlanaDiv",
+                    editable: "#Modelo_Plana",
+                    required: "#Modelo_Plana"
+                }
             }
         };
     }
@@ -530,14 +613,74 @@
                 FechaRecepcion.setOptions(datePickerOptions);
             };
 
+            function validarRequeridosFormaAvisoLlegada() {
+                var bool = true;
+                $("#formAvisoLlegada .security_required").each(function (i,elem) {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).addClass("error");
+                    }
+                });
+                return bool;
+            };
+
+            function validarRequeridosModalTransportista() {
+                var bool = true;
+                $("#modalTransportista .security_required").each(function () {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).addClass("error");
+                    };
+                });
+                return bool;
+            };
+
+            function validarRequeridosModalPatio() {
+                var bool = true;
+                $("#modalPatio .security_required").each(function () {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).addClass("error");
+                    };
+                });
+                return bool;
+            };
+            
+            function validarRequeridosModalPlana() {
+                var bool = true;
+                $("#modalPlana .security_required").each(function () {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).addClass("error");
+                    };
+                });
+                return bool;
+            };
+
+            function validarRequeridosModalCamion() {
+                var bool = true;
+                $("#modalCamion .security_required").each(function () {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).addClass("error");
+                    };
+                });
+                return bool;
+            };
             //Your partial views specific functions
             function CargaInicial() {
                 ocultarStatus();
 
                 FechaRecepcion = new kendo.ui.DatePicker($("#FechaRecepcion"));
+
+
                 //**Eventos
                 $("#Guardar").click(function (e) {
-                    GuardarAvisoLlegada();
+                    if(validarRequeridosFormaAvisoLlegada()){
+                        GuardarAvisoLlegada();
+                    } else {
+                        alert("Favor de validar los campos requeridos de la forma");
+                    }
                 });
 
                 $("#GuardarNuevo").click(function (e) {
@@ -566,12 +709,37 @@
                 });
 
                 //**Modales
-                $("#GuardarTransportista").click(function (e) { GuardarTransportista(); });
+                $("#GuardarTransportista").click(function (e) {
+                    if (validarRequeridosModalTransportista()) {
+                        GuardarTransportista();
+                    } else {
+                        alert("Favor de validar los campos requeridos");
+                    };
+                });
+
                 $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
-                $("#GuardarPatio").click(function (e) { GuardarPatio(); });
+                $("#GuardarPatio").click(function (e) {
+                    if (validarRequeridosModalPatio()) {
+                        GuardarPatio();
+                    } else {
+                        alert("Favor de validar los campos requeridos");
+                    };
+                });
                 $("#GuardarChofer").click(function (e) { GuardarChofer(); });
-                $("#GuardarPlana").click(function (e) { GuardarPlana(); });
-                $("#GuardarCamion").click(function (e) { GuardarCamion(); });
+                $("#GuardarPlana").click(function (e) {
+                    if (validarRequeridosModalPlana()) {
+                        GuardarPlana();
+                    } else {
+                        alert("Favor de validar los campos requeridos");
+                    };
+                });
+                $("#GuardarCamion").click(function (e) {
+                    if (validarRequeridosModalCamion()) {
+                        GuardarCamion();
+                    } else {
+                        alert("Favor de validar los campos requeridos");
+                    };
+                });
                 //**
                 //Cancelar modales
                 $("#CancelarTransportista").click(function (e) { CancelarTransportista(); });
@@ -819,7 +987,7 @@
                 ObtenerTipoVehiculoTracto();
 
                 //Camion
-                $("#CamionID").kendoComboBox({
+                $("#Tracto").kendoComboBox({
                     dataTextField: "Placas",
                     dataValueField: "VehiculoID",
                     select: function (e) {
@@ -874,7 +1042,7 @@
                     filter: "contains",
                 });
                 ObtenerChoferCamion();
-                ObtenerFechaDefault();
+                //ObtenerFechaDefault();
             };
         
             function onUploadArchivoPaseSalida() {
@@ -1010,11 +1178,13 @@
 
                 console.log(JSON.stringify(AvisoLlegada));
                 loadingStart();
+
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
                     $AvisoLlegada.AvisoLlegada.update(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.update");
+                        Error(data);
                         loadingStop();
                         BotonAlta();
                     });
@@ -1023,14 +1193,15 @@
                     $AvisoLlegada.AvisoLlegada.create(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.create");
 
-                        if (data.ReturnCode != 200) {
-                            removeUserSession();
-                        } else {
+                        if (Error(data))
+                        {
                             folio = data.ReturnMessage[1];
-                        };
+                            cargarTituloFolio();
+                            BotonAlta();
+                            alert("El folio " + folio + " fue creado exitosamente.");
+                            $("#DetalleAvisoLlegada0084").show();
+                        }
 
-                        cargarTituloFolio();
-                        BotonAlta();
                         loadingStop();
                         displayMessage("notificationslabel0013", folio, 0);
                         $("#DetalleAvisoLlegada0084").show();
@@ -1058,7 +1229,7 @@
                 $("#PatioID").data("kendoComboBox").enable();
                 $("#TransportistaID").data("kendoComboBox").enable();
                 $("#ChoferID").data("kendoComboBox").enable();
-                $("#CamionID").data("kendoComboBox").enable();
+                $("#Tracto").data("kendoComboBox").enable();
                 $("#TipoArchivo").data("kendoComboBox").enable();
 
                 $("#ProyectoID").data("kendoMultiSelect").enable();
@@ -1075,7 +1246,7 @@
                 $("#PatioID").data("kendoComboBox").enable(false);
                 $("#TransportistaID").data("kendoComboBox").enable(false);
                 $("#ChoferID").data("kendoComboBox").enable(false);
-                $("#CamionID").data("kendoComboBox").enable(false);
+                $("#Tracto").data("kendoComboBox").enable(false);
                 $("#TipoArchivo").data("kendoComboBox").enable(false);
 
                 $("#ProyectoID").data("kendoMultiSelect").enable(false);
@@ -1121,7 +1292,6 @@
                     });
 
                     $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
-                    //$("#Factura").val(data.Factura);
 
                     //Se carga el arreglo transportista
                     if(data.Transportista.length > 0){
@@ -1143,12 +1313,6 @@
                     var d = new Date(data.FechaRecepcion);
                     $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
 
-                    //Se carga el arreglo Proveedores
-                    //if(data.Proveedor.length > 0) {
-                    //    CargarProveedor(data.Proveedor[0].ProveedorID, data.Proveedor[0].Nombre);
-                    //    $("#ProveedorID").data("kendoComboBox").value(data.Proveedor[0].Nombre);
-                    //}
-
                     if (data.Estatus == "Autorizado") {
                         ocultarStatus();
                         $("#DetalleAvisoLlegada0085").show();
@@ -1159,8 +1323,6 @@
                         console.log(" concatPlanas:" + concatPlanas);
                     });
                     $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
-
-                    //$("#OrdenDeCompra").val(data.OrdenCompra);
 
                     //Se carga el arreglo Patio
                     if(data.Patio.length > 0) {
@@ -1179,7 +1341,7 @@
 
                     if (data.Tracto) {
                         CargarCamionEntradaMaterial(data.Tracto.VehiculoID, data.Tracto.Placas);
-                        $("#CamionID").data("kendoComboBox").value(data.Tracto.Placas);
+                        $("#Tracto").data("kendoComboBox").value(data.Tracto.Placas);
                     }
 
                     $("#listaArchivos tbody").empty();
@@ -1188,39 +1350,12 @@
                     });
 
                     //Permiso Aduana
-                    //$("#PermisoAduana").show();
                     if (data.PermisoAduana.length > 0) {
                         if (data.PermisoAduana[0].PermisoTramite) {
                             $("#TramitarPermiso").attr('disabled', 'disabled');
                             $("#hdPermisoTramite").val(1);
                         }
                     };
-
-                    //if (data.PermisoAduana.length > 0) {
-                    //    if (data.PermisoAduana[0].PermisoAutorizado) {
-                    //        $("#divArchivoAutorizar").hide();
-                    //        $("#divLinkAutorizar").show();
-                    //        $("#divLinkAutorizar").append("<a href=''>" + data.PermisoAduana[0].ArchivoAutorizado.Nombre + "</a>");
-                    //        $("#hdArchivoAutorizado").val(data.PermisoAduana[0].ArchivoAutorizado[0].ArchivoID + "," + data.PermisoAduana[0].ArchivoAutorizado[0].Nombre + "," + data.PermisoAduana[0].ArchivoAutorizado[0].Extension);
-                    //        $("#hdPermisoAutorizado").val(1);
-                    //        $("#NumeroPermiso").val(data.PermisoAduana[0].NumeroPermiso);
-                    //        $("#NumeroPermiso").attr('disabled', 'disabled');
-                    //    };
-                    //};
-
-                    //Pase Salida
-                    //if (data[0].PaseSalida) {
-                    //    if (data[0].PaseSalida.PaseEnviado) {
-                    //        $("#hdPaseSalida").val(1);
-                    //        $("#PackingList").data("kendoUpload").disable();
-                    //    };
-                    //    $.each(data[0].PaseSalida.Archivos, function (index, value) {
-                    //        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                    //    });
-                    //};
-
-                    //var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
-                    //tabStrip.enable(tabStrip.tabGroup.children().eq(1));
                 });
             };
 
@@ -1417,14 +1552,7 @@
                 console.log(TransportistaModal[0]);
 
                 $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    if (data.ReturnCode) {
-                        if (data.ReturnCode == 401) {
-                            removeUserSession();
-                        } else {
-                            displayMessage("", data.ReturnMessage, 2);
-                            return;
-                        }
-                    }
+                    Error(data);
                     LimpiarModalTransportista();
                     $("#window").data("kendoWindow").close();
                     ObtenerTransportista();
@@ -1461,14 +1589,7 @@
                 console.log(PatioModal[0]);
 
                 $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    if (data.ReturnCode) {
-                        if (data.ReturnCode == 401) {
-                            removeUserSession();
-                        } else {
-                            displayMessage("", data.ReturnMessage, 2);
-                            return;
-                        }
-                    }
+                    Error(data);
                     LimpiarModalPatio();
                     $("#window").data("kendoWindow").close();
                     ObtenerPatio();
@@ -1484,14 +1605,7 @@
 
                 $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyChofer.create");
-                    if (data.ReturnCode) {
-                        if (data.ReturnCode == 401) {
-                            removeUserSession();
-                        } else {
-                            displayMessage("", data.ReturnMessage, 2);
-                            return;
-                        }
-                    }
+                    Error(data);
                     LimpiarModalChofer();
                     $("#window").data("kendoWindow").close();
                     ObtenerChofer();
@@ -1516,14 +1630,7 @@
                 console.log("camionid: " + camionid);
 
                 $Plana.Plana.create(PlanaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    if (data.ReturnCode) {
-                        if (data.ReturnCode == 401) {
-                            removeUserSession();
-                        } else {
-                            displayMessage("", data.ReturnMessage, 2);
-                            return;
-                        }
-                    }
+                    Error(data);
                     LimpiarModalPlana();
                     $("#window").data("kendoWindow").close();
                     ObtenerPlanas();
@@ -1550,14 +1657,7 @@
 
                 $Camion.Tracto.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.Camion.create");
-                    if (data.ReturnCode) {
-                        if (data.ReturnCode == 401) {
-                            removeUserSession();
-                        } else {
-                            displayMessage("", data.ReturnMessage, 2);
-                            return;
-                        }
-                    }
+                    Error(data);
                     LimpiarModalCamion();
                     $("#window").data("kendoWindow").close();
                     ObtenerCamionEntradaMaterial();
@@ -1662,8 +1762,9 @@
 
             function ObtenerFechaDefault() {
                 var today = new Date();
-                $("#FechaRecepcion").data("kendoDatePicker").value(today.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+                $("#FechaRecepcion").data("kendoDatePicker").value("01/07/2015");
                 $("#FechaRecepcion").kendoDatePicker({ footer: false });
+                //changeLanguage();
             };
 
             function ObtenerProyectos() {
@@ -1740,7 +1841,7 @@
             function ObtenerCamionEntradaMaterial() {
                 $Camion.Tracto.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
-                    $("#CamionID").data("kendoComboBox").dataSource.data(result);
+                    $("#Tracto").data("kendoComboBox").dataSource.data(result);
                 });
             };
 
@@ -1851,11 +1952,14 @@
                     if (data.ReturnCode != 200) {
                         if (data.ReturnCode == 401) {
                             removeUserSession();
+                            return true;
                         } else {
                             displayMessage("", data.ReturnMessage, 2);
-                            return;
+                            return false;
                         }
                     }
+                } else {
+                    return true;
                 }
             };
             }
@@ -1872,6 +1976,12 @@
 
             $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
             $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+            $authorizationModel["Patio"] = $PatioModel;
+            $authorizationModel["Transportista"] = $TransportistaModel;
+            $authorizationModel["Chofer"] = $ChoferModel;
+            $authorizationModel["Tracto"] = $TractoModel;
+            $authorizationModel["Plana"] = $PlanaModel;
+            
     }
 
     @section JavascriptDocumentReadyHomeCookie {

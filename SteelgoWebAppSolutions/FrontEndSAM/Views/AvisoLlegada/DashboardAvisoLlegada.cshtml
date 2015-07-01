@@ -106,7 +106,7 @@
             //    $("#spanCompletos").html(result.Completos);
             //});
 
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
                 
                 if (result.length > 0) {

@@ -195,9 +195,9 @@ namespace BackEndSAM.DataAcces
                     result.SinPermiso = temp.Count();
 
 
-                    result.PorcentajeSinPermiso = (result.SinPermiso * 100) / result.Creados;
-                    result.ProcentajeSinAutorizacion = (result.SinAutorizacion * 100) / result.Creados;
-                    result.PorcentajeCompletos = (result.Completos * 100) / result.Creados;
+                    result.PorcentajeSinPermiso = result.Creados > 0 ? (result.SinPermiso * 100) / result.Creados : 0;
+                    result.ProcentajeSinAutorizacion = result.Creados > 0 ? (result.SinAutorizacion * 100) / result.Creados : 0;
+                    result.PorcentajeCompletos = result.Creados > 0 ? (result.Completos * 100) / result.Creados : 0;
 
                     return result;
                 }
