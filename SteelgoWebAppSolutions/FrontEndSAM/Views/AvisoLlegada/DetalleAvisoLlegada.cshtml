@@ -735,20 +735,20 @@
 
                 //**Eventos
                 $("#Guardar").click(function (e) {
-                    if(validarRequeridosFormaAvisoLlegada()){
+                    //if(validarRequeridosFormaAvisoLlegada()){
                         GuardarAvisoLlegada();
-                    } else {
-                        displayMessage("notificationslabel0031", "", '1');
-                    }
+                    //} else {
+                    //    displayMessage("notificationslabel0031", "", '1');
+                    //}
                 });
 
                 $("#GuardarNuevo").click(function (e) {
-                    if (validarRequeridosFormaAvisoLlegada()) {
+                    //if (validarRequeridosFormaAvisoLlegada()) {
                         var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                    } else {
-                        displayMessage("notificationslabel0031", "", 1);
-                    };
+                    //} else {
+                    //    displayMessage("notificationslabel0031", "", 1);
+                    //};
                 });
                 
                 $("#Editar").click(function (e) {
