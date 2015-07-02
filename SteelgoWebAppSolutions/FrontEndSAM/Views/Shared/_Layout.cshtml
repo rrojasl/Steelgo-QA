@@ -463,7 +463,7 @@
 
             //Set on the dropdownlist the url language and change the current language
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
-            $("#language").data("kendoDropDownList").trigger("change");
+            //$("#language").data("kendoDropDownList").trigger("change");
 
             //Hide side menu for all pages except landing and home
             toggleSideMenu();

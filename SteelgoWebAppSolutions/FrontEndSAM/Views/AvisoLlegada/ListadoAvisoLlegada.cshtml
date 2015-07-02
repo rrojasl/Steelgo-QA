@@ -172,13 +172,13 @@
         });
     }
 
-    function mostrarDetalle(folioAvisoLlegadaID) {
-        //e.preventDefault();
-        //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        //var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-        //REDIRECT
-        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
+         function mostrarDetalle(folioAvisoLlegadaID) {
+            //e.preventDefault();
+            //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            //var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+            //REDIRECT
+            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
         }
 
         function cancelarFolio(e) {
@@ -205,6 +205,7 @@
                     };
                 } else {
                     displayMessage("notificationslabel0016", "", '1');
+                    e.preventDefault();
                 };
             });
         };
@@ -488,7 +489,7 @@
             ds.filter([
                 {
                     "field": "FolioAvisoLlegadaID",
-                    "operator": "startswith",
+                    "operator": "Contains",
                     "value": this.value
                 }
             ]);
@@ -498,8 +499,8 @@
             var ds = $("#grid").data("kendoGrid").dataSource;
             ds.filter([
                 {
-                    "field": "FechaCreacion",
-                    "operator": "startswith",
+                    "field": "FechaGeneracion",
+                    "operator": "Contains",
                     "value": this.value
                 }
             ]);
@@ -509,8 +510,8 @@
             var ds = $("#grid").data("kendoGrid").dataSource;
             ds.filter([
                 {
-                    "field": "FechaEstimada",
-                    "operator": "startswith",
+                    "field": "FechaRecepcion",
+                    "operator": "Contains",
                     "value": this.value
                 }
             ]);
