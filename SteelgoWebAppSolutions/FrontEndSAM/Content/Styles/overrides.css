@@ -434,7 +434,7 @@
         background-image: url("/Content/images/SAMC_Add.png");
     }
 
-.k-grid-pager {
+/*.k-grid-pager {
     background-color: #EEEEEE;
     height: 57px;
     padding: 10px 9px;
@@ -529,7 +529,7 @@
 
         .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
             width: 35px;
-        }
+        }*/
 /**********************************************************************************/
 
 
