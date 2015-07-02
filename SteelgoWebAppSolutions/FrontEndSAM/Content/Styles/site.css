@@ -157,18 +157,21 @@ label {
     margin-bottom: 6px;
 }
 
-    .form label.security_required {
+    .form label.security_required,
+    #window label.security_required {
         position: relative;
     }
 
-        .form label.security_required::after {
+        .form label.security_required::after,
+        #window label.security_required::after {
             content: '*';
             font-size: 19px;
             position: absolute;
             top: -6px;
         }
 
-        .form label.security_required.error::after {
+        .form label.security_required.error::after,
+        #window label.security_required.error::after {
             color: #EC4F50;
         }
 
@@ -290,12 +293,16 @@ input {
 
 input.quickFilters {
     position: relative;
-    width: 31.33%;
+    width: 31.54%;
     margin: 0 -5px -1px 0;
 }
 
+    input.quickFilters:first-of-type {
+        width: 31.55%;
+    }
+
     input.quickFilters:last-of-type {
-        width: 6.2%;
+        width: 5.54%;
     }
 
         input.quickFilters:last-of-type[disabled] {
@@ -435,7 +442,7 @@ input.quickFilters {
     letter-spacing: 1.1px;
 }
 
-    /*.btn-tab span#spanSinAutorizacion {
+/*.btn-tab span#spanSinAutorizacion {
         color: #E90000;
     }*/
 
