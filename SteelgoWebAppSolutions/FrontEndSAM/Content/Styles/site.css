@@ -435,9 +435,9 @@ input.quickFilters {
     letter-spacing: 1.1px;
 }
 
-    .btn-tab span#spanSinAutorizacion {
+    /*.btn-tab span#spanSinAutorizacion {
         color: #E90000;
-    }
+    }*/
 
 .btn-tab:hover, .btn-tab.active {
     outline: none;
