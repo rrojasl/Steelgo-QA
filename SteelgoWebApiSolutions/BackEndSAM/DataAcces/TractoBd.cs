@@ -92,6 +92,7 @@ namespace BackEndSAM.DataAcces
                     nuevoCamion.PolizaSeguro = cambios.PolizaSeguro;
                     nuevoCamion.TarjetaCirculacion = cambios.TarjetaCirculacion;
                     nuevoCamion.UsuarioModificacion = usuario.UsuarioID;
+                    nuevoCamion.TipoVehiculoID = Convert.ToInt32(cambios.TipoVehiculoID);
 
                     ctx.Sam3_Vehiculo.Add(nuevoCamion);
                     ctx.SaveChanges();
