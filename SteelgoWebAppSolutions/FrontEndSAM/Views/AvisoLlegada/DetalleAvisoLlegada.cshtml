@@ -618,7 +618,8 @@
                 $("#formAvisoLlegada .security_required").each(function (i,elem) {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error");
                     }
                 });
                 return bool;
@@ -629,7 +630,8 @@
                 $("#modalTransportista .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -640,7 +642,8 @@
                 $("#modalPatio .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -651,7 +654,8 @@
                 $("#modalPlana .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
@@ -662,11 +666,13 @@
                 $("#modalCamion .security_required").each(function () {
                     if (!$(this).val()) {
                         bool = false;
-                        $(this).addClass("error");
+                        //$(this).addClass("error");
+                        $(this).closest("div").find("label").addClass("error")
                     };
                 });
                 return bool;
             };
+
             //Your partial views specific functions
             function CargaInicial() {
                 ocultarStatus();
@@ -679,13 +685,17 @@
                     if(validarRequeridosFormaAvisoLlegada()){
                         GuardarAvisoLlegada();
                     } else {
-                        displayMessage("notificationslabel0029", "", '2');
+                        displayMessage("notificationslabel0031", "", '1');
                     }
                 });
 
                 $("#GuardarNuevo").click(function (e) {
-                    var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                    if (validarRequeridosFormaAvisoLlegada()) {
+                        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                    } else {
+                        displayMessage("notificationslabel0031", "", 1);
+                    };
                 });
                 
                 $("#Editar").click(function (e) {
@@ -713,7 +723,7 @@
                     if (validarRequeridosModalTransportista()) {
                         GuardarTransportista();
                     } else {
-                        displayMessage("notificationslabel0030", "", '2');
+                        displayMessage("notificationslabel0031", "", '1');
                     };
                 });
 
@@ -722,7 +732,7 @@
                     if (validarRequeridosModalPatio()) {
                         GuardarPatio();
                     } else {
-                        displayMessage("notificationslabel0030", "", '2');
+                        displayMessage("notificationslabel0031", "", '1');
                     };
                 });
                 $("#GuardarChofer").click(function (e) { GuardarChofer(); });
@@ -730,14 +740,14 @@
                     if (validarRequeridosModalPlana()) {
                         GuardarPlana();
                     } else {
-                        displayMessage("notificationslabel0030", "", '2');
+                        displayMessage("notificationslabel0031", "", '1');
                     };
                 });
                 $("#GuardarCamion").click(function (e) {
                     if (validarRequeridosModalCamion()) {
                         GuardarCamion();
                     } else {
-                        displayMessage("notificationslabel0030", "", '2');
+                        displayMessage("notificationslabel0031", "", '1');
                     };
                 });
                 //**
@@ -1170,12 +1180,6 @@
                 AvisoLlegada.Cliente = Cliente;
                 AvisoLlegada.TipoAviso = TipoAvisos;
                 //AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
-
-                console.log(AvisoLlegada);
-
-                var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-                Client.add('DummyAvisoLlegada');
-
                 console.log(JSON.stringify(AvisoLlegada));
                 loadingStart();
 

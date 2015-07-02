@@ -147,13 +147,17 @@
                 if (data.ReturnCode != 200) {
                     if (data.ReturnCode == 401) {
                         removeUserSession();
+                        return true;
                     } else {
                         displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                         return false;
                     }
                 }
+            } else {
+                return true;
             }
         };
+        
 
         function limpiarUploadFiles() {
             $(".k-upload-files").remove();

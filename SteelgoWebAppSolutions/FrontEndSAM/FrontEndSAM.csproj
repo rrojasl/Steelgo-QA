@@ -171,6 +171,11 @@
     <Content Include="Content\images\SAMC_SearchIconChart.png" />
     <Content Include="Content\images\SAMC_SteelLogo_Mobile.jpg" />
     <Content Include="Content\images\SAMC_SteelLogo_Web_00.png" />
+    <Content Include="Content\images\SC_back.png" />
+    <Content Include="Content\images\SC_dd_Pico.png" />
+    <Content Include="Content\images\SC_delete_Icon.png" />
+    <Content Include="Content\images\SC_newmessage_Icon.png" />
+    <Content Include="Content\images\SC_read_Icon.png" />
     <Content Include="Content\images\Text_Add_Button.png" />
     <Content Include="Content\kendo\2014.2.716\Black\editor.png" />
     <Content Include="Content\kendo\2014.2.716\Black\imagebrowser.png" />

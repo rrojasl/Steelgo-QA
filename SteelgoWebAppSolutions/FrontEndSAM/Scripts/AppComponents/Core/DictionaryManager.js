@@ -312,6 +312,10 @@ _dictionary = {
         "es-MX": "Fecha Estimada",
         "en-US": "Estimated Date"
     },
+    "ListadoAvisoLlegada0029": {
+        "es-MX": "Dashboard Aviso Llegada",
+        "en-US": "Dashboard Aviso Llegada"
+    },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",
@@ -1366,6 +1370,10 @@ _dictionary = {
     "notificationslabel0030": {
         "es-MX": "Favor de validar los campos requeridos",
         "en-US": ""
+    },
+    "notificationslabel0031": {
+        "es-MX": "Favor de validar los campos requeridos",
+        "en-US": "Please validate required fields"
     },
     //Default to copy
     "label9999": {
