@@ -251,71 +251,77 @@ header .menu > div {
         right: -202px;
         left: initial;
         width: 420px;
-        max-height: 582px;
+        max-height: 525px;
+        overflow: hidden;
     }
 
-        .notifications .notification-menu .peak {
-            position: absolute;
-            top: -15px;
-            right: 48%;
+    .notifications .notification-menu .message-frame {
+        overflow-y: auto;
+        max-height: 475px;
+    }
+
+    .notifications .peak {
+        position: absolute;
+        top: 41px;
+        right: -1px;
+        z-index: 1001;
+    }
+
+    .notifications .notification-menu .notifications-header {
+        background-color: #F8F8F8;
+        border-bottom: 1px solid #CCCCCC;
+        text-align: center;
+        font-size: 14px;
+        padding: 9px 0;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+        color: #000000;
+    }
+
+        .notifications .notification-menu .notifications-header .counterTag {
+            margin-left: 6px;
         }
 
-        .notifications .notification-menu .notifications-header {
-            background-color: #F8F8F8;
-            border-bottom: 1px solid #CCCCCC;
-            text-align: center;
-            font-size: 14px;
-            padding: 9px 0;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            border-top-left-radius: inherit;
-            border-top-right-radius: inherit;
-            color: #000000;
+        .notifications .notification-menu .notifications-header .message-header {
+            text-align: left;
+            text-transform: capitalize;
+            padding: 4.5px 20px 4.5px 18px;
         }
 
-            .notifications .notification-menu .notifications-header .counterTag {
-                margin-left: 6px;
+            .notifications .notification-menu .notifications-header .message-header .backIcon {
+                margin-right: 7px;
+                z-index: 3;
             }
 
-            .notifications .notification-menu .notifications-header .message-header {
-                text-align: left;
-                text-transform: capitalize;
-                padding: 4.5px 20px 4.5px 18px;
+            .notifications .notification-menu .notifications-header .message-header .deleteMessage {
+                margin-left: 13px;
+                z-index: 3;
             }
 
-                .notifications .notification-menu .notifications-header .message-header .backIcon {
-                    margin-right: 7px;
-                    z-index: 3;
-                }
+    .notifications .notification-menu li:not(.messageBody) {
+        padding: 16px 20px;
+        border-bottom: 1px solid #CCCCCC;
+        max-height: 97px;
+        font-size: 14px;
+    }
 
-                .notifications .notification-menu .notifications-header .message-header .deleteMessage {
-                    margin-left: 13px;
-                    z-index: 3;
-                }
-
-        .notifications .notification-menu li a {
-            padding: 16px 20px;
-            border-bottom: 1px solid #CCCCCC;
-            max-height: 97px;
-            font-size: 14px;
+        .notifications .notification-menu li:not(.messageBody):hover {
+            background-color: rgba(048, 094, 142, 0.2);
         }
-
-            .notifications .notification-menu li a.read .notification-container {
-                padding-left: 0;
-                background: none;
-            }
 
         .notifications .notification-menu li.messageBody {
             padding: 17px 17px 16px;
         }
 
-        .notifications .notification-menu li.messageBody span,
-        .notifications .notification-menu li.messageBody a {
-            padding: 0;
-            white-space: normal;
-            border: none;
-            max-height: none;
-        }
+            .notifications .notification-menu li.messageBody span,
+            .notifications .notification-menu li.messageBody a {
+                padding: 0;
+                white-space: normal;
+                border: none;
+                max-height: none;
+            }
 
         .notifications .notification-menu li a .notification-container .sender-info {
             padding-bottom: 12px;
@@ -333,32 +339,32 @@ header .menu > div {
             background-image: url("/Content/images/SC_read_Icon.png");
         }
 
-        .notifications .notification-menu .messageDate,
-        .notifications .notification-menu .deleteMessage {
-            float: right;
-        }
+    .notifications .notification-menu .messageDate,
+    .notifications .notification-menu .deleteMessage {
+        float: right;
+    }
 
-        .notifications .notification-menu li a .notification-container .deleteMessage {
-            margin-left: 14px;
-            position: relative;
-            z-index: 5;
-        }
+    .notifications .notification-menu li a .notification-container .deleteMessage {
+        margin-left: 14px;
+        position: relative;
+        z-index: 5;
+    }
 
-        .notifications .notification-menu li a .notification-container .message-info {
-            white-space: normal;
-            color: #333333;
-        }
+    .notifications .notification-menu li a .notification-container .message-info {
+        white-space: normal;
+        color: #333333;
+    }
 
-        .notifications .notification-menu .notifications-footer {
-            text-align: center;
-            padding: 11px 10px;
-        }
+    .notifications .notification-menu .notifications-footer {
+        text-align: center;
+        padding: 11px 10px;
+    }
 
-            .notifications .notification-menu .notifications-footer a {
-                width: 100%;
-                margin: 0;
-                border-radius: 3px;
-            }
+        .notifications .notification-menu .notifications-footer a {
+            width: 100%;
+            margin: 0;
+            border-radius: 3px;
+        }
 
 /**********************************************************************************/
 
