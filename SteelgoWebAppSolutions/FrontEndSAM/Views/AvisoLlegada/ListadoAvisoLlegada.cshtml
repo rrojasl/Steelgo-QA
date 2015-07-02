@@ -334,13 +334,16 @@
                     $("#FechaEstimada").prepend("#filterContainer");
                     $("#FechaCreacion").prepend("#filterContainer");
                     $("#FolioID").prepend("#filterContainer");
+
                     $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+
                     applySecurity();
                     $("#grid").children('table').children('tbody').prepend("<tr><td><div id='insideGridFilter1'></div></td><td><div id='insideGridFilter2'></div></td><td><div id='insideGridFilter3'></div></td><td><div id='insideGridFilter4'></div></td></tr>");
                     $("#FolioID").appendTo("#insideGridFilter1");
                     $("#FechaCreacion").appendTo("#insideGridFilter2");
                     $("#FechaEstimada").appendTo("#insideGridFilter3");
                     $("#Cancel").appendTo("#insideGridFilter4");
+
                 };
                 loadingStop();
             });
