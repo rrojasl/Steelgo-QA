@@ -327,23 +327,24 @@
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                Error(data);
-                resultadoJson = data;
-                if ($("#grid").data("kendoGrid")) {
-                    $("#Cancel").prepend("#filterContainer");
-                    $("#FechaEstimada").prepend("#filterContainer");
-                    $("#FechaCreacion").prepend("#filterContainer");
-                    $("#FolioID").prepend("#filterContainer");
+                if (Error(data)) {
+                    resultadoJson = data;
+                    if ($("#grid").data("kendoGrid")) {
+                        $("#Cancel").prepend("#filterContainer");
+                        $("#FechaEstimada").prepend("#filterContainer");
+                        $("#FechaCreacion").prepend("#filterContainer");
+                        $("#FolioID").prepend("#filterContainer");
 
-                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
 
-                    applySecurity();
-                    $("#grid").children('table').children('tbody').prepend("<tr><td><div id='insideGridFilter1'></div></td><td><div id='insideGridFilter2'></div></td><td><div id='insideGridFilter3'></div></td><td><div id='insideGridFilter4'></div></td></tr>");
-                    $("#FolioID").appendTo("#insideGridFilter1");
-                    $("#FechaCreacion").appendTo("#insideGridFilter2");
-                    $("#FechaEstimada").appendTo("#insideGridFilter3");
-                    $("#Cancel").appendTo("#insideGridFilter4");
+                        applySecurity();
+                        $("#grid").children('table').children('tbody').prepend("<tr><td><div id='insideGridFilter1'></div></td><td><div id='insideGridFilter2'></div></td><td><div id='insideGridFilter3'></div></td><td><div id='insideGridFilter4'></div></td></tr>");
+                        $("#FolioID").appendTo("#insideGridFilter1");
+                        $("#FechaCreacion").appendTo("#insideGridFilter2");
+                        $("#FechaEstimada").appendTo("#insideGridFilter3");
+                        $("#Cancel").appendTo("#insideGridFilter4");
 
+                    };
                 };
                 loadingStop();
             });
@@ -395,6 +396,8 @@
                         displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                         return false;
                     }
+                } else {
+                    return true;
                 }
             } else {
                 return true;
