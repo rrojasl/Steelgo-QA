@@ -661,6 +661,10 @@ _dictionary = {
         "es-MX": "Cancelado",
         "en-US": "Canceled"
     },
+    "DetalleAvisoLlegada0087": {
+        "es-MX": "Dashboard Aviso Llegada",
+        "en-US": "Dashboard Aviso Llegada"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",
@@ -1146,6 +1150,14 @@ _dictionary = {
     "AutorizarPermiso0006": {
         "es-MX": "Permiso Autorizado",
         "en-US": "Permit Authorized"
+    },
+    "AutorizarPermiso0007": {
+        "es-MX": "Dashboard Aviso Llegada",
+        "en-US": "Dashboard Aviso Llegada"
+    },
+    "AutorizarPermiso0008": {
+        "es-MX": "Listado de Avisos de Entrada",
+        "en-US": "List Input Material"
     },
     //Dashboard Aviso Legada
     "DashboardAvisoLlegada0001": {

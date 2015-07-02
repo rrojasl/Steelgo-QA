@@ -146,18 +146,6 @@
             myBarChart.datasets[0].bars[3].value = 0;
             myBarChart.update();
         };
-        
-        //function ObtenerAccionesListado() {
-
-        //    $folioEntradaMaterial.Listado.read({}, {tipoListado:4, token: Cookies.get("token"),parametroBusqueda:"" }).done(function (result) {
-        //        Error(result);
-
-        //        $("#spanCreados").html( result.Creados );
-        //        $("#spanSinPermiso").html(result.SinPermiso );
-        //        $("#spanSinAutorizacion").html( result.SinAutorizacion );
-        //        $("#spanCompletos").html( result.Completos );
-        //    });
-        //};
 
         function AccionesListado(accion) {
             var PatioID = Patio.PatioID ? Patio.PatioID : "";
@@ -424,8 +412,6 @@
         FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
-        CantidadesDelMenuDashboard();
-
         $("#FechaInicial").bind("change", function () {
             CantidadesDelMenuDashboard();
         });
@@ -435,5 +421,6 @@
         });
 
         ObtenerFechasporDefecto();
+        CantidadesDelMenuDashboard();
     }
 </script>
