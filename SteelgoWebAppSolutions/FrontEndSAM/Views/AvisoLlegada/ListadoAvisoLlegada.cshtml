@@ -67,6 +67,7 @@
                         </div>
                     </div>
                     <div id="grid"></div>
+                    @*<div id="pager"></div>*@
                 </div>
             </div>
         </div>
@@ -82,108 +83,105 @@
 <script>
 
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, {path: '/'});
+    Cookies.set("home", true, { path: '/' });
     Cookies.set("navegacion", "3", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
-        //your partial views variables
-        var Transportista = [], Proveedor = [], Patio = [], Folio = [], Cliente = {};
-        var FechaInic, FechaFinal, resultadoJson;
-        var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
-        var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
-        //vars Dashboard
-        var DashBoardAccionListado = getUrlParameter("DashBoardAccionListado", "-1");
-        var DashPatioID = getUrlParameter("DashPatioID", "-1");
-        var DashClienteID = getUrlParameter("DashClienteID", "-1");
-        var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
-        var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
+    //your partial views variables
+    var Transportista = [], Proveedor = [], Patio = [], Folio = [], Cliente = {};
+    var FechaInic, FechaFinal, resultadoJson;
+    var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
+    var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
+    //vars Dashboard
+    var DashBoardAccionListado = getUrlParameter("DashBoardAccionListado", "-1");
+    var DashPatioID = getUrlParameter("DashPatioID", "-1");
+    var DashClienteID = getUrlParameter("DashClienteID", "-1");
+    var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
+    var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
 
-        var $AvisoLLegadaModel = {
-            listContainer: {
-                create: "#Nuevo",
-                list: "#grid",
-                detail: ".detailLink",
-                destroy: ".k-grid-Cancelar"
-            },
-            properties: {
-                username: {
-                    visible: "",
-                    editable: "",
-                    required: ""
-                }
+    var $AvisoLLegadaModel = {
+        listContainer: {
+            create: "#Nuevo",
+            list: "#grid",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+        properties: {
+            username: {
+                visible: "",
+                editable: "",
+                required: ""
             }
-        };
+        }
+    };
     }
 
-    @section JavascriptGlobalFunctions {        
-        //Your partial views specific functions
-        function changeDatePickerDateFormat(datePickerOptions) {
-            FechaInic.setOptions(datePickerOptions);
-            FechaFinal.setOptions(datePickerOptions);
-        };
+    @section JavascriptGlobalFunctions {
+    //Your partial views specific functions
+    function changeDatePickerDateFormat(datePickerOptions) {
+        FechaInic.setOptions(datePickerOptions);
+        FechaFinal.setOptions(datePickerOptions);
+    };
 
-        function changeLanguageCall() {
-            CargarGridAvisoLlegada();            
-        }
+    function changeLanguageCall() {
+        CargarGridAvisoLlegada();
+    }
 
-        function CargarGridAvisoLlegada()
-        {
-            $("#grid").kendoGrid({
-                dataSource: {
-                    data: resultadoJson,
-                    schema: {
-                        model: {
-                            fields: {
-                                FolioAvisoLlegadaID: { type: "string" },
-                                FechaGeneracion: { type: "string" },
-                                FechaRecepcion: { type: "string" },
-                                Estatus: { type: "string"}
-                            }
+    function CargarGridAvisoLlegada() {
+        $("#grid").kendoGrid({
+            dataSource: {
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            FolioAvisoLlegadaID: { type: "string" },
+                            FechaGeneracion: { type: "string" },
+                            FechaRecepcion: { type: "string" },
+                            Estatus: { type: "string" }
                         }
-                    },
-                    pageSize: 10,
-                    serverPaging: false,
-                    serverFiltering: false,
-                    serverSorting: false
+                    }
                 },
-                autoHeight: true,
-                sortable: true,
-                scrollable: false,
-                filterable: true,
-                pageable: {
-                    refresh: false,
-                    pageSizes: [10, 15, 20],
-                    info: false,
-                    input: true,
-                    numeric: false
-                },               
-                columns: [
-                    { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
-                    { field: "FechaGeneracion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
-                ],
-                dataBound: function (e) {
-                    $(".k-grid input.k-textbox").prop( 'readonly' , true);                    
-                    $(".k-grid td .k-button").text(''); 
-                    $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');                                                       
-                }
-            });
-        }
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: true,
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            columns: [
+                { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
+                { field: "FechaGeneracion", title: _dictionary.ListadoAvisoLlegada0013[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "FechaRecepcion", title: _dictionary.ListadoAvisoLlegada0028[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
+            ],
+            dataBound: function (e) {
+                $(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            }
+        });
+    }
 
-        function mostrarDetalle(folioAvisoLlegadaID)
-        {
-            //e.preventDefault();
-            //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            //var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-            //REDIRECT
-            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+    function mostrarDetalle(folioAvisoLlegadaID) {
+        //e.preventDefault();
+        //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
+        //REDIRECT
+        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
         }
 
-        function cancelarFolio(e)
-        {
+        function cancelarFolio(e) {
             e.preventDefault();
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
@@ -212,7 +210,7 @@
         };
 
         function ObtenerAccionesListado(Listado) {
-            
+
             //$folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
             //    Error(result);
 
@@ -222,7 +220,7 @@
             //    $("#spanCompletos").html(result.Completos);
             //});
 
-            $folioEntradaMaterial.Listado.read({}, {data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 Error(result);
                 $("#spanCreados").html(result.Creados ? result.Creados : 0);
                 $("#spanSinPermiso").html(result.SinPermiso ? result.SinPermiso : 0);
@@ -232,7 +230,7 @@
             });
         };
 
-        
+
 
         function CargarFolio(id) {
             Folio = [];
@@ -327,7 +325,7 @@
                     if ($("#grid").data("kendoGrid")) {
 
                         $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-
+                        $("#grid").data("kendoGrid").dataSource.page(1);
                         applySecurity();
 
                     };
@@ -362,7 +360,7 @@
                 format = "dd/MM/yyyy";
             } else {
                 format = "MM/dd/yyyy";
-            };            
+            };
             var fechaInicialkendo = kendo.parseDate(DashFechaInicial, format);
             var fechaFinalkendo = kendo.parseDate(DashFechaFinal, format);
 
@@ -466,19 +464,19 @@
     };
 
     @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-        //Botones Dashboard
-        $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
-        $("#btnSinPermiso").click(function () {
-            tabActivo("2");
-            AccionesListado(2);
-        });
-        $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
-        $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
+    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+    //Botones Dashboard
+    $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
+    $("#btnSinPermiso").click(function () {
+        tabActivo("2");
+        AccionesListado(2);
+    });
+    $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
+    $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
 
-        $("#Mostrar").click(function () { Filtros(); });
-        $("#Nuevo").click(function (e) {
-            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+    $("#Mostrar").click(function () { Filtros(); });
+    $("#Nuevo").click(function (e) {
+        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
 
@@ -521,7 +519,7 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarCliente(dataItem.ClienteID, dataItem.Nombre);
-                
+
             },
             change: function (e) {
                 var value = this.value();
@@ -530,7 +528,7 @@
                 }
                 Filtros();
                 CantidadesDelMenuDashboard();
-                
+
             },
             filter: "contains",
         });
@@ -543,14 +541,14 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarPatio(dataItem.PatioID, dataItem.Nombre);
             },
-            change: function(e) {
+            change: function (e) {
                 var value = this.value();
                 if (!value) {
                     Patio = [];
                 }
                 Filtros();
                 CantidadesDelMenuDashboard();
-                
+
             },
             filter: "contains",
         });
@@ -559,7 +557,7 @@
         FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
-        
+
 
         $("#FechaInic").bind("change", function () {
             Filtros();
