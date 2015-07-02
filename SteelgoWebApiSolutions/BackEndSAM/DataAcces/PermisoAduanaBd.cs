@@ -197,12 +197,13 @@ namespace BackEndSAM.DataAcces
                 DateTime nuevaFecha = DateTime.Parse(fechaRecepcion);
                 StringBuilder body = new StringBuilder();
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.office365.com");
+                SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx");
                 //por definir displayName y correo
-                mail.From = new MailAddress("ejemplo@sysgo.com.mx", "Sysgo");
+                mail.From = new MailAddress("karen.delacruz@steelgo.com");
+
                 //Correo Sam2
-                mail.Sender = new MailAddress("board@mimoss.com");
-                mail.To.Add("sam@sysgo.com.mx");
+                mail.Sender = new MailAddress("automatic@sysgo.com.mx");
+                mail.To.Add("daniela.zertuche@definityfirst.com");
                 //Por definir Subject
                 mail.Subject = "Permiso de Aduana";
                 mail.IsBodyHtml = true;
@@ -235,9 +236,10 @@ namespace BackEndSAM.DataAcces
                             + "<br />"
                             + body;
 
-                SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("usuario", "password");
+                SmtpServer.Port = 25;
                 SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
 
                 SmtpServer.Send(mail);
 
