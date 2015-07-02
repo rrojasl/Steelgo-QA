@@ -33,7 +33,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">                        
+                        <div class="button-section editButtonSection">                        
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
@@ -50,7 +50,7 @@
                         <div id="TramitarPermisoDiv" class="button-section">
                             <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleAvisoLlegada0064"></span>
@@ -63,7 +63,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="javascript:void(0);" class="btn btn-fadeBlue"></a>
+                        <a id="Imprimir" href="javascript:void(0);" class="btn btn-fadeBlue actionButtonSection"></a>
                     </div>
                 </div>
             </div>
@@ -389,9 +389,9 @@
 
         var $AvisoLLegadaModel = {
             listContainer: {
-                create: "",
-                list: "",
-                detail: "",
+                create: ".nextStepButtonSection",
+                list: ".actionButtonSection",
+                detail: ".editButtonSection",
                 destroy: ""
             },
             properties: {
