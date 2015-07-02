@@ -18,6 +18,12 @@
 
 //Method to be called on the document ready and contains all the pertinent code for a partial view
 function menuManagerToBeExecutedOnDocumentReady() {
+    //Open side menu on hover
+    $("#sidebar").hover(
+        function () { $(this).removeClass("minified"); $(".content-container").removeClass("expanded"); },
+        function () { $(this).addClass("minified"); $(".content-container").addClass("expanded"); }
+    );
+
     //Toggle for main menu's submenus           
     /*Open menus on hover*/
     $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {

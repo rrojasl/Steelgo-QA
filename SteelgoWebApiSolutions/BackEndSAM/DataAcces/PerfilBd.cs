@@ -70,6 +70,7 @@ namespace BackEndSAM.DataAcces
                                                join pr in ctx.Sam3_Propiedad on p.PropiedadID equals pr.PropiedadID
                                                where p.PerfilID == perfilID 
                                                && pr.EntidadID == perfil_entidad.EntidadID
+                                               && pr.Activo.Value == true && p.Activo
                                                select new Properties{
                                                     propertyName = pr.Nombre,
                                                     visible = p.PermisoLectura,
@@ -89,7 +90,7 @@ namespace BackEndSAM.DataAcces
                 //traer la lista de elementos de sidemenu
                 List<SideMenuElement> lstElements = (from rsm in ctx.Sam3_Rel_Perfil_MenuGeneral
                                                      join mg in ctx.Sam3_MenuGeneral on rsm.MenuGeneralID equals mg.MenuID
-                                                     where rsm.PerfilID == perfilID
+                                                     where rsm.PerfilID == perfilID && mg.Activo && rsm.Activo
                                                      select new SideMenuElement
                                                      {
                                                          elemetId = mg.MenuID,
@@ -111,7 +112,7 @@ namespace BackEndSAM.DataAcces
                 //traer la lista de elementos del menu contextual
                 List<ContextMenuElement> lstCtxMenuElements = (from r in ctx.Sam3_Rel_Perfil_MenuContextual
                                                                join mc in ctx.Sam3_MenuContextual on r.MenuContextualID equals mc.MenuID
-                                                               where r.PerfilID == perfilID
+                                                               where r.PerfilID == perfilID && r.Activo && mc.Activo
                                                                select new ContextMenuElement
                                                                {
                                                                    liga = mc.Liga,
@@ -136,7 +137,7 @@ namespace BackEndSAM.DataAcces
 
                 //obtnemos los datos para la entidad login
                 List<Sam3_Rel_Perfil_Entidad_Pagina> lstperfilesEntides = ctx.Sam3_Rel_Perfil_Entidad_Pagina
-                    .Where(x => x.PerfilID == perfilID && x.PaginaID == paginaID).ToList();
+                    .Where(x => x.PerfilID == perfilID && x.PaginaID == paginaID && x.Activo).ToList();
 
                 //creamos la lista de entidades
                 List<Entidad> lstEntidades = (from lst in lstperfilesEntides
@@ -149,13 +150,20 @@ namespace BackEndSAM.DataAcces
                                                   list = lst.PermisoListado
                                               }).ToList();
 
+                lstEntidades = lstEntidades.GroupBy(x => x.entityName).Select(x => x.First()).ToList();
+
                 //creamos la lista de propiedades por cada entidad
                 foreach (Entidad e in lstEntidades)
                 {
                     List<Properties> lstProperty = (from r in ctx.Sam3_Rel_Perfil_Propiedad_Pagina
                                                       join p in ctx.Sam3_Propiedad on r.PropiedadID equals p.PropiedadID
                                                       join en in ctx.Sam3_Entidad on p.EntidadID equals en.EntidadID
-                                                      where en.Nombre == e.entityName
+                                                      where r.Activo
+                                                      && p.Activo.Value == true
+                                                      && en.Activo
+                                                      && r.PerfilID == perfilID 
+                                                      && r.PaginaID == paginaID
+                                                      && en.Nombre == e.entityName
                                                       select new Properties
                                                       {
                                                           propertyName = p.Nombre,
@@ -163,6 +171,9 @@ namespace BackEndSAM.DataAcces
                                                           visible = r.PermisoLectura,
                                                           required = r.Requerido
                                                       }).ToList();
+
+                    lstProperty = lstProperty.GroupBy(x => x.propertyName).Select(x => x.First()).ToList();
+
                     e.properties = lstProperty;
                 }
 

@@ -650,7 +650,8 @@ namespace BackEndSAM.DataAcces
                         {
                             //verificamos si ya existe el archivo actual
                             if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
-                                .Where(x => x.DocumentoID == archivo.ArchivoID && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
+                                .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID 
+                                    && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
                             {
                                 //si el archivo no existe, agregamos uno nuevo
                                 Sam3_Rel_FolioAvisoLlegada_Documento nuenoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
