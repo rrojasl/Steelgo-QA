@@ -197,7 +197,12 @@
                 </a>
             </div>
         </div>
-        <div id="modalProveedor" style="display: none">
+        @*<div id="modalProveedor" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0020"></label>
                 <input id="ContactoID_Proveedor" class="" />
@@ -226,9 +231,14 @@
                     <span id="DetalleAvisoLlegada0077"></span>
                 </a>
             </div>
-        </div>
+        </div>*@
 
         <div id="modalPatio" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="Nombre_PatioDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0026"></label>
                 <input id="Nombre_Patio" class="" />
@@ -256,6 +266,11 @@
         </div>
 
         <div id="modalChofer" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="Nombre_ChoferDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0030"></label>
                 <input id="Nombre_Chofer" class="" />
@@ -271,6 +286,11 @@
         </div>
 
         <div id="modalPlana" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="TipoVehiculo_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0068"></label>
                 <input id="TipoVehiculo_Plana" class="" />
@@ -301,6 +321,11 @@
             </div>
         </div>
         <div id="modalCamion" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="TipoVehiculo_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0071"></label>
                 <input id="TipoVehiculo_Camion" class="" />
@@ -755,7 +780,7 @@
                     };
                 });
 
-                $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
+                //$("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
                 $("#GuardarPatio").click(function (e) {
                     if (validarRequeridosModalPatio()) {
                         GuardarPatio();
@@ -1582,31 +1607,31 @@
                 console.log(TransportistaModal[0]);
 
                 $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    Error(data);
                     LimpiarModalTransportista();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerTransportista();
-                
+                    if (Error(data)) {
+                        $("#window").data("kendoWindow").close();
+                        ObtenerTransportista();
+                    };
                 });
             };
        
-            function GuardarProveedor() {
-                ProveedorModal = [];
-                ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-                ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
-                ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
-                ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
-                ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
-                ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
+            //function GuardarProveedor() {
+            //    ProveedorModal = [];
+            //    ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+            //    ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
+            //    ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
+            //    ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
+            //    ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
+            //    ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
 
-                console.log(ProveedorModal[0]);
+            //    console.log(ProveedorModal[0]);
 
-                $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    LimpiarModalProveedor();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerProveedor();
-                });
-            };
+            //    $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
+            //        LimpiarModalProveedor();
+            //        $("#window").data("kendoWindow").close();
+            //        ObtenerProveedor();
+            //    });
+            //};
 
             function GuardarPatio() {
                 PatioModal = [];
@@ -1619,10 +1644,11 @@
                 console.log(PatioModal[0]);
 
                 $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    Error(data);
                     LimpiarModalPatio();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerPatio();
+                    if (Error(data)) {
+                        $("#window").data("kendoWindow").close();
+                        ObtenerPatio();
+                    };
                 });
             };
 
@@ -1635,10 +1661,11 @@
 
                 $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyChofer.create");
-                    Error(data);
                     LimpiarModalChofer();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerChofer();
+                    if (Error(data)) {
+                        ObtenerChofer();
+                        $("#window").data("kendoWindow").close();
+                    }
                 });
             };
 
@@ -1660,10 +1687,11 @@
                 console.log("camionid: " + camionid);
 
                 $Plana.Plana.create(PlanaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    Error(data);
                     LimpiarModalPlana();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerPlanas();
+                    if (Error(data)) {
+                        ObtenerPlanas();
+                        $("#window").data("kendoWindow").close();
+                    } 
                 });
             };
 
@@ -1687,34 +1715,40 @@
 
                 $Camion.Tracto.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.Camion.create");
-                    Error(data);
                     LimpiarModalCamion();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerCamionEntradaMaterial();
+                    if (Error(data)) {
+                        $("#window").data("kendoWindow").close();
+                        ObtenerCamionEntradaMaterial();
+                    };
                 });
             };
 
             function CancelarTransportista() {
+                LimpiarModalTransportista();
                 cerrarVentanaModal();
             };
 
-            function CancelarProveedor() {
-                cerrarVentanaModal();
-            };
+            //function CancelarProveedor() {
+            //    cerrarVentanaModal();
+            //};
 
             function CancelarPatio() {
+                LimpiarModalPatio();
                 cerrarVentanaModal();
             };
 
             function CancelarChofer() {
+                LimpiarModalChofer();
                 cerrarVentanaModal();
             };
 
             function CancelarPlana() {
+                LimpiarModalPlana();
                 cerrarVentanaModal();
             };
 
             function CancelarCamion() {
+                LimpiarModalCamion();
                 cerrarVentanaModal();
             };
 
@@ -1999,7 +2033,7 @@
                             removeUserSession();
                             return true;
                         } else {
-                            displayMessage("", data.ReturnMessage, '2');
+                            displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                             return false;
                         }
                     } else {
