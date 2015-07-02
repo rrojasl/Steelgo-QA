@@ -781,8 +781,8 @@
                 });
                 
                 $("#Editar").click(function (e) {
-                    BotonEdicion();
                     ObtenerPatioRequierePermiso();
+                    BotonEdicion();
                     $("#files").data("kendoUpload").enable();
                 });
 
@@ -1321,6 +1321,10 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").enable();
                 $("#files").data("kendoUpload").enable();
+
+                if ($("#hdPermisoTramite").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                };
                 HabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1341,7 +1345,9 @@
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
+                
                 $("#TramitarPermiso").attr('disabled', 'disabled');
+                
                 DesahabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1380,6 +1386,7 @@
                     if(data.Transportista.length > 0){
                         CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
+                        ObtenerChofer(data.Transportista[0].TransportistaID);
                     }
 
                     if (data.Cliente) {
@@ -1393,8 +1400,8 @@
                     }
 
                     //Fecha Recepcion
-                    var fechar = new Date(data.FechaRecepcion);
-                    var fechar = fecha.toLocaleDateString($("#language").data("kendoDropDownList").value());
+                    var FechaRecepcion = new Date(data.FechaRecepcion);
+                    var fechar = FechaRecepcion.toLocaleDateString($("#language").data("kendoDropDownList").value());
 
                     if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                         format = "dd/MM/yyyy";
