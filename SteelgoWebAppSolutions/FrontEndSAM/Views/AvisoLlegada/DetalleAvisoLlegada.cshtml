@@ -1248,7 +1248,8 @@
                 //_archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
                 //_archivosPackingList[0].Archivos = DocumentosPackingList;
 
-                
+                CargarDefaults();
+
                 var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth() + 1; //Months are zero based
@@ -1273,6 +1274,8 @@
                 //AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
                 console.log(JSON.stringify(AvisoLlegada));
                 loadingStart();
+
+                
 
                 if (folio != -1)//Edición
                 {
@@ -1302,6 +1305,44 @@
                 }
             };
 
+            function CargarDefaults() {
+                $("#formAvisoLlegada :not(.security_required)").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        switch ($(elem).attr("id")) {
+                            case 'TipoAvisoID':
+                                if (!$("#TipoAvisoID").data("kendoComboBox").value()) {
+                                    CargarTipoAviso(1, "");
+                                }
+                                break;
+                            case 'ClienteID':
+                                if (!$("#ClienteID").data("kendoComboBox").value().length > 0) {
+                                    CargarCliente(1, "");
+                                }
+                                break;
+                            case 'PatioID':
+                                if (!$("#PatioID").data("kendoComboBox").value() > 0) {
+                                    CargarPatio(1, "");
+                                }
+                                break;
+                            case 'ChoferID':
+                                if (!$("#ChoferID").data("kendoComboBox").value() > 0) {
+                                    CargarChofer(1, "");
+                                }
+                                break;
+                            case 'Tracto':
+                                if (!$("#Tracto").data("kendoComboBox").value() > 0) {
+                                    CargarCamionEntradaMaterial(1, "");
+                                }
+                                break;
+                            case 'TransportistaID':
+                                if (!$("#TransportistaID").data("kendoComboBox").value() > 0) {
+                                    CargarTransportista(1, "");
+                                }
+                                break;
+                        };
+                    };
+                });
+            };
             function BotonEdicion() {
                 $("#dropdown-toggle").show();
                 $("#Editar").css("display", "none");
