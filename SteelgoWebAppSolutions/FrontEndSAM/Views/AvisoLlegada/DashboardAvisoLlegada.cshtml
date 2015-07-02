@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="graphContainer form-group col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <canvas id="ChartBar" width="400" height="400"></canvas>
@@ -103,22 +103,9 @@
     @section JavascriptGlobalVariables {
         var Patio = {}, Cliente = {};
         var FechaInicial, FechaFinal, myBarChart, myPieChart;
-        var $AvisoLLegadaModel = {
-            listContainer: {
-                create: "#Nuevo",
-                list: ".btn-group",
-                detail: ".graphContainer",
-                destroy: ""
-            },
-            properties: {
-            }
-        };
     }
 
     @section JavascriptGlobalFunctions {
-
-        $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
             FechaFinal.setOptions(datePickerOptions);
@@ -176,10 +163,11 @@
         function AccionesListado(accion) {
             var PatioID = Patio.PatioID ? Patio.PatioID : "";
             var ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
+
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
-            var fechainicial = d.toLocaleDateString($("#language").data("kendoDropDownList").value());
-            var fechafinal = d1.toLocaleDateString($("#language").data("kendoDropDownList").value());
+            var fechainicial = obtenerFormatoFecha(d);
+            var fechafinal = obtenerFormatoFecha(d1);
 
             var url = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
             window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal;
@@ -213,11 +201,8 @@
         };
 
         function ObtenerFechasporDefecto() {
-            var today = new Date();
-            var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
-
-            var fechainicial = fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value());
-            var fechafinal = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
+            var fechaFinal = new Date();
+            var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
 
             if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                 format = "dd/MM/yyyy";
@@ -225,8 +210,21 @@
                 format = "MM/dd/yyyy";
             };
 
-            var fechaInicialkendo = kendo.parseDate(fechainicial, format);
-            var fechaFinalkendo = kendo.parseDate(fechafinal, format);
+            var curr_date0 = fechainicio.getDate();
+            var curr_month0 = fechainicio.getMonth() + 1; //Months are zero based
+            var curr_year0 = fechainicio.getFullYear();
+
+
+            var curr_date = fechaFinal.getDate();
+            var curr_month = fechaFinal.getMonth() + 1; //Months are zero based
+            var curr_year = fechaFinal.getFullYear();
+
+
+            var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+            var fechFinal = new Date(curr_year, curr_month - 1, curr_date);
+
+            var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+            var fechaFinalkendo = kendo.parseDate(fechFinal, format);
 
             $("#FechaInicial").data("kendoDatePicker").value(fechaInicialkendo);
             $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);

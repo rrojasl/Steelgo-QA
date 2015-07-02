@@ -375,8 +375,19 @@
             } else {
                 format = "MM/dd/yyyy";
             };
-            var fechaInicialkendo = kendo.parseDate(DashFechaInicial, format);
-            var fechaFinalkendo = kendo.parseDate(DashFechaFinal, format);
+            var splitYear = DashFechaInicial.split("-")[0];
+            var splitMonth = DashFechaInicial.split("-")[1];
+            var splitDay = DashFechaInicial.split("-")[2];
+
+            var splitYear2 = DashFechaFinal.split("-")[0];
+            var splitMonth2 = DashFechaFinal.split("-")[1];
+            var splitDay2 = DashFechaFinal.split("-")[2];
+
+            var fechaInicial = new Date(splitYear, splitMonth - 1, splitDay);
+            var fechFinal = new Date(splitYear2, splitMonth2 - 1, splitDay2);
+
+            var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+            var fechaFinalkendo = kendo.parseDate(fechFinal, format);
 
             $("#ClienteID").data("kendoComboBox").value(DashClienteID);
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
@@ -459,11 +470,8 @@
     }
 
     function ObtenerFechasporDefecto() {
-        var today = new Date();
-        var fechainicio = new Date(today.getTime() - (7 * 24 * 3600 * 1000));
-
-        var fechainicial = fechainicio.toLocaleDateString($("#language").data("kendoDropDownList").value());
-        var fechafinal = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
+        var fechaFinal = new Date();
+        var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
 
         if ($("#language").data("kendoDropDownList").value() == "es-MX") {
             format = "dd/MM/yyyy";
@@ -471,8 +479,21 @@
             format = "MM/dd/yyyy";
         };
 
-        var fechaInicialkendo = kendo.parseDate(fechainicial, format);
-        var fechaFinalkendo = kendo.parseDate(fechafinal, format);
+        var curr_date0 = fechainicio.getDate();
+        var curr_month0 = fechainicio.getMonth() + 1; //Months are zero based
+        var curr_year0 = fechainicio.getFullYear();
+
+
+        var curr_date = fechaFinal.getDate();
+        var curr_month = fechaFinal.getMonth() + 1; //Months are zero based
+        var curr_year = fechaFinal.getFullYear();
+
+        
+        var fechaInicial= new Date(curr_year0, curr_month0-1, curr_date0);
+        var fechFinal = new Date(curr_year, curr_month - 1, curr_date);
+
+        var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+        var fechaFinalkendo = kendo.parseDate(fechFinal, format);
 
         $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
         $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
@@ -481,6 +502,11 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
     //Botones Dashboard
+    $("#FolioID").val("");
+    $("#FechaCreacion").val("");
+    $("#FechaEstimada").val("");
+    $("#Cancel").val("");
+    
     $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
     $("#btnSinPermiso").click(function () {
         tabActivo("2");
@@ -590,6 +616,7 @@
             AccionesListado(DashBoardAccionListado);
             CantidadesDelMenuDashboard();
         } else {
+           
             ObtenerFechasporDefecto();
             tabActivo(1);//default 1 creados
             Filtros();
