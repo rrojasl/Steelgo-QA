@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <input id="FolioID" class="quickFilters" />
                             <input id="FechaCreacion" class="quickFilters" />
                             <input id="FechaEstimada" class="quickFilters" />
@@ -330,9 +330,17 @@
                 Error(data);
                 resultadoJson = data;
                 if ($("#grid").data("kendoGrid")) {
+                    $("#Cancel").prepend("#filterContainer");
+                    $("#FechaEstimada").prepend("#filterContainer");
+                    $("#FechaCreacion").prepend("#filterContainer");
+                    $("#FolioID").prepend("#filterContainer");
                     $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                     applySecurity();
-                    $("#grid").children('table').children('tbody').prepend("<tr><td></td><td></td><td></td><td></td></tr>");
+                    $("#grid").children('table').children('tbody').prepend("<tr><td><div id='insideGridFilter1'></div></td><td><div id='insideGridFilter2'></div></td><td><div id='insideGridFilter3'></div></td><td><div id='insideGridFilter4'></div></td></tr>");
+                    $("#FolioID").appendTo("#insideGridFilter1");
+                    $("#FechaCreacion").appendTo("#insideGridFilter2");
+                    $("#FechaEstimada").appendTo("#insideGridFilter3");
+                    $("#Cancel").appendTo("#insideGridFilter4");
                 };
                 loadingStop();
             });
