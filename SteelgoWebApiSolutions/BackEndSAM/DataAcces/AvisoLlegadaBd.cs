@@ -445,7 +445,7 @@ namespace BackEndSAM.DataAcces
                                     where r.ChoferID == registroBd.ChoferID && r.Activo
                                     select new ChoferAV { ChoferID = r.ChoferID, Nombre = r.Nombre }).AsParallel().ToList();
 
-                    aviso.FechaRecepcion = registroBd.FechaRecepcion.HasValue ? registroBd.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
+                    aviso.FechaRecepcion = registroBd.FechaRecepcion.HasValue ? registroBd.FechaRecepcion.Value.ToString("yyyy-MM-dd") : string.Empty;
                     aviso.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID;
                     aviso.Estatus = registroBd.Estatus;
 
