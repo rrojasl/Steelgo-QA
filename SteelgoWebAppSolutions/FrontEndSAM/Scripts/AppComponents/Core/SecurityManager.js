@@ -138,7 +138,14 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
 
         if (entityDefinition["listContainer"].hasOwnProperty("detail") && entityDefinition.listContainer["detail"] != null && entityDefinition.listContainer["detail"].length > 0) {
             if (entityDetailPermission == false) {
-                $(entityDefinition.listContainer["detail"]).css("display", "none");
+                if ($(entityDefinition.listContainer["detail"]).is("a")) {
+                    $(entityDefinition.listContainer["detail"]).click(function (e) {
+                        e.preventDefault();
+                    });
+                } else {
+                    $(entityDefinition.listContainer["detail"]).css("display", "none");
+                }
+                
             }
         }
 

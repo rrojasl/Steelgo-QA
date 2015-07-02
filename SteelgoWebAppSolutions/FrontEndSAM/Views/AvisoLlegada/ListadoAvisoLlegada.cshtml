@@ -125,7 +125,7 @@
 
         var $AvisoLLegadaModel = {
             listContainer: {
-                create: "#Creacion",
+                create: "#Nuevo",
                 list: "#grid",
                 detail: ".detailLink",
                 destroy: ".k-grid-Cancelar"
@@ -344,6 +344,7 @@
         };
 
         function AccionesListado(accion) {
+            loadingStart();
             var Listado;
             Listado = ArregloListado(accion);
 
@@ -354,7 +355,10 @@
                 resultadoJson = data;
                 if ($("#grid").data("kendoGrid")) {
                     $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                    applySecurity();
+                    $("#grid").children('table').children('tbody').prepend("<tr><td></td><td></td><td></td><td></td></tr>");
                 };
+                loadingStop();
             });
         };
 
