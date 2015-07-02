@@ -1029,7 +1029,7 @@
                     event.preventDefault();
                 });
                 //modal transportista
-                $("#ContactoID_Transportista, #ContactoID_Proveedor").kendoComboBox({
+                $("#ContactoID_Transportista").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "ContactoID",
                     select: function (e) {
@@ -1823,7 +1823,7 @@
             };
 
             function LimpiarModalProveedor() {
-                $("#ContactoID_Proveedor").data("kendoComboBox").value("");
+                //$("#ContactoID_Proveedor").data("kendoComboBox").value("");
                 $("#Nombre_Proveedor").val("");
                 $("#Descripcion_Proveedor").val("");
                 $("#Direccion_Proveedor").val("");
@@ -1999,7 +1999,7 @@
                 $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
                     Error(result);
                     $("#ContactoID_Transportista").data("kendoComboBox").dataSource.data(result);
-                    $("#ContactoID_Proveedor").data("kendoComboBox").dataSource.data(result);
+                    //$("#ContactoID_Proveedor").data("kendoComboBox").dataSource.data(result);
                 });
 
             };
