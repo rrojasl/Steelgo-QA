@@ -665,6 +665,10 @@ _dictionary = {
         "es-MX": "Dashboard Aviso Llegada",
         "en-US": "Dashboard Aviso Llegada"
     },
+    "DetalleAvisoLlegada0088": {
+        "es-MX": "Creado",
+        "en-US": "Created"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",

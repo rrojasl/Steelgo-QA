@@ -28,6 +28,7 @@
                 <span id="DetalleAvisoLlegada0084"></span>
                 <span id="DetalleAvisoLlegada0085"></span>
                 <span id="DetalleAvisoLlegada0086"></span>
+                <span id="DetalleAvisoLlegada0088"></span>
                 <div class="branchCut"></div>
             </span>
             <div class="formNav clearfix">
@@ -45,7 +46,7 @@
                                     <li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>
                                 </ul>
                             </div>
-                            <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
+                            <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
                             <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
@@ -57,13 +58,13 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard" href="javascript:void(0);"><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                    <li><a href="javascript:void(0);"><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                    <li><a id="CancelarFolio" href="javascript:void(0);"><span id="DetalleAvisoLlegada0083"></span></a></li>
+                                    <li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="javascript:void(0);" class="btn btn-fadeBlue actionButtonSection"></a>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
                     </div>
                 </div>
             </div>
@@ -780,12 +781,12 @@
                 });
 
                 $("#GuardarNuevo").click(function (e) {
-                    //if (validarRequeridosFormaAvisoLlegada()) {
+                    if (validarRequeridosFormaAvisoLlegada()) {
                         var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                    //} else {
-                    //    displayMessage("notificationslabel0031", "", 1);
-                    //};
+                    } else {
+                        displayMessage("notificationslabel0031", "", 1);
+                    };
                 });
                 
                 $("#Editar").click(function (e) {
@@ -1437,6 +1438,10 @@
                         $("#DetalleAvisoLlegada0084").show();
                     };
 
+                    if (data.Estatus == "Creado") {
+                        ocultarStatus();
+                        $("#DetalleAvisoLlegada0088").show();
+                    };
                     $.each(data.Plana, function (index, value) {
                         concatPlanas += "," + value.PlanaID;
                         console.log(" concatPlanas:" + concatPlanas);
@@ -2059,6 +2064,7 @@
                 $("#DetalleAvisoLlegada0084").hide();
                 $("#DetalleAvisoLlegada0085").hide();
                 $("#DetalleAvisoLlegada0086").hide();
+                $("#DetalleAvisoLlegada0088").hide();
             };
 
             function DesahabilitarObtenerDocumentosAvisoLlegada() {
