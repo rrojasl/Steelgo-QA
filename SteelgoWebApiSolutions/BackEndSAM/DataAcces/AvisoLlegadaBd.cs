@@ -615,16 +615,16 @@ namespace BackEndSAM.DataAcces
                     {
                         //modificamos los parametros generales
                         avisoBd.Activo = true;
-                        avisoBd.ChoferID = cambios.Chofer[0].ChoferID;
+                        avisoBd.ChoferID = cambios.Chofer.Count > 0 ? cambios.Chofer[0].ChoferID : 1;
                         avisoBd.FechaModificacion = DateTime.Now;
                         avisoBd.FechaRecepcion = Convert.ToDateTime(cambios.FechaRecepcion);
-                        avisoBd.PatioID = cambios.Patio[0].PatioID;
-                        avisoBd.TransportistaID = cambios.Transportista[0].TransportistaID;
+                        avisoBd.PatioID = cambios.Patio.Count > 0 ? cambios.Patio[0].PatioID : 1;
+                        avisoBd.TransportistaID = cambios.Transportista.Count > 0 ? cambios.Transportista[0].TransportistaID : 1;
                         avisoBd.UsuarioModificacion = usuario.UsuarioID;
-                        avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 0;
+                        avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 1;
                         avisoBd.ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
-                            ? Convert.ToInt32(cambios.Cliente.ClienteID) : 0;
-                        avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 0;
+                            ? Convert.ToInt32(cambios.Cliente.ClienteID) : 1;
+                        avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
                         avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
 
                         //Actualizar informacion de las planas
