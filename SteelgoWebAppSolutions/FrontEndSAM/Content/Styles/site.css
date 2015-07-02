@@ -293,21 +293,33 @@ input {
 
 input.quickFilters {
     position: relative;
-    width: 31.54%;
+    width: 31.34%;
     margin: 0 -5px -1px 0;
 }
 
     input.quickFilters:first-of-type {
-        width: 31.55%;
+        width: 31.33%;
     }
 
     input.quickFilters:last-of-type {
-        width: 5.54%;
+        width: 6.2%;
     }
 
         input.quickFilters:last-of-type[disabled] {
             background: #FFFFFF;
         }
+
+.expanded input.quickFilters {
+    width: 31.54%;
+}
+
+    .expanded input.quickFilters:first-of-type {
+        width: 31.55%;
+    }
+
+    .expanded input.quickFilters:last-of-type {
+        width: 5.54%;
+    }
 
 .content-container .input-group .input-group-btn a {
     padding: 19px 18px;
@@ -689,6 +701,31 @@ h2 {
     .btn-tab label {
         font-size: 11px;
     }
+
+    /*input*/
+    input.quickFilters {
+        width: 27.1%;
+    }
+
+        input.quickFilters:first-of-type {
+            width: 27.3%;
+        }
+
+        input.quickFilters:last-of-type {
+            width: 19%;
+        }
+
+    .expanded input.quickFilters {
+        width: 28.3%;
+    }
+
+        .expanded input.quickFilters:first-of-type {
+            width: 28.5%;
+        }
+
+        .expanded input.quickFilters:last-of-type {
+            width: 15.4%;
+        }
 }
 
 /* tablet viewport*/
@@ -724,6 +761,31 @@ h2 {
     footer label {
         font-size: 11px;
     }
+
+    /*input*/
+    input.quickFilters {
+        width: 28.83%;
+    }
+
+        input.quickFilters:first-of-type {
+            width: 28.9%;
+        }
+
+        input.quickFilters:last-of-type {
+            width: 13.8%;
+        }
+
+    .expanded input.quickFilters {
+        width: 29.73%;
+    }
+
+        .expanded input.quickFilters:first-of-type {
+            width: 29.8%;
+        }
+
+        .expanded input.quickFilters:last-of-type {
+            width: 11.1%;
+        }
 }
 
 /* lg viewport */
