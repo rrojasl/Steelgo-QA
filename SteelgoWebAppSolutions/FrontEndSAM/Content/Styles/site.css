@@ -293,12 +293,16 @@ input {
 
 input.quickFilters {
     position: relative;
-    width: 31.33%;
+    width: 31.54%;
     margin: 0 -5px -1px 0;
 }
 
+    input.quickFilters:first-of-type {
+        width: 31.55%;
+    }
+
     input.quickFilters:last-of-type {
-        width: 6.2%;
+        width: 5.54%;
     }
 
         input.quickFilters:last-of-type[disabled] {
@@ -438,7 +442,7 @@ input.quickFilters {
     letter-spacing: 1.1px;
 }
 
-    /*.btn-tab span#spanSinAutorizacion {
+/*.btn-tab span#spanSinAutorizacion {
         color: #E90000;
     }*/
 
