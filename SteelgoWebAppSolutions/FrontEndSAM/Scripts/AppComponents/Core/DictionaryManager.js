@@ -1376,11 +1376,11 @@ _dictionary = {
         "en-US": ""
     },
     "notificationslabel0029": {
-        "es-MX": "",
+        "es-MX": "Favor de validar los campos requeridos de la forma",
         "en-US": ""
     },
     "notificationslabel0030": {
-        "es-MX": "",
+        "es-MX": "Favor de validar los campos requeridos",
         "en-US": ""
     },
     "notificationslabel0031": {

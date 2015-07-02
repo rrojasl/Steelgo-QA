@@ -35,7 +35,6 @@ function applySecurityPolicy() {
 
         //Execute REST Petition to obtain the user access
         $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
-
             //Retrieve the context menu definition**
             $contextMenu = {};
 
@@ -139,7 +138,14 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
 
         if (entityDefinition["listContainer"].hasOwnProperty("detail") && entityDefinition.listContainer["detail"] != null && entityDefinition.listContainer["detail"].length > 0) {
             if (entityDetailPermission == false) {
-                $(entityDefinition.listContainer["detail"]).css("display", "none");
+                if ($(entityDefinition.listContainer["detail"]).is("a")) {
+                    $(entityDefinition.listContainer["detail"]).click(function (e) {
+                        e.preventDefault();
+                    });
+                } else {
+                    $(entityDefinition.listContainer["detail"]).css("display", "none");
+                }
+                
             }
         }
 
@@ -191,12 +197,27 @@ function applySecurityPolicyForProperties(entityDefinition, entitySecurity, secu
                 if (entityDefinition.properties[key].hasOwnProperty("editable") && entityDefinition.properties[key]["editable"] != null && entityDefinition.properties[key]["editable"].length > 0) {
                     if (propertyEditPermission == false) {
                         $(entityDefinition.properties[key]["editable"]).prop('disabled', true);
+                        if ($(entityDefinition.properties[key]["required"]).closest('div').hasClass("k-multiselect")) {
+                            $(entityDefinition.properties[key]["required"]).data("kendoMultiSelect").enable(false);
+
+                        } /*else if ($(entityDefinition.properties[key]["required"]).closest('div').find('span').hasClass("k-combobox")) {
+                            $(entityDefinition.properties[key]["required"]).data("combobox").enable(false);
+
+                        } else if ($(entityDefinition.properties[key]["required"]).closest('div').find('span').hasClass("k-dropdownlist")) {
+                            $(entityDefinition.properties[key]["required"]).data("dropdownlist").enable(false);
+                            
+                        }*/ else {
+                            $(entityDefinition.properties[key]["required"]).closest('div').find('span').children('span').children('input').prop('disabled', true);
+                            $(entityDefinition.properties[key]["required"]).closest('div').find('span').children('span').children('span').remove();
+                        }
+                        
                     }
                 }
 
                 if (entityDefinition.properties[key].hasOwnProperty("required") && entityDefinition.properties[key]["required"] != null && entityDefinition.properties[key]["required"].length > 0) {
                     if (propertyRequiredPermission == true) {
                         $(entityDefinition.properties[key]["required"]).addClass("security_required");
+                        $(entityDefinition.properties[key]["required"]).closest('div').find('label').addClass("security_required");
                     }
                 }
             }
@@ -279,7 +300,7 @@ function validateCredentials() {
                 //RedirectToHomePage
                 Cookies.remove("user", { path: '/' });
                 Cookies.remove("token", { path: '/' });
-                displayMessage("notificationslabel0001", "", 2);
+                displayMessage("notificationslabel0001", "", '2');
                 document.location.href = '/';
             }
             loadingStop();
@@ -287,14 +308,14 @@ function validateCredentials() {
         request.error(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            displayMessage("notificationslabel0002", "", 2);
+            displayMessage("notificationslabel0002", "", '2');
             document.location.href = '/';
             loadingStop();
         });
         request.fail(function (data) {
             Cookies.remove("user", { path: '/' });
             Cookies.remove("token", { path: '/' });
-            displayMessage("notificationslabel0003", "", 2);
+            displayMessage("notificationslabel0003", "", '2');
             document.location.href = '/';
 
             loadingStop();
@@ -304,7 +325,7 @@ function validateCredentials() {
         if (Cookies.get("home") != null && Cookies.get("home") == "false") {
             //RedirectToHomePage
             document.location.href = '/';
-            displayMessage("notificationslabel0004", "", 2);
+            displayMessage("notificationslabel0004", "", '2');
 
         } else if (Cookies.get("home") != null && Cookies.get("home") == "true"
                     && Cookies.get("user") != null
@@ -314,7 +335,7 @@ function validateCredentials() {
         } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1"
                     && Cookies.get("LogOut") != null) {
             Cookies.remove("LogOut", { path: '/' });
-            displayMessage("notificationslabel0005", "", 2);
+            displayMessage("notificationslabel0005", "", '2');
             document.location.href = '/';
         }
     }

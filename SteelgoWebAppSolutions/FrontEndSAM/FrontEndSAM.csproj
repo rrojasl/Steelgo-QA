@@ -444,6 +444,7 @@
     <Content Include="Scripts\AppComponents\AvisoLlegada\Dashboard.js" />
     <Content Include="Scripts\AppComponents\AvisoLlegada\ListadoEspecifico.js" />
     <Content Include="Scripts\AppComponents\Core\ApiManager.js" />
+    <Content Include="Scripts\AppComponents\Core\ContextMenuManager.js" />
     <Content Include="Scripts\AppComponents\Core\GridExtensionsManager.js" />
     <Content Include="Scripts\AppComponents\Core\MenuManager.js" />
     <Content Include="Scripts\AppComponents\Core\AlertsManager.js" />
@@ -459,6 +460,8 @@
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\CODE128.js" />
     <Content Include="Scripts\CODE39.js" />
+    <Content Include="Content\ContextMenu.css" />
+    <Content Include="Scripts\ContextMenu.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />

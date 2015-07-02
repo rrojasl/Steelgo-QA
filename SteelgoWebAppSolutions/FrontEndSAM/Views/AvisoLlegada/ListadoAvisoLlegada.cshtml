@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <input id="FolioID" class="quickFilters" />
                             <input id="FechaCreacion" class="quickFilters" />
                             <input id="FechaEstimada" class="quickFilters" />
@@ -101,7 +101,7 @@
 
         var $AvisoLLegadaModel = {
             listContainer: {
-                create: "#Creacion",
+                create: "#Nuevo",
                 list: "#grid",
                 detail: ".detailLink",
                 destroy: ".k-grid-Cancelar"
@@ -211,7 +211,7 @@
                         });
                     };
                 } else {
-                    displayMessage("notificationslabel0016", "", 1);
+                    displayMessage("notificationslabel0016", "", '1');
                 };
             });
         };
@@ -320,18 +320,32 @@
         };
 
         function AccionesListado(accion) {
+            loadingStart();
             var Listado;
             Listado = ArregloListado(accion);
 
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                if(Error(data)){
-                    resultadoJson = data;
-                    if ($("#grid").data("kendoGrid")) {
-                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                    };
-                }
+                Error(data);
+                resultadoJson = data;
+                if ($("#grid").data("kendoGrid")) {
+                    $("#Cancel").prepend("#filterContainer");
+                    $("#FechaEstimada").prepend("#filterContainer");
+                    $("#FechaCreacion").prepend("#filterContainer");
+                    $("#FolioID").prepend("#filterContainer");
+
+                    $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+
+                    applySecurity();
+                    $("#grid").children('table').children('tbody').prepend("<tr><td><div id='insideGridFilter1'></div></td><td><div id='insideGridFilter2'></div></td><td><div id='insideGridFilter3'></div></td><td><div id='insideGridFilter4'></div></td></tr>");
+                    $("#FolioID").appendTo("#insideGridFilter1");
+                    $("#FechaCreacion").appendTo("#insideGridFilter2");
+                    $("#FechaEstimada").appendTo("#insideGridFilter3");
+                    $("#Cancel").appendTo("#insideGridFilter4");
+
+                };
+                loadingStop();
             });
         };
 
@@ -378,7 +392,7 @@
                         removeUserSession();
                         return true;
                     } else {
-                        displayMessage("notificationslabel0008", data.ReturnMessage, 2);
+                        displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                         return false;
                     }
                 }
