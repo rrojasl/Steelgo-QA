@@ -156,12 +156,7 @@
                     pageSizes: [10, 15, 20],
                     info: false,
                     input: true,
-                    numeric: false,
-                    messages: {
-                        page: "",
-                        of: _dictionary.ListadoAvisoLlegada0018[$("#language").data("kendoDropDownList").value()],
-                        itemsPerPage: _dictionary.ListadoAvisoLlegada0019[$("#language").data("kendoDropDownList").value()],
-                    }
+                    numeric: false
                 },               
                 columns: [
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoAvisoLlegada0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
@@ -175,14 +170,6 @@
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');                                                       
                 }
             });
-
-            if ($("th").length <= 4) {
-                $("#grid").children('table').children('thead').append("<tr><th><div id='insideGridFilter1'></div></th><th><div id='insideGridFilter2'></div></th><th><div id='insideGridFilter3'></div></th><th><div id='insideGridFilter4'></div></th></tr>");
-                $("#FolioID").appendTo("#insideGridFilter1");
-                $("#FechaCreacion").appendTo("#insideGridFilter2");
-                $("#FechaEstimada").appendTo("#insideGridFilter3");
-                $("#Cancel").appendTo("#insideGridFilter4");
-            }
         }
 
         function mostrarDetalle(folioAvisoLlegadaID)
