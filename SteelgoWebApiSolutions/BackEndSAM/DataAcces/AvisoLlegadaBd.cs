@@ -342,7 +342,7 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
-
+                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList(); 
 
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
 
@@ -378,7 +378,6 @@ namespace BackEndSAM.DataAcces
                         else
                         {
                             Sam3_FolioAvisoLlegada temp = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                                            where r.Activo == true
                                                            && r.FolioAvisoLlegadaID == folio
                                                            select r).AsParallel().SingleOrDefault();
