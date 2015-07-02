@@ -155,6 +155,8 @@ namespace BackEndSAM.DataAcces
                         registrosBd = registrosBd.Where(x => x.ClienteID == clienteID).ToList();
                     }
 
+                    registrosBd = registrosBd.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
                     //----------------------------------------------------------------------------------------------------------------------
 
                     result.Creados = registrosBd.Select(x => x.FolioAvisoLlegadaID).Count();
