@@ -1369,7 +1369,6 @@
 
                     $("#TramitarPermiso").removeAttr('disabled');
 
-                    $("#files").data("kendoUpload").enable();
                     $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
                         console.log(" concat:" + concat);
@@ -1394,12 +1393,26 @@
                     }
 
                     //Fecha Recepcion
-                    var d = new Date(data.FechaRecepcion);
-                    $("#FechaRecepcion").data("kendoDatePicker").value(d.toLocaleDateString($("#language").data("kendoDropDownList").value()));
+                    var fechar = new Date(data.FechaRecepcion);
+                    var fechar = fecha.toLocaleDateString($("#language").data("kendoDropDownList").value());
+
+                    if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                        format = "dd/MM/yyyy";
+                    } else {
+                        format = "MM/dd/yyyy";
+                    };
+
+                    var fechakendo = kendo.parseDate(fechar, format);
+                    $("#FechaRecepcion").data("kendoDatePicker").value(fechakendo);
 
                     if (data.Estatus == "Autorizado") {
                         ocultarStatus();
                         $("#DetalleAvisoLlegada0085").show();
+                    };
+
+                    if (data.Estatus == "Generado") {
+                        ocultarStatus();
+                        $("#DetalleAvisoLlegada0084").show();
                     };
 
                     $.each(data.Plana, function (index, value) {
