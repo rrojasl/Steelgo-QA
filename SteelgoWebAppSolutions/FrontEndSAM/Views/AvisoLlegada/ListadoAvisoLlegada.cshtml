@@ -323,9 +323,12 @@
                 if (Error(data)) {
                     resultadoJson = data;
                     if ($("#grid").data("kendoGrid")) {
-
-                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                        $("#grid").data("kendoGrid").dataSource.page(1);
+                        if (resultadoJson.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                            $("#grid").data("kendoGrid").dataSource.page(1);
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                        };
                         applySecurity();
 
                     };
