@@ -249,8 +249,8 @@ _dictionary = {
         "en-US": "Carrier"
     },
     "ListadoAvisoLlegada0013": {
-        "es-MX": "Fecha Creacion",
-        "en-US": "Creation date"
+        "es-MX": "Fecha Generación",
+        "en-US": "Date Generation"
     },
     "ListadoAvisoLlegada0014": {
         "es-MX": "Estatus",

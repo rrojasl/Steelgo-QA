@@ -163,7 +163,7 @@
     <div id="window">
         @*Content of the Window*@
         <div id="modalTransportista" style="display: none">
-            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+            <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -198,7 +198,7 @@
             </div>
         </div>
         @*<div id="modalProveedor" style="display: none">
-            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+            <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -234,7 +234,7 @@
         </div>*@
 
         <div id="modalPatio" style="display: none">
-            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+            <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -266,7 +266,7 @@
         </div>
 
         <div id="modalChofer" style="display: none">
-            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+            <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -286,7 +286,7 @@
         </div>
 
         <div id="modalPlana" style="display: none">
-            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+            <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -321,7 +321,7 @@
             </div>
         </div>
         <div id="modalCamion" style="display: none">
-            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+            <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -698,9 +698,11 @@
                         if (!$(this).val()) {
                             bool = false;
                             //$(this).addClass("error");
-                            $(this).closest("div").find("label").addClass("error")
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
                         };
                     };
                 });
@@ -714,9 +716,11 @@
                         if (!$(this).val()) {
                             bool = false;
                             //$(this).addClass("error");
-                            $(this).closest("div").find("label").addClass("error")
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
                         };
                     };
                 });
@@ -730,9 +734,11 @@
                         if (!$(this).val()) {
                             bool = false;
                             //$(this).addClass("error");
-                            $(this).closest("div").find("label").addClass("error")
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
                         };
                     };
                 });
@@ -746,9 +752,11 @@
                         if (!$(this).val()) {
                             bool = false;
                             //$(this).addClass("error");
-                            $(this).closest("div").find("label").addClass("error")
+                            $(this).closest("div").find("label").addClass("error");
+                            (this).closest("div").addClass("clearfix");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
                         };
                     };
                 });
@@ -781,8 +789,8 @@
                 });
                 
                 $("#Editar").click(function (e) {
-                    BotonEdicion();
                     ObtenerPatioRequierePermiso();
+                    BotonEdicion();
                     $("#files").data("kendoUpload").enable();
                 });
 
@@ -1321,6 +1329,10 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").enable();
                 $("#files").data("kendoUpload").enable();
+
+                if ($("#hdPermisoTramite").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                };
                 HabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1341,7 +1353,9 @@
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
+                
                 $("#TramitarPermiso").attr('disabled', 'disabled');
+                
                 DesahabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1380,6 +1394,7 @@
                     if(data.Transportista.length > 0){
                         CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
+                        ObtenerChofer(data.Transportista[0].TransportistaID);
                     }
 
                     if (data.Cliente) {
@@ -1393,8 +1408,8 @@
                     }
 
                     //Fecha Recepcion
-                    var fechar = new Date(data.FechaRecepcion);
-                    var fechar = fecha.toLocaleDateString($("#language").data("kendoDropDownList").value());
+                    var FechaRecepcion = new Date(data.FechaRecepcion);
+                    var fechar = FechaRecepcion.toLocaleDateString($("#language").data("kendoDropDownList").value());
 
                     if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                         format = "dd/MM/yyyy";

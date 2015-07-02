@@ -157,23 +157,28 @@ label {
     margin-bottom: 6px;
 }
 
-    .form label.security_required,
-    #window label.security_required {
+    .form label.security_required::after {
         position: relative;
     }
 
-        .form label.security_required::after,
-        #window label.security_required::after {
-            content: '*';
-            font-size: 19px;
-            position: absolute;
-            top: -6px;
-        }
+    .form label.security_required::after {
+        content: '*';
+        font-size: 19px;
+        position: absolute;
+        top: -6px;
+    }
 
-        .form label.security_required.error::after,
-        #window label.security_required.error::after {
-            color: #EC4F50;
-        }
+    #window label.security_required::after {
+        content: '*';
+        font-size: 19px;
+        position: relative;
+        top: 1px;
+    }
+
+    .form label.security_required.error::after,
+    #window label.security_required.error::after {
+        color: #EC4F50;
+    }
 
     #window label.checkLabel {
         display: inline-block;
