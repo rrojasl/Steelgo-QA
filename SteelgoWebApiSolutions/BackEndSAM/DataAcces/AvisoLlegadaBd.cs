@@ -342,7 +342,7 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
-
+                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList(); 
 
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
 
@@ -363,13 +363,10 @@ namespace BackEndSAM.DataAcces
                                         && r.FolioAvisoLlegadaID == folio
                                         select r).AsParallel().SingleOrDefault();
 
-                            //Sam3_PermisoAduana tempP = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio)
-                            //    .AsParallel().SingleOrDefault();
-
-                            string fechaR = temp.FechaRecepcion.Value.ToString("dd/MM/yyyy");
-                            string fechag = temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault()
-                                .Value.ToString("dd/MM/yyyy");
-                            //tempP.FechaGeneracion.Value.ToString("dd/MM/yyyy");
+                            string fechaR = temp.FechaRecepcion.HasValue ? temp.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
+                            string fechag = temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().HasValue ?
+                                temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().Value.ToString("dd/MM/yyyy") 
+                                : string.Empty;
 
                             elemento = new ElementoListadoFolioAvisoLlegada
                             {
@@ -381,12 +378,11 @@ namespace BackEndSAM.DataAcces
                         else
                         {
                             Sam3_FolioAvisoLlegada temp = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                                            where r.Activo == true
                                                            && r.FolioAvisoLlegadaID == folio
                                                            select r).AsParallel().SingleOrDefault();
 
-                            string fechaR = temp.FechaRecepcion.Value.ToString("dd/MM/yyyy");
+                            string fechaR = temp.FechaRecepcion.HasValue ? temp.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
 
                             elemento = new ElementoListadoFolioAvisoLlegada
                             {

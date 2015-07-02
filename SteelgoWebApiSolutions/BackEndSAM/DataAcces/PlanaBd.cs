@@ -71,6 +71,7 @@ namespace BackEndSAM.DataAcces
 
                     nuevaPlana = new Sam3_Vehiculo
                     {
+                        TipoVehiculoID = Convert.ToInt32(plana.TipoVehiculoID),
                         Activo = true,
                         TractoID = Convert.ToInt32(plana.TractoID),
                         Placas = plana.Placas,

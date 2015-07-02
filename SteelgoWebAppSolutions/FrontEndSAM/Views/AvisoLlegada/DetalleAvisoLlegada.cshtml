@@ -163,6 +163,11 @@
     <div id="window">
         @*Content of the Window*@
         <div id="modalTransportista" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="ContactoID_TransportistaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0012"></label>
                 <input id="ContactoID_Transportista" class="" />
@@ -192,7 +197,12 @@
                 </a>
             </div>
         </div>
-        <div id="modalProveedor" style="display: none">
+        @*<div id="modalProveedor" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div class="form-group">
                 <label id="DetalleAvisoLlegada0020"></label>
                 <input id="ContactoID_Proveedor" class="" />
@@ -221,9 +231,14 @@
                     <span id="DetalleAvisoLlegada0077"></span>
                 </a>
             </div>
-        </div>
+        </div>*@
 
         <div id="modalPatio" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="Nombre_PatioDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0026"></label>
                 <input id="Nombre_Patio" class="" />
@@ -251,6 +266,11 @@
         </div>
 
         <div id="modalChofer" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="Nombre_ChoferDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0030"></label>
                 <input id="Nombre_Chofer" class="" />
@@ -266,6 +286,11 @@
         </div>
 
         <div id="modalPlana" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="TipoVehiculo_PlanaDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0068"></label>
                 <input id="TipoVehiculo_Plana" class="" />
@@ -296,6 +321,11 @@
             </div>
         </div>
         <div id="modalCamion" style="display: none">
+            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 alert-container">
+                <div class="message">
+                    Mensaje de éxito/error/advertencia
+                </div>
+            </div>
             <div id="TipoVehiculo_CamionDiv" class="form-group">
                 <label id="DetalleAvisoLlegada0071"></label>
                 <input id="TipoVehiculo_Camion" class="" />
@@ -618,23 +648,60 @@
 
             function validarRequeridosFormaAvisoLlegada() {
                 var bool = true;
-                $("#formAvisoLlegada .security_required").each(function (i,elem) {
-                    if (!$(this).val()) {
-                        bool = false;
-                        //$(this).addClass("error");
-                        $(this).closest("div").find("label").addClass("error");
-                    }
+                $("#formAvisoLlegada .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+
+                        switch ($(elem).attr("id"))
+                        {
+                            case 'ProyectoID':
+                                if ($(elem).attr("id") == 'ProyectoID') {
+                                    if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
+                                        bool = false;
+                                        //$(this).addClass("error");
+                                        $(this).closest("div").find("label").addClass("error");
+                                    } else {
+                                        $(this).closest("div").find("label").removeClass("error");
+                                    };
+                                };
+                                break;
+                            case 'PlanaID':
+                                if ($(elem).attr("id") == 'PlanaID') {
+                                    if (!$("#PlanaID").data("kendoMultiSelect").value().length > 0) {
+                                        bool = false;
+                                        //$(this).addClass("error");
+                                        $(this).closest("div").find("label").addClass("error");
+                                    } else {
+                                        $(this).closest("div").find("label").removeClass("error");
+                                    };
+                                };
+                                break;
+                            default:
+                                if (!$(this).val()) {
+                                    bool = false;
+                                    //$(this).addClass("error");
+                                    $(this).closest("div").find("label").addClass("error");
+                                } else {
+                                    $(this).closest("div").find("label").removeClass("error");
+                                };
+                                break;
+
+                        };
+                    };
                 });
                 return bool;
             };
 
             function validarRequeridosModalTransportista() {
                 var bool = true;
-                $("#modalTransportista .security_required").each(function () {
-                    if (!$(this).val()) {
-                        bool = false;
-                        //$(this).addClass("error");
-                        $(this).closest("div").find("label").addClass("error")
+                $("#modalTransportista .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if (!$(this).val()) {
+                            bool = false;
+                            //$(this).addClass("error");
+                            $(this).closest("div").find("label").addClass("error")
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
                     };
                 });
                 return bool;
@@ -642,11 +709,15 @@
 
             function validarRequeridosModalPatio() {
                 var bool = true;
-                $("#modalPatio .security_required").each(function () {
-                    if (!$(this).val()) {
-                        bool = false;
-                        //$(this).addClass("error");
-                        $(this).closest("div").find("label").addClass("error")
+                $("#modalPatio .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if (!$(this).val()) {
+                            bool = false;
+                            //$(this).addClass("error");
+                            $(this).closest("div").find("label").addClass("error")
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
                     };
                 });
                 return bool;
@@ -654,11 +725,15 @@
             
             function validarRequeridosModalPlana() {
                 var bool = true;
-                $("#modalPlana .security_required").each(function () {
-                    if (!$(this).val()) {
-                        bool = false;
-                        //$(this).addClass("error");
-                        $(this).closest("div").find("label").addClass("error")
+                $("#modalPlana .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if (!$(this).val()) {
+                            bool = false;
+                            //$(this).addClass("error");
+                            $(this).closest("div").find("label").addClass("error")
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
                     };
                 });
                 return bool;
@@ -666,11 +741,15 @@
 
             function validarRequeridosModalCamion() {
                 var bool = true;
-                $("#modalCamion .security_required").each(function () {
-                    if (!$(this).val()) {
-                        bool = false;
-                        //$(this).addClass("error");
-                        $(this).closest("div").find("label").addClass("error")
+                $("#modalCamion .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if (!$(this).val()) {
+                            bool = false;
+                            //$(this).addClass("error");
+                            $(this).closest("div").find("label").addClass("error")
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
                     };
                 });
                 return bool;
@@ -693,12 +772,12 @@
                 });
 
                 $("#GuardarNuevo").click(function (e) {
-                    if (validarRequeridosFormaAvisoLlegada()) {
+                    //if (validarRequeridosFormaAvisoLlegada()) {
                         var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                    } else {
-                        displayMessage("notificationslabel0031", "", 1);
-                    };
+                    //} else {
+                    //    displayMessage("notificationslabel0031", "", 1);
+                    //};
                 });
                 
                 $("#Editar").click(function (e) {
@@ -730,7 +809,7 @@
                     };
                 });
 
-                $("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
+                //$("#GuardarProveedor").click(function (e) { GuardarProveedor(); });
                 $("#GuardarPatio").click(function (e) {
                     if (validarRequeridosModalPatio()) {
                         GuardarPatio();
@@ -1055,7 +1134,7 @@
                     filter: "contains",
                 });
                 ObtenerChoferCamion();
-                //ObtenerFechaDefault();
+                ObtenerFechaDefault();
             };
         
             function onUploadArchivoPaseSalida() {
@@ -1557,31 +1636,31 @@
                 console.log(TransportistaModal[0]);
 
                 $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    Error(data);
                     LimpiarModalTransportista();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerTransportista();
-                
+                    if (Error(data)) {
+                        $("#window").data("kendoWindow").close();
+                        ObtenerTransportista();
+                    };
                 });
             };
        
-            function GuardarProveedor() {
-                ProveedorModal = [];
-                ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-                ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
-                ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
-                ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
-                ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
-                ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
+            //function GuardarProveedor() {
+            //    ProveedorModal = [];
+            //    ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
+            //    ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
+            //    ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
+            //    ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
+            //    ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
+            //    ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
 
-                console.log(ProveedorModal[0]);
+            //    console.log(ProveedorModal[0]);
 
-                $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    LimpiarModalProveedor();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerProveedor();
-                });
-            };
+            //    $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
+            //        LimpiarModalProveedor();
+            //        $("#window").data("kendoWindow").close();
+            //        ObtenerProveedor();
+            //    });
+            //};
 
             function GuardarPatio() {
                 PatioModal = [];
@@ -1594,10 +1673,11 @@
                 console.log(PatioModal[0]);
 
                 $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    Error(data);
                     LimpiarModalPatio();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerPatio();
+                    if (Error(data)) {
+                        $("#window").data("kendoWindow").close();
+                        ObtenerPatio();
+                    };
                 });
             };
 
@@ -1610,10 +1690,11 @@
 
                 $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyChofer.create");
-                    Error(data);
                     LimpiarModalChofer();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerChofer();
+                    if (Error(data)) {
+                        ObtenerChofer();
+                        $("#window").data("kendoWindow").close();
+                    }
                 });
             };
 
@@ -1635,10 +1716,11 @@
                 console.log("camionid: " + camionid);
 
                 $Plana.Plana.create(PlanaModal[0], { token: Cookies.get("token") }).done(function (data) {
-                    Error(data);
                     LimpiarModalPlana();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerPlanas();
+                    if (Error(data)) {
+                        ObtenerPlanas();
+                        $("#window").data("kendoWindow").close();
+                    } 
                 });
             };
 
@@ -1647,11 +1729,11 @@
                 var choferid = ChoferCamion.length > 0 ? ChoferCamion[0].ChoferID : "-1";
 
                 CamionModal = [];
-                CamionModal[0] = { TipoVehiculoID: "", Placas: "", TarjetaCirulacion: "", PolizaSeguro: "", Unidad: "", Modelo: "", VehiculoID: "", ChoferID: "", TransportistaID: "", TractoID: "" };
+                CamionModal[0] = { TipoVehiculoID: "", Placas: "", TarjetaCirculacion: "", PolizaSeguro: "", Unidad: "", Modelo: "", VehiculoID: "", ChoferID: "", TransportistaID: "", TractoID: "" };
 
                 CamionModal[0].TipoVehiculoID = TipoVehiculoTracto.length > 0 ? TipoVehiculoTracto[0].TipoVehiculoID : "-1";
                 CamionModal[0].Placas = $("#Placas_Camion").val();
-                CamionModal[0].TarjetaCirulacion = $("#TarjetaCirculacion_Camion").val();
+                CamionModal[0].TarjetaCirculacion = $("#TarjetaCirculacion_Camion").val();
                 CamionModal[0].PolizaSeguro = $("#PolizaSeguro").val();
                 CamionModal[0].Unidad = $("#Unidad_Camion").val();
                 CamionModal[0].Modelo = $("#Modelo_Camion").val();
@@ -1662,34 +1744,40 @@
 
                 $Camion.Tracto.create(CamionModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.Camion.create");
-                    Error(data);
                     LimpiarModalCamion();
-                    $("#window").data("kendoWindow").close();
-                    ObtenerCamionEntradaMaterial();
+                    if (Error(data)) {
+                        $("#window").data("kendoWindow").close();
+                        ObtenerCamionEntradaMaterial();
+                    };
                 });
             };
 
             function CancelarTransportista() {
+                LimpiarModalTransportista();
                 cerrarVentanaModal();
             };
 
-            function CancelarProveedor() {
-                cerrarVentanaModal();
-            };
+            //function CancelarProveedor() {
+            //    cerrarVentanaModal();
+            //};
 
             function CancelarPatio() {
+                LimpiarModalPatio();
                 cerrarVentanaModal();
             };
 
             function CancelarChofer() {
+                LimpiarModalChofer();
                 cerrarVentanaModal();
             };
 
             function CancelarPlana() {
+                LimpiarModalPlana();
                 cerrarVentanaModal();
             };
 
             function CancelarCamion() {
+                LimpiarModalCamion();
                 cerrarVentanaModal();
             };
 
@@ -1767,9 +1855,17 @@
 
             function ObtenerFechaDefault() {
                 var today = new Date();
-                $("#FechaRecepcion").data("kendoDatePicker").value("01/07/2015");
-                $("#FechaRecepcion").kendoDatePicker({ footer: false });
-                //changeLanguage();
+                var fecha = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
+
+                if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                    format = "dd/MM/yyyy";
+                } else {
+                    format = "MM/dd/yyyy";
+                };
+
+                var fechakendo = kendo.parseDate(fecha, format);
+
+                $("#FechaRecepcion").data("kendoDatePicker").value(fechakendo);
             };
 
             function ObtenerProyectos() {
@@ -1810,7 +1906,14 @@
             function ObtenerChofer(transportistaID) {
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     Error(result);
-                    $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                    if (result.length > 0) {
+                        $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                    } else {
+                        Chofer = [];
+                        $("#ChoferID").data("kendoComboBox").value("");
+                        $("#ChoferID").data("kendoComboBox").dataSource.data([]);
+                    }
+                    
                 });
             };
 
@@ -1959,7 +2062,7 @@
                             removeUserSession();
                             return true;
                         } else {
-                            displayMessage("", data.ReturnMessage, '2');
+                            displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                             return false;
                         }
                     } else {
