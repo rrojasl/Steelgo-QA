@@ -29,6 +29,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
     $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {
         if ($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
             $("ul.sub-menu2").removeClass("open");
+            $("li.shortcut").removeClass("open");
             $("ul.sub-menu > li").removeClass("active expand");
             $(this).children("ul").toggleClass("open");
             $("i.arrow").toggleClass("down");
@@ -108,7 +109,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $(this).parent("li").addClass("active");
             $(this).parent("li").has("ul").addClass("expand");
             $(this).parent().children("ul.sub-menu2").addClass("open");
-            $("li.shortcut").removeClass("open");
+            $("li.shortcut").addClass("open");
         }
     });
 
@@ -128,6 +129,10 @@ function menuManagerToBeExecutedOnDocumentReady() {
 
     //Toggle shorcut section size 
     $(document).on("mouseover", "li.shortcut", function () {
+        $("li.shortcut").removeClass("open");
+    });
+
+    $(document).on("click", "li.shortcut", function () {
         $("li.shortcut").removeClass("open");
     });
 
