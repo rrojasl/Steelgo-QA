@@ -20,7 +20,8 @@
 function menuManagerToBeExecutedOnDocumentReady() {
     //Open side menu on hover
     $("#sidebar").hover(
-        function () { $(this).removeClass("minified "); }, function () { $(this).addClass("minified "); }
+        function () { $(this).removeClass("minified"); $(".content-container").removeClass("expanded"); },
+        function () { $(this).addClass("minified"); $(".content-container").addClass("expanded"); }
     );
 
     //Toggle for main menu's submenus           
