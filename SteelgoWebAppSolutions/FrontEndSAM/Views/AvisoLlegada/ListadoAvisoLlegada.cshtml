@@ -340,10 +340,10 @@
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                         };
-                        applySecurity();
 
                     };
                 };
+                applySecurity();
                 loadingStop();
             });
         };
@@ -455,6 +455,7 @@
 
             ObtenerAccionesListado(Listado);
         };
+
     }
 
     function ObtenerFechasporDefecto() {
@@ -594,6 +595,7 @@
             Filtros();
             CantidadesDelMenuDashboard();
         }
+        //applySecurity();
     }
 
 </script>

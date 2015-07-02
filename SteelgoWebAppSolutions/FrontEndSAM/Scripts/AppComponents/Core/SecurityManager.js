@@ -68,8 +68,59 @@ function applySecurityPolicy() {
         //Apply Security
         applySecurity();
         loadingStop();
+        $("#language").data("kendoDropDownList").trigger("change");
     }
 
+}
+
+//Method to populate the returnOfSecurityCheck
+function generateReturnOFSecurityCheck(data) {
+    returnOfSecurityCheck = {};
+    //Populate entities
+    for (key in data.entidades) {
+        var keyRetreived = data.entidades[key];
+        returnOfSecurityCheck[keyRetreived.entityName] = {};
+        returnOfSecurityCheck[keyRetreived.entityName].create = keyRetreived.create;
+        returnOfSecurityCheck[keyRetreived.entityName].destroy = keyRetreived.destroy;
+        returnOfSecurityCheck[keyRetreived.entityName].detail = keyRetreived.detail;
+        returnOfSecurityCheck[keyRetreived.entityName].list = keyRetreived.list;
+        returnOfSecurityCheck[keyRetreived.entityName].properties = {};
+        for (property in keyRetreived.properties) {
+            var propertyRetreived = keyRetreived.properties[property];
+            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName] = {};
+            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].editable = propertyRetreived.editable;
+            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].required = propertyRetreived.required;
+            returnOfSecurityCheck[keyRetreived.entityName].properties[propertyRetreived.propertyName].visible = propertyRetreived.visible;
+        }
+
+    }
+    //Populate Layout
+    returnOfSecurityCheck.Layout = {};
+    returnOfSecurityCheck.Layout.create = data.layout.create;
+    returnOfSecurityCheck.Layout.destroy = data.layout.destroy;
+    returnOfSecurityCheck.Layout.detail = data.layout.detail;
+    returnOfSecurityCheck.Layout.list = data.layout.list;
+
+    returnOfSecurityCheck.Layout.properties = {};
+    returnOfSecurityCheck.Layout.properties.search = {};
+    returnOfSecurityCheck.Layout.properties.search.editable = data.layout.properties[0].editable;
+    returnOfSecurityCheck.Layout.properties.search.required = data.layout.properties[0].required;
+    returnOfSecurityCheck.Layout.properties.search.visible = data.layout.properties[0].visible;
+
+    returnOfSecurityCheck.Layout.properties.notifications = {};
+    returnOfSecurityCheck.Layout.properties.notifications.editable = data.layout.properties[1].editable;
+    returnOfSecurityCheck.Layout.properties.notifications.required = data.layout.properties[1].required;
+    returnOfSecurityCheck.Layout.properties.notifications.visible = data.layout.properties[1].visible;
+
+    returnOfSecurityCheck.Layout.properties.useroptions = {};
+    returnOfSecurityCheck.Layout.properties.useroptions.editable = data.layout.properties[2].editable;
+    returnOfSecurityCheck.Layout.properties.useroptions.required = data.layout.properties[2].required;
+    returnOfSecurityCheck.Layout.properties.useroptions.visible = data.layout.properties[2].visible;
+
+    returnOfSecurityCheck.Layout.properties.navigation = {};
+    returnOfSecurityCheck.Layout.properties.navigation.editable = data.layout.properties[3].editable;
+    returnOfSecurityCheck.Layout.properties.navigation.required = data.layout.properties[3].required;
+    returnOfSecurityCheck.Layout.properties.navigation.visible = data.layout.properties[3].visible;
 }
 
 //Method to update the visibility, required and editable attributes of all elements

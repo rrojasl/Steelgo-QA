@@ -162,34 +162,22 @@ namespace BackEndSAM.DataAcces
                     result.Creados = registrosBd.Select(x => x.FolioAvisoLlegadaID).Count();
 
                     result.Completos = (from r in registrosBd
-                                        join py in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals py.FolioAvisoLlegadaID
                                         join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                        where r.Activo && py.Activo && p.Activo
-                                        && patios.Contains(r.PatioID)
-                                        && proyectos.Contains(py.ProyectoID)
+                                        where r.Activo && p.Activo
                                         && p.PermisoAutorizado == true
-                                        && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
                                         select r.FolioAvisoLlegadaID).AsParallel().Count();
 
                     result.SinAutorizacion = (from r in registrosBd
-                                              join py in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals py.FolioAvisoLlegadaID
                                               join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                              where r.Activo == true && py.Activo && p.Activo
-                                              && patios.Contains(r.PatioID)
-                                              && proyectos.Contains(py.ProyectoID)
+                                              where r.Activo == true && p.Activo
                                               && p.PermisoAutorizado == false
-                                              && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
                                               select r.FolioAvisoLlegadaID).AsParallel().Count();
 
                     List<Sam3_FolioAvisoLlegada> temp = (from r in registrosBd
-                                                         join py in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals py.FolioAvisoLlegadaID
-                                                         where r.Activo == true && py.Activo
+                                                         where r.Activo == true
                                                          && !(from x in ctx.Sam3_PermisoAduana
                                                               where x.Activo
                                                               select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
-                                                         && patios.Contains(r.PatioID)
-                                                         && proyectos.Contains(py.ProyectoID)
-                                                         && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
                                                          select r).AsParallel().ToList();
 
                     temp = temp.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();

@@ -255,10 +255,10 @@ header .menu > div {
         overflow: hidden;
     }
 
-    .notifications .notification-menu .message-frame {
-        overflow-y: auto;
-        max-height: 475px;
-    }
+        .notifications .notification-menu .message-frame {
+            overflow-y: auto;
+            max-height: 475px;
+        }
 
     .notifications .peak {
         position: absolute;
@@ -311,33 +311,33 @@ header .menu > div {
             background-color: rgba(048, 094, 142, 0.2);
         }
 
-        .notifications .notification-menu li.messageBody {
-            padding: 17px 17px 16px;
+    .notifications .notification-menu li.messageBody {
+        padding: 17px 17px 16px;
+    }
+
+        .notifications .notification-menu li.messageBody span,
+        .notifications .notification-menu li.messageBody a {
+            padding: 0;
+            white-space: normal;
+            border: none;
+            max-height: none;
         }
 
-            .notifications .notification-menu li.messageBody span,
-            .notifications .notification-menu li.messageBody a {
-                padding: 0;
-                white-space: normal;
-                border: none;
-                max-height: none;
-            }
+    .notifications .notification-menu li a .notification-container .sender-info {
+        padding-bottom: 12px;
+    }
 
-        .notifications .notification-menu li a .notification-container .sender-info {
-            padding-bottom: 12px;
-        }
+    .notifications .notification-menu li a .notification-container .senderName {
+        padding-left: 20px;
+        background-image: url("/Content/images/SC_newmessage_Icon.png");
+        background-size: auto;
+        background-position: left center;
+        background-repeat: no-repeat;
+    }
 
-        .notifications .notification-menu li a .notification-container .senderName {
-            padding-left: 20px;
-            background-image: url("/Content/images/SC_newmessage_Icon.png");
-            background-size: auto;
-            background-position: left center;
-            background-repeat: no-repeat;
-        }
-
-        .notifications .notification-menu li a.read .notification-container .senderName {
-            background-image: url("/Content/images/SC_read_Icon.png");
-        }
+    .notifications .notification-menu li a.read .notification-container .senderName {
+        background-image: url("/Content/images/SC_read_Icon.png");
+    }
 
     .notifications .notification-menu .messageDate,
     .notifications .notification-menu .deleteMessage {
@@ -833,6 +833,12 @@ header .menu > div {
         color: #EB4D50;
         background-image: url("/Content/images/SAMC_Error_Icon_A.png");
     }
+
+#window .message {
+    margin-left: 0;
+    margin-bottom: 10px;
+    height: 18px;
+}
 /**********************************************************************************/
 
 
