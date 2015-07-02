@@ -247,17 +247,17 @@ header .menu > div {
 
     .notifications .notification-menu {
         border-radius: 3px;
-        top: 56px;
+        top: 55px;
         right: -202px;
         left: initial;
-        width: 422px;
+        width: 420px;
         max-height: 582px;
     }
 
         .notifications .notification-menu .peak {
             position: absolute;
             top: -15px;
-            right: 47.5%;
+            right: 48%;
         }
 
         .notifications .notification-menu .notifications-header {
@@ -277,10 +277,27 @@ header .menu > div {
                 margin-left: 6px;
             }
 
+            .notifications .notification-menu .notifications-header .message-header {
+                text-align: left;
+                text-transform: capitalize;
+                padding: 4.5px 20px 4.5px 18px;
+            }
+
+                .notifications .notification-menu .notifications-header .message-header .backIcon {
+                    margin-right: 7px;
+                    z-index: 3;
+                }
+
+                .notifications .notification-menu .notifications-header .message-header .deleteMessage {
+                    margin-left: 13px;
+                    z-index: 3;
+                }
+
         .notifications .notification-menu li a {
             padding: 16px 20px;
             border-bottom: 1px solid #CCCCCC;
             max-height: 97px;
+            font-size: 14px;
         }
 
             .notifications .notification-menu li a.read .notification-container {
@@ -288,37 +305,49 @@ header .menu > div {
                 background: none;
             }
 
-            .notifications .notification-menu li a .notification-container .sender-info {
-                padding-bottom: 12px;
-            }
+        .notifications .notification-menu li.messageBody {
+            padding: 17px 17px 16px;
+        }
 
-            .notifications .notification-menu li a .notification-container .senderName {
-                padding-left: 20px;
-                background-image: url("/Content/images/SC_newmessage_Icon.png");
-                background-size: auto;
-                background-position: left center;
-                background-repeat: no-repeat;
-            }
+        .notifications .notification-menu li.messageBody span,
+        .notifications .notification-menu li.messageBody a {
+            padding: 0;
+            white-space: normal;
+            border: none;
+            max-height: none;
+        }
 
-            .notifications .notification-menu li a.read .notification-container .senderName {
-                background-image: url("/Content/images/SC_read_Icon.png");
-            }
+        .notifications .notification-menu li a .notification-container .sender-info {
+            padding-bottom: 12px;
+        }
 
-            .notifications .notification-menu li a .notification-container .messageDate,
-            .notifications .notification-menu li a .notification-container .deleteMessage {
-                float: right;
-            }
+        .notifications .notification-menu li a .notification-container .senderName {
+            padding-left: 20px;
+            background-image: url("/Content/images/SC_newmessage_Icon.png");
+            background-size: auto;
+            background-position: left center;
+            background-repeat: no-repeat;
+        }
 
-            .notifications .notification-menu li a .notification-container .deleteMessage {
-                margin-left: 14px;
-                position: relative;
-                z-index: 5;
-            }
+        .notifications .notification-menu li a.read .notification-container .senderName {
+            background-image: url("/Content/images/SC_read_Icon.png");
+        }
 
-            .notifications .notification-menu li a .notification-container .message-info {
-                white-space: normal;
-                color: #333333;
-            }
+        .notifications .notification-menu .messageDate,
+        .notifications .notification-menu .deleteMessage {
+            float: right;
+        }
+
+        .notifications .notification-menu li a .notification-container .deleteMessage {
+            margin-left: 14px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .notifications .notification-menu li a .notification-container .message-info {
+            white-space: normal;
+            color: #333333;
+        }
 
         .notifications .notification-menu .notifications-footer {
             text-align: center;
