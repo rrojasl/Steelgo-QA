@@ -1407,9 +1407,15 @@
                         $("#TipoAvisoID").data("kendoComboBox").value(data.TipoAviso.Nombre);
                     }
 
+                    var splitYear = data.FechaRecepcion.split("-")[0];
+                    var splitMonth = data.FechaRecepcion.split("-")[1];
+                    var splitDay = data.FechaRecepcion.split("-")[2];
+
                     //Fecha Recepcion
-                    var FechaRecepcion = new Date(data.FechaRecepcion);
-                    var fechar = FechaRecepcion.toLocaleDateString($("#language").data("kendoDropDownList").value());
+                    var FechaRecepcion = new Date(splitYear, splitMonth - 1, splitDay);
+                    var curr_date = FechaRecepcion.getDate();
+                    var curr_month = FechaRecepcion.getMonth() + 1; //Months are zero based
+                    var curr_year = FechaRecepcion.getFullYear();
 
                     if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                         format = "dd/MM/yyyy";
@@ -1417,7 +1423,8 @@
                         format = "MM/dd/yyyy";
                     };
 
-                    var fechakendo = kendo.parseDate(fechar, format);
+                    var fecha = new Date(curr_year, curr_month - 1, curr_date);
+                    var fechakendo = kendo.parseDate(fecha, format);
                     $("#FechaRecepcion").data("kendoDatePicker").value(fechakendo);
 
                     if (data.Estatus == "Autorizado") {
@@ -1883,7 +1890,9 @@
 
             function ObtenerFechaDefault() {
                 var today = new Date();
-                var fecha = today.toLocaleDateString($("#language").data("kendoDropDownList").value());
+                var curr_date = today.getDate();
+                var curr_month = today.getMonth() + 1; //Months are zero based
+                var curr_year = today.getFullYear();
 
                 if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                     format = "dd/MM/yyyy";
@@ -1891,6 +1900,7 @@
                     format = "MM/dd/yyyy";
                 };
 
+                var fecha = new Date(curr_year, curr_month - 1, curr_date);
                 var fechakendo = kendo.parseDate(fecha, format);
 
                 $("#FechaRecepcion").data("kendoDatePicker").value(fechakendo);
