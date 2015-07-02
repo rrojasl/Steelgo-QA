@@ -518,11 +518,11 @@ header .menu > div {
             }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
-            z-index: 10;
+            z-index: 0;
             display: none;
             list-style: none;
             position: absolute;
-            right: -101%;
+            right: -100%;
             top: 0;
             background: #FFFFFF;
             margin: 0;
@@ -530,7 +530,7 @@ header .menu > div {
             height: 100%;
             width: 100%;
             border: 1px solid #CCCCCC;
-            border-left: 1px solid #FFFFFF;
+            border-left: 1px solid transparent;
             border-top: 0;
             -moz-box-shadow: 1px 1px 1px #CCCCCC; /* FF3.5+ */
             -webkit-box-shadow: 1px 1px 1px #CCCCCC; /* Saf3.0+, Chrome */
@@ -576,6 +576,10 @@ header .menu > div {
         margin-right: -1px;
         border-right: 1px solid #B4B4B4;
     }
+
+        .sidebar .main-nav ul.main-menu li.shortcut.open {
+            margin-right: 0;
+        }
 
         .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu {
             background: #FFFFFF;
