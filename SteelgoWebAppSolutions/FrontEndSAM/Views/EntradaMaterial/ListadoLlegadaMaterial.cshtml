@@ -66,8 +66,9 @@
                     </div>
                     <div class="row">
                         <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input id="PackingListFilterID" class="quickFilters" />
                             <input id="FolioLlegadaMaterialID" class="quickFilters" />
-                             <input id="FolioAvisoID" class="quickFilters" />
+                            <input id="FolioAvisoID" class="quickFilters" />
                             <input id="FechaCreacion" class="quickFilters" />
                             <input id="FechaGeneracion" class="quickFilters" />
                             <input id="Cancel" class="quickFilters" disabled />
@@ -104,12 +105,13 @@
                     schema: {
                         model: {
                             fields: {
+                                PackingListID: { type: "string" },
                                 FolioLlegadaID: { type: "string" },
                                 FolioAvisoLlegadaID: { type: "string" },
                                 FechaCreacion: { type: "string" },
-                                FechaGeneracion: { type: "string" }
+                                FechaGeneracion: { type: "string" },
                                 //FolioAvisoLlegadaID: { type: "string" },
-                                //PackingListID: { type: "string" },
+                                
                                 //Proyecto: { type: "string" },
                                 //Patio: { type: "string" },
                                 //Estatus: { type: "string" },
@@ -144,12 +146,12 @@
                     numeric: true,
                 },
                 columns: [
+                    { field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FolioLlegadaID", title: _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FechaCreacion", title: _dictionary.ListadoLlegadaMaterial0021[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FechaGeneracion", title: _dictionary.ListadoLlegadaMaterial0022[$("#language").data("kendoDropDownList").value()], filterable: true },
                     //{ field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    //{ field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                     //{ field: "Proyecto", title: _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()], filterable: true },
                     //{ field: "Patio", title: _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()], filterable: true },
                     //{ field: "Estatus", title: _dictionary.ListadoLlegadaMaterial0012[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -165,11 +167,12 @@
 
             
         function complemento(e) {
-            displayMessage("notificationslabel0028", "", '1');
+            //displayMessage("notificationslabel0028", "", '1');
         };
 
         function cuantificacion(e) {
-            e.preventDefault();
+
+           @* e.preventDefault();
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             var FolioLlegadaID = dataItem.FolioLlegadaID;
             var FolioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID;
@@ -177,7 +180,7 @@
             
             //REDIRECT
             var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegadaID=" + FolioLlegadaID + "&folioEntradaID=" + FolioAvisoLlegadaID + "&packingListID=" + PackingListID;
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegadaID=" + FolioLlegadaID + "&folioEntradaID=" + FolioAvisoLlegadaID + "&packingListID=" + PackingListID;*@
         };
 
         function mostrarDetalle(e) {
@@ -309,6 +312,18 @@
                 filter: "contains",
             });
             ObtenerChofer();
+
+
+            $("#PackingListFilterID").keyup(function () {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                ds.filter([
+                    {
+                        "field": "PackingListID",
+                        "operator": "Contains",
+                        "value": this.value
+                    }
+                ]);
+            });
 
             $("#FolioLlegadaMaterialID").keyup(function () {
                 var ds = $("#grid").data("kendoGrid").dataSource;
