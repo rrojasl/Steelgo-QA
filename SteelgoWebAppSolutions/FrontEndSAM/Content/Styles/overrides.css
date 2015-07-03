@@ -427,12 +427,12 @@
 
     .k-grid tbody tr td a.k-button.k-grid-Complemento,
     .k-grid tbody tr td a.k-button.k-grid-Complement {
-        /*background-image: url("/Content/images/SAMC_Checkmark.png");*/
+        background-image: url("/Content/images/SAMC_ComplementoIcon.png");
     }
 
     .k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
     .k-grid tbody tr td a.k-button.k-grid-Quantification {
-        /*background-image: url("/Content/images/SAMC_Add.png");*/
+        background-image: url("/Content/images/SAMC_CuantificacionIcon.png");
     }
 
 .k-grid-pager {
