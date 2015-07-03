@@ -1299,6 +1299,7 @@ header .menu > div {
 
 .folioGraphs .canvas-frame {
     border: 1px solid #CCCCCC;
+    border-radius: 3px;
     padding: 17px 0 12px;
     background-color: #FFFFFF;
 }
@@ -1306,6 +1307,42 @@ header .menu > div {
 .folioGraphs .form-group:nth-last-of-type(odd) .canvas-frame {
     background-color: #F1F1F1;
 }
+
+.folioGraphs .percentData {
+    background-color: #FFFFFF;
+    border-left: 1px solid #CCCCCC;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin: -17px 0 -12px -15px;
+    padding: 57.77px 46px 9.77px;
+}
+
+    .folioGraphs .percentData > div {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #000000;
+        margin-bottom: 49px;
+    }
+
+    .folioGraphs .percentData .percentLabel {
+        padding: 6.5px 6.5px;
+        border-radius: 3px;
+        font-weight: 600;
+        color: #FFFFFF;
+    }
+
+    .folioGraphs .percentData #spanPorcentajeCompletos {
+        background-color: #305E8E;
+    }
+
+    .folioGraphs .percentData #spanPorcentajeSinAutorizacion {
+        background-color: #234568;
+    }
+
+    .folioGraphs .percentData #spanPorcentajeSinPermiso {
+        background-color: #225090;
+    }
+
 /**********************************************************************************/
 
 

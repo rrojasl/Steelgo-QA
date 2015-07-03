@@ -83,15 +83,19 @@
                                         <canvas id="ChartPie" width="259" height="243"></canvas>
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6">
-                                        <div class="">
-                                            <span id="spanPorcentajeCompletos"></span>
-                                            <span id="DashboardAvisoLlegada0008"></span>
-                                            <br />
-                                            <span id="spanPorcentajeSinAutorizacion"></span>
-                                            <span id="DashboardAvisoLlegada0009"></span>
-                                            <br />
-                                            <span id="spanPorcentajeSinPermiso"></span>
-                                            <span id="DashboardAvisoLlegada0010"></span>
+                                        <div class="percentData">
+                                            <div>
+                                                <span id="spanPorcentajeCompletos" class="percentLabel"></span>
+                                                <span id="DashboardAvisoLlegada0008"></span>
+                                            </div>
+                                            <div>
+                                                <span id="spanPorcentajeSinAutorizacion" class="percentLabel"></span>
+                                                <span id="DashboardAvisoLlegada0009"></span>
+                                            </div>
+                                            <div>
+                                                <span id="spanPorcentajeSinPermiso" class="percentLabel"></span>
+                                                <span id="DashboardAvisoLlegada0010"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -360,13 +364,13 @@
 
             myPieChart = new Chart(ctx).Pie(data, {
                 //Boolean - Whether we should show a stroke on each segment
-                segmentShowStroke: true,
+                segmentShowStroke: false,
 
                 //String - The colour of each segment stroke
-                segmentStrokeColor: "#fff",
+                segmentStrokeColor: "#F1F1F1",
 
                 //Number - The width of each segment stroke
-                segmentStrokeWidth: 2,
+                segmentStrokeWidth: 0,
 
                 //Number - The percentage of the chart that we cut out of the middle
                 percentageInnerCutout: 0, // This is 0 for Pie charts
