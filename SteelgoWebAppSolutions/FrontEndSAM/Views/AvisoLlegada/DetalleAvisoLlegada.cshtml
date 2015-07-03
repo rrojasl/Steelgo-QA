@@ -791,7 +791,6 @@
                 
                 $("#Editar").click(function (e) {
                     ObtenerPatioRequierePermiso();
-                    BotonEdicion();
                     $("#files").data("kendoUpload").enable();
                 });
 
@@ -2048,6 +2047,8 @@
                     } else {
                         $("#TramitarPermiso").attr('disabled', 'disabled');
                     };
+
+                    BotonEdicion();
                 });
             }
 
