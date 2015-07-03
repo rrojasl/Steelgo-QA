@@ -294,6 +294,7 @@ header .menu > div {
             .notifications .notification-menu .notifications-header .message-header .backIcon {
                 margin-right: 7px;
                 z-index: 3;
+                cursor: pointer;
             }
 
             .notifications .notification-menu .notifications-header .message-header .deleteMessage {
