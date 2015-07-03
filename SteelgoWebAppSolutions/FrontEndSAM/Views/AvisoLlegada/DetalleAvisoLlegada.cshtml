@@ -49,7 +49,7 @@
                             <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
                         <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="javascript:void(0);" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
+                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -1019,7 +1019,6 @@
                         batch: true
                     },
                     success: function (data) {
-                        debugger;
                         HabilitarObtenerDocumentosAvisoLlegada();
                     },
                     error: function (data) { },
@@ -1240,7 +1239,7 @@
                 AvisoLlegada[0].Tracto = CamionEntradaMaterial;
                 AvisoLlegada[0].Cliente = Cliente;
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
-                console.log(JSON.stringify(AvisoLlegada[0]));
+                console.log("TipoAvisoID= " + TipoAvisos.TipoAvisoID + ", Nombre= " + TipoAvisos.Nombre);
                 loadingStart();
 
                 if (folio != -1)//Edición
@@ -1477,7 +1476,7 @@
 
                     $("#listaArchivos tbody").empty();
                     $.each(data.Archivos, function (index, value) {
-                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
 
                     //Permiso Aduana
@@ -2076,28 +2075,30 @@
 
             function DesahabilitarObtenerDocumentosAvisoLlegada() {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
                     loadingStart();
-                    if (result.length > 0) {
-                        $("#listaArchivos tbody").empty();
-                        $.each(result, function (index, value) {
-                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                        });
-                    }
+                    if (Error(result)) {
+                        if (result.length > 0) {
+                            $("#listaArchivos tbody").empty();
+                            $.each(result, function (index, value) {
+                                $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                            });
+                        }
+                    };
                     loadingStop();
                 });
             };
 
             function HabilitarObtenerDocumentosAvisoLlegada() {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
                     loadingStart();
-                    if (result.length > 0) {
-                        $("#listaArchivos tbody").empty();
-                        $.each(result, function (index, value) {
-                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                        });
-                    }
+                    if (Error(result)) {
+                        if (result.length > 0) {
+                            $("#listaArchivos tbody").empty();
+                            $.each(result, function (index, value) {
+                                $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                            });
+                        }
+                    };
                     loadingStop();
                 });
             };

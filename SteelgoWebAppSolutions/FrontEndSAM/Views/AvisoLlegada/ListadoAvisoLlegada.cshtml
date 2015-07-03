@@ -343,6 +343,7 @@
 
                     };
                 };
+                CantidadesDelMenuDashboard();
                 applySecurity();
                 loadingStop();
             });
@@ -568,8 +569,6 @@
                     Cliente = [];
                 }
                 Filtros();
-                CantidadesDelMenuDashboard();
-
             },
             filter: "contains",
         });
@@ -588,8 +587,6 @@
                     Patio = [];
                 }
                 Filtros();
-                CantidadesDelMenuDashboard();
-
             },
             filter: "contains",
         });
@@ -602,25 +599,21 @@
 
         $("#FechaInic").bind("change", function () {
             Filtros();
-            CantidadesDelMenuDashboard();
         });
 
         $("#FechaFinal").bind("change", function () {
             Filtros();
-            CantidadesDelMenuDashboard();
         });
 
         if (DashBoardAccionListado != -1) {
             tabActivo(DashBoardAccionListado);
             CargarControlesFiltrado();
             AccionesListado(DashBoardAccionListado);
-            CantidadesDelMenuDashboard();
         } else {
            
             ObtenerFechasporDefecto();
             tabActivo(1);//default 1 creados
             Filtros();
-            CantidadesDelMenuDashboard();
         }
         //applySecurity();
     }
