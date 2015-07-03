@@ -66,9 +66,10 @@
                     </div>
                     <div class="row">
                         <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <input id="PackingListFilterID" class="quickFilters" />
-                            <input id="FolioLlegadaMaterialID" class="quickFilters" />
-                            <input id="FolioAvisoID" class="quickFilters" />
+                            <input id="PackingListFilterID" class="quickFilters arrivalMaterial" />
+                            <input id="FolioLlegadaMaterialID" class="quickFilters arrivalMaterial" />
+                            <input id="FolioAvisoID" class="quickFilters arrivalMaterial " />
+                            <input id="FechaCreacion" class="quickFilters arrivalMaterial" />
                             <input id="FechaGeneracion" class="quickFilters arrivalMaterial" />
                             <input id="Cancel" class="quickFilters arrivalMaterial" disabled />
                         </div>
@@ -145,7 +146,7 @@
                     numeric: true,
                 },
                 columns: [
-                    { field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioLlegadaID#, #:FolioAvisoLlegadaID#)'>#:PackingListID#</a>", filterable: true },
                     { field: "FolioLlegadaID", title: _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FechaCreacion", title: _dictionary.ListadoLlegadaMaterial0021[$("#language").data("kendoDropDownList").value()], filterable: true },

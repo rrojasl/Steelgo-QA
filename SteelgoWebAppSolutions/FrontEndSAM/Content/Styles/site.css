@@ -326,6 +326,30 @@ input.quickFilters {
         width: 5.54%;
     }
 
+input.quickFilters.arrivalMaterial {
+    width: 18.57%;
+}
+
+    input.quickFilters.arrivalMaterial:first-of-type {
+        width: 18.55%;
+    }
+
+    input.quickFilters.arrivalMaterial:last-of-type {
+        width: 7.5%;
+    }
+
+.expanded input.quickFilters.arrivalMaterial {
+    width: 18.7%;
+}
+
+    .expanded input.quickFilters.arrivalMaterial:first-of-type {
+        width: 18.76%;
+    }
+
+    .expanded input.quickFilters.arrivalMaterial:last-of-type {
+        width: 6.7%;
+    }
+
 .content-container .input-group .input-group-btn a {
     padding: 19px 18px;
     border: 1px solid #ccc;
@@ -731,6 +755,30 @@ h2 {
         .expanded input.quickFilters:last-of-type {
             width: 15.4%;
         }
+
+    input.quickFilters.arrivalMaterial {
+        width: 15.54%;
+    }
+
+        input.quickFilters.arrivalMaterial:first-of-type {
+            width: 15.6%;
+        }
+
+        input.quickFilters.arrivalMaterial:last-of-type {
+            width: 23.2%;
+        }
+
+    .expanded input.quickFilters.arrivalMaterial {
+        width: 16.44%;
+    }
+
+        .expanded input.quickFilters.arrivalMaterial:first-of-type {
+            width: 16.4%;
+        }
+
+        .expanded input.quickFilters.arrivalMaterial:last-of-type {
+            width: 18.6%;
+        }
 }
 
 /* tablet viewport*/
@@ -790,6 +838,30 @@ h2 {
 
         .expanded input.quickFilters:last-of-type {
             width: 11.1%;
+        }
+
+    input.quickFilters.arrivalMaterial {
+        width: 16.76%;
+    }
+
+        input.quickFilters.arrivalMaterial:first-of-type {
+            width: 16.9%;
+        }
+
+        input.quickFilters.arrivalMaterial:last-of-type {
+            width: 16.7%;
+        }
+
+    .expanded input.quickFilters.arrivalMaterial {
+        width: 17.44%;
+    }
+
+        .expanded input.quickFilters.arrivalMaterial:first-of-type {
+            width: 17.4%;
+        }
+
+        .expanded input.quickFilters.arrivalMaterial:last-of-type {
+            width: 13.4%;
         }
 }
 
