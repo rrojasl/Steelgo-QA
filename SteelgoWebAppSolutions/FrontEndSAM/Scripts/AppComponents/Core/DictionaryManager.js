@@ -759,8 +759,8 @@ _dictionary = {
         "en-US": "Home"
     },
     "EntradaMaterial0023": {
-        "es-MX": "Folios de Llegada de Material",
-        "en-US": "Arrival sheets Material"
+        "es-MX": "Listado Folios Llegada de Material",
+        "en-US": "List Arrival sheets Material"
     },
     "EntradaMaterial0024": {
         "es-MX": "Llegada de Material",
@@ -809,6 +809,10 @@ _dictionary = {
     "EntradaMaterial0035": {
         "es-MX": "Proveedor",
         "en-US": "Provider"
+    },
+    "EntradaMaterial0036": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Dashboard Llegada de Material"
     },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
@@ -888,8 +892,8 @@ _dictionary = {
         "en-US": "Home"
     },
     "ListadoLlegadaMaterial0020": {
-        "es-MX": "Folios de Llegada de Material",
-        "en-US": "Arrival sheets Material"
+        "es-MX": "Listado Folios Llegada de Material",
+        "en-US": "List Arrival sheets Material"
     },
     "ListadoLlegadaMaterial0021": {
         "es-MX": "Fecha Creación",
@@ -898,6 +902,10 @@ _dictionary = {
     "ListadoLlegadaMaterial0022": {
         "es-MX": "Fecha Generación",
         "en-US": "Date Generation"
+    },
+    "ListadoLlegadaMaterial0023": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Dashboard Llegada de Material"
     },
     //Cuantificacion
     "Cuantificacion0001": {
