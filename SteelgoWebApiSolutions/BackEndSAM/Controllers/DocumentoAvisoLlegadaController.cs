@@ -87,8 +87,8 @@ namespace BackEndSAM.Controllers
                             }
 
                             var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
-                            string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo; 
-                            string[] st = postedFile.FileName.Split('.');
+                            string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
+                            string[] st = nombreArchivo.Split('.');
                             string extencion = "." + st[1]; 
                             lstArchivos.Add(new DocumentoPosteado
                             {

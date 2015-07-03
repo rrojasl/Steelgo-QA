@@ -72,13 +72,25 @@ namespace BackEndSAM.Controllers
                         {
                             Guid docguID = Guid.NewGuid();
                             postedFile = httpRequest.Files[file];
-                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + postedFile.FileName);
-                            string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + postedFile.FileName; 
-                            string[] st = postedFile.FileName.Split('.');
+                            string nombreArchivo = "";
+                            //verificar si el nombre del archivo es una ruta completa
+                            if (postedFile.FileName.Contains("\\"))
+                            {
+                                string[] temp = postedFile.FileName.Split('\\');
+                                nombreArchivo = temp[temp.Count() - 1];
+                            }
+                            else
+                            {
+                                nombreArchivo = postedFile.FileName;
+                            }
+
+                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
+                            string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
+                            string[] st = nombreArchivo.Split('.');
                             string extencion = "." + st[1];
                             lstArchivos.Add(new DocumentoPosteado
                             {
-                                FileName = postedFile.FileName,
+                                FileName = nombreArchivo,
                                 ContentType = postedFile.ContentType,
                                 Size = postedFile.ContentLength,
                                 Path = ruta,
@@ -86,8 +98,7 @@ namespace BackEndSAM.Controllers
                                 FolioAvisoLlegadaID = folioAvisoLlegada,
                                 UserId = usuario.UsuarioID,
                                 TipoArchivoID = -1,
-                                Extencion = extencion, 
-                                NumeroPermisoAduana = NumeroPermiso
+                                Extencion = extencion
                             });
 
                             postedFile.SaveAs(path);

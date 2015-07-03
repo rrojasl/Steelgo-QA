@@ -296,13 +296,13 @@ namespace BackEndSAM.DataAcces
                                           where p.PermisoAutorizado == true
                                           select r).AsParallel().ToList();
                             }
-                            else
-                            {
-                                result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == true
-                                          select r).AsParallel().ToList();
-                            }
+                            //else
+                            //{
+                            //    result = (from r in ctx.Sam3_FolioAvisoLlegada
+                            //              join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                            //              where r.Activo == true && p.PermisoAutorizado == true
+                            //              select r).AsParallel().ToList();
+                            //}
                         }
 
                         if (filtros.SinAutorizacion)
@@ -315,13 +315,13 @@ namespace BackEndSAM.DataAcces
                                           select r).AsParallel().ToList();
 
                             }
-                            else
-                            {
-                                result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == false
-                                          select r).AsParallel().ToList();
-                            }
+                            //else
+                            //{
+                            //    result = (from r in ctx.Sam3_FolioAvisoLlegada
+                            //              join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                            //              where r.Activo == true && p.PermisoAutorizado == false
+                            //              select r).AsParallel().ToList();
+                            //}
                         }
 
                         if (filtros.SinPermiso)
@@ -333,13 +333,13 @@ namespace BackEndSAM.DataAcces
                                           && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
                                           select r).AsParallel().ToList();
                             }
-                            else
-                            {
-                                result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                          where r.Activo == true
-                                          && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
-                                          select r).AsParallel().ToList();
-                            }
+                            //else
+                            //{
+                            //    result = (from r in ctx.Sam3_FolioAvisoLlegada
+                            //              where r.Activo == true
+                            //              && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                            //              select r).AsParallel().ToList();
+                            //}
                         }
 
                         result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList(); 
