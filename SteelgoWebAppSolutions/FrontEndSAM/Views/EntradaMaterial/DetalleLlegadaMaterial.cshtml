@@ -39,7 +39,7 @@
                                     <li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>
                                 </ul>
                             </div>
-                            <a id="Cancelar" href="javascript:void(0);" class="btn btn-black"><span id="EntradaMaterial0012"></span></a>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="EntradaMaterial0012"></span></a>
                         </div>
                         <div class="button-section">
                             <a id="" href="" class="btn btn-primary"><span id="">Nueva Acción</span></a>
@@ -193,7 +193,7 @@
                                 </div>
                                 <div class="buttonBar left col-sm-12 col-md-12 col-lg-12">
                                     <div class="branchCut"></div>
-                                    <a href="javascript:void(0);" id="ImprimirPase" class="btn btn-primary">
+                                    <a href="#" id="ImprimirPase" class="btn btn-primary">
                                         <span id="EntradaMaterial0027"></span>
                                     </a>
                                 </div>
@@ -223,7 +223,7 @@
             <input id="Descripcion_Patio" />
         </div>
         <div class="form-group">
-            <a id="GuardarPatio" href="javascript:void(0);" class="btn btn-primary"><span id="EntradaMaterial0010"></span></a>
+            <a id="GuardarPatio" href="#" class="btn btn-primary"><span id="EntradaMaterial0010"></span></a>
         </div>
     </div>
 </div>
@@ -358,7 +358,7 @@
                 success: function (data) {
                     //Se crea la tabla dinamica con el archivo que  se dio de alta, [id], [Archivo], [Extension]
                     $.each(data, function (index, value) {
-                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#Descripcion").val() + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='#' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + $("#Descripcion").val() + "</td><td><a href='#' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                 },
                 error: function (data) { },
@@ -389,7 +389,7 @@
                 success: function (data) {
                     $("#hdPaseSalida").val(1);
                     $.each(data, function (index, value) {
-                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='#' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     });
                 },
                 error: function (data) { },
@@ -467,12 +467,12 @@
                 };
 
                 $.each(data.Archivos, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='#' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
 
 
                 $.each(data.ArchivosPaseSalida, function (index, value) {
-                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='#' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
                
             
@@ -596,19 +596,14 @@
             //objeto para los documentos.
             Documentos = [];
 
-            $('#listaArchivos > tbody  > tr').each(function () {
+            $('#listaArchivos > tbody  > tr').each(function (index,value) {
                 if ($(this).find("td:first").length > 0) {
                     var id = $(this).attr("id").split(",")[0];
                     var archivo = $(this).find("td a").eq(0).html();
                     var extencion = $(this).attr("id").split(",")[1];
                     var descripcion = $(this).find("td").eq(1).html();
 
-                    item = {};
-                    item["ArchivoID"] = id;
-                    item["Nombre"] = archivo;
-                    item["Extension"] = extencion;
-                    item["Descripcion"] = descripcion;
-                    Documentos.push(item);
+                    Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, Descripcion: descripcion };
                 }
             });
             
@@ -656,7 +651,7 @@
             Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
                     $("#divFoliosGenerados").show();
-                    $("#listaFoliosGenerados").append("<tr><td><a href='javascript:void(0);' onclick='AbrirArchivo(" + value.FolioAvisoLlegadaID + "," + value.FolioLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
+                    $("#listaFoliosGenerados").append("<tr><td><a href='#' onclick='AbrirArchivo(" + value.FolioAvisoLlegadaID + "," + value.FolioLlegadaID + ");'>" + value.FolioLlegadaID + "</a></td><td>" + value.FolioAvisoLlegadaID + "</td>" + "<td>" + value.PackingListID + "</td>" + "<td>" + value.Proyecto + "</td>" + "</tr>");
                 });
             });
         };
@@ -720,7 +715,7 @@
         {
             $("#divFolioEntradaID").hide();
             $("#divTitulos").removeClass('hidden');
-            $("#spanFolioEntrada").html("<a href='javascript:void(0);' onclick='AbrirListadoEntrada(" + folioAvisoLlegada + "," + folioLlegada + ");'>" + folioAvisoLlegada + "</a>");
+            $("#spanFolioEntrada").html("<a href='#' onclick='AbrirListadoEntrada(" + folioAvisoLlegada + "," + folioLlegada + ");'>" + folioAvisoLlegada + "</a>");
             $("#SpanFolioLlegada").html(folioLlegada);
             CargaInicialEdicion();
         } else
@@ -730,11 +725,11 @@
 
             Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 $.each(data, function (index, value) {
-                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $("#listaArchivos").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='#' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
 
                 $.each(data, function (index, value) {
-                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='javascript:void(0);' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td></td><td><a href='javascript:void(0);' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $("#listaArchivosPaseSalida").append("<tr id='" + value.id + "," + value.Extension + "'><td><a href='#' onclick='descargarArchivo(" + value.id + ");'>" + value.Archivo + "</a></td><td></td><td><a href='#' onclick='borrarArchivo(" + value.id + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 });
             });
         }
