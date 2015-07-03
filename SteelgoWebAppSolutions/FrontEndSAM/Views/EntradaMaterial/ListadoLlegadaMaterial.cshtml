@@ -17,6 +17,11 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
                 <div class="row">
+                    <div class="col-sm-2 col-md-2 col-lg-1">
+                        <div class="button-section">
+                            <button id="Nuevo" type="button" class="btn btn-yellow"><span id="DashboardAvisoLlegada0003"></span></button>
+                        </div>
+                    </div>
                     <div class="col-sm-12 col-md-12 col-lg-9 filter-section">
                         <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-3">
@@ -37,21 +42,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-3 buttonBar">
+                    @*<div class="col-sm-12 col-md-12 col-lg-3 buttonBar">
                         <a id="Mostrar" href="javascript:void(0);" class="btn btn-yellow"><span id="ListadoLlegadaMaterial0005"></span></a>
                         <a id="Creacion" href="javascript:void(0);" class="btn btn-primary"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="grid" class="entradaMaterial"></div>
+                    </div>*@
                 </div>
             </div>
         </div>
 
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
+                            <button id="btnCreados" class="btn btn-tabList"><span id="ListadoAvisoLlegada0027"></span><span id="spanCreados">0</span></button>
+                            <button id="btnSinPermiso" class="btn btn-tabList"><span id="ListadoAvisoLlegada0023"></span><span id="spanSinPermiso">0</span></button>
+                            <button id="btnSinAutorizacion" class="btn btn-tabList"><span id="ListadoAvisoLlegada0024"></span><span id="spanSinAutorizacion">0</span></button>
+                            <button id="btnCompletos" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos">0</span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input id="FolioLlegadaMaterialID" class="quickFilters" />
+                             <input id="FolioAvisoID" class="quickFilters" />
+                            <input id="FechaCreacion" class="quickFilters" />
+                            <input id="FechaGeneracion" class="quickFilters" />
+                            <input id="Cancel" class="quickFilters" disabled />
+                        </div>
+                    </div>
+                    <div id="grid" class="entradaMaterial"></div>
+                </div>
+            </div>
+        </div>
         <div id="window">
             @*Content of the Window*@
         </div>
@@ -62,8 +84,8 @@
 
     @section JavascriptGlobalVariables 
     {
-        var PackingList = [], FolioLlegada = [], Placa = [],
-            Chofer = [], resultadoJson;
+        var PackingList = {}, FolioLlegada = {}, Placa = {},
+            Chofer = {}, resultadoJson;
     }
 
     @section JavascriptGlobalFunctions 
@@ -81,12 +103,15 @@
                             fields: {
                                 FolioLlegadaID: { type: "string" },
                                 FolioAvisoLlegadaID: { type: "string" },
-                                PackingListID: { type: "string" },
-                                Proyecto: { type: "string" },
-                                Patio: { type: "string" },
-                                Estatus: { type: "string" },
-                                EstatusFolioEntrada: { type: "string" },
-                                EstatusPackingList: { type: "string" }
+                                FechaCreacion: { type: "string" },
+                                FechaGeneracion: { type: "string" }
+                                //FolioAvisoLlegadaID: { type: "string" },
+                                //PackingListID: { type: "string" },
+                                //Proyecto: { type: "string" },
+                                //Patio: { type: "string" },
+                                //Estatus: { type: "string" },
+                                //EstatusFolioEntrada: { type: "string" },
+                                //EstatusPackingList: { type: "string" }
                             }
                         }
                     },
@@ -98,28 +123,35 @@
                 autoHeight: true,
                 sortable: true,
                 scrollable: false,
-                filterable: true,
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            startswith: "Starts with",
+                            eq: "Is equal to",
+                            neq: "Is not equal to"
+                        }
+                    }
+                },
                 pageable: {
                     refresh: false,
                     pageSizes: [10, 15, 20],
                     info: false,
-                    input: true,
-                    numeric: false,
-                    messages: {
-                        page: "",
-                        of: _dictionary.ListadoAvisoLlegada0018[$("#language").data("kendoDropDownList").value()],
-                        itemsPerPage: _dictionary.ListadoAvisoLlegada0019[$("#language").data("kendoDropDownList").value()],
-                    }
+                    input: false,
+                    numeric: true,
                 },
                 columns: [
                     { field: "FolioLlegadaID", title: _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Proyecto", title: _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Estatus", title: _dictionary.ListadoLlegadaMaterial0012[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "EstatusFolioEntrada", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "EstatusPackingList", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FechaCreacion", title: _dictionary.ListadoLlegadaMaterial0021[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "FechaGeneracion", title: _dictionary.ListadoLlegadaMaterial0022[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "PackingListID", title: _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "Proyecto", title: _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "Patio", title: _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "Estatus", title: _dictionary.ListadoLlegadaMaterial0012[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "EstatusFolioEntrada", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    //{ field: "EstatusPackingList", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: complemento }, title: " ", width: "40px"},
                     { command: { text: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], click: cuantificacion }, title: " ", width: "40px"},
                     { command: { text: _dictionary.ListadoLlegadaMaterial0013[$("#language").data("kendoDropDownList").value()], click: mostrarDetalle }, title: " ", width: "40px"},
@@ -177,13 +209,13 @@
         };
 
         function CargaInicial() {
-            $("#Mostrar").click(function () { Filtros(2); });
-            $("#Creacion").click(function (e) {
+            //$("#Mostrar").click(function () { Filtros(2); });
+            $("#Nuevo").click(function (e) {
                 var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
-            $("#PackingListID").kendoAutoComplete({
+            $("#PackingListID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -199,9 +231,15 @@
                     var dataItem = this.dataItem(e.item.index());
                     CargarPackingList(dataItem.PackingListID, dataItem.Consecutivo);
                 },
+                change: function (e) {
+                    var value = this.value();
+                    if (!value) {
+                        PackingList = {};
+                    };
+                },
                 filter: "contains",
             });
-            $("#FolioLlegadaID").kendoAutoComplete({
+            $("#FolioLlegadaID").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -217,9 +255,16 @@
                     var dataItem = this.dataItem(e.item.index());
                     CargarFolioLlegada(dataItem.FolioLlegadaID, dataItem.Consecutivo);
                 },
+                change: function (e) {
+                    var value = this.value();
+                    if (!value) {
+                        FolioLlegada = {};
+                    };
+                },
                 filter: "contains",
             });
-            $("#Placas").kendoAutoComplete({
+
+            $("#Placas").kendoComboBox({
                 dataSource: {
                     serverFiltering: false,
                     type: "json",
@@ -235,45 +280,98 @@
                     var dataItem = this.dataItem(e.item.index());
                     CargarPlacas(dataItem.CamionID, dataItem.Placas);
                 },
+                change: function (e) {
+                    var value = this.value();
+                    if (!value) {
+                        Placa = {};
+                    };
+                },
                 filter: "contains",
             });
-            $("#ChoferID").kendoAutoComplete({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
-                        }
-                    }
-                },
-                dataTextField: "value",
-                dataValueField: "id",
+        
+            $("#ChoferID").kendoComboBox({
+                dataTextField: "Nombre",
+                dataValueField: "ChoferID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarChofer(dataItem.id, dataItem.value);
+                    CargarChofer(dataItem.ChoferID, dataItem.Nombre);
+
+                },
+                change: function (e) {
+                    var value = this.value();
+                    if (!value) {
+                        Chofer = {};
+                    };
                 },
                 filter: "contains",
             });
+            ObtenerChofer();
+
+            $("#FolioLlegadaMaterialID").keyup(function () {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                ds.filter([
+                    {
+                        "field": "FolioLlegadaID",
+                        "operator": "Contains",
+                        "value": this.value
+                    }
+                ]);
+            });
+
+            $("#FolioAvisoID").keyup(function () {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                ds.filter([
+                    {
+                        "field": "FolioAvisoLlegadaID",
+                        "operator": "Contains",
+                        "value": this.value
+                    }
+                ]);
+            });
+            
+            $("#FechaCreacion").keyup(function () {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                ds.filter([
+                    {
+                        "field": "FechaCreacion",
+                        "operator": "Contains",
+                        "value": this.value
+                    }
+                ]);
+            });
+
+            $("#FechaGeneracion").keyup(function () {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                ds.filter([
+                    {
+                        "field": "FechaGeneracion",
+                        "operator": "Contains",
+                        "value": this.value
+                    }
+                ]);
+            });
+
             Filtros(1);
+
+
         };
 
         function Filtros(prueba)
         {
-            ListadoModal = [];
-            ListadoModal[0] = { PackingList: "", FolioLlegada: "", Placas: "", Chofer: "" };
+            Listado = [];
+            Listado[0] = { PackingList: "", FolioLlegada: "", Placas: "", Chofer: "" };
 
-            ListadoModal[0].PackingList = PackingList;
-            ListadoModal[0].FolioLlegada = FolioLlegada;
-            ListadoModal[0].Placas = Placa;
-            ListadoModal[0].Chofer = Chofer;
+            Listado[0].PackingList = PackingList;
+            Listado[0].FolioLlegada = FolioLlegada;
+            Listado[0].Placas = Placa;
+            Listado[0].Chofer = Chofer;
 
-            console.log(JSON.stringify(ListadoModal));
+            console.log(JSON.stringify(Listado[0]));
 
             var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
             Client.add('DummyListadoLlegadaMaterial');
 
-            Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(ListadoModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+            Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(Listado), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log(data);
                 resultadoJson = data;
                 if ($("#grid").data("kendoGrid")) {
@@ -284,35 +382,36 @@
         };
 
         function CargarPackingList(id, value) {
-            PackingList = [];
-            _packingList = {};
-            _packingList["PackingListID"] = id;
-            _packingList["Consecutivo"] = value;
-            PackingList.push(_packingList);
+            PackingList = {};
+            PackingList = { PackingListID: id, Consecutivo: value };
         };
 
         function CargarFolioLlegada(id, value) {
-            FolioLlegada = [];
-            _folioLlegada = {};
-            _folioLlegada["FolioLlegadaID"] = id;
-            _folioLlegada["Consecutivo"] = value;
-            FolioLlegada.push(_folioLlegada);
+            FolioLlegada = {};
+            FolioLlegada = { FolioLlegadaID: id, Consecutivo: value };
         };
 
         function CargarPlacas(id, value) {
-            Placa = [];
-            _placa = {};
-            _placa["Placas"] = id;
-            _placa["CamionID"] = value;
-            Placa.push(_placa);
+            Placa = {};
+            Placa = { Placas: id, CamionID: value };
         };
         
         function CargarChofer(id, value) {
-            Chofer = [];
-            _chofer = {};
-            _chofer["ChoferID"] = id;
-            _chofer["Nombre"] = value;
-            Chofer.push(_chofer);
+            Chofer = {};
+            Chofer = { ChoferID: id, Nombre: value };
+        };
+
+        function ObtenerChofer() {
+            $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                if (result.length > 0) {
+                    $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                } else {
+                    Chofer = [];
+                    $("#ChoferID").data("kendoComboBox").value("");
+                    $("#ChoferID").data("kendoComboBox").dataSource.data([]);
+                }
+            });
         };
     }
 

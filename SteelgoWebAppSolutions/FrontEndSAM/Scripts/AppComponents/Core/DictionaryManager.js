@@ -891,6 +891,14 @@ _dictionary = {
         "es-MX": "Folios de Llegada de Material",
         "en-US": "Arrival sheets Material"
     },
+    "ListadoLlegadaMaterial0021": {
+        "es-MX": "Fecha Creación",
+        "en-US": "Creation Date"
+    },
+    "ListadoLlegadaMaterial0022": {
+        "es-MX": "Fecha Generación",
+        "en-US": "Date Generation"
+    },
     //Cuantificacion
     "Cuantificacion0001": {
         "es-MX": "Inicio",

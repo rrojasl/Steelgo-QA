@@ -30,6 +30,8 @@ namespace BackEndSAM.Controllers
                 llegadamaterial.Estatus = "En Patio";
                 llegadamaterial.EstatusFolioEntrada = "Estatus 1";
                 llegadamaterial.EstatusPackingList = "Estatus 2";
+                llegadamaterial.FechaCreacion = "27/02/2015";
+                llegadamaterial.FechaGeneracion = "28/02/2015";
                 lstllegadaMat.Add(llegadamaterial);
 
 
@@ -41,6 +43,8 @@ namespace BackEndSAM.Controllers
                 llegadamaterial1.Estatus = "Devolución";
                 llegadamaterial1.EstatusFolioEntrada = "Estatus 1";
                 llegadamaterial1.EstatusPackingList = "Estatus 2";
+                llegadamaterial1.FechaCreacion = "27/03/2015";
+                llegadamaterial1.FechaGeneracion = "28/03/2015";
                 lstllegadaMat.Add(llegadamaterial1);
             }
             else 
@@ -53,6 +57,8 @@ namespace BackEndSAM.Controllers
                 llegadamaterial.Estatus = "En Patio";
                 llegadamaterial.EstatusFolioEntrada = "Estatus 1";
                 llegadamaterial.EstatusPackingList = "Estatus 2";
+                llegadamaterial.FechaCreacion = "27/02/2015";
+                llegadamaterial.FechaGeneracion = "28/02/2015";
                 lstllegadaMat.Add(llegadamaterial);
             }
             return lstllegadaMat;
