@@ -190,10 +190,10 @@
                 <input id="Telefono_Transportista" class="" />
             </div>
             <div class="buttonSave">
-                <a id="GuardarTransportista" href="javascript:void(0);" class="btn btn-primary">
+                <a id="GuardarTransportista" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0019"></span>
                 </a>
-                <a id="CancelarTransportista" href="javascript:void(0);" class="btn btn-primary">
+                <a id="CancelarTransportista" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0076"></span>
                 </a>
             </div>
@@ -257,10 +257,10 @@
                 <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
             </div>
             <div class="buttonSave">
-                <a id="GuardarPatio" href="javascript:void(0);" class="btn btn-primary">
+                <a id="GuardarPatio" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0029"></span>
                 </a>
-                <a id="CancelarPatio" href="javascript:void(0);" class="btn btn-primary">
+                <a id="CancelarPatio" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0078"></span>
                 </a>
             </div>
@@ -277,10 +277,10 @@
                 <input id="Nombre_Chofer" class="" />
             </div>
             <div class="buttonSave">
-                <a id="GuardarChofer" href="javascript:void(0);" class="btn btn-primary">
+                <a id="GuardarChofer" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0031"></span>
                 </a>
-                <a id="CancelarChofer" href="javascript:void(0);" class="btn btn-primary">
+                <a id="CancelarChofer" href="# class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0079"></span>
                 </a>
             </div>
@@ -313,10 +313,10 @@
                 <input id="Modelo_Plana" class="" />
             </div>
             <div class="buttonSave">
-                <a id="GuardarPlana" href="javascript:void(0);" class="btn btn-primary">
+                <a id="GuardarPlana" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0034"></span>
                 </a>
-                <a id="CancelarPlana" href="javascript:void(0);" class="btn btn-primary">
+                <a id="CancelarPlana" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0080"></span>
                 </a>
             </div>
@@ -360,10 +360,10 @@
                 <input id="Modelo_Camion" class="" />
             </div>
             <div class="buttonSave">
-                <a id="GuardarCamion" href="javascript:void(0);" class="btn btn-primary">
+                <a id="GuardarCamion" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0061"></span>
                 </a>
-                <a id="CancelarCamion" href="javascript:void(0);" class="btn btn-primary">
+                <a id="CancelarCamion" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0081"></span>
                 </a>
             </div>
@@ -1174,7 +1174,7 @@
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
-                AvisoLlegada = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", Cliente: "", TipoAviso: "", PaseSalidaEnviado: "" };
+                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", Cliente: "", TipoAviso: "", PaseSalidaEnviado: "" };
                 
                 _permisoAduana = [];
                 _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso:"", ArchivoAutorizado: "" };
@@ -1189,64 +1189,38 @@
                 permiso = [];
                 DocumentosPackingList = [];
 
-                //var _archivoautorizado = $("#hdArchivoAutorizado").val();
-                //item = {};
-                //item["ArchivoID"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[0] : "";
-                //item["Nombre"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[1] : "";
-                //item["Extension"] = $("#hdArchivoAutorizado").val() ? _archivoautorizado.split(",")[2] : "";
-                //permiso.push(item);
-                
+
                 _permisoAduana[0].NumeroPermiso = "";
                 _permisoAduana[0].PermisoAutorizado = false;
                 _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
-                _permisoAduana[0].ArchivoAutorizado = permiso;
 
                 var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
-                    item = {};
-                    item["ProyectoID"] = value;
-                    ProyectoIDs.push(item);
+                    ProyectoIDs[index] = { ProyectoID: value };
                 });
 
                 var planas = $("#PlanaID").data("kendoMultiSelect").value();
                 $.each(planas, function (index, value) {
-                    item = {};
-                    item["PlanaID"] = value;
-                    PlanaIDs.push(item);
+                    PlanaIDs[index] = { PlanaID: value };
                 });
 
-                $('#listaArchivos > tbody  > tr').each(function () {
+                $('#listaArchivos > tbody  > tr').each(function (index, value) {
                     if ($(this).find("td:first").length > 0) {
                         var id = $(this).attr("id").split(",")[0];
                         var archivo = $(this).find("td a").eq(0).html();
                         var tipoArchivo = $(this).find("td").eq(1).html();
                         var extencion = $(this).attr("id").split(",")[1];
 
-                        item = {};
-                        item["ArchivoID"] = id;
-                        item["Nombre"] = archivo;
-                        item["Extension"] = extencion;
-                        item["TipoArchivo"] = tipoArchivo;
-                        Documentos.push(item);
+                        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
+
+                        //item = {};
+                        //item["ArchivoID"] = id;
+                        //item["Nombre"] = archivo;
+                        //item["Extension"] = extencion;
+                        //item["TipoArchivo"] = tipoArchivo;
+                        //Documentos.push(item);
                     };
                 });
-                
-                //$('#listaArchivosPaseSalida > tbody  > tr').each(function () {
-                //    if ($(this).find("td:first").length > 0) {
-                //        var id = $(this).attr("id").split(",")[0];
-                //        var archivo = $(this).find("td a").eq(0).html();
-                //        var extencion = $(this).attr("id").split(",")[1];
-
-                //        item = {};
-                //        item["ArchivoID"] = id;
-                //        item["Nombre"] = archivo;
-                //        item["Extension"] = extencion;
-                //        DocumentosPackingList.push(item);
-                //    }
-                //});
-
-                //_archivosPackingList[0].PaseSalidaEnviado = $("#hdPaseSalida").val();
-                //_archivosPackingList[0].Archivos = DocumentosPackingList;
 
                 CargarDefaults();
 
@@ -1255,32 +1229,24 @@
                 var curr_month = d.getMonth() + 1; //Months are zero based
                 var curr_year = d.getFullYear();
 
-                AvisoLlegada.FolioAvisoLlegadaID = folio != -1 ? folio : -1;
-                AvisoLlegada.Proyectos = ProyectoIDs;
-                //AvisoLlegada[0].Factura = $("#Factura").val();
-                AvisoLlegada.Transportista = Transportista;
-                AvisoLlegada.FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date;
-                //AvisoLlegada[0].Proveedor = Proveedor;
-                AvisoLlegada.Plana = PlanaIDs;
-                //AvisoLlegada[0].OrdenCompra = $("#OrdenDeCompra").val();
-                AvisoLlegada.Patio = Patio;
-                AvisoLlegada.Chofer = Chofer;
-                AvisoLlegada.Archivos = Documentos;
-                //AvisoLlegada.PermisoAduana = _permisoAduana;
-                AvisoLlegada.Tracto = CamionEntradaMaterial;
-                //AvisoLlegada[0].PaseSalida = _archivosPackingList;
-                AvisoLlegada.Cliente = Cliente;
-                AvisoLlegada.TipoAviso = TipoAvisos;
-                //AvisoLlegada.PaseSalidaEnviado = $("#hdPermisoTramite").val();
-                console.log(JSON.stringify(AvisoLlegada));
+                AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
+                AvisoLlegada[0].Proyectos = ProyectoIDs;
+                AvisoLlegada[0].Transportista = Transportista;
+                AvisoLlegada[0].FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date;
+                AvisoLlegada[0].Plana = PlanaIDs;
+                AvisoLlegada[0].Patio = Patio;
+                AvisoLlegada[0].Chofer = Chofer;
+                AvisoLlegada[0].Archivos = Documentos;
+                AvisoLlegada[0].Tracto = CamionEntradaMaterial;
+                AvisoLlegada[0].Cliente = Cliente;
+                AvisoLlegada[0].TipoAviso = TipoAvisos;
+                console.log(JSON.stringify(AvisoLlegada[0]));
                 loadingStart();
-
-                
 
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
-                    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
+                    $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.update");
                         Error(data);
                         loadingStop();
@@ -1288,7 +1254,7 @@
                     });
                 } else //Alta
                 {
-                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada, { token: $.cookie("token") }).done(function (data) {
+                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                         console.log("Client.DummyAvisoLlegada.create");
 
                         if (Error(data))
