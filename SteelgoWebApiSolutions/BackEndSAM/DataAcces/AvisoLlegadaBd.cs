@@ -186,9 +186,6 @@ namespace BackEndSAM.DataAcces
                     int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
-                    //List<int> proyectos = filtros.Proyectos.Where(x => x.ProyectoID > 0).Select(x => x.ProyectoID).ToList();
-                    //List<int> patios = filtros.Patio.Where(x => x.PatioID > 0).Select(x => x.PatioID).ToList();
-
                     if (folioLlegadaID > 0)
                     {
                         lstFoliosAvisoLlegada = (from r in ctx.Sam3_FolioAvisoEntrada
@@ -210,10 +207,6 @@ namespace BackEndSAM.DataAcces
                                       && proyectosUsuario.Contains(p.ProyectoID)
                                       && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
                                       select r).AsParallel().ToList();
-                                
-                                //ctx.Sam3_FolioAvisoLlegada
-                                //.Where(x => x.FechaRecepcion >= fechaInicial && x.FechaRecepcion <= fechaFinal && x.Activo.Value == true).ToList();
-
                         }
                         else
                         {
@@ -264,10 +257,6 @@ namespace BackEndSAM.DataAcces
                                 {
                                     result = result.Where(x => x.PatioID == temp).ToList();
                                 }
-                                else
-                                {
-                                    result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.PatioID == temp).ToList();
-                                }
                             }
 
                             if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
@@ -277,10 +266,6 @@ namespace BackEndSAM.DataAcces
                                 if (result.Count > 0)
                                 {
                                     result = result.Where(x => x.ClienteID == temp).ToList();
-                                }
-                                else
-                                {
-                                    result = ctx.Sam3_FolioAvisoLlegada.Where(x => x.ClienteID == temp).AsParallel().ToList();
                                 }
                             }
                         }
@@ -296,13 +281,6 @@ namespace BackEndSAM.DataAcces
                                           where p.PermisoAutorizado == true
                                           select r).AsParallel().ToList();
                             }
-                            else
-                            {
-                                result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == true
-                                          select r).AsParallel().ToList();
-                            }
                         }
 
                         if (filtros.SinAutorizacion)
@@ -315,13 +293,6 @@ namespace BackEndSAM.DataAcces
                                           select r).AsParallel().ToList();
 
                             }
-                            else
-                            {
-                                result = (from r in ctx.Sam3_FolioAvisoLlegada
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == false
-                                          select r).AsParallel().ToList();
-                            }
                         }
 
                         if (filtros.SinPermiso)
@@ -329,13 +300,6 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
-                                          where r.Activo == true
-                                          && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
-                                          select r).AsParallel().ToList();
-                            }
-                            else
-                            {
-                                result = (from r in ctx.Sam3_FolioAvisoLlegada
                                           where r.Activo == true
                                           && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
                                           select r).AsParallel().ToList();
