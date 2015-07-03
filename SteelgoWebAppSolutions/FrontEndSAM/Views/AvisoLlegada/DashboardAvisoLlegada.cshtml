@@ -67,24 +67,34 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12 folioGraphs">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                    <canvas id="ChartBar" width="400" height="400"></canvas>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <div class="col-sm-9 col-md-12 col-lg-6">
-                            <canvas id="ChartPie" width="400" height="400"></canvas>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                            <div class="canvas-frame">
+                                <canvas id="ChartBar" width="538" height="243"></canvas>
+                            </div>
                         </div>
-                        <div class="col-sm-3 col-md-12 col-lg-6">
-                            <div>
-                                <span id="spanPorcentajeCompletos"></span>
-                                <label id="DashboardAvisoLlegada0008"></label>
-                                <span id="spanPorcentajeSinAutorizacion"></span>
-                                <label id="DashboardAvisoLlegada0009"></label>
-                                <span id="spanPorcentajeSinPermiso"></span>
-                                <label id="DashboardAvisoLlegada0010"></label>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                            <div class="canvas-frame">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <canvas id="ChartPie" width="259" height="243"></canvas>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="">
+                                            <span id="spanPorcentajeCompletos"></span>
+                                            <span id="DashboardAvisoLlegada0008"></span>
+                                            <br />
+                                            <span id="spanPorcentajeSinAutorizacion"></span>
+                                            <span id="DashboardAvisoLlegada0009"></span>
+                                            <br />
+                                            <span id="spanPorcentajeSinPermiso"></span>
+                                            <span id="DashboardAvisoLlegada0010"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -279,10 +289,10 @@
                 labels: ["Creados", "Sin Permiso", "Sin Autorizacion", "Completos"],
                 datasets: [
                     {
-                        fillColor: "rgba(151,187,205,0.5)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(151,187,205,0.75)",
-                        highlightStroke: "rgba(151,187,205,1)",
+                        fillColor: "#305E8E",
+                        strokeColor: "#305E8E",
+                        highlightFill: "#234568",
+                        highlightStroke: "#234568",
                         data: [0, 0, 0, 0]
                     }
                 ]
@@ -299,16 +309,16 @@
                 scaleGridLineColor: "rgba(0,0,0,.05)",
 
                 //Number - Width of the grid lines
-                scaleGridLineWidth: 1,
+                scaleGridLineWidth: 25,
 
                 //Boolean - Whether to show horizontal lines (except X axis)
                 scaleShowHorizontalLines: true,
 
                 //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
+                scaleShowVerticalLines: false,
 
                 //Boolean - If there is a stroke on each bar
-                barShowStroke: true,
+                barShowStroke: false,
 
                 //Number - Pixel width of the bar stroke
                 barStrokeWidth: 2,
@@ -330,20 +340,20 @@
             var data = [
                         {
                             value: -1,
-                            color: "#F7464A",
-                            highlight: "#FF5A5E",
+                            color: "#305E8E",
+                            highlight: "rgba(48, 94, 142, 0.9)",
                             label: "Completos"
                         },
                         {
                             value: 0,
-                            color: "#46BFBD",
-                            highlight: "#5AD3D1",
+                            color: "#234568",
+                            highlight: "rgba(35, 69, 104, 0.9)",
                             label: "Sin Autorizacion"
                         },
                         {
                             value: 0,
-                            color: "#FDB45C",
-                            highlight: "#FFC870",
+                            color: "#225090",
+                            highlight: "rgba(34, 80, 144, 0.9)",
                             label: "Sin Permiso"
                         }
                       ];

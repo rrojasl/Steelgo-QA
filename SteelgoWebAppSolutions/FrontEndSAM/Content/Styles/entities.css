@@ -20,6 +20,7 @@
     14  $_branchCut
     15  $_formNav
     15  $_departurePermit
+    16  $_folioGraphs
 
 
     Color Palette: Look at site.css
@@ -846,7 +847,6 @@ header .menu > div {
 /**********************************************************************************/
 
 
-
 /**********************************************************************************
  Class name:    $_filesTable
  Description:   Customize a file table section.
@@ -915,7 +915,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_modal
- Description:   Customize section added to a page.
+ Description:   Customize site modals.
 **********************************************************************************/
 .k-window .k-window-title {
     font-size: 11px;
@@ -981,7 +981,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_divLinkAutorizar
- Description:   Customize section added to a page.
+ Description:   Customize a specific link.
 **********************************************************************************/
 #divLinkAutorizar {
     padding: 9px 0;
@@ -992,7 +992,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_branchCut
- Description:   Customize section added to a page.
+ Description:   Customize a section divider page.
 **********************************************************************************/
 .branchCut {
     margin: 17px 0px 21px;
@@ -1003,7 +1003,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_formNav
- Description:   Customize section added to a page.
+ Description:   Customize site form format.
 **********************************************************************************/
 .formNav {
     margin: -5px 0px 33px;
@@ -1115,7 +1115,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_departurePermit
- Description:   Customize section added to a page.
+ Description:   Customize departure permit format.
 **********************************************************************************/
 /*@media print{@page {size: landscape; margin: 10px 1in 0}}*/
 
@@ -1286,6 +1286,26 @@ header .menu > div {
     }
 /**********************************************************************************/
 
+
+/**********************************************************************************
+ Class name:    $_folioGraphs
+ Description:   Customize canvas section on dashboard.
+**********************************************************************************/
+.folioGraphs canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.folioGraphs .canvas-frame {
+    border: 1px solid #CCCCCC;
+    padding: 17px 0 12px;
+    background-color: #FFFFFF;
+}
+
+.folioGraphs .form-group:nth-last-of-type(odd) .canvas-frame {
+    background-color: #F1F1F1;
+}
+/**********************************************************************************/
 
 
 /* Media Queries */
