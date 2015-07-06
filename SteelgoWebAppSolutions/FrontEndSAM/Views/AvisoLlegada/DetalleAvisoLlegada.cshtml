@@ -2110,15 +2110,18 @@
 
                 $Patio.Patio.read({ patioID: patioid, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
+                    BotonEdicion();
                     if (result) {
                         $("#TramitarPermiso").removeAttr('disabled');
+                        $("#AutorizarPermiso").removeAttr('disabled');
                     } else {
                         $("#TramitarPermiso").attr('disabled', 'disabled');
+                        $("#AutorizarPermiso").attr('disabled', 'disabled');
                     };
 
-                    BotonEdicion();
+                    
                 });
-            }
+            };
 
             function cancelarFolio() {
                 if (folio == -1) {
