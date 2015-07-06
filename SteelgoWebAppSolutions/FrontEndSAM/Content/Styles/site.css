@@ -383,6 +383,7 @@ input.quickFilters.arrivalMaterial {
     -moz-box-shadow: 0px 2px 2px #ccc; /* FF3.5+ */
     -webkit-box-shadow: 0px 2px 2px #ccc; /* Saf3.0+, Chrome */
     box-shadow: 0px 2px 2px #ccc; /* Opera 10.5, IE9, Chrome 10+ */
+    outline: none;
 }
 
     .btn.disabled, .btn[disabled] {
