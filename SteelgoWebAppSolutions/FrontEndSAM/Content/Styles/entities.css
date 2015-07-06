@@ -779,9 +779,10 @@ header .menu > div {
     background-image: url("/Content/images/SAMC_HeaderBanner.png");
     background-repeat: no-repeat;
     background-position: right top;
+    background-size: auto;
     border-bottom: 1px solid #D0D0D0;
     border-radius: 0;
-    height: 79px;
+    height: auto;
     max-height: 79px;
     padding: 31px 30px;
     margin-bottom: 25px;
@@ -1399,6 +1400,11 @@ header .menu > div {
     /*$_formNav*/
     .formNav .button-section {
         margin: 10px 0;
+    }
+
+    /*$_breadcrumb*/
+    .breadcrumb {
+        padding: 19px 30px;
     }
 }
 
