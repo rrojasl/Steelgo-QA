@@ -1417,7 +1417,7 @@
                     if(data.Transportista.length > 0){
                         CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
-                        ObtenerChofer(data.Transportista[0].TransportistaID);
+                        ObtenerChoferEdicion(data.Transportista[0].TransportistaID);
                         $("#ChoferID").data("kendoComboBox").enable(false);
                     }
 
@@ -1973,6 +1973,25 @@
                 });
             };
 
+            function ObtenerChoferEdicion(transportistaID) {
+                if (transportistaID == 0) {
+                    $("#ChoferID").data("kendoComboBox").enable(false);
+                } else {
+                    $("#ChoferID").data("kendoComboBox").enable(true);
+                };
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
+                    Error(result);
+                    if (result.length > 0) {
+                        $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                    } else {
+                        Chofer = [];
+                        $("#ChoferID").data("kendoComboBox").value("");
+                        $("#ChoferID").data("kendoComboBox").dataSource.data([]);
+                    }
+
+                });
+            };
+
             function ObtenerChofer(transportistaID) {
 
                 if (transportistaID == 0) {
@@ -1982,12 +2001,12 @@
                 };
 
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
+                    $("#ChoferID").data("kendoComboBox").value("");
                     Error(result);
                     if (result.length > 0) {
                         $("#ChoferID").data("kendoComboBox").dataSource.data(result);
                     } else {
                         Chofer = [];
-                        $("#ChoferID").data("kendoComboBox").value("");
                         $("#ChoferID").data("kendoComboBox").dataSource.data([]);
                     }
                     
