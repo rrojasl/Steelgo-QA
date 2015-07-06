@@ -89,6 +89,7 @@ namespace BackEndSAM.DataAcces
                     nuevoChofer.FechaModificacion = DateTime.Now;
                     nuevoChofer.Nombre = chofer.Nombre;
                     nuevoChofer.UsuarioModificacion = usuario.UsuarioID;
+                    nuevoChofer.TransportistaID = chofer.TransportistaID;
 
                     ctx.Sam3_Chofer.Add(nuevoChofer);
                     ctx.SaveChanges();
@@ -175,13 +176,13 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                List<Chofer> lstChofTrans = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
+                    lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+
                     List<Chofer> lstChoferes = (from r in ctx.Sam3_Chofer
-                                                join rvc in ctx.Sam3_Rel_Vehiculo_Chofer on r.ChoferID equals rvc.ChoferID
-                                                join v in ctx.Sam3_Vehiculo on rvc.VehiculoID equals v.VehiculoID
-                                                join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on v.VehiculoID equals rvt.VehiculoID
-                                                where rvt.TransportistaID == transportistaID && r.Activo
+                                                where r.Activo && r.TransportistaID == transportistaID
                                                 select new Chofer
                                                 {
                                                     Nombre = r.Nombre,
@@ -190,7 +191,8 @@ namespace BackEndSAM.DataAcces
 
                     lstChoferes = lstChoferes.GroupBy(x => x.ChoferID).Select(x => x.First()).ToList();
 
-                    return lstChoferes;
+                    lstChofTrans.AddRange(lstChoferes);
+                    return lstChofTrans;
 
                 }
             }

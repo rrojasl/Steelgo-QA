@@ -26,6 +26,7 @@
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="TransportistaID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Cliente">
           <Key>
@@ -1177,6 +1178,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <Association Name="FK__Sam3_Chof__Trans__3726238F">
+          <End Role="Sam3_Transportista" Type="Self.Sam3_Transportista" Multiplicity="1" />
+          <End Role="Sam3_Chofer" Type="Self.Sam3_Chofer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Transportista">
+              <PropertyRef Name="TransportistaID" />
+            </Principal>
+            <Dependent Role="Sam3_Chofer">
+              <PropertyRef Name="TransportistaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sam3_Foli__Chofe__24285DB4">
           <End Role="Sam3_Chofer" Type="Self.Sam3_Chofer" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
@@ -2688,6 +2701,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
     [Sam3_Rel_Perfil_Entidad_Pagina].[FechaModificacion] AS [FechaModificacion]
     FROM [dbo].[Sam3_Rel_Perfil_Entidad_Pagina] AS [Sam3_Rel_Perfil_Entidad_Pagina]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Sam3_Chof__Trans__3726238F" Association="Self.FK__Sam3_Chof__Trans__3726238F">
+            <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
+            <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Foli__Chofe__24285DB4" Association="Self.FK__Sam3_Foli__Chofe__24285DB4">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
@@ -3190,6 +3207,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Foli__Chofe__24285DB4" FromRole="Sam3_Chofer" ToRole="Sam3_FolioAvisoLlegada" />
           <NavigationProperty Name="Sam3_Rel_Vehiculo_Chofer" Relationship="ModelSam3.FK__Sam3_Rel___Chofe__0777106D" FromRole="Sam3_Chofer" ToRole="Sam3_Rel_Vehiculo_Chofer" />
+          <Property Name="TransportistaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sam3_Transportista" Relationship="ModelSam3.FK__Sam3_Chof__Trans__3726238F" FromRole="Sam3_Chofer" ToRole="Sam3_Transportista" />
         </EntityType>
         <EntityType Name="Sam3_Cliente">
           <Key>
@@ -4306,6 +4325,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Foli__Trans__214BF109" FromRole="Sam3_Transportista" ToRole="Sam3_FolioAvisoLlegada" />
           <NavigationProperty Name="Sam3_Rel_Vehiculo_Transportista" Relationship="ModelSam3.FK__Sam3_Rel___Trans__03A67F89" FromRole="Sam3_Transportista" ToRole="Sam3_Rel_Vehiculo_Transportista" />
+          <NavigationProperty Name="Sam3_Chofer" Relationship="ModelSam3.FK__Sam3_Chof__Trans__3726238F" FromRole="Sam3_Transportista" ToRole="Sam3_Chofer" />
         </EntityType>
         <EntityType Name="Sam3_UbicacionFisica">
           <Key>
@@ -6040,6 +6060,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
             <End Role="Sam3_Rel_PermisoAduana_Documento" EntitySet="Sam3_Rel_PermisoAduana_Documento" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Chof__Trans__3726238F" Association="ModelSam3.FK__Sam3_Chof__Trans__3726238F">
+            <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
+            <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -6540,6 +6564,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Chof__Trans__3726238F">
+          <End Type="ModelSam3.Sam3_Transportista" Role="Sam3_Transportista" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Chofer" Role="Sam3_Chofer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Transportista">
+              <PropertyRef Name="TransportistaID" />
+            </Principal>
+            <Dependent Role="Sam3_Chofer">
+              <PropertyRef Name="TransportistaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6562,6 +6598,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Chofer">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Chofer">
               <MappingFragment StoreEntitySet="Sam3_Chofer">
+                <ScalarProperty Name="TransportistaID" ColumnName="TransportistaID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="ChoferID" ColumnName="ChoferID" />
