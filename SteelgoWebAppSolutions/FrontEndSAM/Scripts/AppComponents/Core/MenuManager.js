@@ -117,14 +117,12 @@ function menuManagerToBeExecutedOnDocumentReady() {
     $(document).on("click", "ul.sub-menu2 > li > a", function () {
         $("ul.sub-menu2 li").removeClass("active");
         $("ul.sub-menu3").removeClass("open");
-        $("li.shortcut").removeClass("open");
     });
 
     //Toggle for last submenu's links         
     $(document).on("click", "ul.sub-menu3 > li > a", function () {
         $("ul.sub-menu2 li").removeClass("active");
         $("ul.sub-menu3").removeClass("open");
-        $("li.shortcut").removeClass("open");
     });
 
     //Toggle shorcut section size 

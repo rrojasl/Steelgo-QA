@@ -741,6 +741,9 @@ header .menu > div {
  Description:   Customize container for the main content.
 **********************************************************************************/
 .content-container {
+    background: #FFFFFF;
+    min-height: 100%;
+    height: 100%;
     max-width: 87.5%;
     width: 87.5%;
 }
@@ -1432,6 +1435,11 @@ header .menu > div {
 
     .formNav.filtersFields .button-section {
         border: none;
+    }
+
+    /*$_addedSection*/
+    .addedSection {
+        margin-bottom: 0;
     }
 }
 
