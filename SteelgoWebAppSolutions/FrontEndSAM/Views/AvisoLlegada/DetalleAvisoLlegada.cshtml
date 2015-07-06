@@ -51,6 +51,9 @@
                         <div id="TramitarPermisoDiv" class="button-section">
                             <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
+                        <div id="AutorizarPermisoDiv" class="button-section" style="display:none">
+                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
+                        </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -869,6 +872,11 @@
                 //Permiso Aduana
                 $("#TramitarPermiso").attr('disabled', 'disabled');
                 $("#TramitarPermiso").click(function () { GenerarPermiso(); });
+                $("#AutorizarPermiso").click(function () {
+                    var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folio;
+                });
+
                 //Pase Salida
                 $("#ImprimirPase").click(function () {
                     if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
@@ -1354,6 +1362,14 @@
 
                 if ($("#hdPermisoTramite").val() == "1") {
                     $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#TramitarPermisoDiv").hide();
+                    $("#AutorizarPermisoDiv").show();
+                    $("#AutorizarPermiso").removeAttr('disabled');
+                };
+
+                if ($("#hdPermisoAutorizado").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#AutorizarPermiso").attr('disabled', 'disabled');
                 };
                 HabilitarObtenerDocumentosAvisoLlegada();
             };
@@ -1377,7 +1393,11 @@
                 });
                 
                 $("#TramitarPermiso").attr('disabled', 'disabled');
-                
+                if ($("#hdPermisoTramite").val() == "1") {
+                    $("#TramitarPermisoDiv").hide();
+                    $("#AutorizarPermisoDiv").show();
+                    $("#AutorizarPermiso").removeAttr('disabled');
+                };
                 DesahabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1404,7 +1424,8 @@
                     loadingStart();
                     Error(data);
 
-                    $("#TramitarPermiso").removeAttr('disabled');
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#AutorizarPermiso").attr('disabled', 'disabled');
 
                     $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
@@ -1500,8 +1521,18 @@
                     if (data.PermisoAduana.length > 0) {
                         if (data.PermisoAduana[0].PermisoTramite) {
                             $("#TramitarPermiso").attr('disabled', 'disabled');
+                            $("#AutorizarPermiso").attr('disabled', 'disabled');
+                            $("#TramitarPermisoDiv").hide();
+                            $("#AutorizarPermisoDiv").show();
                             $("#hdPermisoTramite").val(1);
                         }
+                        if (data.PermisoAduana[0].PermisoAutorizado) {
+                            $("#TramitarPermiso").attr('disabled', 'disabled');
+                            $("#AutorizarPermiso").attr('disabled', 'disabled');
+                            $("#TramitarPermisoDiv").hide();
+                            $("#AutorizarPermisoDiv").show();
+                            $("#hdPermisoAutorizado").val(1);
+                        };
                     };
                     loadingStop();
                 });
@@ -1916,7 +1947,8 @@
                     Error(result);
                     $("#hdPermisoTramite").val(1);//Permiso en tramite
                     $("#TramitarPermiso").attr("disabled", "disabled");
-                    
+                    $("#AutorizarPermisoDiv").show();
+                    $("#TramitarPermisoDiv").hide();
                 });
             };
 
@@ -2090,15 +2122,22 @@
 
                 $Patio.Patio.read({ patioID: patioid, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
+                    BotonEdicion();
                     if (result) {
                         $("#TramitarPermiso").removeAttr('disabled');
+                        $("#AutorizarPermiso").removeAttr('disabled');
                     } else {
                         $("#TramitarPermiso").attr('disabled', 'disabled');
+                        $("#AutorizarPermiso").attr('disabled', 'disabled');
                     };
 
-                    BotonEdicion();
+                    if ($("#hdPermisoAutorizado").val() == "1") {
+                        $("#TramitarPermiso").attr('disabled', 'disabled');
+                        $("#AutorizarPermiso").attr('disabled', 'disabled');
+                    };
+                    
                 });
-            }
+            };
 
             function cancelarFolio() {
                 if (folio == -1) {

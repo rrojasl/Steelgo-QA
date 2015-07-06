@@ -89,6 +89,7 @@
     }
 
     @section JavascriptGlobalVariables {
+    var folio = getUrlParameter("folio", "-1");
     var Folio = {};
     var $AutorizarPermisoModel = {
         listContainer: {
@@ -118,6 +119,44 @@
     }
 
     @section JavascriptGlobalFunctions {
+        function CargaInicial() {
+            $("#FolioAvisoLlegadaID").kendoComboBox({
+                dataTextField: "id",
+                dataValueField: "value",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarFolio(dataItem.id);
+                    ChecarAutorizacion(dataItem.id);
+                },
+                change: function () {
+                    $(".k-upload-files").remove();
+                    $(".k-upload-status").remove();
+                    $(".k-upload-selected").remove();
+                    $(".k-upload.k-header").addClass("k-upload-empty");
+                    $(".k-upload-button").removeClass("k-state-focused");
+                },
+                filter: "contains"
+            });
+
+            $('#ArchivoAutorizar').kendoUpload({
+                async: {
+                    saveUrl: "http://localhost:60960/backendsam/api/DocumentoPermisoAduana",
+                    autoUpload: false,
+                    withCredentials: false,
+                    batch: true
+                },
+                success: function (data) {
+                    $("#ArchivoAutorizar").data("kendoUpload").disable();
+                    $("#NumeroPermiso").attr("disabled", "disabled");
+                },
+                error: function (data) { },
+                upload: onUploadArchivoAutorizar
+            });
+
+            ObtenerFolioEntradaMaterial();
+
+            cargarFolioDeterminado();
+        };
         function CargarFolio(id) {
             Folio = {};
             Folio = { FolioAvisoLlegadaID: id };
@@ -193,6 +232,14 @@
             $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + numeropermiso + "&token=" + Cookies.get("token");
         };
 
+        function cargarFolioDeterminado() {
+            if (folio != -1) {
+                CargarFolio(folio);
+                ChecarAutorizacion();
+                $("#FolioAvisoLlegadaID").data("kendoComboBox").value(folio);
+            };
+        };
+
         function Error(data) {
             if (data.ReturnCode) {
                 if (data.ReturnCode != 200) {
@@ -220,41 +267,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-        $("#FolioAvisoLlegadaID").kendoComboBox({
-            dataTextField: "id",
-            dataValueField: "value",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolio(dataItem.id);
-                ChecarAutorizacion(dataItem.id);
-            },
-            change: function () {
-                $(".k-upload-files").remove();
-                $(".k-upload-status").remove();
-                $(".k-upload-selected").remove();
-                $(".k-upload.k-header").addClass("k-upload-empty");
-                $(".k-upload-button").removeClass("k-state-focused");
-            },
-            filter: "contains"
-        });
-
-        $('#ArchivoAutorizar').kendoUpload({
-            async: {
-                saveUrl: "http://localhost:60960/backendsam/api/DocumentoPermisoAduana",
-                autoUpload: false,
-                withCredentials: false,
-                batch: true
-             },
-             success: function (data) {
-                 $("#ArchivoAutorizar").data("kendoUpload").disable();
-                 $("#NumeroPermiso").attr("disabled", "disabled");
-             },
-             error: function (data) { },
-             upload: onUploadArchivoAutorizar
-        });
-
-        ObtenerFolioEntradaMaterial();
-
+        CargaInicial();
         $authorizationModel["Autorización de Permiso"] = $AutorizarPermisoModel;
     }
 
