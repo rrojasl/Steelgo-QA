@@ -67,24 +67,38 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12 folioGraphs hidden">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                    <canvas id="ChartBar" width="400" height="400"></canvas>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <div class="col-sm-9 col-md-12 col-lg-6">
-                            <canvas id="ChartPie" width="400" height="400"></canvas>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                            <div class="canvas-frame">
+                                <canvas id="ChartBar" width="538" height="243"></canvas>
+                            </div>
                         </div>
-                        <div class="col-sm-3 col-md-12 col-lg-6">
-                            <div>
-                                <span id="spanPorcentajeCompletos"></span>
-                                <label id="DashboardAvisoLlegada0008"></label>
-                                <span id="spanPorcentajeSinAutorizacion"></span>
-                                <label id="DashboardAvisoLlegada0009"></label>
-                                <span id="spanPorcentajeSinPermiso"></span>
-                                <label id="DashboardAvisoLlegada0010"></label>
+                        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                            <div class="canvas-frame">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <canvas id="ChartPie" width="259" height="243"></canvas>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="percentData">
+                                            <div>
+                                                <span id="spanPorcentajeCompletos" class="percentLabel"></span>
+                                                <span id="DashboardAvisoLlegada0008"></span>
+                                            </div>
+                                            <div>
+                                                <span id="spanPorcentajeSinAutorizacion" class="percentLabel"></span>
+                                                <span id="DashboardAvisoLlegada0009"></span>
+                                            </div>
+                                            <div>
+                                                <span id="spanPorcentajeSinPermiso" class="percentLabel"></span>
+                                                <span id="DashboardAvisoLlegada0010"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,9 +134,9 @@
                 $("#spanSinAutorizacion").html(result.SinAutorizacion ? result.SinAutorizacion : 0);
                 $("#spanCompletos").html(result.Completos ? result.Completos : 0);
 
-                $("#spanPorcentajeCompletos").html(result.PorcentajeCompletos ? result.PorcentajeCompletos : 0);
-                $("#spanPorcentajeSinAutorizacion").html(result.ProcentajeSinAutorizacion ? result.ProcentajeSinAutorizacion : 0);
-                $("#spanPorcentajeSinPermiso").html(result.PorcentajeSinPermiso ? result.PorcentajeSinPermiso : 0);
+                $("#spanPorcentajeCompletos").html(result.PorcentajeCompletos ? result.PorcentajeCompletos : 0 + "%");
+                $("#spanPorcentajeSinAutorizacion").html(result.ProcentajeSinAutorizacion ? result.ProcentajeSinAutorizacion : 0 + "%");
+                $("#spanPorcentajeSinPermiso").html(result.PorcentajeSinPermiso ? result.PorcentajeSinPermiso : 0 + "%");
 
                 actualizarGraficaDeBarras(result);
                 actualizarGraficaDePastel(result);
@@ -279,10 +293,10 @@
                 labels: ["Creados", "Sin Permiso", "Sin Autorizacion", "Completos"],
                 datasets: [
                     {
-                        fillColor: "rgba(151,187,205,0.5)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(151,187,205,0.75)",
-                        highlightStroke: "rgba(151,187,205,1)",
+                        fillColor: "#305E8E",
+                        strokeColor: "#305E8E",
+                        highlightFill: "#234568",
+                        highlightStroke: "#234568",
                         data: [0, 0, 0, 0]
                     }
                 ]
@@ -296,7 +310,7 @@
                 scaleShowGridLines: true,
 
                 //String - Colour of the grid lines
-                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineColor: "#F1F1F1",
 
                 //Number - Width of the grid lines
                 scaleGridLineWidth: 1,
@@ -305,10 +319,10 @@
                 scaleShowHorizontalLines: true,
 
                 //Boolean - Whether to show vertical lines (except Y axis)
-                scaleShowVerticalLines: true,
+                scaleShowVerticalLines: false,
 
                 //Boolean - If there is a stroke on each bar
-                barShowStroke: true,
+                barShowStroke: false,
 
                 //Number - Pixel width of the bar stroke
                 barStrokeWidth: 2,
@@ -330,33 +344,33 @@
             var data = [
                         {
                             value: -1,
-                            color: "#F7464A",
-                            highlight: "#FF5A5E",
+                            color: "#305E8E",
+                            highlight: "rgba(48, 94, 142, 0.9)",
                             label: "Completos"
                         },
                         {
                             value: 0,
-                            color: "#46BFBD",
-                            highlight: "#5AD3D1",
+                            color: "#234568",
+                            highlight: "rgba(35, 69, 104, 0.9)",
                             label: "Sin Autorizacion"
                         },
                         {
                             value: 0,
-                            color: "#FDB45C",
-                            highlight: "#FFC870",
+                            color: "#225090",
+                            highlight: "rgba(34, 80, 144, 0.9)",
                             label: "Sin Permiso"
                         }
                       ];
 
             myPieChart = new Chart(ctx).Pie(data, {
                 //Boolean - Whether we should show a stroke on each segment
-                segmentShowStroke: true,
+                segmentShowStroke: false,
 
                 //String - The colour of each segment stroke
-                segmentStrokeColor: "#fff",
+                segmentStrokeColor: "#F1F1F1",
 
                 //Number - The width of each segment stroke
-                segmentStrokeWidth: 2,
+                segmentStrokeWidth: 0,
 
                 //Number - The percentage of the chart that we cut out of the middle
                 percentageInnerCutout: 0, // This is 0 for Pie charts

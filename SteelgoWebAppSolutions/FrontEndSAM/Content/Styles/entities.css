@@ -20,6 +20,7 @@
     14  $_branchCut
     15  $_formNav
     15  $_departurePermit
+    16  $_folioGraphs
 
 
     Color Palette: Look at site.css
@@ -293,6 +294,7 @@ header .menu > div {
             .notifications .notification-menu .notifications-header .message-header .backIcon {
                 margin-right: 7px;
                 z-index: 3;
+                cursor: pointer;
             }
 
             .notifications .notification-menu .notifications-header .message-header .deleteMessage {
@@ -739,6 +741,9 @@ header .menu > div {
  Description:   Customize container for the main content.
 **********************************************************************************/
 .content-container {
+    background: #FFFFFF;
+    min-height: 100%;
+    height: 100%;
     max-width: 87.5%;
     width: 87.5%;
 }
@@ -846,7 +851,6 @@ header .menu > div {
 /**********************************************************************************/
 
 
-
 /**********************************************************************************
  Class name:    $_filesTable
  Description:   Customize a file table section.
@@ -915,7 +919,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_modal
- Description:   Customize section added to a page.
+ Description:   Customize site modals.
 **********************************************************************************/
 .k-window .k-window-title {
     font-size: 11px;
@@ -981,7 +985,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_divLinkAutorizar
- Description:   Customize section added to a page.
+ Description:   Customize a specific link.
 **********************************************************************************/
 #divLinkAutorizar {
     padding: 9px 0;
@@ -992,7 +996,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_branchCut
- Description:   Customize section added to a page.
+ Description:   Customize a section divider page.
 **********************************************************************************/
 .branchCut {
     margin: 17px 0px 21px;
@@ -1003,7 +1007,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_formNav
- Description:   Customize section added to a page.
+ Description:   Customize site form format.
 **********************************************************************************/
 .formNav {
     margin: -5px 0px 33px;
@@ -1115,7 +1119,7 @@ header .menu > div {
 
 /**********************************************************************************
  Class name:    $_departurePermit
- Description:   Customize section added to a page.
+ Description:   Customize departure permit format.
 **********************************************************************************/
 /*@media print{@page {size: landscape; margin: 10px 1in 0}}*/
 
@@ -1287,6 +1291,63 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_folioGraphs
+ Description:   Customize canvas section on dashboard.
+**********************************************************************************/
+.folioGraphs canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.folioGraphs .canvas-frame {
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    padding: 17px 0 12px;
+    background-color: #FFFFFF;
+}
+
+.folioGraphs .form-group:nth-last-of-type(odd) .canvas-frame {
+    background-color: #F1F1F1;
+}
+
+.folioGraphs .percentData {
+    background-color: #FFFFFF;
+    border-left: 1px solid #CCCCCC;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin: -17px 0 -12px -15px;
+    padding: 57.77px 46px 9.77px;
+}
+
+    .folioGraphs .percentData > div {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #000000;
+        margin-bottom: 49px;
+    }
+
+    .folioGraphs .percentData .percentLabel {
+        padding: 6.5px 6.5px;
+        border-radius: 3px;
+        font-weight: 600;
+        color: #FFFFFF;
+    }
+
+    .folioGraphs .percentData #spanPorcentajeCompletos {
+        background-color: #305E8E;
+    }
+
+    .folioGraphs .percentData #spanPorcentajeSinAutorizacion {
+        background-color: #234568;
+    }
+
+    .folioGraphs .percentData #spanPorcentajeSinPermiso {
+        background-color: #225090;
+    }
+
+/**********************************************************************************/
+
 
 /* Media Queries */
 
@@ -1374,6 +1435,11 @@ header .menu > div {
 
     .formNav.filtersFields .button-section {
         border: none;
+    }
+
+    /*$_addedSection*/
+    .addedSection {
+        margin-bottom: 0;
     }
 }
 

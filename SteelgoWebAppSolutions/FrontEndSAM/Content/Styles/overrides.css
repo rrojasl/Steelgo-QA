@@ -79,7 +79,8 @@
     background-color: #FFFFFF !important;
 }
 
-    .k-state-default.error {
+    .k-state-default.error,
+    .k-multiselect.error {
         border-color: #EC4F50;
     }
 
@@ -426,39 +427,39 @@
 
     .k-grid tbody tr td a.k-button.k-grid-Complemento,
     .k-grid tbody tr td a.k-button.k-grid-Complement {
-        background-image: url("/Content/images/SAMC_Checkmark.png");
+        background-image: url("/Content/images/SAMC_ComplementoIcon.png");
     }
 
     .k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
     .k-grid tbody tr td a.k-button.k-grid-Quantification {
-        background-image: url("/Content/images/SAMC_Add.png");
+        background-image: url("/Content/images/SAMC_CuantificacionIcon.png");
     }
 
-/*.k-grid-pager {
+.k-grid-pager {
     background-color: #EEEEEE;
-    height: 57px;
-    padding: 10px 9px;
+    height: 54px; /*57px*/
+    padding: 12px 9px;
 }
 
-    .k-grid-pager .k-pager-first,
+    /*.k-grid-pager .k-pager-first,
     .k-grid-pager .k-pager-last {
         display: none;
-    }
+    }*/
 
-    .k-grid-pager .k-pager-nav {
+    /*.k-grid-pager .k-pager-nav {
         border-radius: 0;
         background: none;
         background-color: #FFFFFF;
         height: 34px;
         width: 34px;
         border-color: #CCCCCC;
+    }*/
+
+    .k-grid-pager .k-pager-nav:hover {
+        background-color: #FCEED9;
     }
 
-        .k-grid-pager .k-pager-nav:hover {
-            background-color: #FCEED9;
-        }
-
-            .k-grid-pager .k-pager-nav .k-icon,
+    /*.k-grid-pager .k-pager-nav .k-icon,
             .k-grid-pager .k-pager-nav:hover .k-icon {
                 height: 16px;
                 width: 9px;
@@ -478,9 +479,9 @@
         .k-grid-pager .k-pager-nav .k-i-arrow-e {
             background-image: url("/Content/images/SAMC_NavigationRight.png");
             right: -1px;
-        }
+        }*/
 
-    .k-grid-pager .k-pager-input {
+    /*.k-grid-pager .k-pager-input {
         background-color: #FFFFFF;
         height: 26px;
         border-top: 1px solid #CCCCCC;
@@ -501,10 +502,15 @@
             box-shadow: none !important;
         }
 
+    .k-grid-pager .k-pager-numbers {
+        margin: 2px;
+    }*/
+
     .k-grid-pager .k-pager-sizes {
         color: #666666;
         float: right;
-        padding: 3px 0 0;
+        /*padding: 3px 0 0;*/
+        padding: 0;
         margin-top: 1px;
         font-size: 10px;
         font-weight: 600;
@@ -529,7 +535,7 @@
 
         .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
             width: 35px;
-        }*/
+        }
 /**********************************************************************************/
 
 

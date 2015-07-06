@@ -280,7 +280,7 @@
                 <a id="GuardarChofer" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0031"></span>
                 </a>
-                <a id="CancelarChofer" href="# class="btn btn-primary">
+                <a id="CancelarChofer" href="#" class="btn btn-primary">
                     <span id="DetalleAvisoLlegada0079"></span>
                 </a>
             </div>
@@ -658,7 +658,6 @@
                                 if ($(elem).attr("id") == 'ProyectoID') {
                                     if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
                                         bool = false;
-                                        //$(this).addClass("error");
                                         $(this).closest("div").find("label").addClass("error");
                                     } else {
                                         $(this).closest("div").find("label").removeClass("error");
@@ -669,7 +668,6 @@
                                 if ($(elem).attr("id") == 'PlanaID') {
                                     if (!$("#PlanaID").data("kendoMultiSelect").value().length > 0) {
                                         bool = false;
-                                        //$(this).addClass("error");
                                         $(this).closest("div").find("label").addClass("error");
                                     } else {
                                         $(this).closest("div").find("label").removeClass("error");
@@ -679,7 +677,6 @@
                             default:
                                 if (!$(this).val()) {
                                     bool = false;
-                                    //$(this).addClass("error");
                                     $(this).closest("div").find("label").addClass("error");
                                 } else {
                                     $(this).closest("div").find("label").removeClass("error");
@@ -698,7 +695,6 @@
                     if (elem.tagName.toLowerCase() != 'label') {
                         if (!$(this).val()) {
                             bool = false;
-                            //$(this).addClass("error");
                             $(this).closest("div").find("label").addClass("error");
                             $(this).closest("div").addClass("clearfix");
                         } else {
@@ -716,7 +712,6 @@
                     if (elem.tagName.toLowerCase() != 'label') {
                         if (!$(this).val()) {
                             bool = false;
-                            //$(this).addClass("error");
                             $(this).closest("div").find("label").addClass("error");
                             $(this).closest("div").addClass("clearfix");
                         } else {
@@ -734,7 +729,6 @@
                     if (elem.tagName.toLowerCase() != 'label') {
                         if (!$(this).val()) {
                             bool = false;
-                            //$(this).addClass("error");
                             $(this).closest("div").find("label").addClass("error");
                             $(this).closest("div").addClass("clearfix");
                         } else {
@@ -752,7 +746,23 @@
                     if (elem.tagName.toLowerCase() != 'label') {
                         if (!$(this).val()) {
                             bool = false;
-                            //$(this).addClass("error");
+                            $(this).closest("div").find("label").addClass("error");
+                            (this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    };
+                });
+                return bool;
+            };
+
+            function validarRequeridosModalChofer() {
+                var bool = true;
+                $("#modalChofer .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        if (!$(this).val()) {
+                            bool = false;
                             $(this).closest("div").find("label").addClass("error");
                             (this).closest("div").addClass("clearfix");
                         } else {
@@ -791,7 +801,6 @@
                 
                 $("#Editar").click(function (e) {
                     ObtenerPatioRequierePermiso();
-                    BotonEdicion();
                     $("#files").data("kendoUpload").enable();
                 });
 
@@ -826,7 +835,13 @@
                         displayMessage("notificationslabel0031", "", '1');
                     };
                 });
-                $("#GuardarChofer").click(function (e) { GuardarChofer(); });
+                $("#GuardarChofer").click(function (e) {
+                    if (validarRequeridosModalChofer()) {
+                        GuardarChofer();
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                    };
+                });
                 $("#GuardarPlana").click(function (e) {
                     if (validarRequeridosModalPlana()) {
                         GuardarPlana();
@@ -924,6 +939,9 @@
                         var value = this.value();
                         if (!value) {
                             Transportista = [];
+                            Chofer = [];
+                            $("#ChoferID").data("kendoComboBox").value("");
+                            $("#ChoferID").data("kendoComboBox").enable(false);
                         };
                     },
                     filter: "contains",
@@ -996,7 +1014,8 @@
                     },
                     filter: "contains",
                 });
-                //ObtenerChofer();
+                ObtenerChofer(0);
+                //$("#ChoferID").data("kendoComboBox").enable(false);
 
                 $("#TipoArchivo").kendoComboBox({
                     dataTextField: "Nombre",
@@ -1163,10 +1182,6 @@
                     e.preventDefault();
                 }
                 $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                //if (folio == -1) {
-                //    alert("Favor de guardar el aviso de llegada antes de subir archivos");
-                //    e.preventDefault();
-                //};
             };
 
             function GuardarAvisoLlegada()
@@ -1381,11 +1396,12 @@
             function CargaInicialEdicion(id) {
                 cargarTituloFolio();
                 BotonAlta();
+
                 $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
                     console.log(data);
                     var concat = "";
                     var concatPlanas = "";
-
+                    loadingStart();
                     Error(data);
 
                     $("#TramitarPermiso").removeAttr('disabled');
@@ -1402,6 +1418,7 @@
                         CargarTransportista(data.Transportista[0].TransportistaID, data.Transportista[0].Nombre);
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                         ObtenerChofer(data.Transportista[0].TransportistaID);
+                        $("#ChoferID").data("kendoComboBox").enable(false);
                     }
 
                     if (data.Cliente) {
@@ -1486,6 +1503,7 @@
                             $("#hdPermisoTramite").val(1);
                         }
                     };
+                    loadingStop();
                 });
             };
 
@@ -1686,6 +1704,7 @@
                     if (Error(data)) {
                         $("#window").data("kendoWindow").close();
                         ObtenerTransportista();
+                        ObtenerTransportistaCamion();
                     };
                 });
             };
@@ -1728,18 +1747,20 @@
             };
 
             function GuardarChofer() {
+                var transportistaID = Transportista.length > 0 ? Transportista[0].TransportistaID : "-1";
+
                 ChoferModal = [];
-                ChoferModal[0] = { Nombre: "" };
+                ChoferModal[0] = { TransportistaID: transportistaID, Nombre: "" };
                 ChoferModal[0].Nombre = $("#Nombre_Chofer").val();
 
-                console.log(ChoferModal[0]);
+                console.log(JSON.stringify(ChoferModal[0]));
 
                 $Chofer.Chofer.create(ChoferModal[0], { token: Cookies.get("token") }).done(function (data) {
                     console.log("Client.DummyChofer.create");
                     LimpiarModalChofer();
                     if (Error(data)) {
-                        ObtenerChofer();
                         $("#window").data("kendoWindow").close();
+                        ObtenerChofer(transportistaID);
                     }
                 });
             };
@@ -1857,7 +1878,7 @@
             };
 
             function LimpiarModalChofer() {
-                $("#Nombre_Chofer").val();
+                $("#Nombre_Chofer").val("");
             };
 
             function LimpiarModalPlana() {
@@ -1953,6 +1974,13 @@
             };
 
             function ObtenerChofer(transportistaID) {
+
+                if (transportistaID == 0) {
+                    $("#ChoferID").data("kendoComboBox").enable(false);
+                } else {
+                    $("#ChoferID").data("kendoComboBox").enable(true);
+                };
+
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     Error(result);
                     if (result.length > 0) {
@@ -2048,6 +2076,8 @@
                     } else {
                         $("#TramitarPermiso").attr('disabled', 'disabled');
                     };
+
+                    BotonEdicion();
                 });
             }
 
