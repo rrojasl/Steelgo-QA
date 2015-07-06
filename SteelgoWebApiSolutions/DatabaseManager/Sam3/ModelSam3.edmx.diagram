@@ -204,6 +204,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__2042BE37" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__222B06A9" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__2136E270" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Chof__Trans__3726238F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
