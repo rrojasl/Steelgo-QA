@@ -669,6 +669,10 @@ _dictionary = {
         "es-MX": "Creado",
         "en-US": "Created"
     },
+    "DetalleAvisoLlegada0089": {
+        "es-MX": "Autorizar Permiso",
+        "en-US": "Authorize Permit"
+    },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
         "es-MX": "Patio",
