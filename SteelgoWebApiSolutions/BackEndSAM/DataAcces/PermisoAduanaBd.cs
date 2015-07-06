@@ -121,7 +121,7 @@ namespace BackEndSAM.DataAcces
                     listaAvisoLlegada.AddRange(listaProyectos);
                     listaAvisoLlegada.AddRange(listaVehiculos);
                 }
-                TransactionalInformation resultEmail = EnviarCorreo(listaAvisoLlegada);
+                TransactionalInformation resultEmail = EnviarCorreo(listaAvisoLlegada, listaVehiculos);
                 if (resultEmail.ReturnCode == 200)
                 {
                     TransactionalInformation result = new TransactionalInformation();
@@ -158,7 +158,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="listaAvisoLlegada">lista con los datos del permiso de aduana seleccionado</param>
         /// <returns></returns>
-        public TransactionalInformation EnviarCorreo(object listaAvisoLlegada)
+        public TransactionalInformation EnviarCorreo(object listaAvisoLlegada, List<FormatoPermisoAduana> listaVehiculos)
         {
             try
             {
@@ -197,17 +197,15 @@ namespace BackEndSAM.DataAcces
                 DateTime nuevaFecha = DateTime.Parse(fechaRecepcion);
                 StringBuilder body = new StringBuilder();
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx");
-                //por definir displayName y correo
+                SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
                 mail.From = new MailAddress("karen.delacruz@steelgo.com");
-
+                mail.To.Add("daniela.zertuche@definityfirst.com");
                 //Correo Sam2
                 mail.Sender = new MailAddress("automatic@sysgo.com.mx");
-                mail.To.Add("daniela.zertuche@definityfirst.com");
                 //Por definir Subject
                 mail.Subject = "Permiso de Aduana";
                 mail.IsBodyHtml = true;
-
+                
                 //HTML para las planas
                 if (placas.Length > 0) { placasArray = placas.Split(','); };
                 if (chofer.Length > 0) { choferArray = chofer.Split(','); };
@@ -216,19 +214,19 @@ namespace BackEndSAM.DataAcces
                 if (transportista.Length > 0) { transportistaArray = transportista.Split(','); };
                 if (tipoVehiculo.Length > 0) { tipoVehiculoArray = tipoVehiculo.Split(','); };
 
-                for (int i = 0; i < placasArray.Length - 1; i++)
+                for (int i = 0; i < listaVehiculos.Count; i++)
                 {
                     body.AppendFormat("Plataforma: " + placasArray[i] + "<br />");
                     if (choferArray.Length > 0) { body.AppendFormat("Operador: " + choferArray[i] + "<br />"); }
                     if (unidadArray.Length > 0) { body.AppendFormat("Unidad: " + unidadArray[i] + "<br />"); }
                     if (modeloArray.Length > 0) { body.AppendFormat("Modelo: " + modeloArray[i] + "<br />"); }
                     if (transportistaArray.Length > 0) { body.AppendFormat("L&iacute;nea Transportista: " + transportistaArray[i] + "<br />"); }
-                    if (tipoVehiculoArray.Length > 0) { body.AppendFormat("Tipo Vehiculo: " + tipoVehiculoArray[i] + "<br />"); }
+                    //if (tipoVehiculoArray.Length > 0) { body.AppendFormat("Tipo Vehiculo: " + tipoVehiculoArray[i] + "<br />"); }
                     body.AppendFormat("<br />");
                 }
                 //HTML del mensaje
-                mail.Body = "Buen Dia Capit&aacute;n<br />"
-                            + "Solicito permiso de acceso para la siguiente unidad para los d&iacute;as " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(-2))
+                mail.Body = "Buen d&iacute;a Capit&aacute;n<br />"
+                            + "Solicito permiso de acceso para la siguiente unidad los d&iacute;as " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(-2))
                             + " al " + String.Format("{0:dd/MM/yyyy}", nuevaFecha.AddDays(2))
                             + ", que estar&aacute;  ingresando a las instalaciones de Steelgo.<br /> <br />"
                             + " Cliente: " + listaDatos[0].NombreCliente + "<br />"
@@ -236,7 +234,6 @@ namespace BackEndSAM.DataAcces
                             + "<br />"
                             + body;
 
-                SmtpServer.Port = 25;
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
