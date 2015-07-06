@@ -124,7 +124,6 @@ footer {
 }
 
     .content-frame .container {
-        background-color: #FFFFFF;
         max-width: 100%;
         width: 100%;
         min-height: 100%;
@@ -393,6 +392,10 @@ input.quickFilters.arrivalMaterial {
     .btn span, .btn label {
         color: #FFFFFF;
     }
+
+.btn-group > .btn:hover, .btn-group > .btn:focus {
+    z-index: 0;
+}
 
 .btn-default span, .btn-default label {
     color: #305E8E;
