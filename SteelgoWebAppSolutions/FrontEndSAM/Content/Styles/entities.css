@@ -379,8 +379,9 @@ header .menu > div {
     background-color: #305E8E;
     border-right: 1px solid #234568;
     border-top: 1px solid #234568;
+    position: absolute;
     min-height: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     min-width: 12.5%;
     width: 12.5%;
@@ -746,6 +747,7 @@ header .menu > div {
     height: auto;
     max-width: 87.5%;
     width: 87.5%;
+    float: right;
 }
 
     .content-container.topbar {
@@ -755,7 +757,7 @@ header .menu > div {
     .content-container.expanded {
         max-width: 100%;
         width: 100%;
-        margin-left: -58px;
+        /*margin-left: -58px;*/
         padding-left: 73px;
     }
 
