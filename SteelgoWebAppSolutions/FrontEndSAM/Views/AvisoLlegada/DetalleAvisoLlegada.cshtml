@@ -1366,6 +1366,11 @@
                     $("#AutorizarPermisoDiv").show();
                     $("#AutorizarPermiso").removeAttr('disabled');
                 };
+
+                if ($("#hdPermisoAutorizado").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#AutorizarPermiso").attr('disabled', 'disabled');
+                };
                 HabilitarObtenerDocumentosAvisoLlegada();
             };
 
@@ -1521,6 +1526,13 @@
                             $("#AutorizarPermisoDiv").show();
                             $("#hdPermisoTramite").val(1);
                         }
+                        if (data.PermisoAduana[0].PermisoAutorizado) {
+                            $("#TramitarPermiso").attr('disabled', 'disabled');
+                            $("#AutorizarPermiso").attr('disabled', 'disabled');
+                            $("#TramitarPermisoDiv").hide();
+                            $("#AutorizarPermisoDiv").show();
+                            $("#hdPermisoAutorizado").val(1);
+                        };
                     };
                     loadingStop();
                 });
@@ -2119,6 +2131,10 @@
                         $("#AutorizarPermiso").attr('disabled', 'disabled');
                     };
 
+                    if ($("#hdPermisoAutorizado").val() == "1") {
+                        $("#TramitarPermiso").attr('disabled', 'disabled');
+                        $("#AutorizarPermiso").attr('disabled', 'disabled');
+                    };
                     
                 });
             };
