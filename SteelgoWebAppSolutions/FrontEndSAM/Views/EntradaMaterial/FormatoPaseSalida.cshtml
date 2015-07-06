@@ -57,6 +57,7 @@
         $("header").hide();
         $(".content-container").removeClass("topbar").addClass("printView");
         $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
 
         var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
         Client.add('FormatoPaseSalida');
