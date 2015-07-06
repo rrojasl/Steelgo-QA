@@ -1380,11 +1380,12 @@
             function CargaInicialEdicion(id) {
                 cargarTituloFolio();
                 BotonAlta();
+
                 $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
                     console.log(data);
                     var concat = "";
                     var concatPlanas = "";
-
+                    loadingStart();
                     Error(data);
 
                     $("#TramitarPermiso").removeAttr('disabled');
@@ -1485,6 +1486,7 @@
                             $("#hdPermisoTramite").val(1);
                         }
                     };
+                    loadingStop();
                 });
             };
 
