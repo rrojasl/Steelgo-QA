@@ -11,6 +11,7 @@
 /****************************/
 
 //Add all global variables for your partial view here
+var alertTimeOut = 90000;
 
 /****************************/
 /*    Document Ready        */
@@ -54,7 +55,7 @@ function displayMessage(message, messageComplement, type) {
     messageText = messageText + messageComplement;
 
     $(".message").text(messageText);
-
+    console.log(messageText);
     Cookies.set("messageBody", message, { path: '/' });
     Cookies.set("messageComplement", messageComplement, { path: '/' });
     Cookies.set("messageType", type, { path: '/' });
@@ -67,5 +68,5 @@ function displayMessage(message, messageComplement, type) {
 
     setTimeout(function () {
         cleanDisplayMessage();
-    }, 5000);
+    }, alertTimeOut);
 }
