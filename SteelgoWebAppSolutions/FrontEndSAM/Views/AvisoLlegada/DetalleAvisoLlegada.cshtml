@@ -1057,7 +1057,7 @@
                 $('#files').kendoUpload({
                     async: {
                         ////VAlida que este tomando todos los parametros por favor
-                        saveUrl: "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
+                        saveUrl: $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,
                         batch: true
@@ -1206,7 +1206,7 @@
                     displayMessage("notificationslabel0012", "", '1');
                     e.preventDefault();
                 }
-                $("#files").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=" + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
+                $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
             };
 
             function GuardarAvisoLlegada()
@@ -1981,6 +1981,7 @@
                     $("#hdPermisoTramite").val(1);//Permiso en tramite
                     $("#TramitarPermiso").attr("disabled", "disabled");
                     $("#AutorizarPermisoDiv").show();
+                    $("#AutorizarPermiso").show();
                     $("#TramitarPermisoDiv").hide();
                 });
             };

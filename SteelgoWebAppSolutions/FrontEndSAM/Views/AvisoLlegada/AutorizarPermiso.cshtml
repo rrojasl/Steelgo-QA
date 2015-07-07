@@ -140,7 +140,7 @@
 
             $('#ArchivoAutorizar').kendoUpload({
                 async: {
-                    saveUrl: "http://localhost:60960/backendsam/api/DocumentoPermisoAduana",
+                    saveUrl: $DocumentoPermisoAduana,
                     autoUpload: false,
                     withCredentials: false,
                     batch: true
@@ -228,7 +228,7 @@
             };
             
             var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
-            $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + numeropermiso + "&token=" + Cookies.get("token");
+            $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = $DocumentoPermisoAduana + "?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + numeropermiso + "&token=" + Cookies.get("token");
         };
 
         function cargarFolioDeterminado() {
