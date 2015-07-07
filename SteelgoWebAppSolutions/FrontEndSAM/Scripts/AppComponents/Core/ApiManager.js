@@ -36,7 +36,8 @@ var $PermisoTramite = new $.RestClient('http://localhost:60960' + '/backendsam/a
 var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $DocumentoAvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
 var $ValidacionFolioConPermisoAduana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-
+var $DocumentoAvisoLlegadaUploadFiles = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
+var $DocumentoPermisoAduana = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana";
 /****************************/
 /*    Document Ready        */
 /****************************/
