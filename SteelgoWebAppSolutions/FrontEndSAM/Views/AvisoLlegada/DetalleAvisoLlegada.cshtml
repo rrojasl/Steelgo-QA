@@ -1977,12 +1977,13 @@
                 $PermisoTramite.PermisoAduana.read({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
                     console.log("$PermisoTramite.PermisoAduana.read");
                     loadingStop();
-                    Error(result);
-                    $("#hdPermisoTramite").val(1);//Permiso en tramite
-                    $("#TramitarPermiso").attr("disabled", "disabled");
-                    $("#AutorizarPermisoDiv").show();
-                    $("#AutorizarPermiso").show();
-                    $("#TramitarPermisoDiv").hide();
+                    if(Error(result)){
+                        $("#hdPermisoTramite").val(1);//Permiso en tramite
+                        $("#TramitarPermiso").attr("disabled", "disabled");
+                        $("#AutorizarPermisoDiv").show();
+                        $("#AutorizarPermiso").show();
+                        $("#TramitarPermisoDiv").hide();
+                    }
                 });
             };
 
