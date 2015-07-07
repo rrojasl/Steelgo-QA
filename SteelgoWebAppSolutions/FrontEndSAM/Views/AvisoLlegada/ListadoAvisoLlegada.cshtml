@@ -429,15 +429,18 @@
                     resultadoJson = data;
                     console.log("grid value " + $("#grid").data("kendoGrid"));
                     if ($("#grid").data("kendoGrid")) {
-                        console.log("kendoGrid" + resultadoJson.length);
+                        console.log("resultadoJson: " + resultadoJson.length);
                         if (resultadoJson.length > 0) {
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
+                            console.log("bindear empty inicio");
                             $("#grid").data("kendoGrid").dataSource.data([]);
+                            $("#grid").data("kendoGrid").dataSource.page(0);
+                            console.log("bindear empty fin");
                         };
-                        CantidadesDelMenuDashboard();
-                        applySecurity();
+                       CantidadesDelMenuDashboard();
+                       applySecurityPolicy();
                     };
                 };
                 
