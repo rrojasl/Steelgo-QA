@@ -10,34 +10,52 @@
 /*    Global Variables      */
 /****************************/
 
+//LOCALHOST BASE URL's
+/*
+var $BackEndSAMUri = 'http://localhost:8080';
+var $SecuritySAMUri = 'http://localhost:8081';
+var $MessagesSAMUri = 'http://localhost:8082';
+var $SearchSAMUri = 'http://localhost:8083';
+var $FilesSAMUri = 'http://localhost:8084';
+*/
+//DEVELOPMENT Steelgo BASE URL's
+var $BackEndSAMUri = 'http://192.168.1.7:8080';
+var $SecuritySAMUri = 'http://192.168.1.7:8081';
+var $MessagesSAMUri = 'http://192.168.1.7:8082';
+var $SearchSAMUri = 'http://192.168.1.7:8083';
+var $FilesSAMUri = 'http://192.168.1.7:8084';
+
+//Combos Base URL
+var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
+var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
+
 //Base API's
-var $BackEndSAM = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $FileManager = new $.RestClient('http://localhost:60921' + '/filemanager/api/');
-var $MessagesManager = new $.RestClient('http://localhost:60921' + '/messagesmanager/api/');
-var $SearchManager = new $.RestClient('http://localhost:60921' + '/searchmanager/api/');
-var $SecurityManager = new $.RestClient('http://localhost:60921' + '/securitymanager/api/');
+var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
+var $MessagesManager = new $.RestClient($MessagesSAMUri + '/messagesmanager/api/');
+var $SearchManager = new $.RestClient($SearchSAMUri + '/searchmanager/api/');
+var $SecurityManager = new $.RestClient($SecuritySAMUri + '/securitymanager/api/');
 //DetalleAvisoLlegada
-var $Plana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Transportista = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Patio = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Proveedor = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $AvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Chofer = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Proyecto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Camion = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Contacto = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $folioEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $FiltrosListadoEntradaMaterial = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $TipoVehiculo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $Cliente = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $TipoAviso = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $PermisoAutorizado = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $PermisoTramite = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $TipoArchivo = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $DocumentoAvisoLlegada = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $ValidacionFolioConPermisoAduana = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
-var $DocumentoAvisoLlegadaUploadFiles = "http://localhost:60960/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
-var $DocumentoPermisoAduana = "http://localhost:60960/backendsam/api/DocumentoPermisoAduana";
+var $Plana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Transportista = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Patio = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Proveedor = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $AvisoLlegada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Chofer = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Proyecto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Camion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Contacto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $folioEntradaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FiltrosListadoEntradaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoVehiculo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Cliente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoAviso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PermisoAutorizado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PermisoTramite = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoArchivo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DocumentoAvisoLlegada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidacionFolioConPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/

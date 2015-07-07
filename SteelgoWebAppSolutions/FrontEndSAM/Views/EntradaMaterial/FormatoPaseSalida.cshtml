@@ -59,7 +59,7 @@
         $(".content-frame").removeClass("content-frame");
         $("body").css("background", "#FFFFFF");
 
-        var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+        var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
         Client.add('FormatoPaseSalida');
         Client.FormatoPaseSalida.read({}, { folioentradaid: folioentradaid, folioLlegadaid: folioLlegadaid, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
 

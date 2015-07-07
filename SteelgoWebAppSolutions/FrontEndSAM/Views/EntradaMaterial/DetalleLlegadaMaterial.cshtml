@@ -273,7 +273,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/DummyFolioEntrada",
+                            url: $BackEndSAMUri + "/backendsam/api/DummyFolioEntrada",
                         }
                     }
                 },
@@ -292,7 +292,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/DummyPatio",
+                            url: $BackEndSAMUri + "/backendsam/api/DummyPatio",
                         }
                     }
                 },
@@ -311,7 +311,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: $BackEndSAMUri + "/backendsam/api/Proyecto",
                         }
                     }
                 },
@@ -331,7 +331,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/DummyEstatus",
+                            url: $BackEndSAMUri + "/backendsam/api/DummyEstatus",
                         }
                     }
                 },
@@ -354,7 +354,7 @@
 
             $('#AdjuntarArchivos').kendoUpload({
                 async: {
-                    saveUrl: "http://localhost:60960/backendsam/api/DummyFileManager?username=test&token=testt",
+                    saveUrl: $BackEndSAMUri + "/backendsam/api/DummyFileManager?username=test&token=testt",
                     autoUpload: false,
                     withCredentials: false
                 },
@@ -375,7 +375,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/Proyecto",
+                            url: $BackEndSAMUri + "/backendsam/api/Proyecto",
                         }
                     }
                 },
@@ -438,7 +438,7 @@
         };
 
         function CargaInicialEdicion() {
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyEntradaMaterial');
 
             Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
@@ -574,7 +574,7 @@
         };
 
         function descargarArchivo(id) {
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyDescargarArchivo');
 
             Client.DummyDescargarArchivo.read({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
@@ -583,7 +583,7 @@
         };
 
         function borrarArchivo(id, fila) {
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyFileManager');
 
             Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
@@ -620,7 +620,7 @@
 
             console.log(JSON.stringify(FolioLlegada));
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyFolioEntrada');
 
             $("#PaseSalida").show();
@@ -648,7 +648,7 @@
 
         function MostrarFoliosGenerados() {
             $("#listaFoliosGenerados tbody tr").empty();
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyFoliosGenerados');
 
             Client.DummyFoliosGenerados.read({}, { foliollegadaid: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
@@ -676,7 +676,7 @@
 
             console.log(JSON.stringify(PatioModal));
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyPatio');
             Client.DummyPatio.create({}, { patio: JSON.stringify(PatioModal), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyPatio.create");
@@ -723,7 +723,7 @@
             CargaInicialEdicion();
         } else
         {
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyFileManager');
 
             Client.DummyFileManager.read({}, { username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {

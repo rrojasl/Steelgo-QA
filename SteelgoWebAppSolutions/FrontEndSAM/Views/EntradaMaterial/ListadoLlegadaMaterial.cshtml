@@ -201,7 +201,7 @@
                 var dataSource = $("#grid").data("kendoGrid").dataSource;
 
                 if (confirm("Estas seguro de cancelar el folio de entrada?")) {
-                    var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                    var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
                     Client.add('DummyCancelacionListadoLlegadaMaterial');
 
                     Client.DummyCancelacionListadoLlegadaMaterial.read({}, { folioavisollegadaid: folioAvisoLlegadaID, foliollegadaid: FolioLlegadaID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
@@ -226,7 +226,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/DummyPackingList",
+                            url: $BackEndSAMUri + "/backendsam/api/DummyPackingList",
                         }
                     }
                 },
@@ -250,7 +250,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/FolioLlegada",
+                            url: $BackEndSAMUri + "/backendsam/api/FolioLlegada",
                         }
                     }
                 },
@@ -275,7 +275,7 @@
                     type: "json",
                     transport: {
                         read: {
-                            url: "http://localhost:60960/backendsam/api/DummyCamion",
+                            url: $BackEndSAMUri + "/backendsam/api/DummyCamion",
                         }
                     }
                 },
@@ -385,7 +385,7 @@
 
             console.log(JSON.stringify(Listado[0]));
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyListadoLlegadaMaterial');
 
             Client.DummyListadoLlegadaMaterial.read({}, { prueba: prueba, foliollegada: JSON.stringify(Listado), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {

@@ -41,7 +41,7 @@
 
             ArrItemCodes[0].ItemCodes = ItemCodes;
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyObtenerItemCodes');
 
             Client.DummyObtenerItemCodes.read({}, { itemcodes: JSON.stringify(ArrItemCodes), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {

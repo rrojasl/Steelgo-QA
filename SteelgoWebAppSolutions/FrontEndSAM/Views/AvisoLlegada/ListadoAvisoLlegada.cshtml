@@ -313,7 +313,7 @@
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             var TienePermiso = false;
 
-            var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('ValidacionesFolioAvisoLlegada');
 
             Client.ValidacionesFolioAvisoLlegada.read({ folio: folioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
@@ -322,7 +322,7 @@
                     //debugger;
                     if (confirm("Estas seguro de cancelar el folio de entrada?")) {
                         //aki debe estar el de filtros()
-                        var Client = new $.RestClient('http://localhost:60960' + '/backendsam/api/');
+                        var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
                         Client.add('AvisoLlegada');
                         Client.AvisoLlegada.destroy({}, { folio: folioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
                             Filtros();
