@@ -235,6 +235,7 @@
         if (DashBoardAccionListado != -1) {
             tabActivo(DashBoardAccionListado);
             CargarControlesFiltrado();
+            console.log("AccionesListado inicio");
             AccionesListado(DashBoardAccionListado);
         } else {
 
@@ -423,21 +424,25 @@
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+                console.log("Error " + Error(data));
                 if (Error(data)) {
                     resultadoJson = data;
+                    console.log("grid value " + $("#grid").data("kendoGrid"));
                     if ($("#grid").data("kendoGrid")) {
+                        console.log("kendoGrid" + resultadoJson.length);
                         if (resultadoJson.length > 0) {
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                         };
-
+                        CantidadesDelMenuDashboard();
+                        applySecurity();
                     };
                 };
-                CantidadesDelMenuDashboard();
-                applySecurity();
+                
                 loadingStop();
+                console.log("AccionesListado fin");
             });
         };
 
@@ -449,6 +454,7 @@
         };
 
         function CargarControlesFiltrado() {
+            console.log("CargarControlesFiltrado inicio");
             var date, format;
             if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                 format = "dd/MM/yyyy";
@@ -473,6 +479,7 @@
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
             $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
             $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+            console.log("CargarControlesFiltrado fin");
         };
 
         function Error(data) {
