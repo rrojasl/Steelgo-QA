@@ -1411,6 +1411,10 @@ _dictionary = {
         "es-MX": "Favor de validar los campos requeridos",
         "en-US": "Please validate required fields"
     },
+    "notificationslabel0032": {
+        "es-MX": "El folio se ha sido cancelado.",
+        "en-US": "Folio has been canceled."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

@@ -2179,6 +2179,9 @@
                     loadingStop();
                     ocultarStatus();
                     $("#DetalleAvisoLlegada0086").show();
+                    displayMessage("notificationslabel0032", "", '0');
+                    var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
             };
 
