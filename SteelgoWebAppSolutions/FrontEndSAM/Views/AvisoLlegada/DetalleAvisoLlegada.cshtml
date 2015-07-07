@@ -1347,6 +1347,8 @@
                     };
                 });
             };
+            
+            
             function BotonEdicion() {
                 $("#dropdown-toggle").show();
                 $("#Editar").css("display", "none");
@@ -1359,6 +1361,20 @@
                 $("#Editar").css("display", "block");
                 $("#Guardar").css("display", "none");
                 deshabilitarControles();
+            };
+
+            function habilitarControlesPermisoAduana() {
+                if ($("#hdPermisoTramite").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#TramitarPermisoDiv").hide();
+                    $("#AutorizarPermisoDiv").show();
+                    $("#AutorizarPermiso").removeAttr('disabled');
+                };
+
+                if ($("#hdPermisoAutorizado").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#AutorizarPermiso").attr('disabled', 'disabled');
+                };
             };
 
             function habilitarControles() {
@@ -2130,7 +2146,8 @@
 
                 $Patio.Patio.read({ patioID: patioid, token: Cookies.get("token") }).done(function (result) {
                     Error(result);
-                    BotonEdicion();
+                    //BotonEdicion();
+                    habilitarControlesPermisoAduana();
                     if (result) {
                         $("#TramitarPermiso").removeAttr('disabled');
                         $("#AutorizarPermiso").removeAttr('disabled');
