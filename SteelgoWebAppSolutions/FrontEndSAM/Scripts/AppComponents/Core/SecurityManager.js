@@ -62,13 +62,19 @@ function applySecurityPolicy() {
             //Apply Security
             applySecurity();
             loadingStop();
-            $("#language").data("kendoDropDownList").trigger("change");
+            //$("#language").data("kendoDropDownList").trigger("change");
+            changeLayoutLabels($("#language").data("kendoDropDownList").value());
+            changeLayoutSpans($("#language").data("kendoDropDownList").value());
+            changeLayoutInputs($("#language").data("kendoDropDownList").value());
         });
     } else {
         //Apply Security
         applySecurity();
         loadingStop();
-        $("#language").data("kendoDropDownList").trigger("change");
+        //$("#language").data("kendoDropDownList").trigger("change");
+        changeLayoutLabels($("#language").data("kendoDropDownList").value());
+        changeLayoutSpans($("#language").data("kendoDropDownList").value());
+        changeLayoutInputs($("#language").data("kendoDropDownList").value());
     }
 
 }
