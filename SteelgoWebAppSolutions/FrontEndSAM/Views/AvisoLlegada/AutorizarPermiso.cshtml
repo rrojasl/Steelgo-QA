@@ -164,8 +164,7 @@
 
         function ObtenerFolioEntradaMaterial() {
             $folioEntradaMaterial.Listado.read({ tipoListado: 2, token: Cookies.get("token"), parametroBusqueda:"" }).done(function (result) {
-                Error(result);
-                $("#FolioAvisoLlegadaID").data("kendoComboBox").dataSource.data(result);
+                ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
             });
         };
 
@@ -264,6 +263,15 @@
             $(".k-upload.k-header").addClass("k-upload-empty");
             $(".k-upload-button").removeClass("k-state-focused");
         };
+
+        function ControlErroresObjetosComboBox(control, result) {
+            if (Error(result)) {
+                $("#" + control).data("kendoComboBox").dataSource.data(result);
+            } else {
+                $("#" + control).data("kendoComboBox").dataSource.data([]);
+            };
+        };
+
     }
 
     @section JavascriptDocumentReadyFunctions {

@@ -128,6 +128,121 @@
         CargarGridAvisoLlegada();
     }
 
+    function cargaInicial() {
+        //Botones Dashboard
+        $("#FolioID").val("");
+        $("#FechaCreacion").val("");
+        $("#FechaEstimada").val("");
+        $("#Cancel").val("");
+
+        $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
+        $("#btnSinPermiso").click(function () {
+            tabActivo("2");
+            AccionesListado(2);
+        });
+        $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
+        $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
+
+        $("#Mostrar").click(function () { Filtros(); });
+        $("#Nuevo").click(function (e) {
+            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#FolioID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioAvisoLlegadaID",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaCreacion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaGeneracion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaEstimada").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaRecepcion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#ClienteID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ClienteID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Cliente = [];
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        ObtenerCliente();
+
+        $("#PatioID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "PatioID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarPatio(dataItem.PatioID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Patio = [];
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        ObtenerPatio();
+
+        FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
+        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+
+
+        $("#FechaInic").bind("change", function () {
+            Filtros();
+        });
+
+        $("#FechaFinal").bind("change", function () {
+            Filtros();
+        });
+
+        if (DashBoardAccionListado != -1) {
+            tabActivo(DashBoardAccionListado);
+            CargarControlesFiltrado();
+            AccionesListado(DashBoardAccionListado);
+        } else {
+
+            ObtenerFechasporDefecto();
+            tabActivo(1);//default 1 creados
+            Filtros();
+        }
+    };
     function CargarGridAvisoLlegada() {
         $("#grid").kendoGrid({
             dataSource: {
@@ -222,15 +337,6 @@
 
         function ObtenerAccionesListado(Listado) {
 
-            //$folioEntradaMaterial.Listado.read({}, { tipoListado: 4, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
-            //    Error(result);
-
-            //    $("#spanCreados").html(result.Creados);
-            //    $("#spanSinPermiso").html(result.SinPermiso);
-            //    $("#spanSinAutorizacion").html(result.SinAutorizacion);
-            //    $("#spanCompletos").html(result.Completos);
-            //});
-
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 Error(result);
                 $("#spanCreados").html(result.Creados ? result.Creados : 0);
@@ -240,8 +346,6 @@
 
             });
         };
-
-
 
         function CargarFolio(id) {
             Folio = [];
@@ -258,38 +362,26 @@
             Patio.push(_patio);
         };
 
-        function CargarProveedor(id, value) {
-            Proveedor = [];
-            _proveedor = {};
-            _proveedor["ProveedorID"] = id;
-            _proveedor["Nombre"] = value;
-            Proveedor.push(_proveedor);
+        function CargarCliente(id, value) {
+            Cliente = {};
+            Cliente = { ClienteID: id };
         };
 
-        function ObtenerProyectos() {
-            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-                Error(result);
-                $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
-            });
-        };
-
-        function ObtenerProveedor() {
-            $Proveedor.Proveedor.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                Error(result);
-                $("#ProveedorID").data("kendoAutoComplete").dataSource.data(result);
-            });
-        };
 
         function ObtenerPatio() {
             $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                Error(result);
-                $("#PatioID").data("kendoComboBox").dataSource.data(result);
+                ControlErroresObjetosComboBox("PatioID", result);
             });
         };
         function ObtenerFolioEntradaMaterial() {
             $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
-                Error(result);
-                $("#FolioAvisoLlegadaID").data("kendoAutoComplete").dataSource.data(result);
+                ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
+            });
+        };
+
+        function ObtenerCliente() {
+            $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                ControlErroresObjetosComboBox("ClienteID", result);
             });
         };
 
@@ -354,19 +446,6 @@
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
             console.log(accion);
             AccionesListado(accion);
-        };
-
-        function CargarCliente(id, value) {
-            Cliente = {};
-            Cliente = { ClienteID: id };
-        };
-
-        function ObtenerCliente() {
-            $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                Error(result);
-                $("#ClienteID").data("kendoComboBox").dataSource.data(result);
-
-            });
         };
 
         function CargarControlesFiltrado() {
@@ -468,6 +547,13 @@
             ObtenerAccionesListado(Listado);
         };
 
+        function ControlErroresObjetosComboBox(control, result) {
+            if (Error(result)) {
+                $("#" + control).data("kendoComboBox").dataSource.data(result);
+            } else {
+                $("#" + control).data("kendoComboBox").dataSource.data([]);
+            };
+        };
     }
 
     function ObtenerFechasporDefecto() {
@@ -502,119 +588,7 @@
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-    //Botones Dashboard
-    $("#FolioID").val("");
-    $("#FechaCreacion").val("");
-    $("#FechaEstimada").val("");
-    $("#Cancel").val("");
-    
-    $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
-    $("#btnSinPermiso").click(function () {
-        tabActivo("2");
-        AccionesListado(2);
-    });
-    $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
-    $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
-
-    $("#Mostrar").click(function () { Filtros(); });
-    $("#Nuevo").click(function (e) {
-        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-        });
-
-        $("#FolioID").keyup(function () {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            ds.filter([
-                {
-                    "field": "FolioAvisoLlegadaID",
-                    "operator": "Contains",
-                    "value": this.value
-                }
-            ]);
-        });
-
-        $("#FechaCreacion").keyup(function () {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            ds.filter([
-                {
-                    "field": "FechaGeneracion",
-                    "operator": "Contains",
-                    "value": this.value
-                }
-            ]);
-        });
-
-        $("#FechaEstimada").keyup(function () {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            ds.filter([
-                {
-                    "field": "FechaRecepcion",
-                    "operator": "Contains",
-                    "value": this.value
-                }
-            ]);
-        });
-
-        $("#ClienteID").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ClienteID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
-
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    Cliente = [];
-                }
-                Filtros();
-            },
-            filter: "contains",
-        });
-        ObtenerCliente();
-
-        $("#PatioID").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "PatioID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarPatio(dataItem.PatioID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    Patio = [];
-                }
-                Filtros();
-            },
-            filter: "contains",
-        });
-        ObtenerPatio();
-
-        FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
-        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
-
-
-
-        $("#FechaInic").bind("change", function () {
-            Filtros();
-        });
-
-        $("#FechaFinal").bind("change", function () {
-            Filtros();
-        });
-
-        if (DashBoardAccionListado != -1) {
-            tabActivo(DashBoardAccionListado);
-            CargarControlesFiltrado();
-            AccionesListado(DashBoardAccionListado);
-        } else {
-           
-            ObtenerFechasporDefecto();
-            tabActivo(1);//default 1 creados
-            Filtros();
-        }
+        cargaInicial();
         //applySecurity();
     }
 

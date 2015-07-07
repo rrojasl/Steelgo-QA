@@ -649,6 +649,22 @@
             {
                 FechaRecepcion.setOptions(datePickerOptions);
             };
+            
+            function ControlErroresObjetosComboBox(control,result) {
+                if (Error(result)) {
+                    $("#" + control).data("kendoComboBox").dataSource.data(result);
+                } else {
+                    $("#" + control).data("kendoComboBox").dataSource.data([]);
+                };
+            };
+
+            function ControlErroresObjetosMultiselect(control, result) {
+                if (Error(result)) {
+                    $("#" + control).data("kendoMultiSelect").dataSource.data(result);
+                } else {
+                    $("#" + control).data("kendoMultiSelect").dataSource.data([]);
+                };
+            };
 
             function validarRequeridosFormaAvisoLlegada() {
                 var bool = true;
@@ -1972,36 +1988,31 @@
 
             function ObtenerProyectos() {
                 $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#ProyectoID").data("kendoMultiSelect").dataSource.data(result);
+                    ControlErroresObjetosMultiselect("ProyectoID", result);
                 });
             };
 
             function ObtenerPlanas() {
                 $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#PlanaID").data("kendoMultiSelect").dataSource.data(result);
+                    ControlErroresObjetosMultiselect("PlanaID", result);
                 });
             };
 
             function ObtenerTransportista() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#TransportistaID").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("TransportistaID", result);
                 });
             };
 
             function ObtenerPatio() {
                 $Patio.Patio.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#PatioID").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("PatioID", result);
                 });
             };
 
             function ObtenerProveedor() {
                 $Proveedor.Proveedor.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#ProveedorID").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("ProveedorID", result);
                 });
             };
 
@@ -2012,15 +2023,19 @@
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
-                    Error(result);
-                    if (result.length > 0) {
-                        $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                    if (Error(result)) {
+                        if (result.length > 0) {
+                            $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                        } else {
+                            Chofer = [];
+                            $("#ChoferID").data("kendoComboBox").value("");
+                            $("#ChoferID").data("kendoComboBox").dataSource.data([]);
+                        }
                     } else {
                         Chofer = [];
                         $("#ChoferID").data("kendoComboBox").value("");
                         $("#ChoferID").data("kendoComboBox").dataSource.data([]);
-                    }
-
+                    };
                 });
             };
 
@@ -2034,13 +2049,17 @@
 
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
-                    Error(result);
-                    if (result.length > 0) {
-                        $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                    if (Error(result)) {
+                        if (result.length > 0) {
+                            $("#ChoferID").data("kendoComboBox").dataSource.data(result);
+                        } else {
+                            Chofer = [];
+                            $("#ChoferID").data("kendoComboBox").dataSource.data([]);
+                        }
                     } else {
                         Chofer = [];
                         $("#ChoferID").data("kendoComboBox").dataSource.data([]);
-                    }
+                    };
                     
                 });
             };
@@ -2048,72 +2067,61 @@
             
             function ObtenerChoferCamion() {
                 $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#ChoferID_Camion").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("ChoferID_Camion", result);
                 });
             };
         
             function ObtenerCamion() {
                 $Camion.Tracto.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#CamionID_Plana").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("CamionID_Plana", result);
                 });
             };
 
             function ObtenerTipoVehiculoPlana() {
                 $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#TipoVehiculo_Plana").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("TipoVehiculo_Plana", result);
                 });
             };
 
             function ObtenerTipoVehiculoTracto() {
                 $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#TipoVehiculo_Camion").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("TipoVehiculo_Camion", result);
                 });
             };
 
             function ObtenerCamionEntradaMaterial() {
                 $Camion.Tracto.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#Tracto").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("Tracto", result);
                 });
             };
 
             function ObtenerCliente() {
                 $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#ClienteID").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("ClienteID", result);
                 });
             };
 
             function ObtenerTipoAviso() {
                 $TipoAviso.TipoAviso.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#TipoAvisoID").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("TipoAvisoID", result);
                 });
             };
 
             function ObtenerContacto() {
                 $Contacto.Contacto.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#ContactoID_Transportista").data("kendoComboBox").dataSource.data(result);
-                    //$("#ContactoID_Proveedor").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("ContactoID_Transportista", result);
                 });
 
             };
             function ObtenerTransportistaCamion() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#TransportistaID_Camion").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("TransportistaID_Camion", result);
                 });
             };
             
             function ObtenerTipoArchivo() {
                 $TipoArchivo.TipoArchivo.read({ token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    $("#TipoArchivo").data("kendoComboBox").dataSource.data(result);
+                    ControlErroresObjetosComboBox("TipoArchivo", result);
                 });
             };
 
