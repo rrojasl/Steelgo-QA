@@ -3,8 +3,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="divEtiquetas"></div>
-<a id="ImprimirEtiquetas" href="javascript:void(0);" class="btn btn-yellow"><span id="FormatoEtiquetas0011"></span></a>
+<div class="col-sm-12 col-md-12 col-lg-12 formatTag">
+    <div class="row">
+        <div class="tags-container">
+            <div id="divEtiquetas"></div>
+            <a id="ImprimirEtiquetas" href="javascript:void(0);" class="btn btn-yellow no-print"><span id="FormatoEtiquetas0011"></span></a>
+        </div>
+    </div>
+</div>
+
 
 <script>
     @section JavascriptGlobalVariables 
@@ -47,7 +54,7 @@
             Client.DummyObtenerItemCodes.read({}, { itemcodes: JSON.stringify(ArrItemCodes), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyObtenerItemCodes.read");
                 $.each(data, function (key) {
-                    htmlstring = "";
+                    htmlstring = "<div class='tag-group'><div class='inner-tag'>";
                     htmlstring += "<div><label id='FormatoEtiquetas0001'></label> " + data[key].ItemCode.NumeroUnico + "</div>";
                     htmlstring += "<div><label id='FormatoEtiquetas0002'></label> " + data[key].Proyecto.Nombre + "</div>";
                     htmlstring += "<div><label id='FormatoEtiquetas0003'></label> " + data[key].ItemCode.Codigo + "</div>";
@@ -58,7 +65,7 @@
                     htmlstring += "<div><label id='FormatoEtiquetas0008'></label> " + data[key].ItemCode.Material + "</div>";
                     htmlstring += "<div><label id='FormatoEtiquetas0009'></label> " + data[key].ItemCode.Cedula + "</div>";
                     htmlstring += "<div><label id='FormatoEtiquetas0010'></label> " + data[key].ItemCode.Descripcion + "</div>";
-                    htmlstring += "<div><img id='barcode" + key + "'></div><br/>";
+                    htmlstring += "<div><img id='barcode" + key + "'></div></div></div>";
                     $("#divEtiquetas").append(htmlstring);
                     $("#barcode" + key).JsBarcode(data[key].ItemCode.NumeroUnico);
                 });
@@ -98,9 +105,16 @@
         };
     }
 
-    @section JavascriptDocumentReadyFunctions 
-    {
-       
+    @section JavascriptDocumentReadyFunctions {
+    //ocultar menu y sidebar
+    $(".pull-right").hide();
+    $(".sidebar").hide();
+    $(".breadcrumb-container").hide();
+    $("header").hide();
+    $(".content-container").removeClass("topbar").addClass("printView");
+    $(".content-frame").removeClass("content-frame");
+    $("body").css("background", "#FFFFFF");
+   
     cargaInicial();
     
     

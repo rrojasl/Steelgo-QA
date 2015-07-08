@@ -21,7 +21,7 @@
     15  $_formNav
     15  $_departurePermit
     16  $_folioGraphs
-
+    17  $_formatTag
 
     Color Palette: Look at site.css
 
@@ -1352,6 +1352,39 @@ header .menu > div {
     }
 
 /**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_formatTag
+ Description:   Customize product tags format for printing.
+**********************************************************************************/
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
+.formatTag .tags-container {
+    margin: 10px 20px;
+}
+
+    .formatTag .tags-container .tag-group {
+        margin: 0 0 20px 0;
+    }
+
+        .formatTag .tags-container .tag-group .inner-tag {
+            display: inline-block;
+            width: auto;            
+            padding: 10px;
+        }
+
+    .formatTag .tags-container img {
+        margin-top: 10px;
+        /*width: 333px;*/
+        height: auto;
+    }
+/**********************************************************************************/
+
 
 
 /* Media Queries */
