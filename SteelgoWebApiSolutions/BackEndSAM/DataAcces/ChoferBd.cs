@@ -61,6 +61,7 @@ namespace BackEndSAM.DataAcces
                                                ChoferID = r.ChoferID.ToString()
                                            }).AsParallel().ToList();
 
+                    result = result.OrderBy(x => x.Nombre).ToList();
                     lstChoferes.AddRange(result);
 
                     return lstChoferes;
