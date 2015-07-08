@@ -199,12 +199,13 @@ namespace BackEndSAM.DataAcces
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
                 mail.From = new MailAddress("karen.delacruz@steelgo.com");
-                mail.To.Add("daniela.zertuche@definityfirst.com");
+                mail.To.Add("sam@sysgo.com.mx");
                 //Correo Sam2
                 mail.Sender = new MailAddress("automatic@sysgo.com.mx");
                 //Por definir Subject
                 mail.Subject = "Permiso de Aduana";
                 mail.IsBodyHtml = true;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
                 
                 //HTML para las planas
                 if (placas.Length > 0) { placasArray = placas.Split(','); };
@@ -234,7 +235,8 @@ namespace BackEndSAM.DataAcces
                             + "<br />"
                             + body;
 
-                SmtpServer.EnableSsl = true;
+
+                SmtpServer.EnableSsl = false;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
 
