@@ -205,6 +205,7 @@ namespace BackEndSAM.DataAcces
                 //Por definir Subject
                 mail.Subject = "Permiso de Aduana";
                 mail.IsBodyHtml = true;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
                 
                 //HTML para las planas
                 if (placas.Length > 0) { placasArray = placas.Split(','); };
@@ -233,6 +234,7 @@ namespace BackEndSAM.DataAcces
                             + "Proyecto: " + proyectos.Substring(0, proyectos.Length - 2) + "<br />"
                             + "<br />"
                             + body;
+
 
                 SmtpServer.EnableSsl = false;
                 SmtpServer.UseDefaultCredentials = false;
