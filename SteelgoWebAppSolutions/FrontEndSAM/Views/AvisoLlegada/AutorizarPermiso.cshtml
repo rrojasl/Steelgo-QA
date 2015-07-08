@@ -167,9 +167,20 @@
                 ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
             });
         };
-
+        function removerValidacionRequeridos() {
+            $("#formaAutorizarPermiso .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "NumeroPermiso") {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    }
+                };
+            });
+        };
         function ChecarAutorizacion() {
                 var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+
+                removerValidacionRequeridos();
 
                 $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
                     if (!result) {
