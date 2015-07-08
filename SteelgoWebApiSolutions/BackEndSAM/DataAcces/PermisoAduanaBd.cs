@@ -234,7 +234,7 @@ namespace BackEndSAM.DataAcces
                             + "<br />"
                             + body;
 
-                SmtpServer.EnableSsl = true;
+                SmtpServer.EnableSsl = false;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
 
