@@ -207,7 +207,8 @@ label {
     top: -4px;
 }
 
-    .form .folioLabel span:nth-child(even) {
+    .form .folioLabel #spanFolio,
+    .folioLabel .statusLabel {
         color: #000000;
         margin-right: 28px;
     }
