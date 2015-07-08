@@ -766,7 +766,7 @@
                         if (!$(this).val()) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
-                            (this).closest("div").addClass("clearfix");
+                            $(this).closest("div").addClass("clearfix");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
                             $(this).closest("div").removeClass("clearfix");
@@ -783,7 +783,7 @@
                         if (!$(this).val()) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
-                            (this).closest("div").addClass("clearfix");
+                            $(this).closest("div").addClass("clearfix");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
                             $(this).closest("div").removeClass("clearfix");
@@ -793,6 +793,41 @@
                 return bool;
             };
 
+            function cancelarvalidacionRequeridosModalTransportista() {
+                $("#modalTransportista .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                });
+            };
+
+            function cancelarvalidacionRequeridosModalChofer() {
+                $("#modalChofer .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                });              
+            };
+
+            function cancelarvalidacionRequeridosModalCamion() {
+                $("#modalCamion .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                });
+            };
+
+            function cancelarvalidacionRequeridosModalPlana() {
+                $("#modalPlana .security_required").each(function (i, elem) {
+                    if (elem.tagName.toLowerCase() != 'label') {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                });
+            };
             //Your partial views specific functions
             function CargaInicial() {
                 ocultarStatus();
@@ -1886,6 +1921,7 @@
             function CancelarTransportista() {
                 LimpiarModalTransportista();
                 cerrarVentanaModal();
+                cancelarvalidacionRequeridosModalTransportista();
             };
 
             //function CancelarProveedor() {
@@ -1900,16 +1936,19 @@
             function CancelarChofer() {
                 LimpiarModalChofer();
                 cerrarVentanaModal();
+                cancelarvalidacionRequeridosModalChofer();
             };
 
             function CancelarPlana() {
                 LimpiarModalPlana();
                 cerrarVentanaModal();
+                cancelarvalidacionRequeridosModalPlana();
             };
 
             function CancelarCamion() {
                 LimpiarModalCamion();
                 cerrarVentanaModal();
+                cancelarvalidacionRequeridosModalCamion();
             };
 
             function cerrarVentanaModal() {
@@ -2179,6 +2218,9 @@
                     loadingStop();
                     ocultarStatus();
                     $("#DetalleAvisoLlegada0086").show();
+                    displayMessage("notificationslabel0032", "", '0');
+                    var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
             };
 
