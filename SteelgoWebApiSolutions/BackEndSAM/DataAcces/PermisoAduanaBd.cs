@@ -199,7 +199,7 @@ namespace BackEndSAM.DataAcces
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
                 mail.From = new MailAddress("karen.delacruz@steelgo.com");
-                mail.To.Add("daniela.zertuche@definityfirst.com");
+                mail.To.Add("sam@sysgo.com.mx");
                 //Correo Sam2
                 mail.Sender = new MailAddress("automatic@sysgo.com.mx");
                 //Por definir Subject
