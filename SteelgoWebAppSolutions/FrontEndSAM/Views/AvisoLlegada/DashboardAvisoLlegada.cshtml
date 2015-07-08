@@ -117,6 +117,16 @@
     @section JavascriptGlobalVariables {
         var Patio = {}, Cliente = {};
         var FechaInicial, FechaFinal, myBarChart, myPieChart;
+        var $AvisoLLegadaModel = {
+            listContainer: {
+                create: "#Nuevo",
+                list: ".btn-group",
+                detail: ".graphContainer",
+                destroy: ""
+            },
+            properties: {
+            }
+        };
     }
 
     @section JavascriptGlobalFunctions {
@@ -399,6 +409,9 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
+
+    $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+
         //carga inicial graficas en cero
         chartBar();
         chartPie();
