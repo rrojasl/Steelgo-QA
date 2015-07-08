@@ -29,6 +29,7 @@
                 <span id="DetalleAvisoLlegada0085"></span>
                 <span id="DetalleAvisoLlegada0086"></span>
                 <span id="DetalleAvisoLlegada0088"></span>
+                <span id="DetalleAvisoLlegada0090"></span>
                 <div class="branchCut"></div>
             </span>
             <div class="formNav clearfix">
@@ -1342,7 +1343,8 @@
                             cargarTituloFolio();
                             BotonAlta();
                             displayMessage("notificationslabel0013", folio, '0');
-                            $("#DetalleAvisoLlegada0084").show();
+                            ocultarStatus();
+                            $("#DetalleAvisoLlegada0090").show();
                         }
 
                         loadingStop();
@@ -1552,13 +1554,9 @@
 
                     if (data.Estatus == "Generado") {
                         ocultarStatus();
-                        $("#DetalleAvisoLlegada0084").show();
+                        $("#DetalleAvisoLlegada0090").show();
                     };
 
-                    if (data.Estatus == "Creado") {
-                        ocultarStatus();
-                        $("#DetalleAvisoLlegada0088").show();
-                    };
                     $.each(data.Plana, function (index, value) {
                         concatPlanas += "," + value.PlanaID;
                         console.log(" concatPlanas:" + concatPlanas);
@@ -1598,6 +1596,8 @@
                             $("#TramitarPermisoDiv").hide();
                             $("#AutorizarPermisoDiv").show();
                             $("#hdPermisoTramite").val(1);
+                            ocultarStatus();
+                            $("#DetalleAvisoLlegada0084").show();
                         }
                         if (data.PermisoAduana[0].PermisoAutorizado) {
                             $("#TramitarPermiso").attr('disabled', 'disabled');
@@ -1605,6 +1605,8 @@
                             $("#TramitarPermisoDiv").hide();
                             $("#AutorizarPermisoDiv").show();
                             $("#hdPermisoAutorizado").val(1);
+                            ocultarStatus();
+                            $("#DetalleAvisoLlegada0085").show();
                         };
                     };
                     loadingStop();
@@ -2027,6 +2029,9 @@
                         $("#AutorizarPermisoDiv").show();
                         $("#AutorizarPermiso").show();
                         $("#TramitarPermisoDiv").hide();
+                        ocultarStatus();
+                        $("#DetalleAvisoLlegada0084").show();
+
                     }
                 });
             };
@@ -2234,6 +2239,7 @@
                 $("#DetalleAvisoLlegada0085").hide();
                 $("#DetalleAvisoLlegada0086").hide();
                 $("#DetalleAvisoLlegada0088").hide();
+                $("#DetalleAvisoLlegada0090").hide();
             };
 
             function DesahabilitarObtenerDocumentosAvisoLlegada() {

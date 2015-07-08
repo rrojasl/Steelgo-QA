@@ -650,12 +650,12 @@ _dictionary = {
         "en-US": "Cancel Folio"
     },
     "DetalleAvisoLlegada0084": {
-        "es-MX": "Generado",
-        "en-US": "Generated"
+        "es-MX": "Permiso Enviado",
+        "en-US": "Permission Sent"
     },
     "DetalleAvisoLlegada0085": {
-        "es-MX": "Autorizado",
-        "en-US": "Authorized"
+        "es-MX": "Permiso Autorizado",
+        "en-US": "Permission Authorized"
     },
     "DetalleAvisoLlegada0086": {
         "es-MX": "Cancelado",
@@ -672,6 +672,10 @@ _dictionary = {
     "DetalleAvisoLlegada0089": {
         "es-MX": "Autorizar Permiso",
         "en-US": "Authorize Permit"
+    },
+    "DetalleAvisoLlegada0090": {
+        "es-MX": "Folio creado",
+        "en-US": "Folio Created"
     },
     //Entrada Material Partial view Labels
     "EntradaMaterial0001": {
@@ -1412,7 +1416,7 @@ _dictionary = {
         "en-US": "Please validate required fields"
     },
     "notificationslabel0032": {
-        "es-MX": "El folio se ha sido cancelado.",
+        "es-MX": "El folio ha sido cancelado.",
         "en-US": "Folio has been canceled."
     },
     //Default to copy
