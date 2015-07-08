@@ -26,7 +26,7 @@ function securityManagerToBeExecutedOnDocumentReady() {
 /****************************/
 
 //Method to change the visibility, editability and required attributes of the elements
-function applySecurityPolicy() {
+function applySecurityPolicy(loadMenu) {
     //Block the screen
     loadingStart();
 
@@ -36,20 +36,23 @@ function applySecurityPolicy() {
         //Execute REST Petition to obtain the user access
         $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
             console.log(data);
-            //Retrieve the context menu definition**
-            $contextMenu = {};
 
-            //Retrieve the side menu definition
-            generateSideMenu(data);
+            if (loadMenu) {
+                //Retrieve the context menu definition**
+                $contextMenu = {};
 
-            //Generate Side Menu
-            generateSideMenuDOMElements(0, 0, $(".main-menu"));
+                //Retrieve the side menu definition
+                generateSideMenu(data);
 
-            //Retrieve the QuickLinks definition**
-            $quickLinks = {};
+                //Generate Side Menu
+                generateSideMenuDOMElements(0, 0, $(".main-menu"));
 
-            //Generate QuickLinks**
-            generateQuickLinks();
+                //Retrieve the QuickLinks definition**
+                $quickLinks = {};
+
+                //Generate QuickLinks**
+                generateQuickLinks();
+            }
 
             //Retrieve the obtained data
             generateReturnOFSecurityCheck(data);
