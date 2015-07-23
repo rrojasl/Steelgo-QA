@@ -656,6 +656,21 @@
                 FechaRecepcion.setOptions(datePickerOptions);
             };
             
+            
+            function ControlErroresObjetosComboBoxGetCookie(control, cookie) {
+                $("#" + control).data("kendoComboBox").dataSource.data(JSON.parse(cookie));
+            };
+
+            function ControlErroresObjetosComboBoxSetCookie(control, result) {
+                if (Error(result)) {
+                    $("#" + control).data("kendoComboBox").dataSource.data(result);
+                    Cookies.set(control, JSON.stringify(result), { path: '/' });
+                } else {
+                    $("#" + control).data("kendoComboBox").dataSource.data([]);
+                    Cookies.remove(control, { path: '/' });
+                };
+            };
+
             function ControlErroresObjetosComboBox(control,result) {
                 if (Error(result)) {
                     $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -2164,9 +2179,25 @@
             };
 
             function ObtenerCliente() {
-                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                    ControlErroresObjetosComboBox("ClienteID", result);
-                });
+                ObtenerDatosControl("ClienteID");
+                //$Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                //    ControlErroresObjetosComboBox("ClienteID", result);
+                //});
+            };
+            
+            function ObtenerDatosControl(id) {
+               
+                switch (id) {
+                    case "ClienteID":
+                        if (Cookies.get("ClienteID") != null) {
+                            ControlErroresObjetosComboBoxGetCookie("ClienteID", Cookies.get("ClienteID"));
+                        } else {
+                                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                                    ControlErroresObjetosComboBoxSetCookie("ClienteID", result);
+                                });
+                        };
+                        break;
+                };
             };
 
             function ObtenerTipoAviso() {

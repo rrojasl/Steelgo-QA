@@ -31,7 +31,12 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
         {
              return View();
         }
-        
+
+        public ActionResult PaseDeSalida()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult Post(IEnumerable<HttpPostedFileBase> attachments)
         {

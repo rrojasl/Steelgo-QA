@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Pase De Salida";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="PaseDeSalida0001"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="PaseDeSalida0002"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="PaseDeSalida0003"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("PaseDeSalida", "EntradaMaterial")"><span id="PaseDeSalida0004"></span></a>
+    </li>
+}
+
+
+<div class="formNav clearfix">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="button-section">
+                <div class="btn-group save-group">
+                    <button id="GenerarPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0005"></span></button>
+                </div>
+                <a id="Cancelar" href="#" class="btn btn-black"><span id="PaseDeSalida0006"></span></a>
+            </div>
+            <div class="button-section">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="PaseDeSalida0007"></span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones">
+                       @* <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
+                        <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>*@
+                    </ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+        <div class="row">
+            <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                <label id="PaseDeSalida0008"></label>
+                <input id="FolioAvisoLlegadaID" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+kendo.ui.Upload.fn._supportsDrop = function () { return false; }
+    @section JavascriptDocumentReadyHomeCookie {
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "11", { path: '/' });
+    }
+
+    @section JavascriptGlobalVariables {
+        var Folio = {};
+    }
+
+    @section JavascriptGlobalFunctions {
+        function CargaInicial() {
+            $("#FolioAvisoLlegadaID").kendoComboBox({
+                dataTextField: "id",
+                dataValueField: "value",
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    CargarFolio(dataItem.id);
+                    //ChecarAutorizacion(dataItem.id);
+                },
+                change: function () {
+              
+                },
+                filter: "contains"
+            });
+
+            ObtenerFoliosAvisoLlegada();
+        }
+
+        function CargarFolio(id) {
+            Folio = {};
+            Folio = { FolioAvisoLlegadaID: id };
+        };
+
+        function ObtenerFoliosAvisoLlegada() {// MODIFICAR EL TIPO DE LISTADA, necesito obtener los folios que no tengan pase de salida
+            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+                ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
+            });
+        };
+
+        function ControlErroresObjetosComboBox(control, result) {
+            if (Error(result)) {
+                $("#" + control).data("kendoComboBox").dataSource.data(result);
+            } else {
+                $("#" + control).data("kendoComboBox").dataSource.data([]);
+            };
+        };
+
+        function Error(data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                        return true;
+                    } else {
+                        displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                        return false;
+                    }
+                }
+            } else {
+                return true;
+            }
+        };
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+        CargaInicial();
+    }
+</script>

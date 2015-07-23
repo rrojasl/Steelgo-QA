@@ -1290,6 +1290,39 @@ _dictionary = {
         "es-MX": "Casa",
         "en-US": "Home"
     },
+    //Pase De Salida
+    "PaseDeSalida0001": {
+        "es-MX": "Transacciones",
+        "en-US": "Dealings"
+    },
+    "PaseDeSalida0002": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "PaseDeSalida0003": {
+        "es-MX": "Llegada Material",
+        "en-US": "Arrival Material"
+    },
+    "PaseDeSalida0004": {
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
+    },
+    "PaseDeSalida0005": {
+        "es-MX": "Generar Pase de Salida",
+        "en-US": "Generate Pass Out"
+    },
+    "PaseDeSalida0006": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "PaseDeSalida0007": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "PaseDeSalida0008": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Notice Folio Entry"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
