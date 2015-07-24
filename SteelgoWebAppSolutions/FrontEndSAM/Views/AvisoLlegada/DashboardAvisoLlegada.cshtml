@@ -225,9 +225,9 @@
             var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
 
             if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-                format = "yyyy-MM-dd";
+                format = "dd/MM/yyyy";
             } else {
-                format = "yyyy-MM-dd";
+                format = "MM/dd/yyyy";
             };
 
             var curr_date0 = fechainicio.getDate();

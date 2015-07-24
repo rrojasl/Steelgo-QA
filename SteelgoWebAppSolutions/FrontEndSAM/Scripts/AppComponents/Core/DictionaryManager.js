@@ -1111,12 +1111,12 @@ _dictionary = {
         "en-US": "Documents"
     },
     "FormatoPaseSalida0008": {
-        "es-MX": "Pedimiento",
-        "en-US": "Pedimiento"
+        "es-MX": "Packing list firmado",
+        "en-US": "Signed packing list"
     },
     "FormatoPaseSalida0009": {
-        "es-MX": "Factura",
-        "en-US": "Factura"
+        "es-MX": "Incidencias firmadas",
+        "en-US": "Signed incidence"
     },
     "FormatoPaseSalida0010": {
         "es-MX": "Remisión",
@@ -1323,6 +1323,46 @@ _dictionary = {
         "es-MX": "Folio Aviso Entrada",
         "en-US": "Notice Folio Entry"
     },
+    "PaseDeSalida0009": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "PaseDeSalida0010": {
+        "es-MX": "Imprimir Incidencias",
+        "en-US": "Print Incidence"
+    },
+    "PaseDeSalida0011": {
+        "es-MX": "No. Incidencia",
+        "en-US": "No. Incidence"
+    },
+    "PaseDeSalida0012": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "PaseDeSalida0013": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File Type"
+    },
+    "PaseDeSalida0014": {
+        "es-MX": "Archivos",
+        "en-US": "Files"
+    },
+    "PaseDeSalida0015": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "PaseDeSalida0016": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File Type"
+    },
+    "PaseDeSalida0017": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "PaseDeSalida0018": {
+        "es-MX": "Imprimir Pase de Salida",
+        "en-US": "Print Pass Out"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -1429,7 +1469,7 @@ _dictionary = {
         "en-US": ""
     },
     "notificationslabel0027": {
-        "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder imprimir el pase de salida",
+        "es-MX": "Por lo menos un packing list firmado debe estar anexado para poder generar el pase de salida",
         "en-US": ""
     },
     "notificationslabel0028": {
@@ -1451,6 +1491,14 @@ _dictionary = {
     "notificationslabel0032": {
         "es-MX": "El folio ha sido cancelado.",
         "en-US": "Folio has been canceled."
+    },
+    "notificationslabel0033": {
+        "es-MX": "El folio no tiene incidencias",
+        "en-US": "Folio no incidents"
+    },
+    "notificationslabel0034": {
+        "es-MX": "Favor de seleccionar un folio",
+        "en-US": "Please, select a folio"
     },
     //Default to copy
     "label9999": {

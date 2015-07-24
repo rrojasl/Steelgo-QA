@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Formato Incidencias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="departurePermit clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <table id="tblIncidencias" class="departureTable clearfix">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    @section JavascriptGlobalVariables {
+    var incidencias = Cookies.get("Incidencias");
+    }
+
+    @section JavascriptGlobalFunctions {
+
+    }
+    
+    @section JavascriptDocumentReadyFunctions {
+        //ocultar menu y sidebar
+        $(".pull-right").hide();
+        $(".sidebar").hide();
+        $(".breadcrumb-container").hide();
+        $("header").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
+
+        var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+        Client.add('DummyFormatoIncidencias');
+
+        Client.DummyFormatoIncidencias.read({}, { incidencias: JSON.stringify(incidencias), token: Cookies.get("token") }).done(function (data) {
+            console.log("Client.DummyFormatoIncidencias.read");
+
+        });
+
+    }
+
+</script>

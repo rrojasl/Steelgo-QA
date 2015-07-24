@@ -13,9 +13,8 @@ namespace BackEndSAM.Models
         public int CantidadPlanas { get; set; }
         public string PlacaTracto { get; set; }
         public List<Plana> Plana { get; set; }
-        public bool TienePedimento { get; set; }
-        public bool TieneFactura { get; set; }
-        public bool TieneRemision { get; set; }
+        public bool TienePackingListFirmado { get; set; }
+        public bool TieneIncidenciasFirmadas { get; set; }
         public RegistroTiempos RegistroTiempos { get; set; }
         public Incidencia Incidencia { get; set; }
     }
