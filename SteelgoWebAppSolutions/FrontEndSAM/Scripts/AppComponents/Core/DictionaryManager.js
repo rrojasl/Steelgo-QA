@@ -1363,6 +1363,63 @@ _dictionary = {
         "es-MX": "Imprimir Pase de Salida",
         "en-US": "Print Pass Out"
     },
+    //
+    "FormatoIncicencias0001": {
+        "es-MX": "numRFI",
+        "en-US": "numRFI"
+    },
+    "FormatoIncicencias0002": {
+        "es-MX": "numRFIRevNo",
+        "en-US": "numRFIRevNo"
+    },
+    "FormatoIncicencias0003": {
+        "es-MX": "numNoOfAttachmen",
+        "en-US": "numNoOfAttachmen"
+    },
+    "FormatoIncicencias0004": {
+        "es-MX": "datDate",
+        "en-US": "datDate"
+    },
+    "FormatoIncicencias0005": {
+        "es-MX": "txtAskedBy",
+        "en-US": "txtAskedBy"
+    },
+    "FormatoIncicencias0006": {
+        "es-MX": "Response By",
+        "en-US": "Response By"
+    },
+    "FormatoIncicencias0007": {
+        "es-MX": "Response Date",
+        "en-US": "Response Date"
+    },
+    "FormatoIncicencias0008": {
+        "es-MX": "Trans No",
+        "en-US": "Trans No"
+    },
+    "FormatoIncicencias0009": {
+        "es-MX": "Action By",
+        "en-US": "Action By"
+    },
+    "FormatoIncicencias0010": {
+        "es-MX": "Action Date",
+        "en-US": "Action Date"
+    },
+    "FormatoIncicencias0011": {
+        "es-MX": "ynClosed",
+        "en-US": "ynClosed"
+    },
+    "FormatoIncicencias0012": {
+        "es-MX": "Reference",
+        "en-US": "Reference"
+    },
+    "FormatoIncicencias0013": {
+        "es-MX": "mmQuestion",
+        "en-US": "mmQuestion"
+    },
+    "FormatoIncicencias0014": {
+        "es-MX": "mmResponse",
+        "en-US": "mmResponse"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
