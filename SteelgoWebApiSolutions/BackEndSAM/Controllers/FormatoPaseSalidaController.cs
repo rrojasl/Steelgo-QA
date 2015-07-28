@@ -13,7 +13,7 @@ namespace BackEndSAM.Controllers
     public class FormatoPaseSalidaController : ApiController
     {
         // GET api/formatopasesalida
-        public FormatoPaseSalida Get(string folioentradaid, string folioLlegadaid, string username, string token)
+        public FormatoPaseSalida Get(string folioAvisoLlegadaID, string token)
         {
             List<Plana> lstPlana = new List<Plana>();
             Plana plana = new Plana();
@@ -27,13 +27,13 @@ namespace BackEndSAM.Controllers
             lstPlana.Add(plana2);
 
             RegistroTiempos registrotiempos= new RegistroTiempos();
-            registrotiempos.HoraLlegada = "9:00";
-            registrotiempos.HoraInicio = "10:00";
-            registrotiempos.HoraFin = "11:00";
+            registrotiempos.HoraLlegada = "9:00 a.m.";
+            registrotiempos.HoraInicio = "10:00 p.m.";
+            registrotiempos.HoraFin = "11:00 a.m.";
 
             Incidencia incidencia = new Incidencia();
             incidencia.TieneIncidencia = true;
-            incidencia.Numero = "1242415A";
+            incidencia.NumeroIncidencia = "1242415A";
 
             FormatoPaseSalida formato = new FormatoPaseSalida();
             formato.NombreProyecto = "Proyecto 1";
@@ -42,9 +42,8 @@ namespace BackEndSAM.Controllers
             formato.CantidadPlanas = 4;
             formato.PlacaTracto = "A10B15";
             formato.Plana = lstPlana;
-            formato.TienePedimento = true;
-            formato.TieneFactura = false;
-            formato.TieneRemision = true;
+            formato.TienePackingListFirmado = true;
+            formato.TieneIncidenciasFirmadas = false;
             formato.RegistroTiempos = registrotiempos;
             formato.Incidencia = incidencia;
 

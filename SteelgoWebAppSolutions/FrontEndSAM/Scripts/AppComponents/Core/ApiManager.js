@@ -28,6 +28,7 @@ var $FilesSAMUri = 'http://localhost:60921';
 //Combos Base URL
 var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
+var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -55,7 +56,9 @@ var $PermisoTramite = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoArchivo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoAvisoLlegada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionFolioConPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $Incidencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DocumentoPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyPaseSalidaEnviado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -93,3 +96,6 @@ $TipoArchivo.add("TipoArchivo");
 $PermisoTramite.add("PermisoAduana");
 $DocumentoAvisoLlegada.add("DocumentoAvisoLlegada");
 $ValidacionFolioConPermisoAduana.add("ValidacionFolioConPermisoAduana");
+$Incidencias.add("DummyIncidencias")
+$DocumentoPaseSalida.add("DocumentoPaseSalida");
+$DummyPaseSalidaEnviado.add("DummyPaseSalidaEnviado");

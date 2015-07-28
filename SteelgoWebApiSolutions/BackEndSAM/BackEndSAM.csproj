@@ -139,6 +139,9 @@
     <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
     <Compile Include="Controllers\FolioAvisoEntradaController.cs" />
+    <Compile Include="Controllers\DummyFormatoIncidenciasController.cs" />
+    <Compile Include="Controllers\DummyIncidenciasController.cs" />
+    <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
@@ -231,6 +234,7 @@
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
     <Compile Include="Models\Dummy\FolioLlegada.cs" />
     <Compile Include="Models\Dummy\FoliosGenerados.cs" />
+    <Compile Include="Models\Dummy\FormatoIncidencias.cs" />
     <Compile Include="Models\Dummy\FormatoPaseSalida.cs" />
     <Compile Include="Models\Dummy\GridCuantificacion.cs" />
     <Compile Include="Models\Dummy\Incidencia.cs" />

@@ -219,13 +219,15 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoLlegada
                                                         join d in ctx.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo on r.FolioAvisoLlegadaID equals d.FolioAvisoLlegadaID
+                                                        join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
                                                         where r.Activo == true && r.FolioAvisoLlegadaID == folioAvisoLlegadaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_Folio_PaseSalida_Archivo_ID.ToString(),
                                                             Nombre = d.Nombre,
                                                             Extencion = d.Extencion,
-                                                            Url = d.Url
+                                                            Url = d.Url,
+                                                            TipoArchivo = t.Nombre
                                                         }).AsParallel().ToList();
                     return documentos;
                 }
@@ -326,8 +328,9 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int Folio = documentos[0].FolioAvisoLlegadaID.GetValueOrDefault();
                     //Actualizamos el dato de Pase Salida Enviado del Folio aviso Llegada
-                    Sam3_FolioAvisoLlegada folioBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == documentos[0].FolioAvisoLlegadaID)
+                    Sam3_FolioAvisoLlegada folioBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == Folio)
                         .AsParallel().SingleOrDefault();
 
                     folioBd.PaseSalidaEnviado = true;

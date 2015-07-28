@@ -1094,11 +1094,12 @@
     <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
     <Content Include="Views\Cuantificacion\Cuantificacion.cshtml" />
     <Content Include="Views\Cuantificacion\FormatoEtiquetas.cshtml" />
-    <Content Include="Views\EntradaMaterial\FormatoPaseSalida.cshtml" />
+    <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
     <Content Include="Views\AvisoLlegada\AutorizarPermiso.cshtml" />
     <Content Include="Views\AvisoLlegada\DashboardAvisoLlegada.cshtml" />
     <Content Include="Views\EntradaMaterial\DashboardLlegadaMaterial.cshtml" />
     <Content Include="Views\AvisoLlegada\PaseDeSalida.cshtml" />
+    <Content Include="Views\AvisoLlegada\FormatoIncidencias.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
