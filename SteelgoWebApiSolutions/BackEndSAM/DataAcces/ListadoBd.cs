@@ -75,7 +75,7 @@ namespace BackEndSAM.DataAcces
 
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                    int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
+                    int folioLlegadaID = filtros.FolioAvisoEntradaID != null ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
                     List<Sam3_Rel_Usuario_Proyecto> lst = ctx.Sam3_Rel_Usuario_Proyecto.AsParallel().ToList();
@@ -188,6 +188,116 @@ namespace BackEndSAM.DataAcces
                     result.PorcentajeSinPermiso = result.Creados > 0 ? (result.SinPermiso * 100) / result.Creados : 0;
                     result.ProcentajeSinAutorizacion = result.Creados > 0 ? (result.SinAutorizacion * 100) / result.Creados : 0;
                     result.PorcentajeCompletos = result.Creados > 0 ? (result.Completos * 100) / result.Creados : 0;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerCantidadesDashboardAvisoEntrada(FiltrosJson filtros, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //traemos la informacion de los patios y proyectos del usuario
+
+                    CantidadesDashboardAvisoEntrada result = new CantidadesDashboardAvisoEntrada();
+                    DateTime fechaInicial = new DateTime();
+                    DateTime fechaFinal = new DateTime();
+                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+
+                    if (fechaFinal.ToShortDateString() == "1/1/0001")
+                    {
+                        fechaFinal = DateTime.Now;
+                    }
+
+                    if (fechaInicial.ToShortDateString() == "1/1/0001")
+                    {
+                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                    }
+
+                    int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
+                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+
+                    //Para aviso de llegada no se usan estos parametros de filtrado, segun el spec.
+                    //int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
+                    //int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+
+                    List<Sam3_Rel_Usuario_Proyecto> lst = ctx.Sam3_Rel_Usuario_Proyecto.AsParallel().ToList();
+
+
+                    List<int> proyectos = lst.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
+
+                    List<int> patios = (from r in ctx.Sam3_Proyecto
+                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                        where r.Activo && proyectos.Contains(r.ProyectoID)
+                                        select p.PatioID).AsParallel().ToList();
+
+
+                    List<Sam3_FolioAvisoEntrada> registrosBd = new List<Sam3_FolioAvisoEntrada>();
+
+                    //Traer todos de acuerdo a las fechas, proyectos y patios del usuario
+
+                    registrosBd = (from r in ctx.Sam3_FolioAvisoEntrada
+                                   join p in ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto on r.FolioAvisoEntradaID equals p.FolioAvisoEntradaID
+                                   join pry in ctx.Sam3_Proyecto on p.ProyectoID equals pry.ProyectoID
+                                   join pa in ctx.Sam3_Patio on pry.PatioID equals pa.PatioID
+                                   where r.Activo && p.Activo && pry.Activo && pa.Activo
+                                   && proyectos.Contains(pry.ProyectoID)
+                                   && patios.Contains(pa.PatioID)
+                                   && (r.FechaModificacion >= fechaInicial && r.FechaModificacion <= fechaFinal)
+                                   select r).AsParallel().ToList();
+
+                    
+                    //eliminar duplicados
+                    registrosBd = registrosBd.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+
+                    if (patioID > 0 && registrosBd.Count > 0)
+                    {
+                        registrosBd = (from r in registrosBd
+                                       where r.Activo
+                                       && r.PatioID == patioID
+                                       select r).AsParallel().ToList();
+                    }
+
+                    if (clienteID > 0 && registrosBd.Count > 0)
+                    {
+                        registrosBd = registrosBd.Where(x => x.ClienteID == clienteID).ToList();
+                    }
+
+                    result.TotalCreados = registrosBd.Count();
+
+                    result.SinEstaus = (from r in registrosBd
+                                                   where r.Estatus == string.Empty
+                                                   select r).Count();
+
+                    result.SinOrdenDescarga = (from r in registrosBd
+                                               where r.FolioDescarga <= 0
+                                               select r).Count();
+
+                    result.SinPaseSalida = (from r in registrosBd
+                                            join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
+                                            where r.Activo && f.Activo
+                                            && f.PaseSalidaEnviado == false
+                                            select r).AsParallel().Count();
+
+                    result.PorcentajeSinDescarga = result.TotalCreados > 0 ? (result.SinOrdenDescarga * 100) / result.TotalCreados : 0;
+                    result.PorcentajeSinEstatus = result.TotalCreados > 0 ? (result.SinEstaus * 100) / result.TotalCreados : 0;
+                    result.PorcentajeSinPaseSalida = result.TotalCreados > 0 ? (result.SinPaseSalida * 100) / result.TotalCreados : 0;
 
                     return result;
                 }

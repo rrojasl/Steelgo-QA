@@ -183,7 +183,7 @@ namespace BackEndSAM.DataAcces
                         fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
                     }
 
-                    int folioLlegadaID = filtros.FolioLlegadaID != null ? Convert.ToInt32(filtros.FolioLlegadaID) : 0;
+                    int folioLlegadaID = filtros.FolioAvisoEntradaID != null ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
                     if (folioLlegadaID > 0)

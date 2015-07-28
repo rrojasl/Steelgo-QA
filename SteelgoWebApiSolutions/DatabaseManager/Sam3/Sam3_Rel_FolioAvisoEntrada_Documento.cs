@@ -12,25 +12,21 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Cliente
+    public partial class Sam3_Rel_FolioAvisoEntrada_Documento
     {
-        public Sam3_Cliente()
-        {
-            this.Sam3_Proyecto = new HashSet<Sam3_Proyecto>();
-            this.Sam3_FolioAvisoEntrada = new HashSet<Sam3_FolioAvisoEntrada>();
-        }
-    
-        public int ClienteID { get; set; }
+        public int Rel_FolioAvisoEntrada_DocumentoID { get; set; }
+        public int FolioAvisoEntradaID { get; set; }
+        public int DocumentoID { get; set; }
         public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Ciudad { get; set; }
-        public string Estado { get; set; }
-        public string Pais { get; set; }
+        public string Extencion { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<System.Guid> DocGuid { get; set; }
+        public string Url { get; set; }
+        public int TipoArchivoID { get; set; }
+        public string ContentType { get; set; }
     
-        public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
-        public virtual ICollection<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
+        public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }
     }
 }

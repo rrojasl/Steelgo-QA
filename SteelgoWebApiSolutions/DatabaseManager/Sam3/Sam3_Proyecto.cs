@@ -66,5 +66,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_RequisicionNumeroUnico> Sam3_RequisicionNumeroUnico { get; set; }
         public virtual ICollection<Sam3_Spool> Sam3_Spool { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
+        public virtual Sam3_ProyectoConsecutivo Sam3_ProyectoConsecutivo { get; set; }
     }
 }

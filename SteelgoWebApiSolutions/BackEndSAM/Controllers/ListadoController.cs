@@ -89,6 +89,8 @@ namespace BackEndSAM.Controllers
                         return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), usuario);
                     case 4: //Obtener cantidades para dashboard
                         return ListadoBd.Instance.ObtenerCantidadesDashboard(filtros, usuario);
+                    case 5: //Obtener cantidades de Dashboard para aviso de entrada
+                        return ListadoBd.Instance.ObtenerCantidadesDashboardAvisoEntrada(filtros, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

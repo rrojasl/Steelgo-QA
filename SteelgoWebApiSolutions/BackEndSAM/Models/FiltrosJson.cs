@@ -8,7 +8,7 @@ namespace BackEndSAM.Models
 {
     public class FiltrosJson
     {
-        public string FolioLlegadaID { get; set; }
+        public string FolioAvisoEntradaID { get; set; }
         public string FolioAvisoLlegadaID { get; set; }
         public string PatioID { get; set; }
         public string ClienteID { get; set; }
@@ -20,6 +20,9 @@ namespace BackEndSAM.Models
         public bool SinAutorizacion { get; set; }
         public bool Completos { get; set; }
         public string TipoListado { get; set; }
-        public string ParametroBusqueda { get; set; } 
+        public string ParametroBusqueda { get; set; }
+        public bool PorLlegar { get; set; }
+        public bool PorDescargar { get; set; }
+        public bool PorSalir { get; set; }
     }
 }

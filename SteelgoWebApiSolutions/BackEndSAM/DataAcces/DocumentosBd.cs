@@ -77,6 +77,42 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public bool GuardarArchivosFolioAvisoEntrada(List<DocumentoPosteado> files)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    foreach (DocumentoPosteado f in files)
+                    {
+                        Sam3_Rel_FolioAvisoEntrada_Documento nuevoDoc = new Sam3_Rel_FolioAvisoEntrada_Documento();
+                        nuevoDoc.Activo = true;
+                        nuevoDoc.DocumentoID = 0;
+                        nuevoDoc.DocGuid = f.DocGuid;
+                        nuevoDoc.Extencion = f.Extencion;
+                        nuevoDoc.FechaModificacion = DateTime.Now;
+                        nuevoDoc.FolioAvisoEntradaID = f.FolioAvisoEntradaID;
+                        nuevoDoc.Nombre = f.FileName;
+                        nuevoDoc.Url = f.Path;
+                        nuevoDoc.UsuarioModificacion = f.UserId;
+                        nuevoDoc.TipoArchivoID = f.TipoArchivoID;
+                        nuevoDoc.ContentType = f.ContentType;
+
+                        ctx.Sam3_Rel_FolioAvisoEntrada_Documento.Add(nuevoDoc);
+                    }
+
+                    ctx.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public object ObtenerDocumentosFolioAvisoLlegada(int folioAvisoLlegadaId, Sam3_Usuario usuario)
         {
             try
@@ -90,6 +126,39 @@ namespace BackEndSAM.DataAcces
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_FolioAvisoLlegada_DocumentoID.ToString(),
+                                                            Nombre = d.Nombre,
+                                                            Extencion = d.Extencion,
+                                                            Url = d.Url,
+                                                            TipoArchivo = t.Nombre
+                                                        }).AsParallel().ToList();
+                    return documentos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerDocumentosFolioAvisoEntrada(int folioAvisoEntradaId, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoEntrada
+                                                        join d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento on r.FolioAvisoEntradaID equals d.FolioAvisoEntradaID
+                                                        join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
+                                                        where r.Activo == true && r.FolioAvisoLlegadaID == folioAvisoEntradaId && d.Activo
+                                                        select new ListaDocumentos
+                                                        {
+                                                            DocumentoID = d.Rel_FolioAvisoEntrada_DocumentoID.ToString(),
                                                             Nombre = d.Nombre,
                                                             Extencion = d.Extencion,
                                                             Url = d.Url,
@@ -304,6 +373,42 @@ namespace BackEndSAM.DataAcces
                 {
                     Sam3_Rel_FolioAvisoLlegada_Documento docDb = ctx.Sam3_Rel_FolioAvisoLlegada_Documento
                         .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == documentoID).AsParallel().SingleOrDefault();
+
+                    docDb.Activo = false;
+                    docDb.FechaModificacion = DateTime.Now;
+                    docDb.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarDocumentoAvisoEntrada(int documentoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_FolioAvisoEntrada_Documento docDb = ctx.Sam3_Rel_FolioAvisoEntrada_Documento
+                        .Where(x => x.Rel_FolioAvisoEntrada_DocumentoID == documentoID).AsParallel().SingleOrDefault();
 
                     docDb.Activo = false;
                     docDb.FechaModificacion = DateTime.Now;
