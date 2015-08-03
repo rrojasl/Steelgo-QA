@@ -385,5 +385,43 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object GenerarFolioDescarga(int folioAvisoEntradaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int? consecutivo = ctx.Sam3_FolioAvisoEntrada.Select(x => x.FolioDescarga).Max();
+                    consecutivo = consecutivo.HasValue ? consecutivo.Value + 1 : 1;
+                    Sam3_FolioAvisoEntrada registroBd = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID)
+                        .AsParallel().SingleOrDefault();
+                    registroBd.Estatus = "Folio Descarga Generado";
+                    registroBd.FolioDescarga = consecutivo.Value;
+                    registroBd.FechaFolioDescarga = DateTime.Now;
+                    registroBd.FechaModificacion = DateTime.Now;
+                    registroBd.UsuarioModificacion = usuario.UsuarioID;
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

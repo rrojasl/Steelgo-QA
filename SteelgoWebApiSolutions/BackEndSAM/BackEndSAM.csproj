@@ -142,6 +142,7 @@
     <Compile Include="Controllers\DummyFormatoIncidenciasController.cs" />
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
+    <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
