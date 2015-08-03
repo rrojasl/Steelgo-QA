@@ -1254,16 +1254,16 @@ _dictionary = {
         "en-US": "Final Date"
     },
     "DashboardLlegadaMaterial0007": {
-        "es-MX": "Folios Creados",
-        "en-US": "Created Folios"
+        "es-MX": "Por Llegar",
+        "en-US": "To Come"
     },
     "DashboardLlegadaMaterial0008": {
-        "es-MX": "Sin Permiso ",
-        "en-US": "Without Permission "
+        "es-MX": "Por Descargar",
+        "en-US": "For Downloading"
     },
     "DashboardLlegadaMaterial0009": {
-        "es-MX": "Sin Autorizacion ",
-        "en-US": "Without Authorization "
+        "es-MX": "Por Salir ",
+        "en-US": "To Leave"
     },
     "DashboardLlegadaMaterial0010": {
         "es-MX": "Completos ",
@@ -1284,6 +1284,30 @@ _dictionary = {
     "DashboardLlegadaMaterial0014": {
         "es-MX": "Nuevo",
         "en-US": "New"
+    },
+    "DashboardLlegadaMaterial0015": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "DashboardLlegadaMaterial0016": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "DashboardLlegadaMaterial0017": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "DashboardLlegadaMaterial0018": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "DashboardLlegadaMaterial0019": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "DashboardLlegadaMaterial0020": {
+        "es-MX": "Año",
+        "en-US": "Year"
     },
     //Home Partial View Labels
     "homeLabel0001": {

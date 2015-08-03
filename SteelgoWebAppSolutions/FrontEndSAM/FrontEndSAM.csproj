@@ -1097,7 +1097,9 @@
     <Content Include="Views\AvisoLlegada\FormatoPaseSalida.cshtml" />
     <Content Include="Views\AvisoLlegada\AutorizarPermiso.cshtml" />
     <Content Include="Views\AvisoLlegada\DashboardAvisoLlegada.cshtml" />
-    <Content Include="Views\EntradaMaterial\DashboardLlegadaMaterial.cshtml" />
+    <Content Include="Views\EntradaMaterial\DashboardLlegadaMaterial.cshtml">
+      <BrowseToURL>~/Views/EntradaMaterial/DashboardLlegadaMaterial.cshtml</BrowseToURL>
+    </Content>
     <Content Include="Views\AvisoLlegada\PaseDeSalida.cshtml" />
     <Content Include="Views\AvisoLlegada\FormatoIncidencias.cshtml" />
     <None Include="Web.Debug.config">
