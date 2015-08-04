@@ -147,6 +147,7 @@ namespace BackEndSAM.DataAcces
                         nuevoElemento.FolioAvisoLlegadaID = folio.FolioAvisoLlegadaID.ToString();
                         nuevoElemento.EstatusFolio = folio.Estatus;
                         nuevoElemento.Patio = folio.Sam3_Patio.Nombre;
+                        nuevoElemento.FechaCreación = folio.FechaModificacion.Value.ToString("dd/MM/yyyy");
 
                         elementos.Add(nuevoElemento);
                     }

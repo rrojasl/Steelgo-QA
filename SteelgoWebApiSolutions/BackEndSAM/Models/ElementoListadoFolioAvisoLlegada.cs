@@ -24,5 +24,6 @@ namespace BackEndSAM.Models
         public string FolioAvisoLlegadaID { get; set; }
         public string Patio { get; set; }
         public string EstatusFolio { get; set; }
+        public string FechaCreación { get; set; }
     }
 }
