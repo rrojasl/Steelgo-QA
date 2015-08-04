@@ -48,6 +48,7 @@ var $Camion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Contacto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $folioEntradaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FiltrosListadoEntradaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FiltrosListadoLlegadaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoVehiculo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cliente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoAviso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -88,6 +89,7 @@ $Camion.add("Tracto");
 $Contacto.add("Contacto");
 $folioEntradaMaterial.add("Listado");
 $FiltrosListadoEntradaMaterial.add("AvisoLlegada");
+$FiltrosListadoLlegadaMaterial.add("FolioAvisoEntrada")
 $TipoVehiculo.add("TipoVehiculo");
 $Cliente.add("Cliente");
 $TipoAviso.add("TipoAviso");

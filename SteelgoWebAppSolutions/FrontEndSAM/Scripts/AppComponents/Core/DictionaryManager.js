@@ -824,96 +824,88 @@ _dictionary = {
     },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
-        "es-MX": "Packing List",
-        "en-US": "Packing List"
+        "es-MX": "Nueva Llegada",
+        "en-US": "New Arrival"
     },
     "ListadoLlegadaMaterial0002": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Patio",
+        "en-US": "Areway"
     },
     "ListadoLlegadaMaterial0003": {
-        "es-MX": "Placas",
-        "en-US": "Placas"
+        "es-MX": "Cliente",
+        "en-US": "Client"
     },
     "ListadoLlegadaMaterial0004": {
-        "es-MX": "Chofer",
-        "en-US": "Driver"
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
     },
     "ListadoLlegadaMaterial0005": {
-        "es-MX": "Mostrar",
-        "en-US": "Show"
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
     },
     "ListadoLlegadaMaterial0006": {
-        "es-MX": "Agregar Folio",
-        "en-US": "Add Folio"
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
     },
     "ListadoLlegadaMaterial0007": {
-        "es-MX": "Folio de llegada",
-        "en-US": "Folio arrival"
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
     },
     "ListadoLlegadaMaterial0008": {
-        "es-MX": "Folio de entrada",
-        "en-US": "Folio input"
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
     },
     "ListadoLlegadaMaterial0009": {
-        "es-MX": "Packing List",
-        "en-US": "Packing List"
+        "es-MX": "Mes",
+        "en-US": "Month"
     },
     "ListadoLlegadaMaterial0010": {
-        "es-MX": "Proyecto",
-        "en-US": "Project"
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
     },
     "ListadoLlegadaMaterial0011": {
-        "es-MX": "Patio",
-        "en-US": "Areaway"
+        "es-MX": "Año",
+        "en-US": "Year"
     },
     "ListadoLlegadaMaterial0012": {
-        "es-MX": "Estatus",
-        "en-US": "Status"
+        "es-MX": "Por Llegar",
+        "en-US": "To Come"
     },
     "ListadoLlegadaMaterial0013": {
-        "es-MX": "Detalle",
-        "en-US": "Detail"
+        "es-MX": "Por Descargar",
+        "en-US": "For Downloading"
     },
     "ListadoLlegadaMaterial0014": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
+        "es-MX": "Por Salir ",
+        "en-US": "To Leave"
     },
     "ListadoLlegadaMaterial0015": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Notice Folio Entry"
+    },
+    "ListadoLlegadaMaterial0016": {
         "es-MX": "Estatus Folio Llegada",
         "en-US": "Folio Arrival Status"
     },
-    "ListadoLlegadaMaterial0016": {
-        "es-MX": "Estatus Packing List",
-        "en-US": " Packing List Status"
-    },
     "ListadoLlegadaMaterial0017": {
-        "es-MX": "Complemento",
-        "en-US": "Complement"
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
     "ListadoLlegadaMaterial0018": {
-        "es-MX": "Cuantificacion",
-        "en-US": "Quantification"
-    },
-    "ListadoLlegadaMaterial0019": {
-        "es-MX": "Inicio",
-        "en-US": "Home"
-    },
-    "ListadoLlegadaMaterial0020": {
-        "es-MX": "Listado Folios Llegada de Material",
-        "en-US": "List Arrival sheets Material"
-    },
-    "ListadoLlegadaMaterial0021": {
         "es-MX": "Fecha Creación",
         "en-US": "Creation Date"
     },
-    "ListadoLlegadaMaterial0022": {
-        "es-MX": "Fecha Generación",
-        "en-US": "Date Generation"
-    },
-    "ListadoLlegadaMaterial0023": {
+    "ListadoLlegadaMaterial0019": {
         "es-MX": "Dashboard Llegada de Material",
         "en-US": "Dashboard Llegada de Material"
+    },
+    "ListadoLlegadaMaterial0020": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoLlegadaMaterial0021": {
+        "es-MX": "Listado Folios Llegada de Material",
+        "en-US": "List Arrival sheets Material"
     },
     //Cuantificacion
     "Cuantificacion0001": {

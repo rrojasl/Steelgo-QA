@@ -128,15 +128,15 @@
             Error(result);
 
             //Segun resultado del controller result.Creados
-            $("#spanPorLlegar").html(result.TotalCreados ? result.TotalCreados : 0);
+            $("#spanPorLlegar").html(result.SinEstaus ? result.SinEstaus : 0);
             $("#spanPorDescargar").html(result.SinOrdenDescarga ? result.SinOrdenDescarga : 0);
             $("#spanPorSalir").html(result.SinPaseSalida ? result.SinPaseSalida : 0);
         });
     };
 
     function AccionesListado(accion) {
-        var PatioId = Patio.PatioId ? Patio.PatioId : "";
-        var ClienteId = Cliente.ClienteId ? Cliente.ClienteId : "";
+        var PatioID = Patio.PatioID ? Patio.PatioID : "";
+        var ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
 
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
