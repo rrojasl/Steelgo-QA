@@ -83,10 +83,9 @@
     @section JavascriptGlobalFunctions {
 
     function changeLanguageCall() {
-        createDates();
+        createPeriodoTiempo();
     }
-    function createDates()
-    {
+    function createPeriodoTiempo() {
         $("#PeriodoTiempo").kendoComboBox({
             dataTextField: "Periodo",
             dataValueField: "PeriodoID",
@@ -137,6 +136,7 @@
     function AccionesListado(accion) {
         var PatioID = Patio.PatioID ? Patio.PatioID : "";
         var ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
+        var PeriodoID = PeriodoTiempo ? PeriodoTiempo.PeriodoTiempo : "";
 
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -144,7 +144,7 @@
         var fechafinal = obtenerFormatoFecha(d1);
 
         var url = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
-        window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal;
+        window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal + "&DashPeriodo=" + PeriodoID;
 
     };
 
@@ -354,7 +354,7 @@
     });
     ObtenerCliente();
 
-   
+    $("#PeriodoTiempo").kendoComboBox({});
    
 
     FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
