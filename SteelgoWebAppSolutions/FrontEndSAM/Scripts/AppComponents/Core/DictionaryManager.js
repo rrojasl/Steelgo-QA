@@ -678,149 +678,181 @@ _dictionary = {
         "en-US": "Folio Created"
     },
     //Entrada Material Partial view Labels
-    "EntradaMaterial0001": {
+    "LlegadaMaterial0001": {
         "es-MX": "Patio",
         "en-US": "Areaway"
     },
-    "EntradaMaterial0002": {
+    "LlegadaMaterial0002": {
         "es-MX": "Proyecto",
         "en-US": "Proyect"
     },
-    "EntradaMaterial0003": {
-        "es-MX": "Folio Entrada",
-        "en-US": "Folio entry"
+    "LlegadaMaterial0003": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Notice Folio Entry"
     },
-    "EntradaMaterial0004": {
+    "LlegadaMaterial0004": {
         "es-MX": "Estatus",
         "en-US": "Status"
     },
-    "EntradaMaterial0005": {
+    "LlegadaMaterial0005": {
         "es-MX": "Adjuntar Fotografias",
         "en-US": "Attach Photos"
     },
-    "EntradaMaterial0006": {
+    "LlegadaMaterial0006": {
         "es-MX": "Descripción",
         "en-US": "Description"
     },
-    "EntradaMaterial0007": {
+    "LlegadaMaterial0007": {
         "es-MX": "Nombre",
         "en-US": "Name"
     },
-    "EntradaMaterial0008": {
+    "LlegadaMaterial0008": {
         "es-MX": "Propietario",
         "en-US": "Owner"
     },
-    "EntradaMaterial0009": {
+    "LlegadaMaterial0009": {
         "es-MX": "Descripcion",
         "en-US": "Description"
     },
-    "EntradaMaterial0010": {
+    "LlegadaMaterial0010": {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
-    "EntradaMaterial0011": {
+    "LlegadaMaterial0011": {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
-    "EntradaMaterial0012": {
+    "LlegadaMaterial0012": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-    "EntradaMaterial0013": {
+    "LlegadaMaterial0013": {
         "es-MX": "Folio de Entrada",
         "en-US": "Folio Entry"
     },
-    "EntradaMaterial0014": {
+    "LlegadaMaterial0014": {
         "es-MX": "Folio de Llegada",
         "en-US": "Arrival Folio"
     },
-    "EntradaMaterial0015": {
+    "LlegadaMaterial0015": {
         "es-MX": "Archivo",
         "en-US": "File"
     },
-    "EntradaMaterial0016": {
+    "LlegadaMaterial0016": {
         "es-MX": "Descripcion",
         "en-US": "Description"
     },
-    "EntradaMaterial0017": {
+    "LlegadaMaterial0017": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
     },
-    "EntradaMaterial0018": {
+    "LlegadaMaterial0018": {
         "es-MX": "Folio de llegada",
         "en-US": "Folio arrival"
     },
-    "EntradaMaterial0019": {
+    "LlegadaMaterial0019": {
         "es-MX": "Folio de entrada",
         "en-US": "Folio input"
     },
-    "EntradaMaterial0020": {
+    "LlegadaMaterial0020": {
         "es-MX": "Packing List",
         "en-US": "Packing List"
     },
-    "EntradaMaterial0021": {
+    "LlegadaMaterial0021": {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
-    "EntradaMaterial0022": {
+    "LlegadaMaterial0022": {
         "es-MX": "Inicio",
         "en-US": "Home"
     },
-    "EntradaMaterial0023": {
+    "LlegadaMaterial0023": {
         "es-MX": "Listado Folios Llegada de Material",
         "en-US": "List Arrival sheets Material"
     },
-    "EntradaMaterial0024": {
+    "LlegadaMaterial0024": {
         "es-MX": "Llegada de Material",
         "en-US": "Material's Arrival"
     },
-    "EntradaMaterial0025": {
+    "LlegadaMaterial0025": {
         "es-MX": "Pase de Salida",
         "en-US": "Pass Out"
     },
-    "EntradaMaterial0026": {
+    "LlegadaMaterial0026": {
         "es-MX": "Packing List Firmado",
         "en-US": "Packing List Signed"
     },
-    "EntradaMaterial0027": {
+    "LlegadaMaterial0027": {
         "es-MX": "Imprimir Pase",
         "en-US": "Print Pass"
     },
-    "EntradaMaterial0028": {
+    "LlegadaMaterial0028": {
         "es-MX": "Archivo",
         "en-US": "File"
     },
-    "EntradaMaterial0029": {
+    "LlegadaMaterial0029": {
         "es-MX": "Eliminar",
         "en-US": "Remove"
     },
-    "EntradaMaterial0030": {
+    "LlegadaMaterial0030": {
         "es-MX": "Eliminar",
         "en-US": "Delete"
     },
-    "EntradaMaterial0031": {
+    "LlegadaMaterial0031": {
         "es-MX": "Tipo de Archivo",
         "en-US": "File Type"
     },
-    "EntradaMaterial0032": {
+    "LlegadaMaterial0032": {
         "es-MX": "Tipo de Archivo",
         "en-US": "File Type"
     },
-    "EntradaMaterial0033": {
+    "LlegadaMaterial0033": {
         "es-MX": "Orden de Compra",
         "en-US": "Purchase Order"
     },
-    "EntradaMaterial0034": {
+    "LlegadaMaterial0034": {
         "es-MX": "Factura",
         "en-US": "Invoice"
     },
-    "EntradaMaterial0035": {
+    "LlegadaMaterial0035": {
         "es-MX": "Proveedor",
         "en-US": "Provider"
     },
-    "EntradaMaterial0036": {
+    "LlegadaMaterial0036": {
         "es-MX": "Dashboard Llegada de Material",
         "en-US": "Dashboard Llegada de Material"
+    },
+    "LlegadaMaterial0037": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "LlegadaMaterial0038": {
+        "es-MX": "Guardar e Imprimir",
+        "en-US": "Save and Print"
+    },
+    "LlegadaMaterial0039": {
+        "es-MX": "Generar Orden Descarga",
+        "en-US": "Generate Order Download"
+    },
+    "LlegadaMaterial0040": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "LlegadaMaterial0041": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "LlegadaMaterial0042": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "LlegadaMaterial0043": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "LlegadaMaterial0044": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
     },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
@@ -1572,6 +1604,10 @@ _dictionary = {
     "notificationslabel0034": {
         "es-MX": "Favor de seleccionar un folio",
         "en-US": "Please, select a folio"
+    },
+    "notificationslabel0035": {
+        "es-MX": "Favor de guardar la llegada de material.",
+        "en-US": "Please keep the arrival of material."
     },
     //Default to copy
     "label9999": {

@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/dummyfolioentrada/5
-        public void Put(string folioLlegada, string username, string token)
+        public void Put(string folioLlegada, string folioAvisoLlegada, string username, string token)
         {
         }
 

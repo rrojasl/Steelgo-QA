@@ -1280,9 +1280,9 @@
                 //objeto para los proyectos y documentos.
                 ProyectoIDs = [];
                 PlanaIDs = [];
-                Documentos = [];                
-                permiso = [];
-                DocumentosPackingList = [];
+                //Documentos = [];                
+                //permiso = [];
+                //DocumentosPackingList = [];
 
 
                 _permisoAduana[0].NumeroPermiso = "";
@@ -1299,23 +1299,16 @@
                     PlanaIDs[index] = { PlanaID: value };
                 });
 
-                $('#listaArchivos > tbody  > tr').each(function (index, value) {
-                    if ($(this).find("td:first").length > 0) {
-                        var id = $(this).attr("id").split(",")[0];
-                        var archivo = $(this).find("td a").eq(0).html();
-                        var tipoArchivo = $(this).find("td").eq(1).html();
-                        var extencion = $(this).attr("id").split(",")[1];
+                //$('#listaArchivos > tbody  > tr').each(function (index, value) {
+                //    if ($(this).find("td:first").length > 0) {
+                //        var id = $(this).attr("id").split(",")[0];
+                //        var archivo = $(this).find("td a").eq(0).html();
+                //        var tipoArchivo = $(this).find("td").eq(1).html();
+                //        var extencion = $(this).attr("id").split(",")[1];
 
-                        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
-
-                        //item = {};
-                        //item["ArchivoID"] = id;
-                        //item["Nombre"] = archivo;
-                        //item["Extension"] = extencion;
-                        //item["TipoArchivo"] = tipoArchivo;
-                        //Documentos.push(item);
-                    };
-                });
+                //        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
+                //    };
+                //});
 
                 CargarDefaults();
 
@@ -1331,11 +1324,11 @@
                 AvisoLlegada[0].Plana = PlanaIDs;
                 AvisoLlegada[0].Patio = Patio;
                 AvisoLlegada[0].Chofer = Chofer;
-                AvisoLlegada[0].Archivos = Documentos;
+                //AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].Tracto = CamionEntradaMaterial;
                 AvisoLlegada[0].Cliente = Cliente;
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
-                console.log("TipoAvisoID= " + TipoAvisos.TipoAvisoID + ", Nombre= " + TipoAvisos.Nombre);
+                
                 loadingStart();
 
                 if (folio != -1)//Edición
@@ -2179,10 +2172,10 @@
             };
 
             function ObtenerCliente() {
-                ObtenerDatosControl("ClienteID");
-                //$Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                //    ControlErroresObjetosComboBox("ClienteID", result);
-                //});
+                //ObtenerDatosControl("ClienteID");
+                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                    ControlErroresObjetosComboBox("ClienteID", result);
+                });
             };
             
             function ObtenerDatosControl(id) {

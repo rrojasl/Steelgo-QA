@@ -19,21 +19,23 @@ namespace BackEndSAM.Controllers
     {
 
         // GET api/dummyfilemanager/
-        public List<Files> Get(string username, string token)
+        public List<ListaDocumentosLlegadaMaterial> Get(string folioLlegada, string token)
         {
-            var resultFiles = new List<Files>();
-            Files files = new Files();
-            files.id = 1;
-            files.Archivo = "Prueba1";
-            files.Extension = ".doc";
+            var resultFiles = new List<ListaDocumentosLlegadaMaterial>();
+            ListaDocumentosLlegadaMaterial files = new ListaDocumentosLlegadaMaterial();
+            files.DocumentoID = "1";
+            files.Nombre = "Prueba1";
+            files.Extencion = ".doc";
             files.Descripcion = "Prueba description 1";
+            files.Url = "";
             resultFiles.Add(files);
 
-            Files files2= new Files();
-            files2.id = 2;
-            files2.Archivo = "Prueba2";
-            files2.Extension = ".docx";
+            ListaDocumentosLlegadaMaterial files2 = new ListaDocumentosLlegadaMaterial();
+            files2.DocumentoID = "2";
+            files2.Nombre = "Prueba2";
+            files2.Extencion = ".docx";
             files2.Descripcion = "Prueba description 2";
+            files2.Url = "";
             resultFiles.Add(files2);
             return resultFiles;
         }
