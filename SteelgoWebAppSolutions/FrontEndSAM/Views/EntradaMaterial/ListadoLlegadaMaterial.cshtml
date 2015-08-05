@@ -91,9 +91,9 @@
 
     @section JavascriptGlobalVariables 
     {
-    var Patio = {}, Cliente = {}, PeriodoTiempo = {};
+    var Patio = {}, Cliente = {};
 
-    var FechaInic, FechaFinal, resultadoJson;
+    var FechaInic, FechaFinal, resultadoJson, PeriodoTiempo;
     var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
     var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
 
@@ -103,12 +103,45 @@
     var DashClienteID = getUrlParameter("DashClienteID", "-1");
     var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
     var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
+    var DashPeriodo = getUrlParameter("DashPeriodo", "-1");
 
 
     }
 
     @section JavascriptGlobalFunctions 
     {
+    function createPeriodoTiempo() {
+        
+        $("#PeriodoTiempo").kendoComboBox({
+            dataTextField: "Periodo",
+            dataValueField: "PeriodoID",
+            dataSource: [
+                { "PeriodoID": "1", "Periodo": _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "2", "Periodo": _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "3", "Periodo": _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "4", "Periodo": _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "5", "Periodo": _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()] }
+            ],
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                console.log("dataItem");
+                console.log(dataItem);
+
+                CargarPeriodoTiempo(dataItem.PeriodoID);
+            },
+            change: function (e) {
+                var value = this.value();
+
+                if (!value) {
+                    PeriodoTiempo = [];
+                }
+                ObtenerFechasporPeriodo(value);
+
+                CantidadesDelMenuDashboard();
+            },
+            filter: "contains",
+        });
+    }
 
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaInic.setOptions(datePickerOptions);
@@ -117,195 +150,70 @@
 
     function changeLanguageCall() {
         CargarGridLlegadaMaterial();
+        createPeriodoTiempo();
+    };
+    function CargarGridLlegadaMaterial() {
+        $("#grid").kendoGrid({
+            dataSource: {
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            FolioAvisoEntradaID: { type: "string" },
+                            FechaCreación: { type: "string" },
+                            Patio: { type: "string" },
+                            EstatusFolio: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        startswith: "Starts with",
+                        eq: "Is equal to",
+                        neq: "Is not equal to"
+                    }
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            columns: [
+                { field: "FolioAvisoEntradaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoEntradaID#)'>#:FolioAvisoEntradaID#</a>", filterable: true },
+                { field: "FechaCreación", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0002[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "EstatusFolio", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
+            ],
+            dataBound: function (e) {
+                $(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            }
+        });
     };
 
 
-    function cargaInicial() {
-        //Botones Dashboard
-        $("#FolioAvisoEntradaID").val("");
-        $("#FechaCreacion").val("");
-        $("#Patio").val("");
-        $("#EstatusFolio").val("");
-        $("#Cancel").val("");
-
-        $("#btnPorLlegar").click(function () { tabActivo("1"); AccionesListado(1); });
-        $("#btnPorDescargar").click(function () { tabActivo("2"); AccionesListado(2); });
-        $("#btnPorSalir").click(function () { tabActivo("3"); AccionesListado(3); });
-
-        $("#Nuevo").click(function (e) {
-            var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-            });
-
-            $("#FolioAvisoEntradaID").keyup(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([
-                    {
-                        "field": "FolioAvisoEntrada",
-                        "operator": "Contains",
-                        "value": this.value
-                    }
-                ]);
-            });
-
-            $("#FechaCreacion").keyup(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([
-                    {
-                        "field": "FechaCreacion",
-                        "operator": "Contains",
-                        "value": this.value
-                    }
-                ]);
-            });
-
-            $("#Patio").keyup(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([
-                    {
-                        "field": "Patio",
-                        "operator": "Contains",
-                        "value": this.value
-                    }
-                ]);
-            });
-
-            $("#EstatusFolio").keyup(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([
-                    {
-                        "field": "EstatusFolio",
-                        "operator": "Contains",
-                        "value": this.value
-                    }
-                ]);
-            });
-
-            $("#ClienteID").kendoComboBox({
-                dataTextField: "Nombre",
-                dataValueField: "ClienteID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarCliente(dataItem.ClienteID, dataItem.Nombre);
-
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        Cliente = [];
-                    }
-                    Filtros();
-                },
-                filter: "contains",
-            });
-            ObtenerCliente();
-
-            $("#PatioID").kendoComboBox({
-                dataTextField: "Nombre",
-                dataValueField: "PatioID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarPatio(dataItem.PatioID, dataItem.Nombre);
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        Patio = [];
-                    }
-                    Filtros();
-                },
-                filter: "contains",
-            });
-            ObtenerPatio();
-
-            FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
-            FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
-
-
-            $("#FechaInic").bind("change", function () {
-                Filtros();
-            });
-
-            $("#FechaFinal").bind("change", function () {
-                Filtros();
-            });
-
-            if (DashBoardAccionListado != -1) {
-                tabActivo(DashBoardAccionListado);
-                CargarControlesFiltrado();
-                console.log("AccionesListado Inicio");
-                AccionesListado(DashBoardAccionListado);
-            } else {
-                ObtenerFechasporDefecto();
-                tabActivo(1);
-                Filtros();
-            }
-            };
-
-
-            function CargarGridLlegadaMaterial() {
-                $("#grid").kendoGrid({
-                    dataSource: {
-                        data: resultadoJson,
-                        schema: {
-                            model: {
-                                fields: {
-                                    FolioAvisoEntrada: { type: "string" },
-                                    FechaCreacion: { type: "date" },
-                                    Patio: { type: "string" },
-                                    EstatusFolio: { type: "string" },
-                                }
-                            }
-                        },
-                        pageSize: 20,
-                        serverPaging: false,
-                        serverFiltering: false,
-                        serverSorting: false
-                    },
-                    autoHeight: true,
-                    sortable: true,
-                    scrollable: false,
-                    filterable: {
-                        extra: false,
-                        operators: {
-                            string: {
-                                startswith: "Starts with",
-                                eq: "Is equal to",
-                                neq: "Is not equal to"
-                            }
-                        }
-                    },
-                    pageable: {
-                        refresh: false,
-                        pageSizes: [10, 15, 20],
-                        info: false,
-                        input: false,
-                        numeric: true,
-                    },
-                    columns: [
-                    /* Pendienteeeeeeee */
-                        { field: "FolioAvisoEntrada", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoEntrada#)'>#:PackingListID#</a>", filterable: true },
-                        { field: "FechaCreacion", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true },
-                        { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0002[$("#language").data("kendoDropDownList").value()], filterable: true },
-                        { field: "EstatusFolio", title: _dictionary.ListadoLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()], filterable: true },
-                        { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "40px" }
-                    ],
-                    dataBound: function (e) {
-                        $(".k-grid input.k-textbox").prop('readonly', true);
-                        $(".k-grid td .k-button").text('');
-                        $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-                    }
-                });
-            };
-
-
-            function mostrarDetalle(folioEntrada) {
-                var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+    function mostrarDetalle(folioEntrada) {
+        var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioEntrada;
         }
 
         function cancelarFolio() {
-            if (confirm("Estas seguro de cancelar el folio de llegada?")) {
+            if (confirm(_dictionary.ListadoLlegadaMaterial0022[$("#language").data("kendoDropDownList").value()])) {
                 //aki debe estar el de filtros()
                 var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
                 Client.add('FolioAvisoEntrada');
@@ -314,8 +222,8 @@
                 });
 
             } else {
-                displayMessage("notificationslabel0016", "", '1');
-                e.preventDefault();
+                //displayMessage("notificationslabel0016", "", '1');
+                //e.preventDefault();
             };
 
         };
@@ -347,6 +255,11 @@
         function CargarCliente(id, value) {
             Cliente = {};
             Cliente = { ClienteID: id };
+        };
+
+        function CargarPeriodoTiempo(id) {
+            PeriodoTiempo = {};
+            PeriodoTiempo = { PeriodoTiempo: id };
         };
 
         function ObtenerPatio() {
@@ -390,22 +303,15 @@
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoLlegadaMaterial.FolioAvisoEntrada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                console.log("data");
-                console.log(data);
-                console.log("Error " + Error(data));
                 if (Error(data)) {
                     resultadoJson = data;
-                    console.log("grid value " + $("#grid").data("kendoGrid"));
                     if ($("#grid").data("kendoGrid")) {
-                        console.log("resultadoJson: " + resultadoJson.length);
                         if (resultadoJson.length > 0) {
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
-                            console.log("bindear empty inicio");
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             $("#grid").data("kendoGrid").dataSource.page(0);
-                            console.log("bindear empty fin");
                         };
                         CantidadesDelMenuDashboard();
                         applySecurityPolicy(false);
@@ -413,19 +319,16 @@
                 };
 
                 loadingStop();
-                console.log("AccionesListado fin");
             });
         };
 
         function Filtros() {
             var Listado;
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
-            console.log(accion);
             AccionesListado(accion);
         };
 
         function CargarControlesFiltrado() {
-            console.log("CargarControlesFiltrado inicio");
             var date, format;
             if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                 format = "dd/MM/yyyy";
@@ -450,7 +353,8 @@
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
             $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
             $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
-            console.log("CargarControlesFiltrado fin");
+            $("#PeriodoTiempo").data("kendoComboBox").value(DashPeriodo);
+            
         };
 
         function Error(data) {
@@ -498,7 +402,8 @@
         function CantidadesDelMenuDashboard() {
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
             var Listado;
-            Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "", TipoListado: "" };
+
+            Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", PorLlegar: "", PorDescargar: "", PorSalir: "", TipoListado: "" };
 
             var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -508,13 +413,12 @@
             Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
             Listado.FechaInicial = obtenerFormatoFecha(d);
             Listado.FechaFinal = obtenerFormatoFecha(d1);
-            Listado.Creados = accion == 1 ? true : false;
-            Listado.SinPermiso = accion == 2 ? true : false;
-            Listado.SinAutorizacion = accion == 3 ? true : false;
-            Listado.Completos = accion == 4 ? true : false;
+            Listado.PorLlegar = accion == 1 ? true : false;
+            Listado.PorDescargar = accion == 2 ? true : false;
+            Listado.PorSalir = accion == 3 ? true : false;
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
-            Listado.TipoListado = 4;
+            Listado.TipoListado = 5;
             console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
 
             ObtenerAccionesListado(Listado);
@@ -526,6 +430,54 @@
             } else {
                 $("#" + control).data("kendoComboBox").dataSource.data([]);
             };
+        };
+
+
+        function ObtenerFechasporPeriodo(id) {
+            var fechaInicio = FechaFinal.value();
+            var fechaFin = FechaFinal.value();
+
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            }
+
+            var curr_date = fechaFin.getDate();
+            var curr_month = fechaFin.getMonth() + 1;
+            var curr_year = fechaFin.getFullYear();
+
+            var fechaFinal = new Date(curr_year, curr_month - 1, curr_date);
+            var fechaFinalkendo = kendo.parseDate(fechaFinal, format);
+
+            switch (parseInt(id)) {
+                case 1: //Semana Actual
+                    fechaInicio.setDate(fechaInicio.getDate() - 7);
+                    break;
+                case 2: //Dos Semanas
+                    fechaInicio.setDate(fechaInicio.getDate() - 14);
+                    break;
+                case 3: //Mes
+                    fechaInicio.setMonth(fechaInicio.getMonth() - 1);
+                    break;
+                case 4: //Trimestre
+                    fechaInicio.setMonth(fechaInicio.getMonth() - 3);
+                    break;
+                case 5: //Año
+                    fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
+                    break;
+            }
+
+            var curr_date0 = fechaInicio.getDate();
+            var curr_month0 = fechaInicio.getMonth() + 1;
+            var curr_year0 = fechaInicio.getFullYear();
+
+            var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+
+            var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+
+            $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+            $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
         };
     }
 
@@ -561,9 +513,132 @@
 
 
 
+
+
     @section JavascriptDocumentReadyFunctions 
     {
-    cargaInicial();
+    //Botones Dashboard
+    $("#FolioAvisoEntradaID").val("");
+    $("#FechaCreacion").val("");
+    $("#Patio").val("");
+    $("#EstatusFolio").val("");
+    $("#Cancel").val("");
+
+    $("#btnPorLlegar").click(function () { tabActivo("1"); AccionesListado(1); });
+    $("#btnPorDescargar").click(function () { tabActivo("2"); AccionesListado(2); });
+    $("#btnPorSalir").click(function () { tabActivo("3"); AccionesListado(3); });
+
+    $("#Nuevo").click(function (e) {
+        var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#FolioAvisoEntradaID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioAvisoEntradaID",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaCreacion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaCreacion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#Patio").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Patio",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#EstatusFolio").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "EstatusFolio",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#ClienteID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ClienteID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Cliente = [];
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        ObtenerCliente();
+
+        $("#PatioID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "PatioID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarPatio(dataItem.PatioID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Patio = [];
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        ObtenerPatio();
+
+
+        $("#PeriodoTiempo").kendoComboBox({});
+
+
+        FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
+        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+
+        $("#FechaInic").bind("change", function () {
+            Filtros();
+        });
+
+        $("#FechaFinal").bind("change", function () {
+            Filtros();
+        });
+
+        if (DashBoardAccionListado != -1) {
+            tabActivo(DashBoardAccionListado);
+            CargarControlesFiltrado();
+            AccionesListado(DashBoardAccionListado);
+        } else {
+            ObtenerFechasporDefecto();
+            tabActivo(1);
+            Filtros();
+        };
     }
      
 </script>
