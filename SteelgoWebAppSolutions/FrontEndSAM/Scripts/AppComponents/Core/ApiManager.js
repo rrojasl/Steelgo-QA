@@ -90,7 +90,7 @@ $Camion.add("Tracto");
 $Contacto.add("Contacto");
 $folioEntradaMaterial.add("Listado");
 $FiltrosListadoEntradaMaterial.add("AvisoLlegada");
-$FiltrosListadoLlegadaMaterial.add("FolioAvisoEntrada")
+$FiltrosListadoLlegadaMaterial.add("FolioAvisoEntrada");
 $TipoVehiculo.add("TipoVehiculo");
 $Cliente.add("Cliente");
 $TipoAviso.add("TipoAviso");
