@@ -9,13 +9,13 @@
         <a href="@Url.Action("landing", "Home")"><span id="PaseDeSalida0001"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="PaseDeSalida0002"></span></a>
+        <a href="@Url.Action("DashboardLlegadaMaterial", "EntradaMaterial")"><span id="PaseDeSalida0002"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="PaseDeSalida0003"></span></a>
+        <a href="@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")"><span id="PaseDeSalida0003"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("PaseDeSalida", "EntradaMaterial")"><span id="PaseDeSalida0004"></span></a>
+        <a href="@Url.Action("PaseDeSalida", "AvisoLlegada")"><span id="PaseDeSalida0004"></span></a>
     </li>
 }
 
@@ -119,8 +119,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
-
                     </tbody>
                 </table>
             </div>
@@ -142,6 +140,16 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalFunctions {
         
         function CargaInicial() {
+            $("#Cancelar").click(function () {
+                Folio = {};
+                $('#ListaIncidencias tbody').empty();
+                $("#listaArchivosPaseSalida tbody").empty();
+                habilitarControles();
+                $("#GenerarPaseSalida").css("display", "block");
+                $("#ImprimirPaseSalida").css("display", "none");
+                $("#FolioAvisoLlegadaID").data("kendoComboBox").value("");
+            });
+
             $("#GenerarPaseSalida").click(function () {
                 if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
                     displayMessage("notificationslabel0034", "", '1');
@@ -166,12 +174,12 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                 var strIncidenciasChecked = "", strALLincidencias = "", strincidencias = "";
                 if(!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()){
                     displayMessage("notificationslabel0034", "", '1');
-                    return false;
+                    return;
                 }
 
                 if ($('#ListaIncidencias > tbody  > tr').length == 0) {
                     displayMessage("notificationslabel0033", "", '1');
-                    return false;
+                    return;
                 };
 
                 $("#ListaIncidencias input[type=checkbox]").each(function () {
@@ -189,6 +197,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                     strincidencias = strALLincidencias;
                 }
 
+                
                 Cookies.set("Incidencias", strincidencias, { path: '/' });
                 var url = "@Url.Action("FormatoIncidencias", "AvisoLlegada")";
                 window.open(url);
