@@ -62,6 +62,12 @@ namespace BackEndSAM.DataAcces
                     List<int> patiosUsuario;
                     List<int> proyectosUsuario;
                     UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+                    int patioID = filtros.PatioID != string.Empty ? Convert.ToInt32(filtros.PatioID) > 0 ? Convert.ToInt32(filtros.PatioID) : 0 : 0;
+                    int clienteID = filtros.ClienteID != string.Empty ? Convert.ToInt32(filtros.ClienteID) > 0 ? Convert.ToInt32(filtros.ClienteID) : 0 :0;
+                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != string.Empty ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) > 0 ?
+                        Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0 : 0;
+                    int folioEntradaID = filtros.FolioAvisoEntradaID != string.Empty ? Convert.ToInt32(filtros.FolioAvisoEntradaID) > 0 ?
+                        Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0 : 0;
 
                     if (fechaFinal.ToShortDateString() == "1/1/0001")
                     {
@@ -74,9 +80,6 @@ namespace BackEndSAM.DataAcces
                         int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
                         fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
                     }
-
-                    int folioEntradaID = filtros.FolioAvisoEntradaID != null ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
-                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
                     List<Sam3_FolioAvisoEntrada> result = new List<Sam3_FolioAvisoEntrada>();
 
@@ -100,13 +103,13 @@ namespace BackEndSAM.DataAcces
                                 result = result.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                             }
 
-                            if (Convert.ToInt32(filtros.ClienteID) > 0)
+                            if (clienteID > 0)
                             {
                                 int temp = Convert.ToInt32(filtros.ClienteID);
                                 result = result.Where(x => x.ClienteID == temp).ToList();
                             }
 
-                            if (Convert.ToInt32(filtros.PatioID) > 0)
+                            if (patioID > 0)
                             {
                                 int temp = Convert.ToInt32(filtros.PatioID);
                                 result = result.Where(x => x.PatioID == temp).ToList();
