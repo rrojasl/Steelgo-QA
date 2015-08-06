@@ -29,7 +29,7 @@ var $FilesSAMUri = 'http://localhost:60921';
 var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
-var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoLlegadaMaterial?folioLlegada=";
+var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -61,6 +61,7 @@ var $Incidencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyPaseSalidaEnviado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyFileManager = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -103,3 +104,4 @@ $Incidencias.add("DummyIncidencias")
 $DocumentoPaseSalida.add("DocumentoPaseSalida");
 $DummyPaseSalidaEnviado.add("DummyPaseSalidaEnviado");
 $DummyFileManager.add("DummyFileManager");
+$FolioAvisoEntrada.add("FolioAvisoEntrada");

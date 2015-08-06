@@ -253,7 +253,7 @@ namespace BackEndSAM.DataAcces
 
                     Sam3_FolioAvisoEntrada nuevo = new Sam3_FolioAvisoEntrada();
                     nuevo.Activo = true;
-                    nuevo.ClienteID = json.ClienteId;
+                    nuevo.ClienteID = 1;
                     nuevo.Consecutivo = consecutivo > 0 ? consecutivo : 1;
                     nuevo.Estatus = "Generado";
                     nuevo.Factura = json.Factura;
