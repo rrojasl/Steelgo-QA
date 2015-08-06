@@ -940,15 +940,15 @@ _dictionary = {
         "en-US": "Notice Folio Entry"
     },
     "ListadoLlegadaMaterial0016": {
-        "es-MX": "Estatus Folio Llegada",
-        "en-US": "Folio Arrival Status"
+        "es-MX": "Estatus Folio",
+        "en-US": "Folio Status"
     },
     "ListadoLlegadaMaterial0017": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
     "ListadoLlegadaMaterial0018": {
-        "es-MX": "Fecha Creación",
+        "es-MX": "Fecha de Creación",
         "en-US": "Creation Date"
     },
     "ListadoLlegadaMaterial0019": {
