@@ -179,7 +179,7 @@
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
     var folioAvisoLlegada = getUrlParameter("folioAvisoLlegadaID", "-1");
-    var folioLlegada = getUrlParameter("folioLlegada", "-1");
+    var folioLlegada = -1;
         //your partial views variables
         var Patio = {}, Proyecto = {},
             Proveedor = {}, Folio = {},
@@ -508,9 +508,9 @@
         };
 
         function borrarArchivo(id, fila) {
-            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy({}, { archivoID: id, token: Cookies.get("token") }).done(function (data) {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
                 fila.closest("tr").remove();
-                console.log("$DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy");
+                console.log("Client.DocumentoAvisoLlegada.destroy");
             });
         };
 

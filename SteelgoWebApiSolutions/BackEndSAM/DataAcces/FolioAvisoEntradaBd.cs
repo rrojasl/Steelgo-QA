@@ -228,7 +228,7 @@ namespace BackEndSAM.DataAcces
                                          join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
                                          where r.FolioAvisoEntradaID == registro.FolioAvisoEntradaID
                                          && r.Activo
-                                         select new Proyecto
+                                         select new Models.Proyecto
                                          {
                                              ProyectoID = r.ProyectoID.ToString(),
                                              Nombre=p.Nombre
