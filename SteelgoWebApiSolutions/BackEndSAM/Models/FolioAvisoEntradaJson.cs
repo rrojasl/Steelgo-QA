@@ -28,7 +28,7 @@ namespace BackEndSAM.Models
         public Cliente Cliente { get; set; }
         public Patio Patio { get; set; }
         public string Estatus { get; set; }
-        public ProyectosAV Proyectos { get; set; }
+        public Proyecto Proyectos { get; set; }
         public List<ListaDocumentos> Documentos { get; set; }
         public int FolioDescarga { get; set; }
         public Nullable<DateTime> FechaGeneracionDescarga { get; set; }
@@ -40,7 +40,7 @@ namespace BackEndSAM.Models
             Proveedor = new Proveedor();
             Cliente = new Cliente();
             Patio = new Patio();
-            Proyectos = new ProyectosAV();
+            Proyectos = new Proyecto();
             Documentos = new List<ListaDocumentos>();
         }
     }

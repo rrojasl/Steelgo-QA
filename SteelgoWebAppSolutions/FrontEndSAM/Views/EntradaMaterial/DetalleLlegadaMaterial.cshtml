@@ -546,10 +546,21 @@
 
         function GuardarLlegadaMaterial() {
             //Arreglo Llegada Material
-            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "" };
-            
+            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "" };
+            Documentos = [];
 
             CargarDefaults();
+
+            $('#listaArchivos > tbody  > tr').each(function (index, value) {
+                if ($(this).find("td:first").length > 0) {
+                    var id = $(this).attr("id").split(",")[0];
+                    var archivo = $(this).find("td a").eq(0).html();
+                    var tipoArchivo = $(this).find("td").eq(1).html();
+                    var extencion = $(this).attr("id").split(",")[1];
+
+                    Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
+                };
+            });
 
             FolioLlegada.FolioAvisollegadaId = folioAvisoLlegada != -1 ? folioAvisoLlegada : Folio.FolioAvisoLlegadaID;
             FolioLlegada.ClienteId = Cliente.ClienteID;
@@ -559,6 +570,7 @@
             FolioLlegada.Factura = $("#Factura").val();
             FolioLlegada.Estatus = Estatus.Nombre;
             FolioLlegada.PatioID = Patio.PatioID;
+            FolioLlegada.Archivos = Documentos;
 
             console.log(JSON.stringify(FolioLlegada));
 

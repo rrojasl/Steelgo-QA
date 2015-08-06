@@ -1280,7 +1280,7 @@
                 //objeto para los proyectos y documentos.
                 ProyectoIDs = [];
                 PlanaIDs = [];
-                //Documentos = [];                
+                Documentos = [];                
                 //permiso = [];
                 //DocumentosPackingList = [];
 
@@ -1299,16 +1299,16 @@
                     PlanaIDs[index] = { PlanaID: value };
                 });
 
-                //$('#listaArchivos > tbody  > tr').each(function (index, value) {
-                //    if ($(this).find("td:first").length > 0) {
-                //        var id = $(this).attr("id").split(",")[0];
-                //        var archivo = $(this).find("td a").eq(0).html();
-                //        var tipoArchivo = $(this).find("td").eq(1).html();
-                //        var extencion = $(this).attr("id").split(",")[1];
+                $('#listaArchivos > tbody  > tr').each(function (index, value) {
+                    if ($(this).find("td:first").length > 0) {
+                        var id = $(this).attr("id").split(",")[0];
+                        var archivo = $(this).find("td a").eq(0).html();
+                        var tipoArchivo = $(this).find("td").eq(1).html();
+                        var extencion = $(this).attr("id").split(",")[1];
 
-                //        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
-                //    };
-                //});
+                        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
+                    };
+                });
 
                 CargarDefaults();
 
@@ -1324,7 +1324,7 @@
                 AvisoLlegada[0].Plana = PlanaIDs;
                 AvisoLlegada[0].Patio = Patio;
                 AvisoLlegada[0].Chofer = Chofer;
-                //AvisoLlegada[0].Archivos = Documentos;
+                AvisoLlegada[0].Archivos = Documentos;
                 AvisoLlegada[0].Tracto = CamionEntradaMaterial;
                 AvisoLlegada[0].Cliente = Cliente;
                 AvisoLlegada[0].TipoAviso = TipoAvisos;

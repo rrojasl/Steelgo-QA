@@ -225,11 +225,13 @@ namespace BackEndSAM.DataAcces
                                          }).AsParallel().SingleOrDefault();
 
                     detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto
+                                         join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
                                          where r.FolioAvisoEntradaID == registro.FolioAvisoEntradaID
                                          && r.Activo
-                                         select new ProyectosAV
+                                         select new Proyecto
                                          {
-                                             ProyectoID = r.ProyectoID
+                                             ProyectoID = r.ProyectoID.ToString(),
+                                             Nombre=p.Nombre
                                          }).AsParallel().SingleOrDefault();
 
                     return detalle;
