@@ -178,8 +178,7 @@
 <script type="text/javascript">
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
-        var folioLlegada = getUrlParameter("folioLlegada", "-1");
-        var folioAvisoLlegada = getUrlParameter("folioAvisoLlegada", "-1");
+    var folioLlegada = getUrlParameter("folio", "-1");
         //your partial views variables
         var Patio = {}, Proyecto = {},
             Proveedor = {}, Folio = {},
@@ -370,11 +369,8 @@
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
         };
 
-        function CargaInicialEdicion() {
-            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-            Client.add('DummyEntradaMaterial');
-
-            Client.DummyEntradaMaterial.read({}, { folioAvisoLlegada: folioAvisoLlegada, folioLlegada: folioLlegada, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+    function CargaInicialEdicion(id) {
+        $FiltrosListadoLlegadaMaterial.FolioAvisoEntrada.read({}, { FolioAvisoEntradaID: id, token: Cookies.get("token") }).done(function (data) {
                 if (data.Proyecto) {
                     CargarProyecto(data.Proyecto.ProyectoID, data.Proyecto.Nombre);
                     $("#ProyectoID").data("kendoComboBox").value(data.Proyecto.Nombre);
@@ -400,6 +396,11 @@
                 if (data.Proveedor) {
                     CargarProveedor(data.Proveedor.ProveedorID, data.Proveedor.Nombre);
                     $("#ProveedorID").data("kendoComboBox").value(data.Proveedor.Nombre);
+                };
+
+                if (data.Cliente) {
+                    CargarCliente(data.Cliente.ClienteID, data.Cliente.Nombre);
+                    $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
                 };
 
                 $.each(data.Archivos, function (index, value) {
@@ -518,9 +519,9 @@
 
         function AbrirArchivo(entradaid, llegadaid) {
             var Listado = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-            folioAvisoLlegada = entradaid;
+            //folioAvisoLlegada = entradaid;
             folioLlegada = llegadaid;
-            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + folioLlegada + "&folioAvisoLlegada=" + folioAvisoLlegada;
+            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + folioLlegada;
         };
 
         function AbrirListadoEntrada(folioentrada, foliollegada) {
@@ -564,6 +565,7 @@
             //Arreglo Llegada Material
             FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "" };
             
+
             CargarDefaults();
 
             FolioLlegada.FolioAvisollegadaId = folioAvisoLlegada != -1 ? folioAvisoLlegada : Folio.FolioAvisoLlegadaID;
@@ -577,11 +579,12 @@
 
             console.log(JSON.stringify(FolioLlegada));
 
-            if (folioLlegada != -1 && folioAvisoLlegada != -1)//Edición
+            loadingStart();
+            if (folioLlegada != -1)//Edición
             {
                 BotonEdicion();
                 $FolioAvisoEntrada.FolioAvisoEntrada.update(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyFolioEntrada.update");
+                    console.log("$FolioAvisoEntrada.FolioAvisoEntrada.update");
                     Error(data);
                     loadingStop();
                     BotonAlta();
@@ -590,14 +593,14 @@
             } else //Alta
             {
                 $FolioAvisoEntrada.FolioAvisoEntrada.create(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
-                    console.log("Client.DummyFolioEntrada.create");
+                    console.log("$FolioAvisoEntrada.FolioAvisoEntrada.create");
                     if (Error(data))
                     {
                         folioLlegada = data.ReturnMessage[1];
                         folioAvisoLlegada = FolioLlegada.FolioAvisollegadaId;
                         BotonAlta();
                     }
-                    console.log("foliollegada: " + folioLlegada + ", folioavisollegada: " + folioAvisoLlegada);
+                    console.log("foliollegada: " + folioLlegada + ", folioAvisoLlegada: " + folioAvisoLlegada);
                     loadingStop();
                 });
             }
@@ -786,14 +789,14 @@
     };
    
     @section JavascriptDocumentReadyFunctions {
-        CargaInicial();
-        if (folioLlegada != -1 && folioAvisoLlegada != -1)
+    CargaInicial();
+        if (folioLlegada != -1)
         {
             $("#divFolioEntradaID").hide();
             $("#divTitulos").removeClass('hidden');
-            $("#spanFolioEntrada").html("<a href='#' onclick='AbrirListadoEntrada(" + folioAvisoLlegada + "," + folioLlegada + ");'>" + folioAvisoLlegada + "</a>");
+            //$("#spanFolioEntrada").html("<a href='#' onclick='AbrirListadoEntrada(" + folioAvisoLlegada + "," + folioLlegada + ");'>" + folioAvisoLlegada + "</a>");
             $("#SpanFolioLlegada").html(folioLlegada);
-            CargaInicialEdicion();
+            CargaInicialEdicion(folioLlegada);
         }
     };
 </script>
