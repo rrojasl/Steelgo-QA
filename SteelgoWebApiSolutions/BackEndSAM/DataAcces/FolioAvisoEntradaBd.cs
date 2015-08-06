@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
 using DatabaseManager.EntidadesPersonalizadas;
 using BackEndSAM.Utilities;
@@ -93,7 +94,7 @@ namespace BackEndSAM.DataAcces
                     {
                         result = (from r in ctx.Sam3_FolioAvisoEntrada
                                   where r.Activo
-                                  && (r.FechaModificacion >= fechaInicial && r.FechaModificacion <= fechaFinal)
+                                  && (r.FechaModificacion >= fechaInicial.Date && r.FechaModificacion <= fechaFinal.Date)
                                   select r).AsParallel().ToList();
 
                         if (result.Count > 0)
@@ -177,11 +178,11 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     DetalleAvisoEntradaJson detalle = new DetalleAvisoEntradaJson();
-                    Sam3_FolioAvisoEntrada registro =  ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folio).AsParallel().SingleOrDefault();
+                    Sam3_FolioAvisoEntrada registro =  ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
 
                     detalle.Cliente = (from c in ctx.Sam3_Cliente
                                        where c.ClienteID == registro.ClienteID
-                                       select new Cliente
+                                       select new Models.Cliente
                                        {
                                            ClienteID = c.ClienteID.ToString(),
                                            Nombre = c.Nombre
@@ -202,10 +203,14 @@ namespace BackEndSAM.DataAcces
                     detalle.Factura = registro.Factura;
                     detalle.FolioAvisollegadaId = registro.FolioAvisoLlegadaID.HasValue ? registro.FolioAvisoLlegadaID.Value : 0;
                     detalle.OrdenCompra = registro.OrdenCompra;
+                    detalle.FechaFinDescarga = registro.FechaFinDescarga;
+                    detalle.FechaGeneracionDescarga = registro.FechaFolioDescarga;
+                    detalle.FechaInicioDescarga = registro.FechainicioDescarga;
+                    detalle.FolioDescarga = registro.FolioDescarga;
 
                     detalle.Patio = (from p in ctx.Sam3_Patio
                                      where p.PatioID == registro.PatioID
-                                     select new Patio
+                                     select new Models.Patio
                                      {
                                          PatioID = p.PatioID.ToString(),
                                          Nombre = p.Nombre
@@ -213,7 +218,7 @@ namespace BackEndSAM.DataAcces
 
                     detalle.Proveedor = (from p in ctx.Sam3_Proveedor
                                          where p.ProveedorID == registro.ProveedorID
-                                         select new Proveedor
+                                         select new Models.Proveedor
                                          {
                                              ProveedorID = p.ProveedorID.ToString(),
                                              Nombre = p.Nombre
@@ -251,9 +256,33 @@ namespace BackEndSAM.DataAcces
                     int consecutivo = (from r in ctx.Sam3_FolioAvisoEntrada
                                        select r.Consecutivo).Max().Value;
 
+                    Sam3_Cliente cliente = ctx.Sam3_Cliente.Where(x => x.Sam2ClienteID == json.ClienteId).AsParallel().SingleOrDefault();
+
+                    if (cliente == null)
+                    {
+                        cliente = new Sam3_Cliente();
+                        DatabaseManager.Sam2.Cliente clienteSam2;
+                        using (Sam2Context ctx2 = new Sam2Context())
+                        {
+                            clienteSam2 = ctx2.Cliente.Where(x => x.ClienteID == json.ClienteId).AsParallel().SingleOrDefault();
+                        }
+                        cliente.Activo = true;
+                        cliente.Ciudad = clienteSam2.Ciudad;
+                        cliente.Direccion = clienteSam2.Direccion;
+                        cliente.Estado = clienteSam2.Estado;
+                        cliente.FechaModificacion = DateTime.Now;
+                        cliente.Nombre = clienteSam2.Nombre;
+                        cliente.Pais = clienteSam2.Pais;
+                        cliente.Sam2ClienteID = clienteSam2.ClienteID;
+                        cliente.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.Sam3_Cliente.Add(cliente);
+                        ctx.SaveChanges();
+                    }
+
                     Sam3_FolioAvisoEntrada nuevo = new Sam3_FolioAvisoEntrada();
                     nuevo.Activo = true;
-                    nuevo.ClienteID = 1;
+                    nuevo.ClienteID = cliente.ClienteID;
                     nuevo.Consecutivo = consecutivo > 0 ? consecutivo : 1;
                     nuevo.Estatus = "Generado";
                     nuevo.Factura = json.Factura;
@@ -376,6 +405,30 @@ namespace BackEndSAM.DataAcces
                     result.IsAuthenicated = true;
 
                     return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object TieneOrdenDescarga(int folioAvisoEntradaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int folio = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID)
+                        .Select(x => x.FolioDescarga).SingleOrDefault();
+
+                    return folio > 0 ? true : false; 
                 }
             }
             catch (Exception ex)

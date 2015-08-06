@@ -259,7 +259,7 @@ namespace BackEndSAM.DataAcces
                                    where r.Activo && p.Activo && pry.Activo && pa.Activo
                                    && proyectos.Contains(pry.ProyectoID)
                                    && patios.Contains(pa.PatioID)
-                                   && (r.FechaModificacion >= fechaInicial && r.FechaModificacion <= fechaFinal)
+                                   && (r.FechaModificacion >= fechaInicial.Date && r.FechaModificacion <= fechaFinal.Date)
                                    select r).AsParallel().ToList();
 
                     

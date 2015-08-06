@@ -37,6 +37,8 @@ namespace DatabaseManager.Sam3
         public int FolioDescarga { get; set; }
         public Nullable<System.DateTime> FechaFolioDescarga { get; set; }
         public Nullable<System.DateTime> FechaFinDescarga { get; set; }
+        public Nullable<System.DateTime> FechainicioDescarga { get; set; }
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
     
         public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }

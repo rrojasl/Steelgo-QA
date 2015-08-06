@@ -41,6 +41,7 @@
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Sam2ClienteID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Colada">
           <Key>
@@ -231,6 +232,8 @@
           <Property Name="FolioDescarga" Type="int" Nullable="false" />
           <Property Name="FechaFolioDescarga" Type="datetime" />
           <Property Name="FechaFinDescarga" Type="datetime" />
+          <Property Name="FechainicioDescarga" Type="datetime" />
+          <Property Name="FechaCreacion" Type="datetime" />
         </EntityType>
         <EntityType Name="Sam3_FolioAvisoLlegada">
           <Key>
@@ -727,6 +730,7 @@
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
           <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoEntrada_Proyecto">
           <Key>
@@ -3325,6 +3329,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_FolioAvisoEntrada" Relationship="ModelSam3.FK__Sam3_Foli__Clien__4850AF91" FromRole="Sam3_Cliente" ToRole="Sam3_FolioAvisoEntrada" />
+          <Property Name="Sam2ClienteID" Type="Int32" />
         </EntityType>
         <EntityType Name="Sam3_Colada">
           <Key>
@@ -6559,6 +6564,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaFolioDescarga" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_Rel_FolioAvisoEntrada_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Folio__54B68676" FromRole="Sam3_FolioAvisoEntrada" ToRole="Sam3_Rel_FolioAvisoEntrada_Documento" />
           <Property Name="FechaFinDescarga" Type="DateTime" Precision="3" />
+          <Property Name="FechainicioDescarga" Type="DateTime" Precision="3" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Camion_FolioLlegada1">
           <End Type="ModelSam3.Sam3_FolioAvisoEntrada" Role="Sam3_FolioAvisoEntrada" Multiplicity="1" />
@@ -6759,6 +6766,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sam3_FolioAvisoEntrada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__54B68676" FromRole="Sam3_Rel_FolioAvisoEntrada_Documento" ToRole="Sam3_FolioAvisoEntrada" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Folio__54B68676">
           <End Type="ModelSam3.Sam3_FolioAvisoEntrada" Role="Sam3_FolioAvisoEntrada" Multiplicity="1" />
@@ -6818,6 +6826,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Cliente">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Cliente">
               <MappingFragment StoreEntitySet="Sam3_Cliente">
+                <ScalarProperty Name="Sam2ClienteID" ColumnName="Sam2ClienteID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
@@ -8002,6 +8011,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_FolioAvisoEntrada">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioAvisoEntrada">
               <MappingFragment StoreEntitySet="Sam3_FolioAvisoEntrada">
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechainicioDescarga" ColumnName="FechainicioDescarga" />
                 <ScalarProperty Name="FechaFinDescarga" ColumnName="FechaFinDescarga" />
                 <ScalarProperty Name="FolioDescarga" ColumnName="FolioDescarga" />
                 <ScalarProperty Name="FechaFolioDescarga" ColumnName="FechaFolioDescarga" />
@@ -8048,6 +8059,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_FolioAvisoEntrada_Documento">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_FolioAvisoEntrada_Documento">
               <MappingFragment StoreEntitySet="Sam3_Rel_FolioAvisoEntrada_Documento">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
                 <ScalarProperty Name="Url" ColumnName="Url" />

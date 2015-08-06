@@ -98,6 +98,7 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.UsuarioModificacion = f.UserId;
                         nuevoDoc.TipoArchivoID = f.TipoArchivoID;
                         nuevoDoc.ContentType = f.ContentType;
+                        nuevoDoc.Descripcion = f.Descripcion;
 
                         ctx.Sam3_Rel_FolioAvisoEntrada_Documento.Add(nuevoDoc);
                     }
@@ -154,7 +155,6 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoEntrada
                                                         join d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento on r.FolioAvisoEntradaID equals d.FolioAvisoEntradaID
-                                                        join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
                                                         where r.Activo == true && r.FolioAvisoLlegadaID == folioAvisoEntradaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
@@ -162,7 +162,7 @@ namespace BackEndSAM.DataAcces
                                                             Nombre = d.Nombre,
                                                             Extencion = d.Extencion,
                                                             Url = d.Url,
-                                                            TipoArchivo = t.Nombre
+                                                            TipoArchivo = string.Empty
                                                         }).AsParallel().ToList();
                     return documentos;
                 }

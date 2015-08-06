@@ -34,7 +34,15 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                bool tieneOrdenDescarga =  (bool)FolioAvisoEntradaBd.Instance.TieneOrdenDescarga(folioAvisoEntrada, usuario);
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(tieneOrdenDescarga.ToString());
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+                return result;
+
             }
             else
             {

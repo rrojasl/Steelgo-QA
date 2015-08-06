@@ -30,6 +30,10 @@ namespace BackEndSAM.Models
         public string Estatus { get; set; }
         public ProyectosAV Proyectos { get; set; }
         public List<ListaDocumentos> Documentos { get; set; }
+        public int FolioDescarga { get; set; }
+        public Nullable<DateTime> FechaGeneracionDescarga { get; set; }
+        public Nullable<DateTime> FechaInicioDescarga { get; set; }
+        public Nullable<DateTime> FechaFinDescarga { get; set; }
 
         public DetalleAvisoEntradaJson()
         {

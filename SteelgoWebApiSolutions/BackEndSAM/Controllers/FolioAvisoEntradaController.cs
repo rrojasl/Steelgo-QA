@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(int FolioAvisoEntradaID, string token)
+        public object Get(int folio, string token)
         {
             string payload = "";
             string newToken = "";
@@ -52,7 +52,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return FolioAvisoEntradaBd.Instance.DetalleAvisoEntrada(FolioAvisoEntradaID, usuario);
+                return FolioAvisoEntradaBd.Instance.DetalleAvisoEntrada(folio, usuario);
             }
             else
             {
