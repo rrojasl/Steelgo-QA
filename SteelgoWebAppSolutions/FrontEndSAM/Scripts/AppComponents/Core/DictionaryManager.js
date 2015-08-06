@@ -854,6 +854,30 @@ _dictionary = {
         "es-MX": "Editar",
         "en-US": "Edit"
     },
+    "LlegadaMaterial0045": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "LlegadaMaterial0046": {
+        "es-MX": "Propietario",
+        "en-US": "Owner"
+    },
+    "LlegadaMaterial0047": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "LlegadaMaterial0048": {
+        "es-MX": "Requiere Permiso Aduana",
+        "en-US": "Customs Permit Required"
+    },
+    "LlegadaMaterial0049": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "LlegadaMaterial0050": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
@@ -1551,7 +1575,7 @@ _dictionary = {
     },
     "notificationslabel0020": {
         "es-MX": "No hay datos para importar",
-        "en-US": ""
+        "en-US": "No data to import"
     },
     "notificationslabel0021": {
         "es-MX": "Imposible leer el archivo: ",
@@ -1567,11 +1591,11 @@ _dictionary = {
     },
     "notificationslabel0024": {
         "es-MX": "Por favor, seleccionar el tipo de archivo",
-        "en-US": ""
+        "en-US": "Please select the file type"
     },
     "notificationslabel0025": {
         "es-MX": "Por favor, debe llenar la descripción",
-        "en-US": ""
+        "en-US": "Please, you must complete the description"
     },
     "notificationslabel0026": {
         "es-MX": "Folio de Entrada / Folio de Llegada: ",
@@ -1587,11 +1611,11 @@ _dictionary = {
     },
     "notificationslabel0029": {
         "es-MX": "Favor de validar los campos requeridos de la forma",
-        "en-US": ""
+        "en-US": "Required for validating the fields of the form"
     },
     "notificationslabel0030": {
         "es-MX": "Favor de validar los campos requeridos",
-        "en-US": ""
+        "en-US": "Please validate required fields"
     },
     "notificationslabel0031": {
         "es-MX": "Favor de validar los campos requeridos",

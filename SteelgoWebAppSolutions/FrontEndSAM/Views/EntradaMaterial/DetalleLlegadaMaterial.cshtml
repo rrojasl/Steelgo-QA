@@ -150,27 +150,27 @@
                     </div>
                 </div>
                 <div id="Nombre_PatioDiv" class="form-group">
-                    <label id="DetalleAvisoLlegada0026"></label>
+                    <label id="LlegadaMaterial0045"></label>
                     <input id="Nombre_Patio" class="" />
                 </div>
                 <div id="Propietario_PatioDiv" class="form-group">
-                    <label id="DetalleAvisoLlegada0027"></label>
+                    <label id="LlegadaMaterial0046"></label>
                     <input id="Propietario_Patio" class="" />
                 </div>
                 <div id="Descripcion_PatioDiv" class ="form-group">
-                    <label id="DetalleAvisoLlegada0028"></label>
+                    <label id="LlegadaMaterial0047"></label>
                     <input id="Descripcion_Patio" class="l" />
                 </div>
                 <div id="RequierePermisoAduana_PatioDiv" class="form-group">
-                    <label id="DetalleAvisoLlegada0075" class="checkLabel"></label>
+                    <label id="LlegadaMaterial0048" class="checkLabel"></label>
                     <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
                 </div>
                 <div class="buttonSave">
                     <a id="GuardarPatio" href="#" class="btn btn-primary">
-                        <span id="DetalleAvisoLlegada0029"></span>
+                        <span id="LlegadaMaterial0049"></span>
                     </a>
                     <a id="CancelarPatio" href="#" class="btn btn-primary">
-                        <span id="DetalleAvisoLlegada0078"></span>
+                        <span id="LlegadaMaterial0050"></span>
                     </a>
                 </div>
     </div>
@@ -178,7 +178,8 @@
 <script type="text/javascript">
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
-    var folioLlegada = getUrlParameter("folio", "-1");
+    var folioAvisoLlegada = getUrlParameter("folioAvisoLlegadaID", "-1");
+    var folioLlegada = getUrlParameter("folioLlegada", "-1");
         //your partial views variables
         var Patio = {}, Proyecto = {},
             Proveedor = {}, Folio = {},
@@ -363,7 +364,6 @@
             });
 
            
-
             $("#AdjuntarArchivos").data("kendoUpload").enable(false);
             $("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
@@ -508,31 +508,14 @@
         };
 
         function borrarArchivo(id, fila) {
-            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-            Client.add('DummyFileManager');
-
-            Client.DummyFileManager.destroy({}, { archivoID: id, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy({}, { archivoID: id, token: Cookies.get("token") }).done(function (data) {
                 fila.closest("tr").remove();
-                console.log("Client.DummyFileManager.destroy");
+                console.log("$DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy");
             });
         };
 
-        function AbrirArchivo(entradaid, llegadaid) {
-            var Listado = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-            //folioAvisoLlegada = entradaid;
-            folioLlegada = llegadaid;
-            window.location.href = Listado + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegada=" + folioLlegada;
-        };
-
-        function AbrirListadoEntrada(folioentrada, foliollegada) {
-            displayMessage("notificationslabel0026", folioentrada + "/" + foliollegada, '1');
-            var detalleIdeaUrl = "@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")";
-
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioLlegadaID=" + foliollegada + "&folioEntradaID=" + folioentrada;
-        };
-
         function DesahabilitarObtenerDocumentosLlegadaMaterial() {
-            $DummyFileManager.DummyFileManager.read({ folioLlegada: folioLlegada, token: Cookies.get("token") }).done(function (result) {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
                 loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
@@ -547,7 +530,7 @@
         };
 
         function HabilitarObtenerDocumentosLlegadaMaterial() {
-            $DummyFileManager.DummyFileManager.read({}, { folioLlegada: folioLlegada, token: Cookies.get("token") }).done(function (result) {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
                 loadingStart();
                 if (Error(result)) {
                     if (result.length > 0) {
@@ -627,16 +610,14 @@
                                 CargarProveedor(1, "");
                             }
                             break;
+                        case 'PatioID':
+                            if (!$("#PatioID").data("kendoComboBox").value() > 0) {
+                                CargarPatio(1, "");
+                            }
+                            break;
                         case 'Estatus':
                             if (!$("#Estatus").data("kendoComboBox").value() > 0) {
                                 CargarEstatus(1, "");
-                            } else {
-                                if (Estatus.Nombre = _estatus)
-                                {
-                                    if (!$("#PatioID").data("kendoComboBox").value() > 0) {
-                                        CargarPatio(1, "");
-                                    }
-                                }
                             }
                             break;
                     };
@@ -794,7 +775,6 @@
         {
             $("#divFolioEntradaID").hide();
             $("#divTitulos").removeClass('hidden');
-            //$("#spanFolioEntrada").html("<a href='#' onclick='AbrirListadoEntrada(" + folioAvisoLlegada + "," + folioLlegada + ");'>" + folioAvisoLlegada + "</a>");
             $("#SpanFolioLlegada").html(folioLlegada);
             CargaInicialEdicion(folioLlegada);
         }
