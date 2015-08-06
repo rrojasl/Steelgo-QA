@@ -19,5 +19,6 @@ namespace BackEndSAM.Models
         public int NumeroPermisoAduana { get; set; }
         public Nullable<int> PermisoAduanaID { get; set; }
         public int FolioAvisoEntradaID { get; set; }
+        public string Descripcion { get; set; }
     }
 }

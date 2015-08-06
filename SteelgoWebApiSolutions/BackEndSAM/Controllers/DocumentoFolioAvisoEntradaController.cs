@@ -100,7 +100,8 @@ namespace BackEndSAM.Controllers
                                 FolioAvisoEntradaID = folioAvisoEntradaID,
                                 UserId = usuario.UsuarioID,
                                 TipoArchivoID = tipoArchivoID,
-                                Extencion = extencion
+                                Extencion = extencion,
+                                Descripcion = descripcion
                             });
 
                             postedFile.SaveAs(path);
