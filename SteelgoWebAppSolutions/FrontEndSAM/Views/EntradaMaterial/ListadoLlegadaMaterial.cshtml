@@ -86,7 +86,7 @@
         </div>
     </div>
 </div>
-
+<input id="hdAccionFiltrado" type="hidden" />
 <script>
 
     @section JavascriptGlobalVariables 
@@ -103,8 +103,6 @@
     var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
     var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
     var DashPeriodo = getUrlParameter("DashPeriodo", "-1");
-    var selected = DashBoardAccionListado;
-
     }
 
     @section JavascriptGlobalFunctions 
@@ -317,7 +315,7 @@
 
         function Filtros() {
             var Listado;
-            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : selected;
+            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
             AccionesListado(accion);
         };
 
@@ -513,9 +511,9 @@
     $("#EstatusFolio").val("");
     $("#Cancel").val("");
 
-    $("#btnPorLlegar").click(function () { tabActivo("1"); AccionesListado(1); selected = 1 });
-    $("#btnPorDescargar").click(function () { tabActivo("2"); AccionesListado(2); selected = 2; });
-    $("#btnPorSalir").click(function () { tabActivo("3"); AccionesListado(3); selected = 3; });
+    $("#btnPorLlegar").click(function () { tabActivo("1"); AccionesListado(1); });
+    $("#btnPorDescargar").click(function () { tabActivo("2"); AccionesListado(2); });
+    $("#btnPorSalir").click(function () { tabActivo("3"); AccionesListado(3); });
 
     $("#Nuevo").click(function (e) {
         var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
