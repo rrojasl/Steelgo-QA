@@ -55,7 +55,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int FolioAvisoEntrada, string token)
+        public object Post(int folioAvisoEntrada, string token)
         {
             string payload = "";
             string newToken = "";
@@ -64,7 +64,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return FolioAvisoEntradaBd.Instance.GenerarFolioDescarga(FolioAvisoEntrada, usuario);
+                return FolioAvisoEntradaBd.Instance.GenerarFolioDescarga(folioAvisoEntrada, usuario);
             }
             else
             {

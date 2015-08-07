@@ -878,6 +878,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "LlegadaMaterial0051": {
+        "es-MX": "Cancelar Folio",
+        "en-US": "Cancel Folio"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",

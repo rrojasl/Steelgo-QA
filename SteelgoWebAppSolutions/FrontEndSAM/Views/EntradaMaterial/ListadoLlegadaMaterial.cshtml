@@ -207,9 +207,9 @@
     };
 
 
-    function mostrarDetalle(folio) {
-        var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folio;
+        function mostrarDetalle(folio) {
+            var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
         }
 
         function cancelarFolio() {

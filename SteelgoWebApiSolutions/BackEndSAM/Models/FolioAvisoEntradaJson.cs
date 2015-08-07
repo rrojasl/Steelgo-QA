@@ -9,6 +9,7 @@ namespace BackEndSAM.Models
 {
     public class FolioAvisoEntradaJson
     {
+        public int FolioAvisoEntradaID { get; set; }
         public int FolioAvisollegadaId { get; set; }
         public string Factura { get; set; }
         public string OrdenCompra { get; set; }
@@ -21,6 +22,7 @@ namespace BackEndSAM.Models
 
     public class DetalleAvisoEntradaJson
     {
+        public int FolioAvisoEntradaID { get; set; }
         public int FolioAvisollegadaId { get; set; }
         public string Factura { get; set; }
         public string OrdenCompra { get; set; }
