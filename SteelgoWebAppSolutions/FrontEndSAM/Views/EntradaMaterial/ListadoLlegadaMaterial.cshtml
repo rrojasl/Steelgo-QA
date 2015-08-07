@@ -204,16 +204,16 @@
         });
     };
 
+
     function mostrarDetalle(folio) {
         var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folio;
+        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
     }
 
     function cancelarFolio(e) {
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var folioAvisoEntradaID = dataItem.FolioAvisoEntradaID;
-
             if (confirm(_dictionary.ListadoLlegadaMaterial0022[$("#language").data("kendoDropDownList").value()])) {
                 $FiltrosListadoLlegadaMaterial.FolioAvisoEntrada.destroy({}, { folio: folioAvisoEntradaID, token: Cookies.get("token") }).done(function (data) {
                     Filtros();

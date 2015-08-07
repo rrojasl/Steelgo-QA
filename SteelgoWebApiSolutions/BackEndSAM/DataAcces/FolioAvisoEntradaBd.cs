@@ -196,9 +196,10 @@ namespace BackEndSAM.DataAcces
                                               Nombre = d.Nombre,
                                               Extencion = d.Extencion,
                                               TipoArchivo = d.TipoArchivoID.ToString(),
-                                              Url = d.Url
+                                              Url = d.Url,
+                                              Descripcion=d.Descripcion
                                           }).AsParallel().ToList();
-
+                    detalle.FolioAvisoEntradaID = registro.FolioAvisoEntradaID;
                     detalle.Estatus = registro.Estatus;
                     detalle.Factura = registro.Factura;
                     detalle.FolioAvisollegadaId = registro.FolioAvisoLlegadaID.HasValue ? registro.FolioAvisoLlegadaID.Value : 0;
@@ -286,7 +287,7 @@ namespace BackEndSAM.DataAcces
                     nuevo.Activo = true;
                     nuevo.ClienteID = cliente.ClienteID;
                     nuevo.Consecutivo = consecutivo > 0 ? consecutivo : 1;
-                    nuevo.Estatus = "Generado";
+                    nuevo.Estatus = json.Estatus;
                     nuevo.Factura = json.Factura;
                     nuevo.FechaModificacion = DateTime.Now;
                     nuevo.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
@@ -340,7 +341,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Sam3_FolioAvisoEntrada registroBd = ctx.Sam3_FolioAvisoEntrada
-                        .Where(x => x.FolioAvisoEntradaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                        .Where(x => x.FolioAvisoEntradaID == json.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
                     registroBd.ClienteID = json.ClienteId;
                     registroBd.Estatus = json.Estatus;
                     registroBd.Factura = json.Factura;
@@ -455,7 +456,7 @@ namespace BackEndSAM.DataAcces
                     consecutivo = consecutivo.HasValue ? consecutivo.Value + 1 : 1;
                     Sam3_FolioAvisoEntrada registroBd = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID)
                         .AsParallel().SingleOrDefault();
-                    registroBd.Estatus = "Folio Descarga Generado";
+                    registroBd.Estatus = "Orden de Descarga Generada";
                     registroBd.FolioDescarga = consecutivo.Value;
                     registroBd.FechaFolioDescarga = DateTime.Now;
                     registroBd.FechaModificacion = DateTime.Now;
