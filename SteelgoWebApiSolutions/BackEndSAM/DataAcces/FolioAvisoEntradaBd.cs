@@ -189,7 +189,7 @@ namespace BackEndSAM.DataAcces
                                        }).AsParallel().SingleOrDefault();
 
                     detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
-                                          where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID
+                                          where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo
                                           select new ListaDocumentos
                                           {
                                               DocumentoID = d.Rel_FolioAvisoEntrada_DocumentoID.ToString(),
