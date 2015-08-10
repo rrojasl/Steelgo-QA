@@ -413,10 +413,10 @@
                 };
 
                 if (data.Estatus) {
-                    $("#Estatus").data("kendoComboBox").value(data.Estatus);
+                    $("#Estatus").data("kendoComboBox").value(data.ComboEstatus);
                     CargarEstatus($("#Estatus").data("kendoComboBox").value(), $("#Estatus").data("kendoComboBox").text());
 
-                    if (data.Estatus == _estatus) {//en patio
+                    if (data.ComboEstatus == _estatus) {//en patio
                         $("#divPatio").show();
                         CargarPatio(data.Patio.PatioID, data.Patio.Nombre);
                         $("#PatioID").data("kendoComboBox").value(data.Patio.Nombre);
@@ -595,7 +595,7 @@
 
         function GuardarLlegadaMaterial() {
             //Arreglo Llegada Material
-            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "" };
+            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "", ComboEstatus: "" };
             Documentos = [];
 
             CargarDefaults();
@@ -620,6 +620,7 @@
             FolioLlegada.Estatus = Estatus.Nombre;
             FolioLlegada.PatioID = Patio.PatioID;
             FolioLlegada.Archivos = Documentos;
+            FolioLlegada.ComboEstatus = Estatus.Nombre;
 
             console.log(JSON.stringify(FolioLlegada));
 
