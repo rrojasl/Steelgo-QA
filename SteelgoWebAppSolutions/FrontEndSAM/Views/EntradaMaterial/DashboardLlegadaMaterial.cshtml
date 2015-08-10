@@ -79,6 +79,15 @@
     @section JavascriptGlobalVariables {
     var Patio = {}, Cliente = {};
     var FechaInicial, FechaFinal, PeriodoTiempo;
+
+    var $LlegadaMaterialModel = {
+        listContainer: {
+            create: "#Nuevo",
+            list: ".btn-group",
+            detail: ".graphContainer",
+            destroy: ""
+        },
+    };
     }
     @section JavascriptGlobalFunctions {
 
@@ -304,6 +313,8 @@
   }
 
     @section JavascriptDocumentReadyFunctions {
+
+    $authorizationModel["LLegada Material"] = $LlegadaMaterialModel;
 
     $("#Nuevo").click(function () {
         var url = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
