@@ -472,6 +472,7 @@ namespace BackEndSAM.DataAcces
                     registroBd.FolioDescarga = consecutivo.Value;
                     registroBd.FechaFolioDescarga = DateTime.Now;
                     registroBd.FechaModificacion = DateTime.Now;
+                    registroBd.FechainicioDescarga = DateTime.Now;
                     registroBd.UsuarioModificacion = usuario.UsuarioID;
                     ctx.SaveChanges();
 
