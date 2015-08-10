@@ -18,6 +18,7 @@ namespace BackEndSAM.Models
         public int PatioID { get; set; }
         public string Estatus { get; set; }
         public int ProyectoID { get; set; }
+        public string ComboEstatus { get; set; }
     }
 
     public class DetalleAvisoEntradaJson
@@ -36,6 +37,7 @@ namespace BackEndSAM.Models
         public Nullable<DateTime> FechaGeneracionDescarga { get; set; }
         public Nullable<DateTime> FechaInicioDescarga { get; set; }
         public Nullable<DateTime> FechaFinDescarga { get; set; }
+        public string ComboEstatus { get; set; }
 
         public DetalleAvisoEntradaJson()
         {

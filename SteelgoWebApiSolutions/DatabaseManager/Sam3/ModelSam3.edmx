@@ -234,6 +234,7 @@
           <Property Name="FechaFinDescarga" Type="datetime" />
           <Property Name="FechainicioDescarga" Type="datetime" />
           <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ComboEstatus" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_FolioAvisoLlegada">
           <Key>
@@ -6566,6 +6567,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaFinDescarga" Type="DateTime" Precision="3" />
           <Property Name="FechainicioDescarga" Type="DateTime" Precision="3" />
           <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ComboEstatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Camion_FolioLlegada1">
           <End Type="ModelSam3.Sam3_FolioAvisoEntrada" Role="Sam3_FolioAvisoEntrada" Multiplicity="1" />
@@ -8011,6 +8013,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_FolioAvisoEntrada">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioAvisoEntrada">
               <MappingFragment StoreEntitySet="Sam3_FolioAvisoEntrada">
+                <ScalarProperty Name="ComboEstatus" ColumnName="ComboEstatus" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="FechainicioDescarga" ColumnName="FechainicioDescarga" />
                 <ScalarProperty Name="FechaFinDescarga" ColumnName="FechaFinDescarga" />

@@ -86,13 +86,12 @@
         </div>
     </div>
 </div>
-
+<input id="hdAccionFiltrado" type="hidden" />
 <script>
 
     @section JavascriptGlobalVariables 
     {
     var Patio = {}, Cliente = {};
-
     var FechaInic, FechaFinal, resultadoJson, PeriodoTiempo;
     var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
     var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
@@ -104,8 +103,6 @@
     var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
     var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
     var DashPeriodo = getUrlParameter("DashPeriodo", "-1");
-
-
     }
 
     @section JavascriptGlobalFunctions 
@@ -124,8 +121,6 @@
             ],
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                console.log("dataItem");
-                console.log(dataItem);
 
                 CargarPeriodoTiempo(dataItem.PeriodoID);
             },
@@ -192,6 +187,7 @@
                 numeric: true,
             },
             columns: [
+                { field: "FolioAvisoEntradaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
                 { field: "FolioAvisoLlegadaID", title: _dictionary.ListadoLlegadaMaterial0015[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioAvisoLlegadaID#)'>#:FolioAvisoLlegadaID#</a>", filterable: true },
                 { field: "FechaCreación", title: _dictionary.ListadoLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Patio", title: _dictionary.ListadoLlegadaMaterial0002[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -207,25 +203,20 @@
     };
 
 
-        function mostrarDetalle(folio) {
-            var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
-        }
+    function mostrarDetalle(folio) {
+        var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
+    }
 
-        function cancelarFolio() {
+    function cancelarFolio(e) {
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var folioAvisoEntradaID = dataItem.FolioAvisoEntradaID;
             if (confirm(_dictionary.ListadoLlegadaMaterial0022[$("#language").data("kendoDropDownList").value()])) {
-                //aki debe estar el de filtros()
-                var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-                Client.add('FolioAvisoEntrada');
-                Client.FolioAvisoEntrada.destroy({}, { folio: FolioAvisoEntradaID, token: Cookies.get("token") }).done(function (data) {
+                $FiltrosListadoLlegadaMaterial.FolioAvisoEntrada.destroy({}, { folio: folioAvisoEntradaID, token: Cookies.get("token") }).done(function (data) {
                     Filtros();
-                });
-
-            } else {
-                //displayMessage("notificationslabel0016", "", '1');
-                //e.preventDefault();
-            };
-
+                 });
+            }
         };
 
         function ObtenerAccionesListado(Listado) {
@@ -510,10 +501,6 @@
         $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
         $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
     };
-
-
-
-
 
     @section JavascriptDocumentReadyFunctions 
     {

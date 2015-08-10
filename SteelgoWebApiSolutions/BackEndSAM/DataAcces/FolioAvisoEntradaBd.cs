@@ -208,6 +208,7 @@ namespace BackEndSAM.DataAcces
                     detalle.FechaGeneracionDescarga = registro.FechaFolioDescarga;
                     detalle.FechaInicioDescarga = registro.FechainicioDescarga;
                     detalle.FolioDescarga = registro.FolioDescarga;
+                    detalle.ComboEstatus = registro.ComboEstatus;
 
                     detalle.Patio = (from p in ctx.Sam3_Patio
                                      where p.PatioID == registro.PatioID
@@ -295,6 +296,7 @@ namespace BackEndSAM.DataAcces
                     nuevo.PatioID = json.PatioID;
                     nuevo.ProveedorID = json.ProveedorID;
                     nuevo.UsuarioModificacion = usuario.UsuarioID;
+                    nuevo.ComboEstatus = json.ComboEstatus;
 
                     ctx.Sam3_FolioAvisoEntrada.Add(nuevo);
                     ctx.SaveChanges();
@@ -351,8 +353,10 @@ namespace BackEndSAM.DataAcces
                     registroBd.PatioID = json.PatioID;
                     registroBd.ProveedorID = json.ProveedorID;
                     registroBd.UsuarioModificacion = usuario.UsuarioID;
+                    registroBd.ComboEstatus = json.ComboEstatus;
 
-                    if (!registroBd.Sam3_Rel_FolioAvisoEntrada_Proyecto.Where(x => x.ProyectoID == json.ProyectoID).Any())
+                    //si no existe registro de proyecto para el aviso de entrada se genera uno nuevo si ya existe se actualiza el registro
+                    if (!registroBd.Sam3_Rel_FolioAvisoEntrada_Proyecto.Where(x => x.FolioAvisoEntradaID == registroBd.FolioAvisoEntradaID).Any())
                     {
                         Sam3_Rel_FolioAvisoEntrada_Proyecto nuevaRelProyecto = new Sam3_Rel_FolioAvisoEntrada_Proyecto();
                         nuevaRelProyecto.Activo = true;
@@ -361,6 +365,14 @@ namespace BackEndSAM.DataAcces
                         nuevaRelProyecto.ProyectoID = json.ProyectoID;
                         nuevaRelProyecto.UsuarioModificacion = usuario.UsuarioID;
                         ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto.Add(nuevaRelProyecto);
+                    }
+                    else
+                    {
+                        Sam3_Rel_FolioAvisoEntrada_Proyecto relProyecto = ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto
+                            .Where(x => x.FolioAvisoEntradaID == registroBd.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
+                        relProyecto.ProyectoID = json.ProyectoID;
+                        relProyecto.FechaModificacion = DateTime.Now;
+                        relProyecto.UsuarioModificacion = usuario.UsuarioID;
                     }
 
                     ctx.SaveChanges();

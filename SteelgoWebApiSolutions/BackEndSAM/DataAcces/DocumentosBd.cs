@@ -163,7 +163,7 @@ namespace BackEndSAM.DataAcces
                                                             Extencion = d.Extencion,
                                                             Url = d.Url,
                                                             TipoArchivo = string.Empty,
-                                                            Descripcion=d.Descripcion
+                                                            Descripcion= d.Descripcion
                                                         }).AsParallel().ToList();
                     return documentos;
                 }
