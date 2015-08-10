@@ -1641,6 +1641,10 @@ _dictionary = {
         "es-MX": "Favor de guardar la llegada de material.",
         "en-US": "Please keep the arrival of material."
     },
+    "notificationslabel0036": {
+        "es-MX": "Favor de guardar la llegada de material, para poder realizar la siguiente acción",
+        "en-US": ""
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

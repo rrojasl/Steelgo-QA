@@ -554,7 +554,7 @@
                 destroy: ""
             },
             properties: {
-                contacto: {
+                nombre: {
                     visible: "#Nombre_ChoferDiv",
                     editable: "#Nombre_Chofer",
                     required: "#Nombre_Chofer"
@@ -867,6 +867,7 @@
 
                 $("#GuardarNuevo").click(function (e) {
                     if (validarRequeridosFormaAvisoLlegada()) {
+                        GuardarAvisoLlegada();
                         var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                     } else {

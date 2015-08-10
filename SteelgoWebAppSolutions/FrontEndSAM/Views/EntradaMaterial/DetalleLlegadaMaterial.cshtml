@@ -39,7 +39,7 @@
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><span id="LlegadaMaterial0037"></span></a></li>
+                                    <li><a id="GuardarNuevo" href="#"><span id="LlegadaMaterial0037"></span></a></li>
                                     <li><a href="#"><span id="LlegadaMaterial0038"></span></a></li>
                                 </ul>
                             </div>
@@ -55,13 +55,13 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a><span id="LlegadaMaterial0041"></span></a></li>
+                                    <li><a id="RedirectDashboard"><span id="LlegadaMaterial0041"></span></a></li>
                                     <li><a><span id="LlegadaMaterial0042"></span></a></li>
                                     <li><a id="CancelarFolio" href="#"><span id="LlegadaMaterial0051"></span></a></li>
                                 </ul>
                             </div>
                         </div>
-                        <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
                     </div>
                 </div>
             </div>
@@ -200,7 +200,22 @@
             });
 
             $("#Guardar").click(function (e) {
-                GuardarLlegadaMaterial();
+                if(validarRequeridosFormaLlegadaMaterial()){
+                    GuardarLlegadaMaterial();
+                } else
+                {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
+
+            $("#GuardarNuevo").click(function (e) {
+                if (validarRequeridosFormaLlegadaMaterial()) {
+                    GuardarLlegadaMaterial();
+                    var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                } else {
+                    displayMessage("notificationslabel0031", "", 1);
+                };
             });
 
             $("#Editar").click(function (e) {
@@ -213,8 +228,11 @@
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
-            $("#CancelarFolio").click(function (e) {
-
+            $("#CancelarFolio").click(function (e) { CancelarFolio(); });
+            
+            $("#RedirectDashboard").click(function (e) {
+                var detalleIdeaUrl = "@Url.Action("DashboardLlegadaMaterial", "EntradaMaterial")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
             // modal Patio
@@ -317,15 +335,10 @@
             ObtenerPatio();
 
             $("#Estatus").kendoComboBox({
-                dataSource: {
-                    serverFiltering: false,
-                    type: "json",
-                    transport: {
-                        read: {
-                            url: $BackEndSAMUri + "/backendsam/api/DummyEstatus",
-                        }
-                    }
-                },
+                dataSource: [
+                    { Nombre: "En Patio", id: 1},
+                    { Nombre: "Cierre de Folio Por Devolución", id: 2}
+                ],
                 dataTextField: "Nombre",
                 dataValueField: "EstatusID",
                 select: function (e) {
@@ -722,12 +735,7 @@
             $("#Descripcion").attr('disabled', 'disabled');
             $("#AdjuntarArchivos").data("kendoUpload").enable(false);
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
-            //$("#TramitarPermiso").attr('disabled', 'disabled');
-            //if ($("#hdPermisoTramite").val() == "1") {
-            //    $("#TramitarPermisoDiv").hide();
-            //    $("#AutorizarPermisoDiv").show();
-            //    $("#AutorizarPermiso").removeAttr('disabled');
-            //};
+            
             DesahabilitarObtenerDocumentosLlegadaMaterial();
         };
 
@@ -795,12 +803,45 @@
             });
         }
 
+        function CancelarFolio() {
+            
+            if (folioLlegada == -1) {
+                displayMessage("notificationslabel0036", "", '1');
+                return;
+            };
+
+            loadingStart();
+            $FolioAvisoEntrada.FolioAvisoEntrada.destroy({}, { folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                loadingStop();
+
+                displayMessage("notificationslabel0032", "", '0');
+                var detalleIdeaUrl = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                });
+        };
+
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
             } else {
                 $("#" + control).data("kendoComboBox").dataSource.data([]);
             };
+        };
+
+        function validarRequeridosFormaLlegadaMaterial() {
+            var bool = true;
+            $("#formLlegadaMaterial .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).closest("div").find("label").addClass("error");
+                    } else {
+                        $(this).closest("div").find("label").removeClass("error");
+                    };
+                };
+            });
+            return bool;
         };
 
         function Error(data) {
