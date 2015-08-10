@@ -155,7 +155,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaDocumentos> documentos = (from r in ctx.Sam3_FolioAvisoEntrada
                                                         join d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento on r.FolioAvisoEntradaID equals d.FolioAvisoEntradaID
-                                                        where r.Activo == true && r.FolioAvisoEntradaID == folioAvisoEntradaId && d.Activo
+                                                        where r.Activo && d.Activo == true && r.FolioAvisoEntradaID == folioAvisoEntradaId && d.Activo
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = d.Rel_FolioAvisoEntrada_DocumentoID.ToString(),
