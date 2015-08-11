@@ -713,7 +713,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join m in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals m.FolioAvisoLlegadaID
-                                                   where r.Activo && m.Activo
+                                                   where r.Activo && m.Activo && m.FolioDescarga > 0
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),

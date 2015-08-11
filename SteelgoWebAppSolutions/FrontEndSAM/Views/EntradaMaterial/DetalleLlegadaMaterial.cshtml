@@ -535,7 +535,7 @@
                     CargarEstatus(dataItem.EstatusID, dataItem.Nombre);
                     if (dataItem.Nombre == _estatus) {//En Patio
                         $("#PatioIDDiv").show();
-                        if ($("#hdnOrdenDescargada").val() == "false") {
+                        if ($("#hdnOrdenDescargada").val() == "false" || !$("#hdnOrdenDescargada").val()) {
                             $("#GenerarOrdenDescarga").removeAttr("disabled");
                         }
                     }

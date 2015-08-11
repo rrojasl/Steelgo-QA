@@ -59,7 +59,7 @@ var $DocumentoAvisoLlegada = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $ValidacionFolioConPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyPaseSalidaEnviado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PaseSalida= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenDescarga = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -103,7 +103,7 @@ $DocumentoAvisoLlegada.add("DocumentoAvisoLlegada");
 $ValidacionFolioConPermisoAduana.add("ValidacionFolioConPermisoAduana");
 $Incidencias.add("DummyIncidencias")
 $DocumentoPaseSalida.add("DocumentoPaseSalida");
-$DummyPaseSalidaEnviado.add("DummyPaseSalidaEnviado");
+$PaseSalida.add("PaseSalida");
 $DocumentoFolioAvisoEntrada.add("DocumentoFolioAvisoEntrada");
 $FolioAvisoEntrada.add("FolioAvisoEntrada");
 $OrdenDescarga.add("OrdenDescarga");

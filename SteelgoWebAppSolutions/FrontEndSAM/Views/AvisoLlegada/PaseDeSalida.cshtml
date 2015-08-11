@@ -160,9 +160,8 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                     displayMessage("notificationslabel0027", "", '1');
                     return false;
                 };
-                DesahabilitarControles();
-                $("#GenerarPaseSalida").css("display", "none");
-                $("#ImprimirPaseSalida").css("display", "block");
+
+                GenerarPaseSalida();
             });
 
             $("#ImprimirPaseSalida").click(function () {
@@ -208,6 +207,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                 dataValueField: "value",
                 filter: "contains",
                 select: function (e) {
+                    limpiarUploadFiles();
                     var dataItem = this.dataItem(e.item.index());
                     CargarFolio(dataItem.id);
                     ObtenerIncidencias(dataItem.id);
@@ -216,12 +216,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                 change: function (e) {
                     var value = this.value();
                     if (!value) {
-                        Folio = {};
-                        $('#ListaIncidencias tbody').empty();
-                        $("#listaArchivosPaseSalida tbody").empty();
-                        habilitarControles();
-                        $("#GenerarPaseSalida").css("display", "block");
-                        $("#ImprimirPaseSalida").css("display", "none");
+                        limpiarUploadFiles();
                     };
                 },
             });
@@ -229,12 +224,16 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
             ObtenerFoliosAvisoLlegada();
 
             $("#TipoArchivo").kendoComboBox({
+                dataSource: [
+                    { Nombre: "Packing List Firmado", id: 1 },
+                    { Nombre: "Incidencias Firmadas", id: 2 }
+                ],
                 dataTextField: "Nombre",
                 dataValueField: "TipoArchivoID",
                 filter: "contains",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarTipoArchivo(dataItem.TipoArchivoID);
+                    CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
                 },
                 change: function (e) {
                     var value = this.value();
@@ -243,11 +242,11 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                     };
                 },
             });
-            ObtenerTipoArchivo();
+
 
             $('#PackingList').kendoUpload({
                 async: {
-                    saveUrl: $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivoID=" + TipoArchivo.TipoArchivoID + "&token=" + Cookies.get("token"),
+                    saveUrl: $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.TipoArchivoID + "&token=" + Cookies.get("token"),
                     autoUpload: false,
                     withCredentials: false,
                     batch: true
@@ -260,19 +259,48 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
             });
         }
 
-        
+        function GenerarPaseSalida() {
+            loadingStart();
+            $PaseSalida.PaseSalida.create({},{ folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+                console.log("$PaseSalida");
+                if (Error(result)) {
+                    loadingStop();
+                    DesahabilitarControles();
+                    $("#GenerarPaseSalida").css("display", "none");
+                    $("#ImprimirPaseSalida").css("display", "block");
+                    DeshabilitarObtenerDocumentosPaseSalida();
+                };
+            });
+        }
+        function limpiarUploadFiles() {
+            Folio = {};
+            TipoArchivo = {};
+
+            habilitarControles();
+            $('#ListaIncidencias tbody').empty();
+            $("#listaArchivosPaseSalida tbody").empty();
+            $("#GenerarPaseSalida").css("display", "block");
+            $("#ImprimirPaseSalida").css("display", "none");
+            $(".k-upload-files").remove();
+            $(".k-upload-status").remove();
+            $(".k-upload-selected").remove();
+            $(".k-upload.k-header").addClass("k-upload-empty");
+            $(".k-upload-button").removeClass("k-state-focused");            
+            $("#TipoArchivo").data("kendoComboBox").value("");
+        };
+
         function CargarFolio(id) {
             Folio = {};
             Folio = { FolioAvisoLlegadaID: id };
         };
 
-        function CargarTipoArchivo(id) {
+        function CargarTipoArchivo(id, value) {
             TipoArchivo = {};
-            TipoArchivo = { TipoArchivoID: id};
+            TipoArchivo = { TipoArchivoID: id, Nombre: value};
         };
 
-        function ObtenerFoliosAvisoLlegada() {// MODIFICAR EL TIPO DE LISTADA, necesito obtener los folios que no tengan pase de salida
-            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+        function ObtenerFoliosAvisoLlegada() {
+            $folioEntradaMaterial.Listado.read({ tipoListado: 6, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
             });
         };
@@ -286,12 +314,6 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
             });
         }
 
-        function ObtenerTipoArchivo() {
-            $TipoArchivo.TipoArchivo.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("TipoArchivo", result);
-            });
-        };
-
         function onUploadArchivoPaseSalida(e) {
             if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
                 displayMessage("notificationslabel0034", "", '1');
@@ -303,7 +325,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                 e.preventDefault();
             }
 
-            $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivoID=" + TipoArchivo.TipoArchivoID + "&token=" + Cookies.get("token");
+            $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
         };
 
         function ObtenerDocumentosPaseSalida() {
@@ -354,7 +376,8 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
         }
 
         function ChecarPaseSalidaEnviado() {
-            $DummyPaseSalidaEnviado.DummyPaseSalidaEnviado.read({ folio: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+            loadingStart();
+            $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     if (result) {
                         DesahabilitarControles();
@@ -367,6 +390,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                         $("#ImprimirPaseSalida").css("display", "none");
                         ObtenerDocumentosPaseSalida();
                     }
+                    loadingStop();
                 };
             });
         }
@@ -389,6 +413,8 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                         displayMessage("notificationslabel0008", data.ReturnMessage, '2');
                         return false;
                     }
+                } else {
+                    return true;
                 }
             } else {
                 return true;
