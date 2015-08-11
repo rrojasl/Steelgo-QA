@@ -44,6 +44,8 @@ namespace BackEndSAM.Controllers
                         rest.ReturnStatus = false;
                         rest.IsAuthenicated = false;
                         return rest;
+                    case 6: //Obtener listado de folios que ya tienen llegada de material
+                        return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida();
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

@@ -705,6 +705,37 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerListadoSinPaseSalida()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                   join m in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals m.FolioAvisoLlegadaID
+                                                   where r.Activo && m.Activo
+                                                   select new ListaCombos
+                                                   {
+                                                       id = r.FolioAvisoLlegadaID.ToString(),
+                                                       value = r.Consecutivo.ToString()
+                                                   }).AsParallel().ToList();
+
+                    return lstFolios;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
         public object ObtenerListadoFoliosRequierePermiso()
         {
             try
