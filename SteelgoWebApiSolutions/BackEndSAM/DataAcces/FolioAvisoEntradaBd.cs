@@ -180,62 +180,64 @@ namespace BackEndSAM.DataAcces
                     DetalleAvisoEntradaJson detalle = new DetalleAvisoEntradaJson();
                     Sam3_FolioAvisoEntrada registro =  ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
 
-                    detalle.Cliente = (from c in ctx.Sam3_Cliente
-                                       where c.ClienteID == registro.ClienteID
-                                       select new Models.Cliente
-                                       {
-                                           ClienteID = c.ClienteID.ToString(),
-                                           Nombre = c.Nombre
-                                       }).AsParallel().SingleOrDefault();
+                    if (registro != null)
+                    {
+                        detalle.Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.ClienteID == registro.ClienteID
+                                           select new Models.Cliente
+                                           {
+                                               ClienteID = c.ClienteID.ToString(),
+                                               Nombre = c.Nombre
+                                           }).AsParallel().SingleOrDefault();
 
-                    detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
-                                          where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo
-                                          select new ListaDocumentos
-                                          {
-                                              DocumentoID = d.Rel_FolioAvisoEntrada_DocumentoID.ToString(),
-                                              Nombre = d.Nombre,
-                                              Extencion = d.Extencion,
-                                              TipoArchivo = d.TipoArchivoID.ToString(),
-                                              Url = d.Url,
-                                              Descripcion=d.Descripcion
-                                          }).AsParallel().ToList();
-                    detalle.FolioAvisoEntradaID = registro.FolioAvisoEntradaID;
-                    detalle.Estatus = registro.Estatus;
-                    detalle.Factura = registro.Factura;
-                    detalle.FolioAvisollegadaId = registro.FolioAvisoLlegadaID.HasValue ? registro.FolioAvisoLlegadaID.Value : 0;
-                    detalle.OrdenCompra = registro.OrdenCompra;
-                    detalle.FechaFinDescarga = registro.FechaFinDescarga;
-                    detalle.FechaGeneracionDescarga = registro.FechaFolioDescarga;
-                    detalle.FechaInicioDescarga = registro.FechainicioDescarga;
-                    detalle.FolioDescarga = registro.FolioDescarga;
-                    detalle.ComboEstatus = registro.ComboEstatus;
+                        detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
+                                              where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo
+                                              select new ListaDocumentos
+                                              {
+                                                  DocumentoID = d.Rel_FolioAvisoEntrada_DocumentoID.ToString(),
+                                                  Nombre = d.Nombre,
+                                                  Extencion = d.Extencion,
+                                                  TipoArchivo = d.TipoArchivoID.ToString(),
+                                                  Url = d.Url,
+                                                  Descripcion = d.Descripcion
+                                              }).AsParallel().ToList();
+                        detalle.FolioAvisoEntradaID = registro.FolioAvisoEntradaID;
+                        detalle.Estatus = registro.Estatus;
+                        detalle.Factura = registro.Factura;
+                        detalle.FolioAvisollegadaId = registro.FolioAvisoLlegadaID.HasValue ? registro.FolioAvisoLlegadaID.Value : 0;
+                        detalle.OrdenCompra = registro.OrdenCompra;
+                        detalle.FechaFinDescarga = registro.FechaFinDescarga;
+                        detalle.FechaGeneracionDescarga = registro.FechaFolioDescarga;
+                        detalle.FechaInicioDescarga = registro.FechainicioDescarga;
+                        detalle.FolioDescarga = registro.FolioDescarga;
+                        detalle.ComboEstatus = registro.ComboEstatus;
 
-                    detalle.Patio = (from p in ctx.Sam3_Patio
-                                     where p.PatioID == registro.PatioID
-                                     select new Models.Patio
-                                     {
-                                         PatioID = p.PatioID.ToString(),
-                                         Nombre = p.Nombre
-                                     }).AsParallel().SingleOrDefault();
-
-                    detalle.Proveedor = (from p in ctx.Sam3_Proveedor
-                                         where p.ProveedorID == registro.ProveedorID
-                                         select new Models.Proveedor
+                        detalle.Patio = (from p in ctx.Sam3_Patio
+                                         where p.PatioID == registro.PatioID
+                                         select new Models.Patio
                                          {
-                                             ProveedorID = p.ProveedorID.ToString(),
+                                             PatioID = p.PatioID.ToString(),
                                              Nombre = p.Nombre
                                          }).AsParallel().SingleOrDefault();
 
-                    detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto
-                                         join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
-                                         where r.FolioAvisoEntradaID == registro.FolioAvisoEntradaID
-                                         && r.Activo
-                                         select new Models.Proyecto
-                                         {
-                                             ProyectoID = r.ProyectoID.ToString(),
-                                             Nombre=p.Nombre
-                                         }).AsParallel().SingleOrDefault();
+                        detalle.Proveedor = (from p in ctx.Sam3_Proveedor
+                                             where p.ProveedorID == registro.ProveedorID
+                                             select new Models.Proveedor
+                                             {
+                                                 ProveedorID = p.ProveedorID.ToString(),
+                                                 Nombre = p.Nombre
+                                             }).AsParallel().SingleOrDefault();
 
+                        detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto
+                                             join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                             where r.FolioAvisoEntradaID == registro.FolioAvisoEntradaID
+                                             && r.Activo
+                                             select new Models.Proyecto
+                                             {
+                                                 ProyectoID = r.ProyectoID.ToString(),
+                                                 Nombre = p.Nombre
+                                             }).AsParallel().SingleOrDefault();
+                    }
                     return detalle;
                 }
             }

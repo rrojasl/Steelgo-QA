@@ -882,6 +882,54 @@ _dictionary = {
         "es-MX": "Cancelar Folio",
         "en-US": "Cancel Folio"
     },
+    "LlegadaMaterial0052": {
+        "es-MX": "Contacto",
+        "en-US": "Contact"
+    },
+    "LlegadaMaterial0053": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "LlegadaMaterial0054": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "LlegadaMaterial0055": {
+        "es-MX": "Dirección",
+        "en-US": "Address"
+    },
+    "LlegadaMaterial0056": {
+        "es-MX": "Telefono",
+        "en-US": "Phone"
+    },
+    "LlegadaMaterial0057": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "LlegadaMaterial0058": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "LlegadaMaterial0059": {
+        "es-MX": "Folio ",
+        "en-US": "Folio "
+    },
+    "LlegadaMaterial0060": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "LlegadaMaterial0061": {
+        "es-MX": "En Patio",
+        "en-US": "In Yard"
+    },
+    "LlegadaMaterial0062": {
+        "es-MX": "Cierre de Folio Por Devolución",
+        "en-US": "By closing Folio Return"
+    },
+    "LlegadaMaterial0063": {
+        "es-MX": "Orden de Descarga Generada",
+        "en-US": "Download Order Generation"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
