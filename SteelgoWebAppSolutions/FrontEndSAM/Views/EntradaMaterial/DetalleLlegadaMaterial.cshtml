@@ -1279,6 +1279,8 @@
                 if (Error(data)) {
                     $("#GenerarOrdenDescarga").attr("disabled", "disabled");
                     $("#hdnOrdenDescargada").val(true);
+                    ocultarStatus();
+                    $("#LlegadaMaterial0063").show();
                 }
                 loadingStop();
             });
