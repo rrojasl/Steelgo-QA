@@ -45,7 +45,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioAvisoLlegada, int tipoArchivoID, string token)
+        public object Post(int folioAvisoLlegada, string tipoArchivo, string token)
         {
             try
             {
@@ -58,6 +58,12 @@ namespace BackEndSAM.Controllers
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                     HttpResponseMessage result = null;
+
+                    //Verificamos que venga un valor en el tipo de archivo
+                    if (tipoArchivo == string.Empty || tipoArchivo != "Incidencias firmadas" || tipoArchivo != "Packing List Firmado")
+                    {
+                        result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    }
 
                     var httpRequest = HttpContext.Current.Request;
 
@@ -96,7 +102,7 @@ namespace BackEndSAM.Controllers
                                 DocGuid = docguID,
                                 FolioAvisoLlegadaID = folioAvisoLlegada,
                                 UserId = usuario.UsuarioID,
-                                TipoArchivoID = tipoArchivoID,
+                                TipoArchivoPaseSalida = tipoArchivo,
                                 Extencion = extencion
                             });
 

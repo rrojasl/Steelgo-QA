@@ -144,6 +144,7 @@
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
+    <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
     <Compile Include="DataAcces\ListadoBd.cs" />
+    <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
@@ -266,6 +268,7 @@
     <Compile Include="Models\ListaDocumentos.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
+    <Compile Include="Models\PaseSalidaJson.cs" />
     <Compile Include="Models\TipoArchivo.cs" />
     <Compile Include="Models\VehiculoJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

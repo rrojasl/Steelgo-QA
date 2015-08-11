@@ -334,14 +334,11 @@ namespace BackEndSAM.DataAcces
                     Sam3_FolioAvisoLlegada folioBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == Folio)
                         .AsParallel().SingleOrDefault();
 
-                    folioBd.PaseSalidaEnviado = true;
-                    folioBd.FechaModificacion = DateTime.Now;
-
-                    int tipoArchivoId = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == "Pase Salida").Select(x => x.TipoArchivoID)
-                        .AsParallel().SingleOrDefault();
-
                     foreach (DocumentoPosteado d in documentos)
                     {
+                        int tipoArchivoId = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == d.TipoArchivoPaseSalida).Select(x => x.TipoArchivoID)
+                        .AsParallel().SingleOrDefault();
+
                         Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo nuevoDoc = new Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo();
                         nuevoDoc.Activo = true;
                         nuevoDoc.ContentType = d.ContentType;

@@ -20,7 +20,7 @@ namespace BackEndSAM.DataAcces
 {
     public class FolioAvisoEntradaBd
     {
-         private static readonly object _mutex = new object();
+        private static readonly object _mutex = new object();
         private static FolioAvisoEntradaBd _instance;
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces
                     {
                         if (filtros.PorLlegar)
                         {
-                            result = result.Where(x => x.Estatus == string.Empty).ToList();
+                            result = result.Where(x => x.Estatus != "En Patio").ToList();
                         }
 
                         if (filtros.PorDescargar)

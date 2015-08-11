@@ -282,7 +282,7 @@ namespace BackEndSAM.DataAcces
                     result.TotalCreados = registrosBd.Count();
 
                     result.SinEstaus = (from r in registrosBd
-                                                   where r.Estatus == string.Empty
+                                                   where r.Estatus != "En Patio"
                                                    select r).Count();
 
                     result.SinOrdenDescarga = (from r in registrosBd
