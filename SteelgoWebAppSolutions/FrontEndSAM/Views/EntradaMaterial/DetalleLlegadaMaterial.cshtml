@@ -377,7 +377,7 @@
 
             $("#Guardar").click(function (e) {
                 if(validarRequeridosFormaLlegadaMaterial()){
-                    GuardarLlegadaMaterial();
+                    GuardarLlegadaMaterial(false);
                 } else
                 {
                     displayMessage("notificationslabel0031", "", '1');
@@ -386,9 +386,7 @@
 
             $("#GuardarNuevo").click(function (e) {
                 if (validarRequeridosFormaLlegadaMaterial()) {
-                    GuardarLlegadaMaterial();
-                    var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                    GuardarLlegadaMaterial(true);
                 } else {
                     displayMessage("notificationslabel0031", "", 1);
                 };
@@ -967,7 +965,7 @@
             });
         };
 
-        function GuardarLlegadaMaterial() {
+        function GuardarLlegadaMaterial(bool) {
             //Arreglo Llegada Material
             FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "", ComboEstatus: "" };
             Documentos = [];
@@ -1008,6 +1006,10 @@
                     loadingStop();
                     BotonAlta();
                     actualizarTitulos(FolioLlegada);
+                    if (bool) {//guardar y nuevo
+                        var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+                        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                    }
                     
                 });
             } else //Alta
@@ -1020,6 +1022,10 @@
                         folioAvisoLlegada = FolioLlegada.FolioAvisollegadaId;
                         BotonAlta();
                         CargaInicialEdicion(folioAvisoLlegada);
+                        if (bool) {//guardar y nuevo
+                            var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
+                            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                        }
                     }
                     $("#hdnOrdenDescargada").val("false");
                     console.log("foliollegada: " + folioLlegada + ", folioAvisoLlegada: " + folioAvisoLlegada);

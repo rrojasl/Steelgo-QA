@@ -870,7 +870,7 @@
                 //**Eventos
                 $("#Guardar").click(function (e) {
                     if(validarRequeridosFormaAvisoLlegada()){
-                        GuardarAvisoLlegada();
+                        GuardarAvisoLlegada(false);
                     } else {
                         displayMessage("notificationslabel0031", "", '1');
                     }
@@ -878,9 +878,8 @@
 
                 $("#GuardarNuevo").click(function (e) {
                     if (validarRequeridosFormaAvisoLlegada()) {
-                        GuardarAvisoLlegada();
-                        var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
-                        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                        GuardarAvisoLlegada(true);
+                       
                     } else {
                         displayMessage("notificationslabel0031", "", 1);
                     };
@@ -1277,7 +1276,7 @@
                 $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
             };
 
-            function GuardarAvisoLlegada()
+            function GuardarAvisoLlegada(bool)
             {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
@@ -1351,6 +1350,10 @@
                         Error(data);
                         loadingStop();
                         BotonAlta();
+                        if (bool) {//guardar y nuevo
+                            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                        }
                     });
                 } else //Alta
                 {
@@ -1366,6 +1369,10 @@
                             ocultarStatus();
                             $("#DetalleAvisoLlegada0090").show();
                             CargaInicialEdicion(folio);
+                            if (bool) {//guardar y nuevo
+                                var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                            }
                         }
 
                         loadingStop();
