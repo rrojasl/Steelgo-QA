@@ -93,12 +93,10 @@ namespace BackEndSAM.DataAcces
                                              where r.Activo && p.Activo
                                              select p.Nombre).AsParallel().FirstOrDefault();
 
-                        infoPase.Tracto = (from r in folioBd.Sam3_Rel_FolioAvisoLlegada_Vehiculo
-                                           join v in ctx.Sam3_Vehiculo on r.VehiculoID equals v.VehiculoID
-                                           join t in ctx.Sam3_TipoVehiculo on v.TipoVehiculoID equals t.TipoVehiculoID
-                                           where r.Activo && v.Activo
-                                           && t.Nombre == "Tracto"
-                                           select v.Placas).AsParallel().ToList();
+                        infoPase.Tracto = (from r in ctx.Sam3_Vehiculo
+                                           where r.Activo
+                                           && r.VehiculoID == folioBd.VehiculoID
+                                           select r.Placas).AsParallel().SingleOrDefault();
 
                         return infoPase;
 

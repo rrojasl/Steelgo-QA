@@ -11,7 +11,7 @@ namespace BackEndSAM.Models
         public string NombreOperador { get; set; }
         public int NumeroPlanas { get; set; }
         public string Proyecto { get; set; }
-        public List<string> Tracto { get; set; }
+        public string Tracto { get; set; }
         public List<string> Planas { get; set; }
         public string FechaLlegada { get; set; }
         public string FechaInicioDescarga { get; set; }
