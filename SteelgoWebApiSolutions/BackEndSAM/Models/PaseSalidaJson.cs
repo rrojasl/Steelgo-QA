@@ -24,7 +24,6 @@ namespace BackEndSAM.Models
         public PaseSalidaJson()
         {
             Planas = new List<string>();
-            Tracto = new List<string>();
         }
     }
 }
