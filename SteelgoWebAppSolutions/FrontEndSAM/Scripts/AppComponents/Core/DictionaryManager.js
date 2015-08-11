@@ -1019,6 +1019,10 @@ _dictionary = {
         "es-MX": "¿Está seguro de cancelar el Folio de Llegada?",
         "en-US": "Are you sure you want to cancel the Arriving Folio?"
     },
+    "ListadoLlegadaMaterial0023": {
+        "es-MX": "Registrar Incidencia",
+        "en-US": "Register Incidence"
+    },
     //Cuantificacion
     "Cuantificacion0001": {
         "es-MX": "Inicio",
