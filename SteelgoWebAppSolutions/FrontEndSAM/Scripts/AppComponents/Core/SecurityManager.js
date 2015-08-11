@@ -203,7 +203,11 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     $(entityDefinition.listContainer["detail"]).click(function (e) {
                         e.preventDefault();
                     });
-                } else {
+                }
+                if ($(entityDefinition.listContainer["detail"]).is("button")) {
+                    $(entityDefinition.listContainer["detail"]).prop('disabled', true);
+                }
+                else {
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
                 }
                 

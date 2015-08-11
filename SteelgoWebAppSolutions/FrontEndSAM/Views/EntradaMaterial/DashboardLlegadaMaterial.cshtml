@@ -52,6 +52,8 @@
         <div class="form-group col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="btn-group col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+                    
+
                     <button id="btnPorLlegar" class="btn btn-tab btn-dashLlegada">
                         <label id="DashboardLlegadaMaterial0007"></label>
                         <span id="spanPorLlegar"></span>
@@ -84,7 +86,7 @@
         listContainer: {
             create: "#Nuevo",
             list: ".btn-group",
-            detail: ".graphContainer",
+            detail: ".btn-dashLlegada",
             destroy: ""
         },
     };
@@ -154,7 +156,6 @@
 
         var url = "@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")";
         window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DashBoardAccionListado=" + accion + "&DashPatioID=" + PatioID + "&DashClienteID=" + ClienteID + "&DashFechaInicial=" + fechainicial + "&DashFechaFinal=" + fechafinal + "&DashPeriodo=" + PeriodoID;
-
     };
 
     function CargarPatio(id, value) {
@@ -325,7 +326,7 @@
     $("#btnPorLlegar").click(function () { AccionesListado(1); });
     $("#btnPorDescargar").click(function () { AccionesListado(2); });
     $("#btnPorSalir").click(function () { AccionesListado(3); });
-
+   
     $("#PatioID").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "PatioID",
