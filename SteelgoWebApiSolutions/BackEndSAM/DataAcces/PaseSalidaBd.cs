@@ -48,7 +48,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GenerarPaseDeSalida(int folioAvisoLlegadaId, Sam3_Usuario usuario)
+        public object ObtenerInfoPaseSalida(int folioAvisoLlegadaId, Sam3_Usuario usuario)
         {
             try
             {
@@ -100,13 +100,6 @@ namespace BackEndSAM.DataAcces
                                            && t.Nombre == "Tracto"
                                            select v.Placas).AsParallel().ToList();
 
-                        //Actualizamos la bandera de PaseSalidaEnviado del registro del folio de aviso de llegada
-                        folioBd.PaseSalidaEnviado = true;
-                        folioBd.FechaModificacion = DateTime.Now;
-                        folioBd.UsuarioModificacion = usuario.UsuarioID;
-
-                        ctx.SaveChanges();
-
                         return infoPase;
 
                     }
@@ -121,6 +114,47 @@ namespace BackEndSAM.DataAcces
 
                         return result;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GenerarPaseSalida(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_FolioAvisoLlegada foliollegadaBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID)
+                        .AsParallel().SingleOrDefault();
+                    foliollegadaBd.PaseSalidaEnviado = true;
+                    foliollegadaBd.FechaModificacion = DateTime.Now;
+                    foliollegadaBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    Sam3_FolioAvisoEntrada folioEntradaBd = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID)
+                        .AsParallel().SingleOrDefault();
+                    folioEntradaBd.FechaFinDescarga = DateTime.Now;
+                    folioEntradaBd.FechaModificacion = DateTime.Now;
+                    folioEntradaBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)
