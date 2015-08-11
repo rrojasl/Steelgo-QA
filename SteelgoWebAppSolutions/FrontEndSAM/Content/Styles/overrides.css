@@ -320,6 +320,7 @@
 .k-grid {
     /*margin-top: 15px;*/
     background-color: #EEEEEE;
+    z-index: 1;
 }
 
     /* header + data table */
