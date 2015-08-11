@@ -49,6 +49,8 @@ namespace BackEndSAM.DataAcces
                 results.Add(new Plana { Nombre = "Agregar nuevo", PlanaID = "0" });
 
                 List<Plana> encontrados = (from p in ctx.Sam3_Vehiculo
+                                           join t in ctx.Sam3_TipoVehiculo on p.TipoVehiculoID equals t.TipoVehiculoID
+                                           where p.Activo && t.Nombre == "Plana"
                                            select new Plana
                                            {
                                                PlanaID = p.VehiculoID.ToString(),
