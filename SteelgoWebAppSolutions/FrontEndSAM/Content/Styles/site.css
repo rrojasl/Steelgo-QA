@@ -493,6 +493,10 @@ input.quickFilters.arrivalMaterial {
     letter-spacing: 1.1px;
 }
 
+.btn-tab.btn-dashLlegada {
+    width: 33.37%;
+}
+
 /*.btn-tab span#spanSinAutorizacion {
         color: #E90000;
     }*/
