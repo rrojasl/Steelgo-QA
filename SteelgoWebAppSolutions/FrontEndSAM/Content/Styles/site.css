@@ -655,6 +655,10 @@ input.quickFilters.arrivalMaterial {
     background-position: 86% center;
 }
 
+    #Nuevo.btn.btn-newArrival {
+        background-position: 91% center;
+    }
+
 #massiveUpload.btn {
     margin-bottom: 3px;
 }
