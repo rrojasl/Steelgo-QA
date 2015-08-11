@@ -522,6 +522,10 @@ input.quickFilters.arrivalMaterial {
     z-index: 0;
 }
 
+    .btn.btn-tabList.btn-listLlegada {
+        width: 33.33%;
+    }
+
     .btn.btn-tabList:focus {
         outline: 0;
     }

@@ -1553,4 +1553,8 @@ header .menu > div {
     .formNav.filtersFields .row > div.col-lg-1 {
         min-width: 132px;
     }
+
+    .formNav.filtersFields .row > div.col-lg-2 {
+        max-width: 197px;
+    }
 }
