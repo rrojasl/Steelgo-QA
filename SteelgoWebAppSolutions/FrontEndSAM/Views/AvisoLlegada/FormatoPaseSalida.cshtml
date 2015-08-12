@@ -72,7 +72,7 @@
 
             $.each(data.Planas, function (index, key) {
                 strThead += "<th><label>Placa Plana " + i + "</label></th>";
-                strTbodyPlanas += "<td>" + key.Nombre + "</td>";
+                strTbodyPlanas += "<td>" + key + "</td>";
                 i++;
             });
             
@@ -84,9 +84,9 @@
             var strTbodyRow2 = "", col = 2 + i;
             var strHeadRow2 = "<thead><tr><th><label id='FormatoPaseSalida0007'></label></th><th><label id='FormatoPaseSalida0011'></label></th></tr></thead>";
 
-            strTbodyRow2 = "<tr><td><label id='FormatoPaseSalida0008'></label> <span class='iconDoc " + data.PackingListFirmado + "'></span></td><td><label id='FormatoPaseSalida0012'></label> <span>" + data.RegistroTiempos.FechaLlegada + "</span></td></tr>";
-            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0009'></label> <span class='iconDoc " + data.IncidenciasFirmada + "'></span></td><td><label id='FormatoPaseSalida0013'></label> <span>" + data.RegistroTiempos.FechaInicioDescarga + "</span></td></tr>";
-            strTbodyRow2 += "<tr><td>&nbsp;</td><td><label id='FormatoPaseSalida0014'></label> <span>" + data.RegistroTiempos.FechaFinDescarga + "</span></td></tr>";
+            strTbodyRow2 = "<tr><td><label id='FormatoPaseSalida0008'></label> <span class='iconDoc " + data.PackingListFirmado + "'></span></td><td><label id='FormatoPaseSalida0012'></label> <span>" + data.FechaLlegada + "</span></td></tr>";
+            strTbodyRow2 += "<tr><td><label id='FormatoPaseSalida0009'></label> <span class='iconDoc " + data.IncidenciasFirmada + "'></span></td><td><label id='FormatoPaseSalida0013'></label> <span>" + data.FechaInicioDescarga + "</span></td></tr>";
+            strTbodyRow2 += "<tr><td>&nbsp;</td><td><label id='FormatoPaseSalida0014'></label> <span>" + data.FechaFinDescarga + "</span></td></tr>";
 
             var strHeadRowIncidencia = "", strTbodyIncidencia = "", si=true, no=false;
             var strHeadRowIncidencia = "<thead><th><label id='FormatoPaseSalida0015'></label></th></thead>";

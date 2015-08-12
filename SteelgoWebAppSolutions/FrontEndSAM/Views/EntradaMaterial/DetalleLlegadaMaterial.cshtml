@@ -783,6 +783,7 @@
                         $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
                     };
 
+                    $("#listaArchivos tbody").empty();
                     $.each(data.Documentos, function (index, value) {
                         $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
@@ -1006,6 +1007,7 @@
                     loadingStop();
                     BotonAlta();
                     actualizarTitulos(FolioLlegada);
+                    CargaInicialEdicion(folioAvisoLlegada);
                     if (bool) {//guardar y nuevo
                         var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
                         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
