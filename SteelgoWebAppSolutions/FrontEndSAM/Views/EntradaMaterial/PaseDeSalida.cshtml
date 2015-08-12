@@ -308,7 +308,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
                     DeshabilitarObtenerDocumentosPaseSalida();
                 };
             });
-        }
+        } 
         function limpiarUploadFiles() {
             Folio = {};
             TipoArchivo = {};
@@ -324,6 +324,7 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
             $(".k-upload.k-header").addClass("k-upload-empty");
             $(".k-upload-button").removeClass("k-state-focused");            
             $("#TipoArchivo").data("kendoComboBox").value("");
+            limpiarRequeridos();
         };
 
         function CargarFolio(id) {
@@ -368,17 +369,13 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
             });
 
             if (bool) {
-                if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
-                    displayMessage("notificationslabel0034", "", '1');
-                    e.preventDefault();
-                }
-
-                if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                    displayMessage("notificationslabel0024", "", '1');
+                if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value() || !$("#TipoArchivo").data("kendoComboBox").value()) {
+                    displayMessage("notificationslabel0031", "", '1');
                     e.preventDefault();
                 }
             }
 
+            limpiarRequeridos();
             $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
         };
 
@@ -449,6 +446,14 @@ kendo.ui.Upload.fn._supportsDrop = function () { return false; }
             });
         }
 
+        function limpiarRequeridos() {
+            $("#formPaseSalida .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    $(this).closest("div").find("label").removeClass("error");
+                    $(this).closest("div").removeClass("clearfix");
+                };
+            });
+        }
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
