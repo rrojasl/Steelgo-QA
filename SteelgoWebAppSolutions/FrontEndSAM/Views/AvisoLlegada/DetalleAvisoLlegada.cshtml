@@ -202,41 +202,6 @@
                 </a>
             </div>
         </div>
-        @*<div id="modalProveedor" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div class="form-group">
-                <label id="DetalleAvisoLlegada0020"></label>
-                <input id="ContactoID_Proveedor" class="" />
-            </div>
-            <div class="form-group">
-                <label id="DetalleAvisoLlegada0021"></label>
-                <input id="Nombre_Proveedor" class="" />
-            </div>
-            <div class="form-group">
-                <label id="DetalleAvisoLlegada0022"></label>
-                <input id="Descripcion_Proveedor" class="" />
-            </div>
-            <div class="form-group">
-                <label id="DetalleAvisoLlegada0023"></label>
-                <input id="Direccion_Proveedor" class="" />
-            </div>
-            <div class="form-group">
-                <label id="DetalleAvisoLlegada0024"></label>
-                <input id="Telefono_Proveedor" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarProveedor" href="javascript:void(0);" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0025"></span>
-                </a>
-                <a id="CancelarProveedor" href="javascript:void(0);" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0077"></span>
-                </a>
-            </div>
-        </div>*@
 
         <div id="modalPatio" style="display: none">
             <div class="alert-container">
@@ -946,7 +911,6 @@
                 //**
                 //Cancelar modales
                 $("#CancelarTransportista").click(function (e) { CancelarTransportista(); });
-                $("#CancelarProveedor").click(function (e) { CancelarProveedor(); });
                 $("#CancelarPatio").click(function (e) { CancelarPatio(); });
                 $("#CancelarChofer").click(function (e) { CancelarChofer(); });
                 $("#CancelarPlana").click(function (e) { CancelarPlana(); });
@@ -1255,18 +1219,6 @@
                 ObtenerChoferCamion();
                 ObtenerFechaDefault();
             };
-        
-            function onUploadArchivoPaseSalida() {
-
-            };
-
-            function onUploadArchivoAutorizar() {
-                if (!$("#NumeroPermiso").val()) {
-                    displayMessage("notificationslabel0011", "", '1');
-                    e.preventDefault();
-                }
-
-            };
 
             function onUpload(e) {
                 if (!$("#TipoArchivo").data("kendoComboBox").value()) {
@@ -1350,6 +1302,7 @@
                         Error(data);
                         loadingStop();
                         BotonAlta();
+                        CargaInicialEdicion(folio);
                         if (bool) {//guardar y nuevo
                             var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -1958,10 +1911,6 @@
                 cerrarVentanaModal();
                 cancelarvalidacionRequeridosModalTransportista();
             };
-
-            //function CancelarProveedor() {
-            //    cerrarVentanaModal();
-            //};
 
             function CancelarPatio() {
                 LimpiarModalPatio();

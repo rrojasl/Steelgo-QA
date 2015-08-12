@@ -19,7 +19,7 @@
     </li>
 }
 
-<div id="formPaseDeSalida" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="formPaseSalida" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
@@ -39,8 +39,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*
-                                <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
+                           @* <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
+                            <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>*@
                                     <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
                                     *@
                                 </ul>
@@ -50,26 +50,27 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
-                    <div class="row">
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="PaseDeSalida0008"></label>
-                            <input id="FolioAvisoLlegadaID" />
-                        </div>
+    <div class="row">
+        <div class="filterForm form col-sm-12 col-md-12 col-lg-11">
+                <div class="row">
+                    <div id="FolioAvisoLlegadaIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <label id="PaseDeSalida0008"></label>
+                        <input id="FolioAvisoLlegadaID" />
                     </div>
-                    <div class="row">
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="PaseDeSalida0009"></label>
-                            <a id="ImprimirIncidencias" href="javascript:void(0);" class="btn btn-primary"><span id="PaseDeSalida0010"></span></a>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <label id="PaseDeSalida0009"></label>
+                        <a id="ImprimirIncidencias" href="javascript:void(0);" class="btn btn-primary"><span id="PaseDeSalida0010"></span></a>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                </div>
+                <div class="row">
+                    <div id="ListaIncidenciasDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <table id="ListaIncidencias" class="filesTable">
                                 <thead>
                                     <tr>
-                                        <td>&nbsp;
+                                        <td>
+                                            &nbsp;
                                         </td>
                                         <td>
                                             <label id="PaseDeSalida0011"></label>
@@ -82,47 +83,47 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
-            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-11">
             <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-11">
-                    <div class="row">
-                        <div class="col-sm-5 col-md-4 col-lg-3">
-                            <label id="PaseDeSalida0013"></label>
-                            <input id="TipoArchivo" class="" />
-                        </div>
-                        <div class="col-sm-7 col-md-8 col-lg-5">
-                            <label id="PaseDeSalida0014"></label>
-                            <input name="files" id="PackingList" type="file" class="" />
-                        </div>
-                    </div>
+                <div id="TipoArchivoDiv" class="col-sm-5 col-md-4 col-lg-3">
+                    <label id="PaseDeSalida0013"></label>
+                    <input id="TipoArchivo" class="" />
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="row">
-                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                            <table id="listaArchivosPaseSalida" class="filesTable">
-                                <thead>
-                                    <tr>
-                                        <td>
-                                            <label id="PaseDeSalida0015"></label>
-                                        </td>
-                                        <td>
-                                            <label id="PaseDeSalida0016"></label>
-                                        </td>
-                                        <td>
-                                            <label id="PaseDeSalida0017"></label>
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div id="PackingListDiv" class="col-sm-7 col-md-8 col-lg-5">
+                    <label id="PaseDeSalida0014"></label>
+                    <input name="files" id="PackingList" type="file" class="" />
                 </div>
             </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div id="listaArchivosPaseSalidaDiv" class="col-sm-12 col-md-12 col-lg-12">
+                    <table id="listaArchivosPaseSalida" class="filesTable">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <label id="PaseDeSalida0015"></label>
+                                </td>
+                                <td>
+                                    <label id="PaseDeSalida0016"></label>
+                                </td>
+                                <td>
+                                    <label id="PaseDeSalida0017"></label>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
 </div>
@@ -143,6 +144,42 @@
 
     @section JavascriptGlobalVariables {
         var Folio = {};
+
+        var $PaseSalidaModel = {
+            listContainer: {
+                create: "",
+                list: "",
+                detail: "",
+                destroy: ""
+            },
+            properties: {
+                listarArchivos: {
+                    visible: "#listaArchivosPaseSalidaDiv",
+                    editable: "#listaArchivosPaseSalida",
+                    required: "#listaArchivosPaseSalida"
+                },
+                folioAvisoEntrada: {
+                    visible: "#FolioAvisoLlegadaIDDiv",
+                    editable: "#FolioAvisoLlegadaID",
+                    required: "#FolioAvisoLlegadaID"
+                },
+                tipoArchivo: {
+                    visible: "#TipoArchivoDiv",
+                    editable: "#TipoArchivo",
+                    required: "#TipoArchivo"
+                },
+                seleccionarArchivo: {
+                    visible: "#PackingListDiv",
+                    editable: "#PackingList",
+                    required: "#PackingList"
+                },
+                listaIncidencias: {
+                    visible: "#ListaIncidenciasDiv",
+                    editable: "#ListaIncidencias",
+                    required: "#ListaIncidencias"
+                }
+            }
+        };
     }
 
     @section JavascriptGlobalFunctions {
@@ -173,7 +210,7 @@
             });
 
             $("#ImprimirPaseSalida").click(function () {
-                var url = "@Url.Action("FormatoPaseSalida", "AvisoLlegada")" + "?FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID;
+                var url = "@Url.Action("FormatoPaseSalida", "EntradaMaterial")" + "?FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID;
                 window.open(url);
             });
 
@@ -323,14 +360,31 @@
         }
 
         function onUploadArchivoPaseSalida(e) {
-            if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
-                displayMessage("notificationslabel0034", "", '1');
-                e.preventDefault();
-            }
+            $("#formPaseSalida .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "FolioAvisoLlegadaID" || $(elem).attr("id") == "TipoArchivo") {
+                        if (!$(this).val()) {
+                            bool = true;
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    }
+                };
+            });
 
-            if (!$("#TipoArchivo").data("kendoComboBox").value()) {
-                displayMessage("notificationslabel0024", "", '1');
-                e.preventDefault();
+            if (bool) {
+                if (!$("#FolioAvisoLlegadaID").data("kendoComboBox").value()) {
+                    displayMessage("notificationslabel0034", "", '1');
+                    e.preventDefault();
+                }
+
+                if (!$("#TipoArchivo").data("kendoComboBox").value()) {
+                    displayMessage("notificationslabel0024", "", '1');
+                    e.preventDefault();
+                }
             }
 
             $("#PackingList").data("kendoUpload").options.async.saveUrl = $DocumentoPaseSalidaUploadFiles + Folio.FolioAvisoLlegadaID + "&tipoArchivo=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
@@ -432,8 +486,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-    
         CargaInicial();
-    
+        $authorizationModel["Pase de Salida"] = $PaseSalidaModel;
     }
 </script>
