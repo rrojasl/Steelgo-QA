@@ -1101,7 +1101,7 @@
       <BrowseToURL>~/Views/EntradaMaterial/DashboardLlegadaMaterial.cshtml</BrowseToURL>
     </Content>
     <Content Include="Views\EntradaMaterial\PaseDeSalida.cshtml" />
-    <Content Include="Views\AvisoLlegada\FormatoIncidencias.cshtml" />
+    <Content Include="Views\EntradaMaterial\FormatoIncidencias.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
