@@ -904,6 +904,12 @@ header .menu > div {
             .filesTable td a .delete.disable {
                 background-image: url("/Content/images/Delete_Grey.png");
             }
+
+    .filesTable input:not(.k-input)[type=checkbox] {
+        height: auto;
+        min-height: auto;
+        width: 13px;
+    }
 /**********************************************************************************/
 
 
@@ -1375,7 +1381,7 @@ header .menu > div {
 
         .formatTag .tags-container .tag-group .inner-tag {
             display: inline-block;
-            width: auto;            
+            width: auto;
             padding: 10px;
         }
 
