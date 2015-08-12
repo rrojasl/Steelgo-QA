@@ -20,55 +20,56 @@
 }
 
 <div id="formPaseSalida" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="formNav clearfix">
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="button-section">
-                    <div class="btn-group save-group">
-                        <button id="GenerarPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0005"></span></button>
-                        <button id="ImprimirPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="PaseDeSalida0018"></span></button>
-                    </div>
-                    <a id="Cancelar" href="#" class="btn btn-black"><span id="PaseDeSalida0006"></span></a>
-                </div>
-                <div class="button-section">
-                    <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                            <span id="PaseDeSalida0007"></span>
-                            <span class="caretBlue"></span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones">
-                           @* <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
-                            <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>*@
-                        </ul>
-                    </div>
-                </div>
-                <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
-            </div>
-        </div>
-    </div>
-
-
     <div class="row">
-        <div class="filterForm form col-sm-12 col-md-12 col-lg-11">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
                 <div class="row">
-                    <div id="FolioAvisoLlegadaIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                        <label id="PaseDeSalida0008"></label>
-                        <input id="FolioAvisoLlegadaID" />
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="GenerarPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0005"></span></button>
+                                <button id="ImprimirPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="PaseDeSalida0018"></span></button>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="PaseDeSalida0006"></span></a>
+                        </div>
+                        <div class="button-section">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="PaseDeSalida0007"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    @*
+                                    <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    *@
+                                </ul>
+                            </div>
+                        </div>
+                        <a id="Imprimir" href="" class="btn btn-fadeBlue"></a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-sm-6 col-md-4 col-lg-3">
-                        <label id="PaseDeSalida0009"></label>
-                        <a id="ImprimirIncidencias" href="javascript:void(0);" class="btn btn-primary"><span id="PaseDeSalida0010"></span></a>
+            </div>
+            <div class="row">
+                <div class="filterForm form col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div id="FolioAvisoLlegadaIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="PaseDeSalida0008"></label>
+                            <input id="FolioAvisoLlegadaID" />
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div id="ListaIncidenciasDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="PaseDeSalida0009"></label>
+                            <a id="ImprimirIncidencias" href="javascript:void(0);" class="btn btn-primary"><span id="PaseDeSalida0010"></span></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="ListaIncidenciasDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <table id="ListaIncidencias" class="filesTable">
                                 <thead>
                                     <tr>
-                                        <td>
-                                            &nbsp;
+                                        <td>&nbsp;
                                         </td>
                                         <td>
                                             <label id="PaseDeSalida0011"></label>
@@ -79,56 +80,62 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
                                 </tbody>
                             </table>
+                        </div>
                     </div>
                 </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-sm-12 col-md-12 col-lg-11">
-            <div class="row">
-                <div id="TipoArchivoDiv" class="col-sm-5 col-md-4 col-lg-3">
-                    <label id="PaseDeSalida0013"></label>
-                    <input id="TipoArchivo" class="" />
-                </div>
-                <div id="PackingListDiv" class="col-sm-7 col-md-8 col-lg-5">
-                    <label id="PaseDeSalida0014"></label>
-                    <input name="files" id="PackingList" type="file" class="" />
-                </div>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div id="listaArchivosPaseSalidaDiv" class="col-sm-12 col-md-12 col-lg-12">
-                    <table id="listaArchivosPaseSalida" class="filesTable">
-                        <thead>
-                            <tr>
-                                <td>
-                                    <label id="PaseDeSalida0015"></label>
-                                </td>
-                                <td>
-                                    <label id="PaseDeSalida0016"></label>
-                                </td>
-                                <td>
-                                    <label id="PaseDeSalida0017"></label>
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="form-group col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div id="TipoArchivoDiv" class="col-sm-5 col-md-4 col-lg-3">
+                            <label id="PaseDeSalida0013"></label>
+                            <input id="TipoArchivo" class="" />
+                        </div>
+                        <div id="PackingListDiv" class="col-sm-7 col-md-8 col-lg-5">
+                            <label id="PaseDeSalida0014"></label>
+                            <input name="files" id="PackingList" type="file" class="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div id="listaArchivosPaseSalidaDiv" class="col-sm-12 col-md-12 col-lg-12">
+                            <table id="listaArchivosPaseSalida" class="filesTable">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <label id="PaseDeSalida0015"></label>
+                                        </td>
+                                        <td>
+                                            <label id="PaseDeSalida0016"></label>
+                                        </td>
+                                        <td>
+                                            <label id="PaseDeSalida0017"></label>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
+
+
+
+
+
+
 <script>
-kendo.ui.Upload.fn._supportsDrop = function () { return false; }
+    kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptDocumentReadyHomeCookie {
         Cookies.set("home", true, { path: '/' });
         Cookies.set("navegacion", "11", { path: '/' });
