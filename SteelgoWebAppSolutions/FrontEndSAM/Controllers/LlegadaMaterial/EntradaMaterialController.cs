@@ -40,69 +40,19 @@ namespace FrontEndSAM.Controllers.LlegadaMaterial
             return View();
         }
 
-        //
-        // POST: /EntradaMaterial/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /EntradaMaterial/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult PaseDeSalida()
         {
             return View();
         }
 
-        //
-        // POST: /EntradaMaterial/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /EntradaMaterial/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult FormatoPaseSalida()
         {
             return View();
         }
 
-        //
-        // POST: /EntradaMaterial/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult FormatoIncidencias()
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
     }
 }

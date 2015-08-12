@@ -31,20 +31,5 @@ namespace FrontEndSAM.Controllers.AvisoLlegada
         {
              return View();
         }
-
-        public ActionResult PaseDeSalida()
-        {
-            return View();
-        }
-
-        public ActionResult FormatoPaseSalida()
-        {
-            return View();
-        }
-
-        public ActionResult FormatoIncidencias()
-        {
-            return View();
-        }
 	}
 }
