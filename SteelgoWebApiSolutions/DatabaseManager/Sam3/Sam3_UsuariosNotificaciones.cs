@@ -12,21 +12,17 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_TipoNotificacion
+    public partial class Sam3_UsuariosNotificaciones
     {
-        public Sam3_TipoNotificacion()
-        {
-            this.Sam3_Notificacion = new HashSet<Sam3_Notificacion>();
-            this.Sam3_UsuariosNotificaciones = new HashSet<Sam3_UsuariosNotificaciones>();
-        }
-    
-        public int TipoNotificacionID { get; set; }
-        public string Nombre { get; set; }
-        public bool Activo { get; set; }
+        public int UsuariosNotificacionesID { get; set; }
+        public Nullable<int> TipoNotificacionID { get; set; }
+        public Nullable<int> UsuarioID { get; set; }
+        public string Email { get; set; }
+        public string Plantilla { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_Notificacion> Sam3_Notificacion { get; set; }
-        public virtual ICollection<Sam3_UsuariosNotificaciones> Sam3_UsuariosNotificaciones { get; set; }
+        public virtual Sam3_TipoNotificacion Sam3_TipoNotificacion { get; set; }
+        public virtual Sam3_Usuario Sam3_Usuario { get; set; }
     }
 }

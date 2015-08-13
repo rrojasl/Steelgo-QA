@@ -211,7 +211,10 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_Documento" Width="1.5" PointX="12" PointY="76.125" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__54B68676" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Proy__Proye__51DA19CB" />
-      </Diagram>
+        <EntityTypeShape EntityType="ModelSam3.Sam3_UsuariosNotificaciones" Width="1.5" PointX="17.25" PointY="23.125" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Usua__TipoN__5887175A" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

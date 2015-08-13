@@ -110,6 +110,7 @@
     <Compile Include="Models\NotificacionLocal.cs" />
     <Compile Include="Notificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioNotificacion.cs" />
     <Compile Include="Utils\Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,7 +126,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\templates\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">

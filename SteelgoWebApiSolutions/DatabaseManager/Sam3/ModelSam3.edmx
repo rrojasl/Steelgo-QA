@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -1201,6 +1201,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
+        <EntityType Name="Sam3_UsuariosNotificaciones">
+          <Key>
+            <PropertyRef Name="UsuariosNotificacionesID" />
+          </Key>
+          <Property Name="UsuariosNotificacionesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoNotificacionID" Type="int" />
+          <Property Name="UsuarioID" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Plantilla" Type="varchar" MaxLength="250" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="Sam3_Vehiculo">
           <Key>
             <PropertyRef Name="VehiculoID" />
@@ -1634,6 +1646,30 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo">
               <PropertyRef Name="VehiculoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Usua__TipoN__5887175A">
+          <End Role="Sam3_TipoNotificacion" Type="Self.Sam3_TipoNotificacion" Multiplicity="0..1" />
+          <End Role="Sam3_UsuariosNotificaciones" Type="Self.Sam3_UsuariosNotificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoNotificacion">
+              <PropertyRef Name="TipoNotificacionID" />
+            </Principal>
+            <Dependent Role="Sam3_UsuariosNotificaciones">
+              <PropertyRef Name="TipoNotificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Usua__Usuar__597B3B93">
+          <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="0..1" />
+          <End Role="Sam3_UsuariosNotificaciones" Type="Self.Sam3_UsuariosNotificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Sam3_UsuariosNotificaciones">
+              <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2773,6 +2809,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Transportista" EntityType="Self.Sam3_Transportista" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_UbicacionFisica" EntityType="Self.Sam3_UbicacionFisica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Usuario" EntityType="Self.Sam3_Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_UsuariosNotificaciones" EntityType="Self.Sam3_UsuariosNotificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Vehiculo" EntityType="Self.Sam3_Vehiculo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Perfil_Entidad_Pagina" EntityType="Self.Sam3_Rel_Perfil_Entidad_Pagina" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2929,6 +2966,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___Vehic__0B47A151" Association="Self.FK__Sam3_Rel___Vehic__0B47A151">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" EntitySet="Sam3_Rel_FolioAvisoLlegada_Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Usua__TipoN__5887175A" Association="Self.FK__Sam3_Usua__TipoN__5887175A">
+            <End Role="Sam3_TipoNotificacion" EntitySet="Sam3_TipoNotificacion" />
+            <End Role="Sam3_UsuariosNotificaciones" EntitySet="Sam3_UsuariosNotificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Usua__Usuar__597B3B93" Association="Self.FK__Sam3_Usua__Usuar__597B3B93">
+            <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
+            <End Role="Sam3_UsuariosNotificaciones" EntitySet="Sam3_UsuariosNotificaciones" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Vehi__TipoV__7FD5EEA5" Association="Self.FK__Sam3_Vehi__TipoV__7FD5EEA5">
             <End Role="Sam3_TipoVehiculo" EntitySet="Sam3_TipoVehiculo" />
@@ -4417,6 +4462,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Notificacion" Relationship="Self.FK_Notificacion_TipoNotificacion" FromRole="Sam3_TipoNotificacion" ToRole="Sam3_Notificacion" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_UsuariosNotificaciones" Relationship="ModelSam3.FK__Sam3_Usua__TipoN__5887175A" FromRole="Sam3_TipoNotificacion" ToRole="Sam3_UsuariosNotificaciones" />
         </EntityType>
         <EntityType Name="Sam3_Transportista">
           <Key>
@@ -4471,6 +4517,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Sesion" Relationship="Self.FK_Sesion_Usuario" FromRole="Sam3_Usuario" ToRole="Sam3_Sesion" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_UsuariosNotificaciones" Relationship="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" FromRole="Sam3_Usuario" ToRole="Sam3_UsuariosNotificaciones" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Perfil_Entidad_Pagina">
           <Key>
@@ -6191,7 +6238,16 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_ProyectoConsecutivo" EntitySet="Sam3_ProyectoConsecutivo" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Sam3_UsuariosNotificaciones" EntityType="ModelSam3.Sam3_UsuariosNotificaciones" />
+          <AssociationSet Name="FK__Sam3_Usua__TipoN__5887175A" Association="ModelSam3.FK__Sam3_Usua__TipoN__5887175A">
+            <End Role="Sam3_TipoNotificacion" EntitySet="Sam3_TipoNotificacion" />
+            <End Role="Sam3_UsuariosNotificaciones" EntitySet="Sam3_UsuariosNotificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Usua__Usuar__597B3B93" Association="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93">
+            <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
+            <End Role="Sam3_UsuariosNotificaciones" EntitySet="Sam3_UsuariosNotificaciones" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
             <PropertyRef Name="TipoDocumentoID" />
@@ -6794,7 +6850,45 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Sam3_UsuariosNotificaciones">
+          <Key>
+            <PropertyRef Name="UsuariosNotificacionesID" />
+          </Key>
+          <Property Name="UsuariosNotificacionesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoNotificacionID" Type="Int32" />
+          <Property Name="UsuarioID" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Plantilla" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_TipoNotificacion" Relationship="ModelSam3.FK__Sam3_Usua__TipoN__5887175A" FromRole="Sam3_UsuariosNotificaciones" ToRole="Sam3_TipoNotificacion" />
+          <NavigationProperty Name="Sam3_Usuario" Relationship="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" FromRole="Sam3_UsuariosNotificaciones" ToRole="Sam3_Usuario" />
+        </EntityType>
+        <Association Name="FK__Sam3_Usua__TipoN__5887175A">
+          <End Type="ModelSam3.Sam3_TipoNotificacion" Role="Sam3_TipoNotificacion" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_UsuariosNotificaciones" Role="Sam3_UsuariosNotificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoNotificacion">
+              <PropertyRef Name="TipoNotificacionID" />
+            </Principal>
+            <Dependent Role="Sam3_UsuariosNotificaciones">
+              <PropertyRef Name="TipoNotificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Usua__Usuar__597B3B93">
+          <End Type="ModelSam3.Sam3_Usuario" Role="Sam3_Usuario" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_UsuariosNotificaciones" Role="Sam3_UsuariosNotificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Sam3_UsuariosNotificaciones">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -8075,6 +8169,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
                 <ScalarProperty Name="FolioAvisoEntradaID" ColumnName="FolioAvisoEntradaID" />
                 <ScalarProperty Name="Rel_FolioAvisoEntrada_DocumentoID" ColumnName="Rel_FolioAvisoEntrada_DocumentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_UsuariosNotificaciones">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_UsuariosNotificaciones">
+              <MappingFragment StoreEntitySet="Sam3_UsuariosNotificaciones">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Plantilla" ColumnName="Plantilla" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="TipoNotificacionID" ColumnName="TipoNotificacionID" />
+                <ScalarProperty Name="UsuariosNotificacionesID" ColumnName="UsuariosNotificacionesID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1163,6 +1163,9 @@
     <Compile Include="Sam3\Sam3_Usuario.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_UsuariosNotificaciones.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Vehiculo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>

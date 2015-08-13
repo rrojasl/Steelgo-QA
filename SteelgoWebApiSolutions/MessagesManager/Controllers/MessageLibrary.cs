@@ -140,7 +140,7 @@ namespace MessagesManager.Controllers
         /// <typeparam name="T">Objeto tipo Notificacion/typeparam>
         /// <param name="objeto">Lista tipo Notificación</param>
         /// <returns>Lista de notificaciones en formato JSON</returns>
-        private string convertirObjToJson<T>(T objeto)
+        public string convertirObjToJson<T>(T objeto)
         {
             string json = string.Empty;
             try
@@ -185,11 +185,11 @@ namespace MessagesManager.Controllers
                                   n.UsuarioModificacion,
                                   n.FechaModificacion,
                                   u.NombreUsuario
-                              }).ToList()
-                        .Where(x => x.UsuarioIDReceptor == userId).ToList()
+                              })
+                        .Where(x => x.UsuarioIDReceptor == userId)
                         .Select(x => new Notificacion
                         {
-                            NotificacionID = x.NotificacionID,
+                            //NotificacionID = x.NotificacionID,
                             UsuarioIDReceptor = x.UsuarioIDReceptor,
                             UsuarioIDEmisor = x.UsuarioIDEmisor,
                             TipoNotificacionID = x.TipoNotificacionID,
@@ -201,7 +201,7 @@ namespace MessagesManager.Controllers
                             UsuarioModificacion = x.UsuarioModificacion,
                             FechaModificacion = x.FechaModificacion,
                             NombreUsuarioEmisor = x.NombreUsuario
-                        }).ToList();
+                        }).AsParallel().ToList();
                     return notifications;
                 }
             }

@@ -106,5 +106,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
         public virtual DbSet<Sam3_ProyectoConsecutivo> Sam3_ProyectoConsecutivo { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_Documento> Sam3_Rel_FolioAvisoEntrada_Documento { get; set; }
+        public virtual DbSet<Sam3_UsuariosNotificaciones> Sam3_UsuariosNotificaciones { get; set; }
     }
 }
