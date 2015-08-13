@@ -141,138 +141,108 @@ namespace MessagesManager.Controllers
         /// </summary>
         /// <param name="tipoNotificacion">accion realizada</param>
         /// <param name="mensaje">mensaje de la notificacion</param>
-        /// <param name="token">Token de la sesion de usuario</param>
         /// <returns>estatus</returns>
-        public object NotificacionesAUsuarios(int tipoNotificacion, string mensaje, string token)
+        public bool NotificacionesAUsuarios(int tipoNotificacion, string mensaje, Sam3_Usuario usuario)
         {
-            string payload = "";
-            string newToken = "";
             Notificacion datosNotificacion = new Notificacion();
             string message = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
+            try
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                try
+                using (SamContext ctx = new SamContext())
                 {
-                    using (SamContext ctx = new SamContext())
-                    {
-                        List<UsuarioNotificacion> usuarios = ctx.Sam3_UsuariosNotificaciones
-                            .Join(ctx.Sam3_Usuario, un => un.UsuarioID, u => u.UsuarioID, (un, u) => new
-                            {
-                                un.TipoNotificacionID,
-                                un.UsuarioID,
-                                u.NombreUsuario,
-                                un.Email,
-                                un.Plantilla
-                            })
-                            .Where(x => x.TipoNotificacionID == tipoNotificacion)
-                            .Select(s => new UsuarioNotificacion
-                            {
-                                TipoNotificacionID = s.TipoNotificacionID,
-                                UsuarioID = s.UsuarioID,
-                                NombreUsuario = s.NombreUsuario,
-                                Email = s.Email,
-                                Plantilla = s.Plantilla
-                            }).AsParallel().ToList();
-
-                        foreach (var item in usuarios)
+                    List<UsuarioNotificacion> usuarios = ctx.Sam3_UsuariosNotificaciones
+                        .Join(ctx.Sam3_Usuario, un => un.UsuarioID, u => u.UsuarioID, (un, u) => new
                         {
-                            //Enviar a Cola de Notificaciones
-                            if (item.UsuarioID != null)
+                            un.TipoNotificacionID,
+                            un.UsuarioID,
+                            u.NombreUsuario,
+                            un.Email,
+                            un.Plantilla
+                        })
+                        .Where(x => x.TipoNotificacionID == tipoNotificacion)
+                        .Select(s => new UsuarioNotificacion
+                        {
+                            TipoNotificacionID = s.TipoNotificacionID,
+                            UsuarioID = s.UsuarioID,
+                            NombreUsuario = s.NombreUsuario,
+                            Email = s.Email,
+                            Plantilla = s.Plantilla
+                        }).AsParallel().ToList();
+
+                    foreach (var item in usuarios)
+                    {
+                        //Enviar a Cola de Notificaciones
+                        if (item.UsuarioID != null)
+                        {
+                            datosNotificacion.UsuarioIDReceptor = item.UsuarioID;
+                            datosNotificacion.UsuarioIDEmisor = usuario.UsuarioID;
+                            datosNotificacion.TipoNotificacionID = item.TipoNotificacionID;
+                            datosNotificacion.Mensaje = mensaje;
+
+                            message = MessageLibrary.Instance.convertirObjToJson(datosNotificacion);
+                            MessageLibrary.Instance.SendMessageToQueue(message, 2, usuario);
+                        }
+
+                        //Enviar Mail
+                        if (!String.IsNullOrEmpty(item.Email))
+                        {
+                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlTemplates"]) + item.Plantilla;
+
+                            string contenido = "";
+                            StringBuilder body = new StringBuilder();
+                            MailMessage mail = new MailMessage();
+                            SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
+                            mail.From = new MailAddress("karen.delacruz@steelgo.com");
+                            mail.To.Add(item.Email);
+                            //Correo Sam2
+                            mail.Sender = new MailAddress("automatic@sysgo.com.mx");
+                            //Por definir Subject
+                            mail.Subject = "Nueva Notificacion";
+                            mail.IsBodyHtml = true;
+                            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                            //Leer archivo
+                            string text = System.IO.File.ReadAllText(path);
+                            string[] lines = System.IO.File.ReadAllLines(path);
+
+                            foreach (string line in lines)
                             {
-                                datosNotificacion.UsuarioIDReceptor = item.UsuarioID;
-                                datosNotificacion.UsuarioIDEmisor = usuario.UsuarioID;
-                                datosNotificacion.TipoNotificacionID = item.TipoNotificacionID;
-                                datosNotificacion.Mensaje = mensaje;
-
-                                message = MessageLibrary.Instance.convertirObjToJson(datosNotificacion);
-                                MessageLibrary.Instance.SendMessageToQueue(message, 2, usuario);
-                            }
-
-                            //Enviar Mail
-                            if (!String.IsNullOrEmpty(item.Email))
-                            {
-                                var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlTemplates"]) + item.Plantilla;
-
-                                string contenido = "";
-                                StringBuilder body = new StringBuilder();
-                                MailMessage mail = new MailMessage();
-                                SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
-                                mail.From = new MailAddress("karen.delacruz@steelgo.com");
-                                mail.To.Add(item.Email);
-                                //Correo Sam2
-                                mail.Sender = new MailAddress("automatic@sysgo.com.mx");
-                                //Por definir Subject
-                                mail.Subject = "Nueva Notificacion";
-                                mail.IsBodyHtml = true;
-                                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-
-                                //Leer archivo
-                                string text = System.IO.File.ReadAllText(path);
-                                string[] lines = System.IO.File.ReadAllLines(path);
-
-                                foreach (string line in lines)
+                                string regexPattern = "\\<<.*?\\>>";
+                                string tagName = "";
+                                string fieldName = line;
+                                MatchCollection tagMatches = Regex.Matches(line, regexPattern);
+                                foreach (Match match in tagMatches)
                                 {
-                                    string regexPattern = "\\<<.*?\\>>";
-                                    string tagName = "";
-                                    string fieldName = line;
-                                    MatchCollection tagMatches = Regex.Matches(line, regexPattern);
-                                    foreach (Match match in tagMatches)
-                                    {
-                                        tagName = match.ToString();
+                                    tagName = match.ToString();
 
-                                        if (tagName.Contains("nombreUsuario"))
-                                            fieldName = fieldName + line.Replace(tagName, item.NombreUsuario);
+                                    if (tagName.Contains("nombreUsuario"))
+                                        fieldName = fieldName + line.Replace(tagName, item.NombreUsuario);
 
-                                        if (tagName.Contains("mensaje"))
-                                            fieldName = fieldName + line.Replace(tagName, mensaje);
+                                    if (tagName.Contains("mensaje"))
+                                        fieldName = fieldName + line.Replace(tagName, mensaje);
 
-                                        if (tagName.Contains("remitente"))
-                                            fieldName = fieldName + line.Replace(tagName, usuario.NombreUsuario);
-                                    }
-                                    contenido = contenido + fieldName + "<br />";
+                                    if (tagName.Contains("remitente"))
+                                        fieldName = fieldName + line.Replace(tagName, usuario.NombreUsuario);
                                 }
-
-                                //HTML del mensaje
-                                mail.Body = contenido;
-
-                                SmtpServer.EnableSsl = false;
-                                SmtpServer.UseDefaultCredentials = false;
-                                SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
-
-                                SmtpServer.Send(mail);
+                                contenido = contenido + fieldName + "<br />";
                             }
+
+                            //HTML del mensaje
+                            mail.Body = contenido;
+
+                            SmtpServer.EnableSsl = false;
+                            SmtpServer.UseDefaultCredentials = false;
+                            SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
+
+                            SmtpServer.Send(mail);
                         }
                     }
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = true;
-                    return result;
                 }
-                catch (Exception ex)
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(ex.Message);
-                    result.ReturnCode = 500;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = true;
-
-                    return result;
-                }
-           }
-            else
+                return true;
+            }
+            catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
+                return false;
             }
         }
     }
