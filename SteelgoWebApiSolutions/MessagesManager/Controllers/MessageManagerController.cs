@@ -199,11 +199,11 @@ namespace MessagesManager.Controllers
                                 string contenido = "";
                                 StringBuilder body = new StringBuilder();
                                 MailMessage mail = new MailMessage();
-                                SmtpClient SmtpServer = new SmtpClient("smtp.office365.com", 587);
-                                mail.From = new MailAddress("daniela.zertuche@definityfirst.com");
+                                SmtpClient SmtpServer = new SmtpClient("mail.sysgo.com.mx", 25);
+                                mail.From = new MailAddress("karen.delacruz@steelgo.com");
                                 mail.To.Add(item.Email);
                                 //Correo Sam2
-                                mail.Sender = new MailAddress("daniela.zertuche@definityfirst.com");
+                                mail.Sender = new MailAddress("automatic@sysgo.com.mx");
                                 //Por definir Subject
                                 mail.Subject = "Nueva Notificacion";
                                 mail.IsBodyHtml = true;
@@ -238,9 +238,9 @@ namespace MessagesManager.Controllers
                                 //HTML del mensaje
                                 mail.Body = contenido;
 
-                                SmtpServer.EnableSsl = true;
+                                SmtpServer.EnableSsl = false;
                                 SmtpServer.UseDefaultCredentials = false;
-                                SmtpServer.Credentials = new System.Net.NetworkCredential("daniela.zertuche@definityfirst.com", "dfagosto15");
+                                SmtpServer.Credentials = new System.Net.NetworkCredential("automatic@sysgo.com.mx", "S733lg0H0u*");
 
                                 SmtpServer.Send(mail);
                             }
