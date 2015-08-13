@@ -473,6 +473,11 @@
                 $("#nameSpan").text(decrypt(Cookies.get("user")));
             }
 
+            $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (result) {
+                console.log("entro MessageManager");
+                
+            });
+
             //Show message body when notification is clicked
             $("#notifications").click(function(){
                 $(this).parent().toggleClass("open");
