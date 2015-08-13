@@ -14,9 +14,9 @@
 
 var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
-var $MessagesSAMUri = 'http://localhost:60921';
+var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:60921';
-var $FilesSAMUri = 'http://localhost:60921';
+var $FilesSAMUri = 'http://localhost:60921'; 
 
 //DEVELOPMENT Steelgo BASE URL's
 //var $BackEndSAMUri = 'http://192.168.1.7:60960';
@@ -107,3 +107,4 @@ $PaseSalida.add("PaseSalida");
 $DocumentoFolioAvisoEntrada.add("DocumentoFolioAvisoEntrada");
 $FolioAvisoEntrada.add("FolioAvisoEntrada");
 $OrdenDescarga.add("OrdenDescarga");
+$MessagesManager.add("MessageManager");
