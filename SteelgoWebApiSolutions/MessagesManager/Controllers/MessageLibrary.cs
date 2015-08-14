@@ -187,7 +187,7 @@ namespace MessagesManager.Controllers
                                   n.FechaModificacion,
                                   u.NombreUsuario
                               })
-                        .Where(x => x.UsuarioIDReceptor == userId)
+                        .Where(x => x.UsuarioIDReceptor == userId && x.Activo==true)
                         .Select(x => new Notificacion
                         {
                             NotificacionID = x.NotificacionID,

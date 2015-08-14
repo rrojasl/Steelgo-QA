@@ -426,37 +426,41 @@
 
                     strhtml += "<div class='notification-container'>";
                     strhtml += "<div class='sender-info'>";
-                    strhtml += "<span class='senderName'>" + data[key].NombreUsuarioEmisor + "</span>"
-                    strhtml += "<span class='deleteMessage'>"
+                    strhtml += "<span class='senderName'>" + data[key].NombreUsuarioEmisor + "</span>";
+                    strhtml += "<span class='deleteMessage'>";
                     //strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' /></span>";
                     strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
                     strhtml += "</div>";
                     strhtml += "<div class='message-info'>" + data[key].Mensaje + "</div>";
                     strhtml += "</div>";
-                    strhtml += "</a></li>"
+                    strhtml += "</a></li>";
                     $(".message-frame").append(strhtml);
                 });
             });
         };
 
         function BindEventClick(NotificacionID) {
-            alert("notificacion: "+ NotificacionID);
-            var strhtml = "";
-            strhtml = "<span class='backIcon' onclick='backIcon();'>";
-            strhtml += "<img id='' src='/Content/images/SC_back.png' />";
-            strhtml += "</span>";
-            strhtml += "<span>Susana Garza</span>";
-            strhtml += "<span class='deleteMessage' onclick='deleteMessage(" + NotificacionID + ");'>";
-            strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' />";
-            strhtml += "</span>";
-            strhtml += "<span class='messageDate'>20/07/2015</span>";
+            $MessagesManager.MessageManager.read({ notificacionID: NotificacionID, token: Cookies.get("token") }).done(function (data) {
+                var strhtml = "";
+                var d = new Date(data.FechaEnvio);
 
-            strhtml += "<li class='messageBody hidden'>";
-            strhtml += "<span id=''>Curabitur accumsam, risus vitae tincidunt rhoncus, metus neque</span>";
-            strhtml += "</li>";
+                strhtml = "<span class='backIcon' onclick='backIcon();'>";
+                strhtml += "<img id='' src='/Content/images/SC_back.png' />";
+                strhtml += "</span>";
+                strhtml += "<span>" + data.NombreUsuarioEmisor + "</span>";
+                strhtml += "<span class='deleteMessage' onclick='deleteMessage(" + NotificacionID + ");'>";
+                strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' />";
+                strhtml += "</span>";
+                strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
 
-            $(".message-header").empty();
-            $(".message-header").append(strhtml);
+                strhtml += "<li class='messageBody'>";
+                strhtml += "<span id=''>" + data.Mensaje + "</span>";
+                strhtml += "</li>";
+                $(".message-header").empty();
+                $(".message-header").append(strhtml);
+            });
+
+            
 
             $(".notification-menu li:not('.messageBody')").addClass("hidden");
             $(".notifications .dropdown").addClass("open");
@@ -466,12 +470,10 @@
         };
 
         function deleteMessage(NotificacionID) {
-            alert("deleteMessage: " + NotificacionID);
-            //$MessagesManager.MessageManager.destroy({}, { token: Cookies.get("token"), id: NotificacionID }).done(function (data) {
+            $MessagesManager.MessageManager.destroy({}, { token: Cookies.get("token"), id: NotificacionID }).done(function (data) {
                 loadMessages();
                 backIcon();
-            //});
-           
+            });
         };
 
         function backIcon() {
