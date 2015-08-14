@@ -35,9 +35,9 @@ namespace MessagesManager.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-            
+
                 return MessageLibrary.Instance.GetNotificationsByUserID(usuario.UsuarioID);
-           }
+            }
             else
             {
                 TransactionalInformation result = new TransactionalInformation();
@@ -49,12 +49,12 @@ namespace MessagesManager.Controllers
             }
         }
 
-/// <summary>
-/// Envia datos de una notificacion
-/// </summary>
-/// <param name="notificacionID">id de la notificacion</param>
-/// <param name="token">token del usuario</param>
-/// <returns></returns>
+        /// <summary>
+        /// Obtener datos de una notificacion
+        /// </summary>
+        /// <param name="notificacionID">id de la notificacion</param>
+        /// <param name="token">token del usuario</param>
+        /// <returns></returns>
         public object Get(int notificacionID, string token)
         {
             string payload = "";

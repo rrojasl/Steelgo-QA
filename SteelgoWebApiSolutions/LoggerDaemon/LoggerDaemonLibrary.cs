@@ -71,7 +71,7 @@ namespace LoggerDaemon
             using (SamContext ctx = new SamContext())
             {
                 Sam3_Notificacion noti = new Sam3_Notificacion();
-                noti.NotificacionID = notification.NotificacionID;
+                //noti.NotificacionID = notification.NotificacionID;
                 noti.UsuarioIDReceptor = notification.UsuarioIDReceptor;
                 noti.UsuarioIDEmisor = notification.UsuarioIDEmisor;
                 noti.TipoNotificacionID = notification.TipoNotificacionID;
@@ -98,7 +98,7 @@ namespace LoggerDaemon
             using (SamLogging ctx = new SamLogging())
             {
                 DatabaseManager.SamLogging.Bitacora bitacora = new DatabaseManager.SamLogging.Bitacora();
-                bitacora.BitacoraId = log.BitacoraId;
+                //bitacora.BitacoraId = log.BitacoraId;
                 bitacora.UsuarioId = log.UsuarioId;
                 bitacora.TipoActividadID = log.TipoActividadID;
                 bitacora.Mensaje = log.Mensaje;
