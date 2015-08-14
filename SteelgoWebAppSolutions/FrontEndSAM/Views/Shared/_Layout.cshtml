@@ -435,6 +435,10 @@
                         strhtml += "<div class='message-info'>" + data[key].Mensaje + "</div>";
                         strhtml += "</div>";
                         strhtml += "</a></li>";
+
+                        strhtml += "<li class='messageBody'>";
+                        strhtml += "<span id='message'></span>";
+                        strhtml += "</li>";
                         $(".message-frame").append(strhtml);
 
                     });
@@ -457,11 +461,10 @@
                     strhtml += "</span>";
                     strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
 
-                    strhtml += "<li class='messageBody'>";
-                    strhtml += "<span id=''>" + data.Mensaje + "</span>";
-                    strhtml += "</li>";
+                   
                     $(".message-header").empty();
                     $(".message-header").append(strhtml);
+                    $("#message").html(data.Mensaje);
                 }
             });
 
