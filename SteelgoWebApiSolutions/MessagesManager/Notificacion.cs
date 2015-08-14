@@ -7,7 +7,7 @@ namespace MessagesManager
 {
     public class Notificacion
     {
-        //public int NotificacionID { get; set; }
+        public int NotificacionID { get; set; }
         public int? UsuarioIDReceptor { get; set; }
         public Nullable<int> UsuarioIDEmisor { get; set; }
         public Nullable<int> TipoNotificacionID { get; set; }

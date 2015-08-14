@@ -170,7 +170,8 @@ namespace MessagesManager.Controllers
                 using (SamContext ctx = new SamContext())
                 {
                     notifications = ctx.Sam3_Notificacion
-                        .Join(ctx.Sam3_Usuario, n => n.UsuarioIDEmisor, u => u.UsuarioID,
+                        .Join(ctx.Sam3_Usuario, 
+                        n => n.UsuarioIDEmisor, u => u.UsuarioID,
                               (n, u) => new
                               {
                                   n.NotificacionID,
@@ -189,7 +190,7 @@ namespace MessagesManager.Controllers
                         .Where(x => x.UsuarioIDReceptor == userId)
                         .Select(x => new Notificacion
                         {
-                            //NotificacionID = x.NotificacionID,
+                            NotificacionID = x.NotificacionID,
                             UsuarioIDReceptor = x.UsuarioIDReceptor,
                             UsuarioIDEmisor = x.UsuarioIDEmisor,
                             TipoNotificacionID = x.TipoNotificacionID,
@@ -284,5 +285,66 @@ namespace MessagesManager.Controllers
                 return result;
             }
         }
+
+        public object getNotificationsByNotificationID(int notificationID)
+        {
+             try
+            {
+                 Notificacion notifications = new Notificacion();
+                using (SamContext ctx = new SamContext())
+                {
+                    notifications = ctx.Sam3_Notificacion
+                       .Join(ctx.Sam3_Usuario,
+                       n => n.UsuarioIDEmisor, u => u.UsuarioID,
+                             (n, u) => new
+                             {
+                                 n.NotificacionID,
+                                 n.UsuarioIDReceptor,
+                                 n.UsuarioIDEmisor,
+                                 n.TipoNotificacionID,
+                                 n.Mensaje,
+                                 n.FechaEnvio,
+                                 n.FechaRecepcion,
+                                 n.EstatusLectura,
+                                 n.Activo,
+                                 n.UsuarioModificacion,
+                                 n.FechaModificacion,
+                                 u.NombreUsuario
+                             })
+                       .Where(x => x.NotificacionID == notificationID)
+                       .Select(x => new Notificacion
+                       {
+                           NotificacionID = x.NotificacionID,
+                           UsuarioIDReceptor = x.UsuarioIDReceptor,
+                           UsuarioIDEmisor = x.UsuarioIDEmisor,
+                           TipoNotificacionID = x.TipoNotificacionID,
+                           Mensaje = x.Mensaje,
+                           FechaEnvio = x.FechaEnvio,
+                           FechaRecepcion = x.FechaRecepcion,
+                           EstatusLectura = x.EstatusLectura,
+                           Activo = x.Activo,
+                           UsuarioModificacion = x.UsuarioModificacion,
+                           FechaModificacion = x.FechaModificacion,
+                           NombreUsuarioEmisor = x.NombreUsuario
+                       }).AsParallel().FirstOrDefault();
+                    return notifications;
+
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        
     }
 }
