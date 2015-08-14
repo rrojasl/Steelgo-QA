@@ -436,12 +436,15 @@
                         strhtml += "</div>";
                         strhtml += "</a></li>";
 
-                        strhtml += "<li class='messageBody'>";
-                        strhtml += "<span id='message'></span>";
-                        strhtml += "</li>";
                         $(".message-frame").append(strhtml);
-
                     });
+
+                    strhtml = "";
+                    strhtml += "<li class='messageBody'>";
+                    strhtml += "<span id='message'></span>";
+                    strhtml += "</li>";
+
+                    $(".message-frame").append(strhtml);
                 }
             });
         };
