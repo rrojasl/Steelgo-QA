@@ -298,6 +298,11 @@ header .menu > div {
                 cursor: pointer;
             }
 
+                .notifications .notification-menu .notifications-header .message-header .backIcon,
+                .notifications .notification-menu .notifications-header .message-header .backIcon + span {
+                    float: left;
+                }
+
             .notifications .notification-menu .notifications-header .message-header .deleteMessage {
                 margin-left: 13px;
                 z-index: 3;
