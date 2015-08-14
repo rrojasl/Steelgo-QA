@@ -412,52 +412,57 @@
        
         function loadMessages() {
             $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (data) {
-                $(".count").html(data.length);
-                $(".counter").html(data.length);
-                $(".message-frame").empty();
-                $.each(data, function (key) {
-                    var strhtml = "";
-                    if (data[key].EstatusLectura) {
-                        strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#' class='read'>";
-                    } else {
-                        strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#'>";
-                    }
-                    var d = new Date(data[key].FechaEnvio);
+                if (Error(data)) {
+                    $(".count").html(data.length);
+                    $(".counter").html(data.length);
+                    $(".message-frame").empty();
+                    $.each(data, function (key) {
+                        var strhtml = "";
+                        if (data[key].EstatusLectura) {
+                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#' class='read'>";
+                        } else {
+                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#'>";
+                        }
+                        var d = new Date(data[key].FechaEnvio);
 
-                    strhtml += "<div class='notification-container'>";
-                    strhtml += "<div class='sender-info'>";
-                    strhtml += "<span class='senderName'>" + data[key].NombreUsuarioEmisor + "</span>";
-                    strhtml += "<span class='deleteMessage'>";
-                    //strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' /></span>";
-                    strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
-                    strhtml += "</div>";
-                    strhtml += "<div class='message-info'>" + data[key].Mensaje + "</div>";
-                    strhtml += "</div>";
-                    strhtml += "</a></li>";
-                    $(".message-frame").append(strhtml);
-                });
+                        strhtml += "<div class='notification-container'>";
+                        strhtml += "<div class='sender-info'>";
+                        strhtml += "<span class='senderName'>" + data[key].NombreUsuarioEmisor + "</span>";
+                        strhtml += "<span class='deleteMessage'>";
+                        //strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' /></span>";
+                        strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
+                        strhtml += "</div>";
+                        strhtml += "<div class='message-info'>" + data[key].Mensaje + "</div>";
+                        strhtml += "</div>";
+                        strhtml += "</a></li>";
+                        $(".message-frame").append(strhtml);
+
+                    });
+                }
             });
         };
 
         function BindEventClick(NotificacionID) {
             $MessagesManager.MessageManager.read({ notificacionID: NotificacionID, token: Cookies.get("token") }).done(function (data) {
-                var strhtml = "";
-                var d = new Date(data.FechaEnvio);
+                if (Error(data)) {
+                    var strhtml = "";
+                    var d = new Date(data.FechaEnvio);
 
-                strhtml = "<span class='backIcon' onclick='backIcon();'>";
-                strhtml += "<img id='' src='/Content/images/SC_back.png' />";
-                strhtml += "</span>";
-                strhtml += "<span>" + data.NombreUsuarioEmisor + "</span>";
-                strhtml += "<span class='deleteMessage' onclick='deleteMessage(" + NotificacionID + ");'>";
-                strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' />";
-                strhtml += "</span>";
-                strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
+                    strhtml = "<span class='backIcon' onclick='backIcon();'>";
+                    strhtml += "<img id='' src='/Content/images/SC_back.png' />";
+                    strhtml += "</span>";
+                    strhtml += "<span>" + data.NombreUsuarioEmisor + "</span>";
+                    strhtml += "<span class='deleteMessage' onclick='deleteMessage(" + NotificacionID + ");'>";
+                    strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' />";
+                    strhtml += "</span>";
+                    strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
 
-                strhtml += "<li class='messageBody'>";
-                strhtml += "<span id=''>" + data.Mensaje + "</span>";
-                strhtml += "</li>";
-                $(".message-header").empty();
-                $(".message-header").append(strhtml);
+                    strhtml += "<li class='messageBody'>";
+                    strhtml += "<span id=''>" + data.Mensaje + "</span>";
+                    strhtml += "</li>";
+                    $(".message-header").empty();
+                    $(".message-header").append(strhtml);
+                }
             });
 
             
@@ -471,8 +476,10 @@
 
         function deleteMessage(NotificacionID) {
             $MessagesManager.MessageManager.destroy({}, { token: Cookies.get("token"), id: NotificacionID }).done(function (data) {
-                loadMessages();
-                backIcon();
+                if (Error(data)) {
+                    loadMessages();
+                    backIcon();
+                }
             });
         };
 
@@ -489,6 +496,23 @@
             var curr_year = d.getFullYear();
 
             return curr_date + "/" + curr_month + "/" + curr_year;
+        };
+
+        function Error(data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                    } else {
+                        displayMessage("notificationslabel0009", data.ReturnMessage, '2');
+                        return;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
         };
     </script>
 </body>
