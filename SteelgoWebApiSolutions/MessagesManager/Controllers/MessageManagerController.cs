@@ -36,7 +36,7 @@ namespace MessagesManager.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
             
-                return MessageLibrary.Instance.GetNotificationsByUserID(5);
+                return MessageLibrary.Instance.GetNotificationsByUserID(usuario.UsuarioID);
            }
             else
             {
