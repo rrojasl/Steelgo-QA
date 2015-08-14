@@ -184,6 +184,7 @@ header .menu > div {
         margin: 0;
         box-shadow: none;
         border-radius: 0;
+        min-width: 111px;
     }
 
     .logged-user .btn-group.open .dropdown-toggle {
@@ -250,7 +251,7 @@ header .menu > div {
         border-radius: 3px;
         top: 55px;
         right: -202px;
-        left: initial;
+        left: inherit !important;
         width: 420px;
         max-height: 525px;
         overflow: hidden;
