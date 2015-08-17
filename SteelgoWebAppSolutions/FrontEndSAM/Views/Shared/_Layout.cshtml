@@ -430,7 +430,7 @@
                         strhtml += "<span class='senderName'>" + data[key].NombreUsuarioEmisor + "</span>";
                         strhtml += "<span class='deleteMessage'>";
                         //strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' /></span>";
-                        strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
+                        strhtml += "<span class='messageDate'>" + obtenerFormatoFechaMensajes(d) + "</span>";
                         strhtml += "</div>";
                         strhtml += "<div class='message-info'>" + data[key].Mensaje + "</div>";
                         strhtml += "</div>";
@@ -462,7 +462,7 @@
                     strhtml += "<span class='deleteMessage' onclick='deleteMessage(" + NotificacionID + ");'>";
                     strhtml += "<img id='' src='/Content/images/SC_delete_Icon.png' />";
                     strhtml += "</span>";
-                    strhtml += "<span class='messageDate'>" + obtenerFormatoFecha(d) + "</span>";
+                    strhtml += "<span class='messageDate'>" + obtenerFormatoFechaMensajes(d) + "</span>";
 
                    
                     $(".message-header").empty();
@@ -496,7 +496,7 @@
             $(".notification-menu li.messageBody").addClass("hidden");
         };
 
-        function obtenerFormatoFecha(d) {
+        function obtenerFormatoFechaMensajes(d) {
             var curr_date = d.getDate();
             var curr_month = d.getMonth() + 1; //Months are zero based
             var curr_year = d.getFullYear();
