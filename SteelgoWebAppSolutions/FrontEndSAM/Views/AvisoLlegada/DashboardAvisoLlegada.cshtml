@@ -275,8 +275,8 @@
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
-            Listado.FechaInicial = obtenerFormatoFechaSinHoras(d);
-            Listado.FechaFinal = obtenerFormatoFechaSinHoras(d1);
+            Listado.FechaInicial = obtenerFormatoFechaConHora(d);
+            Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 4;
