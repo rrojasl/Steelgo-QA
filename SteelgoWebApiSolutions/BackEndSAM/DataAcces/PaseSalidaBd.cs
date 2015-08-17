@@ -146,6 +146,13 @@ namespace BackEndSAM.DataAcces
 
                     ctx.SaveChanges();
 
+                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(3,
+                        string.Format("Se generó un nuevo pase de salida para el folio {0} con fecha {1}",
+                        foliollegadaBd.FolioAvisoLlegadaID, foliollegadaBd.FechaModificacion), usuario))
+                    {
+                        //Agregar error a la bitacora  PENDIENTE
+                    }
+
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;

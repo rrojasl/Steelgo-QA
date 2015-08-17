@@ -133,6 +133,13 @@ namespace BackEndSAM.DataAcces
                     //guardamos todos los cambios pendientes
                     ctx.SaveChanges();
 
+                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(2,
+                        string.Format("Se generó un nuevo folio de aviso de llegada con el numero: {0} y con fecha {1}",
+                        nuevoAvisoLlegada.FolioAvisoLlegadaID, nuevoAvisoLlegada.FechaModificacion), usuario))
+                    {
+                        //Agregar error a la bitacora  PENDIENTE
+                    }
+
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnMessage.Add(nuevoAvisoLlegada.FolioAvisoLlegadaID.ToString());

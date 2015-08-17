@@ -201,6 +201,7 @@
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
+    <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
@@ -296,6 +297,10 @@
     <ProjectReference Include="..\DatabaseManager\DatabaseManager.csproj">
       <Project>{6b1ad69e-07da-4d33-9d07-0868aaaaa780}</Project>
       <Name>DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessagesManager\MessagesManager.csproj">
+      <Project>{b29e3866-bba6-41a2-93a9-6079552a4c50}</Project>
+      <Name>MessagesManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\SecurityManager\SecurityManager.csproj">
       <Project>{fadb83c7-600e-43cd-8493-0ea5929e1536}</Project>
