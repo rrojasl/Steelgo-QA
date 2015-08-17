@@ -13,6 +13,7 @@ using System.Text;
 using System.Web;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using DatabaseManager.SamLogging;
 
 namespace MessagesManager.Controllers
 {
@@ -267,6 +268,32 @@ namespace MessagesManager.Controllers
                         }
                     }
                 }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool EnviarAbitacora(int tipoActividad, int entidadID, string mensaje, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamLogging lgn = new SamLogging())
+                {
+                    Bitacora bitacora = new Bitacora();
+                    string message = "";
+
+                    bitacora.UsuarioId = usuario.UsuarioID;
+                    bitacora.TipoActividadID = tipoActividad;
+                    bitacora.Mensaje = mensaje;
+                    bitacora.EntidadId = entidadID;
+
+                    message = MessageLibrary.Instance.convertirObjToJson(bitacora);
+                    MessageLibrary.Instance.SendMessageToQueue(message, 1, usuario);
+                }
+
                 return true;
             }
             catch (Exception ex)
