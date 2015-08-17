@@ -392,6 +392,9 @@
             case "3":
                 $("#btnPorSalir").addClass("active");
                 break;
+            default:
+                $("#btnCreados").addClass("active");
+                break;
         }
     };
 
@@ -597,7 +600,7 @@
         AccionesListado(DashBoardAccionListado);
     } else {
         ObtenerFechasporDefecto();
-        tabActivo(1);
+        tabActivo("1");
         Filtros();
     };
     }
