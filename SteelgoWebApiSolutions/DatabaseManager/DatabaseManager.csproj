@@ -926,6 +926,9 @@
     <Compile Include="Sam3\Sam3_Acero.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Bulto.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Chofer.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -977,7 +980,7 @@
     <Compile Include="Sam3\Sam3_FolioAvisoLlegada.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_FolioPackingList.cs">
+    <Compile Include="Sam3\Sam3_FolioCuantificacion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Incidencia.cs">
@@ -1022,9 +1025,6 @@
     <Compile Include="Sam3\Sam3_OrdenTrabajoSpool.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_PackingList.cs">
-      <DependentUpon>ModelSam3.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sam3\Sam3_Pagina.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1058,6 +1058,9 @@
     <Compile Include="Sam3\Sam3_Recepcion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Bulto_ItemCode.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_Documento_Entidad.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1077,6 +1080,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_Vehiculo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_FolioCuantificacion_ItemCode.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_Incidencia_Entidad.cs">
@@ -1149,6 +1155,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoNotificacion.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TipoUso.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoVehiculo.cs">

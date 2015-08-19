@@ -16,10 +16,9 @@ namespace DatabaseManager.Sam3
     {
         public Sam3_FolioAvisoEntrada()
         {
-            this.Sam3_PackingList = new HashSet<Sam3_PackingList>();
-            this.Sam3_FolioPackingList = new HashSet<Sam3_FolioPackingList>();
             this.Sam3_Rel_FolioAvisoEntrada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoEntrada_Proyecto>();
             this.Sam3_Rel_FolioAvisoEntrada_Documento = new HashSet<Sam3_Rel_FolioAvisoEntrada_Documento>();
+            this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
         }
     
         public int FolioAvisoEntradaID { get; set; }
@@ -41,13 +40,12 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string ComboEstatus { get; set; }
     
-        public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
-        public virtual ICollection<Sam3_FolioPackingList> Sam3_FolioPackingList { get; set; }
         public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
         public virtual Sam3_Cliente Sam3_Cliente { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Documento> Sam3_Rel_FolioAvisoEntrada_Documento { get; set; }
+        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
     }
 }

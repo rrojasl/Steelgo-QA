@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_FamiliaItemCode" Width="1.5" PointX="15.25" PointY="49.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_FamiliaMaterial" Width="1.5" PointX="1.5" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_FolioAvisoLlegada" Width="1.5" PointX="7.5" PointY="45.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelSam3.Sam3_FolioPackingList" Width="1.5" PointX="15.25" PointY="45.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Incidencia" Width="1.5" PointX="14.25" PointY="52.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_ItemCode" Width="1.5" PointX="11.25" PointY="37.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Maquina" Width="1.5" PointX="21.75" PointY="34.625" IsExpanded="true" />
@@ -37,7 +36,6 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_NumeroUnicoSegmento" Width="1.5" PointX="16.5" PointY="30.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenTrabajo" Width="1.5" PointX="11.25" PointY="33.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenTrabajoSpool" Width="1.5" PointX="19.5" PointY="31.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ModelSam3.Sam3_PackingList" Width="1.5" PointX="12" PointY="42.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Pagina" Width="1.5" PointX="9.75" PointY="63.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Patio" Width="1.5" PointX="3.75" PointY="53.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Perfil" Width="1.5" PointX="9.75" PointY="53.625" IsExpanded="true" />
@@ -104,8 +102,6 @@
         <AssociationConnector Association="ModelSam3.FK_Recepcion_FamiliaItemCode" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_PermisoAduana_FolioAvisoLlegada" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_RelFolioAvisoLlegadaProyecto_FolioAvisoLlegada" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelSam3.FK_FolioPackingList_PackingList" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelSam3.FK_Recepcion_FolioPackingList" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Incidencia_Incidencia" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Incidencia_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Incidencia_UsuarioRespuesta" ManuallyRouted="false" />
@@ -141,7 +137,6 @@
         <AssociationConnector Association="ModelSam3.FK_OrdenTrabajo_Taller" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_OrdenTrabajoSpool_OrdenTrabajo" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_OrdenTrabajoSpool_Spool" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelSam3.FK_PackingList_Proyecto" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Pagin__15DA3E5D" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Proyecto_Patio" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Taller_Patio" ManuallyRouted="false" />
@@ -186,16 +181,13 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Chofe__0777106D" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Vehic__0C3BC58A" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__0A537D18" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Pack__Vehic__0E240DFC" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Vehic__0B47A151" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Vehic__0682EC34" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Trans__03A67F89" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Vehic__02B25B50" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Vehi__TipoV__7FD5EEA5" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_FolioAvisoEntrada" Width="1.5" PointX="9.75" PointY="75.375" />
-        <AssociationConnector Association="ModelSam3.FK_Camion_FolioLlegada1" />
         <AssociationConnector Association="ModelSam3.FK_FolioLlegada_FolioAvisoLlegada1" />
-        <AssociationConnector Association="ModelSam3.FK_FolioPackingList_FolioLlegada1" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_Proyecto" Width="1.5" PointX="19" PointY="53.75" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Prove__16B953FD" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__1A89E4E1" />
@@ -214,6 +206,20 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_UsuariosNotificaciones" Width="1.5" PointX="17.25" PointY="23.125" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Usua__TipoN__5887175A" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Bulto" Width="1.5" PointX="21.25" PointY="64.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_FolioCuantificacion" Width="1.5" PointX="19" PointY="64.125" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Bulto_ItemCode" Width="1.5" PointX="20.5" PointY="43.125" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioCuantificacion_ItemCode" Width="1.5" PointX="20.5" PointY="47.125" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_TipoUso" Width="1.5" PointX="16.75" PointY="76" />
+        <AssociationConnector Association="ModelSam3.FK__Rel_Bulto__Bulto__77FFC2B3" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Bult__Folio__6F6A7CB2" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Folio__64ECEE3F" />
+        <AssociationConnector Association="ModelSam3.FK__Rel_Folio__Folio__733B0D96" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Proye__65E11278" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoU__66D536B1" />
+        <AssociationConnector Association="ModelSam3.FK_Sam3_Recepcion_Sam3_FolioCuantificacion" />
+        <AssociationConnector Association="ModelSam3.FK__Rel_Bulto__ItemC__78F3E6EC" />
+        <AssociationConnector Association="ModelSam3.FK__Rel_Folio__ItemC__742F31CF" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

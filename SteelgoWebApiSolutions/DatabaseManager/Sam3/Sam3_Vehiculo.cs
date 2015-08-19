@@ -17,7 +17,6 @@ namespace DatabaseManager.Sam3
         public Sam3_Vehiculo()
         {
             this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
-            this.Sam3_PackingList = new HashSet<Sam3_PackingList>();
             this.Sam3_Rel_FolioAvisoLlegada_Vehiculo = new HashSet<Sam3_Rel_FolioAvisoLlegada_Vehiculo>();
             this.Sam3_Rel_Vehiculo_Chofer = new HashSet<Sam3_Rel_Vehiculo_Chofer>();
             this.Sam3_Rel_Vehiculo_Transportista = new HashSet<Sam3_Rel_Vehiculo_Transportista>();
@@ -36,7 +35,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
     
         public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
-        public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Vehiculo> Sam3_Rel_FolioAvisoLlegada_Vehiculo { get; set; }
         public virtual ICollection<Sam3_Rel_Vehiculo_Chofer> Sam3_Rel_Vehiculo_Chofer { get; set; }
         public virtual ICollection<Sam3_Rel_Vehiculo_Transportista> Sam3_Rel_Vehiculo_Transportista { get; set; }

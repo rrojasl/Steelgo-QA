@@ -25,13 +25,13 @@ namespace DatabaseManager.Sam3
             this.Sam3_NumeroUnicoMovimiento = new HashSet<Sam3_NumeroUnicoMovimiento>();
             this.Sam3_NumeroUnicoSegmento = new HashSet<Sam3_NumeroUnicoSegmento>();
             this.Sam3_OrdenTrabajo = new HashSet<Sam3_OrdenTrabajo>();
-            this.Sam3_PackingList = new HashSet<Sam3_PackingList>();
             this.Sam3_PinturaNumeroUnico = new HashSet<Sam3_PinturaNumeroUnico>();
             this.Sam3_Rel_Usuario_Proyecto = new HashSet<Sam3_Rel_Usuario_Proyecto>();
             this.Sam3_Rel_FolioAvisoLlegada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoLlegada_Proyecto>();
             this.Sam3_RequisicionNumeroUnico = new HashSet<Sam3_RequisicionNumeroUnico>();
             this.Sam3_Spool = new HashSet<Sam3_Spool>();
             this.Sam3_Rel_FolioAvisoEntrada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoEntrada_Proyecto>();
+            this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
         }
     
         public int ProyectoID { get; set; }
@@ -58,7 +58,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
         public virtual ICollection<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
         public virtual ICollection<Sam3_OrdenTrabajo> Sam3_OrdenTrabajo { get; set; }
-        public virtual ICollection<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
         public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
         public virtual ICollection<Sam3_Rel_Usuario_Proyecto> Sam3_Rel_Usuario_Proyecto { get; set; }
@@ -67,5 +66,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Spool> Sam3_Spool { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
         public virtual Sam3_ProyectoConsecutivo Sam3_ProyectoConsecutivo { get; set; }
+        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
     }
 }

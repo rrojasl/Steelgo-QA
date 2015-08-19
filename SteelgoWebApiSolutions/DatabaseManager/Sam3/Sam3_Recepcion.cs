@@ -20,7 +20,6 @@ namespace DatabaseManager.Sam3
         }
     
         public int RecepcionID { get; set; }
-        public int FolioPackingListID { get; set; }
         public int ItemCodeID { get; set; }
         public Nullable<int> FamiliaItemCodeID { get; set; }
         public Nullable<int> CedulaID { get; set; }
@@ -33,9 +32,10 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int FolioCuantificacionID { get; set; }
     
         public virtual Sam3_FamiliaItemCode Sam3_FamiliaItemCode { get; set; }
-        public virtual Sam3_FolioPackingList Sam3_FolioPackingList { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        public virtual Sam3_FolioCuantificacion Sam3_FolioCuantificacion { get; set; }
     }
 }

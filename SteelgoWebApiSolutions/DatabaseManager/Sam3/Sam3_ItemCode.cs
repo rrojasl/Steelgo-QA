@@ -18,6 +18,8 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
+            this.Sam3_Rel_Bulto_ItemCode = new HashSet<Sam3_Rel_Bulto_ItemCode>();
+            this.Sam3_Rel_FolioCuantificacion_ItemCode = new HashSet<Sam3_Rel_FolioCuantificacion_ItemCode>();
         }
     
         public int ItemCodeID { get; set; }
@@ -35,11 +37,15 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> Cantidad { get; set; }
+        public Nullable<int> MM { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
         public virtual ICollection<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        public virtual ICollection<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
+        public virtual ICollection<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
     }
 }

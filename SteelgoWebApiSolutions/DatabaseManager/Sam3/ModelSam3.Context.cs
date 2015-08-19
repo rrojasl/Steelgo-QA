@@ -42,7 +42,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_FamiliaItemCode> Sam3_FamiliaItemCode { get; set; }
         public virtual DbSet<Sam3_FamiliaMaterial> Sam3_FamiliaMaterial { get; set; }
         public virtual DbSet<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
-        public virtual DbSet<Sam3_FolioPackingList> Sam3_FolioPackingList { get; set; }
         public virtual DbSet<Sam3_Incidencia> Sam3_Incidencia { get; set; }
         public virtual DbSet<Sam3_ItemCode> Sam3_ItemCode { get; set; }
         public virtual DbSet<Sam3_Maquina> Sam3_Maquina { get; set; }
@@ -57,7 +56,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
         public virtual DbSet<Sam3_OrdenTrabajo> Sam3_OrdenTrabajo { get; set; }
         public virtual DbSet<Sam3_OrdenTrabajoSpool> Sam3_OrdenTrabajoSpool { get; set; }
-        public virtual DbSet<Sam3_PackingList> Sam3_PackingList { get; set; }
         public virtual DbSet<Sam3_Pagina> Sam3_Pagina { get; set; }
         public virtual DbSet<Sam3_Patio> Sam3_Patio { get; set; }
         public virtual DbSet<Sam3_Perfil> Sam3_Perfil { get; set; }
@@ -107,5 +105,10 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_ProyectoConsecutivo> Sam3_ProyectoConsecutivo { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_Documento> Sam3_Rel_FolioAvisoEntrada_Documento { get; set; }
         public virtual DbSet<Sam3_UsuariosNotificaciones> Sam3_UsuariosNotificaciones { get; set; }
+        public virtual DbSet<Sam3_Bulto> Sam3_Bulto { get; set; }
+        public virtual DbSet<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        public virtual DbSet<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
+        public virtual DbSet<Sam3_TipoUso> Sam3_TipoUso { get; set; }
     }
 }
