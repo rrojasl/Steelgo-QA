@@ -26,4 +26,17 @@ namespace BackEndSAM.Models
         public decimal PorcentajeSinDescarga { get; set; }
         public decimal PorcentajeSinPaseSalida { get; set; }
     }
+
+    public class CantidadesDashboardCuantificacion
+    {
+        public string TipoMaterial { get; set; }
+        public int EntradaPorCuantificar { get; set; }
+        public int PLPorCuantificar { get; set; }
+        public int MTLSinICS { get; set; }
+        public int MTLSinOrdenRecepcion { get; set; }
+        public int NUPorRecepcionar { get; set; }
+        public int NUSinOrdenAlmacenaje { get; set; }
+        public int NUSinAlmacenar { get; set; }
+        public int IncidenciasAbiertas { get; set; }
+    }
 }
