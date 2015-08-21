@@ -228,15 +228,13 @@ namespace BackEndSAM.DataAcces
                                                  Nombre = p.Nombre
                                              }).AsParallel().SingleOrDefault();
 
-                        detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto
+                        //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
+                        detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                             join f in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
                                              join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
-                                             where r.FolioAvisoEntradaID == registro.FolioAvisoEntradaID
-                                             && r.Activo
-                                             select new Models.Proyecto
-                                             {
-                                                 ProyectoID = r.ProyectoID.ToString(),
-                                                 Nombre = p.Nombre
-                                             }).AsParallel().SingleOrDefault();
+                                             where r.Activo && f.Activo && p.Activo
+                                             && r.FolioAvisoLlegadaID == folio
+                                             select r.ProyectoID).AsParallel().ToList();
                     }
                     return detalle;
                 }
@@ -303,15 +301,18 @@ namespace BackEndSAM.DataAcces
                     ctx.Sam3_FolioAvisoEntrada.Add(nuevo);
                     ctx.SaveChanges();
 
-                    if (json.ProyectoID > 0)
+                    if (json.Proyectos.Count > 0)
                     {
-                        Sam3_Rel_FolioAvisoEntrada_Proyecto nFolioProyecto = new Sam3_Rel_FolioAvisoEntrada_Proyecto();
-                        nFolioProyecto.Activo = true;
-                        nFolioProyecto.ProyectoID = json.ProyectoID;
-                        nFolioProyecto.FolioAvisoEntradaID = nuevo.FolioAvisoEntradaID;
-                        nFolioProyecto.FechaModificacion = DateTime.Now;
-                        nFolioProyecto.UsuarioModificacion = usuario.UsuarioID;
-                        ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto.Add(nFolioProyecto);
+                        foreach (int i in json.Proyectos)
+                        {
+                            Sam3_Rel_FolioAvisoLlegada_Proyecto nFolioProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                            nFolioProyecto.Activo = true;
+                            nFolioProyecto.ProyectoID = i;
+                            nFolioProyecto.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
+                            nFolioProyecto.FechaModificacion = DateTime.Now;
+                            nFolioProyecto.UsuarioModificacion = usuario.UsuarioID;
+                            ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nFolioProyecto);
+                        }
                     }
 
                     ctx.SaveChanges();
@@ -364,24 +365,24 @@ namespace BackEndSAM.DataAcces
                     registroBd.UsuarioModificacion = usuario.UsuarioID;
                     registroBd.ComboEstatus = json.ComboEstatus;
 
-                    //si no existe registro de proyecto para el aviso de entrada se genera uno nuevo si ya existe se actualiza el registro
-                    if (!registroBd.Sam3_Rel_FolioAvisoEntrada_Proyecto.Where(x => x.FolioAvisoEntradaID == registroBd.FolioAvisoEntradaID).Any())
+                    //verificar y registrar los proyectos
+                    if (json.Proyectos.Count > 0)
                     {
-                        Sam3_Rel_FolioAvisoEntrada_Proyecto nuevaRelProyecto = new Sam3_Rel_FolioAvisoEntrada_Proyecto();
-                        nuevaRelProyecto.Activo = true;
-                        nuevaRelProyecto.FechaModificacion = DateTime.Now;
-                        nuevaRelProyecto.FolioAvisoEntradaID = registroBd.FolioAvisoEntradaID;
-                        nuevaRelProyecto.ProyectoID = json.ProyectoID;
-                        nuevaRelProyecto.UsuarioModificacion = usuario.UsuarioID;
-                        ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto.Add(nuevaRelProyecto);
-                    }
-                    else
-                    {
-                        Sam3_Rel_FolioAvisoEntrada_Proyecto relProyecto = ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto
-                            .Where(x => x.FolioAvisoEntradaID == registroBd.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
-                        relProyecto.ProyectoID = json.ProyectoID;
-                        relProyecto.FechaModificacion = DateTime.Now;
-                        relProyecto.UsuarioModificacion = usuario.UsuarioID;
+                        foreach (int i in json.Proyectos)
+                        {
+                            //si no existe registro del proyecto, se crea uno nuevo, de existir el proyecto se deja tal cual esta
+                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID 
+                                && x.ProyectoID == i).AsParallel().Any())
+                            {
+                                Sam3_Rel_FolioAvisoLlegada_Proyecto nuevaRelProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                nuevaRelProyecto.Activo = true;
+                                nuevaRelProyecto.FechaModificacion = DateTime.Now;
+                                nuevaRelProyecto.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID.Value;
+                                nuevaRelProyecto.ProyectoID = i;
+                                nuevaRelProyecto.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevaRelProyecto);
+                            }
+                        }
                     }
 
                     ctx.SaveChanges();

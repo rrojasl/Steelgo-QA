@@ -188,11 +188,8 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Vehi__TipoV__7FD5EEA5" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_FolioAvisoEntrada" Width="1.5" PointX="9.75" PointY="75.375" />
         <AssociationConnector Association="ModelSam3.FK_FolioLlegada_FolioAvisoLlegada1" />
-        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_Proyecto" Width="1.5" PointX="19" PointY="53.75" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Prove__16B953FD" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__1A89E4E1" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoA__17AD7836" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Proye__1B7E091A" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__2042BE37" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__222B06A9" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__2136E270" />
@@ -220,6 +217,10 @@
         <AssociationConnector Association="ModelSam3.FK_Sam3_Recepcion_Sam3_FolioCuantificacion" />
         <AssociationConnector Association="ModelSam3.FK__Rel_Bulto__ItemC__78F3E6EC" />
         <AssociationConnector Association="ModelSam3.FK__Rel_Folio__ItemC__742F31CF" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_ItemCodeSteelgo" Width="1.5" PointX="20.25" PointY="26.875" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Width="1.5" PointX="22.5" PointY="31.25" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__027D5126" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

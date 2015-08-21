@@ -253,7 +253,7 @@ namespace BackEndSAM.DataAcces
                     //Traer todos de acuerdo a las fechas, proyectos y patios del usuario
 
                     registrosBd = (from r in ctx.Sam3_FolioAvisoEntrada
-                                   join p in ctx.Sam3_Rel_FolioAvisoEntrada_Proyecto on r.FolioAvisoEntradaID equals p.FolioAvisoEntradaID
+                                   join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                    join pry in ctx.Sam3_Proyecto on p.ProyectoID equals pry.ProyectoID
                                    join pa in ctx.Sam3_Patio on pry.PatioID equals pa.PatioID
                                    where r.Activo && p.Activo && pry.Activo && pa.Activo
@@ -314,13 +314,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerCantidadesDashboardCuantificacion(FiltrosJson filtros, Sam3_Usuario usuario)
+        public object ObtenerCantidadesDashboardCuantificacion(FiltrosJson filtros,int tipoMaterialID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    CantidadesDashboardAvisoEntrada result = new CantidadesDashboardAvisoEntrada();
+                    CantidadesDashboardCuantificacion result = new CantidadesDashboardCuantificacion();
                     DateTime fechaInicial = new DateTime();
                     DateTime fechaFinal = new DateTime();
                     DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
@@ -354,7 +354,25 @@ namespace BackEndSAM.DataAcces
                                         select p.PatioID).AsParallel().ToList();
 
                     //Traemos todos los folios que esten dentro del periodo de fechas y que correspondan a los proyectos y patios de los usuarios.
+                    List<Sam3_FolioAvisoEntrada> registros = (from fae in ctx.Sam3_FolioAvisoEntrada
+                                                              join fal in ctx.Sam3_FolioAvisoLlegada on fae.FolioAvisoLlegadaID equals fal.FolioAvisoLlegadaID
+                                                              join rfal in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fal.FolioAvisoLlegadaID equals rfal.FolioAvisoLlegadaID
+                                                              join p in ctx.Sam3_Proyecto on rfal.ProyectoID equals p.ProyectoID
+                                                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                              where fae.Activo && fal.Activo && rfal.Activo && p.Activo && pa.Activo
+                                                              && proyectos.Contains(rfal.ProyectoID)
+                                                              && patios.Contains(pa.PatioID)
+                                                              && (fae.FechaCreacion >= fechaInicial && fae.FechaCreacion <= fechaFinal)
+                                                              select fae).AsParallel().ToList();
 
+                    //folios de aviso de entrada con orden de descarga pero sin fecha de fin de descarga
+                    result.EntradaPorCuantificar = (from r in registros
+                                                    where r.FolioDescarga > 0
+                                                    && !r.FechaFinDescarga.HasValue
+                                                    select r).AsParallel().Count();
+
+                    //
+                         
 
                 }
                 return null;

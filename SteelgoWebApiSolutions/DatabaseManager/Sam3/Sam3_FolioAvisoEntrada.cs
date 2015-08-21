@@ -16,7 +16,6 @@ namespace DatabaseManager.Sam3
     {
         public Sam3_FolioAvisoEntrada()
         {
-            this.Sam3_Rel_FolioAvisoEntrada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoEntrada_Proyecto>();
             this.Sam3_Rel_FolioAvisoEntrada_Documento = new HashSet<Sam3_Rel_FolioAvisoEntrada_Documento>();
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
         }
@@ -42,7 +41,6 @@ namespace DatabaseManager.Sam3
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
         public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
-        public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Proyecto> Sam3_Rel_FolioAvisoEntrada_Proyecto { get; set; }
         public virtual Sam3_Cliente Sam3_Cliente { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_Documento> Sam3_Rel_FolioAvisoEntrada_Documento { get; set; }

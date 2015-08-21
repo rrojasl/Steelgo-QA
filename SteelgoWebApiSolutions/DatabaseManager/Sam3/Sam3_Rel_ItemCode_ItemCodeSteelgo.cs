@@ -12,16 +12,16 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Rel_FolioAvisoEntrada_Proyecto
+    public partial class Sam3_Rel_ItemCode_ItemCodeSteelgo
     {
-        public int Rel_FolioAvisoEntrada_Proyecto_ID { get; set; }
-        public int FolioAvisoEntradaID { get; set; }
-        public int ProyectoID { get; set; }
+        public int Rel_ItemCode_ItemCodeSteelgo { get; set; }
+        public int ItemCodeID { get; set; }
+        public int ItemCodeSteelgoID { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }
-        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
+        public virtual Sam3_ItemCodeSteelgo Sam3_ItemCodeSteelgo { get; set; }
     }
 }

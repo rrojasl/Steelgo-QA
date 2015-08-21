@@ -17,8 +17,14 @@ namespace BackEndSAM.Models
         public int ClienteId { get; set; }
         public int PatioID { get; set; }
         public string Estatus { get; set; }
-        public int ProyectoID { get; set; }
+        public List<int> Proyectos { get; set; }
         public string ComboEstatus { get; set; }
+
+        public FolioAvisoEntradaJson()
+        {
+            Proyectos = new List<int>();
+        }
+
     }
 
     public class DetalleAvisoEntradaJson
@@ -31,7 +37,7 @@ namespace BackEndSAM.Models
         public Cliente Cliente { get; set; }
         public Patio Patio { get; set; }
         public string Estatus { get; set; }
-        public Proyecto Proyectos { get; set; }
+        public List<int>Proyectos { get; set; }
         public List<ListaDocumentos> Documentos { get; set; }
         public int FolioDescarga { get; set; }
         public Nullable<DateTime> FechaGeneracionDescarga { get; set; }
@@ -44,7 +50,7 @@ namespace BackEndSAM.Models
             Proveedor = new Proveedor();
             Cliente = new Cliente();
             Patio = new Patio();
-            Proyectos = new Proyecto();
+            Proyectos = new List<int>();
             Documentos = new List<ListaDocumentos>();
         }
     }

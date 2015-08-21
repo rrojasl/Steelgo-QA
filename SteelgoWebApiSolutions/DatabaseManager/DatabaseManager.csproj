@@ -989,6 +989,9 @@
     <Compile Include="Sam3\Sam3_ItemCode.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_ItemCodeSteelgo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Maquina.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1067,9 +1070,6 @@
     <Compile Include="Sam3\Sam3_Rel_FolioAvisoEntrada_Documento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sam3\Sam3_Rel_FolioAvisoEntrada_Proyecto.cs">
-      <DependentUpon>ModelSam3.tt</DependentUpon>
-    </Compile>
     <Compile Include="Sam3\Sam3_Rel_FolioAvisoLlegada_Documento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1086,6 +1086,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_Incidencia_Entidad.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_ItemCode_ItemCodeSteelgo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_Perfil_Entidad_Pagina.cs">
