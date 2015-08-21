@@ -230,7 +230,7 @@ namespace BackEndSAM.DataAcces
 
                         //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
                         detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                             join f in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
+                                             join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
                                              join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
                                              where r.Activo && f.Activo && p.Activo
                                              && r.FolioAvisoLlegadaID == folio
