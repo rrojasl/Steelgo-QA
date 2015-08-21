@@ -41,6 +41,29 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerProyectosPorFolio(int folio, Sam3_Usuario usuario)
+        {
+            try 
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> Proyectos = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == folio)
+                        .Select(x => x.ProyectoID).AsParallel().ToList();
+                    return Proyectos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerListadoProyectos(Sam3_Usuario usuario)
         {
             try

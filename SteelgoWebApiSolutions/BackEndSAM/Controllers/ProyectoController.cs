@@ -40,6 +40,29 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(int folio, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ProyectoBd.Instance.ObtenerProyectosPorFolio(folio, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+        }
+
         public object Post(Sam3_Proyecto proyecto, string token)
         {
             string payload = "";

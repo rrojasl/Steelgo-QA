@@ -203,7 +203,7 @@
             client.add("FolioAvisoEntrada");
             var json = {"FolioLlegadaID":"1010","FolioAvisoLlegadaID":"-1","PatioID":"","ClienteID":"","FechaInicial":"2014-8-4","FechaFinal":"2015-8-4","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzODcyNjkzM30.gDGFqO-xLWKCvvDj6zwkCjQ-Ys0WBtWEzZaVo3gCFaI","PorLlegar":false,"PorDescargar":true,"PorSalir":false};
 
-            client.FolioAvisoEntrada.read({data: JSON.stringify(json)}).done(function (data) {console.log(data)});
+            client.FolioAvisoEntrada.read({folio: 1010, token: ""}).done(function (data) {console.log(data)});
 
 </script>
     </body>
