@@ -63,6 +63,9 @@ var $PaseSalida= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenDescarga = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $dummyObtenerDatosFolioAviso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyTipoPackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyTipoUso= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -108,3 +111,6 @@ $DocumentoFolioAvisoEntrada.add("DocumentoFolioAvisoEntrada");
 $FolioAvisoEntrada.add("FolioAvisoEntrada");
 $OrdenDescarga.add("OrdenDescarga");
 $MessagesManager.add("MessageManager");
+$dummyObtenerDatosFolioAviso.add("DummyObtenerDatosFolioAvisoEntrada");
+$DummyTipoPackingList.add("DummyTipoPackingList");
+$DummyTipoUso.add("DummyTipoUso");

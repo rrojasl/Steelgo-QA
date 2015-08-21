@@ -1033,116 +1033,160 @@ _dictionary = {
         "en-US": "Quantification"
     },
     "Cuantificacion0003": {
-        "es-MX": "Proyecto",
-        "en-US": "Proyect"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "Cuantificacion0004": {
-        "es-MX": "Folio de Llegada",
-        "en-US": "Arrival Folio"
+        "es-MX": "Editar",
+        "en-US": "Edit"
     },
     "Cuantificacion0005": {
-        "es-MX": "Item Code",
-        "en-US": "Item Code"
+        "es-MX": "Terminar y Nuevo",
+        "en-US": "End and New"
     },
     "Cuantificacion0006": {
-        "es-MX": "Descripción",
-        "en-US": "Description"
+        "es-MX": "Guardar e Imprimir",
+        "en-US": "Save and Print"
     },
     "Cuantificacion0007": {
-        "es-MX": "Familia",
-        "en-US": "Family"
+        "es-MX": "Guardar Parcialmente",
+        "en-US": "Partially Save"
     },
     "Cuantificacion0008": {
-        "es-MX": "Cédula",
-        "en-US": "Cedula"
+        "es-MX": "Guardar Parcial y Nuevo",
+        "en-US": "Partial Save and New"
     },
     "Cuantificacion0009": {
-        "es-MX": "Tipo Acero",
-        "en-US": "Steel type"
+        "es-MX": "Guardar y Cerrar",
+        "en-US": "Save and Close"
     },
     "Cuantificacion0010": {
-        "es-MX": "D1",
-        "en-US": "D1"
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
     },
     "Cuantificacion0011": {
-        "es-MX": "D2",
-        "en-US": "D2"
+        "es-MX": "Generar Orden Recepción",
+        "en-US": "Generate Order Reception"
     },
     "Cuantificacion0012": {
-        "es-MX": "Cantidad",
-        "en-US": "Quantity"
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
     },
     "Cuantificacion0013": {
-        "es-MX": "Tiene NU",
-        "en-US": "it has NU"
+        "es-MX": "Proyecto",
+        "en-US": "Project"
     },
     "Cuantificacion0014": {
-        "es-MX": "de {0}",
-        "en-US": "of {0}"
+        "es-MX": "Folio Llegada",
+        "en-US": "Folio Llegada"
     },
     "Cuantificacion0015": {
-        "es-MX": "Tamaño de Página",
-        "en-US": "Page Size"
+        "es-MX": "Folio Llegada Hijo",
+        "en-US": "Folio Llegada Hijo"
     },
     "Cuantificacion0016": {
         "es-MX": "Packing List",
         "en-US": "Packing List"
     },
     "Cuantificacion0017": {
-        "es-MX": "Guardar Parcialmente",
-        "en-US": "Save Partially"
+        "es-MX": "Tipo Packing List",
+        "en-US": "Tipo Packing List"
     },
     "Cuantificacion0018": {
-        "es-MX": "Generar Numeros Unicos",
-        "en-US": "Generate Unique Numbers"
+        "es-MX": "Tipo Uso",
+        "en-US": "Tipo Uso"
     },
     "Cuantificacion0019": {
-        "es-MX": "Tiene Error",
-        "en-US": "it has Error"
+        "es-MX": "Carga Masiva",
+        "en-US": "Bulk Upload"
     },
     "Cuantificacion0020": {
-        "es-MX": "Terminar Cuantificacion",
-        "en-US": "Quantification Finish"
-    },
-    "Cuantificacion0021": {
         "es-MX": "Cargar",
         "en-US": "Load"
     },
+    "Cuantificacion0021": {
+        "es-MX": "Descargar Template",
+        "en-US": "Download Template"
+    },
     "Cuantificacion0022": {
-        "es-MX": "Familia",
-        "en-US": "Family"
+        "es-MX": "Colada",
+        "en-US": "Wash"
     },
     "Cuantificacion0023": {
-        "es-MX": "Cédula",
-        "en-US": "Cedula"
-    },
-    "Cuantificacion0024": {
-        "es-MX": "Tipo Acero",
-        "en-US": "Steel Type"
-    },
-    "Cuantificacion0025": {
-        "es-MX": "Diametro 1",
-        "en-US": "Diameter 1"
-    },
-    "Cuantificacion0026": {
-        "es-MX": "Diametro 2",
-        "en-US": "Diameter 2"
-    },
-    "Cuantificacion0027": {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
     },
+    "Cuantificacion0024": {
+        "es-MX": "MM",
+        "en-US": "MM"
+    },
+    "Cuantificacion0025": {
+        "es-MX": "Planchar",
+        "en-US": "Planchar"
+    },
+    "Cuantificacion0026": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Cuantificacion0027": {
+        "es-MX": "Vacios",
+        "en-US": "Vacios"
+    },
     "Cuantificacion0028": {
-        "es-MX": "Imprimir Etiquetas",
-        "en-US": "Print Tags"
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
     },
     "Cuantificacion0029": {
-        "es-MX": "Carga Masiva",
-        "en-US": "Massive Upload"
+        "es-MX": "Descripción",
+        "en-US": "Description"
     },
     "Cuantificacion0030": {
-        "es-MX": "Cargar",
-        "en-US": "Upload"
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "Cuantificacion0031": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "Cuantificacion0032": {
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
+    },
+    "Cuantificacion0033": {
+        "es-MX": "Familia",
+        "en-US": "Familia"
+    },
+    "Cuantificacion0034": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "Cuantificacion0035": {
+        "es-MX": "Tipo Acero",
+        "en-US": "Steel Type"
+    },
+    "Cuantificacion0036": {
+        "es-MX": "Colada",
+        "en-US": "Wash"
+    },
+    "Cuantificacion0037": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Cuantificacion0038": {
+        "es-MX": "MM",
+        "en-US": "MM"
+    },
+    "Cuantificacion0039": {
+        "es-MX": "Detallar",
+        "en-US": "Detail"
+    },
+    "Cuantificacion0040": {
+        "es-MX": "Número Único",
+        "en-US": "One Number"
+    },
+    "Cuantificacion0041": {
+        "es-MX": "Tiene Error",
+        "en-US": "It Has Error"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {

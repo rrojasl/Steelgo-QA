@@ -464,22 +464,29 @@
             });
             ObtenerCliente();
 
-            $("#ProyectoID").kendoComboBox({
+            //$("#ProyectoID").kendoComboBox({
+            //    dataTextField: "Nombre",
+            //    dataValueField: "ProyectoID",
+            //    select: function (e) {
+            //        var dataItem = this.dataItem(e.item.index());
+            //        CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            //    },
+            //    change: function (e) {
+            //        var value = this.value();
+            //        if (!value) {
+            //            Proyecto = {};
+            //        };
+            //    },
+            //    filter: "contains",
+            //});
+            //ObtenerProyecto();
+
+            $("#ProyectoID").kendoMultiSelect({
                 dataTextField: "Nombre",
                 dataValueField: "ProyectoID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        Proyecto = {};
-                    };
-                },
                 filter: "contains",
             });
-            ObtenerProyecto();
+            ObtenerProyectos();
 
             $("#ProveedorID").kendoComboBox({
                 dataTextField: "Nombre",
@@ -617,7 +624,17 @@
         function CargarDetalleFolio(id) {
             folioAvisoLlegada = id;
             $FolioAvisoEntrada.FolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
+                var concat = "";
                 folioLlegada = data.FolioAvisoEntradaID == 0 ? -1 : data.FolioAvisoEntradaID;
+
+                $Proyecto.Proyecto.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
+                    $.each(data, function (index, value) {
+                        concat += "," + value;
+                        console.log(" concat:" + concat);
+                    });
+                    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
+                });
+
                 if (folioLlegada != -1)
                 {
                     CargarFolio(folioAvisoLlegada);
@@ -626,10 +643,16 @@
 
                     $("#FolioEntradaID").data("kendoComboBox").text(folioAvisoLlegada);
 
-                    if (data.Proyectos) {
-                        CargarProyecto(data.Proyectos.ProyectoID, data.Proyectos.Nombre);
-                        $("#ProyectoID").data("kendoComboBox").value(data.Proyectos.Nombre);
-                    };
+                    //if (data.Proyectos) {
+                    //    CargarProyecto(data.Proyectos.ProyectoID, data.Proyectos.Nombre);
+                    //    $("#ProyectoID").data("kendoComboBox").value(data.Proyectos.Nombre);
+                    //};
+
+                    //$.each(data.Proyectos, function (index, value) {
+                    //    concat += "," + value.ProyectoID;
+                    //    console.log(" concat:" + concat);
+                    //});
+                    //$("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
 
                     if (data.Estatus) {
                         $("#Estatus").data("kendoComboBox").value(data.ComboEstatus);
@@ -688,7 +711,7 @@
                     Patio = {};
                     Proveedor = {};
                     $("#ClienteID").data("kendoComboBox").value("");
-                    $("#ProyectoID").data("kendoComboBox").value("");
+                    $("#ProyectoID").data("kendoMultiSelect").value("");
                     $("#Estatus").data("kendoComboBox").value("");
                     $("#PatioID").data("kendoComboBox").value("");
                     $("#PatioIDDiv").hide();
@@ -726,6 +749,7 @@
            
             BotonAlta();
             $FolioAvisoEntrada.FolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
+                    var concat = "";
                     CargarFolio(folioAvisoLlegada);
                     folioLlegada = data.FolioAvisoEntradaID;
 
@@ -741,10 +765,16 @@
                         $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
                     };
 
-                    if (data.Proyectos) {
-                        CargarProyecto(data.Proyectos.ProyectoID, data.Proyectos.Nombre);
-                        $("#ProyectoID").data("kendoComboBox").value(data.Proyectos.Nombre);
-                    };
+                    //if (data.Proyectos) {
+                    //    CargarProyecto(data.Proyectos.ProyectoID, data.Proyectos.Nombre);
+                    //    $("#ProyectoID").data("kendoComboBox").value(data.Proyectos.Nombre);
+                    //};
+
+                    $.each(data, function (index, value) {
+                        concat += "," + value;
+                        console.log(" concat:" + concat);
+                    });
+                    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
 
                     if (data.Estatus) {
                         $("#Estatus").data("kendoComboBox").value(data.ComboEstatus);
@@ -806,6 +836,12 @@
         function ObtenerProyecto() {
             $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("ProyectoID", result);
+            });
+        };
+
+        function ObtenerProyectos() {
+            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+                ControlErroresObjetosMultiselect("ProyectoID", result);
             });
         };
 
@@ -968,9 +1004,17 @@
 
         function GuardarLlegadaMaterial(bool) {
             //Arreglo Llegada Material
-            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", ProyectoID: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "", ComboEstatus: "" };
+            FolioLlegada = { FolioAvisollegadaId: "", ClienteId: "", Proyectos: "", ProveedorID: "", OrdenCompra: "", Factura: "", Estatus: "", PatioID: "", Archivos: "", ComboEstatus: "" };
             Documentos = [];
+            ProyectoIDs = [];
 
+            var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
+            $.each(proyectos, function (index, value) {
+                ProyectoIDs[index] = value;
+                alert(value);
+            });
+
+            
             CargarDefaults();
 
             $('#listaArchivos > tbody  > tr').each(function (index, value) {
@@ -986,7 +1030,7 @@
             FolioLlegada.FolioAvisoEntradaID = folioLlegada != -1 ? folioLlegada : -1;
             FolioLlegada.FolioAvisollegadaId = folioAvisoLlegada != -1 ? folioAvisoLlegada : Folio.FolioAvisoLlegadaID;
             FolioLlegada.ClienteId = Cliente.ClienteID;
-            FolioLlegada.ProyectoID = Proyecto.ProyectoID;
+            FolioLlegada.Proyectos = ProyectoIDs;
             FolioLlegada.ProveedorID = Proveedor.ProveedorID;
             FolioLlegada.OrdenCompra = $("#OrdenDeCompra").val();
             FolioLlegada.Factura = $("#Factura").val();
@@ -1064,8 +1108,8 @@
                             }
                             break;
                         case 'ProyectoID':
-                            if (!$("#ProyectoID").data("kendoComboBox").value().length > 0) {
-                                CargarProyecto(1, "");
+                            if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
+                                $("#ProyectoID").data("kendoMultiSelect").value(["1"]);
                             }
                             break;
                         case 'ProveedorID':
@@ -1105,7 +1149,7 @@
         function habilitarControles() {
             $("#FolioEntradaID").data("kendoComboBox").enable();
             $("#ClienteID").data("kendoComboBox").enable();
-            $("#ProyectoID").data("kendoComboBox").enable();
+            $("#ProyectoID").data("kendoMultiSelect").enable();
             $("#ProveedorID").data("kendoComboBox").enable();
             $("#OrdenDeCompra").removeAttr('disabled');
             $("#Factura").removeAttr('disabled');
@@ -1128,7 +1172,7 @@
         function deshabilitarControles() {
             $("#FolioEntradaID").data("kendoComboBox").enable(false);
             $("#ClienteID").data("kendoComboBox").enable(false);
-            $("#ProyectoID").data("kendoComboBox").enable(false);
+            $("#ProyectoID").data("kendoMultiSelect").enable(false);
             $("#ProveedorID").data("kendoComboBox").enable(false);
             $("#OrdenDeCompra").attr('disabled', 'disabled');
             $("#Factura").attr('disabled', 'disabled');
@@ -1320,17 +1364,34 @@
             };
         };
 
+        function ControlErroresObjetosMultiselect(control, result) {
+            if (Error(result)) {
+                $("#" + control).data("kendoMultiSelect").dataSource.data(result);
+            } else {
+                $("#" + control).data("kendoMultiSelect").dataSource.data([]);
+            };
+        };
+
         function validarRequeridosFormaLlegadaMaterial() {
             var bool = true;
             $("#formLlegadaMaterial .security_required").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
-                    if ($(elem).attr("id") != "Descripcion") {
-                        if (!$(this).val()) {
+                    if ($(elem).attr("id") == "ProyectoID") {
+                        if (!$("#ProyectoID").data("kendoMultiSelect").value()) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
                         } else {
                             $(this).closest("div").find("label").removeClass("error");
-                        };
+                        }
+                    }else{
+                        if ($(elem).attr("id") != "Descripcion") {
+                            if (!$(this).val()) {
+                                bool = false;
+                                $(this).closest("div").find("label").addClass("error");
+                            } else {
+                                $(this).closest("div").find("label").removeClass("error");
+                            };
+                        }
                     }
                     
                 };
