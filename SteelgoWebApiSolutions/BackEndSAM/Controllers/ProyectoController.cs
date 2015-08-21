@@ -6,12 +6,12 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
-using SecurityManager.TokenHandler;
 using SecurityManager.Api.Models;
-using BackEndSAM.Models;
-using BackEndSAM.DataAcces;
+using SecurityManager.TokenHandler;
 
 namespace BackEndSAM.Controllers
 {
@@ -60,7 +60,6 @@ namespace BackEndSAM.Controllers
                 result.IsAuthenicated = false;
                 return result;
             }
-        }
         }
 
         public object Post(Sam3_Proyecto proyecto, string token)
