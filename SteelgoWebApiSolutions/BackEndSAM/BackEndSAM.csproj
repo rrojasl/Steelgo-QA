@@ -140,12 +140,14 @@
     <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
+    <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyTipoPackingListController.cs" />
     <Compile Include="Controllers\DummyTipoUsoController.cs" />
     <Compile Include="Controllers\FolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyFormatoIncidenciasController.cs" />
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
+    <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
