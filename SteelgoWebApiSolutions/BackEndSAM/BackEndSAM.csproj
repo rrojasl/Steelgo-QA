@@ -146,10 +146,13 @@
     <Compile Include="Controllers\DummyFormatoIncidenciasController.cs" />
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
+    <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
+    <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
+    <Compile Include="Controllers\TipoUsoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
     <Compile Include="Controllers\TractoController.cs" />
     <Compile Include="Controllers\ChoferController.cs" />
@@ -206,10 +209,12 @@
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
+    <Compile Include="DataAcces\FoliosCuantificacionBd.cs" />
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
+    <Compile Include="DataAcces\TipoUsoBd.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
     <Compile Include="DataAcces\ChoferBd.cs" />
     <Compile Include="DataAcces\ContactoBd.cs" />
