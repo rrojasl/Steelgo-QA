@@ -305,13 +305,17 @@ namespace BackEndSAM.DataAcces
                     {
                         foreach (int i in json.Proyectos)
                         {
-                            Sam3_Rel_FolioAvisoLlegada_Proyecto nFolioProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
-                            nFolioProyecto.Activo = true;
-                            nFolioProyecto.ProyectoID = i;
-                            nFolioProyecto.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
-                            nFolioProyecto.FechaModificacion = DateTime.Now;
-                            nFolioProyecto.UsuarioModificacion = usuario.UsuarioID;
-                            ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nFolioProyecto);
+                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId
+                                && x.ProyectoID == i).AsParallel().Any())
+                            {
+                                Sam3_Rel_FolioAvisoLlegada_Proyecto nFolioProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                nFolioProyecto.Activo = true;
+                                nFolioProyecto.ProyectoID = i;
+                                nFolioProyecto.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
+                                nFolioProyecto.FechaModificacion = DateTime.Now;
+                                nFolioProyecto.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nFolioProyecto);
+                            }
                         }
                     }
 

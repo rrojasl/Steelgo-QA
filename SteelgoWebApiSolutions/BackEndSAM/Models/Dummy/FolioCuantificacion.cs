@@ -17,7 +17,7 @@ namespace BackEndSAM.Models
     }
 
     public class InfoFolioAvisoEntrada
-    {
+    { 
         public int ProyectoID { get; set; }
         public List<FolioLlegada1> FolioLlegada { get; set; }
         public int FolioLlegadaHijo { get; set; }

@@ -1741,6 +1741,14 @@ _dictionary = {
         "es-MX": "Favor de guardar la llegada de material, para poder realizar la siguiente acción",
         "en-US": ""
     },
+    "notificationslabel0037": {
+        "es-MX": "Favor de validar los item codes",
+        "en-US": "Please validate the item codes"
+    },
+    "notificationslabel0038": {
+        "es-MX": "Se han guardado los item codes",
+        "en-US": "They have saved the item codes"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

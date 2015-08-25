@@ -202,6 +202,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Obtener datos de un folio de aviso de entrada / folio cuantificacion
+        /// </summary>
+        /// <param name="avisoLlegada"></param>
+        /// <param name="folioCuantificacion"></param>
+        /// <returns></returns>
         public object getDataFolioCuantificacion(int avisoLlegada, int folioCuantificacion)
         {
             try
