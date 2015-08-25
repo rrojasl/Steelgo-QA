@@ -209,11 +209,17 @@ namespace BackEndSAM.DataAcces
         /// <param name="avisoLlegada"></param>
         /// <param name="folioCuantificacion"></param>
         /// <returns></returns>
-        public object getDataFolioCuantificacion(int avisoLlegada, int folioCuantificacion)
+        public object getDataFolioCuantificacion(int avisoEntrada, int folioCuantificacion)
         {
             try
             {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
 
+                return result;
             }
             catch (Exception ex)
             {
