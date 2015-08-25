@@ -22,7 +22,10 @@ namespace BackEndSAM.Models
         public List<FolioLlegada1> FolioLlegada { get; set; }
         public int FolioLlegadaHijo { get; set; }
         public TipoPackingList TipoPackingList { get; set; }
+        public string tipoPackingListID { get; set; }
         public TipoUso TipoUso { get; set; }
+        public int tipoUsoID { get; set; }
+        public string tipoUsoNombre { get; set; }
         public string PackingList { get; set; }
     }
 
@@ -55,4 +58,14 @@ namespace BackEndSAM.Models
         public string ProyectoID { get; set; }
         public string Nombre { get; set; }
     }
+
+    public class InfoFolioLlegadaMaterial
+    {
+        public int ProyectoID { get; set; }
+       public int FolioLlegadaHijo { get; set; }
+        public TipoPackingList TipoPackingList { get; set; }
+        public TipoUso TipoUso { get; set; }
+       public string PackingList { get; set; }
+    }
+
 }

@@ -213,13 +213,27 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("Ok");
-                result.ReturnCode = 200;
-                result.ReturnStatus = true;
-                result.IsAuthenicated = true;
+                InfoFolioAvisoEntrada info = new InfoFolioAvisoEntrada();
 
-                return result;
+                using (SamContext ctx = new SamContext())
+                {
+                    info = (from t in ctx.Sam3_FolioCuantificacion
+                            where t.FolioAvisoEntradaID == avisoEntrada && t.FolioCuantificacionID == folioCuantificacion
+                            join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
+                            select new InfoFolioAvisoEntrada
+                            {
+                                PackingList = t.PackingList,
+                                tipoUsoID = tu.TipoUsoID,
+                                tipoUsoNombre = tu.Nombre
+                            }).AsParallel().FirstOrDefault();
+
+                    info.tipoPackingListID = (from t in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                              where t.FolioCuantificacionID == folioCuantificacion
+                              join ic in ctx.Sam3_ItemCode on t.ItemCodeID equals ic.ItemCodeID
+                              select ic.TipoMaterialID).FirstOrDefault().ToString();
+                }
+
+                return info;
             }
             catch (Exception ex)
             {
