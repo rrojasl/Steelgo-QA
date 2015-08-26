@@ -30,6 +30,8 @@ var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/Document
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
+var $DummyTipoAcero = $BackEndSAMUri + '/backendsam/api/DummyTipoAcero?familiaAcero=';
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -68,7 +70,7 @@ var $dummyObtenerDatosFolioLlegadaMaterial = new $.RestClient($BackEndSAMUri + '
 var $DummyTipoPackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyTipoUso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $DumyValidarItemCodeNuCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -119,3 +121,4 @@ $dummyObtenerDatosFolioLlegadaMaterial.add("DummyObtenerDatosFolioLlegadaMateria
 $DummyTipoPackingList.add("DummyTipoPackingList");
 $DummyTipoUso.add("DummyTipoUso");
 $DummyGuardarFolioLlegadaCuantificacion.add("DummyGuardarFolioLlegadaCuantificacion");
+$DumyValidarItemCodeNuCuantificacion.add("DumyValidarItemCodeNuCuantificacion");

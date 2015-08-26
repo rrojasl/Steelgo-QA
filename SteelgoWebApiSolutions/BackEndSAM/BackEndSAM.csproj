@@ -143,6 +143,7 @@
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyTipoPackingListController.cs" />
     <Compile Include="Controllers\DummyTipoUsoController.cs" />
+    <Compile Include="Controllers\DumyValidarItemCodeNuCuantificacionController.cs" />
     <Compile Include="Controllers\FolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyFormatoIncidenciasController.cs" />
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
+    <Compile Include="Models\Dummy\Accesorios.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />
@@ -254,7 +256,9 @@
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
+    <Compile Include="Models\Dummy\NumerosUnicos.cs" />
     <Compile Include="Models\Dummy\PackingList.cs" />
+    <Compile Include="Models\Dummy\PackingListOrdenRecepcion.cs" />
     <Compile Include="Models\Dummy\PaseSalida.cs" />
     <Compile Include="Models\Dummy\Patio.cs" />
     <Compile Include="Models\Dummy\PermisoAduana.cs" />
@@ -267,6 +271,7 @@
     <Compile Include="Models\Dummy\TipoAviso.cs" />
     <Compile Include="Models\Dummy\TipoVehiculo.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
+    <Compile Include="Models\Dummy\Tubos.cs" />
     <Compile Include="Models\ElementoListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />

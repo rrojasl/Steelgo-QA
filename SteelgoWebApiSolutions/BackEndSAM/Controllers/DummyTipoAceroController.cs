@@ -13,12 +13,16 @@ namespace BackEndSAM.Controllers
     public class DummyTipoAceroController : ApiController
     {
         // GET api/dummytipoacero
-        public IEnumerable<TipoAcero> Get(string username, string token)
+        public IEnumerable<TipoAcero> Get(string familiaAcero, string proyectoid, string token)
         {
             List<TipoAcero> lsttipoacero = new List<TipoAcero>();
             TipoAcero tipoacero = new TipoAcero();
             TipoAcero tipoacero1 = new TipoAcero();
             TipoAcero tipoacero2 = new TipoAcero();
+            TipoAcero tipoacero3 = new TipoAcero();
+
+            tipoacero3.AceroID = "0";
+            tipoacero3.Nomenclatura = "Agregar nuevo";
 
             tipoacero.AceroID = "2";
             tipoacero.Nomenclatura = "AASD1";

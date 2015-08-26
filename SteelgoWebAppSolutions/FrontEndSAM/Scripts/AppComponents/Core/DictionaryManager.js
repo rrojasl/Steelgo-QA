@@ -1188,6 +1188,18 @@ _dictionary = {
         "es-MX": "Tiene Error",
         "en-US": "It Has Error"
     },
+    "Cuantificacion0042": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Cuantificacion0043": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Cuantificacion0044": {
+        "es-MX": "BultoID",
+        "en-US": "BultoID"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -1748,6 +1760,10 @@ _dictionary = {
     "notificationslabel0038": {
         "es-MX": "Se han guardado los item codes",
         "en-US": "They have saved the item codes"
+    },
+    "notificationslabel0039": {
+        "es-MX": "El item code no se puede cancelar",
+        "en-US": ""
     },
     //Default to copy
     "label9999": {
