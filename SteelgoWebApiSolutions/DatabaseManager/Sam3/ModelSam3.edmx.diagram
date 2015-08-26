@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="98">
+      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="108">
         <EntityTypeShape EntityType="ModelSam3.Sam3_Acero" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Chofer" Width="1.5" PointX="3" PointY="43.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Cliente" Width="1.5" PointX="3.75" PointY="40.75" IsExpanded="true" />
@@ -221,6 +221,15 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Width="1.5" PointX="22.5" PointY="31.25" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__027D5126" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenRecepcion" Width="1.5" PointX="21.25" PointY="50.5" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" Width="1.5" PointX="23.5" PointY="42.375" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0B129727" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__0A1E72EE" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Width="1.5" PointX="23.5" PointY="64.375" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__0EE3280B" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__0FD74C44" />
+        <AssociationConnector Association="ModelSam3.FK_Sam3_ItemCode_Sam3_Colada" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_ProyectoConfiguracion" Width="1.5" PointX="0.75" PointY="7.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

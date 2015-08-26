@@ -61,6 +61,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -148,7 +149,9 @@
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
+    <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
+    <Compile Include="Controllers\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
@@ -208,7 +211,10 @@
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
+    <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
     <Compile Include="DataAcces\ListadoBd.cs" />
+    <Compile Include="DataAcces\NumeroUnicoBd.cs" />
+    <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
@@ -271,6 +277,7 @@
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
+    <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />
     <Compile Include="Models\ListObject.cs" />

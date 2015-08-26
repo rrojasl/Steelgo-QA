@@ -12,22 +12,16 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_ProyectoConsecutivo
+    public partial class Sam3_Rel_OrdenRecepcion_ItemCode
     {
-        public int ProyectoID { get; set; }
-        public int ConsecutivoFolioAvisollegada { get; set; }
-        public int ConsecutivoFolioEntradaMateiral { get; set; }
-        public int ConsecutivoFolioDescargaMaterial { get; set; }
-        public int ConsecutivoPaseSalida { get; set; }
-        public int ConsecutivoPermisoAduana { get; set; }
-        public int ConsucutivoFolioPackingList { get; set; }
-        public int ConsecutivoODT { get; set; }
-        public int ConsecutivoNumerounico { get; set; }
+        public int Rel_OrdenRecepcion_ItemCode_ID { get; set; }
+        public int OrdenRecepcionID { get; set; }
+        public int ItemCodeID { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
-        public int ConsecutivoOrdeRecepcion { get; set; }
     
-        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
+        public virtual Sam3_OrdenRecepcion Sam3_OrdenRecepcion { get; set; }
     }
 }

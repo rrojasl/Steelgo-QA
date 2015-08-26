@@ -371,7 +371,18 @@ namespace BackEndSAM.DataAcces
                                                     && !r.FechaFinDescarga.HasValue
                                                     select r).AsParallel().Count();
 
-                    //
+                    //traer los Packinglisto por cuantificar
+                    result.PLPorCuantificar = (from r in registros
+                                               join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                               join i in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals i.FolioCuantificacionID
+                                               join it in ctx.Sam3_ItemCode on i.ItemCodeID equals it.ItemCodeID
+                                               join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
+                                               where r.Activo && c.Activo && i.Activo && it.Activo && t.Activo 
+                                               && c.Estatus == "Entrada por cuantificar"
+                                               && t.TipoMaterialID == tipoMaterialID
+                                               select r).AsParallel().Count();
+
+                    //Traer materiales por cuantificar
                          
 
                 }

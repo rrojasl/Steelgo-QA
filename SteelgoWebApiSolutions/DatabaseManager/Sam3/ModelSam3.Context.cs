@@ -111,5 +111,9 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_TipoUso> Sam3_TipoUso { get; set; }
         public virtual DbSet<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
         public virtual DbSet<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
+        public virtual DbSet<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
+        public virtual DbSet<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion> Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion { get; set; }
+        public virtual DbSet<Sam3_ProyectoConfiguracion> Sam3_ProyectoConfiguracion { get; set; }
     }
 }
