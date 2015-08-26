@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
             tipoPackinglist.id = "2";
             tipoPackinglist.Nombre = "Accesorio";
             TipoUso tipouso = new TipoUso();
-            tipouso.id = "2";
+            tipouso.id = "1";
             tipouso.Nombre = "Tipo Uso 2";
 
             info.ProyectoID = 1;

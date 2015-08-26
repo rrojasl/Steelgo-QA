@@ -20,5 +20,6 @@ namespace BackEndSAM.Models
         public string Certificado { get; set; }
         public string Material { get; set; }
         public string NumeroUnico { get; set; }
+        public string ItemCodeSteelgoID { get; set; }
     }
 }

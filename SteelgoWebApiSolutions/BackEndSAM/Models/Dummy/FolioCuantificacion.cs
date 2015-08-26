@@ -13,42 +13,59 @@ namespace BackEndSAM.Models
         public string PackingList { get; set; }
         public int TipoUsoID { get; set; }
         public string Estatus { get; set; }
-        
+        public int FolioLlegadaHijo { get; set; }
     }
 
-    public class InfoFolioAvisoEntrada 
-    {
-        public List<Proyecto> Proyecto { get; set; }
+    public class InfoFolioAvisoEntrada
+    { 
+        public int ProyectoID { get; set; }
         public List<FolioLlegada1> FolioLlegada { get; set; }
         public int FolioLlegadaHijo { get; set; }
         public TipoPackingList TipoPackingList { get; set; }
+        public string tipoPackingListID { get; set; }
         public TipoUso TipoUso { get; set; }
+        public int tipoUsoID { get; set; }
+        public string tipoUsoNombre { get; set; }
         public string PackingList { get; set; }
     }
 
-    public class FolioLlegada1 
+    public class FolioLlegada1
     {
         public int FolioCuantificacionID { get; set; }
         public int FolioAvisoEntradaID { get; set; }
     }
 
-    public class TipoPackingList {
-        public string id {get;set;}
+    public class FolioEntradaYLlegada
+    {
+        public int FolioAvisoEntradaID;
+        public int? FolioAvisoLlegadaID;
+    }
+
+    public class TipoPackingList
+    {
+        public string id { get; set; }
         public string Nombre { get; set; }
     }
 
-    public class TipoUso {
+    public class TipoUso
+    {
         public string id { get; set; }
+        public string Nombre { get; set; }
+    }
+
+    public class AvisoLlegada_Proyecto
+    {
+        public string ProyectoID { get; set; }
         public string Nombre { get; set; }
     }
 
     public class InfoFolioLlegadaMaterial
     {
         public int ProyectoID { get; set; }
-        public int FolioLlegadaHijo { get; set; }
+       public int FolioLlegadaHijo { get; set; }
         public TipoPackingList TipoPackingList { get; set; }
         public TipoUso TipoUso { get; set; }
-        public string PackingList { get; set; }
+       public string PackingList { get; set; }
     }
 
 }
