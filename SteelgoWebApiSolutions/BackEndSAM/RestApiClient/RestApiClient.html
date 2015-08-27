@@ -220,8 +220,11 @@
             //client.add("ProyectosCuantificacion");
             //client.ProyectosCuantificacion.read({ token: "", avisoLlegada: 1019 }).done(function (data) { console.log(data) });
 
-            client.add("ObtenerDatosFolioAvisoEntrada");
-            client.ObtenerDatosFolioAvisoEntrada.read({ token: "", avisoEntrada: 15, folioCuantificacion: 2 }).done(function (data) { console.log(data) });
+            //client.add("ObtenerDatosFolioAvisoEntrada");
+            //client.ObtenerDatosFolioAvisoEntrada.read({ token: "", avisoEntrada: 15, folioCuantificacion: 2 }).done(function (data) { console.log(data) });
+
+            client.add("CargarGridCuantificacion");
+            client.CargarGridCuantificacion.read({ token: "", avisoEntrada: 15, folioCuantificacion: 2, esBulto: 0 }).done(function (data) { console.log(data) });
 
 </script>
     </body>
