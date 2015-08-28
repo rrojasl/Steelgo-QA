@@ -30,7 +30,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return OrdenRecepcionBd.Instance.ObtenerListadoOrdenRecepcion(filtros, usuario);
             }
             else
             {
@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<int> itemCodes, string token)
+        public object Post(List<int> itemCodes, int folioAvisoEntradaID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -53,7 +53,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(itemCodes, folioAvisoEntradaID, usuario);
             }
             else
             {
@@ -76,7 +76,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(folioEntradaID, usuario);
             }
             else
             {
