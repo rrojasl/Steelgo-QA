@@ -42,7 +42,7 @@ namespace BackEndSAM.DataAcces
         /// Obtener Folio AViso Llegada (Combo Folio Aviso Entrada)
         /// </summary>
         /// <returns>Lista de Folios de Aviso de llegada</returns>
-        public object getFolioLlegada()
+        public object obtenerFolioLlegada()
         {
             List<FolioEntradaYLlegada> listFE = new List<FolioEntradaYLlegada>();
             try
@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="avisoEntrada">id del aviso de entrada</param>
         /// <returns>lista de Folios Cuantificacion</returns>
-        public object getFolioCuantificacion(int avisoEntrada)
+        public object obtenerFolioCuantificacion(int avisoEntrada)
         {
             FolioCuantificacion folioCuantificacion = new FolioCuantificacion();
             try
@@ -112,15 +112,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object getProjects(int avisoLlegada)
+        public object obtenerProyectos(int avisoLlegada)
         {
-            List<AvisoLlegada_Proyecto> proyects = new List<AvisoLlegada_Proyecto>();
+            List<AvisoLlegada_Proyecto> proyectos = new List<AvisoLlegada_Proyecto>();
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    proyects = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                    proyectos = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                 where t.FolioAvisoLlegadaID == avisoLlegada
                                 join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
                                 select new AvisoLlegada_Proyecto
@@ -129,11 +129,11 @@ namespace BackEndSAM.DataAcces
                                     Nombre = p.Nombre
                                 }).AsParallel().ToList();
 
-                    foreach (var item in proyects)
+                    foreach (var item in proyectos)
                     {
                         if (String.IsNullOrEmpty(item.ProyectoID) || item.ProyectoID == "1")
                         {
-                            proyects = (from t in ctx.Sam3_Proyecto
+                            proyectos = (from t in ctx.Sam3_Proyecto
                                         where t.Activo == true
                                         select new AvisoLlegada_Proyecto
                                         {
@@ -143,7 +143,7 @@ namespace BackEndSAM.DataAcces
                         }
                     }
                 }
-                return proyects;
+                return proyectos;
             }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="proyectoID">id del proyecto seleccionado</param>
         /// <param name="usuarioID">usuario </param>
         /// <returns></returns>
-        public object updateProjects(int avisoLlegada, int proyectoID, int usuarioID)
+        public object actualizarProyectos(int avisoLlegada, int proyectoID, int usuarioID)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="avisoLlegada"></param>
         /// <param name="folioCuantificacion"></param>
         /// <returns></returns>
-        public object getDataFolioCuantificacion(int avisoEntrada, int folioCuantificacion)
+        public object obtenerDatosFolioCuantificacion(int avisoEntrada, int folioCuantificacion)
         {
             try
             {
@@ -228,10 +228,33 @@ namespace BackEndSAM.DataAcces
                             }).AsParallel().FirstOrDefault();
 
                     info.tipoPackingListID = (from t in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                              where t.FolioCuantificacionID == folioCuantificacion
-                              join ic in ctx.Sam3_ItemCode on t.ItemCodeID equals ic.ItemCodeID
-                              select ic.TipoMaterialID).FirstOrDefault().ToString();
+                                              where t.FolioCuantificacionID == folioCuantificacion
+                                              join ic in ctx.Sam3_ItemCode on t.ItemCodeID equals ic.ItemCodeID
+                                              select ic.TipoMaterialID).FirstOrDefault().ToString();
                 }
+
+                return info;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object obtenerDatosGrid()
+        {
+            try
+            {
+                InfoFolioAvisoEntrada info = new InfoFolioAvisoEntrada();
+
+
+
 
                 return info;
             }

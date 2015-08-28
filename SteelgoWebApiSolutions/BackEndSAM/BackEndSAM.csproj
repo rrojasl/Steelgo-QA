@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
+    <Compile Include="Controllers\ObtenerItemCodesController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
+    <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 using BackEndSAM.DataAcces;
-using BackEndSAM.Models;
-using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;

@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return FoliosCuantificacionBd.Instance.getDataFolioCuantificacion(avisoEntrada, folioCuantificacion);
+                return FoliosCuantificacionBd.Instance.obtenerDatosFolioCuantificacion(avisoEntrada, folioCuantificacion);
             }
             else
             {
