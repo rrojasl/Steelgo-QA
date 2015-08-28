@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_Incidencia()
         {
             this.Sam3_Incidencia1 = new HashSet<Sam3_Incidencia>();
+            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
         }
     
         public int IncidenciaID { get; set; }
@@ -40,5 +41,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_Usuario Sam3_Usuario { get; set; }
         public virtual Sam3_Usuario Sam3_Usuario1 { get; set; }
         public virtual Sam3_Rel_Incidencia_Entidad Sam3_Rel_Incidencia_Entidad { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
     }
 }

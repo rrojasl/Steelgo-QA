@@ -26,5 +26,6 @@ namespace BackEndSAM.Models
         public bool PorSalir { get; set; }
         public string ProyectoID { get; set; }
         public string PackingListID { get; set; }
+        public string tipoMaterialID { get; set; }
     }
 }

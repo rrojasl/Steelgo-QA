@@ -1022,6 +1022,9 @@
     <Compile Include="Sam3\Sam3_NumeroUnicoSegmento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_OrdenAlmacenaje.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_OrdenRecepcion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1097,7 +1100,13 @@
     <Compile Include="Sam3\Sam3_Rel_Incidencia_Entidad.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_NumeroUnico.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_ItemCode_ItemCodeSteelgo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_OrdenAlmacenaje_NumeroUnico.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_OrdenRecepcion_ItemCode.cs">

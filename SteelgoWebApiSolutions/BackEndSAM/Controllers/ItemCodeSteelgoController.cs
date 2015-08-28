@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return ItemCodeSteelgoBd.Instance.ObtenerListadoItemCodeSteelgo();
             }
             else
             {
@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(string token)
+        public object Get(int itemID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return ItemCodeSteelgoBd.Instance.ObtenerDetalleitemCodeSteelgo(itemID, usuario);
             }
             else
             {
@@ -64,7 +64,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Put(string token)
+        public object Post(ItemCodeSteelgoJson json, string token)
         {
             string payload = "";
             string newToken = "";
@@ -74,7 +74,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return ItemCodeSteelgoBd.Instance.InsertarItemCodeSteelgo(json, usuario);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Delete(string token)
+        public object Post(List<AsociacionItemCodeSteelgo> json, string token)
         {
             string payload = "";
             string newToken = "";
@@ -97,7 +97,53 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return ItemCodeSteelgoBd.Instance.InsertarRelacionItemCodes(json, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Put(ItemCodeSteelgoJson json, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                return ItemCodeSteelgoBd.Instance.ActualizarItemCodeSteelgo(json, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Delete(int itemID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                return ItemCodeSteelgoBd.Instance.EliminarItemCodeSteelgo(itemID, usuario);
             }
             else
             {
