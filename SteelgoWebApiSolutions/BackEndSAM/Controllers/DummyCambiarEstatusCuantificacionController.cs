@@ -25,12 +25,12 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/dummycambiarestatuscuantificacion
-        public void Post([FromBody]string value)
+        public void Post(string terminar,string token)
         {
         }
 
         // PUT api/dummycambiarestatuscuantificacion/5
-        public void Put(string foliollegadaid, string proyectoid,string packinglistid,string username, string token)
+        public void Put(string folioCuantificacionID, string token)
         {
 
         }

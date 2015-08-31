@@ -8,6 +8,7 @@ namespace BackEndSAM.Models
     public class ListadoCuantificacion
     {
         public string ItemCode { get; set; }
+        public string BultoID { get; set; }
         public string Descripcion { get; set; }
         public decimal D1 { get; set; }
         public decimal D2 { get; set; }
@@ -18,7 +19,7 @@ namespace BackEndSAM.Models
         public string Colada { get; set; }
         public decimal Cantidad { get; set; }
         public decimal MM { get; set; }
-        public bool Detallar { get; set; }
+        public string Detallar { get; set; }
         public bool TieneNU { get; set; }
         public bool TieneError { get; set; }
     }

@@ -35,7 +35,7 @@ namespace BackEndSAM.Controllers
             cuantificacion.Colada = "Colada1";
             cuantificacion.Cantidad = 3;
             cuantificacion.MM = 11;
-            cuantificacion.Detallar = false;
+            cuantificacion.Detallar = "No";
             cuantificacion.TieneNU = true;
             cuantificacion.TieneError = false;
             lstCuantificacion.Add(cuantificacion);
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers
             cuantificacion1.Colada = "";
             cuantificacion1.Cantidad = 150;
             cuantificacion1.MM = 151;
-            cuantificacion1.Detallar = false;
+            cuantificacion1.Detallar = "No";
             cuantificacion1.TieneNU = false;
             cuantificacion1.TieneError = false;
             lstCuantificacion.Add(cuantificacion1);
@@ -67,7 +67,7 @@ namespace BackEndSAM.Controllers
             cuantificacion2.Colada = "SS1";
             cuantificacion2.Cantidad = 1;
             cuantificacion2.MM = 2;
-            cuantificacion2.Detallar = true;
+            cuantificacion2.Detallar = "No";
             cuantificacion2.TieneNU = true;
             cuantificacion2.TieneError = false;
             lstCuantificacion.Add(cuantificacion2);
@@ -84,7 +84,7 @@ namespace BackEndSAM.Controllers
             cuantificacion3.Colada = "a1";
             cuantificacion3.Cantidad = 160;
             cuantificacion3.MM = 161;
-            cuantificacion3.Detallar = false;
+            cuantificacion3.Detallar = "No";
             cuantificacion3.TieneNU = false;
             cuantificacion3.TieneError = false;
             lstCuantificacion.Add(cuantificacion3);

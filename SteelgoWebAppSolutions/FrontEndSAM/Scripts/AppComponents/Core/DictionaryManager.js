@@ -1081,8 +1081,8 @@ _dictionary = {
         "en-US": "Folio Llegada"
     },
     "Cuantificacion0015": {
-        "es-MX": "Folio Llegada Hijo",
-        "en-US": "Folio Llegada Hijo"
+        "es-MX": "Bulto",
+        "en-US": "Bulto"
     },
     "Cuantificacion0016": {
         "es-MX": "Packing List",
@@ -1199,6 +1199,130 @@ _dictionary = {
     "Cuantificacion0044": {
         "es-MX": "BultoID",
         "en-US": "BultoID"
+    },
+    "Cuantificacion0045": {
+        "es-MX": "ItemCode",
+        "en-US": "ItemCode"
+    },
+    "Cuantificacion0046": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Cuantificacion0047": {
+        "es-MX": "Familia",
+        "en-US": "Familiy"
+    },
+    "Cuantificacion0048": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Cuantificacion0049": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Cuantificacion0050": {
+        "es-MX": "ItemCode",
+        "en-US": "ItemCode"
+    },
+    "Cuantificacion0051": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Cuantificacion0052": {
+        "es-MX": "Familia",
+        "en-US": "Familiy"
+    },
+    "Cuantificacion0053": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Cuantificacion0054": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Cuantificacion0055": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "Cuantificacion0056": {
+        "es-MX": "Tipo de Material",
+        "en-US": "type of material"
+    },
+    "Cuantificacion0057": {
+        "es-MX": "Colada",
+        "en-US": "Colada"
+    },
+    "Cuantificacion0058": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "Cuantificacion0059": {
+        "es-MX": "Tipo de Material",
+        "en-US": "type of material"
+    },
+    "Cuantificacion0060": {
+        "es-MX": "Colada",
+        "en-US": "Colada"
+    },
+    "Cuantificacion0061": {
+        "es-MX": "Fabricante",
+        "en-US": "Manufacturer"
+    },
+    "Cuantificacion0062": {
+        "es-MX": "Acero",
+        "en-US": "Steel"
+    },
+    "Cuantificacion0063": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "Cuantificacion0064": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Cuantificacion0065": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Cuantificacion0066": {
+        "es-MX": "Número Colada",
+        "en-US": "# Colada"
+    },
+    "Cuantificacion0067": {
+        "es-MX": "Número Certificado",
+        "en-US": "# Certificado"
+    },
+    "Cuantificacion0068": {
+    "es-MX": "Hold Calidad",
+    "en-US": "Hold Calidad"
+    },
+    "Cuantificacion0069": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
+    "Cuantificacion0070": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "Cuantificacion0071": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "Cuantificacion0072": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "Cuantificacion0073": {
+        "es-MX": "Cédula",
+        "en-US": "Cedula"
+    },
+    "Cuantificacion0074": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "Cuantificacion0075": {
+        "es-MX": "Guardar y Terminar",
+        "en-US": "Save and Finish"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
@@ -1763,6 +1887,22 @@ _dictionary = {
     },
     "notificationslabel0039": {
         "es-MX": "El item code no se puede cancelar",
+        "en-US": ""
+    },
+    "notificationslabel0040": {
+        "es-MX": "Favor de guardar los datos, antes de realizar la siguiente acción.",
+        "en-US": ""
+    },
+    "notificationslabel0041": {
+        "es-MX": "El itemcode tiene numeros unico, no se puede realizar la siguiente acción.",
+        "en-US": ""
+    },
+    "notificationslabel0042": {
+        "es-MX": "Solo se puede detallar un Bulto.",
+        "en-US": ""
+    },
+    "notificationslabel0043": {
+        "es-MX": "No se puede detallar un bulto dentro de otro.",
         "en-US": ""
     },
     //Default to copy
