@@ -13,11 +13,11 @@ namespace BackEndSAM.Models
         public decimal? D2 { get; set; }
         public string ItemCodeSteelgo { get; set; }
         public string Familia { get; set; }
-        public int FamiliaID { get; set; }
+        //public int FamiliaID { get; set; }
         public int FamiliaMaterialID { get; set; }
         public string Cedula { get; set; }
         public string TipoAcero { get; set; }
-        public int ColadaID { get; set; }
+        //public int ColadaID { get; set; }
         public string Colada { get; set; }
         public int? Cantidad { get; set; }
         public int? MM { get; set; }

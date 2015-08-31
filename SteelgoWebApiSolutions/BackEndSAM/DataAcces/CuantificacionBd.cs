@@ -44,7 +44,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="avisoEntrada">folio de aviso de entrada</param>
         /// <param name="folioCuantificacion">folio cuantificacion</param>
         /// <returns></returns>
-        public object gridCuantificacionInfo(int avisoEntrada, int folioCuantificacion, int esBulto)
+        public object gridCuantificacionInfo(int avisoEntrada, int folioCuantificacion, int bultoID = 0)
         {
             try
             {
@@ -52,44 +52,79 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    listado = (from fc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                               where fc.FolioCuantificacionID == folioCuantificacion
-                               join ic in ctx.Sam3_ItemCode on fc.ItemCodeID equals ic.ItemCodeID
-                               join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals ric.ItemCodeID
-                               join ics in ctx.Sam3_ItemCodeSteelgo on ric.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                               join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
-                               select new ListadoCuantificacion
-                               {
-                                   ItemCode = ic.ItemCodeID.ToString(),
-                                   Descripcion = ic.DescripcionEspanol,
-                                   D1 = ic.Diametro1,
-                                   D2 = ic.Diametro2,
-                                   ColadaID = 1,//ic.ColadaID,
-                                   Cantidad = ic.Cantidad,
-                                   MM = ic.MM,
-                                   ItemCodeSteelgo = ric.ItemCodeSteelgoID.ToString(),
-                                   FamiliaID = ics.FamiliaAceroID,
-                                   Familia = fa.Nombre,
-                                   FamiliaMaterialID = fa.FamiliaMaterialID,
-                                   Cedula = ics.Cedula
-                               }).AsParallel().ToList();
-
-                    foreach (var item in listado)
+                    //Para cuando no es la pantalla de Bulto
+                    if (bultoID == 0)
                     {
-                        if(ctx.Sam3_Rel_Bulto_ItemCode.Where(c=> c.ItemCodeID.ToString() == item.ItemCode).Any())
-                        {
-                            item.ItemCode = "Bulto";
-                            item.Detallar = true;
-                        }
+                        listado = (from fc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                   where fc.FolioCuantificacionID == folioCuantificacion
+                                   join ic in ctx.Sam3_ItemCode on fc.ItemCodeID equals ic.ItemCodeID
+                                   join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals ric.ItemCodeID
+                                   join ics in ctx.Sam3_ItemCodeSteelgo on ric.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
 
-                        item.Colada = (from c in ctx.Sam3_Colada
-                                       where c.ColadaID == item.ColadaID
-                                       select c.NumeroColada
-                                           ).AsParallel().FirstOrDefault();
+                                   select new ListadoCuantificacion
+                                   {
+                                       ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.ItemCodeID.ToString(),
+                                       Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? true : false,
+                                       Descripcion = ic.DescripcionEspanol,
+                                       D1 = ic.Diametro1,
+                                       D2 = ic.Diametro2,
+                                       //ColadaID = ic.ColadaID,
+                                       Cantidad = ic.Cantidad,
+                                       MM = ic.MM,
+                                       ItemCodeSteelgo = ric.ItemCodeSteelgoID.ToString(),
 
-                        item.TipoAcero = (from fm in ctx.Sam3_FamiliaMaterial
-                                          where fm.FamiliaMaterialID == item.FamiliaMaterialID
-                                          select fm.Nombre).AsParallel().FirstOrDefault();
+                                       Familia = (from fa in ctx.Sam3_FamiliaAcero
+                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID
+                                                  select fa.Nombre).FirstOrDefault(),
+
+                                       Cedula = ics.Cedula,
+
+                                       Colada = (from c in ctx.Sam3_Colada
+                                                 where c.ColadaID == ic.ColadaID
+                                                 select c.NumeroColada).FirstOrDefault(),
+
+                                       TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID
+                                                    join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                    select fm.Nombre).FirstOrDefault(),
+
+                                       //TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
+                                   }).AsParallel().ToList();
+                    }
+                    else //Cuando es la pantalla de Bulto
+                    {
+                        listado = (from rbic in ctx.Sam3_Rel_Bulto_ItemCode
+                                   where rbic.BultoID == bultoID
+                                   join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
+                                   join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
+                                   join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                   select new ListadoCuantificacion
+                                   {
+                                       ItemCode = ic.ItemCodeID.ToString(),
+                                       Descripcion = ic.DescripcionEspanol,
+                                       D1 = ic.Diametro1,
+                                       D2 = ic.Diametro2,
+                                       Cantidad = ic.Cantidad,
+                                       MM = ic.MM,
+                                       ItemCodeSteelgo = ics.ItemCodeSteelgoID.ToString(),
+
+                                       Familia = (from fa in ctx.Sam3_FamiliaAcero
+                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID
+                                                  select fa.Nombre).FirstOrDefault(),
+
+                                       Cedula = ics.Cedula,
+
+                                       Colada = (from c in ctx.Sam3_Colada
+                                                 where c.ColadaID == ic.ColadaID
+                                                 select c.NumeroColada).FirstOrDefault(),
+
+                                       TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID
+                                                    join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                    select fm.Nombre).FirstOrDefault(),
+
+                                       //TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
+                                   }).AsParallel().ToList();
                     }
                 }
                 return listado;

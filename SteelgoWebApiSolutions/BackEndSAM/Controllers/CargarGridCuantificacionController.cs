@@ -8,14 +8,14 @@ namespace BackEndSAM.Controllers
 {
     public class CargarGridCuantificacionController : ApiController
     {
-        public object Get(string token, int avisoEntrada, int folioCuantificacion, int esBulto)
+        public object Get(string token, int avisoEntrada, int folioCuantificacion, int bultoID = 0)
         {
             //string payload = "";
             //string newToken = "";
             //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             //if (tokenValido)
             //{
-                return CuantificacionBd.Instance.gridCuantificacionInfo(avisoEntrada, folioCuantificacion, esBulto);
+                return CuantificacionBd.Instance.gridCuantificacionInfo(avisoEntrada, folioCuantificacion, bultoID);
             //}
             //else
             //{
