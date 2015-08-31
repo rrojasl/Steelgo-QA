@@ -64,7 +64,7 @@ namespace BackEndSAM.DataAcces
                                    select new ListadoCuantificacion
                                    {
                                        ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.ItemCodeID.ToString(),
-                                       Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? true : false,
+                                       Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Si" : "No",
                                        Descripcion = ic.DescripcionEspanol,
                                        D1 = ic.Diametro1,
                                        D2 = ic.Diametro2,

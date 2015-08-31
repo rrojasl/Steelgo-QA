@@ -30,7 +30,9 @@ var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/Document
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
-var $DummyTipoAcero = $BackEndSAMUri + '/backendsam/api/DummyTipoAcero?familiaAcero=';
+var $DummyTipoAcero = $BackEndSAMUri + '/backendsam/api/DummyTipoAcero?';
+var $ComboDummyItemCode = $BackEndSAMUri + '/backendsam/api/DummyItemCode?';
+var $ComboDummyItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/DummyItemCodeSteelgo';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -71,6 +73,15 @@ var $DummyTipoPackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/'
 var $DummyTipoUso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DumyValidarItemCodeNuCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyObtenerColadasPorProyecto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyObtenerFamiliaItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyObtenerFamiliaItemCodeSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyItemCodeSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyFabricanteColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyAceroColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyCambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -122,3 +133,12 @@ $DummyTipoPackingList.add("DummyTipoPackingList");
 $DummyTipoUso.add("DummyTipoUso");
 $DummyGuardarFolioLlegadaCuantificacion.add("DummyGuardarFolioLlegadaCuantificacion");
 $DumyValidarItemCodeNuCuantificacion.add("DumyValidarItemCodeNuCuantificacion");
+$DummyObtenerColadasPorProyecto.add("DummyColadasPorProyecto");
+$DummyObtenerFamiliaItemCode.add("FamiliaAcero");
+$DummyObtenerFamiliaItemCodeSteelgo.add("FamiliaAcero");
+$DummyItemCode.add("DummyItemCode");
+$DummyItemCodeSteelgo.add("DummyItemCodeSteelgo");
+$DummyFabricanteColada.add("DummyFabricante");
+$DummyAceroColada.add("DummyAcero");
+$DummyColada.add("DummyColada");
+$DummyCambiarEstatusCuantificacion.add("DummyCambiarEstatusCuantificacion");

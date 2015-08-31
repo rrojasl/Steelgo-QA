@@ -54,7 +54,7 @@ namespace BackEndSAM.Controllers
 
 
             InfoFolioAvisoEntrada info = new InfoFolioAvisoEntrada();
-            //info.Proyecto = lstProyecto;
+            info.Proyecto = lstProyecto;
             info.FolioLlegada = foliollegada;
             //info.FolioLlegadaHijo = 2;
             //info.PackingList = "123";

@@ -13,7 +13,7 @@ namespace BackEndSAM.Controllers
     public class DumyValidarItemCodeNuCuantificacionController : ApiController
     {
         // GET api/dumyvalidaritemcodenucuantificacion
-        public bool Get(string folioAvisoLlegadaID, string folioCuantificacionID, string ItemCode,  string token)
+        public bool Get(string folioAvisoLlegadaID, string folioCuantificacionID, string ItemCode, string BultoID,  string token)
         {
             return true;
         }

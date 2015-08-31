@@ -168,24 +168,25 @@
 
             //client.AvisoLlegada.update(json, { token: tokenActual }).done(function (data) { console.log(data); });
 
-            //var json = {
-            //    "FolioLlegadaID": "-1",
-            //    "FolioAvisoLlegadaID": "-1",
-            //    "PatioID": "1",
-            //    "ClienteID": "",
-            //    "FechaInicial": "2015-6-9",
-            //    "FechaFinal": "2015-7-1",
-            //    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNTc4NDI1NH0.2im1vI_SizhDny7u18ozIkfsTrfu5MGywf3x6Nflzog",
-            //    "Creados": true,
-            //    "SinPermiso": false,
-            //    "SinAutorizacion": false,
-            //    "Completos": false,
-            //    "TipoListado": 4
-            //};
+            var json = {
+                "FolioLlegadaID": "-1",
+                "FolioAvisoLlegadaID": "-1",
+                "PatioID": "1",
+                "ClienteID": "",
+                "FechaInicial": "2015-5-1",
+                "FechaFinal": "2015-10-1",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJVc3VhcmlvSUQiOjEsIk5vbWJyZVVzdWFyaW8iOiJzYW1BZG1pbiIsIkNvbnRyYXNlbmFIYXNoIjoic2FtYWRtaW4iLCJQZXJmaWxJRCI6MSwiQmxvcXVlYWRvUG9yQWRtaW5pc3RyYWNpb24iOmZhbHNlLCJBY3Rpdm8iOnRydWUsImV4cCI6MTQzNTc4NDI1NH0.2im1vI_SizhDny7u18ozIkfsTrfu5MGywf3x6Nflzog",
+                "Creados": true,
+                "SinPermiso": false,
+                "SinAutorizacion": false,
+                "Completos": false,
+                "TipoListado": 7,
+                "TipoMaterialID": 1
+            };
 
-            //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
-            //client.add("Listado");
-            //client.Listado.read({ data: JSON.stringify(json)}).done(function (data) { console.log(data) });
+            var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+            client.add("Listado");
+            client.Listado.read({ data: JSON.stringify(json)}).done(function (data) { console.log(data) });
 
             //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
@@ -208,10 +209,10 @@
 
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-            client.add("TipoUso");
+            //client.add("TipoUso");
             //client.TipoUso.read({ token: "" }).done(function (data) { console.log(data) });
 
-            client.add("FoliosCuantificacion");
+            //client.add("FoliosCuantificacion");
             //client.FoliosCuantificacion.read({ token: "" }).done(function (data) { console.log(data) });
 
             //Obtener Folio Cuantificacion
@@ -225,6 +226,7 @@
 
             client.add("CargarGridCuantificacion");
             client.CargarGridCuantificacion.read({ token: "", avisoEntrada: 15, folioCuantificacion: 2, bultoID: 1 }).done(function (data) { console.log(data) });
+
 
 </script>
     </body>

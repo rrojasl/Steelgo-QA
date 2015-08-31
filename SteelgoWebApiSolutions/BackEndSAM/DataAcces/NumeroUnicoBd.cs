@@ -9,6 +9,7 @@ using System.Web.Script.Serialization;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Transactions;
+using System.Globalization;
 
 namespace BackEndSAM.DataAcces
 {
@@ -48,9 +49,38 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int numeroDigitos = (from r in ctx.Sam3_OrdenRecepcion
+                                         join rel in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on r.OrdenRecepcionID equals rel.OrdenRecepcionID
+                                         join i in ctx.Sam3_ItemCode on rel.ItemCodeID equals i.ItemCodeID
+                                         join p in ctx.Sam3_ProyectoConfiguracion on i.ProyectoID equals p.ProyectoID
+                                         where r.Activo && rel.Activo && i.Activo
+                                         && r.OrdenRecepcionID == ordenRecepcionID
+                                         select p.DigitosNumeroUnico).AsParallel().FirstOrDefault();
 
+                    string formato = "D" + numeroDigitos.ToString();
+                                         
 
-                    return null;
+                    List<InfoEtiquetaNumeroUnico> etiquetas = (from r in ctx.Sam3_NumeroUnico
+                                                               join o in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on r.ItemCodeID equals o.ItemCodeID
+                                                               join it in ctx.Sam3_ItemCode on o.ItemCodeID equals it.ItemCodeID
+                                                               join c in ctx.Sam3_Colada on r.ColadaID equals c.ColadaID
+                                                               join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                                               where r.Activo && o.Activo
+                                                               && o.OrdenRecepcionID == ordenRecepcionID
+                                                               select new InfoEtiquetaNumeroUnico
+                                                               {
+                                                                   Cedula = r.Cedula,
+                                                                   Certificado = c.NumeroCertificado,
+                                                                   Colada = c.NumeroColada,
+                                                                   Descripcion = it.DescripcionEspanol,
+                                                                   Diametro1 = r.Diametro1.ToString(),
+                                                                   Diametro2 = r.Diametro2.ToString(),
+                                                                   ItemCode = it.Codigo,
+                                                                   NumeroUnico = r.Prefijo + "-" + r.Consecutivo.ToString(formato),
+                                                                   Proyecto = p.Nombre
+                                                               }).AsParallel().ToList();
+
+                    return etiquetas;
                 }
             }
             catch (Exception ex)
@@ -82,7 +112,6 @@ namespace BackEndSAM.DataAcces
                                           && o.OrdenRecepcionID == ordenRecepcionID
                                           select r).AsParallel().SingleOrDefault();
 
-                        string formato = "D" + configuracion.DigitosNumeroUnico.ToString();
                         string prefijo = configuracion.PrefijoNumeroUnico;
                         int folio = consecutivo.ConsecutivoNumerounico;
                         string factura = folioEntrada.Factura;
@@ -114,7 +143,8 @@ namespace BackEndSAM.DataAcces
                                 nuevoNU.FechaModificacion = DateTime.Now;
                                 nuevoNU.ItemCodeID = item.ItemCodeID;
                                 nuevoNU.UsuarioModificacion = usuario.UsuarioID;
-                                nuevoNU.Codigo = prefijo + "-" +  folio.ToString(formato);
+                                nuevoNU.Prefijo = prefijo;  
+                                nuevoNU.Consecutivo = folio;
                                 nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
                                 nuevoNU.Factura = factura;
                                 nuevoNU.OrdenDeCompra = ordenCompra;
@@ -197,7 +227,8 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.FechaModificacion = DateTime.Now;
                                     nuevoNU.ItemCodeID = item.ItemCodeID;
                                     nuevoNU.UsuarioModificacion = usuario.UsuarioID;
-                                    nuevoNU.Codigo = prefijo + "-" + folio.ToString(formato);
+                                    nuevoNU.Prefijo = prefijo;
+                                    nuevoNU.Consecutivo = folio;
                                     nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
                                     nuevoNU.Factura = factura;
                                     nuevoNU.OrdenDeCompra = ordenCompra;

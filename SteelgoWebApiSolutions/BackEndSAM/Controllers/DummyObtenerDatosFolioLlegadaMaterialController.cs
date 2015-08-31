@@ -33,7 +33,7 @@ namespace BackEndSAM.Controllers
             info.PackingList = "123";
             info.TipoPackingList = tipoPackinglist;
             info.TipoUso = tipouso;
-            
+            info.Estatus = "En Proceso Recepcion";
             return info;
         }
 

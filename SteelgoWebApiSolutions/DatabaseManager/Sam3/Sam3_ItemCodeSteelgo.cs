@@ -31,6 +31,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public int Area { get; set; }
         public string Cedula { get; set; }
+        public string Codigo { get; set; }
     
         public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
     }

@@ -26,13 +26,15 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/guardarfoliollegadacuantificacion
-        public void Post(string data)
+        public int Post(string data)
         {
+            return 12;
         }
 
         // PUT api/guardarfoliollegadacuantificacion/5
         public void Put(string data)
         {
+
         }
 
         // DELETE api/guardarfoliollegadacuantificacion/5

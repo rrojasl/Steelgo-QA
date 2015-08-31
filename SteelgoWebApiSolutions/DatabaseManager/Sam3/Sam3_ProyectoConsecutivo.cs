@@ -27,6 +27,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public int ConsecutivoOrdeRecepcion { get; set; }
+        public int ConsecutivoOrdenAlmacenaje { get; set; }
     
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }

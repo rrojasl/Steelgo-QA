@@ -287,6 +287,7 @@ namespace BackEndSAM.DataAcces
                     nuevo.ProveedorID = json.ProveedorID;
                     nuevo.UsuarioModificacion = usuario.UsuarioID;
                     nuevo.ComboEstatus = json.ComboEstatus;
+                    nuevo.FechaCreacion = DateTime.Now;
 
                     ctx.Sam3_FolioAvisoEntrada.Add(nuevo);
                     ctx.SaveChanges();

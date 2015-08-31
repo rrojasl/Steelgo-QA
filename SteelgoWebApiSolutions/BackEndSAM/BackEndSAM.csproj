@@ -141,11 +141,17 @@
     <Compile Include="Controllers\DocumentoLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
+    <Compile Include="Controllers\DummyAceroController.cs" />
+    <Compile Include="Controllers\DummyColadaController.cs" />
+    <Compile Include="Controllers\DummyColadasPorProyectoController.cs" />
+    <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyTipoPackingListController.cs" />
     <Compile Include="Controllers\DummyTipoUsoController.cs" />
     <Compile Include="Controllers\DumyValidarItemCodeNuCuantificacionController.cs" />
+    <Compile Include="Controllers\DummyFabricanteController.cs" />
+    <Compile Include="Controllers\FamiliaAceroController.cs" />
     <Compile Include="Controllers\FolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyFormatoIncidenciasController.cs" />
     <Compile Include="Controllers\DummyIncidenciasController.cs" />
@@ -153,6 +159,7 @@
     <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
+    <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerItemCodesController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
@@ -241,6 +248,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AsociacionItemCodeSteelgo.cs" />
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
@@ -251,12 +259,15 @@
     <Compile Include="Models\Dummy\Cedula.cs" />
     <Compile Include="Models\Dummy\Chofer.cs" />
     <Compile Include="Models\Dummy\Cliente.cs" />
+    <Compile Include="Models\Dummy\Coladas.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
+    <Compile Include="Models\Dummy\DummyFabricante.cs" />
     <Compile Include="Models\Dummy\EdicionCuantificacion.cs" />
     <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />
     <Compile Include="Models\Dummy\Estatus.cs" />
     <Compile Include="Models\Dummy\Familia.cs" />
+    <Compile Include="Models\Dummy\FamiliaAcero.cs" />
     <Compile Include="Models\Dummy\Files.cs" />
     <Compile Include="Models\Dummy\FolioCuantificacion.cs" />
     <Compile Include="Models\Dummy\FolioEntrada.cs" />
@@ -292,8 +303,10 @@
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />
+    <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />
+    <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
