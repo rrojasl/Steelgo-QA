@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
-using DatabaseManager.EntidadesPersonalizadas;
-using BackEndSAM.Utilities;
-using System.Web.Script.Serialization;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
-using BackEndSAM.Utilities;
-using System.Web.Mvc;
-using System.Net.Http;
-using System.Net;
-using System.IO;
-using System.Net.Http.Headers;
 
 namespace BackEndSAM.DataAcces
 {
@@ -297,6 +287,7 @@ namespace BackEndSAM.DataAcces
                     nuevo.ProveedorID = json.ProveedorID;
                     nuevo.UsuarioModificacion = usuario.UsuarioID;
                     nuevo.ComboEstatus = json.ComboEstatus;
+                    nuevo.FechaCreacion = DateTime.Now;
 
                     ctx.Sam3_FolioAvisoEntrada.Add(nuevo);
                     ctx.SaveChanges();

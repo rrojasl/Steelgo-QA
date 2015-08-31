@@ -2,11 +2,7 @@
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 
@@ -39,7 +35,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return FoliosCuantificacionBd.Instance.getProjects(avisoLlegada);
+                return FoliosCuantificacionBd.Instance.obtenerProyectos(avisoLlegada);
             }
             else
             {
@@ -66,7 +62,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return FoliosCuantificacionBd.Instance.updateProjects(avisoLlegada, proyectoID, usuario.UsuarioID);
+                return FoliosCuantificacionBd.Instance.actualizarProyectos(avisoLlegada, proyectoID, usuario.UsuarioID);
                 //return FoliosCuantificacionBd.Instance.getProyects(avisoLlegada);
             }
             else

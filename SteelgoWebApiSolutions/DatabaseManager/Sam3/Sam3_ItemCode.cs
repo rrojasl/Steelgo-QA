@@ -21,6 +21,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_Bulto_ItemCode = new HashSet<Sam3_Rel_Bulto_ItemCode>();
             this.Sam3_Rel_FolioCuantificacion_ItemCode = new HashSet<Sam3_Rel_FolioCuantificacion_ItemCode>();
             this.Sam3_Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
+            this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
         }
     
         public int ItemCodeID { get; set; }
@@ -40,6 +41,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> Cantidad { get; set; }
         public Nullable<int> MM { get; set; }
+        public int ColadaID { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
@@ -49,5 +51,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
         public virtual ICollection<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
         public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
+        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
+        public virtual Sam3_Colada Sam3_Colada { get; set; }
     }
 }

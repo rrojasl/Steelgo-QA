@@ -21,6 +21,8 @@ namespace DatabaseManager.Sam3
             this.Sam3_NumeroUnicoSegmento = new HashSet<Sam3_NumeroUnicoSegmento>();
             this.Sam3_PinturaNumeroUnico = new HashSet<Sam3_PinturaNumeroUnico>();
             this.Sam3_RequisicionNumeroUnicoDetalle = new HashSet<Sam3_RequisicionNumeroUnicoDetalle>();
+            this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
+            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
         }
     
         public int NumeroUnicoID { get; set; }
@@ -31,7 +33,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> FabricanteID { get; set; }
         public Nullable<int> TipoCorte1ID { get; set; }
         public Nullable<int> TipoCorte2ID { get; set; }
-        public string Codigo { get; set; }
         public string Estatus { get; set; }
         public string Factura { get; set; }
         public string PartidaFactura { get; set; }
@@ -63,6 +64,8 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public string Prefijo { get; set; }
+        public int Consecutivo { get; set; }
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
@@ -77,5 +80,9 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
         public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
         public virtual ICollection<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }
+        public virtual Sam3_NumeroUnico Sam3_NumeroUnico1 { get; set; }
+        public virtual Sam3_NumeroUnico Sam3_NumeroUnico2 { get; set; }
+        public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
     }
 }

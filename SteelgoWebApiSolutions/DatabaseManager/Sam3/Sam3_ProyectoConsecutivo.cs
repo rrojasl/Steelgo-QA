@@ -21,6 +21,13 @@ namespace DatabaseManager.Sam3
         public int ConsecutivoPaseSalida { get; set; }
         public int ConsecutivoPermisoAduana { get; set; }
         public int ConsucutivoFolioPackingList { get; set; }
+        public int ConsecutivoODT { get; set; }
+        public int ConsecutivoNumerounico { get; set; }
+        public bool Activo { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public int ConsecutivoOrdeRecepcion { get; set; }
+        public int ConsecutivoOrdenAlmacenaje { get; set; }
     
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }

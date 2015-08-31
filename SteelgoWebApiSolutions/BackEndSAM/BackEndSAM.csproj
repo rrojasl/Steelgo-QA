@@ -61,6 +61,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -132,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
@@ -156,8 +158,12 @@
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
+    <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
+    <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
+    <Compile Include="Controllers\ObtenerItemCodesController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
+    <Compile Include="Controllers\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
@@ -216,11 +222,15 @@
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
+    <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
+    <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
     <Compile Include="DataAcces\FoliosCuantificacionBd.cs" />
     <Compile Include="DataAcces\ListadoBd.cs" />
+    <Compile Include="DataAcces\NumeroUnicoBd.cs" />
+    <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
@@ -238,6 +248,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AsociacionItemCodeSteelgo.cs" />
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
@@ -291,8 +302,11 @@
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
+    <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />
+    <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />
+    <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
