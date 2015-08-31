@@ -39,16 +39,17 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// Obtener la informacion que tendra el grid de Cuantificacion
+        /// Obtener la informacion del grid de Cuantificacion
         /// </summary>
         /// <param name="avisoEntrada">folio de aviso de entrada</param>
         /// <param name="folioCuantificacion">folio cuantificacion</param>
-        /// <returns></returns>
+        /// <param name="bultoID">id del bulto</param>
+        /// <returns>informacion</returns>
         public object gridCuantificacionInfo(int avisoEntrada, int folioCuantificacion, int bultoID = 0)
         {
             try
             {
-                List<ListadoCuantificacion> listado = new List<ListadoCuantificacion>();
+                List<CuantificacionListado> listado = new List<CuantificacionListado>();
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -61,7 +62,7 @@ namespace BackEndSAM.DataAcces
                                    join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals ric.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on ric.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
 
-                                   select new ListadoCuantificacion
+                                   select new CuantificacionListado
                                    {
                                        ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.ItemCodeID.ToString(),
                                        Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Si" : "No",
@@ -88,7 +89,7 @@ namespace BackEndSAM.DataAcces
                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       //TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
                                    }).AsParallel().ToList();
                     }
                     else //Cuando es la pantalla de Bulto
@@ -98,7 +99,7 @@ namespace BackEndSAM.DataAcces
                                    join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
                                    join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                   select new ListadoCuantificacion
+                                   select new CuantificacionListado
                                    {
                                        ItemCode = ic.ItemCodeID.ToString(),
                                        Descripcion = ic.DescripcionEspanol,
@@ -123,7 +124,7 @@ namespace BackEndSAM.DataAcces
                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       //TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
                                    }).AsParallel().ToList();
                     }
                 }

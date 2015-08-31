@@ -251,6 +251,7 @@
     <Compile Include="Models\AsociacionItemCodeSteelgo.cs" />
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
+    <Compile Include="Models\CuantificacionListado.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
