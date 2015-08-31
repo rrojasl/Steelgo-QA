@@ -342,7 +342,7 @@ namespace BackEndSAM.DataAcces
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
-                    int tipoMaterialID = filtros.tipoMaterialID != "" ? Convert.ToInt32(filtros.tipoMaterialID) : 0;
+                    int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.tipoMaterialID) : 0;
 
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
