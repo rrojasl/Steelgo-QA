@@ -79,7 +79,7 @@ namespace BackEndSAM.DataAcces
                         if(ctx.Sam3_Rel_Bulto_ItemCode.Where(c=> c.ItemCodeID.ToString() == item.ItemCode).Any())
                         {
                             item.ItemCode = "Bulto";
-                            item.Detallar = true;
+                            item.Detallar = "Si";
                         }
 
                         item.Colada = (from c in ctx.Sam3_Colada

@@ -1293,8 +1293,8 @@ _dictionary = {
         "en-US": "# Certificado"
     },
     "Cuantificacion0068": {
-    "es-MX": "Hold Calidad",
-    "en-US": "Hold Calidad"
+        "es-MX": "Hold Calidad",
+        "en-US": "Hold Calidad"
     },
     "Cuantificacion0069": {
         "es-MX": "Peso",
@@ -1323,6 +1323,26 @@ _dictionary = {
     "Cuantificacion0075": {
         "es-MX": "Guardar y Terminar",
         "en-US": "Save and Finish"
+    },
+    "Cuantificacion0076": {
+        "es-MX": "En Proceso Recepción",
+        "en-US": "Reception in Progress"
+    },
+    "Cuantificacion0077": {
+        "es-MX": "Terminado",
+        "en-US": "Finished"
+    },
+    "Cuantificacion0078": {
+        "es-MX": "Cerrado",
+        "en-US": "Closed"
+    },
+    "Cuantificacion0079": {
+        "es-MX": "Folio ",
+        "en-US": "Folio "
+    },
+    "Cuantificacion0080": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
