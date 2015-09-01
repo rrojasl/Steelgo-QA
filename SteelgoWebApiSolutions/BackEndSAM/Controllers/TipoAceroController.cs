@@ -20,8 +20,7 @@ namespace BackEndSAM.Controllers
 
         // GET api/<controller>/5
         public object Get(string token)
-        {
-             
+        { 
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);

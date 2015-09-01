@@ -229,6 +229,7 @@
     <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
+    <Compile Include="DataAcces\FamiliaBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
     <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
