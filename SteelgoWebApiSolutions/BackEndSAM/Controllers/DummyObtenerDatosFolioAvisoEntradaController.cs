@@ -15,11 +15,11 @@ using BackEndSAM.DataAcces;
 
 namespace BackEndSAM.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DummyObtenerDatosFolioAvisoEntradaController : ApiController
     {
         // GET api/dummyobtenerdatosfolioavisoentrada
-        public InfoFolioAvisoEntrada Get(string FolioAvisoEntradaID, string token)
+        public object Get(string FolioAvisoEntradaID, string token)
         {
             
             List<FolioLlegada1> foliollegada = new List<FolioLlegada1>();

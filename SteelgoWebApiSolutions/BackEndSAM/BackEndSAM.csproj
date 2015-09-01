@@ -161,6 +161,7 @@
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
+    <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\ObtenerItemCodesController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\OrdenRecepcionController.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
+    <Compile Include="Controllers\TipoPackingListController.cs" />
     <Compile Include="Controllers\TipoUsoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
     <Compile Include="Controllers\TractoController.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
+    <Compile Include="DataAcces\TipoPackingListBd.cs" />
     <Compile Include="DataAcces\TipoUsoBd.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
     <Compile Include="DataAcces\ChoferBd.cs" />
@@ -304,6 +307,7 @@
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />
+    <Compile Include="Models\InfoFolioCuantificacion.cs" />
     <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />

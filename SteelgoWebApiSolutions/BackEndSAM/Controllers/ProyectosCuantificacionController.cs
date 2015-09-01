@@ -28,25 +28,25 @@ namespace BackEndSAM.Controllers
         //<param name="token"></param>
         //<param name="avisoLlegada"></param>
         //<returns></returns>
-        public object Get(string token, int avisoLlegada)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                return FoliosCuantificacionBd.Instance.obtenerProyectos(avisoLlegada);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        //public object Get(string token, int avisoLlegada)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        return FoliosCuantificacionBd.Instance.obtenerProyectos(avisoLlegada);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
         /// <summary>
         /// Actualizar la relacion av Llegada_Proyecto

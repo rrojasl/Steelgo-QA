@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return TipoUsoBd.Instance.GetTipoUso();
+                return TipoUsoBd.Instance.ObtenerTipoUso();
             }
             else
             {

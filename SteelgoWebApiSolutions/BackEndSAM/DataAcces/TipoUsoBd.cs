@@ -39,7 +39,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GetTipoUso()
+        public object ObtenerTipoUso()
         {
             try
             {
@@ -48,11 +48,12 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listTU = (from t in ctx.Sam3_TipoUso
+                              where t.Activo == true
                               select new TipoUso
-                                                  {
-                                                      id = t.TipoUsoID.ToString(),
-                                                      Nombre = t.Nombre
-                                                  }).AsParallel().ToList();
+                                {
+                                    id = t.TipoUsoID.ToString(),
+                                    Nombre = t.Nombre
+                                }).AsParallel().ToList();
                 }
                 return listTU;
             }
