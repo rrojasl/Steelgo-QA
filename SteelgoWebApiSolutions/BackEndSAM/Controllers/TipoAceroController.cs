@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace BackEndSAM.Controllers
 {
-    public class ItemCodeController : ApiController
+    public class TipoAceroController : ApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -19,14 +19,15 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int TipoPackingListID, string token)
+        public object Get(string token)
         {
+             
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID);
+            return TipoAceroBd.Instance.obtenerTipoAcero();
             }
             else
             {
