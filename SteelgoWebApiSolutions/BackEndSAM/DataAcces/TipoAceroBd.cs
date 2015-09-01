@@ -42,16 +42,16 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<ListaCombos> tipoAcero = new List<ListaCombos>();
+                List<TipoAcero> tipoAcero = new List<TipoAcero>();
 
                 using (SamContext ctx = new SamContext())
                 {
                     tipoAcero = (from fm in ctx.Sam3_FamiliaMaterial
                                  where fm.Activo
-                                 select new ListaCombos
+                                 select new TipoAcero
                                  {
-                                     id = fm.FamiliaMaterialID.ToString(),
-                                     value = fm.Nombre
+                                     AceroID = fm.FamiliaMaterialID.ToString(),
+                                     Nomenclatura = fm.Nombre
                                  }).AsParallel().ToList();
                 }
                 return tipoAcero;

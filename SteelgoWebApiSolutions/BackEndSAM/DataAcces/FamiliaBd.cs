@@ -42,16 +42,16 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<ListaCombos> familia = new List<ListaCombos>();
+                List<Familia> familia = new List<Familia>();
 
                 using (SamContext ctx = new SamContext())
                 {
                     familia = (from f in ctx.Sam3_FamiliaAcero
                                where f.Activo
-                               select new ListaCombos
+                               select new Familia
                                {
-                                   id = f.FamiliaAceroID.ToString(),
-                                   value = f.Nombre
+                                   FamiliaAceroID = f.FamiliaAceroID.ToString(),
+                                   Nombre = f.Nombre
                                }).AsParallel().ToList();
                 }
                 return familia;
