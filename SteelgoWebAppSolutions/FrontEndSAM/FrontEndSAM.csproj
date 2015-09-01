@@ -1104,6 +1104,7 @@
     <Content Include="Views\EntradaMaterial\PaseDeSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\FormatoIncidencias.cshtml" />
     <Content Include="Views\Cuantificacion\OrdenRecepcion.cshtml" />
+    <Content Include="Views\Cuantificacion\GenerarOrdenRecepcion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

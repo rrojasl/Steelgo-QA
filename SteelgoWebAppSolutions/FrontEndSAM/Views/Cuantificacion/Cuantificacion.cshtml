@@ -66,35 +66,35 @@
             <div class="row">
                 <div class="filterForm col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="FolioAvisoEntradaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0012"></label>
                             <input id="FolioAvisoEntradaID" class="" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0013"></label>
                             <input id="ProyectoID" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="FolioCuantificacionDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0014"></label>
                             <input id="FolioCuantificacionID" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="BultoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0015"></label>
                             <input id="BultoID"  disabled="disabled"/>
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="PackingListDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0016"></label>
                             <input id="PackingList" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="TipoPackingListDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0017"></label>
                             <input id="TipoPackingListID" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="TipoUsoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0018"></label>
                             <input id="TipoUsoID" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="massiveUploadDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0019"></label>
                             <button id="massiveUpload" class="btn btn-primary"><span id="Cuantificacion0020"></span></button>
                             <input name="txtFileUpload" id="txtFileUpload" type="file" class="hidden"/>
@@ -107,22 +107,22 @@
         <div class="row">
                 <div class="filterForm col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ColadaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0022"></label>
                             <input id="Colada" class="" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="CantidadDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0023"></label>
                             <input id="Cantidad" class="" />
                         </div>
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="MMDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0024"></label>
                             <input id="MM" class="" />
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0025"></label>
                             <label id="Cuantificacion0026"></label>
-                            <input id="todos" class="" type="radio" name="radio" checked/ value="1">
+                            <input id="todos" class="" type="radio" name="radio" checked value="1">
                             <label id="Cuantificacion0027"></label>
                             <input id="vacios" class="" type="radio" name="radio" value="2"/>
                         </div>
@@ -189,22 +189,6 @@
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
-            </div>
-         <div id="Proyecto_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0058"></label>
-                <input id="Proyecto_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="TipoMaterial_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0059"></label>
-                <input id="TipoMaterial_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Colada_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0060"></label>
-                <input id="Colada_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="ItemCode_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0050"></label>
-                <input id="ItemCode_ItemCodeSteelgo" class="" />
             </div>
             <div id="Descripcion_ItemCodeSteelgoDiv" class="form-group">
                 <label id="Cuantificacion0051"></label>
@@ -304,6 +288,210 @@
             var _bultoID = getUrlParameter("BultoID", "-1");
             var _detalleBulto = getUrlParameter("DetalleBulto", "-1");
             var _edicion = getUrlParameter("Edicion", "-1");
+
+
+
+            var $CuantificacionModel = {
+                listContainer: {
+                    create: ".nextStepButtonSection",
+                    list: ".actionButtonSection",
+                    detail: ".editButtonSection",
+                    destroy: ""
+                },
+                properties: {
+                    folioAvisoEntradaID: {
+                        visible: "#FolioAvisoEntradaDiv",
+                        editable: "#FolioAvisoEntradaID",
+                        required: "#FolioAvisoEntradaID"
+                    },
+                    proyecto: {
+                        visible: "#ProyectoDiv",
+                        editable: "#ProyectoID",
+                        required: "#ProyectoID"
+                    },
+                    folioCuantificacion: {
+                        visible: "#FolioCuantificacionDiv",
+                        editable: "#FolioCuantificacionID",
+                        required: "#FolioCuantificacionID"
+                    },
+                    bulto: {
+                        visible: "#BultoDiv",
+                        editable: "#BultoID",
+                        required: "#BultoID"
+                    },
+                    packinglist: {
+                        visible: "#PackingListDiv",
+                        editable: "#PackingList",
+                        required: "#PackingList"
+                    },
+                    tipoPackingList: {
+                        visible: "#TipoPackingListDiv",
+                        editable: "#TipoPackingListID",
+                        required: "#TipoPackingListID"
+                    },
+                    tipouso: {
+                        visible: "#TipoUsoDiv",
+                        editable: "#TipoUsoID",
+                        required: "#TipoUsoID"
+                    },
+                    cargamasiva: {
+                        visible: "#massiveUploadDiv",
+                        editable: "#massiveUpload",
+                        required: "#massiveUpload"
+                    },
+                    colada: {
+                        visible: "#ColadaDiv",
+                        editable: "#Colada",
+                        required: "#Colada"
+                    },
+                    cantidad: {
+                        visible: "#CantidadDiv",
+                        editable: "#Cantidad",
+                        required: "#Cantidad"
+                    },
+                    mm: {
+                        visible: "#MMDiv",
+                        editable: "#MM",
+                        required: "#MM"
+                    }
+                }
+            };
+
+
+            var $ItemCodeModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: ""
+                },
+                properties: {
+                    proyecto: {
+                        visible: "#Proyecto_ItemCodeDiv",
+                        editable: "#Proyecto_ItemCode",
+                        required: "#Proyecto_ItemCode"
+                    },
+                    tipomaterial: {
+                        visible: "#TipoMaterial_ItemCodeDiv",
+                        editable: "#TipoMaterial_ItemCode",
+                        required: "#TipoMaterial_ItemCode"
+                    },
+                    colada: {
+                        visible: "#Colada_ItemCodeDiv",
+                        editable: "#Colada_ItemCode",
+                        required: "#Colada_ItemCode"
+                    },
+                    codigo: {
+                        visible: "#ItemCode_ItemCodeDiv",
+                        editable: "#ItemCode_ItemCode",
+                        required: "#ItemCode_ItemCode"
+                    },
+                    descripcion: {
+                        visible: "#Descripcion_ItemCodeDiv",
+                        editable: "#Descripcion_ItemCode",
+                        required: "#Descripcion_ItemCode"
+                    },
+                    familia: {
+                        visible: "#Familia_ItemCodeDiv",
+                        editable: "#Familia_ItemCode",
+                        required: "#Familia_ItemCode"
+                    }
+                }
+            };
+            
+            var $ItemCodeSteelgoModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: ""
+                },
+                properties: {
+                    descripcion: {
+                        visible: "#Descripcion_ItemCodeSteelgoDiv",
+                        editable: "#Descripcion_ItemCodeSteelgo",
+                        required: "#Descripcion_ItemCodeSteelgo"
+                    },
+                    familia: {
+                        visible: "#Familia_ItemCodeSteelgoDiv",
+                        editable: "#Familia_ItemCodeSteelgo",
+                        required: "#Familia_ItemCodeSteelgo"
+                    },
+                    peso: {
+                        visible: "#Peso_ItemCodeSteelgoDiv",
+                        editable: "#Peso_ItemCodeSteelgo",
+                        required: "#Peso_ItemCodeSteelgo"
+                    },
+                    diametro1: {
+                        visible: "#Diametro1_ItemCodeSteelgoDiv",
+                        editable: "#Diametro1_ItemCodeSteelgo",
+                        required: "#Diametro1_ItemCodeSteelgo"
+                    },
+                    diametro2: {
+                        visible: "#Diametro2_ItemCodeSteelgoDiv",
+                        editable: "#Diametro2_ItemCodeSteelgo",
+                        required: "#Diametro2_ItemCodeSteelgo"
+                    },
+                    area: {
+                        visible: "#Area_ItemCodeSteelgoDiv",
+                        editable: "#Area_ItemCodeSteelgo",
+                        required: "#Area_ItemCodeSteelgo"
+                    },
+                    cedula: {
+                        visible: "#Cedula_ItemCodeSteelgoDiv",
+                        editable: "#Cedula_ItemCodeSteelgo",
+                        required: "#Cedula_ItemCodeSteelgo"
+                    },
+                    codigo: {
+                        visible: "#Codigo_ItemCodeSteelgoDiv",
+                        editable: "#Codigo_ItemCodeSteelgo",
+                        required: "#Codigo_ItemCodeSteelgo"
+                    }
+                }
+            };
+
+
+            var $ColadaModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: ""
+                },
+                properties: {
+                    fabricante: {
+                        visible: "#Fabricante_ColadaDiv",
+                        editable: "#Fabricante_Colada",
+                        required: "#Fabricante_Colada"
+                    },
+                    acero: {
+                        visible: "#Acero_ColadaDiv",
+                        editable: "#Acero_Colada",
+                        required: "#Acero_Colada"
+                    },
+                    proyecto: {
+                        visible: "#Proyecto_ColadaDiv",
+                        editable: "#Proyecto_Colada",
+                        required: "#Proyecto_Colada"
+                    },
+                    numerocolada: {
+                        visible: "#NumeroColada_ColadaDiv",
+                        editable: "#NumeroColada_Colada",
+                        required: "#NumeroColada_Colada"
+                    },
+                    numerocertificado: {
+                        visible: "#NumeroCertificado_ColadaDiv",
+                        editable: "#NumeroCertificado_Colada",
+                        required: "#NumeroCertificado_Colada"
+                    },
+                    holdcalidad: {
+                        visible: "#HoldCalidad_ColadaDiv",
+                        editable: "#HoldCalidad_Colada",
+                        required: "#HoldCalidad_Colada"
+                    }
+                }
+            };
+
     };
 
     @section JavascriptGlobalFunctions 
@@ -361,12 +549,43 @@
 
             //Botones
 
-            $("#Guardar").click(function () { SavePartially(false); });
+            $("#Guardar").click(function () {
+                if(validarRequeridosFormaCuantificacion()) {
+                    SavePartially(false);
+                } else{
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
+
             $("#Editar").click(function (e) { BotonEdicion(); });
-            $("#TerminaryNuevo").click(function () { FinishAndNew(); });
-            $("#GuardarParcialyNuevo").click(function () { SavePartially(true); });
-            $("#GuardaryCerrar").click(function () { SaveAndClose(); });
-            $("#GuardaryTerminar").click(function () { SaveAndFinish(); });
+            $("#TerminaryNuevo").click(function () {
+                if(validarRequeridosFormaCuantificacion()) {
+                    FinishAndNew();
+                } else {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
+            $("#GuardarParcialyNuevo").click(function () {
+                if(validarRequeridosFormaCuantificacion()) {
+                    SavePartially(true);
+                } else {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
+            $("#GuardaryCerrar").click(function () {
+                if(validarRequeridosFormaCuantificacion()) {
+                    SaveAndClose();
+                } else {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
+            $("#GuardaryTerminar").click(function () {
+                if(validarRequeridosFormaCuantificacion()) {
+                    SaveAndFinish();
+                } else {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
             $("#Cancelar").click(function () { Cancel();});
             $("#GenerarOrdenRecepción").click(function () { GenerateOrderReception(); });
             $("#massiveUpload").click(function () { $(".k-upload-files.k-reset").find("li").remove(); });
@@ -452,7 +671,7 @@
                     var value = this.value();
                     limpiarfiltrosFolioCuantificacion();
                     if(value){
-                        ObtenerDatosDelFolioAvisoLlegadaCuantificacion(FolioAvisoEntrada.FolioAvisoEntradaID, value);// debe de ponerse el folio de llegada de material
+                        ObtenerDatosDelFolioAvisoLlegadaCuantificacion(FolioAvisoEntrada.FolioAvisoEntradaID, Cuantificacion.FolioCuantificacionID);// debe de ponerse el folio de llegada de material
                     } else {
                         Cuantificacion = {};
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
@@ -900,12 +1119,8 @@
         };
 
         function LimpiarModalItemCodeSteelgo() {
-            $("#ItemCode_ItemCodeSteelgo").val("");
             $("#Descripcion_ItemCodeSteelgo").val("");
             $("#Familia_ItemCodeSteelgo").data("kendoComboBox").value("");
-            $("#Proyecto_ItemCodeSteelgo").data("kendoComboBox").value("");
-            $("#TipoMaterial_ItemCodeSteelgo").data("kendoComboBox").value("");
-            $("#Colada_ItemCodeSteelgo").data("kendoComboBox").value("");
             $("#Peso_ItemCodeSteelgo").val("");
             $("#Diametro1_ItemCodeSteelgo").val("");
             $("#Diametro2_ItemCodeSteelgo").val("");
@@ -914,9 +1129,6 @@
             $("#Codigo_ItemCodeSteelgo").val("");
 
             familiaItemCodeSteelgo = {};
-            ProyectoItemCodeSteelgo = {};
-            TipoPackingListItemCodeSteelgo = {};
-            ColadaItemCodeSteelgo = {};
         };
 
         function LimpiarModalColada() {
@@ -964,6 +1176,20 @@
             $("#window").data("kendoWindow").close();
         };
 
+        function validarRequeridosFormaCuantificacion() {
+            var bool = true;
+            $("#formAvisoLlegada .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).closest("div").find("label").addClass("error");
+                    } else {
+                        $(this).closest("div").find("label").removeClass("error");
+                    };
+                };
+            });
+            return bool;
+        };
 
         function validarRequeridosModalItemCode() {
             var bool = true;
@@ -1052,11 +1278,7 @@
         };
         
         function GuardarItemCodeSteelgo() {
-            ItemCodeSteelgo = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
-            ItemCodeSteelgo.ProyectoID = ProyectoItemCodeSteelgo.ProyectoID;
-            ItemCodeSteelgo.TipoPackingList = TipoPackingListItemCodeSteelgo.TipoPackingListID;
-            ItemCodeSteelgo.ColadaID = ColadaItemCodeSteelgo.ColadaID;
-            ItemCodeSteelgo.ItemCode = $("#ItemCode_ItemCodeSteelgo").val();
+            ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
             ItemCodeSteelgo.Descripcion = $("#Descripcion_ItemCodeSteelgo").val();
             ItemCodeSteelgo.FamiliaID = !familiaItemCodeSteelgo.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
             ItemCodeSteelgo.Peso = $("#Peso_ItemCodeSteelgo").val();
@@ -1350,7 +1572,6 @@
         };
 
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
-            console.log("$dummyObtenerDatosFolioLlegadaMaterial " + folio + ", " + cuantificacion);
             $dummyObtenerDatosFolioLlegadaMaterial.DummyObtenerDatosFolioLlegadaMaterial.read({ FolioLlegadaMaterialID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
@@ -1365,8 +1586,6 @@
                     CargarTipoPackingList(result.TipoPackingList.id, $("#TipoPackingListID").data("kendoComboBox").text());
                     CargarTipoUso(result.TipoUso.id, $("#TipoUsoID").data("kendoComboBox").text());
                     cargarGridPackingList();
-
-
                 } else {
                     limpiarfiltrosFolioCuantificacion();
                 };
@@ -2392,5 +2611,16 @@
             $("#massiveUpload").click( function () {
                 $("#txtFileUpload").click();
             });
-        }
+
+            $authorizationModel["Cuantificacion"] = $CuantificacionModel;
+            $authorizationModel["Item Code"] = $ItemCodeModel;
+            $authorizationModel["Item Code Steelgo"] = $ItemCodeSteelgoModel;
+            $authorizationModel["Colada"] = $ColadaModel
+            
+    }
+
+    @section JavascriptDocumentReadyHomeCookie {
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "12", { path: '/' });
+    } 
 </script>

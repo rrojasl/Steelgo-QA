@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Generar Orden Recepcion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div id="example">
+            <div id="grid"></div>
+
+<script>
+                function detailInit(e) {
+                    //var checked = "";
+                    //if (e.masterRow[0].children[1].children[0].checked) {
+                    //    checked = "checked disabled";
+                    //}
+                }
+
+            </script>
+        </div>
+<script>
+    @section JavascriptGlobalVariables 
+    {
+    var checkFolioAvisoEntrada = [];
+    var checkItemCodesID = [];
+    var checkListaPorFolioAvisoEntrada = [];
+    }
+
+    @section JavascriptGlobalFunctions 
+    {
+
+
+
+        //function CheckTodos(ele, nombre) {
+
+        //    var state = $(ele).is(':checked');
+        //    $("#grid").data("kendoGrid").refresh();
+
+        //    if (state) {
+        //        $("#grid tbody input:checkbox").attr("checked", "checked");
+        //        $("#grid tbody input:checkbox").attr("disabled", "disabled");
+        //    } else {
+        //        $("#grid tbody input:checkbox").removeAttr("checked");
+        //        $("#grid tbody input:checkbox").removeAttr("disabled");
+        //    }
+
+
+        //    $.each($("#grid").data("kendoGrid").dataSource.view(), function () {
+        //        // total += this.EmployeeID;
+        //    });
+
+    //}
+    
+    function prueba(row,id) {
+        var checkbox = $(row);
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".accesorios").prop("checked", checkbox.is(":checked"));
+
+        if (checkbox.is(":checked")) {
+            $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".accesorios").each(function (i, val) {
+                var checked = val.checked;
+                checkItemCodesID[val.closest("tr").children[1].innerHTML] = { ItemCodeID: val.closest("tr").children[1].innerHTML };
+            });
+            //checkListaPorFolioAvisoEntrada[]
+        } else {
+            checkItemCodesID = [];
+        }
+    };
+
+    }
+
+    @section JavascriptDocumentReadyFunctions 
+    {
+    
+
+    var grid = $("#grid").kendoGrid({
+        dataSource: {
+            type: "odata",
+            transport: {
+                read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
+            },
+            serverPaging: true,
+            serverSorting: true,
+            pageSize: 10,
+        },
+        height: 400,
+        sortable: true,
+        detailInit: detailInit,
+        //dataBound: onDataBound,
+        columns: [
+            { template: '<input type="checkbox" class="master" />', width: 40 },
+            {
+                field: "FirstName",
+                title: "First Name",
+                width: "110px"
+            },
+            {
+                field: "LastName",
+                title: "Last Name",
+                width: "110px"
+            },
+            {
+                field: "Country",
+                width: "110px"
+            },
+            {
+                field: "City",
+                width: "110px"
+            },
+            {
+                field: "Title"
+            }
+        ]
+    }).getKendoGrid();
+
+    function detailInit(e) {
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                type: "odata",
+                transport: {
+                    read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+                },
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                pageSize: 10,
+                filter: { field: "EmployeeID", operator: "eq", value: e.data.EmployeeID }
+            },
+            scrollable: false,
+            sortable: true,
+            columns: [
+                { template: '<input type="checkbox" id="checkAllAccesorios" class="accesorios"/>', width: 100, headerTemplate: '<label> <input type="checkbox" id="checkAll" onclick="prueba(this,' + e.data.EmployeeID + ');">Check</label>' },
+                { field: "OrderID", width: "110px" },
+                { field: "ShipCountry", title: "Ship Country", width: "110px" },
+                { field: "ShipAddress", title: "Ship Address" },
+                { field: "ShipName", title: "Ship Name", width: "300px" }
+            ]
+        });
+    }
+    
+    grid.tbody.on("change", ".master", function () {
+        var checkbox = $(this);
+        var nextRow = checkbox.closest("tr").next(); // find the assosiated detail row
+        //Note: the row should be expanded at least once as otherwhise there will be no child grid loaded      									
+        if (nextRow.hasClass("k-detail-row")) {
+            // and toggle the checkboxes
+            nextRow.find(":checkbox")
+                .prop("checked", checkbox.is(":checked"));
+        }
+    });
+    }
+
+    @section JavascriptDocumentReadyHomeCookie {
+
+    }
+</script>
