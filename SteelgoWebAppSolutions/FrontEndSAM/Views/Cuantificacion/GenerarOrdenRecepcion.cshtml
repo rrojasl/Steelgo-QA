@@ -3,150 +3,391 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="formCuantificacion" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="GenerarOrdenRecepcion0001"></span></button>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="GenerarOrdenRecepcion0002"></span></a>
+                        </div>
+                        <div class="button-section">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="GenerarOrdenRecepcion0003"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="RedirectDashboard"><span id="GenerarOrdenRecepcion0004"></span></a></li>
+                                    <li><a><span id="GenerarOrdenRecepcion0005"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-
-<div id="example">
-            <div id="grid"></div>
-
-<script>
-                function detailInit(e) {
-                    //var checked = "";
-                    //if (e.masterRow[0].children[1].children[0].checked) {
-                    //    checked = "checked disabled";
-                    //}
-                }
-
-            </script>
+             <div class="row">
+                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="GenerarOrdenRecepcion0006"></label>
+                            <input id="ProyectoID" />
+                        </div>
+                         <div id="FolioAvisoEntradaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="GenerarOrdenRecepcion0007"></label>
+                            <input id="FolioAvisoEntradaID" class="" />
+                        </div>
+                        <div id="ItemCodeDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="GenerarOrdenRecepcion0008"></label>
+                            <input id="ItemCode" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                 <div id="grid"></div>
+        </div>
+    </div>
+</div>
+
 <script>
     @section JavascriptGlobalVariables 
     {
-    var checkFolioAvisoEntrada = [];
+    var checkNodoPrincipal = [];
     var checkItemCodesID = [];
-    var checkListaPorFolioAvisoEntrada = [];
+
+    var FolioAvisoEntrada = {}, Proyecto = {}, ItemCode = {}, _resultadoJson;
+
+    var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
+    var _proyectoID = getUrlParameter("ProyectoID", "-1");
     }
 
     @section JavascriptGlobalFunctions 
     {
+    function changeLanguageCall() {
+        cargarInicialGrid();
+    }
+    function CargaInicial() {
+        $("#ProyectoID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                LimpiarFiltrosProyecto();
+
+                if (!value) {
+                    Proyecto = {};
+                } else {
+                    ObtenerFoliosAvisoEntrada();
+                }
+            },
+            filter: "contains",
+        });
+
+        ObtenerProyecto();
+
+        $("#FolioAvisoEntradaID").kendoComboBox({
+            dataTextField: "id",
+            dataValueField: "value",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFolio(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                limpiarFiltroItemCode();
+
+                if (!value) {
+                    Folio = {};
+                } else {
+                    ObtenerItemCodes();
+                };
+            },
+        });
+       
+        $("#ItemCode").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarItemCode(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    ItemCode = {};
+                } else {
+                    ObtenerItemCodes();
+                };
+            },
+        });
+
+    }
+    function cargarInicialGrid() {
+        var grid = $("#grid").kendoGrid({
+            dataSource: {
+                data: _resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            AvisoEntradaID: { type: "int" },
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            sortable: true,
+            detailInit: detailInit,
+            columns: [
+                { template: '<input type="checkbox" class="master" >', width: 40 },
+                { field: "AvisoEntradaID", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], width: "110px" },
+            ]
+        }).getKendoGrid();
 
 
+        grid.tbody.on("change", ".master", function () {
+            var checkbox = $(this);
+            var nextRow = checkbox.closest("tr").next();
+            var value = checkbox.closest("tr").children()[2].innerHTML;
+          
+            checkNodoPrincipal[value] = { FolioAvisoEntradaID: value, checked: checkbox.is(":checked") };
 
-        //function CheckTodos(ele, nombre) {
+            for (var i in checkItemCodesID) {
+                if (checkItemCodesID[i].FolioAvisoEntradaID == value) {
+                    checkItemCodesID[i].checked = false;
+                }
+            }
 
-        //    var state = $(ele).is(':checked');
-        //    $("#grid").data("kendoGrid").refresh();
+            if (nextRow.hasClass("k-detail-row")) {               
+                nextRow.find(":checkbox")
+                    .prop("checked", checkbox.is(":checked"));
+                nextRow.find(":checkbox")
+                    .prop("disabled", checkbox.is(":checked"));
+            }
+        });
+    };
 
-        //    if (state) {
-        //        $("#grid tbody input:checkbox").attr("checked", "checked");
-        //        $("#grid tbody input:checkbox").attr("disabled", "disabled");
-        //    } else {
-        //        $("#grid tbody input:checkbox").removeAttr("checked");
-        //        $("#grid tbody input:checkbox").removeAttr("disabled");
-        //    }
+    function CargaInicialEdicion() {
+        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+        $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
 
-
-        //    $.each($("#grid").data("kendoGrid").dataSource.view(), function () {
-        //        // total += this.EmployeeID;
-        //    });
-
-    //}
-    
-    function prueba(row,id) {
-        var checkbox = $(row);
-        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".accesorios").prop("checked", checkbox.is(":checked"));
-
-        if (checkbox.is(":checked")) {
-            $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".accesorios").each(function (i, val) {
-                var checked = val.checked;
-                checkItemCodesID[val.closest("tr").children[1].innerHTML] = { ItemCodeID: val.closest("tr").children[1].innerHTML };
-            });
-            //checkListaPorFolioAvisoEntrada[]
+        CargarProyecto(_proyectoID);
+        ObtenerFoliosAvisoEntrada();
+        CargarFolio(_folioAvisoEntradaID);
+        ObtenerItemCodes();
+        CargarDatosGrid();
+    };
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
         } else {
-            checkItemCodesID = [];
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+
+    function CargarProyecto(id, value) {
+        Proyecto = {};
+        Proyecto = { ProyectoID: id, Nombre: value };
+    };
+
+    function CargarFolio(id) {
+        FolioAvisoEntrada = {};
+        FolioAvisoEntrada = { FolioAvisoEntradaID: id };
+    };
+    
+    function CargarItemCode(id) {
+        ItemCode = {};
+        ItemCode = { ItemCodeID: id };
+    };
+    
+    function limpiarFiltroItemCode() {
+        ItemCode = {};
+        LimpiarCombo("ItemCode");
+    };
+    
+    function LimpiarFiltrosProyecto(){
+        LimpiarCombo("ItemCode");
+        LimpiarCombo("FolioAvisoEntradaID");
+    };
+
+    function LimpiarCombo(control) {
+        $("#" + control).data("kendoComboBox").value("");
+        $("#" + control).data("kendoComboBox").dataSource.data([]);
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+    function ObtenerProyecto() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+        });
+    };
+
+    function ObtenerFoliosAvisoEntrada() {
+        $DummyOrdenRecepcionFoliosAvisoEntrada.DummyOrdenRecepcionFoliosAvisoEntrada.read({ proyectoid: Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
+        });
+    };
+
+    function ObtenerItemCodes() {
+        $DummyOrdenRecepcionItemCode.DummyOrdenRecepcionItemCode.read({ folioAvisoEntradID: FolioAvisoEntrada.FolioAvisoEntradaID, token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ItemCode", result);
+        });
+    };
+
+    function CargarDatosGrid() {
+        loadingStart();
+        var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "-1";
+        $DummyGridOrdenRecepcion.DummyGridOrdenRecepcion.read({ proyectoID: Proyecto.ProyectoID, folioavisoentradaID: FolioAvisoEntrada.FolioAvisoEntradaID, ItemCodeID: ItemCodeid, token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                _resultadoJson = result;
+                if (_resultadoJson.length > 0) {
+                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                };
+            }
+            loadingStop();
+        });
+    };
+
+    function NodoPadre(row, id) {
+        var checkbox = $(row);
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("checked", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("disabled", checkbox.is(":checked"));
+
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
+            var checked = val.checked;
+            checkItemCodesID[val.closest("tr").children[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: val.closest("tr").children[1].innerHTML, checked: checked, TipoMaterial: val.closest("tr").children[7].innerHTML };
+        });
+        
+    };
+
+    function NodoHijo(row,id) {
+        var checkbox = $(row);
+        checkItemCodesID[$(row).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
         }
     };
 
     }
 
-    @section JavascriptDocumentReadyFunctions 
-    {
-    
-
-    var grid = $("#grid").kendoGrid({
-        dataSource: {
-            type: "odata",
-            transport: {
-                read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
-            },
-            serverPaging: true,
-            serverSorting: true,
-            pageSize: 10,
-        },
-        height: 400,
-        sortable: true,
-        detailInit: detailInit,
-        //dataBound: onDataBound,
-        columns: [
-            { template: '<input type="checkbox" class="master" />', width: 40 },
-            {
-                field: "FirstName",
-                title: "First Name",
-                width: "110px"
-            },
-            {
-                field: "LastName",
-                title: "Last Name",
-                width: "110px"
-            },
-            {
-                field: "Country",
-                width: "110px"
-            },
-            {
-                field: "City",
-                width: "110px"
-            },
-            {
-                field: "Title"
-            }
-        ]
-    }).getKendoGrid();
-
     function detailInit(e) {
+        var checked = "";
+        if (e.masterRow[0].children[1].children[0].checked) {
+            checked = "checked disabled";
+        }
         $("<div/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
-                type: "odata",
-                transport: {
-                    read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
-                },
-                serverPaging: true,
-                serverSorting: true,
-                serverFiltering: true,
-                pageSize: 10,
-                filter: { field: "EmployeeID", operator: "eq", value: e.data.EmployeeID }
+                data: e.data.Accesorios,
+                schema: {
+                    model: {
+                        fields: {
+                            ItemCodeID: { type: "int" },
+                            Codigo: { type: "string" },
+                            Descripcion: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
+                            Cantidad: { type: "int" },
+                            TipoMaterial: { type: "int" }
+                        }
+                    }
+                }
             },
+            autoBind: true,
             scrollable: false,
             sortable: true,
             columns: [
-                { template: '<input type="checkbox" id="checkAllAccesorios" class="accesorios"/>', width: 100, headerTemplate: '<label> <input type="checkbox" id="checkAll" onclick="prueba(this,' + e.data.EmployeeID + ');">Check</label>' },
-                { field: "OrderID", width: "110px" },
-                { field: "ShipCountry", title: "Ship Country", width: "110px" },
-                { field: "ShipAddress", title: "Ship Address" },
-                { field: "ShipName", title: "Ship Name", width: "300px" }
+                { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+
             ]
         });
+
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                data: e.data.Tubos,
+                schema: {
+                    model: {
+                        fields: {
+                            ItemCodeID: { type: "int" },
+                            Codigo: { type: "string" },
+                            Descripcion: { type: "string" },
+                            D1: { type: "number" },
+                            D2: { type: "number" },
+                            Cantidad: { type: "int" },
+                            TipoMaterial: { type: "int" }
+                        }
+                    }
+                }
+            },
+            autoBind: true,
+            scrollable: false,
+            sortable: true,
+            columns: [
+                { template: '<input type="checkbox"  ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+
+            ]
+        });
+        
+    }
+
+    @section JavascriptDocumentReadyFunctions 
+    {
+    CargaInicial();
+    
+    if (_folioAvisoEntradaID != "-1" && _proyectoID != "-1") {
+        CargaInicialEdicion();
     }
     
-    grid.tbody.on("change", ".master", function () {
-        var checkbox = $(this);
-        var nextRow = checkbox.closest("tr").next(); // find the assosiated detail row
-        //Note: the row should be expanded at least once as otherwhise there will be no child grid loaded      									
-        if (nextRow.hasClass("k-detail-row")) {
-            // and toggle the checkboxes
-            nextRow.find(":checkbox")
-                .prop("checked", checkbox.is(":checked"));
-        }
-    });
     }
 
     @section JavascriptDocumentReadyHomeCookie {

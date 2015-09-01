@@ -1752,6 +1752,71 @@ _dictionary = {
         "es-MX": "mmResponse",
         "en-US": "mmResponse"
     },
+    //Orden de Recepcion
+    "GenerarOrdenRecepcion0001": {
+        "es-MX": "Generar Orden Recepción",
+        "en-US": "Generate Order Reception"
+    },
+    "GenerarOrdenRecepcion0002": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "GenerarOrdenRecepcion0003": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "GenerarOrdenRecepcion0004": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "GenerarOrdenRecepcion0005": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "GenerarOrdenRecepcion0006": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "GenerarOrdenRecepcion0007": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "GenerarOrdenRecepcion0008": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "GenerarOrdenRecepcion0009": {
+        "es-MX": "Aviso Entrada",
+        "en-US": "Aviso Entrada"
+    },
+    "GenerarOrdenRecepcion0010": {
+        "es-MX": "Item Code ID",
+        "en-US": "Item Code ID"
+    },
+    "GenerarOrdenRecepcion0011": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "GenerarOrdenRecepcion0012": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "GenerarOrdenRecepcion0013": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "GenerarOrdenRecepcion0014": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "GenerarOrdenRecepcion0015": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "GenerarOrdenRecepcion0016": {
+        "es-MX": "TipoMaterial",
+        "en-US": "Material Type"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

@@ -47,7 +47,7 @@
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Cuantificacion0010"></span></a>
                         </div>
                         <div class="button-section">
-                            <a id="GenerarOrdenRecepción" href="#" class="btn btn-primary"><span id="Cuantificacion0011"></span></a>
+                            <a id="GenerarOrdenRecepcion" href="#" class="btn btn-primary"><span id="Cuantificacion0011"></span></a>
                         </div>
                         <div class="button-section">
                             <div class="dropdown action-group">
@@ -586,8 +586,14 @@
                     displayMessage("notificationslabel0031", "", '1');
                 }
             });
-            $("#Cancelar").click(function () { Cancel();});
-            $("#GenerarOrdenRecepción").click(function () { GenerateOrderReception(); });
+            $("#Cancelar").click(function () { Cancel(); }); 
+            $("#GenerarOrdenRecepcion").click(function () {
+                if(validarRequeridosFormaCuantificacion()){
+                    GenerarOrdenRecepcion();
+                } else {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
             $("#massiveUpload").click(function () { $(".k-upload-files.k-reset").find("li").remove(); });
 
             $("#CancelarItemCode").click(function () { CancelarModalItemCode(); });
@@ -1045,7 +1051,7 @@
             FolioAvisoEntrada = {};
             FolioAvisoEntrada = { FolioAvisoEntradaID: id, FolioLlegadaMaterial: value };
         };
-        
+
         function CargarTipoPackingList(id, value) {
             TipoPackingList = {};
             TipoPackingList = { TipoPackingListID: id, Nombre: value };
@@ -1257,6 +1263,11 @@
             $("#Cuantificacion0076").hide();
             $("#Cuantificacion0077").hide();
             $("#Cuantificacion0078").hide();
+        };
+
+        function GenerarOrdenRecepcion() {
+            var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "Cuantificacion")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&ProyectoID=" + Proyecto.ProyectoID;
         };
 
         function GuardarItemCode() {
