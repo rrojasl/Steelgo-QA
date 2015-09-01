@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<int> itemCodes, int folioAvisoEntradaID, string token)
+        public object Post(List<int> itemCodes, string token)
         {
             string payload = "";
             string newToken = "";
@@ -53,7 +53,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(itemCodes, folioAvisoEntradaID, usuario);
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(itemCodes, null, usuario);
             }
             else
             {
@@ -66,7 +66,36 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(int folioEntradaID, string token)
+        public object Post(List<string> foliosEntrada, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                List<int> folios = new List<int>();
+                foreach (string s in foliosEntrada)
+                {
+                    folios.Add(Convert.ToInt32(s));
+                }
+
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(folios, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Post(List<int> foliosEntrada, int tipoMaterialID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -76,7 +105,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(folioEntradaID, usuario);
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(foliosEntrada, tipoMaterialID, usuario);
             }
             else
             {

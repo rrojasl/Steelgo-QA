@@ -307,6 +307,8 @@
     <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />
+    <Compile Include="Models\ListadoGenerarOrdenRecepcion.cs" />
+    <Compile Include="Models\ListadoMaterialesSinCuantificar.cs" />
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
