@@ -85,6 +85,7 @@ var $DummyCambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/bac
 var $DummyOrdenRecepcionFoliosAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyOrdenRecepcionItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGridOrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $OrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -148,3 +149,4 @@ $DummyCambiarEstatusCuantificacion.add("DummyCambiarEstatusCuantificacion");
 $DummyOrdenRecepcionFoliosAvisoEntrada.add("DummyOrdenRecepcionFoliosAvisoEntrada");
 $DummyOrdenRecepcionItemCode.add("DummyOrdenRecepcionItemCode");
 $DummyGridOrdenRecepcion.add("DummyGridOrdenRecepcion");
+$OrdenRecepcion.add("OrdenRecepcion");

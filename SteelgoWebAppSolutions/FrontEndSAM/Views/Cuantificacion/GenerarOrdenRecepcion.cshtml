@@ -74,6 +74,11 @@
         cargarInicialGrid();
     }
     function CargaInicial() {
+
+        $("#Guardar").click(function () {
+            GenerarOrdenRecepcion();
+        });
+
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
@@ -150,7 +155,6 @@
                 serverFiltering: false,
                 serverSorting: false
             },
-            sortable: true,
             detailInit: detailInit,
             columns: [
                 { template: '<input type="checkbox" class="master" >', width: 40 },
@@ -285,6 +289,29 @@
     function NodoHijo(row,id) {
         var checkbox = $(row);
         checkItemCodesID[$(row).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
+    };
+
+    function GenerarOrdenRecepcion() {
+        var itemCodes = [], x = 0, folios = [];
+        for (var i in checkItemCodesID) {
+            if (checkItemCodesID[i].checked == true)
+            {
+                itemCodes[x] = parseInt(checkItemCodesID[i].ItemCodeID);
+                x++;
+            }
+        }
+
+        x = 0;
+        for (var i in checkNodoPrincipal) {
+            if (checkNodoPrincipal[i].checked == true) {
+                folios[x] == parseInt(checkNodoPrincipal[i].ItemCodeID);
+                x++;
+            }
+        }
+
+        $OrdenRecepcion.OrdenRecepcion.create(itemCodes, { token: $.cookie("token") }).done(function (data) {
+
+        });
     };
 
     function Error(data) {
