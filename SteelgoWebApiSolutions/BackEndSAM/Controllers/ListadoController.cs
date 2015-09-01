@@ -97,6 +97,12 @@ namespace BackEndSAM.Controllers
                         return ListadoBd.Instance.ObtenerCantidadesDashboardCuantificacion(filtros, usuario);
                     case 8: //Obtener listado para generar ordenes de recepcion
                         return OrdenRecepcionBd.Instance.ObtenerListadoGenerarOrdenRecepcion(filtros, usuario);
+                    case 9: //Obtener lista combo de folios de entrada por proyecto, que ya tengan cuantificacion
+                        int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        return ListadoBd.Instance.ObtenerFoliosEntradaPorProyecto(proyectoID, usuario);
+                    case 10://Obtener lista de combo de itemCodes por folio aviso de llegada
+                        int folioAvisoLlegada = filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        return ListadoBd.Instance.ObtenerItemCodesPorFolioLlegada(folioAvisoLlegada, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
