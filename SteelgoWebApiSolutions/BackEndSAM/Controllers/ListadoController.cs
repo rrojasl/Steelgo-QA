@@ -95,6 +95,8 @@ namespace BackEndSAM.Controllers
                         return ListadoBd.Instance.ObtenerCantidadesDashboardAvisoEntrada(filtros, usuario);
                     case 7: //Obtener Cantidades dashboard de cuantificacion
                         return ListadoBd.Instance.ObtenerCantidadesDashboardCuantificacion(filtros, usuario);
+                    case 8: //Obtener listado para generar ordenes de recepcion
+                        return OrdenRecepcionBd.Instance.ObtenerListadoGenerarOrdenRecepcion(filtros, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
