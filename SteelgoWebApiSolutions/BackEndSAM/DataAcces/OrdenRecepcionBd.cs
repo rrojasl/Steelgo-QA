@@ -106,6 +106,9 @@ namespace BackEndSAM.DataAcces
                                           join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
                                           join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                           where i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                          && !(from nu in ctx.Sam3_NumeroUnico
+                                               where nu.Activo 
+                                               select nu.ItemCodeID).Contains(i.ItemCodeID)
                                           select new ElementoItemCodeGenerarOrden
                                           {
                                               ItemCodeID = i.ItemCodeID.ToString(),
@@ -123,6 +126,9 @@ namespace BackEndSAM.DataAcces
                                                join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
                                                join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                                where i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                               && !(from nu in ctx.Sam3_NumeroUnico
+                                                    where nu.Activo
+                                                    select nu.ItemCodeID).Contains(i.ItemCodeID)
                                                select new ElementoItemCodeGenerarOrden
                                                {
                                                    ItemCodeID = i.ItemCodeID.ToString(),
