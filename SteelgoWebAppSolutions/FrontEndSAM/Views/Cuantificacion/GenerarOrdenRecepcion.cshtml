@@ -292,11 +292,13 @@
     };
 
     function GenerarOrdenRecepcion() {
-        var itemCodes = [], x = 0, folios = [];
+        var itemCodes = [], x = 0, folios = "", error = true;
+        OrdenRecepcion = { ID: "" };
+
         for (var i in checkItemCodesID) {
             if (checkItemCodesID[i].checked == true)
             {
-                itemCodes[x] = parseInt(checkItemCodesID[i].ItemCodeID);
+                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
                 x++;
             }
         }
@@ -304,14 +306,34 @@
         x = 0;
         for (var i in checkNodoPrincipal) {
             if (checkNodoPrincipal[i].checked == true) {
-                folios[x] == parseInt(checkNodoPrincipal[i].ItemCodeID);
+                if (x == 0) {
+                    folios = checkNodoPrincipal[i].FolioAvisoEntradaID;
+                } else {
+                    folios += "," + checkNodoPrincipal[i].FolioAvisoEntradaID;
+                }
+
                 x++;
             }
         }
 
-        $OrdenRecepcion.OrdenRecepcion.create(itemCodes, { token: $.cookie("token") }).done(function (data) {
+        OrdenRecepcion.ID = itemCodes;
+        if (itemCodes.length > 0) {
+            error = false;
+            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (data) {
 
-        });
+            });
+        } 
+
+        if (folios) {
+            error = false;
+            $OrdenRecepcion.OrdenRecepcion.create({},{ ids: folios, token: $.cookie("token") }).done(function (data) {
+
+            });
+        }
+
+        if (error) {
+            displayMessage("notificationslabel0044", "", '1');
+        }
     };
 
     function Error(data) {

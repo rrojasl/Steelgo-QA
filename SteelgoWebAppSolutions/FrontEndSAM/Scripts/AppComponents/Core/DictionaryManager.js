@@ -1990,6 +1990,10 @@ _dictionary = {
         "es-MX": "No se puede detallar un bulto dentro de otro.",
         "en-US": ""
     },
+    "notificationslabel0044": {
+        "es-MX": "Favor de seleccionar Item Codes",
+        "en-US": "Please select Item Codes"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
