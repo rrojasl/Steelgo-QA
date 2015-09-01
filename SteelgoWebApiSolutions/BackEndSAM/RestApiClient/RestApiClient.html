@@ -236,8 +236,11 @@
 
             //client.ObtenerDatosFolioAvisoEntrada.read({ FolioLlegadaMaterialID: 15, FolioCuantificacion: 2, token: "" }).done(function (data) { console.log(data) });
 
-            client.add("TipoPackingList");
-            client.TipoPackingList.read({ token: "" }).done(function (data) { console.log(data) });
+            //client.add("TipoPackingList");
+            //client.TipoPackingList.read({ token: "" }).done(function (data) { console.log(data) });
+
+            client.add("ItemCode");
+            client.ItemCode.read({ TipoPackingListID: 2, token: "" }).done(function (data) { console.log(data) });
 </script>
     </body>
 </html>
