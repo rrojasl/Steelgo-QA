@@ -46,13 +46,17 @@ namespace BackEndSAM.DataAcces
          {
              try
              {
-                 List<int> itemCode = new List<int>();
+                 List<ListaCombos> itemCode = new List<ListaCombos>();
 
                  using (SamContext ctx = new SamContext())
                  {
                      itemCode = (from ic in ctx.Sam3_ItemCode
-                                 where ic.Activo == true && ic.TipoMaterialID == tipoPackingListID
-                                 select ic.ItemCodeID).AsParallel().ToList();
+                                 where ic.Activo && ic.TipoMaterialID == tipoPackingListID
+                                 select new ListaCombos
+                                 {
+                                     id = ic.ItemCodeID.ToString(),
+                                     value = ic.Codigo
+                                 }).AsParallel().ToList();
                  }
 
                  return itemCode;
