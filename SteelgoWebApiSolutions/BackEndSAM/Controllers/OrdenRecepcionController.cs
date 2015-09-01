@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<int> itemCodes, string token)
+        public object Post(List<ListaEnteros> enteros, string token)
         {
             string payload = "";
             string newToken = "";
@@ -51,9 +51,14 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
+                List<int> folios = new List<int>();
+                foreach (ListaEnteros li in enteros)
+                {
+                    folios.Add(li.ID);
+                }
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(itemCodes, null, usuario);
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(folios, null, usuario);
             }
             else
             {
@@ -66,7 +71,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<string> foliosEntrada, string token)
+        public object Post(string ids, string token)
         {
             string payload = "";
             string newToken = "";
@@ -74,8 +79,9 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
+                List<string> temp = ids.Split(',').ToList();
                 List<int> folios = new List<int>();
-                foreach (string s in foliosEntrada)
+                foreach (string s in temp)
                 {
                     folios.Add(Convert.ToInt32(s));
                 }
@@ -95,7 +101,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<int> foliosEntrada, int tipoMaterialID, string token)
+        public object Post(List<ListaEnteros> enteros, int tipoMaterialID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -103,9 +109,14 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
+                List<int> folios = new List<int>();
+                foreach (ListaEnteros li in enteros)
+                {
+                    folios.Add(li.ID);
+                }
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(foliosEntrada, tipoMaterialID, usuario);
+                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(folios, tipoMaterialID, usuario);
             }
             else
             {
