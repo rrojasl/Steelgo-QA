@@ -82,6 +82,10 @@ var $DummyFabricanteColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $DummyAceroColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyCambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyOrdenRecepcionFoliosAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyOrdenRecepcionItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyGridOrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $OrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -142,3 +146,7 @@ $DummyFabricanteColada.add("DummyFabricante");
 $DummyAceroColada.add("DummyAcero");
 $DummyColada.add("DummyColada");
 $DummyCambiarEstatusCuantificacion.add("DummyCambiarEstatusCuantificacion");
+$DummyOrdenRecepcionFoliosAvisoEntrada.add("DummyOrdenRecepcionFoliosAvisoEntrada");
+$DummyOrdenRecepcionItemCode.add("DummyOrdenRecepcionItemCode");
+$DummyGridOrdenRecepcion.add("DummyGridOrdenRecepcion");
+$OrdenRecepcion.add("OrdenRecepcion");

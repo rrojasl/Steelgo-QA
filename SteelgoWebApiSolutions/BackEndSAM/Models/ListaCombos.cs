@@ -10,4 +10,10 @@ namespace BackEndSAM.Models
         public string id { get; set; }
         public string value { get; set; }
     }
+
+    public class ListaEnteros
+    {
+        public int ID { get; set; }
+    }
+
 }
