@@ -228,6 +228,7 @@
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="Controllers\ValidacionesFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
+    <Compile Include="Controllers\ValidarItemCodeNuCuantificacionController.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="DataAcces\ProyectoBd.cs" />
     <Compile Include="DataAcces\TransportistaBd.cs" />
     <Compile Include="DataAcces\UsuarioBd.cs" />
+    <Compile Include="DataAcces\ValidarItemCodeNUBd.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
