@@ -15,11 +15,6 @@ namespace FrontEndSAM.Controllers.Cuantificacion
             return View();
         }
 
-        public ActionResult FormatoEtiquetas()
-        {
-            return View();
-        }
-
         //
         // GET: /Cuantificacion/Details/5
         public ActionResult Details(int id)

@@ -17,8 +17,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" id="GuardarNuevo"><span id="GenerarOrdenRecepcion0017"></span></a></li>
-                                    @*<li><a href="#" id="GuardarImprimirFormato"><span id="GenerarOrdenRecepcion0018"></span></a></li>*@
-                                    @*<li><a href="#" id="GuardarImprimiryEtiquetas"><span id="GenerarOrdenRecepcion0019"></span></a></li>*@
+                                    <li><a href="#" id="GuardarEtiquetas"><span id="GenerarOrdenRecepcion0019"></span></a></li>
                                 </ul>
                             </div>
                            
@@ -109,13 +108,9 @@
             GenerarOrdenRecepcionNuevo();
         });
 
-        //$("#GuardarImprimirFormato").click(function () {
-        //    GenerarOrdenRecepcionImprimirFormato();
-        //});
-
-        //$("#GuardarImprimiryEtiquetas").click(function () {
-        //    GenerarOrdenRecepcionImprimirFormatoEtiquetas();
-        //});
+        $("#GuardarEtiquetas").click(function () {
+            GenerarOrdenRecepcionEtiquetas();
+        });
         
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -316,7 +311,7 @@
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
-        alert(ItemCodeid);
+        
         var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioAvisoEntradaID: FolioAvisoEntradaID, TipoListado: "8", token: Cookies.get("token") };
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -330,17 +325,6 @@
             }
             loadingStop();
         });
-        //$DummyGridOrdenRecepcion.DummyGridOrdenRecepcion.read({ proyectoID: Proyecto.ProyectoID, folioavisoentradaID: FolioAvisoEntrada.FolioAvisoEntradaID, ItemCodeID: ItemCodeid, token: Cookies.get("token") }).done(function (result) {
-        //    if (Error(result)) {
-        //        _resultadoJson = result;
-        //        if (_resultadoJson.length > 0) {
-        //            $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
-        //        } else {
-        //            $("#grid").data("kendoGrid").dataSource.data([]);
-        //        };
-        //    }
-        //    loadingStop();
-        //});
     };
 
     function NodoPadre(row, id) {
@@ -361,8 +345,8 @@
     };
 
     function GenerarOrdenRecepcionNuevo() {
-        var itemCodes = [], x = 0, folios = "", error = true;
-        OrdenRecepcion = { ID: "" };
+        var itemCodes = [], x = 0, folios = "";
+        OrdenRecepcion = { ID: "", Folios:""};
 
         for (var i in checkItemCodesID) {
             if (checkItemCodesID[i].checked == true)
@@ -386,34 +370,24 @@
         }
         loadingStart();
         OrdenRecepcion.ID = itemCodes;
-        if (itemCodes.length > 0) {
-            error = false;
+        OrdenRecepcion.Folios = folios;
+
+        if (itemCodes.length > 0 || folios) {
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    var url = "@Url.Action("GenerarOrdenRecepcion", "Cuantificacion")";
+                    var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
                     window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
                 }
             });
-        } 
-
-        if (folios) {
-            error = false;
-            $OrdenRecepcion.OrdenRecepcion.create({}, { ids: folios, token: $.cookie("token") }).done(function (result) {
-                if (Error(result)) {
-
-                }
-            });
-        }
-
-        if (error) {
+        } else {
             displayMessage("notificationslabel0044", "", '1');
         }
     };
 
     function GenerarOrdenRecepcion() {
-        var itemCodes = [], x = 0, folios = "", error = true;
-        OrdenRecepcion = { ID: "" };
+        var itemCodes = [], x = 0, folios = "";
+        OrdenRecepcion = { ID: "", Folios: "" };
 
         for (var i in checkItemCodesID) {
             if (checkItemCodesID[i].checked == true) {
@@ -436,83 +410,32 @@
         }
         loadingStart();
         OrdenRecepcion.ID = itemCodes;
+        OrdenRecepcion.Folios = folios;
+
         if (itemCodes.length > 0) {
-            error = false;
+            
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    var url = "@Url.Action("DetalleOrdenRecepcion", "Cuantificacion")";
+                    var url = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
                     window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
                 }
             });
-        }
-
-        if (folios) {
-            error = false;
-            $OrdenRecepcion.OrdenRecepcion.create({}, { ids: folios, token: $.cookie("token") }).done(function (result) {
-                if (Error(result)) {
-
-                }
-            });
-        }
-
-        if (error) {
+        } else {
             displayMessage("notificationslabel0044", "", '1');
         }
-    };
-    function GenerarOrdenRecepcionImprimirFormato() {
-        var itemCodes = [], x = 0, folios = "", error = true;
-        OrdenRecepcion = { ID: "" };
 
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
-                x++;
-            }
-        }
-
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                if (x == 0) {
-                    folios = checkNodoPrincipal[i].FolioAvisoEntradaID;
-                } else {
-                    folios += "," + checkNodoPrincipal[i].FolioAvisoEntradaID;
-                }
-
-                x++;
-            }
-        }
-        loadingStart();
-        OrdenRecepcion.ID = itemCodes;
-        if (itemCodes.length > 0) {
-            error = false;
-            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
-                if (Error(result)) {
-                    var url = "@Url.Action("DetalleOrdenRecepcion", "Cuantificacion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
-                }
-            });
-        }
-
-        if (folios) {
-            error = false;
-            $OrdenRecepcion.OrdenRecepcion.create({}, { ids: folios, token: $.cookie("token") }).done(function (result) {
-                if (Error(result)) {
-
-                }
-            });
-        }
+        
 
         if (error) {
-            displayMessage("notificationslabel0044", "", '1');
+            
         }
     };
     
-    function GenerarOrdenRecepcionImprimirFormatoEtiquetas() {
+    
+    function GenerarOrdenRecepcionEtiquetas() {
         var itemCodes = [], x = 0, folios = "", error = true;
-        OrdenRecepcion = { ID: "" };
+        OrdenRecepcion = { ID: "", Folios: "" };
 
         for (var i in checkItemCodesID) {
             if (checkItemCodesID[i].checked == true) {
@@ -535,12 +458,14 @@
         }
         loadingStart();
         OrdenRecepcion.ID = itemCodes;
+        OrdenRecepcion.Folios = folios;
+
         if (itemCodes.length > 0) {
-            error = false;
+            
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    window.open("@Url.Action("FormatoEtiquetas", "Cuantificacion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcion=" + result.OrdenRecepcion);
+                    window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcion=" + result.OrdenRecepcion);
 
                     var url = "@Url.Action("DetalleOrdenRecepcion", "Cuantificacion")";
                     window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;

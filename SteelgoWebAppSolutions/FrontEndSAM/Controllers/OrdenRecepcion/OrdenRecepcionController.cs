@@ -22,5 +22,9 @@ namespace FrontEndSAM.Controllers.OrdenRecepcion
         {
             return View();
         }
+        public ActionResult FormatoEtiquetas()
+        {
+            return View();
+        }
     }
 }
