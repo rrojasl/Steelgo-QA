@@ -1845,6 +1845,10 @@ _dictionary = {
         "es-MX": "Generar Orden de Recepción",
         "en-US": "Generate Order Reception"
     },
+    "GenerarOrdenRecepcion0024": {
+        "es-MX": "Aviso Llegada ID",
+        "en-US": "Aviso Llegada ID"
+    },
     //Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {
         "es-MX": "Generar Orden de Recepcion",

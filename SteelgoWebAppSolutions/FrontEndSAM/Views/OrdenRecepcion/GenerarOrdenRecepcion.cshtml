@@ -223,8 +223,8 @@
             checkNodoPrincipal[value] = { FolioAvisoEntradaID: value, checked: checkbox.is(":checked") };
 
             for (var i in checkItemCodesID) {
-                if (checkItemCodesID[i].FolioAvisoEntradaID == value) {
-                    checkItemCodesID[i].checked = false;
+                if (checkItemCodesID[value,i].FolioAvisoEntradaID == value) {
+                    checkItemCodesID[value,i].checked = false;
                 }
             }
 
@@ -349,15 +349,14 @@
 
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
             var checked = val.checked;
-            checkItemCodesID[id] = { FolioAvisoEntradaID: id, ItemCodeID: $(val).closest("tr").children()[1].innerHTML, checked: checked, TipoMaterial: $(val).closest("tr").children()[7].innerHTML };
+            checkItemCodesID[id,$(val).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(val).closest("tr").children()[1].innerHTML, checked: checked, TipoMaterial: $(val).closest("tr").children()[7].innerHTML };
         });
         
     };
 
     function NodoHijo(row,id) {
         var checkbox = $(row);
-        checkItemCodesID[id] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
-        //checkItemCodesID[$(row).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
+        checkItemCodesID[id,$(row).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
     };
 
     function GenerarOrdenRecepcionNuevo() {
@@ -527,9 +526,9 @@
         
             for (var i = 0; i < body.children.length; i++) {
 
-                if (checkItemCodesID[body.children[i].children[1].innerHTML]) {
+                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
                     if (!$(body.children[i]).find(".materiales").is(":disabled"))
-                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[1].innerHTML].checked);
+                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
                 }
             }
         
@@ -542,9 +541,9 @@
         
             for (var i = 0; i < body.children.length; i++) {
 
-                if (checkItemCodesID[body.children[i].children[1].innerHTML]) {
+                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
                     if(!$(body.children[i]).find(".materiales").is(":disabled"))
-                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[1].innerHTML].checked);
+                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
                 }
             }
         
@@ -567,7 +566,8 @@
                             D1: { type: "number" },
                             D2: { type: "number" },
                             Cantidad: { type: "int" },
-                            TipoMaterial: { type: "int" }
+                            TipoMaterial: { type: "int" },
+                            FolioAvisoLlegadaId: { type: "string" },
                         }
                     }
                 }
@@ -585,7 +585,7 @@
                 { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
-
+                 { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
             ]
         });
 
@@ -601,7 +601,8 @@
                             D1: { type: "number" },
                             D2: { type: "number" },
                             Cantidad: { type: "int" },
-                            TipoMaterial: { type: "int" }
+                            TipoMaterial: { type: "int" },
+                            FolioAvisoLlegadaId: { type: "string" },
                         }
                     }
                 }
@@ -619,7 +620,7 @@
                 { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
-
+                { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
             ]
         });
         
