@@ -1,6 +1,4 @@
 ﻿using BackEndSAM.DataAcces;
-using BackEndSAM.Models;
-using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
@@ -13,7 +11,7 @@ using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers
 {
-    public class ItemCodeController : ApiController
+    public class ValidarItemCodeNuCuantificacionController : ApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -22,14 +20,15 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int TipoPackingListID, string token)
+        public object Get(int folioAvisoLlegadaID, int folioCuantificacionID, int ItemCode, int bultoID, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
             if (tokenValido)
             {
-                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID);
+                return ValidarItemCodeNUBd.Instance.ValidarItemCode(folioAvisoLlegadaID, folioCuantificacionID, ItemCode, bultoID);
             }
             else
             {
@@ -43,27 +42,8 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public object Post(string data, string token)
+        public void Post([FromBody]string value)
         {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                ItemCodeJson DatosItemCode = serializer.Deserialize<ItemCodeJson>(data);
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ItemCodeBd.Instance.GuardarItemCodePopUp(DatosItemCode, usuario);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
         }
 
         // PUT api/<controller>/5

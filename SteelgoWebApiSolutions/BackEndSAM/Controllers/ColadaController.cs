@@ -1,5 +1,4 @@
 ﻿using BackEndSAM.DataAcces;
-using BackEndSAM.Models;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -13,7 +12,7 @@ using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers
 {
-    public class ItemCodeController : ApiController
+    public class ColadaController : ApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -22,24 +21,9 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int TipoPackingListID, string token)
+        public string Get(int id)
         {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
+            return "value";
         }
 
         // POST api/<controller>
@@ -51,9 +35,9 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                ItemCodeJson DatosItemCode = serializer.Deserialize<ItemCodeJson>(data);
+                Sam3_Colada DatosColada = serializer.Deserialize<Sam3_Colada>(data);
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ItemCodeBd.Instance.GuardarItemCodePopUp(DatosItemCode, usuario);
+                return ColadaBd.Instance.GuardarColadaPopUp(DatosColada, usuario);
             }
             else
             {

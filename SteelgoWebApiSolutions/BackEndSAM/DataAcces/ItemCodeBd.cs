@@ -73,5 +73,54 @@ namespace BackEndSAM.DataAcces
              }
          }
 
+         public object GuardarItemCodePopUp(ItemCodeJson DatosItemCode, Sam3_Usuario usuario)
+         {
+             try
+             {
+                 using (SamContext ctx = new SamContext())
+                 {
+                     Sam3_ItemCode item = new Sam3_ItemCode();
+                     item.ProyectoID = DatosItemCode.ProyectoID;
+                     item.TipoMaterialID = DatosItemCode.TipoPackingList;
+                     item.Codigo = DatosItemCode.ItemCode;
+                     item.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
+                     item.DescripcionEspanol = DatosItemCode.Descripcion;
+                     item.DescripcionIngles = DatosItemCode.Descripcion;
+                     item.DescripcionInterna = DatosItemCode.Descripcion;
+                     item.Peso = DatosItemCode.Peso;
+                     item.Diametro1 = DatosItemCode.Diametro1;
+                     item.Diametro2 = DatosItemCode.Diametro2;
+                     item.FamiliaAceroID = DatosItemCode.FamiliaID;
+                     item.Activo = true;
+                     item.UsuarioModificacion = usuario.UsuarioID;
+                     item.FechaModificacion = DateTime.Now;
+                     item.Cantidad = DatosItemCode.Cantidad;
+                     item.MM = DatosItemCode.MM;
+                     item.ColadaID = DatosItemCode.ColadaID;
+                     ctx.Sam3_ItemCode.Add(item);
+                     ctx.SaveChanges();
+
+                     TransactionalInformation result = new TransactionalInformation();
+                     result.ReturnMessage.Add(item.ItemCodeID.ToString());
+                     result.ReturnMessage.Add("Ok");
+                     result.ReturnCode = 200;
+                     result.ReturnStatus = false;
+                     result.IsAuthenicated = true;
+
+                     return result;
+                 }
+             }
+             catch (Exception ex)
+             {
+                 TransactionalInformation result = new TransactionalInformation();
+                 result.ReturnMessage.Add(ex.Message);
+                 result.ReturnCode = 500;
+                 result.ReturnStatus = false;
+                 result.IsAuthenicated = true;
+
+                 return result;
+             }
+         }
+
     }
 }
