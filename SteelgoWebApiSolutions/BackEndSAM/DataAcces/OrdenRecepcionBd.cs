@@ -391,7 +391,7 @@ namespace BackEndSAM.DataAcces
             try
             {
                 Sam3_OrdenRecepcion nuevaOrden = new Sam3_OrdenRecepcion();
-                int consecutivo;
+                int consecutivo = 0;
                 List<int> foliosEntrada = new List<int>();
 
                 using (TransactionScope scope = new TransactionScope())
@@ -411,16 +411,14 @@ namespace BackEndSAM.DataAcces
                             foliosEntrada = foliosEntrada.GroupBy(x => x).Select(x => x.First()).ToList();
                         }
 
-                        consecutivo = (from r in ctx.Sam3_OrdenRecepcion
-                                       select r.Folio).Max();
-
-                        if (consecutivo <= 0)
+                        if (ctx.Sam3_OrdenRecepcion.Select(x => x.Folio).Any())
                         {
-                            consecutivo = 1;
+                            consecutivo = ctx.Sam3_OrdenRecepcion.Select(x => x.Folio).Max();
+                            consecutivo = consecutivo > 0 ? consecutivo : 1;
                         }
                         else
                         {
-                            consecutivo += 1;
+                            consecutivo = 1;
                         }
 
                         //Generamos un nuevo registro en orden de recepcion
