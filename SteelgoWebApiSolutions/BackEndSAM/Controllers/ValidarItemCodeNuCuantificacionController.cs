@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
@@ -51,9 +52,30 @@ namespace BackEndSAM.Controllers
         {
         }
 
+
+        //borrar de ItemCode, FolioCuantificacion, FolioCuantificacionItemCode, y si bultoID != -1 borra tmb de bulto (no se puede tener IC Bulto) 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public object Delete(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, int ItemCode, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return ValidarItemCodeNUBd.Instance.EliminarItemCode(folioAvisoLlegadaID, folioCuantificacionID, BultoID, ItemCode, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }

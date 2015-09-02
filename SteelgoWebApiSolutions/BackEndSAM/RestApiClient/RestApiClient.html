@@ -262,8 +262,9 @@
             //client.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: "24154532" }).done(function (data) { console.log(data) });
 
             client.add("ValidarItemCodeNuCuantificacion");
-            client.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: 2, folioCuantificacionID: 2, ItemCode: 2, BultoID: 1, token: "" }).done(function (data) { console.log(data) });
+            //client.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: 2, folioCuantificacionID: 2, ItemCode: 2, BultoID: 1, token: "" }).done(function (data) { console.log(data) });
 
+            client.ValidarItemCodeNuCuantificacion.destroy({},{ folioAvisoLlegadaID: 2, folioCuantificacionID: 2, BultoID: -1, ItemCode: 1, token: "" }).done(function (data) { console.log(data) });
 </script>
     </body>
 </html>
