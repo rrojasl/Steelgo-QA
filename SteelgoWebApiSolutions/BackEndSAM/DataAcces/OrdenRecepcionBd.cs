@@ -122,7 +122,8 @@ namespace BackEndSAM.DataAcces
                                                   D1 = i.Diametro1.ToString(),
                                                   D2 = i.Diametro2.ToString(),
                                                   Descripción = i.DescripcionEspanol,
-                                                  TipoMaterial = t.Nombre
+                                                  TipoMaterial = t.Nombre,
+                                                  FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
                                               }).AsParallel().ToList();
 
                             elemento.Accesorios = (from r in ctx.Sam3_FolioAvisoEntrada
@@ -146,7 +147,8 @@ namespace BackEndSAM.DataAcces
                                                        D1 = i.Diametro1.ToString(),
                                                        D2 = i.Diametro2.ToString(),
                                                        Descripción = i.DescripcionEspanol,
-                                                       TipoMaterial = t.Nombre
+                                                       TipoMaterial = t.Nombre,
+                                                       FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
                                                    }).AsParallel().ToList();
 
                         if (itemCodeID > 0)

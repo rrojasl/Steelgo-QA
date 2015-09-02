@@ -27,5 +27,6 @@ namespace BackEndSAM.Models
         public string D2 { get; set; }
         public string Cantidad { get; set; }
         public string TipoMaterial { get; set; }
+        public string FolioAvisoLlegadaId { get; set; } 
     }
 }
