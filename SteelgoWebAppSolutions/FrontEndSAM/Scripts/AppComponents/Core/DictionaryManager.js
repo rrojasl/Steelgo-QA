@@ -1950,7 +1950,7 @@ _dictionary = {
         "es-MX": "Listado Orden de Recepción",
         "en-US": "Listed in order of receipt"
     },
-    "ListadoLlegadaMaterial0027": {
+    "ListadoOrdenRecepcion0027": {
         "es-MX": "Dashboard Recepción",
         "en-US": "Dashboard Reception"
     },
