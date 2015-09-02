@@ -47,7 +47,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                using( SamContext ctx = new SamContext())
+                using (SamContext ctx = new SamContext())
                 {
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoEntradaID != "" ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
@@ -106,6 +106,9 @@ namespace BackEndSAM.DataAcces
                                           join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
                                           join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                           where i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                          && !(from nu in ctx.Sam3_NumeroUnico
+                                               where nu.Activo 
+                                               select nu.ItemCodeID).Contains(i.ItemCodeID)
                                           select new ElementoItemCodeGenerarOrden
                                           {
                                               ItemCodeID = i.ItemCodeID.ToString(),
@@ -123,6 +126,9 @@ namespace BackEndSAM.DataAcces
                                                join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
                                                join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
                                                where i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                               && !(from nu in ctx.Sam3_NumeroUnico
+                                                    where nu.Activo
+                                                    select nu.ItemCodeID).Contains(i.ItemCodeID)
                                                select new ElementoItemCodeGenerarOrden
                                                {
                                                    ItemCodeID = i.ItemCodeID.ToString(),
@@ -222,10 +228,10 @@ namespace BackEndSAM.DataAcces
                     {
                         ListadoOrdeRecepcion elemento = new ListadoOrdeRecepcion();
                         List<Sam3_OrdenRecepcion> ordenes = (from r in f.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
-                                                        join o in ctx.Sam3_OrdenRecepcion on r.OrdenRecepcionID equals o.OrdenRecepcionID
-                                                        select o).AsParallel().ToList();
+                                                             join o in ctx.Sam3_OrdenRecepcion on r.OrdenRecepcionID equals o.OrdenRecepcionID
+                                                             select o).AsParallel().ToList();
 
-                        foreach ( Sam3_OrdenRecepcion o in ordenes)
+                        foreach (Sam3_OrdenRecepcion o in ordenes)
                         {
                             elemento.FechaOrdenRecepcion = o.FechaCreacion.ToString("dd/MM/yyyy");
                             elemento.OrdenRecepcion = o.Folio.ToString();
@@ -267,9 +273,64 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<ListadoGenerarOrdenRecepcion> listado = new List<ListadoGenerarOrdenRecepcion>();
+
+                    List<Sam3_FolioAvisoEntrada> registros = (from o in ctx.Sam3_OrdenRecepcion
+                                                              join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rfo.OrdenRecepcionID
+                                                              join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                              where o.OrdenRecepcionID == ordenRecepcionID
+                                                              select fe).AsParallel().ToList();
+
+                    foreach (Sam3_FolioAvisoEntrada folio in registros)
+                    {
+                        ListadoGenerarOrdenRecepcion elemento = new ListadoGenerarOrdenRecepcion();
+                        elemento.AvisoEntradaID = folio.FolioAvisoLlegadaID.ToString();
+
+                        elemento.Tubos = (from o in ctx.Sam3_OrdenRecepcion
+                                          join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rfo.OrdenRecepcionID
+                                          join fc in ctx.Sam3_FolioCuantificacion on rfo.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                          join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                          join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                          join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
+                                          where o.OrdenRecepcionID == ordenRecepcionID
+                                          && it.TipoMaterialID == 1
+                                          && rfo.FolioAvisoEntradaID == folio.FolioAvisoEntradaID
+                                          select new ElementoItemCodeGenerarOrden
+                                          {
+                                              ItemCodeID = it.ItemCodeID.ToString(),
+                                              Cantidad = it.Cantidad.ToString(),
+                                              Codigo = it.Codigo,
+                                              D1 = it.Diametro1.ToString(),
+                                              D2 = it.Diametro2.ToString(),
+                                              Descripción = it.DescripcionEspanol,
+                                              TipoMaterial = t.Nombre
+                                          }).AsParallel().ToList();
+
+                        elemento.Accesorios = (from o in ctx.Sam3_OrdenRecepcion
+                                               join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rfo.OrdenRecepcionID
+                                               join fc in ctx.Sam3_FolioCuantificacion on rfo.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                               join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                               join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                               join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
+                                               where o.OrdenRecepcionID == ordenRecepcionID
+                                               && it.TipoMaterialID == 1
+                                               && rfo.FolioAvisoEntradaID == folio.FolioAvisoEntradaID
+                                               select new ElementoItemCodeGenerarOrden
+                                               {
+                                                   ItemCodeID = it.ItemCodeID.ToString(),
+                                                   Cantidad = it.Cantidad.ToString(),
+                                                   Codigo = it.Codigo,
+                                                   D1 = it.Diametro1.ToString(),
+                                                   D2 = it.Diametro2.ToString(),
+                                                   Descripción = it.DescripcionEspanol,
+                                                   TipoMaterial = t.Nombre
+                                               }).AsParallel().ToList();
+
+                        listado.Add(elemento);
+                    }
 
 
-                    return null;
+                    return listado;
                 }
             }
             catch (Exception ex)
@@ -382,7 +443,7 @@ namespace BackEndSAM.DataAcces
                 TransactionalInformation result = new TransactionalInformation();
                 //si no hay errores al generar la orden de recepcion, procedemos a crear los numeros unicos
                 string error = "";
-                bool NumerosGenerados = (bool)NumeroUnicoBd.Instance.GenerarNumerosUnicosPorOrdenDeRecepcion(nuevaOrden.OrdenRecepcionID, 
+                bool NumerosGenerados = (bool)NumeroUnicoBd.Instance.GenerarNumerosUnicosPorOrdenDeRecepcion(nuevaOrden.OrdenRecepcionID,
                     consecutivo, usuario, out error);
                 if (NumerosGenerados)
                 {

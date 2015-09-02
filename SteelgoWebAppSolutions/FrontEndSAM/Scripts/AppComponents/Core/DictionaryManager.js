@@ -1817,6 +1817,164 @@ _dictionary = {
         "es-MX": "TipoMaterial",
         "en-US": "Material Type"
     },
+    "GenerarOrdenRecepcion0017": {
+        "es-MX": "Generar Orden de Recepcion y Nuevo",
+        "en-US": "Generate order of receipt and New"
+    },
+    "GenerarOrdenRecepcion0018": {
+        "es-MX": "Generar Orden de Recepcion e Imprimir Formato",
+        "en-US": "Generate order of receipt and print fomat"
+    },
+    "GenerarOrdenRecepcion0019": {
+        "es-MX": "Generar Orden de Recepcion, Imprimir Formato y etiquetas de numeros unicos",
+        "en-US": "Generate order of receipt, print fomat and tags unique numbers"
+    },
+    //Listado Orden de Recepcion
+    "ListadoOrdenRecepcion0001": {
+        "es-MX": "Generar Orden de Recepcion",
+        "en-US": "Generate order of receipt"
+    },
+    "ListadoOrdenRecepcion0002": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoOrdenRecepcion0003": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoOrdenRecepcion0004": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "ListadoOrdenRecepcion0005": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoOrdenRecepcion0006": {
+        "es-MX": "Fecha Final",
+        "en-US": "End Date"
+    },
+    "ListadoOrdenRecepcion0007": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoOrdenRecepcion0008": {
+        "es-MX": "Fecha Orden de Recepción",
+        "en-US": "Date Order Reception"
+    },
+    "ListadoOrdenRecepcion0009": {
+        "es-MX": "Orden de Recepcion",
+        "en-US": "Order of receipt"
+    },
+    "ListadoOrdenRecepcion0010": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
+    "ListadoOrdenRecepcion0011": {
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Aviso de Entrada"
+    },
+    "ListadoOrdenRecepcion0012": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ListadoOrdenRecepcion0013": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "ListadoOrdenRecepcion0014": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoOrdenRecepcion0015": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoOrdenRecepcion0016": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoOrdenRecepcion0017": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoOrdenRecepcion0018": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "ListadoOrdenRecepcion0019": {
+        "es-MX": "Fecha Orden de Recepción",
+        "en-US": "Date Order Reception"
+    },
+    "ListadoOrdenRecepcion0020": {
+        "es-MX": "Orden de Recepción",
+        "en-US": "Order Reception"
+    },
+    "ListadoOrdenRecepcion0021": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ListadoOrdenRecepcion0022": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "ListadoOrdenRecepcion0023": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
+    "ListadoOrdenRecepcion0024": {
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Aviso de Entrada"
+    },
+    //Detalle Orden Recepcion
+    "DetalleOrdenRecepcion0001": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleOrdenRecepcion0002": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "DetalleOrdenRecepcion0003": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "DetalleOrdenRecepcion0004": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "DetalleOrdenRecepcion0005": {
+        "es-MX": "Item Code ID",
+        "en-US": "Item Code ID"
+    },
+    "DetalleOrdenRecepcion0006": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "DetalleOrdenRecepcion0007": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "DetalleOrdenRecepcion0008": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DetalleOrdenRecepcion0009": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DetalleOrdenRecepcion0010": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "DetalleOrdenRecepcion0011": {
+        "es-MX": "TipoMaterial",
+        "en-US": "Material Type"
+    },
+    "DetalleOrdenRecepcion0012": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

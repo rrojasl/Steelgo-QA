@@ -1,0 +1,491 @@
+﻿@{
+    ViewBag.Title = "Listado Orden Recepcion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-sm-12 col-md-2 col-lg-2">
+                        <div class="button-section">
+                            <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="ListadoOrdenRecepcion0001"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-lg-10 filter-section">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoOrdenRecepcion0002"></label>
+                                <input id="ClienteID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoOrdenRecepcion0003"></label>
+                                <input id="ProyectoID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoOrdenRecepcion0004"></label>
+                                <input id="FolioAvisoEntradaID" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoOrdenRecepcion0005"></label>
+                                <input id="FechaInic" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoOrdenRecepcion0006"></label>
+                                <input id="FechaFinal" class="" />
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoOrdenRecepcion0007"></label>
+                                <input id="PeriodoTiempo" class="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+<input id="hdAccionFiltrado" type="hidden" />
+<script>
+    @section JavascriptGlobalVariables 
+    {
+    var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
+    }
+
+    @section JavascriptGlobalFunctions 
+    {
+    function changeDatePickerDateFormat(datePickerOptions) {
+        FechaInic.setOptions(datePickerOptions);
+        FechaFinal.setOptions(datePickerOptions);
+    };
+
+    function changeLanguageCall() {
+        cargarInicialGrid();
+        createPeriodoTiempo();
+    };
+
+    function CargaInicial() {
+        $("#Nuevo").click(function () {
+            var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#ClienteID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ClienteID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Cliente = {};
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        ObtenerCliente();
+
+        $("#ProyectoID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+
+                if (!value) {
+                    Proyecto = {};
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+
+        ObtenerProyecto();
+
+
+        $("#FolioAvisoEntradaID").kendoComboBox({
+            dataTextField: "id",
+            dataValueField: "value",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFolio(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+
+                if (!value) {
+                    FolioAvisoEntrada = {};
+                }
+                Filtros();
+            },
+        });
+
+        ObtenerFolioAvisoEntrada();
+
+        $("#PeriodoTiempo").kendoComboBox({});
+
+        FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
+        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+        $("#FechaInic").bind("change", function () {
+            Filtros();
+        });
+
+        $("#FechaFinal").bind("change", function () {
+            Filtros();
+        });
+
+        ObtenerFechasporDefecto();
+        Filtros();
+    };
+
+    function cargarInicialGrid() {
+        var grid = $("#grid").kendoGrid({
+            dataSource: {
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            FechaOrdeRecepcion:{type:"string"},
+                            OrdenRecepcion: { type: "int" }
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        startswith: "Starts with",
+                        eq: "Is equal to",
+                        neq: "Is not equal to"
+                    }
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            detailInit: detailInit,
+            columns: [
+                { field: "FechaOrdeRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: imprimirOrden }, title: " ", width: "40px" }
+            ],
+            dataBound: function (e) {
+                $(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            }
+            //dataBound: onDataBoundPrincipal,
+        }).getKendoGrid();
+    };
+
+    function detailInit(e) {
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                data: e.data.Detalle,
+                schema: {
+                    model: {
+                        fields: {
+                            ItemCode: { type: "string" },
+                            Cantidad: { type: "int" }
+                        }
+                    }
+                }
+            },
+            //dataBound: onDataBoundDetail,
+            autoBind: true,
+            scrollable: false,
+            sortable: false,
+            columns: [
+                { field: "AvisoEntrada", title: _dictionary.ListadoOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                { field: "ItemCode", title: _dictionary.ListadoOrdenRecepcion0021[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                { field: "Cantidad", title: _dictionary.ListadoOrdenRecepcion0022[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            ]
+        });
+    }
+
+    function ObtenerFechasporDefecto() {
+        var fechaFinal = new Date();
+        var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
+
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        };
+
+        var curr_date0 = fechainicio.getDate();
+        var curr_month0 = fechainicio.getMonth() + 1; //Months are zero based
+        var curr_year0 = fechainicio.getFullYear();
+
+
+        var curr_date = fechaFinal.getDate();
+        var curr_month = fechaFinal.getMonth() + 1; //Months are zero based
+        var curr_year = fechaFinal.getFullYear();
+
+
+        var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+        var fechFinal = new Date(curr_year, curr_month - 1, curr_date);
+
+        var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+        var fechaFinalkendo = kendo.parseDate(fechFinal, format);
+
+        $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+        $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+    };
+    
+    function createPeriodoTiempo() {
+        $("#PeriodoTiempo").kendoComboBox({
+            dataTextField: "Periodo",
+            dataValueField: "PeriodoID",
+            dataSource: [
+                { "PeriodoID": "1", "Periodo": _dictionary.ListadoOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "2", "Periodo": _dictionary.ListadoOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "3", "Periodo": _dictionary.ListadoOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "4", "Periodo": _dictionary.ListadoOrdenRecepcion0017[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "5", "Periodo": _dictionary.ListadoOrdenRecepcion0018[$("#language").data("kendoDropDownList").value()] }
+            ],
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+
+                CargarPeriodoTiempo(dataItem.PeriodoID);
+            },
+            change: function (e) {
+                var value = this.value();
+
+                if (!value) {
+                    PeriodoTiempo = [];
+                }
+                ObtenerFechasporPeriodo(value);
+            },
+            filter: "contains",
+        });
+    };
+
+    function ObtenerFechasporPeriodo(id) {
+        var fechaInicio = FechaFinal.value();
+        var fechaFin = FechaFinal.value();
+
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        }
+
+        var curr_date = fechaFin.getDate();
+        var curr_month = fechaFin.getMonth() + 1;
+        var curr_year = fechaFin.getFullYear();
+
+        var fechaFinal = new Date(curr_year, curr_month - 1, curr_date);
+        var fechaFinalkendo = kendo.parseDate(fechaFinal, format);
+
+        switch (parseInt(id)) {
+            case 1: //Semana Actual
+                fechaInicio.setDate(fechaInicio.getDate() - 7);
+                break;
+            case 2: //Dos Semanas
+                fechaInicio.setDate(fechaInicio.getDate() - 14);
+                break;
+            case 3: //Mes
+                fechaInicio.setMonth(fechaInicio.getMonth() - 1);
+                break;
+            case 4: //Trimestre
+                fechaInicio.setMonth(fechaInicio.getMonth() - 3);
+                break;
+            case 5: //Año
+                fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
+                break;
+        }
+
+        var curr_date0 = fechaInicio.getDate();
+        var curr_month0 = fechaInicio.getMonth() + 1;
+        var curr_year0 = fechaInicio.getFullYear();
+
+        var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+
+        var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+
+        $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+        $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+    };
+
+    function CargarCliente(id, value) {
+        Cliente = {};
+        Cliente = { ClienteID: id };
+    };
+    
+    function CargarProyecto(id, value) {
+        Proyecto = {};
+        Proyecto = { ProyectoID: id, Nombre: value };
+    };
+
+    function CargarFolio(id) {
+        FolioAvisoEntrada = {};
+        FolioAvisoEntrada = { FolioAvisoEntradaID: id };
+    };
+
+    function CargarPeriodoTiempo(id) {
+        PeriodoTiempo = {};
+        PeriodoTiempo = { PeriodoTiempo: id };
+    };
+    
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+
+    function ObtenerProyecto() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+        });
+    };
+
+    function ObtenerCliente() {
+        $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ClienteID", result);
+        });
+    };
+    function ObtenerFolioAvisoEntrada() {
+        $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
+        });
+    };
+
+    function Filtros() {
+        var Listado;
+        var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
+        AccionesListado(accion);
+    };
+
+    function AccionesListado(accion) {
+        loadingStart();
+        var Listado;
+        Listado = ArregloListado(accion);
+
+        $("#hdAccionFiltrado").val(accion);
+
+        $OrdenRecepcion.OrdenRecepcion.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+            if (Error(data)) {
+                resultadoJson = data;
+                if ($("#grid").data("kendoGrid")) {
+                    if (resultadoJson.length > 0) {
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        $("#grid").data("kendoGrid").dataSource.page(1);
+                    } else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#grid").data("kendoGrid").dataSource.page(0);
+                    };
+                    applySecurityPolicy(false);
+                };
+            };
+            loadingStop();
+        });
+    };
+
+    function ArregloListado(accion) {
+        var Listado;
+        Listado = { FolioAvisoEntradaID: "", ProyectoID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "" };
+
+        var d = new Date($("#FechaInic").data("kendoDatePicker").value());
+        var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+        Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+        Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
+        Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
+        Listado.FechaInicial = obtenerFormatoFecha(d);
+        Listado.FechaFinal = obtenerFormatoFecha(d1);
+        Listado.token = Cookies.get("token");
+        console.log("listado");
+        return Listado;
+    };
+
+    function imprimirOrden() {
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var OrdenRecepcion = dataItem.OrdenRecepcion;
+        window.open("http://www.asp.net");
+    };
+
+    function obtenerFormatoFecha(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+        var horaActual = new Date();
+
+        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+    }
+
+    //function onDataBoundDetail(e) {
+    //    console.log("onDataBoundDetail");
+    //    var view = this.dataSource.view();
+    //    for (var i = 0; i < view.length; i++) {
+    //        view[i].AvisoEntradaID
+    //    };
+    //    //var body = this.tbody[0];
+    //    //for (var i = 0; i < body.children.length; i++) {
+
+    //    //    if (checkNodoPrincipal[body.children[i].children[2].innerHTML]) {
+    //    //        $(body.children[i]).find(".master").attr("checked", checkNodoPrincipal[body.children[i].children[2].innerHTML].checked);
+    //    //    }
+
+    //    //}
+    //};
+
+    @section JavascriptDocumentReadyFunctions {
+   
+    CargaInicial();
+
+
+    }
+
+
+</script>

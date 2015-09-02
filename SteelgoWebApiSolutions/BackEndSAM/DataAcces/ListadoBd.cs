@@ -1014,6 +1014,74 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerFoliosEntradaPorProyecto(int proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> folios = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                where fe.Activo && rfp.Activo && fc.Activo
+                                                && rfp.ProyectoID == proyectoID
+                                                select new ListaCombos
+                                                {
+                                                    id = fe.FolioAvisoLlegadaID.ToString(),
+                                                    value = fe.FolioAvisoLlegadaID.ToString()
+                                                }).AsParallel().ToList();
+
+                    return folios;
+                                                
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerItemCodesPorFolioLlegada(int folioAvisoLlegada, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> listado = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                 join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                 join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                                 where fe.Activo && fc.Activo && rfi.Activo && it.Activo
+                                                 && fe.FolioAvisoLlegadaID == folioAvisoLlegada
+                                                 && !(from nu in ctx.Sam3_NumeroUnico
+                                                      where nu.Activo
+                                                      select nu.ItemCodeID).Contains(it.ItemCodeID)
+                                                 select new ListaCombos
+                                                 {
+                                                     id = it.ItemCodeID.ToString(),
+                                                     value = it.Codigo
+                                                 }).AsParallel().ToList();
+
+                    return listado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
     }
 }
