@@ -230,14 +230,25 @@
 
             var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
-            var json = [{ "ID": 520 }, { "ID": 70 }, { "ID": 50 }, { "ID": 60 }, { "ID": 566 }];
-            var token = "22sd5fs1g5sd3f1sa5df3sd21f";
+            //var json = [{ "ID": 520 }, { "ID": 70 }, { "ID": 50 }, { "ID": 60 }, { "ID": 566 }];
+            //var token = "22sd5fs1g5sd3f1sa5df3sd21f";
 
-            client.add("OrdenRecepcion");
-            client.OrdenRecepcion.create({"enteros": json},{"token": token});
+            //client.add("OrdenRecepcion");
+            //client.OrdenRecepcion.create({"enteros": json},{"token": token});
 
-            client.add("Familia");
-            client.Familia.read({ token: "" }).done(function (data) { console.log(data) });
+            //client.add("Familia");
+            //client.Familia.read({ token: "" }).done(function (data) { console.log(data) });
+
+            var ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
+            ColadaModal.FabricanteID = 1;
+            ColadaModal.AceroID = 1;
+            ColadaModal.ProyectoID = 1;
+            ColadaModal.NumeroColada = "1";
+            ColadaModal.NumeroCertificado = "2";
+            ColadaModal.HoldCalidad = true;
+
+            client.add("Colada");
+            client.Colada.create({},{ data: JSON.stringify(ColadaModal), token: "24154532" }).done(function (data) { console.log(data) });
 </script>
     </body>
 </html>
