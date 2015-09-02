@@ -963,6 +963,7 @@
     <Compile Include="Controllers\Errors\ErrorsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
+    <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1094,7 +1095,7 @@
     <Content Include="Views\EntradaMaterial\DetalleLlegadaMaterial.cshtml" />
     <Content Include="Views\EntradaMaterial\ListadoLlegadaMaterial.cshtml" />
     <Content Include="Views\Cuantificacion\Cuantificacion.cshtml" />
-    <Content Include="Views\Cuantificacion\FormatoEtiquetas.cshtml" />
+    <Content Include="Views\OrdenRecepcion\FormatoEtiquetas.cshtml" />
     <Content Include="Views\EntradaMaterial\FormatoPaseSalida.cshtml" />
     <Content Include="Views\AvisoLlegada\AutorizarPermiso.cshtml" />
     <Content Include="Views\AvisoLlegada\DashboardAvisoLlegada.cshtml" />
@@ -1103,8 +1104,10 @@
     </Content>
     <Content Include="Views\EntradaMaterial\PaseDeSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\FormatoIncidencias.cshtml" />
-    <Content Include="Views\Cuantificacion\OrdenRecepcion.cshtml" />
-    <Content Include="Views\Cuantificacion\GenerarOrdenRecepcion.cshtml" />
+    <Content Include="Views\OrdenRecepcion\OrdenRecepcion.cshtml" />
+    <Content Include="Views\OrdenRecepcion\GenerarOrdenRecepcion.cshtml" />
+    <Content Include="Views\Cuantificacion\DetalleOrdenRecepcion.cshtml" />
+    <Content Include="Views\OrdenRecepcion\ListadoOrdenRecepcion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

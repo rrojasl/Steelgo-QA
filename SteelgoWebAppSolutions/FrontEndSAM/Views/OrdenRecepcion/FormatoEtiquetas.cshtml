@@ -7,7 +7,7 @@
     <div class="row">
         <div class="tags-container">
             <div id="divEtiquetas"></div>
-            <a id="ImprimirEtiquetas" href="javascript:void(0);" class="btn btn-yellow no-print"><span id="FormatoEtiquetas0011"></span></a>
+            @*<a id="ImprimirEtiquetas" href="javascript:void(0);" class="btn btn-yellow no-print"><span id="FormatoEtiquetas0011"></span></a>*@
         </div>
     </div>
 </div>
@@ -16,16 +16,15 @@
 <script>
     @section JavascriptGlobalVariables 
     {
-    var itemCodes = Cookies.get("ItemCodes");
-
+    var _ordenRecepcionID = getUrlParameter("OrdenRecepcionID", "-1");
     }
 
     @section JavascriptGlobalFunctions 
     {
         function cargaInicial() {
-            var splitItems = itemCodes.split(","), htmlstring = "";
-            ArrItemCodes = [];
-            ArrItemCodes[0] = { ItemCodes: "" };
+            //var splitItems = itemCodes.split(","), htmlstring = "";
+            //ArrItemCodes = [];
+            //ArrItemCodes[0] = { ItemCodes: "" };
 
             //ocultar menu y sidebar
             $(".pull-right").hide();
@@ -38,20 +37,20 @@
                 $("#ImprimirEtiquetas").show();
             });
 
-            ItemCodes = [];
+            //ItemCodes = [];
 
-            $.each(splitItems, function (key) {
-                item = {};
-                item["ItemCode"] = splitItems[key];
-                ItemCodes.push(item);
-            });
+            //$.each(splitItems, function (key) {
+            //    item = {};
+            //    item["ItemCode"] = splitItems[key];
+            //    ItemCodes.push(item);
+            //});
 
-            ArrItemCodes[0].ItemCodes = ItemCodes;
+            //ArrItemCodes[0].ItemCodes = ItemCodes;
 
             var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
             Client.add('DummyObtenerItemCodes');
 
-            Client.DummyObtenerItemCodes.read({}, { itemcodes: JSON.stringify(ArrItemCodes), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
+            Client.DummyObtenerItemCodes.read({}, { itemcodes: _ordenRecepcionID, username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
                 console.log("Client.DummyObtenerItemCodes.read");
                 $.each(data, function (key) {
                     htmlstring = "<div class='tag-group'><div class='inner-tag'>";

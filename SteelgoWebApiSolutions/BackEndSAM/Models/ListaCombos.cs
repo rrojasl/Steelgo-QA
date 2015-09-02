@@ -16,4 +16,9 @@ namespace BackEndSAM.Models
         public int ID { get; set; }
     }
 
+    public class Entero
+    {
+        public List<ListaEnteros> ID { get; set; }
+    }
+
 }

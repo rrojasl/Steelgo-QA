@@ -43,7 +43,8 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(int folio, string token)
+
+        public object Get(int ordenrecepcionID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -53,7 +54,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return OrdenRecepcionBd.Instance.ObtenerDetalleOrdeRecepcion(folio, usuario);
+                return OrdenRecepcionBd.Instance.ObtenerDetalleOrdeRecepcion(ordenrecepcionID, usuario);
             }
             else
             {
@@ -66,7 +67,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<ListaEnteros> enteros, string token)
+        public object Post(Entero Enteros, string token)
         {
             string payload = "";
             string newToken = "";
@@ -75,7 +76,7 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 List<int> folios = new List<int>();
-                foreach (ListaEnteros li in enteros)
+                foreach (ListaEnteros li in Enteros.ID)
                 {
                     folios.Add(li.ID);
                 }

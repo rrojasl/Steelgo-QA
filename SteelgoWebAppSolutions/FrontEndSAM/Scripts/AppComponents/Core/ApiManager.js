@@ -86,6 +86,8 @@ var $DummyOrdenRecepcionFoliosAvisoEntrada = new $.RestClient($BackEndSAMUri + '
 var $DummyOrdenRecepcionItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGridOrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $NumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/
