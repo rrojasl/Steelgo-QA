@@ -1,26 +1,32 @@
 ﻿using BackEndSAM.DataAcces;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace BackEndSAM.Controllers
 {
-    public class ObtenerDatosFolioAvisoEntradaController : ApiController
+    public class ItemCodeController : ApiController
     {
-        /// <summary>
-        /// Obtener los datos de un folio Aviso de Entrada
-        /// </summary>
-        /// <param name="FolioAvisoEntradaID"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public object Get(int FolioAvisoEntradaID, string token)
+        // GET api/<controller>
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        // GET api/<controller>/5
+        public object Get(int TipoPackingListID, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-            return FoliosCuantificacionBd.Instance.obtenerDatosFolioEntrada(FolioAvisoEntradaID);
+                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID);
             }
             else
             {

@@ -43,25 +43,25 @@ namespace BackEndSAM.Controllers
         /// <param name="token">token</param>
         /// <param name="avisoEntrada">folio aviso de entrada</param>
         /// <returns></returns>
-        public object Get(string token, int avisoEntrada)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                return FoliosCuantificacionBd.Instance.obtenerFolioCuantificacion(avisoEntrada);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        //public object Get(string token, int avisoEntrada)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        return FoliosCuantificacionBd.Instance.obtenerFolioCuantificacion(avisoEntrada);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
         //// GET api/<controller>/5
         //public string Get(int id)

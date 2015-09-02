@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BackEndSAM.Models;
+using SecurityManager.TokenHandler;
+using BackEndSAM.DataAcces;
+using SecurityManager.Api.Models;
 
 namespace BackEndSAM.Controllers
 {
@@ -19,9 +22,24 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/familia/5
-        public string Get(int id)
+        public object Get(string token)
         {
-            return "value";
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return FamiliaBd.Instance.obtenerFamilia();
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/familia

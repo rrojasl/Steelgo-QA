@@ -8,23 +8,22 @@ using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
-    public class TipoUsoBd
+    public class FamiliaBd
     {
-
          private static readonly object _mutex = new object();
-         private static TipoUsoBd _instance;
+         private static FamiliaBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private TipoUsoBd()
+         private FamiliaBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static TipoUsoBd Instance
+         public static FamiliaBd Instance
         {
             get
             {
@@ -32,30 +31,30 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new TipoUsoBd();
+                        _instance = new FamiliaBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerTipoUso()
+        public object obtenerFamilia()
         {
             try
             {
-                List<TipoUso> listTU = new List<TipoUso>();
+                List<Familia> familia = new List<Familia>();
 
                 using (SamContext ctx = new SamContext())
                 {
-                    listTU = (from t in ctx.Sam3_TipoUso
-                              where t.Activo == true
-                              select new TipoUso
-                                {
-                                    id = t.TipoUsoID.ToString(),
-                                    Nombre = t.Nombre
-                                }).AsParallel().ToList();
+                    familia = (from f in ctx.Sam3_FamiliaAcero
+                               where f.Activo
+                               select new Familia
+                               {
+                                   FamiliaAceroID = f.FamiliaAceroID.ToString(),
+                                   Nombre = f.Nombre
+                               }).AsParallel().ToList();
                 }
-                return listTU;
+                return familia;
             }
             catch (Exception ex)
             {
@@ -66,9 +65,7 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
-
             }
         }
-
     }
 }

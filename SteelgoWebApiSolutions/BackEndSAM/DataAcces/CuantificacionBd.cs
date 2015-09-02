@@ -64,8 +64,9 @@ namespace BackEndSAM.DataAcces
 
                                    select new CuantificacionListado
                                    {
-                                       ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.ItemCodeID.ToString(),
+                                       ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.Codigo,
                                        Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Si" : "No",
+                                       BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? ctx.Sam3_Rel_Bulto_ItemCode.Select(b=> b.BultoID).ToString() : null,
                                        Descripcion = ic.DescripcionEspanol,
                                        D1 = ic.Diametro1,
                                        D2 = ic.Diametro2,
@@ -102,6 +103,8 @@ namespace BackEndSAM.DataAcces
                                    select new CuantificacionListado
                                    {
                                        ItemCode = ic.ItemCodeID.ToString(),
+                                       Detallar = "No",
+                                       BultoID = rbic.BultoID.ToString(),
                                        Descripcion = ic.DescripcionEspanol,
                                        D1 = ic.Diametro1,
                                        D2 = ic.Diametro2,

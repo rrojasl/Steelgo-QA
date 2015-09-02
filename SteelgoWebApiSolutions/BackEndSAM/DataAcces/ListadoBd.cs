@@ -402,7 +402,7 @@ namespace BackEndSAM.DataAcces
                                                join i in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals i.FolioCuantificacionID
                                                join it in ctx.Sam3_ItemCode on i.ItemCodeID equals it.ItemCodeID
                                                where r.Activo && c.Activo && i.Activo && it.Activo
-                                               && c.Estatus == "Entrada por cuantificar"
+                                               && c.Estatus != "Cerrado"
                                                && it.TipoMaterialID == tipoMaterialID
                                                select r).AsParallel().Count();
 

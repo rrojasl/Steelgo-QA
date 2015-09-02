@@ -1,26 +1,34 @@
-﻿using BackEndSAM.DataAcces;
-using SecurityManager.Api.Models;
-using SecurityManager.TokenHandler;
+﻿using System.Collections.Generic;
 using System.Web.Http;
+using BackEndSAM.DataAcces;
+using SecurityManager.TokenHandler;
+using SecurityManager.Api.Models;
 
 namespace BackEndSAM.Controllers
 {
-    public class ObtenerDatosFolioAvisoEntradaController : ApiController
+    public class ObtenerDatosFolioLlegadaMaterialController : ApiController
     {
-        /// <summary>
-        /// Obtener los datos de un folio Aviso de Entrada
-        /// </summary>
-        /// <param name="FolioAvisoEntradaID"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public object Get(int FolioAvisoEntradaID, string token)
+        // GET api/<controller>
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+       /// <summary>
+       /// Obtener los datos de un folio cuantificacion
+       /// </summary>
+       /// <param name="FolioLlegadaMaterialID"></param>
+       /// <param name="FolioCuantificacion"></param>
+       /// <param name="token"></param>
+       /// <returns></returns>
+        public object Get(int FolioLlegadaMaterialID, int FolioCuantificacion, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-            return FoliosCuantificacionBd.Instance.obtenerDatosFolioEntrada(FolioAvisoEntradaID);
+            return FoliosCuantificacionBd.Instance.obtenerDatosFolioCuantificacion(FolioLlegadaMaterialID, FolioCuantificacion);
             }
             else
             {

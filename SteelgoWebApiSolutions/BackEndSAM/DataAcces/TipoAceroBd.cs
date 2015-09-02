@@ -8,23 +8,22 @@ using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
-    public class TipoUsoBd
+    public class TipoAceroBd
     {
-
-         private static readonly object _mutex = new object();
-         private static TipoUsoBd _instance;
+          private static readonly object _mutex = new object();
+         private static TipoAceroBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private TipoUsoBd()
+         private TipoAceroBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static TipoUsoBd Instance
+         public static TipoAceroBd Instance
         {
             get
             {
@@ -32,30 +31,30 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new TipoUsoBd();
+                        _instance = new TipoAceroBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerTipoUso()
+        public object obtenerTipoAcero()
         {
             try
             {
-                List<TipoUso> listTU = new List<TipoUso>();
+                List<TipoAcero> tipoAcero = new List<TipoAcero>();
 
                 using (SamContext ctx = new SamContext())
                 {
-                    listTU = (from t in ctx.Sam3_TipoUso
-                              where t.Activo == true
-                              select new TipoUso
-                                {
-                                    id = t.TipoUsoID.ToString(),
-                                    Nombre = t.Nombre
-                                }).AsParallel().ToList();
+                    tipoAcero = (from fm in ctx.Sam3_FamiliaMaterial
+                                 where fm.Activo
+                                 select new TipoAcero
+                                 {
+                                     AceroID = fm.FamiliaMaterialID.ToString(),
+                                     Nomenclatura = fm.Nombre
+                                 }).AsParallel().ToList();
                 }
-                return listTU;
+                return tipoAcero;
             }
             catch (Exception ex)
             {
@@ -66,9 +65,7 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
-
             }
         }
-
     }
 }
