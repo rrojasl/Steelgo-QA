@@ -3,6 +3,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenRecepcion0025"></span></a>
+    </li>
+    <li>
+        <a href=""><span id="ListadoLlegadaMaterial0027"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="ListadoOrdenRecepcion0026"></span></a>
+    </li>
+}
+
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">

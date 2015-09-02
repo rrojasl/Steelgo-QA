@@ -152,3 +152,4 @@ $DummyOrdenRecepcionFoliosAvisoEntrada.add("DummyOrdenRecepcionFoliosAvisoEntrad
 $DummyOrdenRecepcionItemCode.add("DummyOrdenRecepcionItemCode");
 $DummyGridOrdenRecepcion.add("DummyGridOrdenRecepcion");
 $OrdenRecepcion.add("OrdenRecepcion");
+$NumeroUnico.add("NumeroUnico");

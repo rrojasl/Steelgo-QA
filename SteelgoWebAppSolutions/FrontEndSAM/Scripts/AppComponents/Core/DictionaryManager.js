@@ -1829,6 +1829,22 @@ _dictionary = {
         "es-MX": "Generar Orden de Recepcion, Imprimir Formato y etiquetas de numeros unicos",
         "en-US": "Generate order of receipt, print fomat and tags unique numbers"
     },
+    "GenerarOrdenRecepcion0020": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "GenerarOrdenRecepcion0021": {
+        "es-MX": "Dashboard Recepción",
+        "en-US": "Dashboard Reception"
+    },
+    "GenerarOrdenRecepcion0022": {
+        "es-MX": "Listado Orden de Recepción",
+        "en-US": "Listed in order of receipt"
+    },
+    "GenerarOrdenRecepcion0023": {
+        "es-MX": "Generar Orden de Recepción",
+        "en-US": "Generate Order Reception"
+    },
     //Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {
         "es-MX": "Generar Orden de Recepcion",
@@ -1925,6 +1941,18 @@ _dictionary = {
     "ListadoOrdenRecepcion0024": {
         "es-MX": "Aviso de Entrada",
         "en-US": "Aviso de Entrada"
+    },
+    "ListadoOrdenRecepcion0025": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoOrdenRecepcion0026": {
+        "es-MX": "Listado Orden de Recepción",
+        "en-US": "Listed in order of receipt"
+    },
+    "ListadoLlegadaMaterial0027": {
+        "es-MX": "Dashboard Recepción",
+        "en-US": "Dashboard Reception"
     },
     //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
