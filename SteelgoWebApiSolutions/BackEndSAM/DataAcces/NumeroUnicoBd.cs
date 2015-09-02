@@ -95,7 +95,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GenerarNumerosUnicosPorOrdenDeRecepcion(int ordenRecepcionID, Sam3_ProyectoConsecutivo consecutivo, Sam3_Usuario usuario, out string error)
+        public object GenerarNumerosUnicosPorOrdenDeRecepcion(int ordenRecepcionID, Sam3_Usuario usuario, out string error)
         {
             try
             {
@@ -103,19 +103,6 @@ namespace BackEndSAM.DataAcces
                 {
                     using (SamContext ctx = new SamContext())
                     {
-                        Sam3_ProyectoConfiguracion configuracion = ctx.Sam3_ProyectoConfiguracion.Where(
-                            x => x.ProyectoID == consecutivo.ProyectoID).AsParallel().SingleOrDefault();
-
-                        Sam3_FolioAvisoEntrada folioEntrada = (from r in ctx.Sam3_FolioAvisoEntrada
-                                          join o in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on r.FolioAvisoEntradaID equals o.FolioAvisoEntradaID
-                                          where r.Activo && o.Activo
-                                          && o.OrdenRecepcionID == ordenRecepcionID
-                                          select r).AsParallel().SingleOrDefault();
-
-                        string prefijo = configuracion.PrefijoNumeroUnico;
-                        int folio = consecutivo.ConsecutivoNumerounico;
-                        string factura = folioEntrada.Factura;
-                        string ordenCompra = folioEntrada.OrdenCompra;
 
                         //traemos los itemcodes de los que se van a generar numeros unicos
                         List<Sam3_ItemCode> itemCodes = (from r in ctx.Sam3_OrdenRecepcion
@@ -125,10 +112,29 @@ namespace BackEndSAM.DataAcces
                                                          && r.OrdenRecepcionID == ordenRecepcionID
                                                          select it).AsParallel().ToList();
 
+                        Sam3_ProyectoConsecutivo consecutivos;
+                        Sam3_ProyectoConfiguracion configuracion;
+                        int folio = 0;
                         //generar numeros unicos por cada itemcode
                         foreach (Sam3_ItemCode item in itemCodes)
                         {
-                            
+                            //traemos la confiduracion del proyecto registrado en el ItemCode
+                             configuracion = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
+                                .AsParallel().SingleOrDefault();
+
+                             consecutivos = ctx.Sam3_ProyectoConsecutivo.Where(x => x.ProyectoID == item.ProyectoID)
+                                .AsParallel().SingleOrDefault();
+
+                            folio = consecutivos.ConsecutivoNumerounico;
+
+                            Sam3_FolioAvisoEntrada folioEntrada = (from i in ctx.Sam3_ItemCode
+                                                                   join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on i.ItemCodeID equals rfi.ItemCodeID
+                                                                   join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                                   join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                                   join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                                                   where i.ItemCodeID == item.ItemCodeID
+                                                                   select fe).AsParallel().FirstOrDefault();
+
                             //tipo de material
                             if (item.TipoMaterialID == 1) // tubo
                             {
@@ -138,18 +144,18 @@ namespace BackEndSAM.DataAcces
                                 nuevoNU.ColadaID = item.ColadaID;
                                 nuevoNU.Diametro1 = item.Diametro1.Value;
                                 nuevoNU.Diametro2 = item.Diametro2.Value;
-                                nuevoNU.Estatus = "D";
+                                nuevoNU.Estatus = "D"; //
                                 nuevoNU.EsVirtual = false;
                                 nuevoNU.FechaModificacion = DateTime.Now;
                                 nuevoNU.ItemCodeID = item.ItemCodeID;
                                 nuevoNU.UsuarioModificacion = usuario.UsuarioID;
-                                nuevoNU.Prefijo = prefijo;  
+                                nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
                                 nuevoNU.Consecutivo = folio;
                                 nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
-                                nuevoNU.Factura = factura;
-                                nuevoNU.OrdenDeCompra = ordenCompra;
+                                nuevoNU.Factura = folioEntrada.Factura;
+                                nuevoNU.OrdenDeCompra = folioEntrada.OrdenCompra;
                                 nuevoNU.ProveedorID = folioEntrada.ProveedorID;
-                                nuevoNU.ProyectoID = configuracion.ProyectoID;
+                                nuevoNU.ProyectoID = item.ProyectoID;
                                 //----------------- por defaulto lo colocare en falso, ya en un ptoceso posterior podra modificarse
                                 nuevoNU.TieneDano = false;
                                 nuevoNU.MarcadoAsme = false;
@@ -209,7 +215,9 @@ namespace BackEndSAM.DataAcces
                                 movimiento.TipoMovimientoID = 1; //este debe ser recepcion
                                 movimiento.UsuarioModificacion = usuario.UsuarioID;
 
+                                consecutivos.ConsecutivoNumerounico = folio;
                                 ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
+                                ctx.SaveChanges();
 
                             }
                             else //accesorio
@@ -227,13 +235,13 @@ namespace BackEndSAM.DataAcces
                                     nuevoNU.FechaModificacion = DateTime.Now;
                                     nuevoNU.ItemCodeID = item.ItemCodeID;
                                     nuevoNU.UsuarioModificacion = usuario.UsuarioID;
-                                    nuevoNU.Prefijo = prefijo;
+                                    nuevoNU.Prefijo = configuracion.PrefijoNumeroUnico;
                                     nuevoNU.Consecutivo = folio;
                                     nuevoNU.FabricanteID = 1; //se establece como default pues este dato no se proporciona en cuantificacion
-                                    nuevoNU.Factura = factura;
-                                    nuevoNU.OrdenDeCompra = ordenCompra;
+                                    nuevoNU.Factura = folioEntrada.Factura;
+                                    nuevoNU.OrdenDeCompra = folioEntrada.OrdenCompra;
                                     nuevoNU.ProveedorID = folioEntrada.ProveedorID;
-                                    nuevoNU.ProyectoID = configuracion.ProyectoID;
+                                    nuevoNU.ProyectoID = item.ProyectoID;
                                     //----------------- por defaulto lo colocare en falso, ya en un ptoceso posterior podra modificarse
                                     nuevoNU.TieneDano = false;
                                     nuevoNU.MarcadoAsme = false;
@@ -276,12 +284,12 @@ namespace BackEndSAM.DataAcces
                                     movimiento.UsuarioModificacion = usuario.UsuarioID;
 
                                     ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
-                                }
-                            }
-                        }
-                        //actualizar el consecutivo
-                        consecutivo.ConsecutivoNumerounico = folio;
-                        ctx.SaveChanges(); // aplicamos todos los cambios
+                                    ctx.SaveChanges();
+                                }// fin for
+                                consecutivos.ConsecutivoNumerounico = folio;
+                                ctx.SaveChanges();
+                            }// else
+                        }// foreach
                     }
                     scope.Complete();
                     error = "";

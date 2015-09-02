@@ -759,56 +759,56 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoMTLSinOrdenRecepcion(FiltrosJson filtros, Sam3_Usuario usuario)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    DateTime fechaInicial = new DateTime();
-                    DateTime fechaFinal = new DateTime();
-                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
-                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+        //public object ListadoMTLSinOrdenRecepcion(FiltrosJson filtros, Sam3_Usuario usuario)
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            DateTime fechaInicial = new DateTime();
+        //            DateTime fechaFinal = new DateTime();
+        //            DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+        //            DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
 
-                    if (fechaFinal.ToShortDateString() == "1/1/0001")
-                    {
-                        fechaFinal = DateTime.Now;
-                    }
+        //            if (fechaFinal.ToShortDateString() == "1/1/0001")
+        //            {
+        //                fechaFinal = DateTime.Now;
+        //            }
 
-                    if (fechaInicial.ToShortDateString() == "1/1/0001")
-                    {
-                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
-                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
-                    }
+        //            if (fechaInicial.ToShortDateString() == "1/1/0001")
+        //            {
+        //                int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+        //                int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+        //                fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+        //            }
 
-                    int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
-                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
-                    //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
-                    //int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+        //            int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+        //            int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+        //            int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+        //            //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+        //            //int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
+        //            List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
-                    List<int> patios = (from r in ctx.Sam3_Proyecto
-                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                        where r.Activo && proyectos.Contains(r.ProyectoID)
-                                        select p.PatioID).AsParallel().ToList();
+        //            List<int> patios = (from r in ctx.Sam3_Proyecto
+        //                                join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+        //                                where r.Activo && proyectos.Contains(r.ProyectoID)
+        //                                select p.PatioID).AsParallel().ToList();
 
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //            return null;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
         public object ListadoNUPorRecepcionar(FiltrosJson filtros, Sam3_Usuario usuario)
         {

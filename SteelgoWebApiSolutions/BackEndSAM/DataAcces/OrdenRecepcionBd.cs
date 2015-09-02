@@ -257,10 +257,11 @@ namespace BackEndSAM.DataAcces
                                                             select new ElementoItemCode
                                                             {
                                                                 Cantidad = i.Cantidad.Value,
-                                                                Itemcode = i.Codigo
+                                                                Itemcode = i.Codigo,
+                                                                AvisoEntrada = f.FolioAvisoLlegadaID.ToString()
                                                             }).AsParallel().ToList();
 
-                            elemento.Detalle.Add(new DetalleOrdenRecepcion { AvisoEntrada = f.FolioAvisoLlegadaID.ToString(), ItemCodes = items });
+                            elemento.Detalle.Add(new DetalleOrdenRecepcion { ItemCodes = items });
 
                             listado.Add(elemento);
                         }
@@ -383,12 +384,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GenerarOrdeRecepcion(List<int> itemCodes, List<int> foliosEntrada, Sam3_Usuario usuario)
+        public object GenerarOrdeRecepcion(List<int> itemCodes, Sam3_Usuario usuario)
         {
             try
             {
                 Sam3_OrdenRecepcion nuevaOrden = new Sam3_OrdenRecepcion();
-                Sam3_ProyectoConsecutivo consecutivo;
+                int consecutivo;
+                List<int> foliosEntrada = new List<int>();
 
                 using (TransactionScope scope = new TransactionScope())
                 {
@@ -400,30 +402,34 @@ namespace BackEndSAM.DataAcces
                                              join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on i.ItemCodeID equals fci.ItemCodeID
                                              join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
                                              join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                             where itemCodes.Contains(i.ItemCodeID)
                                              select fe.FolioAvisoEntradaID).AsParallel().ToList();
+
+                            //retiramos los duplicados
+                            foliosEntrada = foliosEntrada.GroupBy(x => x).Select(x => x.First()).ToList();
                         }
 
-                        consecutivo = (from r in ctx.Sam3_FolioCuantificacion
-                                       join f in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoEntradaID equals f.FolioAvisoEntradaID
-                                       join pc in ctx.Sam3_ProyectoConsecutivo on r.ProyectoID equals pc.ProyectoID
-                                       where r.Activo && f.Activo && pc.Activo
-                                       && foliosEntrada.Contains(f.FolioAvisoLlegadaID.Value)
-                                       select pc).AsParallel().SingleOrDefault();
+                        consecutivo = (from r in ctx.Sam3_OrdenRecepcion
+                                       select r.Folio).Max();
 
+                        if (consecutivo <= 0)
+                        {
+                            consecutivo = 1;
+                        }
+                        else
+                        {
+                            consecutivo += 1;
+                        }
 
-                        int folio = consecutivo.ConsecutivoOrdeRecepcion + 1;
                         //Generamos un nuevo registro en orden de recepcion
                         nuevaOrden.Activo = true;
                         nuevaOrden.FechaCreacion = DateTime.Now;
                         nuevaOrden.FechaModificacion = DateTime.Now;
-                        nuevaOrden.Folio = folio;
+                        nuevaOrden.Folio = consecutivo;
                         nuevaOrden.UsuarioModificacion = usuario.UsuarioID;
 
                         ctx.Sam3_OrdenRecepcion.Add(nuevaOrden);
                         ctx.SaveChanges();
-
-                        //Actualizamos el consecutivo de las ordenes de recepcion
-                        consecutivo.ConsecutivoOrdeRecepcion = consecutivo.ConsecutivoOrdeRecepcion + 1;
 
                         //generamos la relacion con el folio aviso de entrada
                         foreach (int i in foliosEntrada)
@@ -458,8 +464,7 @@ namespace BackEndSAM.DataAcces
                 TransactionalInformation result = new TransactionalInformation();
                 //si no hay errores al generar la orden de recepcion, procedemos a crear los numeros unicos
                 string error = "";
-                bool NumerosGenerados = (bool)NumeroUnicoBd.Instance.GenerarNumerosUnicosPorOrdenDeRecepcion(nuevaOrden.OrdenRecepcionID,
-                    consecutivo, usuario, out error);
+                bool NumerosGenerados = (bool)NumeroUnicoBd.Instance.GenerarNumerosUnicosPorOrdenDeRecepcion(nuevaOrden.OrdenRecepcionID, usuario, out error);
                 if (NumerosGenerados)
                 {
                     result.ReturnMessage.Add("Ok");
@@ -492,61 +497,76 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GenerarOrdeRecepcion(List<int> foliosEntrada, Sam3_Usuario usuario)
+        //public object GenerarOrdeRecepcion(List<int> foliosEntrada, Sam3_Usuario usuario)
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            List<int> itemCodes = new List<int>();
+
+        //            foreach (int i in foliosEntrada)
+        //            {
+        //                itemCodes.AddRange(from r in ctx.Sam3_FolioAvisoEntrada
+        //                                   join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+        //                                   join rit in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rit.FolioCuantificacionID
+        //                                   where r.Activo && c.Activo && rit.Activo
+        //                                   && r.FolioAvisoLlegadaID == i
+        //                                   select rit.ItemCodeID);
+        //            }
+
+        //            return GenerarOrdeRecepcion(itemCodes, usuario);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+
+        //        return result;
+        //    }
+        //}
+
+        public List<int> ObtenerItemCodesPorFolioEntrada(List<int> folios)
         {
             try
             {
+                List<int> items = new List<int>();
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> itemCodes = new List<int>();
-
-                    foreach (int i in foliosEntrada)
+                    foreach (int i in folios)
                     {
-                        itemCodes.AddRange(from r in ctx.Sam3_FolioAvisoEntrada
+                        items.AddRange(from r in ctx.Sam3_FolioAvisoEntrada
                                            join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                            join rit in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rit.FolioCuantificacionID
                                            where r.Activo && c.Activo && rit.Activo
                                            && r.FolioAvisoLlegadaID == i
                                            select rit.ItemCodeID);
                     }
-
-                    return GenerarOrdeRecepcion(itemCodes, foliosEntrada, usuario);
                 }
+
+                return items;
             }
             catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
+                return null;
             }
         }
 
-        public object GenerarOrdeRecepcion(List<int> foliosEntrada, int tipoMaterialID, Sam3_Usuario usuario)
+        public object GenerarOrdeRecepcion(FoliosItems listados, Sam3_Usuario usuario)
         {
             try
             {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<int> itemCodes = new List<int>();
+                List<int> ids = listados.Items.Select(x => x.ID).ToList();
+                ids.AddRange(ObtenerItemCodesPorFolioEntrada(listados.Folios.Select(x => x.ID).ToList()));
 
-                    foreach (int i in foliosEntrada)
-                    {
-                        itemCodes.AddRange(from r in ctx.Sam3_FolioAvisoEntrada
-                                           join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
-                                           join rit in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rit.FolioCuantificacionID
-                                           join it in ctx.Sam3_ItemCode on rit.ItemCodeID equals it.ItemCodeID
-                                           where r.Activo && c.Activo && rit.Activo
-                                           && r.FolioAvisoLlegadaID == i
-                                           && it.TipoMaterialID == tipoMaterialID
-                                           select rit.ItemCodeID);
-                    }
+                //retiremos los ids repetidos en caso de existan
+                ids = ids.GroupBy(x => x).Select(x => x.First()).ToList();
 
-                    return GenerarOrdeRecepcion(itemCodes, foliosEntrada, usuario);
-                }
+                return GenerarOrdeRecepcion(ids, usuario);
             }
             catch (Exception ex)
             {

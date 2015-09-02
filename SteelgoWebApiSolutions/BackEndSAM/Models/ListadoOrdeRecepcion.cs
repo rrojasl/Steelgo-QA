@@ -19,7 +19,7 @@ namespace BackEndSAM.Models
 
     public class DetalleOrdenRecepcion
     {
-        public string AvisoEntrada { get; set; }
+        
         public List<ElementoItemCode> ItemCodes { get; set; }
 
         public DetalleOrdenRecepcion()
@@ -30,6 +30,7 @@ namespace BackEndSAM.Models
 
     public class ElementoItemCode 
     {
+        public string AvisoEntrada { get; set; }
         public string Itemcode { get; set; }
         public int Cantidad { get; set; }
     }
