@@ -72,6 +72,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="avisoEntrada"></param>
+        /// <returns></returns>
         public object obtenerDatosFolioEntrada(int avisoEntrada)
         {
             List<InfoFolioAvisoEntrada> lista = new List<InfoFolioAvisoEntrada>();

@@ -37,7 +37,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DatosColada"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object GuardarColadaPopUp(Sam3_Colada DatosColada, Sam3_Usuario usuario)
         {
             try

@@ -37,6 +37,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folioAvisoLlegadaID"></param>
+        /// <param name="folioCuantificacionID"></param>
+        /// <param name="ItemCode"></param>
+        /// <param name="bultoID"></param>
+        /// <returns></returns>
         public object ValidarItemCode(int folioAvisoLlegadaID, int folioCuantificacionID, int ItemCode, int bultoID)
         {
             try
@@ -72,6 +80,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folioAvisoLlegadaID"></param>
+        /// <param name="folioCuantificacionID"></param>
+        /// <param name="BultoID"></param>
+        /// <param name="ItemCode"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarItemCode(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, int ItemCode, Sam3_Usuario usuario)
         {
             try

@@ -42,6 +42,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tipoPackingListID"></param>
+        /// <returns></returns>
          public object ObtenerItemCode(int tipoPackingListID)
          {
              try
@@ -52,6 +57,8 @@ namespace BackEndSAM.DataAcces
                  {
                      itemCode = (from ic in ctx.Sam3_ItemCode
                                  where ic.Activo && ic.TipoMaterialID == tipoPackingListID
+                                 && !ctx.Sam3_NumeroUnico.Where(c=> c.ItemCodeID == ic.ItemCodeID).Any() 
+                                 && !ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c=> c.ItemCodeID == ic.ItemCodeID).Any()
                                  select new ItemCode
                                  {
                                      ItemCodeID = ic.ItemCodeID.ToString(),
@@ -73,6 +80,12 @@ namespace BackEndSAM.DataAcces
              }
          }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DatosItemCode"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
          public object GuardarItemCodePopUp(ItemCodeJson DatosItemCode, Sam3_Usuario usuario)
          {
              try
