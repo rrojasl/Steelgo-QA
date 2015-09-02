@@ -360,7 +360,7 @@
     };
 
     function GenerarOrdenRecepcionNuevo() {
-        var itemCodes = [], x = 0, folios = "";
+        var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { ID: "", Folios:""};
 
         for (var i in checkItemCodesID) {
@@ -374,18 +374,13 @@
         x = 0;
         for (var i in checkNodoPrincipal) {
             if (checkNodoPrincipal[i].checked == true) {
-                if (x == 0) {
-                    folios = checkNodoPrincipal[i].FolioAvisoEntradaID;
-                } else {
-                    folios += "," + checkNodoPrincipal[i].FolioAvisoEntradaID;
-                }
-
+                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
                 x++;
             }
         }
         loadingStart();
-        OrdenRecepcion.ID = itemCodes;
         OrdenRecepcion.Folios = folios;
+        OrdenRecepcion.Items = itemCodes;
 
         if (itemCodes.length > 0 || folios) {
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
@@ -401,7 +396,7 @@
     };
 
     function GenerarOrdenRecepcion() {
-        var itemCodes = [], x = 0, folios = "";
+        var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { ID: "", Folios: "" };
 
         for (var i in checkItemCodesID) {
@@ -414,18 +409,14 @@
         x = 0;
         for (var i in checkNodoPrincipal) {
             if (checkNodoPrincipal[i].checked == true) {
-                if (x == 0) {
-                    folios = checkNodoPrincipal[i].FolioAvisoEntradaID;
-                } else {
-                    folios += "," + checkNodoPrincipal[i].FolioAvisoEntradaID;
-                }
-
+                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
                 x++;
             }
         }
         loadingStart();
-        OrdenRecepcion.ID = itemCodes;
         OrdenRecepcion.Folios = folios;
+        OrdenRecepcion.Items = itemCodes;
+       
 
         if (itemCodes.length > 0 || folios) {
             
@@ -443,7 +434,7 @@
     
     
     function GenerarOrdenRecepcionFormatoEtiquetas() {
-        var itemCodes = [], x = 0, folios = "", error = true;
+        var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { ID: "", Folios: "" };
 
         for (var i in checkItemCodesID) {
@@ -456,18 +447,13 @@
         x = 0;
         for (var i in checkNodoPrincipal) {
             if (checkNodoPrincipal[i].checked == true) {
-                if (x == 0) {
-                    folios = checkNodoPrincipal[i].FolioAvisoEntradaID;
-                } else {
-                    folios += "," + checkNodoPrincipal[i].FolioAvisoEntradaID;
-                }
-
+                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
                 x++;
             }
         }
         loadingStart();
-        OrdenRecepcion.ID = itemCodes;
         OrdenRecepcion.Folios = folios;
+        OrdenRecepcion.Items = itemCodes;
 
         if (itemCodes.length > 0 || folios) {
             
