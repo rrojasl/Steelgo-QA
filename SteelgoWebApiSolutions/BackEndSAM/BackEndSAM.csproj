@@ -319,6 +319,7 @@
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />
     <Compile Include="Models\InfoFolioCuantificacion.cs" />
+    <Compile Include="Models\ItemCodeJson.cs" />
     <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />

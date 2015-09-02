@@ -57,15 +57,16 @@ namespace BackEndSAM.DataAcces
 
                     ctx.Sam3_Colada.Add(colada);
                     ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(colada.ColadaID.ToString());
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+                    
+                    return result;
                 }
-
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("Ok");
-                result.ReturnCode = 200;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
             }
             catch (Exception ex)
             {

@@ -1,4 +1,6 @@
 ﻿using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers
 {
@@ -40,8 +43,27 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public object Post(string data, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                ItemCodeJson DatosItemCode = serializer.Deserialize<ItemCodeJson>(data);
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ItemCodeBd.Instance.GuardarItemCodePopUp(DatosItemCode, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // PUT api/<controller>/5
