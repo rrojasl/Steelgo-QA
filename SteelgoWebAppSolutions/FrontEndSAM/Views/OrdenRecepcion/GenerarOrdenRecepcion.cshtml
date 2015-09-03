@@ -550,75 +550,78 @@
         if (e.masterRow[0].children[1].children[0].checked) {
             checked = "checked disabled";
         }
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
-            dataSource: {
-                data: e.data.Accesorios,
-                schema: {
-                    model: {
-                        fields: {
-                            ItemCodeID: { type: "int" },
-                            Codigo: { type: "string" },
-                            Descripcion: { type: "string" },
-                            D1: { type: "number" },
-                            D2: { type: "number" },
-                            Cantidad: { type: "int" },
-                            TipoMaterial: { type: "int" },
-                            FolioAvisoLlegadaId: { type: "string" },
+        if (e.data.Accesorios.length > 0) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    data: e.data.Accesorios,
+                    schema: {
+                        model: {
+                            fields: {
+                                ItemCodeID: { type: "int" },
+                                Codigo: { type: "string" },
+                                Descripcion: { type: "string" },
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "int" },
+                                TipoMaterial: { type: "int" },
+                                FolioAvisoLlegadaId: { type: "string" },
+                            }
                         }
                     }
-                }
-            },
-            dataBound: onDataBoundAccesorios,
-            autoBind: true,
-            scrollable: false,
-            sortable: false,
-            columns: [
-                { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
-                { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
-                { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                 { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-            ]
-        });
-
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
-            dataSource: {
-                data: e.data.Tubos,
-                schema: {
-                    model: {
-                        fields: {
-                            ItemCodeID: { type: "int" },
-                            Codigo: { type: "string" },
-                            Descripcion: { type: "string" },
-                            D1: { type: "number" },
-                            D2: { type: "number" },
-                            Cantidad: { type: "int" },
-                            TipoMaterial: { type: "int" },
-                            FolioAvisoLlegadaId: { type: "string" },
+                },
+                dataBound: onDataBoundAccesorios,
+                autoBind: true,
+                scrollable: false,
+                sortable: false,
+                columns: [
+                    { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                    { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                     { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
+                ]
+            });
+        }
+        if (e.data.Tubos.length > 0) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    data: e.data.Tubos,
+                    schema: {
+                        model: {
+                            fields: {
+                                ItemCodeID: { type: "int" },
+                                Codigo: { type: "string" },
+                                Descripcion: { type: "string" },
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "int" },
+                                TipoMaterial: { type: "int" },
+                                FolioAvisoLlegadaId: { type: "string" },
+                            }
                         }
                     }
-                }
-            },
-            autoBind: true,
-            scrollable: false,
-            sortable: false,
-            dataBound: onDataBoundTubos,
-            columns: [
-                { template: '<input type="checkbox"  ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
-                { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
-                { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-            ]
-        });
+                },
+                autoBind: true,
+                scrollable: false,
+                sortable: false,
+                dataBound: onDataBoundTubos,
+                columns: [
+                    { template: '<input type="checkbox"  ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                    { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
+                ]
+            });
+        }
         
     }
 

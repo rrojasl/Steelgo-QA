@@ -111,71 +111,72 @@
     };
 
     function detailInit(e) {
-
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
-            dataSource: {
-                data: e.data.Accesorios,
-                schema: {
-                    model: {
-                        fields: {
-                            ItemCodeID: { type: "string" },
-                            Codigo: { type: "string" },
-                            Descripcion: { type: "string" },
-                            D1: { type: "string" },
-                            D2: { type: "string" },
-                            Cantidad: { type: "string" },
-                            TipoMaterial: { type: "string" }
+        if (e.data.Accesorios.length > 0) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    data: e.data.Accesorios,
+                    schema: {
+                        model: {
+                            fields: {
+                                ItemCodeID: { type: "string" },
+                                Codigo: { type: "string" },
+                                Descripcion: { type: "string" },
+                                D1: { type: "string" },
+                                D2: { type: "string" },
+                                Cantidad: { type: "string" },
+                                TipoMaterial: { type: "string" }
+                            }
                         }
                     }
-                }
-            },
-            autoBind: true,
-            scrollable: false,
-            sortable: true,
-            columns: [
-                { field: "ItemCodeID", title: _dictionary.DetalleOrdenRecepcion0005[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "Codigo", title: _dictionary.DetalleOrdenRecepcion0006[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                { field: "Descripcion", title: _dictionary.DetalleOrdenRecepcion0007[$("#language").data("kendoDropDownList").value()], width: "200px" },
-                { field: "D1", title: _dictionary.DetalleOrdenRecepcion0008[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "D2", title: _dictionary.DetalleOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "Cantidad", title: _dictionary.DetalleOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "TipoMaterial", title: _dictionary.DetalleOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                //{ command: { text: _dictionary.DetalleOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], click: cancelarItemCode }, title: " ", width: "99px" }
+                },
+                autoBind: true,
+                scrollable: false,
+                sortable: true,
+                columns: [
+                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenRecepcion0005[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "Codigo", title: _dictionary.DetalleOrdenRecepcion0006[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "Descripcion", title: _dictionary.DetalleOrdenRecepcion0007[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                    { field: "D1", title: _dictionary.DetalleOrdenRecepcion0008[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "D2", title: _dictionary.DetalleOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "Cantidad", title: _dictionary.DetalleOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "TipoMaterial", title: _dictionary.DetalleOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    //{ command: { text: _dictionary.DetalleOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], click: cancelarItemCode }, title: " ", width: "99px" }
 
-            ]
-        });
-
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
-            dataSource: {
-                data: e.data.Tubos,
-                schema: {
-                    model: {
-                        fields: {
-                            ItemCodeID: { type: "int" },
-                            Codigo: { type: "string" },
-                            Descripcion: { type: "string" },
-                            D1: { type: "number" },
-                            D2: { type: "number" },
-                            Cantidad: { type: "int" },
-                            TipoMaterial: { type: "int" }
+                ]
+            });
+        }
+        if (e.data.Tubos.length > 0) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    data: e.data.Tubos,
+                    schema: {
+                        model: {
+                            fields: {
+                                ItemCodeID: { type: "int" },
+                                Codigo: { type: "string" },
+                                Descripcion: { type: "string" },
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "int" },
+                                TipoMaterial: { type: "int" }
+                            }
                         }
                     }
-                }
-            },
-            autoBind: true,
-            scrollable: false,
-            sortable: true,
-            columns: [
-                { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
-                { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
-            ]
-        });
-
+                },
+                autoBind: true,
+                scrollable: false,
+                sortable: true,
+                columns: [
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                    { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                ]
+            });
+        }
     }
 
     function CargarDatosGrid() {

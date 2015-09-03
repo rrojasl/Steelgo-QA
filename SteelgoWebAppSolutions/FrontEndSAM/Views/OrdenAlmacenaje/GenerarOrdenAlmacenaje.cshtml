@@ -1,1 +1,643 @@
 ﻿
+@{
+    ViewBag.Title = "Generar Orden Recepcion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="GenerarOrdenRecepcion0020"></span></a>
+    </li>
+    <li>
+        <a href=""><span id="GenerarOrdenRecepcion0021"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="GenerarOrdenRecepcion0022"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")"><span id="GenerarOrdenRecepcion0023"></span></a>
+    </li>
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="formOrdenRecepcion" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="GenerarOrdenRecepcion0001"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caretWhite"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" id="GuardarNuevo"><span id="GenerarOrdenRecepcion0017"></span></a></li>
+                                    <li><a href="#" id="GuardarEtiquetas"><span id="GenerarOrdenRecepcion0019"></span></a></li>
+                                </ul>
+                            </div>
+                           
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="GenerarOrdenRecepcion0002"></span></a>
+                        </div>
+                        <div class="button-section">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="GenerarOrdenRecepcion0003"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="RedirectListado"><span id="GenerarOrdenRecepcion0004"></span></a></li>
+                                    <li><a><span id="GenerarOrdenRecepcion0005"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="row">
+                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="GenerarOrdenRecepcion0006"></label>
+                            <input id="ProyectoID" />
+                        </div>
+                         <div id="FolioAvisoEntradaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="GenerarOrdenRecepcion0007"></label>
+                            <input id="FolioAvisoEntradaID" class="" />
+                        </div>
+                        <div id="ItemCodeDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="GenerarOrdenRecepcion0008"></label>
+                            <input id="ItemCode" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                 <div id="grid"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    @section JavascriptGlobalVariables 
+    {
+    var checkNodoPrincipal = [];
+    var checkItemCodesID = [];
+
+    var FolioAvisoEntrada = {}, Proyecto = {}, ItemCode = {}, _resultadoJson;
+
+    var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
+    var _proyectoID = getUrlParameter("ProyectoID", "-1");
+
+    var $GenerarOrdenRecepcionModel = {
+        listContainer: {
+            create: "#Guardar",
+            list: "#grid",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+        properties: {
+            username: {
+                visible: "",
+                editable: "",
+                required: ""
+            }
+        }
+    };
+
+    }
+
+    @section JavascriptGlobalFunctions 
+    {
+    function changeLanguageCall() {
+        cargarInicialGrid();
+    }
+    function CargaInicial() {
+
+        $("#Guardar").click(function () {
+            GenerarOrdenRecepcion();
+        });
+
+        $("#GuardarNuevo").click(function () {
+            GenerarOrdenRecepcionNuevo();
+        });
+
+        $("#GuardarEtiquetas").click(function () {
+            GenerarOrdenRecepcionFormatoEtiquetas();
+        });
+
+        $("#Cancelar").click(function () {
+            var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+            window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#RedirectListado").click(function () {
+            var url = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
+            window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#ProyectoID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                LimpiarFiltrosProyecto();
+
+                if (!value) {
+                    Proyecto = {};
+                    CargarDatosGrid();
+                } else {
+                    ObtenerFoliosAvisoEntrada();
+                }
+            },
+            filter: "contains",
+        });
+
+        ObtenerProyecto();
+
+        $("#FolioAvisoEntradaID").kendoComboBox({
+            dataTextField: "id",
+            dataValueField: "value",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFolio(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                limpiarFiltroItemCode();
+
+                if (!value) {
+                    FolioAvisoEntrada = {};
+                    CargarDatosGrid();
+                } else {
+                    ObtenerItemCodes();
+                };
+
+                
+            },
+        });
+       
+        $("#ItemCode").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarItemCode(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    ItemCode = {};
+                }
+                CargarDatosGrid();
+            },
+        });
+
+    }
+    function cargarInicialGrid() {
+        var grid = $("#grid").kendoGrid({
+            dataSource: {
+                data: _resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            AvisoEntradaID: { type: "int" },
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            detailInit: detailInit,
+            columns: [
+                { template: '<input type="checkbox" class="master" >', width: 40 },
+                { field: "AvisoEntradaID", title: _dictionary.GenerarOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], width: "110px" },
+            ],
+            dataBound: onDataBoundPrincipal,
+        }).getKendoGrid();
+
+
+        grid.tbody.on("change", ".master", function () {
+            var checkbox = $(this);
+            var nextRow = checkbox.closest("tr").next();
+            var value = checkbox.closest("tr").children()[2].innerHTML;
+          
+            checkNodoPrincipal[value] = { FolioAvisoEntradaID: value, checked: checkbox.is(":checked") };
+
+            for (var i in checkItemCodesID) {
+                if (checkItemCodesID[value,i].FolioAvisoEntradaID == value) {
+                    checkItemCodesID[value,i].checked = false;
+                }
+            }
+
+            if (nextRow.hasClass("k-detail-row")) {               
+                nextRow.find(":checkbox")
+                    .prop("checked", checkbox.is(":checked"));
+                nextRow.find(":checkbox")
+                    .prop("disabled", checkbox.is(":checked"));
+            }
+        });
+    };
+
+    function CargaInicialEdicion() {
+        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+        $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
+
+        CargarProyecto(_proyectoID);
+        ObtenerFoliosAvisoEntrada();
+        CargarFolio(_folioAvisoEntradaID);
+        ObtenerItemCodes();
+        CargarDatosGrid();
+    };
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+
+    function CargarProyecto(id, value) {
+        Proyecto = {};
+        Proyecto = { ProyectoID: id, Nombre: value };
+    };
+
+    function CargarFolio(id) {
+        FolioAvisoEntrada = {};
+        FolioAvisoEntrada = { FolioAvisoEntradaID: id };
+    };
+    
+    function CargarItemCode(id) {
+        ItemCode = {};
+        ItemCode = { ItemCodeID: id };
+    };
+    
+    function limpiarFiltroItemCode() {
+        ItemCode = {};
+        LimpiarCombo("ItemCode");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+    };
+    
+    function LimpiarFiltrosProyecto(){
+        LimpiarCombo("ItemCode");
+        LimpiarCombo("FolioAvisoEntradaID");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+    };
+
+    function LimpiarCombo(control) {
+        $("#" + control).data("kendoComboBox").value("");
+        $("#" + control).data("kendoComboBox").dataSource.data([]);
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+    function ObtenerProyecto() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+            CargarDatosGrid();
+        });
+    };
+
+    function ObtenerFoliosAvisoEntrada() {
+        var Listado;
+        Listado = { ProyectoID: Proyecto.ProyectoID, TipoListado: "9", token: Cookies.get("token") };
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
+            CargarDatosGrid();
+        });
+    };
+
+    function ObtenerItemCodes() {
+        var Listado;
+        Listado = { FolioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, TipoListado: "10", token: Cookies.get("token") };
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            ControlErroresObjetosComboBox("ItemCode", result);
+            CargarDatosGrid();
+        });
+    };
+
+    function CargarDatosGrid() {
+        loadingStart();
+        var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
+        var FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+        var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
+        
+        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioAvisoEntradaID: FolioAvisoEntradaID, TipoListado: "8", token: Cookies.get("token") };
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            if (Error(result)) {
+                        _resultadoJson = result;
+                        if (_resultadoJson.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                        };
+            }
+            loadingStop();
+        });
+    };
+
+    function NodoPadre(row, id) {
+        var checkbox = $(row);
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("checked", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("disabled", checkbox.is(":checked"));
+
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
+            var checked = val.checked;
+            checkItemCodesID[id,$(val).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(val).closest("tr").children()[1].innerHTML, checked: checked, TipoMaterial: $(val).closest("tr").children()[7].innerHTML };
+        });
+        
+    };
+
+    function NodoHijo(row,id) {
+        var checkbox = $(row);
+        checkItemCodesID[id,$(row).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
+    };
+
+    function GenerarOrdenRecepcionNuevo() {
+        var itemCodes = [], x = 0, folios = [];
+        OrdenRecepcion = { ID: "", Folios:""};
+
+        for (var i in checkItemCodesID) {
+            if (checkItemCodesID[i].checked == true)
+            {
+                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
+                x++;
+            }
+        }
+
+        x = 0;
+        for (var i in checkNodoPrincipal) {
+            if (checkNodoPrincipal[i].checked == true) {
+                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
+                x++;
+            }
+        }
+        loadingStart();
+        OrdenRecepcion.Folios = folios;
+        OrdenRecepcion.Items = itemCodes;
+
+        if (itemCodes.length > 0 || folios) {
+            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
+                loadingStop();
+                if (Error(result)) {
+                    var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
+                }
+            });
+        } else {
+            displayMessage("notificationslabel0044", "", '1');
+        }
+    };
+
+    function GenerarOrdenRecepcion() {
+        var itemCodes = [], x = 0, folios = [];
+        OrdenRecepcion = { ID: "", Folios: "" };
+
+        for (var i in checkItemCodesID) {
+            if (checkItemCodesID[i].checked == true) {
+                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
+                x++;
+            }
+        }
+
+        x = 0;
+        for (var i in checkNodoPrincipal) {
+            if (checkNodoPrincipal[i].checked == true) {
+                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
+                x++;
+            }
+        }
+        loadingStart();
+        OrdenRecepcion.Folios = folios;
+        OrdenRecepcion.Items = itemCodes;
+       
+
+        if (itemCodes.length > 0 || folios) {
+            
+            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
+                loadingStop();
+                if (Error(result)) {
+                    var url = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
+                }
+            });
+        } else {
+            displayMessage("notificationslabel0044", "", '1');
+        }
+    };
+    
+    
+    function GenerarOrdenRecepcionFormatoEtiquetas() {
+        var itemCodes = [], x = 0, folios = [];
+        OrdenRecepcion = { ID: "", Folios: "" };
+
+        for (var i in checkItemCodesID) {
+            if (checkItemCodesID[i].checked == true) {
+                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
+                x++;
+            }
+        }
+
+        x = 0;
+        for (var i in checkNodoPrincipal) {
+            if (checkNodoPrincipal[i].checked == true) {
+                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
+                x++;
+            }
+        }
+        loadingStart();
+        OrdenRecepcion.Folios = folios;
+        OrdenRecepcion.Items = itemCodes;
+
+        if (itemCodes.length > 0 || folios) {
+            
+            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
+                loadingStop();
+                if (Error(result)) {
+                    window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcion=" + result.OrdenRecepcionID);
+                    window.open("http://www.asp.net");//Webservice
+
+                    var url = "@Url.Action("DetalleOrdenRecepcion", "Cuantificacion")";
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
+                }
+            });
+        } else {
+            displayMessage("notificationslabel0044", "", '1');
+        }
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+
+    }
+
+    function onDataBoundPrincipal(e) {
+        console.log("onDataBoundPrincipal");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
+        for (var i = 0; i < body.children.length; i++) {
+
+            if (checkNodoPrincipal[body.children[i].children[2].innerHTML]) {
+                $(body.children[i]).find(".master").attr("checked", checkNodoPrincipal[body.children[i].children[2].innerHTML].checked);
+            }
+
+        }
+    };
+
+    function onDataBoundAccesorios(e) {
+        console.log("onDataBoundAccesorios");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
+        
+            for (var i = 0; i < body.children.length; i++) {
+
+                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
+                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
+                }
+            }
+        
+    };
+
+    function onDataBoundTubos(e) {
+        console.log("onDataBoundTubos");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
+        
+            for (var i = 0; i < body.children.length; i++) {
+
+                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
+                    if(!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
+                }
+            }
+        
+    };
+
+    function detailInit(e) {
+        var checked = "";
+        if (e.masterRow[0].children[1].children[0].checked) {
+            checked = "checked disabled";
+        }
+        if (e.data.Accesorios.length > 0) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    data: e.data.Accesorios,
+                    schema: {
+                        model: {
+                            fields: {
+                                ItemCodeID: { type: "int" },
+                                Codigo: { type: "string" },
+                                Descripcion: { type: "string" },
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "int" },
+                                TipoMaterial: { type: "int" },
+                                FolioAvisoLlegadaId: { type: "string" },
+                            }
+                        }
+                    }
+                },
+                dataBound: onDataBoundAccesorios,
+                autoBind: true,
+                scrollable: false,
+                sortable: false,
+                columns: [
+                    { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                    { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                     { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
+                ]
+            });
+        }
+        if (e.data.Tubos.length > 0) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    data: e.data.Tubos,
+                    schema: {
+                        model: {
+                            fields: {
+                                ItemCodeID: { type: "int" },
+                                Codigo: { type: "string" },
+                                Descripcion: { type: "string" },
+                                D1: { type: "number" },
+                                D2: { type: "number" },
+                                Cantidad: { type: "int" },
+                                TipoMaterial: { type: "int" },
+                                FolioAvisoLlegadaId: { type: "string" },
+                            }
+                        }
+                    }
+                },
+                autoBind: true,
+                scrollable: false,
+                sortable: false,
+                dataBound: onDataBoundTubos,
+                columns: [
+                    { template: '<input type="checkbox"  ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
+                    { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "D2", title: _dictionary.GenerarOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                    { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
+                    { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
+                ]
+            });
+        }
+    }
+
+    @section JavascriptDocumentReadyFunctions 
+    {
+    $authorizationModel["Orden Recepcion"] = $GenerarOrdenRecepcionModel;
+    CargaInicial();
+    
+    if (_folioAvisoEntradaID != "-1" && _proyectoID != "-1") {
+        CargaInicialEdicion();
+    }
+    
+    }
+
+    @section JavascriptDocumentReadyHomeCookie {
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "13", { path: '/' });
+    }
+</script>
