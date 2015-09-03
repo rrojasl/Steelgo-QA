@@ -149,6 +149,7 @@
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
+    <Compile Include="Controllers\DummyOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\DummyOrdenRecepcionFoliosAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyOrdenRecepcionItemCodeController.cs" />
     <Compile Include="Controllers\DummyTipoPackingListController.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Models\Dummy\Contacto.cs" />
     <Compile Include="Models\Dummy\DummyFabricante.cs" />
     <Compile Include="Models\Dummy\DummyGridOrdenRecepcion.cs" />
+    <Compile Include="Models\Dummy\DummyOrdenAlmacenaje.cs" />
     <Compile Include="Models\Dummy\EdicionCuantificacion.cs" />
     <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />

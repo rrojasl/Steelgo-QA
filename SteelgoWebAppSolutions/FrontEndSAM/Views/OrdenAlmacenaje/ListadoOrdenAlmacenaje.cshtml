@@ -1,54 +1,55 @@
-﻿@{
-    ViewBag.Title = "Listado Orden Recepcion";
+﻿
+@{
+    ViewBag.Title = "Listado Orden Almacenaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenRecepcion0025"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenAlmacenaje0001"></span></a>
     </li>
     <li>
-        <a href=""><span id="ListadoOrdenRecepcion0027"></span></a>
+        <a href=""><span id="ListadoOrdenAlmacenaje0002"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="ListadoOrdenRecepcion0026"></span></a>
+        <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="ListadoOrdenAlmacenaje0003"></span></a>
     </li>
 }
 
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
+            <div class="formNav filtersFields clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-2 col-lg-2">
                         <div class="button-section">
-                            <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="ListadoOrdenRecepcion0001"></span></button>
+                            <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="ListadoOrdenAlmacenaje0004"></span></button>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-10 col-lg-10 filter-section">
                         <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="ListadoOrdenRecepcion0002"></label>
+                                <label id="ListadoOrdenAlmacenaje0005"></label>
                                 <input id="ClienteID" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="ListadoOrdenRecepcion0003"></label>
+                                <label id="ListadoOrdenAlmacenaje0006"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="ListadoOrdenRecepcion0004"></label>
-                                <input id="FolioAvisoEntradaID" class="" />
+                                <label id="ListadoOrdenAlmacenaje0007"></label>
+                                <input id="FolioCuantificacionID" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="ListadoOrdenRecepcion0005"></label>
+                                <label id="ListadoOrdenAlmacenaje0008"></label>
                                 <input id="FechaInic" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="ListadoOrdenRecepcion0006"></label>
+                                <label id="ListadoOrdenAlmacenaje0009"></label>
                                 <input id="FechaFinal" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="ListadoOrdenRecepcion0007"></label>
+                                <label id="ListadoOrdenAlmacenaje0010"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
                         </div>
@@ -57,17 +58,24 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid"></div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div id="grid"></div>
+                    </div>
+
+                </div>
         </div>
     </div>
 </div>
+       
+        
 <input id="hdAccionFiltrado" type="hidden" />
 <script>
     @section JavascriptGlobalVariables 
     {
-    var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
+    var Cliente = {}, Proyecto = {}, FolioCuantificacion = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
 
-    var $ListadoOrdenRecepcionModel = {
+    var $ListadoOrdenAlmacenajeModel = {
         listContainer: {
             create: "#Nuevo",
             list: "#grid",
@@ -135,7 +143,7 @@
         ObtenerProyecto();
 
 
-        $("#FolioAvisoEntradaID").kendoComboBox({
+        $("#FolioCuantificacionID").kendoComboBox({
             dataTextField: "id",
             dataValueField: "value",
             filter: "contains",
@@ -147,7 +155,7 @@
                 var value = this.value();
 
                 if (!value) {
-                    FolioAvisoEntrada = {};
+                    FolioCuantificacion = {};
                 }
                 Filtros();
             },
@@ -179,8 +187,8 @@
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenRecepcion: { type: "string" },
-                            OrdenRecepcion: { type: "int" }
+                            FechaOrdenAlmacenaje: { type: "string" },
+                            OrdenAlmacenaje: { type: "string" }
                         }
                     }
                 },
@@ -188,9 +196,6 @@
                 serverFiltering: false,
                 serverSorting: false,
                 pageSize: 20,
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false
             },
             autoHeight: true,
             sortable: true,
@@ -214,44 +219,75 @@
             },
             detailInit: detailInit,
             columns: [
-                { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: imprimirOrden }, title: " ", width: "40px" }
+                { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "40px" },
+                { command: { text: _dictionary.ListadoOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "40px" }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
-            //dataBound: onDataBoundPrincipal,
         }).getKendoGrid();
     };
 
     function detailInit(e) {
         $("<div/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
-                data: e.data.Detalle,
+                data: e.data.FolioCuantificacion,
                 schema: {
                     model: {
                         fields: {
-                            ItemCode: { type: "string" },
-                            Cantidad: { type: "int" }
+                            FolioCuantificacion: { type: "string" },
+                            OrdenAlmacenaje: { type: "string" },
                         }
                     }
                 }
             },
-            //dataBound: onDataBoundDetail,
+            detailInit: detailInitItems,
             autoBind: true,
             scrollable: false,
             sortable: false,
             columns: [
-                { field: "AvisoEntrada", title: _dictionary.ListadoOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "ItemCode", title: _dictionary.ListadoOrdenRecepcion0021[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "Cantidad", title: _dictionary.ListadoOrdenRecepcion0022[$("#language").data("kendoDropDownList").value()], width: "50px" }
+                { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                { field: "", title: _dictionary.ListadoOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: false, template: "<a class='detailLink' onclick='CancelarFolioCuantificacion(this)'>Cancelar</a>" },
             ]
         });
     }
 
+    function detailInitItems(e) {
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                data: e.data.ItemCodes,
+                schema: {
+                    model: {
+                        fields: {
+                            Codigo: { type: "string" },
+                            NumeroUnico: { type: "string" },
+                            OrdenAlmacenaje: { type: "string" },
+                            FolioCuantificacion: { type: "string" },
+                            ItemCodeID: { type: "string" }
+                        }
+                    }
+                }
+            },
+            autoBind: true,
+            scrollable: false,
+            sortable: false,
+            columns: [
+                { field: "Codigo", title: _dictionary.ListadoOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "NumeroUnico", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
+                { field: "FolioCuantificacion", title: "FolioCuantificacion", width: "110px", hidden: true },
+                { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
+                { field: "", title: _dictionary.ListadoOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: false, template: "<a class='detailLink' onclick='CancelarItem(this)'>Cancelar</a>" },
+                
+            ]
+        });
+    }
+    
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
@@ -287,11 +323,11 @@
             dataTextField: "Periodo",
             dataValueField: "PeriodoID",
             dataSource: [
-                { "PeriodoID": "1", "Periodo": _dictionary.ListadoOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "2", "Periodo": _dictionary.ListadoOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "3", "Periodo": _dictionary.ListadoOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "4", "Periodo": _dictionary.ListadoOrdenRecepcion0017[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "5", "Periodo": _dictionary.ListadoOrdenRecepcion0018[$("#language").data("kendoDropDownList").value()] }
+                { "PeriodoID": "1", "Periodo": _dictionary.ListadoOrdenAlmacenaje0011[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "2", "Periodo": _dictionary.ListadoOrdenAlmacenaje0012[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "3", "Periodo": _dictionary.ListadoOrdenAlmacenaje0013[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "4", "Periodo": _dictionary.ListadoOrdenAlmacenaje0014[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "5", "Periodo": _dictionary.ListadoOrdenAlmacenaje0015[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
@@ -368,10 +404,10 @@
     };
 
     function CargarFolio(id) {
-        FolioAvisoEntrada = {};
-        FolioAvisoEntrada = { FolioAvisoEntradaID: id };
+        FolioCuantificacion = {};
+        FolioCuantificacion = { FolioCuantificacionID: id };
     };
-
+    
     function CargarPeriodoTiempo(id) {
         PeriodoTiempo = {};
         PeriodoTiempo = { PeriodoTiempo: id };
@@ -398,7 +434,7 @@
     };
     function ObtenerFolioAvisoEntrada() {
         $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
-            ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
+            ControlErroresObjetosComboBox("FolioCuantificacionID", result);
         });
     };
 
@@ -415,9 +451,9 @@
 
         $("#hdAccionFiltrado").val(accion);
 
-        $OrdenRecepcion.OrdenRecepcion.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-            if (Error(data)) {
-                resultadoJson = data;
+        $DummyOrdenAlmacenaje.DummyOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            if (Error(result)) {
+                resultadoJson = result;
                 if ($("#grid").data("kendoGrid")) {
                     if (resultadoJson.length > 0) {
                         $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
@@ -435,12 +471,12 @@
 
     function ArregloListado(accion) {
         var Listado;
-        Listado = { FolioAvisoEntradaID: "", ProyectoID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "" };
+        Listado = { FolioCuantificacionID: "", ProyectoID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "" };
 
         var d = new Date($("#FechaInic").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-        Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+        Listado.FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
         Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
         Listado.FechaInicial = obtenerFormatoFecha(d);
@@ -450,13 +486,44 @@
         return Listado;
     };
 
-    function imprimirOrden() {
+    function ImprimirOrden(e) {
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var OrdenRecepcion = dataItem.OrdenRecepcion;
+        var OrdenRecepcion = dataItem.OrdenAlmacenaje;
         window.open("http://www.asp.net");
     };
 
+    function CancelarOrden(e) {
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var OrdenRecepcion = dataItem.OrdenAlmacenaje;
+
+        filtros();
+    };
+
+    function CancelarFolioCuantificacion(row) {
+        var OrdenAlmacenaje = $(row).closest("tr").children()[1].innerHTML;
+        var folioCuantificacion = $(row).closest("tr").children()[2].innerHTML;
+        $(row).closest("tbody").find("tr.k-detail-row").css("display", "none");
+        $(row).closest("tbody").find(".k-icon").removeClass("k-minus");
+        $(row).closest("tbody").find(".k-icon").addClass("k-plus");
+
+        var grid = $("#grid").data("kendoGrid");
+        var tr = $(row).closest("tr");
+        grid.removeRow(tr);
+        //Filtros();
+    };
+
+    function CancelarItem(row) {
+        var ordenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
+        var folioCuantificacion = $(row).closest("tr").children()[3].innerHTML;
+        var itemCodeID = $(row).closest("tr").children()[4].innerHTML;
+
+        var grid = $("#grid").data("kendoGrid");
+        var tr = $(row).closest("tr");
+        grid.removeRow(tr);
+    };
+    
     function obtenerFormatoFecha(d) {
         var curr_date = d.getDate();
         var curr_month = d.getMonth() + 1; //Months are zero based
@@ -492,9 +559,9 @@
 
     }
     @section JavascriptDocumentReadyHomeCookie {
-    $authorizationModel["Orden Recepcion"] = $ListadoOrdenRecepcionModel;
+    $authorizationModel["Orden Almacenaje"] = $ListadoOrdenAlmacenajeModel;
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "15", { path: '/' });
+    Cookies.set("navegacion", "18", { path: '/' });
     }
 
 </script>

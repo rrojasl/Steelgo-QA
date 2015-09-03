@@ -2007,6 +2007,95 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    //Listado de Orden de Almacenaje
+    "ListadoOrdenAlmacenaje0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoOrdenAlmacenaje0002": {
+        "es-MX": "Dashboard Almacenaje",
+        "en-US": "Dashboard Almacenaje"
+    },
+    "ListadoOrdenAlmacenaje0003": {
+        "es-MX": "Listado Orden de Almacenaje",
+        "en-US": "Listed in order of storage"
+    },
+    "ListadoOrdenAlmacenaje0004": {
+        "es-MX": "Generar Orden de Almacenaje",
+        "en-US": "Generate order of storage"
+    },
+    "ListadoOrdenAlmacenaje0005": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoOrdenAlmacenaje0006": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoOrdenAlmacenaje0007": {
+        "es-MX": "Folio Cuantificacion",
+        "en-US": "Folio Cuantificacion"
+    },
+    "ListadoOrdenAlmacenaje0008": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoOrdenAlmacenaje0009": {
+        "es-MX": "Fecha Final",
+        "en-US": "End Date"
+    },
+    "ListadoOrdenAlmacenaje0010": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoOrdenAlmacenaje0011": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoOrdenAlmacenaje0012": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoOrdenAlmacenaje0013": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoOrdenAlmacenaje0014": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoOrdenAlmacenaje0015": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "ListadoOrdenAlmacenaje0016": {
+        "es-MX": "Fecha Orden de Almacenaje",
+        "en-US": "Date Order Storage"
+    },
+    "ListadoOrdenAlmacenaje0017": {
+        "es-MX": "Orden de Almacenaje",
+        "en-US": "Order Storage"
+    },
+    "ListadoOrdenAlmacenaje0018": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
+    "ListadoOrdenAlmacenaje0019": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ListadoOrdenAlmacenaje0020": {
+        "es-MX": "Folio Cuantificacion",
+        "en-US": "Folio Cuantificacion"
+    },
+    "ListadoOrdenAlmacenaje0021": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ListadoOrdenAlmacenaje0022": {
+        "es-MX": "Numero Unico",
+        "en-US": "Unique Number"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

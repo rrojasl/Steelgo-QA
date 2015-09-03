@@ -87,7 +87,7 @@ var $DummyOrdenRecepcionItemCode = new $.RestClient($BackEndSAMUri + '/backendsa
 var $DummyGridOrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $NumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $DummyOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -153,3 +153,4 @@ $DummyOrdenRecepcionItemCode.add("DummyOrdenRecepcionItemCode");
 $DummyGridOrdenRecepcion.add("DummyGridOrdenRecepcion");
 $OrdenRecepcion.add("OrdenRecepcion");
 $NumeroUnico.add("NumeroUnico");
+$DummyOrdenAlmacenaje.add("DummyOrdenAlmacenaje");

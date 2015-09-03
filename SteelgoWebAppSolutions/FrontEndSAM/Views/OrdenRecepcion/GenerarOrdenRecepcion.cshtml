@@ -45,7 +45,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard"><span id="GenerarOrdenRecepcion0004"></span></a></li>
+                                    <li><a id="RedirectListado"><span id="GenerarOrdenRecepcion0004"></span></a></li>
                                     <li><a><span id="GenerarOrdenRecepcion0005"></span></a></li>
                                 </ul>
                             </div>
@@ -126,7 +126,17 @@
         $("#GuardarEtiquetas").click(function () {
             GenerarOrdenRecepcionFormatoEtiquetas();
         });
-        
+
+        $("#Cancelar").click(function () {
+            var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+            window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#RedirectListado").click(function () {
+            var url = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
+            window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",

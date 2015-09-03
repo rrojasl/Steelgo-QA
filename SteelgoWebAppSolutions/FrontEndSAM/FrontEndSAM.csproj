@@ -963,6 +963,7 @@
     <Compile Include="Controllers\Errors\ErrorsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
+    <Compile Include="Controllers\OrdenAlmacenaje\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1104,10 +1105,12 @@
     </Content>
     <Content Include="Views\EntradaMaterial\PaseDeSalida.cshtml" />
     <Content Include="Views\EntradaMaterial\FormatoIncidencias.cshtml" />
-    <Content Include="Views\OrdenRecepcion\OrdenRecepcion.cshtml" />
     <Content Include="Views\OrdenRecepcion\GenerarOrdenRecepcion.cshtml" />
-    <Content Include="Views\Cuantificacion\DetalleOrdenRecepcion.cshtml" />
+    <Content Include="Views\OrdenRecepcion\DetalleOrdenRecepcion.cshtml" />
     <Content Include="Views\OrdenRecepcion\ListadoOrdenRecepcion.cshtml" />
+    <Content Include="Views\OrdenAlmacenaje\ListadoOrdenAlmacenaje.cshtml" />
+    <Content Include="Views\OrdenAlmacenaje\GenerarOrdenAlmacenaje.cshtml" />
+    <Content Include="Views\OrdenAlmacenaje\DetalleOrdenAlmacenaje.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
