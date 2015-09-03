@@ -163,6 +163,7 @@
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
+    <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
     <Compile Include="DataAcces\FamiliaBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
+    <Compile Include="DataAcces\GuardarFolioLlegadaCuantificacionBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
     <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
     <Compile Include="DataAcces\FoliosCuantificacionBd.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\CuantificacionListado.cs" />
+    <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
@@ -320,6 +323,7 @@
     <Compile Include="Models\ElementoListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />
+    <Compile Include="Models\FolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />
     <Compile Include="Models\InfoFolioCuantificacion.cs" />
