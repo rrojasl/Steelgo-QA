@@ -356,6 +356,10 @@ namespace BackEndSAM.DataAcces
                         listado.Add(elemento);
                     }
 
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(listado);
+#endif
 
                     return listado;
                 }

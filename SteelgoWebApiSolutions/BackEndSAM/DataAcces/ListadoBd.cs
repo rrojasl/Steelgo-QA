@@ -772,19 +772,57 @@ namespace BackEndSAM.DataAcces
                         registos = registos.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                     }
 
+                    //Quitar duplicados
+                    registos = registos.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
                     List<ListadoMTLSinICS> listado = new List<ListadoMTLSinICS>();
 
                     foreach (Sam3_FolioAvisoEntrada fae in registos)
                     {
-                        List<Sam3_FolioCuantificacion> foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                               join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                               where fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
-                                                                               select fc).ToList();
+                        List<Sam3_FolioCuantificacion> foliosCuantificacion;
+                        if (packingListID > 0)
+                        {
+                            foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
+                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                    where fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                    && fc.FolioCuantificacionID == packingListID
+                                                    select fc).ToList();
+                        }
+                        else
+                        {
+                            foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
+                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                    where fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                    select fc).ToList();
+                        }
+
+                        foliosCuantificacion = foliosCuantificacion.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
 
                         foreach (Sam3_FolioCuantificacion fc in foliosCuantificacion)
                         {
                             ListadoMTLSinICS elemento = new ListadoMTLSinICS();
                             elemento.FechaCreacionPackingList = fc.FechaCreacion.Value.ToString("dd/MM/yyyy");
+                            elemento.PackingList = fc.PackingList;
+                            elemento.Proyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == fc.ProyectoID).Select(x => x.Nombre).SingleOrDefault();
+
+                            elemento.CantidadSinICS = (from f in ctx.Sam3_FolioCuantificacion
+                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                       join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                                       where f.Activo && rfi.Activo && it.Activo
+                                                       && it.TipoMaterialID == tipoMaterialID
+                                                       && !(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                            where its.Activo
+                                                            select its.ItemCodeID).Contains(it.ItemCodeID)
+                                                       select it.ItemCodeID).AsParallel().Count().ToString();
+
+                            elemento.CantidadTotalItems = (from f in ctx.Sam3_FolioCuantificacion
+                                                           join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                           join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                                           where f.Activo && rfi.Activo && it.Activo
+                                                           && it.TipoMaterialID == tipoMaterialID
+                                                           select it.ItemCodeID).AsParallel().Count().ToString();
+
+                            listado.Add(elemento);
 
                         }
                     }
@@ -933,6 +971,12 @@ namespace BackEndSAM.DataAcces
                         registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
                     }
 
+                    registros = registros.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
+                    foreach (Sam3_FolioAvisoEntrada f in registros)
+                    {
+                        
+                    }
 
 
 
