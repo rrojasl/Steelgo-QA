@@ -100,9 +100,21 @@ namespace BackEndSAM.Controllers
                     case 9: //Obtener lista combo de folios de entrada por proyecto, que ya tengan cuantificacion
                         int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                         return ListadoBd.Instance.ObtenerFoliosEntradaPorProyecto(proyectoID, usuario);
-                    case 10://Obtener lista de combo de itemCodes por folio aviso de llegada
+                    case 10: //Obtener lista de combo de itemCodes por folio aviso de llegada
                         int folioAvisoLlegada = filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
                         return ListadoBd.Instance.ObtenerItemCodesPorFolioLlegada(folioAvisoLlegada, usuario);
+                    case 11: //Entradas por cuantificar
+                        return ListadoBd.Instance.ListadoMaterialesSinCuantificar(filtros, usuario);
+                    case 12: // Packing list por cuantificar
+                        return ListadoBd.Instance.ListadoPacknglistPorCuantificar(filtros, usuario);
+                    case 13: // Materiales sin itemcode steelgo
+                        return ListadoBd.Instance.ListadoMTLSinICS(filtros, usuario);
+                    case 14: // Numeros unicos sin complemento de recepcion
+                        return ListadoBd.Instance.ListadoNUConRecepcionSinComplemento(filtros, usuario);
+                    case 15: // numeros unicos sin rack
+                        return ListadoBd.Instance.ListadoNUSinAlmacenaje(filtros, usuario);
+                    case 16:
+                        return ListadoBd.Instance.ListadoIncidenciasActivas(filtros, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
