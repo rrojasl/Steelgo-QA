@@ -118,13 +118,13 @@
                 schema: {
                     model: {
                         fields: {
-                            ItemCodeID: { type: "int" },
+                            ItemCodeID: { type: "string" },
                             Codigo: { type: "string" },
                             Descripcion: { type: "string" },
-                            D1: { type: "number" },
-                            D2: { type: "number" },
-                            Cantidad: { type: "int" },
-                            TipoMaterial: { type: "int" }
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cantidad: { type: "string" },
+                            TipoMaterial: { type: "string" }
                         }
                     }
                 }
@@ -140,7 +140,7 @@
                 { field: "D2", title: _dictionary.DetalleOrdenRecepcion0009[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 { field: "Cantidad", title: _dictionary.DetalleOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "50px" },
                 { field: "TipoMaterial", title: _dictionary.DetalleOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
-                { command: { text: _dictionary.DetalleOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], click: cancelarItemCode }, title: " ", width: "99px" }
+                //{ command: { text: _dictionary.DetalleOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], click: cancelarItemCode }, title: " ", width: "99px" }
 
             ]
         });
@@ -194,7 +194,9 @@
         });
     };
 
-    
+    function cancelarItemCode() {
+
+    };
     }
 
     @section JavascriptDocumentReadyFunctions {
