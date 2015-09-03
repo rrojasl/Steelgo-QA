@@ -258,14 +258,17 @@
             //ItemCode.Descripcion = "Brida";
             //ItemCode.FamiliaID = 1;
 
-            client.add("ItemCode");
-            client.ItemCode.read({TipoPackingListID: 2, token: "" }).done(function (data) { console.log(data) });
+            //client.add("ItemCode");
+            //client.ItemCode.read({TipoPackingListID: 2, token: "" }).done(function (data) { console.log(data) });
             //client.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: "24154532" }).done(function (data) { console.log(data) });
 
             //client.add("ValidarItemCodeNuCuantificacion");
             //client.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: 2, folioCuantificacionID: 2, ItemCode: 2, BultoID: 1, token: "" }).done(function (data) { console.log(data) });
 
             //client.ValidarItemCodeNuCuantificacion.destroy({},{ folioAvisoLlegadaID: 2, folioCuantificacionID: 2, BultoID: -1, ItemCode: 1, token: "" }).done(function (data) { console.log(data) });
+
+            client.add("CambiarEstatusCuantificacion");
+            client.CambiarEstatusCuantificacion.update({},{ FolioCuantificacion: 2, AvisoEntrada: 15, bultoID: 1, token: "" }).done(function (data) { console.log(data) });
 </script>
     </body>
 </html>

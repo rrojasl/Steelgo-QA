@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
+    <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
     <Compile Include="DataAcces\FamiliaBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
