@@ -776,8 +776,17 @@ namespace BackEndSAM.DataAcces
 
                     foreach (Sam3_FolioAvisoEntrada fae in registos)
                     {
-                        ListadoMTLSinICS elemento = new ListadoMTLSinICS();
-                        
+                        List<Sam3_FolioCuantificacion> foliosCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
+                                                                               join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                                               where fe.FolioAvisoEntradaID == fae.FolioAvisoEntradaID
+                                                                               select fc).ToList();
+
+                        foreach (Sam3_FolioCuantificacion fc in foliosCuantificacion)
+                        {
+                            ListadoMTLSinICS elemento = new ListadoMTLSinICS();
+                            elemento.FechaCreacionPackingList = fc.FechaCreacion.Value.ToString("dd/MM/yyyy");
+
+                        }
                     }
 
 

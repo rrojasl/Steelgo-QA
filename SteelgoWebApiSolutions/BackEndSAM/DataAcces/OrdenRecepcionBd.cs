@@ -240,16 +240,21 @@ namespace BackEndSAM.DataAcces
                         folios = folios.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID).ToList();
                     }
 
+                    folios = folios.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
                     List<ListadoOrdeRecepcion> listado = new List<ListadoOrdeRecepcion>();
                     foreach (Sam3_FolioAvisoEntrada f in folios)
                     {
-                        ListadoOrdeRecepcion elemento = new ListadoOrdeRecepcion();
+                        ListadoOrdeRecepcion elemento;
                         List<Sam3_OrdenRecepcion> ordenes = (from r in f.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
                                                              join o in ctx.Sam3_OrdenRecepcion on r.OrdenRecepcionID equals o.OrdenRecepcionID
                                                              select o).AsParallel().ToList();
 
+                        ordenes = ordenes.GroupBy(x => x.OrdenRecepcionID).Select(x => x.First()).ToList();
+
                         foreach (Sam3_OrdenRecepcion o in ordenes)
                         {
+                            elemento = new ListadoOrdeRecepcion();
                             elemento.FechaOrdenRecepcion = o.FechaCreacion.ToString("dd/MM/yyyy");
                             elemento.OrdenRecepcion = o.Folio.ToString();
 
