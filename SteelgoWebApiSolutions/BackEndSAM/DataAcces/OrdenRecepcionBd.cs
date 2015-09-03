@@ -157,7 +157,10 @@ namespace BackEndSAM.DataAcces
                             elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeID == itemCodeID.ToString()).ToList();
                         }
 
-                        listado.Add(elemento);
+                        if (elemento.Tubos.Count > 0 || elemento.Accesorios.Count > 0)
+                        {
+                            listado.Add(elemento);
+                        }
 
                     }
 
