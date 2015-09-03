@@ -315,8 +315,7 @@ namespace BackEndSAM.DataAcces
 
                         elemento.Tubos = (from o in ctx.Sam3_OrdenRecepcion
                                           join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rfo.OrdenRecepcionID
-                                          join fc in ctx.Sam3_FolioCuantificacion on rfo.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                          join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                          join rfi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals rfi.OrdenRecepcionID
                                           join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
                                           join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
                                           where o.OrdenRecepcionID == ordenRecepcionID
@@ -335,12 +334,11 @@ namespace BackEndSAM.DataAcces
 
                         elemento.Accesorios = (from o in ctx.Sam3_OrdenRecepcion
                                                join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rfo.OrdenRecepcionID
-                                               join fc in ctx.Sam3_FolioCuantificacion on rfo.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                               join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                               join rfi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals rfi.OrdenRecepcionID
                                                join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
                                                join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
                                                where o.OrdenRecepcionID == ordenRecepcionID
-                                               && it.TipoMaterialID == 1
+                                               && it.TipoMaterialID == 2
                                                && rfo.FolioAvisoEntradaID == folio.FolioAvisoEntradaID
                                                select new ElementoItemCodeGenerarOrden
                                                {
