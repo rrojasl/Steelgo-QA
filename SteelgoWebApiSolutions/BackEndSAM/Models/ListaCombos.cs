@@ -25,6 +25,12 @@ namespace BackEndSAM.Models
     {
         public List<ListaEnteros> Folios { get; set; }
         public List<ListaEnteros> Items { get; set; }
+
+        public FoliosItems()
+        {
+            Folios = new List<ListaEnteros>();
+            Items = new List<ListaEnteros>();
+        }
     }
 
 

@@ -564,7 +564,7 @@ namespace BackEndSAM.DataAcces
                                                                      select new ListadoMaterialesSinCuantificar
                                                                      {
                                                                          FolioAvisoEntrada = r.FolioAvisoLlegadaID.ToString(),
-                                                                         FechaDescarga = r.FechaFolioDescarga.Value.ToString("dd/MM/yyyy"),
+                                                                         FechaDescarga = r.FechaFolioDescarga.Value.ToString(),
                                                                          Cliente = c.Nombre
                                                                      }).AsParallel().ToList();
 
@@ -639,7 +639,7 @@ namespace BackEndSAM.DataAcces
                                      join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                      where rfp.ProyectoID == proyectoID
                                      select r).AsParallel().ToList();
-                                     
+
                     }
 
                     if (clienteID > 0)
@@ -714,8 +714,8 @@ namespace BackEndSAM.DataAcces
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
-                    //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
-                    //int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+                    int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                    int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -724,24 +724,61 @@ namespace BackEndSAM.DataAcces
                                         where r.Activo && proyectos.Contains(r.ProyectoID)
                                         select p.PatioID).AsParallel().ToList();
 
-                    List<Sam3_FolioAvisoEntrada> registos = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                             join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                             join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
-                                                             join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                             join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                             join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
-                                                             where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo
-                                                             && !(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                                  where its.Activo
-                                                                  select its.ItemCodeID).Contains(i.ItemCodeID)
-                                                             && proyectos.Contains(p.ProyectoID)
-                                                             && patios.Contains(p.PatioID)
-                                                             && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
-                                                             select fe).AsParallel().ToList();
+                    List<Sam3_FolioAvisoEntrada> registos;
 
+                    if (proyectoID > 0)
+                    {
+                        registos = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                    join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                    join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
+                                    where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo
+                                    && !(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                         where its.Activo
+                                         select its.ItemCodeID).Contains(i.ItemCodeID)
+                                    && proyectos.Contains(p.ProyectoID)
+                                    && patios.Contains(p.PatioID)
+                                    && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                    && p.ProyectoID == proyectoID
+                                    select fe).AsParallel().ToList();
+                    }
+                    else
+                    {
+                        registos = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                    join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                    join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                    join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                    join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
+                                    where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo
+                                    && !(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                         where its.Activo
+                                         select its.ItemCodeID).Contains(i.ItemCodeID)
+                                    && proyectos.Contains(p.ProyectoID)
+                                    && patios.Contains(p.PatioID)
+                                    && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                    select fe).AsParallel().ToList();
+                    }
 
+                    if (clienteID > 0)
+                    {
+                        registos = registos.Where(x => x.ClienteID == clienteID).ToList();
+                    }
+
+                    if (folioAvisoLlegadaID > 0)
+                    {
+                        registos = registos.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
+                    }
 
                     List<ListadoMTLSinICS> listado = new List<ListadoMTLSinICS>();
+
+                    foreach (Sam3_FolioAvisoEntrada fae in registos)
+                    {
+                        ListadoMTLSinICS elemento = new ListadoMTLSinICS();
+                        
+                    }
 
 
                     return listado;
@@ -810,6 +847,12 @@ namespace BackEndSAM.DataAcces
         //    }
         //}
 
+        /// <summary>
+        /// Numeros unicos con recepcion pero sin complemento de recepcion
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoNUPorRecepcionar(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -836,8 +879,8 @@ namespace BackEndSAM.DataAcces
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
                     int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
-                    //int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
-                    //int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+                    int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                    int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
 
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
@@ -845,6 +888,44 @@ namespace BackEndSAM.DataAcces
                                         join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
                                         where r.Activo && proyectos.Contains(r.ProyectoID)
                                         select p.PatioID).AsParallel().ToList();
+
+                    List<Sam3_FolioAvisoEntrada> registros;
+                    if (proyectoID > 0)
+                    {
+                        registros = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     where fe.Activo && rfp.Activo && p.Activo
+                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                     && proyectos.Contains(rfp.ProyectoID)
+                                     && patios.Contains(p.PatioID)
+                                     && rfp.ProyectoID == proyectoID
+                                     select fe).AsParallel().ToList();
+                    }
+                    else
+                    {
+                        registros = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     where fe.Activo && rfp.Activo && p.Activo
+                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                     && proyectos.Contains(rfp.ProyectoID)
+                                     && patios.Contains(p.PatioID)
+                                     select fe).AsParallel().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                    }
+
+                    if (folioAvisoLlegadaID > 0)
+                    {
+                        registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).ToList();
+                    }
+
+
+
 
                     return null;
                 }
@@ -1032,7 +1113,7 @@ namespace BackEndSAM.DataAcces
                                                 }).AsParallel().ToList();
 
                     return folios;
-                                                
+
                 }
             }
             catch (Exception ex)
