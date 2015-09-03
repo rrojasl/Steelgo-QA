@@ -145,6 +145,7 @@
     <Compile Include="Controllers\DummyAceroController.cs" />
     <Compile Include="Controllers\DummyColadaController.cs" />
     <Compile Include="Controllers\DummyColadasPorProyectoController.cs" />
+    <Compile Include="Controllers\DummyGenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
