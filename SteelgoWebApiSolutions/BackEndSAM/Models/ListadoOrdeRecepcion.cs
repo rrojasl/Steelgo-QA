@@ -9,22 +9,11 @@ namespace BackEndSAM.Models
     {
         public string FechaOrdenRecepcion { get; set; }
         public string OrdenRecepcion { get; set; }
-        public List<DetalleOrdenRecepcion> Detalle { get; set; }
+        public List<ElementoItemCode> Detalle { get; set; }
 
         public ListadoOrdeRecepcion()
         {
-            Detalle = new List<DetalleOrdenRecepcion>();
-        }
-    }
-
-    public class DetalleOrdenRecepcion
-    {
-        
-        public List<ElementoItemCode> ItemCodes { get; set; }
-
-        public DetalleOrdenRecepcion()
-        {
-            ItemCodes = new List<ElementoItemCode>();
+            Detalle = new List<ElementoItemCode>();
         }
     }
 

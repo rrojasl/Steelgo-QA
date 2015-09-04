@@ -76,9 +76,21 @@ namespace BackEndSAM.DataAcces
                                                                    Diametro1 = r.Diametro1.ToString(),
                                                                    Diametro2 = r.Diametro2.ToString(),
                                                                    ItemCode = it.Codigo,
-                                                                   NumeroUnico = r.Prefijo + "-" + r.Consecutivo.ToString(formato),
+                                                                   NumeroUnico = r.Prefijo + "-" + r.Consecutivo.ToString(),
                                                                    Proyecto = p.Nombre
                                                                }).AsParallel().ToList();
+
+                    foreach (InfoEtiquetaNumeroUnico et in etiquetas)
+                    {
+                        List<string> elementos = et.NumeroUnico.Split('-').ToList();
+                        int folio = Convert.ToInt32(elementos[1]);
+                        et.NumeroUnico = elementos[0] + '-' + folio.ToString(formato);
+                    }
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(etiquetas);
+#endif
 
                     return etiquetas;
                 }

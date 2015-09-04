@@ -2007,6 +2007,212 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "DetalleOrdenRecepcion0013": {
+        "es-MX": "Orden de Recepción: ",
+        "en-US": "Order Reception: "
+    },
+    "DetalleOrdenRecepcion0014": {
+        "es-MX": "Nueva captura",
+        "en-US": "New capture"
+    },
+    //Listado de Orden de Almacenaje
+    "ListadoOrdenAlmacenaje0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoOrdenAlmacenaje0002": {
+        "es-MX": "Dashboard Almacenaje",
+        "en-US": "Dashboard Almacenaje"
+    },
+    "ListadoOrdenAlmacenaje0003": {
+        "es-MX": "Listado Orden de Almacenaje",
+        "en-US": "Listed in order of storage"
+    },
+    "ListadoOrdenAlmacenaje0004": {
+        "es-MX": "Generar Orden de Almacenaje",
+        "en-US": "Generate order of storage"
+    },
+    "ListadoOrdenAlmacenaje0005": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoOrdenAlmacenaje0006": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoOrdenAlmacenaje0007": {
+        "es-MX": "Folio Cuantificacion",
+        "en-US": "Folio Cuantificacion"
+    },
+    "ListadoOrdenAlmacenaje0008": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoOrdenAlmacenaje0009": {
+        "es-MX": "Fecha Final",
+        "en-US": "End Date"
+    },
+    "ListadoOrdenAlmacenaje0010": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoOrdenAlmacenaje0011": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoOrdenAlmacenaje0012": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoOrdenAlmacenaje0013": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoOrdenAlmacenaje0014": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoOrdenAlmacenaje0015": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "ListadoOrdenAlmacenaje0016": {
+        "es-MX": "Fecha Orden de Almacenaje",
+        "en-US": "Date Order Storage"
+    },
+    "ListadoOrdenAlmacenaje0017": {
+        "es-MX": "Orden de Almacenaje",
+        "en-US": "Order Storage"
+    },
+    "ListadoOrdenAlmacenaje0018": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
+    "ListadoOrdenAlmacenaje0019": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ListadoOrdenAlmacenaje0020": {
+        "es-MX": "Folio Cuantificacion",
+        "en-US": "Folio Cuantificacion"
+    },
+    "ListadoOrdenAlmacenaje0021": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ListadoOrdenAlmacenaje0022": {
+        "es-MX": "Numero Unico",
+        "en-US": "Unique Number"
+    },
+    //Generar Orden Almacenaje
+    "GenerarOrdenAlmacenaje0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "GenerarOrdenAlmacenaje0002": {
+        "es-MX": "Dashboard Almacenaje",
+        "en-US": "Dashboard Storage"
+    },
+    "GenerarOrdenAlmacenaje0003": {
+        "es-MX": "Listado Orden de Almacenaje",
+        "en-US": "Listed in order of storage"
+    },
+    "GenerarOrdenAlmacenaje0004": {
+        "es-MX": "Generar Orden de Almacenaje",
+        "en-US": "Generate Order Storage"
+    },
+    "GenerarOrdenAlmacenaje0005": {
+        "es-MX": "Generar Orden de Almacenaje",
+        "en-US": "Generate Order Storage"
+    },
+    "GenerarOrdenAlmacenaje0006": {
+        "es-MX": "Generar Orden de Almacenaje",
+        "en-US": "Generate Order Storage"
+    },
+    "GenerarOrdenAlmacenaje0007": {
+        "es-MX": "Generar Orden de Almacenaje e Imprimir Formato",
+        "en-US": "Generate Order Storage, print format"
+    },
+    "GenerarOrdenAlmacenaje0008": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "GenerarOrdenAlmacenaje0009": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "GenerarOrdenAlmacenaje0010": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "GenerarOrdenAlmacenaje0011": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "GenerarOrdenAlmacenaje0012": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "GenerarOrdenAlmacenaje0013": {
+        "es-MX": "Folio Cuantificación",
+        "en-US": "Folio Cuantificación"
+    },
+    "GenerarOrdenAlmacenaje0014": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "GenerarOrdenAlmacenaje0015": {
+        "es-MX": "Número Unico",
+        "en-US": "Unique Number"
+    },
+    "GenerarOrdenAlmacenaje0016": {
+        "es-MX": "Folio de Llegada",
+        "en-US": "Folio de Llegada"
+    },
+    "GenerarOrdenAlmacenaje0017": {
+        "es-MX": "Folio Cuantificacion ID",
+        "en-US": "Folio Cuantificacion ID"
+    },
+    "GenerarOrdenAlmacenaje0018": {
+        "es-MX": "Item Code ID",
+        "en-US": "Item Code ID"
+    },
+    "GenerarOrdenAlmacenaje0019": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    },
+    "GenerarOrdenAlmacenaje0020": {
+        "es-MX": "Descripcion",
+        "en-US": "Description"
+    },
+    "GenerarOrdenAlmacenaje0021": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "GenerarOrdenAlmacenaje0022": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "GenerarOrdenAlmacenaje0023": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "GenerarOrdenAlmacenaje0024": {
+        "es-MX": "Folio Cuantificacion ID",
+        "en-US": "Folio Cuantificacion ID"
+    },
+    "GenerarOrdenAlmacenaje0025": {
+        "es-MX": "Item Code ID",
+        "en-US": "Item Code ID"
+    },
+    "GenerarOrdenAlmacenaje0026": {
+        "es-MX": "Numero Unico ID",
+        "en-US": "Unique Number ID"
+    },
+    "GenerarOrdenAlmacenaje0027": {
+        "es-MX": "Numero Unico",
+        "en-US": "Unique Number"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
