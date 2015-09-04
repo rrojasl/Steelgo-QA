@@ -90,7 +90,7 @@ namespace BackEndSAM.DataAcces
                     proyectos = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                  //where t.FolioAvisoLlegadaID ==  avisoLlegada
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
-                                 join e in ctx.Sam3_FolioAvisoEntrada on avisoEntrada equals e.FolioAvisoEntradaID
+                                 join e in ctx.Sam3_FolioAvisoEntrada on avisoEntrada equals e.FolioAvisoLlegadaID
                                  where t.FolioAvisoLlegadaID == e.FolioAvisoLlegadaID
                                  select new Proyecto
                                  {

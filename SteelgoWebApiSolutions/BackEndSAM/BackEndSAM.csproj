@@ -166,6 +166,7 @@
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
+    <Compile Include="Controllers\ListadoCuantificacionController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="DataAcces\FamiliaBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
     <Compile Include="DataAcces\GuardarFolioLlegadaCuantificacionBd.cs" />
+    <Compile Include="DataAcces\GuardarItemCodesBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
     <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
     <Compile Include="DataAcces\FoliosCuantificacionBd.cs" />
@@ -323,6 +325,7 @@
     <Compile Include="Models\ElementoListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\FiltrosJson.cs" />
     <Compile Include="Models\FolioAvisoEntradaJson.cs" />
+    <Compile Include="Models\FolioCuantificacionItemCode.cs" />
     <Compile Include="Models\FolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\FormatoPermisoAduana.cs" />
     <Compile Include="Models\InfoEtiquetaNumeroUnico.cs" />

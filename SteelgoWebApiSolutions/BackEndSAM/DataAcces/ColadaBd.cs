@@ -84,5 +84,29 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ObtenerColadas()
+        {
+            try
+            {
+                List<Sam3_Colada> listColada = new List<Sam3_Colada>();
+                using (SamContext ctx = new SamContext())
+                {
+                    listColada.Add(new Sam3_Colada { NumeroColada = "Agregar Nuevo", ColadaID = 0 });
+                }
+                return listColada;
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

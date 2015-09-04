@@ -12,7 +12,7 @@ namespace BackEndSAM.Models
         public string Descripcion { get; set; }
         public decimal? D1 { get; set; }
         public decimal? D2 { get; set; }
-        public string ItemCodeSteelgo { get; set; }
+        public int ItemCodeSteelgo { get; set; }
         public string Familia { get; set; }
         //public int FamiliaID { get; set; }
         public int FamiliaMaterialID { get; set; }
@@ -21,6 +21,8 @@ namespace BackEndSAM.Models
         //public int ColadaID { get; set; }
         public string Colada { get; set; }
         public int? Cantidad { get; set; }
+        public decimal Peso { get; set; }
+        public int TipoMaterial { get; set; }
         public int? MM { get; set; }
         public string Detallar { get; set; }
         public string TieneNU { get; set; }
