@@ -38,13 +38,14 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        /// Valida si un item code tiene Numero unico
+        /// para saber si se puede cancelar un item code
         /// </summary>
-        /// <param name="folioAvisoLlegadaID"></param>
-        /// <param name="folioCuantificacionID"></param>
-        /// <param name="ItemCode"></param>
-        /// <param name="bultoID"></param>
-        /// <returns></returns>
+        /// <param name="folioAvisoLlegadaID">folio de llegada</param>
+        /// <param name="folioCuantificacionID">folio cuantificacion</param>
+        /// <param name="ItemCode">item code</param>
+        /// <param name="bultoID">id del bulto</param>
+        /// <returns>tru o false</returns>
         public object ValidarItemCode(int folioAvisoLlegadaID, int folioCuantificacionID, int ItemCode, int bultoID)
         {
             try
@@ -81,14 +82,14 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        /// Eliminar/Cancelar un Item Code de grid de materiales o bulto
         /// </summary>
-        /// <param name="folioAvisoLlegadaID"></param>
-        /// <param name="folioCuantificacionID"></param>
-        /// <param name="BultoID"></param>
-        /// <param name="ItemCode"></param>
-        /// <param name="usuario"></param>
-        /// <returns></returns>
+        /// <param name="folioAvisoLlegadaID">folio de llegada</param>
+        /// <param name="folioCuantificacionID">folio cuantificacion</param>
+        /// <param name="BultoID">bulto id</param>
+        /// <param name="ItemCode">item code</param>
+        /// <param name="usuario">usuario regisstrado</param>
+        /// <returns>estatus de exito o error</returns>
         public object EliminarItemCode(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, int ItemCode, Sam3_Usuario usuario)
         {
             try

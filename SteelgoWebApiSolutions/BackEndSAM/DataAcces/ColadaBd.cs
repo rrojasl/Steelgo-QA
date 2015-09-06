@@ -1,4 +1,5 @@
-﻿using DatabaseManager.Sam3;
+﻿using BackEndSAM.Models;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
@@ -9,20 +10,20 @@ namespace BackEndSAM.DataAcces
 {
     public class ColadaBd
     {
-         private static readonly object _mutex = new object();
-         private static ColadaBd _instance;
+        private static readonly object _mutex = new object();
+        private static ColadaBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-         private ColadaBd()
+        private ColadaBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-         public static ColadaBd Instance
+        public static ColadaBd Instance
         {
             get
             {
@@ -38,11 +39,11 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        /// Guardar Nueva Colada
         /// </summary>
-        /// <param name="DatosColada"></param>
-        /// <param name="usuario"></param>
-        /// <returns></returns>
+        /// <param name="DatosColada">datos capturados en el modal</param>
+        /// <param name="usuario">usuario registrado</param>
+        /// <returns>status exito o error</returns>
         public object GuardarColadaPopUp(Sam3_Colada DatosColada, Sam3_Usuario usuario)
         {
             try
@@ -69,7 +70,7 @@ namespace BackEndSAM.DataAcces
                     result.ReturnCode = 200;
                     result.ReturnStatus = false;
                     result.IsAuthenicated = true;
-                    
+
                     return result;
                 }
             }
@@ -85,14 +86,34 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerColadas()
+        /// <summary>
+        /// Obtener las coladas
+        /// Si id es != 0, se elimina la opcion "Sin Colada"
+        /// </summary>
+        /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
+        /// <returns>lista de ccoladas</returns>
+        public object ObtenerColadas(int id)
         {
             try
             {
-                List<Sam3_Colada> listColada = new List<Sam3_Colada>();
+                List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    listColada.Add(new Sam3_Colada { NumeroColada = "Agregar Nuevo", ColadaID = 0 });
+                    listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                    List<Coladas> coladas = (from c in ctx.Sam3_Colada
+                                             where c.Activo
+                                             select new Coladas
+                                             {
+                                                 ColadaID = c.ColadaID,
+                                                 Nombre = c.NumeroColada
+                                             }).AsParallel().ToList();
+
+                    listColada.AddRange(coladas);
+
+                    if (id != 0)
+                    {
+                        listColada.RemoveAll(x => x.ColadaID == 1);
+                    }
                 }
                 return listColada;
 

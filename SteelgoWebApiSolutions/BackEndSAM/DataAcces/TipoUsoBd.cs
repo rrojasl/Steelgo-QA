@@ -39,6 +39,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtener los tipos de uso para Cuantificacion
+        /// </summary>
+        /// <returns>lista de tipos de uso</returns>
         public object ObtenerTipoUso()
         {
             try
@@ -47,13 +51,17 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    listTU = (from t in ctx.Sam3_TipoUso
-                              where t.Activo == true
+                    listTU.Add(new TipoUso { Nombre = "Agregar Nuevo", id = "0" });
+
+                    List<TipoUso> tipoUso = (from t in ctx.Sam3_TipoUso
+                              where t.Activo
                               select new TipoUso
                                 {
                                     id = t.TipoUsoID.ToString(),
                                     Nombre = t.Nombre
                                 }).AsParallel().ToList();
+
+                    listTU.AddRange(tipoUso);
                 }
                 return listTU;
             }
@@ -66,7 +74,6 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
-
             }
         }
 

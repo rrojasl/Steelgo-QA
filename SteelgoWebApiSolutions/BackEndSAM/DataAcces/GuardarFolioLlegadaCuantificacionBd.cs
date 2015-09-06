@@ -38,6 +38,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Actualizar un folio cuantificacion existente
+        /// </summary>
+        /// <param name="datosCuantificacion">informacion del folio cuantificacion</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>folio de cuantificacion creado, proyectos</returns>
          public object UpdateGuardarFolio(DatosFolioLlegadaCuantificacion datosCuantificacion, Sam3_Usuario usuario)
          {
              try
@@ -49,13 +55,11 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID == null ? 1 : datosCuantificacion.ProyectoID;
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
-                     //folioCuantificacion.FechaCreacion = DateTime.Now;
                      folioCuantificacion.Estatus = "Entrada por cuantificar";
                      folioCuantificacion.FechaModificacion = DateTime.Now;
-                     folioCuantificacion.UsuarioModificacion = 1;//usuario.UsuarioID;
+                     folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
 
-                     //ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
                      ctx.SaveChanges();
 
                      if (datosCuantificacion.BultoID != null)
@@ -64,10 +68,9 @@ namespace BackEndSAM.DataAcces
                          bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
                          bulto.Estatus = "";
                          bulto.FechaModificacion = DateTime.Now;
-                         bulto.UsuarioModificacion = 1; //usuario.UsuarioID;
+                         bulto.UsuarioModificacion = usuario.UsuarioID;
                          bulto.Activo = true;
 
-                         //ctx.Sam3_Bulto.Add(bulto);
                          ctx.SaveChanges();
                      }
 
@@ -90,6 +93,12 @@ namespace BackEndSAM.DataAcces
              }
          }
 
+        /// <summary>
+        /// Guardar un folio Cuantificacion Nuevo
+        /// </summary>
+        /// <param name="datosCuantificacion">informacion del folio cuantificacion</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>Folio de cuantificacion creados, proyectos</returns>
          public object CreateGuardarFolio(DatosFolioLlegadaCuantificacion datosCuantificacion, Sam3_Usuario usuario)
          {
              try
@@ -105,7 +114,7 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.FechaCreacion = DateTime.Now;
                      folioCuantificacion.Estatus = "Entrada por cuantificar";
                      folioCuantificacion.FechaModificacion = DateTime.Now;
-                     folioCuantificacion.UsuarioModificacion = 1;//usuario.UsuarioID;
+                     folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
 
                      ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
@@ -117,7 +126,7 @@ namespace BackEndSAM.DataAcces
                          bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
                          bulto.Estatus = "";
                          bulto.FechaModificacion = DateTime.Now;
-                         bulto.UsuarioModificacion = 1; //usuario.UsuarioID;
+                         bulto.UsuarioModificacion = usuario.UsuarioID;
                          bulto.Activo = true;
 
                          ctx.Sam3_Bulto.Add(bulto);

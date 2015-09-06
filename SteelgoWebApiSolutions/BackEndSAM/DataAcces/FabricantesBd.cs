@@ -1,29 +1,29 @@
-﻿using SecurityManager.Api.Models;
+﻿using BackEndSAM.Models;
+using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using BackEndSAM.Models;
-using DatabaseManager.Sam3;
 
 namespace BackEndSAM.DataAcces
 {
-    public class TipoPackingListBd
+    public class FabricantesBd
     {
-          private static readonly object _mutex = new object();
-         private static TipoPackingListBd _instance;
+        private static readonly object _mutex = new object();
+         private static FabricantesBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-         private TipoPackingListBd()
+         private FabricantesBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-         public static TipoPackingListBd Instance
+         public static FabricantesBd Instance
         {
             get
             {
@@ -31,7 +31,7 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new TipoPackingListBd();
+                        _instance = new FabricantesBd();
                     }
                 }
                 return _instance;
@@ -39,27 +39,27 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// Obtener los tipo packing list (Tipo Material)
+        /// Se obtienen todos los fabricantes 
         /// </summary>
-        /// <returns>Lista con los tipos de PL</returns>
-         public object ObtenerTipoPackingList()
+        /// <returns>lista de fabricantes</returns>
+         public object ObtenerFabricantes()
          {
-             try
+             try 
              {
-                 List<TipoPackingList> PL = new List<TipoPackingList>();
+                 List<Fabricante> fabricante = new List<Fabricante>();
 
                  using (SamContext ctx = new SamContext())
                  {
-                     PL = (from m in ctx.Sam3_TipoMaterial
-                           where m.Activo
-                           select new TipoPackingList
-                           {
-                               id = m.TipoMaterialID.ToString(),
-                               Nombre = m.Nombre
-                           }).AsParallel().ToList();
-                 }
-                 return PL;
+                     fabricante = (from f in ctx.Sam3_Fabricante
+                                   where f.Activo
+                                   select new Fabricante
+                                   {
+                                       FabricanteID = f.FabricanteID,
+                                       Nombre = f.Nombre
+                                   }).AsParallel().ToList();
 
+                     return fabricante;
+                 }
              }
              catch (Exception ex)
              {
@@ -71,6 +71,7 @@ namespace BackEndSAM.DataAcces
 
                  return result;
              }
+ 
          }
     }
 }

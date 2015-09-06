@@ -73,13 +73,12 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        ///Obtiene la informacion de un aviso de entrada en cuantificacion
         /// </summary>
-        /// <param name="avisoEntrada"></param>
-        /// <returns></returns>
+        /// <param name="avisoEntrada">aviso de entrada seleccionado</param>
+        /// <returns>objeto con la informacion</returns>
         public object obtenerDatosFolioEntrada(int avisoEntrada)
         {
-            List<InfoFolioAvisoEntrada> lista = new List<InfoFolioAvisoEntrada>();
             List<Proyecto> proyectos = new List<Proyecto>();
             List<FolioLlegada1> cuantificacion = new List<FolioLlegada1>();
 
@@ -88,7 +87,6 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     proyectos = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                 //where t.FolioAvisoLlegadaID ==  avisoLlegada
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
                                  join e in ctx.Sam3_FolioAvisoEntrada on avisoEntrada equals e.FolioAvisoLlegadaID
                                  where t.FolioAvisoLlegadaID == e.FolioAvisoLlegadaID
@@ -100,7 +98,7 @@ namespace BackEndSAM.DataAcces
 
                     foreach (var item in proyectos)
                     {
-                        if (String.IsNullOrEmpty(item.ProyectoID) || item.ProyectoID == "1")
+                        if (String.IsNullOrEmpty(item.ProyectoID) || item.ProyectoID.Contains("1"))
                         {
                             proyectos = (from t in ctx.Sam3_Proyecto
                                          where t.Activo == true

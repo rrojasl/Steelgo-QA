@@ -43,19 +43,22 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        /// Obtiene los item codes para el combo del grid de materiales
+        /// Que no tengan orden de Recepcion ni Numeros unicos
         /// </summary>
-        /// <param name="tipoPackingListID"></param>
-        /// <returns></returns>
+        /// <param name="tipoPackingListID">tipo Packing List: 1 Tubo, 2 Accesorio</param>
+        /// <returns>lista de item codes</returns>
          public object ObtenerItemCode(int tipoPackingListID)
          {
              try
              {
-                 List<ItemCode> itemCode = new List<ItemCode>();
+                 List<ItemCode> IC = new List<ItemCode>();
 
                  using (SamContext ctx = new SamContext())
                  {
-                     itemCode = (from ic in ctx.Sam3_ItemCode
+                     IC.Add(new ItemCode { ItemCodeID = "0", Codigo = "Agregar Nuevo" });
+
+                     List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode
                                  where ic.Activo && ic.TipoMaterialID == tipoPackingListID
                                  && !ctx.Sam3_NumeroUnico.Where(c=> c.ItemCodeID == ic.ItemCodeID).Any() 
                                  && !ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c=> c.ItemCodeID == ic.ItemCodeID).Any()
@@ -64,9 +67,11 @@ namespace BackEndSAM.DataAcces
                                      ItemCodeID = ic.ItemCodeID.ToString(),
                                      Codigo = ic.Codigo
                                  }).AsParallel().ToList();
+
+                     IC.AddRange(itemCode);
                  }
 
-                 return itemCode;
+                 return IC;
              }
              catch (Exception ex)
              {
@@ -81,11 +86,11 @@ namespace BackEndSAM.DataAcces
          }
 
         /// <summary>
-        /// 
+        /// Guardar nnuevo Item Code
         /// </summary>
-        /// <param name="DatosItemCode"></param>
-        /// <param name="usuario"></param>
-        /// <returns></returns>
+        /// <param name="DatosItemCode">datos capturados por el usuario en el modal</param>
+        /// <param name="usuario">usuario registrado</param>
+        /// <returns>status exito o error</returns>
          public object GuardarItemCodePopUp(ItemCodeJson DatosItemCode, Sam3_Usuario usuario)
          {
              try

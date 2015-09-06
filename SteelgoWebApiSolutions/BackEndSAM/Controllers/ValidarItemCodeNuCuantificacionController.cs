@@ -51,9 +51,7 @@ namespace BackEndSAM.Controllers
         public void Put(int id, [FromBody]string value)
         {
         }
-
-
-        //borrar de ItemCode, FolioCuantificacion, FolioCuantificacionItemCode, y si bultoID != -1 borra tmb de bulto (no se puede tener IC Bulto) 
+ 
         // DELETE api/<controller>/5
         public object Delete(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, int ItemCode, string token)
         {

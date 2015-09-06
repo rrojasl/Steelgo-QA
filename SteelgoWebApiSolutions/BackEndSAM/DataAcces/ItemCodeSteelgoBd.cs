@@ -41,13 +41,18 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-
+        /// <summary>
+        /// Obtener los item code steelgo para el grid de materiales en cuantificacion
+        /// </summary>
+        /// <returns>Lista de ICS</returns>
         public object ObtenerListadoItemCodeSteelgo()
         {
             try
             {
+                List<ListaCombos> ics = new List<ListaCombos>();
                 using (SamContext ctx = new SamContext())
                 {
+                    ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
                     List<ListaCombos> listado = (from r in ctx.Sam3_ItemCodeSteelgo
                                                  where r.Activo
                                                  select new ListaCombos
@@ -55,7 +60,9 @@ namespace BackEndSAM.DataAcces
                                                      id = r.ItemCodeSteelgoID.ToString(),
                                                      value = r.Codigo
                                                  }).AsParallel().ToList();
-                    return listado;
+                    ics.AddRange(listado);
+                    return ics;
+
                 }
             }
             catch (Exception ex)
@@ -88,7 +95,7 @@ namespace BackEndSAM.DataAcces
                                                        Diametro2 = r.Diametro2,
                                                        FamiliaAceroID = r.FamiliaAceroID,
                                                        ItemCodeSteelgoID = r.ItemCodeSteelgoID,
-                                                       Peso = r.Peso, 
+                                                       Peso = r.Peso,
                                                        Codigo = r.Codigo
                                                    }).AsParallel().SingleOrDefault();
 
@@ -127,7 +134,7 @@ namespace BackEndSAM.DataAcces
 
                             ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Add(nuevoRegistro);
                         }
- 
+
                     }
                     ctx.SaveChanges();
 
@@ -154,7 +161,7 @@ namespace BackEndSAM.DataAcces
 
         public object InsertarItemCodeSteelgo(ItemCodeSteelgoJson json, Sam3_Usuario usuario)
         {
-            try 
+            try
             {
                 using (SamContext ctx = new SamContext())
                 {
