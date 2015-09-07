@@ -88,8 +88,8 @@ namespace BackEndSAM.DataAcces
                 {
                     proyectos = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
-                                 join e in ctx.Sam3_FolioAvisoEntrada on folioAvisoLlegadaID equals e.FolioAvisoLlegadaID
-                                 where t.FolioAvisoLlegadaID == e.FolioAvisoLlegadaID
+                                 join e in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoLlegadaID equals e.FolioAvisoLlegadaID
+                                 where t.FolioAvisoLlegadaID == folioAvisoLlegadaID
                                  select new Proyecto
                                  {
                                      ProyectoID = p.ProyectoID.ToString(),
