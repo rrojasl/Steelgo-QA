@@ -51,7 +51,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    listTU.Add(new TipoUso { Nombre = "Agregar Nuevo", id = "0" });
+                    //listTU.Add(new TipoUso { Nombre = "Agregar Nuevo", id = "0" });
 
                     List<TipoUso> tipoUso = (from t in ctx.Sam3_TipoUso
                               where t.Activo

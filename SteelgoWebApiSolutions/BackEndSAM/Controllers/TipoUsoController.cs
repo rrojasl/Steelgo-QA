@@ -7,9 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BackEndSAM.DataAcces;
+using System.Web.Http.Cors;
 
 namespace BackEndSAM.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TipoUsoController : ApiController
     {
         /// <summary>
