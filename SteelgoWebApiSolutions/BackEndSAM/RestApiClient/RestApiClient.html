@@ -258,9 +258,13 @@
         //ItemCode.Descripcion = "Brida";
         //ItemCode.FamiliaID = 1;
 
-        //client.add("ItemCode");
-        ////client.ItemCode.read({TipoPackingListID: 2, token: "" }).done(function (data) { console.log(data) });
+        client.add("ItemCode");
+        client.ItemCode.read({ itemCodeID: "2", token: "" }).done(function (data) { console.log(data) });
         //client.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: "24154532" }).done(function (data) { console.log(data) });
+
+        //client.add("ItemCodeSteelgo");
+        //client.ItemCodeSteelgo.read({}, { itemID: 2, token: "" }).done(function (data) { console.log(data) });
+
 
         //client.add("ValidarItemCodeNuCuantificacion");
         //client.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: 2, folioCuantificacionID: 2, ItemCode: 2, BultoID: 1, token: "" }).done(function (data) { console.log(data) });
@@ -284,8 +288,8 @@
         //client.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(UpdateCuantificacion), token: "", idGuardado: 1 }).done(function (data) { console.log(data) });
         //client.GuardarFolioLlegadaCuantificacion.create({},{ data: JSON.stringify(UpdateCuantificacion), token: "" }).done(function (data) { console.log(data) });
 
-        client.add("ListadoCuantificacion");
-        client.ListadoCuantificacion.update({}, { cerrar: true, incompletos: true, FolioAvisollegadaId: 15, FolioCuantificacionID: 2, cuantificacion: '[{"ItemCode":21, "ItemCodeCodigo" : "DHU542","BultoID":"","Descripcion":"Brida21","D1":20,"D2":50,"ItemCodeSteelgo" : 2,"Familia":"1", "Cedula":"1","TipoAcero":"1","Colada":"1","Cantidad":150,"MM":18,"Detallar":"No", "Peso": "12", "TipoMaterial" : 1, "TieneNU":false,"TieneError":false}]', token: "", idGuardado: 1 }).done(function (data) { console.log(data) });
+        //////////client.add("ListadoCuantificacion");
+        //////////client.ListadoCuantificacion.update({}, { cerrar: true, incompletos: true, FolioAvisollegadaId: 15, FolioCuantificacionID: 2, cuantificacion: '[{"ItemCode":21, "ItemCodeCodigo" : "DHU542","BultoID":"","Descripcion":"Brida21","D1":20,"D2":50,"ItemCodeSteelgo" : 2,"Familia":"1", "Cedula":"1","TipoAcero":"1","Colada":"1","Cantidad":150,"MM":18,"Detallar":"No", "Peso": "12", "TipoMaterial" : 1, "TieneNU":false,"TieneError":false}]', token: "", idGuardado: 1 }).done(function (data) { console.log(data) });
 
         //client.add("NumeroUnico");
         //client.NumeroUnico.read({}, { "ordenrecepcionID": 6, "Token": "154654df3sd4f36sd54f6s54f" });

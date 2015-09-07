@@ -146,21 +146,19 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="itemCode">item code seleccionado</param>
         /// <param name="usuario">usuario actual</param>
-        /// <returns></returns>
-         public object ObtenerDetalleItemCode(int itemCode, Sam3_Usuario usuario)
+        /// <returns>objeto con la informacion del item code</returns>
+         public object ObtenerDetalleItemCode(string itemCode)
          {
              try
              {
                  using (SamContext ctx = new SamContext())
                  {
+                     int itemCodeID = Int32.Parse(itemCode);
                      ItemCodeJson detalle = (from r in ctx.Sam3_ItemCode
-                                                    where r.Activo && r.ItemCodeID == itemCode
+                                                    where r.Activo && r.ItemCodeID == itemCodeID
                                                     select new ItemCodeJson
                                                     {
-                                                        Descripcion = r.DescripcionEspanol,
-                                                        Diametro1 = r.Diametro1,
-                                                        Diametro2 = r.Diametro2,
-                                                        ColadaID = r.ColadaID,
+                                                        ColadaNombre= (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID select c.NumeroColada).FirstOrDefault(),
                                                         Cantidad = r.Cantidad,
                                                         MM = r.MM
                                                     }).AsParallel().SingleOrDefault();

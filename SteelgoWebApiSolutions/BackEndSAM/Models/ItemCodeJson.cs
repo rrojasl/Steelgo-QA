@@ -25,5 +25,6 @@ namespace BackEndSAM.Models
         public Nullable<int> Cantidad { get; set; }
         public Nullable<int> MM { get; set; }
         public int ColadaID { get; set; }
+        public string ColadaNombre { get; set; }
     }
 }

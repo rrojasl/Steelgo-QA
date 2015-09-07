@@ -77,6 +77,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtener el detalle de un item code steelgo
+        /// </summary>
+        /// <param name="itemCodeSteelgoID">item code steelgo seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>objeto con la informacion del item code steelgo</returns>
         public object ObtenerDetalleitemCodeSteelgo(int itemCodeSteelgoID, Sam3_Usuario usuario)
         {
             try
@@ -93,14 +99,17 @@ namespace BackEndSAM.DataAcces
                                                        DescripcionIngles = r.DescripcionIngles,
                                                        Diametro1 = r.Diametro1,
                                                        Diametro2 = r.Diametro2,
-                                                       FamiliaAceroID = r.FamiliaAceroID,
+                                                       Familia = (from fa in ctx.Sam3_FamiliaAcero
+                                                                  where fa.FamiliaAceroID == r.FamiliaAceroID
+                                                                  select fa.Nombre).FirstOrDefault(),
                                                        ItemCodeSteelgoID = r.ItemCodeSteelgoID,
                                                        Peso = r.Peso,
-                                                       Codigo = r.Codigo
-
-
+                                                       Codigo = r.Codigo,
+                                                       TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                                    where fa.FamiliaAceroID == r.FamiliaAceroID
+                                                                    join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                                    select fm.Nombre).FirstOrDefault()
                                                    }).AsParallel().SingleOrDefault();
-
                     return detalle;
                 }
             }
