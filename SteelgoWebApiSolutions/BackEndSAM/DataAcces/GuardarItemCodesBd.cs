@@ -62,6 +62,7 @@ namespace BackEndSAM.DataAcces
                         List<Object> listaNuevosIC = new List<Object>();
                         Sam3_ItemCode IC = null;
                         List<string> creados = new List<string>();
+                        bool TieneErrores = false;
 
                         foreach (var item in datosItemCode)
                         {
@@ -69,7 +70,7 @@ namespace BackEndSAM.DataAcces
                             IC = new Sam3_ItemCode();
 
                             //Si tengo un bulto guardo en la tabla de bultos
-                            if (item.ItemCode == "Bulto")
+                            if (item.ItemCodeCodigo == "Bulto")
                             {
                                 Sam3_Bulto bulto = new Sam3_Bulto();
                                 bulto.FolioCuantificacionID = FolioCuantificacion;
@@ -90,18 +91,25 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else
                                 {
-
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
+                                        //Revisar la cantidad de numeros unicos existentes
+                                        int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico where cnu.ItemCodeID.ToString() == item.ItemCode && cnu.Activo select cnu.NumeroUnicoID).Count();
+                                        int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault();
                                         //Solo suma cantidad
                                         IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                         IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                         IC.UsuarioModificacion = usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
+
+                                        if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
+                                        {
+                                            TieneErrores = true;
+                                        }
                                     }
                                     else if (existeSINnumerosunicos)
                                     {
@@ -119,7 +127,7 @@ namespace BackEndSAM.DataAcces
                                         IC.Diametro2 = item.D2;
                                         IC.FamiliaAceroID = Int32.Parse(item.Familia);
                                         IC.Activo = true;
-                                        IC.UsuarioModificacion = usuario.UsuarioID; 
+                                        IC.UsuarioModificacion = usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
                                         IC.Cantidad = item.Cantidad;
                                         IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
@@ -141,12 +149,12 @@ namespace BackEndSAM.DataAcces
                                         IC.Diametro2 = item.D2;
                                         IC.FamiliaAceroID = Int32.Parse(item.Familia);
                                         IC.Activo = true;
-                                        IC.UsuarioModificacion = usuario.UsuarioID; 
+                                        IC.UsuarioModificacion = usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
                                         IC.Cantidad = item.Cantidad;
                                         IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
                                         IC.ColadaID = Int32.Parse(item.Colada);
-                                        
+
                                         ctx.Sam3_ItemCode.Add(IC);
                                         ctx.SaveChanges();
 
@@ -162,7 +170,7 @@ namespace BackEndSAM.DataAcces
                                         ctx.SaveChanges();
                                     }
                                 }
-                                listaNuevosIC.Add(IC);
+                                listIC.Add(IC);
 
                                 //Creo relacion ItemCode_ItemCodeSteelgo
                                 bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
@@ -188,9 +196,8 @@ namespace BackEndSAM.DataAcces
                             folioCuantificacion.FechaModificacion = DateTime.Now;
                             ctx.SaveChanges();
                         }
-                        listaNuevosIC.Insert(0,folioCuantificacion.Estatus);
                         scope.Complete();
-                        return listaNuevosIC;
+                        return listIC;
                     }
                 }
             }
@@ -216,8 +223,8 @@ namespace BackEndSAM.DataAcces
         /// <param name="datosItemCode">datos capturados en el grid de materiales</param>
         /// <param name="usuario">usuario actual</param>
         /// <returns>listado con los datos guardados</returns>
-        public object  SaveAndClose(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, List<CuantificacionListado> datosItemCode, Sam3_Usuario usuario)
-        { 
+        public object SaveAndClose(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, List<CuantificacionListado> datosItemCode, Sam3_Usuario usuario)
+        {
             try
             {
                 using (TransactionScope scope = new TransactionScope())
@@ -228,6 +235,7 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_ItemCode> listIC = new List<Sam3_ItemCode>();
                         Sam3_ItemCode IC = null;
                         List<string> creados = new List<string>();
+                        bool TieneErrores = false;
 
                         foreach (var item in datosItemCode)
                         {
@@ -235,7 +243,7 @@ namespace BackEndSAM.DataAcces
                             IC = new Sam3_ItemCode();
 
                             //Si tengo un bulto guardo en la tabla de bultos
-                            if (item.ItemCode == "Bulto")
+                            if (item.ItemCodeCodigo == "Bulto")
                             {
                                 Sam3_Bulto bulto = new Sam3_Bulto();
                                 bulto.FolioCuantificacionID = FolioCuantificacion;
@@ -256,18 +264,25 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else
                                 {
-
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
+                                        //Revisar la cantidad de numeros unicos existentes
+                                        int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico where cnu.ItemCodeID.ToString() == item.ItemCode && cnu.Activo select cnu.NumeroUnicoID).Count();
+                                        int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault();
                                         //Solo suma cantidad
                                         IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                         IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                         IC.UsuarioModificacion = usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
+
+                                        if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
+                                        {
+                                            TieneErrores = true;
+                                        }
                                     }
                                     else if (existeSINnumerosunicos)
                                     {
@@ -307,7 +322,7 @@ namespace BackEndSAM.DataAcces
                                         IC.Diametro2 = item.D2;
                                         IC.FamiliaAceroID = Int32.Parse(item.Familia);
                                         IC.Activo = true;
-                                        IC.UsuarioModificacion = usuario.UsuarioID; 
+                                        IC.UsuarioModificacion = usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
                                         IC.Cantidad = item.Cantidad;
                                         IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
@@ -355,7 +370,7 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
                         }
                         scope.Complete();
-                        return listIC; //enviar tambien el estatus
+                        return listIC;
                     }
                 }
             }
@@ -383,7 +398,7 @@ namespace BackEndSAM.DataAcces
         /// <returns>listado con los datos guardados </returns>
         public object GuardaryTerminar(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, List<CuantificacionListado> datosItemCode, Sam3_Usuario usuario)
         {
-            try 
+            try
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
@@ -393,11 +408,17 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_ItemCode> listIC = new List<Sam3_ItemCode>();
                         Sam3_ItemCode IC = null;
                         List<string> creados = new List<string>();
+                        bool TieneErrores = false;
 
                         foreach (var item in datosItemCode)
                         {
                             Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
                             IC = new Sam3_ItemCode();
+
+                            if (item.ItemCodeCodigo == "Bulto")
+                            {
+                                TieneErrores = true;
+                            }
                             //Si es un item Code repetido, se suman las cantidades
                             if (creados.Contains(item.ItemCodeCodigo))
                             {
@@ -414,11 +435,19 @@ namespace BackEndSAM.DataAcces
                                 //Si ya existe Item Code en la Rel Bulto y tiene NU
                                 if (existeYnumerosunicos)
                                 {
+                                    //Revisar la cantidad de numeros unicos existentes
+                                    int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico where cnu.ItemCodeID.ToString() == item.ItemCode && cnu.Activo select cnu.NumeroUnicoID).Count();
+                                    int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault();
                                     //Solo suma cantidad
                                     IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                     IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                     IC.UsuarioModificacion = usuario.UsuarioID;
-                                     IC.FechaModificacion = DateTime.Now;
+                                    IC.FechaModificacion = DateTime.Now;
+                                    if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
+                                    {
+                                        TieneErrores = true;
+                                    }
+
                                 }
                                 else if (existeSINnumerosunicos)
                                 {
@@ -518,7 +547,7 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
                         }
                         scope.Complete();
-                        return listIC; //enviar tambien el estatus
+                        return listIC;
                     }
                 }
             }
@@ -556,6 +585,7 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_ItemCode> listIC = new List<Sam3_ItemCode>();
                         Sam3_ItemCode IC = null;
                         List<string> creados = new List<string>();
+                        bool TieneErrores = false;
 
                         foreach (var item in datosItemCode)
                         {
@@ -563,7 +593,7 @@ namespace BackEndSAM.DataAcces
                             IC = new Sam3_ItemCode();
 
                             //Si tengo un bulto guardo en la tabla de bultos
-                            if (item.ItemCode == "Bulto")
+                            if (item.ItemCodeCodigo == "Bulto")
                             {
                                 Sam3_Bulto bulto = new Sam3_Bulto();
                                 bulto.FolioCuantificacionID = FolioCuantificacion;
@@ -580,22 +610,29 @@ namespace BackEndSAM.DataAcces
                                     IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                     IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                     IC.UsuarioModificacion = usuario.UsuarioID;
-                                     IC.FechaModificacion = DateTime.Now;
+                                    IC.FechaModificacion = DateTime.Now;
                                 }
                                 else
                                 {
-
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
+                                        //Revisar la cantidad de numeros unicos existentes
+                                        int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico where cnu.ItemCodeID.ToString() == item.ItemCode && cnu.Activo select cnu.NumeroUnicoID).Count();
+                                        int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault();
                                         //Solo suma cantidad
                                         IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                         IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                         IC.UsuarioModificacion = usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
+
+                                        if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
+                                        {
+                                            TieneErrores = true;
+                                        }
                                     }
                                     else if (existeSINnumerosunicos)
                                     {
@@ -721,19 +758,24 @@ namespace BackEndSAM.DataAcces
                         List<Sam3_ItemCode> listIC = new List<Sam3_ItemCode>();
                         Sam3_ItemCode IC = null;
                         List<string> creados = new List<string>();
+                        bool TieneErrores = false;
 
                         foreach (var item in datosItemCode)
                         {
                             Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
                             IC = new Sam3_ItemCode();
 
+                            if (item.ItemCodeCodigo == "Bulto")
+                            {
+                                TieneErrores = true;
+                            }
                             //Si es un item Code repetido, se suman las cantidades
                             if (creados.Contains(item.ItemCodeCodigo))
                             {
                                 IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                 IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                 IC.UsuarioModificacion = usuario.UsuarioID;
-                                 IC.FechaModificacion = DateTime.Now;
+                                IC.FechaModificacion = DateTime.Now;
                             }
                             else
                             {
@@ -743,11 +785,19 @@ namespace BackEndSAM.DataAcces
                                 //Si ya existe Item Code en la Rel Bulto y tiene NU
                                 if (existeYnumerosunicos)
                                 {
+                                    //Revisar la cantidad de numeros unicos existentes
+                                    int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico where cnu.ItemCodeID.ToString() == item.ItemCode && cnu.Activo select cnu.NumeroUnicoID).Count();
+                                    int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault();
                                     //Solo suma cantidad
                                     IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                     IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                     IC.UsuarioModificacion = usuario.UsuarioID;
                                     IC.FechaModificacion = DateTime.Now;
+
+                                    if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
+                                    {
+                                        TieneErrores = true;
+                                    }
                                 }
                                 else if (existeSINnumerosunicos)
                                 {
