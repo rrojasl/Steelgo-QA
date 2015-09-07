@@ -2391,7 +2391,7 @@ _dictionary = {
         "es-MX": "MTL sin Orden de Recepción",
         "en-US": "MTL without Receiving Order"
     },
-    "DashboardRecepcionAlmacenaje025": {
+    "DashboardRecepcionAlmacenaje0025": {
         "es-MX": "NU por recepcionar",
         "en-US": "NU por recepcionar"
     },
@@ -2406,6 +2406,78 @@ _dictionary = {
     "DashboardRecepcionAlmacenaje0028": {
         "es-MX": "Incidencias abiertas",
         "en-US": "Open issues"
+    },
+    "DashboardRecepcionAlmacenaje0029": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "DashboardRecepcionAlmacenaje0030": {
+        "es-MX": "Fecha de descarga",
+        "en-US": "Date of download"
+    },
+    "DashboardRecepcionAlmacenaje0031": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardRecepcionAlmacenaje0032": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DashboardRecepcionAlmacenaje0033": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DashboardRecepcionAlmacenaje0034": {
+        "es-MX": "Folio aviso entrada",
+        "en-US": "Folio aviso entrada"
+    },
+    "DashboardRecepcionAlmacenaje0035": {
+        "es-MX": "Fecha de descarga",
+        "en-US": "Date of download"
+    },
+    "DashboardRecepcionAlmacenaje0036": {
+        "es-MX": "Fecha creación Packing List",
+        "en-US": "Create Date Packing List"
+    },
+    "DashboardRecepcionAlmacenaje0037": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "DashboardRecepcionAlmacenaje0038": {
+        "es-MX": "Cantidad total de items",
+        "en-US": "Total number of items"
+    },
+    "DashboardRecepcionAlmacenaje0039": {
+        "es-MX": "Cantidad sin ICS",
+        "en-US": "Quantity without ICS"
+    },
+    "DashboardRecepcionAlmacenaje0040": {
+        "es-MX": "Fecha Orden de Recepción",
+        "en-US": "Reception Date Order"
+    },
+    "DashboardRecepcionAlmacenaje0041": {
+        "es-MX": "Orden de Recepción",
+        "en-US": "Date Order"
+    },
+    "DashboardRecepcionAlmacenaje0042": {
+        "es-MX": "NU en la Orden",
+        "en-US": "NU in Order"
+    },
+    "DashboardRecepcionAlmacenaje0043": {
+        "es-MX": "Cantidad NU por recepcionar",
+        "en-US": "NU amount by recepcionar"
+    },
+    "DashboardRecepcionAlmacenaje0044": {
+        "es-MX": "Cantidad NU por almacenar",
+        "en-US": "NU amount by storage"
+    },
+    "DashboardRecepcionAlmacenaje0045": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "DashboardRecepcionAlmacenaje0046": {
+        "es-MX": "Cantidad de incidencias",
+        "en-US": "Number of incidents"
     },
     //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
@@ -2507,6 +2579,18 @@ _dictionary = {
     "ListadoRecepcionAlmacenajeTuberia0025": {
         "es-MX": "Cuantificación",
         "en-US": "Quantification"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0026": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0027": {
+        "es-MX": "Fecha de descarga",
+        "en-US": "Date of download"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0028": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
     },
     //Default to copy
     "notificationslabel0001": {

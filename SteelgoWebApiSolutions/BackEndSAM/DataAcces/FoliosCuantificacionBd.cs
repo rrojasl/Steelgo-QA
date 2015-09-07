@@ -101,7 +101,7 @@ namespace BackEndSAM.DataAcces
                                       select new FolioLlegada1
                                            {
                                                FolioCuantificacionID = t.FolioCuantificacionID,
-                                               FolioAvisoEntradaID = t.FolioAvisoEntradaID
+                                               FolioAvisoEntradaID = t.FolioCuantificacionID
                                            }).AsParallel().ToList();
 
 

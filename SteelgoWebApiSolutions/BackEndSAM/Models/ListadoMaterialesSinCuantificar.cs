@@ -63,4 +63,14 @@ namespace BackEndSAM.Models
         public string NumeroUnico { get; set; }
         public string CantidadIncidencias { get; set; }
     }
+
+    public class ListadoPkList
+    {
+        public string FechaFolioAvisoEntrada { get; set; }
+        public string FolioEntrada { get; set; }
+        public string PackkingList { get; set; }
+        public string FolioCuantificacion { get; set; }
+        public string TipoPackingList { get; set; }
+        public string TipoUso { get; set; }
+    }
 }

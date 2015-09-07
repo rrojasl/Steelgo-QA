@@ -47,6 +47,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Devuelve los conteos para el dashboard de avisos de llegada
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerCantidadesDashboard(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -204,6 +210,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Devuelve los conteos para el dashboard de avisos de entrada de material
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerCantidadesDashboardAvisoEntrada(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -314,6 +326,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Devuelve los conteos para el dashboard de cuantificacion
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerCantidadesDashboardCuantificacion(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -492,6 +510,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera el listado para el grid de Entradas por cuantificar
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoMaterialesSinCuantificar(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -587,6 +611,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera el set de datos para el grid de Packing list sin cuantificar del dahsboard de cuantificacion
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoPacknglistPorCuantificar(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -694,6 +724,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera el set de datos para el gri de Materiales sin ItemCodeSteelgo
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoMTLSinICS(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -1015,7 +1051,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        
+        /// <summary>
+        /// Genera el set de datos para el gri de Números únicos sin almacenar 
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoNUSinAlmacenaje(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -1164,6 +1205,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera el set de datos para el gri de incidencias activas por número único
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoIncidenciasActivas(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -1313,6 +1360,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado para combo de los folios de entrada que aun no cuantan con cuantificación
+        /// </summary>
+        /// <param name="proyectoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerFoliosEntradaPorProyecto(int proyectoID, Sam3_Usuario usuario)
         {
             try
@@ -1346,6 +1399,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado para combo con los ItemCodes de un Aviso de entrada
+        /// </summary>
+        /// <param name="folioAvisoLlegada"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerItemCodesPorFolioLlegada(int folioAvisoLlegada, Sam3_Usuario usuario)
         {
             try
@@ -1382,6 +1441,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera el set de datos para el grid de listado de Packing List
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ListadoPackingList(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -1455,9 +1520,99 @@ namespace BackEndSAM.DataAcces
 
                     registros = registros.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
 
+                    List<ListadoPkList> listado = new List<ListadoPkList>();
+                    ListadoPkList elemento;
+                    List<Sam3_FolioCuantificacion> folioc = new List<Sam3_FolioCuantificacion>();
 
+                    foreach (Sam3_FolioAvisoEntrada r in registros)
+                    {
+                        folioc = (from fc in ctx.Sam3_FolioCuantificacion
+                                  where fc.Activo
+                                  && fc.FolioAvisoEntradaID == fc.FolioAvisoEntradaID
+                                  select fc).AsParallel().ToList();
 
-                    return null;
+                        folioc = folioc.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
+
+                        foreach (Sam3_FolioCuantificacion fc in folioc)
+                        {
+                            elemento = new ListadoPkList();
+                            elemento.FechaFolioAvisoEntrada = r.FechaCreacion != null ? r.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
+                            elemento.FolioCuantificacion = fc.FolioCuantificacionID.ToString();
+                            elemento.FolioEntrada = r.FolioAvisoEntradaID.ToString();
+                            elemento.PackkingList = fc.PackingList;
+
+                            elemento.TipoPackingList = (from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                        join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                                        join tpm in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals tpm.TipoMaterialID
+                                                        where rfi.Activo && it.Activo && tpm.Activo
+                                                        && rfi.FolioCuantificacionID == fc.FolioCuantificacionID
+                                                        select tpm.Nombre).AsParallel().FirstOrDefault();
+
+                            elemento.TipoUso = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == fc.TipoUsoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
+
+                            listado.Add(elemento);
+                        }
+                    }
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(listado);
+#endif
+
+                    return listado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Lista para combo de packing List en filtros de cuantificacion
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object PackingListsParaComboFiltros(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
+
+                    List<int> patios = (from r in ctx.Sam3_Proyecto
+                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                        where r.Activo && proyectos.Contains(r.ProyectoID)
+                                        select p.PatioID).AsParallel().Distinct().ToList();
+
+                    List<ListaCombos> registros = (from fc in ctx.Sam3_FolioCuantificacion
+                                                   join p in ctx.Sam3_Proyecto on fc.ProyectoID equals p.ProyectoID
+                                                   join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                   where fc.Activo
+                                                   && fc.Estatus != "Cerrado"
+                                                   && proyectos.Contains(fc.ProyectoID)
+                                                   && patios.Contains(pa.PatioID)
+                                                   select new ListaCombos
+                                                   {
+                                                       id = fc.FolioCuantificacionID.ToString(),
+                                                       value = fc.FolioCuantificacionID.ToString()
+                                                   }).AsParallel().ToList();
+
+                    registros = registros.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(registros);
+#endif
+
+                    return registros;
                 }
             }
             catch (Exception ex)

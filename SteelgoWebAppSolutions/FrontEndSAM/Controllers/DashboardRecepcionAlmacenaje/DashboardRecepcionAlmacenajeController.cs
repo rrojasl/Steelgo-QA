@@ -14,15 +14,5 @@ namespace FrontEndSAM.Controllers.DashboardRecepcionAlmacenaje
         {
             return View();
         }
-
-        public ActionResult ListadoRecepcionAlmacenajeTuberia()
-        {
-            return View();
-        }
-
-        public ActionResult ListadoRecepcionAlmacenajeAccesorios()
-        {
-            return View();
-        }
     }
 }

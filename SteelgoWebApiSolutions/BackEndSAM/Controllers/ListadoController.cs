@@ -18,7 +18,13 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListadoController : ApiController
     {
-
+        /// <summary>
+        /// Metodo comun para listados simples, para combos, o grids
+        /// </summary>
+        /// <param name="tipoListado">Tipo de listado a devolver</param>
+        /// <param name="token">credenciales del usuario</param>
+        /// <param name="parametroBusqueda">cadena de busqueda</param>
+        /// <returns>Devuelve el listado aporpiado de acuerdo al tipo solicitado</returns>
         public object Get(int tipoListado, string token, string parametroBusqueda = "")
         {
             string payload = "";
@@ -46,6 +52,8 @@ namespace BackEndSAM.Controllers
                         return rest;
                     case 6: //Obtener listado de folios que ya tienen llegada de material
                         return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida();
+                    case 18: // Listado para combo de packing list
+                        return ListadoBd.Instance.PackingListsParaComboFiltros(usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
@@ -67,7 +75,11 @@ namespace BackEndSAM.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Metodo comun de listados simples o datos para grids
+        /// </summary>
+        /// <param name="data">objeto json en formato de cadena con las propiedades de filtrado</param>
+        /// <returns>Devuelve el listado de acuerdo a la propiedad TipoListadoID enviada en el objeto json de entrada</returns>
         public object Get(string data)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -113,8 +125,12 @@ namespace BackEndSAM.Controllers
                         return ListadoBd.Instance.ListadoNUConRecepcionSinComplemento(filtros, usuario);
                     case 15: // numeros unicos sin rack
                         return ListadoBd.Instance.ListadoNUSinAlmacenaje(filtros, usuario);
-                    case 16:
+                    case 16:// Listado de incidencias activas para el dashboard de cuantificacion
                         return ListadoBd.Instance.ListadoIncidenciasActivas(filtros, usuario);
+                    case 17: // Listado de packing list
+                        return ListadoBd.Instance.ListadoPackingList(filtros, usuario);
+                    case 18: // Listado para combo de packing list
+                        return ListadoBd.Instance.PackingListsParaComboFiltros(usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
