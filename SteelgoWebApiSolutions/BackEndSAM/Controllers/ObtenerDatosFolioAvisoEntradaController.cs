@@ -2,9 +2,11 @@
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace BackEndSAM.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ObtenerDatosFolioAvisoEntradaController : ApiController
     {
         /// <summary>

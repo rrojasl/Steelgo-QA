@@ -625,8 +625,8 @@
             });
             
             $("#FolioAvisoEntradaID").kendoComboBox({
-                    dataTextField: "id",
-                    dataValueField: "value",
+                    dataTextField: "value",
+                    dataValueField: "id",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         CargarFolioAvisoEntrada(dataItem.id,dataItem.value);
@@ -663,7 +663,7 @@
                 },
                 filter: "contains",
             });
-            ObtenerProyecto("ProyectoID");
+            //ObtenerProyecto("ProyectoID");
 
 
             $("#FolioCuantificacionID").kendoComboBox({
@@ -688,10 +688,10 @@
 
             $("#TipoPackingListID").kendoComboBox({
                 dataTextField: "Nombre",
-                dataValueField: "id",
+                dataValueField: "TipoMaterialID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarTipoPackingList(dataItem.id, dataItem.Nombre);
+                    CargarTipoPackingList(dataItem.TipoMaterialID, dataItem.Nombre);
                 },
                 change: function (e) {
                     var value = this.value();
@@ -772,10 +772,10 @@
            
             $("#TipoMaterial_ItemCode").kendoComboBox({
                 dataTextField: "Nombre",
-                dataValueField: "id",
+                dataValueField: "TipoMaterialID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
+                    CargarTipoPackingListItemCode(dataItem.TipoMaterialID, dataItem.Nombre);
                 },
                 change: function (e) {
                     var value = this.value();
@@ -841,10 +841,10 @@
 
             $("#TipoMaterial_ItemCodeSteelgo").kendoComboBox({
                 dataTextField: "Nombre",
-                dataValueField: "id",
+                dataValueField: "TipoMaterialID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarTipoPackingListItemCodeSteelgo(dataItem.id, dataItem.Nombre);
+                    CargarTipoPackingListItemCodeSteelgo(dataItem.TipoMaterialID, dataItem.Nombre);
                 },
                 change: function (e) {
                     var value = this.value();
@@ -1461,7 +1461,7 @@
 
 
         function ObtenerFoliosAvisoLlegada() {
-            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            $FoliosCuantificacion.FoliosCuantificacion.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
             });
         };
@@ -1473,20 +1473,19 @@
         };
 
         function obtenerTipoPackingList(id) {
-            $DummyTipoPackingList.DummyTipoPackingList.read({ token: Cookies.get("token") }).done(function (result) {
+            $TipoPackingList.TipoPackingList.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox(id, result);
             });
         };
 
         function ObtenerTipoUso() {
-            $DummyTipoUso.DummyTipoUso.read({ token: Cookies.get("token") }).done(function (result) {
+            $TipoUso.TipoUso.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("TipoUsoID", result);
             });
         };
 
         function ObtenerDatosDelFolioAvisoLlegada() {
-            console.log("ObtenerDatosDelFolioAvisoLlegada " + FolioAvisoEntrada.FolioAvisoEntradaID);
-            $dummyObtenerDatosFolioAviso.DummyObtenerDatosFolioAvisoEntrada.read({ FolioAvisoEntradaID: FolioAvisoEntrada.FolioAvisoEntradaID, token: Cookies.get("token") }).done(function (result) {
+            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ FolioAvisoEntradaID: FolioAvisoEntrada.FolioAvisoEntradaID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     ControlErroresObjetosComboBox("ProyectoID", result.Proyecto);
                     ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada);

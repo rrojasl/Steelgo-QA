@@ -44,17 +44,17 @@ namespace BackEndSAM.DataAcces
         /// <returns>Lista de Folios de Aviso de llegada</returns>
         public object obtenerFolioLlegada()
         {
-            List<FolioEntradaYLlegada> listFE = new List<FolioEntradaYLlegada>();
+            List<ListaCombos> listFE = new List<ListaCombos>();
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     listFE = (from t in ctx.Sam3_FolioAvisoEntrada
                               where t.FolioDescarga != 0 && t.Activo == true
-                              select new FolioEntradaYLlegada
+                              select new ListaCombos
                                 {
-                                    FolioAvisoEntradaID = t.FolioAvisoEntradaID,
-                                    FolioAvisoLlegadaID = t.FolioAvisoLlegadaID
+                                    id = t.FolioAvisoLlegadaID.ToString(),
+                                    value = t.FolioAvisoLlegadaID.ToString()
                                 }).AsParallel().ToList();
                 }
                 return listFE;
