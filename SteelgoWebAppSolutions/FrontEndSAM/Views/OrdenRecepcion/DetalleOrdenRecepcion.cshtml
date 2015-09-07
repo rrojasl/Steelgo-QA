@@ -33,6 +33,25 @@
             </div>
         </div>
 
+        <div class="row">
+                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="DetalleOrdenRecepcion0015"></label>
+                            <input id="ProyectoID" />
+                        </div>
+                         <div id="FolioAvisoEntradaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="DetalleOrdenRecepcion0016"></label>
+                            <input id="FolioAvisoEntradaID" class="" />
+                        </div>
+                        <div id="ItemCodeDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="DetalleOrdenRecepcion0017"></label>
+                            <input id="ItemCode" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                  <div id="grid"></div>
         </div>
@@ -42,8 +61,9 @@
 <script>
     @section JavascriptGlobalVariables 
     {
-    var _resultadoJson;
+    var _resultadoJson, Proyecto = {}, FolioAvisoEntrada = {}, ItemCode = {}, _esFiltros = false;
     var _ordenRecepcionID = getUrlParameter("OrdenRecepcionID", "-1");
+    var _proyectoID = getUrlParameter("ProyectoID", "-1");
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
     var $GenerarOrdenRecepcionModel = {
@@ -70,16 +90,128 @@
 
     function CargaInicial() {
         $("#spanOrdenRecepcion").html(_ordenRecepcionID);
+
+        $("#ProyectoID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                LimpiarFiltrosProyecto();
+
+                if (!value) {
+                    Proyecto = {};
+                } else {
+                    ObtenerFoliosAvisoEntrada();
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+
+        ObtenerProyecto();
+
+        $("#FolioAvisoEntradaID").kendoComboBox({
+            dataTextField: "id",
+            dataValueField: "value",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFolio(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                limpiarFiltroItemCode();
+
+                if (!value) {
+                    FolioAvisoEntrada = {};
+                } else {
+                    ObtenerItemCodes();
+                };
+
+                Filtros();
+            },
+        });
+
+        $("#ItemCode").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            filter: "contains",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarItemCode(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    ItemCode = {};
+                }
+                Filtros();
+            },
+        });
+
         $("#RedirectListado").click(function () {
             window.location.href = _listadoOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
         $("#NuevaCaptura").click(function () {
             window.location.href = _generarOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-        CargarDatosGrid();
+        CargarDatosGridInicial();
     };
 
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
 
+    function CargarProyecto(id, value) {
+        Proyecto = {};
+        Proyecto = { ProyectoID: id, Nombre: value };
+    };
+
+    function CargarFolio(id) {
+        FolioAvisoEntrada = {};
+        FolioAvisoEntrada = { FolioAvisoEntradaID: id };
+    };
+
+    function CargarItemCode(id) {
+        ItemCode = {};
+        ItemCode = { ItemCodeID: id };
+    };
+
+    function limpiarFiltroItemCode() {
+        ItemCode = {};
+        LimpiarCombo("ItemCode");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+    };
+
+    function LimpiarFiltrosProyecto() {
+        LimpiarCombo("ItemCode");
+        LimpiarCombo("FolioAvisoEntradaID");
+        ItemCode = {};
+        FolioAvisoEntrada = {};
+        $("#grid").data("kendoGrid").dataSource.data([]);
+    };
+
+    function LimpiarCombo(control) {
+        $("#" + control).data("kendoComboBox").value("");
+        $("#" + control).data("kendoComboBox").dataSource.data([]);
+    };
+
+    
+    function ObtenerProyecto() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+            $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+            //$("#ProyectoID").data("kendoComboBox").enable(false);
+        });
+    };
     function CargaInicialGrid() {
         var grid = $("#grid").kendoGrid({
             dataSource: {
@@ -192,8 +324,28 @@
             });
         }
     }
+    function Filtros() {
+        loadingStart();
+        var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
+        var FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+        var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
 
-    function CargarDatosGrid() {
+        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioAvisoEntradaID: FolioAvisoEntradaID, TipoListado: "8", token: Cookies.get("token") };
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            if (Error(result)) {
+                _resultadoJson = result;
+                if (_resultadoJson.length > 0) {
+                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                };
+            }
+            loadingStop();
+        });
+    };
+
+    function CargarDatosGridInicial() {
         loadingStart();
 
         $OrdenRecepcion.OrdenRecepcion.read({}, { ordenrecepcionID: _ordenRecepcionID, token: $.cookie("token") }).done(function (result) {
@@ -211,6 +363,24 @@
 
     function cancelarItemCode() {
 
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
     };
     }
 

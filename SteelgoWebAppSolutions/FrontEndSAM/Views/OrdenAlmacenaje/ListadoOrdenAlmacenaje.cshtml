@@ -222,7 +222,7 @@
                 { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "40px" },
-                { command: { text: _dictionary.ListadoOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "40px" }
+                { field: "", title:"", width: "40px", template: "<a class='detailLink' onclick='CancelarOrden(this)'>Cancelar</a>" },
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -252,7 +252,7 @@
             columns: [
                 { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "", title: _dictionary.ListadoOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: false, template: "<a class='detailLink' onclick='CancelarFolioCuantificacion(this)'>Cancelar</a>" },
+                { field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioCuantificacion(this)'>Cancelar</a>" },
             ]
         });
     }
@@ -279,10 +279,11 @@
             columns: [
                 { field: "Codigo", title: _dictionary.ListadoOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "NumeroUnico", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
                 { field: "FolioCuantificacion", title: "FolioCuantificacion", width: "110px", hidden: true },
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
-                { field: "", title: _dictionary.ListadoOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: false, template: "<a class='detailLink' onclick='CancelarItem(this)'>Cancelar</a>" },
+                { field: "", title:"", width: "110px", template: "<a class='detailLink' onclick='CancelarItem(this)'>Cancelar</a>" },
                 
             ]
         });
@@ -493,17 +494,18 @@
         window.open("http://www.asp.net");
     };
 
-    function CancelarOrden(e) {
-        e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var OrdenRecepcion = dataItem.OrdenAlmacenaje;
-
-        filtros();
+    function CancelarOrden(row) {
+        var OrdenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
+        alert(OrdenAlmacenaje);
+        var grid = $("#grid").data("kendoGrid");
+        var tr = $(row).closest("tr");
+        grid.removeRow(tr);
+        //filtros();
     };
 
     function CancelarFolioCuantificacion(row) {
-        var OrdenAlmacenaje = $(row).closest("tr").children()[1].innerHTML;
-        var folioCuantificacion = $(row).closest("tr").children()[2].innerHTML;
+        var folioCuantificacion = $(row).closest("tr").children()[1].innerHTML;
+        var OrdenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
         $(row).closest("tbody").find("tr.k-detail-row").css("display", "none");
         $(row).closest("tbody").find(".k-icon").removeClass("k-minus");
         $(row).closest("tbody").find(".k-icon").addClass("k-plus");

@@ -616,26 +616,19 @@
     }
 
     @section JavascriptGlobalFunctions {
+            //Es la carga inicial de las fechas  para el multilenguaje
+            //Funcion: changeDatePickerDateFormat
+            //Parametros: datePickerOptions
+            //Return:     N/A
             function changeDatePickerDateFormat(datePickerOptions)
             {
                 FechaRecepcion.setOptions(datePickerOptions);
             };
             
-            
-            function ControlErroresObjetosComboBoxGetCookie(control, cookie) {
-                $("#" + control).data("kendoComboBox").dataSource.data(JSON.parse(cookie));
-            };
-
-            function ControlErroresObjetosComboBoxSetCookie(control, result) {
-                if (Error(result)) {
-                    $("#" + control).data("kendoComboBox").dataSource.data(result);
-                    Cookies.set(control, JSON.stringify(result), { path: '/' });
-                } else {
-                    $("#" + control).data("kendoComboBox").dataSource.data([]);
-                    Cookies.remove(control, { path: '/' });
-                };
-            };
-
+            //Se carga el resultado JSON en el combo, si llegara a fallar se muestra vacio
+            //Funcion: ControlErroresObjetosComboBox
+            //Parametros: control,  result
+            //Return:     N/A
             function ControlErroresObjetosComboBox(control,result) {
                 if (Error(result)) {
                     $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -643,7 +636,10 @@
                     $("#" + control).data("kendoComboBox").dataSource.data([]);
                 };
             };
-
+            //Se carga el resultado JSON en el combo, si llegara a fallar se muestra vacio
+            //Funcion: ControlErroresObjetosComboBox
+            //Parametros: control,  result
+            //Return:     N/A
             function ControlErroresObjetosMultiselect(control, result) {
                 if (Error(result)) {
                     $("#" + control).data("kendoMultiSelect").dataSource.data(result);
@@ -651,7 +647,11 @@
                     $("#" + control).data("kendoMultiSelect").dataSource.data([]);
                 };
             };
-
+            
+            //Se valida si hay requeridos y se agrega la clase de error en la forma aviso de llegada
+            //Funcion: validarRequeridosFormaAvisoLlegada
+            //Parametros:  N/A
+            //Return:     N/A
             function validarRequeridosFormaAvisoLlegada() {
                 var bool = true;
                 $("#formAvisoLlegada .security_required").each(function (i, elem) {
@@ -694,6 +694,10 @@
                 return bool;
             };
 
+            //Se valida si hay requeridos y se agrega la clase de error en el popup transportista
+            //Funcion: validarRequeridosModalTransportista
+            //Parametros:  N/A
+            //Return:     N/A
             function validarRequeridosModalTransportista() {
                 var bool = true;
                 $("#modalTransportista .security_required").each(function (i, elem) {
@@ -710,7 +714,10 @@
                 });
                 return bool;
             };
-
+            //Se valida si hay requeridos y se agrega la clase de error en el popup patio
+            //Funcion: validarRequeridosModalPatio
+            //Parametros:  N/A
+            //Return:     N/A
             function validarRequeridosModalPatio() {
                 var bool = true;
                 $("#modalPatio .security_required").each(function (i, elem) {
@@ -739,6 +746,10 @@
                 return bool;
             };
             
+            //Se valida si hay requeridos y se agrega la clase de error en el popup plana
+            //Funcion: validarRequeridosModalPlana
+            //Parametros:  N/A
+            //Return:     N/A
             function validarRequeridosModalPlana() {
                 var bool = true;
                 $("#modalPlana .security_required").each(function (i, elem) {
@@ -755,7 +766,10 @@
                 });
                 return bool;
             };
-
+            //Se valida si hay requeridos y se agrega la clase de error en el popup camion
+            //Funcion: validarRequeridosModalCamion
+            //Parametros:  N/A
+            //Return:     N/A
             function validarRequeridosModalCamion() {
                 var bool = true;
                 $("#modalCamion .security_required").each(function (i, elem) {
@@ -772,7 +786,10 @@
                 });
                 return bool;
             };
-
+            //Se valida si hay requeridos y se agrega la clase de error en el popup chofer
+            //Funcion: validarRequeridosModalChofer
+            //Parametros:  N/A
+            //Return:     N/A
             function validarRequeridosModalChofer() {
                 var bool = true;
                 $("#modalChofer .security_required").each(function (i, elem) {
@@ -790,6 +807,10 @@
                 return bool;
             };
 
+            //Al presionar el boton cancelar del popup transportista se retira la clase error *
+            //Funcion: cancelarvalidacionRequeridosModalTransportista
+            //Parametros:  N/A
+            //Return:     N/A
             function cancelarvalidacionRequeridosModalTransportista() {
                 $("#modalTransportista .security_required").each(function (i, elem) {
                     if (elem.tagName.toLowerCase() != 'label') {
@@ -798,7 +819,10 @@
                     };
                 });
             };
-
+            //Al presionar el boton cancelar del popup chofer se retira la clase error *
+            //Funcion: cancelarvalidacionRequeridosModalChofer
+            //Parametros:  N/A
+            //Return:     N/A
             function cancelarvalidacionRequeridosModalChofer() {
                 $("#modalChofer .security_required").each(function (i, elem) {
                     if (elem.tagName.toLowerCase() != 'label') {
@@ -807,7 +831,10 @@
                     };
                 });              
             };
-
+            //Al presionar el boton cancelar del popup camion se retira la clase error *
+            //Funcion: cancelarvalidacionRequeridosModalCamion
+            //Parametros:  N/A
+            //Return:     N/A
             function cancelarvalidacionRequeridosModalCamion() {
                 $("#modalCamion .security_required").each(function (i, elem) {
                     if (elem.tagName.toLowerCase() != 'label') {
@@ -816,7 +843,10 @@
                     };
                 });
             };
-
+            //Al presionar el boton cancelar del popup plana se retira la clase error *
+            //Funcion: cancelarvalidacionRequeridosModalPlana
+            //Parametros:  N/A
+            //Return:     N/A
             function cancelarvalidacionRequeridosModalPlana() {
                 $("#modalPlana .security_required").each(function (i, elem) {
                     if (elem.tagName.toLowerCase() != 'label') {
@@ -825,7 +855,10 @@
                     };
                 });
             };
-            //Your partial views specific functions
+            //Es la carga inicial de todos los controles
+            //Funcion: CargaInicial
+            //Parametros:  N/A
+            //Return:     N/A
             function CargaInicial() {
                 ocultarStatus();
 
@@ -1299,28 +1332,27 @@
                 {
                     BotonEdicion();
                     $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-                        console.log("Client.DummyAvisoLlegada.update");
-                        Error(data);
-                        loadingStop();
-                        BotonAlta();
-                        CargaInicialEdicion(folio);
-                        if (bool) {//guardar y nuevo
-                            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
-                            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                        if (Error(data))
+                        {
+                            BotonAlta();
+                            CargaInicialEdicion(folio);
+                            if (bool) {//guardar y nuevo
+                                var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                            }
                         }
+                        loadingStop();
                     });
                 } else //Alta
                 {
                     $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-                        console.log("Client.DummyAvisoLlegada.create");
-
                         if (Error(data))
                         {
                             folio = data.ReturnMessage[1];
                             cargarTituloFolio();
                             BotonAlta();
-                            displayMessage("notificationslabel0013", folio, '0');
                             ocultarStatus();
+                            displayMessage("notificationslabel0013", folio, '0');
                             $("#DetalleAvisoLlegada0090").show();
                             CargaInicialEdicion(folio);
                             if (bool) {//guardar y nuevo
@@ -2148,21 +2180,6 @@
                 });
             };
             
-            function ObtenerDatosControl(id) {
-               
-                switch (id) {
-                    case "ClienteID":
-                        if (Cookies.get("ClienteID") != null) {
-                            ControlErroresObjetosComboBoxGetCookie("ClienteID", Cookies.get("ClienteID"));
-                        } else {
-                                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                                    ControlErroresObjetosComboBoxSetCookie("ClienteID", result);
-                                });
-                        };
-                        break;
-                };
-            };
-
             function ObtenerTipoAviso() {
                 $TipoAviso.TipoAviso.read({ token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosComboBox("TipoAvisoID", result);
