@@ -57,6 +57,7 @@ namespace BackEndSAM.DataAcces
                  using (SamContext ctx = new SamContext())
                  {
                      IC.Add(new ItemCode { ItemCodeID = "0", Codigo = "Agregar Nuevo" });
+                     IC.Add(new ItemCode { ItemCodeID = "-1", Codigo = "Bulto"});
 
                      List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode
                                  where ic.Activo && ic.TipoMaterialID == tipoPackingListID
@@ -98,23 +99,23 @@ namespace BackEndSAM.DataAcces
                  using (SamContext ctx = new SamContext())
                  {
                      Sam3_ItemCode item = new Sam3_ItemCode();
-                     item.ProyectoID = DatosItemCode.ProyectoID;
-                     item.TipoMaterialID = DatosItemCode.TipoPackingList;
-                     item.Codigo = DatosItemCode.ItemCode;
+                     item.ProyectoID = DatosItemCode.ProyectoID;//
+                     item.TipoMaterialID = DatosItemCode.TipoPackingList;//
+                     item.Codigo = DatosItemCode.ItemCode;//
                      item.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
-                     item.DescripcionEspanol = DatosItemCode.Descripcion;
-                     item.DescripcionIngles = DatosItemCode.Descripcion;
-                     item.DescripcionInterna = DatosItemCode.Descripcion;
-                     item.Peso = DatosItemCode.Peso;
-                     item.Diametro1 = DatosItemCode.Diametro1;
-                     item.Diametro2 = DatosItemCode.Diametro2;
-                     item.FamiliaAceroID = DatosItemCode.FamiliaID;
+                     item.DescripcionEspanol = DatosItemCode.Descripcion;//
+                     //item.DescripcionIngles = DatosItemCode.Descripcion;
+                     //item.DescripcionInterna = DatosItemCode.Descripcion;
+                     //item.Peso = DatosItemCode.Peso;
+                     //item.Diametro1 = DatosItemCode.Diametro1;
+                     //item.Diametro2 = DatosItemCode.Diametro2;
+                     item.FamiliaAceroID = DatosItemCode.FamiliaID;//
                      item.Activo = true;
                      item.UsuarioModificacion = usuario.UsuarioID;
                      item.FechaModificacion = DateTime.Now;
-                     item.Cantidad = DatosItemCode.Cantidad;
-                     item.MM = DatosItemCode.MM;
-                     item.ColadaID = DatosItemCode.ColadaID;
+                     //item.Cantidad = DatosItemCode.Cantidad;
+                     //item.MM = DatosItemCode.MM;
+                     item.ColadaID = DatosItemCode.ColadaID;//
                      ctx.Sam3_ItemCode.Add(item);
                      ctx.SaveChanges();
 
