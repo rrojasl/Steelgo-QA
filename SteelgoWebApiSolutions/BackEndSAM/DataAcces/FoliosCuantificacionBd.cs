@@ -96,20 +96,6 @@ namespace BackEndSAM.DataAcces
                                      Nombre = p.Nombre
                                  }).AsParallel().ToList();
 
-                    foreach (var item in proyectos)
-                    {
-                        if (String.IsNullOrEmpty(item.ProyectoID) || item.ProyectoID.Contains("1"))
-                        {
-                            proyectos = (from t in ctx.Sam3_Proyecto
-                                         where t.Activo == true
-                                         select new Proyecto
-                                         {
-                                             ProyectoID = t.ProyectoID.ToString(),
-                                             Nombre = t.Nombre
-                                         }).AsParallel().ToList();
-                        }
-                    }
-
                     cuantificacion = (from t in ctx.Sam3_FolioCuantificacion
                                       where t.Activo == true
                                       select new FolioLlegada1
