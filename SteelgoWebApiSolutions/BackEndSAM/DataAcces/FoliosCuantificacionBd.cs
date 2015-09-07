@@ -174,10 +174,10 @@ namespace BackEndSAM.DataAcces
         /// <summary>
         /// Obtener datos de un folio de aviso de entrada / folio cuantificacion
         /// </summary>
-        /// <param name="avisoLlegada"></param>
+        /// <param name="folioAvisoLlegadaID">Folio aviso de llegada seleccionado</param>
         /// <param name="folioCuantificacion"></param>
         /// <returns></returns>
-        public object obtenerDatosFolioCuantificacion(int avisoEntrada, int folioCuantificacion)
+        public object obtenerDatosFolioCuantificacion(int folioAvisoLlegadaID, int folioCuantificacion)
         {
             try
             {
@@ -186,8 +186,9 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     info = (from t in ctx.Sam3_FolioCuantificacion
-                            where t.FolioAvisoEntradaID == avisoEntrada && t.FolioCuantificacionID == folioCuantificacion
+                            join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
+                            where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
                             select new InfoFolioCuantificacion
                             {
                                 ProyectoID = t.ProyectoID,

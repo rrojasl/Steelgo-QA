@@ -23,14 +23,14 @@ namespace BackEndSAM.Controllers
        /// <param name="FolioCuantificacion"></param>
        /// <param name="token"></param>
        /// <returns></returns>
-        public object Get(int FolioLlegadaMaterialID, int FolioCuantificacion, string token)
+        public object Get(int folioAvisoLlegadaID, int FolioCuantificacion, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-            return FoliosCuantificacionBd.Instance.obtenerDatosFolioCuantificacion(FolioLlegadaMaterialID, FolioCuantificacion);
+                return FoliosCuantificacionBd.Instance.obtenerDatosFolioCuantificacion(folioAvisoLlegadaID, FolioCuantificacion);
             }
             else
             {
