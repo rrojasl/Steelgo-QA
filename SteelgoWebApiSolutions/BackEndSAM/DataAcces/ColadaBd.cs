@@ -7,6 +7,9 @@ using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Entidad colada
+    /// </summary>
     public class ColadaBd
     {
          private static readonly object _mutex = new object();
@@ -38,7 +41,7 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        /// Genera un nuevo registro de colada
         /// </summary>
         /// <param name="DatosColada"></param>
         /// <param name="usuario"></param>

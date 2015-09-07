@@ -11,6 +11,9 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Operaciones de la entidad Contacto
+    /// </summary>
     public class ContactoBd
     {
          private static readonly object _mutex = new object();
@@ -41,6 +44,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de los contactos activos, para mostrarse en un combo box
+        /// </summary>
+        /// <returns></returns>
         public object ObtenerListadoContacto()
         {
             try
@@ -74,6 +81,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Inserta un nuevo contacto
+        /// </summary>
+        /// <param name="cambios"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object InsertatContacto(Sam3_Contacto cambios, Sam3_Usuario usuario)
         {
              try
@@ -110,6 +123,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Actualiza la informacion de un contacto
+        /// </summary>
+        /// <param name="cambios"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ActualizarContacto(Sam3_Contacto cambios, Sam3_Usuario usuario)
         {
              try
@@ -131,6 +150,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina logicamente un contacto
+        /// </summary>
+        /// <param name="contactoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarContacto(int contactoID, Sam3_Usuario usuario)
         {
              try
