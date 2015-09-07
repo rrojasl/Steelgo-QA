@@ -97,7 +97,8 @@ namespace BackEndSAM.DataAcces
                                  }).AsParallel().ToList();
 
                     cuantificacion = (from t in ctx.Sam3_FolioCuantificacion
-                                      where t.Activo == true
+                                      join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
+                                      where t.Activo && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
                                       select new FolioLlegada1
                                            {
                                                FolioCuantificacionID = t.FolioCuantificacionID,
