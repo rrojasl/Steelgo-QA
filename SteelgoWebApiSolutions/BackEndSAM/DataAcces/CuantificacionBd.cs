@@ -70,7 +70,6 @@ namespace BackEndSAM.DataAcces
                                        Descripcion = ic.DescripcionEspanol,
                                        D1 = ic.Diametro1,
                                        D2 = ic.Diametro2,
-                                       //ColadaID = ic.ColadaID,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
                                        ItemCodeSteelgo = ric.ItemCodeSteelgoID,

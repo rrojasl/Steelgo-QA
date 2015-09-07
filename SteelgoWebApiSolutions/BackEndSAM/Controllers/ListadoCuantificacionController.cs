@@ -33,7 +33,7 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public object Put(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token)
+        public object Put(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
         {
             string payload = "";
             //string newToken = "";
@@ -44,7 +44,27 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 List<CuantificacionListado> datosItemCode = serializer.Deserialize<List<CuantificacionListado>>(cuantificacion);
 
-                return GuardarItemCodesBd.Instance.TerminarYNuevo(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode);
+            switch(idGuardado)
+            {
+                case 1: //Terminar y Nuevo 
+                    return GuardarItemCodesBd.Instance.TerminarYNuevo(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode);
+                case 2: //Guardar Parcial y Nuevo
+                    return GuardarItemCodesBd.Instance.GuardarParcial(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode);
+                case 3: //Guardar y Cerrar
+                    return GuardarItemCodesBd.Instance.SaveAndClose(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode);
+                case 4: //Guardar yTerminar (Bulto)
+                    return GuardarItemCodesBd.Instance.GuardaryTerminar(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode);
+                case 5: //Guardar Parcial (Bulto)
+                    return GuardarItemCodesBd.Instance.GuardarParcialBulto(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode);
+                default:
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Listado no encontrado");
+                    result.ReturnCode = 500;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+            }
+                
             //}
             //else
             //{

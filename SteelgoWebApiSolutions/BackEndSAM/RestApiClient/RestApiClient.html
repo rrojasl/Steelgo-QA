@@ -281,17 +281,20 @@
             //UpdateCuantificacion.TipoUso = 1;
 
             //client.add("GuardarFolioLlegadaCuantificacion");
-            //client.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(UpdateCuantificacion), token: "" }).done(function (data) { console.log(data) });
+            //client.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(UpdateCuantificacion), token: "", idGuardado: 1 }).done(function (data) { console.log(data) });
             //client.GuardarFolioLlegadaCuantificacion.create({},{ data: JSON.stringify(UpdateCuantificacion), token: "" }).done(function (data) { console.log(data) });
 
-            //client.add("ListadoCuantificacion");
-            //client.ListadoCuantificacion.update({}, { cerrar: true, incompletos: true, FolioAvisollegadaId: 15, FolioCuantificacionID: 2, cuantificacion: '[{"ItemCode":"AAC957927OOZ","BultoID":"A2","Descripcion":"Sockolet","D1":80,"D2":50,"ItemCodeSteelgo":2,"Familia":"Familia acero 1","Cedula":"","TipoAcero":"","Colada":"","Cantidad":150,"MM":18,"Detallar":"Si", "Peso": "12", "TipoMaterial" : 1, "TieneNU":false,"TieneError":false},{"ItemCode":"AAC957927OOY","BultoID":"A1","Descripcion":"Brida","D1":10,"D2":2,"ItemCodeSteelgo":1,"Familia":"Familia acero 2","Cedula":"STD","TipoAcero":"CS","Colada":1,"Cantidad":30,"MM":12,"Detallar":"No", "Peso": "12", "TipoMaterial" : 1, "TieneNU":true,"TieneError":false}]', token: "" }).done(function (data) { console.log(data) });
+            client.add("ListadoCuantificacion");
+            client.ListadoCuantificacion.update({}, { cerrar: true, incompletos: true, FolioAvisollegadaId: 15, FolioCuantificacionID: 2, cuantificacion: '[{"ItemCode":16, "ItemCodeCodigo" : "AJF18486","BultoID":"","Descripcion":"Sockolet","D1":20,"D2":50,"ItemCodeSteelgo":2,"Familia":"1","Cedula":"1","TipoAcero":"1","Colada":"1","Cantidad":150,"MM":18,"Detallar":"No", "Peso": "12", "TipoMaterial" : 1, "TieneNU":false,"TieneError":false}]', token: "", idGuardado: 1 }).done(function (data) { console.log(data) });
 
             //client.add("NumeroUnico");
             //client.NumeroUnico.read({}, { "ordenrecepcionID": 6, "Token": "154654df3sd4f36sd54f6s54f" });
 
-            client.add("Colada");
-            client.Colada.read({}, { "token": "", "id" : 1 }).done(function (data) { console.log(data) });
+            //client.add("Colada");
+            //client.Colada.read({}, { "token": "", "id" : 1 }).done(function (data) { console.log(data) });
+
+            //client.add("GenerarOrdenAlmacenaje");
+            //client.GenerarOrdenAlmacenaje.read({}, { "token": "", "itemCode": 6 }).done(function (data) { console.log(data) });
 
 
 </script>

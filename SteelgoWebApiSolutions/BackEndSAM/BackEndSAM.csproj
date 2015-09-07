@@ -166,6 +166,7 @@
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
+    <Compile Include="Controllers\GenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="DataAcces\FoliosCuantificacionBd.cs" />
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
+    <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
@@ -342,6 +344,7 @@
     <Compile Include="Models\ListaDocumentos.cs" />
     <Compile Include="Models\ListadoGenerarOrdenRecepcion.cs" />
     <Compile Include="Models\ListadoMaterialesSinCuantificar.cs" />
+    <Compile Include="Models\GridGeneracionOrdenAlmacenaje.cs" />
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />

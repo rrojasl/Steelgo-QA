@@ -21,5 +21,6 @@ namespace BackEndSAM.Models
         public string Material { get; set; }
         public string NumeroUnico { get; set; }
         public string ItemCodeSteelgoID { get; set; }
+        public string Estatus { get; set; }
     }
 }
