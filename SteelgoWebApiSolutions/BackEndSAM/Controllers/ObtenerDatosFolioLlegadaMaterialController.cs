@@ -3,9 +3,11 @@ using System.Web.Http;
 using BackEndSAM.DataAcces;
 using SecurityManager.TokenHandler;
 using SecurityManager.Api.Models;
+using System.Web.Http.Cors;
 
 namespace BackEndSAM.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ObtenerDatosFolioLlegadaMaterialController : ApiController
     {
         // GET api/<controller>

@@ -1485,9 +1485,13 @@
         };
 
         function ObtenerDatosDelFolioAvisoLlegada() {
-            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ FolioAvisoEntradaID: FolioAvisoEntrada.FolioAvisoEntradaID, token: Cookies.get("token") }).done(function (result) {
+            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
-                    ControlErroresObjetosComboBox("ProyectoID", result.Proyecto);
+                    if (result.Proyecto.length == 0) {
+                        ObtenerProyecto("ProyectoID");
+                    } else {
+                        ControlErroresObjetosComboBox("ProyectoID", result.Proyecto);
+                    };
                     ControlErroresObjetosComboBox("FolioCuantificacionID", result.FolioLlegada);
                 } else {
                     limpiarfiltrosFolioAvisoEntrada();
@@ -1582,7 +1586,7 @@
         };
 
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
-            $dummyObtenerDatosFolioLlegadaMaterial.DummyObtenerDatosFolioLlegadaMaterial.read({ FolioLlegadaMaterialID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, token: Cookies.get("token") }).done(function (result) {
+            $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ FolioLlegadaMaterialID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
@@ -2266,29 +2270,19 @@
         //};
 
         function cargarGridPackingList() {
-            GridPackingList = [];
-            GridPackingList[0] = { FolioAvisoEntradaID: "", FolioLlegadaMaterialID: "", BultoID: "" };
-
-            GridPackingList[0].FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID;
-            GridPackingList[0].FolioCuantificacionID = Cuantificacion.FolioCuantificacionID;
-            GridPackingList[0].BultoID = $("#BultoID").val();
-
-            var Client = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-            Client.add('DummyCargarGridPackingList');
-
-            Client.DummyCargarGridPackingList.read({}, { gridPackingList: JSON.stringify(GridPackingList), username: Cookies.get("user"), token: Cookies.get("token") }).done(function (data) {
-                console.log("DummyCargarGridPackingList FolioAvisoEntradaID: " + FolioAvisoEntrada.FolioAvisoEntradaID + ", FolioCuantificacionID: " + Cuantificacion.FolioCuantificacionID);
-                if ($("#grid").data("kendoGrid")) {
-                    if (data.ListadoCuantificacion.length > 0) {
-                        $("#grid").data("kendoGrid").dataSource.data(data.ListadoCuantificacion);
-                        if (TipoPackingList.TipoPackingListID == "2") {
-                            changeValueColumnMMNoAplica();
-                        }
-                    } else {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
+            $CargarGridCuantificacion.CargarGridCuantificacion.read({}, { token: Cookies.get("token"), folioCuantificacion: Cuantificacion.FolioCuantificacionID, bultoID: $("#BultoID").val() }).done(function (result) {
+                if (Error(result)) {
+                    if ($("#grid").data("kendoGrid")) {
+                        if (data.CuantificacionListado.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(data.CuantificacionListado);
+                            if (TipoPackingList.TipoPackingListID == "2") {
+                                changeValueColumnMMNoAplica();
+                            }
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                        };
                     };
-                    
-                };
+                }
             });
         };
 

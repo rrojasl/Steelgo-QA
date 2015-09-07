@@ -68,7 +68,7 @@ var $DocumentoFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam
 var $FolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenDescarga = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ObtenerDatosFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $dummyObtenerDatosFolioLlegadaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ObtenerDatosFolioLlegadaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoPackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoUso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -90,6 +90,7 @@ var $NumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FoliosCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CargarGridCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -136,7 +137,7 @@ $FolioAvisoEntrada.add("FolioAvisoEntrada");
 $OrdenDescarga.add("OrdenDescarga");
 $MessagesManager.add("MessageManager");
 $ObtenerDatosFolioAvisoEntrada.add("ObtenerDatosFolioAvisoEntrada");
-$dummyObtenerDatosFolioLlegadaMaterial.add("DummyObtenerDatosFolioLlegadaMaterial");
+$ObtenerDatosFolioLlegadaMaterial.add("ObtenerDatosFolioLlegadaMaterial");
 $TipoPackingList.add("TipoPackingList");
 $TipoUso.add("TipoUso");
 $DummyGuardarFolioLlegadaCuantificacion.add("DummyGuardarFolioLlegadaCuantificacion");
@@ -158,3 +159,4 @@ $NumeroUnico.add("NumeroUnico");
 $DummyOrdenAlmacenaje.add("DummyOrdenAlmacenaje");
 $DummyGenerarOrdenAlmacenaje.add("DummyGenerarOrdenAlmacenaje");
 $FoliosCuantificacion.add("FoliosCuantificacion");
+$CargarGridCuantificacion.add("CargarGridCuantificacion");
