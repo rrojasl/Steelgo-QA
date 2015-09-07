@@ -23,7 +23,7 @@ namespace BackEndSAM.Models
         //public int ColadaID { get; set; }
         public string Colada { get; set; }
         public int? Cantidad { get; set; }
-        public decimal Peso { get; set; }
+        public decimal? Peso { get; set; }
         public int TipoMaterial { get; set; }
         public int? MM { get; set; }
         public string Detallar { get; set; }

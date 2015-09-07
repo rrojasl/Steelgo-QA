@@ -59,14 +59,22 @@ namespace BackEndSAM.DataAcces
                     {
                         Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioAvisoEntradaID == FolioAvisollegadaId && x.FolioCuantificacionID == FolioCuantificacion).AsParallel().SingleOrDefault();
                         List<Sam3_ItemCode> listIC = new List<Sam3_ItemCode>();
-                        List<Object> listaNuevosIC = new List<Object>();
+                        List<CuantificacionListado> listaNuevosIC = new List<CuantificacionListado>();
                         Sam3_ItemCode IC = null;
                         List<string> creados = new List<string>();
                         bool TieneErrores = false;
 
+                        if (cerrar && !incompletos)
+                        {
+                            //Cambiar estatus a folio cuantificacion
+                            folioCuantificacion.Estatus = "Terminado";
+                            folioCuantificacion.UsuarioModificacion = 1;//usuario.UsuarioID;
+                            folioCuantificacion.FechaModificacion = DateTime.Now;
+                            ctx.SaveChanges();
+                        }
+
                         foreach (var item in datosItemCode)
                         {
-                            Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
                             IC = new Sam3_ItemCode();
 
                             //Si tengo un bulto guardo en la tabla de bultos
@@ -76,20 +84,13 @@ namespace BackEndSAM.DataAcces
                                 bulto.FolioCuantificacionID = FolioCuantificacion;
                                 bulto.Estatus = "Orden en Proceso de Recepcion";
                                 bulto.FechaModificacion = DateTime.Now;
-                                bulto.UsuarioModificacion = usuario.UsuarioID;
+                                bulto.UsuarioModificacion = 1; // usuario.UsuarioID;
                                 bulto.Activo = true;
                             }
                             else
                             {
-                                //Si es un item Code repetido, se suman las cantidades
-                                if (creados.Contains(item.ItemCodeCodigo))
-                                {
-                                    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
-                                    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                    IC.UsuarioModificacion = usuario.UsuarioID;
-                                    IC.FechaModificacion = DateTime.Now;
-                                }
-                                else
+                                //Si es un item Code repetido en el grid, se suman las cantidades
+                                if (!creados.Contains(item.ItemCodeCodigo))
                                 {
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
@@ -103,7 +104,7 @@ namespace BackEndSAM.DataAcces
                                         //Solo suma cantidad
                                         IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
                                         IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                        IC.UsuarioModificacion = usuario.UsuarioID;
+                                        IC.UsuarioModificacion = 1; // usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
 
                                         if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
@@ -111,14 +112,13 @@ namespace BackEndSAM.DataAcces
                                             TieneErrores = true;
                                         }
                                     }
-                                    else if (existeSINnumerosunicos)
+                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Update IC
                                         IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
-                                        IC.ProyectoID = folioCuantificacion.ProyectoID;
+                                        //IC.ProyectoID = folioCuantificacion.ProyectoID;
                                         IC.TipoMaterialID = item.TipoMaterial;
-                                        IC.Codigo = item.ItemCodeCodigo;
-
+                                        //IC.Codigo = item.ItemCodeCodigo;
                                         IC.DescripcionEspanol = item.Descripcion;
                                         IC.DescripcionIngles = item.Descripcion;
                                         IC.Peso = item.Peso;
@@ -127,50 +127,54 @@ namespace BackEndSAM.DataAcces
                                         IC.Diametro2 = item.D2;
                                         IC.FamiliaAceroID = Int32.Parse(item.Familia);
                                         IC.Activo = true;
-                                        IC.UsuarioModificacion = usuario.UsuarioID;
+                                        IC.UsuarioModificacion = 1;// usuario.UsuarioID;
                                         IC.FechaModificacion = DateTime.Now;
                                         IC.Cantidad = item.Cantidad;
                                         IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
                                         IC.ColadaID = Int32.Parse(item.Colada);
 
                                         ctx.SaveChanges();
-                                    }
-                                    else //no existe
-                                    {
-                                        //Crea IC
-                                        IC.ProyectoID = folioCuantificacion.ProyectoID;
-                                        IC.TipoMaterialID = item.TipoMaterial;
-                                        IC.Codigo = item.ItemCodeCodigo;
-                                        IC.DescripcionEspanol = item.Descripcion;
-                                        IC.DescripcionIngles = item.Descripcion;
-                                        IC.Peso = item.Peso;
-                                        IC.DescripcionInterna = item.Descripcion;
-                                        IC.Diametro1 = item.D1;
-                                        IC.Diametro2 = item.D2;
-                                        IC.FamiliaAceroID = Int32.Parse(item.Familia);
-                                        IC.Activo = true;
-                                        IC.UsuarioModificacion = usuario.UsuarioID;
-                                        IC.FechaModificacion = DateTime.Now;
-                                        IC.Cantidad = item.Cantidad;
-                                        IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
-                                        IC.ColadaID = Int32.Parse(item.Colada);
 
-                                        ctx.Sam3_ItemCode.Add(IC);
-                                        ctx.SaveChanges();
+                                        if (!existeSINnumerosunicos)
+                                        {
+                                            //Insertar la Relacion Folio Cuantificacion IC
+                                            Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
+                                            relIC.FolioCuantificacionID = FolioCuantificacion;
+                                            relIC.ItemCodeID = IC.ItemCodeID;
+                                            relIC.TieneNumerosUnicos = false;
+                                            relIC.FechaModificacion = DateTime.Now;
+                                            relIC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                            relIC.Activo = true;
 
-                                        //Insertar la Relacion Folio Cuantificacion IC
-                                        relIC.FolioCuantificacionID = FolioCuantificacion;
-                                        relIC.ItemCodeID = IC.ItemCodeID;
-                                        relIC.TieneNumerosUnicos = false;
-                                        relIC.FechaModificacion = DateTime.Now;
-                                        relIC.UsuarioModificacion = usuario.UsuarioID;
-                                        relIC.Activo = true;
-
-                                        ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
-                                        ctx.SaveChanges();
+                                            ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
+                                            ctx.SaveChanges();
+                                        }
                                     }
                                 }
-                                listIC.Add(IC);
+                                else //Si es repetido en el grid
+                                {
+                                    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
+                                    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+                                    IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                    IC.FechaModificacion = DateTime.Now;
+                                }
+
+                                listaNuevosIC.Add(new CuantificacionListado
+                                {
+                                    ItemCode = IC.ItemCodeID.ToString(),
+                                    TipoMaterial = IC.TipoMaterialID,
+                                    ItemCodeCodigo = IC.Codigo,
+                                    Descripcion = IC.DescripcionEspanol,
+                                    Peso = IC.Peso,
+                                    D1 = IC.Diametro1,
+                                    D2 = IC.Diametro2,
+                                    Familia = IC.FamiliaAceroID.ToString(),
+                                    Cantidad = IC.Cantidad,
+                                    MM = IC.MM,
+                                    Colada = IC.ColadaID.ToString(),
+                                    TieneError = TieneErrores,
+                                    Estatus = folioCuantificacion.Estatus
+                                });
 
                                 //Creo relacion ItemCode_ItemCodeSteelgo
                                 bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
@@ -182,22 +186,13 @@ namespace BackEndSAM.DataAcces
                                     ics.ItemCodeSteelgoID = item.ItemCodeSteelgo;
                                     ics.Activo = true;
                                     ics.FechaModificacion = DateTime.Now;
-                                    ics.UsuarioModificacion = usuario.UsuarioID;
+                                    ics.UsuarioModificacion = 1;// usuario.UsuarioID;
                                 }
                                 creados.Add(item.ItemCodeCodigo);
                             }
                         }
-
-                        if (cerrar && !incompletos)
-                        {
-                            //Cambiar estatus a folio cuantificacion
-                            folioCuantificacion.Estatus = "Terminado";
-                            folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
-                            folioCuantificacion.FechaModificacion = DateTime.Now;
-                            ctx.SaveChanges();
-                        }
                         scope.Complete();
-                        return listIC;
+                        return listaNuevosIC;
                     }
                 }
             }

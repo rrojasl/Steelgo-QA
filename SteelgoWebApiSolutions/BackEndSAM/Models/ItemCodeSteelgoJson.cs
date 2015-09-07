@@ -17,5 +17,6 @@ namespace BackEndSAM.Models
         public int Area { get; set; }
         public string Cedula { get; set; }
         public string Codigo { get; set; }
+        public string TipoAcero { get; set; }
     }
 }
