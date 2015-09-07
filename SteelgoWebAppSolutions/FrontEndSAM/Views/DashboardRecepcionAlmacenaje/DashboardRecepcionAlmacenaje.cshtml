@@ -269,7 +269,7 @@
                 dataValueField: "value",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarPackingList(dataItem.id, dataItem.value);
+                    CargarPackingList(dataItem.id);
 
                 },
                 change: function (e) {
@@ -281,7 +281,7 @@
                 },
                 filter: "contains",
             });
-            
+            ObtenerPackingList();
 
             FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
             FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
@@ -1002,6 +1002,11 @@
         function ObtenerFoliosAvisoLlegada() {
             $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
+            });
+        };
+        function ObtenerPackingList() {
+            $folioEntradaMaterial.Listado.read({ tipoListado: 18, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+                ControlErroresObjetosComboBox("PackingList", result);
             });
         };
 
