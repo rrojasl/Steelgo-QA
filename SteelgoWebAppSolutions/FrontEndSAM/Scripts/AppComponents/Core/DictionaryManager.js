@@ -2407,6 +2407,107 @@ _dictionary = {
         "es-MX": "Incidencias abiertas",
         "en-US": "Open issues"
     },
+    //Listados Recepcion y Almacenaje
+    "ListadoRecepcionAlmacenajeTuberia0001": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0003": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0004": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0005": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0006": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0007": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0008": {
+        "es-MX": "Entrada por cuantificar",
+        "en-US": "Entry to quantify"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0009": {
+        "es-MX": "PL por cuantificar",
+        "en-US": "PL quantify "
+    },
+    "ListadoRecepcionAlmacenajeTuberia0010": {
+        "es-MX": "MTL sin ICS",
+        "en-US": "MTL without ICS"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0011": {
+        "es-MX": "MTL sin Orden de Recepción",
+        "en-US": "MTL without Receiving Order"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0012": {
+        "es-MX": "NU por recepcionar",
+        "en-US": "NU por recepcionar"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0013": {
+        "es-MX": "NU sin Orden de Almacenaje",
+        "en-US": "NU without Order Storage"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0014": {
+        "es-MX": "NU sin almacenar",
+        "en-US": "NU without storing"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0015": {
+        "es-MX": "Incidencias abiertas",
+        "en-US": "Open issues"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0016": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0017": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0018": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0019": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0020": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0021": {
+        "es-MX": "Tuberia",
+        "en-US": "Pipeline"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0022": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0023": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0024": {
+        "es-MX": "Listado Recepción y Almacenaje",
+        "en-US": "List Receipt and Storage"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0025": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

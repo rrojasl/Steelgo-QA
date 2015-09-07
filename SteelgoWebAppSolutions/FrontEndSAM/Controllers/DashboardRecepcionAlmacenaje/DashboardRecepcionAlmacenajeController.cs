@@ -15,11 +15,14 @@ namespace FrontEndSAM.Controllers.DashboardRecepcionAlmacenaje
             return View();
         }
 
-        public ActionResult ListadosRecepcionAlmacenaje()
+        public ActionResult ListadoRecepcionAlmacenajeTuberia()
         {
             return View();
         }
-        //
-     
+
+        public ActionResult ListadoRecepcionAlmacenajeAccesorios()
+        {
+            return View();
+        }
     }
 }

@@ -1,17 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "Listado - Aviso Llegada";
+    ViewBag.Title = "Listados Recepcion y Almacenaje Tuberia";
 }
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoRecepcionAlmacenajeTuberia0022"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("DashboardAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0029"></span></a>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ListadoRecepcionAlmacenajeTuberia0023"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoAvisoLlegada0021"></span></a>
+        <a href="@Url.Action("ListadoRecepcionAlmacenajeTuberia", "DashboardRecepcionAlmacenaje")"><span id="ListadoRecepcionAlmacenajeTuberia0024"></span></a>
     </li>
 }
 
@@ -22,37 +22,37 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-2 col-lg-1">
                         <div class="button-section">
-                            <button id="Nuevo" type="button" class="btn btn-yellow"><span id="DashboardAvisoLlegada0003"></span></button>
+                            <button id="Nuevo" type="button" class="btn btn-yellow"><span id="ListadoRecepcionAlmacenajeTuberia0025"></span></button>
                         </div>
                     </div>
                     <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
                        <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="DashboardRecepcionAlmacenaje0003"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0001"></label>
                                 <input id="ClienteID" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="DashboardRecepcionAlmacenaje0004"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0002"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="DashboardRecepcionAlmacenaje0005"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0003"></label>
                                 <input id="FolioAvisoEntradaID" class="" />
                             </div>
                              <div class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="DashboardRecepcionAlmacenaje0006"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0004"></label>
                                 <input id="PackingList" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="DashboardRecepcionAlmacenaje0007"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0005"></label>
                                 <input id="FechaInic" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="DashboardRecepcionAlmacenaje0008"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0006"></label>
                                 <input id="FechaFinal" class="" />
                             </div>
                             <div class="col-sm-6 col-md-6 col-lg-2">
-                                <label id="DashboardRecepcionAlmacenaje0009"></label>
+                                <label id="ListadoRecepcionAlmacenajeTuberia0007"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
                         </div>
@@ -65,14 +65,15 @@
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
                         <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
-                            <button id="btnEntradaPorCuantificar" class="btn btn-tabList"><span id="ListadoAvisoLlegada0027"></span><span id="spanEntradaPorCuantificar"></span></button>
-                            <button id="btnPLporCuantificar" class="btn btn-tabList"><span id="ListadoAvisoLlegada0023"></span><span id="spanPLporCuantificar"></span></button>
-                            <button id="btnMTLsinICS" class="btn btn-tabList"><span id="ListadoAvisoLlegada0024"></span><span id="spanMTLsinICSAccesorios"></span></button>
-                            <button id="btnMTLsinOR" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanMTLsinORAccesorios"></span></button>
-                            <button id="btnNUporRecepcionar" class="btn btn-tabList"><span id="ListadoAvisoLlegada0027"></span><span id="spanNUporRecepcionarAccesorios"></span></button>
-                            <button id="btnNUsinOATubos" class="btn btn-tabList"><span id="ListadoAvisoLlegada0023"></span><span id="spanNUsinOAAccesorios"></span></button>
-                            <button id="btnNUsinAlmacenar" class="btn btn-tabList"><span id="ListadoAvisoLlegada0024"></span><span id="spanNUsinAlmacenarAccesorios"></span></button>
-                            <button id="btnIncidenciasAbiertas" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanIncidenciasAbiertasAccesorios"></span></button>
+                            <label id="ListadoRecepcionAlmacenajeTuberia0021"></label>
+                            <button id="btnEntradaPorCuantificar" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0008"></span><span id="spanEntradaPorCuantificar"></span></button>
+                            <button id="btnPLporCuantificar" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0009"></span><span id="spanPLporCuantificar"></span></button>
+                            <button id="btnMTLsinICS" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0010"></span><span id="spanMTLsinICSAccesorios"></span></button>
+                            <button id="btnMTLsinOR" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0011"></span><span id="spanMTLsinORAccesorios"></span></button>
+                            <button id="btnNUporRecepcionar" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0012"></span><span id="spanNUporRecepcionarAccesorios"></span></button>
+                            <button id="btnNUsinOA" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0013"></span><span id="spanNUsinOAAccesorios"></span></button>
+                            <button id="btnNUsinAlmacenar" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0014"></span><span id="spanNUsinAlmacenarAccesorios"></span></button>
+                            <button id="btnIncidenciasAbiertas" class="btn btn-tabList"><span id="ListadoRecepcionAlmacenajeTuberia0015"></span><span id="spanIncidenciasAbiertasAccesorios"></span></button>
                         </div>
                     </div>
                     <div id="grid"></div>
@@ -150,17 +151,17 @@
     //Return:     N/A
     function CargaInicial() {
         //Botones Dashboard
-        $("#btnCreados").click(function () { tabActivo("1"); AccionesListado(1); });
-        $("#btnSinPermiso").click(function () {
-            tabActivo("2");
-            AccionesListado(2);
-        });
-        $("#btnSinAutorizacion").click(function () { tabActivo("3"); AccionesListado(3); });
-        $("#btnCompletos").click(function () { tabActivo("4"); AccionesListado(4); });
+        $("#btnEntradaPorCuantificar").click(function () { tabActivo("1"); AccionesListado(1); });
+        $("#btnPLporCuantificar").click(function () { tabActivo("2"); AccionesListado(2); });
+        $("#btnMTLsinICS").click(function () { tabActivo("3"); AccionesListado(3); });
+        $("#btnMTLsinOR").click(function () { tabActivo("4"); AccionesListado(4); });
+        $("#btnNUporRecepcionar").click(function () { tabActivo("5"); AccionesListado(5); });
+        $("#btnNUsinOA").click(function () { tabActivo("6"); AccionesListado(6); });
+        $("#btnNUsinAlmacenar").click(function () { tabActivo("7"); AccionesListado(7); });
+        $("#btnIncidenciasAbiertas").click(function () { tabActivo("8"); AccionesListado(8); });
 
-        $("#Mostrar").click(function () { Filtros(); });
         $("#Nuevo").click(function (e) {
-            var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+            var detalleIdeaUrl = "@Url.Action("", "AvisoLLegada")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
 
@@ -230,10 +231,15 @@
         $("#FechaFinal").bind("change", function () {
             Filtros();
         });
-
-        tabActivo(_AccionListado);
-        CargarControlesFiltrado();
-        AccionesListado(_AccionListado);
+        if (_AccionListado != -1) {
+            tabActivo(_AccionListado);
+            CargarControlesFiltrado();
+            AccionesListado(_AccionListado);
+        } else {
+            ObtenerFechasporDefecto();
+            tabActivo(1);//default 1 creados
+            Filtros();
+        };
     };
     function CargarGridAvisoLlegada() {
         $("#grid").kendoGrid({
@@ -329,12 +335,17 @@
 
         function ObtenerAccionesListado(Listado) {
 
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
-                $("#spanCreados").html(result.Creados ? result.Creados : 0);
-                $("#spanSinPermiso").html(result.SinPermiso ? result.SinPermiso : 0);
-                $("#spanSinAutorizacion").html(result.SinAutorizacion ? result.SinAutorizacion : 0);
-                $("#spanCompletos").html(result.Completos ? result.Completos : 0);
+
+                $("#spanEntradaPorCuantificarTubos").html(result.EntradaPorCuantificar ? result.EntradaPorCuantificar : 0);
+                $("#spannPLporCuantificarTubos").html(result.PLPorCuantificar ? result.PLPorCuantificar : 0);
+                $("#spanMTLsinICSTubos").html(result.MTLSinICS ? result.MTLSinICS : 0);
+                $("#spanMTLsinORTubos").html(result.MTLSinOrdenRecepcion ? result.MTLSinOrdenRecepcion : 0);
+                $("#spanNUporRecepcionarTubos").html(result.NUPorRecepcionar ? result.NUPorRecepcionar : 0);
+                $("#spanNUsinOATubos").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
+                $("#spanNUsinAlmacenarTubos").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
+                $("#spanIncidenciasAbiertasTubos").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
 
             });
         };
@@ -429,11 +440,11 @@
                 dataTextField: "Periodo",
                 dataValueField: "PeriodoID",
                 dataSource: [
-                    { "PeriodoID": "1", "Periodo": _dictionary.DashboardLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "2", "Periodo": _dictionary.DashboardLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "3", "Periodo": _dictionary.DashboardLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "4", "Periodo": _dictionary.DashboardLlegadaMaterial0019[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "5", "Periodo": _dictionary.DashboardLlegadaMaterial0020[$("#language").data("kendoDropDownList").value()] }
+                    { "PeriodoID": "1", "Periodo": _dictionary.ListadoRecepcionAlmacenajeTuberia0016[$("#language").data("kendoDropDownList").value()] },
+                    { "PeriodoID": "2", "Periodo": _dictionary.ListadoRecepcionAlmacenajeTuberia0017[$("#language").data("kendoDropDownList").value()] },
+                    { "PeriodoID": "3", "Periodo": _dictionary.ListadoRecepcionAlmacenajeTuberia0018[$("#language").data("kendoDropDownList").value()] },
+                    { "PeriodoID": "4", "Periodo": _dictionary.ListadoRecepcionAlmacenajeTuberia0019[$("#language").data("kendoDropDownList").value()] },
+                    { "PeriodoID": "5", "Periodo": _dictionary.ListadoRecepcionAlmacenajeTuberia0020[$("#language").data("kendoDropDownList").value()] }
                 ],
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
@@ -453,17 +464,10 @@
                 filter: "contains",
             });
         };
+
         function ArregloListado(accion) {
             var Listado;
             Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "" };
-            //ProyectoIDs = [];
-
-            //var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
-            //$.each(proyectos, function (index, value) {
-            //    item = {};
-            //    item["ProyectoID"] = value;
-            //    ProyectoIDs.push(item);
-            //});
 
             var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -485,40 +489,104 @@
 
         function AccionesListado(accion) {
             loadingStart();
+
+            switch (accion) {
+                case "1":
+                    EntradaPorCuantificar();
+                    break;
+                case "2":
+                    PLporCuantificar();
+                    break;
+                case "3":
+                    MTLsinICS();
+                    break;
+                case "4":
+                    MTLsinOR();
+                    break;
+                case "5":
+                    NUporRecepcionar();
+                    break;
+                case "6":
+                    NUsinOA();
+                    break;
+                case "7":
+                    NUsinAlmacenar();
+                    break;
+                case "8":
+                    IncidenciasAbiertas();
+                    break;
+            }
+            //var Listado;
+            //Listado = ArregloListado(accion);
+
+            //$("#hdAccionFiltrado").val(accion);
+
+            //$FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+            //    console.log("Error " + Error(data));
+            //    if (Error(data)) {
+            //        resultadoJson = data;
+            //        console.log("grid value " + $("#grid").data("kendoGrid"));
+            //        if ($("#grid").data("kendoGrid")) {
+            //            console.log("resultadoJson: " + resultadoJson.length);
+            //            if (resultadoJson.length > 0) {
+            //                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+            //                $("#grid").data("kendoGrid").dataSource.page(1);
+            //            } else {
+            //                console.log("bindear empty inicio");
+            //                $("#grid").data("kendoGrid").dataSource.data([]);
+            //                $("#grid").data("kendoGrid").dataSource.page(0);
+            //                console.log("bindear empty fin");
+            //            };
+            //           CantidadesDelMenuDashboard();
+            //           applySecurityPolicy(false);
+            //        };
+            //    };
+                
+            //    loadingStop();
+            //    console.log("AccionesListado fin");
+            //});
+        };
+
+        function EntradaPorCuantificar() {
             var Listado;
-            Listado = ArregloListado(accion);
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
 
-            $("#hdAccionFiltrado").val(accion);
+            var d = new Date($("#FechaInic").data("kendoDatePicker").value());
+            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-            $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                console.log("Error " + Error(data));
-                if (Error(data)) {
-                    resultadoJson = data;
-                    console.log("grid value " + $("#grid").data("kendoGrid"));
+            Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
+            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+            Listado.PackingListID = "";
+            Listado.TipoMaterialID = 1;
+            Listado.FechaInicial = obtenerFormatoFecha(d);
+            Listado.FechaFinal = obtenerFormatoFecha(d1);
+            Listado.token = Cookies.get("token");
+            Listado.TipoListado = 11;
+
+            $("#hdAccionFiltrado").val("1");
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
+                    resultadoJson = result;
                     if ($("#grid").data("kendoGrid")) {
-                        console.log("resultadoJson: " + resultadoJson.length);
                         if (resultadoJson.length > 0) {
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
-                            console.log("bindear empty inicio");
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             $("#grid").data("kendoGrid").dataSource.page(0);
-                            console.log("bindear empty fin");
                         };
                        CantidadesDelMenuDashboard();
                        applySecurityPolicy(false);
                     };
                 };
-                
                 loadingStop();
-                console.log("AccionesListado fin");
             });
         };
 
         function Filtros() {
             var Listado;
-            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
+            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : "1";
             console.log(accion);
             AccionesListado(accion);
         };
@@ -584,48 +652,72 @@
             $(".btn-tabList").removeClass("active");
             switch (AccionListado) {
                 case "1":
-                    $("#btnCreados").addClass("active");
+                    $("#btnEntradaPorCuantificar").addClass("active");
                     break;
                 case "2":
-                    $("#btnSinPermiso").addClass("active");
+                    $("#btnPLporCuantificar").addClass("active");
                     break;
                 case "3":
-                    $("#btnSinAutorizacion").addClass("active");
+                    $("#btnMTLsinICS").addClass("active");
                     break;
                 case "4":
-                    $("#btnCompletos").addClass("active");
+                    $("#btnMTLsinOR").addClass("active");
+                    break;
+                case "5":
+                    $("#btnNUporRecepcionar").addClass("active");
+                    break;
+                case "6":
+                    $("#btnNUsinOA").addClass("active");
+                    break;
+                case "7":
+                    $("#btnNUsinAlmacenar").addClass("active");
+                    break;
+                case "8":
+                    $("#btnIncidenciasAbiertas").addClass("active");
                     break;
                 default:
-                    $("#btnCreados").addClass("active");
+                    $("#btnEntradaPorCuantificar").addClass("active");
                     break;
             };
         };
 
-        function CantidadesDelMenuDashboard() {
-            var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
-            var Listado;
-            Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "", TipoListado: "" };
-
-            var d = new Date($("#FechaInic").data("kendoDatePicker").value());
-            var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
-
-            Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
-            Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
-            Listado.FechaInicial = obtenerFormatoFecha(d);
-            Listado.FechaFinal = obtenerFormatoFecha(d1);
-            Listado.Creados = accion == 1 ? true : false;
-            Listado.SinPermiso = accion == 2 ? true : false;
-            Listado.SinAutorizacion = accion == 3 ? true : false;
-            Listado.Completos = accion == 4 ? true : false;
-            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
-            Listado.token = Cookies.get("token");
-            Listado.TipoListado = 4;
-            console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
-
+        function CantidadesDelMenuDashboard(Listado) {
+            Listado.TipoListado = 7;
             ObtenerAccionesListado(Listado);
         };
+        //Se obtienen las fechas inicial y final de hace una semana y la actual
+        //Funcion: ObtenerFechasporDefecto
+        //Parametros: N/A
+        //Return:    N/A
+        function ObtenerFechasporDefecto() {
+            var fechaFinal = new Date();
+            var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
 
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            };
+
+            var curr_date0 = fechainicio.getDate();
+            var curr_month0 = fechainicio.getMonth() + 1; //Months are zero based
+            var curr_year0 = fechainicio.getFullYear();
+
+
+            var curr_date = fechaFinal.getDate();
+            var curr_month = fechaFinal.getMonth() + 1; //Months are zero based
+            var curr_year = fechaFinal.getFullYear();
+
+
+            var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+            var fechFinal = new Date(curr_year, curr_month - 1, curr_date);
+
+            var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+            var fechaFinalkendo = kendo.parseDate(fechFinal, format);
+
+            $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+            $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+        };
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
