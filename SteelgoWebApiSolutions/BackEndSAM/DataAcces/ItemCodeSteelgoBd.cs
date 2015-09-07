@@ -97,6 +97,8 @@ namespace BackEndSAM.DataAcces
                                                        ItemCodeSteelgoID = r.ItemCodeSteelgoID,
                                                        Peso = r.Peso,
                                                        Codigo = r.Codigo
+
+
                                                    }).AsParallel().SingleOrDefault();
 
                     return detalle;
