@@ -1113,7 +1113,6 @@
     <Content Include="Views\OrdenAlmacenaje\GenerarOrdenAlmacenaje.cshtml" />
     <Content Include="Views\OrdenAlmacenaje\DetalleOrdenAlmacenaje.cshtml" />
     <Content Include="Views\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenaje.cshtml" />
-    <Content Include="Views\DashboardRecepcionAlmacenaje\ListadoRecepcionAlmacenajeTuberia.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
