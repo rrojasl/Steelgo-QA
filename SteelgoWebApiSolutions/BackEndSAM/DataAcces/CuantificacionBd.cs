@@ -45,7 +45,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="folioCuantificacion">folio cuantificacion</param>
         /// <param name="bultoID">id del bulto</param>
         /// <returns>informacion</returns>
-        public object gridCuantificacionInfo(int avisoEntrada, int folioCuantificacion, int bultoID = 0)
+        public object gridCuantificacionInfo(int folioCuantificacion, int bultoID = 0)
         {
             try
             {
