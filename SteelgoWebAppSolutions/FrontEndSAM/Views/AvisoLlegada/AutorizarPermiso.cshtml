@@ -81,6 +81,9 @@
     }
 
     @section JavascriptGlobalFunctions {
+        //Es la carga inicial de los controles
+        //Parametros: N/A
+        //Return:     N/A
         function CargaInicial() {
             $("#FolioAvisoLlegadaID").kendoComboBox({
                 dataTextField: "id",
@@ -124,11 +127,21 @@
             Folio = { FolioAvisoLlegadaID: id };
         };
 
+        //Se hace la peticion al controlador del tipo listado 2 
+        //para obtener los folios
+        //Funcion: ObtenerFolioEntradaMaterial
+        //Parametros: N/A
+        //Return:     N/A
         function ObtenerFolioEntradaMaterial() {
             $folioEntradaMaterial.Listado.read({ tipoListado: 2, token: Cookies.get("token"), parametroBusqueda:"" }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
             });
         };
+
+        //Se retira la clase de error para que no siga mostrando el asterisco
+        //Funcion: removerValidacionRequeridos
+        //Parametros: N/A
+        //Return:     N/A
         function removerValidacionRequeridos() {
             $("#formaAutorizarPermiso .security_required").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
@@ -139,6 +152,13 @@
                 };
             });
         };
+
+        //Se checa si el folio seleccionado tiene permiso aduana
+        //Si tiene permiso se muestra la liga del archivo
+        //Si no tiene se muestra el control para subir archivos
+        //Funcion: ChecarAutorizacion
+        //Parametros: N/A
+        //Return:     N/A
         function ChecarAutorizacion() {
                 var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
 
@@ -169,6 +189,12 @@
                 });
         };
 
+        //Al subir un archivo se valida los siguiente:
+        //Si son requeridos los campos
+        //folio seleccionado
+        //Funcion: onUploadArchivoAutorizar
+        //Parametros: N/A
+        //Return:     N/A
         function onUploadArchivoAutorizar(e) {
             var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
             var bool = false;
@@ -204,6 +230,12 @@
             $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = $DocumentoPermisoAduana + "?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + numeropermiso + "&token=" + Cookies.get("token");
         };
 
+
+        //Si viene de otra pagina se carga el folio y
+        //se checa si dicho folio esta autorizado
+        //Funcion: cargarFolioDeterminado
+        //Parametros: N/A
+        //Return:     N/A
         function cargarFolioDeterminado() {
             if (folio != -1) {
                 CargarFolio(folio);
@@ -212,6 +244,12 @@
             };
         };
 
+        //Se obtiene el mensaje de error y realiza lo siguient:
+        //Si es 401 se cierra la sesion
+        //si es cualquier otro error se muestra el mensaje
+        //Funcion: Error
+        //Parametros: data
+        //Return:     bool
         function Error(data) {
             if (data.ReturnCode) {
                 if (data.ReturnCode != 200) {
@@ -229,6 +267,10 @@
         };
         
 
+        //Se borra la lista de archivos del control de subida de archivos, para que se muestre en limpio
+        //Funcion: limpiarUploadFiles
+        //Parametros: N/A
+        //Return:     N/A
         function limpiarUploadFiles() {
             $(".k-upload-files").remove();
             $(".k-upload-status").remove();
@@ -237,6 +279,10 @@
             $(".k-upload-button").removeClass("k-state-focused");
         };
 
+        //Se carga el resultado JSON en el combo, si llegara a fallar se muestra vacio
+        //Funcion: ControlErroresObjetosComboBox
+        //Parametros: control,  result
+        //Return:     N/A
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);

@@ -119,15 +119,26 @@
 
     @section JavascriptGlobalFunctions {
     //Your partial views specific functions
+    //Es la carga inicial de las fechas  para el multilenguaje
+    //Funcion: changeDatePickerDateFormat
+    //Parametros: datePickerOptions
+    //Return:     N/A
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaInic.setOptions(datePickerOptions);
         FechaFinal.setOptions(datePickerOptions);
     };
-
+    //Es la carga inicial del grid para el multilenguaje
+    //Funcion: changeLanguageCall
+    //Parametros: N/A
+    //Return:     N/A
     function changeLanguageCall() {
         CargarGridAvisoLlegada();
     }
 
+    //Es la carga inicial de los controles
+    //Funcion: cargaInicial
+    //Parametros: N/A
+    //Return:     N/A
     function cargaInicial() {
         //Botones Dashboard
         $("#FolioID").val("");
@@ -244,6 +255,10 @@
             Filtros();
         }
     };
+    //Es la carga del grid donde especifican las propiedades y columnas
+    //Funcion: CargarGridAvisoLlegada
+    //Parametros: N/A
+    //Return:     N/A
     function CargarGridAvisoLlegada() {
         $("#grid").kendoGrid({
             dataSource: {
@@ -297,7 +312,10 @@
             }
         });
     }
-
+    //Redirecciona a la pagina de detalle de un folio aviso llegada
+    //Funcion: CargarGridAvisoLlegada
+    //Parametros: folioAvisoLlegadaID
+    //Return:     N/A
          function mostrarDetalle(folioAvisoLlegadaID) {
             //e.preventDefault();
             //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
@@ -307,6 +325,10 @@
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
         }
 
+    //Se cancelar un folio del grid
+    //Funcion: cancelarFolio
+    //Parametros: folioAvisoLlegadaID
+    //Return:     N/A
         function cancelarFolio(e) {
             e.preventDefault();
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
@@ -336,6 +358,10 @@
             });
         };
 
+    //Se realiza una peticion para obtener el total de creados, sin permiso,sin autorizacion y completos
+    //Funcion: cancelarFolio
+    //Parametros: Listado
+    //Return:     N/A
         function ObtenerAccionesListado(Listado) {
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
@@ -348,13 +374,20 @@
             });
         };
 
+    //Se carga el folio
+    //Funcion: CargarFolio
+    //Parametros: id
+    //Return:     N/A
         function CargarFolio(id) {
             Folio = [];
             _folio = {};
             _folio["FolioAvisoLlegadaID"] = id;
             Folio.push(_folio);
         };
-
+    //Se carga el Patio
+    //Funcion: CargarPatio
+    //Parametros: id,value
+    //Return:     N/A
         function CargarPatio(id, value) {
             Patio = [];
             _patio = {};
@@ -362,30 +395,47 @@
             _patio["Nombre"] = value;
             Patio.push(_patio);
         };
-
+    //Se carga el cliente
+    //Funcion: CargarCliente
+    //Parametros: id,value
+    //Return:     N/A
         function CargarCliente(id, value) {
             Cliente = {};
             Cliente = { ClienteID: id };
         };
 
-
+    //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
+    //Funcion: ObtenerPatio
+    //Parametros: N/A
+    //Return:     N/A
         function ObtenerPatio() {
             $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("PatioID", result);
             });
         };
+    //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
+    //Funcion: ObtenerPatio
+    //Parametros: N/A
+    //Return:     N/A
         function ObtenerFolioEntradaMaterial() {
             $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
             });
         };
-
+    //Se realiza una peticion para obtenr los clientes y cargar el combo con los valores
+    //Funcion: ObtenerCliente
+    //Parametros: N/A
+    //Return:     N/A
         function ObtenerCliente() {
             $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("ClienteID", result);
             });
         };
-
+        //Se forma un objeto con todos los filtros e indicando cual tab fue seleccionado
+        // creados, sin permiso, sin autorizacion,completos
+        //Funcion: ObtenerCliente
+        //Parametros: accion
+        //Return:    Listado
         function ArregloListado(accion) {
             var Listado;
             Listado = { FolioLlegadaID: "", FolioAvisoLlegadaID: "", PatioID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "", Creados: "", SinPermiso: "", SinAutorizacion: "", Completos: "" };
@@ -416,6 +466,11 @@
             return Listado;
         };
 
+        //Se realiza una peticion para obtener los datos y llenar el grid dependiendo de la accion que se realizo
+        // creados, sin permiso, sin autorizacion,completos
+        //Funcion: AccionesListado
+        //Parametros: accion
+        //Return:    N/A
         function AccionesListado(accion) {
             loadingStart();
             var Listado;
@@ -449,6 +504,10 @@
             });
         };
 
+        //Se envia la accion a la funcion de acconeslistado donde se forma el objeto con todos los filtros
+        //Funcion: Filtros
+        //Parametros: N/A
+        //Return:    N/A
         function Filtros() {
             var Listado;
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
@@ -456,6 +515,10 @@
             AccionesListado(accion);
         };
 
+        //Se cargan los controles con los valores del dashboard
+        //Funcion: CargarControlesFiltrado
+        //Parametros: N/A
+        //Return:    N/A
         function CargarControlesFiltrado() {
             console.log("CargarControlesFiltrado inicio");
             var date, format;
@@ -503,6 +566,10 @@
             }
         };
 
+        //Se obtiene la fecha y se convierte al formato año, mes, dia y horas.
+        //Funcion: obtenerFormatoFecha
+        //Parametros: datetime d
+        //Return:    string
         function obtenerFormatoFecha(d) {
             var curr_date = d.getDate();
             var curr_month = d.getMonth() + 1; //Months are zero based
@@ -512,6 +579,10 @@
             return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
         };
 
+        //Le indicamos cual tab esta activo
+        //Funcion: tabActivo
+        //Parametros: string dashBoardAccionListado
+        //Return:    N/A
         function tabActivo(dashBoardAccionListado) {
             $(".btn-tabList").removeClass("active");
             switch (dashBoardAccionListado) {
@@ -533,6 +604,11 @@
             };
         };
 
+        //Se forma un objeto con todos los filtros e indicando cual tab fue seleccionado,ademas del tipo de listado 4 para obtener  las cantidades de
+        // creados, sin permiso, sin autorizacion,completos
+        //Funcion: ObtenerCliente
+        //Parametros: N/A
+        //Return:    Listado
         function CantidadesDelMenuDashboard() {
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
             var Listado;
@@ -566,7 +642,10 @@
             };
         };
     }
-
+    //Se obtienen las fechas inicial y final de hace una semana y la actual
+    //Funcion: ObtenerFechasporDefecto
+    //Parametros: N/A
+    //Return:    N/A
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));

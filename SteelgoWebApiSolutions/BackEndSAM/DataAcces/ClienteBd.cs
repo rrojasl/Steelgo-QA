@@ -12,6 +12,9 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// operaciones sobre la entidad Cliente
+    /// </summary>
     public class ClienteBd
     {
         private static readonly object _mutex = new object();
@@ -42,6 +45,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de clientes para mostrarse en un combo box
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerListadoClientes(Sam3_Usuario usuario)
         {
             try
@@ -69,6 +77,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtiene un solo elemento de cliente, por id.
+        /// </summary>
+        /// <param name="clienteID"></param>
+        /// <returns></returns>
         public object ObtnerElementoClientePorID(int clienteID)
         {
             try

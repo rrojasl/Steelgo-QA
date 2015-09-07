@@ -32,8 +32,7 @@
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="GuardarNuevo"><span id="GenerarOrdenAlmacenaje0006"></span></a></li>
-                                    <li><a href="#" id="GuardarFormatoEtiquetas"><span id="GenerarOrdenAlmacenaje0007"></span></a></li>
+                                    <li><a href="#" id="GuardarFormato"><span id="GenerarOrdenAlmacenaje0007"></span></a></li>
                                 </ul>
                             </div>
                            
@@ -89,9 +88,10 @@
     {
     var _listadourl = "@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _generarurl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
+    var _detalleurl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
     var FolioCuantificacion = {}, Proyecto = {}, ItemCode = {},
         NumeroUnico = {}, _resultadoJson, checkNodoPrincipal = [],
-        checkItemCodesID = [];
+        checkItemCodesID = [], checkNumerosUnicos = [];
 
     var _folioCuantificacionID = getUrlParameter("FolioCuantificacionID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
@@ -123,15 +123,11 @@
     function CargaInicial() {
 
         $("#Guardar").click(function () {
-            GenerarOrdenRecepcion();
+            GenerarOrdenAlmacenaje();
         });
 
-        $("#GuardarNuevo").click(function () {
-            GenerarOrdenRecepcionNuevo();
-        });
-
-        $("#GuardarFormatoEtiquetas").click(function () {
-            GenerarOrdenRecepcionFormatoEtiquetas();
+        $("#GuardarFormato").click(function () {
+            GenerarOrdenAlmacenajeFormato();
         });
 
         $("#Cancelar").click(function () {
@@ -155,10 +151,10 @@
 
                 if (!value) {
                     Proyecto = {};
-                    CargarDatosGrid();
                 } else {
                     ObtenerFoliosCuantificacion();
                 }
+                CargarDatosGrid();
             },
             filter: "contains",
         });
@@ -175,15 +171,14 @@
             },
             change: function (e) {
                 var value = this.value();
-                limpiarFiltroItemCode();
+                limpiarFiltroCuantificacion();
 
                 if (!value) {
                     FolioCuantificacion = {};
-                    CargarDatosGrid();
                 } else {
                     ObtenerItemCodes();
                 };
-
+                CargarDatosGrid();
                 
             },
         });
@@ -198,9 +193,13 @@
             },
             change: function (e) {
                 var value = this.value();
+                limpiarFiltroItemCode();
+
                 if (!value) {
                     ItemCode = {};
-                }
+                } else {
+                    ObtenerNumerosUnicos();
+                };
                 CargarDatosGrid();
             },
         });
@@ -221,7 +220,7 @@
                 CargarDatosGrid();
             },
         });
-        
+        CargarDatosGrid();
     }
     function cargarInicialGrid() {
         var grid = $("#grid").kendoGrid({
@@ -236,36 +235,63 @@
                 },
                 serverPaging: false,
                 serverFiltering: false,
-                serverSorting: false
+                serverSorting: false,
+                pageSize: 20,
+            },
+            autoHeight: true,
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
             },
             detailInit: detailInit,
             columns: [
                 { template: '<input type="checkbox" class="master" >', width: 40 },
                 { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
             ],
-            //dataBound: onDataBoundPrincipal,
+            dataBound: onDataBoundPrincipal,
         }).getKendoGrid();
 
 
         grid.tbody.on("change", ".master", function () {
-            //var checkbox = $(this);
-            //var nextRow = checkbox.closest("tr").next();
-            //var value = checkbox.closest("tr").children()[2].innerHTML;
-          
-            //checkNodoPrincipal[value] = { FolioCuantificacionID: value, checked: checkbox.is(":checked") };
+            var checkbox = $(this);
+            var nextRow = checkbox.closest("tr").next();
+            var value = "id:" + checkbox.closest("tr").children()[2].innerHTML;
 
-            //for (var i in checkItemCodesID) {
-            //    if (checkItemCodesID[value, i].FolioCuantificacionID == value) {
-            //        checkItemCodesID[value,i].checked = false;
-            //    }
-            //}
+            AgregarActualizarNodoPrincipal(value, checkbox);
+            DeseleccionarItemCodes(value);
+            DeseleccionarNumerosUnicos(value);
 
-            //if (nextRow.hasClass("k-detail-row")) {               
-            //    nextRow.find(":checkbox")
-            //        .prop("checked", checkbox.is(":checked"));
-            //    nextRow.find(":checkbox")
-            //        .prop("disabled", checkbox.is(":checked"));
-            //}
+            if (nextRow.hasClass("k-detail-row")) {               
+                nextRow.find(":checkbox")
+                    .prop("checked", checkbox.is(":checked"));
+                nextRow.find(":checkbox")
+                    .prop("disabled", checkbox.is(":checked"));
+            }
+        });
+
+
+        grid.tbody.on("change", ".materiales", function () {
+            var checkbox = $(this);
+            var nextRow = checkbox.closest("tr").next();
+            var itemcodeid = checkbox.closest("tr").children()[2].innerHTML;
+            var foliocuantificacion = checkbox.closest("tr").children()[8].innerHTML;
+            var value = "id:" + foliocuantificacion + "," + itemcodeid;
+
+            for (var check in checkNumerosUnicos) {
+                if (checkNumerosUnicos[check].indexOf(value)!=-1) {
+                    checkNumerosUnicos[check] = value + "," + checkNumerosUnicos[check].split(",")[2] + "," + "false";
+                }
+            }
+            
+            if (nextRow.hasClass("k-detail-row")) {
+                nextRow.find(":checkbox")
+                    .prop("checked", checkbox.is(":checked"));
+                nextRow.find(":checkbox")
+                    .prop("disabled", checkbox.is(":checked"));
+            }
         });
     };
 
@@ -279,6 +305,7 @@
         ObtenerItemCodes();
         CargarDatosGrid();
     };
+
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
             $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -307,15 +334,27 @@
         NumeroUnico = { NumeroUnicoID: id };
     };
     
-    function limpiarFiltroItemCode() {
+    function limpiarFiltroCuantificacion() {
         ItemCode = {};
+        NumeroUnico = {};
         LimpiarCombo("ItemCode");
+        LimpiarCombo("NumeroUnico");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+    };
+
+    function limpiarFiltroItemCode() {
+        NumeroUnico = {};
+        LimpiarCombo("NumeroUnico");
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     
-    function LimpiarFiltrosProyecto(){
+    function LimpiarFiltrosProyecto() {
+        ItemCode = {};
+        NumeroUnico = {};
+        FolioCuantificacion = {};
         LimpiarCombo("ItemCode");
         LimpiarCombo("FolioCuantificacionID");
+        LimpiarCombo("NumeroUnico");
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
 
@@ -334,7 +373,7 @@
     function ObtenerProyecto() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
-            CargarDatosGrid();
+            //CargarDatosGrid();
         });
     };
 
@@ -344,7 +383,7 @@
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("FolioCuantificacionID", result);
-            CargarDatosGrid();
+            //CargarDatosGrid();
         });
     };
 
@@ -354,10 +393,13 @@
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("ItemCode", result);
-            CargarDatosGrid();
+            //CargarDatosGrid();
         });
     };
 
+    function ObtenerNumerosUnicos() {
+
+    };
     function CargarDatosGrid() {
         loadingStart();
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
@@ -379,21 +421,122 @@
         });
     };
 
+    function AgregarActualizarNodoPrincipal(value, checkbox) {
+        //Se checa si existe en memoria para actualizar el valor del checkbox
+        var boolexiste = false;
+        for (var check in checkNodoPrincipal) {
+            if (checkNodoPrincipal[check].indexOf(value + ",") != -1) {
+                boolexiste = true;
+                checkNodoPrincipal[check] = value + "," + checkbox.is(":checked");
+            };
+        };
+        //Solo se agregan los nuevos para evitar los duplicados
+        if (!boolexiste) {
+            checkNodoPrincipal.push(value + "," + checkbox.is(":checked"));
+        }
+    };
+
+    function DeseleccionarItemCodes(value) {
+        //Si el usuario deselecciona el  foliocuantificacion se deben poner en falso los itemcodes en memoria
+        for (var check in checkItemCodesID) {
+            if (checkItemCodesID[check].indexOf(value + ",") != -1) {
+                checkItemCodesID[check] = value + "," + checkItemCodesID[check].split(",")[1] + "," + "false";
+            }
+        }
+    }
+
+    function DeseleccionarNumerosUnicos(value) {
+        //Si el usuario deselecciona el  foliocuantificacion se deben poner en falso los numeros unicos en memoria
+        for (var check in checkNumerosUnicos) {
+            if (checkNumerosUnicos[check].indexOf(value + ",") != -1) {
+                checkNumerosUnicos[check] = value + "," + checkNumerosUnicos[check].split(",")[1] + "," + checkNumerosUnicos[check].split(",")[2] + "," + "false";
+            }
+        }
+    }
+
     function NodoPadre(row, id) {
         var checkbox = $(row);
+        var boolexiste = false;
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("checked", checkbox.is(":checked"));
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("disabled", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".k-detail-row").find(":checkbox").prop("checked", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".k-detail-row").find(":checkbox").prop("disabled", checkbox.is(":checked"));
 
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
             var checked = val.checked;
-            checkItemCodesID[id, $(val).closest("tr").children()[1].innerHTML] = { FolioCuantificacionID: id, ItemCodeID: $(val).closest("tr").children()[1].innerHTML, checked: checked, TipoMaterial: $(val).closest("tr").children()[7].innerHTML };
+            var value = "id:" + id + "," + $(val).closest("tr").children()[2].innerHTML;
+            boolexiste = false;
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].indexOf(value) != -1) {
+                    boolexiste = true;
+                    checkItemCodesID[check] = value + "," + checkbox.is(":checked");
+                };
+            };
+            if (!boolexiste) {
+                checkItemCodesID.push(value + "," + checkbox.is(":checked"));
+            }
         });
-        
     };
 
     function NodoHijo(row,id) {
         var checkbox = $(row);
-        checkItemCodesID[id, $(row).closest("tr").children()[1].innerHTML] = { FolioCuantificacionID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
+        var value = "id:" + id + "," + $(row).closest("tr").children()[2].innerHTML;
+
+        var boolexiste = false;
+        for (var check in checkItemCodesID)
+        {
+            if (checkItemCodesID[check].indexOf(value) != -1)
+            {
+                boolexiste = true;
+                checkItemCodesID[check] = value + "," + checkbox.is(":checked");
+            };
+        };
+
+        if (!boolexiste) {
+            checkItemCodesID.push(value + "," + checkbox.is(":checked"));
+        }
+
+    };
+
+
+    function NodoPadreNumerosUnicos(row, id) {
+        var checkbox = $(row);
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".numerosunicos").prop("checked", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".numerosunicos").prop("disabled", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".numerosunicos").each(function (i, val) {
+            var checked = val.checked;
+            var value = "id:" + id + "," + $(val).closest("tr").children()[2].innerHTML + "," + $(val).closest("tr").children()[3].innerHTML;
+
+            boolexiste = false;
+            for (var check in checkNumerosUnicos) {
+                if (checkNumerosUnicos[check].indexOf(value) != -1) {
+                    boolexiste = true;
+                    checkNumerosUnicos[check] = value + "," + checkbox.is(":checked");
+                };
+            };
+
+            if (!boolexiste) {
+                checkNumerosUnicos.push(value + "," + checkbox.is(":checked"));
+            }
+        });
+    };
+    
+    function NodoHijoNumerosUnicos(row, id) {
+        var checkbox = $(row);
+        var value = "id:" + id + "," + $(row).closest("tr").children()[2].innerHTML + "," + $(row).closest("tr").children()[3].innerHTML;
+        var boolexiste = false;
+        for (var check in checkNumerosUnicos) {
+
+            if (checkNumerosUnicos[check].indexOf(value) != -1) {
+                boolexiste = true;
+                checkNumerosUnicos[check] = value + "," + checkbox.is(":checked");
+            };
+        };
+
+        if (!boolexiste) {
+            checkNumerosUnicos.push(value + "," + checkbox.is(":checked"));
+        }
+
     };
 
     function GenerarOrdenRecepcionNuevo() {
@@ -432,80 +575,93 @@
         }
     };
 
-    function GenerarOrdenRecepcion() {
-        var itemCodes = [], x = 0, folios = [];
-        OrdenRecepcion = { ID: "", Folios: "" };
+    function GenerarOrdenAlmacenaje() {
+        var itemCodes = [], x = 0, folios = [], numerosunicos = [];
+        OrdenAlmacenaje = { ID: "", Folios: "", NumerosUnicos: "" };
 
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
-                x++;
-            }
-        }
-
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioCuantificacionID) };
-                x++;
-            }
-        }
+        folios = ObtenerFoliosDeMemoria();
+        itemCodes = ObtenerItemCodesDeMemoria();
+        numerosunicos = ObtenerNumerosUnicosDeMemoria();
+        
         loadingStart();
-        OrdenRecepcion.Folios = folios;
-        OrdenRecepcion.Items = itemCodes;
-       
+        OrdenAlmacenaje.Folios = folios;
+        OrdenAlmacenaje.Items = itemCodes;
+        OrdenAlmacenaje.NumerosUnicos = numerosunicos;
 
-        if (itemCodes.length > 0 || folios) {
+        if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    var url = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
+                    var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenAlmacenajeID;
                 }
             });
         } else {
-            displayMessage("notificationslabel0044", "", '1');
+            displayMessage("notificationslabel0045", "", '1');
         }
     };
     
-    
-    function GenerarOrdenRecepcionFormatoEtiquetas() {
-        var itemCodes = [], x = 0, folios = [];
-        OrdenRecepcion = { ID: "", Folios: "" };
-
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
+    function ObtenerFoliosDeMemoria() {
+        var x = 0, folios = [];
+        for (var check in checkNodoPrincipal) {
+            var bool = checkNodoPrincipal[check].split(",")[2] == "true" ? true : false;
+            if (bool) {
+                folios[x] = { ID: parseInt(checkNodoPrincipal[check].split(",")[0].split(":")[1]) };
                 x++;
             }
         }
+        return folios;
+    };
 
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioCuantificacionID) };
+    function ObtenerItemCodesDeMemoria() {
+        var itemCodes = [], x = 0;
+        for (var check in checkItemCodesID) {
+            var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
+            if (bool) {
+                itemCodes[x] = { ID: parseInt(checkItemCodesID[check].split(",")[1]) };
                 x++;
             }
         }
+        return itemCodes;
+    };
+
+    function ObtenerNumerosUnicosDeMemoria() {
+        var numerosunicos = [], x = 0;
+        for (var check in checkNumerosUnicos) {
+            var bool = checkNumerosUnicos[check].split(",")[3] == "true" ? true : false;
+            if (bool) {
+                numerosunicos[x] = { ID: parseInt(checkNumerosUnicos[check].split(",")[2]) };
+                x++;
+            }
+        };
+        return numerosunicos;
+    };
+
+    function GenerarOrdenAlmacenajeFormato() {
+        var itemCodes = [], x = 0, folios = [], numerosunicos = [];
+        OrdenAlmacenaje = { ID: "", Folios: "", NumerosUnicos: "" };
+
+        folios = ObtenerFoliosDeMemoria();
+        itemCodes = ObtenerItemCodesDeMemoria();
+        numerosunicos = ObtenerNumerosUnicosDeMemoria();
+
         loadingStart();
-        OrdenRecepcion.Folios = folios;
-        OrdenRecepcion.Items = itemCodes;
+        OrdenAlmacenaje.Folios = folios;
+        OrdenAlmacenaje.Items = itemCodes;
+        OrdenAlmacenaje.NumerosUnicos = numerosunicos;
 
-        if (itemCodes.length > 0 || folios) {
+        if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcion=" + result.OrdenRecepcionID);
                     window.open("http://www.asp.net");//Webservice
-
-                    var url = "@Url.Action("DetalleOrdenRecepcion", "Cuantificacion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
                 }
             });
         } else {
-            displayMessage("notificationslabel0044", "", '1');
+            displayMessage("notificationslabel0045", "", '1');
         }
     };
 
@@ -533,28 +689,50 @@
         console.log("onDataBoundPrincipal");
         var view = this.dataSource.view();
         var body = this.tbody[0];
+
+        //se busca el folio cuantificacion para marcarlo en el check
         for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkNodoPrincipal) {
+                if (checkNodoPrincipal[check].split(",")[0].split(":")[1] == body.children[i].children[2].innerHTML) {
+                    var bool = checkNodoPrincipal[check].split(",")[1] == "true" ? true : false;
+                    $(body.children[i]).find(".master").attr("checked", bool);
+                }
+            };
+        }
+    };
+    //se busca el folio cuantificacion, itemcode para marcarlo en el check
+    function onDataBoundDetalle(e) {
+        console.log("onDataBoundDetalle");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
 
-            if (checkNodoPrincipal[body.children[i].children[2].innerHTML]) {
-                $(body.children[i]).find(".master").attr("checked", checkNodoPrincipal[body.children[i].children[2].innerHTML].checked);
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[2].innerHTML) {
+                    var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
+                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", bool);
+                }
             }
-
+            
         }
     };
 
+    //se busca el folio cuantificacion, itemcode y numero unico para marcarlo en el check
     function onDataBoundNumerosUnicos(e) {
-        console.log("onDataBoundAccesorios");
+        console.log("onDataBoundNumerosUnicos");
         var view = this.dataSource.view();
         var body = this.tbody[0];
-        
-            for (var i = 0; i < body.children.length; i++) {
 
-                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
-                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
-                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkNumerosUnicos) {
+                if (checkNumerosUnicos[check].split(",")[0].split(":")[1] == body.children[i].children[1].innerHTML && checkNumerosUnicos[check].split(",")[1] == body.children[i].children[2].innerHTML && checkNumerosUnicos[check].split(",")[2] == body.children[i].children[3].innerHTML) {
+                    var bool = checkNumerosUnicos[check].split(",")[3] == "true" ? true : false;
+                    if (!$(body.children[i]).find(".numerosunicos").is(":disabled"))
+                        $(body.children[i]).find(".numerosunicos").attr("checked", bool);
                 }
             }
-        
+        }
     };
 
     function detailInit(e) {
@@ -581,12 +759,12 @@
                 }
             },
             detailInit: detailInitNumeros,
-            //dataBound: onDataBoundNumerosUnicos,
+            dataBound: onDataBoundDetalle,
             autoBind: true,
             scrollable: false,
             sortable: false,
             columns: [
-                { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.FolioCuantificacion + ');"></label>', width: '30px' },
+                { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + '  class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.FolioCuantificacion + ');"></label>', width: '30px' },
                 { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "Codigo", title: _dictionary.GenerarOrdenAlmacenaje0019[$("#language").data("kendoDropDownList").value()], width: "70px" },
                 { field: "Descripcion", title: _dictionary.GenerarOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()], width: "200px" },
@@ -598,7 +776,7 @@
         });
        
     }
-
+  
 
     function detailInitNumeros(e) {
         var checked = "";
@@ -620,12 +798,12 @@
                     }
                 }
             },
-            //dataBound: onDataBoundNumerosUnicos,
+            dataBound: onDataBoundNumerosUnicos,
             autoBind: true,
             scrollable: false,
             sortable: false,
             columns: [
-                { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.FolioCuantificacion + ');"></label>', width: '30px' },
+                { template: '<input type="checkbox" ' + checked + ' class="numerosunicos" onclick="NodoHijoNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadreNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"></label>', width: '30px' },
                 { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0024[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0025[$("#language").data("kendoDropDownList").value()], width: "70px" },
                 { field: "NumeroUnicoID", title: _dictionary.GenerarOrdenAlmacenaje0026[$("#language").data("kendoDropDownList").value()], width: "200px" },

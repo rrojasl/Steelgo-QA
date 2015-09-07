@@ -11,6 +11,9 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Contiene operaciones acerca de los documentos cargados. Esta seccion esta planeada para migrarse al proyecto FileManager
+    /// </summary>
     public class DocumentosBd
     {
         private static readonly object _mutex = new object();
@@ -41,6 +44,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Guarda los documentos que se cargan para los folios de aviso de llegada
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
         public bool GuardarArchivosFolioAvisoLlegada(List<DocumentoPosteado> files)
         {
             try
@@ -77,6 +85,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Guarda registrso de los documentos cargados en para los avisos de entrada
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
         public bool GuardarArchivosFolioAvisoEntrada(List<DocumentoPosteado> files)
         {
             try
@@ -114,6 +127,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de los documentos que estan relacionados con un aviso de llegada
+        /// </summary>
+        /// <param name="folioAvisoLlegadaId"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerDocumentosFolioAvisoLlegada(int folioAvisoLlegadaId, Sam3_Usuario usuario)
         {
             try
@@ -147,6 +166,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de los documentos relacionados con un aviso de entrada
+        /// </summary>
+        /// <param name="folioAvisoEntradaId"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerDocumentosFolioAvisoEntrada(int folioAvisoEntradaId, Sam3_Usuario usuario)
         {
             try
@@ -180,6 +205,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de los documentos relacionados a un permiso de aduana
+        /// </summary>
+        /// <param name="folioAvisoLlegadaId"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerDocumentosPermisoAduana(int folioAvisoLlegadaId, Sam3_Usuario usuario)
         {
             try
@@ -212,6 +243,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de los documentos relacionados con un pase de salida
+        /// </summary>
+        /// <param name="folioAvisoLlegadaId"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerDocumentosPaseSalida(int folioAvisoLlegadaId, Sam3_Usuario usuario)
         {
             try
@@ -245,6 +282,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Guarda registro de los documentos cargados para permiso de aduana
+        /// </summary>
+        /// <param name="documentos"></param>
+        /// <returns></returns>
         public object GuardarDocumentoPermisoAduana(List<DocumentoPosteado> documentos)
         {
             try
@@ -323,6 +365,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Guarda Registro de los documentos cargados para el pase de salida
+        /// </summary>
+        /// <param name="documentos"></param>
+        /// <returns></returns>
         public object GuardarDocumentoPaseSalida(List<DocumentoPosteado> documentos)
         {
             try
@@ -366,6 +413,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina logicamente un documento de aviso de llegada
+        /// </summary>
+        /// <param name="documentoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarDocumentoAvisoLlegada(int documentoID, Sam3_Usuario usuario)
         {
             try
@@ -402,6 +455,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina logicamente un docuemento de un aviso de entrada
+        /// </summary>
+        /// <param name="documentoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarDocumentoAvisoEntrada(int documentoID, Sam3_Usuario usuario)
         {
             try
@@ -438,6 +497,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina logicamente un documento de permiso de aduana
+        /// </summary>
+        /// <param name="documentoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarDocumentoPermisoAduana(int documentoID, Sam3_Usuario usuario)
         {
             try
@@ -474,6 +539,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina logicamente un documento de pase de salida
+        /// </summary>
+        /// <param name="documentoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarDocumentoPaseSalida(int documentoID, Sam3_Usuario usuario)
         {
             try

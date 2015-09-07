@@ -2015,6 +2015,87 @@ _dictionary = {
         "es-MX": "Nueva captura",
         "en-US": "New capture"
     },
+    "DetalleOrdenRecepcion0015": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DetalleOrdenRecepcion0016": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "DetalleOrdenRecepcion0017": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    //Orden de Alamacenaje
+    "DetalleOrdenAlmacenaje0001": {
+        "es-MX": "Orden de Almacenaje: ",
+        "en-US": "Order storage: "
+    },
+    "DetalleOrdenAlmacenaje0002": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "DetalleOrdenAlmacenaje0003": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "DetalleOrdenAlmacenaje0004": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "DetalleOrdenAlmacenaje0005": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "DetalleOrdenAlmacenaje0006": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "DetalleOrdenAlmacenaje0007": {
+        "es-MX": "Nueva captura",
+        "en-US": "New capture"
+    },
+    "DetalleOrdenAlmacenaje0008": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DetalleOrdenAlmacenaje0009": {
+        "es-MX": "Folio de Llegada",
+        "en-US": "Folio de Llegada"
+    },
+    "DetalleOrdenAlmacenaje0010": {
+        "es-MX": "Item Code ID",
+        "en-US": "Item Code ID"
+    },
+    "DetalleOrdenAlmacenaje0011": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "DetalleOrdenAlmacenaje0012": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "DetalleOrdenAlmacenaje0013": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DetalleOrdenAlmacenaje0014": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DetalleOrdenAlmacenaje0015": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "DetalleOrdenAlmacenaje0016": {
+        "es-MX": "Numero Unico ID",
+        "en-US": "Unique Number ID"
+    },
+    "DetalleOrdenAlmacenaje0017": {
+        "es-MX": "Numero Unico",
+        "en-US": "Unique Number"
+    },
     //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
         "es-MX": "Inicio",
@@ -2213,6 +2294,220 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
+    //Dashboard Recepcion y Almacenaje
+    "DashboardRecepcionAlmacenaje0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DashboardRecepcionAlmacenaje0002": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "DashboardRecepcionAlmacenaje0003": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardRecepcionAlmacenaje0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DashboardRecepcionAlmacenaje0005": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "DashboardRecepcionAlmacenaje0006": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "DashboardRecepcionAlmacenaje0007": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "DashboardRecepcionAlmacenaje0008": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "DashboardRecepcionAlmacenaje0009": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "DashboardRecepcionAlmacenaje0010": {
+        "es-MX": "Agregar Packing List",
+        "en-US": "Add Packing List"
+    },
+    "DashboardRecepcionAlmacenaje0011": {
+        "es-MX": "Accesorios",
+        "en-US": "Accessories"
+    },
+    "DashboardRecepcionAlmacenaje0012": {
+        "es-MX": "Entrada por cuantificar",
+        "en-US": "Entry to quantify"
+    },
+    "DashboardRecepcionAlmacenaje0013": {
+        "es-MX": "PL por cuantificar",
+        "en-US": "PL quantify "
+    },
+    "DashboardRecepcionAlmacenaje0014": {
+        "es-MX": "MTL sin ICS",
+        "en-US": "MTL without ICS"
+    },
+    "DashboardRecepcionAlmacenaje0015": {
+        "es-MX": "MTL sin Orden de Recepción",
+        "en-US": "MTL without Receiving Order"
+    },
+    "DashboardRecepcionAlmacenaje0016": {
+        "es-MX": "NU por recepcionar",
+        "en-US": "NU por recepcionar"
+    },
+    "DashboardRecepcionAlmacenaje0017": {
+        "es-MX": "NU sin Orden de Almacenaje",
+        "en-US": "NU without Order Storage"
+    },
+    "DashboardRecepcionAlmacenaje0018": {
+        "es-MX": "NU sin almacenar",
+        "en-US": "NU without storing"
+    },
+    "DashboardRecepcionAlmacenaje0019": {
+        "es-MX": "Incidencias abiertas",
+        "en-US": "Open issues"
+    },
+    "DashboardRecepcionAlmacenaje0020": {
+        "es-MX": "Tubos",
+        "en-US": "Tubes"
+    },
+    "DashboardRecepcionAlmacenaje0021": {
+        "es-MX": "Entrada por cuantificar",
+        "en-US": "Entry to quantify"
+    },
+    "DashboardRecepcionAlmacenaje0022": {
+        "es-MX": "PL por cuantificar",
+        "en-US": "PL quantify "
+    },
+    "DashboardRecepcionAlmacenaje0023": {
+        "es-MX": "MTL sin ICS",
+        "en-US": "MTL without ICS"
+    },
+    "DashboardRecepcionAlmacenaje0024": {
+        "es-MX": "MTL sin Orden de Recepción",
+        "en-US": "MTL without Receiving Order"
+    },
+    "DashboardRecepcionAlmacenaje025": {
+        "es-MX": "NU por recepcionar",
+        "en-US": "NU por recepcionar"
+    },
+    "DashboardRecepcionAlmacenaje0026": {
+        "es-MX": "NU sin Orden de Almacenaje",
+        "en-US": "NU without Order Storage"
+    },
+    "DashboardRecepcionAlmacenaje0027": {
+        "es-MX": "NU sin almacenar",
+        "en-US": "NU without storing"
+    },
+    "DashboardRecepcionAlmacenaje0028": {
+        "es-MX": "Incidencias abiertas",
+        "en-US": "Open issues"
+    },
+    //Listados Recepcion y Almacenaje
+    "ListadoRecepcionAlmacenajeTuberia0001": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0003": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0004": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0005": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0006": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0007": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0008": {
+        "es-MX": "Entrada por cuantificar",
+        "en-US": "Entry to quantify"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0009": {
+        "es-MX": "PL por cuantificar",
+        "en-US": "PL quantify "
+    },
+    "ListadoRecepcionAlmacenajeTuberia0010": {
+        "es-MX": "MTL sin ICS",
+        "en-US": "MTL without ICS"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0011": {
+        "es-MX": "MTL sin Orden de Recepción",
+        "en-US": "MTL without Receiving Order"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0012": {
+        "es-MX": "NU por recepcionar",
+        "en-US": "NU por recepcionar"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0013": {
+        "es-MX": "NU sin Orden de Almacenaje",
+        "en-US": "NU without Order Storage"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0014": {
+        "es-MX": "NU sin almacenar",
+        "en-US": "NU without storing"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0015": {
+        "es-MX": "Incidencias abiertas",
+        "en-US": "Open issues"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0016": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0017": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0018": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0019": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0020": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0021": {
+        "es-MX": "Tuberia",
+        "en-US": "Pipeline"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0022": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0023": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0024": {
+        "es-MX": "Listado Recepción y Almacenaje",
+        "en-US": "List Receipt and Storage"
+    },
+    "ListadoRecepcionAlmacenajeTuberia0025": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -2389,6 +2684,10 @@ _dictionary = {
     "notificationslabel0044": {
         "es-MX": "Favor de seleccionar Item Codes",
         "en-US": "Please select Item Codes"
+    },
+    "notificationslabel0045": {
+        "es-MX": "Favor de seleccionar datos",
+        "en-US": "Please select data"
     },
     //Default to copy
     "label9999": {

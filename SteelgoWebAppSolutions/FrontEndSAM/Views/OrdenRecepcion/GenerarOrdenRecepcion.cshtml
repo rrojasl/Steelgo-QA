@@ -84,7 +84,7 @@
     {
     var checkNodoPrincipal = [];
     var checkItemCodesID = [];
-
+    var _detalleurl = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
     var FolioAvisoEntrada = {}, Proyecto = {}, ItemCode = {}, _resultadoJson;
 
     var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
@@ -228,23 +228,31 @@
         grid.tbody.on("change", ".master", function () {
             var checkbox = $(this);
             var nextRow = checkbox.closest("tr").next();
-            var value = checkbox.closest("tr").children()[2].innerHTML;
-          
-            checkNodoPrincipal[value] = { FolioAvisoEntradaID: value, checked: checkbox.is(":checked") };
+            var value = "id:" + checkbox.closest("tr").children()[2].innerHTML;
 
-            for (var i in checkItemCodesID) {
-                if (checkItemCodesID[value,i].FolioAvisoEntradaID == value) {
-                    checkItemCodesID[value,i].checked = false;
-                }
-            }
+            AgregarActualizarNodoPrincipal(value, checkbox);
+            DeseleccionarItemCodes(value);
 
-            if (nextRow.hasClass("k-detail-row")) {               
+            if (nextRow.hasClass("k-detail-row")) {
                 nextRow.find(":checkbox")
                     .prop("checked", checkbox.is(":checked"));
                 nextRow.find(":checkbox")
                     .prop("disabled", checkbox.is(":checked"));
             }
         });
+
+        grid.tbody.on("change", ".materiales", function () {
+            var checkbox = $(this);
+            var nextRow = checkbox.closest("tr").next();
+ 
+            if (nextRow.hasClass("k-detail-row")) {
+                nextRow.find(":checkbox")
+                    .prop("checked", checkbox.is(":checked"));
+                nextRow.find(":checkbox")
+                    .prop("disabled", checkbox.is(":checked"));
+            }
+        });
+
     };
 
     function CargaInicialEdicion() {
@@ -289,6 +297,8 @@
     function LimpiarFiltrosProyecto(){
         LimpiarCombo("ItemCode");
         LimpiarCombo("FolioAvisoEntradaID");
+        ItemCode = {};
+        FolioAvisoEntrada = {};
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
 
@@ -352,42 +362,104 @@
         });
     };
 
+    function AgregarActualizarNodoPrincipal(value, checkbox) {
+        //Se checa si existe en memoria para actualizar el valor del checkbox
+        var boolexiste = false;
+        for (var check in checkNodoPrincipal) {
+            if (checkNodoPrincipal[check].indexOf(value + ",") != -1) {
+                boolexiste = true;
+                checkNodoPrincipal[check] = value + "," + checkbox.is(":checked");
+            };
+        };
+        //Solo se agregan los nuevos para evitar los duplicados
+        if (!boolexiste) {
+            checkNodoPrincipal.push(value + "," + checkbox.is(":checked"));
+        }
+    };
+
+    function DeseleccionarItemCodes(value) {
+        //Si el usuario deselecciona el  foliocuantificacion se deben poner en falso los itemcodes en memoria
+        for (var check in checkItemCodesID) {
+            if (checkItemCodesID[check].indexOf(value + ",") != -1) {
+                checkItemCodesID[check] = value + "," + checkItemCodesID[check].split(",")[1] + "," + "false";
+            }
+        }
+    }
+
+
     function NodoPadre(row, id) {
         var checkbox = $(row);
+        var boolexiste = false;
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("checked", checkbox.is(":checked"));
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").prop("disabled", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".k-detail-row").find(":checkbox").prop("checked", checkbox.is(":checked"));
+        $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".k-detail-row").find(":checkbox").prop("disabled", checkbox.is(":checked"));
 
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
             var checked = val.checked;
-            checkItemCodesID[id,$(val).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(val).closest("tr").children()[1].innerHTML, checked: checked, TipoMaterial: $(val).closest("tr").children()[7].innerHTML };
+            var value = "id:" + id + "," + $(val).closest("tr").children()[2].innerHTML;
+            boolexiste = false;
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].indexOf(value) != -1) {
+                    boolexiste = true;
+                    checkItemCodesID[check] = value + "," + checkbox.is(":checked");
+                };
+            };
+            if (!boolexiste) {
+                checkItemCodesID.push(value + "," + checkbox.is(":checked"));
+            }
         });
-        
     };
 
-    function NodoHijo(row,id) {
+    function NodoHijo(row, id) {
         var checkbox = $(row);
-        checkItemCodesID[id,$(row).closest("tr").children()[1].innerHTML] = { FolioAvisoEntradaID: id, ItemCodeID: $(row).closest("tr").children()[1].innerHTML, checked: checkbox.is(":checked"), TipoMaterial: $(row).closest("tr").children()[7].innerHTML };
+        var value = "id:" + id + "," + $(row).closest("tr").children()[2].innerHTML;
+
+        var boolexiste = false;
+        for (var check in checkItemCodesID) {
+            if (checkItemCodesID[check].indexOf(value) != -1) {
+                boolexiste = true;
+                checkItemCodesID[check] = value + "," + checkbox.is(":checked");
+            };
+        };
+
+        if (!boolexiste) {
+            checkItemCodesID.push(value + "," + checkbox.is(":checked"));
+        }
+
+    };
+
+    function ObtenerFoliosDeMemoria() {
+        var x = 0, folios = [];
+        for (var check in checkNodoPrincipal) {
+            var bool = checkNodoPrincipal[check].split(",")[2] == "true" ? true : false;
+            if (bool) {
+                folios[x] = { ID: parseInt(checkNodoPrincipal[check].split(",")[0].split(":")[1]) };
+                x++;
+            }
+        }
+        return folios;
+    };
+
+    function ObtenerItemCodesDeMemoria() {
+        var itemCodes = [], x = 0;
+        for (var check in checkItemCodesID) {
+            var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
+            if (bool) {
+                itemCodes[x] = { ID: parseInt(checkItemCodesID[check].split(",")[1]) };
+                x++;
+            }
+        }
+        return itemCodes;
     };
 
     function GenerarOrdenRecepcionNuevo() {
         var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { ID: "", Folios:""};
 
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true)
-            {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
-                x++;
-            }
-        }
+        folios = ObtenerFoliosDeMemoria();
+        itemCodes = ObtenerItemCodesDeMemoria();
 
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
-                x++;
-            }
-        }
         loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
@@ -409,20 +481,9 @@
         var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { ID: "", Folios: "" };
 
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
-                x++;
-            }
-        }
+        folios = ObtenerFoliosDeMemoria();
+        itemCodes = ObtenerItemCodesDeMemoria();
 
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
-                x++;
-            }
-        }
         loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
@@ -447,20 +508,10 @@
         var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { ID: "", Folios: "" };
 
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
-                x++;
-            }
-        }
+        folios = ObtenerFoliosDeMemoria();
+        itemCodes = ObtenerItemCodesDeMemoria();
+        
 
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioAvisoEntradaID) };
-                x++;
-            }
-        }
         loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
@@ -472,9 +523,7 @@
                 if (Error(result)) {
                     window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcion=" + result.OrdenRecepcionID);
                     window.open("http://www.asp.net");//Webservice
-
-                    var url = "@Url.Action("DetalleOrdenRecepcion", "Cuantificacion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID + "&ProyectoID=" + Proyecto.ProyectoID;
                 }
             });
         } else {
@@ -501,49 +550,58 @@
     };
 
     }
-
     function onDataBoundPrincipal(e) {
         console.log("onDataBoundPrincipal");
         var view = this.dataSource.view();
         var body = this.tbody[0];
-        for (var i = 0; i < body.children.length; i++) {
 
-            if (checkNodoPrincipal[body.children[i].children[2].innerHTML]) {
-                $(body.children[i]).find(".master").attr("checked", checkNodoPrincipal[body.children[i].children[2].innerHTML].checked);
+        //se busca el folio cuantificacion para marcarlo en el check
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkNodoPrincipal) {
+                if (checkNodoPrincipal[check].split(",")[0].split(":")[1] == body.children[i].children[2].innerHTML) {
+                    var bool = checkNodoPrincipal[check].split(",")[1] == "true" ? true : false;
+                    $(body.children[i]).find(".master").attr("checked", bool);
+                }
+            };
+        }
+    };
+    //se busca el folio cuantificacion, itemcode para marcarlo en el check
+    function onDataBoundAccesorios(e) {
+        console.log("onDataBoundDetalle");
+        var view = this.dataSource.view();
+        var body = this.tbody[0];
+
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[2].innerHTML) {
+                    var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
+                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", bool);
+                }
             }
 
         }
     };
 
-    function onDataBoundAccesorios(e) {
-        console.log("onDataBoundAccesorios");
-        var view = this.dataSource.view();
-        var body = this.tbody[0];
-        
-            for (var i = 0; i < body.children.length; i++) {
-
-                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
-                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
-                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
-                }
-            }
-        
-    };
-
     function onDataBoundTubos(e) {
-        console.log("onDataBoundTubos");
+        console.log("onDataBoundDetalle");
         var view = this.dataSource.view();
         var body = this.tbody[0];
-        
-            for (var i = 0; i < body.children.length; i++) {
 
-                if (checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML]) {
-                    if(!$(body.children[i]).find(".materiales").is(":disabled"))
-                        $(body.children[i]).find(".materiales").attr("checked", checkItemCodesID[body.children[i].children[8].innerHTML, body.children[i].children[1].innerHTML].checked);
+        for (var i = 0; i < body.children.length; i++) {
+            for (var check in checkItemCodesID) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[2].innerHTML) {
+                    var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
+                    if (!$(body.children[i]).find(".materiales").is(":disabled"))
+                        $(body.children[i]).find(".materiales").attr("checked", bool);
                 }
             }
-        
+
+        }
     };
+    
+
+   
 
     function detailInit(e) {
         var checked = "";
@@ -574,7 +632,7 @@
                 scrollable: false,
                 sortable: false,
                 columns: [
-                    { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + 'class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
                     { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
@@ -610,7 +668,7 @@
                 sortable: false,
                 dataBound: onDataBoundTubos,
                 columns: [
-                    { template: '<input type="checkbox"  ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { template: '<input type="checkbox"  ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + '  class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
                     { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },

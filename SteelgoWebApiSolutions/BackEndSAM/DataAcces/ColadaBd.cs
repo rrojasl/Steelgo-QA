@@ -8,6 +8,9 @@ using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Entidad colada
+    /// </summary>
     public class ColadaBd
     {
         private static readonly object _mutex = new object();
@@ -39,7 +42,7 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// Guardar Nueva Colada
+        /// Genera un nuevo registro de colada
         /// </summary>
         /// <param name="DatosColada">datos capturados en el modal</param>
         /// <param name="usuario">usuario registrado</param>

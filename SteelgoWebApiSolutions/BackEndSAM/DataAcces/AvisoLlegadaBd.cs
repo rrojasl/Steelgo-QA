@@ -17,6 +17,9 @@ using System.Net.Http.Headers;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Clase que contiene funciones relacionadas con los avisos de Llegada 
+    /// </summary>
     public class AvisoLlegadaBd
     {
         private static readonly object _mutex = new object();
@@ -47,6 +50,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un nuevo aviso de llegada.
+        /// </summary>
+        /// <param name="avisoJson">Propiedades del nuevo aviso de llegada</param>
+        /// <param name="usuario">Informacion del usuario, que realiza la operación</param>
+        /// <returns>Mensaje de Exito o error, que incluye el ID del nuevo aviso de llegada</returns>
         public object GenerarAvisoLlegada(AvisoLlegadaJson avisoJson, Sam3_Usuario usuario)
         {
             try
@@ -162,6 +171,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un listado de los avisos de llegada de acuerdo a los filtros proporcionados
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns>Listado en formato JSON</returns>
         public object ObtenerListadoAvisoLlegada(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
@@ -387,6 +402,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtiene el detalle de un aviso de Llegada
+        /// </summary>
+        /// <param name="avisoLlegadaID"></param>
+        /// <returns>JSON con las propiedades para el detalle de aviso de llegada</returns>
         public object ObtenerAvisoLlegadaPorID(int avisoLlegadaID)
         {
             try
@@ -537,6 +557,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Elimina logicamente un aviso de llegada
+        /// </summary>
+        /// <param name="avisoLlegadaID"></param>
+        /// <param name="usuario"></param>
+        /// <returns>Aviso de exito o error</returns>
         public object EliminarAvisoLlegada(int avisoLlegadaID, Sam3_Usuario usuario)
         {
             try
@@ -574,6 +601,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Actualiza la informacion de un aviso de llegada en especifico
+        /// </summary>
+        /// <param name="cambios"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ActualizarAvisoLlegada(AvisoLlegadaJson cambios, Sam3_Usuario usuario)
         {
             try
@@ -683,6 +717,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Obtinene un listado de tipo ID, Valor. Para mostarse en un combobox. Muestra todos los folios activos
+        /// </summary>
+        /// <returns></returns>
         public object ObtenerListadoFoliosParaFiltro()
         {
             try
@@ -712,6 +751,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Devuelve un listado de tipo ID, Valor. Con los Folios de llegada que ya tienen folio de descarga.
+        /// </summary>
+        /// <returns></returns>
         public object ObtenerListadoSinPaseSalida()
         {
             try
@@ -742,7 +786,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-
+        /// <summary>
+        /// Devuelve un listado de tipo ID, Valor. Con los folios de llegada que requieren de permiso de aduana
+        /// </summary>
+        /// <returns></returns>
         public object ObtenerListadoFoliosRequierePermiso()
         {
             try
@@ -774,6 +821,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Verifica si un folio de llegada requiere de un permiso de aduana.
+        /// </summary>
+        /// <param name="folioAvisoLlegadaID"></param>
+        /// <param name="usuario"></param>
+        /// <returns>true  / false</returns>
         public object VerificarPermisoAduana(int folioAvisoLlegadaID, Sam3_Usuario usuario)
         {
             try
@@ -800,6 +853,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Verifica si un Folio tiene documento de permiso de aduana, si lo tiene, devuelve la información del documento, 
+        /// si no existe devuelve un null.
+        /// </summary>
+        /// <param name="folioAvisoLlegadaID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object VerificarDocumentoAduana(int folioAvisoLlegadaID, Sam3_Usuario usuario)
         {
             try

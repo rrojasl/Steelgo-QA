@@ -11,6 +11,9 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Altas, bajas, cambios acerca del catalago de choferes.
+    /// </summary>
     public class ChoferBd
     {
         private static readonly object _mutex = new object();
@@ -41,6 +44,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtiene un listado de choferes para cargar en combobox.
+        /// </summary>
+        /// <param name="esAvisoEntrada"></param>
+        /// <returns>JSON {"Nombre" : "xxxx", "ChoferID": "000"}</returns>
         public object ObtenerListadoChoferes(string esAvisoEntrada)
         {
             try
@@ -79,6 +87,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un nuevo registro de tipo Chofer
+        /// </summary>
+        /// <param name="chofer">Propiedades del nuevo registro</param>
+        /// <param name="usuario">Información del usuario</param>
+        /// <returns>JSON {"Nombre": "xxxx", "ChoferID":"10"}</returns>
         public object InsertarChofer(Sam3_Chofer chofer, Sam3_Usuario usuario)
         {
             try
@@ -110,6 +124,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Actualiza la informacion de un chofer en base de datos
+        /// </summary>
+        /// <param name="chofer"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ActualizarChofer(Sam3_Chofer chofer, Sam3_Usuario usuario)
         {
             try
@@ -138,6 +158,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina Logicamente el registro de un Chofer
+        /// </summary>
+        /// <param name="choferID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarChofer(int choferID, Sam3_Usuario usuario)
         {
             try
@@ -173,6 +199,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtiene una lista de Choferes por transportista
+        /// </summary>
+        /// <param name="transportistaID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerChoferesProTransportista(int transportistaID, Sam3_Usuario usuario)
         {
             try

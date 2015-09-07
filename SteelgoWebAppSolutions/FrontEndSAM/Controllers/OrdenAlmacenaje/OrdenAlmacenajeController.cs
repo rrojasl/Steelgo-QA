@@ -19,6 +19,12 @@ namespace FrontEndSAM.Controllers.OrdenAlmacenaje
         {
             return View();
         }
+
+        public ActionResult DetalleOrdenAlmacenaje()
+        {
+            return View();
+        }
+
         //
         // GET: /OrdenAlmacenaje/Details/5
         public ActionResult Details(int id)

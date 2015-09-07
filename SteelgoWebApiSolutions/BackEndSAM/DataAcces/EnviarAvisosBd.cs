@@ -8,6 +8,9 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// Clase con funciones para envio denotificaciones
+    /// </summary>
     public class EnviarAvisosBd
     {
         private static readonly object _mutex = new object();
@@ -38,6 +41,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Envia una nueva notificacion
+        /// </summary>
+        /// <param name="tipoNotificacion"></param>
+        /// <param name="mensaje"></param>
+        /// <param name="usuario">Información del usuario que lanza este evento</param>
+        /// <returns>true / false</returns>
         public object EnviarNotificación(int tipoNotificacion, string mensaje, Sam3_Usuario usuario)
         {
             try
