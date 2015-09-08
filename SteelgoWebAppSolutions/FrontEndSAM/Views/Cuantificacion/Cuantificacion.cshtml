@@ -1463,29 +1463,23 @@
             var folioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID;
             var folioCuantificacionID = Cuantificacion.FolioCuantificacionID;
 
-            //Si no tiene registro de bulto se puede borrar sin pasar por las validaciones.
-            if (!bultoID) {
-                var grid = $("#grid").data("kendoGrid");
-                var tr = $(e.currentTarget).closest("tr");
-                grid.removeRow(tr);
-                return;
-            }
-
             //Viene del detalle del Bulto
             if (_bultoID != "-1") {
-                $DumyValidarItemCodeNuCuantificacion.DumyValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, BultoID: _bultoID, token: Cookies.get("token") }).done(function (data) {
-                    if (data) {
-                        if (confirm("Estas seguro de cancelar el Item Code?")) {
-                            $DumyValidarItemCodeNuCuantificacion.DumyValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: _bultoID, ItemCode: ItemCode, token: Cookies.get("token") }).done(function (data) {
-                                var grid = $("#grid").data("kendoGrid");
-                                var tr = $(e.currentTarget).closest("tr");
-                                grid.removeRow(tr);
-                            });
+                $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, bultoID: _bultoID, token: Cookies.get("token") }).done(function (data) {
+                    if (error(data)) {
+                        if (data) {
+                            if (confirm("Estas seguro de cancelar el Item Code?")) {
+                                $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: _bultoID, ItemCode: ItemCode, token: Cookies.get("token") }).done(function (data) {
+                                    var grid = $("#grid").data("kendoGrid");
+                                    var tr = $(e.currentTarget).closest("tr");
+                                    grid.removeRow(tr);
+                                });
+                            };
+                        } else {
+                            displayMessage("notificationslabel0039", "", '1');
+                            e.preventDefault();
                         };
-                    } else {
-                        displayMessage("notificationslabel0039", "", '1');
-                        e.preventDefault();
-                    };
+                    }
                 });
 
             } else {

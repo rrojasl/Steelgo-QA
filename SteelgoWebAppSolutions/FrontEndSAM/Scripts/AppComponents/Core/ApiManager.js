@@ -72,7 +72,7 @@ var $ObtenerDatosFolioLlegadaMaterial = new $.RestClient($BackEndSAMUri + '/back
 var $TipoPackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoUso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DumyValidarItemCodeNuCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ValidarItemCodeNuCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerColadasPorProyecto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerFamiliaItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerFamiliaItemCodeSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -143,7 +143,7 @@ $ObtenerDatosFolioLlegadaMaterial.add("ObtenerDatosFolioLlegadaMaterial");
 $TipoPackingList.add("TipoPackingList");
 $TipoUso.add("TipoUso");
 $ListadoCuantificacion.add("ListadoCuantificacion");
-$DumyValidarItemCodeNuCuantificacion.add("DumyValidarItemCodeNuCuantificacion");
+$ValidarItemCodeNuCuantificacion.add("ValidarItemCodeNuCuantificacion");
 $DummyObtenerColadasPorProyecto.add("DummyColadasPorProyecto");
 $DummyObtenerFamiliaItemCode.add("FamiliaAcero");
 $DummyObtenerFamiliaItemCodeSteelgo.add("FamiliaAcero");

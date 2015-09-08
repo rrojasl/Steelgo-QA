@@ -2774,8 +2774,8 @@ _dictionary = {
         "en-US": "Please select data"
     },
     "notificationslabel0046": {
-        "es-MX": "Favor de agregar Item Codes",
-        "en-US": "Please add Item Codes"
+        "es-MX": "Favor de validar la informacion.",
+        "en-US": "Please validate the information."
     },
     //Default to copy
     "label9999": {
