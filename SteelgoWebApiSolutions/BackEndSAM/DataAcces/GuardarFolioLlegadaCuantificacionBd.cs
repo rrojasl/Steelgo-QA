@@ -116,7 +116,7 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
                      folioCuantificacion.FechaCreacion = DateTime.Now;
-                     folioCuantificacion.Estatus = "Entrada por cuantificar";
+                     folioCuantificacion.Estatus = "En Proceso Recepción";
                      folioCuantificacion.FechaModificacion = DateTime.Now;
                      folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;

@@ -81,8 +81,15 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
-
+                                        if (!String.IsNullOrEmpty(item.BultoID))
+                                        {
+                                            bulto = InsertarBulto(FolioCuantificacion, usuario);
+                                        }
+                                        else
+                                        {
+                                            bulto = ActualizarBulto(FolioCuantificacion, usuario);
+                                        }
+                                        
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
                                             ItemCode = "Bulto",
@@ -199,7 +206,14 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
+                                        if (!String.IsNullOrEmpty(item.BultoID))
+                                        {
+                                            bulto = InsertarBulto(FolioCuantificacion, usuario);
+                                        }
+                                        else
+                                        {
+                                            bulto = ActualizarBulto(FolioCuantificacion, usuario);
+                                        }
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
@@ -307,7 +321,14 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
+                                        if (!String.IsNullOrEmpty(item.BultoID))
+                                        {
+                                            bulto = InsertarBulto(FolioCuantificacion, usuario);
+                                        }
+                                        else
+                                        {
+                                            bulto = ActualizarBulto(FolioCuantificacion, usuario);
+                                        }
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
@@ -426,6 +447,28 @@ namespace BackEndSAM.DataAcces
                                     if (item.ItemCode == "Bulto")
                                     {
                                         TieneErrores = true;
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = item.ItemCodeID,
+                                            TipoMaterial = item.TipoMaterial,
+                                            ItemCode = item.ItemCode,
+                                            ItemCodeSteelgo = item.ItemCodeSteelgo,
+                                            ItemCodeSteelgoID = item.ItemCodeSteelgoID,
+                                            Descripcion = item.Descripcion,
+                                            Peso = item.Peso,
+                                            Cedula = item.Cedula,
+                                            D1 = item.D1,
+                                            D2 = item.D2,
+                                            Familia = item.Familia,
+                                            TipoAcero = item.TipoAcero,
+                                            Cantidad = item.Cantidad,
+                                            MM = item.MM,
+                                            Colada = item.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = item.TieneNU
+                                        });
                                     }
                                     else
                                     {
@@ -535,6 +578,28 @@ namespace BackEndSAM.DataAcces
                                     if (item.ItemCode == "Bulto")
                                     {
                                         TieneErrores = true;
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = item.ItemCodeID,
+                                            TipoMaterial = item.TipoMaterial,
+                                            ItemCode = item.ItemCode,
+                                            ItemCodeSteelgo = item.ItemCodeSteelgo,
+                                            ItemCodeSteelgoID = item.ItemCodeSteelgoID,
+                                            Descripcion = item.Descripcion,
+                                            Peso = item.Peso,
+                                            Cedula = item.Cedula,
+                                            D1 = item.D1,
+                                            D2 = item.D2,
+                                            Familia = item.Familia,
+                                            TipoAcero = item.TipoAcero,
+                                            Cantidad = item.Cantidad,
+                                            MM = item.MM,
+                                            Colada = item.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = item.TieneNU
+                                        });
                                     }
                                     else
                                     {
@@ -659,6 +724,23 @@ namespace BackEndSAM.DataAcces
                 bulto.UsuarioModificacion = usuario.UsuarioID;
                 bulto.Activo = true;
                 ctx.Sam3_Bulto.Add(bulto);
+                ctx.SaveChanges();
+
+                return bulto;
+            }
+        }
+
+        public Sam3_Bulto ActualizarBulto(int FolioCuantificacion, Sam3_Usuario usuario)
+        {
+            using (SamContext ctx = new SamContext())
+            {
+                Sam3_Bulto bulto = new Sam3_Bulto();
+                bulto.FolioCuantificacionID = FolioCuantificacion;
+                bulto.Estatus = "En Proceso de Recepción";
+                bulto.FechaModificacion = DateTime.Now;
+                bulto.UsuarioModificacion = usuario.UsuarioID;
+                bulto.Activo = true;
+                
                 ctx.SaveChanges();
 
                 return bulto;
