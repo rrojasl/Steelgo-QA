@@ -141,5 +141,41 @@ namespace BackEndSAM.DataAcces
              }
          }
 
+        /// <summary>
+        /// Obtener el detalle de un item code al seleccionarlo en el grid
+        /// </summary>
+        /// <param name="itemCode">item code seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>objeto con la informacion del item code</returns>
+         public object ObtenerDetalleItemCode(string itemCode)
+         {
+             try
+             {
+                 using (SamContext ctx = new SamContext())
+                 {
+                     int itemCodeID = Int32.Parse(itemCode);
+                     ItemCodeJson detalle = (from r in ctx.Sam3_ItemCode
+                                                    where r.Activo && r.ItemCodeID == itemCodeID
+                                                    select new ItemCodeJson
+                                                    {
+                                                        ColadaNombre= (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID select c.NumeroColada).FirstOrDefault(),
+                                                        Cantidad = r.Cantidad,
+                                                        MM = r.MM
+                                                    }).AsParallel().SingleOrDefault();
+                     return detalle;
+                 }
+             }
+             catch (Exception ex)
+             {
+                 TransactionalInformation result = new TransactionalInformation();
+                 result.ReturnMessage.Add(ex.Message);
+                 result.ReturnCode = 500;
+                 result.ReturnStatus = false;
+                 result.IsAuthenicated = true;
+
+                 return result;
+             }
+         }
+
     }
 }

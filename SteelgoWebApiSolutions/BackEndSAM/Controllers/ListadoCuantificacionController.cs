@@ -15,31 +15,15 @@ namespace BackEndSAM.Controllers
 {
     public class ListadoCuantificacionController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
+       
         // PUT api/<controller>/5
         public object Put(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
         {
             string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
+            //string newToken = "";
+            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            //if (tokenValido)
+            //{
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 List<CuantificacionListado> datosItemCode = serializer.Deserialize<List<CuantificacionListado>>(cuantificacion);
@@ -64,16 +48,16 @@ namespace BackEndSAM.Controllers
                         result.IsAuthenicated = false;
                         return result;
                 }
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
+            //}
+            //else
+            //{
+            //    TransactionalInformation result = new TransactionalInformation();
+            //    result.ReturnMessage.Add(payload);
+            //    result.ReturnCode = 401;
+            //    result.ReturnStatus = false;
+            //    result.IsAuthenicated = false;
+            //    return result;
+            //}
         }
 
         // DELETE api/<controller>/5
