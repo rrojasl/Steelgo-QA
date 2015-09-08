@@ -56,8 +56,8 @@ namespace BackEndSAM.DataAcces
 
                  using (SamContext ctx = new SamContext())
                  {
-                     IC.Add(new ItemCode { ItemCodeID = "0", Codigo = "Agregar Nuevo" });
-                     IC.Add(new ItemCode { ItemCodeID = "-1", Codigo = "Bulto"});
+                     IC.Add(new ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                     IC.Add(new ItemCode { ItemCodeID = "0", Codigo = "Bulto"});
 
                      List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode
                                  where ic.Activo && ic.TipoMaterialID == tipoPackingListID

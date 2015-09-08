@@ -30,9 +30,9 @@ var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/Document
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
+var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $DummyTipoAcero = $BackEndSAMUri + '/backendsam/api/DummyTipoAcero?';
-var $ComboDummyItemCode = $BackEndSAMUri + '/backendsam/api/DummyItemCode?';
-var $ComboDummyItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/DummyItemCodeSteelgo';
+var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ItemCodeSteelgo';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -76,8 +76,8 @@ var $DumyValidarItemCodeNuCuantificacion = new $.RestClient($BackEndSAMUri + '/b
 var $DummyObtenerColadasPorProyecto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerFamiliaItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerFamiliaItemCodeSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyItemCodeSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ItemCodeSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyFabricanteColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyAceroColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyColada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -91,6 +91,7 @@ var $DummyOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/'
 var $DummyGenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FoliosCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargarGridCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Colada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -145,8 +146,8 @@ $DumyValidarItemCodeNuCuantificacion.add("DumyValidarItemCodeNuCuantificacion");
 $DummyObtenerColadasPorProyecto.add("DummyColadasPorProyecto");
 $DummyObtenerFamiliaItemCode.add("FamiliaAcero");
 $DummyObtenerFamiliaItemCodeSteelgo.add("FamiliaAcero");
-$DummyItemCode.add("DummyItemCode");
-$DummyItemCodeSteelgo.add("DummyItemCodeSteelgo");
+$ItemCode.add("ItemCode");
+$ItemCodeSteelgo.add("ItemCodeSteelgo");
 $DummyFabricanteColada.add("DummyFabricante");
 $DummyAceroColada.add("DummyAcero");
 $DummyColada.add("DummyColada");
@@ -160,3 +161,4 @@ $DummyOrdenAlmacenaje.add("DummyOrdenAlmacenaje");
 $DummyGenerarOrdenAlmacenaje.add("DummyGenerarOrdenAlmacenaje");
 $FoliosCuantificacion.add("FoliosCuantificacion");
 $CargarGridCuantificacion.add("CargarGridCuantificacion");
+$Colada.add("Colada");

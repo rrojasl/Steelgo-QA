@@ -102,7 +102,10 @@ namespace BackEndSAM.DataAcces
                 List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                    if (id != 0)
+                    {
+                        listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                    }
                     List<Coladas> coladas = (from c in ctx.Sam3_Colada
                                              where c.Activo
                                              select new Coladas
