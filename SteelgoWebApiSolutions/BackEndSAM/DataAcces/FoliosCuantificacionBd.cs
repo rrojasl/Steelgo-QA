@@ -44,17 +44,17 @@ namespace BackEndSAM.DataAcces
         /// <returns>Lista de Folios de Aviso de llegada</returns>
         public object obtenerFolioLlegada()
         {
-            List<FolioEntradaYLlegada> listFE = new List<FolioEntradaYLlegada>();
+            List<ListaCombos> listFE = new List<ListaCombos>();
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     listFE = (from t in ctx.Sam3_FolioAvisoEntrada
                               where t.FolioDescarga != 0 && t.Activo == true
-                              select new FolioEntradaYLlegada
+                              select new ListaCombos
                                 {
-                                    FolioAvisoEntradaID = t.FolioAvisoEntradaID,
-                                    FolioAvisoLlegadaID = t.FolioAvisoLlegadaID
+                                    id = t.FolioAvisoLlegadaID.ToString(),
+                                    value = t.FolioAvisoLlegadaID.ToString()
                                 }).AsParallel().ToList();
                 }
                 return listFE;
@@ -75,9 +75,9 @@ namespace BackEndSAM.DataAcces
         /// <summary>
         ///Obtiene la informacion de un aviso de entrada en cuantificacion
         /// </summary>
-        /// <param name="avisoEntrada">aviso de entrada seleccionado</param>
+        /// <param name="folioAvisoLlegadaID">folio aviso de llegada seleccionado</param>
         /// <returns>objeto con la informacion</returns>
-        public object obtenerDatosFolioEntrada(int avisoEntrada)
+        public object obtenerDatosFolioEntrada(int folioAvisoLlegadaID)
         {
             List<Proyecto> proyectos = new List<Proyecto>();
             List<FolioLlegada1> cuantificacion = new List<FolioLlegada1>();
@@ -88,34 +88,21 @@ namespace BackEndSAM.DataAcces
                 {
                     proyectos = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
-                                 join e in ctx.Sam3_FolioAvisoEntrada on avisoEntrada equals e.FolioAvisoLlegadaID
-                                 where t.FolioAvisoLlegadaID == e.FolioAvisoLlegadaID
+                                 join e in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoLlegadaID equals e.FolioAvisoLlegadaID
+                                 where t.FolioAvisoLlegadaID == folioAvisoLlegadaID
                                  select new Proyecto
                                  {
                                      ProyectoID = p.ProyectoID.ToString(),
                                      Nombre = p.Nombre
                                  }).AsParallel().ToList();
 
-                    foreach (var item in proyectos)
-                    {
-                        if (String.IsNullOrEmpty(item.ProyectoID) || item.ProyectoID.Contains("1"))
-                        {
-                            proyectos = (from t in ctx.Sam3_Proyecto
-                                         where t.Activo == true
-                                         select new Proyecto
-                                         {
-                                             ProyectoID = t.ProyectoID.ToString(),
-                                             Nombre = t.Nombre
-                                         }).AsParallel().ToList();
-                        }
-                    }
-
                     cuantificacion = (from t in ctx.Sam3_FolioCuantificacion
-                                      where t.Activo == true
+                                      join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
+                                      where t.Activo && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
                                       select new FolioLlegada1
                                            {
                                                FolioCuantificacionID = t.FolioCuantificacionID,
-                                               FolioAvisoEntradaID = t.FolioAvisoEntradaID
+                                               FolioAvisoEntradaID = t.FolioCuantificacionID
                                            }).AsParallel().ToList();
 
 
@@ -188,10 +175,10 @@ namespace BackEndSAM.DataAcces
         /// <summary>
         /// Obtener datos de un folio de aviso de entrada / folio cuantificacion
         /// </summary>
-        /// <param name="avisoLlegada"></param>
+        /// <param name="folioAvisoLlegadaID">Folio aviso de llegada seleccionado</param>
         /// <param name="folioCuantificacion"></param>
         /// <returns></returns>
-        public object obtenerDatosFolioCuantificacion(int avisoEntrada, int folioCuantificacion)
+        public object obtenerDatosFolioCuantificacion(int folioAvisoLlegadaID, int folioCuantificacion)
         {
             try
             {
@@ -200,8 +187,9 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     info = (from t in ctx.Sam3_FolioCuantificacion
-                            where t.FolioAvisoEntradaID == avisoEntrada && t.FolioCuantificacionID == folioCuantificacion
+                            join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
+                            where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
                             select new InfoFolioCuantificacion
                             {
                                 ProyectoID = t.ProyectoID,

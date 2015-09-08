@@ -45,7 +45,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="folioCuantificacion">folio cuantificacion</param>
         /// <param name="bultoID">id del bulto</param>
         /// <returns>informacion</returns>
-        public object gridCuantificacionInfo(int avisoEntrada, int folioCuantificacion, int bultoID = 0)
+        public object gridCuantificacionInfo(int folioCuantificacion, int bultoID = 0)
         {
             try
             {
@@ -67,9 +67,9 @@ namespace BackEndSAM.DataAcces
                                        ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.Codigo,
                                        Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Si" : "No",
                                        BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? ctx.Sam3_Rel_Bulto_ItemCode.Select(b=> b.BultoID).ToString() : null,
-                                       Descripcion = ic.DescripcionEspanol,
-                                       D1 = ic.Diametro1,
-                                       D2 = ic.Diametro2,
+                                       Descripcion = ics.DescripcionEspanol,
+                                       D1 = ics.Diametro1,
+                                       D2 = ics.Diametro2,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
                                        ItemCodeSteelgo = ric.ItemCodeSteelgoID,
@@ -104,9 +104,9 @@ namespace BackEndSAM.DataAcces
                                        ItemCode = ic.ItemCodeID.ToString(),
                                        Detallar = "No",
                                        BultoID = rbic.BultoID.ToString(),
-                                       Descripcion = ic.DescripcionEspanol,
-                                       D1 = ic.Diametro1,
-                                       D2 = ic.Diametro2,
+                                       Descripcion = ics.DescripcionEspanol,
+                                       D1 = ics.Diametro1,
+                                       D2 = ics.Diametro2,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
                                        ItemCodeSteelgo = ics.ItemCodeSteelgoID,

@@ -56,7 +56,8 @@ namespace BackEndSAM.DataAcces
 
                  using (SamContext ctx = new SamContext())
                  {
-                     IC.Add(new ItemCode { ItemCodeID = "0", Codigo = "Agregar Nuevo" });
+                     IC.Add(new ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                     IC.Add(new ItemCode { ItemCodeID = "0", Codigo = "Bulto"});
 
                      List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode
                                  where ic.Activo && ic.TipoMaterialID == tipoPackingListID
@@ -98,23 +99,23 @@ namespace BackEndSAM.DataAcces
                  using (SamContext ctx = new SamContext())
                  {
                      Sam3_ItemCode item = new Sam3_ItemCode();
-                     item.ProyectoID = DatosItemCode.ProyectoID;
-                     item.TipoMaterialID = DatosItemCode.TipoPackingList;
-                     item.Codigo = DatosItemCode.ItemCode;
+                     item.ProyectoID = DatosItemCode.ProyectoID;//
+                     item.TipoMaterialID = DatosItemCode.TipoPackingList;//
+                     item.Codigo = DatosItemCode.ItemCode;//
                      item.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
-                     item.DescripcionEspanol = DatosItemCode.Descripcion;
-                     item.DescripcionIngles = DatosItemCode.Descripcion;
-                     item.DescripcionInterna = DatosItemCode.Descripcion;
-                     item.Peso = DatosItemCode.Peso;
-                     item.Diametro1 = DatosItemCode.Diametro1;
-                     item.Diametro2 = DatosItemCode.Diametro2;
-                     item.FamiliaAceroID = DatosItemCode.FamiliaID;
+                     item.DescripcionEspanol = DatosItemCode.Descripcion;//
+                     //item.DescripcionIngles = DatosItemCode.Descripcion;
+                     //item.DescripcionInterna = DatosItemCode.Descripcion;
+                     //item.Peso = DatosItemCode.Peso;
+                     //item.Diametro1 = DatosItemCode.Diametro1;
+                     //item.Diametro2 = DatosItemCode.Diametro2;
+                     item.FamiliaAceroID = DatosItemCode.FamiliaID;//
                      item.Activo = true;
                      item.UsuarioModificacion = usuario.UsuarioID;
                      item.FechaModificacion = DateTime.Now;
-                     item.Cantidad = DatosItemCode.Cantidad;
-                     item.MM = DatosItemCode.MM;
-                     item.ColadaID = DatosItemCode.ColadaID;
+                     //item.Cantidad = DatosItemCode.Cantidad;
+                     //item.MM = DatosItemCode.MM;
+                     item.ColadaID = DatosItemCode.ColadaID;//
                      ctx.Sam3_ItemCode.Add(item);
                      ctx.SaveChanges();
 
@@ -126,6 +127,42 @@ namespace BackEndSAM.DataAcces
                      result.IsAuthenicated = true;
 
                      return result;
+                 }
+             }
+             catch (Exception ex)
+             {
+                 TransactionalInformation result = new TransactionalInformation();
+                 result.ReturnMessage.Add(ex.Message);
+                 result.ReturnCode = 500;
+                 result.ReturnStatus = false;
+                 result.IsAuthenicated = true;
+
+                 return result;
+             }
+         }
+
+        /// <summary>
+        /// Obtener el detalle de un item code al seleccionarlo en el grid
+        /// </summary>
+        /// <param name="itemCode">item code seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>objeto con la informacion del item code</returns>
+         public object ObtenerDetalleItemCode(string itemCode)
+         {
+             try
+             {
+                 using (SamContext ctx = new SamContext())
+                 {
+                     int itemCodeID = Int32.Parse(itemCode);
+                     ItemCodeJson detalle = (from r in ctx.Sam3_ItemCode
+                                                    where r.Activo && r.ItemCodeID == itemCodeID
+                                                    select new ItemCodeJson
+                                                    {
+                                                        ColadaNombre= (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID select c.NumeroColada).FirstOrDefault(),
+                                                        Cantidad = r.Cantidad,
+                                                        MM = r.MM
+                                                    }).AsParallel().SingleOrDefault();
+                     return detalle;
                  }
              }
              catch (Exception ex)
