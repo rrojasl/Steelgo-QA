@@ -155,13 +155,15 @@ namespace BackEndSAM.DataAcces
                  {
                      int itemCodeID = Int32.Parse(itemCode);
                      ItemCodeJson detalle = (from r in ctx.Sam3_ItemCode
-                                                    where r.Activo && r.ItemCodeID == itemCodeID
-                                                    select new ItemCodeJson
-                                                    {
-                                                        ColadaNombre= (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID select c.NumeroColada).FirstOrDefault(),
-                                                        Cantidad = r.Cantidad,
-                                                        MM = r.MM
-                                                    }).AsParallel().SingleOrDefault();
+                                             where r.Activo && r.ItemCodeID == itemCodeID
+                                             select new ItemCodeJson
+                                             {
+                                                 ItemCodeID = r.ItemCodeID,
+                                                 ItemCode = r.Codigo,
+                                                 ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID select c.NumeroColada).FirstOrDefault(),
+                                                 Cantidad = r.Cantidad,
+                                                 MM = r.MM
+                                             }).AsParallel().SingleOrDefault();
                      return detalle;
                  }
              }

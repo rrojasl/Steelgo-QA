@@ -38,7 +38,7 @@ namespace BackEndSAM.DataAcces
                 return _instance;
             }
         }
-
+        
         public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, List<CuantificacionListado> datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
         {
             try
@@ -59,6 +59,8 @@ namespace BackEndSAM.DataAcces
                         switch (tipoGuardado)
                         {
                             case 1: //Terminar y Nuevo
+                                #region Terminar y Nuevo
+                               
                                 if (cerrar && !incompletos)
                                 {
                                     //Cambiar estatus a folio cuantificacion
@@ -152,8 +154,11 @@ namespace BackEndSAM.DataAcces
                                     }
                                 }
                                 scope.Complete();
+                                #endregion
                                 break;
+
                             case 2: //Guardar y Cerrar
+                                #region Guardar y Cerrar
                                 if (cerrar && !incompletos)
                                 {
                                     //Cambiar estatus a folio cuantificacion
@@ -249,10 +254,11 @@ namespace BackEndSAM.DataAcces
                                 }
                                 scope.Complete();
 
-
+                                #endregion
                                 break;
                             case 3: //Guardar Parcial
-                              foreach (var item in datosItemCode)
+                                #region Guardar Parcial
+                                foreach (var item in datosItemCode)
                                 {
                                     //Obtenemos IDS
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCodeCodigo select ic.ItemCodeID).AsParallel().Single();
@@ -336,9 +342,11 @@ namespace BackEndSAM.DataAcces
                                     }
                                 }
                                 scope.Complete();
+                                #endregion
                                 break;
 
                             case 4: //Guardar y Terminar (Bulto)
+                                #region Guardar y Terminar (Bulto)
                                 if (cerrar && !incompletos)
                                 {
                                     //Cambiar estatus al bulto
@@ -444,10 +452,11 @@ namespace BackEndSAM.DataAcces
                                 }
                                 scope.Complete();
 
-
+                                #endregion
                                 break;
                             case 5: // Guardar Parcial (bulto)
-                            foreach (var item in datosItemCode)
+                                #region Guardar Parcial (bulto)
+                                foreach (var item in datosItemCode)
                                 {
                                     //Obtenemos IDS
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCodeCodigo select ic.ItemCodeID).AsParallel().Single();
@@ -541,6 +550,7 @@ namespace BackEndSAM.DataAcces
                                     }
                                 }
                                 scope.Complete();
+                                #endregion
                                 break;
                         }
                         return listaNuevosIC;

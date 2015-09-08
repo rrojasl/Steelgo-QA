@@ -71,7 +71,7 @@ var $ObtenerDatosFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backend
 var $ObtenerDatosFolioLlegadaMaterial = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoPackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoUso = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyGuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DumyValidarItemCodeNuCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerColadasPorProyecto = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyObtenerFamiliaItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -92,6 +92,7 @@ var $DummyGenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsa
 var $FoliosCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargarGridCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Colada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $GuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -141,7 +142,7 @@ $ObtenerDatosFolioAvisoEntrada.add("ObtenerDatosFolioAvisoEntrada");
 $ObtenerDatosFolioLlegadaMaterial.add("ObtenerDatosFolioLlegadaMaterial");
 $TipoPackingList.add("TipoPackingList");
 $TipoUso.add("TipoUso");
-$DummyGuardarFolioLlegadaCuantificacion.add("DummyGuardarFolioLlegadaCuantificacion");
+$ListadoCuantificacion.add("ListadoCuantificacion");
 $DumyValidarItemCodeNuCuantificacion.add("DumyValidarItemCodeNuCuantificacion");
 $DummyObtenerColadasPorProyecto.add("DummyColadasPorProyecto");
 $DummyObtenerFamiliaItemCode.add("FamiliaAcero");
@@ -162,3 +163,4 @@ $DummyGenerarOrdenAlmacenaje.add("DummyGenerarOrdenAlmacenaje");
 $FoliosCuantificacion.add("FoliosCuantificacion");
 $CargarGridCuantificacion.add("CargarGridCuantificacion");
 $Colada.add("Colada");
+$GuardarFolioLlegadaCuantificacion.add("GuardarFolioLlegadaCuantificacion");
