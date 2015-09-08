@@ -66,13 +66,13 @@ namespace BackEndSAM.DataAcces
                                    {
                                        ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.Codigo,
                                        Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Si" : "No",
-                                       BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? ctx.Sam3_Rel_Bulto_ItemCode.Select(b=> b.BultoID).ToString() : null,
+                                       BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
                                        Descripcion = ics.DescripcionEspanol,
                                        D1 = ics.Diametro1,
                                        D2 = ics.Diametro2,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
-                                       ItemCodeSteelgo = ric.ItemCodeSteelgoID.ToString(),
+                                       ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
 
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID

@@ -54,10 +54,10 @@ namespace BackEndSAM.DataAcces
 
                      Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == datosCuantificacion.FolioCuantificacionID).AsParallel().SingleOrDefault();
                      folioCuantificacion.FolioAvisoEntradaID = avisoEntradaID;
-                     folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID == null ? 1 : datosCuantificacion.ProyectoID;
+                     folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID;
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
-                     folioCuantificacion.Estatus = "Entrada por cuantificar";
+                     folioCuantificacion.Estatus = "En Proceso Recepción";
                      folioCuantificacion.FechaModificacion = DateTime.Now;
                      folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
