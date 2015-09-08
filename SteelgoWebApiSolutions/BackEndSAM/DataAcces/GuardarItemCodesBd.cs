@@ -85,7 +85,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeID = itemCodeID.ToString();
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
-                                    item.TipoAcero = tipoAceroID.ToString();
+                                    item.TipoAceroID = tipoAceroID;
                                     item.Colada = coladaID.ToString();
                                     item.TipoMaterial = tipoMaterialID;
 
@@ -193,7 +193,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeID = itemCodeID.ToString();
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
-                                    item.TipoAcero = tipoAceroID.ToString();
+                                    item.TipoAceroID = tipoAceroID;
                                     item.Colada = coladaID.ToString();
                                     item.TipoMaterial = tipoMaterialID;
 
@@ -292,7 +292,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeID = itemCodeID.ToString();
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
-                                    item.TipoAcero = tipoAceroID.ToString();
+                                    item.TipoAceroID = tipoAceroID;
                                     item.ColadaID = coladaID;
                                     item.TipoMaterial = tipoMaterialID;
 
@@ -402,7 +402,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCode = itemCodeID.ToString();
                                     item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
-                                    item.TipoAcero = tipoAceroID.ToString();
+                                    item.TipoAceroID = tipoAceroID;
                                     item.Colada = coladaID.ToString();
                                     item.TipoMaterial = tipoMaterialID;
 
@@ -511,7 +511,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCode = itemCodeID.ToString();
                                     item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
-                                    item.TipoAcero = tipoAceroID.ToString();
+                                    item.TipoAceroID = tipoAceroID;
                                     item.Colada = coladaID.ToString();
                                     item.TipoMaterial = tipoMaterialID;
 
