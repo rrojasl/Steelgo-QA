@@ -381,6 +381,7 @@ namespace BackEndSAM.DataAcces
                                     int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCodeCodigo select ic.ItemCodeID).AsParallel().Single();
                                     int itemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo where ics.Codigo == item.ItemCodeSteelgoCodigo select ics.ItemCodeSteelgoID).AsParallel().Single();
                                     int familiaID = (from fa in ctx.Sam3_FamiliaAcero where fa.Nombre == item.FamiliaMaterial select fa.FamiliaAceroID).AsParallel().FirstOrDefault();
+                                    int tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
                                     int coladaID = (from c in ctx.Sam3_Colada where c.NumeroColada == item.Colada select c.ColadaID).AsParallel().FirstOrDefault();
                                     int tipoMaterialID = (from tm in ctx.Sam3_ItemCode where tm.ItemCodeID == itemCodeID select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
