@@ -75,7 +75,7 @@ namespace BackEndSAM.DataAcces
                                 foreach (var item in datosItemCode)
                                 {
                                     //Obtenemos IDS
-                                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode select ic.ItemCodeID).AsParallel().Single();
+                                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode  select ic.ItemCodeID).AsParallel().Single();
                                     int itemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo where ics.Codigo == item.ItemCodeSteelgo select ics.ItemCodeSteelgoID).AsParallel().Single();
                                     int familiaID = (from fa in ctx.Sam3_FamiliaAcero where fa.Nombre == item.Familia select fa.FamiliaAceroID).AsParallel().FirstOrDefault();
                                     int tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
@@ -180,10 +180,10 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                 }
 
-                                foreach (var item in datosItemCode)
+                                 foreach (var item in datosItemCode)
                                 {
                                     //Obtenemos IDS
-                                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode select ic.ItemCodeID).AsParallel().Single();
+                                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode  select ic.ItemCodeID).AsParallel().Single();
                                     int itemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo where ics.Codigo == item.ItemCodeSteelgo select ics.ItemCodeSteelgoID).AsParallel().Single();
                                     int familiaID = (from fa in ctx.Sam3_FamiliaAcero where fa.Nombre == item.Familia select fa.FamiliaAceroID).AsParallel().FirstOrDefault();
                                     int tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
@@ -279,10 +279,10 @@ namespace BackEndSAM.DataAcces
                                 break;
                             case 3: //Guardar Parcial
                                 #region Guardar Parcial
-                                foreach (var item in datosItemCode)
+                                 foreach (var item in datosItemCode)
                                 {
                                     //Obtenemos IDS
-                                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode select ic.ItemCodeID).AsParallel().Single();
+                                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode  select ic.ItemCodeID).AsParallel().Single();
                                     int itemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo where ics.Codigo == item.ItemCodeSteelgo select ics.ItemCodeSteelgoID).AsParallel().Single();
                                     int familiaID = (from fa in ctx.Sam3_FamiliaAcero where fa.Nombre == item.Familia select fa.FamiliaAceroID).AsParallel().FirstOrDefault();
                                     int tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
@@ -293,7 +293,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAceroID = tipoAceroID;
-                                    item.ColadaID = coladaID;
+                                    item.Colada = coladaID.ToString();
                                     item.TipoMaterial = tipoMaterialID;
 
                                     IC = new Sam3_ItemCode();
@@ -367,7 +367,6 @@ namespace BackEndSAM.DataAcces
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = item.TieneNU
-
                                         });
 
                                         creados.Add(item.ItemCodeID);

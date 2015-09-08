@@ -57,11 +57,10 @@ namespace BackEndSAM.DataAcces
                     if (bultoID == 0)
                     {
                         listado = (from fc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                   where fc.FolioCuantificacionID == folioCuantificacion
                                    join ic in ctx.Sam3_ItemCode on fc.ItemCodeID equals ic.ItemCodeID
                                    join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals ric.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on ric.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-
+                                   where fc.FolioCuantificacionID == folioCuantificacion && ic.Activo && ric.Activo && ics.Activo && fc.Activo
                                    select new CuantificacionListado
                                    {
                                        ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.Codigo,
@@ -95,10 +94,10 @@ namespace BackEndSAM.DataAcces
                     else //Cuando es la pantalla de Bulto
                     {
                         listado = (from rbic in ctx.Sam3_Rel_Bulto_ItemCode
-                                   where rbic.BultoID == bultoID
                                    join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
                                    join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                   where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo
                                    select new CuantificacionListado
                                    {
                                        ItemCode = ic.ItemCodeID.ToString(),
@@ -109,7 +108,7 @@ namespace BackEndSAM.DataAcces
                                        D2 = ics.Diametro2,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
-                                       ItemCodeSteelgo = ics.ItemCodeSteelgoID.ToString(),
+                                       ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
 
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID
