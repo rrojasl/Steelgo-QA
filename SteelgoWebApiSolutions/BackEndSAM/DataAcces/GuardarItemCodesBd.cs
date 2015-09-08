@@ -80,7 +80,7 @@ namespace BackEndSAM.DataAcces
                                     int  tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID;
+                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAcero = tipoAceroID.ToString();
 
@@ -109,7 +109,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -180,7 +180,7 @@ namespace BackEndSAM.DataAcces
                                     int  tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID;
+                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAcero = tipoAceroID.ToString();
 
@@ -208,7 +208,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -270,7 +270,7 @@ namespace BackEndSAM.DataAcces
                                     int  tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID;
+                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAcero = tipoAceroID.ToString();
 
@@ -298,7 +298,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -369,7 +369,7 @@ namespace BackEndSAM.DataAcces
                                     int  tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID;
+                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAcero = tipoAceroID.ToString();
 
@@ -397,7 +397,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -468,7 +468,7 @@ namespace BackEndSAM.DataAcces
                                     int  tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
                                     item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID;
+                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAcero = tipoAceroID.ToString();
 
@@ -496,7 +496,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -575,6 +575,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public void GuardadoCompleto()
+        {
+
+        }
 
         public Sam3_Bulto InsertarBulto(int FolioCuantificacion)
         {
@@ -636,7 +640,7 @@ namespace BackEndSAM.DataAcces
             using (SamContext ctx = new SamContext())
             {
                 //Update ICS
-                ICS = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID == item.ItemCodeSteelgo).AsParallel().SingleOrDefault();
+                ICS = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo).AsParallel().SingleOrDefault();
 
                 ICS.DescripcionEspanol = item.Descripcion;
                 ICS.DescripcionIngles = item.Descripcion;
@@ -680,7 +684,7 @@ namespace BackEndSAM.DataAcces
             {
                 Sam3_Rel_ItemCode_ItemCodeSteelgo ics = new Sam3_Rel_ItemCode_ItemCodeSteelgo();
                 ics.ItemCodeID = Int32.Parse(item.ItemCode);
-                ics.ItemCodeSteelgoID = item.ItemCodeSteelgo;
+                ics.ItemCodeSteelgoID = Int32.Parse(item.ItemCodeSteelgo);
                 ics.Activo = true;
                 ics.FechaModificacion = DateTime.Now;
                 ics.UsuarioModificacion = 1;// usuario.UsuarioID;

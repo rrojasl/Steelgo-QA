@@ -72,7 +72,7 @@ namespace BackEndSAM.DataAcces
                                        D2 = ics.Diametro2,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
-                                       ItemCodeSteelgo = ric.ItemCodeSteelgoID,
+                                       ItemCodeSteelgo = ric.ItemCodeSteelgoID.ToString(),
 
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID
@@ -109,7 +109,7 @@ namespace BackEndSAM.DataAcces
                                        D2 = ics.Diametro2,
                                        Cantidad = ic.Cantidad,
                                        MM = ic.MM,
-                                       ItemCodeSteelgo = ics.ItemCodeSteelgoID,
+                                       ItemCodeSteelgo = ics.ItemCodeSteelgoID.ToString(),
 
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID
