@@ -50,8 +50,10 @@ namespace BackEndSAM.DataAcces
              {
                  using (SamContext ctx = new SamContext())
                  {
+                     int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
+
                      Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == datosCuantificacion.FolioCuantificacionID).AsParallel().SingleOrDefault();
-                     folioCuantificacion.FolioAvisoEntradaID = datosCuantificacion.FolioAvisollegadaId;
+                     folioCuantificacion.FolioAvisoEntradaID = avisoEntradaID;
                      folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID == null ? 1 : datosCuantificacion.ProyectoID;
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
@@ -105,9 +107,11 @@ namespace BackEndSAM.DataAcces
              {
                  using (SamContext ctx = new SamContext())
                  {
+                     int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x=> x.FolioAvisoEntradaID).AsParallel().First();
+
                      Sam3_FolioCuantificacion folioCuantificacion = new Sam3_FolioCuantificacion();
 
-                     folioCuantificacion.FolioAvisoEntradaID = datosCuantificacion.FolioAvisollegadaId;
+                     folioCuantificacion.FolioAvisoEntradaID = avisoEntradaID;
                      folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID;
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
