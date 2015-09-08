@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAceroID = tipoAceroID;
-                                    item.Colada = coladaID.ToString();
+                                    item.ColadaID = coladaID;
                                     item.TipoMaterial = tipoMaterialID;
 
                                     IC = new Sam3_ItemCode();
@@ -194,7 +194,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAceroID = tipoAceroID;
-                                    item.Colada = coladaID.ToString();
+                                    item.ColadaID = coladaID;
                                     item.TipoMaterial = tipoMaterialID;
 
                                     IC = new Sam3_ItemCode();
@@ -293,7 +293,7 @@ namespace BackEndSAM.DataAcces
                                     item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAceroID = tipoAceroID;
-                                    item.Colada = coladaID.ToString();
+                                    item.ColadaID = coladaID;
                                     item.TipoMaterial = tipoMaterialID;
 
                                     IC = new Sam3_ItemCode();
