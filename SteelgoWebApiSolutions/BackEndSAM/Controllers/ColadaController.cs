@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(string token, int id = 0)
+        public object Get(string token, int id = 0, int mostrarOpcion=0)
         {
             string payload = "";
             string newToken = "";
@@ -32,7 +32,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ColadaBd.Instance.ObtenerColadas(id);
+                return ColadaBd.Instance.ObtenerColadas(id, mostrarOpcion);
             }
             else
             {

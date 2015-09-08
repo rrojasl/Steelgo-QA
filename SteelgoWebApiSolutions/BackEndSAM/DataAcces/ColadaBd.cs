@@ -95,14 +95,14 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadas(int id)
+        public object ObtenerColadas(int id, int mostrarOpcion)
         {
             try
             {
                 List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (id != 0)
+                    if (mostrarOpcion != 0)
                     {
                         listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
                     }

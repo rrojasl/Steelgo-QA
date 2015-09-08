@@ -31,7 +31,7 @@ var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermiso
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
-var $DummyTipoAcero = $BackEndSAMUri + '/backendsam/api/DummyTipoAcero?';
+var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ItemCodeSteelgo';
 
 //Base API's
