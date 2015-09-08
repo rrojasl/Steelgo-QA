@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BackEndSAM.DataAcces;
+using System.Web.Script.Serialization;
+using DatabaseManager.Sam3;
 
 namespace BackEndSAM.Controllers
 {
@@ -25,6 +27,8 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 return TipoUsoBd.Instance.ObtenerTipoUso();
             }
             else
@@ -36,12 +40,29 @@ namespace BackEndSAM.Controllers
                 result.IsAuthenicated = false;
                 return result;
             }
-
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public object Post(string nombre, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return TipoUsoBd.Instance.InsertarTipoUso(nombre, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // PUT api/<controller>/5

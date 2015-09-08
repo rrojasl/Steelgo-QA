@@ -77,5 +77,56 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object InsertarTipoUso(string nombre, Sam3_Usuario usuario)
+        {
+            try
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                using (SamContext ctx = new SamContext())
+                {
+                    if (!ctx.Sam3_TipoUso.Where(x => x.Nombre == nombre).Any())
+                    {
+                        Sam3_TipoUso nuevoTipo = new Sam3_TipoUso();
+                        nuevoTipo.Activo = true;
+                        nuevoTipo.FechaModificacion = DateTime.Now;
+                        nuevoTipo.Nombre = nombre;
+                        nuevoTipo.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.Sam3_TipoUso.Add(nuevoTipo);
+
+                        ctx.SaveChanges();
+
+                        result.ReturnMessage.Add(nuevoTipo.TipoUsoID.ToString());
+                        result.ReturnMessage.Add(nuevoTipo.Nombre);
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+
+                        return result;
+
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add(string.Format("Ya existe un registro con el nombre {0}", nombre));
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
+
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

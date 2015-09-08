@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.DataAcces
 {
@@ -291,6 +292,159 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ListadoOrdeAlmacenaje(FiltrosJson filtros, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    DateTime fechaInicial = new DateTime();
+                    DateTime fechaFinal = new DateTime();
+                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+
+                    if (fechaFinal.ToShortDateString() == "1/1/0001")
+                    {
+                        fechaFinal = DateTime.Now;
+                    }
+
+                    if (fechaInicial.ToShortDateString() == "1/1/0001")
+                    {
+                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                    }
+
+                    int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                    int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+
+                    //Proyectos y patios del usuario
+                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
+
+                    List<int> patios = (from r in ctx.Sam3_Proyecto
+                                        join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                        where r.Activo && proyectos.Contains(r.ProyectoID)
+                                        select p.PatioID).AsParallel().Distinct().ToList();
+
+                    List<Sam3_FolioAvisoEntrada> registros;
+                    if (proyectoID > 0)
+                    {
+                        registros = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where fe.Activo && rfp.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                     select fe).AsParallel().Distinct().ToList();
+                    }
+                    else
+                    {
+                        registros = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where fe.Activo && rfp.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                     && p.ProyectoID == proyectoID
+                                     select fe).AsParallel().Distinct().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        registros = registros.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
+                    }
+
+                    if (folioAvisoLlegadaID > 0)
+                    {
+                        registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).AsParallel().ToList();
+                    }
+
+                    registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+
+                    List<ListadoOrdenAlmacenajeJson> listado = new List<ListadoOrdenAlmacenajeJson>();
+                    List<ItemCodeListadoAlmacenaje> elementoItemCode = new List<ItemCodeListadoAlmacenaje>();
+
+                    foreach (Sam3_FolioAvisoEntrada r in registros)
+                    {
+                        List<Sam3_OrdenRecepcion> ordenes = (from rof in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion
+                                                             join fe in ctx.Sam3_FolioAvisoEntrada on rof.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                             join o in ctx.Sam3_OrdenRecepcion on rof.OrdenRecepcionID equals o.OrdenRecepcionID
+                                                             where rof.Activo && fe.Activo && o.Activo
+                                                             && fe.FolioAvisoEntradaID == r.FolioAvisoEntradaID
+                                                             select o).AsParallel().Distinct().ToList();
+
+                        ordenes = ordenes.GroupBy(x => x.OrdenRecepcionID).Select(x => x.First()).ToList();
+
+                        foreach (Sam3_OrdenRecepcion orden in ordenes)
+                        {
+                            ListadoOrdenAlmacenajeJson elemento = new ListadoOrdenAlmacenajeJson();
+                            elemento.FechaOrdenAlmacenaje = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
+                            elemento.OrdenAlmacenaje = orden.OrdenRecepcionID.ToString();
+
+                            if (packingListID > 0)
+                            {
+                                elemento.ItemCodes = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                                      join it in ctx.Sam3_ItemCode on roi.ItemCodeID equals it.ItemCodeID
+                                                      join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on it.ItemCodeID equals rfi.ItemCodeID
+                                                      join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                      where roi.Activo && it.Activo && rfi.Activo && fc.Activo
+                                                      && roi.OrdenRecepcionID == orden.OrdenRecepcionID
+                                                      && fc.FolioCuantificacionID == packingListID
+                                                      select new ItemCodeListadoAlmacenaje
+                                                      {
+                                                          ItemCode = it.Codigo,
+                                                          NumeroUnico = (from nu in ctx.Sam3_NumeroUnico
+                                                                         where nu.Activo
+                                                                         && nu.ItemCodeID == it.ItemCodeID
+                                                                         select nu.Prefijo + "-" + nu.Consecutivo).ToList()
+                                                      }).AsParallel().ToList();
+                            }
+                            else
+                            {
+                                elemento.ItemCodes = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                                      join it in ctx.Sam3_ItemCode on roi.ItemCodeID equals it.ItemCodeID
+                                                      join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on it.ItemCodeID equals rfi.ItemCodeID
+                                                      join fc in ctx.Sam3_FolioCuantificacion on rfi.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                      where roi.Activo && it.Activo && rfi.Activo && fc.Activo
+                                                      && roi.OrdenRecepcionID == orden.OrdenRecepcionID
+                                                      select new ItemCodeListadoAlmacenaje
+                                                      {
+                                                          ItemCode = it.Codigo,
+                                                          NumeroUnico = (from nu in ctx.Sam3_NumeroUnico
+                                                                         where nu.Activo
+                                                                         && nu.ItemCodeID == it.ItemCodeID
+                                                                         select nu.Prefijo + "-" + nu.Consecutivo).ToList()
+                                                      }).AsParallel().ToList();
+                            }
+
+                            listado.Add(elemento);
+                        }
+                    }
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(listado);
+#endif
+                    return listado;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
     }
 }

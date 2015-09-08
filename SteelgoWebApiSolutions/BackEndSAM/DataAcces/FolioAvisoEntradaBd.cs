@@ -38,6 +38,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filtros"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerListadoAvisosEntrada(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
