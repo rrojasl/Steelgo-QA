@@ -67,15 +67,13 @@ namespace BackEndSAM.DataAcces
                                 {
                                     //Cambiar estatus a folio cuantificacion
                                     folioCuantificacion.Estatus = "Terminado";
-                                    folioCuantificacion.UsuarioModificacion = 1;//usuario.UsuarioID;
+                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                                     folioCuantificacion.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
                                 }
 
                                 foreach (var item in datosItemCode)
                                 {
-                                    
-
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
                                     bulto = new Sam3_Bulto();
@@ -83,7 +81,16 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        bulto = InsertarBulto(FolioCuantificacion);
+                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCode = IC.Codigo,
+                                            BultoID = bulto.BultoID.ToString(),
+                                            Cantidad = IC.Cantidad,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                        });
                                     }
                                     else
                                     {
@@ -110,7 +117,7 @@ namespace BackEndSAM.DataAcces
                                             //Si ya existe Item Code y tiene NU
                                             if (existeYnumerosunicos)
                                             {
-                                                TieneErrores = SumarCantidades(item, IC);
+                                                TieneErrores = SumarCantidades(item, IC, usuario);
                                             }
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
@@ -119,17 +126,17 @@ namespace BackEndSAM.DataAcces
 
                                                 if (!existeRelICS)
                                                 {
-                                                    InsertarRelacionIC_ICS(item);
+                                                    InsertarRelacionIC_ICS(item, usuario);
                                                 }
 
                                                 //Update IC y ICS
-                                                IC = ActualizarItemCode(item, IC);
-                                                ICS = ActualizarItemCodeSteelgo(item, ICS);
+                                                IC = ActualizarItemCode(item, IC, usuario);
+                                                ICS = ActualizarItemCodeSteelgo(item, ICS, usuario);
 
                                                 if (!existeSINnumerosunicos)
                                                 {
                                                     //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC);
+                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
                                         }
@@ -137,7 +144,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
                                             IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                            IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                            IC.UsuarioModificacion = usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
 
@@ -177,7 +184,7 @@ namespace BackEndSAM.DataAcces
                                 {
                                     //Cambiar estatus a folio cuantificacion
                                     folioCuantificacion.Estatus = "Cerrado";
-                                    folioCuantificacion.UsuarioModificacion = 1;//usuario.UsuarioID;
+                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                                     folioCuantificacion.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
                                 }
@@ -192,7 +199,16 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        bulto = InsertarBulto(FolioCuantificacion);
+                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCode = IC.Codigo,
+                                            BultoID = bulto.BultoID.ToString(),
+                                            Cantidad = IC.Cantidad,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                        });
                                     }
                                     else
                                     {
@@ -220,7 +236,7 @@ namespace BackEndSAM.DataAcces
                                             //Si ya existe Item Code y tiene NU
                                             if (existeYnumerosunicos)
                                             {
-                                                TieneErrores = SumarCantidades(item, IC);
+                                                TieneErrores = SumarCantidades(item, IC, usuario);
                                             }
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
@@ -229,17 +245,17 @@ namespace BackEndSAM.DataAcces
 
                                                 if (!existeRelICS)
                                                 {
-                                                    InsertarRelacionIC_ICS(item);
+                                                    InsertarRelacionIC_ICS(item, usuario);
                                                 }
 
                                                 //Update IC y ICS
-                                                IC = ActualizarItemCode(item, IC);
-                                                ICS = ActualizarItemCodeSteelgo(item, ICS);
+                                                IC = ActualizarItemCode(item, IC, usuario);
+                                                ICS = ActualizarItemCodeSteelgo(item, ICS, usuario);
 
                                                 if (!existeSINnumerosunicos)
                                                 {
                                                     //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC);
+                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
                                         }
@@ -247,7 +263,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
                                             IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                            IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                            IC.UsuarioModificacion = usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
 
@@ -291,7 +307,16 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        bulto = InsertarBulto(FolioCuantificacion);
+                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCode = IC.Codigo,
+                                            BultoID = bulto.BultoID.ToString(),
+                                            Cantidad = IC.Cantidad,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                        });
                                     }
                                     else
                                     {
@@ -319,7 +344,7 @@ namespace BackEndSAM.DataAcces
                                             //Si ya existe Item Code y tiene NU
                                             if (existeYnumerosunicos)
                                             {
-                                                TieneErrores = SumarCantidades(item, IC);
+                                                TieneErrores = SumarCantidades(item, IC, usuario);
                                             }
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
@@ -328,17 +353,17 @@ namespace BackEndSAM.DataAcces
 
                                                 if (!existeRelICS)
                                                 {
-                                                    InsertarRelacionIC_ICS(item);
+                                                    InsertarRelacionIC_ICS(item, usuario);
                                                 }
 
                                                 //Update IC y ICS
-                                                IC = ActualizarItemCode(item, IC);
-                                                ICS = ActualizarItemCodeSteelgo(item, ICS);
+                                                IC = ActualizarItemCode(item, IC, usuario);
+                                                ICS = ActualizarItemCodeSteelgo(item, ICS, usuario);
 
                                                 if (!existeSINnumerosunicos)
                                                 {
                                                     //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC);
+                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
                                         }
@@ -346,7 +371,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
                                             IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                            IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                            IC.UsuarioModificacion = usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
 
@@ -428,7 +453,7 @@ namespace BackEndSAM.DataAcces
                                             //Si ya existe Item Code en la Rel Bulto y tiene NU
                                             if (existeYnumerosunicos)
                                             {
-                                                TieneErrores = SumarCantidades(item, IC);
+                                                TieneErrores = SumarCantidades(item, IC, usuario);
                                             }
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
@@ -437,12 +462,12 @@ namespace BackEndSAM.DataAcces
 
                                                 if (!existeRelICS)
                                                 {
-                                                    InsertarRelacionIC_ICS(item);
+                                                    InsertarRelacionIC_ICS(item, usuario);
                                                 }
 
                                                 //Update IC y ICS
-                                                IC = ActualizarItemCode(item, IC);
-                                                ICS = ActualizarItemCodeSteelgo(item, ICS);
+                                                IC = ActualizarItemCode(item, IC, usuario);
+                                                ICS = ActualizarItemCodeSteelgo(item, ICS, usuario);
 
                                                 //creo la relacion bulto IC
                                                 Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
@@ -457,7 +482,7 @@ namespace BackEndSAM.DataAcces
                                                 if (!existeSINnumerosunicos)
                                                 {
                                                     //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC);
+                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
                                         }
@@ -465,7 +490,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
                                             IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                            IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                            IC.UsuarioModificacion = usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
 
@@ -538,7 +563,7 @@ namespace BackEndSAM.DataAcces
                                             //Si ya existe Item Code en la Rel Bulto y tiene NU
                                             if (existeYnumerosunicos)
                                             {
-                                                TieneErrores = SumarCantidades(item, IC);
+                                                TieneErrores = SumarCantidades(item, IC, usuario);
                                             }
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
@@ -547,12 +572,12 @@ namespace BackEndSAM.DataAcces
 
                                                 if (!existeRelICS)
                                                 {
-                                                    InsertarRelacionIC_ICS(item);
+                                                    InsertarRelacionIC_ICS(item, usuario);
                                                 }
 
                                                 //Update IC y ICS
-                                                IC = ActualizarItemCode(item, IC);
-                                                ICS = ActualizarItemCodeSteelgo(item, ICS);
+                                                IC = ActualizarItemCode(item, IC, usuario);
+                                                ICS = ActualizarItemCodeSteelgo(item, ICS, usuario);
 
                                                 //creo la relacion bulto IC
                                                 Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
@@ -567,7 +592,7 @@ namespace BackEndSAM.DataAcces
                                                 if (!existeSINnumerosunicos)
                                                 {
                                                     //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC);
+                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
                                         }
@@ -575,7 +600,7 @@ namespace BackEndSAM.DataAcces
                                         {
                                             IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
                                             IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                            IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                                            IC.UsuarioModificacion = usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
 
@@ -625,19 +650,19 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public Sam3_Bulto InsertarBulto(int FolioCuantificacion)
+        public Sam3_Bulto InsertarBulto(int FolioCuantificacion, Sam3_Usuario usuario)
         {
             Sam3_Bulto bulto = new Sam3_Bulto();
             bulto.FolioCuantificacionID = FolioCuantificacion;
             bulto.Estatus = "En Proceso de Recepción";
             bulto.FechaModificacion = DateTime.Now;
-            bulto.UsuarioModificacion = 1; // usuario.UsuarioID;
+            bulto.UsuarioModificacion =  usuario.UsuarioID;
             bulto.Activo = true;
 
             return bulto;
         }
 
-        public bool SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC)
+        public bool SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
             {
@@ -648,7 +673,7 @@ namespace BackEndSAM.DataAcces
                 //Solo suma cantidad
                 IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
                 IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                IC.UsuarioModificacion = 1; // usuario.UsuarioID;
+                IC.UsuarioModificacion = usuario.UsuarioID;
                 IC.FechaModificacion = DateTime.Now;
 
                 if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
@@ -659,7 +684,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public Sam3_ItemCode ActualizarItemCode(CuantificacionListado item, Sam3_ItemCode IC)
+        public Sam3_ItemCode ActualizarItemCode(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
             {
@@ -668,7 +693,7 @@ namespace BackEndSAM.DataAcces
 
                 IC.TipoMaterialID = item.TipoMaterial;
                 IC.Activo = true;
-                IC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                IC.UsuarioModificacion = usuario.UsuarioID;
                 IC.FechaModificacion = DateTime.Now;
                 IC.Cantidad = item.Cantidad;
                 IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
@@ -680,7 +705,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public Sam3_ItemCodeSteelgo ActualizarItemCodeSteelgo(CuantificacionListado item, Sam3_ItemCodeSteelgo ICS)
+        public Sam3_ItemCodeSteelgo ActualizarItemCodeSteelgo(CuantificacionListado item, Sam3_ItemCodeSteelgo ICS, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
             {
@@ -696,7 +721,7 @@ namespace BackEndSAM.DataAcces
                 ICS.Cedula = item.Cedula;
                 ICS.Codigo = item.ItemCodeSteelgo;
                 ICS.Activo = true;
-                ICS.UsuarioModificacion = 1; //usuario.UsuarioID;
+                ICS.UsuarioModificacion = usuario.UsuarioID;
                 ICS.FechaModificacion = DateTime.Now;
 
                 ctx.SaveChanges();
@@ -705,7 +730,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public void InsertarRelacionFolioCuantificacion_IC(int FolioCuantificacion, Sam3_ItemCode IC)
+        public void InsertarRelacionFolioCuantificacion_IC(int FolioCuantificacion, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
             {
@@ -715,7 +740,7 @@ namespace BackEndSAM.DataAcces
                 relIC.ItemCodeID = IC.ItemCodeID;
                 relIC.TieneNumerosUnicos = false;
                 relIC.FechaModificacion = DateTime.Now;
-                relIC.UsuarioModificacion = 1;// usuario.UsuarioID;
+                relIC.UsuarioModificacion = usuario.UsuarioID;
                 relIC.Activo = true;
 
                 ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
@@ -723,7 +748,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public void InsertarRelacionIC_ICS(CuantificacionListado item)
+        public void InsertarRelacionIC_ICS(CuantificacionListado item, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
             {
@@ -732,7 +757,7 @@ namespace BackEndSAM.DataAcces
                 ics.ItemCodeSteelgoID = Int32.Parse(item.ItemCodeSteelgoID);
                 ics.Activo = true;
                 ics.FechaModificacion = DateTime.Now;
-                ics.UsuarioModificacion = 1;// usuario.UsuarioID;
+                ics.UsuarioModificacion = usuario.UsuarioID;
 
                 ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Add(ics);
                 ctx.SaveChanges();
