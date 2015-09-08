@@ -15,27 +15,4 @@ namespace BackEndSAM.Models
         public int? Cantidad { get; set; }
         public string PackingList { get; set; }
     }
-
-    public class ListadoOrdenAlmacenajeJson
-    {
-        public string FechaOrdenAlmacenaje { get; set; }
-        public string OrdenAlmacenaje { get; set; }
-        public List<ItemCodeListadoAlmacenaje> ItemCodes { get; set; }
-
-        public ListadoOrdenAlmacenajeJson()
-        {
-            ItemCodes = new List<ItemCodeListadoAlmacenaje>();
-        }
-    }
-
-    public class ItemCodeListadoAlmacenaje
-    {
-        public string ItemCode { get; set; }
-        public List<string> NumeroUnico { get; set; }
-
-        public ItemCodeListadoAlmacenaje()
-        {
-            NumeroUnico = new List<string>();
-        }
-    }
 }

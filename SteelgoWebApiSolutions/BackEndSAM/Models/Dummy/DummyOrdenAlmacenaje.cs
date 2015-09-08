@@ -5,23 +5,33 @@ using System.Web;
 
 namespace BackEndSAM.Models
 {
-    public class DummyOrdenAlmacenaje
+    public class OrdenAlmacenajeJson
     {
         public string FechaOrdenAlmacenaje { get; set; }
         public string OrdenAlmacenaje { get; set; }
         public List<PackingListCuantificacion> FolioCuantificacion { get; set; }
+
+        public OrdenAlmacenajeJson()
+        {
+            FolioCuantificacion = new List<PackingListCuantificacion>();
+        }
     }
 
     public class PackingListCuantificacion
     {
         public string OrdenAlmacenaje { get; set; }
         public string FolioCuantificacion { get; set; }
+        public int FolioCuantificacionID { get; set; }
         public List<ElementoItemCodeGenerarOrdenAlmacenaje> ItemCodes { get; set; }
+
+        public PackingListCuantificacion()
+        {
+            ItemCodes = new List<ElementoItemCodeGenerarOrdenAlmacenaje>();
+        }
        
     }
     public class ElementoItemCodeGenerarOrdenAlmacenaje
     {
-        public string FolioCuantificacion { get; set; }
         public string OrdenAlmacenaje { get; set; }
         public string ItemCodeID { get; set; }
         public string Codigo { get; set; }

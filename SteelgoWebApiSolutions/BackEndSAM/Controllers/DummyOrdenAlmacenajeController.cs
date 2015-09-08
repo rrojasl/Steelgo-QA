@@ -19,11 +19,11 @@ namespace BackEndSAM.Controllers
     public class DummyOrdenAlmacenajeController : ApiController
     {
         // GET api/dummyordenalmacenaje
-        public IEnumerable<DummyOrdenAlmacenaje> Get(string data)
+        public IEnumerable<OrdenAlmacenajeJson> Get(string data)
         {
-            List<DummyOrdenAlmacenaje> lstOrdenAlmacenaje = new List<DummyOrdenAlmacenaje>();
-            DummyOrdenAlmacenaje OrdenAlmacenaje1 = new DummyOrdenAlmacenaje();
-            DummyOrdenAlmacenaje OrdenAlmacenaje2 = new DummyOrdenAlmacenaje();
+            List<OrdenAlmacenajeJson> lstOrdenAlmacenaje = new List<OrdenAlmacenajeJson>();
+            OrdenAlmacenajeJson OrdenAlmacenaje1 = new OrdenAlmacenajeJson();
+            OrdenAlmacenajeJson OrdenAlmacenaje2 = new OrdenAlmacenajeJson();
 
             List<PackingListCuantificacion> lstPackingList = new List<PackingListCuantificacion>();
             PackingListCuantificacion packingList1 = new PackingListCuantificacion();
@@ -34,14 +34,14 @@ namespace BackEndSAM.Controllers
             ElementoItemCodeGenerarOrdenAlmacenaje Item2= new ElementoItemCodeGenerarOrdenAlmacenaje();
 
             Item1.OrdenAlmacenaje = "10";
-            Item1.FolioCuantificacion = "PL001";
+            //Item1.FolioCuantificacion = "PL001";
             Item1.ItemCodeID="A1";
             Item1.Codigo="A1";
             Item1.NumeroUnico="BK001";
             lstitemcodes.Add(Item1);
 
             Item2.OrdenAlmacenaje = "10";
-            Item2.FolioCuantificacion = "PL001";
+            //Item2.FolioCuantificacion = "PL001";
             Item2.ItemCodeID="A2";
             Item2.Codigo="A2";
             Item2.NumeroUnico="BK002";
@@ -58,14 +58,14 @@ namespace BackEndSAM.Controllers
             ElementoItemCodeGenerarOrdenAlmacenaje Item4 = new ElementoItemCodeGenerarOrdenAlmacenaje();
 
             Item3.OrdenAlmacenaje = "10";
-            Item3.FolioCuantificacion = "PL002";
+            //Item3.FolioCuantificacion = "PL002";
             Item3.ItemCodeID = "A3";
             Item3.Codigo = "A3";
             Item3.NumeroUnico = "BK003";
             lstitemcodes1.Add(Item3);
 
             Item4.OrdenAlmacenaje = "10";
-            Item4.FolioCuantificacion = "PL002";
+            //Item4.FolioCuantificacion = "PL002";
             Item4.ItemCodeID = "A4";
             Item4.Codigo = "A4";
             Item4.NumeroUnico = "BK004";
@@ -91,14 +91,14 @@ namespace BackEndSAM.Controllers
             ElementoItemCodeGenerarOrdenAlmacenaje Item6 = new ElementoItemCodeGenerarOrdenAlmacenaje();
 
             Item5.OrdenAlmacenaje = "11";
-            Item5.FolioCuantificacion = "PL003";
+            //Item5.FolioCuantificacion = "PL003";
             Item5.ItemCodeID = "A5";
             Item5.Codigo = "A5";
             Item5.NumeroUnico = "BK005";
             lstitemcodes2.Add(Item5);
 
             Item6.OrdenAlmacenaje = "11";
-            Item6.FolioCuantificacion = "PL003";
+            //Item6.FolioCuantificacion = "PL003";
             Item6.ItemCodeID = "A6";
             Item6.Codigo = "A6";
             Item6.NumeroUnico = "BK006";
