@@ -38,6 +38,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtiene un listado para combo con las familias de acero disponibles
+        /// </summary>
+        /// <returns></returns>
         public object obtenerFamilia()
         {
             try
