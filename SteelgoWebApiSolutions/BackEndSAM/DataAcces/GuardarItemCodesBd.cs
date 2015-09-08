@@ -528,8 +528,6 @@ namespace BackEndSAM.DataAcces
                                 #region Guardar Parcial (bulto)
                                 foreach (var item in datosItemCode)
                                 {
-                                   
-
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
 
@@ -652,14 +650,19 @@ namespace BackEndSAM.DataAcces
 
         public Sam3_Bulto InsertarBulto(int FolioCuantificacion, Sam3_Usuario usuario)
         {
-            Sam3_Bulto bulto = new Sam3_Bulto();
-            bulto.FolioCuantificacionID = FolioCuantificacion;
-            bulto.Estatus = "En Proceso de Recepción";
-            bulto.FechaModificacion = DateTime.Now;
-            bulto.UsuarioModificacion =  usuario.UsuarioID;
-            bulto.Activo = true;
+            using (SamContext ctx = new SamContext())
+            {
+                Sam3_Bulto bulto = new Sam3_Bulto();
+                bulto.FolioCuantificacionID = FolioCuantificacion;
+                bulto.Estatus = "En Proceso de Recepción";
+                bulto.FechaModificacion = DateTime.Now;
+                bulto.UsuarioModificacion = usuario.UsuarioID;
+                bulto.Activo = true;
+                ctx.Sam3_Bulto.Add(bulto);
+                ctx.SaveChanges();
 
-            return bulto;
+                return bulto;
+            }
         }
 
         public bool SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
@@ -675,7 +678,7 @@ namespace BackEndSAM.DataAcces
                 IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                 IC.UsuarioModificacion = usuario.UsuarioID;
                 IC.FechaModificacion = DateTime.Now;
-
+                ctx.SaveChanges();
                 if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
                 {
                     TieneErrores = true;
