@@ -39,7 +39,7 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// 
+        /// Genera un set de datos para el grid de Avisos de entrada de material
         /// </summary>
         /// <param name="filtros"></param>
         /// <param name="usuario"></param>
@@ -167,6 +167,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera el set de datos para la pantalla de detalle de entrada de material
+        /// </summary>
+        /// <param name="folio"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object DetalleAvisoEntrada(int folio, Sam3_Usuario usuario)
         {
             try
@@ -247,6 +253,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Inserta un nuevo registro de folio de aviso de entrada de material
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object InsertarFolioAvisoEntrada(FolioAvisoEntradaJson json, Sam3_Usuario usuario)
         {
             try
@@ -347,6 +359,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Actualiza las propiedades de un registro de folio de entrada de material
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ActualizarFolioEntrada(FolioAvisoEntradaJson json, Sam3_Usuario usuario)
         {
             try
@@ -409,6 +427,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Elimina logicamente un aviso de entrada de material
+        /// </summary>
+        /// <param name="folio"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object EliminarFolioEntrada(int folio, Sam3_Usuario usuario)
         {
             try
@@ -445,6 +469,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Verifica si un folio de aviso de entrada de material tiene orden de descarga
+        /// </summary>
+        /// <param name="folioAvisoEntradaID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object TieneOrdenDescarga(int folioAvisoEntradaID, Sam3_Usuario usuario)
         {
             try
@@ -469,6 +499,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Genera un nuevo folio de descarga para un aviso de entrada de material
+        /// </summary>
+        /// <param name="folioAvisoEntradaID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object GenerarFolioDescarga(int folioAvisoEntradaID, Sam3_Usuario usuario)
         {
             try

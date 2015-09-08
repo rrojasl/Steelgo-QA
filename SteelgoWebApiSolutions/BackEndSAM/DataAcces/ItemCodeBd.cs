@@ -12,6 +12,9 @@ using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
+    /// <summary>
+    /// operaciones sobre la entidad ItemCode
+    /// </summary>
     public class ItemCodeBd
     {
          private static readonly object _mutex = new object();
