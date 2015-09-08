@@ -398,8 +398,8 @@ namespace BackEndSAM.DataAcces
                                     int coladaID = (from c in ctx.Sam3_Colada where c.NumeroColada == item.Colada select c.ColadaID).AsParallel().FirstOrDefault();
                                     int tipoMaterialID = (from tm in ctx.Sam3_ItemCode where tm.ItemCodeID == itemCodeID select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
+                                    item.ItemCodeID = itemCodeID.ToString();
+                                    item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAceroID = tipoAceroID;
                                     item.Colada = coladaID.ToString();
