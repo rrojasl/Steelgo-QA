@@ -85,11 +85,11 @@ namespace BackEndSAM.DataAcces
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
-                                            ItemCode = IC.Codigo,
+                                            ItemCode = "Bulto",
                                             BultoID = bulto.BultoID.ToString(),
-                                            Cantidad = IC.Cantidad,
+                                            Cantidad = item.Cantidad,
                                             TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus,
+                                            Estatus = folioCuantificacion.Estatus
                                         });
                                     }
                                     else
@@ -203,11 +203,11 @@ namespace BackEndSAM.DataAcces
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
-                                            ItemCode = IC.Codigo,
+                                            ItemCode = "Bulto",
                                             BultoID = bulto.BultoID.ToString(),
-                                            Cantidad = IC.Cantidad,
+                                            Cantidad = item.Cantidad,
                                             TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus,
+                                            Estatus = folioCuantificacion.Estatus
                                         });
                                     }
                                     else
@@ -311,11 +311,11 @@ namespace BackEndSAM.DataAcces
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
-                                            ItemCode = IC.Codigo,
+                                            ItemCode = "Bulto",
                                             BultoID = bulto.BultoID.ToString(),
-                                            Cantidad = IC.Cantidad,
+                                            Cantidad = item.Cantidad,
                                             TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus,
+                                            Estatus = folioCuantificacion.Estatus
                                         });
                                     }
                                     else
