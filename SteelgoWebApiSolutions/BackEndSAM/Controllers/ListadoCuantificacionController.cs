@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListadoCuantificacionController : ApiController
     {
-       
+
         // PUT api/<controller>/5
         public object Put(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
         {
@@ -30,10 +30,7 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 List<CuantificacionListado> datosItemCode = serializer.Deserialize<List<CuantificacionListado>>(cuantificacion);
 
-              
-                        return GuardarItemCodesBd.Instance.GuardadoInformacionItemCodes(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode, usuario, idGuardado);
-
-
+                return GuardarItemCodesBd.Instance.GuardadoInformacionItemCodes(cerrar, incompletos, FolioAvisollegadaId, FolioCuantificacionID, datosItemCode, usuario, idGuardado);
             }
             else
             {

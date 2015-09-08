@@ -186,11 +186,12 @@ namespace BackEndSAM.DataAcces
 
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
+                                    bulto = new Sam3_Bulto();
 
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCodeCodigo == "Bulto")
                                     {
-                                        InsertarBulto(FolioCuantificacion);
+                                       bulto = InsertarBulto(FolioCuantificacion);
                                     }
                                     else
                                     {
@@ -237,6 +238,7 @@ namespace BackEndSAM.DataAcces
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
                                             ItemCode = IC.ItemCodeID.ToString(),
+                                            BultoID = bulto.BultoID.ToString(),
                                             TipoMaterial = IC.TipoMaterialID,
                                             ItemCodeCodigo = IC.Codigo,
                                             Descripcion = ICS.DescripcionEspanol,
@@ -276,11 +278,12 @@ namespace BackEndSAM.DataAcces
 
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
+                                    bulto = new Sam3_Bulto();
 
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCodeCodigo == "Bulto")
                                     {
-                                        InsertarBulto(FolioCuantificacion);
+                                       bulto = InsertarBulto(FolioCuantificacion);
                                     }
                                     else
                                     {
@@ -509,15 +512,18 @@ namespace BackEndSAM.DataAcces
 
                                                 //creo la relacion bulto IC
                                                 bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == item.BultoID && x.ItemCodeID.ToString() == item.ItemCode && x.Activo).Any();
-                                                
-                                                Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
-                                                bic.BultoID = Int32.Parse(item.BultoID);
-                                                bic.ItemCodeID = IC.ItemCodeID;
-                                                bic.TieneNumerosUnicos = false;
-                                                bic.FechaModificacion = DateTime.Now;
-                                                bic.UsuarioModificacion = usuario.UsuarioID;
-                                                bic.Activo = true;
-                                                ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+
+                                                if (!existeRelBultoIC)
+                                                {
+                                                    Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
+                                                    bic.BultoID = Int32.Parse(item.BultoID);
+                                                    bic.ItemCodeID = IC.ItemCodeID;
+                                                    bic.TieneNumerosUnicos = false;
+                                                    bic.FechaModificacion = DateTime.Now;
+                                                    bic.UsuarioModificacion = usuario.UsuarioID;
+                                                    bic.Activo = true;
+                                                    ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+                                                }
 
                                                 if (!existeSINnumerosunicos)
                                                 {
@@ -573,11 +579,6 @@ namespace BackEndSAM.DataAcces
 
                 return result;
             }
-        }
-
-        public void GuardadoCompleto()
-        {
-
         }
 
         public Sam3_Bulto InsertarBulto(int FolioCuantificacion)
