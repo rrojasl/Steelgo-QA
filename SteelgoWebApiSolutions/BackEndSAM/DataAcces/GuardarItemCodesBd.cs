@@ -114,7 +114,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -134,8 +134,8 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else //Si es repetido en el grid
                                         {
-                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
-                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                             IC.UsuarioModificacion = 1;// usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
@@ -222,7 +222,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -242,8 +242,8 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else //Si es repetido en el grid
                                         {
-                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
-                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                             IC.UsuarioModificacion = 1;// usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
@@ -321,7 +321,7 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgo && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -341,8 +341,8 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else //Si es repetido en el grid
                                         {
-                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
-                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
                                             IC.UsuarioModificacion = 1;// usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
@@ -418,8 +418,8 @@ namespace BackEndSAM.DataAcces
                                         //Si es un item Code repetido en el grid, se suman las cantidades
                                         if (!creados.Contains(item.ItemCodeID))
                                         {
-                                            bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                            bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                             //Si ya existe Item Code en la Rel Bulto y tiene NU
                                             if (existeYnumerosunicos)
@@ -507,8 +507,8 @@ namespace BackEndSAM.DataAcces
                                     int coladaID = (from c in ctx.Sam3_Colada where c.NumeroColada == item.Colada select c.ColadaID).AsParallel().FirstOrDefault();
                                     int tipoMaterialID = (from tm in ctx.Sam3_ItemCode where tm.ItemCodeID == itemCodeID select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    item.ItemCode = itemCodeID.ToString();
-                                    item.ItemCodeSteelgo = itemCodeSteelgoID.ToString();
+                                    item.ItemCodeID = itemCodeID.ToString();
+                                    item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                     item.FamiliaMaterial = familiaID.ToString();
                                     item.TipoAceroID = tipoAceroID;
                                     item.Colada = coladaID.ToString();
@@ -527,8 +527,8 @@ namespace BackEndSAM.DataAcces
                                         //Si es un item Code repetido en el grid, se suman las cantidades
                                         if (!creados.Contains(item.ItemCodeID))
                                         {
-                                            bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCode && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                            bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.BultoID.ToString() == item.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                             //Si ya existe Item Code en la Rel Bulto y tiene NU
                                             if (existeYnumerosunicos)
