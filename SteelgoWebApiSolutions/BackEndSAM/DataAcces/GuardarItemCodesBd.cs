@@ -47,6 +47,7 @@ namespace BackEndSAM.DataAcces
                 List<CuantificacionListado> listaNuevosIC = new List<CuantificacionListado>();
                 Sam3_ItemCode IC = null;
                 Sam3_ItemCodeSteelgo ICS = null;
+                Sam3_Bulto bulto = null;
                 List<string> creados = new List<string>();
                 bool TieneErrores = false;
 
@@ -85,11 +86,12 @@ namespace BackEndSAM.DataAcces
 
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
+                                    bulto = new Sam3_Bulto();
 
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCodeCodigo == "Bulto")
                                     {
-                                        InsertarBulto(FolioCuantificacion);
+                                       bulto = InsertarBulto(FolioCuantificacion);
                                     }
                                     else
                                     {
@@ -136,6 +138,7 @@ namespace BackEndSAM.DataAcces
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
                                             ItemCode = IC.ItemCodeID.ToString(),
+                                            BultoID = bulto.BultoID.ToString(),
                                             TipoMaterial = IC.TipoMaterialID,
                                             ItemCodeCodigo = IC.Codigo,
                                             Descripcion = ICS.DescripcionEspanol,
@@ -350,7 +353,7 @@ namespace BackEndSAM.DataAcces
                                 if (cerrar && !incompletos)
                                 {
                                     //Cambiar estatus al bulto
-                                    Sam3_Bulto bulto = new Sam3_Bulto();
+                                    bulto = new Sam3_Bulto();
 
                                     bulto.Estatus = "Terminado";
                                     bulto.UsuarioModificacion = usuario.UsuarioID;
@@ -505,6 +508,8 @@ namespace BackEndSAM.DataAcces
                                                 ICS = ActualizarItemCodeSteelgo(item, ICS);
 
                                                 //creo la relacion bulto IC
+                                                bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == item.BultoID && x.ItemCodeID.ToString() == item.ItemCode && x.Activo).Any();
+                                                
                                                 Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
                                                 bic.BultoID = Int32.Parse(item.BultoID);
                                                 bic.ItemCodeID = IC.ItemCodeID;
@@ -571,7 +576,7 @@ namespace BackEndSAM.DataAcces
         }
 
 
-        public void InsertarBulto(int FolioCuantificacion)
+        public Sam3_Bulto InsertarBulto(int FolioCuantificacion)
         {
             Sam3_Bulto bulto = new Sam3_Bulto();
             bulto.FolioCuantificacionID = FolioCuantificacion;
@@ -579,6 +584,8 @@ namespace BackEndSAM.DataAcces
             bulto.FechaModificacion = DateTime.Now;
             bulto.UsuarioModificacion = 1; // usuario.UsuarioID;
             bulto.Activo = true;
+
+            return bulto;
         }
 
         public bool SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC)
