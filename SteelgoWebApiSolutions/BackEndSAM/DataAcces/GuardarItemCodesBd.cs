@@ -55,7 +55,8 @@ namespace BackEndSAM.DataAcces
                 {
                     using (SamContext ctx = new SamContext())
                     {
-                        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioAvisoEntradaID == FolioAvisollegadaId && x.FolioCuantificacionID == FolioCuantificacion).AsParallel().SingleOrDefault();
+                        int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == FolioAvisollegadaId && x.Activo).Select(x=> x.FolioAvisoEntradaID).AsParallel().First();
+                        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioAvisoEntradaID == avisoEntradaID && x.FolioCuantificacionID == FolioCuantificacion).AsParallel().SingleOrDefault();
 
                         switch (tipoGuardado)
                         {
