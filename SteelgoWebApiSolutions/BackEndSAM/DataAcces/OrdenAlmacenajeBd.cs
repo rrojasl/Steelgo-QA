@@ -219,17 +219,26 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                int consecutivo = 0;
                 using (SamContext ctx = new SamContext())
                 {
+                    if (ctx.Sam3_OrdenAlmacenaje.Select(x => x.Folio).Any())
+                    {
+                        consecutivo = ctx.Sam3_OrdenAlmacenaje.Select(x => x.Folio).Max();
+                        consecutivo = consecutivo > 0 ? consecutivo + 1 : 1;
+                    }
+                    else
+                    {
+                        consecutivo = 1;
+                    }
 
                     Sam3_OrdenAlmacenaje ordenAlmacenaje = new Sam3_OrdenAlmacenaje();
-
                     //Guardar en Orden de Almacenaje
-                    ordenAlmacenaje.Folio = 1; //consecutivo
+                    ordenAlmacenaje.Folio = consecutivo;
                     ordenAlmacenaje.FechaCreacion = DateTime.Now;
                     ordenAlmacenaje.Activo = true;
                     ordenAlmacenaje.FechaModificacion = DateTime.Now;
-                    ordenAlmacenaje.UsuarioModificacion = 1; //usuario.UsuarioID;
+                    ordenAlmacenaje.UsuarioModificacion = usuario.UsuarioID;
 
                     ctx.Sam3_OrdenAlmacenaje.Add(ordenAlmacenaje);
                     ctx.SaveChanges();
