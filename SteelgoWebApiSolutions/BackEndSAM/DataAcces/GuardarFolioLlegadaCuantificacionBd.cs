@@ -124,7 +124,7 @@ namespace BackEndSAM.DataAcces
                      ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
                      ctx.SaveChanges();
 
-                     if (datosCuantificacion.BultoID != null)
+                     if (datosCuantificacion.BultoID != null && datosCuantificacion.BultoID != 0 && datosCuantificacion.BultoID != -1)
                      {
                          Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x => x.BultoID == datosCuantificacion.BultoID && x.Activo).AsParallel().SingleOrDefault();
                          bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
