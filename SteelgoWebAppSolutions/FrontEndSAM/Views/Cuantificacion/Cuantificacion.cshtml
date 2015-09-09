@@ -542,10 +542,6 @@
             document.getElementById("txtFileUpload").addEventListener("click", function (event) {
                 this.value = null;
             });
-            $(".k-grid-add").on("click", function () {
-                alert("HOLA");
-            })
-
             $("#guardarBulto").css("display", "none");
             $("#MenuTerminar").css("display", "block");
             $("#MenuGuardarParcial").css("display", "block");
@@ -1360,8 +1356,8 @@
                                 Colada: { type: "string", editable: true },
                                 Cantidad: { type: "number", editable: true },
                                 MM: { type: "string", editable: true },
-                                Detallar: { type: "string", defaultValue: false, editable: false },
-                                TieneNU: { type: "string", defaultValue: false, editable: false },
+                                Detallar: { type: "string", defaultValue: "No", editable: false },
+                                TieneNU: { type: "string", defaultValue: "No", editable: false },
                                 TieneError: { type: "boolean", defaultValue: false, editable: false }
                             }
                         }
@@ -2391,7 +2387,7 @@
         
 
         function cargarItemCodeAutocomplete(value) {
-            if (value != 0) {
+            if (value != "Bulto") {
                 $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
 
@@ -2400,7 +2396,7 @@
                         lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
                         lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
                         lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
-                        lastEditedCellID.Detallar = value == 0 ? "Si" : "No";
+                        lastEditedCellID.Detallar = "No";
                     };
                     $('#grid').data('kendoGrid').refresh();
                 });
@@ -2412,7 +2408,7 @@
                 lastEditedCellID.ItemCodeSteelgo = "";
                 lastEditedCellID.Colada = "";
                 lastEditedCellID.MM = "N/A";
-                lastEditedCellID.Detallar = value == 0 ? "Si" : "No";
+                lastEditedCellID.Detallar = "Si";
                 lastEditedCellID.Cantidad = 1;
                 lastEditedCellID.TieneNU = "No";
                 $('#grid').data('kendoGrid').refresh();
@@ -2431,6 +2427,7 @@
                         lastEditedCellIDSteelgo.Familia = itemCodesJsonSteelgo.Familia;
                         lastEditedCellIDSteelgo.Cedula = itemCodesJsonSteelgo.Cedula;
                         lastEditedCellIDSteelgo.TipoAcero = itemCodesJsonSteelgo.TipoAcero;
+                        lastEditedCellID.Detallar = "No";
                     }
                     $('#grid').data('kendoGrid').refresh();
 
@@ -2462,7 +2459,7 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (_detalleBulto!="-1" &&  value == 0) {
+                        if (_detalleBulto!="-1" &&  value == "Bulto") {
                             lastEditedCellID.ItemCode = "Bulto";
                             lastEditedCellID.Descripcion = "";
                             lastEditedCellID.D1 = 0;
@@ -2470,7 +2467,7 @@
                             lastEditedCellID.ItemCodeSteelgo = "";
                             lastEditedCellID.Colada = "";
                             lastEditedCellID.MM = "N/A";
-                            lastEditedCellID.Detallar = value == 0 ? "Si" : "No";
+                            lastEditedCellID.Detallar = "Si";
                             lastEditedCellID.Cantidad = 1;
                             lastEditedCellID.TieneNU = "No";
                             $('#grid').data('kendoGrid').refresh();
@@ -2594,7 +2591,7 @@
                         if (dataJson && dataJson.length > 0) {
                             $.each(dataJson, function (key) {
                                 var item =
-                                       { ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: dataJson[key].Detallar, TieneNU: false, TieneError: false };
+                                       { ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: "No", TieneNU: "No", TieneError: false };
                                 $("#grid").data("kendoGrid").dataSource.insert(item);
                             });
                             document.getElementById('txtFileUpload').addEventListener('change', upload, false);
@@ -2713,8 +2710,10 @@
             var records = [];
             var z = 0;
             for (var i = 1; i < lines.length; i++) {
-                records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: lines[i].split(",")[1], MM: lines[i].split(",")[2], D1: Number(lines[i].split(",")[3]), D2: Number(lines[i].split(",")[4]), ItemCodeSteelgo: lines[i].split(",")[5], Familia: lines[i].split(",")[6], Cedula: lines[i].split(",")[7], TipoAcero: lines[i].split(",")[8], Colada: lines[i].split(",")[9], Cantidad: Number(lines[i].split(",")[10]) };
-                z++;
+                if (lines[i]) {
+                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: lines[i].split(",")[1], MM: lines[i].split(",")[2], D1: Number(lines[i].split(",")[3]), D2: Number(lines[i].split(",")[4]), ItemCodeSteelgo: lines[i].split(",")[5], Familia: lines[i].split(",")[6], Cedula: lines[i].split(",")[7], TipoAcero: lines[i].split(",")[8], Colada: lines[i].split(",")[9], Cantidad: Number(lines[i].split(",")[10]), Detallar: "No", TieneNU: "No", TieneError: false };
+                    z++;
+                }
             }
             return JSON.stringify(records);
         };
