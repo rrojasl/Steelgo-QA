@@ -81,13 +81,13 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        if (!String.IsNullOrEmpty(item.BultoID))
+                                        if (String.IsNullOrEmpty(item.BultoID))
                                         {
                                             bulto = InsertarBulto(FolioCuantificacion, usuario);
                                         }
                                         else
                                         {
-                                            bulto = ActualizarBulto(FolioCuantificacion, usuario);
+                                            bulto = ActualizarBulto(FolioCuantificacion, usuario, item.BultoID);
                                         }
                                         
                                         listaNuevosIC.Add(new CuantificacionListado
@@ -206,13 +206,13 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        if (!String.IsNullOrEmpty(item.BultoID))
+                                        if (String.IsNullOrEmpty(item.BultoID))
                                         {
                                             bulto = InsertarBulto(FolioCuantificacion, usuario);
                                         }
                                         else
                                         {
-                                            bulto = ActualizarBulto(FolioCuantificacion, usuario);
+                                            bulto = ActualizarBulto(FolioCuantificacion, usuario, item.BultoID);
                                         }
 
                                         listaNuevosIC.Add(new CuantificacionListado
@@ -321,13 +321,13 @@ namespace BackEndSAM.DataAcces
                                     //Si tengo un bulto guardo en la tabla de bultos
                                     if (item.ItemCode == "Bulto")
                                     {
-                                        if (!String.IsNullOrEmpty(item.BultoID))
+                                        if (String.IsNullOrEmpty(item.BultoID))
                                         {
                                             bulto = InsertarBulto(FolioCuantificacion, usuario);
                                         }
                                         else
                                         {
-                                            bulto = ActualizarBulto(FolioCuantificacion, usuario);
+                                            bulto = ActualizarBulto(FolioCuantificacion, usuario, item.BultoID);
                                         }
 
                                         listaNuevosIC.Add(new CuantificacionListado
@@ -730,11 +730,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public Sam3_Bulto ActualizarBulto(int FolioCuantificacion, Sam3_Usuario usuario)
+        public Sam3_Bulto ActualizarBulto(int FolioCuantificacion, Sam3_Usuario usuario, string bultoID)
         {
             using (SamContext ctx = new SamContext())
             {
                 Sam3_Bulto bulto = new Sam3_Bulto();
+                bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == bultoID && x.Activo).AsParallel().SingleOrDefault();
                 bulto.FolioCuantificacionID = FolioCuantificacion;
                 bulto.Estatus = "En Proceso de Recepción";
                 bulto.FechaModificacion = DateTime.Now;
