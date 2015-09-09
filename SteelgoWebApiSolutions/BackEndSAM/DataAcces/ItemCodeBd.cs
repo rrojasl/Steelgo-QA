@@ -156,9 +156,8 @@ namespace BackEndSAM.DataAcces
              {
                  using (SamContext ctx = new SamContext())
                  {
-                     int itemCodeID = Int32.Parse(itemCode);
                      ItemCodeJson detalle = (from r in ctx.Sam3_ItemCode
-                                             where r.Activo && r.ItemCodeID == itemCodeID
+                                             where r.Activo && r.Codigo == itemCode
                                              select new ItemCodeJson
                                              {
                                                  ItemCodeID = r.ItemCodeID,

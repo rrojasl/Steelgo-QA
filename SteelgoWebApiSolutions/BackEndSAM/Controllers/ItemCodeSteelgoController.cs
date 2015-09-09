@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(int itemID, string token)
+        public object Get(string itemID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -64,7 +64,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(ItemCodeSteelgoJson json, string token)
+        public object Post(string json, string token)
         {
             string payload = "";
             string newToken = "";
@@ -72,9 +72,10 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                JavaScriptSerializer ser = new JavaScriptSerializer();
-                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return ItemCodeSteelgoBd.Instance.InsertarItemCodeSteelgo(json, usuario);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                ItemCodeSteelgoJson DatosItemCode = serializer.Deserialize<ItemCodeSteelgoJson>(json);
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ItemCodeSteelgoBd.Instance.InsertarItemCodeSteelgo(DatosItemCode, usuario);
             }
             else
             {

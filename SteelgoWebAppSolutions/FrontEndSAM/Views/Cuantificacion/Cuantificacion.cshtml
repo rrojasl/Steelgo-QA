@@ -910,11 +910,11 @@
 
 
             $("#Acero_Colada").kendoComboBox({
-                dataTextField: "Nombre",
+                dataTextField: "Nomenclatura",
                 dataValueField: "AceroID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarAceroColada(dataItem.AceroID, dataItem.Nombre);
+                    CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura);
                 },
                 change: function (e) {
                     var value = this.value();
@@ -982,13 +982,13 @@
                 $("#FolioCuantificacionID").data("kendoComboBox").enable(true);
                 $("#PackingList").removeAttr("disabled");
                 $("#TipoUsoID").data("kendoComboBox").enable(true);
-                $("#massiveUpload").attr("disabled", "disabled");
+                $("#massiveUpload").removeAttr("disabled");
                 $("#Colada").data("kendoComboBox").enable(true);
                 $("#Cantidad").removeAttr("disabled");
                 $("#MM").removeAttr("disabled");
-                $(".k-button").removeClass("k-state-disabled").addClass("k-grid-add");
+                $(".k-button.k-button-icontext.k-grid-add").removeClass("k-state-disabled");
                 $("input:radio").removeAttr("disabled");
-                $(".k-grid-Cancelar").removeClass("hidden");
+                $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
                 if (_detalleBulto != "-1") {
                     DeshabilitarControlesDetalleBulto();
                 }
@@ -1006,9 +1006,9 @@
             $("#Colada").data("kendoComboBox").enable(false);
             $("#Cantidad").attr("disabled", "disabled");
             $("#MM").attr("disabled", "disabled");
-            $(".k-button").addClass("k-state-disabled").removeClass("k-grid-add");
+            $(".k-button.k-button-icontext.k-grid-add").addClass("k-state-disabled");
             $("input:radio").attr('disabled', "disabled");
-            $(".k-grid-Cancelar").addClass("hidden");
+            $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
         };
 
 
@@ -1289,8 +1289,8 @@
         
         function GuardarItemCodeSteelgo() {
             ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
-            ItemCodeSteelgo.Descripcion = $("#Descripcion_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.FamiliaID = familiaItemCodeSteelgo.FamiliaID;
+            ItemCodeSteelgo.DescripcionEspanol = $("#Descripcion_ItemCodeSteelgo").val();
+            ItemCodeSteelgo.FamiliaAceroID = familiaItemCodeSteelgo.FamiliaID;
             ItemCodeSteelgo.Peso = $("#Peso_ItemCodeSteelgo").val();
             ItemCodeSteelgo.Diametro1 = $("#Diametro1_ItemCodeSteelgo").val();
             ItemCodeSteelgo.Diametro2 = $("#Diametro2_ItemCodeSteelgo").val();
@@ -1298,7 +1298,7 @@
             ItemCodeSteelgo.Cedula = $("#Cedula_ItemCodeSteelgo").val();
             ItemCodeSteelgo.Codigo = $("#Codigo_ItemCodeSteelgo").val();
           
-            $ItemCodeSteelgo.ItemCodeSteelgo.create({}, { data: JSON.stringify(ItemCodeSteelgo), token: Cookies.get("token") }).done(function (data) {
+            $ItemCodeSteelgo.ItemCodeSteelgo.create({}, { json: JSON.stringify(ItemCodeSteelgo), token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalItemCodeSteelgo();
                 if (Error(data)) {
                     $("#window").data("kendoWindow").close();
@@ -1371,7 +1371,6 @@
                     mode: "incell",
                     confirmation: false
                 },
-                selectable: true,
                 edit: function(e) {
                     //if (e.model.TieneNU) {
                     //    //No se permite la edición de los que tengan
@@ -1400,7 +1399,6 @@
                     { field: "Detallar", title: _dictionary.Cuantificacion0039[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "TieneNU", title: _dictionary.Cuantificacion0040[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    //{ field: "", title: "&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarInformacionItem(this)'>Cancelar</a>" },
                     { command: { text: _dictionary.Cuantificacion0043[$("#language").data("kendoDropDownList").value()], click: CancelarInformacionItem }, title: " ", width: "99px" }
                 ]
             });
@@ -1476,13 +1474,18 @@
                 grid.removeRow(tr);
             } else {
                 $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.read({ folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, ItemCode: ItemCode, bultoID: _bultoID, token: Cookies.get("token") }).done(function (data) {
-                    if (error(data)) {
+                    if (Error(data)) {
                         if (!data) {
                             if (confirm("Estas seguro de cancelar el Item Code?")) {
                                 $ValidarItemCodeNuCuantificacion.ValidarItemCodeNuCuantificacion.destroy({}, { folioAvisoLlegadaID: folioAvisoLlegadaID, folioCuantificacionID: folioCuantificacionID, BultoID: _bultoID, ItemCode: ItemCode, token: Cookies.get("token") }).done(function (data) {
                                     var grid = $("#grid").data("kendoGrid");
                                     var tr = $(e.currentTarget).closest("tr");
                                     grid.removeRow(tr);
+
+                                    var datasource = $("#grid").data("kendoGrid").dataSource.data();
+                                    if (!datasource.length) {
+                                        $("#TipoPackingListID").data("kendoComboBox").enable(true);
+                                    }
                                 });
                             };
                         } else {
@@ -1651,25 +1654,25 @@
         };
 
         function ObtenerFamiliaItemCode() {
-            $DummyObtenerFamiliaItemCode.FamiliaAcero.read({ token: Cookies.get("token") }).done(function (result) {
+            $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Familia_ItemCode", result);
             });
         };
 
         function ObtenerFamiliaItemCodeSteelgo() {
-            $DummyObtenerFamiliaItemCodeSteelgo.FamiliaAcero.read({  token: Cookies.get("token") }).done(function (result) {
+            $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Familia_ItemCodeSteelgo", result);
             });
         };
 
         function ObtenerFabricanteColada() {
-            $DummyFabricanteColada.DummyFabricante.read({ token: Cookies.get("token") }).done(function (result) {
+            $Fabricantes.Fabricantes.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Fabricante_Colada", result);
             });
         };
 
         function ObtenerAceroColada() {
-            $DummyAceroColada.DummyAcero.read({ token: Cookies.get("token") }).done(function (result) {
+            $TipoAcero.TipoAcero.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Acero_Colada", result);
             });
         };
@@ -1820,7 +1823,7 @@
             $("#divFolio").addClass("hidden");
             $("#spanFolio").html("");
         }
-
+        
         function GuardaryTerminar() {
             var j = 0, z = 0, incompletos = false, cerrar = true;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
@@ -2272,26 +2275,26 @@
 
 
         function AccionesEdicionGuardadoParcial(data, ListadoCuantificacionIncompletos) {
+            llenarGrid(data, ListadoCuantificacionIncompletos);
+            ordenamientoGrid();
             BotonEdicion();
             ocultarStatus();
             cargarTituloFolio();
             $("#Cuantificacion0076").show();
             displayMessage("notificationslabel0038", '', '0');
-            llenarGrid(data, ListadoCuantificacionIncompletos);
-            ordenamientoGrid();
             $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
             CargarFolioCuantificacion(_folioCuantificacion);
             ObtenerDatosDelFolioAvisoLlegada();
         };
 
         function AccionesAltaGuardadoParcial(data, ListadoCuantificacionIncompletos) {
+            llenarGrid(data, ListadoCuantificacionIncompletos);
+            ordenamientoGrid();
             BotonAlta();
             ocultarStatus();
             cargarTituloFolio();
             $("#Cuantificacion0076").show();
             displayMessage("notificationslabel0038", '', '0');
-            llenarGrid(data, ListadoCuantificacionIncompletos);
-            ordenamientoGrid();
             $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
             CargarFolioCuantificacion(_folioCuantificacion);
             ObtenerDatosDelFolioAvisoLlegada();
@@ -2352,7 +2355,7 @@
                 $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
 
-                    if (itemCodesJson.ItemCodeID == value) {
+                    if (itemCodesJson.ItemCode == value) {
                         lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                         lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
                         lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
@@ -2380,7 +2383,7 @@
                 $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
 
-                    if (itemCodesJsonSteelgo.ItemCodeSteelgoID == value) {
+                    if (itemCodesJsonSteelgo.Codigo == value) {
                         lastEditedCellIDSteelgo.ItemCodeSteelgo = itemCodesJsonSteelgo.Codigo;
                         lastEditedCellIDSteelgo.Descripcion = itemCodesJsonSteelgo.DescripcionEspanol
                         lastEditedCellIDSteelgo.D1 = itemCodesJsonSteelgo.Diametro1
@@ -2397,24 +2400,24 @@
         function itemCodeAutocomplete(container, options) {
             $('<input required data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
-                .kendoComboBox({
-                    autoBind: false,
+                .kendoAutoComplete({
                     dataTextField: "Codigo",
-                    dataValueField: "ItemCodeID",
+                    //dataValueField: "ItemCodeID",
+                    filter: "contains",
                     dataSource: {
                         type: "json",
                         transport: {
                             read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
                         },
-                        serverPaging: true,
                         serverFiltering: true
                     },
-                    filter: "contains",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         if (dataItem.ItemCodeID == -1) {
                             VentanaModal(1);
                             e.preventDefault();
+                            lastEditedCellID.ItemCode = "";
+                            $('#grid').data('kendoGrid').refresh();
                         }
                     },
                     change: function (e) {
@@ -2446,7 +2449,7 @@
         function itemCodeSteelgoAutocomplete(container, options) {
             $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
-                .kendoComboBox({
+                .kendoAutoComplete({
                     autoBind: false,
                     dataTextField: "value",
                     dataValueField: "id",
@@ -2465,6 +2468,8 @@
                         if (dataItem.id == 0) {
                             VentanaModal(2);
                             e.preventDefault();
+                            lastEditedCellIDSteelgo.ItemCodeSteelgo = "";
+                            $('#grid').data('kendoGrid').refresh();
                         }
                     },
                     change: function (e) {
