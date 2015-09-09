@@ -100,14 +100,14 @@ namespace BackEndSAM.DataAcces
                                                        Diametro1 = r.Diametro1,
                                                        Diametro2 = r.Diametro2,
                                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
-                                                                  where fa.FamiliaAceroID == r.FamiliaAceroID
+                                                                  where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && r.Activo
                                                                   select fa.Nombre).FirstOrDefault(),
                                                        ItemCodeSteelgoID = r.ItemCodeSteelgoID,
                                                        Peso = r.Peso,
                                                        Codigo = r.Codigo,
                                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                                    where fa.FamiliaAceroID == r.FamiliaAceroID
                                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                                    where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && fm.Activo
                                                                     select fm.Nombre).FirstOrDefault()
                                                    }).AsParallel().SingleOrDefault();
                     return detalle;

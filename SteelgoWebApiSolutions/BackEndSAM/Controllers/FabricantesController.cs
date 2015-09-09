@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return TipoAceroBd.Instance.obtenerTipoAcero();
+                return FabricantesBd.Instance.ObtenerFabricantes();
             }
             else
             {

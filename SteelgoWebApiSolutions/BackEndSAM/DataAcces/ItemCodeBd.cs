@@ -64,8 +64,8 @@ namespace BackEndSAM.DataAcces
 
                      List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode
                                  where ic.Activo && ic.TipoMaterialID == tipoPackingListID
-                                 && !ctx.Sam3_NumeroUnico.Where(c=> c.ItemCodeID == ic.ItemCodeID).Any() 
-                                 && !ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c=> c.ItemCodeID == ic.ItemCodeID).Any()
+                                 && !ctx.Sam3_NumeroUnico.Where(c=> c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() 
+                                 && !ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c=> c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any()
                                  select new ItemCode
                                  {
                                      ItemCodeID = ic.ItemCodeID.ToString(),
@@ -163,7 +163,7 @@ namespace BackEndSAM.DataAcces
                                              {
                                                  ItemCodeID = r.ItemCodeID,
                                                  ItemCode = r.Codigo,
-                                                 ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID select c.NumeroColada).FirstOrDefault(),
+                                                 ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                                  Cantidad = r.Cantidad,
                                                  MM = r.MM
                                              }).AsParallel().SingleOrDefault();

@@ -53,7 +53,7 @@ namespace BackEndSAM.DataAcces
                  {
                      if (bultoID != -1)
                      {
-                         Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x=>x.FolioCuantificacionID == FolioCuantificacion && x.BultoID == bultoID).AsParallel().SingleOrDefault();
+                         Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x=>x.FolioCuantificacionID == FolioCuantificacion && x.BultoID == bultoID && x.Activo).AsParallel().SingleOrDefault();
                          bulto.Estatus = "En Proceso de Recepción";
                          bulto.UsuarioModificacion = usuario.UsuarioID;
                          bulto.FechaModificacion = DateTime.Now;
@@ -62,7 +62,7 @@ namespace BackEndSAM.DataAcces
                      }
                      else
                      {
-                         Sam3_FolioCuantificacion cuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.FolioAvisoEntradaID == AvisoEntrada).AsParallel().SingleOrDefault();
+                         Sam3_FolioCuantificacion cuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.FolioAvisoEntradaID == AvisoEntrada && x.Activo).AsParallel().SingleOrDefault();
                          cuantificacion.Estatus = "En Proceso de Recepción";
                          cuantificacion.UsuarioModificacion = usuario.UsuarioID;
                          cuantificacion.FechaModificacion = DateTime.Now;
