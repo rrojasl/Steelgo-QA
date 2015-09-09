@@ -64,7 +64,8 @@ namespace BackEndSAM.DataAcces
                         Sam3_FolioCuantificacion folioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                                         join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                                         where fc.Activo && fe.Activo
-                                                                        && fe.FolioAvisoLlegadaID == FolioAvisollegadaId && fc.FolioCuantificacionID == FolioCuantificacion
+                                                                        && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
+                                                                        && fc.FolioCuantificacionID == FolioCuantificacion
                                                                         select fc).AsParallel().SingleOrDefault();
                             
                             //ctx.Sam3_FolioCuantificacion
