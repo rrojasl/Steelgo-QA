@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int folioAvisoLlegadaID, int folioCuantificacionID, int ItemCode, int bultoID, string token)
+        public object Get(int folioAvisoLlegadaID, int folioCuantificacionID, string ItemCode, int bultoID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -55,7 +55,7 @@ namespace BackEndSAM.Controllers
         }
  
         // DELETE api/<controller>/5
-        public object Delete(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, int ItemCode, string token)
+        public object Delete(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, string ItemCode, string token)
         {
             string payload = "";
             string newToken = "";
