@@ -484,7 +484,7 @@ namespace BackEndSAM.DataAcces
                                         item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                         item.FamiliaMaterial = familiaID.ToString();
                                         item.TipoAceroID = tipoAceroID;
-                                        item.ColadaID = coladaID.ToString();
+                                        item.ColadaID = coladaID;
                                         item.TipoMaterial = tipoMaterialID;
 
                                         //Si es un item Code repetido en el grid, se suman las cantidades
@@ -615,7 +615,7 @@ namespace BackEndSAM.DataAcces
                                         item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
                                         item.FamiliaMaterial = familiaID.ToString();
                                         item.TipoAceroID = tipoAceroID;
-                                        item.ColadaID = coladaID.ToString();
+                                        item.ColadaID = coladaID;
                                         item.TipoMaterial = tipoMaterialID;
                                         //Si es un item Code repetido en el grid, se suman las cantidades
                                         if (!creados.Contains(item.ItemCodeID))
