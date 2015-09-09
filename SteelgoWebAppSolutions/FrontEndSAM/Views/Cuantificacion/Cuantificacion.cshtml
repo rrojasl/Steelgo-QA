@@ -2517,7 +2517,7 @@
                            { ItemCode: dataJson[key].ItemCode, BultoID: dataJson[key].BultoID, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: dataJson[key].Detallar, TieneNU: dataJson[key].TieneNU, TieneError: dataJson[key].TieneError };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
                 });
-            }
+            };
             if (incompletos) {
                 $.each(incompletos, function (key) {
                     var item =
