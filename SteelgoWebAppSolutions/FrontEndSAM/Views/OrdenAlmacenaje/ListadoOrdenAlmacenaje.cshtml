@@ -99,7 +99,7 @@
 
     function CargaInicial() {
         $("#Nuevo").click(function () {
-            var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+            var detalleIdeaUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
 

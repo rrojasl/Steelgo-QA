@@ -22,32 +22,32 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int ProyectoID, int folioCuantificacion, int ItemCode, int NumeroUnico, string token)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //public object Get(int ProyectoID, int folioCuantificacion, int ItemCode, int NumeroUnico, string token)
+        //{
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
           
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
 
-            if (tokenValido)
-            {
-                JavaScriptSerializer ser = new JavaScriptSerializer();
-                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+        //    if (tokenValido)
+        //    {
+        //        JavaScriptSerializer ser = new JavaScriptSerializer();
+        //        Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
 
-                return OrdenAlmacenajeBd.Instance.ObtenerListadoGeneracionOrdenAlacenaje(ProyectoID, folioCuantificacion, ItemCode, NumeroUnico);
+        //        return OrdenAlmacenajeBd.Instance.ObtenerListadoGeneracionOrdenAlacenaje(ProyectoID, folioCuantificacion, ItemCode, NumeroUnico);
 
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
         // POST api/<controller>
         public object Post(List<int> listaNU, string token)

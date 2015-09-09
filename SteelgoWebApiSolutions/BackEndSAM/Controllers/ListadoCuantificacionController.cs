@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers
     {
 
         // PUT api/<controller>/5
-        public object Put(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
+        public object Post(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacionID, string cuantificacion, string token, int idGuardado)
         {
             string payload = "";
             string newToken = "";

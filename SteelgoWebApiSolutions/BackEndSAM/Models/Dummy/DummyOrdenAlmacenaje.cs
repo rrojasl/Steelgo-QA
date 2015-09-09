@@ -39,12 +39,17 @@ namespace BackEndSAM.Models
         public string NumeroUnicoID { get; set; }
     }
 
-    
-    
-    public class DummyFolioCuantificacion 
+
+
+    public class GenerarOrdenAlmacenajeJson 
     {
         public string FolioCuantificacion { get; set; }
         public List<ElementoCuantificacionItemCode> ItemCodes { get; set; }
+
+        public GenerarOrdenAlmacenajeJson()
+        {
+            ItemCodes = new List<ElementoCuantificacionItemCode>();
+        }
     }
 
     public class ElementoCuantificacionItemCode
@@ -57,6 +62,11 @@ namespace BackEndSAM.Models
         public string D2 { get; set; }
         public string Cantidad { get; set; }
         public List<ElementoNumeroUnico> NumerosUnicos { get; set; }
+
+        public ElementoCuantificacionItemCode()
+        {
+            NumerosUnicos = new List<ElementoNumeroUnico>();
+        }
     }
 
     public class ElementoNumeroUnico
