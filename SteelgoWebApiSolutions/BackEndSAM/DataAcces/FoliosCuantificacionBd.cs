@@ -189,13 +189,10 @@ namespace BackEndSAM.DataAcces
                     info = (from t in ctx.Sam3_FolioCuantificacion
                             join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
-<<<<<<< HEAD
                             join Bul in ctx.Sam3_Bulto on t.FolioCuantificacionID equals Bul.FolioCuantificacionID into b1
                             from subBul in b1.DefaultIfEmpty()
-                            where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
-=======
                             where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID && t.Activo && avll.Activo && tu.Activo
->>>>>>> fd8cf20f2a9c690b7ba83cfbcac9ce186faa05f4
+
                             select new InfoFolioCuantificacion
                             {
                                 ProyectoID = t.ProyectoID,
