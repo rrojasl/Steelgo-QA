@@ -1344,6 +1344,10 @@ _dictionary = {
         "es-MX": "Estatus",
         "en-US": "Status"
     },
+    "Cuantificacion0081": {
+        "es-MX": "Descargar Template",
+        "en-US": "Download Template"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

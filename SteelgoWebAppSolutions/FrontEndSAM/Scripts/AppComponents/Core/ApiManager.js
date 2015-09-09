@@ -32,7 +32,7 @@ var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/Document
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
-var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ItemCodeSteelgo';
+var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -86,7 +86,7 @@ var $DummyOrdenRecepcionItemCode = new $.RestClient($BackEndSAMUri + '/backendsa
 var $DummyGridOrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $NumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $OrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyGenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FoliosCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargarGridCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -157,7 +157,7 @@ $DummyOrdenRecepcionItemCode.add("DummyOrdenRecepcionItemCode");
 $DummyGridOrdenRecepcion.add("DummyGridOrdenRecepcion");
 $OrdenRecepcion.add("OrdenRecepcion");
 $NumeroUnico.add("NumeroUnico");
-$DummyOrdenAlmacenaje.add("DummyOrdenAlmacenaje");
+$OrdenAlmacenaje.add("OrdenAlmacenaje");
 $DummyGenerarOrdenAlmacenaje.add("DummyGenerarOrdenAlmacenaje");
 $FoliosCuantificacion.add("FoliosCuantificacion");
 $CargarGridCuantificacion.add("CargarGridCuantificacion");

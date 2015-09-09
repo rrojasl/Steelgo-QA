@@ -267,8 +267,8 @@
                             Codigo: { type: "string" },
                             NumeroUnico: { type: "string" },
                             OrdenAlmacenaje: { type: "string" },
-                            FolioCuantificacion: { type: "string" },
-                            ItemCodeID: { type: "string" }
+                            ItemCodeID: { type: "string" },
+                            NumeroUnicoID: { type: "string" }
                         }
                     }
                 }
@@ -279,9 +279,8 @@
             columns: [
                 { field: "Codigo", title: _dictionary.ListadoOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "NumeroUnico", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                 { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
-                { field: "FolioCuantificacion", title: "FolioCuantificacion", width: "110px", hidden: true },
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
                 { field: "", title:"", width: "110px", template: "<a class='detailLink' onclick='CancelarItem(this)'>Cancelar</a>" },
                 
@@ -452,7 +451,7 @@
 
         $("#hdAccionFiltrado").val(accion);
 
-        $DummyOrdenAlmacenaje.DummyOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+        $OrdenAlmacenaje.OrdenAlmacenaje.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             if (Error(result)) {
                 resultadoJson = result;
                 if ($("#grid").data("kendoGrid")) {
@@ -477,13 +476,12 @@
         var d = new Date($("#FechaInic").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-        Listado.FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
+        Listado.PackingListID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
         Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
         Listado.FechaInicial = obtenerFormatoFecha(d);
         Listado.FechaFinal = obtenerFormatoFecha(d1);
         Listado.token = Cookies.get("token");
-        console.log("listado");
         return Listado;
     };
 
@@ -517,9 +515,9 @@
     };
 
     function CancelarItem(row) {
+        var numerounico = $(row).closest("tr").children()[1].innerHTML;
         var ordenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
-        var folioCuantificacion = $(row).closest("tr").children()[3].innerHTML;
-        var itemCodeID = $(row).closest("tr").children()[4].innerHTML;
+        var itemCodeID = $(row).closest("tr").children()[3].innerHTML;
 
         var grid = $("#grid").data("kendoGrid");
         var tr = $(row).closest("tr");

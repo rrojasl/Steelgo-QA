@@ -77,6 +77,60 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Obtener la relacion de un itemcode con un steelgo
+        /// </summary>
+        /// <returns>Lista de ICS</returns>
+        public object ObtenerListadoRelacionItemCodeSteelgo(string itemcode)
+        {
+            try
+            {
+                List<ListaCombos> ics = new List<ListaCombos>();
+                using (SamContext ctx = new SamContext())
+                {
+                    ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
+                    List<ListaCombos> listado = (from r in ctx.Sam3_ItemCodeSteelgo
+                                                 join rel in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals rel.ItemCodeSteelgoID
+                                                 join item in ctx.Sam3_ItemCode on rel.ItemCodeID equals item.ItemCodeID
+                                                 where r.Activo & item.Codigo==itemcode
+                                                 select new ListaCombos
+                                                 {
+                                                     id = r.ItemCodeSteelgoID.ToString(),
+                                                     value = r.Codigo
+                                                 }).AsParallel().ToList();
+
+
+
+                    if (listado.Count <= 0)
+                    {
+
+                        listado = (from r in ctx.Sam3_ItemCodeSteelgo
+                                   where r.Activo
+                                   select new ListaCombos
+                                   {
+                                       id = r.ItemCodeSteelgoID.ToString(),
+                                       value = r.Codigo
+                                   }).AsParallel().ToList();
+                    }
+
+                    ics.AddRange(listado);
+                    return ics;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Obtener el detalle de un item code steelgo
         /// </summary>
@@ -90,7 +144,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
-                                                   where r.Activo && r.Codigo.Contains(itemCodeSteelgo)
+                                                   where r.Activo && r.Codigo ==itemCodeSteelgo
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,
@@ -108,7 +162,7 @@ namespace BackEndSAM.DataAcces
                                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
                                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                                                                     where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && fm.Activo
-                                                                    select fm.Nombre).FirstOrDefault()
+                                                                    select fm.Nombre).FirstOrDefault(),
                                                    }).AsParallel().SingleOrDefault();
                     return detalle;
                 }

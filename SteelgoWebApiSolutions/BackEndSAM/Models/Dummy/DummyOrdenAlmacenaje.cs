@@ -36,6 +36,7 @@ namespace BackEndSAM.Models
         public string ItemCodeID { get; set; }
         public string Codigo { get; set; }
         public string NumeroUnico { get; set; }
+        public string NumeroUnicoID { get; set; }
     }
 
     

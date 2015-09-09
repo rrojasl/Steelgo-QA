@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\ObtenerItemCodesController.cs" />
+    <Compile Include="Controllers\ObtenerRelacionItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\OrdenRecepcionController.cs" />

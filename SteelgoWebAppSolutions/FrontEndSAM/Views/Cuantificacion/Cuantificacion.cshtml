@@ -97,6 +97,7 @@
                         <div id="massiveUploadDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0019"></label>
                             <button id="massiveUpload" class="btn btn-primary"><span id="Cuantificacion0020"></span></button>
+                            <a href="../FormatoCargaMasiva.csv"><label id="Cuantificacion0081"></label></a>
                             <input name="txtFileUpload" id="txtFileUpload" type="file" class="hidden"/>
                         </div>
                        
@@ -1279,8 +1280,12 @@
         };
 
         function GenerarOrdenRecepcion() {
-            var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "Cuantificacion")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&ProyectoID=" + Proyecto.ProyectoID;
+            if (_folioCuantificacion!="-1"){
+                var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "Cuantificacion")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&ProyectoID=" + Proyecto.ProyectoID;
+            } else {
+                displayMessage("notificationslabel0040", "", '1');
+            } 
         };
 
         function GuardarItemCode() {
@@ -2415,6 +2420,9 @@
                 lastEditedCellID.Detallar = "Si";
                 lastEditedCellID.Cantidad = 1;
                 lastEditedCellID.TieneNU = "No";
+                lastEditedCellID.Familia = "";
+                lastEditedCellID.Cedula = "";
+                lastEditedCellID.TipoAcero = "";
                 $('#grid').data('kendoGrid').refresh();
             }
         };
@@ -2449,6 +2457,7 @@
                         type: "json",
                         transport: {
                             read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
+                            //read: $URLItemCode + "&" + container.parent().children()[0].innerText + "&TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
                         },
                         serverFiltering: true
                     },
@@ -2474,7 +2483,9 @@
                             lastEditedCellID.Detallar = "Si";
                             lastEditedCellID.Cantidad = 1;
                             lastEditedCellID.TieneNU = "No";
-                            $('#grid').data('kendoGrid').refresh();
+                            lastEditedCellID.Familia = "";
+                            lastEditedCellID.Cedula = "";
+                            lastEditedCellID.TipoAcero = "";
                             displayMessage("notificationslabel0043", "", '1');
                         }
                         else {
@@ -2491,14 +2502,13 @@
             $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
-                    autoBind: false,
-                    dataTextField: "value",
-                    dataValueField: "id",
+                    dataTextField: "Codigo",
+                    dataValueField: "ItemCodeSteelgoID",
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCodeSteelgo + "?token=" + Cookies.get("token")
-                            //read: $ComboDummyItemCodeSteelgo + container.parent().children()[0].innerText + "&token=" + Cookies.get("token")
+                            //read: $URLItemCodeSteelgo + "?token=" + Cookies.get("token")
+                            read: $URLItemCodeSteelgo + "&ItemCode=" + container.parent().children()[0].innerText + "&token=" + Cookies.get("token")
                         },
                         serverPaging: true,
                         serverFiltering: true
