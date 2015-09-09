@@ -559,13 +559,57 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     int numerounicoid = Convert.ToInt32(numerounico);
-                    Sam3_NumeroUnico NumeroUnico = ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == numerounicoid)
+                    Sam3_Rel_OrdenAlmacenaje_NumeroUnico almacenaje = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.NumeroUnicoID == numerounicoid)
                         .AsParallel().SingleOrDefault();
 
 
-                    NumeroUnico.Activo = false;
-                    NumeroUnico.UsuarioModificacion = usuario.UsuarioID;
-                    NumeroUnico.FechaModificacion = DateTime.Now;
+                    almacenaje.Activo = false;
+                    almacenaje.UsuarioModificacion = usuario.UsuarioID;
+                    almacenaje.FechaModificacion = DateTime.Now;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarOrdenAlmacenaje(int  OrdenAlmacenajeID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.OrdenAlmacenajeID == OrdenAlmacenajeID).AsParallel().SingleOrDefault();
+                    orden.Activo = false;
+                    orden.FechaModificacion = DateTime.Now;
+                    orden.UsuarioModificacion = usuario.UsuarioID;
+
+                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> relacion = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.OrdenAlmacenajeID == OrdenAlmacenajeID)
+                        .AsParallel().ToList();
+
+                    foreach (Sam3_Rel_OrdenAlmacenaje_NumeroUnico r in relacion)
+                    {
+                        r.Activo = false;
+                        r.FechaModificacion = DateTime.Now;
+                        r.UsuarioModificacion = usuario.UsuarioID;
+                    }
 
                     ctx.SaveChanges();
 
