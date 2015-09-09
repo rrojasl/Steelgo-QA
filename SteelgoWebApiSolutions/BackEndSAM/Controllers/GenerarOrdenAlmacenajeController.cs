@@ -22,36 +22,57 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(string token, int itemCode)
+        public object Get(int ProyectoID, int folioCuantificacion, int ItemCode, int NumeroUnico, string token)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            //FolioEntradaYLlegada proy = serializer.Deserialize<FolioEntradaYLlegada>(proyecto);
-            ////FiltrosJson filtros = serializer.Deserialize<FiltrosJson>(data);
-            //string payload = "";
-            //string newToken = "";
-            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+          
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
 
-            //if (tokenValido)
-            //{
-            //    JavaScriptSerializer ser = new JavaScriptSerializer();
-            //    Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
 
-            return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCode);
-            //}
-            //else
-            //{
-            //    TransactionalInformation result = new TransactionalInformation();
-            //    result.ReturnMessage.Add(payload);
-            //    result.ReturnCode = 401;
-            //    result.ReturnStatus = false;
-            //    result.IsAuthenicated = false;
-            //    return result;
-            //}
+                return OrdenAlmacenajeBd.Instance.ObtenerListadoGeneracionOrdenAlacenaje(ProyectoID, folioCuantificacion, ItemCode, NumeroUnico);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public object Post(List<int> listaNU, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+
+                return OrdenAlmacenajeBd.Instance.GenerarOrdenAlmacenaje(listaNU, usuario);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // PUT api/<controller>/5
