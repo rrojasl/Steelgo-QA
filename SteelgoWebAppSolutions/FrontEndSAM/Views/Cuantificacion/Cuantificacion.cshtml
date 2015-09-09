@@ -1926,7 +1926,7 @@
                                 $("#grid").data("kendoGrid").dataSource.data([]);
                                 cargarGridErrores(ListadoCuantificacionIncompletos);
                                 for (i = 0; i < ListadoCuantificacion.length; i++) {
-                                    $ListadoCuantificacion.ListadoCuantificacion.update({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
+                                    $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
                                         if (Error(data)) {
                                             cargarGridcompletos(data);
                                             ordenamientoGrid();
@@ -1954,24 +1954,28 @@
                         $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                             if (Error(data)) {
                                 _folioCuantificacion = data.FolioCuantificacionID;
-                                $ListadoCuantificacion.ListadoCuantificacion.update({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
-                                    if (Error(data)) {
-                                        llenarGrid(data, ListadoCuantificacionIncompletos);
-                                        ordenamientoGrid();
-                                        BotonAlta();
-                                        $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
-                                        CargarFolioCuantificacion(_folioCuantificacion);
-                                        ObtenerDatosDelFolioAvisoLlegada();
-                                        if (incompletos) {
-                                            displayMessage("notificationslabel0037", "", '1');
-                                        } else {
-                                            ocultarStatus();
-                                            cargarTituloFolio();
-                                            $("#Cuantificacion0077").show();
+                                $("#grid").data("kendoGrid").dataSource.data([]);
+                                cargarGridErrores(ListadoCuantificacionIncompletos);
+                                for (i = 0; i < ListadoCuantificacion.length; i++) {
+                                    $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
+                                        if (Error(data)) {
+                                            cargarGridcompletos(data);
+                                            ordenamientoGrid();
+                                            BotonAlta();
+                                            $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
+                                            CargarFolioCuantificacion(_folioCuantificacion);
+                                            ObtenerDatosDelFolioAvisoLlegada();
+                                            if (incompletos) {
+                                                displayMessage("notificationslabel0037", "", '1');
+                                            } else {
+                                                ocultarStatus();
+                                                cargarTituloFolio();
+                                                $("#Cuantificacion0077").show();
+                                            }
                                         }
-                                    }
-                                    loadingStop();
-                                });
+                                        loadingStop();
+                                    });
+                                }
                             } else {
                                 loadingStop();
                             }
@@ -2064,7 +2068,7 @@
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             cargarGridErrores(ListadoCuantificacionIncompletos);
                             for (i = 0; i < ListadoCuantificacion.length; i++) {
-                                $ListadoCuantificacion.ListadoCuantificacion.update({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
+                                $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
                                     if (Error(data)) {
                                         cargarGridcompletos(data);
                                         ordenamientoGrid();
@@ -2089,7 +2093,7 @@
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             cargarGridErrores(ListadoCuantificacionIncompletos);
                             for (i = 0; i < ListadoCuantificacion.length; i++) {
-                                $ListadoCuantificacion.ListadoCuantificacion.update({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
+                                $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
                                     if (Error(data)) {
                                         cargarGridcompletos(data);
                                         ordenamientoGrid();
