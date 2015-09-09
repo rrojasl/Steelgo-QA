@@ -50,7 +50,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listFE = (from t in ctx.Sam3_FolioAvisoEntrada
-                              where t.FolioDescarga != 0 && t.Activo == true
+                              where t.FolioDescarga != 0 && t.Activo
                               select new ListaCombos
                                 {
                                     id = t.FolioAvisoLlegadaID.ToString(),
@@ -89,7 +89,7 @@ namespace BackEndSAM.DataAcces
                     proyectos = (from t in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
                                  join e in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoLlegadaID equals e.FolioAvisoLlegadaID
-                                 where t.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                 where t.FolioAvisoLlegadaID == folioAvisoLlegadaID && t.Activo && p.Activo && e.Activo
                                  select new Proyecto
                                  {
                                      ProyectoID = p.ProyectoID.ToString(),
@@ -98,7 +98,7 @@ namespace BackEndSAM.DataAcces
 
                     cuantificacion = (from t in ctx.Sam3_FolioCuantificacion
                                       join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
-                                      where t.Activo && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                                      where t.Activo && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID && avll.Activo
                                       select new FolioLlegada1
                                            {
                                                FolioCuantificacionID = t.FolioCuantificacionID,
@@ -189,7 +189,7 @@ namespace BackEndSAM.DataAcces
                     info = (from t in ctx.Sam3_FolioCuantificacion
                             join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
-                            where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
+                            where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID && t.Activo && avll.Activo && tu.Activo
                             select new InfoFolioCuantificacion
                             {
                                 ProyectoID = t.ProyectoID,
@@ -204,42 +204,19 @@ namespace BackEndSAM.DataAcces
                                TipoPackingList = new TipoPackingList()
                                {
                                    id = (from c in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                              where c.FolioCuantificacionID == folioCuantificacion
                                               join ic in ctx.Sam3_ItemCode on c.ItemCodeID equals ic.ItemCodeID
+                                              where c.FolioCuantificacionID == folioCuantificacion && c.Activo && ic.Activo
                                               select ic.TipoMaterialID).FirstOrDefault().ToString()
                                },
 
                                 Estatus = t.Estatus,
 
                                 FolioLlegadaHijo = (from b in ctx.Sam3_Bulto
-                                             where b.FolioCuantificacionID == folioCuantificacion
+                                             where b.FolioCuantificacionID == folioCuantificacion && b.Activo
                                              select b.BultoID).FirstOrDefault()
 
                             }).AsParallel().FirstOrDefault();
                 }
-
-                return info;
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-        public object obtenerDatosGrid()
-        {
-            try
-            {
-                InfoFolioAvisoEntrada info = new InfoFolioAvisoEntrada();
-
-
-
 
                 return info;
             }

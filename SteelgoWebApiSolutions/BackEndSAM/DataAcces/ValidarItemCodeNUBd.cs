@@ -58,13 +58,13 @@ namespace BackEndSAM.DataAcces
                     if (bultoID != -1)
                     {
                         tieneNU = (from bic in ctx.Sam3_Rel_Bulto_ItemCode
-                                   where bic.ItemCodeID == itemCodeID && bic.BultoID == bultoID
+                                   where bic.ItemCodeID == itemCodeID && bic.BultoID == bultoID && bic.Activo
                                    select bic.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
                     else
                     {
                         tieneNU = (from fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                   where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID == folioCuantificacionID
+                                   where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID == folioCuantificacionID && fcic.Activo
                                    select fcic.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
 

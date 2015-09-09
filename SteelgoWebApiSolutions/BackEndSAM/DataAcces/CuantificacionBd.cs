@@ -63,9 +63,9 @@ namespace BackEndSAM.DataAcces
                                    where fc.FolioCuantificacionID == folioCuantificacion && ic.Activo && ric.Activo && ics.Activo && fc.Activo
                                    select new CuantificacionListado
                                    {
-                                       ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Bulto" : ic.Codigo,
-                                       Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? "Si" : "No",
-                                       BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID).Any() ? ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
+                                       ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ? "Bulto" : ic.Codigo,
+                                       Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ? "Si" : "No",
+                                       BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ? ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
                                        Descripcion = ics.DescripcionEspanol,
                                        D1 = ics.Diametro1,
                                        D2 = ics.Diametro2,
@@ -74,21 +74,21 @@ namespace BackEndSAM.DataAcces
                                        ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
 
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
-                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID
+                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
                                                   select fa.Nombre).FirstOrDefault(),
 
                                        Cedula = ics.Cedula,
 
                                        Colada = (from c in ctx.Sam3_Colada
-                                                 where c.ColadaID == ic.ColadaID
+                                                 where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
                                                  select c.NumeroColada).FirstOrDefault(),
 
                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID
                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial"
                                    }).AsParallel().ToList();
                     }
                     else //Cuando es la pantalla de Bulto
@@ -111,21 +111,21 @@ namespace BackEndSAM.DataAcces
                                        ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
 
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
-                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID
+                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
                                                   select fa.Nombre).FirstOrDefault(),
 
                                        Cedula = ics.Cedula,
 
                                        Colada = (from c in ctx.Sam3_Colada
-                                                 where c.ColadaID == ic.ColadaID
+                                                 where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
                                                  select c.NumeroColada).FirstOrDefault(),
 
                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID
                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID) == 0 ? "No" : "Parcial"
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial"
                                    }).AsParallel().ToList();
                     }
                 }
