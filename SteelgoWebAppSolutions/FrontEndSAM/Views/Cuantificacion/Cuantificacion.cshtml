@@ -892,11 +892,11 @@
 
             //Ventana Modal Colada
             $("#Fabricante_Colada").kendoComboBox({
-                dataTextField: "Nomenclatura",
-                dataValueField: "AceroID",
+                dataTextField: "Nombre",
+                dataValueField: "FabricanteID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
-                    CargarFabricanteColada(dataItem.AceroID, dataItem.Nomenclatura);
+                    CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre);
                 },
                 change: function (e) {
                     var value = this.value();
@@ -910,7 +910,7 @@
 
 
             $("#Acero_Colada").kendoComboBox({
-                dataTextField: "Nomenclatura",
+                dataTextField: "Nombre",
                 dataValueField: "AceroID",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
@@ -948,6 +948,7 @@
 
         function cargaInicialEdicionDetalleBulto() {
             DetalleBultoObtenerDatosDelFolioAvisoLlegadaCuantificacion(_folioAvisoEntradaID, _folioCuantificacion, _bultoID);
+
         };
 
         //function cargaInicialEdicion() {
@@ -1650,25 +1651,25 @@
         };
 
         function ObtenerFamiliaItemCode() {
-            $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
+            $DummyObtenerFamiliaItemCode.FamiliaAcero.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Familia_ItemCode", result);
             });
         };
 
         function ObtenerFamiliaItemCodeSteelgo() {
-            $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
+            $DummyObtenerFamiliaItemCodeSteelgo.FamiliaAcero.read({  token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Familia_ItemCodeSteelgo", result);
             });
         };
 
         function ObtenerFabricanteColada() {
-            $Fabricantes.Fabricantes.read({ token: Cookies.get("token") }).done(function (result) {
+            $DummyFabricanteColada.DummyFabricante.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Fabricante_Colada", result);
             });
         };
 
         function ObtenerAceroColada() {
-            $TipoAcero.TipoAcero.read({ token: Cookies.get("token") }).done(function (result) {
+            $DummyAceroColada.DummyAcero.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Acero_Colada", result);
             });
         };
