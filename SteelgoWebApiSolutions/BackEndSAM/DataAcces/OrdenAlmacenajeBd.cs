@@ -174,7 +174,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        //public object ObtenerListadoGeneracionOrdenAlacenaje(int proyectoID, int folioCuantificacion, int itemCodeID, int numeroUnicoID, Sam3_Usuario usuario)
+        //public object ObtenerListadoGeneracionOrdenAlmacenaje(int proyectoID, int folioCuantificacion, int itemCodeID, int numeroUnicoID, Sam3_Usuario usuario)
         //{
         //    try
         //    {
@@ -224,31 +224,25 @@ namespace BackEndSAM.DataAcces
         //                List<Sam3_FolioCuantificacion> folioscuantificacion = new List<Sam3_FolioCuantificacion>();
 
 
-        //                folioCuantificacion=( from fc in ctx.Sam3_FolioCuantificacion
-        //                                          join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfc.FolioCuantificacionID
-        //                                           join roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfc.ItemCodeID equals roi.ItemCodeID
-        //                                          );
+        //                folioscuantificacion = (from oa in ctx.Sam3_OrdenAlmacenaje
+        //                                         join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals ronu.OrdenAlmacenajeID
+        //                                         join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
+        //                                         join roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on nu.ItemCodeID equals roi.ItemCodeID
+        //                                         join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on roi.OrdenRecepcionID equals rfo.OrdenRecepcionID
+        //                                         join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+        //                                         join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals rfci.ItemCodeID
+        //                                         join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
+        //                                        where oa.Activo && ronu.Activo && nu.Activo && roi.Activo && rfo.Activo && fe.Activo
+        //                                                   && fe.FolioAvisoEntradaID == r.FolioAvisoEntradaID
+        //                                         select fc).AsParallel().ToList();
+                        
+        //                folioscuantificacion = folioscuantificacion.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
 
+        //                foreach (Sam3_FolioCuantificacion folios in folioscuantificacion)
+        //                {
 
-
-        //                from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-        //                                                        join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-        //                                                        join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals rfci.ItemCodeID
-        //                                                        join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
-        //                                                        where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
-        //                                                        && fc.FolioCuantificacionID == packingListID
-
-        //                ordenes = (from oa in ctx.Sam3_OrdenAlmacenaje
-        //                           join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals ronu.OrdenAlmacenajeID
-        //                           join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-        //                           join roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on nu.ItemCodeID equals roi.ItemCodeID
-        //                           join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on roi.OrdenRecepcionID equals rfo.OrdenRecepcionID
-        //                           join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-        //                           where oa.Activo && ronu.Activo && nu.Activo && roi.Activo && rfo.Activo && fe.Activo
-        //                           && fe.FolioAvisoEntradaID == r.FolioAvisoEntradaID
-        //                           select oa).AsParallel().ToList();
-
-        //                ordenes = ordenes.GroupBy(x => x.OrdenAlmacenajeID).Select(x => x.First()).ToList();
+        //                }
+                       
 
         //            }
                 

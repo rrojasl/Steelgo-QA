@@ -2398,7 +2398,7 @@
                             if (Error(data)) {
                                 AccionesAltaGuardadoParcial(data);
                                 i++;
-                                cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion[i], i);
+                                cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion[i], i, guardarynuevo);
                             }
                             loadingStop();
 
@@ -2420,7 +2420,7 @@
                             if (Error(data)) {
                                 AccionesAltaGuardadoParcial(data);
                                 i++;
-                                cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
+                                cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo);
                             }
                             loadingStop();
 
@@ -2431,13 +2431,13 @@
                 });
         };
 
-        function cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion,i) {
+        function cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado) {
             if (ListadoCuantificacion[i]) {
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
                     if (Error(data)) {
                         AccionesAltaGuardadoParcial(data);
                         i++;
-                        cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
+                        cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo);
                     };
                     loadingStop();
                 });
