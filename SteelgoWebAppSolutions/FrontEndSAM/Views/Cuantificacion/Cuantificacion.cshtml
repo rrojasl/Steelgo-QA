@@ -2216,7 +2216,7 @@
 
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
 
-            if (!ListadoCuantificacion.length) {
+            if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0046", '', '1');
             } else {
                 if (folioCuantificacionID != -1) {
@@ -2310,7 +2310,7 @@
 
             $.each(incompletos, function (key) {
                 var item =
-                       { ItemCode: incompletos[key].ItemCode, BultoID: dataJson[key].BultoID, Descripcion: incompletos[key].Descripcion, D1: incompletos[key].D1, D2: incompletos[key].D2, ItemCodeSteelgo: incompletos[key].ItemCodeSteelgo, Familia: incompletos[key].Familia, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, Colada: incompletos[key].Colada, Cantidad: incompletos[key].Cantidad, MM: dataJson[key].MM, Detallar: incompletos[key].Detallar, TieneNU: incompletos[key].TieneNU, TieneError: incompletos[key].TieneError };
+                       { ItemCode: incompletos[key].ItemCode, BultoID: incompletos[key].BultoID, Descripcion: incompletos[key].Descripcion, D1: incompletos[key].D1, D2: incompletos[key].D2, ItemCodeSteelgo: incompletos[key].ItemCodeSteelgo, Familia: incompletos[key].Familia, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, Colada: incompletos[key].Colada, Cantidad: incompletos[key].Cantidad, MM: incompletos[key].MM, Detallar: incompletos[key].Detallar, TieneNU: incompletos[key].TieneNU, TieneError: incompletos[key].TieneError };
                 $("#grid").data("kendoGrid").dataSource.insert(item);
             });
         };
