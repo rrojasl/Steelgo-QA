@@ -62,7 +62,12 @@ namespace BackEndSAM.DataAcces
                      }
                      else
                      {
-                         Sam3_FolioCuantificacion cuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.FolioAvisoEntradaID == AvisoEntrada && x.Activo).AsParallel().SingleOrDefault();
+                         Sam3_FolioCuantificacion cuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
+                                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                                    where fc.Activo && fe.Activo
+                                                                    && fe.FolioAvisoLlegadaID == AvisoEntrada
+                                                                    select fc).AsParallel().SingleOrDefault();
+
                          cuantificacion.Estatus = "En Proceso de Recepción";
                          cuantificacion.UsuarioModificacion = usuario.UsuarioID;
                          cuantificacion.FechaModificacion = DateTime.Now;

@@ -50,7 +50,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listFE = (from t in ctx.Sam3_FolioAvisoEntrada
-                              where t.FolioDescarga != 0 && t.Activo
+                              where t.FolioDescarga > 0 && t.Activo
                               select new ListaCombos
                                 {
                                     id = t.FolioAvisoLlegadaID.ToString(),
@@ -139,6 +139,9 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+
+                    // ¿Comó sabes que el proyecto no existe?
+
                     Sam3_Rel_FolioAvisoLlegada_Proyecto avPR = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
                     avPR.FolioAvisoLlegadaID = avisoLlegada;
                     avPR.ProyectoID = proyectoID;
@@ -191,8 +194,9 @@ namespace BackEndSAM.DataAcces
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
                             join Bul in ctx.Sam3_Bulto on t.FolioCuantificacionID equals Bul.FolioCuantificacionID into b1
                             from subBul in b1.DefaultIfEmpty()
-                            where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID && t.Activo && avll.Activo && tu.Activo
-
+                            where t.FolioCuantificacionID == folioCuantificacion 
+                            && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID 
+                            && t.Activo && avll.Activo && tu.Activo
                             select new InfoFolioCuantificacion
                             {
                                 ProyectoID = t.ProyectoID,

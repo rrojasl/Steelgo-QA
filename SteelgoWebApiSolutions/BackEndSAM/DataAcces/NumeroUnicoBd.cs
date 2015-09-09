@@ -231,6 +231,15 @@ namespace BackEndSAM.DataAcces
                                 ctx.Sam3_NumeroUnicoMovimiento.Add(movimiento);
                                 ctx.SaveChanges();
 
+                                //Actualizar el ItemCode para indicar que ya tiene un numero unico
+                                Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    .Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                actualizarRelacion.TieneNumerosUnicos = true;
+                                actualizarRelacion.FechaModificacion = DateTime.Now;
+                                actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.SaveChanges();
+
                             }
                             else //accesorio
                             {
@@ -299,6 +308,15 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                 }// fin for
                                 consecutivos.ConsecutivoNumerounico = folio;
+                                ctx.SaveChanges();
+
+                                //Actualizar el ItemCode para indicar que ya tiene un numero unico
+                                Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    .Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                actualizarRelacion.TieneNumerosUnicos = true;
+                                actualizarRelacion.FechaModificacion = DateTime.Now;
+                                actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+
                                 ctx.SaveChanges();
                             }// else
                         }// foreach

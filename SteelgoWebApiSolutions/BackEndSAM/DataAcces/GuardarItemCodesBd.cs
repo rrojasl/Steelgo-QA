@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.DataAcces
 {
@@ -39,7 +40,8 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, List<CuantificacionListado> datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
+        public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, 
+            List<CuantificacionListado> datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
         {
             try
             {
@@ -56,8 +58,18 @@ namespace BackEndSAM.DataAcces
                     using (SamContext ctx = new SamContext())
                     {
                       
-                        int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
-                        Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioAvisoEntradaID == avisoEntradaID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo).AsParallel().SingleOrDefault();
+                        //int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == FolioAvisollegadaId && x.Activo)
+                        //    .Select(x => x.FolioAvisoEntradaID).AsParallel().First();
+
+                        Sam3_FolioCuantificacion folioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
+                                                                        join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                                        where fc.Activo && fe.Activo
+                                                                        && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
+                                                                        select fc).AsParallel().SingleOrDefault();
+                            
+                            //ctx.Sam3_FolioCuantificacion
+                            //.Where(x => x.FolioAvisoEntradaID == avisoEntradaID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo)
+                            //.AsParallel().SingleOrDefault();
 
                         switch (tipoGuardado)
                         {
@@ -73,7 +85,7 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                 }
 
-                                foreach (var item in datosItemCode)
+                                foreach (CuantificacionListado item in datosItemCode)
                                 {
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
@@ -103,12 +115,29 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         //Obtenemos IDS
-                                        int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == item.ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().Single();
-                                        int itemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo where ics.Codigo == item.ItemCodeSteelgo && ics.Activo select ics.ItemCodeSteelgoID).AsParallel().Single();
-                                        int familiaID = (from fa in ctx.Sam3_FamiliaAcero where fa.Nombre == item.Familia && fa.Activo select fa.FamiliaAceroID).AsParallel().FirstOrDefault();
-                                        int tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial where fm.Nombre == item.TipoAcero && fm.Activo select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
-                                        int coladaID = (from c in ctx.Sam3_Colada where c.NumeroColada == item.Colada && c.Activo select c.ColadaID).AsParallel().FirstOrDefault();
-                                        int tipoMaterialID = (from tm in ctx.Sam3_ItemCode where tm.ItemCodeID == itemCodeID  && tm.Activo select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+                                        int itemCodeID = (from ic in ctx.Sam3_ItemCode 
+                                                          where ic.Codigo == item.ItemCode && ic.Activo 
+                                                          select ic.ItemCodeID).AsParallel().Single();
+
+                                        int itemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo 
+                                                                 where ics.Codigo == item.ItemCodeSteelgo && ics.Activo 
+                                                                 select ics.ItemCodeSteelgoID).AsParallel().Single();
+
+                                        int familiaID = (from fa in ctx.Sam3_FamiliaAcero 
+                                                         where fa.Nombre == item.Familia && fa.Activo 
+                                                         select fa.FamiliaAceroID).AsParallel().FirstOrDefault();
+
+                                        int tipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial 
+                                                           where fm.Nombre == item.TipoAcero && fm.Activo 
+                                                           select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
+
+                                        int coladaID = (from c in ctx.Sam3_Colada 
+                                                        where c.NumeroColada == item.Colada && c.Activo 
+                                                        select c.ColadaID).AsParallel().FirstOrDefault();
+
+                                        int tipoMaterialID = (from tm in ctx.Sam3_ItemCode 
+                                                              where tm.ItemCodeID == itemCodeID  && tm.Activo 
+                                                              select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
                                         item.ItemCodeID = itemCodeID.ToString();
                                         item.ItemCodeSteelgoID = itemCodeSteelgoID.ToString();
@@ -116,11 +145,17 @@ namespace BackEndSAM.DataAcces
                                         item.TipoAceroID = tipoAceroID;
                                         item.ColadaID = coladaID;
                                         item.TipoMaterial = tipoMaterialID;
+
                                         //Si es un item Code repetido en el grid, se suman las cantidades
                                         if (!creados.Contains(item.ItemCodeID))
                                         {
-                                            bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                            bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion 
+                                                    && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion 
+                                                    && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                             //Si ya existe Item Code y tiene NU
                                             if (existeYnumerosunicos)
@@ -130,7 +165,9 @@ namespace BackEndSAM.DataAcces
                                             else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                             {
                                                 //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).Any();
+                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                    .Where(x => x.ItemCodeID.ToString() == item.ItemCodeID 
+                                                        && x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).Any();
 
                                                 if (!existeRelICS)
                                                 {
@@ -150,8 +187,12 @@ namespace BackEndSAM.DataAcces
                                         }
                                         else //Si es repetido en el grid
                                         {
-                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+                                            IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel()
+                                                .SingleOrDefault();
+
+                                            IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo)
+                                                .Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+
                                             IC.UsuarioModificacion = usuario.UsuarioID;
                                             IC.FechaModificacion = DateTime.Now;
                                         }
@@ -697,6 +738,12 @@ namespace BackEndSAM.DataAcces
                                 #endregion
                                 break;
                         }
+
+#if DEBUG 
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        string json = serializer.Serialize(listaNuevosIC);
+#endif
+
                         return listaNuevosIC;
                     }
                 }
@@ -735,8 +782,7 @@ namespace BackEndSAM.DataAcces
         {
             using (SamContext ctx = new SamContext())
             {
-                Sam3_Bulto bulto = new Sam3_Bulto();
-                bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == bultoID && x.Activo).AsParallel().SingleOrDefault();
+                Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == bultoID && x.Activo).AsParallel().SingleOrDefault();
                 bulto.FolioCuantificacionID = FolioCuantificacion;
                 bulto.Estatus = "En Proceso de Recepción";
                 bulto.FechaModificacion = DateTime.Now;
@@ -755,11 +801,19 @@ namespace BackEndSAM.DataAcces
             {
                 bool TieneErrores = false;
                 //Revisar la cantidad de numeros unicos existentes
-                int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico where cnu.ItemCodeID.ToString() == item.ItemCodeID && cnu.Activo select cnu.NumeroUnicoID).Count();
-                int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault();
+                int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico 
+                                             where cnu.ItemCodeID.ToString() == item.ItemCodeID && cnu.Activo 
+                                             select cnu.NumeroUnicoID).Count();
+
+                int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo)
+                    .Select(c => c.Cantidad).AsParallel().SingleOrDefault();
+
                 //Solo suma cantidad
                 IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+
+                IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo)
+                    .Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
+
                 IC.UsuarioModificacion = usuario.UsuarioID;
                 IC.FechaModificacion = DateTime.Now;
                 ctx.SaveChanges();
