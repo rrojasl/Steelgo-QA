@@ -218,9 +218,7 @@ namespace BackEndSAM.DataAcces
 
                                 Estatus = subBul != null ? subBul.Estatus : t.Estatus,
 
-                                FolioLlegadaHijo = (from b in ctx.Sam3_Bulto
-                                             where b.FolioCuantificacionID == folioCuantificacion && b.Activo
-                                             select b.BultoID).FirstOrDefault()
+                                FolioLlegadaHijo = 0
 
                             }).AsParallel().FirstOrDefault();
                 }

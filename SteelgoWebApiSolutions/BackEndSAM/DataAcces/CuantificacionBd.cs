@@ -56,8 +56,8 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     //Para cuando no es la pantalla de Bulto
-                    //if (bultoID != 0)
-                    //{
+                    if (bultoID == 0)
+                    {
                     listado = (from fc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                join ic in ctx.Sam3_ItemCode on fc.ItemCodeID equals ic.ItemCodeID
                                //join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals ric.ItemCodeID
@@ -141,49 +141,50 @@ namespace BackEndSAM.DataAcces
                                      {
                                          ItemCode = "Bulto",
                                          Detallar = "Si",
-                                         Cantidad = 1
+                                         Cantidad = 1,
+                                         BultoID = b.BultoID.ToString()
                                      }).AsParallel().ToList();
 
                     listado.AddRange(listadoBultos);
 
-                    //}
-                    //else //Cuando es la pantalla de Bulto
-                    //{
-                    //    listado = (from rbic in ctx.Sam3_Rel_Bulto_ItemCode
-                    //               join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
-                    //               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                    //               join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                    //               where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo
-                    //               select new CuantificacionListado
-                    //               {
-                    //                   ItemCode = ic.ItemCodeID.ToString(),
-                    //                   Detallar = "No",
-                    //                   BultoID = rbic.BultoID.ToString(),
-                    //                   Descripcion = ics.DescripcionEspanol,
-                    //                   D1 = ics.Diametro1,
-                    //                   D2 = ics.Diametro2,
-                    //                   Cantidad = ic.Cantidad,
-                    //                   MM = ic.MM,
-                    //                   ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
+                    }
+                    else //Cuando es la pantalla de Bulto
+                    {
+                        listado = (from rbic in ctx.Sam3_Rel_Bulto_ItemCode
+                                   join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
+                                   join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
+                                   join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                   where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo
+                                   select new CuantificacionListado
+                                   {
+                                       ItemCode = ic.ItemCodeID.ToString(),
+                                       Detallar = "No",
+                                       BultoID = rbic.BultoID.ToString(),
+                                       Descripcion = ics.DescripcionEspanol,
+                                       D1 = ics.Diametro1,
+                                       D2 = ics.Diametro2,
+                                       Cantidad = ic.Cantidad,
+                                       MM = ic.MM,
+                                       ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
 
-                    //                   Familia = (from fa in ctx.Sam3_FamiliaAcero
-                    //                              where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
-                    //                              select fa.Nombre).FirstOrDefault(),
+                                       Familia = (from fa in ctx.Sam3_FamiliaAcero
+                                                  where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
+                                                  select fa.Nombre).FirstOrDefault(),
 
-                    //                   Cedula = ics.Cedula,
+                                       Cedula = ics.Cedula,
 
-                    //                   Colada = (from c in ctx.Sam3_Colada
-                    //                             where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
-                    //                             select c.NumeroColada).FirstOrDefault(),
+                                       Colada = (from c in ctx.Sam3_Colada
+                                                 where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
+                                                 select c.NumeroColada).FirstOrDefault(),
 
-                    //                   TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                    //                                join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                    //                                where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
-                    //                                select fm.Nombre).FirstOrDefault(),
+                                       TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                    join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                    where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
+                                                    select fm.Nombre).FirstOrDefault(),
 
-                    //                   TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial"
-                    //               }).AsParallel().ToList();
-                    //}
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial"
+                                   }).AsParallel().ToList();
+                    }
                 }
 
 #if DEBUG
