@@ -1634,7 +1634,7 @@
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
-                    $("#BultoID").val(result.FolioLlegadaHijo);
+                    $("#BultoID").val(_bultoID == -1 ? 0 : _bultoID);
                     $("#PackingList").val(result.PackingList);
                     $("#TipoPackingListID").data("kendoComboBox").value(result.TipoPackingList.id);
                     $("#TipoPackingListID").data("kendoComboBox").enable(false);
