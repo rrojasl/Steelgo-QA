@@ -593,6 +593,7 @@ namespace BackEndSAM.DataAcces
                                                 bic.UsuarioModificacion = usuario.UsuarioID;
                                                 bic.Activo = true;
                                                 ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+                                                ctx.SaveChanges();
 
                                                 if (!existeSINnumerosunicos)
                                                 {
@@ -645,6 +646,17 @@ namespace BackEndSAM.DataAcces
 
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
+
+                                //creo la relacion bulto IC
+                                Sam3_Rel_Bulto_ItemCode relacionBulto = new Sam3_Rel_Bulto_ItemCode();
+                                relacionBulto.BultoID = Int32.Parse(datosItemCode.BultoID);
+                                relacionBulto.ItemCodeID = IC.ItemCodeID;
+                                relacionBulto.TieneNumerosUnicos = false;
+                                relacionBulto.FechaModificacion = DateTime.Now;
+                                relacionBulto.UsuarioModificacion = usuario.UsuarioID;
+                                relacionBulto.Activo = true;
+                                ctx.Sam3_Rel_Bulto_ItemCode.Add(relacionBulto);
+                                ctx.SaveChanges();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
                                 if (datosItemCode.ItemCode == "Bulto")
