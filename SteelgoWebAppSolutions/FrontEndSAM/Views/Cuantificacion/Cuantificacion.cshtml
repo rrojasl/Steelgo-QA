@@ -2229,14 +2229,14 @@
                     _folioCuantificacion = data.FolioCuantificacionID;
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     cargarGridErrores(ListadoCuantificacionIncompletos);
-                    for (i = 0; i < ListadoCuantificacion.length; i++) {
-                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
-                            if (Error(data)) {
-                                AccionesGuardarGuardaryCerrar(data, incompletos);
-                            }
-                            loadingStop();
-                        });
-                    }
+
+                    $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
+                        if (Error(data)) {
+                            AccionesGuardarGuardaryCerrar(data, incompletos);
+                        }
+                        loadingStop();
+                    });
+
                 });
             }
         }
@@ -2325,21 +2325,20 @@
 
             CargarDefaults();
 
+            
             if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
                 llenarGrid(null, ListadoCuantificacionIncompletos);
                 ordenamientoGrid();
                 loadingStop();
                 return;
             }
-
-            var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
-
             
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0046", '', '1');
                 return;
             } 
-           
+            var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
+
             if (folioCuantificacionID != -1) {
                 EdicionListadoCuantificacionParcial(ArrayCuantificacion, false, false, folioAvisoEntradaID, ListadoCuantificacion, ListadoCuantificacionIncompletos, guardarynuevo, idGuardado);
             } else {
@@ -2349,12 +2348,14 @@
         };
 
         function GuardarListadoCuantificacionParcial(ArrayCuantificacion, cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, ListadoCuantificacionIncompletos, guardarynuevo, idGuardado) {
+            var i = 0;
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
                 if (Error(data)) {
                     $("#grid").data("kendoGrid").dataSource.data([]);
-                    cargarGridErrores(ListadoCuantificacionIncompletos);                    
-                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
+                    cargarGridErrores(ListadoCuantificacionIncompletos);
+                        
+                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
                             if (Error(data)) {
                                 AccionesAltaGuardadoParcial(data);
                                 i++;
@@ -2370,12 +2371,13 @@
         };
     
         function EdicionListadoCuantificacionParcial(ArrayCuantificacion, cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, ListadoCuantificacionIncompletos, guardarynuevo, idGuardado) {
+                var i = 0;
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
                     if (Error(data)) {
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         cargarGridErrores(ListadoCuantificacionIncompletos);
-                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
+                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
                             if (Error(data)) {
                                 AccionesAltaGuardadoParcial(data);
                                 i++;
@@ -2401,6 +2403,7 @@
                     loadingStop();
                 });
             } else {
+                loadingStop();
                 if (guardarynuevo) {
                     var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
