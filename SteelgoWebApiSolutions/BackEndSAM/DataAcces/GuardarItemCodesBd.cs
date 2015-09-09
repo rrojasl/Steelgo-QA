@@ -40,6 +40,23 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para los diferentes guardados de la informacion del grid de materiales en Cuantificacion
+        /// </summary>
+        /// <param name="cerrar">Si se debe cerrar/terminar el folio cuantificacion</param>
+        /// <param name="incompletos">Si hay datos incompletos en el grid</param>
+        /// <param name="FolioAvisollegadaId">folio aviso de llegada seleccionado</param>
+        /// <param name="FolioCuantificacion">Folio cuantificacion seleccionado</param>
+        /// <param name="datosItemCode">Lista de datos capturados en el grid</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <param name="tipoGuardado">tipo de guardado que se realizara
+        /// 1: Terminar y Nuevo
+        /// 2: Guardar y Cerrar
+        /// 3: Guardar Parcial
+        /// 4: Guardar y Terminar cuando se encuentra en la pantalla de bulto
+        /// 5: Guardar Parcial cuando se encuentra en la pantalla de bulto
+        /// </param>
+        /// <returns></returns>
         public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, 
             CuantificacionListado datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
         {
@@ -58,20 +75,12 @@ namespace BackEndSAM.DataAcces
                     using (SamContext ctx = new SamContext())
                     {
                       
-                        //int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == FolioAvisollegadaId && x.Activo)
-                        //    .Select(x => x.FolioAvisoEntradaID).AsParallel().First();
-
                         Sam3_FolioCuantificacion folioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                                         join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                                         where fc.Activo && fe.Activo
                                                                         && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
                                                                         && fc.FolioCuantificacionID == FolioCuantificacion
                                                                         select fc).AsParallel().SingleOrDefault();
-                            
-                            //ctx.Sam3_FolioCuantificacion
-                            //.Where(x => x.FolioAvisoEntradaID == avisoEntradaID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo)
-                            //.AsParallel().SingleOrDefault();
-
                         switch (tipoGuardado)
                         {
                             case 1: //Terminar y Nuevo
@@ -795,6 +804,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para insertar un bulto en la tabla Sam3_Bulto
+        /// </summary>
+        /// <param name="FolioCuantificacion">Folio Cuantificacion seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>Bulto object</returns>
         public Sam3_Bulto InsertarBulto(int FolioCuantificacion, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
@@ -812,6 +827,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para Actualizar un bulto
+        /// </summary>
+        /// <param name="FolioCuantificacion">Folio cuantificacion seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <param name="bultoID">Bulto a actualizar</param>
+        /// <returns>Bulto object</returns>
         public Sam3_Bulto ActualizarBulto(int FolioCuantificacion, Sam3_Usuario usuario, string bultoID)
         {
             using (SamContext ctx = new SamContext())
@@ -829,6 +851,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para Sumas las cantidades de ItemCodes
+        /// Cuando el itemCode seleccionado ya tiene numeros unicos
+        /// Tiene errores si la cantidad total capturada es menor a la cantidad de numeros unicos existentes
+        /// </summary>
+        /// <param name="item">Datos capturados en el grid</param>
+        /// <param name="IC">Item Code object</param>
+        /// <param name="usuario">Usuario Actual</param>
+        /// <returns>Si contiene errores</returns>
         public bool SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
@@ -859,6 +890,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para Actualizar un Item Code
+        /// </summary>
+        /// <param name="item">Datos capturados en el grid</param>
+        /// <param name="IC">Item Code object</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>ItemCode object</returns>
         public Sam3_ItemCode ActualizarItemCode(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
@@ -880,6 +918,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para actualizar un ItemCode Steelgo
+        /// </summary>
+        /// <param name="item">DAtos capturados en el grid de materiales</param>
+        /// <param name="ICS">ItemCodeSteelgo object</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>ItemCodeSteelgo object</returns>
         public Sam3_ItemCodeSteelgo ActualizarItemCodeSteelgo(CuantificacionListado item, Sam3_ItemCodeSteelgo ICS, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
@@ -905,6 +950,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para insertar una relacion entre Folio Cuantificacion y el ItemCode seleccionados
+        /// </summary>
+        /// <param name="FolioCuantificacion">Folio Cuantificacion seleccionado</param>
+        /// <param name="IC">ItemCode object</param>
+        /// <param name="usuario">usuario actual</param>
         public void InsertarRelacionFolioCuantificacion_IC(int FolioCuantificacion, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
@@ -923,6 +974,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para insertar una Relacion entre Item Code y ItemCodeSteelgo seleccionados
+        /// </summary>
+        /// <param name="item">Datos capturados en el grid</param>
+        /// <param name="usuario">usuario actual</param>
         public void InsertarRelacionIC_ICS(CuantificacionListado item, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
