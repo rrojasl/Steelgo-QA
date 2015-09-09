@@ -64,7 +64,7 @@ namespace BackEndSAM.DataAcces
 
                      ctx.SaveChanges();
 
-                     if (datosCuantificacion.BultoID != null)
+                     if (datosCuantificacion.BultoID > 0)
                      {
                          Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x => x.BultoID == datosCuantificacion.BultoID && x.Activo).AsParallel().SingleOrDefault();
                          bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;

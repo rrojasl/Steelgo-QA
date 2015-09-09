@@ -855,7 +855,7 @@ namespace BackEndSAM.DataAcces
 
                 ICS.DescripcionEspanol = item.Descripcion;
                 ICS.DescripcionIngles = item.Descripcion;
-                ICS.Peso = item.Peso;
+                //ICS.Peso = item.Peso;
                 ICS.Diametro1 = item.D1;
                 ICS.Diametro2 = item.D2;
                 ICS.FamiliaAceroID = Int32.Parse(item.FamiliaMaterial);
