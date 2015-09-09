@@ -40,69 +40,57 @@ namespace BackEndSAM.DataAcces
         }
 
         //obtener proyectos del usuario
-        public object ObtenerProyectosOrdenAlmacenaje(/*Sam3_Usuario usuario*/)
+        //public object ObtenerProyectosOrdenAlmacenaje(/*Sam3_Usuario usuario*/)
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == 1/*usuario.UsuarioID*/).Select(x => x.ProyectoID).AsParallel().ToList();
+
+        //            List<Proyecto> listProy = new List<Proyecto>();
+        //            Proyecto proy = new Proyecto();
+        //            proyectos.ForEach(x =>
+        //            {
+        //                proy = ctx.Sam3_Proyecto.Where(p => p.ProyectoID == x)
+        //                    .Select(o => new Proyecto
+        //                    {
+        //                        Nombre = o.Nombre,
+        //                        ProyectoID = o.ProyectoID.ToString()
+        //                    }).AsParallel().SingleOrDefault();
+        //                listProy.Add(proy);
+        //            });
+
+        //            return listProy;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+
+        //        return result;
+        //    }
+        //}
+
+        //obtener los folios de cuantificacion
+        public object ObtenerFoliosLlegadaOrdenAlmacenaje(int proyectoID)
         {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == 1/*usuario.UsuarioID*/).Select(x => x.ProyectoID).AsParallel().ToList();
-
-                    List<Proyecto> listProy = new List<Proyecto>();
-                    Proyecto proy = new Proyecto();
-                    proyectos.ForEach(x =>
-                    {
-                        proy = ctx.Sam3_Proyecto.Where(p => p.ProyectoID == x)
-                            .Select(o => new Proyecto
-                            {
-                                Nombre = o.Nombre,
-                                ProyectoID = o.ProyectoID.ToString()
-                            }).AsParallel().SingleOrDefault();
-                        listProy.Add(proy);
-                    });
-
-                    return listProy;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-        //obtener los folios de llegada 
-        public object ObtenerFoliosLlegadaOrdenAlmacenaje(Proyecto proyecto)
-        {
-            List<FolioEntradaYLlegada> listFolios = new List<FolioEntradaYLlegada>();
-            //List<int> listFolioCuantificacion = new List<int>();
+            List<int> listFolioCuantificacion = new List<int>();
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     //Si es Folio Cuantificacion
-                    //listFolioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
-                    //                           where fc.ProyectoID.ToString() == proyecto.ProyectoID
-                    //                           select fc.FolioCuantificacionID).AsParallel().ToList();
-
-
-                    listFolios = (from rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                  join ae in ctx.Sam3_FolioAvisoEntrada on rfp.FolioAvisoLlegadaID equals ae.FolioAvisoLlegadaID
-                                  where rfp.ProyectoID.ToString() == proyecto.ProyectoID
-                                  select new FolioEntradaYLlegada
-                                  {
-                                      FolioAvisoEntradaID = ae.FolioAvisoEntradaID,
-                                      FolioAvisoLlegadaID = rfp.FolioAvisoLlegadaID
-                                  }
-                          ).AsParallel().ToList();
+                    listFolioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
+                                               where fc.ProyectoID == proyectoID && fc.Activo
+                                               select fc.FolioCuantificacionID).AsParallel().ToList();
 
                 }
-                return listFolios;
+                return listFolioCuantificacion;
             }
             catch (Exception ex)
             {
@@ -116,9 +104,9 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerItemCodesOrdenAlmacenaje(int folioAvisoEntrada)
+        public object ObtenerItemCodesOrdenAlmacenaje(int folioCuantificacion)
         {
-            FolioCuantificacion folioCuantificacion = new FolioCuantificacion();
+            //FolioCuantificacion folioCuantificacion = new FolioCuantificacion();
             List<int> listItemCode = new List<int>();
             List<ItemCode> ComboItemCode = new List<ItemCode>();
             ItemCode itemCode = new ItemCode();
@@ -127,30 +115,22 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    folioCuantificacion.FolioCuantificacionID = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                 where fc.FolioAvisoEntradaID == folioAvisoEntrada
-                                                                 select fc.FolioCuantificacionID).AsParallel().First();
+                    List<int> ICOR = ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c => c.Activo).Select(x => x.ItemCodeID).AsParallel().ToList();
 
-                    listItemCode = (from ric in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                    where ric.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
-                                    select ric.ItemCodeID).AsParallel().ToList();
-
-                    foreach (var item in listItemCode)
-                    {
-                        itemCode = (from ic in ctx.Sam3_ItemCode
-                                    where ic.ItemCodeID == item
-                                    select new ItemCode
-                                    {
-                                        ItemCodeID = ic.ItemCodeID.ToString(),
-                                        Codigo = ic.Codigo
-                                    }).AsParallel().First();
-
-                        ComboItemCode.Add(itemCode);
-
-                    }
-
-                    return ComboItemCode;
+                    ComboItemCode = (from ic in ctx.Sam3_ItemCode
+                                     join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals rfc.ItemCodeID
+                                     where ic.Activo && rfc.Activo && !ICOR.Contains(ic.ItemCodeID) && rfc.FolioCuantificacionID == folioCuantificacion
+                                     select new ItemCode
+                                     {
+                                         ItemCodeID = ic.ItemCodeID.ToString(),
+                                         Codigo = ic.Codigo
+                                     }).AsParallel().ToList();
                 }
+                //SELECT ic.ItemCodeID FROM Sam3_ItemCode ic
+                //INNER JOIN Sam3_Rel_FolioCuantificacion_ItemCode rfc on ic.ItemCodeID = rfc.ItemCodeID 
+                //WHERE ic.ItemCodeID NOT IN (SELECT ItemCodeID FROM Sam3_Rel_OrdenRecepcion_ItemCode) AND rfc.FolioCuantificacionID = 77
+
+                return ComboItemCode;
             }
             catch (Exception ex)
             {
@@ -170,15 +150,14 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<int> NUconOrdenAlmacenaje = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                      where roa.Activo
+                                                      select roa.NumeroUnicoID).AsParallel().ToList();
+
                     List<int> numerosUnicos = new List<int>();
-                    List<int> numerosConOR = (from or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
-                                              where or.Activo
-                                              select or.ItemCodeID).AsParallel().ToList();
-
-
                     numerosUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                     where nu.ItemCodeID == itemCode && numerosConOR.Contains(itemCode)
-                                     select nu.NumeroUnicoID).AsParallel().ToList();
+                                         where nu.Activo && nu.ItemCodeID == itemCode && !NUconOrdenAlmacenaje.Contains(nu.NumeroUnicoID)
+                                         select nu.NumeroUnicoID).AsParallel().ToList();
 
                     return numerosUnicos;
                 }
@@ -201,24 +180,25 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<GridGeneracionOrdenAlmacenaje> listado = new List<GridGeneracionOrdenAlmacenaje>();
+                    List<OrdenAlmacenaje> listado = new List<OrdenAlmacenaje>();
 
                     listado = (from ic in ctx.Sam3_ItemCode
                                join ric in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals ric.ItemCodeID
                                join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                                join fc in ctx.Sam3_FolioCuantificacion on ric.FolioCuantificacionID equals fc.FolioCuantificacionID
                                where ic.ProyectoID == proyectoID && ric.FolioCuantificacionID == folioCuantificacion && nu.NumeroUnicoID == numeroUnicoID && ic.ItemCodeID == itemCodeID
-                               select new GridGeneracionOrdenAlmacenaje
+                               select new OrdenAlmacenaje
                                {
-                                   ItemCode = ic.ItemCodeID,
+                                   
+                                   ItemCodeID = ic.ItemCodeID.ToString(),
                                    Descripcion = ic.DescripcionEspanol,
-                                   D1 = ic.Diametro1,
-                                   D2 = ic.Diametro2,
-                                   Cantidad = ic.Cantidad,
-                                   PackingList = fc.PackingList,
-                                   NumeroUnico = (from numerounico in ctx.Sam3_NumeroUnico
+                                   D1 = ic.Diametro1.ToString(),
+                                   D2 = ic.Diametro2.ToString(),
+                                   Cantidad = ic.Cantidad.ToString(),
+                                   FolioCuantificacion = fc.PackingList,
+                                   NumerosUnicos = (from numerounico in ctx.Sam3_NumeroUnico
                                                   where numerounico.NumeroUnicoID == numeroUnicoID
-                                                  select numerounico.NumeroUnicoID).AsParallel().ToList()
+                                                  select numerounico.NumeroUnicoID).ToList()
                                }).AsParallel().ToList();
                     return listado;
                 }
@@ -450,7 +430,7 @@ namespace BackEndSAM.DataAcces
                                                          join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
                                                          where it.ItemCodeID == itemcodeID
                                                          select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
-                                     
+
                                     string formato = "D" + numeroDigitos.ToString();
 
                                     string[] codigo = i.NumeroUnico.Split('-').ToArray();
