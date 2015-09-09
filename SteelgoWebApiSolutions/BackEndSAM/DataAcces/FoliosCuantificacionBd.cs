@@ -189,6 +189,8 @@ namespace BackEndSAM.DataAcces
                     info = (from t in ctx.Sam3_FolioCuantificacion
                             join avll in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoEntradaID equals avll.FolioAvisoEntradaID
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
+                            join Bul in ctx.Sam3_Bulto on t.FolioCuantificacionID equals Bul.FolioCuantificacionID into b1
+                            from subBul in b1.DefaultIfEmpty()
                             where t.FolioCuantificacionID == folioCuantificacion && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
                             select new InfoFolioCuantificacion
                             {
@@ -209,7 +211,7 @@ namespace BackEndSAM.DataAcces
                                               select ic.TipoMaterialID).FirstOrDefault().ToString()
                                },
 
-                                Estatus = t.Estatus,
+                                Estatus = subBul != null ? subBul.Estatus : t.Estatus,
 
                                 FolioLlegadaHijo = (from b in ctx.Sam3_Bulto
                                              where b.FolioCuantificacionID == folioCuantificacion
