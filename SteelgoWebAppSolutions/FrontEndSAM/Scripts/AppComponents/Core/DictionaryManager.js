@@ -212,8 +212,8 @@ _dictionary = {
         "en-US": "Listado Packing List"
     },
     "menuLabel0025": {
-        "es-MX": "Cuantificación",
-        "en-US": "Quantification"
+        "es-MX": "Listado Packing List",
+        "en-US": "Listado Packing List"
     },
     "menuLabel0026": {
         "es-MX": "Cuantificación",
