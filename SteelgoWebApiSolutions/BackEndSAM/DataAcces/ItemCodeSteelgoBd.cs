@@ -179,6 +179,56 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Obtener el detalle de un item code steelgo
+        /// </summary>
+        /// <param name="itemCodeSteelgoID">item code steelgo seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>objeto con la informacion del item code steelgo</returns>
+        public object ObtenerDetalleitemCodeSteelgo(string ItemCode, string itemCodeSteelgo, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //ctx.Sam3_ItemCode.Select(x => x.ItemCodeID).Where(y => y.Codigo == ItemCode);
+                    ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
+                                                   where r.Activo && r.Codigo == itemCodeSteelgo
+                                                   select new ItemCodeSteelgoJson
+                                                   {
+                                                       Area = r.Area,
+                                                       Cedula = r.Cedula,
+                                                       DescripcionEspanol = r.DescripcionEspanol,
+                                                       DescripcionIngles = r.DescripcionIngles,
+                                                       Diametro1 = r.Diametro1,
+                                                       Diametro2 = r.Diametro2,
+                                                       Familia = (from fa in ctx.Sam3_FamiliaAcero
+                                                                  where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && r.Activo
+                                                                  select fa.Nombre).FirstOrDefault(),
+                                                       ItemCodeSteelgoID = r.ItemCodeSteelgoID,
+                                                       Peso = r.Peso,
+                                                       Codigo = r.Codigo,
+                                                       TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                                    join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                                    where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && fm.Activo
+                                                                    select fm.Nombre).FirstOrDefault(),
+                                                   }).AsParallel().SingleOrDefault();
+                    return detalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object InsertarRelacionItemCodes(List<AsociacionItemCodeSteelgo> asociaciones, Sam3_Usuario usuario)
         {
             try
