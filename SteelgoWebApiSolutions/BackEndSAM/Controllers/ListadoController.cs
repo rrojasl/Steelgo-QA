@@ -131,6 +131,16 @@ namespace BackEndSAM.Controllers
                         return ListadoBd.Instance.ListadoPackingList(filtros, usuario);
                     case 18: // Listado para combo de packing list
                         return ListadoBd.Instance.PackingListsParaComboFiltros(usuario);
+                        //Orden Almacenaje
+                    case 19: //Obtener lista de folios cuantificacion
+                         int proyectoAlmacenajeID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                         return OrdenAlmacenajeBd.Instance.ObtenerFoliosCuantificacionOrdenAlmacenaje(proyectoAlmacenajeID, usuario);
+                    case 20: //Obtener ItemCodes con Orden de Recepcion
+                         int folioCuantificacionID = filtros.FolioCuantificacionID != "" ? Convert.ToInt32(filtros.FolioCuantificacionID) : 0;
+                         return OrdenAlmacenajeBd.Instance.ObtenerItemCodesOrdenAlmacenaje(folioCuantificacionID, usuario);
+                    case 21: //Obtener Numeros Unicos sin Orden de Almacenaje
+                         int itemCodeID = filtros.ItemCodeID != "" ? Convert.ToInt32(filtros.ItemCodeID) : 0;
+                         return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCodeID, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

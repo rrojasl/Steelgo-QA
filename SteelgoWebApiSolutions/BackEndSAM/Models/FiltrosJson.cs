@@ -28,5 +28,6 @@ namespace BackEndSAM.Models
         public string PackingListID { get; set; }
         public string TipoMaterialID { get; set; }
         public string ItemCodeID { get; set; }
+        public string FolioCuantificacionID { get; set; }
     }
 }

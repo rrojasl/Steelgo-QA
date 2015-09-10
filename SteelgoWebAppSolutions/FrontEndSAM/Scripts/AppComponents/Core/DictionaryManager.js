@@ -199,6 +199,58 @@ _dictionary = {
         "es-MX": "Complemento de la Recepción",
         "en-US": "Reception Complement"
     },
+    "menuLabel0022": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "menuLabel0023": {
+        "es-MX": "Listado Recepción y Almacenaje",
+        "en-US": "Listado Recepción y Almacenaje"
+    },
+    "menuLabel0024": {
+        "es-MX": "Listado Packing List",
+        "en-US": "Listado Packing List"
+    },
+    "menuLabel0025": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "menuLabel0026": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "menuLabel0027": {
+        "es-MX": "Consulta y Edición de Cuantificacion",
+        "en-US": "Consulta y Edición de Cuantificacion"
+    },
+    "menuLabel0028": {
+        "es-MX": "Listado Orden de Recepción",
+        "en-US": "Listado Orden de Recepción"
+    },
+    "menuLabel0029": {
+        "es-MX": "Generar Orden de Recepción",
+        "en-US": "Generar Orden de Recepción"
+    },
+    "menuLabel0030": {
+        "es-MX": "Detalle de Orden de Recepción",
+        "en-US": "Detalle de Orden de Recepción"
+    },
+    "menuLabel0031": {
+        "es-MX": "Complementar Recepción",
+        "en-US": "Complementar Recepción"
+    },
+    "menuLabel0032": {
+        "es-MX": "Listado Orden Almacenaje",
+        "en-US": "Listado Orden Almacenaje"
+    },
+    "menuLabel0033": {
+        "es-MX": "Generar Orden Almacenaje",
+        "en-US": "Generar Orden Almacenaje"
+    },
+    "menuLabel0034": {
+        "es-MX": "Detalle de Orden de Almacenaje",
+        "en-US": "Detalle de Orden de Almacenaje"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
@@ -316,7 +368,7 @@ _dictionary = {
         "es-MX": "Dashboard Aviso Llegada",
         "en-US": "Dashboard Aviso Llegada"
     },
-    //Detalle Aviso Llegada- Partial view Labels
+//Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",
         "en-US": "Proyect"
@@ -677,7 +729,7 @@ _dictionary = {
         "es-MX": "Folio creado",
         "en-US": "Folio Created"
     },
-    //Entrada Material Partial view Labels
+//Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
         "es-MX": "Patio",
         "en-US": "Areaway"
@@ -930,7 +982,7 @@ _dictionary = {
         "es-MX": "Orden de Descarga Generada",
         "en-US": "Download Order Generation"
     },
-    //Listado Llegada Material
+//Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
         "en-US": "New Arrival"
@@ -1023,7 +1075,7 @@ _dictionary = {
         "es-MX": "Registrar Incidencia",
         "en-US": "Register Incidence"
     },
-    //Cuantificacion
+//Cuantificacion
     "Cuantificacion0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -1348,7 +1400,7 @@ _dictionary = {
         "es-MX": "Descargar Template",
         "en-US": "Download Template"
     },
-    //Formato Etiquetas
+//Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
         "en-US": "Unique Number: "
@@ -1393,7 +1445,7 @@ _dictionary = {
         "es-MX": "Imprimir",
         "en-US": "Print"
     },
-    //Formato Pase Salida
+//Formato Pase Salida
     "FormatoPaseSalida0001": {
         "es-MX": "Pase de Salida de Transportista",
         "en-US": "Carrier Pass Out"
@@ -1466,7 +1518,7 @@ _dictionary = {
         "es-MX": "número:",
         "en-US": "number:"
     },
-    //Autorizar Permiso
+//Autorizar Permiso
     "AutorizarPermiso0001": {
         "es-MX": "Folio",
         "en-US": "Folio Arrival Notice"
@@ -1499,7 +1551,7 @@ _dictionary = {
         "es-MX": "Listado de Avisos de Entrada",
         "en-US": "List Input Material"
     },
-    //Dashboard Aviso Legada
+//Dashboard Aviso Legada
     "DashboardAvisoLlegada0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -1540,7 +1592,7 @@ _dictionary = {
         "es-MX": "Sin Permiso",
         "en-US": "No permission"
     },
-    //Dashboard Llegada Material
+//Dashboard Llegada Material
     "DashboardLlegadaMaterial0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -1621,12 +1673,12 @@ _dictionary = {
         "es-MX": "Año",
         "en-US": "Year"
     },
-    //Home Partial View Labels
+//Home Partial View Labels
     "homeLabel0001": {
         "es-MX": "Casa",
         "en-US": "Home"
     },
-    //Pase De Salida
+//Pase De Salida
     "PaseDeSalida0001": {
         "es-MX": "Transacciones",
         "en-US": "Dealings"
@@ -1699,7 +1751,7 @@ _dictionary = {
         "es-MX": "Imprimir Pase de Salida",
         "en-US": "Print Pass Out"
     },
-    //
+//
     "FormatoIncicencias0001": {
         "es-MX": "numRFI",
         "en-US": "numRFI"
@@ -1756,7 +1808,7 @@ _dictionary = {
         "es-MX": "mmResponse",
         "en-US": "mmResponse"
     },
-    //Orden de Recepcion
+//Orden de Recepcion
     "GenerarOrdenRecepcion0001": {
         "es-MX": "Generar Orden Recepción",
         "en-US": "Generate Order Reception"
@@ -1853,7 +1905,7 @@ _dictionary = {
         "es-MX": "Aviso Llegada ID",
         "en-US": "Aviso Llegada ID"
     },
-    //Listado Orden de Recepcion
+//Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {
         "es-MX": "Generar Orden de Recepcion",
         "en-US": "Generate order of receipt"
@@ -1962,7 +2014,7 @@ _dictionary = {
         "es-MX": "Dashboard Recepción",
         "en-US": "Dashboard Reception"
     },
-    //Detalle Orden Recepcion
+//Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -2031,7 +2083,7 @@ _dictionary = {
         "es-MX": "Item Code",
         "en-US": "Item Code"
     },
-    //Orden de Alamacenaje
+//Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Orden de Almacenaje: ",
         "en-US": "Order storage: "
@@ -2100,7 +2152,7 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
-    //Listado de Orden de Almacenaje
+//Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -2189,7 +2241,7 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
-    //Generar Orden Almacenaje
+//Generar Orden Almacenaje
     "GenerarOrdenAlmacenaje0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -2298,7 +2350,7 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
-    //Dashboard Recepcion y Almacenaje
+//Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -2483,7 +2535,7 @@ _dictionary = {
         "es-MX": "Cantidad de incidencias",
         "en-US": "Number of incidents"
     },
-    //Listados Recepcion y Almacenaje
+//Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
         "en-US": "Client"
