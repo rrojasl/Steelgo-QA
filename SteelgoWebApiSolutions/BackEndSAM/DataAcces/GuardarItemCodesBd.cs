@@ -100,7 +100,7 @@ namespace BackEndSAM.DataAcces
                                 bulto = new Sam3_Bulto();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
+                                if (datosItemCode.ItemCode.Contains("Bulto"))
                                 {
                                     if (String.IsNullOrEmpty(datosItemCode.BultoID))
                                     {
@@ -251,7 +251,7 @@ namespace BackEndSAM.DataAcces
                                 bulto = new Sam3_Bulto();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
+                                if (datosItemCode.ItemCode.Contains("Bulto"))
                                 {
                                     if (String.IsNullOrEmpty(datosItemCode.BultoID))
                                     {
@@ -388,7 +388,7 @@ namespace BackEndSAM.DataAcces
                                 bulto = new Sam3_Bulto();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
+                                if (datosItemCode.ItemCode.Contains("Bulto"))
                                 {
                                     if (String.IsNullOrEmpty(datosItemCode.BultoID))
                                     {
@@ -533,7 +533,7 @@ namespace BackEndSAM.DataAcces
                                 ICS = new Sam3_ItemCodeSteelgo();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
+                                if (datosItemCode.ItemCode.Contains("Bulto"))
                                 {
                                     TieneErrores = true;
 
@@ -688,7 +688,7 @@ namespace BackEndSAM.DataAcces
                                 ICS = new Sam3_ItemCodeSteelgo();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
+                                if (datosItemCode.ItemCode.Contains("Bulto"))
                                 {
 
                                     TieneErrores = true;
