@@ -88,9 +88,9 @@ namespace BackEndSAM.Controllers
             string parametroBusqueda = filtros.ParametroBusqueda;
             string payload = "";
             string newToken = "";
-            //bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.token, out payload, out newToken);
-            //if (tokenValido)
-            //{
+            bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.token, out payload, out newToken);
+            if (tokenValido)
+            {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 switch (tipoListado)
@@ -150,16 +150,16 @@ namespace BackEndSAM.Controllers
                         return result;
                 }
 
-            //}
-            //else
-            //{
-            //    TransactionalInformation result = new TransactionalInformation();
-            //    result.ReturnMessage.Add(payload);
-            //    result.ReturnCode = 401;
-            //    result.ReturnStatus = false;
-            //    result.IsAuthenicated = false;
-            //    return result;
-            //}
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }
