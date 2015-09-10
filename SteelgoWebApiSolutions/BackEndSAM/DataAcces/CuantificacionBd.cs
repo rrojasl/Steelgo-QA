@@ -156,7 +156,8 @@ namespace BackEndSAM.DataAcces
                                    where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo
                                    select new CuantificacionListado
                                    {
-                                       ItemCode = ic.ItemCodeID.ToString(),
+                                       ItemCode = ic.Codigo,
+                                       ItemCodeID = ic.ItemCodeID.ToString(),
                                        Detallar = "No",
                                        BultoID = rbic.BultoID.ToString(),
                                        Descripcion = ics.DescripcionEspanol,

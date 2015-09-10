@@ -681,7 +681,7 @@ namespace BackEndSAM.DataAcces
 
                                         bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode
                                             .Where(x => x.BultoID.ToString() == datosItemCode.BultoID 
-                                             && x.ItemCodeID.ToString() == datosItemCode.ItemCode && x.Activo).Any();
+                                             && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID.ToString() && x.Activo).Any();
 
                                         if (!existeRelBultoIC)
                                         {
@@ -943,7 +943,7 @@ namespace BackEndSAM.DataAcces
             {
                 Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
                 bic.BultoID = Int32.Parse(item.BultoID);
-                bic.ItemCodeID = Int32.Parse(item.ItemCode);
+                bic.ItemCodeID = Int32.Parse(item.ItemCodeID);
                 bic.TieneNumerosUnicos = false;
                 bic.FechaModificacion = DateTime.Now;
                 bic.UsuarioModificacion = usuario.UsuarioID;

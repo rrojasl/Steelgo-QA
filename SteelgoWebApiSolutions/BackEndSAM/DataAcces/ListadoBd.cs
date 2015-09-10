@@ -1538,8 +1538,9 @@ namespace BackEndSAM.DataAcces
                             elemento = new ListadoPkList();
                             elemento.FechaFolioAvisoEntrada = r.FechaCreacion != null ? r.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
                             elemento.FolioCuantificacion = fc.FolioCuantificacionID.ToString();
-                            elemento.FolioEntrada = r.FolioAvisoEntradaID.ToString();
+                            elemento.FolioEntrada = r.FolioAvisoLlegadaID.ToString();
                             elemento.PackkingList = fc.PackingList;
+                            elemento.Estatus = r.Estatus;
 
                             elemento.TipoPackingList = (from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                                         join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
