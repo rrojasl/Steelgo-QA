@@ -252,27 +252,25 @@ namespace BackEndSAM.DataAcces
 
                         orden.ItemCodes = (from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
-                                           //join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.NumeroUnicoID
-                                           where rfc.Activo && ic.Activo //&& nu.Activo
+                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rfc.ItemCodeID equals rics.ItemCodeID
+                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                           where rfc.Activo && ic.Activo && rics.Activo && ics.Activo
                                            && rfc.FolioCuantificacionID == item.FolioCuantificacionID
                                            && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                where ror.Activo
                                                select ror.ItemCodeID).Contains(ic.ItemCodeID)
-                                           //&& !(from nunico in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                           //     where nunico.Activo
-                                           //     select nunico.NumeroUnicoID).Contains(nu.NumeroUnicoID)
                                            select new ElementoCuantificacionItemCode
                                            {
                                                ItemCodeID = ic.ItemCodeID.ToString(),
                                                Codigo = ic.Codigo,
-                                               Descripcion = ic.DescripcionEspanol,
+                                               Descripcion = ics.DescripcionEspanol,
                                                Cantidad = ic.Cantidad.ToString(),
-                                               D1 = ic.Diametro1.ToString(),
-                                               D2 = ic.Diametro2.ToString(),
+                                               D1 = ics.Diametro1.ToString(),
+                                               D2 = ics.Diametro2.ToString(),
                                                FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                NumerosUnicos = (from rfc2 in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                                                 join ic2 in ctx.Sam3_ItemCode on rfc2.ItemCodeID equals ic2.ItemCodeID
-                                                                join nu2 in ctx.Sam3_NumeroUnico on rfc2.ItemCodeID equals nu2.NumeroUnicoID
+                                                                join nu2 in ctx.Sam3_NumeroUnico on rfc2.ItemCodeID equals nu2.ItemCodeID
                                                                 where rfc2.Activo && ic2.Activo && nu2.Activo
                                                                 && rfc2.FolioCuantificacionID == item.FolioCuantificacionID
                                                                 && (from ror2 in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
@@ -319,7 +317,7 @@ namespace BackEndSAM.DataAcces
 
                         listado.Add(orden);
                     }
-                    return registros;
+                    return listado;
                 }
             }
             catch (Exception ex)
