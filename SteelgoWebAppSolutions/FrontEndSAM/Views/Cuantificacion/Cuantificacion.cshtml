@@ -2557,14 +2557,15 @@
             if (value != "Bulto") {
                 $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
-
-                    if (itemCodesJson.ItemCode == value) {
-                        lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
-                        lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
-                        lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
-                        lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
-                        lastEditedCellID.Detallar = "No";
-                    };
+                    if (itemCodesJson) {
+                        if (itemCodesJson.ItemCode == value) {
+                            lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
+                            lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
+                            lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
+                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
+                            lastEditedCellID.Detallar = "No";
+                        };
+                    }
                     $('#grid').data('kendoGrid').refresh();
                 });
             } else {
@@ -2588,16 +2589,17 @@
         function cargarItemCodeSteelgoAutocomplete(value) {
                 $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
-
-                    if (itemCodesJsonSteelgo.Codigo == value) {
-                        lastEditedCellIDSteelgo.ItemCodeSteelgo = itemCodesJsonSteelgo.Codigo;
-                        lastEditedCellIDSteelgo.Descripcion = itemCodesJsonSteelgo.DescripcionEspanol
-                        lastEditedCellIDSteelgo.D1 = itemCodesJsonSteelgo.Diametro1
-                        lastEditedCellIDSteelgo.D2 = itemCodesJsonSteelgo.Diametro2
-                        lastEditedCellIDSteelgo.Familia = itemCodesJsonSteelgo.Familia;
-                        lastEditedCellIDSteelgo.Cedula = itemCodesJsonSteelgo.Cedula;
-                        lastEditedCellIDSteelgo.TipoAcero = itemCodesJsonSteelgo.TipoAcero;
-                        lastEditedCellID.Detallar = "No";
+                    if (itemCodesJsonSteelgo) {
+                        if (itemCodesJsonSteelgo.Codigo == value) {
+                            lastEditedCellIDSteelgo.ItemCodeSteelgo = itemCodesJsonSteelgo.Codigo;
+                            lastEditedCellIDSteelgo.Descripcion = itemCodesJsonSteelgo.DescripcionEspanol
+                            lastEditedCellIDSteelgo.D1 = itemCodesJsonSteelgo.Diametro1
+                            lastEditedCellIDSteelgo.D2 = itemCodesJsonSteelgo.Diametro2
+                            lastEditedCellIDSteelgo.Familia = itemCodesJsonSteelgo.Familia;
+                            lastEditedCellIDSteelgo.Cedula = itemCodesJsonSteelgo.Cedula;
+                            lastEditedCellIDSteelgo.TipoAcero = itemCodesJsonSteelgo.TipoAcero;
+                            lastEditedCellID.Detallar = "No";
+                        }
                     }
                     $('#grid').data('kendoGrid').refresh();
 
@@ -2609,15 +2611,16 @@
                 .appendTo(container)
                 .kendoAutoComplete({
                     dataTextField: "Codigo",
-                    //dataValueField: "ItemCodeID",
+                    dataValueField: "ItemCodeID",
                     filter: "contains",
+                    minLength: 3,
                     dataSource: {
                         type: "json",
+                        serverFiltering: true,
                         transport: {
                             read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
                             //read: $URLItemCode + "&" + container.parent().children()[0].innerText + "&TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
-                        },
-                        serverFiltering: true
+                        }
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
@@ -2660,8 +2663,8 @@
             $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
-                    dataTextField: "Codigo",
-                    dataValueField: "ItemCodeSteelgoID",
+                    dataTextField: "value",
+                    dataValueField: "id",
                     dataSource: {
                         type: "json",
                         transport: {

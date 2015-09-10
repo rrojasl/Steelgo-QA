@@ -79,18 +79,20 @@ namespace BackEndSAM.DataAcces
         //obtener los folios de cuantificacion
         public object ObtenerFoliosCuantificacionOrdenAlmacenaje(int proyectoID, Sam3_Usuario usuario)
         {
-            List<int> listFolioCuantificacion = new List<int>();
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     //Si es Folio Cuantificacion
-                    listFolioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
-                                               where fc.ProyectoID == proyectoID
-                                               && fc.Activo
-                                               select fc.FolioCuantificacionID).AsParallel().ToList();
+                    List<ListaCombos> lstFolios = (from fc in ctx.Sam3_FolioCuantificacion
+                                                   where fc.ProyectoID == proyectoID
+                                                   && fc.Activo
+                                                   select new ListaCombos { 
+                                                        id= fc.FolioCuantificacionID.ToString(),
+                                                        value=fc.FolioCuantificacionID.ToString()
+                                                   }).AsParallel().ToList();
+                    return lstFolios;
                 }
-                return listFolioCuantificacion;
             }
             catch (Exception ex)
             {
@@ -106,7 +108,7 @@ namespace BackEndSAM.DataAcces
 
         public object ObtenerItemCodesOrdenAlmacenaje(int folioCuantificacion, Sam3_Usuario usuario)
         {
-            List<ItemCode> ComboItemCode = new List<ItemCode>();
+            List<ListaCombos> ComboItemCode = new List<ListaCombos>();
 
             try
             {
@@ -119,10 +121,10 @@ namespace BackEndSAM.DataAcces
                                      && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                          where ror.Activo
                                          select ror.ItemCodeID).Contains(ic.ItemCodeID)
-                                     select new ItemCode
+                                     select new ListaCombos
                                      {
-                                         ItemCodeID = ic.ItemCodeID.ToString(),
-                                         Codigo = ic.Codigo
+                                         id = ic.ItemCodeID.ToString(),
+                                         value = ic.Codigo
                                      }).AsParallel().ToList();
                 }
 
