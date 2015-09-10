@@ -139,7 +139,7 @@ namespace BackEndSAM.DataAcces
                                      where b.FolioCuantificacionID == folioCuantificacion && b.Activo
                                      select new CuantificacionListado
                                      {
-                                         ItemCode = "Bulto",
+                                         ItemCode = string.Format("Bulto No. {0}", b.BultoID.ToString()),
                                          Detallar = "Si",
                                          Cantidad = 1,
                                          BultoID = b.BultoID.ToString()

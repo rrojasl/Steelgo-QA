@@ -95,8 +95,6 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                 }
 
-                                // foreach (var item in datosItemCode)
-                                //{
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
                                 bulto = new Sam3_Bulto();
@@ -151,9 +149,6 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    //Si es un item Code repetido en el grid, se suman las cantidades
-                                    //if (!creados.Contains(datosItemCode.ItemCodeID))
-                                    //{
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
@@ -182,14 +177,6 @@ namespace BackEndSAM.DataAcces
                                             InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                         }
                                     }
-                                    //}
-                                    //else //Si es repetido en el grid
-                                    //{
-                                    //    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                                    //    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + datosItemCode.Cantidad;
-                                    //    IC.UsuarioModificacion = usuario.UsuarioID;
-                                    //    IC.FechaModificacion = DateTime.Now;
-                                    //}
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -232,8 +219,6 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                 }
 
-                                // foreach (var item in datosItemCode)
-                                //{
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
                                 bulto = new Sam3_Bulto();
@@ -288,9 +273,7 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    //Si es un item Code repetido en el grid, se suman las cantidades
-                                    //if (!creados.Contains(datosItemCode.ItemCodeID))
-                                    //{
+                                   
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
@@ -319,14 +302,6 @@ namespace BackEndSAM.DataAcces
                                             InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                         }
                                     }
-                                    //}
-                                    //else //Si es repetido en el grid
-                                    //{
-                                    //    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                                    //    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + datosItemCode.Cantidad;
-                                    //    IC.UsuarioModificacion = usuario.UsuarioID;
-                                    //    IC.FechaModificacion = DateTime.Now;
-                                    //}
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -349,9 +324,6 @@ namespace BackEndSAM.DataAcces
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU
                                     });
-
-                                    //creados.Add(datosItemCode.ItemCodeID);
-                                    //}
                                 }
                                 scope.Complete();
                                 #endregion
@@ -415,9 +387,6 @@ namespace BackEndSAM.DataAcces
                                                              where tm.ItemCodeID == itemCodeID && tm.Activo
                                                              select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                        //Si es un item Code repetido en el grid, se suman las cantidades
-                                        //if (!creados.Contains(datosItemCode.ItemCodeID))
-                                        //{
                                             bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                             bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
@@ -446,14 +415,6 @@ namespace BackEndSAM.DataAcces
                                                     InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
-                                        //}
-                                        //else //Si es repetido en el grid
-                                        //{
-                                        //    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                                        //    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + datosItemCode.Cantidad;
-                                        //    IC.UsuarioModificacion = usuario.UsuarioID;
-                                        //    IC.FechaModificacion = DateTime.Now;
-                                        //}
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
@@ -477,8 +438,6 @@ namespace BackEndSAM.DataAcces
                                             TieneNU = datosItemCode.TieneNU
                                         });
 
-                                        //creados.Add(datosItemCode.ItemCodeID);
-                                    //}
                                 }
                                 scope.Complete();
                                 #endregion
@@ -497,9 +456,6 @@ namespace BackEndSAM.DataAcces
                                     bulto.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
                                 }
-                                //foreach (var item in datosItemCode)
-                                //{
-
                                     IC = new Sam3_ItemCode();
                                     ICS = new Sam3_ItemCodeSteelgo();
 
@@ -559,9 +515,6 @@ namespace BackEndSAM.DataAcces
                                                              where tm.ItemCodeID == itemCodeID && tm.Activo
                                                              select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                        //Si es un item Code repetido en el grid, se suman las cantidades
-                                        //if (!creados.Contains(datosItemCode.ItemCodeID))
-                                        //{
                                         bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
                                         bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
@@ -584,31 +537,20 @@ namespace BackEndSAM.DataAcces
                                                 IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                                 ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-                                                //creo la relacion bulto IC
-                                                Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
-                                                bic.BultoID = Int32.Parse(datosItemCode.BultoID);
-                                                bic.ItemCodeID = IC.ItemCodeID;
-                                                bic.TieneNumerosUnicos = false;
-                                                bic.FechaModificacion = DateTime.Now;
-                                                bic.UsuarioModificacion = usuario.UsuarioID;
-                                                bic.Activo = true;
-                                                ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
-                                                ctx.SaveChanges();
+                                                //Creo relacion bulto item code
+                                                bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID && x.ItemCodeID.ToString() == datosItemCode.ItemCode && x.Activo).Any();
 
+                                                if (!existeRelBultoIC)
+                                                {
+                                                    CrearRelacionBulto_IC(datosItemCode, usuario);
+                                                }
+                                               
                                                 if (!existeSINnumerosunicos)
                                                 {
                                                     //Insertar la Relacion Folio Cuantificacion IC
                                                     InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                                 }
                                             }
-                                        //}
-                                        //else //Si es repetido en el grid
-                                        //{
-                                        //    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                                        //    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                        //    IC.UsuarioModificacion = usuario.UsuarioID;
-                                        //    IC.FechaModificacion = DateTime.Now;
-                                        //}
 
                                         listaNuevosIC.Add(new CuantificacionListado
                                         {
@@ -631,7 +573,6 @@ namespace BackEndSAM.DataAcces
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU
                                         });
-                                        //creados.Add(datosItemCode.ItemCodeID);
                                     }
                                 //}
                                 scope.Complete();
@@ -646,17 +587,6 @@ namespace BackEndSAM.DataAcces
 
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
-
-                                //creo la relacion bulto IC
-                                Sam3_Rel_Bulto_ItemCode relacionBulto = new Sam3_Rel_Bulto_ItemCode();
-                                relacionBulto.BultoID = Int32.Parse(datosItemCode.BultoID);
-                                relacionBulto.ItemCodeID = IC.ItemCodeID;
-                                relacionBulto.TieneNumerosUnicos = false;
-                                relacionBulto.FechaModificacion = DateTime.Now;
-                                relacionBulto.UsuarioModificacion = usuario.UsuarioID;
-                                relacionBulto.Activo = true;
-                                ctx.Sam3_Rel_Bulto_ItemCode.Add(relacionBulto);
-                                ctx.SaveChanges();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
                                 if (datosItemCode.ItemCode == "Bulto")
@@ -714,9 +644,6 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    //Si es un item Code repetido en el grid, se suman las cantidades
-                                    //if (!creados.Contains(datosItemCode.ItemCodeID))
-                                    //{
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
@@ -728,7 +655,9 @@ namespace BackEndSAM.DataAcces
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
 
                                         if (!existeRelICS)
                                         {
@@ -739,15 +668,14 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                         ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-                                        //creo la relacion bulto IC
-                                        Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
-                                        bic.BultoID = Int32.Parse(datosItemCode.BultoID);
-                                        bic.ItemCodeID = IC.ItemCodeID;
-                                        bic.TieneNumerosUnicos = false;
-                                        bic.FechaModificacion = DateTime.Now;
-                                        bic.UsuarioModificacion = usuario.UsuarioID;
-                                        bic.Activo = true;
-                                        ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+                                        bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode
+                                            .Where(x => x.BultoID.ToString() == datosItemCode.BultoID 
+                                             && x.ItemCodeID.ToString() == datosItemCode.ItemCode && x.Activo).Any();
+
+                                        if (!existeRelBultoIC)
+                                        {
+                                            CrearRelacionBulto_IC(datosItemCode, usuario);
+                                        }
 
                                         if (!existeSINnumerosunicos)
                                         {
@@ -755,14 +683,6 @@ namespace BackEndSAM.DataAcces
                                             InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                         }
                                     }
-                                    //}
-                                    //else //Si es repetido en el grid
-                                    //{
-                                    //    IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                                    //    IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-                                    //    IC.UsuarioModificacion = usuario.UsuarioID;
-                                    //    IC.FechaModificacion = DateTime.Now;
-                                    //}
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -785,9 +705,7 @@ namespace BackEndSAM.DataAcces
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU
                                     });
-                                    //creados.Add(datosItemCode.ItemCodeID);
                                 }
-                                //}
                                 scope.Complete();
 
                                 #endregion
@@ -1003,6 +921,28 @@ namespace BackEndSAM.DataAcces
                 ics.UsuarioModificacion = usuario.UsuarioID;
 
                 ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Add(ics);
+                ctx.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Funcion para insertar la relacion Bulto Item Code
+        /// </summary>
+        /// <param name="item">Datos capturados en el grid</param>
+        /// <param name="usuario">usuario actual</param>
+       public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario)
+        {
+             //creo la relacion bulto IC
+            using (SamContext ctx = new SamContext())
+            {
+                Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
+                bic.BultoID = Int32.Parse(item.BultoID);
+                bic.ItemCodeID = Int32.Parse(item.ItemCode);
+                bic.TieneNumerosUnicos = false;
+                bic.FechaModificacion = DateTime.Now;
+                bic.UsuarioModificacion = usuario.UsuarioID;
+                bic.Activo = true;
+                ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
                 ctx.SaveChanges();
             }
         }
