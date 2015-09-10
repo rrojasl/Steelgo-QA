@@ -166,14 +166,11 @@
     <Compile Include="Controllers\DummyPaseSalidaEnviadoController.cs" />
     <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
-    <Compile Include="Controllers\FoliosCuantificacionOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\GenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
-    <Compile Include="Controllers\ItemCodesOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\ListadoCuantificacionController.cs" />
-    <Compile Include="Controllers\NumerosUnicosOrdenAlmacenaje.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
@@ -347,6 +344,7 @@
     <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />
+    <Compile Include="Models\ListadoGenerarOrdenAlmacenaje.cs" />
     <Compile Include="Models\ListadoGenerarOrdenRecepcion.cs" />
     <Compile Include="Models\ListadoMaterialesSinCuantificar.cs" />
     <Compile Include="Models\GridGeneracionOrdenAlmacenaje.cs" />

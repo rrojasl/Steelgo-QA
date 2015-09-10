@@ -29,7 +29,7 @@ namespace BackEndSAM.Controllers
         //    ElementoCuantificacionItemCode itemcode1 = new ElementoCuantificacionItemCode();
         //    ElementoCuantificacionItemCode itemcode2 = new ElementoCuantificacionItemCode();
 
-        //    List<ElementoNumeroUnico> lstNumeros = new List<ElementoNumeroUnico>();
+        //List<ElementoNumeroUnico> lstNumeros = new List<ElementoNumeroUnico>();
         //    ElementoNumeroUnico numero1 = new ElementoNumeroUnico();
         //    ElementoNumeroUnico numero2 = new ElementoNumeroUnico();
         //    ElementoNumeroUnico numero3 = new ElementoNumeroUnico();

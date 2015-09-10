@@ -49,6 +49,34 @@ namespace BackEndSAM.Controllers
         //    }
         //}
 
+        public object Get(string data, string token)
+        {
+            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            string payload = "";
+            //string newToken = "";
+            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            //if (tokenValido)
+            //{
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                FiltrosOrdenAlmacenaje filtros = ser.Deserialize<FiltrosOrdenAlmacenaje>(data);
+
+                return OrdenAlmacenajeBd.Instance.ObtenerListadoGenerarOrdenAlmacenaje(filtros/*, usuario*/);
+
+            //}
+            //else
+            //{
+            //    TransactionalInformation result = new TransactionalInformation();
+            //    result.ReturnMessage.Add(payload);
+            //    result.ReturnCode = 401;
+            //    result.ReturnStatus = false;
+            //    result.IsAuthenicated = false;
+            //    return result;
+            //}
+        }
+
         // POST api/<controller>
         public object Post(List<int> listaNU, string token)
         {
