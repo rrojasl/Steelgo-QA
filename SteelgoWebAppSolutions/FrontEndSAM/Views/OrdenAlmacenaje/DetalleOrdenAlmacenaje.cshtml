@@ -3,6 +3,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="GenerarOrdenAlmacenaje0001"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenAlmacenaje0002"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="GenerarOrdenAlmacenaje0003"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="GenerarOrdenAlmacenaje0004"></span></a>
+    </li>
+}
+
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div id="formOrdenAlmacenaje" class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -363,7 +378,7 @@
                     { field: "D1", title: _dictionary.DetalleOrdenAlmacenaje0013[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "D2", title: _dictionary.DetalleOrdenAlmacenaje0014[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "Cantidad", title: _dictionary.DetalleOrdenAlmacenaje0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
-                    { field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioItemCode(this)'>Cancelar</a>" }
+                    //{ field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioItemCode(this)'>Cancelar</a>" }
                 ]
             });
         }

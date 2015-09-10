@@ -5,13 +5,13 @@
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenRecepcion0025"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoPackingList0021"></span></a>
     </li>
     <li>
-        <a href=""><span id="ListadoOrdenRecepcion0027"></span></a>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ListadoPackingList0022"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="ListadoOrdenRecepcion0026"></span></a>
+        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="ListadoPackingList0020"></span></a>
     </li>
 }
 
@@ -67,7 +67,7 @@
     {
     var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
 
-    var $ListadoOrdenRecepcionModel = {
+    var $ListadoPackingListModel = {
         listContainer: {
             create: "#Nuevo",
             list: "#grid",
@@ -215,11 +215,11 @@
             columns: [
                 { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], width: "110px", template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>" },
-                { field: "PackingList", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "TipoPackingList", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "TipoUso", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "Estatus", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()], width: "110px" },
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -229,30 +229,7 @@
         }).getKendoGrid();
     };
 
-    function detailInit(e) {
-        $("<div/>").appendTo(e.detailCell).kendoGrid({
-            dataSource: {
-                data: e.data.Detalle,
-                schema: {
-                    model: {
-                        fields: {
-                            ItemCode: { type: "string" },
-                            Cantidad: { type: "int" }
-                        }
-                    }
-                }
-            },
-            //dataBound: onDataBoundDetail,
-            autoBind: true,
-            scrollable: false,
-            sortable: false,
-            columns: [
-                { field: "AvisoEntrada", title: _dictionary.ListadoOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "110px", },
-                { field: "Itemcode", title: _dictionary.ListadoOrdenRecepcion0021[$("#language").data("kendoDropDownList").value()], width: "110px", },
-                { field: "Cantidad", title: _dictionary.ListadoOrdenRecepcion0022[$("#language").data("kendoDropDownList").value()], width: "50px" }
-            ]
-        });
-    }
+   
 
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
@@ -289,11 +266,11 @@
             dataTextField: "Periodo",
             dataValueField: "PeriodoID",
             dataSource: [
-                { "PeriodoID": "1", "Periodo": _dictionary.ListadoOrdenRecepcion0014[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "2", "Periodo": _dictionary.ListadoOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "3", "Periodo": _dictionary.ListadoOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "4", "Periodo": _dictionary.ListadoOrdenRecepcion0017[$("#language").data("kendoDropDownList").value()] },
-                { "PeriodoID": "5", "Periodo": _dictionary.ListadoOrdenRecepcion0018[$("#language").data("kendoDropDownList").value()] }
+                { "PeriodoID": "1", "Periodo": _dictionary.ListadoPackingList0015[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "2", "Periodo": _dictionary.ListadoPackingList0016[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "3", "Periodo": _dictionary.ListadoPackingList0017[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "4", "Periodo": _dictionary.ListadoPackingList0018[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "5", "Periodo": _dictionary.ListadoPackingList0019[$("#language").data("kendoDropDownList").value()] }
             ],
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
@@ -498,9 +475,9 @@
 
     }
     @section JavascriptDocumentReadyHomeCookie {
-    $authorizationModel["Orden Recepcion"] = $ListadoOrdenRecepcionModel;
+    $authorizationModel["Cuantificacion"] = $ListadoPackingListModel;
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "15", { path: '/' });
+    Cookies.set("navegacion", "19", { path: '/' });
     }
 
 </script>

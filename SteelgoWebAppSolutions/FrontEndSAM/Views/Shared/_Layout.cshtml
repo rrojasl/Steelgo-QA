@@ -505,19 +505,23 @@
         };
 
         function Error(data) {
-            if (data.ReturnCode) {
-                if (data.ReturnCode != 200) {
-                    if (data.ReturnCode == 401) {
-                        removeUserSession();
+            if (data) {
+                if (data.ReturnCode) {
+                    if (data.ReturnCode != 200) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                        } else {
+                            displayMessage("notificationslabel0009", data.ReturnMessage, '2');
+                            return;
+                        }
                     } else {
-                        displayMessage("notificationslabel0009", data.ReturnMessage, '2');
-                        return;
+                        return true;
                     }
                 } else {
                     return true;
                 }
             } else {
-                return true;
+                return false;
             }
         };
     </script>

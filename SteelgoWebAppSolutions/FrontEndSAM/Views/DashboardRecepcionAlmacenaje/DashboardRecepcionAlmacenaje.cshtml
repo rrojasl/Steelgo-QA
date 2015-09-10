@@ -512,7 +512,7 @@
         function DefinicionColumnasEntradasPorCuantificar() {
             var columnas =
             [
-                { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "FolioAvisoEntrada", title: _dictionary.DashboardRecepcionAlmacenaje0029[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleEntradaPorCuantificar(#:FolioAvisoEntrada#)'>#:FolioAvisoEntrada#</a>" },
                 { field: "FechaDescarga", title: _dictionary.DashboardRecepcionAlmacenaje0030[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Cliente", title: _dictionary.DashboardRecepcionAlmacenaje0031[$("#language").data("kendoDropDownList").value()], filterable: true },
                 //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarFolio }, title: " ", width: "99px" }
@@ -544,6 +544,12 @@
                 };
                 loadingStop();
             });
+        };
+
+        function MostrarDetalleEntradaPorCuantificar(folioAvisoLlegadaID) {
+            var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID;
+
         };
 
         function DefinicionModeloPLporCuantificar() {

@@ -8,7 +8,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="GenerarOrdenRecepcion0020"></span></a>
     </li>
     <li>
-        <a href=""><span id="GenerarOrdenRecepcion0021"></span></a>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenRecepcion0021"></span></a>
     </li>
     <li>
         <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="GenerarOrdenRecepcion0022"></span></a>
@@ -469,7 +469,7 @@
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + data.ReturnMessage[1];
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
                 }
             });
         } else {

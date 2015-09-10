@@ -2,6 +2,21 @@
 @{
     ViewBag.Title = "Detalle Orden Recepcion";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="DetalleOrdenRecepcion0021"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="DetalleOrdenRecepcion0020"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")"><span id="DetalleOrdenRecepcion0019"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")"><span id="DetalleOrdenRecepcion0018"></span></a>
+    </li>
 }
 
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">

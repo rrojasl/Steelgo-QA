@@ -9,7 +9,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="GenerarOrdenAlmacenaje0001"></span></a>
     </li>
     <li>
-        <a href=""><span id="GenerarOrdenAlmacenaje0002"></span></a>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenAlmacenaje0002"></span></a>
     </li>
     <li>
         <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="GenerarOrdenAlmacenaje0003"></span></a>
@@ -97,7 +97,7 @@
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
     
 
-    var $GenerarOrdenRecepcionModel = {
+    var $GenerarOrdenAlmacenajeModel = {
         listContainer: {
             create: "#Guardar",
             list: "#grid",
@@ -406,9 +406,9 @@
         var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
         
-        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID, TipoListado: "8", token: Cookies.get("token") };
+        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID };
 
-        $DummyGenerarOrdenAlmacenaje.DummyGenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+        $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                         _resultadoJson = result;
                         if (_resultadoJson.length > 0) {
@@ -566,7 +566,7 @@
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    var url = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+                    var url = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
                     window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
                 }
             });
@@ -594,7 +594,7 @@
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenAlmacenajeID;
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + data.ReturnMessage[1];
                 }
             });
         } else {
@@ -814,7 +814,7 @@
 
     @section JavascriptDocumentReadyFunctions 
     {
-    $authorizationModel["Orden Recepcion"] = $GenerarOrdenRecepcionModel;
+    $authorizationModel["Orden Almacenaje"] = $GenerarOrdenAlmacenajeModel;
     CargaInicial();
     
     if (_folioCuantificacionID != "-1" && _proyectoID != "-1") {
@@ -825,6 +825,6 @@
 
     @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "13", { path: '/' });
+    Cookies.set("navegacion", "16", { path: '/' });
     }
 </script>

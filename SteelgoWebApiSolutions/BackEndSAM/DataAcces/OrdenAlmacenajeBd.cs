@@ -319,7 +319,7 @@ namespace BackEndSAM.DataAcces
 
                         listado.Add(orden);
                     }
-                    return registros;
+                    return listado;
                 }
             }
             catch (Exception ex)

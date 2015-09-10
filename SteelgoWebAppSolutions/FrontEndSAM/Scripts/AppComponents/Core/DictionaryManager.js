@@ -1146,7 +1146,7 @@ _dictionary = {
     },
     "Cuantificacion0018": {
         "es-MX": "Tipo Uso",
-        "en-US": "Tipo Uso"
+        "en-US": "Type Use"
     },
     "Cuantificacion0019": {
         "es-MX": "Carga Masiva",
@@ -1890,8 +1890,8 @@ _dictionary = {
         "en-US": "Home"
     },
     "GenerarOrdenRecepcion0021": {
-        "es-MX": "Dashboard Recepción",
-        "en-US": "Dashboard Reception"
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
     },
     "GenerarOrdenRecepcion0022": {
         "es-MX": "Listado Orden de Recepción",
@@ -2011,8 +2011,8 @@ _dictionary = {
         "en-US": "Listed in order of receipt"
     },
     "ListadoOrdenRecepcion0027": {
-        "es-MX": "Dashboard Recepción",
-        "en-US": "Dashboard Reception"
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
     },
 //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
@@ -2082,6 +2082,22 @@ _dictionary = {
     "DetalleOrdenRecepcion0017": {
         "es-MX": "Item Code",
         "en-US": "Item Code"
+    },
+    "DetalleOrdenRecepcion0018": {
+        "es-MX": "Detalle Orden de Recepción",
+        "en-US": "Detail Reception Order "
+    },
+    "DetalleOrdenRecepcion0019": {
+        "es-MX": "Listado Orden de Recepción",
+        "en-US": "Listed in order of receipt"
+    },
+    "DetalleOrdenRecepcion0020": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "DetalleOrdenRecepcion0021": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
     },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
@@ -2158,8 +2174,8 @@ _dictionary = {
         "en-US": "Home"
     },
     "ListadoOrdenAlmacenaje0002": {
-        "es-MX": "Dashboard Almacenaje",
-        "en-US": "Dashboard Almacenaje"
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
     },
     "ListadoOrdenAlmacenaje0003": {
         "es-MX": "Listado Orden de Almacenaje",
@@ -2247,8 +2263,8 @@ _dictionary = {
         "en-US": "Home"
     },
     "GenerarOrdenAlmacenaje0002": {
-        "es-MX": "Dashboard Almacenaje",
-        "en-US": "Dashboard Storage"
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
     },
     "GenerarOrdenAlmacenaje0003": {
         "es-MX": "Listado Orden de Almacenaje",
@@ -2682,8 +2698,60 @@ _dictionary = {
         "en-US": "Fecha Aviso de Llegada"
     },
     "ListadoPackingList0009": {
-        "es-MX": "Fecha Packing List",
-        "en-US": "Date Packing List"
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "ListadoPackingList0010": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "ListadoPackingList0011": {
+        "es-MX": "Folio Llegada",
+        "en-US": "Folio Llegada"
+    },
+    "ListadoPackingList0012": {
+        "es-MX": "Tipo Packing List",
+        "en-US": "Type Packing List"
+    },
+    "ListadoPackingList0013": {
+        "es-MX": "Tipo Uso",
+        "en-US": "type Use"
+    },
+    "ListadoPackingList0014": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "ListadoPackingList0015": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoPackingList0016": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoPackingList0017": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoPackingList0018": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoPackingList0019": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "ListadoPackingList0020": {
+        "es-MX": "Listado Packing List",
+        "en-US": "List Packing List"
+    },
+    "ListadoPackingList0021": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoPackingList0022": {
+        "es-MX": "Dashboard Recepcion y Almacenaje",
+        "en-US": "Dashboard Recepcion y Almacenaje"
     },
     //Default to copy
     "notificationslabel0001": {

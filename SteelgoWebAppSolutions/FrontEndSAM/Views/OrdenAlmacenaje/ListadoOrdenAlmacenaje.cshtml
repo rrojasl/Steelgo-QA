@@ -9,7 +9,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoOrdenAlmacenaje0001"></span></a>
     </li>
     <li>
-        <a href=""><span id="ListadoOrdenAlmacenaje0002"></span></a>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ListadoOrdenAlmacenaje0002"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")"><span id="ListadoOrdenAlmacenaje0003"></span></a>
@@ -252,7 +252,7 @@
             columns: [
                 { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                { field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioCuantificacion(this)'>Cancelar</a>" },
+                //{ field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarFolioCuantificacion(this)'>Cancelar</a>" },
             ]
         });
     }

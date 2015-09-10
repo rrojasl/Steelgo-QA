@@ -87,7 +87,7 @@ var $DummyGridOrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/ap
 var $OrdenRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $NumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyGenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $GenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FoliosCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargarGridCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Colada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -158,7 +158,7 @@ $DummyGridOrdenRecepcion.add("DummyGridOrdenRecepcion");
 $OrdenRecepcion.add("OrdenRecepcion");
 $NumeroUnico.add("NumeroUnico");
 $OrdenAlmacenaje.add("OrdenAlmacenaje");
-$DummyGenerarOrdenAlmacenaje.add("DummyGenerarOrdenAlmacenaje");
+$GenerarOrdenAlmacenaje.add("GenerarOrdenAlmacenaje");
 $FoliosCuantificacion.add("FoliosCuantificacion");
 $CargarGridCuantificacion.add("CargarGridCuantificacion");
 $Colada.add("Colada");

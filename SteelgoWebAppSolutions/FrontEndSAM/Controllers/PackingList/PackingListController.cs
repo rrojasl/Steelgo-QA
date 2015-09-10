@@ -4,36 +4,33 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FrontEndSAM.Controllers.Cuantificacion
+namespace FrontEndSAM.Controllers.PackingList
 {
-    public class CuantificacionController : Controller
+    public class PackingListController : Controller
     {
         //
-        // GET: /Cuantificacion/
-        public ActionResult Cuantificacion()
-        {
-            return View();
-        }
+        // GET: /ListadoPackingList/
         public ActionResult ListadoPackingList()
         {
             return View();
         }
+
         //
-        // GET: /Cuantificacion/Details/5
+        // GET: /ListadoPackingList/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
         //
-        // GET: /Cuantificacion/Create
+        // GET: /ListadoPackingList/Create
         public ActionResult Create()
         {
             return View();
         }
 
         //
-        // POST: /Cuantificacion/Create
+        // POST: /ListadoPackingList/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -50,14 +47,14 @@ namespace FrontEndSAM.Controllers.Cuantificacion
         }
 
         //
-        // GET: /Cuantificacion/Edit/5
+        // GET: /ListadoPackingList/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
         //
-        // POST: /Cuantificacion/Edit/5
+        // POST: /ListadoPackingList/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -74,14 +71,14 @@ namespace FrontEndSAM.Controllers.Cuantificacion
         }
 
         //
-        // GET: /Cuantificacion/Delete/5
+        // GET: /ListadoPackingList/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         //
-        // POST: /Cuantificacion/Delete/5
+        // POST: /ListadoPackingList/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -966,6 +966,7 @@
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
     <Compile Include="Controllers\OrdenAlmacenaje\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
+    <Compile Include="Controllers\PackingList\PackingListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1122,6 +1123,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ListadoPackingList\" />
+    <Folder Include="Views\PackingList\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

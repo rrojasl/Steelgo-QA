@@ -955,7 +955,7 @@
 
         function cargaInicialEdicion() {
             $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
-            $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion);
+            $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion != "-1" ? _folioCuantificacion : "");
             CargarFolioCuantificacion(_folioCuantificacion);
             CargarFolioAvisoEntrada(_folioAvisoEntradaID, _folioAvisoEntradaID);
 
@@ -2876,20 +2876,25 @@
         };
 
         function Error(data) {
-            if (data.ReturnCode) {
-                if (data.ReturnCode != 200) {
-                    if (data.ReturnCode == 401) {
-                        removeUserSession();
-                        return true;
+            if(data)
+            {
+                if (data.ReturnCode) {
+                    if (data.ReturnCode != 200) {
+                        if (data.ReturnCode == 401) {
+                            removeUserSession();
+                            return true;
+                        } else {
+                            displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                            return false;
+                        }
                     } else {
-                        displayMessage("notificationslabel0008", data.ReturnMessage, '2');
-                        return false;
+                        return true;
                     }
                 } else {
                     return true;
                 }
             } else {
-                return true;
+                return false;
             }
         };
 
