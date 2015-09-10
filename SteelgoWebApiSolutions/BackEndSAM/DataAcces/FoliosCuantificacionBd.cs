@@ -38,6 +38,43 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object CambiarEstatus(int folioCuantificacionID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_FolioCuantificacion folio = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID)
+                        .AsParallel().SingleOrDefault();
+
+                    folio.Estatus = "En Proceso Recepción";
+                    folio.FechaModificacion = DateTime.Now;
+                    folio.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+
+                }
+ 
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Obtener Folio AViso Llegada (Combo Folio Aviso Entrada)
         /// </summary>

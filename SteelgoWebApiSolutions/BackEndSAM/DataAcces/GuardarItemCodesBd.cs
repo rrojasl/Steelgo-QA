@@ -113,7 +113,7 @@ namespace BackEndSAM.DataAcces
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
-                                        ItemCode = "Bulto",
+                                        ItemCode = datosItemCode.ItemCode,
                                         BultoID = bulto.BultoID.ToString(),
                                         Cantidad = datosItemCode.Cantidad,
                                         TieneError = TieneErrores,
@@ -239,7 +239,7 @@ namespace BackEndSAM.DataAcces
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
-                                        ItemCode = "Bulto",
+                                        ItemCode = datosItemCode.ItemCode,
                                         BultoID = bulto.BultoID.ToString(),
                                         Cantidad = datosItemCode.Cantidad,
                                         TieneError = TieneErrores,
@@ -353,7 +353,7 @@ namespace BackEndSAM.DataAcces
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
-                                        ItemCode = "Bulto",
+                                        ItemCode = datosItemCode.ItemCode,
                                         BultoID = bulto.BultoID.ToString(),
                                         Cantidad = datosItemCode.Cantidad,
                                         TieneError = TieneErrores,
@@ -462,7 +462,7 @@ namespace BackEndSAM.DataAcces
                                 ICS = new Sam3_ItemCodeSteelgo();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode == "Bulto")
+                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
                                 {
                                     TieneErrores = true;
 
@@ -596,7 +596,7 @@ namespace BackEndSAM.DataAcces
                                 ICS = new Sam3_ItemCodeSteelgo();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode == "Bulto")
+                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
                                 {
 
                                     TieneErrores = true;
@@ -676,16 +676,6 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                         ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-                                        //creo la relacion bulto IC
-                                        //Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
-                                        //bic.BultoID = Int32.Parse(datosItemCode.BultoID);
-                                        //bic.ItemCodeID = IC.ItemCodeID;
-                                        //bic.TieneNumerosUnicos = false;
-                                        //bic.FechaModificacion = DateTime.Now;
-                                        //bic.UsuarioModificacion = usuario.UsuarioID;
-                                        //bic.Activo = true;
-                                        //ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
-                                        //ctx.SaveChanges();
 
                                         bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode
                                             .Where(x => x.BultoID.ToString() == datosItemCode.BultoID

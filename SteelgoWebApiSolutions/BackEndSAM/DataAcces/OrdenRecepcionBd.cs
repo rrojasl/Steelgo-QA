@@ -94,6 +94,8 @@ namespace BackEndSAM.DataAcces
                         registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).AsParallel().ToList();
                     }
 
+                    registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+
                     List<ListadoGenerarOrdenRecepcion> listado = new List<ListadoGenerarOrdenRecepcion>();
 
                     foreach (Sam3_FolioAvisoEntrada f in registros)
