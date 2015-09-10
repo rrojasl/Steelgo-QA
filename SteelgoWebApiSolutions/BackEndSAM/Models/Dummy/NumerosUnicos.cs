@@ -7,6 +7,7 @@ namespace BackEndSAM.Models
 {
     public class NumerosUnicos
     {
-        public int NumeroUnico { get; set; }
+        public string NumeroUnicoID { get; set; }
+        public string NumeroUnico { get; set; }
     }
 }

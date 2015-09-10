@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces
         //}
 
         //obtener los folios de cuantificacion
-        public object ObtenerFoliosLlegadaOrdenAlmacenaje(int proyectoID)
+        public object ObtenerFoliosCuantificacionOrdenAlmacenaje(int proyectoID, Sam3_Usuario usuario)
         {
             List<int> listFolioCuantificacion = new List<int>();
             try
@@ -86,9 +86,9 @@ namespace BackEndSAM.DataAcces
                 {
                     //Si es Folio Cuantificacion
                     listFolioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
-                                               where fc.ProyectoID == proyectoID && fc.Activo
+                                               where fc.ProyectoID == proyectoID
+                                               && fc.Activo
                                                select fc.FolioCuantificacionID).AsParallel().ToList();
-
                 }
                 return listFolioCuantificacion;
             }
@@ -104,22 +104,21 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerItemCodesOrdenAlmacenaje(int folioCuantificacion)
+        public object ObtenerItemCodesOrdenAlmacenaje(int folioCuantificacion, Sam3_Usuario usuario)
         {
-            //FolioCuantificacion folioCuantificacion = new FolioCuantificacion();
-            List<int> listItemCode = new List<int>();
             List<ItemCode> ComboItemCode = new List<ItemCode>();
-            ItemCode itemCode = new ItemCode();
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> ICOR = ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c => c.Activo).Select(x => x.ItemCodeID).AsParallel().ToList();
-
                     ComboItemCode = (from ic in ctx.Sam3_ItemCode
                                      join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals rfc.ItemCodeID
-                                     where ic.Activo && rfc.Activo && ICOR.Contains(ic.ItemCodeID) && rfc.FolioCuantificacionID == folioCuantificacion
+                                     where ic.Activo && rfc.Activo
+                                     && rfc.FolioCuantificacionID == folioCuantificacion
+                                     && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                         where ror.Activo
+                                         select ror.ItemCodeID).Contains(ic.ItemCodeID)
                                      select new ItemCode
                                      {
                                          ItemCodeID = ic.ItemCodeID.ToString(),
@@ -141,22 +140,39 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerNumerosUnicosOrdenAlmacenaje(int itemCode)
+        public object ObtenerNumerosUnicosOrdenAlmacenaje(int itemCode, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> NUconOrdenAlmacenaje = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
-                                                      where roa.Activo
-                                                      select roa.NumeroUnicoID).AsParallel().ToList();
+                    List<NumerosUnicos> listado = new List<NumerosUnicos>();
+                    listado = (from nu in ctx.Sam3_NumeroUnico
+                               where nu.Activo
+                               && nu.ItemCodeID == itemCode
+                               && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                    where roa.Activo
+                                    select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                               select new NumerosUnicos
+              {
+                  NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                  NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
+              }).AsParallel().ToList();
 
-                    List<int> numerosUnicos = new List<int>();
-                    numerosUnicos = (from nu in ctx.Sam3_NumeroUnico
-                                     where nu.Activo && nu.ItemCodeID == itemCode && !NUconOrdenAlmacenaje.Contains(nu.NumeroUnicoID)
-                                     select nu.NumeroUnicoID).AsParallel().ToList();
+                    foreach (var nu in listado)
+                    {
+                        int numeroDigitos = (from it in ctx.Sam3_ItemCode
+                                             join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
+                                             where it.ItemCodeID == itemCode
+                                             select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
 
-                    return numerosUnicos;
+                        string formato = "D" + numeroDigitos.ToString();
+
+                        string[] codigo = nu.NumeroUnico.Split('-').ToArray();
+                        int consecutivo = Convert.ToInt32(codigo[1]);
+                        nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
+                    }
+                    return listado;
                 }
             }
             catch (Exception ex)
@@ -257,7 +273,7 @@ namespace BackEndSAM.DataAcces
                                                NumerosUnicos = (from rfc2 in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                                                 join ic2 in ctx.Sam3_ItemCode on rfc2.ItemCodeID equals ic2.ItemCodeID
                                                                 join nu2 in ctx.Sam3_NumeroUnico on rfc2.ItemCodeID equals nu2.NumeroUnicoID
-                                                                where rfc2.Activo && ic2.Activo //&& nu.Activo
+                                                                where rfc2.Activo && ic2.Activo && nu2.Activo
                                                                 && rfc2.FolioCuantificacionID == item.FolioCuantificacionID
                                                                 && (from ror2 in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                                     where ror2.Activo
@@ -276,19 +292,19 @@ namespace BackEndSAM.DataAcces
 
                         foreach (var i in orden.ItemCodes)
                         {
-                            foreach(var nu in i.NumerosUnicos)
+                            foreach (var nu in i.NumerosUnicos)
                             {
-                                 int itemcodeID = Convert.ToInt32(i.ItemCodeID);
-                            int numeroDigitos = (from it in ctx.Sam3_ItemCode
-                                                 join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
-                                                 where it.ItemCodeID == itemcodeID
-                                                 select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+                                int itemcodeID = Convert.ToInt32(i.ItemCodeID);
+                                int numeroDigitos = (from it in ctx.Sam3_ItemCode
+                                                     join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
+                                                     where it.ItemCodeID == itemcodeID
+                                                     select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
 
-                            string formato = "D" + numeroDigitos.ToString();
+                                string formato = "D" + numeroDigitos.ToString();
 
-                            string[] codigo = nu.NumeroUnico.Split('-').ToArray();
-                            int consecutivo = Convert.ToInt32(codigo[1]);
-                            nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
+                                string[] codigo = nu.NumeroUnico.Split('-').ToArray();
+                                int consecutivo = Convert.ToInt32(codigo[1]);
+                                nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
                             }
                         }
 
