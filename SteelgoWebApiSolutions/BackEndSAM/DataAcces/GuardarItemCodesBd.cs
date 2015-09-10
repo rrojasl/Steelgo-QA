@@ -143,14 +143,30 @@ namespace BackEndSAM.DataAcces
                                                               where c.NumeroColada == datosItemCode.Colada && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
+                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+
+                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+
                                     int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
 
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                        .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion 
+                                            && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID 
+                                        && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
@@ -275,6 +291,18 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
+                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+
+                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+
 
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
@@ -388,6 +416,18 @@ namespace BackEndSAM.DataAcces
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
+                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+
+                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
@@ -516,6 +556,18 @@ namespace BackEndSAM.DataAcces
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
+                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+
+                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
                                         .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
@@ -651,6 +703,18 @@ namespace BackEndSAM.DataAcces
                                     datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
+                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+
+                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                                        where rics.Activo && itcs.Activo
+                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
@@ -845,6 +909,12 @@ namespace BackEndSAM.DataAcces
                 IC.Cantidad = item.Cantidad;
                 IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
                 IC.ColadaID = item.ColadaID;
+                IC.Diametro1 = item.D1;
+                IC.Diametro2 = item.D2;
+                IC.DescripcionEspanol = item.Descripcion;
+                IC.DescripcionIngles = item.Descripcion;
+                IC.FamiliaAceroID = Convert.ToInt32(item.Familia);
+                
 
                 ctx.SaveChanges();
 
