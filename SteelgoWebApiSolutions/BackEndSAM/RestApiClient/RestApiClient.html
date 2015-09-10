@@ -298,18 +298,19 @@
         //client.Colada.read({}, { "token": "", "id" : 1 }).done(function (data) { console.log(data) });
 
 
-        //var orden = { ProyectoID: "", FolioCuantificacionID: "", ItemCodeID: "", NumeroUnico: "", TipoListado };
-        //orden.ProyectoID = "";
-        //orden.FolioCuantificacionID = "";
-        //orden.ItemCodeID = 6;
-        //orden.NumeroUnico = "";
+        var orden = { ProyectoID: "", FolioCuantificacionID: "", ItemCodeID: "", NumeroUnico: "" };
+        orden.ProyectoID = "";
+        orden.FolioCuantificacionID = "";
+        orden.ItemCodeID = "";
+        orden.NumeroUnico = "";
 
-        Listado = { ItemCodeID: 6, TipoListado: "21", token: "" };
+        //Listado = { ItemCodeID: 6, TipoListado: "21", token: "" };
 
-        client.add("Listado");
-        client.Listado.read({}, { data: JSON.stringify(Listado)}).done(function (data) { console.log(data) });
-        //client.add("GenerarOrdenAlmacenaje");
-        //client.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(orden), token: "" }).done(function (data) { console.log(data) });
+        //client.add("Listado");
+        //client.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (data) { console.log(data) });
+
+        client.add("GenerarOrdenAlmacenaje");
+        client.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(orden), token: "" }).done(function (data) { console.log(data) });
 
      
 
