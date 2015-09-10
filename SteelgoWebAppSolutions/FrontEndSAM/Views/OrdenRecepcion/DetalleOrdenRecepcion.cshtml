@@ -212,7 +212,7 @@
     function ObtenerProyecto() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
-            $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+            $("#ProyectoID").data("kendoComboBox").value(_proyectoID!="-1"? _proyectoID:"");
             //$("#ProyectoID").data("kendoComboBox").enable(false);
         });
     };
