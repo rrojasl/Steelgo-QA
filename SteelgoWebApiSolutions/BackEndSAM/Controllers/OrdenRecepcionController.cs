@@ -77,7 +77,19 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(listados, usuario);
+                if (listados.Folios.Count > 0 || listados.Items.Count > 0)
+                {
+                    return OrdenRecepcionBd.Instance.GenerarOrdeRecepcion(listados, usuario);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("No se encontro ningun ID en los datos enviados");
+                    result.ReturnCode = 500;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
             }
             else
             {
