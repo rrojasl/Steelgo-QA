@@ -2168,6 +2168,22 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
+    "DetalleOrdenAlmacenaje0018": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DetalleOrdenAlmacenaje0019": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "DetalleOrdenAlmacenaje0020": {
+        "es-MX": "Listado Orden de Almacenaje",
+        "en-US": "Listed in order of storage"
+    },
+    "DetalleOrdenAlmacenaje0021": {
+        "es-MX": "Detail Order Storage",
+        "en-US": "Orden Storage"
+    },
 //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
         "es-MX": "Inicio",
