@@ -473,38 +473,44 @@ namespace BackEndSAM.DataAcces
 
                         ctx.SaveChanges();
                     }
+
+
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    //si no hay errores al generar la orden de recepcion, procedemos a crear los numeros unicos
+                    string error = "";
+                    bool NumerosGenerados = (bool)NumeroUnicoBd.Instance.GenerarNumerosUnicosPorOrdenDeRecepcion(nuevaOrden.OrdenRecepcionID, usuario, out error);
+                    
+                    //si todo se genero correctamente
                     scope.Complete();
-                }
 
-                TransactionalInformation result = new TransactionalInformation();
-                //si no hay errores al generar la orden de recepcion, procedemos a crear los numeros unicos
-                string error = "";
-                bool NumerosGenerados = (bool)NumeroUnicoBd.Instance.GenerarNumerosUnicosPorOrdenDeRecepcion(nuevaOrden.OrdenRecepcionID, usuario, out error);
-                if (NumerosGenerados)
-                {
-                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
-                        string.Format("Se generó una nueva orden de recepcion con folio: {0}",
-                        nuevaOrden.OrdenRecepcionID), usuario))
+                    if (NumerosGenerados)
                     {
-                        //Agregar error a la bitacora  PENDIENTE
+                        if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                            string.Format("Se generó una nueva orden de recepcion con folio: {0}",
+                            nuevaOrden.OrdenRecepcionID), usuario))
+                        {
+                            //Agregar error a la bitacora  PENDIENTE
+                        }
+
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnMessage.Add(nuevaOrden.OrdenRecepcionID.ToString());
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+
+                        return result;
                     }
+                    else
+                    {
+                        result.ReturnMessage.Add(error);
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
 
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnMessage.Add(nuevaOrden.OrdenRecepcionID.ToString());
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
-                }
-                else
-                {
-                    result.ReturnMessage.Add(error);
-                    result.ReturnCode = 500;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                        return result;
+                    }
+                    scope.Complete();
                 }
             }
             catch (Exception ex)
