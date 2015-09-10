@@ -15,6 +15,11 @@ namespace FrontEndSAM.Controllers.Cuantificacion
             return View();
         }
 
+        public ActionResult ListadoPackingList()
+        {
+            return View();
+        }
+
         //
         // GET: /Cuantificacion/Details/5
         public ActionResult Details(int id)

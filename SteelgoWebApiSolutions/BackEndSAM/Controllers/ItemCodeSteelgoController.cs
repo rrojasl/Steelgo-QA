@@ -64,6 +64,29 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string itemID, string itemsteelgo, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                return ItemCodeSteelgoBd.Instance.ObtenerDetalleRelacionitemCodeSteelgo(itemID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         public object Post(string json, string token)
         {
             string payload = "";

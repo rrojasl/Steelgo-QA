@@ -186,15 +186,18 @@ namespace BackEndSAM.DataAcces
         /// <param name="itemCodeSteelgoID">item code steelgo seleccionado</param>
         /// <param name="usuario">usuario actual</param>
         /// <returns>objeto con la informacion del item code steelgo</returns>
-        public object ObtenerDetalleitemCodeSteelgo(string ItemCode, string itemCodeSteelgo, Sam3_Usuario usuario)
+        public object ObtenerDetalleRelacionitemCodeSteelgo(string ItemCode, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //ctx.Sam3_ItemCode.Select(x => x.ItemCodeID).Where(y => y.Codigo == ItemCode);
+                    int? itemcodeID = ctx.Sam3_ItemCode.Where(x => x.Codigo == ItemCode && x.Activo)
+                                                            .Select(c => c.ItemCodeID).AsParallel().SingleOrDefault();
+
                     ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
-                                                   where r.Activo && r.Codigo == itemCodeSteelgo
+                                                   join ris in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals ris.ItemCodeSteelgoID 
+                                                   where r.Activo &&  ris.ItemCodeID==itemcodeID
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,

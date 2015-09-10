@@ -289,7 +289,7 @@
             //var _folioLlegadaMaterialID = getUrlParameter("FolioLlegadaMaterialID", "-1");
             var _bultoID = getUrlParameter("BultoID", "-1");
             var _detalleBulto = getUrlParameter("DetalleBulto", "-1");
-            var _edicion = getUrlParameter("Edicion", "-1");
+            var _edicion = getUrlParameter("EdicionPackingList", "-1");
 
 
             //Mappeo de Controles y sus flechas
@@ -951,17 +951,17 @@
             DetalleBultoObtenerDatosDelFolioAvisoLlegadaCuantificacion(_folioAvisoEntradaID, _folioCuantificacion, _bultoID);
 
         };
+        
 
-        //function cargaInicialEdicion() {
-        //    $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioLlegadaMaterialID);
-        //    $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion);
-        //    CargarFolioCuantificacion(_folioCuantificacion);
-        //    CargarFolioAvisoEntrada(_folioAvisoEntradaID, _folioLlegadaMaterialID);
+        function cargaInicialEdicion() {
+            $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
+            $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion);
+            CargarFolioCuantificacion(_folioCuantificacion);
+            CargarFolioAvisoEntrada(_folioAvisoEntradaID, _folioAvisoEntradaID);
 
-        //    ObtenerDatosDelFolioAvisoLlegada();
-        //    ObtenerDatosDelFolioAvisoLlegadaCuantificacion(_folioAvisoEntradaID, _folioCuantificacion);
-            
-        //};
+            ObtenerDatosDelFolioAvisoLlegada();
+            ObtenerDatosDelFolioAvisoLlegadaCuantificacion(_folioAvisoEntradaID, _folioCuantificacion);
+        };
 
         function BotonEdicion() {
             loadingStart();
@@ -2934,9 +2934,9 @@
             }
 
             ////edicion de un folio cuantificacion
-            //if (_edicion != "-1") {
-            //    cargaInicialEdicion();
-            //};
+            if (_edicion != "-1") {
+                cargaInicialEdicion();
+            };
 
             $("#massiveUpload").click( function () {
                 $("#txtFileUpload").click();

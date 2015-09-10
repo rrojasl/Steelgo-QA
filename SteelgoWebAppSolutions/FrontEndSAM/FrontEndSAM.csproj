@@ -1114,6 +1114,7 @@
     <Content Include="Views\OrdenAlmacenaje\DetalleOrdenAlmacenaje.cshtml" />
     <Content Include="Views\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenaje.cshtml" />
     <Content Include="FormatoCargaMasiva.csv" />
+    <Content Include="Views\Cuantificacion\ListadoPackingList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
