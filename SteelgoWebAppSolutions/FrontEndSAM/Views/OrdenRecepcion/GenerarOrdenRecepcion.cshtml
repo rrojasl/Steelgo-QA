@@ -432,9 +432,9 @@
     function ObtenerFoliosDeMemoria() {
         var x = 0, folios = [];
         for (var check in checkNodoPrincipal) {
-            var bool = checkNodoPrincipal[check].split(",")[2] == "true" ? true : false;
+            var bool = checkNodoPrincipal[check].split(",")[1] == "true" ? true : false;
             if (bool) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[check].split(",")[0].split(":")[1]) };
+                folios[x] = { ID: checkNodoPrincipal[check].split(",")[0].split(":")[1] };
                 x++;
             }
         }
@@ -446,7 +446,7 @@
         for (var check in checkItemCodesID) {
             var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
             if (bool) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[check].split(",")[1]) };
+                itemCodes[x] = { ID: checkItemCodesID[check].split(",")[1] };
                 x++;
             }
         }

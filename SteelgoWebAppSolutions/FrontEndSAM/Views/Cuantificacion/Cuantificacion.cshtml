@@ -1281,7 +1281,7 @@
 
         function GenerarOrdenRecepcion() {
             if (_folioCuantificacion!="-1"){
-                var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "Cuantificacion")";
+                var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&ProyectoID=" + Proyecto.ProyectoID;
             } else {
                 displayMessage("notificationslabel0040", "", '1');
@@ -1846,18 +1846,13 @@
         
         function GuardaryTerminar() {
             loadingStart();
-            var j = 0, z = 0, incompletos = false, cerrar = true;
+            var j = 0, z = 0;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
             var result = query.data;
             var datasource = result;
             var folioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "-1";
             var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
-            //var filters = $("#grid").data("kendoGrid").dataSource.filter();
-            //var allData = $("#grid").data("kendoGrid").dataSource.data();
-            //var query = new kendo.data.Query(allData);
-            //var result = query.filter(filters).data;
-            //var datasource = result;
 
             ListadoCuantificacionIncompletos = [];
             ListadoCuantificacion = [];
@@ -1885,7 +1880,7 @@
 
 
                 if (ItemCode.indexOf("Bulto") == -1) {
-                    if (!ItemCode || (!D1 && D1 != 0) || (!D2 && D2 != 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula) { // informacion incompleta
+                    if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula) { // informacion incompleta
                         datasource[i].TieneError = true;
                         ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true };
                         z++;
@@ -1894,24 +1889,12 @@
                         j++;
                     }
                 } else {
-                    if (BultoID) {
-                        ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError };
-                        j++;
-                    } else {
-                        datasource[i].TieneError = true;
-                        ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true };
-                        z++;
-                    }
+                    ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError };
+                    j++;
                 }
             };
 
             CargarDefaults();
-            var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
-
-            if (ListadoCuantificacionIncompletos.length) {
-                incompletos = true;
-                cerrar = false;
-            }
 
 
             if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
@@ -1921,25 +1904,29 @@
                 return;
             }
 
-
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0046", '', '1');
                 return;
-            };
-            var i = 0;
+            }
+            var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
+
+            if (ListadoCuantificacionIncompletos.length) {
+                incompletos = true;
+                cerrar = false;
+            }
+
+            var i = 0, error = "";
             if (folioCuantificacionID != -1) {
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
                     if (Error(data)) {
                         $("#grid").data("kendoGrid").dataSource.data([]);
-                        cargarGridErrores(ListadoCuantificacionIncompletos);
+                        llenarGrid(null, ListadoCuantificacionIncompletos);
                             $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
-                                if (Error(data)) {
-                                    AccionesGuardaryTerminar(data);
-                                    i++;
-                                    CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                                }
-                                loadingStop();
+                                error = ErrorInsertandoItems(data,error, ListadoCuantificacion[i]);
+                                if (ErrorBool(data)) AccionesGuardaryTerminar(data);
+                                i++;
+                                CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i,error);
                             });
                     } else {
                         loadingStop();
@@ -1950,14 +1937,12 @@
                     if (Error(data)) {
                         _folioCuantificacion = data.FolioCuantificacionID;
                         $("#grid").data("kendoGrid").dataSource.data([]);
-                        cargarGridErrores(ListadoCuantificacionIncompletos);
+                        llenarGrid(null, ListadoCuantificacionIncompletos);
                         $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
-                            if (Error(data)) {
-                                AccionesGuardaryTerminar(data);
-                                i++;
-                                CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                            }
-                            loadingStop();
+                            error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                            if (ErrorBool(data)) AccionesGuardaryTerminar(data);
+                            i++;
+                            CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                         });
                     } else {
                         loadingStop();
@@ -1966,23 +1951,30 @@
             };
         };
 
-        function CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i) {
+        function CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i,error) {
             if (ListadoCuantificacion[i]) {
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
-                    if (Error(data)) {
-                        AccionesGuardaryTerminar(data);
-                    }
-                    loadingStop();
+                    error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                    if (ErrorBool(data)) AccionesGuardaryTerminar(data);
+                    i++;
+                    CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
             } else {
-                AccionesGuardaryTerminar(null);
+                loadingStop();
+                if (error) {
+                    displayMessage("notificationslabel0008", error, '2');
+                    return;
+                }
+                
                 if (incompletos) {
                     displayMessage("notificationslabel0037", "", '1');
-                } else {
-                    ocultarStatus();
-                    cargarTituloFolio();
-                    $("#Cuantificacion0077").show();
+                    return;
                 }
+                AccionesGuardaryTerminar(null);
+                ocultarStatus();
+                cargarTituloFolio();
+                $("#Cuantificacion0077").show();
+                
             };
         };
 
@@ -1997,19 +1989,19 @@
 
         function TerminaryNuevo() {
             loadingStart();
-            var j = 0, z = 0, incompletos = false, cerrar = true;
+            //var filters = $("#grid").data("kendoGrid").dataSource.filter();
+            //var allData = $("#grid").data("kendoGrid").dataSource.data();
+            //var query = new kendo.data.Query(allData);
+            //var result = query.filter(filters).data;
+            //var datasource = result;
+
+            var j = 0, z = 0, cerrar=false, incompletos=false;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
             var result = query.data;
             var datasource = result;
             var folioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "-1";
             var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
-            var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
-            //var filters = $("#grid").data("kendoGrid").dataSource.filter();
-            //var allData = $("#grid").data("kendoGrid").dataSource.data();
-            //var query = new kendo.data.Query(allData);
-            //var result = query.filter(filters).data;
-            //var datasource = result;
 
             ListadoCuantificacionIncompletos = [];
             ListadoCuantificacion = [];
@@ -2037,7 +2029,7 @@
 
 
                 if (ItemCode.indexOf("Bulto") == -1) {
-                    if (!ItemCode || (!D1 && D1 != 0) || (!D2 && D2 != 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula) { // informacion incompleta
+                    if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula) { // informacion incompleta
                         datasource[i].TieneError = true;
                         ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true };
                         z++;
@@ -2046,24 +2038,13 @@
                         j++;
                     }
                 } else {
-                    if (BultoID) {
-                        ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError };
-                        j++;
-                    } else {
-                        datasource[i].TieneError = true;
-                        ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true };
-                        z++;
-                    }
+                    ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError };
+                    j++;
                 }
             };
 
             CargarDefaults();
-            var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
 
-            if (ListadoCuantificacionIncompletos.length) {
-                incompletos = true;
-                cerrar = false;
-            }
 
             if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
                 llenarGrid(null, ListadoCuantificacionIncompletos);
@@ -2076,26 +2057,25 @@
                 displayMessage("notificationslabel0046", '', '1');
                 return;
             }
+            var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
 
-            var i = 0;
+            if (ListadoCuantificacionIncompletos.length) {
+                incompletos = true;
+                cerrar = false;
+            }
+
+            var i = 0, error = "";
             if (folioCuantificacionID != -1) {
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
                     $("#grid").data("kendoGrid").dataSource.data([]);
-                    cargarGridErrores(ListadoCuantificacionIncompletos);
+                    llenarGrid(null, ListadoCuantificacionIncompletos);
 
                     $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
-                        if (Error(data)) {
-                            cargarGridcompletos(data);
-                            ordenamientoGrid();
-                            BotonAlta();
-                            $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
-                            CargarFolioCuantificacion(_folioCuantificacion);
-                            ObtenerDatosDelFolioAvisoLlegada();
-                            i++;
-                            CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                        }
-                        loadingStop();
+                        error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                        if (ErrorBool(data)) AccionesTerminaryNuevo(data);
+                        i++;
+                        CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                     })
 
                 });
@@ -2103,41 +2083,42 @@
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
                     $("#grid").data("kendoGrid").dataSource.data([]);
-                    cargarGridErrores(ListadoCuantificacionIncompletos);
+                    llenarGrid(null, ListadoCuantificacionIncompletos);
                     $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
-                        if (Error(data)) {
-                            cargarGridcompletos(data);
-                            ordenamientoGrid();
-                            BotonAlta();
-                            $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
-                            CargarFolioCuantificacion(_folioCuantificacion);
-                            ObtenerDatosDelFolioAvisoLlegada();
-                            i++;
-                            CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                        }
-                        loadingStop();
+                        error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                        if (ErrorBool(data)) AccionesTerminaryNuevo(data);
+                        i++;
+                        CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                     });
                 });
             }
         };
 
-    function CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i) {
+
+    function CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i,error) {
         if (ListadoCuantificacion[i]) {
             $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
-                if (Error(data)) {
-                    AccionesTerminaryNuevo(data);
+                    error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                    if (ErrorBool(data)) AccionesTerminaryNuevo(data);
                     i++;
-                    CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                }
-                loadingStop();
+                    CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
             });
         } else {
-            AccionesTerminaryNuevo(null);
+            loadingStop();
+            if (error) {
+                displayMessage("notificationslabel0008", error, '2');
+                return;
+            }
+
             if (incompletos) {
                 displayMessage("notificationslabel0037", "", '1');
-            } else {
-                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                return;
             }
+           
+            var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            
+            AccionesTerminaryNuevo(null);
         }
     };
 
@@ -2232,20 +2213,18 @@
             displayMessage("notificationslabel0046", '', '1');
             return;
         }
-        var i = 0;
+        var i = 0, error = "";
         if (folioCuantificacionID != -1) {
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
                 $("#grid").data("kendoGrid").dataSource.data([]);
-                cargarGridErrores(ListadoCuantificacionIncompletos);
+                llenarGrid(null, ListadoCuantificacionIncompletos);
 
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
-                    if (Error(data)) {
-                        AccionesEdicionGuardaryCerrar(data, incompletos);
-                        i++;
-                        CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                    }
-                    loadingStop();
+                    error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                    if (ErrorBool(data)) AccionesGuardarGuardaryCerrar(data);
+                    i++;
+                    CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
 
             });
@@ -2253,61 +2232,51 @@
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
                 $("#grid").data("kendoGrid").dataSource.data([]);
-                cargarGridErrores(ListadoCuantificacionIncompletos);
+                llenarGrid(null, ListadoCuantificacionIncompletos);
 
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
-                    if (Error(data)) {
-                        AccionesGuardarGuardaryCerrar(data, incompletos);
-                        i++;
-                        CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                    }
-                    loadingStop();
+                    error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                    if (ErrorBool(data)) AccionesGuardarGuardaryCerrar(data);
+                    i++;
+                    CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
 
             });
         }
     };
 
-    function CicloGuardaryCerrar(cerrar, incompletos, ListadoCuantificacion, i) {
+    function CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error) {
         if (ListadoCuantificacion[i]) {
             $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
-                if (Error(data)) {
-                    AccionesGuardarGuardaryCerrar(data, incompletos);
-                    i++;
-                    CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i);
-                }
-                loadingStop();
+                error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                if (ErrorBool(data)) AccionesGuardarGuardaryCerrar(data);
+                i++;
+                CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
             });
+        } else {
+            loadingStop();
+
+            if (error) {
+                displayMessage("notificationslabel0008", error, '2');
+                return;
+            }
+            if (incompletos) {
+                displayMessage("notificationslabel0037", "", '1');
+                return;
+            }
+            AccionesGuardarGuardaryCerrar(null);
+            ocultarStatus();
+            cargarTituloFolio();
+            $("#Cuantificacion0078").show();
+
         }
     };
 
-        function AccionesEdicionGuardaryCerrar(data, incompletos) {
-            cargarGridcompletos(data);
-            ordenamientoGrid();
-            BotonEdicion();
-            if (incompletos) {
-                displayMessage("notificationslabel0037", "", '1');
-            } else {
-                ocultarStatus();
-                cargarTituloFolio();
-                $("#Cuantificacion0078").show();
-            }
-            $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
-            CargarFolioCuantificacion(_folioCuantificacion);
-            ObtenerDatosDelFolioAvisoLlegada();
-        };
         
-        function AccionesGuardarGuardaryCerrar(data, incompletos) {
+        function AccionesGuardarGuardaryCerrar(data) {
             cargarGridcompletos(data);
             ordenamientoGrid();
             BotonAlta();
-            if (incompletos) {
-                displayMessage("notificationslabel0037", "", '1');
-            } else {
-                ocultarStatus();
-                cargarTituloFolio();
-                $("#Cuantificacion0078").show();
-            }
             $("#FolioCuantificacionID").data("kendoComboBox").value(_folioCuantificacion);
             CargarFolioCuantificacion(_folioCuantificacion);
             ObtenerDatosDelFolioAvisoLlegada();
@@ -2387,44 +2356,58 @@
             
         };
 
+        function ErrorInsertandoItems(data, error, Listado) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                        return error;
+                    } else {
+                        error += "," + Listado.ItemCode;
+                        //cargarGridErrores(ListadoCuantificacion);
+                        //ordenamientoGrid();
+                        //displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                        return error;
+                    }
+                }
+            }
+            return error;
+        };
+
         function GuardarListadoCuantificacionParcial(ArrayCuantificacion, cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, ListadoCuantificacionIncompletos, guardarynuevo, idGuardado) {
-            var i = 0;
+            var i = 0, error = "";
             $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.create({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                 _folioCuantificacion = data.FolioCuantificacionID;
                 if (Error(data)) {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    cargarGridErrores(ListadoCuantificacionIncompletos);
-                        
-                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
-                            if (Error(data)) {
-                                AccionesAltaGuardadoParcial(data);
-                                i++;
-                                cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion[i], i, guardarynuevo);
-                            }
-                            loadingStop();
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        llenarGrid(null, ListadoCuantificacionIncompletos);
 
+                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
+                            error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
+                            if (ErrorBool(data)) AccionesAltaGuardadoParcial(data);
+                            i++;
+                            cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                         });                    
                 } else {
                     loadingStop();
                 }
             });
         };
-    
+
+      
         function EdicionListadoCuantificacionParcial(ArrayCuantificacion, cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, ListadoCuantificacionIncompletos, guardarynuevo, idGuardado) {
-                var i = 0;
+                var i = 0, error = "";
                 $GuardarFolioLlegadaCuantificacion.GuardarFolioLlegadaCuantificacion.update({}, { data: JSON.stringify(ArrayCuantificacion), token: Cookies.get("token") }).done(function (data) {
                     _folioCuantificacion = data.FolioCuantificacionID;
                     if (Error(data)) {
                         $("#grid").data("kendoGrid").dataSource.data([]);
-                        cargarGridErrores(ListadoCuantificacionIncompletos);
-                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
-                            if (Error(data)) {
-                                AccionesAltaGuardadoParcial(data);
-                                i++;
-                                cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo);
-                            }
-                            loadingStop();
+                        llenarGrid(null, ListadoCuantificacionIncompletos);
 
+                        $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
+                            error = ErrorInsertandoItems(data,error, ListadoCuantificacion[i]);
+                            if(ErrorBool(data)) AccionesAltaGuardadoParcial(data);
+                            i++;
+                            cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                         });
                     } else {
                         loadingStop();
@@ -2432,19 +2415,22 @@
                 });
         };
 
-        function cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo) {
+        function cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo,error) {
             if (ListadoCuantificacion[i]) {
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
-                    if (Error(data)) {
-                        AccionesAltaGuardadoParcial(data);
+                        error = ErrorInsertandoItems(data,error, ListadoCuantificacion[i]);
+                        if (ErrorBool(data)) AccionesAltaGuardadoParcial(data);
                         i++;
-                        cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo);
-                    };
-                    loadingStop();
+                        cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                 });
             } else {
                 loadingStop();
+                if (error) {
+                    displayMessage("notificationslabel0008", error, '2');
+                    return;
+                }
                 AccionesAltaGuardadoParcial(null);
+                
                 if (guardarynuevo) {
                     var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -2502,14 +2488,12 @@
         };
         function cargarGridErrores(incompletos) {
             if (incompletos) {
-                $.each(incompletos, function (key) {
-                    var item =
-                           { ItemCode: incompletos[key].ItemCode, BultoID: incompletos[key].BultoID, Descripcion: incompletos[key].Descripcion, D1: incompletos[key].D1, D2: incompletos[key].D2, ItemCodeSteelgo: incompletos[key].ItemCodeSteelgo, Familia: incompletos[key].Familia, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, Colada: incompletos[key].Colada, Cantidad: incompletos[key].Cantidad, MM: incompletos[key].MM, Detallar: incompletos[key].Detallar, TieneNU: incompletos[key].TieneNU, TieneError: incompletos[key].TieneError };
+                var item =
+                       { ItemCode: incompletos.ItemCode, BultoID: incompletos.BultoID, Descripcion: incompletos.Descripcion, D1: incompletos.D1, D2: incompletos.D2, ItemCodeSteelgo: incompletos.ItemCodeSteelgo, Familia: incompletos.Familia, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, Colada: incompletos.Colada, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Detallar: incompletos.Detallar, TieneNU: incompletos.TieneNU, TieneError: true };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
-                });
             }
         };
-
+       
         function llenarGrid(dataJson, incompletos) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             if (dataJson) {
@@ -2745,6 +2729,34 @@
             lastEditedCellIDSColada = options.model;
         };
         
+        function ObtenerItemCodeSteelgo(dataJson, key, error) {
+            if (dataJson[key]) {
+                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", token: Cookies.get("token") }).done(function (data) {
+                    itemCodesJsonSteelgo = data;
+                    if (data) {
+                        error = ErrorInsertandoItems(data, error, dataJson[key]);
+                        if (ErrorBool(data)) {
+                            var item =
+                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: "", Cantidad: 0, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
+                            $("#grid").data("kendoGrid").dataSource.insert(item);
+                        };
+                    } else {
+                        error += "," + dataJson[key].ItemCode;
+                    };
+                   
+                    key++;
+                    ObtenerItemCodeSteelgo(dataJson, key, error);
+                });
+            } else {
+                loadingStop();
+
+                if (error) {
+                    displayMessage("notificationslabel0047", error, '2');
+                    return;
+                }
+            };
+        };
+
         function browserSupportFileUpload() {
             var isCompatible = false;
             if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -2771,11 +2783,14 @@
                         dataJson = $.parseJSON(csvJSON(csvData));
 
                         if (dataJson && dataJson.length > 0) {
-                            $.each(dataJson, function (key) {
-                                var item =
-                                       { ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: "No", TieneNU: "No", TieneError: false };
-                                $("#grid").data("kendoGrid").dataSource.insert(item);
-                            });
+                            //$.each(dataJson, function (key) {
+                            var i = 0, error = "";
+                            loadingStart();
+                                ObtenerItemCodeSteelgo(dataJson, i, error);
+                                //var item =
+                                //       { ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: "No", TieneNU: "No", TieneError: false };
+                                //$("#grid").data("kendoGrid").dataSource.insert(item);
+                            //});
                             document.getElementById('txtFileUpload').addEventListener('change', upload, false);
                         } else {
                             displayMessage("notificationslabel0020", "", '1');
@@ -2834,6 +2849,25 @@
             }
             //if (e.keyCode == ctrlKey) ctrlDown = true;
         }
+
+        
+        function ErrorBool(data) {
+            if (data.ReturnCode) {
+                if (data.ReturnCode != 200) {
+                    if (data.ReturnCode == 401) {
+                        removeUserSession();
+                        return true;
+                    } else {
+                        //displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        };
 
         function Error(data) {
             if (data.ReturnCode) {
