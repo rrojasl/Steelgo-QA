@@ -177,12 +177,21 @@ namespace BackEndSAM.DataAcces
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
                                         bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID 
+                                                && x.Activo).Any();
 
-                                        if (!existeRelICS)
+                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
+                                        //Que no exista el IC en la relacion
+                                        if (!existeRelICS && !ICexisteEnRel)
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+                                        else if (ICexisteEnRel && !existeRelICS)
+                                        {
+                                            TieneErrores = true;
                                         }
 
                                         //Update IC y ICS
@@ -315,11 +324,22 @@ namespace BackEndSAM.DataAcces
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
 
-                                        if (!existeRelICS)
+                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
+                                        //Que no exista el IC en la relacion
+                                        if (!existeRelICS && !ICexisteEnRel)
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+                                        else if (ICexisteEnRel && !existeRelICS)
+                                        {
+                                            TieneErrores = true;
                                         }
 
                                         //Update IC y ICS
@@ -440,11 +460,22 @@ namespace BackEndSAM.DataAcces
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
 
-                                        if (!existeRelICS)
+                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
+                                        //Que no exista el IC en la relacion
+                                        if (!existeRelICS && !ICexisteEnRel)
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+                                        else if (ICexisteEnRel && !existeRelICS)
+                                        {
+                                            TieneErrores = true;
                                         }
 
                                         //Update IC y ICS
@@ -586,11 +617,20 @@ namespace BackEndSAM.DataAcces
                                         //Creo relacion ItemCode_ItemCodeSteelgo
                                         bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID 
+                                                && x.Activo).Any();
 
-                                        if (!existeRelICS)
+                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
+                                        //Que no exista el IC en la relacion
+                                        if (!existeRelICS && !ICexisteEnRel)
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+                                        else if (ICexisteEnRel && !existeRelICS)
+                                        {
+                                            TieneErrores = true;
                                         }
 
                                         //Update IC y ICS
@@ -728,12 +768,21 @@ namespace BackEndSAM.DataAcces
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
                                         bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID 
+                                                && x.Activo).Any();
 
-                                        if (!existeRelICS)
+                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
+                                        //Que no exista el IC en la relacion
+                                        if (!existeRelICS && !ICexisteEnRel)
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+                                        else if (ICexisteEnRel && !existeRelICS)
+                                        {
+                                            TieneErrores = true;
                                         }
 
                                         //Update IC y ICS
