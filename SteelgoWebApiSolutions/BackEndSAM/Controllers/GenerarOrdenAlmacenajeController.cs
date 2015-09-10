@@ -53,34 +53,31 @@ namespace BackEndSAM.Controllers
 
         public object Get(string data, string token)
         {
-            //JavaScriptSerializer serializer = new JavaScriptSerializer();
-
             string payload = "";
-            //string newToken = "";
-            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
 
-            //if (tokenValido)
-            //{
+            if (tokenValido)
+            {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
                 FiltrosOrdenAlmacenaje filtros = ser.Deserialize<FiltrosOrdenAlmacenaje>(data);
 
-                return OrdenAlmacenajeBd.Instance.ObtenerListadoGenerarOrdenAlmacenaje(filtros/*, usuario*/);
-
-            //}
-            //else
-            //{
-            //    TransactionalInformation result = new TransactionalInformation();
-            //    result.ReturnMessage.Add(payload);
-            //    result.ReturnCode = 401;
-            //    result.ReturnStatus = false;
-            //    result.IsAuthenicated = false;
-            //    return result;
-            //}
+                return OrdenAlmacenajeBd.Instance.ObtenerListadoGenerarOrdenAlmacenaje(filtros, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/<controller>
-        public object Post(List<int> listaNU, string token)
+        public object Post(ListadosFolios OrdenAlmacenaje, string token)
         {
             string payload = "";
             string newToken = "";
@@ -91,8 +88,19 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
 
-                return OrdenAlmacenajeBd.Instance.GenerarOrdenAlmacenaje(listaNU, usuario);
-
+                if (OrdenAlmacenaje.listaFoliosCuantificacion.Count > 0 || OrdenAlmacenaje.listaItemCodes.Count > 0 || OrdenAlmacenaje.listaNumerosUnicos.Count > 0)
+                {
+                    return OrdenAlmacenajeBd.Instance.GenerarOrdenAlmacenaje(OrdenAlmacenaje, usuario);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("No se encontro ningun ID en los datos enviados");
+                    result.ReturnCode = 500;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
             }
             else
             {

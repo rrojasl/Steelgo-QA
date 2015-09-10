@@ -40,4 +40,23 @@ namespace BackEndSAM.Models
             public string NumeroUnicoID { get; set; }
             public string NumeroUnico { get; set; }
         }
+
+    public class ListadosFolios
+    {
+        public List<ListaIDS> listaFoliosCuantificacion { get; set; }
+        public List<ListaIDS> listaItemCodes { get; set; }
+        public List<ListaIDS> listaNumerosUnicos { get; set; }
+
+        public ListadosFolios()
+        {
+            listaFoliosCuantificacion = new List<ListaIDS>();
+            listaItemCodes = new List<ListaIDS>();
+            listaNumerosUnicos = new List<ListaIDS>();
+        }
+    }
+
+    public class ListaIDS
+    {
+        public int ID { get; set; }
+    }
 }

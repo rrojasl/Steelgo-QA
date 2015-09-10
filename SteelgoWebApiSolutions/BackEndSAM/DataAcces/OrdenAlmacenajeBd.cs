@@ -187,7 +187,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoGenerarOrdenAlmacenaje(FiltrosOrdenAlmacenaje filtros/*, Sam3_Usuario usuario*/)
+        public object ObtenerListadoGenerarOrdenAlmacenaje(FiltrosOrdenAlmacenaje filtros, Sam3_Usuario usuario)
         {
             try
             {
@@ -309,9 +309,6 @@ namespace BackEndSAM.DataAcces
                                                                 }).ToList()
                                            }).AsParallel().ToList();
 
-                        
-
-
                         foreach (var i in orden.ItemCodes)
                         {
                             foreach (var nu in i.NumerosUnicos)
@@ -328,15 +325,16 @@ namespace BackEndSAM.DataAcces
                                 int consecutivo = Convert.ToInt32(codigo[1]);
                                 nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
                             }
-                        }
+                            //Pendiente**************************************************************************************
 
+                            if (numeroUnicoID > 0)
+                            {
+                                i.NumerosUnicos.Where(x => x.NumeroUnicoID == numeroUnicoID.ToString()).ToList();
+                            }
+                        }
                         if (itemCodeID > 0)
                         {
                             orden.ItemCodes.Where(x => x.ItemCodeID == itemCodeID.ToString()).ToList();
-                        }
-
-                        if (numeroUnicoID > 0)
-                        {
                         }
 
                         listado.Add(orden);
@@ -461,10 +459,87 @@ namespace BackEndSAM.DataAcces
         //    }
         //}
 
-        public object GenerarOrdenAlmacenaje(List<int> listaNU, Sam3_Usuario usuario)
+        public List<int> ObtenerNumerosUnicosPorItemCode(List<int> itemcodes)
         {
             try
             {
+                  using(SamContext ctx = new SamContext())
+                {
+                      List<int> numerosunicos = new List<int>();
+                      foreach(var item in itemcodes)
+                      {
+                          numerosunicos.AddRange(from nu in ctx.Sam3_NumeroUnico
+                                                 where nu.Activo && nu.ItemCodeID == item
+                                                 select nu.NumeroUnicoID);
+                      }
+                      return numerosunicos;
+                }
+            }
+                catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public List<int> ObtenerItemCodesPorFolioCuantificacion(List<int> folioscuantificacion)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> itemcodes = new List<int>();
+
+                    foreach(int i in folioscuantificacion)
+                    {
+                        itemcodes.AddRange(from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                           where rfc.Activo && rfc.FolioCuantificacionID == i
+                                           select rfc.ItemCodeID);
+                    }
+
+                    return itemcodes;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return null;
+            }
+        }
+
+        public object GenerarOrdenAlmacenaje(ListadosFolios listaDatos, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<int> numerosunicos = new List<int>();
+
+                if(listaDatos.listaNumerosUnicos.Count > 0)
+                {
+                    numerosunicos = listaDatos.listaNumerosUnicos.Select(x=> x.ID).ToList();
+                }
+
+                if (listaDatos.listaItemCodes.Count > 0)
+                {
+                    //Obtengo los numero unicos
+                    numerosunicos.AddRange(ObtenerNumerosUnicosPorItemCode(listaDatos.listaItemCodes.Select(x => x.ID).ToList()));
+                }
+
+                if (listaDatos.listaFoliosCuantificacion.Count > 0)
+                {
+                    //Se obtienen item codes Rel FC_IC
+                    //se obtienen numeros unicos
+                    List<int> ICporFolioCuantificacion = (ObtenerItemCodesPorFolioCuantificacion(listaDatos.listaFoliosCuantificacion.Select(x => x.ID).ToList()));
+
+                    numerosunicos.AddRange(ObtenerNumerosUnicosPorItemCode(ICporFolioCuantificacion));
+                }
+
+                numerosunicos = numerosunicos.GroupBy(x=>x).Select(x=> x.First()).ToList();
+
                 int consecutivo = 0;
                 using (SamContext ctx = new SamContext())
                 {
@@ -478,8 +553,8 @@ namespace BackEndSAM.DataAcces
                         consecutivo = 1;
                     }
 
+                    //Insertamos en la tabla Orden Almacenaje
                     Sam3_OrdenAlmacenaje ordenAlmacenaje = new Sam3_OrdenAlmacenaje();
-                    //Guardar en Orden de Almacenaje
                     ordenAlmacenaje.Folio = consecutivo;
                     ordenAlmacenaje.FechaCreacion = DateTime.Now;
                     ordenAlmacenaje.Activo = true;
@@ -489,8 +564,8 @@ namespace BackEndSAM.DataAcces
                     ctx.Sam3_OrdenAlmacenaje.Add(ordenAlmacenaje);
                     ctx.SaveChanges();
 
-                    //guardar relacion OA con NU
-                    foreach (var item in listaNU)
+                    //guardar relacion OA con cada numero unico
+                    foreach (int item in numerosunicos)
                     {
                         Sam3_Rel_OrdenAlmacenaje_NumeroUnico relOrdenAlmacenaje = new Sam3_Rel_OrdenAlmacenaje_NumeroUnico();
                         relOrdenAlmacenaje.OrdenAlmacenajeID = ordenAlmacenaje.OrdenAlmacenajeID;
@@ -503,7 +578,6 @@ namespace BackEndSAM.DataAcces
                     }
 
                     ctx.SaveChanges();
-
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
