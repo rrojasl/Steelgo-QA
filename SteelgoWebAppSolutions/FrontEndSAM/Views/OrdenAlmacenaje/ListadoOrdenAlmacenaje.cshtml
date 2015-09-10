@@ -221,7 +221,7 @@
             columns: [
                 { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "40px" },
+                { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "40px" },
                 { field: "", title:"", width: "40px", template: "<a class='detailLink' onclick='CancelarOrden(this)'>Cancelar</a>" },
             ],
             dataBound: function (e) {
@@ -493,12 +493,17 @@
     };
 
     function CancelarOrden(row) {
-        var OrdenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
-        alert(OrdenAlmacenaje);
-        var grid = $("#grid").data("kendoGrid");
-        var tr = $(row).closest("tr");
-        grid.removeRow(tr);
-        //filtros();
+        var ordenAlmacenajeID = $(row).closest("tr").children()[2].innerHTML;
+        alert(ordenAlmacenajeID);
+        //var grid = $("#grid").data("kendoGrid");
+        //var tr = $(row).closest("tr");
+        //grid.removeRow(tr);
+
+        $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
+            Error(result);
+            loadingStop();
+            Filtros();
+        });
     };
 
     function CancelarFolioCuantificacion(row) {
@@ -508,20 +513,27 @@
         $(row).closest("tbody").find(".k-icon").removeClass("k-minus");
         $(row).closest("tbody").find(".k-icon").addClass("k-plus");
 
-        var grid = $("#grid").data("kendoGrid");
-        var tr = $(row).closest("tr");
-        grid.removeRow(tr);
+        //var grid = $("#grid").data("kendoGrid");
+        //var tr = $(row).closest("tr");
+        //grid.removeRow(tr);
         //Filtros();
     };
 
     function CancelarItem(row) {
-        var numerounico = $(row).closest("tr").children()[1].innerHTML;
-        var ordenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
-        var itemCodeID = $(row).closest("tr").children()[3].innerHTML;
+        loadingStart();
+        var numerounico = $(row).closest("tr").children()[2].innerHTML;
+        //var ordenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
+        //var itemCodeID = $(row).closest("tr").children()[3].innerHTML;
 
-        var grid = $("#grid").data("kendoGrid");
-        var tr = $(row).closest("tr");
-        grid.removeRow(tr);
+        //var grid = $("#grid").data("kendoGrid");
+        //var tr = $(row).closest("tr");
+        //grid.removeRow(tr);
+
+        $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { numeroUnico: numerounico, token: Cookies.get("token") }).done(function (result) {
+            Error(result);
+            Filtros();
+            loadingStop();
+        });
     };
     
     function obtenerFormatoFecha(d) {

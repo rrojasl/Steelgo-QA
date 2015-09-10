@@ -2609,15 +2609,16 @@
                 .appendTo(container)
                 .kendoAutoComplete({
                     dataTextField: "Codigo",
-                    //dataValueField: "ItemCodeID",
+                    dataValueField: "ItemCodeID",
                     filter: "contains",
+                    minLength: 3,
                     dataSource: {
                         type: "json",
+                        serverFiltering: true,
                         transport: {
                             read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
                             //read: $URLItemCode + "&" + container.parent().children()[0].innerText + "&TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
-                        },
-                        serverFiltering: true
+                        }
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
@@ -2660,8 +2661,8 @@
             $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
-                    dataTextField: "Codigo",
-                    dataValueField: "ItemCodeSteelgoID",
+                    dataTextField: "value",
+                    dataValueField: "id",
                     dataSource: {
                         type: "json",
                         transport: {

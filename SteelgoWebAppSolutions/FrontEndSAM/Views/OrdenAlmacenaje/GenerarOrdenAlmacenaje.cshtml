@@ -205,12 +205,12 @@
         });
 
         $("#NumeroUnico").kendoComboBox({
-            dataTextField: "value",
-            dataValueField: "id",
+            dataTextField: "NumeroUnico",
+            dataValueField: "NumeroUnicoID",
             filter: "contains",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarNumeroUnico(dataItem.id);
+                CargarNumeroUnico(dataItem.NumeroUnicoID);
             },
             change: function (e) {
                 var value = this.value();
@@ -379,34 +379,38 @@
 
     function ObtenerFoliosCuantificacion() {
         var Listado;
-        Listado = { ProyectoID: Proyecto.ProyectoID, TipoListado: "9", token: Cookies.get("token") };
+        Listado = { ProyectoID: Proyecto.ProyectoID, TipoListado: "19", token: Cookies.get("token") };
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("FolioCuantificacionID", result);
-            //CargarDatosGrid();
         });
     };
 
     function ObtenerItemCodes() {
         var Listado;
-        Listado = { FolioCuantificacionID: FolioCuantificacion.FolioCuantificacionID, TipoListado: "10", token: Cookies.get("token") };
+        Listado = { FolioCuantificacionID: FolioCuantificacion.FolioCuantificacionID, TipoListado: "20", token: Cookies.get("token") };
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("ItemCode", result);
-            //CargarDatosGrid();
         });
     };
 
     function ObtenerNumerosUnicos() {
+        var Listado;
+        Listado = { ItemCodeID: ItemCode.ItemCodeID, TipoListado: "21", token: Cookies.get("token") };
 
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            ControlErroresObjetosComboBox("NumeroUnico", result);
+        });
     };
     function CargarDatosGrid() {
         loadingStart();
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
-        
-        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID };
+        var numerounicoid = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : "";
+
+        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID, NumeroUnicoID: numerounicoid };
 
         $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
