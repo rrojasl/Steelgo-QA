@@ -220,7 +220,7 @@
             detailInit: detailInit,
             columns: [
                 { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px", template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenAlmacenaje#)'>#:OrdenAlmacenaje#</a>" },
                 { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "40px" },
                 { field: "", title:"", width: "40px", template: "<a class='detailLink' onclick='CancelarOrden(this)'>Cancelar</a>" },
             ],
@@ -288,6 +288,11 @@
         });
     }
     
+    function mostrarDetalle(ordenAlmacenajeID) {
+        var detalleIdeaUrl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
+        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + ordenAlmacenajeID;
+    };
+
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
@@ -341,6 +346,7 @@
                     PeriodoTiempo = [];
                 }
                 ObtenerFechasporPeriodo(value);
+                Filtros();
             },
             filter: "contains",
         });

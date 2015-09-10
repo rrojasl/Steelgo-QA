@@ -93,6 +93,7 @@ var $CargarGridCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/a
 var $Colada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $GenerarOrdenAlmacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -164,3 +165,4 @@ $CargarGridCuantificacion.add("CargarGridCuantificacion");
 $Colada.add("Colada");
 $GuardarFolioLlegadaCuantificacion.add("GuardarFolioLlegadaCuantificacion");
 $CambiarEstatusCuantificacion.add("CambiarEstatusCuantificacion");
+$GenerarOrdenAlmacenaje.add("GenerarOrdenAlmacenaje");

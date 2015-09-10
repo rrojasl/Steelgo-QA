@@ -594,7 +594,7 @@
 
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
-            $OrdenRecepcion.OrdenRecepcion.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
+            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
@@ -609,7 +609,7 @@
     function ObtenerFoliosDeMemoria() {
         var x = 0, folios = [];
         for (var check in checkNodoPrincipal) {
-            var bool = checkNodoPrincipal[check].split(",")[2] == "true" ? true : false;
+            var bool = checkNodoPrincipal[check].split(",")[1] == "true" ? true : false;
             if (bool) {
                 folios[x] = { ID: parseInt(checkNodoPrincipal[check].split(",")[0].split(":")[1]) };
                 x++;
@@ -657,11 +657,11 @@
 
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
-            $OrdenRecepcion.OrdenRecepcion.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
+            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
                     window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.OrdenRecepcionID;
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + data.ReturnMessage[1];
                 }
             });
         } else {
