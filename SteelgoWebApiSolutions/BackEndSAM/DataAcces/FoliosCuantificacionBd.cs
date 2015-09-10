@@ -47,7 +47,7 @@ namespace BackEndSAM.DataAcces
                     Sam3_FolioCuantificacion folio = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID)
                         .AsParallel().SingleOrDefault();
 
-                    folio.Estatus = "En Proceso Recepción";
+                    folio.Estatus = "En Proceso de Recepción";
                     folio.FechaModificacion = DateTime.Now;
                     folio.UsuarioModificacion = usuario.UsuarioID;
 

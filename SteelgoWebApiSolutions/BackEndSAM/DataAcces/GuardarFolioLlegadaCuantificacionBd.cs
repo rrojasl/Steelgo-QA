@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID;
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
-                     folioCuantificacion.Estatus = "En Proceso Recepción";
+                     folioCuantificacion.Estatus = "En Proceso de Recepción";
                      folioCuantificacion.FechaModificacion = DateTime.Now;
                      folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
@@ -116,7 +116,7 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.PackingList = datosCuantificacion.PackingList;
                      folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
                      folioCuantificacion.FechaCreacion = DateTime.Now;
-                     folioCuantificacion.Estatus = "En Proceso Recepción";
+                     folioCuantificacion.Estatus = "En Proceso de Recepción";
                      folioCuantificacion.FechaModificacion = DateTime.Now;
                      folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
