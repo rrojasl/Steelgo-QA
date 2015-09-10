@@ -397,7 +397,7 @@
 
         $(row.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[2]).find(".materiales").each(function (i, val) {
             var checked = val.checked;
-            var value = "id:" + id + "," + $(val).closest("tr").children()[2].innerHTML;
+            var value = "id:" + id + "," + $(val).closest("tr").children()[1].innerHTML;
             boolexiste = false;
             for (var check in checkItemCodesID) {
                 if (checkItemCodesID[check].indexOf(value) != -1) {
@@ -413,7 +413,7 @@
 
     function NodoHijo(row, id) {
         var checkbox = $(row);
-        var value = "id:" + id + "," + $(row).closest("tr").children()[2].innerHTML;
+        var value = "id:" + id + "," + $(row).closest("tr").children()[1].innerHTML;
 
         var boolexiste = false;
         for (var check in checkItemCodesID) {
@@ -432,7 +432,7 @@
     function ObtenerFoliosDeMemoria() {
         var x = 0, folios = [];
         for (var check in checkNodoPrincipal) {
-            var bool = checkNodoPrincipal[check].split(",")[2] == "true" ? true : false;
+            var bool = checkNodoPrincipal[check].split(",")[1] == "true" ? true : false;
             if (bool) {
                 folios[x] = { ID: parseInt(checkNodoPrincipal[check].split(",")[0].split(":")[1]) };
                 x++;
@@ -446,7 +446,7 @@
         for (var check in checkItemCodesID) {
             var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
             if (bool) {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[check].split(",")[1]) };
+                itemCodes[x] = { ID: parseInt( checkItemCodesID[check].split(",")[1]) };
                 x++;
             }
         }
@@ -455,7 +455,7 @@
 
     function GenerarOrdenRecepcionNuevo() {
         var itemCodes = [], x = 0, folios = [];
-        OrdenRecepcion = { ID: "", Folios:""};
+        denRecepcion = { Folios: "", Items: "" };
 
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
@@ -479,7 +479,7 @@
 
     function GenerarOrdenRecepcion() {
         var itemCodes = [], x = 0, folios = [];
-        OrdenRecepcion = { ID: "", Folios: "" };
+        OrdenRecepcion = { Folios: "", Items: "" };
 
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
@@ -506,7 +506,7 @@
     
     function GenerarOrdenRecepcionFormatoEtiquetas() {
         var itemCodes = [], x = 0, folios = [];
-        OrdenRecepcion = { ID: "", Folios: "" };
+        denRecepcion = { Folios: "", Items: "" };
 
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
@@ -573,7 +573,7 @@
 
         for (var i = 0; i < body.children.length; i++) {
             for (var check in checkItemCodesID) {
-                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[2].innerHTML) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[1].innerHTML) {
                     var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
                     if (!$(body.children[i]).find(".materiales").is(":disabled"))
                         $(body.children[i]).find(".materiales").attr("checked", bool);
@@ -590,7 +590,7 @@
 
         for (var i = 0; i < body.children.length; i++) {
             for (var check in checkItemCodesID) {
-                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[2].innerHTML) {
+                if (checkItemCodesID[check].split(",")[0].split(":")[1] == body.children[i].children[8].innerHTML && checkItemCodesID[check].split(",")[1] == body.children[i].children[1].innerHTML) {
                     var bool = checkItemCodesID[check].split(",")[2] == "true" ? true : false;
                     if (!$(body.children[i]).find(".materiales").is(":disabled"))
                         $(body.children[i]).find(".materiales").attr("checked", bool);
@@ -633,7 +633,7 @@
                 sortable: false,
                 columns: [
                     { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + 'class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
-                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px",  },
                     { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
                     { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },

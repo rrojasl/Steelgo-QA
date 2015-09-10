@@ -313,6 +313,8 @@ namespace BackEndSAM.DataAcces
                                                               where o.OrdenRecepcionID == ordenRecepcionID
                                                               select fe).AsParallel().ToList();
 
+                    registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+
                     foreach (Sam3_FolioAvisoEntrada folio in registros)
                     {
                         ListadoGenerarOrdenRecepcion elemento = new ListadoGenerarOrdenRecepcion();

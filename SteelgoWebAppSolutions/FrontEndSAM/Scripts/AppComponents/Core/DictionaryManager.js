@@ -2648,7 +2648,44 @@ _dictionary = {
         "es-MX": "Cliente",
         "en-US": "Client"
     },
-//Default to copy
+    //Listado Packing List
+    "ListadoPackingList0001": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoPackingList0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoPackingList0003": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Folio Aviso Entrada"
+    },
+    "ListadoPackingList0004": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoPackingList0005": {
+        "es-MX": "Fecha Final",
+        "en-US": "End Date"
+    },
+    "ListadoPackingList0006": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoPackingList0007": {
+        "es-MX": "Agregar Packing List",
+        "en-US": "Add Packing List"
+    },
+    "ListadoPackingList0008": {
+        "es-MX": "Fecha Aviso de Llegada",
+        "en-US": "Fecha Aviso de Llegada"
+    },
+    "ListadoPackingList0009": {
+        "es-MX": "Fecha Packing List",
+        "en-US": "Date Packing List"
+    },
+    //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
         "en-US": ""
@@ -2833,7 +2870,11 @@ _dictionary = {
         "es-MX": "Favor de validar la informacion.",
         "en-US": "Please validate the information."
     },
-//Default to copy
+    "notificationslabel0047": {
+        "es-MX": "Fallaron los siguientes item Codes: ",
+        "en-US": ""
+    },
+    //Default to copy
     "label9999": {
         "es-MX": "",
         "en-US": ""
