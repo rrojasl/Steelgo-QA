@@ -215,7 +215,7 @@
             detailInit: detailInit,
             columns: [
                 { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], width: "110px", template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenRecepcion#)'>#:OrdenRecepcion#</a>" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: imprimirOrden }, title: " ", width: "40px" }
             ],
             dataBound: function (e) {
@@ -451,6 +451,10 @@
         return Listado;
     };
 
+    function mostrarDetalle(ordenid) {
+        var detalleIdeaUrl = "@Url.Action("OrdenRecepcion", "DetalleOrdenRecepcion")";
+        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenid;
+    };
     function imprimirOrden() {
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
