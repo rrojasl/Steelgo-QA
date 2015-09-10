@@ -1383,6 +1383,8 @@ namespace BackEndSAM.DataAcces
                                                     value = fe.FolioAvisoLlegadaID.ToString()
                                                 }).AsParallel().ToList();
 
+                    folios = folios.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
                     return folios;
 
                 }
