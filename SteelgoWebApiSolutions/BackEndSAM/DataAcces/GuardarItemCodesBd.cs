@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
         /// 5: Guardar Parcial cuando se encuentra en la pantalla de bulto
         /// </param>
         /// <returns></returns>
-        public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion, 
+        public object GuardadoInformacionItemCodes(bool cerrar, bool incompletos, int FolioAvisollegadaId, int FolioCuantificacion,
             CuantificacionListado datosItemCode, Sam3_Usuario usuario, int tipoGuardado)
         {
             try
@@ -74,7 +74,7 @@ namespace BackEndSAM.DataAcces
                 {
                     using (SamContext ctx = new SamContext())
                     {
-                      
+
                         Sam3_FolioCuantificacion folioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                                         join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                                         where fc.Activo && fe.Activo
@@ -100,7 +100,7 @@ namespace BackEndSAM.DataAcces
                                 bulto = new Sam3_Bulto();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode == "Bulto")
+                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
                                 {
                                     if (String.IsNullOrEmpty(datosItemCode.BultoID))
                                     {
@@ -161,7 +161,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
                                         bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                 && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
 
                                         if (!existeRelICS)
@@ -226,7 +226,7 @@ namespace BackEndSAM.DataAcces
                                 bulto = new Sam3_Bulto();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
-                                if (datosItemCode.ItemCode == "Bulto")
+                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
                                 {
                                     if (String.IsNullOrEmpty(datosItemCode.BultoID))
                                     {
@@ -275,7 +275,7 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                   
+
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
@@ -335,110 +335,110 @@ namespace BackEndSAM.DataAcces
                                 #region Guardar Parcial
                                 // foreach (var item in datosItemCode)
                                 //{
-                                    IC = new Sam3_ItemCode();
-                                    ICS = new Sam3_ItemCodeSteelgo();
-                                    bulto = new Sam3_Bulto();
+                                IC = new Sam3_ItemCode();
+                                ICS = new Sam3_ItemCodeSteelgo();
+                                bulto = new Sam3_Bulto();
 
-                                    //Si tengo un bulto guardo en la tabla de bultos
-                                    if (datosItemCode.ItemCode == "Bulto")
+                                //Si tengo un bulto guardo en la tabla de bultos
+                                if (datosItemCode.ItemCode.IndexOf("Bulto") > 0)
+                                {
+                                    if (String.IsNullOrEmpty(datosItemCode.BultoID))
                                     {
-                                        if (String.IsNullOrEmpty(datosItemCode.BultoID))
-                                        {
-                                            bulto = InsertarBulto(FolioCuantificacion, usuario);
-                                        }
-                                        else
-                                        {
-                                            bulto = ActualizarBulto(FolioCuantificacion, usuario, datosItemCode.BultoID);
-                                        }
-
-                                        listaNuevosIC.Add(new CuantificacionListado
-                                        {
-                                            ItemCode = "Bulto",
-                                            BultoID = bulto.BultoID.ToString(),
-                                            Cantidad = datosItemCode.Cantidad,
-                                            TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus
-                                        });
+                                        bulto = InsertarBulto(FolioCuantificacion, usuario);
                                     }
                                     else
                                     {
-                                        //Obtenemos IDS
-                                        datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
-                                                                    where ic.Codigo == datosItemCode.ItemCode && ic.Activo
-                                                           select ic.ItemCodeID).AsParallel().SingleOrDefault().ToString();
+                                        bulto = ActualizarBulto(FolioCuantificacion, usuario, datosItemCode.BultoID);
+                                    }
 
-                                        datosItemCode.ItemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo
-                                                                           where ics.Codigo == datosItemCode.ItemCodeSteelgo && ics.Activo
-                                                                  select ics.ItemCodeSteelgoID).AsParallel().SingleOrDefault().ToString();
+                                    listaNuevosIC.Add(new CuantificacionListado
+                                    {
+                                        ItemCode = "Bulto",
+                                        BultoID = bulto.BultoID.ToString(),
+                                        Cantidad = datosItemCode.Cantidad,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus
+                                    });
+                                }
+                                else
+                                {
+                                    //Obtenemos IDS
+                                    datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
+                                                                where ic.Codigo == datosItemCode.ItemCode && ic.Activo
+                                                                select ic.ItemCodeID).AsParallel().SingleOrDefault().ToString();
 
-                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
-                                                                where fa.Nombre == datosItemCode.Familia && fa.Activo
-                                                                select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
+                                    datosItemCode.ItemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                                       where ics.Codigo == datosItemCode.ItemCodeSteelgo && ics.Activo
+                                                                       select ics.ItemCodeSteelgoID).AsParallel().SingleOrDefault().ToString();
 
-                                        datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
-                                                                     where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
-                                                            select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
+                                    datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                     where fa.Nombre == datosItemCode.Familia && fa.Activo
+                                                                     select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
 
-                                        datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                                  where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                         select c.ColadaID).AsParallel().FirstOrDefault();
+                                    datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
+                                                                 where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
+                                                                 select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
 
-                                        int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
+                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              select c.ColadaID).AsParallel().FirstOrDefault();
 
-                                        datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
-                                                             where tm.ItemCodeID == itemCodeID && tm.Activo
-                                                             select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+                                    int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
 
-                                            bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                            bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
+                                                                  where tm.ItemCodeID == itemCodeID && tm.Activo
+                                                                  select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                            //Si ya existe Item Code y tiene NU
-                                            if (existeYnumerosunicos)
-                                            {
-                                                TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
-                                            }
-                                            else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                            {
-                                                //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
-                                                if (!existeRelICS)
-                                                {
-                                                    InsertarRelacionIC_ICS(datosItemCode, usuario);
-                                                }
+                                    //Si ya existe Item Code y tiene NU
+                                    if (existeYnumerosunicos)
+                                    {
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                    }
+                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
+                                    {
+                                        //Creo relacion ItemCode_ItemCodeSteelgo
+                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
 
-                                                //Update IC y ICS
-                                                IC = ActualizarItemCode(datosItemCode, IC, usuario);
-                                                ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-
-                                                if (!existeSINnumerosunicos)
-                                                {
-                                                    //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
-                                                }
-                                            }
-
-                                        listaNuevosIC.Add(new CuantificacionListado
+                                        if (!existeRelICS)
                                         {
-                                            ItemCodeID = IC.ItemCodeID.ToString(),
-                                            TipoMaterial = IC.TipoMaterialID,
-                                            ItemCode = IC.Codigo,
-                                            ItemCodeSteelgo = ICS.Codigo,
-                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                            Descripcion = ICS.DescripcionEspanol,
-                                            Peso = ICS.Peso,
-                                            Cedula = datosItemCode.Cedula,
-                                            D1 = ICS.Diametro1,
-                                            D2 = ICS.Diametro2,
-                                            Familia = datosItemCode.Familia,
-                                            TipoAcero = datosItemCode.TipoAcero,
-                                            Cantidad = IC.Cantidad,
-                                            MM = IC.MM,
-                                            Colada = datosItemCode.Colada,
-                                            TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus,
-                                            TieneNU = datosItemCode.TieneNU
-                                        });
+                                            InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+
+                                        //Update IC y ICS
+                                        IC = ActualizarItemCode(datosItemCode, IC, usuario);
+                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+
+                                        if (!existeSINnumerosunicos)
+                                        {
+                                            //Insertar la Relacion Folio Cuantificacion IC
+                                            InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
+                                        }
+                                    }
+
+                                    listaNuevosIC.Add(new CuantificacionListado
+                                    {
+                                        ItemCodeID = IC.ItemCodeID.ToString(),
+                                        TipoMaterial = IC.TipoMaterialID,
+                                        ItemCode = IC.Codigo,
+                                        ItemCodeSteelgo = ICS.Codigo,
+                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                        Descripcion = ICS.DescripcionEspanol,
+                                        Peso = ICS.Peso,
+                                        Cedula = datosItemCode.Cedula,
+                                        D1 = ICS.Diametro1,
+                                        D2 = ICS.Diametro2,
+                                        Familia = datosItemCode.Familia,
+                                        TipoAcero = datosItemCode.TipoAcero,
+                                        Cantidad = IC.Cantidad,
+                                        MM = IC.MM,
+                                        Colada = datosItemCode.Colada,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus,
+                                        TieneNU = datosItemCode.TieneNU
+                                    });
 
                                 }
                                 scope.Complete();
@@ -451,131 +451,139 @@ namespace BackEndSAM.DataAcces
                                 if (cerrar && !incompletos)
                                 {
                                     //Cambiar estatus al bulto
-                                    bulto = new Sam3_Bulto();
+                                    bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == datosItemCode.BultoID).AsParallel().SingleOrDefault();
 
                                     bulto.Estatus = "Terminado";
                                     bulto.UsuarioModificacion = usuario.UsuarioID;
                                     bulto.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
                                 }
-                                    IC = new Sam3_ItemCode();
-                                    ICS = new Sam3_ItemCodeSteelgo();
+                                IC = new Sam3_ItemCode();
+                                ICS = new Sam3_ItemCodeSteelgo();
 
-                                    //Si tengo un bulto guardo en la tabla de bultos
-                                    if (datosItemCode.ItemCode == "Bulto")
+                                //Si tengo un bulto guardo en la tabla de bultos
+                                if (datosItemCode.ItemCode == "Bulto")
+                                {
+                                    TieneErrores = true;
+
+                                    listaNuevosIC.Add(new CuantificacionListado
                                     {
-                                        TieneErrores = true;
+                                        ItemCodeID = datosItemCode.ItemCodeID,
+                                        TipoMaterial = datosItemCode.TipoMaterial,
+                                        ItemCode = datosItemCode.ItemCode,
+                                        ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,
+                                        ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,
+                                        Descripcion = datosItemCode.Descripcion,
+                                        Peso = datosItemCode.Peso,
+                                        Cedula = datosItemCode.Cedula,
+                                        D1 = datosItemCode.D1,
+                                        D2 = datosItemCode.D2,
+                                        Familia = datosItemCode.Familia,
+                                        TipoAcero = datosItemCode.TipoAcero,
+                                        Cantidad = datosItemCode.Cantidad,
+                                        MM = datosItemCode.MM,
+                                        Colada = datosItemCode.Colada,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus,
+                                        TieneNU = datosItemCode.TieneNU
+                                    });
+                                }
+                                else
+                                {
+                                    //Obtenemos IDS
+                                    datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
+                                                                where ic.Codigo == datosItemCode.ItemCode && ic.Activo
+                                                                select ic.ItemCodeID).AsParallel().SingleOrDefault().ToString();
 
-                                        listaNuevosIC.Add(new CuantificacionListado
-                                        {
-                                            ItemCodeID = datosItemCode.ItemCodeID,
-                                            TipoMaterial = datosItemCode.TipoMaterial,
-                                            ItemCode = datosItemCode.ItemCode,
-                                            ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,
-                                            ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,
-                                            Descripcion = datosItemCode.Descripcion,
-                                            Peso = datosItemCode.Peso,
-                                            Cedula = datosItemCode.Cedula,
-                                            D1 = datosItemCode.D1,
-                                            D2 = datosItemCode.D2,
-                                            Familia = datosItemCode.Familia,
-                                            TipoAcero = datosItemCode.TipoAcero,
-                                            Cantidad = datosItemCode.Cantidad,
-                                            MM = datosItemCode.MM,
-                                            Colada = datosItemCode.Colada,
-                                            TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus,
-                                            TieneNU = datosItemCode.TieneNU
-                                        });
-                                    }
-                                    else
+                                    datosItemCode.ItemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                                       where ics.Codigo == datosItemCode.ItemCodeSteelgo && ics.Activo
+                                                                       select ics.ItemCodeSteelgoID).AsParallel().SingleOrDefault().ToString();
+
+                                    datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
+                                                                     where fa.Nombre == datosItemCode.Familia && fa.Activo
+                                                                     select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
+
+                                    datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
+                                                                 where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
+                                                                 select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
+
+                                    datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
+                                                              where c.NumeroColada == datosItemCode.Colada && c.Activo
+                                                              select c.ColadaID).AsParallel().FirstOrDefault();
+
+                                    int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
+
+                                    datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
+                                                                  where tm.ItemCodeID == itemCodeID && tm.Activo
+                                                                  select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
+                                    bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
+                                        .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                            && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                        && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+
+                                    //Si ya existe Item Code en la Rel Bulto y tiene NU
+                                    if (existeYnumerosunicos)
                                     {
-                                        //Obtenemos IDS
-                                        datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
-                                                                    where ic.Codigo == datosItemCode.ItemCode && ic.Activo
-                                                           select ic.ItemCodeID).AsParallel().SingleOrDefault().ToString();
-
-                                        datosItemCode.ItemCodeSteelgoID = (from ics in ctx.Sam3_ItemCodeSteelgo
-                                                                           where ics.Codigo == datosItemCode.ItemCodeSteelgo && ics.Activo
-                                                                  select ics.ItemCodeSteelgoID).AsParallel().SingleOrDefault().ToString();
-
-                                        datosItemCode.FamiliaMaterial = (from fa in ctx.Sam3_FamiliaAcero
-                                                                         where fa.Nombre == datosItemCode.Familia && fa.Activo
-                                                                select fa.FamiliaAceroID).AsParallel().FirstOrDefault().ToString();
-
-                                        datosItemCode.TipoAceroID = (from fm in ctx.Sam3_FamiliaMaterial
-                                                                     where fm.Nombre == datosItemCode.TipoAcero && fm.Activo
-                                                            select fm.FamiliaMaterialID).AsParallel().FirstOrDefault();
-
-                                        datosItemCode.ColadaID = (from c in ctx.Sam3_Colada
-                                                                  where c.NumeroColada == datosItemCode.Colada && c.Activo
-                                                         select c.ColadaID).AsParallel().FirstOrDefault();
-
-                                        int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
-
-                                        datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
-                                                             where tm.ItemCodeID == itemCodeID && tm.Activo
-                                                             select tm.TipoMaterialID).AsParallel().FirstOrDefault();
-
-                                        bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                        bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
-
-                                            //Si ya existe Item Code en la Rel Bulto y tiene NU
-                                            if (existeYnumerosunicos)
-                                            {
-                                                TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
-                                            }
-                                            else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                            {
-                                                //Creo relacion ItemCode_ItemCodeSteelgo
-                                                bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
-
-                                                if (!existeRelICS)
-                                                {
-                                                    InsertarRelacionIC_ICS(datosItemCode, usuario);
-                                                }
-
-                                                //Update IC y ICS
-                                                IC = ActualizarItemCode(datosItemCode, IC, usuario);
-                                                ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-
-                                                //Creo relacion bulto item code
-                                                bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID && x.ItemCodeID.ToString() == datosItemCode.ItemCode && x.Activo).Any();
-
-                                                if (!existeRelBultoIC)
-                                                {
-                                                    CrearRelacionBulto_IC(datosItemCode, usuario);
-                                                }
-                                               
-                                                if (!existeSINnumerosunicos)
-                                                {
-                                                    //Insertar la Relacion Folio Cuantificacion IC
-                                                    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
-                                                }
-                                            }
-
-                                        listaNuevosIC.Add(new CuantificacionListado
-                                        {
-                                            ItemCodeID = IC.ItemCodeID.ToString(),
-                                            TipoMaterial = IC.TipoMaterialID,
-                                            ItemCode = IC.Codigo,
-                                            ItemCodeSteelgo = ICS.Codigo,
-                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                            Descripcion = ICS.DescripcionEspanol,
-                                            Peso = ICS.Peso,
-                                            Cedula = datosItemCode.Cedula,
-                                            D1 = ICS.Diametro1,
-                                            D2 = ICS.Diametro2,
-                                            Familia = datosItemCode.Familia,
-                                            TipoAcero = datosItemCode.TipoAcero,
-                                            Cantidad = IC.Cantidad,
-                                            MM = IC.MM,
-                                            Colada = datosItemCode.Colada,
-                                            TieneError = TieneErrores,
-                                            Estatus = folioCuantificacion.Estatus,
-                                            TieneNU = datosItemCode.TieneNU
-                                        });
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
                                     }
+                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
+                                    {
+                                        //Creo relacion ItemCode_ItemCodeSteelgo
+                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+
+                                        if (!existeRelICS)
+                                        {
+                                            InsertarRelacionIC_ICS(datosItemCode, usuario);
+                                        }
+
+                                        //Update IC y ICS
+                                        IC = ActualizarItemCode(datosItemCode, IC, usuario);
+                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+
+                                        //Creo relacion bulto item code
+                                        bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID 
+                                            && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
+                                        if (!existeRelBultoIC)
+                                        {
+                                            CrearRelacionBulto_IC(datosItemCode, usuario);
+                                        }
+
+                                        //los itemcodes de bulto no se guardan en la relacion con foliocuantificacion
+                                        //if (!existeSINnumerosunicos)
+                                        //{
+                                        //    //Insertar la Relacion Folio Cuantificacion IC
+                                        //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
+                                        //}
+                                    }
+
+                                    listaNuevosIC.Add(new CuantificacionListado
+                                    {
+                                        ItemCodeID = IC.ItemCodeID.ToString(),
+                                        TipoMaterial = IC.TipoMaterialID,
+                                        ItemCode = IC.Codigo,
+                                        ItemCodeSteelgo = ICS.Codigo,
+                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                        Descripcion = ICS.DescripcionEspanol,
+                                        Peso = ICS.Peso,
+                                        Cedula = datosItemCode.Cedula,
+                                        D1 = ICS.Diametro1,
+                                        D2 = ICS.Diametro2,
+                                        Familia = datosItemCode.Familia,
+                                        TipoAcero = datosItemCode.TipoAcero,
+                                        Cantidad = IC.Cantidad,
+                                        MM = IC.MM,
+                                        Colada = datosItemCode.Colada,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus,
+                                        TieneNU = datosItemCode.TieneNU
+                                    });
+                                }
                                 //}
                                 scope.Complete();
 
@@ -656,7 +664,7 @@ namespace BackEndSAM.DataAcces
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
                                         bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                 && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
 
                                         if (!existeRelICS)
@@ -680,7 +688,7 @@ namespace BackEndSAM.DataAcces
                                         //ctx.SaveChanges();
 
                                         bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode
-                                            .Where(x => x.BultoID.ToString() == datosItemCode.BultoID 
+                                            .Where(x => x.BultoID.ToString() == datosItemCode.BultoID
                                              && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID.ToString() && x.Activo).Any();
 
                                         if (!existeRelBultoIC)
@@ -718,7 +726,7 @@ namespace BackEndSAM.DataAcces
                                 break;
                         }
 
-#if DEBUG 
+#if DEBUG
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
                         string json = serializer.Serialize(listaNuevosIC);
 #endif
@@ -780,7 +788,7 @@ namespace BackEndSAM.DataAcces
                 bulto.FechaModificacion = DateTime.Now;
                 bulto.UsuarioModificacion = usuario.UsuarioID;
                 bulto.Activo = true;
-                
+
                 ctx.SaveChanges();
 
                 return bulto;
@@ -802,8 +810,8 @@ namespace BackEndSAM.DataAcces
             {
                 bool TieneErrores = false;
                 //Revisar la cantidad de numeros unicos existentes
-                int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico 
-                                             where cnu.ItemCodeID.ToString() == item.ItemCodeID && cnu.Activo 
+                int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico
+                                             where cnu.ItemCodeID.ToString() == item.ItemCodeID && cnu.Activo
                                              select cnu.NumeroUnicoID).Count();
 
                 int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo)
@@ -936,9 +944,9 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="item">Datos capturados en el grid</param>
         /// <param name="usuario">usuario actual</param>
-       public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario)
+        public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario)
         {
-             //creo la relacion bulto IC
+            //creo la relacion bulto IC
             using (SamContext ctx = new SamContext())
             {
                 Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
