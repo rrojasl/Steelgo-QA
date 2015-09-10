@@ -962,7 +962,7 @@ namespace BackEndSAM.DataAcces
                 IC.Diametro2 = item.D2;
                 IC.DescripcionEspanol = item.Descripcion;
                 IC.DescripcionIngles = item.Descripcion;
-                IC.FamiliaAceroID = Convert.ToInt32(item.Familia);
+                IC.FamiliaAceroID = Convert.ToInt32(item.FamiliaMaterial);
                 
 
                 ctx.SaveChanges();
