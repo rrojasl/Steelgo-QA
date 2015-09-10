@@ -304,14 +304,16 @@
         $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
         $("#ItemCode").data("kendoComboBox").enable(false);
         $("#NumeroUnico").data("kendoComboBox").enable(false);
+        $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
     };
     
     function HabilitarCampos() {
-        $("#ProyectoID").data("kendoComboBox").enable(true);
-        $("#FolioCuantificacionID").data("kendoComboBox").enable(true);
-        $("#ItemCode").data("kendoComboBox").enable(true);
-        $("#NumeroUnico").data("kendoComboBox").enable(true);
+        $("#ProyectoID").data("kendoComboBox").enable(false);
+        $("#FolioCuantificacionID").data("kendoComboBox").enable(false);
+        $("#ItemCode").data("kendoComboBox").enable(false);
+        $("#NumeroUnico").data("kendoComboBox").enable(false);
         $(".detailLink").removeAttr("disabled");
+        $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
         MostrarColumnaCancelar(true);
     };
     function CargaInicialGrid() {

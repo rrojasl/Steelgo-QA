@@ -581,20 +581,20 @@
 
     function GenerarOrdenAlmacenaje() {
         var itemCodes = [], x = 0, folios = [], numerosunicos = [];
-        OrdenAlmacenaje = { ID: "", Folios: "", NumerosUnicos: "" };
+        OrdenAlmacenaje = { listaFoliosCuantificacion: "", listaItemCodes: "", listaNumerosUnicos: "" };
 
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
-        
+
         loadingStart();
-        OrdenAlmacenaje.Folios = folios;
-        OrdenAlmacenaje.Items = itemCodes;
-        OrdenAlmacenaje.NumerosUnicos = numerosunicos;
+        OrdenAlmacenaje.listaFoliosCuantificacion = folios;
+        OrdenAlmacenaje.listaItemCodes = itemCodes;
+        OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
 
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
-            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
+            $OrdenRecepcion.OrdenRecepcion.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
@@ -644,20 +644,20 @@
 
     function GenerarOrdenAlmacenajeFormato() {
         var itemCodes = [], x = 0, folios = [], numerosunicos = [];
-        OrdenAlmacenaje = { ID: "", Folios: "", NumerosUnicos: "" };
+        OrdenAlmacenaje = { listaFoliosCuantificacion: "", listaItemCodes: "", listaNumerosUnicos: "" };
 
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
         numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
         loadingStart();
-        OrdenAlmacenaje.Folios = folios;
-        OrdenAlmacenaje.Items = itemCodes;
-        OrdenAlmacenaje.NumerosUnicos = numerosunicos;
+        OrdenAlmacenaje.listaFoliosCuantificacion = folios;
+        OrdenAlmacenaje.listaItemCodes = itemCodes;
+        OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
 
         if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
             
-            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
+            $OrdenRecepcion.OrdenRecepcion.create(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
                     window.open("http://www.asp.net");//Webservice
