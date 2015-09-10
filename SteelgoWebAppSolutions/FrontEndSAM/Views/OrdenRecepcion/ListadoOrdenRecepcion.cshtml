@@ -452,9 +452,10 @@
     };
 
     function mostrarDetalle(ordenid) {
-        var detalleIdeaUrl = "@Url.Action("OrdenRecepcion", "DetalleOrdenRecepcion")";
+        var detalleIdeaUrl = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenid;
     };
+
     function imprimirOrden() {
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
