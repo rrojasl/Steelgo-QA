@@ -63,7 +63,8 @@ namespace BackEndSAM.DataAcces
                                where fc.FolioCuantificacionID == folioCuantificacion && ic.Activo && fc.Activo
                                select new CuantificacionListado
                                {
-                                   ItemCode = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == fc.ItemCodeID && c.Activo && ic.Activo).Any() ? "Bulto" : ic.Codigo,
+                                   ItemCode = ic.Codigo,
+                                   ItemCodeID = ic.ItemCodeID.ToString(),
 
                                    Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == fc.ItemCodeID && c.Activo && ic.Activo).Any() ? "Si" : "No",
 

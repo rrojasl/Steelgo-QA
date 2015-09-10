@@ -165,7 +165,9 @@ namespace BackEndSAM.DataAcces
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
+                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID && x.Activo).Any();
 
                                         if (!existeRelICS)
                                         {
@@ -641,26 +643,11 @@ namespace BackEndSAM.DataAcces
 
                             case 5: // Guardar Parcial (bulto)
                                 #region Guardar Parcial (bulto)
-                                //foreach (var item in datosItemCode)
-                                //{
-
-                                IC = new Sam3_ItemCode();
-                                ICS = new Sam3_ItemCodeSteelgo();
-
-                                //creo la relacion bulto IC
-                                Sam3_Rel_Bulto_ItemCode relacionBulto = new Sam3_Rel_Bulto_ItemCode();
-                                relacionBulto.BultoID = Int32.Parse(datosItemCode.BultoID);
-                                relacionBulto.ItemCodeID = IC.ItemCodeID;
-                                relacionBulto.TieneNumerosUnicos = false;
-                                relacionBulto.FechaModificacion = DateTime.Now;
-                                relacionBulto.UsuarioModificacion = usuario.UsuarioID;
-                                relacionBulto.Activo = true;
-                                ctx.Sam3_Rel_Bulto_ItemCode.Add(relacionBulto);
-                                ctx.SaveChanges();
 
                                 //Si tengo un bulto guardo en la tabla de bultos
                                 if (datosItemCode.ItemCode == "Bulto")
                                 {
+
                                     TieneErrores = true;
 
                                     listaNuevosIC.Add(new CuantificacionListado
@@ -748,12 +735,13 @@ namespace BackEndSAM.DataAcces
                                         bic.UsuarioModificacion = usuario.UsuarioID;
                                         bic.Activo = true;
                                         ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+                                        ctx.SaveChanges();
 
-                                        if (!existeSINnumerosunicos)
-                                        {
-                                            //Insertar la Relacion Folio Cuantificacion IC
-                                            InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
-                                        }
+                                        //if (!existeSINnumerosunicos)
+                                        //{
+                                        //    //Insertar la Relacion Folio Cuantificacion IC
+                                        //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
+                                        //}
                                     }
                                     //}
                                     //else //Si es repetido en el grid
