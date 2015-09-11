@@ -299,7 +299,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerDetalleOrdeRecepcion(int ordenRecepcionID, Sam3_Usuario usuario)
+        public object ObtenerDetalleOrdeRecepcion(int folio, Sam3_Usuario usuario)
         {
             try
             {
@@ -307,13 +307,13 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListadoGenerarOrdenRecepcion> listado = new List<ListadoGenerarOrdenRecepcion>();
 
-                    Sam3_OrdenRecepcion folio = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == ordenRecepcionID).AsParallel().SingleOrDefault();
+                    Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == folio).AsParallel().SingleOrDefault();
 
                     List<Sam3_FolioAvisoEntrada> registros = (from fe in ctx.Sam3_FolioAvisoEntrada
                                                               join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on fe.FolioAvisoEntradaID equals rfo.FolioAvisoEntradaID
                                                               join o in ctx.Sam3_OrdenRecepcion on rfo.OrdenRecepcionID equals o.OrdenRecepcionID
                                                               where fe.Activo && rfo.Activo && o.Activo
-                                                              && o.OrdenRecepcionID == folio.OrdenRecepcionID
+                                                              && o.OrdenRecepcionID == orden.OrdenRecepcionID
                                                               select fe).AsParallel().ToList();
 
                     foreach (Sam3_FolioAvisoEntrada r in registros)
@@ -327,16 +327,28 @@ namespace BackEndSAM.DataAcces
                                           join rfi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals rfi.OrdenRecepcionID
                                           join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
                                           join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
-                                          where o.OrdenRecepcionID == ordenRecepcionID
+                                          where o.OrdenRecepcionID == orden.OrdenRecepcionID
                                           && it.TipoMaterialID == 1
                                           && rfo.FolioAvisoEntradaID == folioAvisoEntradaID
                                           select new ElementoItemCodeGenerarOrden
                                           {
                                               ItemCodeID = it.ItemCodeID.ToString(),
-                                              Cantidad = it.Cantidad.ToString(),
+                                              Cantidad = it.Cantidad != null && it.Cantidad.Value > 0 ? it.Cantidad.Value.ToString() : "",
                                               Codigo = it.Codigo,
-                                              D1 = it.Diametro1.ToString(),
-                                              D2 = it.Diametro2.ToString(),
+                                              D1 = it.Diametro1 != null || it.Diametro1 > 0 ? it.Diametro1.ToString()
+                                                : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                   join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                   where rics.Activo && its.Activo
+                                                   && rics.ItemCodeID == it.ItemCodeID
+                                                   select its.Diametro1).FirstOrDefault().ToString(),
+
+                                              D2 = it.Diametro2 != null || it.Diametro2 > 0 ? it.Diametro2.ToString()
+                                                : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                   join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                   where rics.Activo && its.Activo
+                                                   && rics.ItemCodeID == it.ItemCodeID
+                                                   select its.Diametro2).FirstOrDefault().ToString(),
+
                                               Descripción = it.DescripcionEspanol,
                                               TipoMaterial = t.Nombre
                                           }).AsParallel().ToList();
@@ -346,16 +358,28 @@ namespace BackEndSAM.DataAcces
                                                join rfi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals rfi.OrdenRecepcionID
                                                join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
                                                join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
-                                               where o.OrdenRecepcionID == ordenRecepcionID
+                                               where o.OrdenRecepcionID == orden.OrdenRecepcionID
                                                && it.TipoMaterialID == 2
                                                && rfo.FolioAvisoEntradaID == folioAvisoEntradaID
                                                select new ElementoItemCodeGenerarOrden
                                                {
                                                    ItemCodeID = it.ItemCodeID.ToString(),
-                                                   Cantidad = it.Cantidad.ToString(),
+                                                   Cantidad = it.Cantidad != null && it.Cantidad.Value > 0 ? it.Cantidad.Value.ToString() : "",
                                                    Codigo = it.Codigo,
-                                                   D1 = it.Diametro1.ToString(),
-                                                   D2 = it.Diametro2.ToString(),
+                                                   D1 = it.Diametro1 != null || it.Diametro1 > 0 ? it.Diametro1.ToString()
+                                                    : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                    join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                    where rics.Activo && its.Activo
+                                                    && rics.ItemCodeID == it.ItemCodeID
+                                                    select its.Diametro1).FirstOrDefault().ToString(),
+
+                                                   D2 = it.Diametro2 != null || it.Diametro2 > 0 ? it.Diametro2.ToString()
+                                                     : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                        join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                        where rics.Activo && its.Activo
+                                                        && rics.ItemCodeID == it.ItemCodeID
+                                                        select its.Diametro2).FirstOrDefault().ToString(),
+
                                                    Descripción = it.DescripcionEspanol,
                                                    TipoMaterial = t.Nombre
                                                }).AsParallel().ToList();

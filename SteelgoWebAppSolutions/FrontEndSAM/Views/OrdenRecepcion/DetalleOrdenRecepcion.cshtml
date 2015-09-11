@@ -31,10 +31,10 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
-                            <div class="btn-group save-group">
+                            @*<div class="btn-group save-group">
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenAlmacenaje0002"></span></button>
-                            </div>
-                            <a id="Cancelar" href="#" class="btn btn-black" ><span id="DetalleOrdenAlmacenaje0003"></span></a>
+                            </div>*@
+                            <a id="Cancelar" href="#" class="btn btn-black" ><span id="DetalleOrdenRecepcion0001"></span></a>
                         </div>
                         <div class="button-section">
                             <div class="dropdown action-group">
@@ -46,7 +46,7 @@
                                     <li><a id="RedirectListado" href="#"><span id="DetalleOrdenRecepcion0003"></span></a></li>
                                     <li><a href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
                                      <li><a id="NuevaCaptura" href="#"><span id="DetalleOrdenRecepcion0014"></span></a></li>
-                                     <li><a id="Etiquetas" href="#"><span id="DetalleOrdenRecepcion0022"></span></a></li>
+                                     @*<li><a id="Etiquetas" href="#"><span id="DetalleOrdenRecepcion0022"></span></a></li>*@
                                 </ul>
                             </div>
                         </div>
@@ -115,14 +115,6 @@
     function CargaInicial() {
         $("#spanOrdenRecepcion").html(_ordenRecepcionID);
 
-        $("#Etiquetas").click(function () {
-            if ($("#grid").data("kendoGrid").dataSource.total() <= 0) {
-                displayMessage("notificationslabel0048", "", '2');
-                return;
-            }
-            window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + _ordenRecepcionID);
-        });
-
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
@@ -185,12 +177,24 @@
             },
         });
 
+        $("#Cancelar").click(function () {
+            window.location.href = _listadoOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
         $("#RedirectListado").click(function () {
             window.location.href = _listadoOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
         $("#NuevaCaptura").click(function () {
             window.location.href = _generarOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
+
+        //$("#Etiquetas").click(function () {
+        //    if ($("#grid").data("kendoGrid").dataSource.total() <= 0) {
+        //        displayMessage("notificationslabel0048", "", '2');
+        //        return;
+        //    }
+        //    window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + _ordenRecepcionID);
+        //});
 
         $("#ProyectoID").data("kendoComboBox").enable(false);
         $("#FolioAvisoEntradaID").data("kendoComboBox").enable(false);
