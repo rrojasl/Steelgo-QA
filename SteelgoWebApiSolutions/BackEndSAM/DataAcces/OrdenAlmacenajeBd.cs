@@ -764,10 +764,11 @@ namespace BackEndSAM.DataAcces
                                                          Cantidad = ( from oar in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                       join numuni in ctx.Sam3_NumeroUnico on oar.NumeroUnicoID equals numuni.NumeroUnicoID
                                                                       join itc in ctx.Sam3_ItemCode on numuni.ItemCodeID equals itc.ItemCodeID
-                                                                      join rfcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on itc.ItemCodeID equals rfcic.ItemCodeID
-                                                                      where oar.Activo && numuni.Activo && itc.Activo && rfcic.Activo
+                                                                      //join rfcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on itc.ItemCodeID equals rfcic.ItemCodeID
+                                                                      where oar.Activo && numuni.Activo && itc.Activo //&& rfcic.Activo
                                                                       && oar.OrdenAlmacenajeID == ordenAlmacenajeID 
-                                                                      && rfcic.FolioCuantificacionID == item.FolioCuantificacionID
+                                                                      //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
+                                                                      && itc.ItemCodeID == ic.ItemCodeID
                                                                       select oar.NumeroUnicoID).Count().ToString(),
                                                          D1 = ics.Diametro1.ToString(),
                                                          D2 = ics.Diametro2.ToString(),
@@ -777,10 +778,9 @@ namespace BackEndSAM.DataAcces
                                                          NumerosUnicos = (from oar in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                           join numuni in ctx.Sam3_NumeroUnico on oar.NumeroUnicoID equals numuni.NumeroUnicoID
                                                                           join itc in ctx.Sam3_ItemCode on numuni.ItemCodeID equals itc.ItemCodeID
-                                                                          join rfcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on itc.ItemCodeID equals rfcic.ItemCodeID
-                                                                          where oar.Activo && numuni.Activo && itc.Activo && rfcic.Activo
+                                                                          where oar.Activo && numuni.Activo && itc.Activo //&& rfcic.Activo
                                                                           && oar.OrdenAlmacenajeID == ordenAlmacenajeID
-                                                                          && rfcic.FolioCuantificacionID == item.FolioCuantificacionID
+                                                                          && numuni.ItemCodeID == ic.ItemCodeID
                                                                           select new ElementoNumeroUnico
                                                                           {
                                                                               FolioCuantificacion = item.FolioCuantificacionID.ToString(),
@@ -789,6 +789,8 @@ namespace BackEndSAM.DataAcces
                                                                               NumeroUnico = numuni.Prefijo + "-" + numuni.Consecutivo
                                                                           }).ToList()
                                                      }).AsParallel().ToList();
+
+                        listadoOrdenAlmacenaje.ItemCodes = listadoOrdenAlmacenaje.ItemCodes.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
 
                         foreach (var i in listadoOrdenAlmacenaje.ItemCodes)
                         {
