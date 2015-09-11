@@ -2195,8 +2195,8 @@ _dictionary = {
         "en-US": "Listed in order of storage"
     },
     "DetalleOrdenAlmacenaje0021": {
-        "es-MX": "Detail Order Storage",
-        "en-US": "Orden Storage"
+        "es-MX": "Detalle Orden de Almacenaje",
+        "en-US": "Detail Order Storage"
     },
 //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
