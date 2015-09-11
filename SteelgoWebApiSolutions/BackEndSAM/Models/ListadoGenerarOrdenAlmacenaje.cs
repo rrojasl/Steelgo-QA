@@ -25,6 +25,8 @@ namespace BackEndSAM.Models
             public string D1 { get; set; }
             public string D2 { get; set; }
             public string Cantidad { get; set; }
+            public string ProyectoID { get; set; }
+            public string Proyecto { get; set; }
             public List<ElementoNumeroUnico> NumerosUnicos { get; set; }
 
             public ElementoCuantificacionItemCode()
