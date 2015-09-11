@@ -1042,9 +1042,13 @@ header .menu > div {
             padding-right: 7px;
         }
 
-        .formNav.filtersFields .col-lg-3 .button-section {
-            padding-right: 0px;
+        .formNav.filtersFields .longButton {
+            max-width: 220px;
         }
+
+            .formNav.filtersFields .longButton .button-section {
+                padding-right: 0px;
+            }
 
         .formNav.filtersFields .filter-section .row > div {
             margin-bottom: 15px;
@@ -1542,10 +1546,6 @@ header .menu > div {
 
 @media (min-width: 1200px) {
 
-    /*$_formNav*/
-    .formNav.filtersFields > .row > div.col-lg-3 {
-        max-width: 220px;
-    }
 }
 
 @media (min-width: 1200px) and (max-width: 1540px) {
