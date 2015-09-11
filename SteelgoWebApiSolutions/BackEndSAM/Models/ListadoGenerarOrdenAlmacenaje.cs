@@ -5,6 +5,12 @@ using System.Web;
 
 namespace BackEndSAM.Models
 {
+    public class ListadoDetalleOrdenAlmacenaje
+    {
+        public int ProyectoID { get; set; }
+        public List<ListadoGenerarOrdenAlmacenaje> ListadoGenerarOrdenAlmacenaje { get; set; }
+
+    }
     public class ListadoGenerarOrdenAlmacenaje
     {
             public string FolioCuantificacion { get; set; }
