@@ -412,7 +412,7 @@
        
         function loadMessages() {
             $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (data) {
-                if (Error(data)) {
+                if (ValidateError(data)) {
                     $(".count").html(data.length);
                     $(".counter").html(data.length);
                     $(".message-frame").empty();
@@ -451,7 +451,7 @@
 
         function BindEventClick(NotificacionID) {
             $MessagesManager.MessageManager.read({ notificacionID: NotificacionID, token: Cookies.get("token") }).done(function (data) {
-                if (Error(data)) {
+                if (ValidateError(data)) {
                     var strhtml = "";
                     var d = new Date(data.FechaEnvio);
 
@@ -482,7 +482,7 @@
 
         function deleteMessage(NotificacionID) {
             $MessagesManager.MessageManager.destroy({}, { token: Cookies.get("token"), id: NotificacionID }).done(function (data) {
-                if (Error(data)) {
+                if (ValidateError(data)) {
                     loadMessages();
                     backIcon();
                 }
@@ -504,8 +504,7 @@
             return curr_date + "/" + curr_month + "/" + curr_year;
         };
 
-        function Error(data) {
-            if (data) {
+        function ValidateError(data) {
                 if (data.ReturnCode) {
                     if (data.ReturnCode != 200) {
                         if (data.ReturnCode == 401) {
@@ -520,9 +519,6 @@
                 } else {
                     return true;
                 }
-            } else {
-                return false;
-            }
         };
     </script>
 </body>

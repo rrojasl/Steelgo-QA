@@ -436,7 +436,7 @@
         function ChecarPaseSalidaEnviado() {
             loadingStart();
             $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
-                if (Error(result)) {
+                if(Error(result)){
                     if (result) {
                         DesahabilitarControles();
                         $("#GenerarPaseSalida").css("display", "none");
@@ -449,7 +449,7 @@
                         ObtenerDocumentosPaseSalida();
                     }
                     loadingStop();
-                };
+                }
             });
         }
 
