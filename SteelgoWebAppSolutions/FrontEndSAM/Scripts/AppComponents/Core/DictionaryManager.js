@@ -2112,6 +2112,7 @@ _dictionary = {
         "es-MX": "Etiquetas",
         "en-US": "Labels"
     },
+
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Orden de Almacenaje: ",
