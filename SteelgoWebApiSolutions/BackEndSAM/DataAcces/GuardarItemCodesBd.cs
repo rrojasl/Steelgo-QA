@@ -143,6 +143,12 @@ namespace BackEndSAM.DataAcces
                                                               where c.NumeroColada == datosItemCode.Colada && c.Activo
                                                               select c.ColadaID).AsParallel().FirstOrDefault();
 
+                                    int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
+
+                                    datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
+                                                                  where tm.ItemCodeID == itemCodeID && tm.Activo
+                                                                  select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+
                                     datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                         join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
                                                         where rics.Activo && itcs.Activo
@@ -155,34 +161,33 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    int itemCodeID = Convert.ToInt32(datosItemCode.ItemCodeID);
+                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    
+                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    
+                                    //Si existen ic y ics en la relacion
+                                    bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
 
-                                    datosItemCode.TipoMaterial = (from tm in ctx.Sam3_ItemCode
-                                                                  where tm.ItemCodeID == itemCodeID && tm.Activo
-                                                                  select tm.TipoMaterialID).AsParallel().FirstOrDefault();
+                                    //si ya existe solo ic en la relacion
+                                    bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                        .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion 
-                                            && x.Activo && x.TieneNumerosUnicos == true).Any();
-
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID 
-                                        && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
                                         TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
                                     }
+                                    else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
+                                    {
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                    }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID 
-                                                && x.Activo).Any();
-
-                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
@@ -227,8 +232,6 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU
                                     });
 
-                                    //creados.Add(datosItemCode.ItemCodeID);
-                                    //}
                                 }
                                 scope.Complete();
                                 #endregion
@@ -273,7 +276,7 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else
                                 {
-                                    //Obtenemos IDS
+                                   //Obtenemos IDS
                                     datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
                                                                 where ic.Codigo == datosItemCode.ItemCode && ic.Activo
                                                                 select ic.ItemCodeID).AsParallel().SingleOrDefault().ToString();
@@ -312,25 +315,33 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    
+                                    //Si existen ic y ics en la relacion
+                                    bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
+
+                                    //si ya existe solo ic en la relacion
+                                    bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
                                         TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
                                     }
+                                    else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
+                                    {
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                    }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
-                                                && x.Activo).Any();
-
-                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
@@ -374,6 +385,7 @@ namespace BackEndSAM.DataAcces
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU
                                     });
+
                                 }
                                 scope.Complete();
                                 #endregion
@@ -410,6 +422,7 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else
                                 {
+
                                     //Obtenemos IDS
                                     datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
                                                                 where ic.Codigo == datosItemCode.ItemCode && ic.Activo
@@ -450,23 +463,32 @@ namespace BackEndSAM.DataAcces
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    
+                                    //Si existen ic y ics en la relacion
+                                    bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
+
+                                    //si ya existe solo ic en la relacion
+                                    bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
 
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
                                         TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
                                     }
+                                    else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
+                                    {
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                    }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
-                                                && x.Activo).Any();
-
-                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
@@ -607,21 +629,28 @@ namespace BackEndSAM.DataAcces
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
                                         && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
+                                    //Existen el ics y el ic en la relacion
+                                    bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
+
+                                    //Existe solo el item code en la relacion
+                                    bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                        .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+
                                     //Si ya existe Item Code en la Rel Bulto y tiene NU
                                     if (existeYnumerosunicos)
+                                    {
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                    }
+                                    else if (existeSINnumerosunicos && existeRelICS)
                                     {
                                         TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
                                     }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID 
-                                                && x.Activo).Any();
-
-                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
@@ -638,7 +667,7 @@ namespace BackEndSAM.DataAcces
                                         ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
                                         //Creo relacion bulto item code
-                                        bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID 
+                                        bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID
                                             && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         if (!existeRelBultoIC)
@@ -756,24 +785,35 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
+                                        .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                            && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
+                                        && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+
+                                    //Existen el ics y el ic en la relacion
+                                    bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID
+                                                && x.Activo).Any();
+
+                                    //Existe solo el item code en la relacion
+                                    bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                        .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                     //Si ya existe Item Code en la Rel Bulto y tiene NU
                                     if (existeYnumerosunicos)
                                     {
                                         TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
                                     }
+                                    else if (existeSINnumerosunicos && existeRelICS)
+                                    {
+                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                    }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
-                                        bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID 
-                                                && x.ItemCodeSteelgoID.ToString() == datosItemCode.ItemCodeSteelgoID 
-                                                && x.Activo).Any();
-
-                                        bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                            .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
@@ -789,16 +829,21 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                         ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-
-                                        bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode
-                                            .Where(x => x.BultoID.ToString() == datosItemCode.BultoID
-                                             && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID.ToString() && x.Activo).Any();
+                                        //Creo relacion bulto item code
+                                        bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID
+                                            && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
                                         if (!existeRelBultoIC)
                                         {
                                             CrearRelacionBulto_IC(datosItemCode, usuario);
                                         }
 
+                                        //los itemcodes de bulto no se guardan en la relacion con foliocuantificacion
+                                        //if (!existeSINnumerosunicos)
+                                        //{
+                                        //    //Insertar la Relacion Folio Cuantificacion IC
+                                        //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
+                                        //}
                                     }
 
                                     listaNuevosIC.Add(new CuantificacionListado
@@ -823,6 +868,7 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU
                                     });
                                 }
+                                //}
                                 scope.Complete();
 
                                 #endregion
