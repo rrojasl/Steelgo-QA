@@ -425,6 +425,7 @@ namespace BackEndSAM.DataAcces
                                                where r.Activo && c.Activo && i.Activo && it.Activo
                                                && c.Estatus != "Cerrado"
                                                && it.TipoMaterialID == tipoMaterialID
+                                               && r.FolioDescarga > 0
                                                select r).AsParallel().Count();
 
                     //Traer materiales que no tienen un itemCodeSteelgo
@@ -436,6 +437,7 @@ namespace BackEndSAM.DataAcces
                                         && !(from its in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                              where its.Activo
                                              select its.ItemCodeID).Contains(i.ItemCodeID)
+                                        && r.FolioDescarga > 0
                                         select i).AsParallel().Count();
 
                     //itemcodes sin orde de recepcion
@@ -447,6 +449,7 @@ namespace BackEndSAM.DataAcces
                                                    && !(from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                         where roi.Activo
                                                         select roi.ItemCodeID).Contains(rit.ItemCodeID)
+                                                   && r.FolioDescarga > 0
                                                    select rit).AsParallel().Count();
 
                     //Numeros unicos sin complemento de recepcion
@@ -457,6 +460,7 @@ namespace BackEndSAM.DataAcces
                                                join i in ctx.Sam3_ItemCode on roi.ItemCodeID equals i.ItemCodeID
                                                join nu in ctx.Sam3_NumeroUnico on roi.ItemCodeID equals nu.ItemCodeID
                                                where or.Activo && o.Activo && roi.Activo && nu.Activo && i.TipoMaterialID == tipoMaterialID
+                                               && r.FolioDescarga > 0
                                                && !(from rep in ctx.Sam3_Recepcion
                                                     where rep.Activo
                                                     select rep.ItemCodeID).Contains(nu.ItemCodeID.Value)
@@ -470,6 +474,7 @@ namespace BackEndSAM.DataAcces
                                                    join rp in ctx.Sam3_Recepcion on o.ItemCodeID equals rp.ItemCodeID
                                                    join i in ctx.Sam3_ItemCode on o.ItemCodeID equals i.ItemCodeID
                                                    where rfo.Activo && o.Activo && nu.Activo && rp.Activo && i.Activo && i.TipoMaterialID == tipoMaterialID
+                                                   && r.FolioDescarga > 0
                                                    && !(from ord in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                         where ord.Activo
                                                         select ord.NumeroUnicoID).Contains(nu.NumeroUnicoID)
@@ -482,6 +487,7 @@ namespace BackEndSAM.DataAcces
                                              join nu in ctx.Sam3_NumeroUnico on roi.ItemCodeID equals nu.ItemCodeID
                                              join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                              where rel.Activo && roi.Activo && nu.Activo && it.Activo && it.TipoMaterialID == tipoMaterialID
+                                             && r.FolioDescarga > 0
                                              && nu.Rack == ""
                                              select nu).AsParallel().Count();
 
@@ -496,6 +502,7 @@ namespace BackEndSAM.DataAcces
                                                   join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                   join i in ctx.Sam3_Incidencia on rnu.IncidenciaID equals i.IncidenciaID
                                                   where nu.Activo && rnu.Activo && it.Activo && i.Activo && it.TipoMaterialID == tipoMaterialID
+                                                  && r.FolioDescarga > 0
                                                   select i).AsParallel().Count();
 
                     return result;
@@ -1498,6 +1505,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(rfp.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && fe.FolioDescarga > 0
                                      && rfp.ProyectoID == proyectoID
                                      select fe).AsParallel().ToList();
                     }
@@ -1510,6 +1518,7 @@ namespace BackEndSAM.DataAcces
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && proyectos.Contains(rfp.ProyectoID)
                                      && patios.Contains(p.PatioID)
+                                     && fe.FolioDescarga > 0
                                      select fe).AsParallel().ToList();
                     }
 
