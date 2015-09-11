@@ -56,6 +56,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="ImprimirOrdenRecepcion"><span id="Cuantificacion0082"></span></a></li>
+                                    <li><a ><span id="Cuantificacion0083"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -627,7 +629,7 @@
                     displayMessage("notificationslabel0031", "", '1');
                 }
             });
-            $("#Cancelar").click(function () { Cancel(); }); 
+            $("#Cancelar").click(function () { Cancelar(); });
             $("#GenerarOrdenRecepcion").click(function () {
                 if(validarRequeridosFormaCuantificacion()){
                     GenerarOrdenRecepcion();
@@ -945,6 +947,11 @@
            $("#TipoPackingListID").data("kendoComboBox").value(1);
 
             
+        };
+
+        function Cancelar() {
+            var detalleIdeaUrl = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         };
 
         function cargaInicialEdicionDetalleBulto() {

@@ -1396,6 +1396,14 @@ _dictionary = {
         "es-MX": "Descargar Template",
         "en-US": "Download Template"
     },
+    "Cuantificacion0082": {
+        "es-MX": "Imprimir Orden de Recepción",
+        "en-US": "Print Order Reception"
+    },
+    "Cuantificacion0083": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
