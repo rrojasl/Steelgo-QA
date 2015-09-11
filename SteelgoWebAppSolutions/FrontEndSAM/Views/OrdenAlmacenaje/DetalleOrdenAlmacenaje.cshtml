@@ -495,9 +495,12 @@
         var folioCuantificacion = $(row).closest("tr").children()[3].innerHTML;
         var itemCodeID = $(row).closest("tr").children()[4].innerHTML;
 
-        var grid = $("#grid").data("kendoGrid");
-        var tr = $(row).closest("tr");
-        grid.removeRow(tr);
+        if (confirm("Estas seguro de cancelar la orden de almacenaje del numero unico?")) {
+            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create({}, { numeroUnico: NumeroUnicoID, token: $.cookie("token") }).done(function (result) {
+                Error(result);
+                Filtros();
+            });
+        };
     };
 
     function Error(data) {

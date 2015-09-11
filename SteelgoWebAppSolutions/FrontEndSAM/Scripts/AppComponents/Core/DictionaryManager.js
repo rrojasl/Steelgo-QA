@@ -2971,6 +2971,10 @@ _dictionary = {
         "es-MX": "Fallaron los siguientes item Codes: ",
         "en-US": ""
     },
+    "notificationslabel0048": {
+        "es-MX": "No se puede generar etiquetas de la orden de recepción. ",
+        "en-US": ""
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

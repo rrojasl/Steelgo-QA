@@ -544,30 +544,20 @@
     };
 
     function GenerarOrdenRecepcionNuevo() {
-        var itemCodes = [], x = 0, folios = [];
-        OrdenRecepcion = { ID: "", Folios:""};
+        var itemCodes = [], x = 0, folios = [], numerosunicos = [];
+        OrdenAlmacenaje = { listaFoliosCuantificacion: "", listaItemCodes: "", listaNumerosUnicos: "" };
 
-        for (var i in checkItemCodesID) {
-            if (checkItemCodesID[i].checked == true)
-            {
-                itemCodes[x] = { ID: parseInt(checkItemCodesID[i].ItemCodeID) };
-                x++;
-            }
-        }
+        folios = ObtenerFoliosDeMemoria();
+        itemCodes = ObtenerItemCodesDeMemoria();
+        numerosunicos = ObtenerNumerosUnicosDeMemoria();
 
-        x = 0;
-        for (var i in checkNodoPrincipal) {
-            if (checkNodoPrincipal[i].checked == true) {
-                folios[x] = { ID: parseInt(checkNodoPrincipal[i].FolioCuantificacionID) };
-                x++;
-            }
-        }
         loadingStart();
-        OrdenRecepcion.Folios = folios;
-        OrdenRecepcion.Items = itemCodes;
+        OrdenAlmacenaje.listaFoliosCuantificacion = folios;
+        OrdenAlmacenaje.listaItemCodes = itemCodes;
+        OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
 
-        if (itemCodes.length > 0 || folios) {
-            $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
+        if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
+            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
@@ -575,7 +565,7 @@
                 }
             });
         } else {
-            displayMessage("notificationslabel0044", "", '1');
+            displayMessage("notificationslabel0045", "", '1');
         }
     };
 
@@ -598,7 +588,7 @@
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + data.ReturnMessage[1];
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + result.ReturnMessage[1];
                 }
             });
         } else {
@@ -661,7 +651,7 @@
                 loadingStop();
                 if (Error(result)) {
                     window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + data.ReturnMessage[1];
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1];
                 }
             });
         } else {
