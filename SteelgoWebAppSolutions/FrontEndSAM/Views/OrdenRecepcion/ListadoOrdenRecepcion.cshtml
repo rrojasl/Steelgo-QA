@@ -280,10 +280,12 @@
     };
 
     function ImprimirEtiquetas(e) {
-        e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var ordenRecepcionID = dataItem.OrdenRecepcion
-        window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenRecepcionID);
+        alert("Esta pendiente, se realizara por reporting services");
+        return;
+        //e.preventDefault();
+        //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //var ordenRecepcionID = dataItem.OrdenRecepcion
+        //window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenRecepcionID);
     };
         
     function ObtenerFechasporDefecto() {
@@ -489,10 +491,12 @@
     };
 
     function ImprimirOrden() {
-        e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var OrdenRecepcion = dataItem.OrdenRecepcion;
-        window.open("http://www.asp.net");
+        //e.preventDefault();
+        //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //var OrdenRecepcion = dataItem.OrdenRecepcion;
+        //window.open("http://www.asp.net");
+        alert("Esta pendiente, se realizara por reporting services");
+        return;
     };
 
     function obtenerFormatoFecha(d) {
