@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-
+<input type="hidden"id="edicion" value="0"/>
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -113,7 +113,7 @@
     
     function CargaInicial() {
         $("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
-        $("#Editar").click(function () { HabilitarCampos(); });
+        $("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -305,6 +305,7 @@
         $("#ItemCode").data("kendoComboBox").enable(false);
         $("#NumeroUnico").data("kendoComboBox").enable(false);
         $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
+        $(".detailLink").addClass("hidden");
     };
     
     function HabilitarCampos() {
@@ -314,6 +315,7 @@
         $("#NumeroUnico").data("kendoComboBox").enable(false);
         $(".detailLink").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
+        $(".detailLink").removeClass("hidden");
     };
 
     function CargaInicialGrid() {
@@ -418,10 +420,16 @@
                     { field: "NumeroUnico", title: _dictionary.DetalleOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px" },
                     { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
-                    { field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
+                    //{ field: "", title: "", width: "110px", template: "<a class='detailLink' href='' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
+                    { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarNumerosUnicos }, title: " ", width: "99px" }
 
                 ]
             });
+
+            if ($("#edicion").val() != "1") {
+                $(".detailLink").addClass("hidden");
+                $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
+            }
         }
     }
 
@@ -463,13 +471,15 @@
         grid.removeRow(tr);
     };
 
-    function CancelarNumerosUnicos(row) {
-        var NumeroUnicoID = $(row).closest("tr").children()[1].innerHTML;
-        var folioCuantificacion = $(row).closest("tr").children()[3].innerHTML;
-        var itemCodeID = $(row).closest("tr").children()[4].innerHTML;
+    function CancelarNumerosUnicos(e) {
+        e.preventDefault();
+        var NumeroUnicoID = $(e.currentTarget).closest("tr").children()[0].innerHTML;
+        //var NumeroUnicoID = $(row).closest("tr").children()[0].innerHTML;
+        //var folioCuantificacion = $(row).closest("tr").children()[3].innerHTML;
+        //var itemCodeID = $(row).closest("tr").children()[4].innerHTML;
 
         if (confirm("Estas seguro de cancelar la orden de almacenaje del numero unico?")) {
-            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create({}, { numeroUnico: NumeroUnicoID, token: $.cookie("token") }).done(function (result) {
+            $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { numeroUnico: NumeroUnicoID, token: $.cookie("token") }).done(function (result) {
                 Error(result);
                 //Filtros();
                 CargarDatosGridInicial();
