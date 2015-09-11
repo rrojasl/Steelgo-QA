@@ -152,6 +152,10 @@ label {
     padding: 0;
 }
 
+    label.centered {
+        text-align: center;
+    }
+
 .form label,
 #window label {
     text-transform: uppercase;
@@ -215,6 +219,10 @@ label {
 
 .form .title {
     color: #202020;
+}
+
+.form label.download {
+    margin: 5.2% auto;
 }
 /**********************************************************************************/
 
@@ -300,6 +308,14 @@ input {
         box-shadow: 0px 0px 3px #4486CB; /* Opera 10.5, IE9, Chrome 10+ */
         z-index: 3;
     }
+
+.content-container .form input[type="radio"],
+.content-container .form input[type="checkbox"] {
+    width: 100%;
+    min-height: 13px;
+    height: auto;
+    margin: 4px auto 0;
+}
 
 input.quickFilters {
     position: relative;
@@ -847,7 +863,7 @@ h2 {
     .buttonBar {
         margin-top: 0;
     }
-    
+
     .btn-tab span {
         font-size: 36px;
     }
@@ -908,7 +924,7 @@ h2 {
 
         .expanded input.quickFilters.arrivalMaterial:last-of-type {
             width: 13.4%;
-        }    
+        }
 }
 
 /* lg viewport */
