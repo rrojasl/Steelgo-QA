@@ -1979,6 +1979,7 @@
             } else {
                 loadingStop();
                 CambiarEstatusNoCompleto();
+                ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0008", error, '2');
                     return;
@@ -2124,6 +2125,7 @@
         } else {
             loadingStop();
             CambiarEstatusNoCompleto();
+            ordenamientoGrid();
             if (error) {
                 displayMessage("notificationslabel0008", error, '2');
                 return;
@@ -2275,6 +2277,7 @@
         } else {
             loadingStop();
             CambiarEstatusNoCompleto();
+            ordenamientoGrid();
             if (error) {
                 displayMessage("notificationslabel0008", error, '2');
                 return;
@@ -2448,8 +2451,10 @@
                 });
             } else {
                 loadingStop();
+                ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0008", error, '2');
+                    ordenamientoGrid();
                     return;
                 }
                 AccionesAltaGuardadoParcial(null);
