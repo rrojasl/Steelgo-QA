@@ -240,11 +240,15 @@ namespace BackEndSAM.DataAcces
                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
                                            join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rfc.ItemCodeID equals rics.ItemCodeID
                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                           join numu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals numu.ItemCodeID
                                            where rfc.Activo && ic.Activo && rics.Activo && ics.Activo
                                            && rfc.FolioCuantificacionID == item.FolioCuantificacionID
                                            && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                where ror.Activo
                                                select ror.ItemCodeID).Contains(ic.ItemCodeID)
+                                               && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                    where roa.Activo
+                                                    select roa.NumeroUnicoID).Contains(numu.NumeroUnicoID)
                                            select new ElementoCuantificacionItemCode
                                            {
                                                ItemCodeID = ic.ItemCodeID.ToString(),
@@ -505,61 +509,12 @@ namespace BackEndSAM.DataAcces
                                         where r.Activo && proyectos.Contains(r.ProyectoID)
                                         select p.PatioID).AsParallel().Distinct().ToList();
 
-                    //List<Sam3_FolioAvisoEntrada> registros;
-                    //if (proyectoID <= 0)
-                    //{
-                    //    registros = (from fe in ctx.Sam3_FolioAvisoEntrada
-                    //                 join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                    //                 join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
-                    //                 join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                    //                 where fe.Activo && rfp.Activo && p.Activo && pa.Activo
-                    //                 && proyectos.Contains(p.ProyectoID)
-                    //                 && patios.Contains(pa.PatioID)
-                    //                 && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
-                    //                 select fe).AsParallel().Distinct().ToList();
-                    //}
-                    //else
-                    //{
-                    //    registros = (from fe in ctx.Sam3_FolioAvisoEntrada
-                    //                 join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                    //                 join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
-                    //                 join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
-                    //                 where fe.Activo && rfp.Activo && p.Activo && pa.Activo
-                    //                 && proyectos.Contains(p.ProyectoID)
-                    //                 && patios.Contains(pa.PatioID)
-                    //                 && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
-                    //                 && p.ProyectoID == proyectoID
-                    //                 select fe).AsParallel().Distinct().ToList();
-                    //}
-
-                    //if (clienteID > 0)
-                    //{
-                    //    registros = registros.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
-                    //}
-
-                    //if (folioAvisoLlegadaID > 0)
-                    //{
-                    //    registros = registros.Where(x => x.FolioAvisoLlegadaID == folioAvisoLlegadaID).AsParallel().ToList();
-                    //}
-
-                    //registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
-
                     List<OrdenAlmacenajeJson> listado = new List<OrdenAlmacenajeJson>();
 
                     List<Sam3_OrdenAlmacenaje> ordenes = (from oa in ctx.Sam3_OrdenAlmacenaje
                                                           where oa.Activo 
                                                           && (oa.FechaCreacion >= fechaInicial && oa.FechaCreacion <= fechaFinal)
                                                           select oa).AsParallel().ToList();
-
-                    //if (proyectoID > 0)
-                    //{
-                    //    ordenes = (from o in ordenes
-                    //               join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on o.OrdenAlmacenajeID equals ronu.OrdenAlmacenajeID
-                    //               join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-                    //               join 
-                    //}
-
-
 
                     ordenes = ordenes.GroupBy(x => x.OrdenAlmacenajeID).Select(x => x.First()).ToList();
 
@@ -599,6 +554,26 @@ namespace BackEndSAM.DataAcces
                                                             }).AsParallel().ToList();
                         }
 
+                        if (proyectoID > 0)
+                        {
+                            elemento.FolioCuantificacion = (from fc in elemento.FolioCuantificacion
+                                                            join bfc in ctx.Sam3_FolioCuantificacion on fc.FolioCuantificacionID equals bfc.FolioCuantificacionID
+                                                            where bfc.ProyectoID == proyectoID
+                                                            select fc).AsParallel().ToList();
+                        }
+
+                        if (clienteID > 0)
+                        {
+                            elemento.FolioCuantificacion = (from tfc in elemento.FolioCuantificacion
+                                                            join fc in ctx.Sam3_FolioCuantificacion on tfc.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                            where fc.Activo && fe.Activo
+                                                            && fe.ClienteID == clienteID
+                                                            select tfc).AsParallel().ToList();
+                        }
+
+
+
                         elemento.FolioCuantificacion = elemento.FolioCuantificacion.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
 
                         foreach (PackingListCuantificacion folio in elemento.FolioCuantificacion)
@@ -635,9 +610,6 @@ namespace BackEndSAM.DataAcces
 
                         listado.Add(elemento);
                     }
-
-
-
 
 
 #if DEBUG
@@ -762,6 +734,7 @@ namespace BackEndSAM.DataAcces
                                                              join ric in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals ric.ItemCodeID
                                                              join fc in ctx.Sam3_FolioCuantificacion on ric.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                              where roa.Activo && nu.Activo && ric.Activo && fc.Activo
+                                                             && roa.OrdenAlmacenajeID == ordenAlmacenajeID
                                                              select fc).AsParallel().ToList();
 
 
