@@ -39,43 +39,6 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        //obtener proyectos del usuario
-        //public object ObtenerProyectosOrdenAlmacenaje(/*Sam3_Usuario usuario*/)
-        //{
-        //    try
-        //    {
-        //        using (SamContext ctx = new SamContext())
-        //        {
-        //            List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == 1/*usuario.UsuarioID*/).Select(x => x.ProyectoID).AsParallel().ToList();
-
-        //            List<Proyecto> listProy = new List<Proyecto>();
-        //            Proyecto proy = new Proyecto();
-        //            proyectos.ForEach(x =>
-        //            {
-        //                proy = ctx.Sam3_Proyecto.Where(p => p.ProyectoID == x)
-        //                    .Select(o => new Proyecto
-        //                    {
-        //                        Nombre = o.Nombre,
-        //                        ProyectoID = o.ProyectoID.ToString()
-        //                    }).AsParallel().SingleOrDefault();
-        //                listProy.Add(proy);
-        //            });
-
-        //            return listProy;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(ex.Message);
-        //        result.ReturnCode = 500;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = true;
-
-        //        return result;
-        //    }
-        //}
-
         //obtener los folios de cuantificacion
         public object ObtenerFoliosCuantificacionOrdenAlmacenaje(int proyectoID, Sam3_Usuario usuario)
         {
