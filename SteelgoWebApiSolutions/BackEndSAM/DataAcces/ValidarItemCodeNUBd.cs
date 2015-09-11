@@ -68,7 +68,8 @@ namespace BackEndSAM.DataAcces
                     else if(detalleBulto == 1)//Esta en el detalle Bulto
                     {
                         tieneNU = (from bulto in ctx.Sam3_Rel_Bulto_ItemCode
-                                   where bulto.Activo && bulto.BultoID == bultoID
+                                   where bulto.Activo && bulto.BultoID == bultoID 
+                                   && bulto.ItemCodeID.ToString() == ItemCode
                                    select bulto.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
                     else
