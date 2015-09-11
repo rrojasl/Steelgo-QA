@@ -240,11 +240,15 @@ namespace BackEndSAM.DataAcces
                                            join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
                                            join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rfc.ItemCodeID equals rics.ItemCodeID
                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                           join numu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals numu.ItemCodeID
                                            where rfc.Activo && ic.Activo && rics.Activo && ics.Activo
                                            && rfc.FolioCuantificacionID == item.FolioCuantificacionID
                                            && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                where ror.Activo
                                                select ror.ItemCodeID).Contains(ic.ItemCodeID)
+                                               && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                    where roa.Activo
+                                                    select roa.NumeroUnicoID).Contains(numu.NumeroUnicoID)
                                            select new ElementoCuantificacionItemCode
                                            {
                                                ItemCodeID = ic.ItemCodeID.ToString(),
