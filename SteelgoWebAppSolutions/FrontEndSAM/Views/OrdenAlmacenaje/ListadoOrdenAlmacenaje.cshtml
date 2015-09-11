@@ -220,9 +220,9 @@
             detailInit: detailInit,
             columns: [
                 { field: "FechaOrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px", template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenAlmacenaje#)'>#:OrdenAlmacenaje#</a>" },
+                { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px", template: "<a  onclick='mostrarDetalle(#:OrdenAlmacenaje#)'>#:OrdenAlmacenaje#</a>" },
                 { command: { text: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: _dictionary.ListadoOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], width: "40px" },
-                { field: "", title:"", width: "40px", template: "<a class='detailLink' onclick='CancelarOrden(this)'>Cancelar</a>" },
+                { command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarOrden }, title: " ", width: "99px" }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -282,7 +282,8 @@
                 { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                 { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
-                { field: "", title:"", width: "110px", template: "<a class='detailLink' onclick='CancelarItem(this)'>Cancelar</a>" },
+                { field: "", title: "", width: "110px", template: "<a  onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
+                //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarItem }, title: " ", width: "99px" }
                 
             ]
         });
@@ -498,48 +499,45 @@
         window.open("http://www.asp.net");
     };
 
-    function CancelarOrden(row) {
-        var ordenAlmacenajeID = $(row).closest("tr").children()[2].innerHTML;
-        alert(ordenAlmacenajeID);
-        //var grid = $("#grid").data("kendoGrid");
-        //var tr = $(row).closest("tr");
-        //grid.removeRow(tr);
-
-        $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
-            Error(result);
-            loadingStop();
-            Filtros();
-        });
+    function CancelarOrden(e) {
+        alert("cancelarorden");
+        e.preventDefault(); 
+        var ordenAlmacenajeID = $(e.currentTarget).closest("tr").children()[1].innerText;
+        if (confirm("Estas seguro de cancelar la orden de almacenaje?")) {
+            $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                loadingStop();
+                Filtros();
+            });
+        }
     };
 
-    function CancelarFolioCuantificacion(row) {
-        var folioCuantificacion = $(row).closest("tr").children()[1].innerHTML;
-        var OrdenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
-        $(row).closest("tbody").find("tr.k-detail-row").css("display", "none");
-        $(row).closest("tbody").find(".k-icon").removeClass("k-minus");
-        $(row).closest("tbody").find(".k-icon").addClass("k-plus");
+    //function CancelarFolioCuantificacion(row) {
+    //    var folioCuantificacion = $(row).closest("tr").children()[1].innerHTML;
+    //    var OrdenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
+    //    $(row).closest("tbody").find("tr.k-detail-row").css("display", "none");
+    //    $(row).closest("tbody").find(".k-icon").removeClass("k-minus");
+    //    $(row).closest("tbody").find(".k-icon").addClass("k-plus");
 
-        //var grid = $("#grid").data("kendoGrid");
-        //var tr = $(row).closest("tr");
-        //grid.removeRow(tr);
-        //Filtros();
-    };
+    //    //var grid = $("#grid").data("kendoGrid");
+    //    //var tr = $(row).closest("tr");
+    //    //grid.removeRow(tr);
+    //    //Filtros();
+    //};
 
-    function CancelarItem(row) {
+    function Cancelarnumerounico(row) {
         loadingStart();
-        var numerounico = $(row).closest("tr").children()[2].innerHTML;
-        //var ordenAlmacenaje = $(row).closest("tr").children()[2].innerHTML;
-        //var itemCodeID = $(row).closest("tr").children()[3].innerHTML;
+        var numeroUnicoID = $(row).closest("tr").children()[2].innerText;
 
-        //var grid = $("#grid").data("kendoGrid");
-        //var tr = $(row).closest("tr");
-        //grid.removeRow(tr);
-
-        $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { numeroUnico: numerounico, token: Cookies.get("token") }).done(function (result) {
-            Error(result);
-            Filtros();
+        if (confirm("Estas seguro de cancelar el item code de la orden de almacenaje?")) {
+            $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { numeroUnico: numeroUnicoID, token: Cookies.get("token") }).done(function (result) {
+                Error(result);
+                Filtros();
+                loadingStop();
+            });
+        } else {
             loadingStop();
-        });
+        }
     };
     
     function obtenerFormatoFecha(d) {
