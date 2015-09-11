@@ -68,7 +68,8 @@ namespace BackEndSAM.DataAcces
                     else if(detalleBulto == 1)//Esta en el detalle Bulto
                     {
                         tieneNU = (from bulto in ctx.Sam3_Rel_Bulto_ItemCode
-                                   where bulto.Activo && bulto.BultoID == bultoID
+                                   where bulto.Activo && bulto.BultoID == bultoID 
+                                   && bulto.ItemCodeID.ToString() == ItemCode
                                    select bulto.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
                     else
@@ -115,7 +116,7 @@ namespace BackEndSAM.DataAcces
                     {
                         //Elimino de bulto 
                         Sam3_Bulto b = ctx.Sam3_Bulto
-                            .Where(x => x.BultoID == BultoID && x.Activo).AsParallel().SingleOrDefault();
+                            .Where(x => x.BultoID == BultoID && x.FolioCuantificacionID == folioCuantificacionID && x.Activo).AsParallel().SingleOrDefault();
 
                         b.Activo = false;
                         b.UsuarioModificacion = usuario.UsuarioID;
@@ -126,10 +127,20 @@ namespace BackEndSAM.DataAcces
                     else if(detalleBulto == 1) //esta en el detalle bulto
                     {
                         //Elimino de Rel Bulto
-                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == BultoID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == BultoID && x.ItemCodeID == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
                         bulto.Activo = false;
                         bulto.UsuarioModificacion = usuario.UsuarioID;
                         bulto.FechaModificacion = DateTime.Now;
+
+                        ctx.SaveChanges();
+
+                        Sam3_Rel_ItemCode_ItemCodeSteelgo relICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                           .Where(x => x.ItemCodeID == itemCodeID
+                           && x.Activo).AsParallel().SingleOrDefault();
+
+                        relICS.Activo = false;
+                        relICS.UsuarioModificacion = usuario.UsuarioID;
+                        relICS.FechaModificacion = DateTime.Now;
 
                         ctx.SaveChanges();
                     }

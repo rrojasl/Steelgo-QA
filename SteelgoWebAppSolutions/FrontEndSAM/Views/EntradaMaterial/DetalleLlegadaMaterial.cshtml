@@ -770,7 +770,7 @@
                     //    $("#ProyectoID").data("kendoComboBox").value(data.Proyectos.Nombre);
                     //};
 
-                    $.each(data, function (index, value) {
+                    $.each(data.Proyectos, function (index, value) {
                         concat += "," + value;
                         console.log(" concat:" + concat);
                     });

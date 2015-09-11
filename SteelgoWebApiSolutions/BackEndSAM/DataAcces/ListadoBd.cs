@@ -294,7 +294,7 @@ namespace BackEndSAM.DataAcces
                     result.TotalCreados = registrosBd.Count();
 
                     result.SinEstaus = (from r in registrosBd
-                                        where r.Estatus != "En Patio"
+                                        where r.Estatus == ""
                                         select r).Count();
 
                     result.SinOrdenDescarga = (from r in registrosBd
@@ -407,11 +407,14 @@ namespace BackEndSAM.DataAcces
                                      select r).AsParallel().ToList();
                     }
 
+                    registros = registros.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
+
                     //folios de aviso de entrada que aun no tienen relacion en algun foliocuantificacion
                     result.EntradaPorCuantificar = (from r in registros
                                                     where r.Activo
                                                     && !(from c in ctx.Sam3_FolioCuantificacion
                                                          select c.FolioAvisoEntradaID).Contains(r.FolioAvisoEntradaID)
+                                                    && r.FolioDescarga > 0
                                                     select r).Count();
 
                     //traer los Packinglisto por cuantificar
@@ -1529,8 +1532,10 @@ namespace BackEndSAM.DataAcces
                     foreach (Sam3_FolioAvisoEntrada r in registros)
                     {
                         folioc = (from fc in ctx.Sam3_FolioCuantificacion
+                                  join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                   where fc.Activo
                                   && fc.FolioAvisoEntradaID == fc.FolioAvisoEntradaID
+                                  && fe.FolioDescarga > 0
                                   select fc).AsParallel().ToList();
 
                         folioc = folioc.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();

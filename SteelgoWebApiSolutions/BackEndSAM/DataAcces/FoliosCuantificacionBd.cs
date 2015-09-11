@@ -61,7 +61,6 @@ namespace BackEndSAM.DataAcces
                     return result;
 
                 }
- 
             }
             catch (Exception ex)
             {
@@ -261,6 +260,132 @@ namespace BackEndSAM.DataAcces
                 }
 
                 return info;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarFolioCuantificacion(string folioCuantificacion, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int folioCuant = Convert.ToInt32(folioCuantificacion);
+
+                    //Obtengo los IDS que tengan el folio Cuantificacion a eliminar
+                    List<int> idBulto = ctx.Sam3_Bulto
+                        .Where(x => x.FolioCuantificacionID == folioCuant && x.Activo)
+                        .Select(b => b.BultoID).AsParallel().ToList();
+
+                    List<int> idItemCodeBulto = null;
+
+                    //Obtengo los item codes que tienen los bultos
+                    foreach(int bulto in idBulto)
+                    {
+                        idItemCodeBulto.AddRange(ctx.Sam3_Rel_Bulto_ItemCode
+                        .Where(x=> x.BultoID == bulto && x.Activo)
+                        .Select(b=> b.ItemCodeID).AsParallel().ToList());
+                    }
+                    
+                    List<int> idItemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                        .Where(x => x.FolioCuantificacionID == folioCuant)
+                        .Select(i => i.ItemCodeID).AsParallel().ToList();
+
+                    List<bool> tieneNU = null;
+
+                    //Verifico si tiene numeros unicos
+                    foreach (int bu in idBulto)
+                    {
+                        tieneNU.AddRange(from bulto in ctx.Sam3_Rel_Bulto_ItemCode
+                                         where bulto.BultoID == bu && bulto.Activo
+                                         select bulto.TieneNumerosUnicos);
+                    }
+
+                    foreach (int ic in idItemCode)
+                    {
+                        tieneNU.AddRange(from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                         where rfc.Activo && rfc.FolioCuantificacionID == folioCuant
+                                         select rfc.TieneNumerosUnicos);
+                    }
+
+                    //Si no tiene numeros unicos se elimina
+                    if (!tieneNU.Contains(true))
+                    { 
+                        foreach (int id in idBulto)
+                        {
+                            Sam3_Bulto bulto = ctx.Sam3_Bulto
+                                .Where(x => x.BultoID == id && x.Activo).AsParallel().SingleOrDefault();
+                            bulto.Activo = false;
+                            bulto.UsuarioModificacion = usuario.UsuarioID;
+                            bulto.FechaModificacion = DateTime.Now;
+                            ctx.SaveChanges();
+
+                            foreach (int icid in idItemCodeBulto)
+                            {
+                                Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode
+                               .Where(x => x.BultoID == id && x.ItemCodeID == icid && x.Activo).AsParallel().SingleOrDefault();
+                                relBulto.Activo = false;
+                                relBulto.UsuarioModificacion = usuario.UsuarioID;
+                                relBulto.FechaModificacion = DateTime.Now;
+                            }
+                            ctx.SaveChanges();
+                        }
+
+                        foreach (int id in idItemCode)
+                        {
+                            //
+                            Sam3_Rel_FolioCuantificacion_ItemCode folio = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                .Where(x => x.ItemCodeID == id && x.FolioCuantificacionID == folioCuant && x.Activo).AsParallel().SingleOrDefault();
+                            folio.Activo = false;
+                            folio.UsuarioModificacion = usuario.UsuarioID;
+                            folio.FechaModificacion = DateTime.Now;
+
+                            Sam3_Rel_ItemCode_ItemCodeSteelgo rics = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                               .Where(x => x.ItemCodeID == id).AsParallel().SingleOrDefault();
+
+                            rics.Activo = false;
+                            rics.UsuarioModificacion = usuario.UsuarioID;
+                            rics.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+                        }
+
+                        foreach (int item in idItemCodeBulto)
+                        {
+                            Sam3_Rel_ItemCode_ItemCodeSteelgo rics = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                .Where(x => x.ItemCodeID == item).AsParallel().SingleOrDefault();
+
+                            rics.Activo = false;
+                            rics.UsuarioModificacion = usuario.UsuarioID;
+                            rics.FechaModificacion = DateTime.Now;
+                        }
+
+                        Sam3_FolioCuantificacion folioEliminar = ctx.Sam3_FolioCuantificacion
+                            .Where(x => x.FolioCuantificacionID == folioCuant && x.Activo).AsParallel().SingleOrDefault();
+                        folioEliminar.Activo = false;
+                        folioEliminar.UsuarioModificacion = usuario.UsuarioID;
+                        folioEliminar.FechaModificacion = DateTime.Now;
+                        ctx.SaveChanges();
+                    }
+
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
             }
             catch (Exception ex)
             {

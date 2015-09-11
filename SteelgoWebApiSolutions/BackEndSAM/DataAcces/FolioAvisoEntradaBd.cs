@@ -118,7 +118,7 @@ namespace BackEndSAM.DataAcces
                     {
                         if (filtros.PorLlegar)
                         {
-                            result = result.Where(x => x.Estatus != "En Patio").ToList();
+                            result = result.Where(x => x.Estatus == "").ToList();
                         }
 
                         if (filtros.PorDescargar)
@@ -265,8 +265,18 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int consecutivo = (from r in ctx.Sam3_FolioAvisoEntrada
+                    int consecutivo = 0;
+                    if (ctx.Sam3_FolioAvisoEntrada.Select(x => x.Consecutivo).Any())
+                    {
+                        consecutivo = (from r in ctx.Sam3_FolioAvisoEntrada
                                        select r.Consecutivo).Max().Value;
+                        consecutivo = consecutivo + 1;
+                    }
+                    else
+                    {
+                        consecutivo = 1;
+                    }
+                     
 
                     Sam3_Cliente cliente = ctx.Sam3_Cliente.Where(x => x.Sam2ClienteID == json.ClienteId).AsParallel().SingleOrDefault();
 

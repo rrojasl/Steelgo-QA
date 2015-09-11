@@ -49,6 +49,8 @@ namespace BackEndSAM.DataAcces
                 {
                     List<int> Proyectos = ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == folio)
                         .Select(x => x.ProyectoID).AsParallel().ToList();
+                    Proyectos = Proyectos.GroupBy(x => x).Select(x => x.First()).ToList();
+
                     return Proyectos;
                 }
             }
@@ -81,6 +83,7 @@ namespace BackEndSAM.DataAcces
                                                        Nombre = r.Nombre,
                                                        ProyectoID = r.ProyectoID.ToString()
                                                    }).AsParallel().ToList();
+                    lstProyectos = lstProyectos.GroupBy(x => x.ProyectoID).Select(x => x.First()).ToList();
                     return lstProyectos;
                 }
             }
