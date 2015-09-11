@@ -1034,12 +1034,20 @@ header .menu > div {
 
     .formNav.filtersFields {
         margin: 2px 0px 35px;
-        padding: 0px 0 30px;
+        padding: 0px 0 15px;
     }
 
         .formNav.filtersFields .button-section {
             margin-top: 23px;
             padding-right: 7px;
+        }
+
+        .formNav.filtersFields .col-lg-3 .button-section {
+            padding-right: 0px;
+        }
+
+        .formNav.filtersFields .filter-section .row > div {
+            margin-bottom: 15px;
         }
 
     .formNav .btn, .formNav .btn-group {
@@ -1529,6 +1537,14 @@ header .menu > div {
     .content-container {
         max-width: 82%;
         width: 82%;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    /*$_formNav*/
+    .formNav.filtersFields > .row > div.col-lg-3 {
+        max-width: 220px;
     }
 }
 
