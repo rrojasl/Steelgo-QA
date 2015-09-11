@@ -502,7 +502,8 @@ namespace BackEndSAM.DataAcces
                     int packingListID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
 
                     //Proyectos y patios del usuario
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
+                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto
+                        .Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
                     List<int> patios = (from r in ctx.Sam3_Proyecto
                                         join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
@@ -532,6 +533,7 @@ namespace BackEndSAM.DataAcces
                                                             join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                             where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
                                                             && fc.FolioCuantificacionID == packingListID
+                                                            && ronu.Activo && nu.Activo && rfci.Activo && fc.Activo
                                                             select new PackingListCuantificacion
                                                             {
                                                                 FolioCuantificacionID = fc.FolioCuantificacionID,
@@ -546,6 +548,7 @@ namespace BackEndSAM.DataAcces
                                                             join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals rfci.ItemCodeID
                                                             join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                             where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
+                                                            && ronu.Activo && nu.Activo && rfci.Activo && fc.Activo
                                                             select new PackingListCuantificacion
                                                             {
                                                                 FolioCuantificacionID = fc.FolioCuantificacionID,
@@ -559,6 +562,7 @@ namespace BackEndSAM.DataAcces
                             elemento.FolioCuantificacion = (from fc in elemento.FolioCuantificacion
                                                             join bfc in ctx.Sam3_FolioCuantificacion on fc.FolioCuantificacionID equals bfc.FolioCuantificacionID
                                                             where bfc.ProyectoID == proyectoID
+                                                            && bfc.Activo
                                                             select fc).AsParallel().ToList();
                         }
 
@@ -583,6 +587,7 @@ namespace BackEndSAM.DataAcces
                                                join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ronu.NumeroUnicoID
                                                join it in ctx.Sam3_ItemCode on rfci.ItemCodeID equals it.ItemCodeID
                                                where rfci.FolioCuantificacionID == folio.FolioCuantificacionID
+                                               && rfci.Activo && nu.Activo && ronu.Activo && it.Activo
                                                select new ElementoItemCodeGenerarOrdenAlmacenaje
                                                {
                                                    OrdenAlmacenaje = orden.OrdenAlmacenajeID.ToString(),
