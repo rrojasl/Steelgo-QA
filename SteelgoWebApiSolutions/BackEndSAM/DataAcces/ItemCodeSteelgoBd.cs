@@ -197,6 +197,7 @@ namespace BackEndSAM.DataAcces
 
                     ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
                                                    join ris in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals ris.ItemCodeSteelgoID 
+                                                   join ic in ctx.Sam3_ItemCode on ris.ItemCodeID equals ic.ItemCodeID 
                                                    where r.Activo &&  ris.ItemCodeID==itemcodeID
                                                    select new ItemCodeSteelgoJson
                                                    {
@@ -216,6 +217,8 @@ namespace BackEndSAM.DataAcces
                                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                                                                     where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && fm.Activo
                                                                     select fm.Nombre).FirstOrDefault(),
+                                                       Cantidad = ic.Cantidad,
+                                                       ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == ic.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault()
                                                    }).AsParallel().SingleOrDefault();
                     return detalle;
                 }

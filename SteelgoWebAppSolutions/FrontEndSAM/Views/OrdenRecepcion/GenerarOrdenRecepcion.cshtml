@@ -277,7 +277,7 @@
         Proyecto = {};
         Proyecto = { ProyectoID: id, Nombre: value };
     };
-
+    
     function CargarFolio(id) {
         FolioAvisoEntrada = {};
         FolioAvisoEntrada = { FolioAvisoEntradaID: id };
@@ -464,7 +464,7 @@
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
 
-        if (itemCodes.length > 0 || folios) {
+        if (itemCodes.length > 0 || folios.length > 0) {
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
@@ -474,6 +474,7 @@
             });
         } else {
             displayMessage("notificationslabel0044", "", '1');
+            loadingStop();
         }
     };
 
@@ -489,17 +490,18 @@
         OrdenRecepcion.Items = itemCodes;
        
 
-        if (itemCodes.length > 0 || folios) {
+        if (itemCodes.length > 0 || folios.length > 0) {
             
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
                     var url = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + data.ReturnMessage[1];
+                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1];
                 }
             });
         } else {
             displayMessage("notificationslabel0044", "", '1');
+            loadingStop();
         }
     };
     
@@ -516,18 +518,19 @@
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
 
-        if (itemCodes.length > 0 || folios) {
+        if (itemCodes.length>0 || folios.length>0) {
             
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + + "&OrdenRecepcionID=" + data.ReturnMessage[1]);
-                    window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + data.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID;
+                    //window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + + "&OrdenRecepcionID=" + result.ReturnMessage[1]);
+                    //window.open("http://www.asp.net");//Webservice
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID;
                 }
             });
         } else {
             displayMessage("notificationslabel0044", "", '1');
+            loadingStop();
         }
     };
 
@@ -633,7 +636,7 @@
                 sortable: false,
                 columns: [
                     { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label ><input type="checkbox" ' + checked + 'class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
-                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px",  },
+                    { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px",  hidden:true },
                     { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
                     { field: "D1", title: _dictionary.GenerarOrdenRecepcion0013[$("#language").data("kendoDropDownList").value()], width: "50px" },

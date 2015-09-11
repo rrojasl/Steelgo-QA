@@ -209,7 +209,7 @@ namespace BackEndSAM.DataAcces
                     }
 
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                    int folioAvisoEntradaID = filtros.FolioAvisoEntradaID != "" ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
+                    int folioAvisollegadaID = filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
                     int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
 
                     //Patios y proyectos del usuario
@@ -240,9 +240,9 @@ namespace BackEndSAM.DataAcces
                         folios = folios.Where(x => x.ClienteID == clienteID).ToList();
                     }
 
-                    if (folioAvisoEntradaID > 0)
+                    if (folioAvisollegadaID > 0)
                     {
-                        folios = folios.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID).ToList();
+                        folios = folios.Where(x => x.FolioAvisoLlegadaID == folioAvisollegadaID).ToList();
                     }
 
                     folios = folios.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
@@ -598,6 +598,92 @@ namespace BackEndSAM.DataAcces
                 ids = ids.GroupBy(x => x).Select(x => x.First()).ToList();
 
                 return GenerarOrdeRecepcion(ids, usuario);
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        public object EliminarOrdenRecepcion(int OrdenRecepcionID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.OrdenRecepcionID == OrdenRecepcionID).AsParallel().SingleOrDefault();
+                    orden.Activo = false;
+                    orden.FechaModificacion = DateTime.Now;
+                    orden.UsuarioModificacion = usuario.UsuarioID;
+
+                    List<Sam3_Rel_OrdenRecepcion_ItemCode> relacion = ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(x => x.OrdenRecepcionID == OrdenRecepcionID)
+                        .AsParallel().ToList();
+
+                    foreach (Sam3_Rel_OrdenRecepcion_ItemCode r in relacion)
+                    {
+                        r.Activo = false;
+                        r.FechaModificacion = DateTime.Now;
+                        r.UsuarioModificacion = usuario.UsuarioID;
+                    }
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+
+        public object EliminarItemCodeOrdenRecepcion(string itemcode, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int itemcodeid = Convert.ToInt32(itemcode);
+
+                    Sam3_Rel_OrdenRecepcion_ItemCode RelOrdenRecepcion = ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(x => x.ItemCodeID == itemcodeid)
+                        .AsParallel().SingleOrDefault();
+
+
+                    RelOrdenRecepcion.Activo = false;
+                    RelOrdenRecepcion.UsuarioModificacion = usuario.UsuarioID;
+                    RelOrdenRecepcion.FechaModificacion = DateTime.Now;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
             }
             catch (Exception ex)
             {

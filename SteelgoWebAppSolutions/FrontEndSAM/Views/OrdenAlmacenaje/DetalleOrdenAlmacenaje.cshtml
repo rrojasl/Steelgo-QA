@@ -407,10 +407,10 @@
                 scrollable: false,
                 sortable: false,
                 columns: [
-                    { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                    { field: "NumeroUnicoID", title: _dictionary.DetalleOrdenAlmacenaje0016[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "NumeroUnico", title: _dictionary.DetalleOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                    { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], width: "110px"},
+                    { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
+                    { field: "ItemCodeID", title: _dictionary.DetalleOrdenAlmacenaje0010[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                     { field: "", title: "", width: "110px", template: "<a class='detailLink' onclick='CancelarNumerosUnicos(this)'>Cancelar</a>" },
 
                 ]

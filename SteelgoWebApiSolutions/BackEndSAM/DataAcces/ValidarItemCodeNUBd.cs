@@ -53,8 +53,6 @@ namespace BackEndSAM.DataAcces
                 bool tieneNU = false;
                 using (SamContext ctx = new SamContext())
                 {
-                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().SingleOrDefault();
-
                     if (ItemCode.Contains("Bulto"))
                     {
                         List<bool> listaNU = new List<bool>();
@@ -75,11 +73,12 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
+                        int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().Single();
+                        
                         tieneNU = (from fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                    where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID == folioCuantificacionID && fcic.Activo
                                    select fcic.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
-
                     return tieneNU;
                 }
             }

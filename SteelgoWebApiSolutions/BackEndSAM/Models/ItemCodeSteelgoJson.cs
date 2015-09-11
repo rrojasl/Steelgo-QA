@@ -19,5 +19,7 @@ namespace BackEndSAM.Models
         public string Cedula { get; set; }
         public string Codigo { get; set; }
         public string TipoAcero { get; set; }
+        public int? Cantidad { get; set; }
+        public string ColadaNombre { get; set; }
     }
 }

@@ -40,6 +40,7 @@
                                     <li><a id="RedirectListado"><span id="DetalleOrdenRecepcion0003"></span></a></li>
                                     <li><a><span id="DetalleOrdenRecepcion0004"></span></a></li>
                                      <li><a id="NuevaCaptura"><span id="DetalleOrdenRecepcion0014"></span></a></li>
+                                     <li><a id="Etiquetas"><span id="DetalleOrdenRecepcion0022"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -81,6 +82,8 @@
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
+    var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
+    
     var $GenerarOrdenRecepcionModel = {
         listContainer: {
             create: "#Guardar",
@@ -105,6 +108,11 @@
 
     function CargaInicial() {
         $("#spanOrdenRecepcion").html(_ordenRecepcionID);
+        @*window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + + "&OrdenRecepcionID=" + _ordenRecepcionID);*@
+
+        $("#Etiquetas").click(function () {
+            window.open(formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + _ordenRecepcionID);
+        });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
