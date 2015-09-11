@@ -2754,11 +2754,11 @@
                                                    { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: itemCodesJsonSteelgo.Cantidad, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
                             $("#grid").data("kendoGrid").dataSource.insert(item);
                         } else {
-                            cargarGridErrores(dataJson[Key]);
+                            cargarGridErrores(dataJson[key]);
                         }
                     } else {
                         error += "," + dataJson[key].ItemCode;
-                        cargarGridErrores(dataJson[Key]);
+                        cargarGridErrores(dataJson[key]);
                     };
                    
                     key++;
@@ -2766,7 +2766,7 @@
                 });
             } else {
                 loadingStop();
-
+                ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0047", error, '2');
                     return;

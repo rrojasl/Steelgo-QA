@@ -31,16 +31,22 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenAlmacenaje0002"></span></button>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black" ><span id="DetalleOrdenAlmacenaje0003"></span></a>
+                        </div>
+                        <div class="button-section">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="DetalleOrdenRecepcion0002"></span>
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectListado"><span id="DetalleOrdenRecepcion0003"></span></a></li>
-                                    <li><a><span id="DetalleOrdenRecepcion0004"></span></a></li>
-                                     <li><a id="NuevaCaptura"><span id="DetalleOrdenRecepcion0014"></span></a></li>
-                                     <li><a id="Etiquetas"><span id="DetalleOrdenRecepcion0022"></span></a></li>
+                                    <li><a id="RedirectListado" href="#"><span id="DetalleOrdenRecepcion0003"></span></a></li>
+                                    <li><a href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
+                                     <li><a id="NuevaCaptura" href="#"><span id="DetalleOrdenRecepcion0014"></span></a></li>
+                                     <li><a id="Etiquetas" href="#"><span id="DetalleOrdenRecepcion0022"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -108,10 +114,13 @@
 
     function CargaInicial() {
         $("#spanOrdenRecepcion").html(_ordenRecepcionID);
-        @*window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + + "&OrdenRecepcionID=" + _ordenRecepcionID);*@
 
         $("#Etiquetas").click(function () {
-            window.open(formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + _ordenRecepcionID);
+            if ($("#grid").data("kendoGrid").dataSource.total() <= 0) {
+                displayMessage("notificationslabel0048", "", '2');
+                return;
+            }
+            window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + _ordenRecepcionID);
         });
 
         $("#ProyectoID").kendoComboBox({
@@ -378,7 +387,7 @@
         $OrdenRecepcion.OrdenRecepcion.read({}, { ordenrecepcionID: _ordenRecepcionID, token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 _resultadoJson = result;
-                if (_resultadoJson.length > 0) {
+                if (_resultadoJson.length > 0) {                    
                     $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
                 } else {
                     $("#grid").data("kendoGrid").dataSource.data([]);

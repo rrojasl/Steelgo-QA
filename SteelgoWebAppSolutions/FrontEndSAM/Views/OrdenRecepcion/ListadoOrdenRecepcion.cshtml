@@ -66,8 +66,9 @@
     @section JavascriptGlobalVariables 
     {
     var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
-    var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
-    var formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
+    var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
+    var _detalleOrdenUrl = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
+    var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
 
     var $ListadoOrdenRecepcionModel = {
         listContainer: {
@@ -93,7 +94,7 @@
 
     function CargaInicial() {
         $("#Nuevo").click(function () {
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            window.location.href = _generarOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
 
         $("#ClienteID").kendoComboBox({
@@ -282,7 +283,7 @@
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var ordenRecepcionID = dataItem.OrdenRecepcion
-        window.open(formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenRecepcionID);
+        window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenRecepcionID);
     };
         
     function ObtenerFechasporDefecto() {
@@ -484,7 +485,7 @@
     };
 
     function mostrarDetalle(ordenid) {
-        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenid;
+        window.location.href = _detalleOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenid;
     };
 
     function ImprimirOrden() {
