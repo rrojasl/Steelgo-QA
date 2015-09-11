@@ -314,8 +314,8 @@
         $("#NumeroUnico").data("kendoComboBox").enable(false);
         $(".detailLink").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
-        MostrarColumnaCancelar(true);
     };
+
     function CargaInicialGrid() {
          $("#grid").kendoGrid({
             dataSource: {
@@ -420,45 +420,8 @@
 
     function CargarDatosGridInicial() {
         loadingStart();
-       
-        //Es un dummy, deberia recibir  la orden de almacenaje
-        var Listado = {  TipoListado: "8", token: Cookies.get("token") };
 
-        $DummyGenerarOrdenAlmacenaje.DummyGenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-            if (Error(result)) {
-                _resultadoJson = result;
-                if (_resultadoJson.length > 0) {
-                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
-                } else {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                };
-            }
-            MostrarColumnaCancelar(false);
-            loadingStop();
-            applySecurityPolicy(false);
-        });
-    };
-
-    function MostrarColumnaCancelar(bool) {
-        var grid = $("#grid").data("kendoGrid");
-        if (bool) {
-            grid.showColumn(1);
-        } else {
-            grid.hideColumn(1);
-        };
-       
-    };
-
-    function Filtros() {
-        _esFiltros = true;
-        loadingStart();
-        var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
-        var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
-        var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
-
-        var Listado = { ProyectoID: ProyectoID, ItemCodeID: ItemCodeid, FolioCuantificacionID: FolioCuantificacionID, TipoListado: "8", token: Cookies.get("token") };
-
-        $DummyGenerarOrdenAlmacenaje.DummyGenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+        $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { ordenAlmacenajeID: _ordenAlmacenajeID, token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 _resultadoJson = result;
                 if (_resultadoJson.length > 0) {
@@ -471,6 +434,9 @@
             applySecurityPolicy(false);
         });
     };
+
+
+    
     function CancelarFolio(row) {
         var folioCuantificacion = $(row).closest("tr").children()[1].innerHTML;
         var grid = $("#grid").data("kendoGrid");
@@ -498,7 +464,8 @@
         if (confirm("Estas seguro de cancelar la orden de almacenaje del numero unico?")) {
             $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.create({}, { numeroUnico: NumeroUnicoID, token: $.cookie("token") }).done(function (result) {
                 Error(result);
-                Filtros();
+                //Filtros();
+                CargarDatosGridInicial();
             });
         };
     };
