@@ -1034,12 +1034,16 @@ header .menu > div {
 
     .formNav.filtersFields {
         margin: 2px 0px 35px;
-        padding: 0px 0 30px;
+        padding: 0px 0 15px;
     }
 
         .formNav.filtersFields .button-section {
             margin-top: 23px;
             padding-right: 7px;
+        }
+
+        .formNav.filtersFields .filter-section .row > div {
+            margin-bottom: 15px;
         }
 
     .formNav .btn, .formNav .btn-group {

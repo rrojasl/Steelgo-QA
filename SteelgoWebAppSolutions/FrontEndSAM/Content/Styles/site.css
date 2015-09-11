@@ -487,6 +487,11 @@ input.quickFilters.arrivalMaterial {
     white-space: normal;
 }
 
+.btn-tab.Accesorios label,
+.btn-tab.Tubos label {
+    font-size: 11px;
+}
+
 .btn-tab span {
     color: #305E8D;
     font-size: 50px;
@@ -495,6 +500,10 @@ input.quickFilters.arrivalMaterial {
 
 .btn-tab.btn-dashLlegada {
     width: 33.37%;
+}
+
+.btn-tab.Accesorios, .btn-tab.Tubos {
+    width: 12.54%;
 }
 
 /*.btn-tab span#spanSinAutorizacion {
