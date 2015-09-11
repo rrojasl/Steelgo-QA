@@ -2685,7 +2685,7 @@
                         type: "json",
                         transport: {
                             //read: $URLItemCodeSteelgo + "?token=" + Cookies.get("token")
-                            read: $URLItemCodeSteelgo + "&ItemCode=" + container.parent().children()[0].innerText + "&token=" + Cookies.get("token")
+                            read: $URLItemCodeSteelgo + "&ItemCode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token")
                         },
                         serverPaging: true,
                         serverFiltering: true
