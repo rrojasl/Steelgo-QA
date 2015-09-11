@@ -332,13 +332,20 @@
                 serverSorting: false,
                 pageSize: 20,
             },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
             autoHeight: true,
             sortable: false,
             scrollable: false,
             detailInit: detailInit,
             columns: [
                 { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
+                //{ field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
