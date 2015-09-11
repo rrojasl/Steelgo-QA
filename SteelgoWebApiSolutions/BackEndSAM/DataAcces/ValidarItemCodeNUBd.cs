@@ -53,16 +53,18 @@ namespace BackEndSAM.DataAcces
                 bool tieneNU = false;
                 using (SamContext ctx = new SamContext())
                 {
-                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo  select ic.ItemCodeID).AsParallel().Single();
+                   
 
                     if (bultoID != -1)
                     {
+                       
                         tieneNU = (from bic in ctx.Sam3_Rel_Bulto_ItemCode
-                                   where bic.ItemCodeID == itemCodeID && bic.BultoID == bultoID && bic.Activo
+                                   where bic.BultoID == bultoID && bic.Activo
                                    select bic.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
                     else
                     {
+                        int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().Single();
                         tieneNU = (from fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                    where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID == folioCuantificacionID && fcic.Activo
                                    select fcic.TieneNumerosUnicos).AsParallel().FirstOrDefault();
