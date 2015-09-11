@@ -297,20 +297,36 @@
         //client.add("Colada");
         //client.Colada.read({}, { "token": "", "id" : 1 }).done(function (data) { console.log(data) });
 
-
+        /*
         var orden = { ProyectoID: "", FolioCuantificacionID: "", ItemCodeID: "", NumeroUnico: "" };
         orden.ProyectoID = "";
         orden.FolioCuantificacionID = "";
         orden.ItemCodeID = "";
-        orden.NumeroUnico = "";
+        orden.NumeroUnico = "";*/
 
         //Listado = { ItemCodeID: 6, TipoListado: "21", token: "" };
 
         //client.add("Listado");
         //client.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (data) { console.log(data) });
 
-        client.add("GenerarOrdenAlmacenaje");
-        client.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(orden), token: "" }).done(function (data) { console.log(data) });
+        //var OrdenAlmacenaje = { ID: "", Folios: "", NumerosUnicos: "" };
+        //OrdenAlmacenaje.listaFoliosCuantificacion = 130;
+        //OrdenAlmacenaje.listaItemCodes = 34;
+        //OrdenAlmacenaje.listaNumerosUnicos = 1050;
+
+        //client.add("GenerarOrdenAlmacenaje");
+        //client.GenerarOrdenAlmacenaje.create({}, { OrdenAlmacenaje: OrdenAlmacenaje, token: "" }).done(function (data) { console.log(data) });
+
+        //client.add("ListadoCuantificacion");
+        //client.ListadoCuantificacion.update({}, { cerrar: true, incompletos: true, FolioAvisollegadaId: 4058, FolioCuantificacionID: 18, cuantificacion: '[{ "ItemCode" : "16", "ItemCodeCodigo" : "AJF18486", "ItemCodeSteelgoCodigo" : "C-0003" ,"BultoID":"","Descripcion":"ICS3","D1":6,"D2":3,"ItemCodeSteelgo" : "3", "FamiliaMaterial" : "Familia acero 1", "Cedula":"cedula 3", "TipoAcero" : "Familia Prueba 2" , "Colada":"Coldada Default","Cantidad":150,"MM":18,"Detallar":"No", "Peso": "12", "TipoMaterial" : "1", "TieneNU":false,"TieneError":false}]', token: "", idGuardado: 3 }).done(function (data) { console.log(data) });
+
+
+        client.add("FoliosCuantificacion");
+        client.FoliosCuantificacion.destroy({}, {
+            folioCuantificacion: 131,
+            data: '[{ "ItemCode" : "", "ItemCode" : "AJF18486", "ItemCodeSteelgo" : "" ,"BultoID":"","Descripcion":"ICS3","D1":6,"D2":3,"ItemCodeSteelgo" : "3", "FamiliaMaterial" : "Familia acero 1", "Cedula":"cedula 3", "TipoAcero" : "Familia Prueba 2" , "Colada":"Coldada Default","Cantidad":150,"MM":18,"Detallar":"No", "Peso": "12", "TipoMaterial" : "1", "TieneNU":false,"TieneError":false},{ "ItemCode" : "", "ItemCode" : "PRB-002", "ItemCodeSteelgo" : "" ,"BultoID":"","Descripcion":"ICS3","D1":6,"D2":3,"ItemCodeSteelgo" : "3", "FamiliaMaterial" : "Familia acero 1", "Cedula":"cedula 3", "TipoAcero" : "Familia Prueba 2" , "Colada":"Coldada Default","Cantidad":150,"MM":18,"Detallar":"No", "Peso": "12", "TipoMaterial" : "1", "TieneNU":false,"TieneError":false}]',
+            token: ""
+        }).done(function (data) { console.log(data) });
 
      
 
