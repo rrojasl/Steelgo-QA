@@ -440,6 +440,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="FormatoCargaMasiva.csv" />
     <None Include="Properties\PublishProfiles\FrontEnd.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -1114,7 +1115,6 @@
     <Content Include="Views\OrdenAlmacenaje\GenerarOrdenAlmacenaje.cshtml" />
     <Content Include="Views\OrdenAlmacenaje\DetalleOrdenAlmacenaje.cshtml" />
     <Content Include="Views\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenaje.cshtml" />
-    <Content Include="FormatoCargaMasiva.csv" />
     <Content Include="Views\Cuantificacion\ListadoPackingList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
