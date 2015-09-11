@@ -194,10 +194,10 @@ namespace BackEndSAM.DataAcces
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
                                         }
-                                        else if (ICexisteEnRel && !existeRelICS)
-                                        {
-                                            TieneErrores = true;
-                                        }
+                                        //else if (ICexisteEnRel && !existeRelICS)
+                                        //{
+                                        //    TieneErrores = true;
+                                        //}
 
                                         //Update IC y ICS
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
@@ -348,10 +348,10 @@ namespace BackEndSAM.DataAcces
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
                                         }
-                                        else if (ICexisteEnRel && !existeRelICS)
-                                        {
-                                            TieneErrores = true;
-                                        }
+                                        //else if (ICexisteEnRel && !existeRelICS)
+                                        //{
+                                        //    TieneErrores = true;
+                                        //}
 
                                         //Update IC y ICS
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
@@ -495,10 +495,10 @@ namespace BackEndSAM.DataAcces
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
                                         }
-                                        else if (ICexisteEnRel && !existeRelICS)
-                                        {
-                                            TieneErrores = true;
-                                        }
+                                        //else if (ICexisteEnRel && !existeRelICS)
+                                        //{
+                                        //    TieneErrores = true;
+                                        //}
 
                                         //Update IC y ICS
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
@@ -657,10 +657,10 @@ namespace BackEndSAM.DataAcces
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
                                         }
-                                        else if (ICexisteEnRel && !existeRelICS)
-                                        {
-                                            TieneErrores = true;
-                                        }
+                                        //else if (ICexisteEnRel && !existeRelICS)
+                                        //{
+                                        //    TieneErrores = true;
+                                        //}
 
                                         //Update IC y ICS
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
@@ -975,7 +975,7 @@ namespace BackEndSAM.DataAcces
                 IC.UsuarioModificacion = usuario.UsuarioID;
                 IC.FechaModificacion = DateTime.Now;
                 ctx.SaveChanges();
-                if (CantidadNumerosUnicos < (CantidadItemCode + item.Cantidad))
+                if (CantidadNumerosUnicos > (CantidadItemCode + item.Cantidad))
                 {
                     TieneErrores = true;
                 }

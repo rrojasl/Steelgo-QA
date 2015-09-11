@@ -396,8 +396,9 @@ input.quickFilters.arrivalMaterial {
         color: #FFFFFF;
     }
 
-.btn-group > .btn:hover, .btn-group > .btn:focus {
-    z-index: 0;
+.btn-group > .btn:hover, .btn-group > .btn:focus,
+.btn-group > .btn.active {
+    z-index: 0!important;
 }
 
 .btn-default span, .btn-default label {
@@ -502,7 +503,8 @@ input.quickFilters.arrivalMaterial {
     width: 33.37%;
 }
 
-.btn-tab.Accesorios, .btn-tab.Tubos {
+.btn-tab.Accesorios,
+.btn-tab.Tubos {
     width: 12.54%;
 }
 
@@ -766,6 +768,11 @@ h2 {
         font-size: 11px;
     }
 
+    .btn-tab.Accesorios,
+    .btn-tab.Tubos {
+        width: 25.04%;
+    }
+
     /*input*/
     input.quickFilters {
         width: 27.1%;
@@ -840,6 +847,10 @@ h2 {
     .buttonBar {
         margin-top: 0;
     }
+    
+    .btn-tab span {
+        font-size: 36px;
+    }
 }
 
 /* md viewport */
@@ -897,7 +908,7 @@ h2 {
 
         .expanded input.quickFilters.arrivalMaterial:last-of-type {
             width: 13.4%;
-        }
+        }    
 }
 
 /* lg viewport */
