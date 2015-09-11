@@ -165,7 +165,7 @@ namespace BackEndSAM.DataAcces
                     int numeroUnicoID = filtros.NumeroUnicoID != "" ? Convert.ToInt32(filtros.NumeroUnicoID) : 0;
 
                     //Patios y proyectos del usuario
-                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == 1/*usuario.UsuarioID*/).Select(x => x.ProyectoID).AsParallel().ToList();
+                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
                     List<int> patios = (from r in ctx.Sam3_Proyecto
                                         join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
@@ -434,7 +434,7 @@ namespace BackEndSAM.DataAcces
                         relOrdenAlmacenaje.FechaCreacion = DateTime.Now;
                         relOrdenAlmacenaje.Activo = true;
                         relOrdenAlmacenaje.FechaModificacion = DateTime.Now;
-                        relOrdenAlmacenaje.UsuarioModificacion = 1; //usuario.UsuarioID;
+                        relOrdenAlmacenaje.UsuarioModificacion = usuario.UsuarioID;
                         ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Add(relOrdenAlmacenaje);
                     }
 
