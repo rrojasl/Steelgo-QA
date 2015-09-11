@@ -730,9 +730,10 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    ListadoDetalleOrdenAlmacenaje listadoDetalleOrdenAlmacenaje = new ListadoDetalleOrdenAlmacenaje();
                     List<ListadoGenerarOrdenAlmacenaje> listado = new List<ListadoGenerarOrdenAlmacenaje>();
                    
-
+                    
                     //Obtengo los folios Cuantificacion que tienen orden de almacenaje
                     List<Sam3_FolioCuantificacion> folios = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                              join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
@@ -741,8 +742,9 @@ namespace BackEndSAM.DataAcces
                                                              where roa.Activo && nu.Activo && ric.Activo && fc.Activo
                                                              && roa.OrdenAlmacenajeID == ordenAlmacenajeID
                                                              select fc).AsParallel().ToList();
-
-
+                    
+                    
+                    int ProyectoID = folios.Select(b => b.ProyectoID).FirstOrDefault();
                     folios = folios.GroupBy(x => x.FolioCuantificacionID).Select(x => x.First()).ToList();
 
                     foreach (Sam3_FolioCuantificacion item in folios)
@@ -815,7 +817,11 @@ namespace BackEndSAM.DataAcces
                         }
                         listado.Add(listadoOrdenAlmacenaje);
                     }
-                    return listado;
+
+                    listadoDetalleOrdenAlmacenaje.ProyectoID = ProyectoID;
+                    listadoDetalleOrdenAlmacenaje.ListadoGenerarOrdenAlmacenaje = listado;
+
+                    return listadoDetalleOrdenAlmacenaje;
                 }
             }
             catch (Exception ex)
