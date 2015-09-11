@@ -768,6 +768,7 @@ namespace BackEndSAM.DataAcces
                                                                       where oar.Activo && numuni.Activo && itc.Activo && rfcic.Activo
                                                                       && oar.OrdenAlmacenajeID == ordenAlmacenajeID 
                                                                       && rfcic.FolioCuantificacionID == item.FolioCuantificacionID
+                                                                      && ic.ItemCodeID == itc.ItemCodeID
                                                                       select oar.NumeroUnicoID).Count().ToString(),
                                                          D1 = ics.Diametro1.ToString(),
                                                          D2 = ics.Diametro2.ToString(),
@@ -781,6 +782,7 @@ namespace BackEndSAM.DataAcces
                                                                           where oar.Activo && numuni.Activo && itc.Activo && rfcic.Activo
                                                                           && oar.OrdenAlmacenajeID == ordenAlmacenajeID
                                                                           && rfcic.FolioCuantificacionID == item.FolioCuantificacionID
+                                                                           && ic.ItemCodeID == itc.ItemCodeID
                                                                           select new ElementoNumeroUnico
                                                                           {
                                                                               FolioCuantificacion = item.FolioCuantificacionID.ToString(),
@@ -789,6 +791,8 @@ namespace BackEndSAM.DataAcces
                                                                               NumeroUnico = numuni.Prefijo + "-" + numuni.Consecutivo
                                                                           }).ToList()
                                                      }).AsParallel().ToList();
+
+                        listadoOrdenAlmacenaje.ItemCodes = listadoOrdenAlmacenaje.ItemCodes.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
 
                         foreach (var i in listadoOrdenAlmacenaje.ItemCodes)
                         {
