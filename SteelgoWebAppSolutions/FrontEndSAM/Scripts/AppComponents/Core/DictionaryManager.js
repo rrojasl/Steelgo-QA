@@ -201,19 +201,15 @@ _dictionary = {
     },
     "menuLabel0022": {
         "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Dashboard Recepción y Almacenaje"
+        "en-US": "Dashboard of Receiving and Warehousing"
     },
     "menuLabel0023": {
         "es-MX": "Listado Recepción y Almacenaje",
-        "en-US": "Listado Recepción y Almacenaje"
-    },
-    "menuLabel0024": {
-        "es-MX": "Listado Packing List",
-        "en-US": "Listado Packing List"
+        "en-US": "Listing Receiving and Warehousing"
     },
     "menuLabel0025": {
         "es-MX": "Listado Packing List",
-        "en-US": "Listado Packing List"
+        "en-US": "Listing Packing List"
     },
     "menuLabel0026": {
         "es-MX": "Cuantificación",
@@ -221,35 +217,35 @@ _dictionary = {
     },
     "menuLabel0027": {
         "es-MX": "Consulta y Edición de Cuantificacion",
-        "en-US": "Consulta y Edición de Cuantificacion"
+        "en-US": "Consult and Edit Quantification"
     },
     "menuLabel0028": {
         "es-MX": "Listado Orden de Recepción",
-        "en-US": "Listado Orden de Recepción"
+        "en-US": "Listing Receiving Order"
     },
     "menuLabel0029": {
         "es-MX": "Generar Orden de Recepción",
-        "en-US": "Generar Orden de Recepción"
+        "en-US": "Generation Receiving Order"
     },
     "menuLabel0030": {
         "es-MX": "Detalle de Orden de Recepción",
-        "en-US": "Detalle de Orden de Recepción"
+        "en-US": "Detail Receiving Order"
     },
     "menuLabel0031": {
         "es-MX": "Complementar Recepción",
-        "en-US": "Complementar Recepción"
+        "en-US": "Complement Reception"
     },
     "menuLabel0032": {
         "es-MX": "Listado Orden Almacenaje",
-        "en-US": "Listado Orden Almacenaje"
+        "en-US": "Listing Storage Order"
     },
     "menuLabel0033": {
         "es-MX": "Generar Orden Almacenaje",
-        "en-US": "Generar Orden Almacenaje"
+        "en-US": "Generate Storage Order"
     },
     "menuLabel0034": {
         "es-MX": "Detalle de Orden de Almacenaje",
-        "en-US": "Detalle de Orden de Almacenaje"
+        "en-US": "Detail Storage Order"
     },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
