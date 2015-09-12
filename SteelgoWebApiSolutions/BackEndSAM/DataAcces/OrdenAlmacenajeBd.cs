@@ -338,6 +338,8 @@ namespace BackEndSAM.DataAcces
 
                             );
 
+                        orden.ItemCodes = orden.ItemCodes.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
+
                         foreach (var i in orden.ItemCodes)
                         {
                             foreach (var nu in i.NumerosUnicos)
