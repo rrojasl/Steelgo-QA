@@ -540,23 +540,55 @@
     };
 
     function ItemsSumarDuplicados(){
-        var ArrTodos = [];
+        var ArrTodos = [], results = [], ArrFinal = [];
         var ds = $("#grid").data("kendoGrid").dataSource;
         var data = $("#grid").data("kendoGrid").dataSource.data();
-        for (var i=0; i<data.length; i++) {
+       
+        var item = [];
+
+        for (var i = 0; i < data.length; i++) {
             var row = ds.at(i);
             ArrTodos[i] = row.ItemCode;
+            item[i] = { ItemCode: row.ItemCode, BultoID: row.BultoID, Descripcion: row.Descripcion, D1: row.D1, D2: row.D2, ItemCodeSteelgo: row.ItemCodeSteelgo, Familia: row.Familia, Cedula: row.Cedula, TipoAcero: row.TipoAcero, Colada: row.Colada, Cantidad: row.Cantidad, MM: row.MM, Detallar: row.Detallar, TieneNU: row.TieneNU, TieneError: row.TieneError };
         };
-        var results = [], ArrFinal = [];
-        results = ObtenerTodoslosItems(ArrTodos);
-    
-        ArrFinal = SumarDuplicados(results, data, ds);
 
+
+        var temp = {};
+        for (var i = 0; i < item.length ; i++) {
+            var obj = item[i];
+            if (temp[obj.ItemCode] >= 0) {
+                item.splice(i, 1);
+                i--;
+            }
+            temp[obj.ItemCode] = i;
+        }
+       
+        results = ObtenerTodoslosItems(ArrTodos);
+        ArrFinal = SumarDuplicados(results, data, ds);
         RemoverItemsGrid(ds, data, ArrFinal);
 
-        var error = "";
-        ObtenerItemCodeSteelgoDuplicados(ArrFinal, 0, error);
+        if (ArrFinal.length > 0) {
+            displayMessage("notificationslabel0043", "", '2');
+        }
+        var z = 0, ActCantidad = [];
+        for (var i = 0; i < item.length; i++) {
+            
+            for (var x = 0; x < ArrFinal.length; x++) {
+                if (ArrFinal[x].ItemCode == item[i].ItemCode) {
+                    item[i].Cantidad = ArrFinal[x].Cantidad;
+                    ActCantidad[z] = item[i];
+                    z++;
+                }
+            }
+        }
+       
+        $.each(ActCantidad, function (key) {
+            var item =
+                   { ItemCode: ActCantidad[key].ItemCode, BultoID: ActCantidad[key].BultoID, Descripcion: ActCantidad[key].Descripcion, D1: ActCantidad[key].D1, D2: ActCantidad[key].D2, ItemCodeSteelgo: ActCantidad[key].ItemCodeSteelgo, Familia: ActCantidad[key].Familia, Cedula: ActCantidad[key].Cedula, TipoAcero: ActCantidad[key].TipoAcero, Colada: ActCantidad[key].Colada, Cantidad: ActCantidad[key].Cantidad, MM: ActCantidad[key].MM, Detallar: ActCantidad[key].Detallar, TieneNU: ActCantidad[key].TieneNU, TieneError: ActCantidad[key].TieneError };
+            $("#grid").data("kendoGrid").dataSource.insert(item);
+        });
 
+        ordenamientoGrid();
     };
 
     function RemoverItemsGrid(ds, data, ArrFinal) {
@@ -677,7 +709,7 @@
                 if (_detalleBulto != "-1") {
                     idguardado = 5;
                 }
-                if(validarRequeridosFormaCuantificacion()) {
+                if (validarRequeridosFormaCuantificacion()) {
                     GuardarParcial(false, idguardado);
                 } else{
                     displayMessage("notificationslabel0031", "", '1');
@@ -1960,6 +1992,8 @@
             ListadoCuantificacionIncompletos = [];
             ListadoCuantificacion = [];
 
+            ItemsSumarDuplicados();
+
             for (var i = 0; i < datasource.length; i++) {
                 var ItemCode = datasource[i].ItemCode;
                 var BultoID = datasource[i].BultoID;
@@ -2111,6 +2145,8 @@
             ListadoCuantificacionIncompletos = [];
             ListadoCuantificacion = [];
 
+            ItemsSumarDuplicados();
+
             for (var i = 0; i < datasource.length; i++) {
                 var ItemCode = datasource[i].ItemCode;
                 var BultoID = datasource[i].BultoID;
@@ -2252,6 +2288,7 @@
         //var result = query.filter(filters).data;
         //var datasource = result;
 
+        ItemsSumarDuplicados();
 
         ListadoCuantificacionIncompletos = [];
         ListadoCuantificacion = [];
@@ -2394,6 +2431,7 @@
             ObtenerDatosDelFolioAvisoLlegada();
         };
 
+
         function GuardarParcial(guardarynuevo, idGuardado) {
             loadingStart();
             var j = 0, z = 0;
@@ -2406,6 +2444,8 @@
 
             ListadoCuantificacionIncompletos = [];
             ListadoCuantificacion = [];
+
+            ItemsSumarDuplicados();
 
             for (var i = 0; i < datasource.length; i++) {
                 var ItemCode = datasource[i].ItemCode;
@@ -2877,7 +2917,7 @@
             };
         };
 
-        function ObtenerItemCodeSteelgoDuplicados(dataJson, key, error) {
+        function ObtenerItemCodeSteelgoDuplicados(dataJson, key, error,guardarynuevo, idGuardado) {
             if (dataJson[key]) {
                 $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
@@ -2896,11 +2936,13 @@
                     };
 
                     key++;
-                    ObtenerItemCodeSteelgoDuplicados(dataJson, key, error);
+                    ObtenerItemCodeSteelgoDuplicados(dataJson, key, error, guardarynuevo, idGuardado);
                 });
             } else {
                 loadingStop();
                 ordenamientoGrid();
+                GuardarParcial(guardarynuevo, idGuardado);
+
                 if (error) {
                     displayMessage("notificationslabel0047", error, '2');
                     return;

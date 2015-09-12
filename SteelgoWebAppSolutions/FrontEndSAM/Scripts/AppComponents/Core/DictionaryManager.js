@@ -2980,6 +2980,10 @@ _dictionary = {
         "es-MX": "No se puede generar etiquetas de la orden de recepción. ",
         "en-US": ""
     },
+    "notificationslabel0049": {
+        "es-MX": "Se encontraron registros duplicados. Se obtuvo el registro mas reciente y se sumo la cantidad.",
+        "en-US": "Duplicate records were found. The most recent entry was obtained and the amount is high."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
