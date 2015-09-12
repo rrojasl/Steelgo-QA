@@ -596,7 +596,7 @@ namespace BackEndSAM.DataAcces
                                                    Codigo = it.Codigo,
                                                    NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
                                                    NumeroUnicoID = ronu.NumeroUnicoID.ToString()
-                                               }).AsParallel().ToList();
+                                               }).AsParallel().GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
 
                             foreach (var i in folio.ItemCodes)
                             {
