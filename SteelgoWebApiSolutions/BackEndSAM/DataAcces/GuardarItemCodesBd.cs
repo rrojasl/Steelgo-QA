@@ -88,15 +88,6 @@ namespace BackEndSAM.DataAcces
                             case 1: //Terminar y Nuevo
                                 #region Terminar y Nuevo
 
-                                if (cerrar && !incompletos)
-                                {
-                                    //Cambiar estatus a folio cuantificacion
-                                    folioCuantificacion.Estatus = "Terminado";
-                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
-                                    folioCuantificacion.FechaModificacion = DateTime.Now;
-                                    ctx.SaveChanges();
-                                }
-
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
                                 bulto = new Sam3_Bulto();
@@ -220,6 +211,15 @@ namespace BackEndSAM.DataAcces
                                         });
                                     //}
                                 }
+
+                                if (cerrar && !incompletos && !TieneErrores)
+                                {
+                                    //Cambiar estatus a folio cuantificacion
+                                    folioCuantificacion.Estatus = "Terminado";
+                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
+                                    folioCuantificacion.FechaModificacion = DateTime.Now;
+                                    ctx.SaveChanges();
+                                }
                                 scope.Complete();
                                 #endregion
                                 break;
@@ -227,15 +227,7 @@ namespace BackEndSAM.DataAcces
                             case 2: //Guardar y Cerrar
                                 #region Guardar y Cerrar
 
-                                if (cerrar && !incompletos)
-                                {
-                                    //Cambiar estatus a folio cuantificacion
-                                    folioCuantificacion.Estatus = "Cerrado";
-                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
-                                    folioCuantificacion.FechaModificacion = DateTime.Now;
-                                    ctx.SaveChanges();
-                                }
-
+                                
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
                                 bulto = new Sam3_Bulto();
@@ -354,6 +346,16 @@ namespace BackEndSAM.DataAcces
                                         });
                                     //}
                                 }
+
+                                if (cerrar && !incompletos && !TieneErrores)
+                                {
+                                    //Cambiar estatus a folio cuantificacion
+                                    folioCuantificacion.Estatus = "Cerrado";
+                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
+                                    folioCuantificacion.FechaModificacion = DateTime.Now;
+                                    ctx.SaveChanges();
+                                }
+
                                 scope.Complete();
                                 #endregion
                                 break;
@@ -494,16 +496,7 @@ namespace BackEndSAM.DataAcces
                             case 4: //Guardar y Terminar (Bulto)
                                 #region Guardar y Terminar (Bulto)
 
-                                if (cerrar && !incompletos)
-                                {
-                                    //Cambiar estatus al bulto
-                                    bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == datosItemCode.BultoID).AsParallel().SingleOrDefault();
-
-                                    bulto.Estatus = "Terminado";
-                                    bulto.UsuarioModificacion = usuario.UsuarioID;
-                                    bulto.FechaModificacion = DateTime.Now;
-                                    ctx.SaveChanges();
-                                }
+                               
                                 IC = new Sam3_ItemCode();
                                 ICS = new Sam3_ItemCodeSteelgo();
 
@@ -635,6 +628,17 @@ namespace BackEndSAM.DataAcces
                                             TieneNU = datosItemCode.TieneNU
                                         });
                                     //}
+                                }
+
+                                if (cerrar && !incompletos && !TieneErrores)
+                                {
+                                    //Cambiar estatus al bulto
+                                    bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == datosItemCode.BultoID).AsParallel().SingleOrDefault();
+
+                                    bulto.Estatus = "Terminado";
+                                    bulto.UsuarioModificacion = usuario.UsuarioID;
+                                    bulto.FechaModificacion = DateTime.Now;
+                                    ctx.SaveChanges();
                                 }
                                 //}
                                 scope.Complete();
