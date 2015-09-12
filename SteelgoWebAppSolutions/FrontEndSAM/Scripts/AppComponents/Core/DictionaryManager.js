@@ -2081,8 +2081,8 @@ _dictionary = {
         "en-US": "Cancel"
     },
     "DetalleOrdenRecepcion0013": {
-        "es-MX": "Orden de Recepción: ",
-        "en-US": "Order Reception: "
+        "es-MX": "Folio Orden de Recepción: ",
+        "en-US": "Folio Order Reception: "
     },
     "DetalleOrdenRecepcion0014": {
         "es-MX": "Nueva captura",
@@ -2126,7 +2126,7 @@ _dictionary = {
     },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
-        "es-MX": "Orden de Almacenaje: ",
+        "es-MX": "Folio Orden de Almacenaje: ",
         "en-US": "Order storage: "
     },
     "DetalleOrdenAlmacenaje0002": {
