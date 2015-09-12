@@ -241,6 +241,8 @@ namespace BackEndSAM.DataAcces
                                            join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rfc.ItemCodeID equals rics.ItemCodeID
                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                            join numu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals numu.ItemCodeID
+                                           //join bu in ctx.Sam3_Bulto on item.FolioCuantificacionID equals bu.FolioCuantificacionID
+                                           //join relbu in ctx.Sam3_Rel_Bulto_ItemCode on bu.BultoID equals relbu.BultoID
                                            where rfc.Activo && ic.Activo && rics.Activo && ics.Activo
                                            && rfc.FolioCuantificacionID == item.FolioCuantificacionID
                                            && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
@@ -278,7 +280,63 @@ namespace BackEndSAM.DataAcces
                                                                     NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
                                                                 }).ToList()
                                            }).AsParallel().GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
-                 
+
+                        orden.ItemCodes.AddRange(
+
+
+                                           (from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+
+
+                                            join bu in ctx.Sam3_Bulto on item.FolioCuantificacionID equals bu.FolioCuantificacionID
+                                            join relbu in ctx.Sam3_Rel_Bulto_ItemCode on bu.BultoID equals relbu.BultoID
+
+                                            join ic in ctx.Sam3_ItemCode on relbu.ItemCodeID equals ic.ItemCodeID
+                                            join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on relbu.ItemCodeID equals rics.ItemCodeID
+                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                            join numu in ctx.Sam3_NumeroUnico on relbu.ItemCodeID equals numu.ItemCodeID
+                                            //join bu in ctx.Sam3_Bulto on item.FolioCuantificacionID equals bu.FolioCuantificacionID
+                                            //join relbu in ctx.Sam3_Rel_Bulto_ItemCode on bu.BultoID equals relbu.BultoID
+                                            where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && bu.Activo && relbu.Activo
+                                            && rfc.FolioCuantificacionID == item.FolioCuantificacionID
+                                            && (from ror in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                                where ror.Activo
+                                                select ror.ItemCodeID).Contains(relbu.ItemCodeID)
+                                                && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                     where roa.Activo
+                                                     select roa.NumeroUnicoID).Contains(numu.NumeroUnicoID)
+                                            select new ElementoCuantificacionItemCode
+                                            {
+                                                ItemCodeID = ic.ItemCodeID.ToString(),
+                                                Codigo = ic.Codigo,
+                                                Descripcion = ics.DescripcionEspanol,
+                                                Cantidad = (from nu in ctx.Sam3_NumeroUnico
+                                                            where nu.ItemCodeID == relbu.ItemCodeID
+                                                            && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                                 where roa.Activo
+                                                                 select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                                                            && nu.Activo
+                                                            select nu.NumeroUnicoID).Count().ToString(),
+                                                D1 = ics.Diametro1.ToString(),
+                                                D2 = ics.Diametro2.ToString(),
+                                                FolioCuantificacion = item.FolioCuantificacionID.ToString(),
+                                                NumerosUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                 where nu.ItemCodeID == relbu.ItemCodeID
+                                                                 && !(from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
+                                                                      where roa.Activo
+                                                                      select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
+                                                                 && nu.Activo
+                                                                 select new ElementoNumeroUnico
+                                                                 {
+                                                                     FolioCuantificacion = item.FolioCuantificacionID.ToString(),
+                                                                     ItemCodeID = ic.ItemCodeID.ToString(),
+                                                                     NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                                                     NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
+                                                                 }).ToList()
+                                            }).AsParallel().GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList()
+
+
+
+                            );
 
                         foreach (var i in orden.ItemCodes)
                         {
