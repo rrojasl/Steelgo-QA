@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int folioAvisoLlegadaID, int folioCuantificacionID, string ItemCode, int bultoID, int detalleBulto, string token)
+        public object Get(string folioAvisoLlegadaID, string folioCuantificacionID, string ItemCode, string bultoID, string detalleBulto, string token)
         {
             string payload = "";
             string newToken = "";
@@ -31,7 +31,10 @@ namespace BackEndSAM.Controllers
 
             if (tokenValido)
             {
-                return ValidarItemCodeNUBd.Instance.ValidarItemCode(folioAvisoLlegadaID, folioCuantificacionID, ItemCode, bultoID, detalleBulto );
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return ValidarItemCodeNUBd.Instance.ValidarItemCode(folioAvisoLlegadaID, folioCuantificacionID, ItemCode, bultoID, detalleBulto, usuario );
             }
             else
             {
@@ -55,7 +58,7 @@ namespace BackEndSAM.Controllers
         }
  
         // DELETE api/<controller>/5
-        public object Delete(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, string ItemCode, int detalleBulto, string token)
+        public object Delete(string folioAvisoLlegadaID, string folioCuantificacionID, string BultoID, string ItemCode, string detalleBulto, string token)
         {
             string payload = "";
             string newToken = "";
@@ -65,7 +68,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ValidarItemCodeNUBd.Instance.EliminarItemCode(folioAvisoLlegadaID, folioCuantificacionID, BultoID, ItemCode, usuario, detalleBulto);
+                return ValidarItemCodeNUBd.Instance.EliminarItemCode(folioAvisoLlegadaID, folioCuantificacionID, BultoID, ItemCode, detalleBulto, usuario);
             }
             else
             {
