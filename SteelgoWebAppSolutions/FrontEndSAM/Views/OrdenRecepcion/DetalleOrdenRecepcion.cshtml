@@ -35,6 +35,10 @@
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenAlmacenaje0002"></span></button>
                             </div>*@
                             <a id="Cancelar" href="#" class="btn btn-black" ><span id="DetalleOrdenRecepcion0001"></span></a>
+                            
+                        </div>
+                        <div class="button-section">
+                            <a id="GenerarOrdenAlmacenaje" href="#" class="btn btn-black" ><span id="DetalleOrdenRecepcion0023"></span></a>
                         </div>
                         <div class="button-section">
                             <div class="dropdown action-group">
@@ -89,7 +93,8 @@
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
     var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
-    
+    var _GenerarOrdenAlmacenajeUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
+
     var $GenerarOrdenRecepcionModel = {
         listContainer: {
             create: "#Guardar",
@@ -180,7 +185,10 @@
         $("#Cancelar").click(function () {
             window.location.href = _listadoOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
-
+        $("#GenerarOrdenAlmacenaje").click(function () {
+            window.location.href = _GenerarOrdenAlmacenajeUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+        
         $("#RedirectListado").click(function () {
             window.location.href = _listadoOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
