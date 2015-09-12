@@ -239,6 +239,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Incid__50B0EB68" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Numer__51A50FA1" />
         <AssociationConnector Association="ModelSam3.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoM__7B9B496D" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

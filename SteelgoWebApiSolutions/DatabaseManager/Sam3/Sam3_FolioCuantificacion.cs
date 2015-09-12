@@ -31,6 +31,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public bool Activo { get; set; }
+        public int TipoMaterialID { get; set; }
     
         public virtual ICollection<Sam3_Bulto> Sam3_Bulto { get; set; }
         public virtual Sam3_FolioAvisoEntrada Sam3_FolioAvisoEntrada { get; set; }
@@ -38,5 +39,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
         public virtual ICollection<Sam3_Recepcion> Sam3_Recepcion { get; set; }
+        public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
     }
 }
