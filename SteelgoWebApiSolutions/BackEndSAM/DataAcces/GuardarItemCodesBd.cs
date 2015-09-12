@@ -82,6 +82,7 @@ namespace BackEndSAM.DataAcces
                                                                         select fc).AsParallel().SingleOrDefault();
 
                         datosItemCode.ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo == "" ? datosItemCode.ItemCodeSteelgo = "ICS-Default" : datosItemCode.ItemCodeSteelgo;
+                        datosItemCode.Familia = datosItemCode.Familia == "" ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
 
                         switch (tipoGuardado)
                         {
