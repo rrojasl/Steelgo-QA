@@ -79,7 +79,7 @@
         listContainer: {
             create: "#Nuevo",
             list: "#grid",
-            detail: ".detailLink",
+            detail: ".detalleLink",
             destroy: ".k-grid-Cancelar"
         },
     };
@@ -282,7 +282,7 @@
                 { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
                 { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
-                { field: "", title: "", width: "110px", template: "<a  onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
+                { field: "", title: "", width: "110px", template: "<a class='detalleLink' onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarItem }, title: " ", width: "99px" }
                 
             ]
