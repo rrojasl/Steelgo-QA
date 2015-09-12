@@ -1404,6 +1404,10 @@ _dictionary = {
         "es-MX": "Incidencias",
         "en-US": "Incidences"
     },
+    "Cuantificacion0084": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
