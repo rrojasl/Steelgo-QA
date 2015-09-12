@@ -500,9 +500,8 @@
     };
 
     function CancelarOrden(e) {
-        alert("cancelarorden");
         e.preventDefault(); 
-        var ordenAlmacenajeID = $(e.currentTarget).closest("tr").children()[1].innerText;
+        var ordenAlmacenajeID = $(e.currentTarget).closest("tr").children()[2].innerText;
         if (confirm("Estas seguro de cancelar la orden de almacenaje?")) {
             $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
                 Error(result);
