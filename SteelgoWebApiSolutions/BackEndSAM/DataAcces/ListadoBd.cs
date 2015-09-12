@@ -379,6 +379,7 @@ namespace BackEndSAM.DataAcces
                                                               && proyectos.Contains(rfal.ProyectoID)
                                                               && patios.Contains(pa.PatioID)
                                                               && (fae.FechaCreacion >= fechaInicial && fae.FechaCreacion <= fechaFinal)
+                                                              && fae.FolioDescarga > 0
                                                               select fae).AsParallel().ToList();
 
                     if (proyectoID > 0)
@@ -414,7 +415,8 @@ namespace BackEndSAM.DataAcces
                                                     where r.Activo
                                                     && !(from c in ctx.Sam3_FolioCuantificacion
                                                          select c.FolioAvisoEntradaID).Contains(r.FolioAvisoEntradaID)
-                                                    && r.FolioDescarga > 0
+                                                    && (r.FolioDescarga != null || r.FolioDescarga > 0)
+                                                    && r.ComboEstatus != "Cerrado"
                                                     select r).Count();
 
                     //traer los Packinglisto por cuantificar
@@ -426,7 +428,7 @@ namespace BackEndSAM.DataAcces
                                                && c.Estatus != "Cerrado"
                                                && it.TipoMaterialID == tipoMaterialID
                                                && r.FolioDescarga > 0
-                                               select r).AsParallel().Count();
+                                               select c).AsParallel().Distinct().Count();
 
                     //Traer materiales que no tienen un itemCodeSteelgo
                     result.MTLSinICS = (from r in registros
@@ -568,13 +570,14 @@ namespace BackEndSAM.DataAcces
                     List<Sam3_FolioAvisoEntrada> registros = (from fe in ctx.Sam3_FolioAvisoEntrada
                                                               join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                                               join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
-                                                              where fe.Activo && rfp.Activo
+                                                              where fe.Activo && rfp.Activo && fe.FolioDescarga > 0
                                                               && !(from fc in ctx.Sam3_FolioCuantificacion
                                                                    where fc.Activo
                                                                    select fc.FolioAvisoEntradaID).Contains(fe.FolioAvisoEntradaID)
                                                               && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                                               && proyectos.Contains(p.ProyectoID)
                                                               && patios.Contains(p.PatioID)
+                                                              && fe.ComboEstatus != "Cerrado"
                                                               select fe).AsParallel().ToList();
                     if (proyectoID > 0)
                     {
@@ -669,7 +672,7 @@ namespace BackEndSAM.DataAcces
                                                               join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                                               join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                                               join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
-                                                              where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo
+                                                              where fe.Activo && rfp.Activo && p.Activo && fc.Activo && rfi.Activo && i.Activo && fe.FolioDescarga > 0
                                                               && i.TipoMaterialID == tipoMaterialID
                                                               && fc.Estatus != "Cerrado"
                                                               && proyectos.Contains(p.ProyectoID)
@@ -716,7 +719,7 @@ namespace BackEndSAM.DataAcces
                                                                  FolioAvisoEntrada = r.FolioAvisoLlegadaID.ToString(),
                                                                  FechaDescarga = r.FechaFolioDescarga != null ? r.FechaFolioDescarga.Value.ToString() : "",
                                                                  FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString() : "",
-                                                                 PackingList = fc.FolioCuantificacionID.ToString()
+                                                                 PackingList = fc.PackingList
                                                              }).AsParallel().ToList();
 
                     return listado;
@@ -1555,7 +1558,7 @@ namespace BackEndSAM.DataAcces
                             elemento.FechaFolioAvisoEntrada = r.FechaCreacion != null ? r.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
                             elemento.FolioCuantificacion = fc.FolioCuantificacionID.ToString();
                             elemento.FolioEntrada = r.FolioAvisoLlegadaID.ToString();
-                            elemento.PackkingList = fc.PackingList;
+                            elemento.PackingList = fc.PackingList;
                             elemento.Estatus = r.Estatus;
 
                             elemento.TipoPackingList = (from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode

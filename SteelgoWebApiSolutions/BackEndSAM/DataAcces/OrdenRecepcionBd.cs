@@ -520,7 +520,7 @@ namespace BackEndSAM.DataAcces
                         }
 
                         result.ReturnMessage.Add("Ok");
-                        result.ReturnMessage.Add(nuevaOrden.OrdenRecepcionID.ToString());
+                        result.ReturnMessage.Add(nuevaOrden.Folio.ToString());
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
                         result.IsAuthenicated = true;

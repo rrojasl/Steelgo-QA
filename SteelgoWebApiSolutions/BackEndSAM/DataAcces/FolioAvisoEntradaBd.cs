@@ -521,12 +521,21 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int? consecutivo = ctx.Sam3_FolioAvisoEntrada.Select(x => x.FolioDescarga).Max();
-                    consecutivo = consecutivo.HasValue ? consecutivo.Value + 1 : 1;
+                    int consecutivo = 0;
+                    if (ctx.Sam3_FolioAvisoEntrada.Select(x => x.FolioDescarga).Any())
+                    {
+                        consecutivo = ctx.Sam3_FolioAvisoEntrada.Select(x => x.FolioDescarga).Max();
+                        consecutivo = consecutivo + 1;
+                    }
+                    else
+                    {
+                        consecutivo = 1;
+                    }
+
                     Sam3_FolioAvisoEntrada registroBd = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoEntradaID == folioAvisoEntradaID)
                         .AsParallel().SingleOrDefault();
                     registroBd.Estatus = "Orden de Descarga Generada";
-                    registroBd.FolioDescarga = consecutivo.Value;
+                    registroBd.FolioDescarga = consecutivo;
                     registroBd.FechaFolioDescarga = DateTime.Now;
                     registroBd.FechaModificacion = DateTime.Now;
                     registroBd.FechainicioDescarga = DateTime.Now;
