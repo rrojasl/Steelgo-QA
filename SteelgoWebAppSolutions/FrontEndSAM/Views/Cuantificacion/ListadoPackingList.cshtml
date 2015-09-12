@@ -18,36 +18,36 @@
 <div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
+            <div class="formNav filtersFields clearfix">
                 <div class="row">
-                    <div class="col-sm-12 col-md-2 col-lg-2">
+                    <div class="col-sm-4 col-md-4 col-lg-3 longButton">
                         <div class="button-section">
                             <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="ListadoPackingList0007"></span></button>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-10 col-lg-10 filter-section">
+                    <div class="col-sm-8 col-md-8 col-lg-9 filter-section">
                         <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoPackingList0001"></label>
                                 <input id="ClienteID" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoPackingList0002"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoPackingList0003"></label>
                                 <input id="FolioAvisoEntradaID" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoPackingList0004"></label>
                                 <input id="FechaInic" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoPackingList0005"></label>
                                 <input id="FechaFinal" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-2">
+                            <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListadoPackingList0006"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
@@ -213,13 +213,13 @@
                 numeric: true,
             },
             columns: [
-                { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], width: "110px", template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>" },
-                { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()], width: "110px" },
-                { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()] },
+                { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>" },
+                { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()] },
+                { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()]},
+                { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()]},
+                { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()]},
+                { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()]},
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);

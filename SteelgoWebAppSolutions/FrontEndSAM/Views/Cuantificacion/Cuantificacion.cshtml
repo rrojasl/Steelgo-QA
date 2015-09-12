@@ -14,8 +14,8 @@
     </li>
 }
 
-<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="formCuantificacion" class="row">
+<div id="formCuantificacion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <span id="divFolio" class="folioLabel hidden">
                 <span id="Cuantificacion0079"></span>
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                <div class="col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
                         <div id="FolioAvisoEntradaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0012"></label>
@@ -82,7 +82,7 @@
                         </div>
                         <div id="BultoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0015"></label>
-                            <input id="BultoID"  disabled="disabled"/>
+                            <input id="BultoID" disabled="disabled" />
                         </div>
                         <div id="PackingListDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0016"></label>
@@ -98,18 +98,18 @@
                         </div>
                         <div id="massiveUploadDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0019"></label>
-                            <button id="massiveUpload" class="btn btn-primary"><span id="Cuantificacion0020"></span></button>
-                            <a href="../FormatoCargaMasiva.csv"><label id="Cuantificacion0081"></label></a>
-                            <input name="txtFileUpload" id="txtFileUpload" type="file" class="hidden"/>
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                    <button id="massiveUpload" class="btn btn-primary"><span id="Cuantificacion0020"></span></button>
+                                </div>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <a href="../FormatoCargaMasiva.csv">
+                                        <label id="Cuantificacion0081" class="download"></label>
+                                    </a>
+                                </div>
+                            </div>
+                            <input name="txtFileUpload" id="txtFileUpload" type="file" class="hidden" />
                         </div>
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
-                    <div class="row">
                         <div id="ColadaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0022"></label>
                             <input id="Colada" class="" />
@@ -124,24 +124,28 @@
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Cuantificacion0025"></label>
-                            <label id="Cuantificacion0026"></label>
-                            <input id="todos" class="" type="radio" name="radio" checked value="1">
-                            <label id="Cuantificacion0027"></label>
-                            <input id="vacios" class="" type="radio" name="radio" value="2"/>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-3 col-lg-3">
+                                    <label id="Cuantificacion0026" class="centered"></label>
+                                    <input id="todos" class="" type="radio" name="radio" checked value="1">
+                                </div>
+                                <div class="col-sm-6 col-md-3 col-lg-3">
+                                    <label id="Cuantificacion0027" class="centered"></label>
+                                    <input id="vacios" class="" type="radio" name="radio" value="2" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid"></div>
-        </div>
-
-        
+        </div>        
         <ul id="menu">
             <li>Detallar
             </li>
         </ul>
-
     </div>
 </div>
 
@@ -2551,7 +2555,7 @@
 
             for (var i = 0; i < gridData.length; i++) {
                 if (gridData[i].TieneError == true) {
-                    grid.table.find("tr[data-uid='" + gridData[i].uid + "']").css("background-color", "red");
+                    grid.table.find("tr[data-uid='" + gridData[i].uid + "']").css("background-color", "#FFCCCC");
                 }
             }
         };

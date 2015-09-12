@@ -179,11 +179,21 @@ namespace BackEndSAM.DataAcces
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
@@ -208,30 +218,29 @@ namespace BackEndSAM.DataAcces
                                             //Insertar la Relacion Folio Cuantificacion IC
                                             InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                         }
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = IC.ItemCodeID.ToString(),
+                                            TipoMaterial = IC.TipoMaterialID,
+                                            ItemCode = IC.Codigo,
+                                            ItemCodeSteelgo = ICS.Codigo,
+                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                            Descripcion = ICS.DescripcionEspanol,
+                                            Peso = ICS.Peso,
+                                            Cedula = datosItemCode.Cedula,
+                                            D1 = ICS.Diametro1,
+                                            D2 = ICS.Diametro2,
+                                            Familia = datosItemCode.Familia,
+                                            TipoAcero = datosItemCode.TipoAcero,
+                                            Cantidad = IC.Cantidad,
+                                            MM = IC.MM,
+                                            Colada = datosItemCode.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = datosItemCode.TieneNU
+                                        });
                                     }
-
-                                    listaNuevosIC.Add(new CuantificacionListado
-                                    {
-                                        ItemCodeID = IC.ItemCodeID.ToString(),
-                                        TipoMaterial = IC.TipoMaterialID,
-                                        ItemCode = IC.Codigo,
-                                        ItemCodeSteelgo = ICS.Codigo,
-                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
-                                        Peso = ICS.Peso,
-                                        Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
-                                        Familia = datosItemCode.Familia,
-                                        TipoAcero = datosItemCode.TipoAcero,
-                                        Cantidad = IC.Cantidad,
-                                        MM = IC.MM,
-                                        Colada = datosItemCode.Colada,
-                                        TieneError = TieneErrores,
-                                        Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
-                                    });
-
                                 }
                                 scope.Complete();
                                 #endregion
@@ -333,11 +342,21 @@ namespace BackEndSAM.DataAcces
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
@@ -362,30 +381,29 @@ namespace BackEndSAM.DataAcces
                                             //Insertar la Relacion Folio Cuantificacion IC
                                             InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                         }
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = IC.ItemCodeID.ToString(),
+                                            TipoMaterial = IC.TipoMaterialID,
+                                            ItemCode = IC.Codigo,
+                                            ItemCodeSteelgo = ICS.Codigo,
+                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                            Descripcion = ICS.DescripcionEspanol,
+                                            Peso = ICS.Peso,
+                                            Cedula = datosItemCode.Cedula,
+                                            D1 = ICS.Diametro1,
+                                            D2 = ICS.Diametro2,
+                                            Familia = datosItemCode.Familia,
+                                            TipoAcero = datosItemCode.TipoAcero,
+                                            Cantidad = IC.Cantidad,
+                                            MM = IC.MM,
+                                            Colada = datosItemCode.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = datosItemCode.TieneNU
+                                        });
                                     }
-
-                                    listaNuevosIC.Add(new CuantificacionListado
-                                    {
-                                        ItemCodeID = IC.ItemCodeID.ToString(),
-                                        TipoMaterial = IC.TipoMaterialID,
-                                        ItemCode = IC.Codigo,
-                                        ItemCodeSteelgo = ICS.Codigo,
-                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
-                                        Peso = ICS.Peso,
-                                        Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
-                                        Familia = datosItemCode.Familia,
-                                        TipoAcero = datosItemCode.TipoAcero,
-                                        Cantidad = IC.Cantidad,
-                                        MM = IC.MM,
-                                        Colada = datosItemCode.Colada,
-                                        TieneError = TieneErrores,
-                                        Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
-                                    });
-
                                 }
                                 scope.Complete();
                                 #endregion
@@ -480,11 +498,21 @@ namespace BackEndSAM.DataAcces
                                     //Si ya existe Item Code y tiene NU
                                     if (existeYnumerosunicos)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+                                        
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
@@ -509,30 +537,29 @@ namespace BackEndSAM.DataAcces
                                             //Insertar la Relacion Folio Cuantificacion IC
                                             InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                         }
+
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = IC.ItemCodeID.ToString(),
+                                            TipoMaterial = IC.TipoMaterialID,
+                                            ItemCode = IC.Codigo,
+                                            ItemCodeSteelgo = ICS.Codigo,
+                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                            Descripcion = ICS.DescripcionEspanol,
+                                            Peso = ICS.Peso,
+                                            Cedula = datosItemCode.Cedula,
+                                            D1 = ICS.Diametro1,
+                                            D2 = ICS.Diametro2,
+                                            Familia = datosItemCode.Familia,
+                                            TipoAcero = datosItemCode.TipoAcero,
+                                            Cantidad = IC.Cantidad,
+                                            MM = IC.MM,
+                                            Colada = datosItemCode.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = datosItemCode.TieneNU
+                                        });
                                     }
-
-                                    listaNuevosIC.Add(new CuantificacionListado
-                                    {
-                                        ItemCodeID = IC.ItemCodeID.ToString(),
-                                        TipoMaterial = IC.TipoMaterialID,
-                                        ItemCode = IC.Codigo,
-                                        ItemCodeSteelgo = ICS.Codigo,
-                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
-                                        Peso = ICS.Peso,
-                                        Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
-                                        Familia = datosItemCode.Familia,
-                                        TipoAcero = datosItemCode.TipoAcero,
-                                        Cantidad = IC.Cantidad,
-                                        MM = IC.MM,
-                                        Colada = datosItemCode.Colada,
-                                        TieneError = TieneErrores,
-                                        Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
-                                    });
-
                                 }
                                 scope.Complete();
                                 #endregion
@@ -642,11 +669,21 @@ namespace BackEndSAM.DataAcces
                                     //Si ya existe Item Code en la Rel Bulto y tiene NU
                                     if (existeYnumerosunicos)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else if (existeSINnumerosunicos && existeRelICS)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
@@ -675,35 +712,28 @@ namespace BackEndSAM.DataAcces
                                             CrearRelacionBulto_IC(datosItemCode, usuario);
                                         }
 
-                                        //los itemcodes de bulto no se guardan en la relacion con foliocuantificacion
-                                        //if (!existeSINnumerosunicos)
-                                        //{
-                                        //    //Insertar la Relacion Folio Cuantificacion IC
-                                        //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
-                                        //}
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = IC.ItemCodeID.ToString(),
+                                            TipoMaterial = IC.TipoMaterialID,
+                                            ItemCode = IC.Codigo,
+                                            ItemCodeSteelgo = ICS.Codigo,
+                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                            Descripcion = ICS.DescripcionEspanol,
+                                            Peso = ICS.Peso,
+                                            Cedula = datosItemCode.Cedula,
+                                            D1 = ICS.Diametro1,
+                                            D2 = ICS.Diametro2,
+                                            Familia = datosItemCode.Familia,
+                                            TipoAcero = datosItemCode.TipoAcero,
+                                            Cantidad = IC.Cantidad,
+                                            MM = IC.MM,
+                                            Colada = datosItemCode.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = datosItemCode.TieneNU
+                                        });
                                     }
-
-                                    listaNuevosIC.Add(new CuantificacionListado
-                                    {
-                                        ItemCodeID = IC.ItemCodeID.ToString(),
-                                        TipoMaterial = IC.TipoMaterialID,
-                                        ItemCode = IC.Codigo,
-                                        ItemCodeSteelgo = ICS.Codigo,
-                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
-                                        Peso = ICS.Peso,
-                                        Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
-                                        Familia = datosItemCode.Familia,
-                                        TipoAcero = datosItemCode.TipoAcero,
-                                        Cantidad = IC.Cantidad,
-                                        MM = IC.MM,
-                                        Colada = datosItemCode.Colada,
-                                        TieneError = TieneErrores,
-                                        Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
-                                    });
                                 }
                                 //}
                                 scope.Complete();
@@ -805,11 +835,21 @@ namespace BackEndSAM.DataAcces
                                     //Si ya existe Item Code en la Rel Bulto y tiene NU
                                     if (existeYnumerosunicos)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else if (existeSINnumerosunicos && existeRelICS)
                                     {
-                                        TieneErrores = SumarCantidades(datosItemCode, IC, usuario);
+                                        CuantificacionListado listado = new CuantificacionListado();
+
+                                        listado = SumarCantidades(datosItemCode, IC, usuario);
+                                        listado.Estatus = folioCuantificacion.Estatus;
+
+                                        listaNuevosIC.Add(listado);
                                     }
                                     else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
                                     {
@@ -838,35 +878,28 @@ namespace BackEndSAM.DataAcces
                                             CrearRelacionBulto_IC(datosItemCode, usuario);
                                         }
 
-                                        //los itemcodes de bulto no se guardan en la relacion con foliocuantificacion
-                                        //if (!existeSINnumerosunicos)
-                                        //{
-                                        //    //Insertar la Relacion Folio Cuantificacion IC
-                                        //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
-                                        //}
+                                        listaNuevosIC.Add(new CuantificacionListado
+                                        {
+                                            ItemCodeID = IC.ItemCodeID.ToString(),
+                                            TipoMaterial = IC.TipoMaterialID,
+                                            ItemCode = IC.Codigo,
+                                            ItemCodeSteelgo = ICS.Codigo,
+                                            ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                            Descripcion = ICS.DescripcionEspanol,
+                                            Peso = ICS.Peso,
+                                            Cedula = datosItemCode.Cedula,
+                                            D1 = ICS.Diametro1,
+                                            D2 = ICS.Diametro2,
+                                            Familia = datosItemCode.Familia,
+                                            TipoAcero = datosItemCode.TipoAcero,
+                                            Cantidad = IC.Cantidad,
+                                            MM = IC.MM,
+                                            Colada = datosItemCode.Colada,
+                                            TieneError = TieneErrores,
+                                            Estatus = folioCuantificacion.Estatus,
+                                            TieneNU = datosItemCode.TieneNU
+                                        });
                                     }
-
-                                    listaNuevosIC.Add(new CuantificacionListado
-                                    {
-                                        ItemCodeID = IC.ItemCodeID.ToString(),
-                                        TipoMaterial = IC.TipoMaterialID,
-                                        ItemCode = IC.Codigo,
-                                        ItemCodeSteelgo = ICS.Codigo,
-                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
-                                        Peso = ICS.Peso,
-                                        Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
-                                        Familia = datosItemCode.Familia,
-                                        TipoAcero = datosItemCode.TipoAcero,
-                                        Cantidad = IC.Cantidad,
-                                        MM = IC.MM,
-                                        Colada = datosItemCode.Colada,
-                                        TieneError = TieneErrores,
-                                        Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
-                                    });
                                 }
                                 //}
                                 scope.Complete();
@@ -953,10 +986,12 @@ namespace BackEndSAM.DataAcces
         /// <param name="IC">Item Code object</param>
         /// <param name="usuario">Usuario Actual</param>
         /// <returns>Si contiene errores</returns>
-        public bool SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
+        public CuantificacionListado SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
         {
             using (SamContext ctx = new SamContext())
             {
+                CuantificacionListado listado = new CuantificacionListado();
+
                 bool TieneErrores = false;
                 //Revisar la cantidad de numeros unicos existentes
                 int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico
@@ -974,12 +1009,37 @@ namespace BackEndSAM.DataAcces
 
                 IC.UsuarioModificacion = usuario.UsuarioID;
                 IC.FechaModificacion = DateTime.Now;
-                ctx.SaveChanges();
+
                 if (CantidadNumerosUnicos > (CantidadItemCode + item.Cantidad))
                 {
+
                     TieneErrores = true;
                 }
-                return TieneErrores;
+                else
+                {
+                    ctx.SaveChanges();
+                }
+
+
+                listado.ItemCodeID = item.ItemCodeID.ToString();
+                listado.ItemCode = IC.Codigo;
+                listado.TipoMaterial = IC.TipoMaterialID;
+                listado.ItemCodeSteelgo = item.ItemCodeSteelgo;
+                listado.ItemCodeSteelgoID = item.ItemCodeSteelgoID;
+                listado.Descripcion = item.Descripcion;
+                listado.Peso = item.Peso;
+                listado.Cedula = item.Cedula;
+                listado.D1 = item.D1;
+                listado.D2 = item.D2;
+                listado.Familia = item.Familia;
+                listado.TipoAcero = item.TipoAcero;
+                listado.Cantidad = TieneErrores == true? item.Cantidad : IC.Cantidad;
+                listado.MM = item.MM;
+                listado.Colada = item.Colada;
+                listado.TieneError = TieneErrores;
+                listado.TieneNU = item.TieneNU;
+
+                return listado;
             }
         }
 
