@@ -682,10 +682,7 @@ input.quickFilters.arrivalMaterial {
     background-position: 86% center;
 }
 
-    #Nuevo.btn.btn-newArrival {
-        background-position: 91% center;
-    }
-
+    #Nuevo.btn.btn-newArrival,
     #Nuevo.btn.btn-newReception {
         background-position: 93% center;
     }
