@@ -145,6 +145,24 @@ namespace BackEndSAM.DataAcces
                                                                where i.ItemCodeID == item.ItemCodeID
                                                                select fe).AsParallel().FirstOrDefault();
 
+                        if (folioEntrada == null)
+                        {
+                            folioEntrada = (from i in ctx.Sam3_ItemCode
+                                            join rbi in ctx.Sam3_Rel_Bulto_ItemCode on i.ItemCodeID equals rbi.ItemCodeID
+                                            join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                            join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                            join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                            join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
+                                            where i.ItemCodeID == item.ItemCodeID
+                                            select fe).AsParallel().FirstOrDefault();
+                        }
+
+                        if (folioEntrada == null)
+                        {
+                            error = "Se produjo un error al generar Numeros Unicos";
+                            return false;
+                        }
+
                         //tipo de material
                         if (item.TipoMaterialID == 1) // tubo
                         {
@@ -230,13 +248,24 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
 
                             //Actualizar el ItemCode para indicar que ya tiene un numero unico
-                            Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                .Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
-                            actualizarRelacion.TieneNumerosUnicos = true;
-                            actualizarRelacion.FechaModificacion = DateTime.Now;
-                            actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+                            if (ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).Any())
+                            {
+                                Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    .Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                actualizarRelacion.TieneNumerosUnicos = true;
+                                actualizarRelacion.FechaModificacion = DateTime.Now;
+                                actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.SaveChanges();
+                            }
 
-                            ctx.SaveChanges();
+                            if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).Any())
+                            {
+                                Sam3_Rel_Bulto_ItemCode relacion = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                relacion.TieneNumerosUnicos = true;
+                                relacion.FechaModificacion = DateTime.Now;
+                                relacion.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.SaveChanges();
+                            }
 
                         }
                         else //accesorio
@@ -309,13 +338,24 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
 
                             //Actualizar el ItemCode para indicar que ya tiene un numero unico
-                            Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                .Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
-                            actualizarRelacion.TieneNumerosUnicos = true;
-                            actualizarRelacion.FechaModificacion = DateTime.Now;
-                            actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+                            if (ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).Any())
+                            {
+                                Sam3_Rel_FolioCuantificacion_ItemCode actualizarRelacion = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    .Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                actualizarRelacion.TieneNumerosUnicos = true;
+                                actualizarRelacion.FechaModificacion = DateTime.Now;
+                                actualizarRelacion.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.SaveChanges();
+                            }
 
-                            ctx.SaveChanges();
+                            if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).Any())
+                            {
+                                Sam3_Rel_Bulto_ItemCode relacion = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID == item.ItemCodeID).AsParallel().SingleOrDefault();
+                                relacion.TieneNumerosUnicos = true;
+                                relacion.FechaModificacion = DateTime.Now;
+                                relacion.UsuarioModificacion = usuario.UsuarioID;
+                                ctx.SaveChanges();
+                            }
                         }// else
                     }// foreach
                     error = "";

@@ -508,7 +508,7 @@ namespace BackEndSAM.DataAcces
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
-                    result.ReturnMessage.Add(ordenAlmacenaje.OrdenAlmacenajeID.ToString());
+                    result.ReturnMessage.Add(ordenAlmacenaje.Folio.ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
@@ -785,16 +785,19 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerDetalleOrdenAlmacenaje(int ordenAlmacenajeID, Sam3_Usuario usuario)
+        public object ObtenerDetalleOrdenAlmacenaje(int folio, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    
                     ListadoDetalleOrdenAlmacenaje listadoDetalleOrdenAlmacenaje = new ListadoDetalleOrdenAlmacenaje();
                     List<ListadoGenerarOrdenAlmacenaje> listado = new List<ListadoGenerarOrdenAlmacenaje>();
-                   
-                    
+
+                    Sam3_OrdenAlmacenaje ordenAlmacenaje = ctx.Sam3_OrdenAlmacenaje.Where(x => x.Folio == folio).AsParallel().SingleOrDefault();
+                    int ordenAlmacenajeID = ordenAlmacenaje.OrdenAlmacenajeID;
+
                     //Obtengo los folios Cuantificacion que tienen orden de almacenaje
                     List<Sam3_FolioCuantificacion> folios = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                              join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID

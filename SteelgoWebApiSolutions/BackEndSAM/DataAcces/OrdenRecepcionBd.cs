@@ -109,7 +109,8 @@ namespace BackEndSAM.DataAcces
                                           join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                           join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
                                           join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
-                                          where i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                          where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo
+                                          && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                           && !(from nu in ctx.Sam3_NumeroUnico
                                                where nu.Activo
                                                select nu.ItemCodeID).Contains(i.ItemCodeID)
@@ -128,13 +129,40 @@ namespace BackEndSAM.DataAcces
                                               FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
                                           }).AsParallel().ToList();
 
+                        elemento.Tubos.AddRange((from r in ctx.Sam3_FolioAvisoEntrada
+                                                 join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                                 join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                                                 join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                                 join i in ctx.Sam3_ItemCode on rbi.ItemCodeID equals i.ItemCodeID
+                                                 join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                                 where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
+                                                 && i.TipoMaterialID == 1 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                                 && !(from nu in ctx.Sam3_NumeroUnico
+                                                      where nu.Activo
+                                                      select nu.ItemCodeID).Contains(i.ItemCodeID)
+                                                 && !(from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                                      where roi.Activo
+                                                      select roi.ItemCodeID).Contains(i.ItemCodeID)
+                                                 select new ElementoItemCodeGenerarOrden
+                                                 {
+                                                     ItemCodeID = i.ItemCodeID.ToString(),
+                                                     Cantidad = i.Cantidad.ToString(),
+                                                     Codigo = i.Codigo,
+                                                     D1 = i.Diametro1.ToString(),
+                                                     D2 = i.Diametro2.ToString(),
+                                                     Descripción = i.DescripcionEspanol,
+                                                     TipoMaterial = t.Nombre,
+                                                     FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
+                                                 }).AsParallel().ToList());
+
                         elemento.Accesorios = (from r in ctx.Sam3_FolioAvisoEntrada
                                                join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                                join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                                join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                                join i in ctx.Sam3_ItemCode on rfi.ItemCodeID equals i.ItemCodeID
                                                join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
-                                               where i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                               where r.Activo && c.Activo && rfp.Activo && rfi.Activo && i.Activo && t.Activo 
+                                               &&i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
                                                && !(from nu in ctx.Sam3_NumeroUnico
                                                     where nu.Activo
                                                     select nu.ItemCodeID).Contains(i.ItemCodeID)
@@ -152,6 +180,32 @@ namespace BackEndSAM.DataAcces
                                                    TipoMaterial = t.Nombre,
                                                    FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
                                                }).AsParallel().ToList();
+
+                        elemento.Accesorios.AddRange((from r in ctx.Sam3_FolioAvisoEntrada
+                                                 join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                                 join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                                                 join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                                 join i in ctx.Sam3_ItemCode on rbi.ItemCodeID equals i.ItemCodeID
+                                                 join t in ctx.Sam3_TipoMaterial on i.TipoMaterialID equals t.TipoMaterialID
+                                                 where r.Activo && c.Activo && b.Activo && rbi.Activo && i.Activo && t.Activo
+                                                 && i.TipoMaterialID == 2 && r.FolioAvisoLlegadaID == f.FolioAvisoLlegadaID
+                                                 && !(from nu in ctx.Sam3_NumeroUnico
+                                                      where nu.Activo
+                                                      select nu.ItemCodeID).Contains(i.ItemCodeID)
+                                                 && !(from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
+                                                      where roi.Activo
+                                                      select roi.ItemCodeID).Contains(i.ItemCodeID)
+                                                 select new ElementoItemCodeGenerarOrden
+                                                 {
+                                                     ItemCodeID = i.ItemCodeID.ToString(),
+                                                     Cantidad = i.Cantidad.ToString(),
+                                                     Codigo = i.Codigo,
+                                                     D1 = i.Diametro1.ToString(),
+                                                     D2 = i.Diametro2.ToString(),
+                                                     Descripción = i.DescripcionEspanol,
+                                                     TipoMaterial = t.Nombre,
+                                                     FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
+                                                 }).AsParallel().ToList());
 
                         elemento.Tubos = elemento.Tubos.GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
                         elemento.Accesorios = elemento.Accesorios.GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
@@ -330,7 +384,8 @@ namespace BackEndSAM.DataAcces
                                           join rfi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals rfi.OrdenRecepcionID
                                           join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
                                           join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
-                                          where o.OrdenRecepcionID == orden.OrdenRecepcionID
+                                          where o.Activo && rfo.Activo && rfi.Activo && it.Activo && t.Activo 
+                                          && o.OrdenRecepcionID == orden.OrdenRecepcionID
                                           && it.TipoMaterialID == 1
                                           && rfo.FolioAvisoEntradaID == folioAvisoEntradaID
                                           select new ElementoItemCodeGenerarOrden
@@ -361,7 +416,8 @@ namespace BackEndSAM.DataAcces
                                                join rfi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on rfo.OrdenRecepcionID equals rfi.OrdenRecepcionID
                                                join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
                                                join t in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals t.TipoMaterialID
-                                               where o.OrdenRecepcionID == orden.OrdenRecepcionID
+                                               where o.Activo && rfo.Activo && rfi.Activo && it.Activo && t.Activo
+                                               && o.OrdenRecepcionID == orden.OrdenRecepcionID
                                                && it.TipoMaterialID == 2
                                                && rfo.FolioAvisoEntradaID == folioAvisoEntradaID
                                                select new ElementoItemCodeGenerarOrden
