@@ -2933,14 +2933,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sam3_NumeroUnico_Sam3_NumeroUnico">
+        <Association Name="FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico">
           <End Role="Sam3_NumeroUnico" Type="Self.Sam3_NumeroUnico" Multiplicity="1" />
-          <End Role="Sam3_NumeroUnico1" Type="Self.Sam3_NumeroUnico" Multiplicity="0..1" />
+          <End Role="Sam3_NumeroUnicoInventario" Type="Self.Sam3_NumeroUnicoInventario" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Sam3_NumeroUnico">
               <PropertyRef Name="NumeroUnicoID" />
             </Principal>
-            <Dependent Role="Sam3_NumeroUnico1">
+            <Dependent Role="Sam3_NumeroUnicoInventario">
               <PropertyRef Name="NumeroUnicoID" />
             </Dependent>
           </ReferentialConstraint>
@@ -3700,9 +3700,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sam3_NumeroUnico_Sam3_NumeroUnico" Association="Self.FK_Sam3_NumeroUnico_Sam3_NumeroUnico">
+          <AssociationSet Name="FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" Association="Self.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico">
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
-            <End Role="Sam3_NumeroUnico1" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_NumeroUnicoInventario" EntitySet="Sam3_NumeroUnicoInventario" />
           </AssociationSet>
           <AssociationSet Name="FK_Sam3_Recepcion_Sam3_FolioCuantificacion" Association="Self.FK_Sam3_Recepcion_Sam3_FolioCuantificacion">
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
@@ -4235,6 +4235,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_NumeroUnico2" Relationship="ModelSam3.FK_Sam3_NumeroUnico_Sam3_NumeroUnico" FromRole="Sam3_NumeroUnico1" ToRole="Sam3_NumeroUnico" />
           <NavigationProperty Name="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Relationship="ModelSam3.FK__Sam3_Rel___Numer__444B1483" FromRole="Sam3_NumeroUnico" ToRole="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" />
           <NavigationProperty Name="Sam3_Rel_Incidencia_NumeroUnico" Relationship="ModelSam3.FK__Sam3_Rel___Numer__51A50FA1" FromRole="Sam3_NumeroUnico" ToRole="Sam3_Rel_Incidencia_NumeroUnico" />
+          <NavigationProperty Name="Sam3_NumeroUnicoInventario" Relationship="ModelSam3.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" FromRole="Sam3_NumeroUnico" ToRole="Sam3_NumeroUnicoInventario" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoCorte">
           <Key>
@@ -4278,6 +4279,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Proyecto" Relationship="Self.FK_NumeroUnicoInventario_Proyecto" FromRole="Sam3_NumeroUnicoInventario" ToRole="Sam3_Proyecto" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_NumeroUnico" Relationship="ModelSam3.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" FromRole="Sam3_NumeroUnicoInventario" ToRole="Sam3_NumeroUnico" />
         </EntityType>
         <EntityType Name="Sam3_NumeroUnicoMovimiento">
           <Key>
@@ -6666,6 +6668,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
             <End Role="Sam3_Rel_Incidencia_NumeroUnico" EntitySet="Sam3_Rel_Incidencia_NumeroUnico" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" Association="ModelSam3.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico">
+            <End Role="Sam3_NumeroUnico" EntitySet="Sam3_NumeroUnico" />
+            <End Role="Sam3_NumeroUnicoInventario" EntitySet="Sam3_NumeroUnicoInventario" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -7720,6 +7726,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
               <PropertyRef Name="NumeroUnicoID" />
             </Principal>
             <Dependent Role="Sam3_Rel_Incidencia_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico">
+          <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_NumeroUnicoInventario" Role="Sam3_NumeroUnicoInventario" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_NumeroUnico">
+              <PropertyRef Name="NumeroUnicoID" />
+            </Principal>
+            <Dependent Role="Sam3_NumeroUnicoInventario">
               <PropertyRef Name="NumeroUnicoID" />
             </Dependent>
           </ReferentialConstraint>

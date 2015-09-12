@@ -238,6 +238,7 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Incidencia_NumeroUnico" Width="1.5" PointX="23.5" PointY="45.875" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Incid__50B0EB68" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Numer__51A50FA1" />
+        <AssociationConnector Association="ModelSam3.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
