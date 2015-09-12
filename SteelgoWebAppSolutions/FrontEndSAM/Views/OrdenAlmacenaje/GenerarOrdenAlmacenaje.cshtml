@@ -543,7 +543,7 @@
 
     };
 
-    function GenerarOrdenRecepcionNuevo() {
+@*    function GenerarOrdenRecepcionNuevo() {
         var itemCodes = [], x = 0, folios = [], numerosunicos = [];
         OrdenAlmacenaje = { listaFoliosCuantificacion: "", listaItemCodes: "", listaNumerosUnicos: "" };
 
@@ -566,8 +566,9 @@
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
+            loadingStop();
         }
-    };
+    };*@
 
     function GenerarOrdenAlmacenaje() {
         var itemCodes = [], x = 0, folios = [], numerosunicos = [];
@@ -593,6 +594,7 @@
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
+            loadingStop();
         }
     };
     
@@ -656,6 +658,7 @@
             });
         } else {
             displayMessage("notificationslabel0045", "", '1');
+            loadingStop();
         }
     };
 
