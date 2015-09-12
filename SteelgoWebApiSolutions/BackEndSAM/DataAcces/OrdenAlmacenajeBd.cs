@@ -277,7 +277,8 @@ namespace BackEndSAM.DataAcces
                                                                     NumeroUnicoID = nu.NumeroUnicoID.ToString(),
                                                                     NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo
                                                                 }).ToList()
-                                           }).AsParallel().ToList();
+                                           }).AsParallel().GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
+                 
 
                         foreach (var i in orden.ItemCodes)
                         {
