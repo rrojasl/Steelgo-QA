@@ -584,7 +584,7 @@ namespace BackEndSAM.DataAcces
                     {
                         OrdenAlmacenajeJson elemento = new OrdenAlmacenajeJson();
                         elemento.FechaOrdenAlmacenaje = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
-                        elemento.OrdenAlmacenaje = orden.OrdenAlmacenajeID.ToString();
+                        elemento.OrdenAlmacenaje = orden.Folio.ToString();
 
                         if (packingListID > 0)
                         {
@@ -741,33 +741,48 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object EliminarOrdenAlmacenaje(int OrdenAlmacenajeID, Sam3_Usuario usuario)
+        public object EliminarOrdenAlmacenaje(int folio, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.OrdenAlmacenajeID == OrdenAlmacenajeID).AsParallel().SingleOrDefault();
-                    orden.Activo = false;
-                    orden.FechaModificacion = DateTime.Now;
-                    orden.UsuarioModificacion = usuario.UsuarioID;
+                    TransactionalInformation result = new TransactionalInformation();
+                    Sam3_OrdenAlmacenaje orden = ctx.Sam3_OrdenAlmacenaje.Where(x => x.Folio == folio).AsParallel().SingleOrDefault();
 
-                    List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> relacion = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.OrdenAlmacenajeID == OrdenAlmacenajeID)
-                        .AsParallel().ToList();
-
-                    foreach (Sam3_Rel_OrdenAlmacenaje_NumeroUnico r in relacion)
+                    if (orden != null)
                     {
-                        r.Activo = false;
-                        r.FechaModificacion = DateTime.Now;
-                        r.UsuarioModificacion = usuario.UsuarioID;
+                        orden.Activo = false;
+                        orden.FechaModificacion = DateTime.Now;
+                        orden.UsuarioModificacion = usuario.UsuarioID;
+
+                        List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> relacion = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.OrdenAlmacenajeID == orden.OrdenAlmacenajeID)
+                            .AsParallel().ToList();
+
+
+                        foreach (Sam3_Rel_OrdenAlmacenaje_NumeroUnico r in relacion)
+                        {
+                            r.Activo = false;
+                            r.FechaModificacion = DateTime.Now;
+                            r.UsuarioModificacion = usuario.UsuarioID;
+                        }
+
+                        ctx.SaveChanges();
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add("Error al eliminar la Orden de almacenaje");
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
+
+                        return result;
                     }
 
-                    ctx.SaveChanges();
-
-                    TransactionalInformation result = new TransactionalInformation();
+                    
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;
-                    result.ReturnStatus = false;
+                    result.ReturnStatus = true;
                     result.IsAuthenicated = true;
 
                     return result;
