@@ -650,7 +650,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     int numerounicoid = Convert.ToInt32(numerounico);
-                    Sam3_Rel_OrdenAlmacenaje_NumeroUnico almacenaje = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.NumeroUnicoID == numerounicoid)
+                    Sam3_Rel_OrdenAlmacenaje_NumeroUnico almacenaje = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.NumeroUnicoID == numerounicoid && x.Activo)
                         .AsParallel().SingleOrDefault();
 
 
