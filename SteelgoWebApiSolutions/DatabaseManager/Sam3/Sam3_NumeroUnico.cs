@@ -84,5 +84,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_NumeroUnico Sam3_NumeroUnico2 { get; set; }
         public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
+        public virtual Sam3_NumeroUnicoInventario Sam3_NumeroUnicoInventario { get; set; }
     }
 }
