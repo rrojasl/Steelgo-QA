@@ -80,6 +80,9 @@ namespace BackEndSAM.DataAcces
                                                                         && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
                                                                         && fc.FolioCuantificacionID == FolioCuantificacion
                                                                         select fc).AsParallel().SingleOrDefault();
+
+                        datosItemCode.ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo == "" ? datosItemCode.ItemCodeSteelgo = "ICS-Default" : datosItemCode.ItemCodeSteelgo;
+
                         switch (tipoGuardado)
                         {
                             case 1: //Terminar y Nuevo
