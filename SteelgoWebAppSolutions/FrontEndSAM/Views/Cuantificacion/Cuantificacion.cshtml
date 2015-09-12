@@ -139,6 +139,7 @@
                 </div>
             </div>
         </div>
+        <input type="button" id="Ciclo" value="ciclo"/>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid"></div>
         </div>        
@@ -538,6 +539,81 @@
 
     };
 
+    function ItemsSumarDuplicados(){
+        var ArrTodos = [];
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        var data = $("#grid").data("kendoGrid").dataSource.data();
+        for (var i=0; i<data.length; i++) {
+            var row = ds.at(i);
+            ArrTodos[i] = row.ItemCode;
+        };
+        var results = [], ArrFinal = [];
+        results = ObtenerTodoslosItems(ArrTodos);
+    
+        ArrFinal = SumarDuplicados(results, data, ds);
+
+        RemoverItemsGrid(ds, data, ArrFinal);
+
+        var error = "";
+        ObtenerItemCodeSteelgoDuplicados(ArrFinal, 0, error);
+
+    };
+
+    function RemoverItemsGrid(ds, data, ArrFinal) {
+        for (var i = 0; i < data.length; i++) {
+            var row = ds.at(i);
+            for (var x = 0; x < ArrFinal.length; x++) {
+                if (ArrFinal[x].ItemCode == row.ItemCode) {
+                    ds.remove(row);
+                    i = -1;
+                }
+            }
+        }
+    };
+
+    function ObtenerTodoslosItems(ArrTodos) {
+        var arr = ArrTodos;
+        var sorted_arr = arr.sort();
+        var results = [];
+        for (var i = 0; i < arr.length - 1; i++) {
+            if (sorted_arr[i + 1] == sorted_arr[i]) {
+                results.push(sorted_arr[i]);
+            }
+        }
+        return results;
+    };
+
+    function SumarDuplicados(results, data, ds) {
+        var z = 0;
+        var ArrFinal = [];
+        var results = unique(results);
+        for (var x = 0; x < results.length; x++) {
+            var sum = 0;
+            ArrFinal[z] = { ItemCode: results[x], Cantidad: sum };
+            for (var i = 0; i < data.length; i++) {
+                var row = ds.at(i);
+                if (results[x] == row.ItemCode) {
+                    sum += row.Cantidad;
+                    ArrFinal[z].Cantidad = sum;
+                }
+            }
+            z++;
+        }
+        return ArrFinal;
+    };
+
+
+    function unique(list) {
+        var result = [];
+        $.each(list, function (i, e) {
+            if ($.inArray(e, result) == -1) {
+                console.log(e)
+                result.push(e);
+            }
+        });
+        return result;
+    }
+
     @section JavascriptGlobalFunctions 
     {
         function changeLanguageCall() {
@@ -545,6 +621,10 @@
         }
 
         function cargaInicial() {
+            $("#Ciclo").click(function () {
+                ItemsSumarDuplicados();
+            });
+
             document.getElementById('txtFileUpload').addEventListener('change', upload, false);
             document.getElementById("txtFileUpload").addEventListener("click", function (event) {
                 this.value = null;
@@ -1652,6 +1732,7 @@
         };
 
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
+            loadingStart();
             $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
@@ -1666,6 +1747,7 @@
                     CargarTipoPackingList(result.TipoPackingList.id, $("#TipoPackingListID").data("kendoComboBox").text());
                     CargarTipoUso(result.TipoUso.id, $("#TipoUsoID").data("kendoComboBox").text());
                     cargarGridPackingList();
+
                 } else {
                     limpiarfiltrosFolioCuantificacion();
                 };
@@ -2574,6 +2656,7 @@
                         };
                     };
                 }
+                loadingStop();
             });
         };
 
@@ -2771,7 +2854,7 @@
                         error = ErrorInsertandoItems(data, error, dataJson[key]);
                         if (ErrorBool(data)) {
                             var item =
-                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: itemCodesJsonSteelgo.Cantidad, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
+                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
                             $("#grid").data("kendoGrid").dataSource.insert(item);
                         } else {
                             cargarGridErrores(dataJson[key]);
@@ -2783,6 +2866,37 @@
                    
                     key++;
                     ObtenerItemCodeSteelgo(dataJson, key, error);
+                });
+            } else {
+                loadingStop();
+                ordenamientoGrid();
+                if (error) {
+                    displayMessage("notificationslabel0047", error, '2');
+                    return;
+                }
+            };
+        };
+
+        function ObtenerItemCodeSteelgoDuplicados(dataJson, key, error) {
+            if (dataJson[key]) {
+                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", token: Cookies.get("token") }).done(function (data) {
+                    itemCodesJsonSteelgo = data;
+                    if (data) {
+                        error = ErrorInsertandoItems(data, error, dataJson[key]);
+                        if (ErrorBool(data)) {
+                            var item =
+                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
+                            $("#grid").data("kendoGrid").dataSource.insert(item);
+                        } else {
+                            cargarGridErrores(dataJson[key]);
+                        }
+                    } else {
+                        error += "," + dataJson[key].ItemCode;
+                        cargarGridErrores(dataJson[key]);
+                    };
+
+                    key++;
+                    ObtenerItemCodeSteelgoDuplicados(dataJson, key, error);
                 });
             } else {
                 loadingStop();
