@@ -687,6 +687,11 @@ input.quickFilters.arrivalMaterial {
         background-position: 93% center;
     }
 
+    #Nuevo.btn.btn-newStorage {
+        background-position: 96% center;
+        padding: 2px 29px 0 9px;
+    }
+
 #massiveUpload.btn {
     margin-bottom: 3px;
 }

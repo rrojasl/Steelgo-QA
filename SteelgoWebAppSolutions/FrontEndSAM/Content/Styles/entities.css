@@ -1046,7 +1046,12 @@ header .menu > div {
             max-width: 220px;
         }
 
-            .formNav.filtersFields .longButton .button-section {
+        .formNav.filtersFields .extralongButton {
+            max-width: 282px;
+        }
+
+            .formNav.filtersFields .longButton .button-section,
+            .formNav.filtersFields .extralongButton .button-section {
                 padding-right: 0px;
             }
 
@@ -1456,6 +1461,19 @@ header .menu > div {
     }
 
     /*$_formNav*/
+    .formNav.filtersFields .longButton .button-section,
+    .formNav.filtersFields .extralongButton .button-section {
+        margin-right: 0;
+    }
+
+    .formNav.filtersFields .longButton button,
+    .formNav.filtersFields .extralongButton button {
+        white-space: normal;
+        height: auto;
+        width: 100%;
+        margin: 0;
+    }
+
     .formNav .button-section {
         margin: 10px 0;
     }
@@ -1545,7 +1563,6 @@ header .menu > div {
 }
 
 @media (min-width: 1200px) {
-
 }
 
 @media (min-width: 1200px) and (max-width: 1540px) {
