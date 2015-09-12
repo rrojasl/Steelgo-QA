@@ -93,7 +93,7 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> listado = (from r in ctx.Sam3_ItemCodeSteelgo
                                                  join rel in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals rel.ItemCodeSteelgoID
                                                  join item in ctx.Sam3_ItemCode on rel.ItemCodeID equals item.ItemCodeID
-                                                 where r.Activo & item.Codigo==itemcode
+                                                 where r.Activo && rel.Activo && item.Activo && item.Codigo==itemcode
                                                  select new ListaCombos
                                                  {
                                                      id = r.ItemCodeSteelgoID.ToString(),
