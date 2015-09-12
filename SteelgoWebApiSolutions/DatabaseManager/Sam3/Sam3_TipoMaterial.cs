@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_TipoMaterial()
         {
             this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
+            this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
         }
     
         public int TipoMaterialID { get; set; }
@@ -27,5 +28,6 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
+        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
     }
 }

@@ -61,6 +61,7 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.FechaModificacion = DateTime.Now;
                      folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
+                     folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
 
                      ctx.SaveChanges();
 
@@ -120,6 +121,7 @@ namespace BackEndSAM.DataAcces
                      folioCuantificacion.FechaModificacion = DateTime.Now;
                      folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                      folioCuantificacion.Activo = true;
+                     folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
 
                      ctx.Sam3_FolioCuantificacion.Add(folioCuantificacion);
                      ctx.SaveChanges();

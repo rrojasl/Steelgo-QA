@@ -246,10 +246,9 @@ namespace BackEndSAM.DataAcces
                             
                                TipoPackingList = new TipoPackingList()
                                {
-                                   id = (from c in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                              join ic in ctx.Sam3_ItemCode on c.ItemCodeID equals ic.ItemCodeID
-                                              where c.FolioCuantificacionID == folioCuantificacion && c.Activo && ic.Activo
-                                              select ic.TipoMaterialID).FirstOrDefault().ToString()
+                                   id = (from tm in ctx.Sam3_FolioCuantificacion
+                                         where tm.Activo
+                                         select tm.TipoMaterialID).AsParallel().SingleOrDefault().ToString()
                                },
 
                                 Estatus = subBul != null ? subBul.Estatus : t.Estatus,
