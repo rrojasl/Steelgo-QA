@@ -153,17 +153,20 @@ namespace BackEndSAM.DataAcces
                                                    FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
                                                }).AsParallel().ToList();
 
+                        elemento.Tubos = elemento.Tubos.GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
+                        elemento.Accesorios = elemento.Accesorios.GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
+
                         if (itemCodeID > 0)
                         {
-                            elemento.Tubos = elemento.Tubos.Where(x => x.ItemCodeID == itemCodeID.ToString()).ToList();
-                            elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeID == itemCodeID.ToString()).ToList();
+                            elemento.Tubos = elemento.Tubos.Where(x => x.ItemCodeID == itemCodeID.ToString()).GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
+                            elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeID == itemCodeID.ToString()).GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
                         }
-
+                        
                         if (elemento.Tubos.Count > 0 || elemento.Accesorios.Count > 0)
                         {
                             listado.Add(elemento);
                         }
-
+                       
                     }
 
 #if DEBUG
