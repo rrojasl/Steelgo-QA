@@ -1615,6 +1615,7 @@
                 var grid = $("#grid").data("kendoGrid");
                 var tr = $(e.currentTarget).closest("tr");
                 grid.removeRow(tr);
+                loadingStop();
                 return;
             } 
 
@@ -3125,7 +3126,7 @@
             var z = 0;
             for (var i = 1; i < lines.length; i++) {
                 if (lines[i]) {
-                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: lines[i].split(",")[1], MM: lines[i].split(",")[2], D1: Number(lines[i].split(",")[3]), D2: Number(lines[i].split(",")[4]), ItemCodeSteelgo: lines[i].split(",")[5], Familia: lines[i].split(",")[6], Cedula: lines[i].split(",")[7], TipoAcero: lines[i].split(",")[8], Colada: lines[i].split(",")[9], Cantidad: Number(lines[i].split(",")[10]), Detallar: "No", TieneNU: "No", TieneError: false };
+                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", MM: "", D1: 0, D2: 0, ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[1]), Detallar: "No", TieneNU: "No", TieneError: false };
                     z++;
                 }
             }
