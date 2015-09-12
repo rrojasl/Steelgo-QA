@@ -68,7 +68,7 @@ namespace BackEndSAM.Models
     {
         public string FechaFolioAvisoEntrada { get; set; }
         public string FolioEntrada { get; set; }
-        public string PackkingList { get; set; }
+        public string PackingList { get; set; }
         public string FolioCuantificacion { get; set; }
         public string TipoPackingList { get; set; }
         public string TipoUso { get; set; }
