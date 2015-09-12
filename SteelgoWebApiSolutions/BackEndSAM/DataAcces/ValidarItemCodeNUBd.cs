@@ -46,7 +46,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="ItemCode">item code</param>
         /// <param name="bultoID">id del bulto</param>
         /// <returns>tru o false</returns>
-        public object ValidarItemCode(int folioAvisoLlegadaID, int folioCuantificacionID, string ItemCode, int bultoID, int detalleBulto)
+        public object ValidarItemCode(string folioAvisoLlegadaID, string folioCuantificacionID, string ItemCode, string bultoID, string detalleBulto, Sam3_Usuario usuario)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
                     {
                         List<bool> listaNU = new List<bool>();
                         listaNU.AddRange(from bic in ctx.Sam3_Rel_Bulto_ItemCode
-                                         where bic.BultoID == bultoID && bic.Activo
+                                         where bic.BultoID.ToString() == bultoID && bic.Activo
                                          select bic.TieneNumerosUnicos);
 
                         if (listaNU.Contains(true))
@@ -65,10 +65,10 @@ namespace BackEndSAM.DataAcces
                             tieneNU = true;
                         }
                     }
-                    else if(detalleBulto == 1)//Esta en el detalle Bulto
+                    else if(detalleBulto == "1")//Esta en el detalle Bulto
                     {
                         tieneNU = (from bulto in ctx.Sam3_Rel_Bulto_ItemCode
-                                   where bulto.Activo && bulto.BultoID == bultoID 
+                                   where bulto.Activo && bulto.BultoID.ToString() == bultoID 
                                    && bulto.ItemCodeID.ToString() == ItemCode
                                    select bulto.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces
                         int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().Single();
                         
                         tieneNU = (from fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                   where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID == folioCuantificacionID && fcic.Activo
+                                   where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID.ToString() == folioCuantificacionID && fcic.Activo
                                    select fcic.TieneNumerosUnicos).AsParallel().FirstOrDefault();
                     }
                     return tieneNU;
@@ -104,7 +104,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="ItemCode">item code</param>
         /// <param name="usuario">usuario regisstrado</param>
         /// <returns>estatus de exito o error</returns>
-        public object EliminarItemCode(int folioAvisoLlegadaID, int folioCuantificacionID, int BultoID, string ItemCode, Sam3_Usuario usuario, int detalleBulto)
+        public object EliminarItemCode(string folioAvisoLlegadaID, string folioCuantificacionID, string BultoID, string ItemCode, string detalleBulto, Sam3_Usuario usuario)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace BackEndSAM.DataAcces
                     {
                         //Elimino de bulto 
                         Sam3_Bulto b = ctx.Sam3_Bulto
-                            .Where(x => x.BultoID == BultoID && x.FolioCuantificacionID == folioCuantificacionID && x.Activo).AsParallel().SingleOrDefault();
+                            .Where(x => x.BultoID.ToString() == BultoID && x.FolioCuantificacionID.ToString() == folioCuantificacionID && x.Activo).AsParallel().SingleOrDefault();
 
                         b.Activo = false;
                         b.UsuarioModificacion = usuario.UsuarioID;
@@ -124,10 +124,10 @@ namespace BackEndSAM.DataAcces
 
                         ctx.SaveChanges();
                     }
-                    else if(detalleBulto == 1) //esta en el detalle bulto
+                    else if(detalleBulto == "1") //esta en el detalle bulto
                     {
                         //Elimino de Rel Bulto
-                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == BultoID && x.ItemCodeID == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == BultoID && x.ItemCodeID == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
                         bulto.Activo = false;
                         bulto.UsuarioModificacion = usuario.UsuarioID;
                         bulto.FechaModificacion = DateTime.Now;
@@ -149,7 +149,7 @@ namespace BackEndSAM.DataAcces
                         //Elimino de Rel FolioCuantificacion_ItemCode
                         Sam3_Rel_FolioCuantificacion_ItemCode itemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                             .Where(x => x.ItemCodeID == itemCodeID 
-                                && x.FolioCuantificacionID == folioCuantificacionID 
+                                && x.FolioCuantificacionID.ToString() == folioCuantificacionID 
                                 && x.Activo).AsParallel().SingleOrDefault();
 
                         itemCode.Activo = false;
