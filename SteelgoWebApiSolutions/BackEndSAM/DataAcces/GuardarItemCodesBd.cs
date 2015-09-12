@@ -74,7 +74,6 @@ namespace BackEndSAM.DataAcces
                 {
                     using (SamContext ctx = new SamContext())
                     {
-
                         Sam3_FolioCuantificacion folioCuantificacion = (from fc in ctx.Sam3_FolioCuantificacion
                                                                         join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                                         where fc.Activo && fe.Activo
@@ -175,30 +174,6 @@ namespace BackEndSAM.DataAcces
                                     bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-
-                                    //Si ya existe Item Code y tiene NU
-                                    if (existeYnumerosunicos)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                    {
-                                        //Creo relacion ItemCode_ItemCodeSteelgo
-
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
                                         {
@@ -240,7 +215,7 @@ namespace BackEndSAM.DataAcces
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU
                                         });
-                                    }
+                                    //}
                                 }
                                 scope.Complete();
                                 #endregion
@@ -338,40 +313,11 @@ namespace BackEndSAM.DataAcces
                                     bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-
-                                    //Si ya existe Item Code y tiene NU
-                                    if (existeYnumerosunicos)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                    {
-                                        //Creo relacion ItemCode_ItemCodeSteelgo
-
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
                                         }
-                                        //else if (ICexisteEnRel && !existeRelICS)
-                                        //{
-                                        //    TieneErrores = true;
-                                        //}
-
                                         //Update IC y ICS
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                         ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
@@ -403,7 +349,7 @@ namespace BackEndSAM.DataAcces
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU
                                         });
-                                    }
+                                    //}
                                 }
                                 scope.Complete();
                                 #endregion
@@ -435,12 +381,12 @@ namespace BackEndSAM.DataAcces
                                         BultoID = bulto.BultoID.ToString(),
                                         Cantidad = datosItemCode.Cantidad,
                                         TieneError = TieneErrores,
-                                        Estatus = folioCuantificacion.Estatus
+                                        Estatus = folioCuantificacion.Estatus,
+                                        Detallar = "Si"
                                     });
                                 }
                                 else
                                 {
-
                                     //Obtenemos IDS
                                     datosItemCode.ItemCodeID = (from ic in ctx.Sam3_ItemCode
                                                                 where ic.Codigo == datosItemCode.ItemCode && ic.Activo
@@ -480,7 +426,7 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
                                     
                                     bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
                                     
@@ -493,30 +439,6 @@ namespace BackEndSAM.DataAcces
                                     //si ya existe solo ic en la relacion
                                     bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
-
-
-                                    //Si ya existe Item Code y tiene NU
-                                    if (existeYnumerosunicos)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-                                        
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else if (existeSINnumerosunicos && existeRelICS) //Si esta repetido el IC 
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                    {
-                                        //Creo relacion ItemCode_ItemCodeSteelgo
 
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
@@ -557,9 +479,10 @@ namespace BackEndSAM.DataAcces
                                             Colada = datosItemCode.Colada,
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
-                                            TieneNU = datosItemCode.TieneNU
+                                            TieneNU = datosItemCode.TieneNU,
+                                            Detallar = "No"
                                         });
-                                    }
+                                    //}
                                 }
                                 scope.Complete();
                                 #endregion
@@ -666,27 +589,6 @@ namespace BackEndSAM.DataAcces
                                     bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                         .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-                                    //Si ya existe Item Code en la Rel Bulto y tiene NU
-                                    if (existeYnumerosunicos)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else if (existeSINnumerosunicos && existeRelICS)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                    {
                                         //Creo relacion ItemCode_ItemCodeSteelgo
 
                                         //Que no exista el IC en la relacion
@@ -694,10 +596,6 @@ namespace BackEndSAM.DataAcces
                                         {
                                             InsertarRelacionIC_ICS(datosItemCode, usuario);
                                         }
-                                        //else if (ICexisteEnRel && !existeRelICS)
-                                        //{
-                                        //    TieneErrores = true;
-                                        //}
 
                                         //Update IC y ICS
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
@@ -733,7 +631,7 @@ namespace BackEndSAM.DataAcces
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU
                                         });
-                                    }
+                                    //}
                                 }
                                 //}
                                 scope.Complete();
@@ -832,29 +730,6 @@ namespace BackEndSAM.DataAcces
                                     bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                         .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-                                    //Si ya existe Item Code en la Rel Bulto y tiene NU
-                                    if (existeYnumerosunicos)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else if (existeSINnumerosunicos && existeRelICS)
-                                    {
-                                        CuantificacionListado listado = new CuantificacionListado();
-
-                                        listado = SumarCantidades(datosItemCode, IC, usuario);
-                                        listado.Estatus = folioCuantificacion.Estatus;
-
-                                        listaNuevosIC.Add(listado);
-                                    }
-                                    else //Si no tiene NU o no existe en la tabla de Relacion FC_IC
-                                    {
-                                        //Creo relacion ItemCode_ItemCodeSteelgo
-
                                         //Que no exista el IC en la relacion
                                         if (!existeRelICS && !ICexisteEnRel)
                                         {
@@ -899,7 +774,7 @@ namespace BackEndSAM.DataAcces
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU
                                         });
-                                    }
+                                    //}
                                 }
                                 //}
                                 scope.Complete();
@@ -977,72 +852,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        /// <summary>
-        /// Funcion para Sumas las cantidades de ItemCodes
-        /// Cuando el itemCode seleccionado ya tiene numeros unicos
-        /// Tiene errores si la cantidad total capturada es menor a la cantidad de numeros unicos existentes
-        /// </summary>
-        /// <param name="item">Datos capturados en el grid</param>
-        /// <param name="IC">Item Code object</param>
-        /// <param name="usuario">Usuario Actual</param>
-        /// <returns>Si contiene errores</returns>
-        public CuantificacionListado SumarCantidades(CuantificacionListado item, Sam3_ItemCode IC, Sam3_Usuario usuario)
-        {
-            using (SamContext ctx = new SamContext())
-            {
-                CuantificacionListado listado = new CuantificacionListado();
-
-                bool TieneErrores = false;
-                //Revisar la cantidad de numeros unicos existentes
-                int CantidadNumerosUnicos = (from cnu in ctx.Sam3_NumeroUnico
-                                             where cnu.ItemCodeID.ToString() == item.ItemCodeID && cnu.Activo
-                                             select cnu.NumeroUnicoID).Count();
-
-                int? CantidadItemCode = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo)
-                    .Select(c => c.Cantidad).AsParallel().SingleOrDefault();
-
-                //Solo suma cantidad
-                IC = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo).AsParallel().SingleOrDefault();
-
-                IC.Cantidad = ctx.Sam3_ItemCode.Where(x => x.ItemCodeID.ToString() == item.ItemCodeID && x.Activo)
-                    .Select(c => c.Cantidad).AsParallel().SingleOrDefault() + item.Cantidad;
-
-                IC.UsuarioModificacion = usuario.UsuarioID;
-                IC.FechaModificacion = DateTime.Now;
-
-                if (CantidadNumerosUnicos > (CantidadItemCode + item.Cantidad))
-                {
-
-                    TieneErrores = true;
-                }
-                else
-                {
-                    ctx.SaveChanges();
-                }
-
-
-                listado.ItemCodeID = item.ItemCodeID.ToString();
-                listado.ItemCode = IC.Codigo;
-                listado.TipoMaterial = IC.TipoMaterialID;
-                listado.ItemCodeSteelgo = item.ItemCodeSteelgo;
-                listado.ItemCodeSteelgoID = item.ItemCodeSteelgoID;
-                listado.Descripcion = item.Descripcion;
-                listado.Peso = item.Peso;
-                listado.Cedula = item.Cedula;
-                listado.D1 = item.D1;
-                listado.D2 = item.D2;
-                listado.Familia = item.Familia;
-                listado.TipoAcero = item.TipoAcero;
-                listado.Cantidad = TieneErrores == true? item.Cantidad : IC.Cantidad;
-                listado.MM = item.MM;
-                listado.Colada = item.Colada;
-                listado.TieneError = TieneErrores;
-                listado.TieneNU = item.TieneNU;
-
-                return listado;
-            }
-        }
-
+       
         /// <summary>
         /// Funcion para Actualizar un Item Code
         /// </summary>
@@ -1066,8 +876,8 @@ namespace BackEndSAM.DataAcces
                 IC.ColadaID = item.ColadaID;
                 IC.Diametro1 = item.D1;
                 IC.Diametro2 = item.D2;
-                IC.DescripcionEspanol = item.Descripcion;
-                IC.DescripcionIngles = item.Descripcion;
+                //IC.DescripcionEspanol = item.Descripcion;
+                //IC.DescripcionIngles = item.Descripcion;
                 IC.FamiliaAceroID = Convert.ToInt32(item.FamiliaMaterial);
                 
 
@@ -1094,8 +904,8 @@ namespace BackEndSAM.DataAcces
                 ICS.DescripcionEspanol = item.Descripcion;
                 ICS.DescripcionIngles = item.Descripcion;
                 //ICS.Peso = item.Peso;
-                ICS.Diametro1 = item.D1;
-                ICS.Diametro2 = item.D2;
+                //ICS.Diametro1 = item.D1;
+                //ICS.Diametro2 = item.D2;
                 ICS.FamiliaAceroID = Int32.Parse(item.FamiliaMaterial);
                 ICS.Cedula = item.Cedula;
                 ICS.Codigo = item.ItemCodeSteelgo;
