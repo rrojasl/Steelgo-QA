@@ -182,7 +182,7 @@
         function CargaInicial() {
             $("#Nuevo").click(function () {
                 var url = "@Url.Action("Cuantificacion", "Cuantificacion")";
-                window.open(url + "?leng=" + $("#language").data("kendoDropDownList").value());
+                window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
             });
 
             //Botones Dashboard

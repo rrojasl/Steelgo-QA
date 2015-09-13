@@ -2067,7 +2067,11 @@
                         llenarGrid(null, ListadoCuantificacionIncompletos);
                             $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
                                 error = ErrorInsertandoItems(data,error, ListadoCuantificacion[i]);
-                                if (ErrorBool(data)) AccionesGuardaryTerminar(data);
+                                if (ErrorBool(data)) {
+                                    AccionesGuardaryTerminar(data);
+                                } else {
+                                    cargarGridErrores(ListadoCuantificacion[i]);
+                                }
                                 i++;
                                 CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i,error);
                             });
@@ -2083,7 +2087,11 @@
                         llenarGrid(null, ListadoCuantificacionIncompletos);
                         $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
                             error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                            if (ErrorBool(data)) AccionesGuardaryTerminar(data);
+                            if (ErrorBool(data)) {
+                                AccionesGuardaryTerminar(data);
+                            } else {
+                                cargarGridErrores(ListadoCuantificacion[i]);
+                            }
                             i++;
                             CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                         });
@@ -2098,7 +2106,11 @@
             if (ListadoCuantificacion[i]) {
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 4 }).done(function (data) {
                     error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                    if (ErrorBool(data)) AccionesGuardaryTerminar(data);
+                    if (ErrorBool(data)) {
+                        AccionesGuardaryTerminar(data);
+                    } else {
+                        cargarGridErrores(ListadoCuantificacion[i]);
+                    };
                     i++;
                     CicloGuardaryTerminar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
@@ -2227,7 +2239,11 @@
 
                     $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
                         error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                        if (ErrorBool(data)) AccionesTerminaryNuevo(data);
+                        if (ErrorBool(data)) {
+                            AccionesTerminaryNuevo(data);
+                        } else {
+                            cargarGridErrores(ListadoCuantificacion[i]);
+                        }
                         i++;
                         CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                     })
@@ -2240,7 +2256,11 @@
                     llenarGrid(null, ListadoCuantificacionIncompletos);
                     $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
                         error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                        if (ErrorBool(data)) AccionesTerminaryNuevo(data);
+                        if (ErrorBool(data)) {
+                            AccionesTerminaryNuevo(data);
+                        } else {
+                            cargarGridErrores(ListadoCuantificacion[i]);
+                        };
                         i++;
                         CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                     });
@@ -2253,7 +2273,11 @@
         if (ListadoCuantificacion[i]) {
             $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 1 }).done(function (data) {
                     error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                    if (ErrorBool(data)) AccionesTerminaryNuevo(data);
+                    if (ErrorBool(data)) {
+                        AccionesTerminaryNuevo(data);
+                    } else {
+                        cargarGridErrores(ListadoCuantificacion[i]);
+                    }
                     i++;
                     CicloTerminaryNuevo(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
             });
@@ -2380,7 +2404,11 @@
 
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
                     error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                    if (ErrorBool(data)) AccionesGuardarGuardaryCerrar(data);
+                    if (ErrorBool(data)) {
+                        AccionesGuardarGuardaryCerrar(data);
+                    } else {
+                        cargarGridErrores(ListadoCuantificacion[i]);
+                    }
                     i++;
                     CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
@@ -2394,7 +2422,11 @@
 
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
                     error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                    if (ErrorBool(data)) AccionesGuardarGuardaryCerrar(data);
+                    if (ErrorBool(data)) {
+                        AccionesGuardarGuardaryCerrar(data);
+                    } else {
+                        cargarGridErrores(ListadoCuantificacion[i]);
+                    }
                     i++;
                     CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
                 });
@@ -2407,7 +2439,11 @@
         if (ListadoCuantificacion[i]) {
             $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: 2 }).done(function (data) {
                 error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                if (ErrorBool(data)) AccionesGuardarGuardaryCerrar(data);
+                if (ErrorBool(data)) {
+                    AccionesGuardarGuardaryCerrar(data);
+                } else {
+                    cargarGridErrores(ListadoCuantificacion[i]);
+                }
                 i++;
                 CicloGuardaryCerrar(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, error);
             });
@@ -2551,7 +2587,11 @@
 
                         $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
                             error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
-                            if (ErrorBool(data)) AccionesAltaGuardadoParcial(data);
+                            if (ErrorBool(data)) {
+                                AccionesAltaGuardadoParcial(data);
+                            } else {
+                                cargarGridErrores(ListadoCuantificacion[i]);
+                            };
                             i++;
                             cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                         });                    
@@ -2572,7 +2612,11 @@
 
                         $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
                             error = ErrorInsertandoItems(data,error, ListadoCuantificacion[i]);
-                            if(ErrorBool(data)) AccionesAltaGuardadoParcial(data);
+                            if (ErrorBool(data)) {
+                                AccionesAltaGuardadoParcial(data);
+                            } else {
+                                cargarGridErrores(ListadoCuantificacion[i]);
+                            };
                             i++;
                             cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                         });
@@ -2586,7 +2630,11 @@
             if (ListadoCuantificacion[i]) {
                 $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
                         error = ErrorInsertandoItems(data,error, ListadoCuantificacion[i]);
-                        if (ErrorBool(data)) AccionesAltaGuardadoParcial(data);
+                        if (ErrorBool(data)) {
+                            AccionesAltaGuardadoParcial(data);
+                        } else {
+                            cargarGridErrores(ListadoCuantificacion[i]);
+                        };
                         i++;
                         cicloGuardadoParcial(cerrar, incompletos, folioAvisoEntradaID, ListadoCuantificacion, i, idGuardado, guardarynuevo, error);
                 });
