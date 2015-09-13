@@ -1647,9 +1647,11 @@
                                 var tr = $(e.currentTarget).closest("tr");
                                 grid.removeRow(tr);
 
-                                var datasource = $("#grid").data("kendoGrid").dataSource.data();
-                                if (!datasource.length) {
-                                    $("#TipoPackingListID").data("kendoComboBox").enable(true);
+                                if (_detalleBulto == "-1") {
+                                    var datasource = $("#grid").data("kendoGrid").dataSource.data();
+                                    if (!datasource.length) {
+                                        $("#TipoPackingListID").data("kendoComboBox").enable(true);
+                                    }
                                 }
                                 loadingStop();
                             });
