@@ -832,6 +832,14 @@ namespace BackEndSAM.DataAcces
                 ctx.Sam3_Bulto.Add(bulto);
                 ctx.SaveChanges();
 
+                if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                       string.Format("Se generó un nuevo bulto para el folio Cuantificación {0} con fecha {1}",
+                       FolioCuantificacion, bulto.FechaModificacion), usuario))
+                {
+                    //Agregar error a la bitacora  PENDIENTE
+                }
+
+
                 return bulto;
             }
         }

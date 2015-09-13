@@ -506,6 +506,13 @@ namespace BackEndSAM.DataAcces
 
                     ctx.SaveChanges();
 
+                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                       string.Format("Se generó un nuevo aviso de Entrada para el folio {0} con fecha {1}",
+                       ordenAlmacenaje.OrdenAlmacenajeID, ordenAlmacenaje.FechaCreacion), usuario))
+                    {
+                        //Agregar error a la bitacora  PENDIENTE
+                    }
+
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnMessage.Add(ordenAlmacenaje.Folio.ToString());
