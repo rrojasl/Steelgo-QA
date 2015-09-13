@@ -22,7 +22,7 @@ namespace BackEndSAM.Models
     {
         public string ItemCodeID { get; set; }
         public string Codigo { get; set; }
-        public string Descripción { get; set; }
+        public string Descripcion { get; set; }
         public string D1 { get; set; }
         public string D2 { get; set; }
         public string Cantidad { get; set; }
