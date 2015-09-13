@@ -1408,6 +1408,10 @@ _dictionary = {
         "es-MX": "Dashboard Recepción y Almacenaje",
         "en-US": "Dashboard Recepción y Almacenaje"
     },
+    "Cuantificacion0085": {
+        "es-MX": "Regresar al Listado",
+        "en-US": "Back to list"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

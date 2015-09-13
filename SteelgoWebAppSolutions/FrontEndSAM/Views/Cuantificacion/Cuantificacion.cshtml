@@ -61,6 +61,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="ImprimirOrdenRecepcion"><span id="Cuantificacion0082"></span></a></li>
                                     <li><a ><span id="Cuantificacion0083"></span></a></li>
+                                    <li id="AccionRegresar"><a id="RegresarListadoPadre" href="#" ><span id="Cuantificacion0085"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -293,7 +294,8 @@
             ProyectoItemCodeSteelgo = {}, TipoPackingListItemCode = {}, TipoPackingListItemCodeSteelgo = {},
             ColadaItemCodeSteelgo = {}, ColadaItemCode = {}, FabricanteColada = {}, AceroColada = {}, ProyectoColada = {},
             ctrlDown = false, ctrlKey = 17, vKey = 86, cKey = 67, focusResp = "FolioAvisoEntradaID";;
-           
+            var _cuantificacionUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
+
             var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
             var _folioCuantificacion = getUrlParameter("FolioCuantificacionID", "-1");
             //var _folioLlegadaMaterialID = getUrlParameter("FolioLlegadaMaterialID", "-1");
@@ -668,7 +670,7 @@
             $("#MenuTerminar").css("display", "block");
             $("#MenuGuardarParcial").css("display", "block");
             $("#MenuCerrar").css("display", "block");
-           
+            $("#AccionRegresar").css("display", "none");
 
             $("#menu").kendoContextMenu({
                 target: "#grid",
@@ -748,7 +750,7 @@
                     displayMessage("notificationslabel0031", "", '1');
                 }
             });
-            $("#Cancelar").click(function () { Cancelar(); });
+          
             $("#GenerarOrdenRecepcion").click(function () {
                 if(validarRequeridosFormaCuantificacion()){
                     GenerarOrdenRecepcion();
@@ -757,11 +759,10 @@
                 }
             });
             $("#massiveUpload").click(function () { $(".k-upload-files.k-reset").find("li").remove(); });
-
-            $("#CancelarItemCode").click(function () { CancelarModalItemCode(); });
-            $("#CancelarItemCodeSteelgo").click(function () { CancelarItemCodeSteelgo(); });
-            $("#CancelarColada").click(function () { CancelarColada(); });
-            
+            $("#RegresarListadoPadre").click(function () {
+                RegresarListadoPadre();
+            });
+           
             $("#GuardarItemCode").click(function () {
                 if (validarRequeridosModalItemCode()) {
                     GuardarItemCode();
@@ -786,6 +787,12 @@
                 }
             });
             
+            $("#Cancelar").click(function () { Cancelar(); });
+            $("#CancelarItemCode").click(function () { CancelarModalItemCode(); });
+            $("#CancelarItemCodeSteelgo").click(function () { CancelarItemCodeSteelgo(); });
+            $("#CancelarColada").click(function () { CancelarColada(); });
+
+
             $("#FolioAvisoEntradaID").kendoComboBox({
                     dataTextField: "value",
                     dataValueField: "id",
@@ -826,7 +833,6 @@
                 },
                 filter: "contains",
             });
-            //ObtenerProyecto("ProyectoID");
             
             $("#FolioCuantificacionID").kendoComboBox({
                 dataTextField: "FolioCuantificacionID",
@@ -1073,6 +1079,10 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         };
 
+        function RegresarListadoPadre() {
+            window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1&FolioAvisoEntradaID=" + _folioAvisoEntradaID + "&FolioCuantificacionID=" + _folioCuantificacion;
+        };
+
         function cargaInicialEdicionDetalleBulto() {
             DetalleBultoObtenerDatosDelFolioAvisoLlegadaCuantificacion(_folioAvisoEntradaID, _folioCuantificacion, _bultoID);
 
@@ -1080,6 +1090,7 @@
         
 
         function cargaInicialEdicion() {
+            $("#AccionRegresar").css("display", "none");
             $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
             $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion != "-1" ? _folioCuantificacion : "");
             CargarFolioCuantificacion(_folioCuantificacion);
@@ -1754,6 +1765,7 @@
             $("#MenuTerminar").css("display", "none");
             $("#MenuGuardarParcial").css("display", "none");
             $("#MenuCerrar").css("display", "none");
+            $("#AccionRegresar").css("display", "block");
 
             DeshabilitarControlesDetalleBulto();
             $("#FolioAvisoEntradaID").data("kendoComboBox").value(folio);
