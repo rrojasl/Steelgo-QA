@@ -43,7 +43,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoGenerarOrdenRecepcion(FiltrosJson filtros, Sam3_Usuario usuario)
+        public object ObtenerListadoGenerarOrdenRecepcion(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
         {
             try
             {
@@ -227,7 +227,14 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
-                    return listado;
+                    if (conteo)
+                    {
+                        return listado.Count;
+                    }
+                    else
+                    {
+                        return listado;
+                    }
                 }
             }
             catch (Exception ex)
@@ -242,7 +249,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoOrdenRecepcion(FiltrosJson filtros, Sam3_Usuario usuario)
+        public object ObtenerListadoOrdenRecepcion(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false)
         {
             try
             {
@@ -362,7 +369,13 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
-                    return listado;
+                    if (conteo)
+                    {
+                        return listado.Count;
+                    }
+                    {
+                        return listado;
+                    }
 
                 }
             }
