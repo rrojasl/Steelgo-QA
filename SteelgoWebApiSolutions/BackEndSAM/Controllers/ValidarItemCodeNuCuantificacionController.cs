@@ -16,11 +16,6 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ValidarItemCodeNuCuantificacionController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         // GET api/<controller>/5
         public object Get(string folioAvisoLlegadaID, string folioCuantificacionID, string ItemCode, string bultoID, string detalleBulto, string token)
@@ -45,16 +40,6 @@ namespace BackEndSAM.Controllers
                 result.IsAuthenicated = false;
                 return result;
             }
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
         }
  
         // DELETE api/<controller>/5

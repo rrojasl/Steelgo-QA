@@ -74,7 +74,7 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().Single();
+                        int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().FirstOrDefault();
                         
                         tieneNU = (from fcic in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                                    where fcic.ItemCodeID == itemCodeID && fcic.FolioCuantificacionID.ToString() == folioCuantificacionID && fcic.Activo
