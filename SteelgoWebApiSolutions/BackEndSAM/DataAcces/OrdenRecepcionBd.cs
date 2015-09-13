@@ -890,6 +890,14 @@ namespace BackEndSAM.DataAcces
                                        where r.Activo && c.Activo && rit.Activo
                                        && r.FolioAvisoLlegadaID == i
                                        select rit.ItemCodeID);
+
+                        items.AddRange(from r in ctx.Sam3_FolioAvisoEntrada
+                                       join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
+                                       join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
+                                       join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
+                                       where r.Activo && c.Activo && rbi.Activo
+                                       && r.FolioAvisoLlegadaID == i
+                                       select rbi.ItemCodeID);
                     }
                 }
 
