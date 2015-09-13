@@ -192,13 +192,13 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int? itemcodeID = ctx.Sam3_ItemCode.Where(x => x.Codigo == ItemCode && x.Activo)
-                                                            .Select(c => c.ItemCodeID).AsParallel().SingleOrDefault();
+                    Sam3_ItemCode item = ctx.Sam3_ItemCode.Where(x => x.Codigo == ItemCode && x.Activo).FirstOrDefault();
+
 
                     ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
-                                                   join ris in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals ris.ItemCodeSteelgoID 
-                                                   join ic in ctx.Sam3_ItemCode on ris.ItemCodeID equals ic.ItemCodeID 
-                                                   where r.Activo &&  ris.ItemCodeID==itemcodeID
+                                                   join ris in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals ris.ItemCodeSteelgoID
+                                                   join ic in ctx.Sam3_ItemCode on ris.ItemCodeID equals ic.ItemCodeID
+                                                   where r.Activo && ris.ItemCodeID == item.ItemCodeID
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,
@@ -220,7 +220,23 @@ namespace BackEndSAM.DataAcces
                                                        Cantidad = ic.Cantidad,
                                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == ic.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault()
                                                    }).AsParallel().SingleOrDefault();
-                    return detalle;
+
+                    if (detalle != null)
+                    {
+                        return detalle;
+
+                    }
+                    else {
+                        ItemCodeSteelgoJson detalleItem = (from ic in ctx.Sam3_ItemCode
+                                                           where ic.ItemCodeID == item.ItemCodeID
+                                                           select new ItemCodeSteelgoJson
+                                                           {
+                                                               Cantidad = ic.Cantidad,
+                                                               ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == ic.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault()
+                                                           }).AsParallel().SingleOrDefault();
+                        return detalleItem;
+                    }
+                    
                 }
             }
             catch (Exception ex)
