@@ -18,8 +18,8 @@
     </li>
 }
 
-<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="formOrdenAlmacenaje" class="row">
+<div id="formOrdenAlmacenaje" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <span class="folioLabel">
                 <span id="DetalleOrdenAlmacenaje0001"></span>
@@ -29,11 +29,11 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
-                         <div class="button-section">
+                        <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleOrdenAlmacenaje0002"></span></button>
                             </div>
-                            <a id="Cancelar" href="#" class="btn btn-black" ><span id="DetalleOrdenAlmacenaje0003"></span></a>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="DetalleOrdenAlmacenaje0003"></span></a>
                         </div>
                         <div class="button-section">
                             <div class="dropdown action-group">
@@ -44,23 +44,22 @@
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="DetalleOrdenAlmacenaje0005"></span></a></li>
                                     <li><a><span id="DetalleOrdenAlmacenaje0006"></span></a></li>
-                                     <li><a id="NuevaCaptura"><span id="DetalleOrdenAlmacenaje0007"></span></a></li>
+                                    <li><a id="NuevaCaptura"><span id="DetalleOrdenAlmacenaje0007"></span></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-         <div class="row">
+            <div class="row">
                 <div class="filterForm col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
                         <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="DetalleOrdenAlmacenaje0008"></label>
                             <input id="ProyectoID" />
                         </div>
-                         <div id="FolioCuantificacionDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="FolioCuantificacionDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="GenerarOrdenAlmacenaje0013"></label>
                             <input id="FolioCuantificacionID" class="" />
                         </div>
@@ -75,8 +74,9 @@
                     </div>
                 </div>
             </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                 <div id="grid"></div>
+            <div id="grid"></div>
         </div>
     </div>
 </div>
@@ -346,7 +346,7 @@
             scrollable: false,
             detailInit: detailInit,
             columns: [
-                { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()], width: "110px" },
+                { field: "FolioCuantificacion", title: _dictionary.DetalleOrdenAlmacenaje0009[$("#language").data("kendoDropDownList").value()] },
                 //{ field: "", title:"&nbsp;", width: "40px", template: "<a class='detailLink' onclick='CancelarFolio(this)'>Cancelar</a>" },
             ],
             dataBound: function (e) {
