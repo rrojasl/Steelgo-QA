@@ -349,7 +349,7 @@
             background-color: #F5F5F5;
         }
 
-        .k-grid tr:hover {
+        .k-grid tr:not(.k-detail-row):hover {
             background-color: #FCEED9;
         }
 
@@ -412,6 +412,18 @@
         margin: 0 -25px;
     }
 
+    .k-grid.gridWithInputs tbody tr.k-detail-row .k-grid thead tr th:first-child,
+    .k-grid.gridWithInputs tbody tr.k-detail-row .k-grid tbody tr td:first-child,
+    .k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid thead tr th:nth-child(2),
+    .k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid tbody tr.k-detail-row .k-grid tr th:first-child {
+        padding: 0;
+    }
+
+    .k-grid.gridWithInputs tbody tr.k-detail-row .k-grid thead tr th:first-child label,
+    .k-grid.gridWithInputsStorage tbody tr.k-detail-row .k-grid thead tr th label {
+        margin: 0;
+    }
+
     .k-grid tbody tr td a.k-button:active:hover {
         box-shadow: none !important;
     }
@@ -434,6 +446,13 @@
     .k-grid tbody tr td a.k-button.k-grid-Cuantificacion,
     .k-grid tbody tr td a.k-button.k-grid-Quantification {
         background-image: url("/Content/images/SAMC_CuantificacionIcon.png");
+    }
+
+    .k-grid tbody tr td a.k-button.k-grid-Imprimir,
+    .k-grid tbody tr td a.k-button.k-grid-Print,
+    .k-grid tbody tr td a.k-button.k-grid-ImprimirEtiquetas,
+    .k-grid tbody tr td a.k-button.k-grid-PrintLabels {
+        background-image: url("/Content/images/SAMC_Print.png");
     }
 
 .k-grid-pager {

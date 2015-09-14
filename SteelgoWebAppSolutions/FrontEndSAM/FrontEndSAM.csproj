@@ -130,6 +130,7 @@
     <Content Include="Content\images\SAMC_Add.png" />
     <Content Include="Content\images\SAMC_AddIcon.png" />
     <Content Include="Content\images\SAMC_Attachtment.png" />
+    <Content Include="Content\images\SAMC_BluePrinter.png" />
     <Content Include="Content\images\SAMC_Checkmark.png" />
     <Content Include="Content\images\SAMC_ComplementoIcon.png" />
     <Content Include="Content\images\SAMC_CuantificacionIcon.png" />
@@ -168,6 +169,7 @@
     <Content Include="Content\images\SAMC_MenuIcon_03.png" />
     <Content Include="Content\images\SAMC_NavigationLeft.png" />
     <Content Include="Content\images\SAMC_NavigationRight.png" />
+    <Content Include="Content\images\SAMC_Print.png" />
     <Content Include="Content\images\SAMC_Printer.png" />
     <Content Include="Content\images\SAMC_RefreshIcon.png" />
     <Content Include="Content\images\SAMC_SearchIconChart.png" />

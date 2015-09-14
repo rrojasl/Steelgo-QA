@@ -315,6 +315,9 @@ input {
     min-height: 13px;
     height: auto;
     margin: 4px auto 0;
+    outline: none;
+    border: none;
+    box-shadow: none !important;
 }
 
 input.quickFilters {
