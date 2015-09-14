@@ -2001,7 +2001,7 @@
         
         function GuardaryTerminar() {
             loadingStart();
-            var j = 0, z = 0, cerrar = false, incompletos = false;
+            var j = 0, z = 0, cerrar = true, incompletos = false;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
             var result = query.data;
@@ -2131,15 +2131,16 @@
                 });
             } else {
                 loadingStop();
-                CambiarEstatusNoCompleto();
                 ordenamientoGrid();
                 if (error) {
                     displayMessage("notificationslabel0008", error, '2');
+                    CambiarEstatusNoCompleto();
                     return;
                 }
                 
                 if (incompletos) {
                     displayMessage("notificationslabel0037", "", '1');
+                    CambiarEstatusNoCompleto();
                     return;
                 }
                 AccionesGuardaryTerminar(null);
@@ -2298,15 +2299,18 @@
             });
         } else {
             loadingStop();
-            CambiarEstatusNoCompleto();
             ordenamientoGrid();
             if (error) {
                 displayMessage("notificationslabel0008", error, '2');
+                BotonAlta();
+                CambiarEstatusNoCompleto();
                 return;
             }
 
             if (incompletos) {
                 displayMessage("notificationslabel0037", "", '1');
+                BotonAlta();
+
                 return;
             }
            
@@ -2464,14 +2468,17 @@
             });
         } else {
             loadingStop();
-            CambiarEstatusNoCompleto();
             ordenamientoGrid();
             if (error) {
                 displayMessage("notificationslabel0008", error, '2');
+                BotonAlta();
+                CambiarEstatusNoCompleto();
                 return;
             }
             if (incompletos) {
                 displayMessage("notificationslabel0037", "", '1');
+                BotonAlta();
+                CambiarEstatusNoCompleto();
                 return;
             }
             AccionesGuardarGuardaryCerrar(null);
@@ -2659,6 +2666,7 @@
                 if (error) {
                     displayMessage("notificationslabel0008", error, '2');
                     ordenamientoGrid();
+                    CambiarEstatusNoCompleto();
                     return;
                 }
                 AccionesAltaGuardadoParcial(null);
