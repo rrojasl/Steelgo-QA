@@ -39,6 +39,5 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
     }
 }

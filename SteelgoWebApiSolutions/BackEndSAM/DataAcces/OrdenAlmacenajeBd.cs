@@ -372,7 +372,7 @@ namespace BackEndSAM.DataAcces
                             listado.Add(orden);
                         }
                     }
-                    return listado;
+                    return listado.OrderBy(x => x.FolioCuantificacion).ToList();
                 }
             }
             catch (Exception ex)
@@ -737,7 +737,7 @@ namespace BackEndSAM.DataAcces
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
-                    return listado;
+                    return listado.OrderBy(x => x.OrdenAlmacenaje).ToList();
                 }
             }
             catch (Exception ex)
@@ -1020,7 +1020,7 @@ namespace BackEndSAM.DataAcces
                     }
 
                     listadoDetalleOrdenAlmacenaje.ProyectoID = ProyectoID;
-                    listadoDetalleOrdenAlmacenaje.ListadoGenerarOrdenAlmacenaje = listado;
+                    listadoDetalleOrdenAlmacenaje.ListadoGenerarOrdenAlmacenaje = listado.OrderBy(x => x.FolioCuantificacion).ToList();
 
                     return listadoDetalleOrdenAlmacenaje;
                 }
