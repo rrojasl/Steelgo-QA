@@ -2168,7 +2168,7 @@
             //var result = query.filter(filters).data;
             //var datasource = result;
 
-            var j = 0, z = 0, cerrar=false, incompletos=false;
+            var j = 0, z = 0, cerrar=true, incompletos=false;
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
             var result = query.data;
