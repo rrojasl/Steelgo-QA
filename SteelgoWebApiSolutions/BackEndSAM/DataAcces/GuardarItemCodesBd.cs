@@ -215,11 +215,43 @@ namespace BackEndSAM.DataAcces
 
                                 if (cerrar && !incompletos && !TieneErrores)
                                 {
+                                    listaNuevosIC.Clear();
+
+                                    Sam3_FolioCuantificacion folioC = (from fc in ctx.Sam3_FolioCuantificacion
+                                                                       join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                                       where fc.Activo && fe.Activo
+                                                                       && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
+                                                                       && fc.FolioCuantificacionID == FolioCuantificacion
+                                                                       select fc).AsParallel().SingleOrDefault();
+
                                     //Cambiar estatus a folio cuantificacion
                                     folioCuantificacion.Estatus = "Terminado";
                                     folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
                                     folioCuantificacion.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
+
+
+                                    listaNuevosIC.Add(new CuantificacionListado
+                                    {
+                                        ItemCodeID = IC.ItemCodeID.ToString(),
+                                        TipoMaterial = IC.TipoMaterialID,
+                                        ItemCode = IC.Codigo,
+                                        ItemCodeSteelgo = ICS.Codigo,
+                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                        Descripcion = ICS.DescripcionEspanol,
+                                        Peso = ICS.Peso,
+                                        Cedula = datosItemCode.Cedula,
+                                        D1 = ICS.Diametro1,
+                                        D2 = ICS.Diametro2,
+                                        Familia = datosItemCode.Familia,
+                                        TipoAcero = datosItemCode.TipoAcero,
+                                        Cantidad = IC.Cantidad,
+                                        MM = IC.MM,
+                                        Colada = datosItemCode.Colada,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus,
+                                        TieneNU = datosItemCode.TieneNU
+                                    });
                                 }
                                 scope.Complete();
                                 #endregion
@@ -350,11 +382,42 @@ namespace BackEndSAM.DataAcces
 
                                 if (cerrar && !incompletos && !TieneErrores)
                                 {
+                                    listaNuevosIC.Clear();
+
+                                    Sam3_FolioCuantificacion folioC = (from fc in ctx.Sam3_FolioCuantificacion
+                                                                       join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                                       where fc.Activo && fe.Activo
+                                                                       && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
+                                                                       && fc.FolioCuantificacionID == FolioCuantificacion
+                                                                       select fc).AsParallel().SingleOrDefault();
                                     //Cambiar estatus a folio cuantificacion
-                                    folioCuantificacion.Estatus = "Cerrado";
-                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
-                                    folioCuantificacion.FechaModificacion = DateTime.Now;
+                                    folioC.Estatus = "Cerrado";
+                                    folioC.UsuarioModificacion = usuario.UsuarioID;
+                                    folioC.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
+
+
+                                    listaNuevosIC.Add(new CuantificacionListado
+                                    {
+                                        ItemCodeID = IC.ItemCodeID.ToString(),
+                                        TipoMaterial = IC.TipoMaterialID,
+                                        ItemCode = IC.Codigo,
+                                        ItemCodeSteelgo = ICS.Codigo,
+                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                        Descripcion = ICS.DescripcionEspanol,
+                                        Peso = ICS.Peso,
+                                        Cedula = datosItemCode.Cedula,
+                                        D1 = ICS.Diametro1,
+                                        D2 = ICS.Diametro2,
+                                        Familia = datosItemCode.Familia,
+                                        TipoAcero = datosItemCode.TipoAcero,
+                                        Cantidad = IC.Cantidad,
+                                        MM = IC.MM,
+                                        Colada = datosItemCode.Colada,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus,
+                                        TieneNU = datosItemCode.TieneNU
+                                    });
                                 }
 
                                 scope.Complete();
@@ -633,6 +696,8 @@ namespace BackEndSAM.DataAcces
 
                                 if (cerrar && !incompletos && !TieneErrores)
                                 {
+                                    listaNuevosIC.Clear();
+
                                     //Cambiar estatus al bulto
                                     bulto = ctx.Sam3_Bulto.Where(x => x.BultoID.ToString() == datosItemCode.BultoID).AsParallel().SingleOrDefault();
 
@@ -640,6 +705,29 @@ namespace BackEndSAM.DataAcces
                                     bulto.UsuarioModificacion = usuario.UsuarioID;
                                     bulto.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
+
+                                    listaNuevosIC.Add(new CuantificacionListado
+                                    {
+                                        ItemCodeID = IC.ItemCodeID.ToString(),
+                                        TipoMaterial = IC.TipoMaterialID,
+                                        ItemCode = IC.Codigo,
+                                        ItemCodeSteelgo = ICS.Codigo,
+                                        ItemCodeSteelgoID = ICS.ItemCodeSteelgoID.ToString(),
+                                        Descripcion = ICS.DescripcionEspanol,
+                                        Peso = ICS.Peso,
+                                        Cedula = datosItemCode.Cedula,
+                                        D1 = ICS.Diametro1,
+                                        D2 = ICS.Diametro2,
+                                        Familia = datosItemCode.Familia,
+                                        TipoAcero = datosItemCode.TipoAcero,
+                                        Cantidad = IC.Cantidad,
+                                        MM = IC.MM,
+                                        Colada = datosItemCode.Colada,
+                                        TieneError = TieneErrores,
+                                        Estatus = folioCuantificacion.Estatus,
+                                        TieneNU = datosItemCode.TieneNU
+                                    });
+
                                 }
                                 //}
                                 scope.Complete();

@@ -217,7 +217,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="folioAvisoLlegadaID">Folio aviso de llegada seleccionado</param>
         /// <param name="folioCuantificacion"></param>
         /// <returns></returns>
-        public object obtenerDatosFolioCuantificacion(int folioAvisoLlegadaID, int folioCuantificacion)
+        public object obtenerDatosFolioCuantificacion(int folioAvisoLlegadaID, int folioCuantificacion, string detalleBulto)
         {
             try
             {
@@ -249,7 +249,7 @@ namespace BackEndSAM.DataAcces
                                    id = t.TipoMaterialID.ToString()
                                },
 
-                                Estatus = subBul != null ? subBul.Estatus : t.Estatus,
+                                Estatus = detalleBulto == "-1" ? t.Estatus : subBul.Estatus,
 
                                 FolioLlegadaHijo = 0
 
