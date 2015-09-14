@@ -1784,7 +1784,7 @@
 
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
             loadingStart();
-            $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto, token: Cookies.get("token") }).done(function (result) {
+            $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto==0?"-1":_detalleBulto, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);

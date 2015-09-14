@@ -53,28 +53,33 @@ namespace BackEndSAM.DataAcces
                      int avisoEntradaID = ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == datosCuantificacion.FolioAvisollegadaId && x.Activo).Select(x => x.FolioAvisoEntradaID).AsParallel().First();
 
                      Sam3_FolioCuantificacion folioCuantificacion = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == datosCuantificacion.FolioCuantificacionID && x.Activo).AsParallel().SingleOrDefault();
-                     folioCuantificacion.FolioAvisoEntradaID = avisoEntradaID;
-                     folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID;
-                     folioCuantificacion.PackingList = datosCuantificacion.PackingList;
-                     folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
-                     folioCuantificacion.Estatus = "En Proceso de Recepción";
-                     folioCuantificacion.FechaModificacion = DateTime.Now;
-                     folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
-                     folioCuantificacion.Activo = true;
-                     folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
+                     if (folioCuantificacion.Estatus != "Terminado" && folioCuantificacion.Estatus != "Cerrado")
+                     {
+                         folioCuantificacion.FolioAvisoEntradaID = avisoEntradaID;
+                         folioCuantificacion.ProyectoID = datosCuantificacion.ProyectoID;
+                         folioCuantificacion.PackingList = datosCuantificacion.PackingList;
+                         folioCuantificacion.TipoUsoID = datosCuantificacion.TipoUso;
+                         folioCuantificacion.Estatus = "En Proceso de Recepción";
+                         folioCuantificacion.FechaModificacion = DateTime.Now;
+                         folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
+                         folioCuantificacion.Activo = true;
+                         folioCuantificacion.TipoMaterialID = datosCuantificacion.TipoPackingList;
 
-                     ctx.SaveChanges();
-
+                         ctx.SaveChanges();
+                     }
                      if (datosCuantificacion.BultoID > 0)
                      {
                          Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x => x.BultoID == datosCuantificacion.BultoID && x.Activo).AsParallel().SingleOrDefault();
-                         bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
-                         bulto.Estatus = "En Proceso de Recepción";
-                         bulto.FechaModificacion = DateTime.Now;
-                         bulto.UsuarioModificacion = usuario.UsuarioID;
-                         bulto.Activo = true;
+                         if (folioCuantificacion.Estatus != "Terminado" && folioCuantificacion.Estatus != "Cerrado")
+                         {
+                             bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
+                             bulto.Estatus = "En Proceso de Recepción";
+                             bulto.FechaModificacion = DateTime.Now;
+                             bulto.UsuarioModificacion = usuario.UsuarioID;
+                             bulto.Activo = true;
 
-                         ctx.SaveChanges();
+                             ctx.SaveChanges();
+                         }
                      }
 
                      string nombre = (from p in ctx.Sam3_Proyecto

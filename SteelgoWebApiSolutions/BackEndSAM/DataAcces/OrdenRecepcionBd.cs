@@ -233,7 +233,7 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        return listado;
+                        return listado.OrderBy(x => x.AvisoEntradaID).ToList();
                     }
                 }
             }
@@ -374,7 +374,7 @@ namespace BackEndSAM.DataAcces
                         return listado.Count;
                     }
                     {
-                        return listado;
+                        return listado.OrderBy(x => x.OrdenRecepcion).ToList();
                     }
 
                 }
@@ -488,7 +488,7 @@ namespace BackEndSAM.DataAcces
                     string json = serializer.Serialize(listado);
 #endif
 
-                    return listado;
+                    return listado.OrderBy(x => x.AvisoEntradaID).ToList();
                 }
             }
             catch (Exception ex)
