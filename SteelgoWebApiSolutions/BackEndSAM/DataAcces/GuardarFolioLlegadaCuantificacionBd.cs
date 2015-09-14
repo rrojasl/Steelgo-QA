@@ -69,7 +69,7 @@ namespace BackEndSAM.DataAcces
                      {
                          Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x => x.BultoID == datosCuantificacion.BultoID && x.Activo).AsParallel().SingleOrDefault();
                          bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
-                         bulto.Estatus = "";
+                         bulto.Estatus = "En Proceso de Recepción";
                          bulto.FechaModificacion = DateTime.Now;
                          bulto.UsuarioModificacion = usuario.UsuarioID;
                          bulto.Activo = true;
@@ -130,7 +130,7 @@ namespace BackEndSAM.DataAcces
                      {
                          Sam3_Bulto bulto = ctx.Sam3_Bulto.Where(x => x.BultoID == datosCuantificacion.BultoID && x.Activo).AsParallel().SingleOrDefault();
                          bulto.FolioCuantificacionID = datosCuantificacion.FolioCuantificacionID;
-                         bulto.Estatus = "";
+                         bulto.Estatus = "En Proceso de Recepción";
                          bulto.FechaModificacion = DateTime.Now;
                          bulto.UsuarioModificacion = usuario.UsuarioID;
                          bulto.Activo = true;
