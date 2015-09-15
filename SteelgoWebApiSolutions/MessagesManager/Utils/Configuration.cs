@@ -31,5 +31,13 @@ namespace MessagesManager.Utils
                 return ConfigurationManager.AppSettings["Sam.QuequePrueba"];
             }
         }
+
+        public static string TemplatePath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["urlTemplates"];
+            }
+        }
     }
 }

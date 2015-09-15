@@ -14,6 +14,7 @@ using System.Web;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using DatabaseManager.SamLogging;
+using MessagesManager.Utils;
 
 namespace MessagesManager.Controllers
 {
@@ -216,7 +217,7 @@ namespace MessagesManager.Controllers
                         //Enviar Mail
                         if (!String.IsNullOrEmpty(item.Email))
                         {
-                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlTemplates"]) + item.Plantilla;
+                            var path = ConfigurationManager.AppSettings["urlTemplates"]; //+ item.Plantilla;
 
                             string contenido = "";
                             StringBuilder body = new StringBuilder();
