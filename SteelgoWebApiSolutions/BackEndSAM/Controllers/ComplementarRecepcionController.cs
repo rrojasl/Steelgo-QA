@@ -63,7 +63,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(ItemCodeComplemento complemento, string token)
+        public object Put(int folio, string estatus , string token)
         {
             string payload = "";
             string newToken = "";
@@ -72,7 +72,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return null;
+                return FoliosCuantificacionBd.Instance.CambiarEstatus(folio, estatus, usuario);
             }
             else
             {
