@@ -42,6 +42,10 @@ namespace DatabaseManager.Sam3
         public Nullable<int> Cantidad { get; set; }
         public Nullable<int> MM { get; set; }
         public int ColadaID { get; set; }
+        public bool TieneComplementoRecepcion { get; set; }
+        public string EstatusFisico { get; set; }
+        public string EstatusDocumental { get; set; }
+        public int TipoUsoID { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
@@ -53,5 +57,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
         public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
         public virtual Sam3_Colada Sam3_Colada { get; set; }
+        public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
     }
 }

@@ -757,7 +757,7 @@ namespace BackEndSAM.DataAcces
                             }
                             else //accesorio
                             {
-                                for (int i = 0; i <= item.Cantidad; i++) // se genera un numero unico por cada pieza recibida de accesorios
+                                for (int i = 0; i < item.Cantidad; i++) // se genera un numero unico por cada pieza recibida de accesorios
                                 {
                                     folio = folio + 1;
                                     Sam3_NumeroUnico nuevoNU = new Sam3_NumeroUnico();

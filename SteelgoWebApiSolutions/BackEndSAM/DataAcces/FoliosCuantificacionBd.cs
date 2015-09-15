@@ -230,24 +230,24 @@ namespace BackEndSAM.DataAcces
                             join tu in ctx.Sam3_TipoUso on t.TipoUsoID equals tu.TipoUsoID
                             join Bul in ctx.Sam3_Bulto on t.FolioCuantificacionID equals Bul.FolioCuantificacionID into b1
                             from subBul in b1.DefaultIfEmpty()
-                            where t.FolioCuantificacionID == folioCuantificacion 
-                            && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID 
+                            where t.FolioCuantificacionID == folioCuantificacion
+                            && avll.FolioAvisoLlegadaID == folioAvisoLlegadaID
                             && t.Activo && avll.Activo && tu.Activo
                             select new InfoFolioCuantificacion
                             {
                                 ProyectoID = t.ProyectoID,
                                 PackingList = t.PackingList,
-                               
+
                                 TipoUso = new TipoUso()
                                 {
                                     id = t.TipoUsoID.ToString(),
                                     Nombre = tu.Nombre
                                 },
-                            
-                               TipoPackingList = new TipoPackingList()
-                               {
-                                   id = t.TipoMaterialID.ToString()
-                               },
+
+                                TipoPackingList = new TipoPackingList()
+                                {
+                                    id = t.TipoMaterialID.ToString()
+                                },
 
                                 Estatus = detalleBulto == "-1" ? t.Estatus : subBul.Estatus,
 
@@ -286,13 +286,13 @@ namespace BackEndSAM.DataAcces
                     List<int> idItemCodeBulto = null;
 
                     //Obtengo los item codes que tienen los bultos
-                    foreach(int bulto in idBulto)
+                    foreach (int bulto in idBulto)
                     {
                         idItemCodeBulto.AddRange(ctx.Sam3_Rel_Bulto_ItemCode
-                        .Where(x=> x.BultoID == bulto && x.Activo)
-                        .Select(b=> b.ItemCodeID).AsParallel().ToList());
+                        .Where(x => x.BultoID == bulto && x.Activo)
+                        .Select(b => b.ItemCodeID).AsParallel().ToList());
                     }
-                    
+
                     List<int> idItemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                         .Where(x => x.FolioCuantificacionID == folioCuant)
                         .Select(i => i.ItemCodeID).AsParallel().ToList();
@@ -316,7 +316,7 @@ namespace BackEndSAM.DataAcces
 
                     //Si no tiene numeros unicos se elimina
                     if (!tieneNU.Contains(true))
-                    { 
+                    {
                         foreach (int id in idBulto)
                         {
                             Sam3_Bulto bulto = ctx.Sam3_Bulto
@@ -382,6 +382,35 @@ namespace BackEndSAM.DataAcces
                     result.IsAuthenicated = true;
 
                     return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ListadoFoliosCuantificacionProProyecto(int proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> listado = ctx.Sam3_FolioCuantificacion.Where(x => x.ProyectoID == proyectoID)
+                        .Select(x => new ListaCombos
+                                        {
+                                            id = x.FolioCuantificacionID.ToString(),
+                                            value = x.FolioCuantificacionID.ToString()
+                                        })
+                        .AsParallel().Distinct().ToList();
+
+                    return listado.OrderBy(x => x.value).ToList();
                 }
             }
             catch (Exception ex)

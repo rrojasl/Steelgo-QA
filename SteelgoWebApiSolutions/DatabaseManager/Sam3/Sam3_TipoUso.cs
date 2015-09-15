@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_TipoUso()
         {
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
+            this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
         }
     
         public int TipoUsoID { get; set; }
@@ -26,5 +27,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
     
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
     }
 }
