@@ -222,7 +222,7 @@ namespace BackEndSAM.DataAcces
 
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
                             .Where(x => x.ItemCodeID == actualizaItem.ItemCodeID
-                                && x.Prefijo == elementos[0] && x.Consecutivo == temp).SingleOrDefault();
+                                && x.Prefijo == elementos[0] && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID).SingleOrDefault();
 
                         switch (tipoGuardadoID)
                         {
