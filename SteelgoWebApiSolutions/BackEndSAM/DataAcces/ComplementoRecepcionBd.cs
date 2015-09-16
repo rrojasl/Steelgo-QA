@@ -67,7 +67,13 @@ namespace BackEndSAM.DataAcces
                                          D1 = it.Diametro1.ToString(),
                                          D2 = it.Diametro2.ToString(),
                                          ItemCodeID = it.ItemCodeID,
-                                         ProyectoID = it.ProyectoID
+                                         ProyectoID = it.ProyectoID,
+                                         Catidad = it.Cantidad.ToString(),
+                                         MM = it.MM.ToString(),
+                                         Colada = nu.Sam3_Colada.NumeroColada,
+                                         EstatusDocumental = it.EstatusDocumental,
+                                         EstatusFisico = it.EstatusFisico,
+                                         TipoUso = it.Sam3_TipoUso.Nombre
                                      }).AsParallel().Distinct().ToList());
 
                     //agregar items en bulto
@@ -92,7 +98,13 @@ namespace BackEndSAM.DataAcces
                                           D1 = it.Diametro1.ToString(),
                                           D2 = it.Diametro2.ToString(),
                                           ItemCodeID = it.ItemCodeID,
-                                          ProyectoID = it.ProyectoID
+                                          ProyectoID = it.ProyectoID,
+                                          Catidad = it.Cantidad.ToString(),
+                                          MM = it.MM.ToString(),
+                                          Colada = nu.Sam3_Colada.NumeroColada, 
+                                          EstatusDocumental = it.EstatusDocumental, 
+                                          EstatusFisico = it.EstatusFisico, 
+                                          TipoUso = it.Sam3_TipoUso.Nombre
                                       }
                         ).AsParallel().Distinct().ToList());
 
@@ -112,12 +124,19 @@ namespace BackEndSAM.DataAcces
 
                     listado = listado.OrderBy(x => x.NumeroUnico).ToList();
 
+                    List<object> lstReturn = new List<object>();
+                    string Estatus = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID)
+                        .Select(x => x.Estatus).SingleOrDefault();
+
+                    lstReturn.Add(Estatus);
+                    lstReturn.Add(listado);
+
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
+                    string json = serializer.Serialize(lstReturn);
 #endif
 
-                    return listado;
+                    return lstReturn;
                 }
             }
             catch (Exception ex)
