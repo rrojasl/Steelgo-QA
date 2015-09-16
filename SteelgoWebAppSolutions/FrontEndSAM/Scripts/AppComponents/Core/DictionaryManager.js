@@ -3035,6 +3035,18 @@ _dictionary = {
         "es-MX": "Rechazado",
         "en-US": "Rejected"
     },
+    "ComplementoRecepcion0059": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "ComplementoRecepcion0060": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0061": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

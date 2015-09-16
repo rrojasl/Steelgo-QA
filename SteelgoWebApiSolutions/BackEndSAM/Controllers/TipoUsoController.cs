@@ -22,7 +22,7 @@ namespace BackEndSAM.Controllers
         /// </summary>
         /// <param name="token">token</param>
         /// <returns>lista de tipos de uso</returns>
-        public object Get(string token)
+        public object Get(int agregarOpcion,string token)
         {
             string payload = "";
             string newToken = "";
@@ -31,7 +31,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return TipoUsoBd.Instance.ObtenerTipoUso();
+                return TipoUsoBd.Instance.ObtenerTipoUso(agregarOpcion);
             }
             else
             {

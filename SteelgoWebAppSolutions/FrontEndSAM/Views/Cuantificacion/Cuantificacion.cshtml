@@ -1690,7 +1690,7 @@
         };
 
         function ObtenerTipoUso() {
-            $TipoUso.TipoUso.read({ token: Cookies.get("token") }).done(function (result) {
+            $TipoUso.TipoUso.read({ agregarOpcion: 0, token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("TipoUsoID", result);
             });
         };

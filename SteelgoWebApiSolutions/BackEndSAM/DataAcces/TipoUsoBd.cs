@@ -43,7 +43,7 @@ namespace BackEndSAM.DataAcces
         /// Obtener los tipos de uso para Cuantificacion
         /// </summary>
         /// <returns>lista de tipos de uso</returns>
-        public object ObtenerTipoUso()
+        public object ObtenerTipoUso(int agregarOpcion)
         {
             try
             {
@@ -51,8 +51,10 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    //listTU.Add(new TipoUso { Nombre = "Agregar Nuevo", id = "0" });
-
+                    if (agregarOpcion==1)
+                    {
+                        listTU.Add(new TipoUso { Nombre = "Agregar Nuevo", id = "0" });
+                    }
                     List<TipoUso> tipoUso = (from t in ctx.Sam3_TipoUso
                               where t.Activo
                               select new TipoUso

@@ -33,7 +33,7 @@ var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/Doc
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
-var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?token=';
+var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
