@@ -51,7 +51,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a href="#" id="ImprimirOrdenRecepcion"><span id="ComplementoRecepcion0011"></span></a></li>
+                                    <li><a href="#" id="IrListado"><span id="ComplementoRecepcion0011"></span></a></li>
                                     <li><a href="#"><span id="ComplementoRecepcion0012"></span></a></li>
                                 </ul>
                             </div>
@@ -329,7 +329,9 @@
         
         $("#Cancelar").click(function () { Cancelar(); });
         $("#CancelarColada").click(function () { CancelarColada(); });
-
+        $("#IrListado").click(function () {
+            IrListado();
+        });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -461,22 +463,22 @@
 
                 //Si se trata del detalle de un bulto,
                 //no se puede generar otro bulto
-                if (_bultoID != "-1") {
-                    if (!valor) {
-                        displayMessage("notificationslabel0043", "", '1');
-                        return;
-                    }
-                } else {
-                    if (ItemCode.indexOf("Bulto") != -1) {
-                        if (valor) {
-                            window.location.href = _ComplemementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DetalleBulto=1&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&FolioCuantificacionID=" + Cuantificacion.FolioCuantificacionID + "&BultoID=" + valor;
-                        } else {
-                            displayMessage("notificationslabel0040", "", '1');
-                        }
-                    } else {
-                        displayMessage("notificationslabel0042", "", '1');
-                    }
-                }
+                //if (_bultoID != "-1") {
+                //    if (!valor) {
+                //        displayMessage("notificationslabel0043", "", '1');
+                //        return;
+                //    }
+                //} else {
+                //    if (ItemCode.indexOf("Bulto") != -1) {
+                //        if (valor) {
+                //            window.location.href = _ComplemementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&DetalleBulto=1&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&FolioCuantificacionID=" + Cuantificacion.FolioCuantificacionID + "&BultoID=" + valor;
+                //        } else {
+                //            displayMessage("notificationslabel0040", "", '1');
+                //        }
+                //    } else {
+                //        displayMessage("notificationslabel0042", "", '1');
+                //    }
+                //}
             }
         });
 
@@ -518,9 +520,9 @@
     function habilitarControles() {
         $("#ProyectoID").data("kendoComboBox").enable(true);
         $("#FolioCuantificacionID").data("kendoComboBox").enable(true);
-        $("#EstatusFisico").data("kendoComboBox").enable(false);
-        $("#EstatusDocumental").data("kendoComboBox").enable(false);
-        $("#TipoUso").data("kendoComboBox").enable(false);
+        $("#EstatusFisico").data("kendoComboBox").enable(true);
+        $("#EstatusDocumental").data("kendoComboBox").enable(true);
+        $("#TipoUso").data("kendoComboBox").enable(true);
         $(".k-button.k-button-icontext.k-grid-add").removeClass("k-state-disabled");
         $("input:radio").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
@@ -690,6 +692,10 @@
         $("#ComplementoRecepcion0053").hide();
     };
 
+    function IrListado() {
+        window.location.href = _DashBoardRecepcionAlmacenaje + "?leng=" + $("#language").data("kendoDropDownList").value()
+    };
+
     function GenerarOrdenRecepcion() {
         if (_folioCuantificacion != "-1") {
             var detalleIdeaUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
@@ -734,9 +740,9 @@
                                 TipoAcero: { type: "string", editable: false },
                                 D1: { type: "string", editable: false },
                                 D2: { type: "string", editable: false },
-                                Cantidad: { type: "string", editable: false },
+                                Cantidad: { type: "number", editable: true },
                                 MM: { type: "string", editable: true },
-                                Colada: { type: "string", editable: true },
+                                Colada: { type: "string", editable: false },
                                 EstatusFisico: { type: "string", editable: true },
                                 EstatusDocumental: { type: "string", editable: true },
                                 TipoUso: { type: "string", editable: true },
@@ -764,9 +770,6 @@
                     confirmation: false
                 },
                 edit: function (e) {
-                    if (e.model.Colada != "Sin Colada PL") {
-                        this.closeCell();
-                    }
                 },
                 navigatable: true,
                 columns: [
@@ -1155,7 +1158,7 @@
 
         function cicloGuardadoParcial(ListadoCuantificacion, i, idGuardado, error) {
             if (ListadoCuantificacion[i]) {
-                $ListadoCuantificacion.ListadoCuantificacion.create({}, { cerrar: cerrar, incompletos: incompletos, FolioAvisollegadaId: folioAvisoEntradaID, FolioCuantificacionID: _folioCuantificacion, cuantificacion: JSON.stringify(ListadoCuantificacion[i]), token: Cookies.get("token"), idGuardado: idGuardado }).done(function (data) {
+                $ComplementarRecepcion.ComplementarRecepcion.update(ListadoCuantificacion[i], { tipoGuardado: idGuardado, token: Cookies.get("token") }).done(function (data) {
                     error = ErrorInsertandoItems(data, error, ListadoCuantificacion[i]);
                     if (ErrorBool(data)) {
                         AccionesAltaGuardadoParcial(data);
@@ -1185,23 +1188,19 @@
             ocultarStatus();
             cargarTituloFolio();
             CargarLabelEstatus("En Proceso de Recepción");
-            displayMessage("notificationslabel0052", '', '0');
-            ObtenerDatosDelFolioAvisoLlegada();
         };
 
         function cargarGridcompletos(dataJson) {
             if (dataJson) {
-                $.each(dataJson, function (key) {
-                    var item =
-                           { ItemCode: dataJson[key].ItemCode, BultoID: dataJson[key].BultoID, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: dataJson[key].Detallar, TieneNU: dataJson[key].TieneNU, TieneError: dataJson[key].TieneError };
-                    $("#grid").data("kendoGrid").dataSource.insert(item);
-                });
+                var item =
+                        { NumeroUnico: dataJson.NumeroUnico, NumeroUnicoCliente: dataJson.NumeroUnicoCliente, ItemCode: dataJson.ItemCode, Descripcion: dataJson.Descripcion, Cedula: dataJson.Cedula, TipoAcero: dataJson.TipoAcero, D1: dataJson.D1, D2: dataJson.D2, Cantidad: dataJson.Cantidad, MM: dataJson.MM, Colada: dataJson.Colada, EstatusFisico: dataJson.EstatusFisico, EstatusDocumental: dataJson.EstatusDocumental, TipoUso: dataJson.TipoUso, TieneError: dataJson.TieneError };
+                $("#grid").data("kendoGrid").dataSource.insert(item);
             }
         };
         function cargarGridErrores(incompletos) {
             if (incompletos) {
                 var item =
-                       { ItemCode: incompletos.ItemCode, BultoID: incompletos.BultoID, Descripcion: incompletos.Descripcion, D1: incompletos.D1, D2: incompletos.D2, ItemCodeSteelgo: incompletos.ItemCodeSteelgo, Familia: incompletos.Familia, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, Colada: incompletos.Colada, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Detallar: incompletos.Detallar, TieneNU: incompletos.TieneNU, TieneError: true };
+                       { ItemCode: incompletos.NumeroUnico, NumeroUnicoCliente: incompletos.NumeroUnicoCliente, ItemCode: incompletos.ItemCode, Descripcion: incompletos.Descripcion, Cedula: incompletos.Cedula, TipoAcero: incompletos.TipoAcero, D1: incompletos.D1, D2: incompletos.D2, Cantidad: incompletos.Cantidad, MM: incompletos.MM, Colada: incompletos.Colada, EstatusFisico: incompletos.EstatusFisico, EstatusDocumental: incompletos.EstatusDocumental, TipoUso: incompletos.TipoUso, TieneError: true };
                 $("#grid").data("kendoGrid").dataSource.insert(item);
             }
         };
@@ -1211,14 +1210,14 @@
             if (dataJson) {
                 $.each(dataJson, function (key) {
                     var item =
-                           { ItemCode: dataJson[key].ItemCode, BultoID: dataJson[key].BultoID, Descripcion: dataJson[key].Descripcion, D1: dataJson[key].D1, D2: dataJson[key].D2, ItemCodeSteelgo: dataJson[key].ItemCodeSteelgo, Familia: dataJson[key].Familia, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, Colada: dataJson[key].Colada, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Detallar: dataJson[key].Detallar, TieneNU: dataJson[key].TieneNU, TieneError: dataJson[key].TieneError };
+                          { NumeroUnico: dataJson[key].NumeroUnico, NumeroUnicoCliente: dataJson[key].NumeroUnicoCliente, ItemCode: dataJson[key].ItemCode, Descripcion: dataJson[key].Descripcion, Cedula: dataJson[key].Cedula, TipoAcero: dataJson[key].TipoAcero, D1: dataJson[key].D1, D2: dataJson[key].D2, Cantidad: dataJson[key].Cantidad, MM: dataJson[key].MM, Colada: dataJson[key].Colada, EstatusFisico: dataJson[key].EstatusFisico, EstatusDocumental: dataJson[key].EstatusDocumental, TipoUso: dataJson[key].TipoUso, TieneError: dataJson[key].TieneError };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
                 });
             };
             if (incompletos) {
                 $.each(incompletos, function (key) {
                     var item =
-                           { ItemCode: incompletos[key].ItemCode, BultoID: incompletos[key].BultoID, Descripcion: incompletos[key].Descripcion, D1: incompletos[key].D1, D2: incompletos[key].D2, ItemCodeSteelgo: incompletos[key].ItemCodeSteelgo, Familia: incompletos[key].Familia, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, Colada: incompletos[key].Colada, Cantidad: incompletos[key].Cantidad, MM: incompletos[key].MM, Detallar: incompletos[key].Detallar, TieneNU: incompletos[key].TieneNU, TieneError: incompletos[key].TieneError };
+                           { NumeroUnico: incompletos[key].NumeroUnico, NumeroUnicoCliente: incompletos[key].NumeroUnicoCliente, ItemCode: incompletos[key].ItemCode, Descripcion: incompletos[key].Descripcion, Cedula: incompletos[key].Cedula, TipoAcero: incompletos[key].TipoAcero, D1: incompletos[key].D1, D2: incompletos[key].D2, Cantidad: incompletos[key].Cantidad, MM: incompletos[key].MM, Colada: incompletos[key].Colada, EstatusFisico: incompletos[key].EstatusFisico, EstatusDocumental: incompletos[key].EstatusDocumental, TipoUso: incompletos[key].TipoUso, TieneError: incompletos[key].TieneError };
                     $("#grid").data("kendoGrid").dataSource.insert(item);
                 });
             }
@@ -1239,12 +1238,6 @@
                 loadingStop();
             });
         };
-
-
-
-     
-
-       
 
         function EstatusFisicoAutocomplete(container, options) {
             $('<input required data-text-field="Nombre" data-value-field="EstatFisicoID" data-bind="value:' + options.field + '"/>')
@@ -1457,7 +1450,6 @@
         var query = new kendo.data.Query(allData);
         var result = query.data;
         var datasource = result;
-        var folioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "-1";
         var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
 
         ListadoCuantificacionIncompletos = [];
@@ -1504,11 +1496,13 @@
             llenarGrid(null, ListadoCuantificacionIncompletos);
             ordenamientoGrid();
             loadingStop();
+            displayMessage("notificationslabel0051", '', '1');
             return;
         }
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
-            displayMessage("notificationslabel0046", '', '1');
+            displayMessage("notificationslabel0053", '', '1');
+            loadingStop();
             return;
         }
 
@@ -1545,7 +1539,7 @@
             var TipoUso = datasource[i].TipoUso;
             var TieneError = datasource[i].TieneError;
 
-            if (!NumeroUnico) {
+            if (!NumeroUnico || (!MM && MM < 0) || !EstatusFisico || !Colada || !EstatusDocumental || !TipoUso) {
                 datasource[i].TieneError = true;
                 ListadoCuantificacionIncompletos[z] = {
                     NumeroUnico: NumeroUnico, NumeroUnicoCliente: NumeroUnicoCliente, ItemCode: ItemCode,
@@ -1568,12 +1562,14 @@
         if (!ListadoCuantificacion.length && ListadoCuantificacionIncompletos.length) {
             llenarGrid(null, ListadoCuantificacionIncompletos);
             ordenamientoGrid();
+            displayMessage("notificationslabel0051", '', '1');
             loadingStop();
             return;
         }
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
-            displayMessage("notificationslabel0046", '', '1');
+            displayMessage("notificationslabel0053", '', '1');
+            loadingStop();
             return;
         }
 

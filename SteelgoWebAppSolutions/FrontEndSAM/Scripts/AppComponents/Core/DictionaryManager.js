@@ -3244,6 +3244,10 @@ _dictionary = {
         "es-MX": "Se han guardado los registros.",
         "en-US": "Records have been kept."
     },
+    "notificationslabel0053": {
+        "es-MX": "El folio cuantificacion no tiene registros para realizar la acción.",
+        "en-US": "Folio quantification has no records to perform the action."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

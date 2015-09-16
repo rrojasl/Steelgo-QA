@@ -2068,6 +2068,7 @@
 
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0046", '', '1');
+                loadingStop();
                 return;
             }
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
@@ -2241,6 +2242,7 @@
 
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0046", '', '1');
+                loadingStop();
                 return;
             }
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
@@ -2416,6 +2418,7 @@
 
         if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
             displayMessage("notificationslabel0046", '', '1');
+            loadingStop();
             return;
         }
         var i = 0, error = "";
@@ -2573,6 +2576,7 @@
             
             if (!ListadoCuantificacion.length && !ListadoCuantificacionIncompletos.length) {
                 displayMessage("notificationslabel0046", '', '1');
+                loadingStop();
                 return;
             } 
             var ArrayCuantificacion = ArregloFolioCuantificacion(folioAvisoEntradaID, folioCuantificacionID);
