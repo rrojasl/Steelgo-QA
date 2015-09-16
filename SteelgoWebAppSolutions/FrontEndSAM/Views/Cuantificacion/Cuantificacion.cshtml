@@ -1820,6 +1820,10 @@
             if (status == "Cerrado") {
                 $("#Cuantificacion0078").show();
             }
+
+            if (status == "Recepción Terminada") {
+                $("#Cuantificacion0086").show();
+            }
         };
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
@@ -2310,7 +2314,7 @@
             if (incompletos) {
                 displayMessage("notificationslabel0037", "", '1');
                 BotonAlta();
-
+                CambiarEstatusNoCompleto();
                 return;
             }
            

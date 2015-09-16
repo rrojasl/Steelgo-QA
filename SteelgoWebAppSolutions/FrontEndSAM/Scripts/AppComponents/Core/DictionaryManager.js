@@ -1178,7 +1178,7 @@ _dictionary = {
     },
     "Cuantificacion0027": {
         "es-MX": "Vacios",
-        "en-US": "Vacios"
+        "en-US": "Empty"
     },
     "Cuantificacion0028": {
         "es-MX": "Item Code",
@@ -1411,6 +1411,10 @@ _dictionary = {
     "Cuantificacion0085": {
         "es-MX": "Regresar al Listado",
         "en-US": "Back to list"
+    },
+    "Cuantificacion0086": {
+        "es-MX": "Recepción Terminada",
+        "en-US": "Reception Finished"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
@@ -2798,6 +2802,219 @@ _dictionary = {
         "es-MX": "Dashboard Recepcion y Almacenaje",
         "en-US": "Dashboard Recepcion y Almacenaje"
     },
+    //Complemento Recepcion
+    "ComplementoRecepcion0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ComplementoRecepcion0002": {
+        "es-MX": "Dashboard Recepción y Almacenaje",
+        "en-US": "Dashboard Recepción y Almacenaje"
+    },
+    "ComplementoRecepcion0003": {
+        "es-MX": "Complemento Recepción",
+        "en-US": "Reception Complement"
+    },
+    "ComplementoRecepcion0004": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0005": {
+        "es-MX": "Terminar y Nuevo",
+        "en-US": "End and New"
+    },
+    "ComplementoRecepcion0006": {
+        "es-MX": "Guardar e Imprimir",
+        "en-US": "Save and Print"
+    },
+    "ComplementoRecepcion0007": {
+        "es-MX": "Guardar Parcialmente",
+        "en-US": "Partially Save"
+    },
+    "ComplementoRecepcion0008": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0009": {
+        "es-MX": "Generar Orden Almacenaje",
+        "en-US": "Generate Storage Order"
+    },
+    "ComplementoRecepcion0010": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "ComplementoRecepcion0011": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "ComplementoRecepcion0012": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "ComplementoRecepcion0013": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ComplementoRecepcion0014": {
+        "es-MX": "Folio de Llegada",
+        "en-US": "Folio de Llegada"
+    },
+    "ComplementoRecepcion0015": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "ComplementoRecepcion0016": {
+        "es-MX": "Llenado Masivo: ",
+        "en-US": "Filling Mass: "
+    },
+    "ComplementoRecepcion0017": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "ComplementoRecepcion0018": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
+    "ComplementoRecepcion0019": {
+        "es-MX": "Estatus Físico",
+        "en-US": "Status Physical"
+    },
+    "ComplementoRecepcion0020": {
+        "es-MX": "Estatus Documental",
+        "en-US": "Documentary Status"
+    },
+    "ComplementoRecepcion0021": {
+        "es-MX": "Tipo de Uso",
+        "en-US": "Use type"
+    },
+    "ComplementoRecepcion0022": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "ComplementoRecepcion0023": {
+        "es-MX": "Número Único Cliente",
+        "en-US": "Unique Number Client"
+    },
+    "ComplementoRecepcion0024": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ComplementoRecepcion0025": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ComplementoRecepcion0026": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "ComplementoRecepcion0027": {
+        "es-MX": "Tipo Acero",
+        "en-US": "Steel Type"
+    },
+    "ComplementoRecepcion0028": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "ComplementoRecepcion0029": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "ComplementoRecepcion0030": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "ComplementoRecepcion0031": {
+        "es-MX": "MM",
+        "en-US": "MM"
+    },
+    "ComplementoRecepcion0032": {
+        "es-MX": "Colada",
+        "en-US": "Wash"
+    },
+    "ComplementoRecepcion0033": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "ComplementoRecepcion0034": {
+        "es-MX": "Estatus Físico",
+        "en-US": "Status Physical"
+    },
+    "ComplementoRecepcion0035": {
+        "es-MX": "Estatus Documental",
+        "en-US": "Documentary Status"
+    },
+    "ComplementoRecepcion0036": {
+        "es-MX": "Tipo de Uso",
+        "en-US": "Use type"
+    },
+    "ComplementoRecepcion0037": {
+        "es-MX": "Tiene Error",
+        "en-US": "It Has Error"
+    },
+    "ComplementoRecepcion0038": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0039": {
+        "es-MX": "En Proceso Recepción",
+        "en-US": "Reception in Progress"
+    },
+    "ComplementoRecepcion0040": {
+        "es-MX": "Recepción Terminada",
+        "en-US": "Reception Finished"
+    },
+    "ComplementoRecepcion0041": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "ComplementoRecepcion0042": {
+        "es-MX": "En Proceso de Recepción",
+        "en-US": "Reception in Progress"
+    },
+    "ComplementoRecepcion0043": {
+        "es-MX": "Recepción Terminada",
+        "en-US": "Reception Finished"
+    },
+    "ComplementoRecepcion0044": {
+        "es-MX": "Fabricante",
+        "en-US": "Manufacturer"
+    },
+    "ComplementoRecepcion0045": {
+        "es-MX": "Acero",
+        "en-US": "Steel"
+    },
+    "ComplementoRecepcion0046": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ComplementoRecepcion0047": {
+        "es-MX": "Número Colada",
+        "en-US": "# Colada"
+    },
+    "ComplementoRecepcion0048": {
+        "es-MX": "Número Certificado",
+        "en-US": "# Certificado"
+    },
+    "ComplementoRecepcion0049": {
+        "es-MX": "Hold Calidad",
+        "en-US": "Hold Calidad"
+    },
+    "ComplementoRecepcion0050": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ComplementoRecepcion0051": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ComplementoRecepcion0052": {
+        "es-MX": "Terminado",
+        "en-US": "Finished"
+    },
+    "ComplementoRecepcion0053": {
+        "es-MX": "Cerrado",
+        "en-US": "Closed"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -2994,6 +3211,18 @@ _dictionary = {
     "notificationslabel0049": {
         "es-MX": "Se encontraron registros duplicados. Se obtuvo el registro mas reciente y se sumo la cantidad.",
         "en-US": "Duplicate records were found. The most recent entry was obtained and the amount is high."
+    },
+    "notificationslabel0050": {
+        "es-MX": "Favor de verificar los siguientes registros: ",
+        "en-US": ""
+    },
+    "notificationslabel0051": {
+        "es-MX": "Favor de validar los item codes marcados en rojo.",
+        "en-US": "Please validate the item codes marked in red."
+    },
+    "notificationslabel0052": {
+        "es-MX": "Se han guardado los registros.",
+        "en-US": "Records have been kept."
     },
     //Default to copy
     "label9999": {
