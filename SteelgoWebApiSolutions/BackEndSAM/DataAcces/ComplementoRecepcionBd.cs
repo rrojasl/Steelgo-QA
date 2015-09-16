@@ -219,10 +219,11 @@ namespace BackEndSAM.DataAcces
 
                         string[] elementos = itemCodeJson.NumeroUnico.Split('-').ToArray();
                         int temp = Convert.ToInt32(elementos[1]);
+                        string prefijo = elementos[0];
 
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
                             .Where(x => x.ItemCodeID == actualizaItem.ItemCodeID
-                                && x.Prefijo == elementos[0] && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID).SingleOrDefault();
+                                && x.Prefijo == prefijo && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID).SingleOrDefault();
 
                         switch (tipoGuardadoID)
                         {
@@ -266,7 +267,7 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.SaveChanges();
 
-                                itemCodeJson = ObtenerPropiedadesJson(itemCodeJson.ItemCodeID);
+                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID);
                                 itemCodeJson.TieneError = false;
 
                                 break;
@@ -316,7 +317,7 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.SaveChanges();
 
-                                itemCodeJson = ObtenerPropiedadesJson(itemCodeJson.ItemCodeID);
+                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID);
                                 itemCodeJson.TieneError = false;
 
                                 break;
