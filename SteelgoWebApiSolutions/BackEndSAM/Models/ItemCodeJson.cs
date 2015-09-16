@@ -39,7 +39,7 @@ namespace BackEndSAM.Models
         public string TipoAcero { get; set; }
         public string D1 { get; set; }
         public string D2 { get; set; }
-        public string Catidad { get; set; }
+        public string Cantidad { get; set; }
         public string MM { get; set; }
         public string Colada { get; set; }
         public string EstatusFisico { get; set; }
