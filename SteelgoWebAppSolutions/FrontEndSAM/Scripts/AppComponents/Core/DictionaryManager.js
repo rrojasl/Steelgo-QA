@@ -3047,6 +3047,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "ComplementoRecepcion0062": {
+        "es-MX": "Colada",
+        "en-US": "Wash"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

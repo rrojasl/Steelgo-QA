@@ -74,6 +74,10 @@
                         <div id="MostrarDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <a id="Mostrar" href="#" class="btn btn-primary"><span id="ComplementoRecepcion0015"></span></a>
                         </div>
+                        <div id="ColadaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="ComplementoRecepcion0062"></label>
+                            <input id="Colada" class="" />
+                        </div>
                         <div id="EstatusFisicoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="ComplementoRecepcion0019"></label>
                             <input id="EstatusFisico" class="" />
@@ -310,8 +314,6 @@
 
     function cargaInicial() {
 
-        CargarMenuGrid();
-
         //Botones
         $("#Editar").click(function (e) { BotonEdicion(); });
         $("#Guardar").click(function () {
@@ -468,6 +470,18 @@
         ObtenerProyecto("Proyecto_Colada");
 
 
+        $("#Colada").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ColadaID",
+            change: function (e) {
+                var value = this.value();
+                changeValueColumnColada($("#Colada").data("kendoComboBox").text());
+                $("#Colada").data("kendoComboBox").value("");
+            },
+            filter: "contains",
+        });
+        ObtenerColada("Colada", 1, 0);
+
         $("#GuardarTipoUso").click(function () {
             if (validarRequeridosModalColada()) {
                 GuardarTipoUso();
@@ -477,10 +491,6 @@
         });
         $("#CancelarTipoUso").click(function () { CancelarTipoUso(); });
         
-    };
-
-    function CargarMenuGrid() {
-       
     };
 
     function Cancelar() {
@@ -522,6 +532,7 @@
         $(".k-button.k-button-icontext.k-grid-add").removeClass("k-state-disabled");
         $("input:radio").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
+        $("#Mostrar").removeAttr("disabled");
         CambiarEstatus("En Proceso de Recepción");
     };
 
@@ -546,6 +557,7 @@
         $(".k-button.k-button-icontext.k-grid-add").addClass("k-state-disabled");
         $("input:radio").attr('disabled', "disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
+        $("#Mostrar").attr("disabled", "disabled");
     };
 
 
@@ -709,6 +721,12 @@
 
     function IrListado() {
         window.location.href = _DashBoardRecepcionAlmacenaje + "?leng=" + $("#language").data("kendoDropDownList").value()
+    };
+
+    function ObtenerColada(id, opciones, mostrarOpcionNuevo) {
+        $Colada.Colada.read({ token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcionNuevo }).done(function (result) {
+            ControlErroresObjetosComboBox(id, result);
+        });
     };
 
     function GenerarOrdenRecepcion() {
@@ -990,6 +1008,18 @@
         function ObtenerAceroColada() {
             $TipoAcero.TipoAcero.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Acero_Colada", result);
+            });
+        };
+
+        function changeValueColumnColada(value) {
+            var filters = $("#grid").data("kendoGrid").dataSource.filter();
+            var allData = $("#grid").data("kendoGrid").dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var result = query.filter(filters).data;
+            var datasource = result;
+
+            $(datasource).each(function () {
+                this.set("Colada", value);
             });
         };
 
