@@ -3263,6 +3263,10 @@ _dictionary = {
     "notificationslabel0053": {
         "es-MX": "El folio cuantificacion no tiene registros para realizar la acción.",
         "en-US": "Folio quantification has no records to perform the action."
+    }, 
+    "notificationslabel0054": {
+        "es-MX": "Favor de seleccionar un Folio de llegada.",
+        "en-US": ""
     },
     //Default to copy
     "label9999": {

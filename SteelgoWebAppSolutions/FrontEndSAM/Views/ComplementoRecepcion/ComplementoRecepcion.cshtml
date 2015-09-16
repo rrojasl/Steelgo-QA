@@ -44,7 +44,7 @@
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="ComplementoRecepcion0008"></span></a>
                         </div>
                         <div class="button-section">
-                            <a id="GenerarOrdenRecepcion" href="#" class="btn btn-primary"><span id="ComplementoRecepcion0009"></span></a>
+                            <a id="GenerarOrdenAlmacenaje" href="#" class="btn btn-primary"><span id="ComplementoRecepcion0009"></span></a>
                         </div>
                         <div class="button-section">
                             <div class="dropdown action-group">
@@ -194,8 +194,8 @@
         focusResp = "ProyectoID";
 
     var _ComplemementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
-            var _DashBoardRecepcionAlmacenaje = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
-
+    var _DashBoardRecepcionAlmacenaje = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
+    var _GenerarOrdenAlmacenajeUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
     var _folioCuantificacion = getUrlParameter("FolioCuantificacionID", "-1");
 
@@ -334,11 +334,11 @@
             }
         });
 
-        $("#GenerarOrdenRecepcion").click(function () {
+        $("#GenerarOrdenAlmacenaje").click(function () {
             if (validarRequeridosFormaComplementoRecepcion()) {
-                GenerarOrdenRecepcion();
+                GenerarOrdenAlmacenaje();
             } else {
-                displayMessage("notificationslabel0031", "", '1');
+                displayMessage("notificationslabel0054", "", '1');
             }
         });
 
@@ -763,14 +763,13 @@
         });
     };
 
-    function GenerarOrdenRecepcion() {
-        if (_folioCuantificacion != "-1") {
-            var detalleIdeaUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioCuantificacionID=" + Cuantificacion.FolioCuantificacionID + "&ProyectoID=" + Proyecto.ProyectoID;
-            } else {
-                displayMessage("notificationslabel0040", "", '1');
-            }
-        };
+    function GenerarOrdenAlmacenaje() {
+        if (Cuantificacion.FolioCuantificacionID) {
+            window.location.href = _GenerarOrdenAlmacenajeUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioCuantificacionID=" + Cuantificacion.FolioCuantificacionID + "&ProyectoID=" + Proyecto.ProyectoID;
+        } else {
+            displayMessage("notificationslabel0054", "", '1');
+        }
+    };
 
         function GuardarColada() {
             ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
