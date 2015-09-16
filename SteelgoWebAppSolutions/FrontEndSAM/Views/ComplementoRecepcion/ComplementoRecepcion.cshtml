@@ -23,6 +23,8 @@
                 <span id="ComplementoRecepcion0041"></span>
                 <span id="ComplementoRecepcion0042" class="statusLabel"></span>
                 <span id="ComplementoRecepcion0043" class="statusLabel"></span>
+                <span id="ComplementoRecepcion0052" class="statusLabel"></span>
+                <span id="ComplementoRecepcion0053" class="statusLabel"></span>
                 <div class="branchCut"></div>
             </span>
             <div class="formNav clearfix">
@@ -1016,6 +1018,10 @@
                 $("#ComplementoRecepcion0042").show();
             }
 
+            if (status == "Recepción Terminada") {
+                $("#ComplementoRecepcion0043").show();
+            }
+
             if (status == "Terminado") {
                 $("#ComplementoRecepcion0052").show();
             }
@@ -1024,9 +1030,7 @@
                 $("#ComplementoRecepcion0053").show();
             }
 
-            if (status == "Recepción Terminada") {
-                $("#ComplementoRecepcion0040").show();
-            }
+            
         };
 
 
