@@ -16,7 +16,7 @@
     </li>
 }
 
-<div id="formComplementoRecepcion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12"  oncontextmenu='return false' onkeydown='return false'>
+<div id="formComplementoRecepcion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12"  >
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <span id="divFolio" class="folioLabel hidden">
@@ -482,6 +482,36 @@
         });
         ObtenerColada("Colada", 1, 0);
 
+
+        //$("#Colada").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        changeValueColumnColada(this.value);
+        //        $("#Colada").data("kendoComboBox").value("");
+        //    }
+        //});
+
+
+        //$("#EstatusFisico").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        changeValueColumnEstatusFisico(this.value);
+        //        $("#EstatusFisico").data("kendoComboBox").value("");
+        //    }
+        //});
+
+        //$("#EstatusDocumental").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        changeValueColumnEstatusDocumental(this.value);
+        //        $("#EstatusDocumental").data("kendoComboBox").value("");
+        //    }
+        //});
+
+        //$("#TipoUso").keydown(function (e) {
+        //    if (e.keyCode == 13) {
+        //        changeValueColumnTipoUso(this.value);
+        //        $("#TipoUso").data("kendoComboBox").value("");
+        //    }
+        //});
+
         $("#GuardarTipoUso").click(function () {
             if (validarRequeridosModalColada()) {
                 GuardarTipoUso();
@@ -533,6 +563,7 @@
         $("input:radio").removeAttr("disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
         $("#Mostrar").removeAttr("disabled");
+        $("#Colada").data("kendoComboBox").enable(true);
         CambiarEstatus("En Proceso de Recepción");
     };
 
@@ -558,6 +589,7 @@
         $("input:radio").attr('disabled', "disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
         $("#Mostrar").attr("disabled", "disabled");
+        $("#Colada").data("kendoComboBox").enable(false);
     };
 
 
@@ -890,15 +922,14 @@
                 var rowIdx = $("tr", $("#grid").data("kendoGrid").tbody).index(row);
                 var colIdx = $("td", row).index(this);
                 var valor = $("td", row)[10].innerHTML;
-                //if (e.which == 3) {
-                    if (colIdx == 10)
+               
+                if (colIdx == 10)
+                {
+                    if (valor != "Sin Colada PL")
                     {
-                        if (valor != "Sin Colada PL")
-                        {
-                            VentanaModal(1);
-                        }
+                        VentanaModal(1);
                     }
-                //}
+                }
             });
         };
 
@@ -1661,12 +1692,6 @@
         keydown(e);
     }).keyup(function (e) {
         if (e.keyCode == ctrlKey) ctrlDown = false;
-    });
-
-    $('#grid').bind('contextmenu', function (e) {
-        // evito que se ejecute el evento
-        e.preventDefault();
-        // conjunto de acciones a realizar
     });
 
     cargaInicial();
