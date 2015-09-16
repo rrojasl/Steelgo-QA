@@ -46,5 +46,6 @@ namespace BackEndSAM.Models
         public string EstatusDocumental { get; set; }
         public string TipoUso { get; set; }
         public int ProyectoID { get; set; }
+        public bool TieneError { get; set; }
     }
 }

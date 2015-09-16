@@ -69,6 +69,7 @@ namespace BackEndSAM.DataAcces
                                          ItemCodeID = it.ItemCodeID,
                                          ProyectoID = it.ProyectoID
                                      }).AsParallel().Distinct().ToList());
+
                     //agregar items en bulto
                     listado.AddRange((from fc in ctx.Sam3_FolioCuantificacion
                                       join b in ctx.Sam3_Bulto on fc.FolioCuantificacionID equals b.FolioCuantificacionID
@@ -128,6 +129,60 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
+            }
+        }
+
+        private ItemCodeComplemento ObtenerPropiedadesJson(int itemCodeID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ItemCodeComplemento item = new ItemCodeComplemento();
+                    //Agregamos items con relacion con Folio Cuantificacion
+                    item = (from it in ctx.Sam3_ItemCode
+                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
+                                      where it.Activo && nu.Activo
+                                      && it.ItemCodeID == itemCodeID
+                                      select new ItemCodeComplemento
+                                      {
+                                          NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                          ItemCode = it.Codigo,
+                                          NumeroUnicoCliente = nu.NumeroUnicoCliente,
+                                          Descripcion = it.DescripcionEspanol,
+                                          Cedula = nu.Cedula,
+                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                                       select fa.Nombre).FirstOrDefault(),
+                                          D1 = it.Diametro1.ToString(),
+                                          D2 = it.Diametro2.ToString(),
+                                          ItemCodeID = it.ItemCodeID,
+                                          ProyectoID = it.ProyectoID
+                                      }).AsParallel().SingleOrDefault();
+
+
+                        int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
+                            .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                        string formato = "D" + numeroDigitos.ToString();
+
+                        string[] elementos = item.NumeroUnico.Split('-').ToArray();
+
+                        int temp = Convert.ToInt32(elementos[1]);
+
+                        item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(item);
+#endif
+
+                    return item;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 
@@ -192,6 +247,9 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.SaveChanges();
 
+                                itemCodeJson = ObtenerPropiedadesJson(itemCodeJson.ItemCodeID);
+                                itemCodeJson.TieneError = false;
+
                                 break;
                             case 2: // Guardar y terminar
 
@@ -238,6 +296,10 @@ namespace BackEndSAM.DataAcces
                                 }
 
                                 ctx.SaveChanges();
+
+                                itemCodeJson = ObtenerPropiedadesJson(itemCodeJson.ItemCodeID);
+                                itemCodeJson.TieneError = false;
+
                                 break;
                             default:
 
@@ -251,26 +313,16 @@ namespace BackEndSAM.DataAcces
                     }// fin using SAM
                     scope.Complete();
 
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                    return itemCodeJson;
+                    
                 }// Fin Scope
             }
             catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
+                itemCodeJson.TieneError = true;
+                return itemCodeJson;
             }
         }
 
-        
     }
 }
