@@ -3015,6 +3015,26 @@ _dictionary = {
         "es-MX": "Cerrado",
         "en-US": "Closed"
     },
+    "ComplementoRecepcion0054": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "ComplementoRecepcion0055": {
+        "es-MX": "Condicionado",
+        "en-US": "Conditioned"
+    },
+    "ComplementoRecepcion0056": {
+        "es-MX": "Dañado",
+        "en-US": "Damaged"
+    },
+    "ComplementoRecepcion0057": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "ComplementoRecepcion0058": {
+        "es-MX": "Rechazado",
+        "en-US": "Rejected"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
