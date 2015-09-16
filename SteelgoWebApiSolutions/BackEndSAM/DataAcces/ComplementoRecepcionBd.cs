@@ -176,7 +176,13 @@ namespace BackEndSAM.DataAcces
                                           D1 = it.Diametro1.ToString(),
                                           D2 = it.Diametro2.ToString(),
                                           ItemCodeID = it.ItemCodeID,
-                                          ProyectoID = it.ProyectoID
+                                          ProyectoID = it.ProyectoID,
+                                          Cantidad = it.Cantidad,
+                                          MM = it.MM.ToString(),
+                                          Colada = nu.Sam3_Colada.NumeroColada,
+                                          EstatusDocumental = it.EstatusDocumental,
+                                          EstatusFisico = it.EstatusFisico,
+                                          TipoUso = it.Sam3_TipoUso.Nombre
                                       }).AsParallel().SingleOrDefault();
 
 
@@ -244,7 +250,7 @@ namespace BackEndSAM.DataAcces
                                 if (actualizaItem != null)
                                 {
                                     actualizaItem.MM = itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                    actualizaItem.ColadaID = itemCodeJson.Colada != "" ?
+                                    actualizaItem.ColadaID = itemCodeJson.Colada != "" && itemCodeJson.Colada != null ?
                                         (from co in ctx.Sam3_Colada
                                          where co.Activo && co.NumeroColada == itemCodeJson.Colada
                                          select co.ColadaID
@@ -252,7 +258,7 @@ namespace BackEndSAM.DataAcces
                                         : 1;
                                     actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
                                     actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
-                                    actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" ?
+                                    actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
                                         (from tp in ctx.Sam3_TipoUso
                                          where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                          select tp.TipoUsoID).SingleOrDefault() : 1;
@@ -294,7 +300,7 @@ namespace BackEndSAM.DataAcces
                                     }
 
                                     actualizaItem.MM = itemCodeJson.MM != "" ? Convert.ToInt32(itemCodeJson.MM) : 0;
-                                    actualizaItem.ColadaID = itemCodeJson.Colada != "" ?
+                                    actualizaItem.ColadaID = itemCodeJson.Colada != "" && itemCodeJson.Colada != null ?
                                         (from co in ctx.Sam3_Colada
                                          where co.Activo && co.NumeroColada == itemCodeJson.Colada
                                          select co.ColadaID
@@ -302,7 +308,7 @@ namespace BackEndSAM.DataAcces
                                         : 1;
                                     actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
                                     actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
-                                    actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" ?
+                                    actualizaItem.TipoUsoID = itemCodeJson.TipoUso != "" && itemCodeJson.TipoUso != null ?
                                         (from tp in ctx.Sam3_TipoUso
                                          where tp.Activo && tp.Nombre == itemCodeJson.TipoUso
                                          select tp.TipoUsoID).SingleOrDefault() : 1;

@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(string token, int id = 0, int mostrarOpcion=0)
+        public object Get(string token, int id = 0, int mostrarOpcion = 0)
         {
             string payload = "";
             string newToken = "";
