@@ -357,29 +357,7 @@
             });
         };
 
-    //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
-    //Funcion: ObtenerPatio
-    //Parametros: N/A
-    //Return:     N/A
-        function ObtenerFolioEntradaMaterial() {
-            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
-            });
-        };
-    //Se realiza una peticion para obtenr los clientes y cargar el combo con los valores
-    //Funcion: ObtenerCliente
-    //Parametros: N/A
-    //Return:     N/A
-        function ObtenerCliente() {
-            $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("ClienteID", result);
-            });
-        };
-        //Se forma un objeto con todos los filtros e indicando cual tab fue seleccionado
-        // creados, sin permiso, sin autorizacion,completos
-        //Funcion: ObtenerCliente
-        //Parametros: accion
-        //Return:    Listado
+
         function ArregloListado(accion) {
             var Listado = { PatioID: "", ProyectoID: "", FolioCuantificacionID: "", FolioPackingListID: "", TipoListado: "" };
 
