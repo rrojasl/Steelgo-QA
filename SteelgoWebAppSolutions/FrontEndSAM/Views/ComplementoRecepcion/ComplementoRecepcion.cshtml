@@ -211,7 +211,7 @@
     var _GenerarOrdenAlmacenajeUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
     var _folioCuantificacion = getUrlParameter("FolioCuantificacionID", "-1");
-
+    var _edicion = getUrlParameter("Edicion", "-1");
     //Mappeo de Controles y sus flechas
     var mapeoNavegacion = {
         "ProyectoID": { 37: "FolioCuantificacionID", 38: "ProyectoID", 39: "FolioCuantificacionID", 40: "EstatusFisico" },
@@ -575,16 +575,21 @@
     };
 
     function cargaInicialEdicion() {
-        $("#AccionRegresar").css("display", "none");
-        $("#FolioAvisoEntradaID").data("kendoComboBox").value(_folioAvisoEntradaID);
-        $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion != "-1" ? _folioCuantificacion : "");
+        $("#FolioCuantificacionID").data("kendoComboBox").text(_folioCuantificacion);
         CargarFolioCuantificacion(_folioCuantificacion);
-        CargarFolioAvisoEntrada(_folioAvisoEntradaID, _folioAvisoEntradaID);
-
-        ObtenerDatosDelFolioAvisoLlegada();
-        ObtenerDatosDelFolioAvisoLlegadaCuantificacion(_folioAvisoEntradaID, _folioCuantificacion);
+        ObtenerProyectoFolioCuantificacion();
     };
 
+    function ObtenerProyectoFolioCuantificacion() {
+        $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({folioCuantificacionID: Cuantificacion.FolioCuantificacionID, token: Cookies.get("token"), }).done(function (result) {
+            if (Error(result)) {
+                $("#ProyectoID").data("kendoComboBox").value(result);
+                CargarProyecto(result, $("#ProyectoID").data("kendoComboBox").text());
+                ObtenerDatosFolioCuantificacion();
+                ObtenerDatosDelFolioCuantificacion(_folioCuantificacion);
+            }
+        });
+    };
     function BotonEdicion() {
         loadingStart();
         $("#dropdown-toggle").show();
@@ -1754,9 +1759,9 @@
     cargaInicial();
 
     ////edicion de un folio cuantificacion
-    //if (_edicion != "-1") {
-    //    cargaInicialEdicion();
-    //};
+    if (_edicion != "-1") {
+        cargaInicialEdicion();
+    };
 
 
     //$authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;

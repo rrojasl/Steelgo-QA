@@ -38,6 +38,29 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ObtenerProyectoFolioCuantificacion(int folioCuantificacionID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_FolioCuantificacion folio = ctx.Sam3_FolioCuantificacion.Where(x => x.FolioCuantificacionID == folioCuantificacionID)
+                        .AsParallel().SingleOrDefault();
+
+                    return folio.ProyectoID;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
         public object CambiarEstatus(int folioCuantificacionID, Sam3_Usuario usuario)
         {
             try

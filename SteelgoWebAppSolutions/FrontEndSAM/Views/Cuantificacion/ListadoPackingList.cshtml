@@ -66,6 +66,8 @@
     @section JavascriptGlobalVariables 
     {
     var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
+    var _cuantificacionUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
+    var _complementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
 
     var $ListadoPackingListModel = {
         listContainer: {
@@ -216,7 +218,7 @@
                 { field: "FechaFolioAvisoEntrada", title: _dictionary.ListadoPackingList0008[$("#language").data("kendoDropDownList").value()] },
                 { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>" },
                 { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()] },
-                { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()]},
+                { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalleComplemento(#:FolioCuantificacion#)'>#:FolioCuantificacion#</a>" },
                 { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()]},
                 { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()]},
                 { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()]},
@@ -382,8 +384,11 @@
     };
 
     function mostrarDetalle(folioAvisoLlegadaID, foliocuantificacion) {
-        var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
-        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
+        window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
+    };
+    
+    function mostrarDetalleComplemento(foliocuantificacion) {
+        window.location.href = _complementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&Edicion=1&FolioCuantificacionID=" + foliocuantificacion;
     };
     function Filtros() {
         var Listado;
