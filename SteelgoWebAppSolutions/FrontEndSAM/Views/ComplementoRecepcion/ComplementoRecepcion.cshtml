@@ -113,10 +113,11 @@
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid"></div>
         </div>
-        @*<ul id="menu">
-            <li>Detallar
+        
+        <ul id="menu">
+            <li><span id="ComplementoRecepcion0063"></span>
             </li>
-        </ul>*@
+        </ul>
     </div>
 </div>
 
@@ -181,17 +182,29 @@
             </a>
         </div>
     </div>
+
+     <div id="modalEdicionColada" style="display: none">
+         <div class="alert-container">
+            <div class="message">
+                Mensaje de éxito/error/advertencia
+            </div>
+        </div>
+         <div id="EdicionColadaDiv" class="form-group">
+            <label id="ComplementoRecepcion0064"></label>
+            <input id="EdicionColada" class="" />
+        </div>
+     </div>
 </div>
 
 <script>
     @section JavascriptGlobalVariables 
     {
     var Proyecto = {}, Cuantificacion = {}, TipoUso = {}, resultadoJson,
-        lastEditedFisicoCellIDS = "", lastEditedTipoUsoCellIDS="",
+        lastEditedFisicoCellIDS = "", lastEditedTipoUsoCellIDS = "",
         lastEditedDepartamentalCellID = "", lastEditedCellIDSColada,
         FabricanteColada = {}, AceroColada = {}, ProyectoColada = {},
         ctrlDown = false, ctrlKey = 17, vKey = 86, cKey = 67,
-        focusResp = "ProyectoID";
+        focusResp = "ProyectoID", sinColadaPL = "Sin Colada PL";
 
     var _ComplemementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
     var _DashBoardRecepcionAlmacenaje = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
@@ -315,6 +328,25 @@
     }
 
     function cargaInicial() {
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+               
+                if (data.Colada != sinColadaPL) {
+                    $("#EdicionColada").data("kendoComboBox").text(data.Colada);
+                    VentanaModal(3);
+                    e.preventDefault();
+                };
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+        });
 
         //Botones
         $("#Editar").click(function (e) { BotonEdicion(); });
@@ -484,7 +516,20 @@
         });
         ObtenerColada("Colada", 1, 0);
 
-
+        $("#EdicionColada").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ColadaID",
+            change: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+                data.Colada = $("#EdicionColada").data("kendoComboBox").text();
+                $('#grid').data('kendoGrid').refresh();
+                LimpiarModalEdicionColada();
+            },
+            filter: "contains",
+        });
+        ObtenerColada("EdicionColada", 0, 0);
         //$("#Colada").keydown(function (e) {
         //    if (e.keyCode == 13) {
         //        changeValueColumnColada(this.value);
@@ -679,6 +724,10 @@
         });
     };
 
+    function LimpiarModalEdicionColada() {
+        $("#EdicionColada").data("kendoComboBox").value("");
+        cerrarVentanaModal();
+    };
     function CancelarTipoUso() {
         LimpiarModalTipoUso();
         cerrarVentanaModal();
@@ -918,20 +967,20 @@
                 }
             });
 
-            $("#grid tbody").on("mousedown", "td", function (e) {
-                var row = $(this).closest("tr");
-                var rowIdx = $("tr", $("#grid").data("kendoGrid").tbody).index(row);
-                var colIdx = $("td", row).index(this);
-                var valor = $("td", row)[10].innerHTML;
+            //$("#grid tbody").on("mousedown", "td", function (e) {
+            //    var row = $(this).closest("tr");
+            //    var rowIdx = $("tr", $("#grid").data("kendoGrid").tbody).index(row);
+            //    var colIdx = $("td", row).index(this);
+            //    var valor = $("td", row)[10].innerHTML;
                
-                if (colIdx == 10)
-                {
-                    if (valor != "Sin Colada PL")
-                    {
-                        VentanaModal(1);
-                    }
-                }
-            });
+            //    if (colIdx == 10)
+            //    {
+            //        if (valor != "Sin Colada PL")
+            //        {
+            //            VentanaModal(1);
+            //        }
+            //    }
+            //});
         };
 
         function ObtenerProyecto(id) {
@@ -971,6 +1020,11 @@
                     $("#modalColada").hide();
                     $("#modalTipoUso").show();
                     modalTitle = "Tipo de Uso";
+                    break;
+                case 3:
+                    $("#modalColada").hide();
+                    $("#modalTipoUso").hide();
+                    $("#modalEdicionColada").show();
                     break;
             };
 
