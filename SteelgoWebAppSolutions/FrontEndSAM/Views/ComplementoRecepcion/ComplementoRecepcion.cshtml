@@ -76,10 +76,6 @@
                         <div id="MostrarDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <a id="Mostrar" href="#" class="btn btn-primary"><span id="ComplementoRecepcion0015"></span></a>
                         </div>
-                        <div id="ColadaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                            <label id="ComplementoRecepcion0062"></label>
-                            <input id="Colada" class="" />
-                        </div>
                         <div id="EstatusFisicoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="ComplementoRecepcion0019"></label>
                             <input id="EstatusFisico" class="" />
@@ -91,6 +87,10 @@
                         <div id="TipoUsoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="ComplementoRecepcion0021"></label>
                             <input id="TipoUso" class="" />
+                        </div>
+                        <div id="ColadaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="ComplementoRecepcion0062"></label>
+                            <input id="Colada" class="" />
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="ComplementoRecepcion0016"></label>
@@ -218,7 +218,8 @@
         "FolioCuantificacionID": { 37: "ProyectoID", 38: "ProyectoID", 39: "EstatusFisico", 40: "EstatusFisico" },
         "EstatusFisico": { 37: "FolioCuantificacionID", 38: "ProyectoID", 39: "EstatusDocumental", 40: "grid" },
         "EstatusDocumental": { 37: "EstatusFisico", 38: "ProyectoID", 39: "TipoUso", 40: "grid" },
-        "TipoUso": { 37: "EstatusDocumental", 38: "ProyectoID", 39: "grid", 40: "grid" },
+        "TipoUso": { 37: "EstatusDocumental", 38: "ProyectoID", 39: "Colada", 40: "grid" },
+        "Colada": { 37: "TipoUso", 38: "ProyectoID", 39: "grid", 40: "grid" },
         "grid": { 37: "TipoUso", 38: "EstatusDocumental", 39: "grid", 40: "grid" },
     };
 
@@ -235,6 +236,7 @@
         "EstatusFisico": 2,
         "EstatusDocumental": 2,
         "TipoUso": 2,
+        "Colada":2,
         "grid": 4
     };
 
