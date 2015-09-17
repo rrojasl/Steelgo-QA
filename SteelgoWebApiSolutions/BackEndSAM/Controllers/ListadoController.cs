@@ -141,6 +141,12 @@ namespace BackEndSAM.Controllers
                     case 21: //Obtener Numeros Unicos sin Orden de Almacenaje
                          int itemCodeID = filtros.ItemCodeID != "" ? Convert.ToInt32(filtros.ItemCodeID) : 0;
                          return OrdenAlmacenajeBd.Instance.ObtenerNumerosUnicosOrdenAlmacenaje(itemCodeID, usuario);
+                    case 22: //Obtener los patios del usuario
+                         return ListadoMaterialesBd.Instance.obtenerPatioListadoMateriales(usuario);
+                    case 23: //Obtener los proyectos segun el patio seleccionado
+                         return ListadoMaterialesBd.Instance.obtenerProyectoListadoMateriales(filtros.PatioID, usuario);
+                    case 24: //Obtener los folios cuantificacion segun el folio de llegada seleccionado
+                         return ListadoMaterialesBd.Instance.obtenerFolioCuantificacionListadoMateriales(filtros.FolioAvisoLlegadaID, filtros.ProyectoID);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

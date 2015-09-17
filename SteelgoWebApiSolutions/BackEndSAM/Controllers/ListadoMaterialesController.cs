@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BackEndSAM.DataAcces;
+using SecurityManager.Api.Models;
+using SecurityManager.TokenHandler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,9 +19,24 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public object Get(string FolioCuantificacion, string token)
         {
-            return "value";
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return ListadoMaterialesBd.Instance.cargarGridListado(FolioCuantificacion);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/<controller>

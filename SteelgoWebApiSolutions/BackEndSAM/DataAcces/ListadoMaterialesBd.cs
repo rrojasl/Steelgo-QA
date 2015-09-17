@@ -38,8 +38,165 @@ namespace BackEndSAM.DataAcces
                 return _instance;
             }
         }
+        /// <summary>
+        /// Funcion para obtener los patios del usuario
+        /// Combo para el Listado de Materiales
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object obtenerPatioListadoMateriales(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //Patios y proyectos del usuario
+                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
-        public object cargarGridListado(int folioCuantificacion)
+                    List<Patio> patios = (from r in ctx.Sam3_Proyecto
+                              join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                              where r.Activo && proyectos.Contains(r.ProyectoID)
+                              select new Patio 
+                              {
+                                  PatioID = p.PatioID.ToString(),
+                                  Nombre = p.Nombre
+                              }).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
+                    return patios;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para obtener los proyectos del usuario
+        /// Combo Proyectos Listado de Materiales
+        /// </summary>
+        /// <param name="patioID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object obtenerProyectoListadoMateriales(string patioID, Sam3_Usuario usuario)
+        {
+            try 
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Proyecto> proyectos = (from rup in ctx.Sam3_Rel_Usuario_Proyecto
+                                                join pr in ctx.Sam3_Proyecto on rup.ProyectoID equals pr.ProyectoID
+                                                where rup.Activo && pr.Activo 
+                                                && rup.UsuarioID == usuario.UsuarioID
+                                                && pr.PatioID == Convert.ToInt32(patioID)
+                                                    select new Proyecto
+                                                    {
+                                                        ProyectoID = pr.ProyectoID.ToString(),
+                                                        Nombre = pr.Nombre
+                                                    }).AsParallel().ToList();
+
+                    return proyectos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para obtener los folios de llegada 
+        /// Combo Listado de material
+        /// </summary>
+        /// <param name="proyectoID"></param>
+        /// <returns></returns>
+        public object obtenerFolioLlegadaListadoMateriales(string proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> folios = (from fe in ctx.Sam3_FolioAvisoEntrada
+                                                join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
+                                                where fe.Activo && rfp.Activo && fc.Activo
+                                                && rfp.ProyectoID.ToString() == proyectoID
+                                                select new ListaCombos
+                                                {
+                                                    id = fe.FolioAvisoLlegadaID.ToString(),
+                                                    value = fe.FolioAvisoLlegadaID.ToString()
+                                                }).AsParallel().ToList();
+
+                    folios = folios.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
+                    return folios;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Obtener los folios cuantificacion
+        /// Combo Folio Packing List en Listado de MAteriales
+        /// </summary>
+        /// <param name="folioLlegadaID"></param>
+        /// <param name="proyectoID"></param>
+        /// <returns></returns>
+        public object obtenerFolioCuantificacionListadoMateriales(string folioLlegadaID, string proyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> folios = (from fc in ctx.Sam3_FolioCuantificacion
+                                        join ave in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals ave.FolioAvisoEntradaID
+                                        where fc.Activo && ave.Activo
+                                        && ave.FolioAvisoLlegadaID == Convert.ToInt32(folioLlegadaID)
+                                        && fc.ProyectoID == Convert.ToInt32(proyectoID)
+                                        select fc.FolioCuantificacionID).AsParallel().ToList();
+
+                    return folios;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Obtener la informacion del grid de listado de materiales
+        /// </summary>
+        /// <param name="folioCuantificacion"></param>
+        /// <returns></returns>
+        public object cargarGridListado(string folioCuantificacion)
         {
             try
             {
@@ -53,7 +210,8 @@ namespace BackEndSAM.DataAcces
                              join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
                              join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                             where rfc.FolioCuantificacionID == folioCuantificacion
+                             where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo &&
+                             rfc.FolioCuantificacionID == Convert.ToInt32(folioCuantificacion)
                              select new ListadoMaterialesPorPL
                              {
                                   NumeroUnico = nu.NumeroUnicoID.ToString(),
@@ -64,7 +222,9 @@ namespace BackEndSAM.DataAcces
                                   D1 = ics.Diametro1.ToString(),
                                   D2 = ics.Diametro2.ToString(),
                                   Cantidad = ic.Cantidad.ToString(),
-                                  Colada = ic.ColadaID.ToString()
+                                  Colada = ic.ColadaID.ToString(),
+                                  EstatusFisico = ic.EstatusFisico,
+                                  EstatusDocumental = ic.EstatusDocumental
                              }).AsParallel().ToList();
 
                     return lista;
