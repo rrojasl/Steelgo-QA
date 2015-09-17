@@ -967,6 +967,7 @@
     <Compile Include="Controllers\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenajeController.cs" />
     <Compile Include="Controllers\Errors\ErrorsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\ListadoMateriales\ListadoMaterialesController.cs" />
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
     <Compile Include="Controllers\OrdenAlmacenaje\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
@@ -1120,6 +1121,7 @@
     <Content Include="Views\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenaje.cshtml" />
     <Content Include="Views\Cuantificacion\ListadoPackingList.cshtml" />
     <Content Include="Views\ComplementoRecepcion\ComplementoRecepcion.cshtml" />
+    <Content Include="Views\ListadoMateriales\ListadoMateriales.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

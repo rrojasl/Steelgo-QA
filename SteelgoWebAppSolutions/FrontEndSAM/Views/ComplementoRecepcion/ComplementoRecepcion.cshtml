@@ -193,6 +193,11 @@
             <label id="ComplementoRecepcion0064"></label>
             <input id="EdicionColada" class="" />
         </div>
+         <div class="buttonSave">
+           <a id="CerrarEdicionColada" href="#" class="btn btn-primary">
+                <span id="ComplementoRecepcion0065"></span>
+            </a>
+         </div>
      </div>
 </div>
 
@@ -204,7 +209,7 @@
         lastEditedDepartamentalCellID = "", lastEditedCellIDSColada,
         FabricanteColada = {}, AceroColada = {}, ProyectoColada = {},
         ctrlDown = false, ctrlKey = 17, vKey = 86, cKey = 67,
-        focusResp = "ProyectoID", sinColadaPL = "Sin Colada PL";
+        focusResp = "ProyectoID", sinColadaPL = "Sin Colada PL", rowselected="";
 
     var _ComplemementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
     var _DashBoardRecepcionAlmacenaje = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
@@ -249,31 +254,35 @@
             destroy: ""
         },
         properties: {
-
             proyecto: {
                 visible: "#ProyectoDiv",
                 editable: "#ProyectoID",
                 required: "#ProyectoID"
             },
-            folioCuantificacion: {
+            foliocuantificacion: {
                 visible: "#FolioCuantificacionDiv",
                 editable: "#FolioCuantificacionID",
                 required: "#FolioCuantificacionID"
             },
-            estatusFisico: {
+            estatusfisico: {
                 visible: "#EstatusFisicoDiv",
                 editable: "#EstatusFisico",
                 required: "#EstatusFisico"
             },
-            estatusDocumental: {
+            estatusdocumental: {
                 visible: "#EstatusDocumentalDiv",
                 editable: "#EstatusDocumental",
                 required: "#EstatusDocumental"
             },
-            tipoUso: {
+            tipouso: {
                 visible: "#TipoUsoDiv",
                 editable: "#TipoUso",
                 required: "#TipoUso"
+            },
+            colada: {
+                visible: "#ColadaDiv",
+                editable: "#Colada",
+                required: "#Colada"
             }
         }
     };
@@ -318,6 +327,22 @@
             }
         }
     };
+   
+    var $TipoUsoModel= {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "",
+            destroy: ""
+        },
+        properties: {
+            nombre: {
+                visible: "#EdicionColadaDiv",
+                editable: "#Nombre_TipoUso",
+                required: "#Nombre_TipoUso"
+            },
+        }
+    };
     };
 
 
@@ -337,8 +362,9 @@
                 var grid = $("#grid").data("kendoGrid");
                 var select = grid.select();
                 var data = grid.dataItem(select);
-               
+                
                 if (data.Colada != sinColadaPL) {
+                    rowselected = data;
                     $("#EdicionColada").data("kendoComboBox").text(data.Colada);
                     VentanaModal(3);
                     e.preventDefault();
@@ -521,17 +547,20 @@
         $("#EdicionColada").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ColadaID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                if (dataItem.ColadaID == "0") {
+                    VentanaModal(1);
+                    e.preventDefault();
+                } 
+            },
             change: function (e) {
-                var grid = $("#grid").data("kendoGrid");
-                var select = grid.select();
-                var data = grid.dataItem(select);
-                data.Colada = $("#EdicionColada").data("kendoComboBox").text();
+                rowselected.Colada = $("#EdicionColada").data("kendoComboBox").text();
                 $('#grid').data('kendoGrid').refresh();
-                LimpiarModalEdicionColada();
             },
             filter: "contains",
         });
-        ObtenerColada("EdicionColada", 0, 0);
+        ObtenerColada("EdicionColada", 0, 1);
         //$("#Colada").keydown(function (e) {
         //    if (e.keyCode == 13) {
         //        changeValueColumnColada(this.value);
@@ -569,6 +598,7 @@
             }
         });
         $("#CancelarTipoUso").click(function () { CancelarTipoUso(); });
+        $("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada();});
         
     };
 
@@ -706,7 +736,7 @@
     };
     function CancelarColada() {
         LimpiarModalColada();
-        cerrarVentanaModal();
+        VentanaModal(3);
         cancelarvalidacionRequeridosModalColada();
     };
 
@@ -839,7 +869,8 @@
             $Colada.Colada.create({}, { data: JSON.stringify(ColadaModal), token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalColada();
                 if (Error(data)) {
-                    $("#window").data("kendoWindow").close();
+                    ObtenerColada("EdicionColada", 0, 1);
+                    VentanaModal(3);
                 }
             });
         };
@@ -1019,11 +1050,13 @@
 
             switch (id) {
                 case 1:
+                    $("#modalEdicionColada").hide();
                     $("#modalTipoUso").hide();
                     $("#modalColada").show();
                     modalTitle = "Colada";
                     break;
                 case 2:
+                    $("#modalEdicionColada").hide();
                     $("#modalColada").hide();
                     $("#modalTipoUso").show();
                     modalTitle = "Tipo de Uso";
@@ -1765,14 +1798,13 @@
         cargaInicialEdicion();
     };
 
-
-    //$authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
-    //$authorizationModel["Colada"] = $ColadaModel
-
+    $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
+    $authorizationModel["Colada"] = $ColadaModel
+    $authorizationModel["Tipo Uso"] = $TipoUsoModel
     }
 
     @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "12", { path: '/' });
+    Cookies.set("navegacion", "20", { path: '/' });
     } 
 </script>

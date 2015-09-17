@@ -3059,6 +3059,10 @@ _dictionary = {
         "es-MX": "Colada",
         "en-US": "Wash"
     },
+    "ComplementoRecepcion0065": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
