@@ -14,5 +14,10 @@ namespace FrontEndSAM.Controllers.ListadoMateriales
         {
             return View();
         }
+
+        public ActionResult DetalleNumeroUnico()
+        {
+            return View();
+        }
     }
 }

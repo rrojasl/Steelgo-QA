@@ -66,16 +66,16 @@ function changeLanguage() {
 
     kendo.ui.progress($("#grid"), true);
 
-    if ($("#gridTubos"))
-        kendo.ui.progress($("#gridTubos"), true);
+    //if ($("#gridTubos"))
+    //    kendo.ui.progress($("#gridTubos"), true);
 
     changeLayoutLabels(langValue);
     changeLayoutSpans(langValue);
     changeLayoutInputs(langValue);
     $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
 
-        if ($("#gridTubos"))
-            kendo.ui.progress($("#gridTubos"), false);
+        //if ($("#gridTubos"))
+        //    kendo.ui.progress($("#gridTubos"), false);
 
         kendo.ui.progress($("#grid"), false);
         if (typeof changeLanguageCall == 'function') {

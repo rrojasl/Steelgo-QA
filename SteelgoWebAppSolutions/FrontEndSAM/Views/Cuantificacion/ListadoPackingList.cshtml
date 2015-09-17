@@ -81,15 +81,16 @@
 
     @section JavascriptGlobalFunctions 
     {
+    function changeLanguageCall() {
+        cargarInicialGrid();
+        createPeriodoTiempo();
+    };
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaInic.setOptions(datePickerOptions);
         FechaFinal.setOptions(datePickerOptions);
     };
 
-    function changeLanguageCall() {
-        cargarInicialGrid();
-        createPeriodoTiempo();
-    };
+    
 
     function CargaInicial() {
         $("#Nuevo").click(function () {
@@ -175,7 +176,7 @@
     };
 
     function cargarInicialGrid() {
-        var grid = $("#grid").kendoGrid({
+         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
                 schema: {
@@ -219,16 +220,16 @@
                 { field: "FolioEntrada", title: _dictionary.ListadoPackingList0009[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioEntrada#,#:FolioCuantificacion#)'>#:FolioEntrada#</a>" },
                 { field: "PackingList", title: _dictionary.ListadoPackingList0010[$("#language").data("kendoDropDownList").value()] },
                 { field: "FolioCuantificacion", title: _dictionary.ListadoPackingList0011[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalleComplemento(#:FolioCuantificacion#)'>#:FolioCuantificacion#</a>" },
-                { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()]},
-                { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()]},
-                { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()]},
+                { field: "TipoPackingList", title: _dictionary.ListadoPackingList0012[$("#language").data("kendoDropDownList").value()] },
+                { field: "TipoUso", title: _dictionary.ListadoPackingList0013[$("#language").data("kendoDropDownList").value()] },
+                { field: "Estatus", title: _dictionary.ListadoPackingList0014[$("#language").data("kendoDropDownList").value()] },
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
-        }).getKendoGrid();
+         });
     };
 
    
@@ -474,13 +475,11 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-
     CargaInicial();
-
-
-    }
-    @section JavascriptDocumentReadyHomeCookie {
     $authorizationModel["Cuantificacion"] = $ListadoPackingListModel;
+    }
+    @section JavascriptDocumentReadyHomeCookie 
+    {
     Cookies.set("home", true, { path: '/' });
     Cookies.set("navegacion", "19", { path: '/' });
     }

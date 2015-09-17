@@ -1,18 +1,19 @@
-﻿@{
-    ViewBag.Title = "Listado Materiales Packing List";
+﻿
+@{
+    ViewBag.Title = "Listado Materiales por Item Code";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="ListaMateriales0001"></span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoMaterialesItemCode0018"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoMateriales", "ListadoMateriales")"><span id="ListaMateriales0021"></span></a>
+        <a href="@Url.Action("ListadoMaterialesItemCode", "ListadoMaterialesItemCode")"><span id="ListadoMaterialesItemCode0017"></span></a>
     </li>
 }
 
-<div id="formaListadoMateriales" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="formaListadoMaterialesItemCode" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
@@ -20,23 +21,15 @@
                     <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
                         <div class="row">
                             <div id="PatioDiv" class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="ListaMateriales0002"></label>
+                                <label id="ListadoMaterialesItemCode0001"></label>
                                 <input id="PatioID" class="" />
                             </div>
                             <div id="ProyectoDiv" class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="ListaMateriales0003"></label>
+                                <label id="ListadoMaterialesItemCode0002"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
-                            <div id="FolioCuantificacionDiv" class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="ListaMateriales0004"></label>
-                                <input id="FolioCuantificacion" class="" />
-                            </div>
-                            <div id="FolioPackingListDiv" class="col-sm-6 col-md-6 col-lg-3">
-                                <label id="ListaMateriales0005"></label>
-                                <input id="FolioPackingList" class="" />
-                            </div>
                             <div id="MostrarDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
-                                <a id="Mostrar" href="#" class="btn btn-primary"><span id="ListaMateriales0006"></span></a>
+                                <a id="Mostrar" href="#" class="btn btn-primary"><span id="ListadoMaterialesItemCode0003"></span></a>
                             </div>
                         </div>
                     </div>
@@ -57,16 +50,13 @@
 
     @section JavascriptDocumentReadyHomeCookie {
         Cookies.set("home", true, { path: '/' });
-        Cookies.set("navegacion", "21", { path: '/' });
+        Cookies.set("navegacion", "22", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
-    var Patio = {}, Proyecto = {}, FolioCuantificacion = {}, FolioPackingList,
-        resultadoJson;
+    var Patio = {}, Proyecto = {}, resultadoJson;
 
-    var _detalleNumeroUnico = "@Url.Action("DetalleNumeroUnico", "ListadoMateriales")";
-
-    var $ListadoMaterialesModel = {
+    var $ListadoMaterialesItemCodeModel = {
         listContainer: {
             create: "",
             list: "#grid",
@@ -83,16 +73,6 @@
                 visible: "#ProyectoDiv",
                 editable: "#ProyectoID",
                 required: "#ProyectoID"
-            },
-            foliocuantificacion: {
-                visible: "#FolioCuantificacionDiv",
-                editable: "#FolioCuantificacion",
-                required: "#FolioCuantificacion"
-            },
-            foliopackinglist: {
-                visible: "#FolioPackingListDiv",
-                editable: "#FolioPackingList",
-                required: "#FolioPackingList"
             },
             mostrar: {
                 visible: "#MostrarDiv",
@@ -112,7 +92,7 @@
     //Parametros: N/A
     //Return:     N/A
     function changeLanguageCall() {
-        CargarGridNumeroUnico();
+        CargarGridItemCode();
     }
 
     //Es la carga inicial de los controles
@@ -135,11 +115,7 @@
                 if (!value) {
                     Patio = {};
                     Proyecto = {};
-                    FolioCuantificacion = {};
-                    FolioPackingList = {};
                     $("#ProyectoID").data("kendoComboBox").value("");
-                    $("#FolioCuantificacion").data("kendoComboBox").value("");
-                    $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
                     ObtenerLosProyectos();
                 }
@@ -159,51 +135,7 @@
                 var value = this.value();
                 if (!value) {
                     Proyecto = {};
-                    FolioCuantificacion = {};
-                    FolioPackingList = {};
-                    $("#FolioCuantificacion").data("kendoComboBox").value("");
-                    $("#FolioPackingList").data("kendoComboBox").value("");
-                } else {
-                    ObtenerLosFolioCuantificacion();
-                };
-            },
-            filter: "contains",
-        });
-
-        $("#FolioCuantificacion").kendoComboBox({
-            dataTextField: "value",
-            dataValueField: "id",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioCuantificacion(dataItem.id, dataItem.value);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    FolioCuantificacion = {};
-                    FolioPackingList = {};
-                    $("#FolioPackingList").data("kendoComboBox").value("");
-                } else {
-                    ObtenerLosFolioPackingList();
-                };
-            },
-            filter: "contains",
-        });
-
-        $("#FolioPackingList").kendoComboBox({
-            dataTextField: "value",
-            dataValueField: "id",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFolioPackingList(dataItem.id, dataItem.value);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    FolioPackingList = {};
-                } else {
-
-                };
+                }
             },
             filter: "contains",
         });
@@ -215,47 +147,35 @@
         });
     };
 
-    function ObtenerLosFolioCuantificacion() {
-        $folioEntradaMaterial.Listado.read({}, { ProyectoID: Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("FolioCuantificacion", result);
-        });
-    };
-
-    function ObtenerLosFolioPackingList() {
-        $folioEntradaMaterial.Listado.read({}, { FolioCuantificacionID: FolioCuantificacion.FolioCuantificacionID, token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("FolioPackingList", result);
-        });
-    };
 
     //Es la carga del grid donde especifican las propiedades y columnas
     //Funcion: CargarGridNumeroUnico
     //Parametros: N/A
     //Return:     N/A
-    function CargarGridNumeroUnico() {
+    function CargarGridItemCode() {
         $("#grid").kendoGrid({
             dataSource: {
-                data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
-                            NumeroUnico: { type: "string" },
                             ItemCode: { type: "string" },
                             Descripcion: { type: "string" },
-                            Cedula: { type: "string" },
-                            TipoAcero: { type: "string" },
                             D1: { type: "string" },
                             D2: { type: "string" },
-                            RangoInf: { type: "string" },
-                            RangoSup: { type: "string" },
-                            Cantidad: { type: "string" },
-                            Colada: { type: "string" },
-                            EstatusF: { type: "string" },
-                            EstatusD: { type: "string" },
-                            AlmacenVirtual: { type: "string" }
+                            TipoMaterial: { type: "string" },
+                            TotalIngenieria: { type: "string" },
+                            TotalRecibido: { type: "string" },
+                            OtrasEntradas: { type: "string" },
+                            TotalCondicionado: { type: "string" },
+                            TotalRechazado: { type: "string" },
+                            RecibidoNeto: { type: "string" },
+                            EntradasICEquivalente: { type: "string" },
+                            SalidasTemporales: { type: "string" },
+                            TotalOtrasSalidas: { type: "string" }
                         }
                     }
                 },
-                pageSize: 10,
+                pageSize: 20,
                 serverPaging: false,
                 serverFiltering: false,
                 serverSorting: false
@@ -281,20 +201,19 @@
                 numeric: true,
             },
             columns: [
-                { field: "NumeroUnico", title: _dictionary.ListaMateriales0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:NumeroUnico#)'>#:NumeroUnico#</a>", filterable: true },
-                { field: "ItemCode", title: _dictionary.ListaMateriales0008[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "Descripcion", title: _dictionary.ListaMateriales0009[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "Cedula", title: _dictionary.ListaMateriales0010[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "TipoAcero", title: _dictionary.ListaMateriales0011[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "D1", title: _dictionary.ListaMateriales0012[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "D2", title: _dictionary.ListaMateriales0013[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "RangoInf", title: _dictionary.ListaMateriales0014[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "RangoSup", title: _dictionary.ListaMateriales0015[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "Cantidad", title: _dictionary.ListaMateriales0016[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "Colada", title: _dictionary.ListaMateriales0017[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "EstatusF", title: _dictionary.ListaMateriales0018[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "EstatusD", title: _dictionary.ListaMateriales0019[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "AlmacenVirtual", title: _dictionary.ListaMateriales0020[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "ItemCode", title: _dictionary.ListadoMaterialesItemCode0004[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "Descripcion", title: _dictionary.ListadoMaterialesItemCode0005[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "D1", title: _dictionary.ListadoMaterialesItemCode0006[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "D2", title: _dictionary.ListadoMaterialesItemCode0007[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "TipoMaterial", title: _dictionary.ListadoMaterialesItemCode0008[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "TotalRecibido", title: _dictionary.ListadoMaterialesItemCode0009[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "OtrasEntradas", title: _dictionary.ListadoMaterialesItemCode0010[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "TotalCondicionado", title: _dictionary.ListadoMaterialesItemCode0011[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "TotalRechazado", title: _dictionary.ListadoMaterialesItemCode0012[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "RecibidoNeto", title: _dictionary.ListadoMaterialesItemCode0013[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "EntradasICEquivalente", title: _dictionary.ListadoMaterialesItemCode0014[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "SalidasTemporales", title: _dictionary.ListadoMaterialesItemCode0015[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "TotalOtrasSalidas", title: _dictionary.ListadoMaterialesItemCode0016[$("#language").data("kendoDropDownList").value()], filterable: true }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -303,24 +222,9 @@
             }
         });
     }
-    //Redirecciona a la pagina de detalle de un numero unico
-    //Funcion: CargarGridNumeroUnico
-    //Parametros: numerounico
-    //Return:     N/A
-         function mostrarDetalle(numerounico) {
-             window.location.href = _detalleNumeroUnico + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroUnico=" + numerounico;
-        }
 
-    //Se carga el folio
-    //Funcion: CargarFolio
-    //Parametros: id
-    //Return:     N/A
-    function CargarFolio(id) {
-        Folio = [];
-        _folio = {};
-        _folio["FolioAvisoLlegadaID"] = id;
-        Folio.push(_folio);
-    };
+
+
     //Se carga el Patio
     //Funcion: CargarPatio
     //Parametros: id,value
@@ -335,16 +239,7 @@
         Proyecto = { ProyectoID: id, Nombre: value };
     };
 
-    function CargarFolioCuantificacion(id, value) {
-        FolioCuantificacion = {};
-        FolioCuantificacion = { FolioCuantificacionID: id, Nombre: value };
-    };
-    
-    function CargarFolioPackingList(id, value) {
-        FolioPackingList = {};
-        FolioPackingList = { FolioPackingListID: id, Nombre: value };
-    };
-    
+   
     //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
     //Funcion: ObtenerPatio
     //Parametros: N/A
@@ -360,24 +255,7 @@
                 ControlErroresObjetosComboBox("ProyectoID", result);
             });
         };
-    //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
-    //Funcion: ObtenerPatio
-    //Parametros: N/A
-    //Return:     N/A
-        function ObtenerFolioEntradaMaterial() {
-            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
-            });
-        };
-    //Se realiza una peticion para obtenr los clientes y cargar el combo con los valores
-    //Funcion: ObtenerCliente
-    //Parametros: N/A
-    //Return:     N/A
-        function ObtenerCliente() {
-            $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("ClienteID", result);
-            });
-        };
+    
         //Se forma un objeto con todos los filtros e indicando cual tab fue seleccionado
         // creados, sin permiso, sin autorizacion,completos
         //Funcion: ObtenerCliente
@@ -388,8 +266,6 @@
 
             Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
             Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : -1;
-            Listado.FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : -1;
-            Listado.FolioPackingListID = FolioPackingList.FolioPackingListID ? FolioPackingList.FolioPackingListID : -1;
             Listado.token = Cookies.get("token");
             
             return Listado;
@@ -442,7 +318,7 @@
 
         function validarRequeridosFormaListadoMateriales() {
             var bool = true;
-            $("#formaListadoMateriales .security_required").each(function (i, elem) {
+            $("#formaListadoMaterialesItemCode .security_required").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
                     if (!$(this).val()) {
                         bool = false;
@@ -484,7 +360,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["Listado Materiales"] = $ListadoMaterialesModel;
+        $authorizationModel["Listado Materiales Item Code"] = $ListadoMaterialesItemCodeModel;
         cargaInicial();
         //applySecurity();
     }

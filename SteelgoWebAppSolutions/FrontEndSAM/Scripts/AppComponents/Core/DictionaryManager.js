@@ -3063,6 +3063,293 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    // Lista Materiales
+    "ListaMateriales0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListaMateriales0002": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "ListaMateriales0003": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListaMateriales0004": {
+        "es-MX": "Folio Llegada",
+        "en-US": "Folio Llegada"
+    },
+    "ListaMateriales0005": {
+        "es-MX": "Folio Packing List",
+        "en-US": "Folio Packing List"
+    },
+    "ListaMateriales0006": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "ListaMateriales0007": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "ListaMateriales0008": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ListaMateriales0009": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ListaMateriales0010": {
+        "es-MX": "Cedula",
+        "en-US": "Cedula"
+    },
+    "ListaMateriales0011": {
+        "es-MX": "Tipo Acero",
+        "en-US": "Steel Type"
+    },
+    "ListaMateriales0012": {
+        "es-MX": "Diam. 1",
+        "en-US": "Diam. 1"
+    },
+    "ListaMateriales0013": {
+        "es-MX": "Diam. 2",
+        "en-US": "Diam. 2"
+    },
+    "ListaMateriales0014": {
+        "es-MX": "Rango Inf.",
+        "en-US": "Rango Inf."
+    },
+    "ListaMateriales0015": {
+        "es-MX": "Rango Sup.",
+        "en-US": "Rango Sup."
+    },
+    "ListaMateriales0016": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "ListaMateriales0017": {
+        "es-MX": "Colada",
+        "en-US": "Wash"
+    },
+    "ListaMateriales0018": {
+        "es-MX": "Estatus F.",
+        "en-US": "Status F."
+    },
+    "ListaMateriales0019": {
+        "es-MX": "Estatus D.",
+        "en-US": "Status D."
+    },
+    "ListaMateriales0020": {
+        "es-MX": "Almacen Virtual",
+        "en-US": "Virtual Storage"
+    },
+    "ListaMateriales0021": {
+        "es-MX": "Listado Materiales Packing List",
+        "en-US": "Materials List Packing List"
+    },
+    // Detalle Numero Unico
+    "DetalleNumeroUnico0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DetalleNumeroUnico0002": {
+        "es-MX": "Número único: ",
+        "en-US": "Unique number: "
+    },
+    "DetalleNumeroUnico0003": {
+        "es-MX": "Diametro 1: ",
+        "en-US": "Diameter 1: "
+    },
+    "DetalleNumeroUnico0004": {
+        "es-MX": "Diametro 2: ",
+        "en-US": "Diameter 2: "
+    },
+    "DetalleNumeroUnico0005": {
+        "es-MX": "Cédula: ",
+        "en-US": "Cédula: "
+    },
+    "DetalleNumeroUnico0006": {
+        "es-MX": "Total Recibido: ",
+        "en-US": "Total Received: "
+    },
+    "DetalleNumeroUnico0007": {
+        "es-MX": "Total Dañado: ",
+        "en-US": "Total Damaged: "
+    },
+    "DetalleNumeroUnico0008": {
+        "es-MX": "Item Code: ",
+        "en-US": "Item Code: "
+    },
+    "DetalleNumeroUnico0009": {
+        "es-MX": "Profile 1: ",
+        "en-US": "Profile 1: "
+    },
+    "DetalleNumeroUnico0010": {
+        "es-MX": "Profile 2: ",
+        "en-US": "Profile 2: "
+    },
+    "DetalleNumeroUnico0011": {
+        "es-MX": "Total Entradas: ",
+        "en-US": "Total Entradas: "
+    },
+    "DetalleNumeroUnico0012": {
+        "es-MX": "Saldo Actual: ",
+        "en-US": "Current Balance: "
+    },
+    "DetalleNumeroUnico0013": {
+        "es-MX": "Segmento",
+        "en-US": "segment"
+    },
+    "DetalleNumeroUnico0014": {
+        "es-MX": "Rack",
+        "en-US": "Rack"
+    },
+    "DetalleNumeroUnico0015": {
+        "es-MX": "Total Recibido",
+        "en-US": "Total Received"
+    },
+    "DetalleNumeroUnico0016": {
+        "es-MX": "Total Dañado",
+        "en-US": "Total Damaged"
+    },
+    "DetalleNumeroUnico0017": {
+        "es-MX": "Total Entradas",
+        "en-US": "Total Entradas"
+    },
+    "DetalleNumeroUnico0018": {
+        "es-MX": "Total Salidas",
+        "en-US": "Total Outputs"
+    },
+    "DetalleNumeroUnico0019": {
+        "es-MX": "Salidas Temporales",
+        "en-US": "Temporary Departures"
+    },
+    "DetalleNumeroUnico0020": {
+        "es-MX": "Saldo Actual",
+        "en-US": "Current Balance"
+    },
+    "DetalleNumeroUnico0021": {
+        "es-MX": "Fecha",
+        "en-US": "Date"
+    },
+    "DetalleNumeroUnico0022": {
+        "es-MX": "Movimiento",
+        "en-US": "Movement"
+    },
+    "DetalleNumeroUnico0023": {
+        "es-MX": "Segmento",
+        "en-US": "segment"
+    },
+    "DetalleNumeroUnico0024": {
+        "es-MX": "Entrada (mm)",
+        "en-US": "Entrada (mm)"
+    },
+    "DetalleNumeroUnico0025": {
+        "es-MX": "Salida (mm)",
+        "en-US": "Output (mm)"
+    },
+    "DetalleNumeroUnico0026": {
+        "es-MX": "Saldo (mm)",
+        "en-US": "Balance (mm)"
+    },
+    "DetalleNumeroUnico0027": {
+        "es-MX": "Referencia",
+        "en-US": "Reference"
+    },
+    "DetalleNumeroUnico0028": {
+        "es-MX": "Segmentos",
+        "en-US": "Segments"
+    },
+    "DetalleNumeroUnico0029": {
+        "es-MX": "Movimientos Inventario",
+        "en-US": "Inventory Movements"
+    },
+    "DetalleNumeroUnico0030": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    "DetalleNumeroUnico0031": {
+        "es-MX": "Total Salidas: ",
+        "en-US": "Total Output: "
+    },
+    "DetalleNumeroUnico0031": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    //Listado Materiales Item Code
+    "ListadoMaterialesItemCode0001": {
+        "es-MX": "Patio",
+        "en-US": "Areway"
+    },
+    "ListadoMaterialesItemCode0002": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoMaterialesItemCode0003": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "ListadoMaterialesItemCode0004": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "ListadoMaterialesItemCode0005": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ListadoMaterialesItemCode0006": {
+        "es-MX": "Diam1 ('')",
+        "en-US": "Diam1 ('')"
+    },
+    "ListadoMaterialesItemCode0007": {
+        "es-MX": "Diam2 ('')",
+        "en-US": "Diam2 ('')"
+    },
+    "ListadoMaterialesItemCode0008": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
+    },
+    "ListadoMaterialesItemCode0009": {
+        "es-MX": "Total Recibido",
+        "en-US": "Total Received "
+    },
+    "ListadoMaterialesItemCode0010": {
+        "es-MX": "Otras Entradas",
+        "en-US": "Other Posts"
+    },
+    "ListadoMaterialesItemCode0011": {
+        "es-MX": "Total Condicionado",
+        "en-US": "Total Conditioning"
+    },
+    "ListadoMaterialesItemCode0012": {
+        "es-MX": "Total Rechazado",
+        "en-US": "Total Rejected"
+    },
+    "ListadoMaterialesItemCode0013": {
+        "es-MX": "Recibido Neto",
+        "en-US": "Neto Received"
+    },
+    "ListadoMaterialesItemCode0014": {
+        "es-MX": "Entradas desde IC Equivalente",
+        "en-US": "Tickets from IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0015": {
+        "es-MX": "Salidas Temporales",
+        "en-US": "Temporary departures"
+    },
+    "ListadoMaterialesItemCode0016": {
+        "es-MX": "Total Otras Salidas",
+        "en-US": "Total Other Outputs"
+    },
+    "ListadoMaterialesItemCode0017": {
+        "es-MX": "Listado Materiales por Item Code",
+        "en-US": "List Materials by Item Code"
+    },
+    "ListadoMaterialesItemCode0018": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -3279,6 +3566,10 @@ _dictionary = {
     "notificationslabel0054": {
         "es-MX": "Favor de seleccionar un Folio de llegada.",
         "en-US": ""
+    },
+    "notificationslabel0055": {
+        "es-MX": "No se encontraron datos.",
+        "en-US": "No data found."
     },
     //Default to copy
     "label9999": {
