@@ -3273,7 +3273,7 @@ _dictionary = {
         "es-MX": "Total Salidas: ",
         "en-US": "Total Output: "
     },
-    "DetalleNumeroUnico0031": {
+    "DetalleNumeroUnico0032": {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },

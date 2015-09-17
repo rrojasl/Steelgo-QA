@@ -61,8 +61,7 @@
     }
 
     @section JavascriptGlobalVariables {
-    var Patio = {}, Proyecto = {}, FolioCuantificacion = {}, FolioPackingList,
-        resultadoJson;
+    var Patio = {}, Proyecto = {}, FolioCuantificacion = {}, FolioPackingList = {};
 
     var _detalleNumeroUnico = "@Url.Action("DetalleNumeroUnico", "ListadoMateriales")";
 
@@ -209,20 +208,30 @@
         });
     };
 
-    function ObtenerLosProyectos(){
-        $folioEntradaMaterial.Listado.read({}, { PatioID: Patio.PatioID, token: Cookies.get("token") }).done(function (result) {
+
+    function ObtenerLosProyectos() {
+        var Listado = ArregloListado();
+        Listado.TipoListado = 23;
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
         });
     };
 
     function ObtenerLosFolioCuantificacion() {
-        $folioEntradaMaterial.Listado.read({}, { ProyectoID: Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
+        var Listado = ArregloListado();
+        Listado.TipoListado = 9;
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("FolioCuantificacion", result);
         });
     };
 
     function ObtenerLosFolioPackingList() {
-        $folioEntradaMaterial.Listado.read({}, { FolioCuantificacionID: FolioCuantificacion.FolioCuantificacionID, token: Cookies.get("token") }).done(function (result) {
+        var Listado = ArregloListado();
+        Listado.TipoListado = 24;
+
+        $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("FolioPackingList", result);
         });
     };
@@ -234,7 +243,7 @@
     function CargarGridNumeroUnico() {
         $("#grid").kendoGrid({
             dataSource: {
-                data: resultadoJson,
+                //data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
@@ -311,16 +320,6 @@
              window.location.href = _detalleNumeroUnico + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroUnico=" + numerounico;
         }
 
-    //Se carga el folio
-    //Funcion: CargarFolio
-    //Parametros: id
-    //Return:     N/A
-    function CargarFolio(id) {
-        Folio = [];
-        _folio = {};
-        _folio["FolioAvisoLlegadaID"] = id;
-        Folio.push(_folio);
-    };
     //Se carga el Patio
     //Funcion: CargarPatio
     //Parametros: id,value
@@ -345,21 +344,19 @@
         FolioPackingList = { FolioPackingListID: id, Nombre: value };
     };
     
-    //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
-    //Funcion: ObtenerPatio
-    //Parametros: N/A
-    //Return:     N/A
+        //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
+        //Funcion: ObtenerPatio
+        //Parametros: N/A
+        //Return:     N/A
         function ObtenerPatio() {
-            $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+            var Listado = { token: "", TipoListado: "" };
+            Listado.token = Cookies.get("token");
+            Listado.TipoListado = 22;
+            $folioEntradaMaterial.Listado.read({ data: JSON.stringify(Listado) }).done(function (result) {
                 ControlErroresObjetosComboBox("PatioID", result);
             });
         };
 
-        function ObtenerProyecto() {
-            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("ProyectoID", result);
-            });
-        };
     //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
     //Funcion: ObtenerPatio
     //Parametros: N/A
@@ -384,7 +381,7 @@
         //Parametros: accion
         //Return:    Listado
         function ArregloListado(accion) {
-            var Listado = { PatioID: "", ProyectoID: "", FolioCuantificacionID: "", FolioPackingListID: "" };
+            var Listado = { PatioID: "", ProyectoID: "", FolioCuantificacionID: "", FolioPackingListID: "", TipoListado: "" };
 
             Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
             Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : -1;
@@ -403,19 +400,18 @@
         function AccionesListado() {
             loadingStart();
             var Listado = ArregloListado(accion);
-
-            $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
+            Listado.FolioCuantificacionID
+            $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioCuantificacionID, token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
-                    resultadoJson = data;
-                    if (!resultadoJson.length) {
+                    if (!data.length) {
                         displayMessage("notificationslabel0055", data.ReturnMessage, '1');
                         loadingStop();
                         return;
                     };
 
                     if ($("#grid").data("kendoGrid")) {
-                        if (resultadoJson.length > 0) {
-                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        if (data.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(data);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
