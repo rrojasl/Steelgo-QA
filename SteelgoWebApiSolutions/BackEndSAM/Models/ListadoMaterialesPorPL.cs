@@ -9,6 +9,7 @@ namespace BackEndSAM.Models
     {
         public string NumeroUnico { get; set; }
         public string ItemCode { get; set; }
+        public string ItemCodeSteelgo { get; set; }
         public string Descripcion { get; set; }
         public string Cedula { get; set; }
         public string TipoAcero { get; set; }
