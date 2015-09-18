@@ -3358,6 +3358,83 @@ _dictionary = {
         "es-MX": "Inicio",
         "en-US": "Home"
     },
+    //Almacenaje
+    "Almacenaje0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Almacenaje0002": {
+        "es-MX": "Almacenaje",
+        "en-US": "Storage"
+    },
+    "Almacenaje0003": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Almacenaje0004": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Almacenaje0005": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Almacenaje0006": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Almacenaje0007": {
+        "es-MX": "Ir a listado",
+        "en-US": "Go to List Input"
+    },
+    "Almacenaje0008": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Almacenaje0009": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "Almacenaje0010": {
+        "es-MX": "Orden de Almacenaje",
+        "en-US": "Storage Order"
+    },
+    "Almacenaje0011": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Almacenaje0012": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "Almacenaje0013": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "Almacenaje0014": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "Almacenaje0015": {
+        "es-MX": "Rack",
+        "en-US": "Rack"
+    },
+    "Almacenaje0016": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Almacenaje0017": {
+        "es-MX": "Sin Localización",
+        "en-US": "No Location"
+    },
+    "Almacenaje0018": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "Almacenaje0019": {
+        "es-MX": "Rack",
+        "en-US": "Rack"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

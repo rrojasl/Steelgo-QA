@@ -301,8 +301,8 @@
                 { field: "RangoSup", title: _dictionary.ListaMateriales0015[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Cantidad", title: _dictionary.ListaMateriales0016[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Colada", title: _dictionary.ListaMateriales0017[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "EstatusF", title: _dictionary.ListaMateriales0018[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "EstatusD", title: _dictionary.ListaMateriales0019[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "EstatusFisico", title: _dictionary.ListaMateriales0018[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "EstatusDocumental", title: _dictionary.ListaMateriales0019[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "AlmacenVirtual", title: _dictionary.ListaMateriales0020[$("#language").data("kendoDropDownList").value()], filterable: true },
             ],
             dataBound: function (e) {
@@ -358,7 +358,7 @@
         };
 
 
-        function ArregloListado(accion) {
+        function ArregloListado() {
             var Listado = { PatioID: "", ProyectoID: "", FolioAvisoLlegadaID: "", FolioPackingListID: "", TipoListado: "" };
 
             Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
@@ -377,12 +377,12 @@
         //Return:    N/A
         function AccionesListado() {
             loadingStart();
-            var Listado = ArregloListado(accion);
-            Listado.FolioAvisoLlegadaID
-            $ListadoMateriales.ListadoMateriales.read({}, { FolioAvisoLlegada: Listado.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
+            var Listado = ArregloListado();
+
+            $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioPackingListID, token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
                     if (!data.length) {
-                        displayMessage("notificationslabel0055", data.ReturnMessage, '1');
+                        displayMessage("notificationslabel0055", "", '1');
                         loadingStop();
                         return;
                     };

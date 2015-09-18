@@ -961,6 +961,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Almacenaje\AlmacenajeController.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
     <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
@@ -1124,6 +1125,7 @@
     <Content Include="Views\ListadoMateriales\ListadoMateriales.cshtml" />
     <Content Include="Views\ListadoMateriales\DetalleNumeroUnico.cshtml" />
     <Content Include="Views\ListadoMateriales\ListadoMaterialesItemCode.cshtml" />
+    <Content Include="Views\Almacenaje\Almacenaje.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
