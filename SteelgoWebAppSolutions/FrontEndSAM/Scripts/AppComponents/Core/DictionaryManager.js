@@ -3148,6 +3148,10 @@ _dictionary = {
         "es-MX": "Listado Materiales Packing List",
         "en-US": "Materials List Packing List"
     },
+    "ListaMateriales0022": {
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
+    },
     // Detalle Numero Unico
     "DetalleNumeroUnico0001": {
         "es-MX": "Inicio",
@@ -3667,6 +3671,10 @@ _dictionary = {
     "notificationslabel0055": {
         "es-MX": "No se encontraron datos.",
         "en-US": "No data found."
+    },
+    "notificationslabel0056": {
+        "es-MX": "Se han guardado los cambios.",
+        "en-US": "Your changes have been saved."
     },
     //Default to copy
     "label9999": {

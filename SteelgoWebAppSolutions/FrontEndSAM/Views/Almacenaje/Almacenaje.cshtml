@@ -33,7 +33,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="irListado" href="#" ><span id="Almacenaje0007"></span></a></li>
+                                   @* <li><a id="irListado" href="#" ><span id="Almacenaje0007"></span></a></li>*@
                                     <li><a href="#"><span id="Almacenaje0008"></span></a></li>
                                 </ul>
                             </div>
@@ -84,20 +84,20 @@
             </div>
             <div class="form-group col-sm-6 col-md-4 col-lg-3">
                 <div class="row">
-                    <div class="col-sm-6 col-md-3 col-lg-3">
+                    <div id="todosDiv" class="col-sm-6 col-md-3 col-lg-3">
                         <label id="Almacenaje0016" class="centered"></label>
                         <input id="todos" class="" type="radio" name="radio" checked value="1">
                     </div>
-                    <div class="col-sm-6 col-md-3 col-lg-3">
+                    <div id="SinLocalizacionDiv" class="col-sm-6 col-md-3 col-lg-3">
                         <label id="Almacenaje0017" class="centered"></label>
                         <input id="SinLocalizacion" class="" type="radio" name="radio" value="2" />
                     </div>
                 </div>
             </div>
     
-            <input type="button" id="FiltrarItemCode" value="FiltrarItemCode" />
+            @*<input type="button" id="FiltrarItemCode" value="FiltrarItemCode" />
             <input type="button" id="FiltrarNumeroUnico" value="FiltrarNumeroUnico" />
-            <input type="button" id="FiltrarSinLocalizacion" value="FiltrarSinLocalizacion" />
+            <input type="button" id="FiltrarSinLocalizacion" value="FiltrarSinLocalizacion" />*@
 
             <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div id="grid"></div>
@@ -107,13 +107,15 @@
 <script>
     @section JavascriptDocumentReadyHomeCookie {
         Cookies.set("home", true, { path: '/' });
-        Cookies.set("navegacion", "8", { path: '/' });
+        Cookies.set("navegacion", "24", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
     var Proyecto = {}, OrdenAlmacenaje = {},
         ItemCode = {}, NumeroUnico = {},
         resultadoJson = "";
+    var _almacenaje = "@Url.Action("Almacenaje", "Almacenaje")";
+
     var $AlmacenajeModel = {
         listContainer: {
             create: ".editButtonSection",
@@ -122,21 +124,51 @@
             destroy: ".k-grid-Cancelar"
         },
         properties: {
-            folioAvisoLlegada: {
-                visible: "#FolioAvisoLlegadaIDDiv",
-                editable: "#FolioAvisoLlegadaID",
-                required: "#FolioAvisoLlegadaID"
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
             },
-            numeropermiso: {
-                visible: "#NumeroPermisoDiv",
-                editable: "#NumeroPermiso",
-                required: "#NumeroPermiso"
+            ordenalmacenaje: {
+                visible: "#OrdenAlmacenajeDiv",
+                editable: "#OrdenAlmacenaje",
+                required: "#OrdenAlmacenaje"
             },
-            archivos: {
-                visible: "#ArchivoAutorizarDiv",
-                editable: "#ArchivoAutorizar",
-                required: "#ArchivoAutorizar"
+            itemcode: {
+                visible: "#ItemCodeDiv",
+                editable: "#ItemCode",
+                required: "#ItemCode"
             },
+            numerounico: {
+                visible: "#NumeroUnicoDiv",
+                editable: "#NumeroUnico",
+                required: "#NumeroUnico"
+            },
+            diametro1: {
+                visible: "#Diametro1Div",
+                editable: "#Diametro1",
+                required: "#Diametro1"
+            },
+            diametro2: {
+                visible: "#Diametro2Div",
+                editable: "#Diametro2",
+                required: "#Diametro2"
+            },
+            rack: {
+                visible: "#RackDiv",
+                editable: "#Rack",
+                required: "#Rack"
+            },
+            todos: {
+                visible: "#todosDiv",
+                editable: "#todos",
+                required: "#todos"
+            },
+            sinlocalizacion: {
+                visible: "#SinLocalizacionDiv",
+                editable: "#SinLocalizacion",
+                required: "#SinLocalizacion"
+            }
         }
     };
     }
@@ -144,11 +176,11 @@
     @section JavascriptGlobalFunctions {
         function changeLanguageCall() {
             CargarGridAlmacenaje();
-        }
-    
+        };
 
         function CargaInicial() {
             $("#Guardar").click(function () { Guardar(); });
+            $("#Cancelar").click(function () { Cancelar(); });
 
             $("#ProyectoID").kendoComboBox({
                 dataTextField: "Nombre",
@@ -163,7 +195,7 @@
                     if (!value) {
                         Proyecto = {};
                     } else {
-                        
+                        ObtenerOrdenesAlmacenaje();
                     };
                 },
                 filter: "contains",
@@ -180,10 +212,11 @@
                 change: function (e) {
                     var value = this.value();
                     LimpiarCamposOrdenAlmacenaje();
+                    FiltrarDatos();
                     if (!value) {
                         OrdenAlmacenaje = {};
                     } else {
-                        //
+                        ObtenerItemCodes();
                     };
                 },
                 filter: "contains",
@@ -199,10 +232,11 @@
                 change: function (e) {
                     var value = this.value();
                     LimpiarCamposItemCode();
+                    FiltrarDatos();
                     if (!value) {
                         ItemCode = {};
                     } else {
-                        //
+                        ObtenerNumerosUnicos();
                     };
                 },
                 filter: "contains",
@@ -218,11 +252,10 @@
                 change: function (e) {
                     var value = this.value();
                     LimpiarCamposNumeroUnico();
+                    FiltrarDatos();
                     if (!value) {
                         NumeroUnico = {};
-                    } else {
-                        //
-                    };
+                    }
                 },
                 filter: "contains",
             });
@@ -244,40 +277,40 @@
                 }
             });
 
-            $("#FiltrarItemCode").click(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([
-                    {
-                        "field": "ItemCode",
-                        "operator": "Contains",
-                        "value": "1002"
-                    }
-                ]);
-            });
-            $("#FiltrarNumeroUnico").click(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([
-                    {
-                        "field": "NumeroUnico",
-                        "operator": "Contains",
-                        "value": "B-0001"
-                    }
-                ]);
-            });
-            $("#FiltrarSinLocalizacion").click(function () {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                ds.filter([{
-                    "field": "ItemCode",
-                    "operator": "Contains",
-                    "value": "1001"
-                },
-                    {
-                        "field": "TieneLocalizacion",
-                        "operator": "Contains",
-                        "value": "true"
-                    }
-                ]);
-            });
+            //$("#FiltrarItemCode").click(function () {
+            //    var ds = $("#grid").data("kendoGrid").dataSource;
+            //    ds.filter([
+            //        {
+            //            "field": "ItemCode",
+            //            "operator": "Contains",
+            //            "value": "1002"
+            //        }
+            //    ]);
+            //});
+            //$("#FiltrarNumeroUnico").click(function () {
+            //    var ds = $("#grid").data("kendoGrid").dataSource;
+            //    ds.filter([
+            //        {
+            //            "field": "NumeroUnico",
+            //            "operator": "Contains",
+            //            "value": "B-0001"
+            //        }
+            //    ]);
+            //});
+            //$("#FiltrarSinLocalizacion").click(function () {
+            //    var ds = $("#grid").data("kendoGrid").dataSource;
+            //    ds.filter([{
+            //        "field": "ItemCode",
+            //        "operator": "Contains",
+            //        "value": "1001"
+            //    },
+            //        {
+            //            "field": "TieneLocalizacion",
+            //            "operator": "Contains",
+            //            "value": "true"
+            //        }
+            //    ]);
+            //});
 
             ObtenerDatosGrid();
         };
@@ -305,6 +338,41 @@
             $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("ProyectoID", result);
             });
+        };
+
+        function ObtenerOrdenesAlmacenaje() {//Se Obtienen los numeros unicos y los item codes
+            loadingStart();
+            $OrdenesAlmacenaje.OrdenesAlmacenaje.read({ ProyectoID:Proyecto.ProyectoID, token: Cookies.get("token") }).done(function (result) {
+                if (Error(result)) {
+                    ControlErroresObjetosComboBox("OrdenAlmacenaje", result.OrdenAlmacenaje);
+                    resultadoJson = result.ListadoGrid;
+                    if ($("#grid").data("kendoGrid")) {
+                        if (resultadoJson.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                            $("#grid").data("kendoGrid").dataSource.page(1);
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            $("#grid").data("kendoGrid").dataSource.page(0);
+                        };
+                    };
+                    applySecurityPolicy(false);
+                }
+                loadingStop();
+            });
+            
+        };
+
+        function ObtenerItemCodes() {
+            //$ItemCodes.ItemCodes.read({ OrdenAlmacenajeID: OrdenAlmacenaje.OrdenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
+            //    ControlErroresObjetosComboBox("ItemCode", result);
+            //});
+        };
+
+        function ObtenerNumerosUnicos() {
+            
+            //$NumeroUnico.NumeroUnico.read({ ItemCodeID: ItemCode.ItemCodeID, token: Cookies.get("token") }).done(function (result) {
+            //    ControlErroresObjetosComboBox("NumeroUnico", result);
+            //});
         };
 
         function LimpiarCamposProyecto() {
@@ -353,12 +421,12 @@
                 {
                     "field": "ItemCode",
                     "operator": "Contains",
-                    "value": $("#ItemCodeID").data("kendoComboBox").value("")
+                    "value": $("#ItemCodeID").data("kendoComboBox").value()
                 },
                 {
                     "field": "NumeroUnico",
                     "operator": "Contains",
-                    "value": $("#NumeroUnico").data("kendoComboBox").value("")
+                    "value": $("#NumeroUnico").data("kendoComboBox").value()
                 },
                 {
                     "field": "TieneLocalizacion",
@@ -367,6 +435,7 @@
                 }
             ]);
         };
+
         function PlancharRack(value) {
             var filters = $("#grid").data("kendoGrid").dataSource.filter();
             var allData = $("#grid").data("kendoGrid").dataSource.data();
@@ -477,33 +546,61 @@
             };
         };
 
+        function validarRequeridosFormaAlmacenaje() {
+            var bool = true;
+            $("#formaAlmacenaje .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).closest("div").find("label").addClass("error");
+                    } else {
+                        $(this).closest("div").find("label").removeClass("error");
+                    };
+                };
+            });
+            return bool;
+        };
+
+        function Guardar() {
+            if(validarRequeridosFormaAlmacenaje()){
+                var datasource = $("#grid").data("kendoGrid").dataSource.data();
+                Listado = [];
+                Listado = ListadoAGuardar(datasource);
+
+          
+                $DummyGuardar.DummyGuardar.create(Listado, { token: $.cookie("token") }).done(function (result) {
+                    loadingStart();
+                    Error(result);
+                    displayMessage("notificationslabel0056", "", 0);
+                    loadingStop();
+                });
+            } else {
+                displayMessage("notificationslabel0031", "", '1');
+            }
+        };
+
+        function Cancelar() {
+            window.location.href = _almacenaje + "?leng=" + $("#language").data("kendoDropDownList").value();
+        };
     }
 
-    function Guardar() {
-        var datasource = $("#grid").data("kendoGrid").dataSource.data();
-       
-
-        Listado = [];
-
+    function ListadoAGuardar(datasource) {
         for (var i = 0; i < datasource.length; i++) {
             var NumeroUnico = datasource[i].NumeroUnico;
             var Rack = datasource[i].Rack;
 
             Listado[i] = { NumeroUnico: NumeroUnico, Rack: Rack };
         };
-
-        $DummyGuardar.DummyGuardar.create(Listado, { token: $.cookie("token") }).done(function (result) {
-            loadingStart();
-            Error(result);
-            displayMessage("", "", 0);
-            loadingStop();
-        });
-
+        return Listado;
     };
 
+    
+
+
+
     @section JavascriptDocumentReadyFunctions {
+        $authorizationModel["Almacenaje"] = $AlmacenajeModel;
         CargaInicial();
-        //$authorizationModel["Autorización de Permiso"] = $AutorizarPermisoModel;
     }
 
 </script>
