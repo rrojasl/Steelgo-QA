@@ -3277,6 +3277,14 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    "DetalleNumeroUnico0033": {
+        "es-MX": "Listado Materiales Packing List",
+        "en-US": "Materials List Packing List"
+    },
+    "DetalleNumeroUnico0034": {
+        "es-MX": "Detalle Número Único",
+        "en-US": "Detail Unique Number"
+    },
     //Listado Materiales Item Code
     "ListadoMaterialesItemCode0001": {
         "es-MX": "Patio",

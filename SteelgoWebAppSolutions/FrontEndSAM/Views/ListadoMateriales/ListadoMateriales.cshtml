@@ -27,9 +27,9 @@
                                 <label id="ListaMateriales0003"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
-                            <div id="FolioCuantificacionDiv" class="col-sm-6 col-md-6 col-lg-3">
+                            <div id="FolioAvisoLlegadaDiv" class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListaMateriales0004"></label>
-                                <input id="FolioCuantificacion" class="" />
+                                <input id="FolioAvisoLlegada" class="" />
                             </div>
                             <div id="FolioPackingListDiv" class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="ListaMateriales0005"></label>
@@ -61,7 +61,7 @@
     }
 
     @section JavascriptGlobalVariables {
-    var Patio = {}, Proyecto = {}, FolioCuantificacion = {}, FolioPackingList = {};
+    var Patio = {}, Proyecto = {}, FolioAvisoLlegada = {}, FolioPackingList = {};
 
     var _detalleNumeroUnico = "@Url.Action("DetalleNumeroUnico", "ListadoMateriales")";
 
@@ -83,10 +83,10 @@
                 editable: "#ProyectoID",
                 required: "#ProyectoID"
             },
-            foliocuantificacion: {
-                visible: "#FolioCuantificacionDiv",
-                editable: "#FolioCuantificacion",
-                required: "#FolioCuantificacion"
+            folioavisollegada: {
+                visible: "#FolioAvisoLlegadaDiv",
+                editable: "#FolioAvisoLlegada",
+                required: "#FolioAvisoLlegada"
             },
             foliopackinglist: {
                 visible: "#FolioPackingListDiv",
@@ -134,10 +134,10 @@
                 if (!value) {
                     Patio = {};
                     Proyecto = {};
-                    FolioCuantificacion = {};
+                    FolioAvisoLlegada = {};
                     FolioPackingList = {};
                     $("#ProyectoID").data("kendoComboBox").value("");
-                    $("#FolioCuantificacion").data("kendoComboBox").value("");
+                    $("#FolioAvisoLlegada").data("kendoComboBox").value("");
                     $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
                     ObtenerLosProyectos();
@@ -158,28 +158,28 @@
                 var value = this.value();
                 if (!value) {
                     Proyecto = {};
-                    FolioCuantificacion = {};
+                    FolioAvisoLlegada = {};
                     FolioPackingList = {};
-                    $("#FolioCuantificacion").data("kendoComboBox").value("");
+                    $("#FolioAvisoLlegada").data("kendoComboBox").value("");
                     $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
-                    ObtenerLosFolioCuantificacion();
+                    ObtenerLosFolioAvisoLlegada();
                 };
             },
             filter: "contains",
         });
 
-        $("#FolioCuantificacion").kendoComboBox({
+        $("#FolioAvisoLlegada").kendoComboBox({
             dataTextField: "value",
             dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarFolioCuantificacion(dataItem.id, dataItem.value);
+                CargarFolioAvisoLlegada(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
                 if (!value) {
-                    FolioCuantificacion = {};
+                    FolioAvisoLlegada = {};
                     FolioPackingList = {};
                     $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
@@ -218,12 +218,12 @@
         });
     };
 
-    function ObtenerLosFolioCuantificacion() {
+    function ObtenerLosFolioAvisoLlegada() {
         var Listado = ArregloListado();
         Listado.TipoListado = 9;
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-            ControlErroresObjetosComboBox("FolioCuantificacion", result);
+            ControlErroresObjetosComboBox("FolioAvisoLlegada", result);
         });
     };
 
@@ -334,9 +334,9 @@
         Proyecto = { ProyectoID: id, Nombre: value };
     };
 
-    function CargarFolioCuantificacion(id, value) {
-        FolioCuantificacion = {};
-        FolioCuantificacion = { FolioCuantificacionID: id, Nombre: value };
+    function CargarFolioAvisoLlegada(id, value) {
+        FolioAvisoLlegada = {};
+        FolioAvisoLlegada = { FolioAvisoLlegadaID: id, Nombre: value };
     };
     
     function CargarFolioPackingList(id, value) {
@@ -359,11 +359,11 @@
 
 
         function ArregloListado(accion) {
-            var Listado = { PatioID: "", ProyectoID: "", FolioCuantificacionID: "", FolioPackingListID: "", TipoListado: "" };
+            var Listado = { PatioID: "", ProyectoID: "", FolioAvisoLlegadaID: "", FolioPackingListID: "", TipoListado: "" };
 
             Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
             Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : -1;
-            Listado.FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : -1;
+            Listado.FolioAvisoLlegadaID = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : -1;
             Listado.FolioPackingListID = FolioPackingList.FolioPackingListID ? FolioPackingList.FolioPackingListID : -1;
             Listado.token = Cookies.get("token");
             
@@ -378,8 +378,8 @@
         function AccionesListado() {
             loadingStart();
             var Listado = ArregloListado(accion);
-            Listado.FolioCuantificacionID
-            $ListadoMateriales.ListadoMateriales.read({}, { FolioCuantificacion: Listado.FolioCuantificacionID, token: Cookies.get("token") }).done(function (data) {
+            Listado.FolioAvisoLlegadaID
+            $ListadoMateriales.ListadoMateriales.read({}, { FolioAvisoLlegada: Listado.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (data) {
                 if (Error(data)) {
                     if (!data.length) {
                         displayMessage("notificationslabel0055", data.ReturnMessage, '1');
