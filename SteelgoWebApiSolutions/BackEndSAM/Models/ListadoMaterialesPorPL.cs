@@ -44,4 +44,27 @@ namespace BackEndSAM.Models
         public string TotalSalidas { get; set; }
         public string SaldoActual { get; set; }
     }
+
+    public class GridSegmento
+    {
+        public string Segmento { get; set; }
+        public string Rack { get; set; }
+        public string TotalRecibido { get; set; }
+        public string TotalDanado { get; set; }
+        public string TotalEntradas { get; set; }
+        public string TotalSalidas { get; set; }
+        public string SalidasTemporales { get; set; }
+        public string SaldoActual { get; set; } 
+    }
+
+    public class GridMovimientos
+    {
+        public string Fecha { get; set; }
+        public string Movimiento { get; set; }
+        public string Segmento { get; set; }
+        public string Entrada { get; set; }
+        public string Salida { get; set; }
+        public string Saldo { get; set; }
+        public string Referencia { get; set; }
+    }
 }

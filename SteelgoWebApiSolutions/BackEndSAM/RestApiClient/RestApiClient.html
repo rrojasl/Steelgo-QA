@@ -353,7 +353,9 @@
         //client.add("Listado");
         //client.Listado.read({}, { data: JSON.stringify(listado) }).done(function (data) { console.log(data) });
         client.add("ListadoMateriales");
-        client.ListadoMateriales.read({}, { FolioCuantificacion: 1037, token: "" }).done(function (data) { console.log(data) });
+        //client.ListadoMateriales.read({}, { FolioCuantificacion: 1037, token: "" }).done(function (data) { console.log(data) });
+
+        client.ListadoMateriales.read({}, { NumeroUnicoID: 1501, TipoGrid: 2, token: "" }).done(function (data) { console.log(data) });
 
         //client.add("DetalleNumeroUnico");
         //client.DetalleNumeroUnico.read({}, { NumeroUnicoID: 1501, token: "" }).done(function (data) { console.log(data) });

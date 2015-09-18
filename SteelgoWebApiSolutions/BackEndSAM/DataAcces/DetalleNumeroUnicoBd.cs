@@ -86,6 +86,8 @@ namespace BackEndSAM.DataAcces
                                    D1 = ics.Diametro1.ToString(),
                                    D2 = ics.Diametro2.ToString(),
                                    Cedula = ics.Cedula,
+                                   Profile1 = "X",
+                                   Profile2 = "Y",
                                    TotalRecibido = nui.CantidadRecibida.ToString(),
                                    TotalDanado = nui.CantidadDanada.ToString(),
                                    TotalEntradas = sumaTotalEntradas.ToString(),
@@ -120,6 +122,86 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtener datos del Grid Segmento
+        /// Detalle de Numero Unico
+        /// </summary>
+        /// <param name="numeroUnicoID"></param>
+        /// <returns></returns>
+        public object gridSegmentos(string numeroUnicoID)
+        {
+            try 
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<GridSegmento> segmento = (from nus in ctx.Sam3_NumeroUnicoSegmento
+                                                join nui in ctx.Sam3_NumeroUnicoInventario on nus.NumeroUnicoID equals nui.NumeroUnicoID
+                                                where nus.Activo && nui.Activo && nus.NumeroUnicoID.ToString() == numeroUnicoID
+                                                select new GridSegmento
+                                                {
+                                                    Segmento = nus.Segmento,
+                                                    Rack = nus.Rack,
+                                                    TotalRecibido = nui.CantidadRecibida.ToString(),
+                                                    TotalDanado = nui.CantidadDanada.ToString(),
+                                                    SalidasTemporales = nus.InventarioTransferenciaCorte.ToString(),
+                                                    TotalEntradas = "",
+                                                    TotalSalidas = "",
+                                                    SaldoActual = nus.InventarioFisico.ToString()
+                                                }).AsParallel().OrderBy(x => x.Segmento).ToList();
+                    return segmento;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para obtener la informacion del Grid de Movimientos
+        /// en Detalle de Numero Unico
+        /// </summary>
+        /// <param name="numeroUnicoID"></param>
+        /// <returns></returns>
+        public object gridMovimientos(string numeroUnicoID)
+        {
+            try 
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<GridMovimientos> movimientos = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                         join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                         join nui in ctx.Sam3_NumeroUnicoInventario on num.NumeroUnicoID equals nui.NumeroUnicoID
+                                                         where num.Activo && tm.Activo == 1 && num.NumeroUnicoID.ToString() == numeroUnicoID
+                                                         select new GridMovimientos
+                                                         {
+                                                             Fecha = num.FechaMovimiento.ToString(),
+                                                             Movimiento = tm.Nombre.ToString(),
+                                                             Segmento = num.Segmento,
+                                                             Entrada = tm.EsEntrada ? num.Cantidad.ToString() : "0",
+                                                             Salida = !tm.EsEntrada ? num.Cantidad.ToString() : "0",
+                                                             Saldo = nui.InventarioFisico.ToString()
+                                                         }).AsParallel().OrderBy(x=> x.Segmento).ToList();
+
+                    return movimientos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

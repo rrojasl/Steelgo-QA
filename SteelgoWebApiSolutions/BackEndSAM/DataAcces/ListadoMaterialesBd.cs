@@ -139,9 +139,7 @@ namespace BackEndSAM.DataAcces
                                             id = fc.FolioCuantificacionID.ToString(),
                                             value = fc.FolioCuantificacionID.ToString()
                                         }).AsParallel().ToList();
-
                     return folios;
-
                 }
             }
             catch (Exception ex)
