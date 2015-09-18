@@ -112,10 +112,9 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarCamposPatio();
                 if (!value) {
                     Patio = {};
-                    Proyecto = {};
-                    $("#ProyectoID").data("kendoComboBox").value("");
                 } else {
                     ObtenerLosProyectos();
                 }
@@ -133,6 +132,7 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarCamposProyecto();
                 if (!value) {
                     Proyecto = {};
                 }
@@ -141,6 +141,16 @@
         });
     };
 
+    function LimpiarCamposPatio() {
+        Proyecto = {};
+        $("#ProyectoID").data("kendoComboBox").value("");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.page(0);
+    };
+    function LimpiarCamposProyecto() {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.page(0);
+    };
     function ObtenerLosProyectos(){
         $folioEntradaMaterial.Listado.read({}, { PatioID: Patio.PatioID, token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
@@ -261,7 +271,7 @@
         //Funcion: ObtenerCliente
         //Parametros: accion
         //Return:    Listado
-        function ArregloListado(accion) {
+        function ArregloListado() {
             var Listado = { PatioID: "", ProyectoID: "", FolioCuantificacionID: "", FolioPackingListID: "" };
 
             Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
@@ -278,13 +288,13 @@
         //Return:    N/A
         function AccionesListado() {
             loadingStart();
-            var Listado = ArregloListado(accion);
+            var Listado = ArregloListado();
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
                 if (Error(data)) {
                     resultadoJson = data;
                     if (!resultadoJson.length) {
-                        displayMessage("notificationslabel0055", data.ReturnMessage, '1');
+                        displayMessage("notificationslabel0055", "", '1');
                         loadingStop();
                         return;
                     };
