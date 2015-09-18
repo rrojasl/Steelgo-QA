@@ -117,46 +117,6 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
-        /// Funcion para obtener los folios de llegada 
-        /// Combo Listado de material
-        /// </summary>
-        /// <param name="proyectoID"></param>
-        /// <returns></returns>
-        public object obtenerFolioLlegadaListadoMateriales(string proyectoID, Sam3_Usuario usuario)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<ListaCombos> folios = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                                join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fe.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
-                                                join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
-                                                where fe.Activo && rfp.Activo && fc.Activo
-                                                && rfp.ProyectoID.ToString() == proyectoID
-                                                select new ListaCombos
-                                                {
-                                                    id = fe.FolioAvisoLlegadaID.ToString(),
-                                                    value = fe.FolioAvisoLlegadaID.ToString()
-                                                }).AsParallel().ToList();
-
-                    folios = folios.GroupBy(x => x.id).Select(x => x.First()).ToList();
-
-                    return folios;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-        /// <summary>
         /// Obtener los folios cuantificacion
         /// Combo Folio Packing List en Listado de MAteriales
         /// </summary>
@@ -169,12 +129,16 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<int> folios = (from fc in ctx.Sam3_FolioCuantificacion
+                    List<ListaCombos> folios = (from fc in ctx.Sam3_FolioCuantificacion
                                         join ave in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals ave.FolioAvisoEntradaID
                                         where fc.Activo && ave.Activo
                                         && ave.FolioAvisoLlegadaID.ToString() == folioLlegadaID
                                         && fc.ProyectoID.ToString() == proyectoID
-                                        select fc.FolioCuantificacionID).AsParallel().ToList();
+                                        select  new ListaCombos
+                                        {
+                                            id = fc.FolioCuantificacionID.ToString(),
+                                            value = fc.FolioCuantificacionID.ToString()
+                                        }).AsParallel().ToList();
 
                     return folios;
 
