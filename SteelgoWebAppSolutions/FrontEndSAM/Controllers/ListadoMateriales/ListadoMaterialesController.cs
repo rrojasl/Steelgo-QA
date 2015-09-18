@@ -19,5 +19,10 @@ namespace FrontEndSAM.Controllers.ListadoMateriales
         {
             return View();
         }
+
+        public ActionResult ListadoMaterialesItemCode()
+        {
+            return View();
+        }
     }
 }
