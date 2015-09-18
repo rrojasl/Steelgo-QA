@@ -131,14 +131,9 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarCamposPatio();
                 if (!value) {
                     Patio = {};
-                    Proyecto = {};
-                    FolioAvisoLlegada = {};
-                    FolioPackingList = {};
-                    $("#ProyectoID").data("kendoComboBox").value("");
-                    $("#FolioAvisoLlegada").data("kendoComboBox").value("");
-                    $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
                     ObtenerLosProyectos();
                 }
@@ -156,12 +151,9 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarCamposProyecto();
                 if (!value) {
                     Proyecto = {};
-                    FolioAvisoLlegada = {};
-                    FolioPackingList = {};
-                    $("#FolioAvisoLlegada").data("kendoComboBox").value("");
-                    $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
                     ObtenerLosFolioAvisoLlegada();
                 };
@@ -178,10 +170,9 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarCamposFolioLlegada();
                 if (!value) {
                     FolioAvisoLlegada = {};
-                    FolioPackingList = {};
-                    $("#FolioPackingList").data("kendoComboBox").value("");
                 } else {
                     ObtenerLosFolioPackingList();
                 };
@@ -198,6 +189,7 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarCamposFolioPackingList();
                 if (!value) {
                     FolioPackingList = {};
                 } else {
@@ -207,8 +199,35 @@
             filter: "contains",
         });
     };
+    function LimpiarCamposPatio() {
+        Proyecto = {};
+        FolioAvisoLlegada = {};
+        FolioPackingList = {};
+        $("#ProyectoID").data("kendoComboBox").value("");
+        $("#FolioAvisoLlegada").data("kendoComboBox").value("");
+        $("#FolioPackingList").data("kendoComboBox").value("");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.page(0);
+    };
+    function LimpiarCamposProyecto() {
+        FolioAvisoLlegada = {};
+        FolioPackingList = {};
+        $("#FolioAvisoLlegada").data("kendoComboBox").value("");
+        $("#FolioPackingList").data("kendoComboBox").value("");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.page(0);
+    };
 
-
+    function LimpiarCamposFolioLlegada() {
+        FolioPackingList = {};
+        $("#FolioPackingList").data("kendoComboBox").value("");
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.page(0);
+    };
+    function LimpiarCamposFolioPackingList() {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.page(0);
+    };
     function ObtenerLosProyectos() {
         var Listado = ArregloListado();
         Listado.TipoListado = 23;
