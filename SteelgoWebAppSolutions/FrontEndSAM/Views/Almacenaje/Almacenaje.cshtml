@@ -33,8 +33,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="irListado" ><span id="Almacenaje0007"></span></a></li>
-                                    <li><a><span id="Almacenaje0008"></span></a></li>
+                                    <li><a id="irListado" href="#" ><span id="Almacenaje0007"></span></a></li>
+                                    <li><a href="#"><span id="Almacenaje0008"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -116,10 +116,10 @@
         resultadoJson = "";
     var $AlmacenajeModel = {
         listContainer: {
-            create: "",
-            list: "",
-            detail: "",
-            destroy: ""
+            create: ".editButtonSection",
+            list: "#grid",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
         },
         properties: {
             folioAvisoLlegada: {
@@ -419,10 +419,10 @@
                     numeric: true,
                 },
                 columns: [
-                    { field: "ItemCode", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "ItemCode", title: _dictionary.Almacenaje0020[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                     { field: "NumeroUnico", title: _dictionary.Almacenaje0018[$("#language").data("kendoDropDownList").value()], filterable: true },
                     { field: "Rack", title: _dictionary.Almacenaje0019[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "TieneLocalizacion", title: _dictionary.Almacenaje0022[$("#language").data("kendoDropDownList").value()], filterable: true }
+                    { field: "TieneLocalizacion", title: _dictionary.Almacenaje0022[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true }
                 ],
                 dataBound: function (e) {
                     $(".k-grid input.k-textbox").prop('readonly', true);

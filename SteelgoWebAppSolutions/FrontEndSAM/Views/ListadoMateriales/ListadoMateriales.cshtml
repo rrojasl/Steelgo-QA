@@ -363,14 +363,11 @@
         FolioPackingList = { FolioPackingListID: id, Nombre: value };
     };
     
-        //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
-        //Funcion: ObtenerPatio
-        //Parametros: N/A
-        //Return:     N/A
+
         function ObtenerPatio() {
-            var Listado = { token: "", TipoListado: "" };
-            Listado.token = Cookies.get("token");
+            var Listado = ArregloListado();
             Listado.TipoListado = 22;
+
             $folioEntradaMaterial.Listado.read({ data: JSON.stringify(Listado) }).done(function (result) {
                 ControlErroresObjetosComboBox("PatioID", result);
             });
@@ -389,11 +386,6 @@
             return Listado;
         };
 
-        //Se realiza una peticion para obtener los datos y llenar el grid dependiendo de la accion que se realizo
-        // creados, sin permiso, sin autorizacion,completos
-        //Funcion: AccionesListado
-        //Parametros: accion
-        //Return:    N/A
         function AccionesListado() {
             loadingStart();
             var Listado = ArregloListado();
