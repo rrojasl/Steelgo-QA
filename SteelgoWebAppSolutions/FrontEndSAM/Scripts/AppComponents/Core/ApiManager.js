@@ -95,6 +95,7 @@ var $GuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/bac
 var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -168,3 +169,4 @@ $GuardarFolioLlegadaCuantificacion.add("GuardarFolioLlegadaCuantificacion");
 $CambiarEstatusCuantificacion.add("CambiarEstatusCuantificacion");
 $ComplementarRecepcion.add("ComplementarRecepcion");
 $ListadoMateriales.add("ListadoMateriales")
+$DummyAlmacenajeRack.add("DummyAlmacenajeRack");

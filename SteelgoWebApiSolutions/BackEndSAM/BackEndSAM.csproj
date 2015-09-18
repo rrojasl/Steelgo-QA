@@ -145,6 +145,7 @@
     <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
     <Compile Include="Controllers\DummyAceroController.cs" />
+    <Compile Include="Controllers\DummyAlmacenajeRackController.cs" />
     <Compile Include="Controllers\DummyColadaController.cs" />
     <Compile Include="Controllers\DummyColadasPorProyectoController.cs" />
     <Compile Include="Controllers\DummyGenerarOrdenAlmacenajeController.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />
+    <Compile Include="Models\Dummy\AlmacenajeRack.cs" />
     <Compile Include="Models\Dummy\ArchivoAutorizado.cs" />
     <Compile Include="Models\Dummy\AvisoLlegada.cs" />
     <Compile Include="Models\Dummy\Camion.cs" />

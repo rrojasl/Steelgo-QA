@@ -3435,6 +3435,18 @@ _dictionary = {
         "es-MX": "Rack",
         "en-US": "Rack"
     },
+    "Almacenaje0020": {
+        "es-MX": "ItemCode",
+        "en-US": "ItemCode"
+    },
+    "Almacenaje0021": {
+        "es-MX": "NumeroUnicoID",
+        "en-US": "NumeroUnicoID"
+    },
+    "Almacenaje0022": {
+        "es-MX": "TieneLocalizacion",
+        "en-US": "TieneLocalizacion"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
