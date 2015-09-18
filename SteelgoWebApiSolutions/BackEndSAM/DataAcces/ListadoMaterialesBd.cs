@@ -10,7 +10,7 @@ namespace BackEndSAM.DataAcces
 {
     public class ListadoMaterialesBd
     {
-        
+
         private static readonly object _mutex = new object();
         private static ListadoMaterialesBd _instance;
 
@@ -54,13 +54,14 @@ namespace BackEndSAM.DataAcces
                     List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID).Select(x => x.ProyectoID).AsParallel().ToList();
 
                     List<Patio> patios = (from r in ctx.Sam3_Proyecto
-                              join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                              where r.Activo && proyectos.Contains(r.ProyectoID)
-                              select new Patio 
-                              {
-                                  PatioID = p.PatioID.ToString(),
-                                  Nombre = p.Nombre
-                              }).AsParallel().GroupBy(x => x).Select(x => x.First()).ToList();
+                                          join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
+                                          where r.Activo && p.Activo && proyectos.Contains(r.ProyectoID)
+                                          select new Patio
+                                          {
+                                              PatioID = p.PatioID.ToString(),
+                                              Nombre = p.Nombre
+                                          }).AsParallel().GroupBy(x => x.PatioID).Select(x => x.First()).ToList();
+
                     return patios;
                 }
             }
@@ -85,20 +86,20 @@ namespace BackEndSAM.DataAcces
         /// <returns></returns>
         public object obtenerProyectoListadoMateriales(string patioID, Sam3_Usuario usuario)
         {
-            try 
+            try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Proyecto> proyectos = (from rup in ctx.Sam3_Rel_Usuario_Proyecto
                                                 join pr in ctx.Sam3_Proyecto on rup.ProyectoID equals pr.ProyectoID
-                                                where rup.Activo && pr.Activo 
+                                                where rup.Activo && pr.Activo
                                                 && rup.UsuarioID == usuario.UsuarioID
-                                                && pr.PatioID == Convert.ToInt32(patioID)
-                                                    select new Proyecto
-                                                    {
-                                                        ProyectoID = pr.ProyectoID.ToString(),
-                                                        Nombre = pr.Nombre
-                                                    }).AsParallel().ToList();
+                                                && pr.PatioID.ToString() == patioID
+                                                select new Proyecto
+                                                {
+                                                    ProyectoID = pr.ProyectoID.ToString(),
+                                                    Nombre = pr.Nombre
+                                                }).AsParallel().ToList();
 
                     return proyectos;
                 }
@@ -171,8 +172,8 @@ namespace BackEndSAM.DataAcces
                     List<int> folios = (from fc in ctx.Sam3_FolioCuantificacion
                                         join ave in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals ave.FolioAvisoEntradaID
                                         where fc.Activo && ave.Activo
-                                        && ave.FolioAvisoLlegadaID == Convert.ToInt32(folioLlegadaID)
-                                        && fc.ProyectoID == Convert.ToInt32(proyectoID)
+                                        && ave.FolioAvisoLlegadaID.ToString() == folioLlegadaID
+                                        && fc.ProyectoID.ToString() == proyectoID
                                         select fc.FolioCuantificacionID).AsParallel().ToList();
 
                     return folios;
@@ -211,20 +212,20 @@ namespace BackEndSAM.DataAcces
                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
                              join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
                              where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo &&
-                             rfc.FolioCuantificacionID == Convert.ToInt32(folioCuantificacion)
+                             rfc.FolioCuantificacionID.ToString() == folioCuantificacion
                              select new ListadoMaterialesPorPL
                              {
-                                  NumeroUnico = nu.NumeroUnicoID.ToString(),
-                                  ItemCode = ic.Codigo,
-                                  Descripcion = ics.DescripcionEspanol,
-                                  Cedula = ics.Cedula,
-                                  TipoAcero = fm.Nombre,
-                                  D1 = ics.Diametro1.ToString(),
-                                  D2 = ics.Diametro2.ToString(),
-                                  Cantidad = ic.Cantidad.ToString(),
-                                  Colada = ic.ColadaID.ToString(),
-                                  EstatusFisico = ic.EstatusFisico,
-                                  EstatusDocumental = ic.EstatusDocumental
+                                 NumeroUnico = nu.NumeroUnicoID.ToString(),
+                                 ItemCode = ic.Codigo,
+                                 Descripcion = ics.DescripcionEspanol,
+                                 Cedula = ics.Cedula,
+                                 TipoAcero = fm.Nombre,
+                                 D1 = ics.Diametro1.ToString(),
+                                 D2 = ics.Diametro2.ToString(),
+                                 Cantidad = ic.Cantidad.ToString(),
+                                 Colada = ic.ColadaID.ToString(),
+                                 EstatusFisico = ic.EstatusFisico,
+                                 EstatusDocumental = ic.EstatusDocumental
                              }).AsParallel().ToList();
 
                     return lista;
@@ -241,7 +242,5 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
-
-
     }
 }
