@@ -138,6 +138,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\DocumentoFolioAvisoEntradaController.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
+    <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
