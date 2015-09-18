@@ -168,6 +168,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListadoMaterialesPorPL> lista = new List<ListadoMaterialesPorPL>();
+
                     lista = (from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
                              join ic in ctx.Sam3_ItemCode on rfc.ItemCodeID equals ic.ItemCodeID
                              join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
@@ -181,15 +182,25 @@ namespace BackEndSAM.DataAcces
                              {
                                  NumeroUnico = nu.NumeroUnicoID.ToString(),
                                  ItemCode = ic.Codigo,
+                                 ItemCodeSteelgo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
                                  Cedula = ics.Cedula,
                                  TipoAcero = fm.Nombre,
                                  D1 = ics.Diametro1.ToString(),
                                  D2 = ics.Diametro2.ToString(),
+                                 RangoInferior = (from pc in ctx.Sam3_ProyectoConfiguracion
+                                                      where pc.Activo &&
+                                                      pc.ProyectoID == ic.ProyectoID
+                                                      select pc.ToleranciaCortes).FirstOrDefault().ToString(),
+                                 RangoSuperior = (from pc in ctx.Sam3_ProyectoConfiguracion
+                                                         where pc.Activo &&
+                                                         pc.ProyectoID == ic.ProyectoID
+                                                         select pc.ToleranciaCortes).FirstOrDefault().ToString(),
                                  Cantidad = ic.Cantidad.ToString(),
                                  Colada = ic.ColadaID.ToString(),
                                  EstatusFisico = ic.EstatusFisico,
-                                 EstatusDocumental = ic.EstatusDocumental
+                                 EstatusDocumental = ic.EstatusDocumental,
+                                 AlmacenVirtual = "X"
                              }).AsParallel().ToList();
 
                     return lista;
