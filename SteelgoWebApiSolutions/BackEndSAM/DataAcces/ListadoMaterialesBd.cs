@@ -180,7 +180,9 @@ namespace BackEndSAM.DataAcces
                              rfc.FolioCuantificacionID.ToString() == folioCuantificacion
                              select new ListadoMaterialesPorPL
                              {
-                                 NumeroUnico = nu.NumeroUnicoID.ToString(),
+                                 NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                 NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                 ItemCodeID = ic.ItemCodeID.ToString(),
                                  ItemCode = ic.Codigo,
                                  ItemCodeSteelgo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
@@ -203,6 +205,20 @@ namespace BackEndSAM.DataAcces
                                  AlmacenVirtual = "X"
                              }).AsParallel().ToList();
 
+                    foreach (var i in lista)
+                    {
+                        int itemcodeID = Convert.ToInt32(i.ItemCodeID);
+                        int numeroDigitos = (from it in ctx.Sam3_ItemCode
+                                             join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
+                                             where it.ItemCodeID == itemcodeID
+                                             select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                        string formato = "D" + numeroDigitos.ToString();
+
+                        string[] codigo = i.NumeroUnico.Split('-').ToArray();
+                        int consecutivo = Convert.ToInt32(codigo[1]);
+                        i.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
+                    }
                     return lista;
                 }
             }

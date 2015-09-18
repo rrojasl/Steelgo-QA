@@ -39,6 +39,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Se obtienen los detalles del numero unico
+        /// </summary>
+        /// <param name="numeroUnicoID"></param>
+        /// <returns></returns>
         public object obtenerDatosInventario(string numeroUnicoID)
         {
             try
@@ -47,7 +52,7 @@ namespace BackEndSAM.DataAcces
                 {
                     int sumaTotalEntradas = 0;
                     int sumaTotalSalidas = 0;
-                    List<DetalleNumeroUnico> listado = new List<DetalleNumeroUnico>();
+                    DetalleNumeroUnico detalle = new DetalleNumeroUnico();
                     List<int> totalEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
                                                where num.Activo && tm.Activo == 1 && tm.EsEntrada &&
@@ -64,7 +69,7 @@ namespace BackEndSAM.DataAcces
 
                     totalSalidas.ForEach(x => sumaTotalSalidas = sumaTotalSalidas + x);
 
-                    listado = (from nu in ctx.Sam3_NumeroUnico
+                    detalle = (from nu in ctx.Sam3_NumeroUnico
                                join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
                                join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
@@ -73,8 +78,10 @@ namespace BackEndSAM.DataAcces
                                && nu.NumeroUnicoID.ToString() == numeroUnicoID
                                select new DetalleNumeroUnico
                                {
-                                   NumeroUnico = nu.NumeroUnicoID.ToString(),
+                                   NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                   NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
                                    ItemCode = ic.Codigo,
+                                   ItemCodeID = ic.ItemCodeID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    D1 = ics.Diametro1.ToString(),
                                    D2 = ics.Diametro2.ToString(),
@@ -84,12 +91,22 @@ namespace BackEndSAM.DataAcces
                                    TotalEntradas = sumaTotalEntradas.ToString(),
                                    TotalSalidas = sumaTotalSalidas.ToString(),
                                    SaldoActual = nui.InventarioFisico.ToString()
-                               }).AsParallel().GroupBy(x=> x.NumeroUnico).Select(x=> x.First()).ToList();
+                               }).AsParallel().GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).SingleOrDefault();
 
-                    return listado;
+                    int itemcodeID = Convert.ToInt32(detalle.ItemCodeID);
+                    int numeroDigitos = (from it in ctx.Sam3_ItemCode
+                                         join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
+                                         where it.ItemCodeID == itemcodeID
+                                         select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                    string formato = "D" + numeroDigitos.ToString();
+
+                    string[] codigo = detalle.NumeroUnico.Split('-').ToArray();
+                    int consecutivo = Convert.ToInt32(codigo[1]);
+                    detalle.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
+
+                    return detalle;
                 }
-
-
             }
             catch (Exception ex)
             {

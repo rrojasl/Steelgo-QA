@@ -18,22 +18,22 @@ namespace BackEndSAM.Controllers
         // GET api/<controller>/5
         public object Get(string NumeroUnicoID, string token)
         {
-            //string payload = "";
-            //string newToken = "";
-            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            //if (tokenValido)
-            //{
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
                 return DetalleNumeroUnicoBd.Instance.obtenerDatosInventario(NumeroUnicoID);
-            //}
-            //else
-            //{
-            //    TransactionalInformation result = new TransactionalInformation();
-            //    result.ReturnMessage.Add(payload);
-            //    result.ReturnCode = 401;
-            //    result.ReturnStatus = false;
-            //    result.IsAuthenicated = false;
-            //    return result;
-            //}
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/<controller>
