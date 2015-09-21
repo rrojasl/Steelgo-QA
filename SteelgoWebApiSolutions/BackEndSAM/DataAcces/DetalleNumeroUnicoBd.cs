@@ -50,24 +50,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int sumaTotalEntradas = 0;
-                    int sumaTotalSalidas = 0;
                     DetalleNumeroUnico detalle = new DetalleNumeroUnico();
-                    List<int> totalEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                               join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
-                                               where num.Activo && tm.Activo == 1 && tm.EsEntrada &&
-                                               num.NumeroUnicoID.ToString() == numeroUnicoID
-                                               select num.Cantidad).AsParallel().ToList();
-
-                    totalEntradas.ForEach(x => sumaTotalEntradas = sumaTotalEntradas + x);
-
-                    List<int> totalSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                              join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
-                                              where num.Activo && tm.Activo == 1 && !tm.EsEntrada &&
-                                              num.NumeroUnicoID.ToString() == numeroUnicoID
-                                              select num.Cantidad).AsParallel().ToList();
-
-                    totalSalidas.ForEach(x => sumaTotalSalidas = sumaTotalSalidas + x);
 
                     detalle = (from nu in ctx.Sam3_NumeroUnico
                                join ic in ctx.Sam3_ItemCode on nu.ItemCodeID equals ic.ItemCodeID
@@ -90,8 +73,19 @@ namespace BackEndSAM.DataAcces
                                    Profile2 = "Y",
                                    TotalRecibido = nui.CantidadRecibida.ToString(),
                                    TotalDanado = nui.CantidadDanada.ToString(),
-                                   TotalEntradas = sumaTotalEntradas.ToString(),
-                                   TotalSalidas = sumaTotalSalidas.ToString(),
+
+                                   TotalEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                    join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                    where num.Activo && tm.Activo == 1 && tm.EsEntrada &&
+                                                    num.NumeroUnicoID.ToString() == numeroUnicoID
+                                                    select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
+
+                                   TotalSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                   join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                   where num.Activo && tm.Activo == 1 && !tm.EsEntrada &&
+                                                   num.NumeroUnicoID.ToString() == numeroUnicoID
+                                                   select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
+
                                    SaldoActual = nui.InventarioFisico.ToString()
                                }).AsParallel().GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).SingleOrDefault();
 
@@ -130,24 +124,36 @@ namespace BackEndSAM.DataAcces
         /// <returns></returns>
         public object gridSegmentos(string numeroUnicoID)
         {
-            try 
+            try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<GridSegmento> segmento = (from nus in ctx.Sam3_NumeroUnicoSegmento
-                                                join nui in ctx.Sam3_NumeroUnicoInventario on nus.NumeroUnicoID equals nui.NumeroUnicoID
-                                                where nus.Activo && nui.Activo && nus.NumeroUnicoID.ToString() == numeroUnicoID
-                                                select new GridSegmento
-                                                {
-                                                    Segmento = nus.Segmento,
-                                                    Rack = nus.Rack,
-                                                    TotalRecibido = nui.CantidadRecibida.ToString(),
-                                                    TotalDanado = nui.CantidadDanada.ToString(),
-                                                    SalidasTemporales = nus.InventarioTransferenciaCorte.ToString(),
-                                                    TotalEntradas = "",
-                                                    TotalSalidas = "",
-                                                    SaldoActual = nus.InventarioFisico.ToString()
-                                                }).AsParallel().OrderBy(x => x.Segmento).ToList();
+                                                   join nui in ctx.Sam3_NumeroUnicoInventario on nus.NumeroUnicoID equals nui.NumeroUnicoID
+                                                   where nus.Activo && nui.Activo && nus.NumeroUnicoID.ToString() == numeroUnicoID
+                                                   select new GridSegmento
+                                                   {
+                                                       Segmento = nus.Segmento,
+                                                       Rack = nus.Rack,
+                                                       TotalRecibido = nui.CantidadRecibida.ToString(),
+                                                       TotalDanado = nui.CantidadDanada.ToString(),
+                                                       SalidasTemporales = nus.InventarioTransferenciaCorte.ToString(),
+                                                       TotalEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                                        join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                                        where tm.Activo == 1 && num.Activo
+                                                                        && num.Segmento == nus.Segmento
+                                                                        && tm.EsEntrada
+                                                                        && num.NumeroUnicoID.ToString() == numeroUnicoID
+                                                                        select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
+                                                       TotalSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                                       join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                                       where tm.Activo == 1 && num.Activo
+                                                                       && num.Segmento == nus.Segmento
+                                                                       && !tm.EsEntrada
+                                                                       && num.NumeroUnicoID.ToString() == numeroUnicoID
+                                                                       select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
+                                                       SaldoActual = nus.InventarioFisico.ToString()
+                                                   }).AsParallel().OrderBy(x => x.Segmento).ToList();
                     return segmento;
                 }
             }
@@ -171,10 +177,12 @@ namespace BackEndSAM.DataAcces
         /// <returns></returns>
         public object gridMovimientos(string numeroUnicoID)
         {
-            try 
+            try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int saldo = 0;
+
                     List<GridMovimientos> movimientos = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                          join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
                                                          join nui in ctx.Sam3_NumeroUnicoInventario on num.NumeroUnicoID equals nui.NumeroUnicoID
@@ -186,9 +194,15 @@ namespace BackEndSAM.DataAcces
                                                              Segmento = num.Segmento,
                                                              Entrada = tm.EsEntrada ? num.Cantidad.ToString() : "0",
                                                              Salida = !tm.EsEntrada ? num.Cantidad.ToString() : "0",
-                                                             Saldo = nui.InventarioFisico.ToString()
-                                                         }).AsParallel().OrderBy(x=> x.Segmento).ToList();
+                                                             Referencia = num.Referencia,
+                                                             SaldoActual = "0"
+                                                         }).AsParallel().OrderBy(x => x.Segmento).ToList();
 
+                    movimientos.ForEach(c =>
+                    {
+                        saldo = saldo + Int32.Parse(c.Entrada) - Int32.Parse(c.Salida);
+                        c.SaldoActual = saldo.ToString();
+                    });
                     return movimientos;
                 }
             }

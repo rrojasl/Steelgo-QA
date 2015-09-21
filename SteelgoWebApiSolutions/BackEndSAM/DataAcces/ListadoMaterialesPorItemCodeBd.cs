@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Cors;
 
 namespace BackEndSAM.DataAcces
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListadoMaterialesPorItemCodeBd
     {
         private static readonly object _mutex = new object();
