@@ -374,14 +374,14 @@
     };
     
 
-        function ObtenerPatio() {
-            var Listado = ArregloListado();
-            Listado.TipoListado = 22;
+    function ObtenerPatio() {
+        var Listado = ArregloListado();
+        Listado.TipoListado = 22;
 
-            $folioEntradaMaterial.Listado.read({ data: JSON.stringify(Listado) }).done(function (result) {
-                ControlErroresObjetosComboBox("PatioID", result);
-            });
-        };
+        $folioEntradaMaterial.Listado.read({ data: JSON.stringify(Listado) }).done(function (result) {
+            ControlErroresObjetosComboBox("PatioID", result);
+        });
+    };
 
 
         function ArregloListado() {
