@@ -3451,6 +3451,83 @@ _dictionary = {
         "es-MX": "TieneLocalizacion",
         "en-US": "TieneLocalizacion"
     },
+    //Despacho
+    "Despacho0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Despacho0002": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "Despacho0003": {
+        "es-MX": "Despachar",
+        "en-US": "Dispatch"
+    },
+    "Despacho0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Despacho0005": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Despacho0006": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "Despacho0007": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Despacho0008": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "Despacho0009": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "Despacho0010": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Despacho0011": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
+    "Despacho0012": {
+        "es-MX": "Número de control",
+        "en-US": "Control number"
+    },
+    "Despacho0013": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Despacho0014": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Despacho0015": {
+        "es-MX": "Número único",
+        "en-US": "Unique number"
+    },
+    "Despacho0016": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "Despacho0017": {
+        "es-MX": "Hold",
+        "en-US": "Hold"
+    },
+    "Despacho0018": {
+        "es-MX": "Tiene Despacho",
+        "en-US": "Tiene Despacho"
+    },
+    "Despacho0019": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",

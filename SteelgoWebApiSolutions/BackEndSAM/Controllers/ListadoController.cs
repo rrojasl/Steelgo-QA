@@ -147,6 +147,10 @@ namespace BackEndSAM.Controllers
                          return ListadoMaterialesBd.Instance.obtenerProyectoListadoMateriales(filtros.PatioID, usuario);
                     case 24: //Obtener los folios cuantificacion segun el folio de llegada seleccionado
                          return ListadoMaterialesBd.Instance.obtenerFolioCuantificacionListadoMateriales(filtros.FolioAvisoLlegadaID, filtros.ProyectoID);
+                    case 25:
+
+                    case 26:
+
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

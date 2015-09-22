@@ -1,0 +1,151 @@
+﻿
+
+@{
+    ViewBag.Title = "Despacho";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="Despacho0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("Despacho", "Despacho")"><span id="Despacho0016"></span></a>
+    </li>
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="formDespacho" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Despacho0003"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caretWhite"></span>
+                                </button>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="Despacho0004"></span></a>
+                        </div>
+                        <div class="button-section">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="Despacho0005"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="RedirectListado" href="#"><span id="Despacho0006"></span></a></li>
+                                    <li><a href="#"><span id="Despacho0007"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="row">
+                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div id="SpoolDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Despacho0008"></label>
+                            <input id="SpoolID" />
+                        </div>
+                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Despacho0009"></label>
+                            <div id="todosDiv" class="col-sm-6 col-md-3 col-lg-3">
+                                <label id="Despacho0010" class="centered"></label>
+                                <input id="todos" class="" type="radio" name="radio" checked value="1">
+                            </div>
+                            <div id="vaciosDiv" class="col-sm-6 col-md-3 col-lg-3">
+                                <label id="Despacho0011" class="centered"></label>
+                                <input id="vacios" class="" type="radio" name="radio" value="2" />
+                            </div>
+                        </div>
+                    </div>
+                   
+                        
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                 <div id="grid" class="gridWithInputsStorage"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    @section JavascriptDocumentReadyHomeCookie {
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "24", { path: '/' });
+    }
+
+    @section JavascriptGlobalVariables {
+    var resultadoJson;
+    }
+
+    @section JavascriptGlobalFunctions {
+    function changeLanguageCall() {
+        CargarGridDespacho();
+    };
+
+
+    function CargarGridDespacho() {
+        $("#grid").kendoGrid({
+            dataSource: {
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            NumeroControl: { type: "string" },
+                            ItemCode: { type: "string" },
+                            Descripcion: { type: "string" },
+                            NumeroUnico: { type: "string" },
+                            Estatus: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            edit: function (e) {
+                if (e.model.TieneDespacho) {
+                    this.closeCell();
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            columns: [
+                { field: "NumeroControl", title: _dictionary.Despacho0012[$("#language").data("kendoDropDownList").value()] },
+                { field: "ItemCode", title: _dictionary.Despacho0013[$("#language").data("kendoDropDownList").value()] },
+                { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
+                { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()] },
+                { field: "Estatus", title: _dictionary.Despacho0019[$("#language").data("kendoDropDownList").value()] },
+                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "TieneDespacho", title: _dictionary.Despacho0018[$("#language").data("kendoDropDownList").value()], hidden: true }
+            ],
+            dataBound: function (e) {
+                $(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            }
+        });
+    }
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+
+    }
+</script>
