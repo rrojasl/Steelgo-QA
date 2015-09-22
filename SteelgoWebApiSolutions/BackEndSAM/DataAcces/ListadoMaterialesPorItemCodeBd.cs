@@ -45,9 +45,10 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                List<ListadoMaterialesPorItemCode> listado = new List<ListadoMaterialesPorItemCode>();
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListadoMaterialesPorItemCode> listado = (from ic in ctx.Sam3_ItemCode
+                    listado = (from ic in ctx.Sam3_ItemCode
                                                                   join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                                                   join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                                   join tm in ctx.Sam3_TipoMaterial on ic.TipoMaterialID equals tm.TipoMaterialID
@@ -167,12 +168,36 @@ namespace BackEndSAM.DataAcces
                                                                                                    where nui.Activo && nu.Activo
                                                                                                    && nu.ItemCodeID == ic.ItemCodeID
                                                                                                    select nui.InventarioDisponibleCruce).Sum().ToString(),
-
-
-
                                                                   }).AsParallel().ToList();
-                    return listado;
+
+                   listado = listado.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();                   
                 }
+                 using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        listado.ForEach(x =>
+                        {
+                            x.TotalIngenieria = (from otm in ctx2.OrdenTrabajoMaterial
+                                                 join nu in ctx2.NumeroUnico on otm.NumeroUnicoDespachadoID equals nu.NumeroUnicoID
+                                                 where nu.ItemCodeID.ToString() == x.ItemCodeID
+                                                 select otm.CantidadDespachada).Sum().ToString();
+
+                            x.TotalOrdenTrabajo = (from ms in ctx2.MaterialSpool
+                                                   join otm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals otm.MaterialSpoolID
+                                                   where ms.ItemCodeID.ToString() == x.ItemCodeID
+                                                   select otm.OrdenTrabajoMaterialID).Count().ToString();
+
+                            x.DespachadoPorCortarParaICEquivalente = "";
+
+                            x.CortadoParaICEquivalente = "";
+
+                            x.TotalCongelado = (from otm in ctx2.OrdenTrabajoMaterial
+                                                join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                where nu.ItemCodeID.ToString() == x.ItemCodeID
+                                                select otm.CantidadCongelada).Sum().ToString();
+                        });
+                    }
+                    
+                    return listado;
             }
             catch (Exception ex)
             {
