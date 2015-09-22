@@ -36,6 +36,39 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string NumeroUnicoID, string TipoGrid, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                switch (TipoGrid)
+                {
+                    case "1":
+                        return DetalleNumeroUnicoBd.Instance.gridMovimientos(NumeroUnicoID);
+                    case "2":
+                        return DetalleNumeroUnicoBd.Instance.gridSegmentos(NumeroUnicoID);
+                    default:
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("Listado no encontrado");
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = false;
+                        return result;
+                }
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         // POST api/<controller>
         public void Post([FromBody]string value)
         {
