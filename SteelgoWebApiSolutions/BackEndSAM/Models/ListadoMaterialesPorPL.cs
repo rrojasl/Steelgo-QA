@@ -64,7 +64,7 @@ namespace BackEndSAM.Models
         public string Segmento { get; set; }
         public string Entrada { get; set; }
         public string Salida { get; set; }
-        public string Saldo { get; set; }
+        public string SaldoActual { get; set; }
         public string Referencia { get; set; }
     }
 }
