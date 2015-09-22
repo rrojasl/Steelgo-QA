@@ -963,6 +963,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Almacenaje\AlmacenajeController.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
+    <Compile Include="Controllers\Catalogos\CatalogosController.cs" />
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
     <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
     <Compile Include="Controllers\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenajeController.cs" />
@@ -1126,6 +1127,7 @@
     <Content Include="Views\ListadoMateriales\DetalleNumeroUnico.cshtml" />
     <Content Include="Views\ListadoMateriales\ListadoMaterialesItemCode.cshtml" />
     <Content Include="Views\Almacenaje\Almacenaje.cshtml" />
+    <Content Include="Views\Catalogos\ListadoCatalogos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
