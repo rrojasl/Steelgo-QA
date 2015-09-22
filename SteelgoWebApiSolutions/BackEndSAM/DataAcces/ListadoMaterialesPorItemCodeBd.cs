@@ -49,155 +49,171 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     listado = (from ic in ctx.Sam3_ItemCode
-                                                                  join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                                                                  join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                                  join tm in ctx.Sam3_TipoMaterial on ic.TipoMaterialID equals tm.TipoMaterialID
-                                                                  where ic.Activo && rics.Activo && ics.Activo && tm.Activo
-                                                                  && ic.ProyectoID.ToString() == proyectoID
-                                                                  select new ListadoMaterialesPorItemCode
-                                                                  {
-                                                                      ItemCodeID = ic.ItemCodeID.ToString(),
-                                                                      ItemCode = ic.Codigo,
-                                                                      ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
-                                                                      ItemCodeSteelgo = ics.Codigo,
-                                                                      Descripcion = ics.DescripcionEspanol,
-                                                                      D1 = ics.Diametro1.ToString(),
-                                                                      D2 = ics.Diametro2.ToString(),
-                                                                      TipoMaterial = tm.Nombre,
+                               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
+                               join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                               join tm in ctx.Sam3_TipoMaterial on ic.TipoMaterialID equals tm.TipoMaterialID
+                               where ic.Activo && rics.Activo && ics.Activo && tm.Activo
+                               && ic.ProyectoID.ToString() == proyectoID
+                               select new ListadoMaterialesPorItemCode
+                               {
+                                   ItemCodeID = ic.ItemCodeID.ToString(),
+                                   ItemCode = ic.Codigo,
+                                   ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                   ItemCodeSteelgo = ics.Codigo,
+                                   Descripcion = ics.DescripcionEspanol,
+                                   D1 = ics.Diametro1.ToString(),
+                                   D2 = ics.Diametro2.ToString(),
+                                   TipoMaterial = tm.Nombre,
 
-                                                                      TotalRecibido = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                                                       join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                       where nui.Activo && nu.Activo
-                                                                                       && nu.ItemCodeID == ic.ItemCodeID
-                                                                                       select nui.CantidadRecibida
-                                                                                           ).Sum().ToString(),
+                                   TotalRecibido = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                    join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
+                                                    where nui.Activo && nu.Activo
+                                                    && nu.ItemCodeID == ic.ItemCodeID
+                                                    select (int?)nui.CantidadRecibida
+                                                        ).Sum().ToString(),
 
-                                                                      OtrasEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                       join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                       join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                       where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                       && tmov.TipoMovimientoID == 9
-                                                                                       && nu.ItemCodeID == ic.ItemCodeID
-                                                                                       select num.Cantidad).Sum().ToString(),
+                                   OtrasEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                    join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                    join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                    where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                    && tmov.TipoMovimientoID == 9
+                                                    && nu.ItemCodeID == ic.ItemCodeID
+                                                    select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalCondicionada = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                           join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                           where num.Activo && nu.Activo
-                                                                                           && nu.ItemCodeID == ic.ItemCodeID
-                                                                                           && num.Estatus == "C"
-                                                                                           select num.Cantidad).Sum().ToString(),
+                                   TotalCondicionada = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                        join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                        where num.Activo && nu.Activo
+                                                        && nu.ItemCodeID == ic.ItemCodeID
+                                                        && num.Estatus == "C"
+                                                        select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalRechazado = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                        join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                        where num.Activo && nu.Activo
-                                                                                        && nu.ItemCodeID == ic.ItemCodeID
-                                                                                        && num.Estatus == "R"
-                                                                                        select num.Cantidad).Sum().ToString(),
+                                   TotalRechazado = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                     join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                     where num.Activo && nu.Activo
+                                                     && nu.ItemCodeID == ic.ItemCodeID
+                                                     && num.Estatus == "R"
+                                                     select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalDanado = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                     join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                     where num.Activo && nu.Activo
-                                                                                     && nu.ItemCodeID == ic.ItemCodeID
-                                                                                     && num.Estatus == "D"
-                                                                                     select num.Cantidad).Sum().ToString(),
+                                   TotalDanado = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                  join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                  where num.Activo && nu.Activo
+                                                  && nu.ItemCodeID == ic.ItemCodeID
+                                                  && num.Estatus == "D"
+                                                  select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalRecibidoNeto = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                                                           join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                           where nui.Activo && nu.Activo
-                                                                                           && nu.ItemCodeID == ic.ItemCodeID
-                                                                                           select nui.CantidadRecibida - nui.CantidadDanada).Sum().ToString(),
+                                   TotalRecibidoNeto = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                        join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
+                                                        where nui.Activo && nu.Activo
+                                                        && nu.ItemCodeID == ic.ItemCodeID
+                                                        select nui.CantidadRecibida - nui.CantidadDanada).Sum().ToString(),
 
-                                                                      EntradasDesdeICEquivalente = "",
+                                   EntradasDesdeICEquivalente = "",
 
-                                                                      SalidasTemporales = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                           join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                           join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                           where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                           && nu.ItemCodeID == ic.ItemCodeID
-                                                                                           && tmov.TipoMovimientoID == 12
-                                                                                           select num.Cantidad).Sum().ToString(),
+                                   SalidasTemporales = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                        join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                        join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                        where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                        && nu.ItemCodeID == ic.ItemCodeID
+                                                        && tmov.TipoMovimientoID == 12
+                                                        select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalOtrasSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                           join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                           join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                           where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                           && tmov.TipoMovimientoID == 8
-                                                                                           && nu.ItemCodeID == ic.ItemCodeID
-                                                                                           select num.Cantidad).Sum().ToString(),
+                                   TotalOtrasSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                        join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                        join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                        where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                        && tmov.TipoMovimientoID == 8
+                                                        && nu.ItemCodeID == ic.ItemCodeID
+                                                        select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalMermas = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                     join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                     join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                     where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                     && nu.ItemCodeID == ic.ItemCodeID
-                                                                                     && tmov.TipoMovimientoID == 4
-                                                                                     select num.Cantidad).Sum().ToString(),
+                                   TotalMermas = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                  join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                  join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                  where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                  && nu.ItemCodeID == ic.ItemCodeID
+                                                  && tmov.TipoMovimientoID == 4
+                                                  select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalDespachadoPorCortar = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                                  join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                                  join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                                  where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                                  && tmov.TipoMovimientoID == 12
-                                                                                                  && nu.ItemCodeID == ic.ItemCodeID
-                                                                                                  select num.Cantidad).Sum().ToString(),
+                                   TotalDespachadoPorCortar = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                               join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                               join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                               where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                               && tmov.TipoMovimientoID == 12
+                                                               && nu.ItemCodeID == ic.ItemCodeID
+                                                               select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalCortado = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                      join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                      join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                      where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                      && tmov.TipoMovimientoID == 15
-                                                                                      && nu.ItemCodeID == ic.ItemCodeID
-                                                                                      select num.Cantidad).Sum().ToString(),
+                                   TotalCortado = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                   join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                   join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                   where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                   && tmov.TipoMovimientoID == 15
+                                                   && nu.ItemCodeID == ic.ItemCodeID
+                                                   select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      DespachadoAProduccion = (from num in ctx.Sam3_NumeroUnicoMovimiento
-                                                                                               join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
-                                                                                               join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                               where num.Activo && tmov.Activo == 1 && nu.Activo
-                                                                                               && tmov.TipoMovimientoID == 2
-                                                                                               && nu.ItemCodeID == ic.ItemCodeID
-                                                                                               select num.Cantidad).Sum().ToString(),
+                                   DespachadoAProduccion = (from num in ctx.Sam3_NumeroUnicoMovimiento
+                                                            join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
+                                                            join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
+                                                            where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                            && tmov.TipoMovimientoID == 2
+                                                            && nu.ItemCodeID == ic.ItemCodeID
+                                                            select (int?)num.Cantidad).Sum().ToString(),
 
-                                                                      TotalFisicoEnAlmacen = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                                                              join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                              where nui.Activo && nu.Activo
-                                                                                              && nu.ItemCodeID == ic.ItemCodeID
-                                                                                              select nui.InventarioFisico).Sum().ToString(),
+                                   TotalFisicoEnAlmacen = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                           join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
+                                                           where nui.Activo && nu.Activo
+                                                           && nu.ItemCodeID == ic.ItemCodeID
+                                                           select (int?)nui.InventarioFisico).Sum().ToString(),
 
-                                                                      InventarioDisponibleCruce = (from nui in ctx.Sam3_NumeroUnicoInventario
-                                                                                                   join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                                                   where nui.Activo && nu.Activo
-                                                                                                   && nu.ItemCodeID == ic.ItemCodeID
-                                                                                                   select nui.InventarioDisponibleCruce).Sum().ToString(),
-                                                                  }).AsParallel().ToList();
+                                   InventarioDisponibleCruce = (from nui in ctx.Sam3_NumeroUnicoInventario
+                                                                join nu in ctx.Sam3_NumeroUnico on nui.NumeroUnicoID equals nu.NumeroUnicoID
+                                                                where nui.Activo && nu.Activo
+                                                                && nu.ItemCodeID == ic.ItemCodeID
+                                                                select (int?)nui.InventarioDisponibleCruce).Sum().ToString(),
+                               }).AsParallel().ToList();
 
-                   listado = listado.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();                   
+                    listado = listado.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
                 }
-                 using (Sam2Context ctx2 = new Sam2Context())
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    listado.ForEach(x =>
                     {
-                        listado.ForEach(x =>
-                        {
-                            x.TotalIngenieria = (from otm in ctx2.OrdenTrabajoMaterial
-                                                 join nu in ctx2.NumeroUnico on otm.NumeroUnicoDespachadoID equals nu.NumeroUnicoID
-                                                 where nu.ItemCodeID.ToString() == x.ItemCodeID
-                                                 select otm.CantidadDespachada).Sum().ToString();
+                        x.TotalIngenieria = (from otm in ctx2.OrdenTrabajoMaterial
+                                             join nu in ctx2.NumeroUnico on otm.NumeroUnicoDespachadoID equals nu.NumeroUnicoID
+                                             where nu.ItemCodeID.ToString() == x.ItemCodeID
+                                             select (int?)otm.CantidadDespachada).Sum().ToString();
 
-                            x.TotalOrdenTrabajo = (from ms in ctx2.MaterialSpool
-                                                   join otm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals otm.MaterialSpoolID
-                                                   where ms.ItemCodeID.ToString() == x.ItemCodeID
-                                                   select otm.OrdenTrabajoMaterialID).Count().ToString();
+                        x.TotalOrdenTrabajo = (from ms in ctx2.MaterialSpool
+                                               join otm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals otm.MaterialSpoolID
+                                               where ms.ItemCodeID.ToString() == x.ItemCodeID
+                                               select (int?)otm.OrdenTrabajoMaterialID).Count().ToString();
 
-                            x.DespachadoPorCortarParaICEquivalente = "";
+                        x.DespachadoPorCortarParaICEquivalente = (from ice in ctx2.ItemCodeEquivalente
+                                                                  join nu in ctx2.NumeroUnico on ice.ItemCodeEquivalenteID equals nu.ItemCodeID
+                                                                  join num in ctx2.NumeroUnicoMovimiento on nu.NumeroUnicoID equals num.NumeroUnicoID
+                                                                  join tm in ctx2.TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                                  where ice.ItemCodeID.ToString() == x.ItemCodeID && tm.TipoMovimientoID == 15
+                                                                  select (int?)num.Cantidad).Sum().ToString();
 
-                            x.CortadoParaICEquivalente = "";
+                        x.CortadoParaICEquivalente = (from ice in ctx2.ItemCodeEquivalente
+                                                      join nu in ctx2.NumeroUnico on ice.ItemCodeEquivalenteID equals nu.ItemCodeID
+                                                      join num in ctx2.NumeroUnicoMovimiento on nu.NumeroUnicoID equals num.NumeroUnicoID
+                                                      join tm in ctx2.TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                      where ice.ItemCodeID.ToString() == x.ItemCodeID && tm.TipoMovimientoID == 18
+                                                      select (int?)num.Cantidad).Sum().ToString();
 
-                            x.TotalCongelado = (from otm in ctx2.OrdenTrabajoMaterial
-                                                join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
-                                                where nu.ItemCodeID.ToString() == x.ItemCodeID
-                                                select otm.CantidadCongelada).Sum().ToString();
-                        });
-                    }
-                    
-                    return listado;
+                        x.TotalCongelado = (from otm in ctx2.OrdenTrabajoMaterial
+                                            join nu in ctx2.NumeroUnico on otm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                            where nu.ItemCodeID.ToString() == x.ItemCodeID
+                                            select (int?)otm.CantidadCongelada).Sum().ToString();
+
+                        x.TotalPorDespachar = (from nu in ctx2.NumeroUnico
+                                               join nui in ctx2.NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
+                                               join otm in ctx2.OrdenTrabajoMaterial on nu.NumeroUnicoID equals otm.NumeroUnicoDespachadoID
+                                               where nu.ItemCodeID.ToString() == x.ItemCodeID
+                                               select (int?)nui.CantidadRecibida - otm.CantidadDespachada).Sum().ToString();
+                    });
+                }
+
+                return listado;
             }
             catch (Exception ex)
             {
