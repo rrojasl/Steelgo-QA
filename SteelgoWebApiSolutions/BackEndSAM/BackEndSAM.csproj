@@ -362,6 +362,7 @@
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
+    <Compile Include="Models\ListadoMaterialesPorItemCode.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
     <Compile Include="Models\TipoArchivo.cs" />
