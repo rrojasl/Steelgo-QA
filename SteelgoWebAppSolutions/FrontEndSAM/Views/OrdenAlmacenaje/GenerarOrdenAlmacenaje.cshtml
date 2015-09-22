@@ -421,6 +421,7 @@
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                         };
+                        applySecurityPolicy(false);
             }
             loadingStop();
         });
@@ -543,33 +544,6 @@
         }
 
     };
-
-@*    function GenerarOrdenRecepcionNuevo() {
-        var itemCodes = [], x = 0, folios = [], numerosunicos = [];
-        OrdenAlmacenaje = { listaFoliosCuantificacion: "", listaItemCodes: "", listaNumerosUnicos: "" };
-
-        folios = ObtenerFoliosDeMemoria();
-        itemCodes = ObtenerItemCodesDeMemoria();
-        numerosunicos = ObtenerNumerosUnicosDeMemoria();
-
-        loadingStart();
-        OrdenAlmacenaje.listaFoliosCuantificacion = folios;
-        OrdenAlmacenaje.listaItemCodes = itemCodes;
-        OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
-
-        if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
-            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
-                if (Error(result)) {
-                    var url = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
-                }
-            });
-        } else {
-            displayMessage("notificationslabel0045", "", '1');
-            loadingStop();
-        }
-    };*@
 
     function GenerarOrdenAlmacenaje() {
         var itemCodes = [], x = 0, folios = [], numerosunicos = [];

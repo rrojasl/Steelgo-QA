@@ -28,7 +28,7 @@ function securityManagerToBeExecutedOnDocumentReady() {
 //Method to change the visibility, editability and required attributes of the elements
 function applySecurityPolicy(loadMenu) {
     //Block the screen
-    loadingStart();
+    //loadingStart();
 
     //If this page its not the login page
     if (Cookies.get("navegacion") != "1") {
@@ -64,7 +64,7 @@ function applySecurityPolicy(loadMenu) {
 
             //Apply Security
             applySecurity();
-            loadingStop();
+            //loadingStop();
             //$("#language").data("kendoDropDownList").trigger("change");
             changeLayoutLabels($("#language").data("kendoDropDownList").value());
             changeLayoutSpans($("#language").data("kendoDropDownList").value());
@@ -73,7 +73,7 @@ function applySecurityPolicy(loadMenu) {
     } else {
         //Apply Security
         applySecurity();
-        loadingStop();
+        //loadingStop();
         //$("#language").data("kendoDropDownList").trigger("change");
         changeLayoutLabels($("#language").data("kendoDropDownList").value());
         changeLayoutSpans($("#language").data("kendoDropDownList").value());
