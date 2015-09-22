@@ -96,6 +96,7 @@ var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backends
 var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Almacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DetalleNumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -170,3 +171,4 @@ $CambiarEstatusCuantificacion.add("CambiarEstatusCuantificacion");
 $ComplementarRecepcion.add("ComplementarRecepcion");
 $ListadoMateriales.add("ListadoMateriales")
 $Almacenaje.add("Almacenaje");
+$DetalleNumeroUnico.add("DetalleNumeroUnico");
