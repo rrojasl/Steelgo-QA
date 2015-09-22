@@ -20,6 +20,7 @@
         <option value="transportistas">Transportistas</option>
         <option value="camiones">Camiones</option>
         <option value="choferes">Choferes</option>
+        <option value="plana">Planas</option>
     </select>
 </div>
 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -28,14 +29,15 @@
 
 <script>
 @section JavascriptGlobalVariables {
-};
+}
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        cargarInicialGrid();
+        cargarInicialGrid("transportistas");
     };
 
-    function cargarInicialGrid() {
+    function cargarInicialGrid(val) {
+        loadingStart();
         $("#grid").kendoGrid({
             dataSource: {
                 data: [],
@@ -73,52 +75,96 @@
                 input: false,
                 numeric: true,
             },
-            columns: [
-                { field: "Cat1Col1", title: 'Cat1Col1' },
-                { field: "Cat1Col2", title: 'Cat1Col2' },
-                { field: "Cat1Col3", title: 'Cat1Col3' },
-                { field: "Cat1Col4", title: 'Cat1Col4' },
-                { field: "Cat1Col5", title: 'Cat1Col5' },
-            ],
+            columns: [],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
+        switch(val) {
+            case "transportistas":
+                $Transportista.Transportista.read({}, { esAvisoEntrada: 0, token: Cookies.get("token")}).done(function (result) {
+                    Error(result);
+                    actualizarGrid(result);
+                });
+                break;
+            case "choferes":
+                $Chofer.Chofer.read({}, { esAvisoEntrada: 0, token: Cookies.get("token")}).done(function (result) {
+                    Error(result);
+                    actualizarGrid(result);
+                });
+                break;
+            case "camiones":
+                $Camion.Tracto.read({}, { esAvisoEntrada: 0, token: Cookies.get("token")}).done(function (result) {
+                    Error(result);
+                    actualizarGrid(result);
+                });
+                break;
+            case "plana":
+                $Plana.Plana.read({}, {token: Cookies.get("token")}).done(function (result) {
+                    Error(result);
+                    actualizarGrid(result);
+                });
+                break;
+        }
+        loadingStop();
     };
+
     $("#listaCatalogos").kendoDropDownList({
         change:function(e){
             var val=this.value();
-            switch(val) {
-                case "transpostistas":
-                    actualizarGrid();
-                    break;
-                case "choferes":
-                    actualizarGrid(Listado2);
-                    break;
-                case "camiones":
-                    actualizarGrid(Listado3);
-                    break;
-            }
+            cargarInicialGrid(val);
         }
     })
+
     function actualizarGrid(l){
         var grid = $("#grid").data("kendoGrid");
         var columnas=[];
+        var camposModelo={};
+        pruebas=l;
         var claves=Object.keys(l[0]);
         claves.forEach(function(clave){
             columnas.push({"field":clave,"title":clave});
+            if($.isNumeric(l[0][clave])){
+                if(clave.toUpperCase().indexOf("ID")==-1){
+                    camposModelo[clave]={type: "number"}
+                }else{
+                    camposModelo[clave]={type: "number",editable: false}
+                }
+            }else{
+                camposModelo[clave]={type: "string"}
+            }
         })
-        columnas.push({ command: ["edit", "destroy"], title: "&nbsp;", width: "250px" });
+        columnas.push({ command: "edit", title: "Editar",width:"75px"});
+        columnas.push({ command: "destroy", title: "Borrar",width:"75px"});
         var options=grid.options;
-        console.log(options.dataSource.schema);
         options.columns=columnas;
-        options.dataSource.data=l;
+        options.dataSource.data=l
+        options.dataSource.schema.model.fields=camposModelo;
         options.editable="inline";
         grid.destroy();
         $("#grid").empty().kendoGrid(options);
+        console.log(options);
     }
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
 };
 
 @section JavascriptDocumentReadyFunctions {
