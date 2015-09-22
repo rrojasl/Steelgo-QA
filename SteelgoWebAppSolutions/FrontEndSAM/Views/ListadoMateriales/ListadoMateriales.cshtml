@@ -206,6 +206,9 @@
         $("#ProyectoID").data("kendoComboBox").value("");
         $("#FolioAvisoLlegada").data("kendoComboBox").value("");
         $("#FolioPackingList").data("kendoComboBox").value("");
+        $("#ProyectoID").data("kendoComboBox").dataSource.data([]);
+        $("#FolioAvisoLlegada").data("kendoComboBox").dataSource.data([]);
+        $("#FolioPackingList").data("kendoComboBox").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.page(0);
     };
@@ -214,6 +217,8 @@
         FolioPackingList = {};
         $("#FolioAvisoLlegada").data("kendoComboBox").value("");
         $("#FolioPackingList").data("kendoComboBox").value("");
+        $("#FolioAvisoLlegada").data("kendoComboBox").dataSource.data([]);
+        $("#FolioPackingList").data("kendoComboBox").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.page(0);
     };
@@ -221,6 +226,7 @@
     function LimpiarCamposFolioLlegada() {
         FolioPackingList = {};
         $("#FolioPackingList").data("kendoComboBox").value("");
+        $("#FolioPackingList").data("kendoComboBox").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.page(0);
     };
