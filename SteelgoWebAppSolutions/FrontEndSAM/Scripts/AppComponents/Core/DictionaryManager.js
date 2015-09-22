@@ -3362,6 +3362,82 @@ _dictionary = {
         "es-MX": "Inicio",
         "en-US": "Home"
     },
+    "ListadoMaterialesItemCode0019": {
+        "es-MX": "Total Ingeniería",
+        "en-US": "Total Engineering"
+    },
+    "ListadoMaterialesItemCode0020": {
+        "es-MX": "Total Dañado",
+        "en-US": "Total Damaged"
+    },
+    "ListadoMaterialesItemCode0021": {
+        "es-MX": "Entradas desde IC Equivalente",
+        "en-US": "Tickets from IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0022": {
+        "es-MX": "Total Mermas",
+        "en-US": "Total Losses"
+    },
+    "ListadoMaterialesItemCode0023": {
+        "es-MX": "Total Orden Trabajo",
+        "en-US": "Total Work Order"
+    },
+    "ListadoMaterialesItemCode0024": {
+        "es-MX": "Despachado por cortar IC equivalente",
+        "en-US": "Dispatched by cutting IC equivalent"
+    },
+    "ListadoMaterialesItemCode0025": {
+        "es-MX": "Cortado para IC equivalente",
+        "en-US": "Cut equivalent to IC"
+    },
+    "ListadoMaterialesItemCode0026": {
+        "es-MX": "Total Despachado  por cortar",
+        "en-US": "Dispatched by cutting total"
+    },
+    "ListadoMaterialesItemCode0027": {
+        "es-MX": "Total Cortado",
+        "en-US": "Total Cut"
+    },
+    "ListadoMaterialesItemCode0028": {
+        "es-MX": "Despachado desde IC equivalente",
+        "en-US": "Dispatched from  IC equivalent"
+    },
+    "ListadoMaterialesItemCode0029": {
+        "es-MX": "Despachado a Producción",
+        "en-US": "Dispatched to Production"
+    },
+    "ListadoMaterialesItemCode0030": {
+        "es-MX": "Salida para IC Equivalente",
+        "en-US": "IC Output Equivalent"
+    },
+    "ListadoMaterialesItemCode0031": {
+        "es-MX": "Total por Despachar",
+        "en-US": "Dispatch total"
+    },
+    "ListadoMaterialesItemCode0032": {
+        "es-MX": "Total Físico en Almacén",
+        "en-US": "Total Physical in Stock"
+    },
+    "ListadoMaterialesItemCode0033": {
+        "es-MX": "Asignado para IC Equivalente",
+        "en-US": "Assigned to IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0034": {
+        "es-MX": "Total Congelado",
+        "en-US": "Total Frozen"
+    },
+    "ListadoMaterialesItemCode0035": {
+        "es-MX": "Inventario Disponible Cruce",
+        "en-US": "Available inventory Crossing"
+    },
+    "ListadoMaterialesItemCode0036": {
+        "es-MX": "Disponible IC Equivalente",
+        "en-US": "Available IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0037": {
+        "es-MX": "Total Disponible para Cruce",
+        "en-US": "Total Available for Cross"
+    },
     //Almacenaje
     "Almacenaje0001": {
         "es-MX": "Inicio",
