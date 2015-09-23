@@ -30,12 +30,6 @@
 
 <script>
 @section JavascriptGlobalVariables {
-    //var url={
-    //    "transportistas":$Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token=",
-    //    "camiones":$Camion.Tracto.urlNoId+"?esAvisoEntrada=0&token=",
-    //    "choferes":$Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token=",
-    //    "plana":$Plana.Plana.urlNoId+"?token="
-    //};
 }
 
 @section JavascriptGlobalFunctions {
@@ -60,7 +54,36 @@
                 pageSize: 20,
                 serverPaging: false,
                 serverFiltering: false,
-                serverSorting: false
+                serverSorting: false,
+                transport:{
+                    read:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    update:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    destroy:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    create:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+                parse:function(response){
+                    response.forEach(function(r){
+                        console.log(r);
+                    })
+                    return response;
+                },
             },
             autoHeight: true,
             sortable: true,
@@ -90,7 +113,7 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
-        actualizarGrid(val);
+        actualizarGrid();
         loadingStop();
     };
 
@@ -106,15 +129,15 @@
             }
         },
         change:function(e){
-            var val=this.value();
-            cargarInicialGrid($("#listaCatalogos").kendoDropDownList().val());
+            cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
         }
     })
 
-    function actualizarGrid(val){
+    function actualizarGrid(){
         var grid = $("#grid").data("kendoGrid");
-        //var columnas=[];
-        //var camposModelo={};
+        //columnas=[];
+        //camposModelo={};
+        //datos=[];
         //pruebas=lista;
         //var claves=Object.keys(lista[0]);
         //claves.forEach(function(clave){
@@ -135,36 +158,10 @@
         //options.columns=columnas;
         //options.dataSource.data=lista;
         //options.dataSource.schema.model.fields=camposModelo;
-        options.dataSource.transport={
-            read:{
-                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                dataType:"json"
-            },
-            update:{
-                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                dataType:"json"
-            },
-            destroy:{
-                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                dataType:"json"
-            },
-            create:{
-                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                dataType:"json"
-            },
-            parameterMap: function(options, operation) {
-                if (operation !== "read" && options.models) {
-                    return {models: kendo.stringify(options.models)};
-                }
-            }
-        };
-        options.dataSource.schema.parse=function(response){
-            response.forEach(function(r){
-                console.log(r);
-            })
-            return response;
-        }
-        options.editable="inline";
+        //options.editable="inline";
+        //options.columns=columnas;
+        //options.dataSource.data=datos;
+        //options.dataSource.schema.model.fields=camposModelo;
         grid.destroy();
         $("#grid").empty().kendoGrid(options);
     }
