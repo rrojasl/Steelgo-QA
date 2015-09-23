@@ -364,7 +364,8 @@
         //client.ListadoMaterialesPorItemCode.read({}, { proyectoID: "1", token: "" }).done(function (data) { console.log(data) });
 
         client.add("AdministracionCatalogos");
-        client.AdministracionCatalogos.read({}, { token: "" }).done(function (data) { console.log(data) });
+        //client.AdministracionCatalogos.read({}, { token: "" }).done(function (data) { console.log(data) });
+        client.AdministracionCatalogos.read({}, { catalogoID: "1", token: "" }).done(function (data) { console.log(data) });
     </script>
 </body>
 </html>
