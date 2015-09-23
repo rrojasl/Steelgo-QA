@@ -30,17 +30,17 @@
 
 <script>
 @section JavascriptGlobalVariables {
-    var url={
-        "transportistas":$Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token=",
-        "camiones":$Camion.Tracto.urlNoId+"?esAvisoEntrada=0&token=",
-        "choferes":$Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token=",
-        "plana":$Plana.Plana.urlNoId+"?token="
-    };
+    //var url={
+    //    "transportistas":$Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token=",
+    //    "camiones":$Camion.Tracto.urlNoId+"?esAvisoEntrada=0&token=",
+    //    "choferes":$Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token=",
+    //    "plana":$Plana.Plana.urlNoId+"?token="
+    //};
 }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        cargarInicialGrid("transportistas");
+        cargarInicialGrid("1");
     };
 
     function cargarInicialGrid(val) {
@@ -90,7 +90,7 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
-        actualizarGrid(url[val]);
+        actualizarGrid(val);
         loadingStop();
     };
 
@@ -107,11 +107,11 @@
         },
         change:function(e){
             var val=this.value();
-            cargarInicialGrid(val);
+            cargarInicialGrid($("#listaCatalogos").kendoDropDownList().val());
         }
     })
 
-    function actualizarGrid(direccion){
+    function actualizarGrid(val){
         var grid = $("#grid").data("kendoGrid");
         //var columnas=[];
         //var camposModelo={};
@@ -137,19 +137,19 @@
         //options.dataSource.schema.model.fields=camposModelo;
         options.dataSource.transport={
             read:{
-                url:direccion+Cookies.get("token"),
+                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
                 dataType:"json"
             },
             update:{
-                url:direccion+Cookies.get("token"),
+                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
                 dataType:"json"
             },
             destroy:{
-                url:direccion+Cookies.get("token"),
+                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
                 dataType:"json"
             },
             create:{
-                url:direccion+Cookies.get("token"),
+                url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
                 dataType:"json"
             },
             parameterMap: function(options, operation) {
