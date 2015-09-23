@@ -81,7 +81,8 @@
                 input: false,
                 numeric: true,
             },
-            columns: [],
+            toolbar: ["create"],
+            editable: "inline",
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
@@ -100,7 +101,6 @@
     })
 
     function actualizarGrid(direccion){
-        console.log(direccion);
         var grid = $("#grid").data("kendoGrid");
         //var columnas=[];
         //var camposModelo={};
@@ -147,10 +147,15 @@
                 }
             }
         };
+        options.dataSource.schema.parse=function(response){
+            response.forEach(function(r){
+                console.log(r);
+            })
+            return response;
+        }
         options.editable="inline";
         grid.destroy();
         $("#grid").empty().kendoGrid(options);
-        console.log(options);
     }
 
     function Error(data) {
