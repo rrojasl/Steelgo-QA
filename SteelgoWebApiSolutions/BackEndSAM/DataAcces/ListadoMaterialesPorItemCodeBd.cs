@@ -210,6 +210,35 @@ namespace BackEndSAM.DataAcces
                                                join otm in ctx2.OrdenTrabajoMaterial on nu.NumeroUnicoID equals otm.NumeroUnicoDespachadoID
                                                where nu.ItemCodeID.ToString() == x.ItemCodeID
                                                select (int?)nui.CantidadRecibida - otm.CantidadDespachada).Sum().ToString();
+
+                        x.DespachadoDesdeICEquivalente = (from ice in ctx2.ItemCodeEquivalente
+                                                          join nu in ctx2.NumeroUnico on ice.ItemCodeEquivalenteID equals nu.ItemCodeID
+                                                          join num in ctx2.NumeroUnicoMovimiento on nu.NumeroUnicoID equals num.NumeroUnicoID
+                                                          join tm in ctx2.TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                          where ice.ItemCodeID.ToString() == x.ItemCodeID && tm.TipoMovimientoID == 2
+                                                          select (int?)num.Cantidad).Sum().ToString();
+
+                        x.EntradasDesdeICEquivalente = (from ice in ctx2.ItemCodeEquivalente
+                                                        join nu in ctx2.NumeroUnico on ice.ItemEquivalenteID equals nu.ItemCodeID
+                                                        join num in ctx2.NumeroUnicoMovimiento on nu.NumeroUnicoID equals num.NumeroUnicoID
+                                                        join tm in ctx2.TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                        where ice.ItemCodeID.ToString() == x.ItemCodeID && tm.EsEntrada
+                                                        select (int?)num.Cantidad).Sum().ToString();
+
+                        x.SalidaParaICEquivalente = (from ice in ctx2.ItemCodeEquivalente
+                                                     join nu in ctx2.NumeroUnico on ice.ItemEquivalenteID equals nu.ItemCodeID
+                                                     join num in ctx2.NumeroUnicoMovimiento on nu.NumeroUnicoID equals num.NumeroUnicoID
+                                                     join tm in ctx2.TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
+                                                     where ice.ItemCodeID.ToString() == x.ItemCodeID && !tm.EsEntrada
+                                                     select (int?)num.Cantidad).Sum().ToString();
+
+                        x.DisponibleICEquivalente = (from ice in ctx2.ItemCodeEquivalente
+                                                     join nu in ctx2.NumeroUnico on ice.ItemEquivalenteID equals nu.ItemCodeID
+                                                     join nui in ctx2.NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
+                                                     where ice.ItemCodeID.ToString() == x.ItemCodeID
+                                                     select (int?)nui.InventarioDisponibleCruce).Sum().ToString();
+
+                        x.TotalDisponibleParaCruce = ((String.IsNullOrEmpty(x.InventarioDisponibleCruce) ? 0 : Convert.ToInt32(x.InventarioDisponibleCruce)) + (String.IsNullOrEmpty(x.DisponibleICEquivalente) ? 0 : Convert.ToInt32(x.DisponibleICEquivalente))).ToString();
                     });
                 }
 
