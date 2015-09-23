@@ -29,6 +29,12 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    var url={
+        "transportistas":$Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token=",
+        "camiones":$Camion.Tracto.urlNoId+"?esAvisoEntrada=0&token=",
+        "choferes":$Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token=",
+        "plana":$Plana.Plana.urlNoId+"?token="
+    };
 }
 
 @section JavascriptGlobalFunctions {
@@ -82,32 +88,7 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
-        switch(val) {
-            case "transportistas":
-                $Transportista.Transportista.read({}, { esAvisoEntrada: 0, token: Cookies.get("token")}).done(function (result) {
-                    Error(result);
-                    actualizarGrid(result);
-                });
-                break;
-            case "choferes":
-                $Chofer.Chofer.read({}, { esAvisoEntrada: 0, token: Cookies.get("token")}).done(function (result) {
-                    Error(result);
-                    actualizarGrid(result);
-                });
-                break;
-            case "camiones":
-                $Camion.Tracto.read({}, { esAvisoEntrada: 0, token: Cookies.get("token")}).done(function (result) {
-                    Error(result);
-                    actualizarGrid(result);
-                });
-                break;
-            case "plana":
-                $Plana.Plana.read({}, {token: Cookies.get("token")}).done(function (result) {
-                    Error(result);
-                    actualizarGrid(result);
-                });
-                break;
-        }
+        actualizarGrid(url[val]);
         loadingStop();
     };
 
@@ -118,30 +99,54 @@
         }
     })
 
-    function actualizarGrid(l){
+    function actualizarGrid(direccion){
+        console.log(direccion);
         var grid = $("#grid").data("kendoGrid");
-        var columnas=[];
-        var camposModelo={};
-        pruebas=l;
-        var claves=Object.keys(l[0]);
-        claves.forEach(function(clave){
-            columnas.push({"field":clave,"title":clave});
-            if($.isNumeric(l[0][clave])){
-                if(clave.toUpperCase().indexOf("ID")==-1){
-                    camposModelo[clave]={type: "number"}
-                }else{
-                    camposModelo[clave]={type: "number",editable: false}
-                }
-            }else{
-                camposModelo[clave]={type: "string"}
-            }
-        })
-        columnas.push({ command: "edit", title: "Editar",width:"75px"});
-        columnas.push({ command: "destroy", title: "Borrar",width:"75px"});
+        //var columnas=[];
+        //var camposModelo={};
+        //pruebas=lista;
+        //var claves=Object.keys(lista[0]);
+        //claves.forEach(function(clave){
+        //    columnas.push({"field":clave,"title":clave});
+        //    if($.isNumeric(lista[0][clave])){
+        //        if(clave.toUpperCase().indexOf("ID")==-1){
+        //            camposModelo[clave]={type: "number"}
+        //        }else{
+        //            camposModelo[clave]={type: "number",editable: false}
+        //        }
+        //    }else{
+        //        camposModelo[clave]={type: "string"}
+        //    }
+        //})
+        //columnas.push({ command: "edit", title: "Editar",width:"75px"});
+        //columnas.push({ command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: function(){console.log("Borrar")} }, title: "Borrar",width:"75px"});
         var options=grid.options;
-        options.columns=columnas;
-        options.dataSource.data=l
-        options.dataSource.schema.model.fields=camposModelo;
+        //options.columns=columnas;
+        //options.dataSource.data=lista;
+        //options.dataSource.schema.model.fields=camposModelo;
+        options.dataSource.transport={
+            read:{
+                url:direccion+Cookies.get("token"),
+                dataType:"json"
+            },
+            update:{
+                url:direccion+Cookies.get("token"),
+                dataType:"json"
+            },
+            destroy:{
+                url:direccion+Cookies.get("token"),
+                dataType:"json"
+            },
+            create:{
+                url:direccion+Cookies.get("token"),
+                dataType:"json"
+            },
+            parameterMap: function(options, operation) {
+                if (operation !== "read" && options.models) {
+                    return {models: kendo.stringify(options.models)};
+                }
+            }
+        };
         options.editable="inline";
         grid.destroy();
         $("#grid").empty().kendoGrid(options);
