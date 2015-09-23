@@ -38,6 +38,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion con llenar el combo de catalogos
+        /// </summary>
+        /// <returns></returns>
         public object obtenerCatalogos()
         {
             try
@@ -48,19 +52,15 @@ namespace BackEndSAM.DataAcces
 
                     ListaCombos patios = new ListaCombos();
                     ListaCombos chofer = new ListaCombos();
-                    ListaCombos cliente = new ListaCombos(); //Revisar *****************************
                     ListaCombos tipoAviso = new ListaCombos();
                     ListaCombos transportista = new ListaCombos();
                     ListaCombos tracto = new ListaCombos();
                     ListaCombos plana = new ListaCombos();
                     ListaCombos proveedor = new ListaCombos();
-                    ListaCombos tipoMaterial = new ListaCombos();
                     ListaCombos tipoUso = new ListaCombos();
                     ListaCombos camion = new ListaCombos();
-                    ListaCombos tipoAcero = new ListaCombos();
+                    ListaCombos Acero = new ListaCombos();
                     ListaCombos coladas = new ListaCombos();
-                    ListaCombos contacto = new ListaCombos();
-                    ListaCombos operador = new ListaCombos();
 
                     patios.id = "1";
                     patios.value = "Patios";
@@ -70,22 +70,41 @@ namespace BackEndSAM.DataAcces
                     chofer.value = "Chofer";
                     valoresCombo.Add(chofer);
 
-                    cliente.id = "3";
-                    cliente.value = "Cliente";
-                    valoresCombo.Add(cliente);
-
-                    tipoAviso.id = "4";
+                    tipoAviso.id = "3";
                     tipoAviso.value = "Tipo Aviso";
                     valoresCombo.Add(tipoAviso);
 
-                    transportista.id = "5";
+                    transportista.id = "4";
                     transportista.value = "Transportista";
                     valoresCombo.Add(transportista);
 
-                    tracto.id = "6";
+                    tracto.id = "5";
                     tracto.value = "Tracto";
                     valoresCombo.Add(tracto);
 
+                    plana.id = "6";
+                    plana.value = "Plana";
+                    valoresCombo.Add(plana);
+
+                    proveedor.id = "7";
+                    proveedor.value = "Proveedor";
+                    valoresCombo.Add(proveedor);
+
+                    tipoUso.id = "8";
+                    tipoUso.value = "Tipo de Uso";
+                    valoresCombo.Add(tipoUso);
+
+                    camion.id = "9";
+                    camion.value = "Camion";
+                    valoresCombo.Add(camion);
+
+                    Acero.id = "10";
+                    Acero.value = "Acero";
+                    valoresCombo.Add(Acero);
+
+                    coladas.id = "11";
+                    coladas.value = "Coladas";
+                    valoresCombo.Add(coladas);
 
                     return valoresCombo;
                 }
@@ -102,6 +121,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Muestra la informacion del catalogo seleccionado
+        /// </summary>
+        /// <param name="catalogoID"></param>
+        /// <returns></returns>
         public object obtenerInformacionCatalogos(string catalogoID)
         {
             try
@@ -112,7 +136,14 @@ namespace BackEndSAM.DataAcces
                     {
                         case 1: //Patios
                             List<CatalogoPatio> catPatio = new List<CatalogoPatio>();
-
+                            catPatio = (from p in ctx.Sam3_Patio
+                                        where p.Activo
+                                        select new CatalogoPatio
+                                        {
+                                            Nombre = p.Nombre,
+                                            Propietario = p.Propietario,
+                                            Descripcion = p.Descripcion
+                                        }).AsParallel().ToList();
                             return catPatio;
                         case 2: //Chofer
                             List<CatalogoChofer> catChofer = new List<CatalogoChofer>();
