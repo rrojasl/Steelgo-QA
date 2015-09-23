@@ -15,24 +15,24 @@ namespace BackEndSAM.Controllers
     public class AdministracionCatalogosController : ApiController
     {
         // GET api/<controller>/5
-        public object Get(string catalogoID, string token)
+        public object Get(string token)
         {
-            //string payload = "";
-            //string newToken = "";
-            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            //if (tokenValido)
-            //{
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
                 return CatalogosBd.Instance.obtenerCatalogos();
-            //}
-            //else
-            //{
-            //    TransactionalInformation result = new TransactionalInformation();
-            //    result.ReturnMessage.Add(payload);
-            //    result.ReturnCode = 401;
-            //    result.ReturnStatus = false;
-            //    result.IsAuthenicated = false;
-            //    return result;
-            //}
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/<controller>
