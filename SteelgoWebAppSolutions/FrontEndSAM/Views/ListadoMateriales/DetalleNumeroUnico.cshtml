@@ -165,6 +165,9 @@
     };
 
     function CargaInicial() {
+        ObtenerDetalleNumeroUnico();
+        ObtenerMovimientos();
+        ObtenerSegmentos();
         $("#Cerrar").click(function () {
             window.location.href = _listadoMateriales + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
@@ -180,7 +183,7 @@
                             Segmento: { type: "string" },
                             Entrada: { type: "string" },
                             Salida: { type: "string" },
-                            Saldo: { type: "string" },
+                            SaldoActual: { type: "string" },
                             Referencia: { type: "string" }
                         }
                     }
@@ -216,7 +219,7 @@
                 { field: "Segmento", title: _dictionary.ListaMateriales0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Entrada", title: _dictionary.ListaMateriales0010[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Salida", title: _dictionary.ListaMateriales0011[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "Saldo", title: _dictionary.ListaMateriales0012[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "SaldoActual", title: _dictionary.ListaMateriales0012[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Referencia", title: _dictionary.ListaMateriales0013[$("#language").data("kendoDropDownList").value()], filterable: true },
             ],
             dataBound: function (e) {
@@ -226,36 +229,55 @@
             }
         });
     }
-    function obtenerDetalleNumeroUnico(){
-        $folioEntradaMaterial.Listado.read({}, { NumeroUnicoID: _NumeroUnico, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+    function ObtenerDetalleNumeroUnico() {
+        loadingStart();
+        $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, token: Cookies.get("token") }).done(function (result) {
             if(Error(result)) {
-                $("#numerounico").val(result.numerounico);
-                $("#d1").val(result.d1);
-                $("#d2").val(result.d2);
-                $("#cedula").val(result.cedula);
-                $("#totalrecibido").val(result.totalrecibido);
-                $("#totaldañado").val(result.totaldañado);
-                $("#itemcode").val(result.itemcode);
-                $("#profile1").val(result.profile1);
-                $("#profile2").val(result.profile2);
-                $("#totalentradas").val(result.totalentradas);
-                $("#totalsalidas").val(result.totalsalidas);
-                $("#saldoactual").val(result.saldoactual);
+                $("#numerounico").val(result.NumeroUnico);
+                $("#d1").val(result.D1);
+                $("#d2").val(result.D2);
+                $("#cedula").val(result.Cedula);
+                $("#totalrecibido").val(result.TotalRecibido);
+                $("#totaldañado").val(result.TotalDanado);
+                $("#itemcode").val(result.ItemCode);
+                $("#profile1").val(result.Profile1);
+                $("#profile2").val(result.Profile2);
+                $("#totalentradas").val(result.TotalEntradas);
+                $("#totalsalidas").val(result.TotalSalidas);
+                $("#saldoactual").val(result.SaldoActual);
 
-                if ($("#gridSegmentos").data("kendoGrid")) {
-                    if (result.Segmentos.length > 0) {
-                        $("#gridSegmentos").data("kendoGrid").dataSource.data(result.Segmentos);
-                        $("#gridSegmentos").data("kendoGrid").dataSource.page(1);
-                    } else {
-                        $("#gridSegmentos").data("kendoGrid").dataSource.data([]);
-                        $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
-                    };
-                };
+                //if ($("#gridSegmentos").data("kendoGrid")) {
+                //    if (result.Segmentos.length > 0) {
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.data(result.Segmentos);
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.page(1);
+                //    } else {
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.data([]);
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
+                //    };
+                //};
 
+                //if ($("#gridMovimientosInventario").data("kendoGrid")) {
+                //    if (result.Movimientos.length > 0) {
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(result.Movimientos);
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(1);
+                //    } else {
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data([]);
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(0);
+                //    };
+                //};
+                //applySecurityPolicy(false);
+            };
+            loadingStop();
+        });
+    };
+
+    function ObtenerMovimientos() {
+        loadingStart();
+        $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "1", token: Cookies.get("token") }).done(function (result) {
+            if(Error(result)) {
                 if ($("#gridMovimientosInventario").data("kendoGrid")) {
-                    if (result.Movimientos.length > 0) {
-                        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(result.Movimientos);
+                    if (result.length > 0) {
+                        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(result);
                         $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(1);
                     } else {
                         $("#gridMovimientosInventario").data("kendoGrid").dataSource.data([]);
@@ -263,7 +285,26 @@
                     };
                 };
                 applySecurityPolicy(false);
-            };
+            }
+            loadingStop();
+        });
+    };
+
+    function ObtenerSegmentos() {
+        loadingStart();
+        $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "2", token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                if ($("#gridSegmentos").data("kendoGrid")) {
+                    if (result.length > 0) {
+                        $("#gridSegmentos").data("kendoGrid").dataSource.data(result);
+                        $("#gridSegmentos").data("kendoGrid").dataSource.page(1);
+                    } else {
+                        $("#gridSegmentos").data("kendoGrid").dataSource.data([]);
+                        $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
+                    };
+                };
+                applySecurityPolicy(false);
+            }
             loadingStop();
         });
     };

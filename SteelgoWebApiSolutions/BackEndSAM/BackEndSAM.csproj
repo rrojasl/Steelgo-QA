@@ -133,11 +133,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdministracionCatalogosController.cs" />
+    <Compile Include="Controllers\AlmacenajeController.cs" />
     <Compile Include="Controllers\CambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\DocumentoFolioAvisoEntradaController.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Controllers\DummyAlmacenajeRackController.cs" />
     <Compile Include="Controllers\DummyColadaController.cs" />
     <Compile Include="Controllers\DummyColadasPorProyectoController.cs" />
+    <Compile Include="Controllers\DummyDespachoController.cs" />
     <Compile Include="Controllers\DummyGenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
@@ -242,11 +246,14 @@
     <Compile Include="Controllers\ValidacionesFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
     <Compile Include="Controllers\ValidarItemCodeNuCuantificacionController.cs" />
+    <Compile Include="DataAcces\AlmacenajeBd.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
+    <Compile Include="DataAcces\CatalogosBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
+    <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
@@ -287,6 +294,7 @@
     <Compile Include="Models\AsociacionItemCodeSteelgo.cs" />
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
+    <Compile Include="Models\Catalogos.cs" />
     <Compile Include="Models\CuantificacionListado.cs" />
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
@@ -300,6 +308,7 @@
     <Compile Include="Models\Dummy\Cliente.cs" />
     <Compile Include="Models\Dummy\Coladas.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
+    <Compile Include="Models\Dummy\DummyDespacho.cs" />
     <Compile Include="Models\Dummy\DummyFabricante.cs" />
     <Compile Include="Models\Dummy\DummyGridOrdenRecepcion.cs" />
     <Compile Include="Models\Dummy\DummyOrdenAlmacenaje.cs" />
@@ -323,6 +332,7 @@
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
+    <Compile Include="Models\Dummy\DummyNumeroControl.cs" />
     <Compile Include="Models\Dummy\NumerosUnicos.cs" />
     <Compile Include="Models\Dummy\PackingList.cs" />
     <Compile Include="Models\Dummy\PackingListOrdenRecepcion.cs" />
@@ -351,6 +361,7 @@
     <Compile Include="Models\ItemCodeJson.cs" />
     <Compile Include="Models\ItemCodeSteelgoJson.cs" />
     <Compile Include="Models\ListaCombos.cs" />
+    <Compile Include="Models\Almacenaje.cs" />
     <Compile Include="Models\ListaDocumentos.cs" />
     <Compile Include="Models\ListadoGenerarOrdenAlmacenaje.cs" />
     <Compile Include="Models\ListadoGenerarOrdenRecepcion.cs" />
@@ -360,6 +371,7 @@
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
+    <Compile Include="Models\ListadoMaterialesPorItemCode.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
     <Compile Include="Models\TipoArchivo.cs" />

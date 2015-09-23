@@ -12,18 +12,17 @@ using System.Web.Http.Cors;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ListadoMaterialesController : ApiController
+    public class AdministracionCatalogosController : ApiController
     {
-
         // GET api/<controller>/5
-        public object Get(string FolioCuantificacion, string token)
+        public object Get(string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return ListadoMaterialesBd.Instance.cargarGridListado(FolioCuantificacion);
+                return CatalogosBd.Instance.obtenerCatalogos();
             }
             else
             {

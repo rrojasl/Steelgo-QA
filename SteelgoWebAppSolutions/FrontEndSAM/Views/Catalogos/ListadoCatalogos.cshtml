@@ -15,13 +15,14 @@
 }
 
 <div class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-5">
-    <select id="listaCatalogos" class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-5">
+    @*<select id="listaCatalogos" class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-5">
         <option disabled selected="true" value="---------">--------</option>
         <option value="transportistas">Transportistas</option>
         <option value="camiones">Camiones</option>
         <option value="choferes">Choferes</option>
         <option value="plana">Planas</option>
-    </select>
+    </select>*@
+    <input type="text" id="listaCatalogos"/>
 </div>
 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div id="grid"></div>
@@ -94,6 +95,16 @@
     };
 
     $("#listaCatalogos").kendoDropDownList({
+        dataTextField: "value",
+        dataValueField: "id",
+        dataSource: {
+            transport: {
+                read: {
+                    dataType: "json",
+                    url: $Catalogos.AdministracionCatalogos.urlNoId+"?token="+Cookies.get("token")
+                }
+            }
+        },
         change:function(e){
             var val=this.value();
             cargarInicialGrid(val);

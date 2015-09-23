@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace BackEndSAM.Models
+{
+    public class DummyDespacho
+    {
+        public string NumeroControl { get; set; }
+        public string ItemCode { get; set; }
+        public string Descripcion { get; set; }
+        public string NumeroUnico { get; set; }
+    }
+}
