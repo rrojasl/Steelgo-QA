@@ -81,12 +81,44 @@
 
     @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "24", { path: '/' });
+    Cookies.set("navegacion", "25", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
     var resultadoJson, NumeroControl = {}, lastEditedCellID = "",
         Proyecto = {};
+
+    var $DespachoModel = {
+        listContainer: {
+            create: ".button-section",
+            list: "#grid",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+        properties: {
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
+            },
+            spool: {
+                visible: "#SpoolDiv",
+                editable: "#SpoolID",
+                required: "#SpoolID"
+            },
+            todos: {
+                visible: "#todosDiv",
+                editable: "#todos",
+                required: "#todos"
+            },
+            vacios: {
+                visible: "#vaciosDiv",
+                editable: "#vacios",
+                required: "#vacios"
+            }
+        }
+    };
+
     }
 
     @section JavascriptGlobalFunctions {
@@ -95,7 +127,7 @@
     };
 
     function CargaInicial() {
-
+        $("#Guardar").click(function () { Guardar(); });
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
@@ -285,7 +317,7 @@
                            dataSource: {
                                type: "json",
                                transport: {
-                                   read: $UrlDummyDespacho + "&token=" + Cookies.get("token")
+                                   read: $UrlDummyDespacho + "&ItemCode=" + container.parent().children()[1].innerText + "&prueba=a" +"&prueba1=aa" + "&token=" + Cookies.get("token")
                                }
                            },
                            select: function (e) {
@@ -302,7 +334,7 @@
         lastEditedCellID = options.model;
     };
 
-    function validarRequeridosFormaAlmacenaje() {
+    function validarRequeridosFormaDespacho() {
         var bool = true;
         $("#formDespacho .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
@@ -319,7 +351,7 @@
 
     function Guardar() {
         loadingStart();
-        if (validarRequeridosFormaAlmacenaje()) {
+        if (validarRequeridosFormaDespacho()) {
             var filters = $("#grid").data("kendoGrid").dataSource.filter();
             var allData = $("#grid").data("kendoGrid").dataSource.data();
             var query = new kendo.data.Query(allData);
@@ -377,6 +409,7 @@
     };
 
     @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Despacho"] = $DespachoModel;
     CargaInicial();
     }
 </script>

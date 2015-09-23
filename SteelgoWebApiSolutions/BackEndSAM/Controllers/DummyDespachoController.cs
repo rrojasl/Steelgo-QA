@@ -69,7 +69,7 @@ namespace BackEndSAM.Controllers
         }
 
     
-        public IEnumerable<NumerosUnicos> Get(string token)
+        public IEnumerable<NumerosUnicos> Get(string ItemCode, string prueba, string prueba1, string token)
         {
             List<NumerosUnicos> lstNumeroUnico = new List<NumerosUnicos>();
             NumerosUnicos numerounico1 = new NumerosUnicos();
