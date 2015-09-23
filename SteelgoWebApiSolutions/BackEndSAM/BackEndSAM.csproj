@@ -150,6 +150,7 @@
     <Compile Include="Controllers\DummyAlmacenajeRackController.cs" />
     <Compile Include="Controllers\DummyColadaController.cs" />
     <Compile Include="Controllers\DummyColadasPorProyectoController.cs" />
+    <Compile Include="Controllers\DummyDespachoController.cs" />
     <Compile Include="Controllers\DummyGenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Models\Dummy\Cliente.cs" />
     <Compile Include="Models\Dummy\Coladas.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
+    <Compile Include="Models\Dummy\DummyDespacho.cs" />
     <Compile Include="Models\Dummy\DummyFabricante.cs" />
     <Compile Include="Models\Dummy\DummyGridOrdenRecepcion.cs" />
     <Compile Include="Models\Dummy\DummyOrdenAlmacenaje.cs" />
@@ -327,6 +329,7 @@
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
+    <Compile Include="Models\Dummy\DummyNumeroControl.cs" />
     <Compile Include="Models\Dummy\NumerosUnicos.cs" />
     <Compile Include="Models\Dummy\PackingList.cs" />
     <Compile Include="Models\Dummy\PackingListOrdenRecepcion.cs" />

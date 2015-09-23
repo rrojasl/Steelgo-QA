@@ -34,6 +34,7 @@ var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
+var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -98,6 +99,7 @@ var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Almacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DetalleNumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMaterialesPorItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -174,3 +176,4 @@ $ListadoMateriales.add("ListadoMateriales")
 $Almacenaje.add("Almacenaje");
 $DetalleNumeroUnico.add("DetalleNumeroUnico");
 $ListadoMaterialesPorItemCode.add("ListadoMaterialesPorItemCode");
+$DummyDespacho.add("DummyDespacho");

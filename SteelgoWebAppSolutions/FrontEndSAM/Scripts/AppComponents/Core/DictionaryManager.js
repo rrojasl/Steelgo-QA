@@ -3604,6 +3604,10 @@ _dictionary = {
         "es-MX": "Estatus",
         "en-US": "Status"
     },
+    "Despacho0020": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -3828,6 +3832,10 @@ _dictionary = {
     "notificationslabel0056": {
         "es-MX": "Se han guardado los cambios.",
         "en-US": "Your changes have been saved."
+    },
+    "notificationslabel0057": {
+        "es-MX": "El spool se encuentra en hold.",
+        "en-US": "The spool is on hold."
     },
     //Default to copy
     "label9999": {
