@@ -259,7 +259,7 @@
         NumeroControl = {};
         NumeroControl = { NumeroControlID: id, NumeroControl: value };
     };
-
+    
     function LimpiarDatos() {
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
@@ -398,13 +398,11 @@
             var query = new kendo.data.Query(allData);
             var result = query.filter(filters).data;
             var datasource = result;
-            var Listado = { SpoolID: "", Items: "" };
+            var Listado = { Despacho: "" };
 
+            Listado.ListaDespachos = ListadoAGuardar(datasource);
 
-            Listado.SpoolID = OrdenAlmacenaje.OrdenAlmacenajeID;
-            Listado.Despacho = ListadoAGuardar(datasource);
-
-            $Despacho.Despacho.update(Listado, { token: $.cookie("token") }).done(function (result) {
+            $DummyDespacho.DummyDespacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if(Error(result)){
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
@@ -437,10 +435,14 @@
     function ListadoAGuardar(datasource) {
         var Listado = {}, z = 0;
         for (var i = 0; i < datasource.length; i++) {
+            var NumeroControl = datasource[i].NumeroControl;
             var ItemCode = datasource[i].ItemCode;
             var NumeroUnico = datasource[i].NumeroUnico;
             var TieneDespacho = datasource[i].TieneDespacho;
             var TieneHold = datasource[i].Hold;
+            var Etiqueta = datasource[i].Etiqueta;
+            var Baston= datasource[i].Baston;
+
 
             if (TieneHold == "true") {
                 displayMessage("notificationslabel0057", "", '2');
@@ -448,7 +450,7 @@
             }
 
             if (TieneDespacho != "true") {//los que no tengan despacho
-                Listado[z] = { ItemCode: ItemCode, NumeroUnico: NumeroUnico };
+                Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, Etiqueta: Etiqueta, Baston: Baston };
                 z++;
             }
 

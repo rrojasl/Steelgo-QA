@@ -64,4 +64,24 @@ namespace BackEndSAM.Models
         public string Cantidad { get; set; }
         public string CantidadIngenieria { get; set; }
     }
+
+
+
+    public class Despacho
+    {
+        public List<DespachoItems> ListaDespachos { get; set; }
+
+        public Despacho()
+        {
+            ListaDespachos = new List<DespachoItems>();
+        }
+    }
+    public class DespachoItems
+    {
+        public string NumeroControl { get; set; }
+        public string ItemCode { get; set; }
+        public string NumeroUnico { get; set; }
+        public string Etiqueta { get; set; }
+        public string Baston { get; set; }
+    }
 }

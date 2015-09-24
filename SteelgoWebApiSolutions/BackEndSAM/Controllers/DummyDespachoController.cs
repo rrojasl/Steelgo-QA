@@ -96,5 +96,10 @@ namespace BackEndSAM.Controllers
 
             return lstNumeroUnico.AsEnumerable();
         }
+
+        public void Post(Despacho Despacho)
+        {
+
+        }
     }
 }
