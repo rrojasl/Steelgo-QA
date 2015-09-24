@@ -325,13 +325,14 @@
     }
 
     function CargaInicial() {
-        //$("#Guardar").click(function () { Guardar(); });
-        //$("#Cancelar").click(function () { Cancelar(); });
-        //$("#CorregirTolerancia").click(function () { AplicarCambioTolerancia(); });
-        //$("#CorregirSobrante").click(function () { AplicarCambioSobrante(); });
-        //$("#CorregirMermaPrimerIntento").click(function () { AplicarCambioMermaCorregir(); });
-        //$("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
-      
+        $("#Guardar").click(function () { Guardar(); });
+        $("#Cancelar").click(function () { Cancelar(); });
+        $("#CorregirTolerancia").click(function () { AplicarCambioTolerancia(); });
+        $("#CorregirSobrante").click(function () { AplicarCambioSobrante(); });
+        $("#CorregirMermaPrimerIntento").click(function () { AplicarCambioMermaCorregir(); });
+        $("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
+        $("#GenerarPickingTicket").click(function () { GenerarPickingTicket(); });
+        
         $("#Maquina").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "MaquinaID",
@@ -637,10 +638,14 @@
             window.data("kendoWindow").center().open();
         };
 
-        function Cancelar() {
+        function GenerarPickingTicket() {
+            $("#GenerarPickingTicket").attr("disabled","disabled");
+        };
 
+        function Cancelar() {
             window.location.href = _CorteUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         };
+
         function Guardar() {
             var gridData = $("#grid").data("kendoGrid").dataSource.view();
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
