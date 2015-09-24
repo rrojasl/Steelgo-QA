@@ -88,6 +88,9 @@
     var resultadoJson, NumeroControl = {}, lastEditedCellID = "",
         Proyecto = {}, lastEditedBastonCellID = "", x = 1;
 
+    var _spoolID = getUrlParameter("SpoolID", "-1"),
+        _proyectoID = getUrlParameter("ProyectoID", "-1");
+
     var $DespachoModel = {
         listContainer: {
             create: ".button-section",
@@ -190,7 +193,13 @@
             }
         });
     };
+    function CargaInicialEdicion() {
+        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+        $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
+        CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
+        ObtenerDatosGrid();
+    };
     function CargarGridDespacho() {
         $("#grid").kendoGrid({
             dataSource: {
@@ -221,9 +230,9 @@
                 confirmation: false
             },
             edit: function (e) {
-                if (e.model.TieneDespacho) {
+                if (e.model.TieneDespacho == "Si" && e.model.Hold == "Si") {
                     this.closeCell();
-                }
+                };
             },
             pageable: {
                 refresh: false,
@@ -449,7 +458,7 @@
                 return;
             }
 
-            if (TieneDespacho != "true") {//los que no tengan despacho
+            if (TieneDespacho != "true" && NumeroUnico) {//los que no tengan despacho y tengan numero unico asignado
                 Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, Etiqueta: Etiqueta, Baston: Baston };
                 z++;
             }
@@ -461,5 +470,8 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Despacho"] = $DespachoModel;
     CargaInicial();
+    if (_spoolID != "-1" && _proyectoID != "-1") {
+        CargaInicialEdicion();
+    }
     }
 </script>

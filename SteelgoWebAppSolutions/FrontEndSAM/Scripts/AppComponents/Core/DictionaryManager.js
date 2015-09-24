@@ -3806,6 +3806,135 @@ _dictionary = {
         "es-MX": "Asumir incongruencia.",
         "en-US": "Assume inconsistency."
     },
+    //DashboardDespachoCorte
+    "DashboardDespachoCorte0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DashboardDespachoCorte0002": {
+        "es-MX": "Despachar",
+        "en-US": "Dispatch"
+    },
+    "DashboardDespachoCorte0003": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardDespachoCorte0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DashboardDespachoCorte0005": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Notice Folio Entry"
+    },
+    "DashboardDespachoCorte0006": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "DashboardDespachoCorte0007": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "DashboardDespachoCorte0008": {
+        "es-MX": "Fecha Final",
+        "en-US": "End Date"
+    },
+    "DashboardDespachoCorte0009": {
+        "es-MX": "Perodo Tiempo",
+        "en-US": "Time Period"
+    },
+    "DashboardDespachoCorte0010": {
+        "es-MX": "Unidad Medida",
+        "en-US": "Unit Measure"
+    },
+    "DashboardDespachoCorte0011": {
+        "es-MX": "Accesorios",
+        "en-US": "Accessories"
+    },
+    "DashboardDespachoCorte0012": {
+        "es-MX": "Ordenes de Trabajo",
+        "en-US": "Work Orders"
+    },
+    "DashboardDespachoCorte0013": {
+        "es-MX": "Ordenes de Trabajo Activas",
+        "en-US": "Active work orders"
+    },
+    "DashboardDespachoCorte0014": {
+        "es-MX": "Por Pre-Despachar",
+        "en-US": "By Pre-Dispatch"
+    },
+    "DashboardDespachoCorte0015": {
+        "es-MX": "Por Despachar",
+        "en-US": "By Dispatch"
+    },
+    "DashboardDespachoCorte0016": {
+        "es-MX": "Por Entregar",
+        "en-US": "By Submit"
+    },
+    "DashboardDespachoCorte0017": {
+        "es-MX": "Traveler Pendiente",
+        "en-US": "Traveler Pending"
+    },
+    "DashboardDespachoCorte0018": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "DashboardDespachoCorte0019": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "DashboardDespachoCorte0020": {
+        "es-MX": "Tubos",
+        "en-US": "Tubes"
+    },
+    "DashboardDespachoCorte0021": {
+        "es-MX": "Ordenes de Trabajo",
+        "en-US": "Work Orders"
+    },
+    "DashboardDespachoCorte0022": {
+        "es-MX": "Ordenes de Trabajo Activas",
+        "en-US": "Active work orders"
+    },
+    "DashboardDespachoCorte0023": {
+        "es-MX": "Por Pre-Despachar",
+        "en-US": "By Pre-Dispatch"
+    },
+    "DashboardDespachoCorte0024": {
+        "es-MX": "Por Despachar",
+        "en-US": "By Dispatch"
+    },
+    "DashboardDespachoCorte0025": {
+        "es-MX": "Por Entregar",
+        "en-US": "By Submit"
+    },
+    "DashboardDespachoCorte0026": {
+        "es-MX": "Traveler Pendiente",
+        "en-US": "Traveler Pending"
+    },
+    "DashboardDespachoCorte0027": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "DashboardDespachoCorte0028": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "DashboardDespachoCorte0029": {
+        "es-MX": "Dashboard Despacho y Corte",
+        "en-US": "Dashboard Dispatch and Cut"
+    },
+    "DashboardDespachoCorte0030": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "DashboardDespachoCorte0031": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "DashboardDespachoCorte0032": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
