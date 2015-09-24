@@ -964,6 +964,7 @@
     <Compile Include="Controllers\Almacenaje\AlmacenajeController.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
+    <Compile Include="Controllers\Corte\CorteController.cs" />
     <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
     <Compile Include="Controllers\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenajeController.cs" />
     <Compile Include="Controllers\Despacho\DespachoController.cs" />
@@ -1128,6 +1129,7 @@
     <Content Include="Views\ListadoMateriales\ListadoMaterialesItemCode.cshtml" />
     <Content Include="Views\Almacenaje\Almacenaje.cshtml" />
     <Content Include="Views\Despacho\Despacho.cshtml" />
+    <Content Include="Views\Corte\Corte.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
