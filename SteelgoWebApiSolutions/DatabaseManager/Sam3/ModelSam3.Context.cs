@@ -118,5 +118,17 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
         public virtual DbSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaAcero> Sam3_EquivalenciaAcero { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaColada> Sam3_EquivalenciaColada { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaDespacho> Sam3_EquivalenciaDespacho { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFabricante> Sam3_EquivalenciaFabricante { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFamiliaAcero> Sam3_EquivalenciaFamiliaAcero { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFamiliaMaterial> Sam3_EquivalenciaFamiliaMaterial { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaItemCode> Sam3_EquivalenciaItemCode { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaNumeroUnico> Sam3_EquivalenciaNumeroUnico { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaPatio> Sam3_EquivalenciaPatio { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaProveedor> Sam3_EquivalenciaProveedor { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaProyecto> Sam3_EquivalenciaProyecto { get; set; }
+        public virtual DbSet<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
     }
 }

@@ -241,6 +241,21 @@
         <AssociationConnector Association="ModelSam3.FK_Sam3_NumeroUnicoInventario_Sam3_NumeroUnico" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoM__7B9B496D" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Item__TipoU__7D8391DF" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaAcero" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaColada" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaDespacho" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaFabricante" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaFamiliaAcero" Width="1.5" PointX="10.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaFamiliaMaterial" Width="1.5" PointX="10.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaItemCode" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaNumeroUnico" Width="1.5" PointX="11.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaPatio" Width="1.5" PointX="5.375" PointY="11.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaProveedor" Width="1.5" PointX="12.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaProyecto" Width="1.5" PointX="12.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_ColaCreacionNumerosUnicos" Width="1.5" PointX="23.5" PointY="49.125" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cola__ItemC__78BEDCC2" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cola__Orden__79B300FB" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cola__Usuar__7AA72534" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

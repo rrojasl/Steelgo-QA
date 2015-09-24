@@ -29,18 +29,24 @@ namespace BackEndSAM.Controllers
             despacho1.ItemCode = "AAAC957927003";
             despacho1.Descripcion = "Pipe 3";
             despacho1.NumeroUnico = "";
+            despacho1.Baston = "";
+            despacho1.Etiqueta = "1";
             lstDespacho.Add(despacho1);
 
             despacho2.NumeroControl = "E008-001";
             despacho2.ItemCode = "AAAC957927005";
             despacho2.Descripcion = "Pipe 5";
             despacho2.NumeroUnico = "111";
+            despacho2.Baston = "";
+            despacho2.Etiqueta = "2";
             lstDespacho.Add(despacho2);
 
             despacho3.NumeroControl = "E008-001";
             despacho3.ItemCode = "AAAC957927006";
             despacho3.Descripcion = "Pipe 6";
             despacho3.NumeroUnico = "";
+            despacho3.Baston = "";
+            despacho3.Etiqueta = "3";
             lstDespacho.Add(despacho3);
 
             return lstDespacho.AsEnumerable();
@@ -89,6 +95,11 @@ namespace BackEndSAM.Controllers
             lstNumeroUnico.Add(numerounico3);
 
             return lstNumeroUnico.AsEnumerable();
+        }
+
+        public void Post(Despacho Despacho)
+        {
+
         }
     }
 }

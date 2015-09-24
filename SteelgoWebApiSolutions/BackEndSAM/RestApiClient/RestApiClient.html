@@ -363,9 +363,12 @@
         //client.add("ListadoMaterialesPorItemCode");
         //client.ListadoMaterialesPorItemCode.read({}, { proyectoID: "1", token: "" }).done(function (data) { console.log(data) });
 
-        client.add("AdministracionCatalogos");
-        //client.AdministracionCatalogos.read({}, { token: "" }).done(function (data) { console.log(data) });
-        client.AdministracionCatalogos.read({}, { catalogoID: "1", token: "" }).done(function (data) { console.log(data) });
+        //client.add("Despacho");
+        ////client.AdministracionCatalogos.read({}, { token: "" }).done(function (data) { console.log(data) });
+        //client.Despacho.read({}, { "ordenTrabajoSpoolID": 31769, "token": "131313211331" }).done(function (data) { console.log(data) });
+
+        client.add("OrdenTrabajoSpool");
+        client.OrdenTrabajoSpool.read({}, { "token": "121331" }).done(function (data) { console.log(data) });
     </script>
 </body>
 </html>

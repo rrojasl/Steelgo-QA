@@ -61,6 +61,9 @@ namespace BackEndSAM.DataAcces
                     ListaCombos camion = new ListaCombos();
                     ListaCombos Acero = new ListaCombos();
                     ListaCombos coladas = new ListaCombos();
+                    ListaCombos familiaMaterial = new ListaCombos();
+                    ListaCombos familiaAcero = new ListaCombos();
+                    ListaCombos fabricante = new ListaCombos();
 
                     patios.id = "1";
                     patios.value = "Patios";
@@ -106,6 +109,18 @@ namespace BackEndSAM.DataAcces
                     coladas.value = "Coladas";
                     valoresCombo.Add(coladas);
 
+                    familiaMaterial.id = "12";
+                    familiaMaterial.value = "Familia Material";
+                    valoresCombo.Add(familiaMaterial);
+
+                    familiaAcero.id = "13";
+                    familiaAcero.value = "Familia Acero";
+                    valoresCombo.Add(familiaAcero);
+
+                    fabricante.id = "14";
+                    fabricante.value = "Fabricante";
+                    valoresCombo.Add(fabricante);
+
                     return valoresCombo;
                 }
             }
@@ -140,11 +155,12 @@ namespace BackEndSAM.DataAcces
                                         where p.Activo
                                         select new CatalogoPatio
                                         {
+                                            PatioID = p.PatioID.ToString(),
                                             Nombre = p.Nombre,
                                             Propietario = p.Propietario,
                                             Descripcion = p.Descripcion
                                         }).AsParallel().ToList();
-                                        
+
                             return catPatio;
 
                         case 2: //Chofer
@@ -154,7 +170,9 @@ namespace BackEndSAM.DataAcces
                                          where ch.Activo && t.Activo
                                          select new CatalogoChofer
                                          {
+                                             ChoferID = ch.ChoferID.ToString(),
                                              Nombre = ch.Nombre,
+                                             TransportistaID = t.TransportistaID.ToString(),
                                              TransportistaNombre = t.Nombre
                                          }).AsParallel().ToList();
 
@@ -166,6 +184,7 @@ namespace BackEndSAM.DataAcces
                                             where ta.Activo
                                             select new Catalogos
                                             {
+                                                Id = ta.TipoAvisoID.ToString(),
                                                 Nombre = ta.Nombre
                                             }).AsParallel().ToList();
 
@@ -178,7 +197,9 @@ namespace BackEndSAM.DataAcces
                                                 where t.Activo && c.Activo
                                                 select new CatalogoTransportista
                                                 {
+                                                    ContactoID = c.ContactoID.ToString(),
                                                     Contacto = c.Nombre,
+                                                    TransportistaID = t.TransportistaID.ToString(),
                                                     Nombre = t.Nombre,
                                                     Descripcion = t.Descripcion,
                                                     Direccion = t.Direccion,
@@ -194,6 +215,7 @@ namespace BackEndSAM.DataAcces
                                          && t.TipoVehiculoID == 1
                                          select new CatalogoTracto
                                          {
+                                             VehiculoID = t.VehiculoID.ToString(),
                                              Placas = t.Placas,
                                              TarjetaCirculacion = t.TarjetaCirculacion,
                                              PolizaSeguro = t.PolizaSeguro
@@ -208,6 +230,7 @@ namespace BackEndSAM.DataAcces
                                         && v.TipoVehiculoID == 2
                                         select new CatalogoPlana
                                         {
+                                            VehiculoID = v.VehiculoID.ToString(),
                                             Placas = v.Placas,
                                             Unidad = v.Unidad,
                                             Modelo = v.Modelo,
@@ -223,6 +246,8 @@ namespace BackEndSAM.DataAcces
                                             where p.Activo && c.Activo
                                             select new CatalogoProveedor
                                             {
+                                                ProveedorID = p.ProveedorID.ToString(),
+                                                ContactoID = c.ContactoID.ToString(),
                                                 Contacto = c.Nombre,
                                                 Nombre = p.Nombre,
                                                 Descripcion = p.Descripcion,
@@ -232,18 +257,116 @@ namespace BackEndSAM.DataAcces
 
                             return catProveedor;
 
-                        case 8 : //Tipo de Uso
+                        case 8: //Tipo de Uso
                             List<Catalogos> catTipoUso = new List<Catalogos>();
                             catTipoUso = (from tu in ctx.Sam3_TipoUso
                                           where tu.Activo
-                                          select new Catalogos 
+                                          select new Catalogos
                                           {
+                                              Id = tu.TipoUsoID.ToString(),
                                               Nombre = tu.Nombre
                                           }).AsParallel().ToList();
 
                             return catTipoUso;
 
-                        
+                        case 9: //Camion
+                            List<Catalogos> catCamion = new List<Catalogos>();
+                            catCamion = (from v in ctx.Sam3_TipoVehiculo
+
+                                         where v.Activo
+                                         select new Catalogos
+                                         {
+                                             Id = v.TipoVehiculoID.ToString(),
+                                             Nombre = v.Nombre
+                                         }).AsParallel().ToList();
+
+                            return catCamion;
+
+                        case 10: //Acero
+                            List<CatalogoAcero> catAcero = new List<CatalogoAcero>();
+                            catAcero = (from a in ctx.Sam3_Acero
+                                        join fa in ctx.Sam3_FamiliaAcero on a.FamiliaAceroID equals fa.FamiliaAceroID
+                                        where a.Activo && fa.Activo
+                                        select new CatalogoAcero
+                                        {
+                                            AceroID = a.AceroID.ToString(),
+                                            FAmiliaAceroID = fa.FamiliaAceroID.ToString(),
+                                            FamiliaAcero = fa.Nombre,
+                                            Nomenclatura = a.Nomenclatura,
+                                            VerificadoPorCalidad = a.VerificadoPorCalidad == true ? "Si" : "No"
+                                        }).AsParallel().ToList();
+
+                            return catAcero;
+
+                        case 11: //Coladas
+                            List<CatalogoColadas> catColadas = new List<CatalogoColadas>();
+                            catColadas = (from c in ctx.Sam3_Colada
+                                          join f in ctx.Sam3_Fabricante on c.FabricanteID equals f.FabricanteID
+                                          join a in ctx.Sam3_Acero on c.AceroID equals a.AceroID
+                                          join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                          where f.Activo && a.Activo && p.Activo
+                                          select new CatalogoColadas
+                                          {
+                                              ColadasID = c.ColadaID.ToString(),
+                                              FabricanteID = f.FabricanteID.ToString(),
+                                              Fabricante = f.Nombre,
+                                              AceroID = a.AceroID.ToString(),
+                                              Acero = a.Nomenclatura,
+                                              ProyectoID = p.ProyectoID.ToString(),
+                                              Proyecto = p.Nombre,
+                                              NumeroColada = c.NumeroColada,
+                                              NumeroCertificado = c.NumeroCertificado,
+                                              HoldCalidad = c.HoldCalidad == true ? "Si" : "No"
+                                          }).AsParallel().ToList();
+
+                            return catColadas;
+
+                        case 12: //Familia Material
+                            List<CatalogoFamiliaMaterial> catFamiliaMaterial = new List<CatalogoFamiliaMaterial>();
+                            catFamiliaMaterial = (from fm in ctx.Sam3_FamiliaMaterial
+                                               where fm.Activo
+                                               select new CatalogoFamiliaMaterial
+                                               {
+                                                   FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
+                                                   Nombre = fm.Nombre,
+                                                   Descripcion = fm.Descripcion
+                                               }).AsParallel().ToList();
+
+                            return catFamiliaMaterial;
+
+                        case 13: //Familia Acero
+                            List<CatalogoFamiliaAcero> catFamiliaAcero = new List<CatalogoFamiliaAcero>();
+                            catFamiliaAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                               join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                               where fa.Activo && fm.Activo
+                                               select new CatalogoFamiliaAcero
+                                               {
+                                                   FamiliaAceroID = fa.FamiliaAceroID.ToString(),
+                                                   FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
+                                                   FamiliaMaterial = fm.Nombre,
+                                                   Nombre = fa.Nombre,
+                                                   Descripcion = fa.Descripcion,
+                                                   VerificadoPorCalidad = fa.VerificadoPorCalidad == true ? "Si" : "No"
+                                               }).AsParallel().ToList();
+
+                            return catFamiliaAcero;
+
+                        case 14: //fabricante
+                            List<CatalogoFabricante> catFabricante = new List<CatalogoFabricante>();
+                            catFabricante = (from f in ctx.Sam3_Fabricante
+                                             join c in ctx.Sam3_Contacto on f.ContactoID equals c.ContactoID
+                                             where f.Activo && c.Activo
+                                             select new CatalogoFabricante
+                                             {
+                                                 FabricanteID = f.FabricanteID.ToString(),
+                                                 ContactoID = c.ContactoID.ToString(),
+                                                 Contacto = c.Nombre,
+                                                 Nombre = f.Nombre,
+                                                 Descripcion = f.Descripcion,
+                                                 Direccion = f.Direccion,
+                                                 Telefono = f.Telefono
+                                             }).AsParallel().ToList();
+                            return catFabricante;
 
                         default:
                             TransactionalInformation result = new TransactionalInformation();
@@ -252,9 +375,6 @@ namespace BackEndSAM.DataAcces
                             result.ReturnStatus = false;
                             result.IsAuthenicated = false;
                             return result;
-
-                       
-
                     }
                 }
             }
@@ -269,5 +389,10 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        //public object updateCatalog(string data, string catalogoID)
+        //{
+
+        //}
     }
 }

@@ -3633,6 +3633,179 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
+    "Despacho0021": {
+        "es-MX": "Agregar Nuevo",
+        "en-US": "Add New"
+    },
+    "Despacho0022": {
+        "es-MX": "Baston 1",
+        "en-US": "Stick 1"
+    },
+    "Despacho0023": {
+        "es-MX": "Baston",
+        "en-US": "Stick"
+    },
+    "Despacho0024": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    //Corte
+    "Corte0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Corte0002": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "Corte0003": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Corte0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Corte0005": {
+        "es-MX": "Generar Picking Ticket",
+        "en-US": "Generate Picking Ticket"
+    },
+    "Corte0006": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Corte0007": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "Corte0008": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidence"
+    },
+    "Corte0009": {
+        "es-MX": "Máquina",
+        "en-US": "Machine"
+    },
+    "Corte0010": {
+        "es-MX": "Operador",
+        "en-US": "Operator"
+    },
+    "Corte0011": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "Corte0012": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Corte0013": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Corte0014": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "Corte0015": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "Corte0016": {
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
+    },
+    "Corte0017": {
+        "es-MX": "Consecutivo",
+        "en-US": "Consecutive"
+    },
+    "Corte0018": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "Corte0019": {
+        "es-MX": "Tramo Completo",
+        "en-US": "Full stretch"
+    },
+    "Corte0020": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "Corte0021": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "Corte0022": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Corte0023": {
+        "es-MX": "Total",
+        "en-US": "Total"
+    },
+    "Corte0024": {
+        "es-MX": "Sobrante",
+        "en-US": "Remnant"
+    },
+    "Corte0025": {
+        "es-MX": "Merma",
+        "en-US": "Scrap"
+    },
+    "Corte0026": {
+        "es-MX": "MaquinaID",
+        "en-US": "MaquinaID"
+    },
+    "Corte0027": {
+        "es-MX": "OperadorID",
+        "en-US": "OperadorID"
+    },
+    "Corte0028": {
+        "es-MX": "MermaTeorica",
+        "en-US": "MermaTeorica"
+    },
+    "Corte0029": {
+        "es-MX": "EsTramoCompleto",
+        "en-US": "EsTramoCompleto"
+    },
+    "Corte0030": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Corte0031": {
+        "es-MX": "Cantidad Ingenieria",
+        "en-US": "Cantidad Ingenieria"
+    },
+    "Corte0032": {
+        "es-MX": "Cantidad fuera de tolerancia. Favor de corregir la cantidad.",
+        "en-US": "Number out of tolerance. Please correct the amount."
+    },
+    "Corte0033": {
+        "es-MX": "Corregir.",
+        "en-US": "Correct."
+    },
+    "Corte0034": {
+        "es-MX": "Existen incongruencias en el Sobrante. Favor de corregir el Sobrante.",
+        "en-US": "There are inconsistencies in the result of the Remnant. Please correct the amount."
+    },
+    "Corte0035": {
+        "es-MX": "Corregir.",
+        "en-US": "Correct."
+    },
+    "Corte0036": {
+        "es-MX": "Existen incongruencias en el resultado de la merma. Favor de corregir la cantidad.",
+        "en-US": "There are inconsistencies in the result of the scrap. Please correct the amount."
+    },
+    "Corte0037": {
+        "es-MX": "Corregir.",
+        "en-US": "Correct."
+    },
+    "Corte0038": {
+        "es-MX": "Existen incongruencias en el resultado de la merma.",
+        "en-US": "There are inconsistencies in the result of the scrap."
+    },
+    "Corte0039": {
+        "es-MX": "Asumir incongruencia.",
+        "en-US": "Assume inconsistency."
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -3861,6 +4034,42 @@ _dictionary = {
     "notificationslabel0057": {
         "es-MX": "El spool se encuentra en hold.",
         "en-US": "The spool is on hold."
+    },
+    "notificationslabel0058": {
+        "es-MX": "Favor de seleccionar un numero unico.",
+        "en-US": "Please select a unique number."
+    },
+    "notificationslabel0059": {
+        "es-MX": "Favor de proporcionar una orden de trabajo.",
+        "en-US": "Please provide a work order."
+    },
+    "notificationslabel0060": {
+        "es-MX": "Favor de proporcionar un consecutivo.",
+        "en-US": "Please provide a consecutive."
+    },
+    "notificationslabel0061": {
+        "es-MX": "Favor de proporcionar una Etiqueta.",
+        "en-US": "Please provide a label."
+    },
+    "notificationslabel0062": {
+        "es-MX": "La suma de los cortes no puede ser mayor al disponible.",
+        "en-US": "The sum of the cuts may not exceed the available."
+    },
+    "notificationslabel0063": {
+        "es-MX": "Favor de seleccionar una maquina.",
+        "en-US": "Please select a machine."
+    },
+    "notificationslabel0064": {
+        "es-MX": "Fuera de tolerancia.",
+        "en-US": "Out of tolerance."
+    },
+    "notificationslabel0065": {
+        "es-MX": "No se encontraron datos generar los cortes.",
+        "en-US": "No data have been found to generate cuts."
+    },
+    "notificationslabel0066": {
+        "es-MX": "El spool ya se encuentra agregado.",
+        "en-US": "The spool is already on the list"
     },
     //Default to copy
     "label9999": {

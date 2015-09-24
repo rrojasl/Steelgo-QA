@@ -11,5 +11,7 @@ namespace BackEndSAM.Models
         public string ItemCode { get; set; }
         public string Descripcion { get; set; }
         public string NumeroUnico { get; set; }
+        public string Baston { get; set; }
+        public string Etiqueta { get; set; }
     }
 }

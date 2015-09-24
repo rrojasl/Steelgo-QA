@@ -140,6 +140,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\DespachoController.cs" />
     <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
@@ -155,8 +156,11 @@
     <Compile Include="Controllers\DummyGenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
+    <Compile Include="Controllers\DummyMaquinaController.cs" />
+    <Compile Include="Controllers\DummyNumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
+    <Compile Include="Controllers\DummyOperadorController.cs" />
     <Compile Include="Controllers\DummyOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\DummyOrdenRecepcionFoliosAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyOrdenRecepcionItemCodeController.cs" />
@@ -187,6 +191,7 @@
     <Compile Include="Controllers\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenDescargaController.cs" />
     <Compile Include="Controllers\OrdenRecepcionController.cs" />
+    <Compile Include="Controllers\OrdenTrabajoSpoolController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
     <Compile Include="Controllers\TipoAceroController.cs" />
@@ -253,6 +258,7 @@
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
+    <Compile Include="DataAcces\DespachoBd.cs" />
     <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
@@ -271,6 +277,7 @@
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
+    <Compile Include="DataAcces\OrdenTrabajoSpoolBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
@@ -333,7 +340,9 @@
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\DummyNumeroControl.cs" />
+    <Compile Include="Models\Dummy\Maquina.cs" />
     <Compile Include="Models\Dummy\NumerosUnicos.cs" />
+    <Compile Include="Models\Dummy\Operador.cs" />
     <Compile Include="Models\Dummy\PackingList.cs" />
     <Compile Include="Models\Dummy\PackingListOrdenRecepcion.cs" />
     <Compile Include="Models\Dummy\PaseSalida.cs" />
@@ -372,6 +381,7 @@
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\ListadoMaterialesPorItemCode.cs" />
+    <Compile Include="Models\LstDespacho.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
     <Compile Include="Models\TipoArchivo.cs" />
