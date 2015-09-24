@@ -22,6 +22,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_FolioCuantificacion_ItemCode = new HashSet<Sam3_Rel_FolioCuantificacion_ItemCode>();
             this.Sam3_Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
             this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
+            this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
         }
     
         public int ItemCodeID { get; set; }
@@ -58,5 +59,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
+        public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
     }
 }
