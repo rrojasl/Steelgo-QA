@@ -103,6 +103,7 @@ var $DummyDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyMaquina = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyOperador = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -184,3 +185,4 @@ $DummyDespacho.add("DummyDespacho");
 $DummyMaquina.add("DummyMaquina");
 $DummyOperador.add("DummyOperador");
 $DummyNumerosUnicos.add("DummyNumerosUnicos");
+$Catalogos.add("AdministracionCatalogos");

@@ -963,6 +963,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Almacenaje\AlmacenajeController.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
+    <Compile Include="Controllers\Catalogos\CatalogosController.cs" />
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
     <Compile Include="Controllers\Corte\CorteController.cs" />
     <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
@@ -1128,6 +1129,7 @@
     <Content Include="Views\ListadoMateriales\DetalleNumeroUnico.cshtml" />
     <Content Include="Views\ListadoMateriales\ListadoMaterialesItemCode.cshtml" />
     <Content Include="Views\Almacenaje\Almacenaje.cshtml" />
+    <Content Include="Views\Catalogos\ListadoCatalogos.cshtml" />
     <Content Include="Views\Despacho\Despacho.cshtml" />
     <Content Include="Views\Corte\Corte.cshtml" />
     <None Include="Web.Debug.config">
@@ -1151,7 +1153,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>58754</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:61102/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

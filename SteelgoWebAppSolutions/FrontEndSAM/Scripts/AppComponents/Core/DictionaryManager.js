@@ -725,6 +725,31 @@ _dictionary = {
         "es-MX": "Folio creado",
         "en-US": "Folio Created"
     },
+    //Listado Catalogos Partial view Labels
+    "ListadoCatalogos0001": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "ListadoCatalogos0002": {
+        "es-MX": "Listado de Catálogos",
+        "en-US": "Catalogs List"
+    },
+    "ListadoCatalogos0003": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "ListadoCatalogos0004": {
+        "es-MX": "Transportistas",
+        "en-US": "Carriers"
+    },
+    "ListadoCatalogos0005": {
+        "es-MX": "Camiones",
+        "en-US": "Trucks"
+    },
+    "ListadoCatalogos0006": {
+        "es-MX": "Choferes",
+        "en-US": "Drivers"
+    },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
         "es-MX": "Patio",

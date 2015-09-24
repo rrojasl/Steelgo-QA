@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdministracionCatalogosController.cs" />
     <Compile Include="Controllers\AlmacenajeController.cs" />
     <Compile Include="Controllers\CambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Controllers\ValidarItemCodeNuCuantificacionController.cs" />
     <Compile Include="DataAcces\AlmacenajeBd.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
+    <Compile Include="DataAcces\CatalogosBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
@@ -295,6 +297,7 @@
     <Compile Include="Models\AsociacionItemCodeSteelgo.cs" />
     <Compile Include="Models\AvisoLlegadaJson.cs" />
     <Compile Include="Models\CantidadesDashboard.cs" />
+    <Compile Include="Models\Catalogos.cs" />
     <Compile Include="Models\CuantificacionListado.cs" />
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
