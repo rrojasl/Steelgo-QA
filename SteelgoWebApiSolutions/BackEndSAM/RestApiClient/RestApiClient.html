@@ -367,8 +367,21 @@
         ////client.AdministracionCatalogos.read({}, { token: "" }).done(function (data) { console.log(data) });
         //client.Despacho.read({}, { "ordenTrabajoSpoolID": 31769, "token": "131313211331" }).done(function (data) { console.log(data) });
 
-        client.add("OrdenTrabajoSpool");
-        client.OrdenTrabajoSpool.read({}, { "token": "121331" }).done(function (data) { console.log(data) });
+        //client.add("OrdenTrabajoSpool");
+        //client.OrdenTrabajoSpool.read({}, { "token": "121331" }).done(function (data) { console.log(data) });
+
+
+        var listado = { PatioID: "", Nombre: "", Propietario: "", Descripcion: "", RequierePermisoAduana: "" }
+        listado.PatioID = "2";
+        listado.Nombre = "Patio 1";
+        listado.Propietario = "Propietario 1";
+        listado.Descripcion = "Descripcion 1";
+        listado.RequierePermisoAduana = "true";
+
+
+
+        client.add("AdministracionCatalogos");
+        client.AdministracionCatalogos.read({}, { data: JSON.stringify(listado), catalogoID: "1", token: "" }).done(function (data) { console.log(data) });
     </script>
 </body>
 </html>

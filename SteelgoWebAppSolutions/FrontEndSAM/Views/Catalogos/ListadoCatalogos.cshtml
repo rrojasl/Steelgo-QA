@@ -30,17 +30,65 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    dataBoundCounter=0;
 }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        cargarInicialGrid("1");
     };
 
     function cargarInicialGrid(val) {
         loadingStart();
+        var contenedor=$("#grid").parent();
+        $("#grid").remove();
+        contenedor.append("<div id='grid'></div>");
+        var dataSGrid=getDataSourceGrid(val);
         $("#grid").kendoGrid({
-            dataSource: {
+            dataSource: dataSGrid,
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        startswith: "Starts with",
+                        eq: "Is equal to",
+                        neq: "Is not equal to"
+                    }
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            toolbar: ["create"],
+            editable: "inline",
+            dataBound: function (e) {
+                if(dataBoundCounter==0){
+                    dataBoundCounter++;
+                    $(".k-grid input.k-textbox").prop('readonly', true);
+                    $(".k-grid td .k-button").text('');
+                    $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                    var grid=$("#grid").data("kendoGrid");//.options;
+                    grid.columns.push({ command: "edit", title: "Editar",width:"75px"});
+                    grid.columns.push({ command: "destroy", title: "Borrar",width:"75px"});
+                    grid.options.columns=grid.columns;
+                    var options=grid.options;
+                    grid.destroy();
+                    $("#grid").empty().kendoGrid(options);
+                    console.log(grid);
+                }
+            }
+        });
+        loadingStop();
+    };
+     
+        function getDataSourceGrid(val){
+            return new kendo.data.DataSource({
                 data: [],
                 schema: {
                     model: {
@@ -77,45 +125,9 @@
                             return {models: kendo.stringify(options.models)};
                         }
                     }
-                },
-                parse:function(response){
-                    response.forEach(function(r){
-                        console.log(r);
-                    })
-                    return response;
-                },
-            },
-            autoHeight: true,
-            sortable: true,
-            scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
                 }
-            },
-            pageable: {
-                refresh: false,
-                pageSizes: [10, 15, 20],
-                info: false,
-                input: false,
-                numeric: true,
-            },
-            toolbar: ["create"],
-            editable: "inline",
-            dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-            }
-        });
-        actualizarGrid();
-        loadingStop();
-    };
+            });
+        }
 
     $("#listaCatalogos").kendoDropDownList({
         dataTextField: "value",
@@ -129,12 +141,13 @@
             }
         },
         change:function(e){
+            dataBoundCounter=0;
             cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
         }
     })
 
-    function actualizarGrid(){
-        var grid = $("#grid").data("kendoGrid");
+    //function actualizarGrid(){
+    //    var grid = $("#grid").data("kendoGrid");
         //columnas=[];
         //camposModelo={};
         //datos=[];
@@ -154,7 +167,7 @@
         //})
         //columnas.push({ command: "edit", title: "Editar",width:"75px"});
         //columnas.push({ command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: function(){console.log("Borrar")} }, title: "Borrar",width:"75px"});
-        var options=grid.options;
+        //var options=grid.options;
         //options.columns=columnas;
         //options.dataSource.data=lista;
         //options.dataSource.schema.model.fields=camposModelo;
@@ -162,9 +175,9 @@
         //options.columns=columnas;
         //options.dataSource.data=datos;
         //options.dataSource.schema.model.fields=camposModelo;
-        grid.destroy();
-        $("#grid").empty().kendoGrid(options);
-    }
+        //grid.destroy();
+        //$("#grid").empty().kendoGrid(options);
+    //}
 
     function Error(data) {
         if (data.ReturnCode) {
