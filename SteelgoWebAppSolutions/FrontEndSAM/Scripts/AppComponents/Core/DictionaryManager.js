@@ -4019,7 +4019,7 @@ _dictionary = {
         "es-MX": "Descripción",
         "en-US": "Description"
     },
-    "DashboardDespachoCorte0053": {
+    "DashboardDespachoCorte0054": {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
     },
