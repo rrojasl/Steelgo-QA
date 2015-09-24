@@ -6,6 +6,7 @@ using DatabaseManager.Sam3;
 using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Web.Script.Serialization;
+using System.Transactions;
 
 namespace BackEndSAM.DataAcces
 {
@@ -74,6 +75,9 @@ namespace BackEndSAM.DataAcces
                                  && p.UsuarioID == usuario.UsuarioID
                                  select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
+                    proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
+                        .Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
+
                     proyectos = proyectos.Where(x => x > 0).ToList();
                                 
                     
@@ -100,6 +104,7 @@ namespace BackEndSAM.DataAcces
                                                              where d.Cancelado == false
                                                              select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
                                                         && proyectos.Contains(odt.ProyectoID)
+                                                        && it.TipoMaterialID == 2
                                                         select new LstGenerarDespacho
                                                         {
                                                             Descripcion = it.DescripcionEspanol,
@@ -116,6 +121,114 @@ namespace BackEndSAM.DataAcces
 
                     return listado.OrderBy(x => x.Etiqueta).ToList();
                 }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        public object GenerarDespachos(LstGenerarDespacho datosJson, Sam3_Usuario usuario)
+        {
+            try
+            {
+                int proyectoID = datosJson.ProyectoID != "" ? Convert.ToInt32(datosJson.ProyectoID) : 0;
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    using (SamContext ctx = new SamContext())
+                    {
+                        using (Sam2Context ctx2 = new Sam2Context())
+                        {
+                            //traemos los datos de la orden de trabajo spool de Sam2
+                            OrdenTrabajoSpool odtSpool = (from odts in ctx2.OrdenTrabajoSpool
+                                                          join odt in ctx.Sam3_OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                          where odts.NumeroControl == datosJson.NumeroControl
+                                                          && odt.ProyectoID == proyectoID
+                                                          select odts).AsParallel().SingleOrDefault();
+                            
+                            //traemos los datos del material de Sam 2
+                            MaterialSpool materialSpool = (from ms in ctx2.MaterialSpool
+                                                           join odts in ctx.Sam3_OrdenTrabajoSpool on ms.SpoolID equals odts.SpoolID
+                                                           where odts.OrdenTrabajoSpoolID == odtSpool.OrdenTrabajoSpoolID
+                                                           && ms.Etiqueta == datosJson.Etiqueta
+                                                           select ms).AsParallel().SingleOrDefault();
+
+                            //traemos los datos de la orden de trabajo material de Sam 2
+                            OrdenTrabajoMaterial odtMaterial = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                                where odtm.OrdenTrabajoSpoolID == odtSpool.OrdenTrabajoSpoolID
+                                                                && odtm.MaterialSpoolID == materialSpool.MaterialSpoolID
+                                                                select odtm).AsParallel().SingleOrDefault();
+
+                            //Dividimos el codigo del numero para buscarlo en sam3
+                            string[] elementosCodigo = datosJson.NumeroUnico.Split('-').ToArray();
+                            int consecutivoNumeroUnico = Convert.ToInt32(elementosCodigo[1]);
+                            string prefijoNumeroUnico = elementosCodigo[0];
+
+                            //object numeroUnico = null;
+                            
+                            //buscamos el numero unico en SAM 3
+                            if (ctx.Sam3_NumeroUnico.Where(x => x.Prefijo == prefijoNumeroUnico
+                                && x.Consecutivo == consecutivoNumeroUnico && x.ProyectoID == proyectoID).AsParallel().Any())
+                            {
+                                int sam2_numeroUnicoID = 0;
+
+                                Sam3_NumeroUnico numeroUnico = ctx.Sam3_NumeroUnico.Where(x => x.Prefijo == prefijoNumeroUnico
+                                && x.Consecutivo == consecutivoNumeroUnico && x.ProyectoID == proyectoID).AsParallel().SingleOrDefault();
+
+
+                                numeroUnico = ctx.Sam3_NumeroUnico.Where(x => x.Prefijo == prefijoNumeroUnico
+                                && x.Consecutivo == consecutivoNumeroUnico && x.ProyectoID == proyectoID).AsParallel().SingleOrDefault();
+
+                                //buscamos el id equivalente de sam2
+                                sam2_numeroUnicoID = ctx.Sam3_EquivalenciaNumeroUnico
+                                    .Where(x => x.Sam3_NumeroUnicoID == numeroUnico.NumeroUnicoID)
+                                    .Select(x => x.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                //Actualizamos los inventarios del numero unico en sam 3
+                                Sam3_NumeroUnicoInventario numInventario = ctx.Sam3_NumeroUnicoInventario
+                                    .Where(x => x.NumeroUnicoID == numeroUnico.NumeroUnicoID).AsParallel().SingleOrDefault();
+                                numInventario.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
+                                numInventario.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
+                                numInventario.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
+                                numInventario.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
+                                
+
+                            }
+                            else //el numero unico no existe en Sam 3
+                            {
+                             
+                            }
+
+
+
+
+                            Sam3_Despacho nuevoDespacho = new Sam3_Despacho();
+                            nuevoDespacho.Activo = true;
+                            nuevoDespacho.Cancelado = false;
+                            nuevoDespacho.Cantidad = odtMaterial.CantidadCongelada != null ? odtMaterial.CantidadCongelada.Value : 1;
+                            nuevoDespacho.EsEquivalente = odtMaterial.CongeladoEsEquivalente;
+                            nuevoDespacho.FechaDespacho = DateTime.Now;
+                            nuevoDespacho.FechaModificacion = DateTime.Now;
+                            nuevoDespacho.MaterialSpoolID = odtMaterial.MaterialSpoolID;
+                            nuevoDespacho.NumeroUnicoID = 0;
+                            nuevoDespacho.OrdenTrabajoSpoolID = odtSpool.OrdenTrabajoSpoolID;
+                            nuevoDespacho.ProyectoID = proyectoID;
+                            nuevoDespacho.SalidaInventarioID = 0;
+
+                        }
+
+                    }
+                    scope.Complete();
+                }
+                
+                return null;
             }
             catch (Exception ex)
             {

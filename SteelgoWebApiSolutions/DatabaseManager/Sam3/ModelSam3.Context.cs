@@ -130,5 +130,8 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_EquivalenciaProveedor> Sam3_EquivalenciaProveedor { get; set; }
         public virtual DbSet<Sam3_EquivalenciaProyecto> Sam3_EquivalenciaProyecto { get; set; }
         public virtual DbSet<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
+        public virtual DbSet<Sam3_Despacho> Sam3_Despacho { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaCorte> Sam3_EquivalenciaCorte { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaNumeroUnicoMovimiento> Sam3_EquivalenciaNumeroUnicoMovimiento { get; set; }
     }
 }

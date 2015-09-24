@@ -23,6 +23,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_RequisicionNumeroUnicoDetalle = new HashSet<Sam3_RequisicionNumeroUnicoDetalle>();
             this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
             this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
+            this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
         }
     
         public int NumeroUnicoID { get; set; }
@@ -85,5 +86,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
         public virtual Sam3_NumeroUnicoInventario Sam3_NumeroUnicoInventario { get; set; }
+        public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
     }
 }
