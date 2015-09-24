@@ -146,7 +146,7 @@
         });
         ObtenerProyecto();
         
-        $("#SpoolID").kendoComboBox({
+        $("#SpoolID").kendoAutoComplete({
             dataTextField: "NumeroControl",
             dataValueField: "NumeroControlID",
             autoBind: false,
@@ -157,7 +157,10 @@
                 transport: {
                     read: {
                         url: function (op) {
-                            var val = op.filter.filters[0].value;
+                            var val="";
+                            if(op.filter){
+                                val = op.filter.filters[0].value;
+                            }
                             return $UrlDummyDespacho + "&id=" + Proyecto.ProyectoID + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
@@ -264,8 +267,6 @@
     };
     function LimpiarCamposProyecto() {
         NumeroControl = {};
-        $("#SpoolID").data("kendoComboBox").value("");
-        $("#SpoolID").data("kendoComboBox").dataSource.data([]);
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     function ObtenerDatosGrid() {
