@@ -3633,6 +3633,22 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
+    "Despacho0021": {
+        "es-MX": "Agregar Nuevo",
+        "en-US": "Add New"
+    },
+    "Despacho0022": {
+        "es-MX": "Baston 1",
+        "en-US": "Stick 1"
+    },
+    "Despacho0023": {
+        "es-MX": "Baston",
+        "en-US": "Stick"
+    },
+    "Despacho0024": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
     //Corte
     "Corte0001": {
         "es-MX": "Inicio",
@@ -4050,6 +4066,10 @@ _dictionary = {
     "notificationslabel0065": {
         "es-MX": "No se encontraron datos generar los cortes.",
         "en-US": "No data have been found to generate cuts."
+    },
+    "notificationslabel0066": {
+        "es-MX": "El spool ya se encuentra agregado.",
+        "en-US": "The spool is already on the list"
     },
     //Default to copy
     "label9999": {

@@ -967,6 +967,7 @@
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
     <Compile Include="Controllers\Corte\CorteController.cs" />
     <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
+    <Compile Include="Controllers\DashboardDespachoCorte\DashboardDespachoCorteController.cs" />
     <Compile Include="Controllers\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenajeController.cs" />
     <Compile Include="Controllers\Despacho\DespachoController.cs" />
     <Compile Include="Controllers\Errors\ErrorsController.cs" />
@@ -1132,6 +1133,7 @@
     <Content Include="Views\Catalogos\ListadoCatalogos.cshtml" />
     <Content Include="Views\Despacho\Despacho.cshtml" />
     <Content Include="Views\Corte\Corte.cshtml" />
+    <Content Include="Views\DashboardDespachoCorte\DashboardDespachoCorte.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

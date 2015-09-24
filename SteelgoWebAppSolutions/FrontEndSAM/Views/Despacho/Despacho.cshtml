@@ -86,7 +86,7 @@
 
     @section JavascriptGlobalVariables {
     var resultadoJson, NumeroControl = {}, lastEditedCellID = "",
-        Proyecto = {};
+        Proyecto = {}, lastEditedBastonCellID = "", x = 1;
 
     var $DespachoModel = {
         listContainer: {
@@ -203,6 +203,8 @@
                             Descripcion: { type: "string", editable: false },
                             NumeroUnico: { type: "string", editable: true },
                             Estatus: { type: "string", editable: false },
+                            Baston: { type: "string", editable: true },
+                            Etiqueta: { type: "string", editable: false }
                         }
                     }
                 },
@@ -236,6 +238,8 @@
                 { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
                 { field: "Estatus", title: _dictionary.Despacho0019[$("#language").data("kendoDropDownList").value()] },
+                { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },
+                { field: "Etiqueta", title: _dictionary.Despacho0024[$("#language").data("kendoDropDownList").value()] },
                 { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "TieneDespacho", title: _dictionary.Despacho0018[$("#language").data("kendoDropDownList").value()], hidden: true }
             ],
@@ -334,7 +338,39 @@
       
         lastEditedCellID = options.model;
     };
+    function bastonAutoComplete(container, options) {
+        $('<input required data-text-field="Baston" data-value-field="BastonID" data-bind="value:' + options.field + '"/>')
+                      .appendTo(container)
+                      .kendoComboBox({
+                          autoBind: false,
+                          dataSource: [
+                               { "BastonID": "0", "Baston": _dictionary.Despacho0021[$("#language").data("kendoDropDownList").value()] },
+                               { "BastonID": "1", "Baston": _dictionary.Despacho0022[$("#language").data("kendoDropDownList").value()] },
+                          ],
+                          select: function (e) {
+                              var dataItem = this.dataItem(e.item.index());
+                              lastEditedBastonCellID.Baston = dataItem.Baston;
+                              if (dataItem.BastonID == 0) {
+                                  x += 1;
+                                  var baston = [{ "BastonID": "0", "Baston": _dictionary.Despacho0021[$("#language").data("kendoDropDownList").value()] }];
+                                  baston = AgregarNuevoBaston(x, baston);
+                                  $(this)[0].dataSource.data(baston);
+                              }
+                          },
+                          open: function (e) {
+                              var baston = [{ "BastonID": "0", "Baston": _dictionary.Despacho0021[$("#language").data("kendoDropDownList").value()] }];
+                              baston = AgregarNuevoBaston(x, baston);
+                              $(this)[0].dataSource.data(baston);
+                          },
+                          change: function (e) {
 
+                          }
+                      });
+
+        lastEditedBastonCellID = options.model;
+    };
+
+   
     function validarRequeridosFormaDespacho() {
         var bool = true;
         $("#formDespacho .security_required").each(function (i, elem) {
@@ -386,7 +422,14 @@
     };
     }
 
-
+    function AgregarNuevoBaston(x, baston) {
+        var z = 1;
+        for (var i = 0; i <= x; i++) {
+            baston.push({ "BastonID": z, "Baston": _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()] + " " + (z) });
+            z++;
+        }
+        return baston;
+    };
     function ListadoAGuardar(datasource) {
         var Listado = {}, z = 0;
         for (var i = 0; i < datasource.length; i++) {

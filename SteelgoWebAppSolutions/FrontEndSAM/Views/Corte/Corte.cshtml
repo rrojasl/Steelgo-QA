@@ -580,8 +580,12 @@
         function AgregarRegistroGrid(item) {
             if (item) {
                 var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: item.EsTramoCompleto };
-                $("#grid").data("kendoGrid").dataSource.insert(item);
-                CalcularCantidad();
+                if (!ValidarDuplicado(row)) {
+                    $("#grid").data("kendoGrid").dataSource.insert(item);
+                    CalcularCantidad();
+                } else {
+                    displayMessage("notificationslabel0066", "", '2');
+                }
             }
         };
 
@@ -767,7 +771,7 @@
         };
 
         }
-
+        
         function EventoSoloNumeros() {
             $("#Etiqueta").keypress(function (e) {
                 var code = (e.which) ? e.which : e.keyCode;
@@ -809,6 +813,19 @@
             } else {
                 return false;
             }
+        };
+        function ValidarDuplicado(row) {
+            var boolduplicado = false;
+            var dataSource = $("#grid").data("kendoGrid").dataSource.data()
+
+            for (var i = 0; i < dataSource.length; i++) {
+                var SpoolID = dataSource[i].SpoolID;
+                var Etiqueta = dataSource[i].Etiqueta;
+                if (row.SpoolID == SpoolID && row.Etiqueta == Etiqueta) {
+                    boolduplicado = true;
+                }
+            };
+            return boolduplicado
         };
 
         function CalcularCantidad() {
