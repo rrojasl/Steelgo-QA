@@ -61,6 +61,9 @@ namespace BackEndSAM.DataAcces
                     ListaCombos camion = new ListaCombos();
                     ListaCombos Acero = new ListaCombos();
                     ListaCombos coladas = new ListaCombos();
+                    ListaCombos familiaMaterial = new ListaCombos();
+                    ListaCombos familiaAcero = new ListaCombos();
+                    ListaCombos fabricante = new ListaCombos();
 
                     patios.id = "1";
                     patios.value = "Patios";
@@ -106,6 +109,18 @@ namespace BackEndSAM.DataAcces
                     coladas.value = "Coladas";
                     valoresCombo.Add(coladas);
 
+                    familiaMaterial.id = "12";
+                    familiaMaterial.value = "Familia Material";
+                    valoresCombo.Add(familiaMaterial);
+
+                    familiaAcero.id = "13";
+                    familiaAcero.value = "Familia Acero";
+                    valoresCombo.Add(familiaAcero);
+
+                    fabricante.id = "14";
+                    fabricante.value = "Fabricante";
+                    valoresCombo.Add(fabricante);
+
                     return valoresCombo;
                 }
             }
@@ -144,7 +159,7 @@ namespace BackEndSAM.DataAcces
                                             Propietario = p.Propietario,
                                             Descripcion = p.Descripcion
                                         }).AsParallel().ToList();
-                                        
+
                             return catPatio;
 
                         case 2: //Chofer
@@ -232,18 +247,103 @@ namespace BackEndSAM.DataAcces
 
                             return catProveedor;
 
-                        case 8 : //Tipo de Uso
+                        case 8: //Tipo de Uso
                             List<Catalogos> catTipoUso = new List<Catalogos>();
                             catTipoUso = (from tu in ctx.Sam3_TipoUso
                                           where tu.Activo
-                                          select new Catalogos 
+                                          select new Catalogos
                                           {
                                               Nombre = tu.Nombre
                                           }).AsParallel().ToList();
 
                             return catTipoUso;
 
-                        
+                        case 9: //Camion
+                            List<Catalogos> catCamion = new List<Catalogos>();
+                            catCamion = (from v in ctx.Sam3_TipoVehiculo
+
+                                         where v.Activo
+                                         select new Catalogos
+                                         {
+                                             Nombre = v.Nombre
+                                         }).AsParallel().ToList();
+
+                            return catCamion;
+
+                        case 10: //Acero
+                            List<CatalogoAcero> catAcero = new List<CatalogoAcero>();
+                            catAcero = (from a in ctx.Sam3_Acero
+                                        join fa in ctx.Sam3_FamiliaAcero on a.FamiliaAceroID equals fa.FamiliaAceroID
+                                        where a.Activo && fa.Activo
+                                        select new CatalogoAcero
+                                        {
+                                            FamiliaAcero = fa.Nombre,
+                                            Nomenclatura = a.Nomenclatura,
+                                            VerificadoPorCalidad = a.VerificadoPorCalidad == true ? "Si" : "No"
+                                        }).AsParallel().ToList();
+
+                            return catAcero;
+
+                        case 11: //Coladas
+                            List<CatalogoColadas> catColadas = new List<CatalogoColadas>();
+                            catColadas = (from c in ctx.Sam3_Colada
+                                          join f in ctx.Sam3_Fabricante on c.FabricanteID equals f.FabricanteID
+                                          join a in ctx.Sam3_Acero on c.AceroID equals a.AceroID
+                                          join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                          where f.Activo && a.Activo && p.Activo
+                                          select new CatalogoColadas
+                                          {
+                                              Fabricante = f.Nombre,
+                                              Acero = a.Nomenclatura,
+                                              Proyecto = p.Nombre,
+                                              NumeroColada = c.NumeroColada,
+                                              NumeroCertificado = c.NumeroCertificado,
+                                              HoldCalidad = c.HoldCalidad == true ? "Si" : "No"
+                                          }).AsParallel().ToList();
+
+                            return catColadas;
+
+                        case 12: //Familia Material
+                            List<CatalogoFamiliaMaterial> catFamiliaMaterial = new List<CatalogoFamiliaMaterial>();
+                            catFamiliaMaterial = (from fm in ctx.Sam3_FamiliaMaterial
+                                               where fm.Activo
+                                               select new CatalogoFamiliaMaterial
+                                               {
+                                                   Nombre = fm.Nombre,
+                                                   Descripcion = fm.Descripcion
+                                               }).AsParallel().ToList();
+
+                            return catFamiliaMaterial;
+
+                        case 13: //Familia Acero
+                            List<CatalogoFamiliaAcero> catFamiliaAcero = new List<CatalogoFamiliaAcero>();
+                            catFamiliaAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                               join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                               where fa.Activo && fm.Activo
+                                               select new CatalogoFamiliaAcero
+                                               {
+                                                   FamiliaMaterial = fm.Nombre,
+                                                   Nombre = fa.Nombre,
+                                                   Descripcion = fa.Descripcion,
+                                                   VerificadoPorCalidad = fa.VerificadoPorCalidad == true ? "Si" : "No"
+                                               }).AsParallel().ToList();
+
+                            return catFamiliaAcero;
+
+                        case 14: //fabricante
+                            List<CatalogoFabricante> catFabricante = new List<CatalogoFabricante>();
+                            catFabricante = (from f in ctx.Sam3_Fabricante
+                                             join c in ctx.Sam3_Contacto on f.ContactoID equals c.ContactoID
+                                             where f.Activo && c.Activo
+                                             select new CatalogoFabricante
+                                             {
+                                                 Contacto = c.Nombre,
+                                                 Nombre = f.Nombre,
+                                                 Descripcion = f.Descripcion,
+                                                 Direccion = f.Direccion,
+                                                 Telefono = f.Telefono
+                                             }).AsParallel().ToList();
+                            return catFabricante;
 
                         default:
                             TransactionalInformation result = new TransactionalInformation();
@@ -252,9 +352,6 @@ namespace BackEndSAM.DataAcces
                             result.ReturnStatus = false;
                             result.IsAuthenicated = false;
                             return result;
-
-                       
-
                     }
                 }
             }
