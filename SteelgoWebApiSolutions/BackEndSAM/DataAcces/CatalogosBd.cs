@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace BackEndSAM.DataAcces
 {
@@ -158,7 +159,8 @@ namespace BackEndSAM.DataAcces
                                             PatioID = p.PatioID.ToString(),
                                             Nombre = p.Nombre,
                                             Propietario = p.Propietario,
-                                            Descripcion = p.Descripcion
+                                            Descripcion = p.Descripcion,
+                                            RequierePermiso = p.RequierePermisoAduana == true ? "Si" : "No"
                                         }).AsParallel().ToList();
 
                             return catPatio;
@@ -390,9 +392,74 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        //public object updateCatalog(string data, string catalogoID)
-        //{
+        public object actualizarCatalogo(string data, string catalogoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    object res = new object();
 
-        //}
+                    switch (Convert.ToInt32(catalogoID))
+                    {
+
+                        case 1: //Patios
+                          Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
+
+                          res = PatioBd.Instance.ActualizarPatio(patio, usuario);
+                          return res;
+
+                        case 2: //chofer
+                          Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
+
+                          res = ChoferBd.Instance.ActualizarChofer(chofer, usuario);
+
+                          return chofer;
+                        //case 3: //Tipo Aviso
+                        //  break;
+                        //case 4: //Transportista
+                        //  break;
+                        //case 5: //Tracto
+                        //  break;
+                        //case 6: //Plana
+                        //  break;
+                        //case 7: //Proveedor
+                        //  break;
+                        //case 8: //Tipo de uso
+                        //  break;
+                        //case 9: //Camion
+                        //  break;
+                        //case 10: //Acero
+                        //  break;
+                        //case 11: //Coladas
+                        //  break;
+                        //case 12: //Familia material
+                        //  break;
+                        //case 13: //Familia Acero
+                        //  break;
+                        //case 14: //fabricante
+                        //  break;
+                        default:
+                            TransactionalInformation result = new TransactionalInformation();
+                            result.ReturnMessage.Add("Listado no encontrado");
+                            result.ReturnCode = 500;
+                            result.ReturnStatus = false;
+                            result.IsAuthenicated = false;
+                            return result;
+                    }
+                }
+            }
+                    catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

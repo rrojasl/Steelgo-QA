@@ -151,6 +151,8 @@ namespace BackEndSAM.DataAcces
                         cambios.Nombre : patioEnBd.Nombre;
                     patioEnBd.Propietario = cambios.Propietario != null && cambios.Propietario != patioEnBd.Propietario ?
                         cambios.Propietario : patioEnBd.Propietario;
+                    patioEnBd.RequierePermisoAduana = cambios.RequierePermisoAduana != null && cambios.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
+                        cambios.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
                     patioEnBd.UsuarioModificacion = Usuario.UsuarioID;
                     patioEnBd.FechaModificacion = DateTime.Now;
 

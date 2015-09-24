@@ -136,6 +136,21 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+                    choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                        chofer.Activo : choferEnBd.Activo;
+
+                    choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ? 
+                        chofer.Nombre : choferEnBd.Nombre;
+
+                    choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ? 
+                        chofer.TransportistaID : choferEnBd.TransportistaID;
+
+                    choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    choferEnBd.FechaModificacion = DateTime.Now;
+
+                    ctx.SaveChanges();
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
