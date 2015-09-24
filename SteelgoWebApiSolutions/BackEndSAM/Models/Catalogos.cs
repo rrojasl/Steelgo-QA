@@ -7,6 +7,7 @@ namespace BackEndSAM.Models
 {
     public class Catalogos
     {
+        public string Id { get; set; }
         public string Nombre { get; set; }
     }
 
@@ -20,12 +21,16 @@ namespace BackEndSAM.Models
 
     public class CatalogoChofer
     {
+        public string ChoferID { get; set; }
         public string Nombre { get; set; }
+        public string TransportistaID { get; set; }
         public string TransportistaNombre { get; set; }
     }
     
     public class CatalogoTransportista
     {
+        public string TransportistaID { get; set; }
+        public string ContactoID { get; set; }
         public string Contacto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -35,6 +40,7 @@ namespace BackEndSAM.Models
 
     public class CatalogoTracto
     {
+        public string VehiculoID { get; set; }
         public string Placas { get; set; }
         public string TarjetaCirculacion { get; set; }
         public string PolizaSeguro { get; set; }
@@ -42,6 +48,7 @@ namespace BackEndSAM.Models
 
     public class CatalogoPlana
     {
+        public string VehiculoID { get; set; }
         public string TractoID { get; set; }
         public string Placas { get; set; }
         public string Unidad { get; set; }
@@ -50,6 +57,8 @@ namespace BackEndSAM.Models
 
     public class CatalogoProveedor
     {
+        public string ProveedorID { get; set; }
+        public string ContactoID { get; set; }
         public string Contacto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -59,6 +68,8 @@ namespace BackEndSAM.Models
 
     public class CatalogoAcero
     {
+        public string AceroID { get; set; }
+        public string FAmiliaAceroID { get; set; }
         public string FamiliaAcero { get; set; }
         public string Nomenclatura { get; set; }
         public string VerificadoPorCalidad { get; set; }
@@ -67,8 +78,12 @@ namespace BackEndSAM.Models
 
     public class CatalogoColadas
     {
+        public string ColadasID { get; set; }
+        public string FabricanteID { get; set; }
         public string Fabricante { get; set; }
+        public string AceroID { get; set; }
         public string Acero { get; set; }
+        public string ProyectoID { get; set; }
         public string Proyecto { get; set; }
         public string NumeroColada { get; set; }
         public string NumeroCertificado { get; set; }
@@ -77,12 +92,15 @@ namespace BackEndSAM.Models
 
     public class CatalogoFamiliaMaterial
     {
+        public string FamiliaMaterialID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
     }
 
     public class CatalogoFamiliaAcero
     {
+        public string FamiliaAceroID { get; set; }
+        public string FamiliaMaterialID { get; set; }
         public string FamiliaMaterial { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -91,6 +109,8 @@ namespace BackEndSAM.Models
 
     public class CatalogoFabricante
     {
+        public string FabricanteID { get; set; }
+        public string ContactoID { get; set; }
         public string Contacto { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
