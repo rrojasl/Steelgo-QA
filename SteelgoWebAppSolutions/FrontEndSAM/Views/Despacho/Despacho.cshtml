@@ -349,13 +349,17 @@
                           ],
                           select: function (e) {
                               var dataItem = this.dataItem(e.item.index());
-                              lastEditedBastonCellID.Baston = dataItem.Baston;
+                              
                               if (dataItem.BastonID == 0) {
                                   x += 1;
                                   var baston = [{ "BastonID": "0", "Baston": _dictionary.Despacho0021[$("#language").data("kendoDropDownList").value()] }];
                                   baston = AgregarNuevoBaston(x, baston);
                                   $(this)[0].dataSource.data(baston);
+                              } else {
+                                  lastEditedBastonCellID.Baston = dataItem.Baston;
+                                  $("#grid").data("kendoGrid").refresh();
                               }
+                              
                           },
                           open: function (e) {
                               var baston = [{ "BastonID": "0", "Baston": _dictionary.Despacho0021[$("#language").data("kendoDropDownList").value()] }];
