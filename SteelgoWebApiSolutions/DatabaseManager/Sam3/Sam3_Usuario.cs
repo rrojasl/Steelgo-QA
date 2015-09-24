@@ -21,6 +21,7 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_Usuario_Proyecto = new HashSet<Sam3_Rel_Usuario_Proyecto>();
             this.Sam3_Sesion = new HashSet<Sam3_Sesion>();
             this.Sam3_UsuariosNotificaciones = new HashSet<Sam3_UsuariosNotificaciones>();
+            this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
         }
     
         public int UsuarioID { get; set; }
@@ -42,5 +43,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_Usuario_Proyecto> Sam3_Rel_Usuario_Proyecto { get; set; }
         public virtual ICollection<Sam3_Sesion> Sam3_Sesion { get; set; }
         public virtual ICollection<Sam3_UsuariosNotificaciones> Sam3_UsuariosNotificaciones { get; set; }
+        public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
     }
 }

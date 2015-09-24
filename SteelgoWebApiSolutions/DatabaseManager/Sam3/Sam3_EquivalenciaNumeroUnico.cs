@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseManager.Sam2
+namespace DatabaseManager.Sam3
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class rid_dragados
+    public partial class Sam3_EquivalenciaNumeroUnico
     {
-        public int id { get; set; }
-        public string dibujo { get; set; }
-        public string spool { get; set; }
-        public string area { get; set; }
-        public string subparte { get; set; }
-        public Nullable<int> idreporte { get; set; }
-        public Nullable<int> proyectoid { get; set; }
+        public int EquivalenciaNumeroUnicoID { get; set; }
+        public int Sam2_NumeroUnicoID { get; set; }
+        public int Sam3_NumeroUnicoID { get; set; }
+        public bool Activo { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
     }
 }

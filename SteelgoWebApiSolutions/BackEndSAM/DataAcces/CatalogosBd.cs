@@ -155,6 +155,7 @@ namespace BackEndSAM.DataAcces
                                         where p.Activo
                                         select new CatalogoPatio
                                         {
+                                            PatioID = p.PatioID.ToString(),
                                             Nombre = p.Nombre,
                                             Propietario = p.Propietario,
                                             Descripcion = p.Descripcion
@@ -169,7 +170,9 @@ namespace BackEndSAM.DataAcces
                                          where ch.Activo && t.Activo
                                          select new CatalogoChofer
                                          {
+                                             ChoferID = ch.ChoferID.ToString(),
                                              Nombre = ch.Nombre,
+                                             TransportistaID = t.TransportistaID.ToString(),
                                              TransportistaNombre = t.Nombre
                                          }).AsParallel().ToList();
 
@@ -181,6 +184,7 @@ namespace BackEndSAM.DataAcces
                                             where ta.Activo
                                             select new Catalogos
                                             {
+                                                Id = ta.TipoAvisoID.ToString(),
                                                 Nombre = ta.Nombre
                                             }).AsParallel().ToList();
 
@@ -193,7 +197,9 @@ namespace BackEndSAM.DataAcces
                                                 where t.Activo && c.Activo
                                                 select new CatalogoTransportista
                                                 {
+                                                    ContactoID = c.ContactoID.ToString(),
                                                     Contacto = c.Nombre,
+                                                    TransportistaID = t.TransportistaID.ToString(),
                                                     Nombre = t.Nombre,
                                                     Descripcion = t.Descripcion,
                                                     Direccion = t.Direccion,
@@ -209,6 +215,7 @@ namespace BackEndSAM.DataAcces
                                          && t.TipoVehiculoID == 1
                                          select new CatalogoTracto
                                          {
+                                             VehiculoID = t.VehiculoID.ToString(),
                                              Placas = t.Placas,
                                              TarjetaCirculacion = t.TarjetaCirculacion,
                                              PolizaSeguro = t.PolizaSeguro
@@ -223,6 +230,7 @@ namespace BackEndSAM.DataAcces
                                         && v.TipoVehiculoID == 2
                                         select new CatalogoPlana
                                         {
+                                            VehiculoID = v.VehiculoID.ToString(),
                                             Placas = v.Placas,
                                             Unidad = v.Unidad,
                                             Modelo = v.Modelo,
@@ -238,6 +246,8 @@ namespace BackEndSAM.DataAcces
                                             where p.Activo && c.Activo
                                             select new CatalogoProveedor
                                             {
+                                                ProveedorID = p.ProveedorID.ToString(),
+                                                ContactoID = c.ContactoID.ToString(),
                                                 Contacto = c.Nombre,
                                                 Nombre = p.Nombre,
                                                 Descripcion = p.Descripcion,
@@ -253,6 +263,7 @@ namespace BackEndSAM.DataAcces
                                           where tu.Activo
                                           select new Catalogos
                                           {
+                                              Id = tu.TipoUsoID.ToString(),
                                               Nombre = tu.Nombre
                                           }).AsParallel().ToList();
 
@@ -265,6 +276,7 @@ namespace BackEndSAM.DataAcces
                                          where v.Activo
                                          select new Catalogos
                                          {
+                                             Id = v.TipoVehiculoID.ToString(),
                                              Nombre = v.Nombre
                                          }).AsParallel().ToList();
 
@@ -277,6 +289,8 @@ namespace BackEndSAM.DataAcces
                                         where a.Activo && fa.Activo
                                         select new CatalogoAcero
                                         {
+                                            AceroID = a.AceroID.ToString(),
+                                            FAmiliaAceroID = fa.FamiliaAceroID.ToString(),
                                             FamiliaAcero = fa.Nombre,
                                             Nomenclatura = a.Nomenclatura,
                                             VerificadoPorCalidad = a.VerificadoPorCalidad == true ? "Si" : "No"
@@ -293,8 +307,12 @@ namespace BackEndSAM.DataAcces
                                           where f.Activo && a.Activo && p.Activo
                                           select new CatalogoColadas
                                           {
+                                              ColadasID = c.ColadaID.ToString(),
+                                              FabricanteID = f.FabricanteID.ToString(),
                                               Fabricante = f.Nombre,
+                                              AceroID = a.AceroID.ToString(),
                                               Acero = a.Nomenclatura,
+                                              ProyectoID = p.ProyectoID.ToString(),
                                               Proyecto = p.Nombre,
                                               NumeroColada = c.NumeroColada,
                                               NumeroCertificado = c.NumeroCertificado,
@@ -309,6 +327,7 @@ namespace BackEndSAM.DataAcces
                                                where fm.Activo
                                                select new CatalogoFamiliaMaterial
                                                {
+                                                   FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
                                                    Nombre = fm.Nombre,
                                                    Descripcion = fm.Descripcion
                                                }).AsParallel().ToList();
@@ -322,6 +341,8 @@ namespace BackEndSAM.DataAcces
                                                where fa.Activo && fm.Activo
                                                select new CatalogoFamiliaAcero
                                                {
+                                                   FamiliaAceroID = fa.FamiliaAceroID.ToString(),
+                                                   FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
                                                    FamiliaMaterial = fm.Nombre,
                                                    Nombre = fa.Nombre,
                                                    Descripcion = fa.Descripcion,
@@ -337,6 +358,8 @@ namespace BackEndSAM.DataAcces
                                              where f.Activo && c.Activo
                                              select new CatalogoFabricante
                                              {
+                                                 FabricanteID = f.FabricanteID.ToString(),
+                                                 ContactoID = c.ContactoID.ToString(),
                                                  Contacto = c.Nombre,
                                                  Nombre = f.Nombre,
                                                  Descripcion = f.Descripcion,
@@ -366,5 +389,10 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        //public object updateCatalog(string data, string catalogoID)
+        //{
+
+        //}
     }
 }
