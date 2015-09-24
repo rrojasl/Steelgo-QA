@@ -150,22 +150,12 @@
 <input id="hdAccionFiltradoAccesorios" type="hidden" />
 <script>
     @section JavascriptDocumentReadyHomeCookie {
-        //Cookies.set("home", true, { path: '/' });
-        //Cookies.set("navegacion", "9", { path: '/' });
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "27", { path: '/' });
     }
     @section JavascriptGlobalVariables {
     var Proyecto = {}, Cliente = {}, FolioAvisoEntrada = {}, PackingList = {};
     var FechaInicial, FechaFinal, PeriodoTiempo = {}, resultadoJson;
-        //var $AvisoLLegadaModel = {
-        //    listContainer: {
-        //        create: "#Nuevo",
-        //        list: ".btn-group",
-        //        detail: ".graphContainer",
-        //        destroy: ""
-        //    },
-        //    properties: {
-        //    }
-        //};
     }
 
     @section JavascriptGlobalFunctions {
