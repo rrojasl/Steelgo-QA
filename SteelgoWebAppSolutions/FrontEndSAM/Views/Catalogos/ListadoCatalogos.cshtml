@@ -30,6 +30,7 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    dataBoundCounter=0;
 }
 
 @section JavascriptGlobalFunctions {
@@ -41,61 +42,9 @@
         var contenedor=$("#grid").parent();
         $("#grid").remove();
         contenedor.append("<div id='grid'></div>");
+        var dataSGrid=getDataSourceGrid(val);
         $("#grid").kendoGrid({
-            dataSource: {
-                data: [],
-                schema: {
-                    model: {
-                        fields: {
-                        }
-                    },
-                    parse:function(response){
-                        response.forEach(function(r){
-                            console.log(r);
-                        })
-                        console.log(grid);
-                        //grid.columns.push({ command: "edit", title: "Editar",width:"75px"});
-                        //grid.options.columns=grid.columns;
-                        //grid.destroy();
-                        //$("#grid").empty().kendoGrid(options);
-                        return response;
-                    }
-                },
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false,
-                pageSize: 20,
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false,
-                transport:{
-                    read:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json",
-                        success: function(result) {
-                            // notify the data source that the request succeeded
-                            alert("Done!");
-                        },
-                    },
-                    update:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    destroy:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    create:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    parameterMap: function(options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return {models: kendo.stringify(options.models)};
-                        }
-                    }
-                },
-            },
+            dataSource: dataSGrid,
             autoHeight: true,
             sortable: true,
             scrollable: false,
@@ -117,17 +66,68 @@
                 numeric: true,
             },
             toolbar: ["create"],
-            //columns: [{ command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }],
             editable: "inline",
             dataBound: function (e) {
-                $(".k-grid input.k-textbox").prop('readonly', true);
-                $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                if(dataBoundCounter==0){
+                    dataBoundCounter++;
+                    $(".k-grid input.k-textbox").prop('readonly', true);
+                    $(".k-grid td .k-button").text('');
+                    $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                    var grid=$("#grid").data("kendoGrid");//.options;
+                    grid.columns.push({ command: "edit", title: "Editar",width:"75px"});
+                    grid.columns.push({ command: "destroy", title: "Borrar",width:"75px"});
+                    grid.options.columns=grid.columns;
+                    var options=grid.options;
+                    grid.destroy();
+                    $("#grid").empty().kendoGrid(options);
+                    console.log(grid);
+                }
             }
         });
-        //actualizarGrid();
         loadingStop();
     };
+     
+        function getDataSourceGrid(val){
+            return new kendo.data.DataSource({
+                data: [],
+                schema: {
+                    model: {
+                        fields: {
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                transport:{
+                    read:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    update:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    destroy:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    create:{
+                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
+                        dataType:"json"
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                }
+            });
+        }
 
     $("#listaCatalogos").kendoDropDownList({
         dataTextField: "value",
@@ -141,6 +141,7 @@
             }
         },
         change:function(e){
+            dataBoundCounter=0;
             cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
         }
     })
