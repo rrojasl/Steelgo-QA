@@ -3840,8 +3840,8 @@ _dictionary = {
         "en-US": "End Date"
     },
     "DashboardDespachoCorte0009": {
-        "es-MX": "Perodo Tiempo",
-        "en-US": "Time Period"
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
     },
     "DashboardDespachoCorte0010": {
         "es-MX": "Unidad Medida",
@@ -3934,6 +3934,94 @@ _dictionary = {
     "DashboardDespachoCorte0032": {
         "es-MX": "Proyecto",
         "en-US": "Project"
+    },
+    "DashboardDespachoCorte0033": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "DashboardDespachoCorte0034": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "DashboardDespachoCorte0035": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "DashboardDespachoCorte0036": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "DashboardDespachoCorte0037": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "DashboardDespachoCorte0038": {
+        "es-MX": "Cantidad Material",
+        "en-US": "Amount of material"
+    },
+    "DashboardDespachoCorte0039": {
+        "es-MX": "Cantidad Despachados",
+        "en-US": "Amount of Dispatched"
+    },
+    "DashboardDespachoCorte0040": {
+        "es-MX": "Faltantes por Despachar",
+        "en-US": "Missing by Dispatch"
+    },
+    "DashboardDespachoCorte0041": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "DashboardDespachoCorte0042": {
+        "es-MX": "Tiene Despacho",
+        "en-US": "It has dispatch"
+    },
+    "DashboardDespachoCorte0043": {
+        "es-MX": "Picking Ticket",
+        "en-US": "Picking Ticket"
+    },
+    "DashboardDespachoCorte0044": {
+        "es-MX": "No. Empleado entrega",
+        "en-US": "No. Employee delivery"
+    },
+    "DashboardDespachoCorte0045": {
+        "es-MX": "No. Empleado recibe",
+        "en-US": "No. Employee receives"
+    },
+    "DashboardDespachoCorte0046": {
+        "es-MX": "Fecha entrega",
+        "en-US": "Deliver date"
+    },
+    "DashboardDespachoCorte0047": {
+        "es-MX": "Unidad de Medida",
+        "en-US": "Unit Measure"
+    },
+    "DashboardDespachoCorte0048": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "DashboardDespachoCorte0049": {
+        "es-MX": "Pieza",
+        "en-US": "Piece"
+    },
+    "DashboardDespachoCorte0050": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
+    "DashboardDespachoCorte0051": {
+        "es-MX": "Milímetros",
+        "en-US": "Millimeters"
+    },
+    "DashboardDespachoCorte0052": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "DashboardDespachoCorte0053": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "DashboardDespachoCorte0053": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
     },
     //Default to copy
     "notificationslabel0001": {

@@ -51,6 +51,10 @@
                                 <label id="DashboardDespachoCorte0009"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <label id="DashboardDespachoCorte0047"></label>
+                                <input id="UnidadMedida" class="" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,14 +156,16 @@
     }
     @section JavascriptGlobalVariables {
     var Proyecto = {}, Cliente = {}, FolioAvisoEntrada = {}, PackingList = {};
-    var FechaInicial, FechaFinal, PeriodoTiempo = {}, resultadoJson;
+    var FechaInicial, FechaFinal, PeriodoTiempo = {}, resultadoJson, UnidadMedida = {};
+    var _despachoUrl = "@Url.Action("Despacho", "Despacho")";
     }
 
     @section JavascriptGlobalFunctions {
         function changeLanguageCall() {
             CargarGridTubos();
             CargarGridAccesorios();
-            createPeriodoTiempo();
+            CrearPeriodoTiempo();
+            CrearUnidadMedida();
         };
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
@@ -284,7 +290,7 @@
             CantidadesDelMenuDashboardAccesorios();
         };
 
-    function CargarGridTubos(dataSource, columnas) {
+    function CargarGridTubos(dataSource, columnas, detailInit) {
         if($("#gridTubos").data("kendoGrid"))
             $("#gridTubos").empty(); // destroy the Grid
 
@@ -304,6 +310,7 @@
                     }
                 }
             },
+            detailInit: detailInit,
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -321,7 +328,7 @@
        
         $("#gridTubos").data("kendoGrid").refresh();
     };
-    function CargarGridAccesorios(datasource, columnas) {
+    function CargarGridAccesorios(datasource, columnas, detailInit) {
         if ($("#gridAccesorios").data("kendoGrid"))
             $("#gridAccesorios").empty(); // destroy the Grid
         
@@ -341,6 +348,7 @@
                     }
                 }
             },
+            detailInit: detailInit,
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -357,37 +365,61 @@
         });
         $("#gridAccesorios").data("kendoGrid").refresh();
     };
-    function cancelarFolio() {
+    
+    function CrearPeriodoTiempo() {
+        $("#PeriodoTiempo").kendoComboBox({
+            dataTextField: "Periodo",
+            dataValueField: "PeriodoID",
+            dataSource: [
+                { "PeriodoID": "1", "Periodo": _dictionary.DashboardDespachoCorte0033[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "2", "Periodo": _dictionary.DashboardDespachoCorte0034[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "3", "Periodo": _dictionary.DashboardDespachoCorte0035[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "4", "Periodo": _dictionary.DashboardDespachoCorte0036[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "5", "Periodo": _dictionary.DashboardDespachoCorte0037[$("#language").data("kendoDropDownList").value()] }
+            ],
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarPeriodoTiempo(dataItem.PeriodoID);
+            },
+            change: function (e) {
+                var value = this.value();
 
+                if (!value) {
+                    PeriodoTiempo = {};
+                }
+                ObtenerFechasporPeriodo(value);
+                Filtros();
+            },
+            filter: "contains",
+        });
     };
-        function createPeriodoTiempo() {
-            $("#PeriodoTiempo").kendoComboBox({
-                dataTextField: "Periodo",
-                dataValueField: "PeriodoID",
-                dataSource: [
-                    { "PeriodoID": "1", "Periodo": _dictionary.DashboardLlegadaMaterial0016[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "2", "Periodo": _dictionary.DashboardLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "3", "Periodo": _dictionary.DashboardLlegadaMaterial0018[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "4", "Periodo": _dictionary.DashboardLlegadaMaterial0019[$("#language").data("kendoDropDownList").value()] },
-                    { "PeriodoID": "5", "Periodo": _dictionary.DashboardLlegadaMaterial0020[$("#language").data("kendoDropDownList").value()] }
-                ],
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
+    function CrearUnidadMedida() {
+        $("#UnidadMedida").kendoComboBox({
+            dataTextField: "UnidadMedida",
+            dataValueField: "UnidadMedidaID",
+            dataSource: [
+                { "UnidadMedidaID": "1", "UnidadMedida": _dictionary.DashboardDespachoCorte0048[$("#language").data("kendoDropDownList").value()] },
+                { "UnidadMedidaID": "2", "UnidadMedida": _dictionary.DashboardDespachoCorte0049[$("#language").data("kendoDropDownList").value()] },
+                { "UnidadMedidaID": "3", "UnidadMedida": _dictionary.DashboardDespachoCorte0050[$("#language").data("kendoDropDownList").value()] },
+                { "UnidadMedidaID": "4", "UnidadMedida": _dictionary.DashboardDespachoCorte0051[$("#language").data("kendoDropDownList").value()] },
+            ],
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarUnidadMedida(dataItem.UnidadMedidaID);
+            },
+            change: function (e) {
+                var value = this.value();
 
-                    CargarPeriodoTiempo(dataItem.PeriodoID);
-                },
-                change: function (e) {
-                    var value = this.value();
-
-                    if (!value) {
-                        PeriodoTiempo = {};
-                    }
-                    ObtenerFechasporPeriodo(value);
-                    Filtros();
-                },
-                filter: "contains",
-            });
-        };
+                if (!value) {
+                    UnidadMedida = {};
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        //default
+        $("#UnidadMedida").data("kendoComboBox").value(1);
+    };
         function ObtenerAccionesListadoTubos(Listado) {
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
@@ -430,7 +462,7 @@
 
         function ArregloListado(tipolistado, tipomaterial) {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -442,6 +474,7 @@
             Listado.TipoMaterialID = tipomaterial;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
+            Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
             Listado.token = Cookies.get("token");
             Listado.TipoListado = tipolistado;
 
@@ -516,12 +549,12 @@
                     var columnas = DefinicionColumnasOrdenesTrabajo();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas, "");
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("1");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas,"");
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("1");
@@ -574,12 +607,12 @@
                     var columnas = DefinicionColumnasOrdenesTrabajoActivas();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas,"");
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("2");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas,"");
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("2");
@@ -634,12 +667,12 @@
                     var columnas = DefinicionColumnasPreDespachar();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas,"");
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("3");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas,"");
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("3");
@@ -650,16 +683,16 @@
 
         };
 
-        function DefinicionModeloNUporRecepcionar() {
+        function DefinicionModeloEntregar() {
             var dataSource = new kendo.data.DataSource({
                 data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenRecepcion: { type: "string" },
-                            OrdenRecepcion: { type: "string" },
-                            CantidadNUEnOrdenRecepcion: { type: "string" },
-                            CantidadNUSinComplemento: { type: "string" },
+                            PickingTicket: { type: "string" },
+                            EmpleadoEntrega: { type: "string" },
+                            EmpleadoRecibe: { type: "string" },
+                            FechaEntrega: { type: "string" },
                         }
                     }
                 },
@@ -670,36 +703,33 @@
             });
             return dataSource;
         };
-        function DefinicionColumnasNUporRecepcionar() {
+        function DefinicionColumnasEntregar() {
             var columnas =
            [
-               { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "CantidadNUEnOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0042[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "CantidadNUSinComplemento", title: _dictionary.DashboardRecepcionAlmacenaje0043[$("#language").data("kendoDropDownList").value()], filterable: true },
-               //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarNUporRecepcionar }, title: " ", width: "99px" }
+               { field: "PickingTicket", title: _dictionary.DashboardDespachoCorte0043[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "EmpleadoEntrega", title: _dictionary.DashboardDespachoCorte0044[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "EmpleadoRecibe", title: _dictionary.DashboardDespachoCorte0045[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "FechaEntrega", title: _dictionary.DashboardDespachoCorte0046[$("#language").data("kendoDropDownList").value()], filterable: true },
            ];
             return columnas;
         };
-        function cancelarNUporRecepcionar() {
 
-        };
         function Entregar(tipomaterial) {
             var Listado = ArregloListado("14", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 if (Error(result)) {
                     resultadoJson = result;
-                    var dataSource = DefinicionModeloNUporRecepcionar();
-                    var columnas = DefinicionColumnasNUporRecepcionar();
+                    var dataSource = DefinicionModeloEntregar();
+                    var columnas = DefinicionColumnasEntregar();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas,"");
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("5");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas,"");
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("5");
@@ -709,16 +739,17 @@
             });
         };
 
-        function DefinicionModeloNUsinAlmacenar() {
+        function DefinicionModeloDespacho() {
             var dataSource = new kendo.data.DataSource({
                 data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
-                            FechaOrdenRecepcion: { type: "string" },
-                            OrdenRecepcion: { type: "string" },
-                            CantidadNUEnOrdenRecepcion: { type: "string" },
-                            CantidadNUPorAlmacenar: { type: "string" },
+                            SpoolID: { type: "string" },
+                            Spool: { type: "string" },
+                            CantidadMateriales: { type: "string" },
+                            CantidadDespachados: { type: "string" },
+                            FaltantesPorDespachar: { type: "string" },
                         }
                     }
                 },
@@ -729,17 +760,50 @@
             });
             return dataSource;
         };
-        function DefinicionColumnasNUsinAlmacenar() {
+
+        function DefinicionColumnasDespacho() {
             var columnas =
            [
-               { field: "FechaOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0040[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "OrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0041[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "CantidadNUEnOrdenRecepcion", title: _dictionary.DashboardRecepcionAlmacenaje0042[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "CantidadNUPorAlmacenar", title: _dictionary.DashboardRecepcionAlmacenaje0044[$("#language").data("kendoDropDownList").value()], filterable: true },
-               //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarNUporRecepcionar }, title: " ", width: "99px" }
+               { field: "ProyectoID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
+               { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadMateriales", title: _dictionary.DashboardDespachoCorte0038[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadDespachados", title: _dictionary.DashboardDespachoCorte0039[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "FaltantesPorDespachar", title: _dictionary.DashboardDespachoCorte0040[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleDespachar(#:SpoolID#,#:ProyectoID#)'>#:SpoolID#</a>" },
            ];
             return columnas;
         };
+
+        function detailInit(e) {
+            if(e.data.Detalle.length > 0) {
+                $("<div/>").appendTo(e.detailCell).kendoGrid({
+                    dataSource: {
+                        data: e.data.Detalle,
+                        schema: {
+                            model: {
+                                fields: {
+                                    Etiqueta: { type: "string" },
+                                    ItemCode: { type: "string" },
+                                    Descripcion: { type: "string" },
+                                    Cantidad: { type: "string" },
+                                    TieneDespacho: { type: "string" },
+                                }
+                            }
+                        }
+                    },
+                    autoBind: true,
+                    scrollable: false,
+                    sortable: false,
+                    columns: [
+                        { field: "Etiqueta", title: _dictionary.DashboardDespachoCorte0041[$("#language").data("kendoDropDownList").value()] },
+                        { field: "ItemCode", title: _dictionary.DashboardDespachoCorte0052[$("#language").data("kendoDropDownList").value()] },
+                        { field: "Descripcion", title: _dictionary.DashboardDespachoCorte0053[$("#language").data("kendoDropDownList").value()] },
+                        { field: "Cantidad", title: _dictionary.DashboardDespachoCorte0054[$("#language").data("kendoDropDownList").value()] },
+                        { field: "TieneDespacho", title: _dictionary.DashboardDespachoCorte0042[$("#language").data("kendoDropDownList").value()] },
+                    ]
+                });
+            }
+        }
 
         function Despacho(tipomaterial) {
             var Listado = ArregloListado("15", tipomaterial);
@@ -747,16 +811,16 @@
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 if (Error(result)) {
                     resultadoJson = result;
-                    var dataSource = DefinicionModeloNUsinAlmacenar();
-                    var columnas = DefinicionColumnasNUsinAlmacenar();
+                    var dataSource = DefinicionModeloDespacho();
+                    var columnas = DefinicionColumnasDespacho();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas, detailInit);
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("7");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas, detailInit);
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("7");
@@ -808,12 +872,12 @@
                     var columnas = DefinicionColumnasIncidenciasAbiertas();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas,"");
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("8");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas,"");
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("8");
@@ -854,8 +918,7 @@
         };
 
         function MostrarDetalleDespachar(SpoolID, ProyectoID) {
-            var detalleIdeaUrl = "@Url.Action("Despacho", "Despacho")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + SpoolID + "&ProyectoID=" + ProyectoID;
+            window.location.href = _despachoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + SpoolID + "&ProyectoID=" + ProyectoID;
         };
 
         function PorDespachar() {
@@ -868,12 +931,12 @@
                     var columnas = DefinicionColumnasDespachar();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas);
+                        CargarGridTubos(dataSource, columnas,"");
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("4");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas);
+                        CargarGridAccesorios(dataSource, columnas,"");
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("4");
@@ -884,8 +947,9 @@
         };
 
         function TravelerPendiente() {
-            var detalleIdeaUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+            alert("falta definicion TravelerPendiente");
+           @* var detalleIdeaUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();*@
         };
 
         function MostrarGrid(tipomaterial) {
@@ -916,7 +980,7 @@
                     Entregar(tipomaterial);
                     break;
                 case "6":
-                    TravelerPendiente(tipomaterial);//PENDIENTE
+                    TravelerPendiente(tipomaterial);
                     break;
                 case "7":
                     Despacho(tipomaterial);
@@ -1024,6 +1088,10 @@
             PeriodoTiempo = { PeriodoTiempo: id };
         };
 
+        function CargarUnidadMedida(id) {
+            UnidadMedida = {};
+            UnidadMedida = { UnidadMedida: id };
+        };
         function ObtenerProyecto() {
             $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("ProyectoID", result);
@@ -1136,7 +1204,7 @@
         };
         function CantidadesDelMenuDashboardTubos() {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -1150,13 +1218,14 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 7;
+            Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
             console.log("CantidadesDelMenuDashboardTubos: " + JSON.stringify(Listado));
 
             ObtenerAccionesListadoTubos(Listado);
         };
         function CantidadesDelMenuDashboardAccesorios() {
             var Listado;
-            Listado = {  ProyectoID: "", ClienteID: "",FolioAvisoEntradaID:"",PackingListID:"",TipoMaterialID:"", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -1170,6 +1239,7 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 7;
+            Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
             console.log("CantidadesDelMenuDashboardAccesorios: " + JSON.stringify(Listado));
 
             ObtenerAccionesListadoAccesorios(Listado);
