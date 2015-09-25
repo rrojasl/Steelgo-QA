@@ -433,8 +433,27 @@ namespace BackEndSAM.DataAcces
                             #region
                             Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
 
-                            res = PatioBd.Instance.ActualizarPatio(patio, usuario);
-                            return res;
+                            Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == patio.PatioID && x.Activo).AsParallel().SingleOrDefault();
+
+                            patioEnBd.Descripcion = patio.Descripcion != null && patio.Descripcion != patioEnBd.Descripcion ?
+                        patio.Descripcion : patioEnBd.Descripcion;
+                            patioEnBd.Nombre = patio.Nombre != null && patio.Nombre != patioEnBd.Nombre ?
+                        patio.Nombre : patioEnBd.Nombre;
+                            patioEnBd.Propietario = patio.Propietario != null && patio.Propietario != patioEnBd.Propietario ?
+                        patio.Propietario : patioEnBd.Propietario;
+                            patioEnBd.RequierePermisoAduana = patio.RequierePermisoAduana != null && patio.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
+                        patio.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
+                            patioEnBd.UsuarioModificacion = usuario.UsuarioID;
+                            patioEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
                             #endregion
                         case 2: //chofer
                             #region
