@@ -256,6 +256,12 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cola__ItemC__78BEDCC2" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cola__Orden__79B300FB" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Cola__Usuar__7AA72534" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Despacho" Width="1.5" PointX="24.75" PointY="30.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaCorte" Width="1.5" PointX="10.375" PointY="12.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaNumeroUnicoMovimiento" Width="1.5" PointX="12.375" PointY="12.75" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Numer__60B24907" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Proye__5FBE24CE" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Salid__61A66D40" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

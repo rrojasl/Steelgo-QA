@@ -92,10 +92,10 @@
                         <label id="DashboardDespachoCorte0018"></label>
                         <span id="spanDespachoAccesorios"></span>
                     </button>
-                    <button id="btnCorteAccesorios" class="btn btn-tab Accesorios">
+                    @*<button id="btnCorteAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardDespachoCorte0019"></label>
                         <span id="spanCorteAccesorios"></span>
-                    </button>
+                    </button>*@
                 </div>
             </div>
             <div id="divAccesorios" class="hidden">
@@ -134,10 +134,10 @@
                         <label id="DashboardDespachoCorte0027"></label>
                         <span id="spanDespachoTubos"></span>
                     </button>
-                    <button id="btnCorteTubos" class="btn btn-tab Tubos">
+                    @*<button id="btnCorteTubos" class="btn btn-tab Tubos">
                         <label id="DashboardDespachoCorte0028"></label>
                         <span id="spanCorteTubos"></span>
-                    </button>
+                    </button>*@
                 </div>
             </div>
             <div id="divTubos" class="hidden">
@@ -187,7 +187,7 @@
             $("#btnEntregarAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("5"); AccionesListado("5", 2); });
             $("#btnTravelerPendienteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("6"); AccionesListado("6", 2); });
             $("#btnDespachoAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("7"); AccionesListado("7", 2); });
-            $("#btnCorteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("8"); AccionesListado("8", 2); });
+            //$("#btnCorteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("8"); AccionesListado("8", 2); });
 
             //Tubos
             $("#btnOrdenesTrabajoTubos").click(function () { MostrarGrid(1); tabActivoTubos("1"); AccionesListado("1", 1); });
@@ -197,7 +197,7 @@
             $("#btnEntregarTubos").click(function () { MostrarGrid(1); tabActivoTubos("5"); AccionesListado("5", 1); });
             $("#btnTravelerPendienteTubos").click(function () { MostrarGrid(1); tabActivoTubos("6"); AccionesListado("6", 1); });
             $("#btnDespachoTubos").click(function () { MostrarGrid(1); tabActivoTubos("7"); AccionesListado("7", 1); });
-            $("#btnCorteTubos").click(function () { MostrarGrid(1); tabActivoTubos("8"); AccionesListado("8", 1); });
+            //$("#btnCorteTubos").click(function () { MostrarGrid(1); tabActivoTubos("8"); AccionesListado("8", 1); });
             
 
             $("#ProyectoID").kendoComboBox({
@@ -971,23 +971,26 @@
                     OrdenesTrabajoActivas(tipomaterial);
                     break;
                 case "3":
-                    PreDespachar(tipomaterial);
+                    alert("pendiente");
+                    //PreDespachar(tipomaterial);
                     break;
                 case "4":
                     PorDespachar(tipomaterial);
                     break;
                 case "5":
-                    Entregar(tipomaterial);
+                    alert("pendiente");
+                    //Entregar(tipomaterial);
                     break;
                 case "6":
-                    TravelerPendiente(tipomaterial);
+                    alert("pendiente");
+                    //TravelerPendiente(tipomaterial);
                     break;
                 case "7":
                     Despacho(tipomaterial);
                     break;
-                case "8":
-                    Corte(tipomaterial);
-                    break;
+                //case "8":
+                //    Corte(tipomaterial);
+                //    break;
             }
         };
 

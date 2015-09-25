@@ -413,15 +413,16 @@
         function loadMessages() {
             $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (data) {
                 if (ValidateError(data)) {
-                    $(".count").html(data.length);
-                    $(".counter").html(data.length);
                     $(".message-frame").empty();
+                    var contador = data.length, contadorLectura = 0, cantidadNotificaciones = 0;
+
                     $.each(data, function (key) {
                         var strhtml = "";
                         if (data[key].EstatusLectura) {
-                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#' class='read'>";
+                            contadorLectura += 1;
+                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a id='" + data[key].NotificacionID + "' href='#' class='read'>";
                         } else {
-                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#'>";
+                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a  id='" + data[key].NotificacionID + "' href='#'>";
                         }
                         var d = new Date(data[key].FechaEnvio);
 
@@ -444,6 +445,9 @@
                     strhtml += "<span id='message'></span>";
                     strhtml += "</li>";
 
+                    cantidadNotificaciones = contador - contadorLectura;
+                    $(".count").html(cantidadNotificaciones ? cantidadNotificaciones : 0);
+                    $(".counter").html(data.length);
                     $(".message-frame").append(strhtml);
                 }
             });
@@ -452,6 +456,8 @@
         function BindEventClick(NotificacionID) {
             $MessagesManager.MessageManager.read({ notificacionID: NotificacionID, token: Cookies.get("token") }).done(function (data) {
                 if (ValidateError(data)) {
+                    updateEstatusRead(NotificacionID);
+                    $("#" + NotificacionID).addClass("read");
                     var strhtml = "";
                     var d = new Date(data.FechaEnvio);
 
@@ -464,7 +470,9 @@
                     strhtml += "</span>";
                     strhtml += "<span class='messageDate'>" + obtenerFormatoFechaMensajes(d) + "</span>";
 
-                   
+                    
+                    var cantidadNotificaciones = (parseInt($("span.counter").text()) - parseInt($("a.read").length));
+                    $(".count").html(cantidadNotificaciones ? cantidadNotificaciones : 0);
                     $(".message-header").empty();
                     $(".message-header").append(strhtml);
                     $("#message").html(data.Mensaje);
@@ -478,6 +486,12 @@
             $("#messagesCounter").addClass("hidden");
             $(".message-header").removeClass("hidden");
             $(".notification-menu li.messageBody").removeClass("hidden");
+        };
+
+        function updateEstatusRead(NotificacionID) {
+            $MessagesManager.MessageManager.update({}, { notificacionID: NotificacionID, token: Cookies.get("token"), id: NotificacionID }).done(function (data) {
+                ValidateError(data);
+            });
         };
 
         function deleteMessage(NotificacionID) {

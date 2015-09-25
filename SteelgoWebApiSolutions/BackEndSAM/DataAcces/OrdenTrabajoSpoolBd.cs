@@ -55,6 +55,9 @@ namespace BackEndSAM.DataAcces
                                      && p.UsuarioID == usuario.UsuarioID
                                      select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
+                        proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
+                       .Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
+
                         proyectos = proyectos.Where(x => x > 0).ToList();
 
 
