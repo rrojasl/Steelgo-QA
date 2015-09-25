@@ -326,13 +326,13 @@ namespace BackEndSAM.DataAcces
                         case 12: //Familia Material
                             List<CatalogoFamiliaMaterial> catFamiliaMaterial = new List<CatalogoFamiliaMaterial>();
                             catFamiliaMaterial = (from fm in ctx.Sam3_FamiliaMaterial
-                                               where fm.Activo
-                                               select new CatalogoFamiliaMaterial
-                                               {
-                                                   FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
-                                                   Nombre = fm.Nombre,
-                                                   Descripcion = fm.Descripcion
-                                               }).AsParallel().ToList();
+                                                  where fm.Activo
+                                                  select new CatalogoFamiliaMaterial
+                                                  {
+                                                      FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
+                                                      Nombre = fm.Nombre,
+                                                      Descripcion = fm.Descripcion
+                                                  }).AsParallel().ToList();
 
                             return catFamiliaMaterial;
 
@@ -392,6 +392,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+
+        /// <summary>
+        /// Funcion para actualizar la informacion de los catalogos
+        /// Segun la informacion capturada en el grid de Administracion de Catalogos
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="catalogoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object actualizarCatalogo(string data, string catalogoID, Sam3_Usuario usuario)
         {
             try
@@ -400,57 +409,348 @@ namespace BackEndSAM.DataAcces
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     object res = new object();
+                    TransactionalInformation result = new TransactionalInformation();
 
                     switch (Convert.ToInt32(catalogoID))
                     {
 
                         case 1: //Patios
-                          Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
+                            Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
 
-                          res = PatioBd.Instance.ActualizarPatio(patio, usuario);
-                          return res;
+                            res = PatioBd.Instance.ActualizarPatio(patio, usuario);
+                            return res;
 
                         case 2: //chofer
-                          Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
+                            Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
 
-                          res = ChoferBd.Instance.ActualizarChofer(chofer, usuario);
+                            res = ChoferBd.Instance.ActualizarChofer(chofer, usuario);
+                            return chofer;
 
-                          return chofer;
-                        //case 3: //Tipo Aviso
-                        //  break;
-                        //case 4: //Transportista
-                        //  break;
-                        //case 5: //Tracto
-                        //  break;
-                        //case 6: //Plana
-                        //  break;
-                        //case 7: //Proveedor
-                        //  break;
-                        //case 8: //Tipo de uso
-                        //  break;
-                        //case 9: //Camion
-                        //  break;
-                        //case 10: //Acero
-                        //  break;
-                        //case 11: //Coladas
-                        //  break;
-                        //case 12: //Familia material
-                        //  break;
-                        //case 13: //Familia Acero
-                        //  break;
-                        //case 14: //fabricante
-                        //  break;
-                        default:
-                            TransactionalInformation result = new TransactionalInformation();
-                            result.ReturnMessage.Add("Listado no encontrado");
-                            result.ReturnCode = 500;
-                            result.ReturnStatus = false;
-                            result.IsAuthenicated = false;
+                        case 3: //Tipo Aviso
+                            Sam3_TipoAviso tipoAviso = serializer.Deserialize<Sam3_TipoAviso>(data);
+
+                            Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID == tipoAviso.TipoAvisoID && x.Activo).AsParallel().SingleOrDefault();
+
+                            avisoEnBd.Nombre = tipoAviso.Nombre != null && tipoAviso.Nombre != avisoEnBd.Nombre ?
+                                tipoAviso.Nombre : avisoEnBd.Nombre;
+
+                            avisoEnBd.FechaModificacion = DateTime.Now;
+
+                            avisoEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.SaveChanges();
+
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
                             return result;
+
+
+                        case 4: //Transportista
+                            Sam3_Transportista transportista = serializer.Deserialize<Sam3_Transportista>(data);
+
+                            Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
+                            transEnBd.ContactoID = transportista.ContactoID != null && transportista.ContactoID != transEnBd.ContactoID ?
+                                transportista.ContactoID : transEnBd.ContactoID;
+
+                            transEnBd.Nombre = transportista.Nombre != null && transportista.Nombre != transEnBd.Nombre ?
+                                transportista.Nombre : transEnBd.Nombre;
+
+                            transEnBd.Descripcion = transportista.Descripcion != null && transportista.Descripcion != transEnBd.Descripcion ?
+                                transportista.Descripcion : transEnBd.Descripcion;
+
+                            transEnBd.Direccion = transportista.Direccion != null && transportista.Direccion != transEnBd.Direccion ?
+                                transportista.Direccion : transEnBd.Direccion;
+
+                            transEnBd.Telefono = transportista.Telefono != null && transportista.Telefono != transEnBd.Telefono ?
+                                transportista.Telefono : transEnBd.Telefono;
+
+                            transEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            transEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+
+                        case 5: //Tracto
+                            Sam3_Vehiculo vehiculo = serializer.Deserialize<Sam3_Vehiculo>(data);
+
+                            Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
+
+                            vehiculoEnBd.Placas = vehiculo.Placas != null && vehiculo.Placas != vehiculoEnBd.Placas ?
+                                vehiculo.Placas : vehiculoEnBd.Placas;
+
+                            vehiculoEnBd.TarjetaCirculacion = vehiculo.TarjetaCirculacion != null && vehiculo.TarjetaCirculacion != vehiculoEnBd.TarjetaCirculacion ?
+                                vehiculo.TarjetaCirculacion : vehiculoEnBd.TarjetaCirculacion;
+
+                            vehiculoEnBd.PolizaSeguro = vehiculo.PolizaSeguro != null && vehiculo.PolizaSeguro != vehiculoEnBd.PolizaSeguro ?
+                                vehiculo.PolizaSeguro : vehiculoEnBd.PolizaSeguro;
+
+                            vehiculoEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            vehiculoEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 6: //Plana
+
+                            VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
+
+                            res = PlanaBd.Instance.ActualizarPlana(plana, usuario);
+
+                            return res;
+
+
+                        case 7: //Proveedor
+                            Sam3_Proveedor proveedor = serializer.Deserialize<Sam3_Proveedor>(data);
+
+                            Sam3_Proveedor provEnBd = ctx.Sam3_Proveedor.Where(x => x.ProveedorID == proveedor.ProveedorID && x.Activo).AsParallel().SingleOrDefault();
+
+                            provEnBd.ContactoID = proveedor.ContactoID != null && proveedor.ContactoID != provEnBd.ContactoID ?
+                                proveedor.ContactoID : provEnBd.ContactoID;
+
+                            provEnBd.Nombre = proveedor.Nombre != null && proveedor.Nombre != provEnBd.Nombre ?
+                                proveedor.Nombre : provEnBd.Nombre;
+
+                            provEnBd.Descripcion = proveedor.Descripcion != null && proveedor.Descripcion != provEnBd.Descripcion ?
+                                proveedor.Descripcion : provEnBd.Descripcion;
+
+                            provEnBd.Direccion = proveedor.Direccion != null && proveedor.Direccion != provEnBd.Direccion ?
+                                proveedor.Direccion : provEnBd.Direccion;
+
+                            provEnBd.Telefono = proveedor.Telefono != null && proveedor.Telefono != provEnBd.Telefono ?
+                                proveedor.Telefono : provEnBd.Telefono;
+
+                            provEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            provEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 8: //Tipo de uso
+
+                            Sam3_TipoUso tipoUso = serializer.Deserialize<Sam3_TipoUso>(data);
+
+                            Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == tipoUso.TipoUsoID && x.Activo).AsParallel().SingleOrDefault();
+
+                            tipoUsoEnBd.Nombre = tipoUso.Nombre != null && tipoUso.Nombre != tipoUsoEnBd.Nombre ?
+                                tipoUso.Nombre : tipoUsoEnBd.Nombre;
+
+                            tipoUsoEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            tipoUsoEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 9: //Camion
+                            Sam3_TipoVehiculo camion = serializer.Deserialize<Sam3_TipoVehiculo>(data);
+
+                            Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID == camion.TipoVehiculoID && x.Activo).AsParallel().SingleOrDefault();
+                            camionEnBd.Nombre = camion.Nombre != null && camion.Nombre != camionEnBd.Nombre ?
+                                camion.Nombre : camionEnBd.Nombre;
+
+                            camionEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            camionEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 10: //Acero
+                            Sam3_Acero acero = serializer.Deserialize<Sam3_Acero>(data);
+
+                            Sam3_Acero aceroEnBd = ctx.Sam3_Acero.Where(x => x.AceroID == acero.AceroID && x.Activo).AsParallel().SingleOrDefault();
+
+                            aceroEnBd.FamiliaAceroID = acero.FamiliaAceroID != null && acero.FamiliaAceroID != aceroEnBd.FamiliaAceroID ?
+                                acero.FamiliaAceroID : aceroEnBd.FamiliaAceroID;
+
+                            aceroEnBd.Nomenclatura = acero.Nomenclatura != null && acero.Nomenclatura != aceroEnBd.Nomenclatura ?
+                                acero.Nomenclatura : aceroEnBd.Nomenclatura;
+
+                            aceroEnBd.VerificadoPorCalidad = acero.VerificadoPorCalidad != null && acero.VerificadoPorCalidad != aceroEnBd.VerificadoPorCalidad ?
+                                acero.VerificadoPorCalidad : aceroEnBd.VerificadoPorCalidad;
+
+                            aceroEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            aceroEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 11: //Coladas
+                            Sam3_Colada colada = serializer.Deserialize<Sam3_Colada>(data);
+
+                            Sam3_Colada coladaEnBd = ctx.Sam3_Colada.Where(x => x.ColadaID == colada.ColadaID && x.Activo).AsParallel().SingleOrDefault();
+
+                            coladaEnBd.FabricanteID = colada.FabricanteID != null && colada.FabricanteID != coladaEnBd.FabricanteID ?
+                                colada.FabricanteID : coladaEnBd.FabricanteID;
+
+                            coladaEnBd.AceroID = colada.AceroID != null && colada.AceroID != coladaEnBd.AceroID ?
+                                colada.AceroID : coladaEnBd.AceroID;
+
+                            coladaEnBd.ProyectoID = colada.ProyectoID != null && colada.ProyectoID != coladaEnBd.ProyectoID ?
+                                colada.ProyectoID : coladaEnBd.ProyectoID;
+
+                            coladaEnBd.NumeroColada = colada.NumeroColada != null && colada.NumeroColada != coladaEnBd.NumeroColada ?
+                                colada.NumeroColada : coladaEnBd.NumeroColada;
+
+                            coladaEnBd.HoldCalidad = colada.HoldCalidad != null && colada.HoldCalidad != coladaEnBd.HoldCalidad ?
+                                colada.HoldCalidad : coladaEnBd.HoldCalidad;
+
+                            coladaEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            coladaEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 12: //Familia material
+                            Sam3_FamiliaMaterial famMaterial = serializer.Deserialize<Sam3_FamiliaMaterial>(data);
+
+                            Sam3_FamiliaMaterial famMatEnBd = ctx.Sam3_FamiliaMaterial.Where(x => x.FamiliaMaterialID == famMaterial.FamiliaMaterialID && x.Activo).AsParallel().SingleOrDefault();
+
+                            famMatEnBd.Nombre = famMaterial.Nombre != null && famMaterial.Nombre != famMatEnBd.Nombre ?
+                                famMaterial.Nombre : famMatEnBd.Nombre;
+
+                            famMatEnBd.Descripcion = famMaterial.Descripcion != null && famMaterial.Descripcion != famMatEnBd.Descripcion ?
+                                famMaterial.Descripcion : famMatEnBd.Descripcion;
+
+                            famMatEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            famMatEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 13: //Familia Acero
+                            Sam3_FamiliaAcero famAcero = serializer.Deserialize<Sam3_FamiliaAcero>(data);
+
+                            Sam3_FamiliaAcero famAceroEnBd = ctx.Sam3_FamiliaAcero.Where(x => x.FamiliaAceroID == famAcero.FamiliaAceroID && x.Activo).AsParallel().SingleOrDefault();
+
+                            famAceroEnBd.FamiliaMaterialID = famAcero.FamiliaMaterialID != null && famAcero.FamiliaMaterialID != famAceroEnBd.FamiliaMaterialID ?
+                                famAcero.FamiliaMaterialID : famAceroEnBd.FamiliaMaterialID;
+
+                            famAceroEnBd.Nombre = famAcero.Nombre != null && famAcero.Nombre != famAceroEnBd.Nombre ?
+                                famAcero.Nombre : famAceroEnBd.Nombre;
+
+                            famAcero.Descripcion = famAcero.Descripcion != null && famAcero.Descripcion != famAceroEnBd.Descripcion ?
+                                famAcero.Descripcion : famAceroEnBd.Descripcion;
+
+                            famAceroEnBd.VerificadoPorCalidad = famAcero.VerificadoPorCalidad != null && famAcero.VerificadoPorCalidad != famAceroEnBd.VerificadoPorCalidad ?
+                                famAcero.VerificadoPorCalidad : famAceroEnBd.VerificadoPorCalidad;
+
+                            famAceroEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            famAceroEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        case 14: //fabricante
+                            Sam3_Fabricante fabricante = serializer.Deserialize<Sam3_Fabricante>(data);
+
+                            Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID == fabricante.FabricanteID && fabricante.Activo).AsParallel().SingleOrDefault();
+
+                            fabricanteEnBd.ContactoID = fabricante.ContactoID != null && fabricante.ContactoID != fabricanteEnBd.ContactoID ?
+                                fabricante.ContactoID : fabricanteEnBd.ContactoID;
+
+                            fabricanteEnBd.Nombre = fabricante.Nombre != null && fabricante.Nombre != fabricanteEnBd.Nombre ?
+                                fabricante.Nombre : fabricanteEnBd.Nombre;
+
+                            fabricanteEnBd.Descripcion = fabricante.Descripcion != null && fabricante.Descripcion != fabricanteEnBd.Descripcion ?
+                                fabricante.Descripcion : fabricanteEnBd.Descripcion;
+
+                            fabricanteEnBd.Direccion = fabricante.Direccion != null && fabricante.Direccion != fabricanteEnBd.Direccion ?
+                                fabricante.Direccion : fabricanteEnBd.Direccion;
+
+                            fabricanteEnBd.Telefono = fabricante.Telefono != null && fabricante.Telefono != fabricanteEnBd.Telefono ?
+                                fabricante.Telefono : fabricanteEnBd.Telefono;
+
+                            fabricanteEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            fabricanteEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                        default:
+                            TransactionalInformation resultado = new TransactionalInformation();
+                            resultado.ReturnMessage.Add("Listado no encontrado");
+                            resultado.ReturnCode = 500;
+                            resultado.ReturnStatus = false;
+                            resultado.IsAuthenicated = false;
+                            return resultado;
                     }
                 }
             }
-                    catch (Exception ex)
+            catch (Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
