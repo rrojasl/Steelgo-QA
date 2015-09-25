@@ -953,6 +953,9 @@
     <Compile Include="Sam3\Sam3_CorteDetalle.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Despacho.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Diametro.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -963,6 +966,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaColada.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaCorte.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaDespacho.cs">
@@ -981,6 +987,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaNumeroUnico.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaNumeroUnicoMovimiento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EquivalenciaPatio.cs">
