@@ -459,8 +459,28 @@ namespace BackEndSAM.DataAcces
                             #region
                             Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
 
-                            res = ChoferBd.Instance.ActualizarChofer(chofer, usuario);
-                            return chofer;
+                            Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+                            choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                                chofer.Activo : choferEnBd.Activo;
+
+                            choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
+                                chofer.Nombre : choferEnBd.Nombre;
+
+                            choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ?
+                                chofer.TransportistaID : choferEnBd.TransportistaID;
+
+                            choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            choferEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
                             #endregion
                         case 3: //Tipo Aviso
                             #region
@@ -550,9 +570,25 @@ namespace BackEndSAM.DataAcces
                             #region
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
 
-                            res = PlanaBd.Instance.ActualizarPlana(plana, usuario);
+                            int vehiculoID = Convert.ToInt32(plana.VehiculoID);
+                            Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
+                            planaEnBd.Activo = true;
+                            planaEnBd.TractoID = Convert.ToInt32(plana.TractoID);
+                            planaEnBd.Placas = plana.Placas;
+                            planaEnBd.Unidad = plana.Unidad;
+                            planaEnBd.Modelo = plana.Modelo;
+                            planaEnBd.UsuarioModificacion = usuario.UsuarioID;
+                            planaEnBd.FechaModificacion = DateTime.Now;
 
-                            return res;
+                            ctx.SaveChanges();
+
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
                             #endregion
                         case 7: //Proveedor
                             #region
