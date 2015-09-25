@@ -12,5 +12,9 @@ namespace FrontEndSAM.Controllers.Corte
         {
             return View();
         }
+        public ActionResult ListadoCorte()
+        {
+            return View();
+        }
     }
 }

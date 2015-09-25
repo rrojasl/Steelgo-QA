@@ -7,6 +7,9 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="Corte0001"></span></a>
     </li>
+    <li>
+        <a href="@Url.Action("ListadoCorte", "Corte")"><span id="Corte0040"></span></a>
+    </li>
     <li class="active">
         <a href="@Url.Action("Corte", "Corte")"><span id="Corte0002"></span></a>
     </li>
@@ -178,8 +181,10 @@
     @section JavascriptGlobalVariables {
     var resultadoJson = "", Maquina = {}, Operador = {},
         NumeroUnico = {}, intento = 0,
-        _CorteUrl = "@Url.Action("Corte", "Corte")";
+        _CorteUrl = "@Url.Action("Corte", "Corte")",
+        _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")";
 
+        
     var $CorteModel = {
         listContainer: {
             create: ".button-section",
@@ -332,7 +337,8 @@
         $("#CorregirMermaPrimerIntento").click(function () { AplicarCambioMermaCorregir(); });
         $("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
         $("#GenerarPickingTicket").click(function () { GenerarPickingTicket(); });
-        
+        $("#RedirectListado").click(function () { RedirectListado(); });
+
         $("#Maquina").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "MaquinaID",
@@ -649,7 +655,9 @@
         function Cancelar() {
             window.location.href = _CorteUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         };
-
+        function RedirectListado() {
+            window.location.href = _ListadoCorte + "?leng=" + $("#language").data("kendoDropDownList").value();
+        };
         function Guardar() {
             var gridData = $("#grid").data("kendoGrid").dataSource.view();
             var datasource = $("#grid").data("kendoGrid").dataSource.data();

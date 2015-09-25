@@ -3649,6 +3649,10 @@ _dictionary = {
         "es-MX": "Etiqueta",
         "en-US": "Label"
     },
+    "Despacho0025": {
+        "es-MX": "Dashboard Despacho y Corte",
+        "en-US": "Dashboard Dispatch and Cut"
+    },
     //Corte
     "Corte0001": {
         "es-MX": "Inicio",
@@ -3805,6 +3809,10 @@ _dictionary = {
     "Corte0039": {
         "es-MX": "Asumir incongruencia.",
         "en-US": "Assume inconsistency."
+    },
+    "Corte0040": {
+        "es-MX": "Listado Corte",
+        "en-US": "Cut List"
     },
     //DashboardDespachoCorte
     "DashboardDespachoCorte0001": {
@@ -4022,6 +4030,55 @@ _dictionary = {
     "DashboardDespachoCorte0054": {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
+    },
+    //Listado Corte
+    "ListadoCorte0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoCorte0002": {
+        "es-MX": "Listado Corte",
+        "en-US": "Cut List"
+    },
+    "ListadoCorte0003": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "ListadoCorte0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoCorte0005": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoCorte0006": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoCorte0007": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoCorte0008": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoCorte0009": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoCorte0010": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoCorte0011": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoCorte0012": {
+        "es-MX": "Año",
+        "en-US": "Year"
     },
     //Default to copy
     "notificationslabel0001": {

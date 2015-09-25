@@ -1134,6 +1134,7 @@
     <Content Include="Views\Despacho\Despacho.cshtml" />
     <Content Include="Views\Corte\Corte.cshtml" />
     <Content Include="Views\DashboardDespachoCorte\DashboardDespachoCorte.cshtml" />
+    <Content Include="Views\Corte\ListadoCorte.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
