@@ -93,7 +93,11 @@
                     data[f]=e.model[f];
                 }
                 var grid=$("#grid").data("kendoGrid");
-                var direccion=url[catalogo].update+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
+                if(e.model.id!==null){
+                    var direccion=url[catalogo].update+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
+                }else{
+                    
+                }
                 grid.options.dataSource.options.transport.update.url=direccion;
                 grid.options.dataSource.sync();
             },
@@ -135,7 +139,7 @@
                     dataType:"json",
                 },
                 update:{
-                    url:url[val].read+Cookies.get("token"),
+                    url:"",
                     dataType:"json"
                 },
                 destroy:{
