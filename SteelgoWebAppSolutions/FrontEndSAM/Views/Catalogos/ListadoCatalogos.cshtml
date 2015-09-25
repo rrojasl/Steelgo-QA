@@ -31,6 +31,25 @@
 <script>
 @section JavascriptGlobalVariables {
     dataBoundCounter=0;
+    url={
+        "1":{
+            read:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID=1&token=",
+            create:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID=1&token=",
+            update:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID=1&token=",
+            destroy:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID=1&token=",
+        }
+    }
+    models={
+        "1":{
+            id: "PatioID",
+            fields: {
+                PatioID: { editable: false, nullable: true },
+                Descripcion: { type:"string" },
+                Propietario: { validation: { required: true } },
+                RequierePermiso: { type: "string", validation: { required: true }}
+            }
+        }
+    }
 }
 
 @section JavascriptGlobalFunctions {
@@ -67,6 +86,17 @@
             },
             toolbar: ["create"],
             editable: "inline",
+            save: function(e) {
+                var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
+                var data={};
+                for(f in models[catalogo].fields){
+                    data[f]=e.model[f];
+                }
+                var grid=$("#grid").data("kendoGrid");
+                var direccion=url[catalogo].update+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
+                grid.options.dataSource.options.transport.update.url=direccion;
+                grid.options.dataSource.sync();
+            },
             dataBound: function (e) {
                 if(dataBoundCounter==0){
                     dataBoundCounter++;
@@ -80,54 +110,50 @@
                     var options=grid.options;
                     grid.destroy();
                     $("#grid").empty().kendoGrid(options);
-                    console.log(grid);
                 }
             }
         });
         loadingStop();
     };
      
-        function getDataSourceGrid(val){
-            return new kendo.data.DataSource({
-                data: [],
-                schema: {
-                    model: {
-                        fields: {
-                        }
-                    }
+    function getDataSourceGrid(val){
+        return new kendo.data.DataSource({
+            data: [],
+            schema: {
+                model: models[val]
+            },
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            pageSize: 20,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            transport:{
+                read:{
+                    url:url[val].read+Cookies.get("token"),
+                    dataType:"json",
                 },
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false,
-                pageSize: 20,
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false,
-                transport:{
-                    read:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    update:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    destroy:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    create:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    parameterMap: function(options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return {models: kendo.stringify(options.models)};
-                        }
+                update:{
+                    url:url[val].read+Cookies.get("token"),
+                    dataType:"json"
+                },
+                destroy:{
+                    url:url[val].destroy,
+                    dataType:"json"
+                },
+                create:{
+                    url:url[val].update,
+                    dataType:"json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {models: kendo.stringify(options.models)};
                     }
                 }
-            });
-        }
+            }
+        });
+    }
 
     $("#listaCatalogos").kendoDropDownList({
         dataTextField: "value",
