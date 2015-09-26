@@ -61,7 +61,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoGenerarDespacho(int ordenTrabajoSpoolID, Sam3_Usuario usuario)
+        public object ListadoGenerarDespacho(string numeroControl, Sam3_Usuario usuario)
         {
             try
             {
@@ -75,9 +75,6 @@ namespace BackEndSAM.DataAcces
                                  && p.UsuarioID == usuario.UsuarioID
                                  select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
-                    proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
-                        .Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
-
                     proyectos = proyectos.Where(x => x > 0).ToList();
 
 
@@ -90,6 +87,8 @@ namespace BackEndSAM.DataAcces
 
                     patios = patios.Where(x => x > 0).ToList();
 
+                   
+
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
 
@@ -97,10 +96,9 @@ namespace BackEndSAM.DataAcces
                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
                                                             join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
-                                                            join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam2_NumeroUnicoID
                                                             join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                             join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                            where odts.OrdenTrabajoSpoolID == ordenTrabajoSpoolID
+                                                            where odts.NumeroControl == numeroControl
                                                             && !(from d in ctx2.Despacho
                                                                  where d.Cancelado == false
                                                                  select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
@@ -116,7 +114,8 @@ namespace BackEndSAM.DataAcces
                                                                 Hold = (from sh in ctx2.SpoolHold
                                                                         where sh.SpoolID == odts.SpoolID
                                                                         && (sh.TieneHoldCalidad || sh.TieneHoldIngenieria || sh.Confinado)
-                                                                        select sh).Any()
+                                                                        select sh).Any(),
+                                                                ProyectoID = odt.ProyectoID.ToString()
                                                             }).Distinct().AsParallel().ToList();
 
                         //eliminar numeros unicos que no se encuentren en sam3

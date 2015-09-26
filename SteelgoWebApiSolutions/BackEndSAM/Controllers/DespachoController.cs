@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DespachoController : ApiController
     {
-        public object Get(int ordenTrabajoSpoolID, string token)
+        public object Get(string numeroControl, string token)
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +27,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return DespachoBd.Instance.ListadoGenerarDespacho(ordenTrabajoSpoolID, usuario);
+                return DespachoBd.Instance.ListadoGenerarDespacho(numeroControl, usuario);
             }
             else
             {
