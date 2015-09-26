@@ -25,6 +25,7 @@ namespace BackEndSAM.Models
         public string Etiqueta { get; set; }
         public string Baston { get; set; }
         public string ProyectoID { get; set; }
+        public bool Hold { get; set; }
     }
 
 }

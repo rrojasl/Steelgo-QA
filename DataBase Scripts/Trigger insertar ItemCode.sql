@@ -97,7 +97,7 @@ BEGIN
 				FamiliaAceroID
 			)
 			SELECT 
-				it.ProyectoID,
+				@sam2_ProyectoID,
 				it.TipoMaterialID,
 				it.Codigo,
 				it.ItemCodeCliente,
@@ -107,11 +107,9 @@ BEGIN
 				it.DescripcionInterna,
 				it.Diametro1,
 				it.Diametro2,
-				(
-					Select Sam2_FamiliaAceroID FROM Sam3_EquivalenciaFamiliaAcero
-					WHERE Sam3_FamiliaAceroID = it.FamiliaAceroID
-				)
+				it.FamiliaAceroID
 			FROM Sam3_ItemCode it
+			WHERE it.ItemCodeID = @itemCodeID
 
 			--Insertar equivalencia
 			INSERT INTO Sam3_EquivalenciaItemCode(
@@ -131,6 +129,7 @@ BEGIN
 				GETDATE(),
 				1
 			FROM Sam3_ItemCode it
+			WHERE it.ItemCodeID = @itemCodeID
 		END
 		ELSE -- El ItemCode ya Existe
 			
