@@ -213,6 +213,7 @@
                 schema: {
                     model: {
                         fields: {
+                            ProyectoID: { type: "string", editable: false },
                             NumeroControl: { type: "string", editable: false },
                             ItemCode: { type: "string", editable: false },
                             Descripcion: { type: "string", editable: false },
@@ -256,7 +257,8 @@
                 { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },
                 { field: "Etiqueta", title: _dictionary.Despacho0024[$("#language").data("kendoDropDownList").value()] },
                 { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "TieneDespacho", title: _dictionary.Despacho0018[$("#language").data("kendoDropDownList").value()], hidden: true }
+                { field: "TieneDespacho", title: _dictionary.Despacho0018[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()], hidden: true }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -459,7 +461,7 @@
             var TieneHold = datasource[i].Hold;
             var Etiqueta = datasource[i].Etiqueta;
             var Baston= datasource[i].Baston;
-
+            var ProyectoID = datasource[i].ProyectoID;
 
             if (TieneHold == "true") {
                 displayMessage("notificationslabel0057", "", '2');
@@ -467,7 +469,7 @@
             }
 
             if (TieneDespacho != "true" && NumeroUnico) {//los que no tengan despacho y tengan numero unico asignado
-                Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, Etiqueta: Etiqueta, Baston: Baston };
+                Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, Etiqueta: Etiqueta, Baston: Baston, ProyectoID: ProyectoID };
                 z++;
             }
 
