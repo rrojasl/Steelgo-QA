@@ -110,13 +110,13 @@ namespace BackEndSAM.DataAcces
                     coladas.value = "Coladas";
                     valoresCombo.Add(coladas);
 
-                    familiaMaterial.id = "12";
-                    familiaMaterial.value = "Familia Material";
-                    valoresCombo.Add(familiaMaterial);
+                    //familiaMaterial.id = "12";
+                    //familiaMaterial.value = "Familia Material";
+                    //valoresCombo.Add(familiaMaterial);
 
-                    familiaAcero.id = "13";
-                    familiaAcero.value = "Familia Acero";
-                    valoresCombo.Add(familiaAcero);
+                    //familiaAcero.id = "13";
+                    //familiaAcero.value = "Familia Acero";
+                    //valoresCombo.Add(familiaAcero);
 
                     fabricante.id = "14";
                     fabricante.value = "Fabricante";
@@ -151,6 +151,7 @@ namespace BackEndSAM.DataAcces
                     switch (Convert.ToInt32(catalogoID))
                     {
                         case 1: //Patios
+                            #region
                             List<CatalogoPatio> catPatio = new List<CatalogoPatio>();
                             catPatio = (from p in ctx.Sam3_Patio
                                         where p.Activo
@@ -164,8 +165,9 @@ namespace BackEndSAM.DataAcces
                                         }).AsParallel().ToList();
 
                             return catPatio;
-
+                            #endregion
                         case 2: //Chofer
+                            #region
                             List<CatalogoChofer> catChofer = new List<CatalogoChofer>();
                             catChofer = (from ch in ctx.Sam3_Chofer
                                          join t in ctx.Sam3_Transportista on ch.TransportistaID equals t.TransportistaID
@@ -179,8 +181,9 @@ namespace BackEndSAM.DataAcces
                                          }).AsParallel().ToList();
 
                             return catChofer;
-
+                            #endregion
                         case 3: //Tipo Aviso
+                            #region
                             List<Catalogos> catTipoAviso = new List<Catalogos>();
                             catTipoAviso = (from ta in ctx.Sam3_TipoAviso
                                             where ta.Activo
@@ -191,8 +194,9 @@ namespace BackEndSAM.DataAcces
                                             }).AsParallel().ToList();
 
                             return catTipoAviso;
-
+                            #endregion
                         case 4: //Transportista
+                            #region
                             List<CatalogoTransportista> catTransportista = new List<CatalogoTransportista>();
                             catTransportista = (from t in ctx.Sam3_Transportista
                                                 join c in ctx.Sam3_Contacto on t.ContactoID equals c.ContactoID
@@ -209,26 +213,40 @@ namespace BackEndSAM.DataAcces
                                                 }).AsParallel().ToList();
 
                             return catTransportista;
-
+                            #endregion
                         case 5: //Tracto
+                            #region
                             List<CatalogoTracto> catTracto = new List<CatalogoTracto>();
                             catTracto = (from t in ctx.Sam3_Vehiculo
-                                         where t.Activo
+                                         join rvch in ctx.Sam3_Rel_Vehiculo_Chofer on t.VehiculoID equals rvch.VehiculoID
+                                         join ch in ctx.Sam3_Chofer on rvch.ChoferID equals ch.ChoferID
+                                         join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on t.VehiculoID equals rvt.VehiculoID
+                                         join tr in ctx.Sam3_Transportista on rvt.TransportistaID equals tr.TransportistaID
+                                         where t.Activo && rvch.Activo && rvt.Activo
                                          && t.TipoVehiculoID == 1
                                          select new CatalogoTracto
                                          {
                                              VehiculoID = t.VehiculoID.ToString(),
                                              Placas = t.Placas,
                                              TarjetaCirculacion = t.TarjetaCirculacion,
-                                             PolizaSeguro = t.PolizaSeguro
+                                             PolizaSeguro = t.PolizaSeguro,
+                                             choferID = rvch.ChoferID.ToString(),
+                                             choferNombre = ch.Nombre,
+                                             transportistaID = rvt.TransportistaID.ToString(),
+                                             transportistaNombre = tr.Nombre
                                          }).AsParallel().ToList();
 
                             return catTracto;
-
+                            #endregion
                         case 6: //Plana
+                            #region
                             List<CatalogoPlana> catPlana = new List<CatalogoPlana>();
                             catPlana = (from v in ctx.Sam3_Vehiculo
-                                        where v.Activo
+                                        join rvch in ctx.Sam3_Rel_Vehiculo_Chofer on t.VehiculoID equals rvch.VehiculoID
+                                        join ch in ctx.Sam3_Chofer on rvch.ChoferID equals ch.ChoferID
+                                        join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on t.VehiculoID equals rvt.VehiculoID
+                                        join tr in ctx.Sam3_Transportista on rvt.TransportistaID equals tr.TransportistaID
+                                        where v.Activo && rvch.Activo && rvt.Activo
                                         && v.TipoVehiculoID == 2
                                         select new CatalogoPlana
                                         {
@@ -236,12 +254,17 @@ namespace BackEndSAM.DataAcces
                                             Placas = v.Placas,
                                             Unidad = v.Unidad,
                                             Modelo = v.Modelo,
-                                            TractoID = v.TractoID == -1 ? "" : v.TractoID.ToString()
+                                            TractoID = v.TractoID == -1 ? "" : v.TractoID.ToString(),
+                                            choferID = rvch.ChoferID.ToString(),
+                                            choferNombre = ch.Nombre,
+                                            transportistaID = rvt.TransportistaID.ToString(),
+                                            transportistaNombre = tr.Nombre
                                         }).AsParallel().ToList();
 
                             return catPlana;
-
+                            #endregion
                         case 7: //Proveedor
+                            #region
                             List<CatalogoProveedor> catProveedor = new List<CatalogoProveedor>();
                             catProveedor = (from p in ctx.Sam3_Proveedor
                                             join c in ctx.Sam3_Contacto on p.ContactoID equals c.ContactoID
@@ -258,8 +281,9 @@ namespace BackEndSAM.DataAcces
                                             }).AsParallel().ToList();
 
                             return catProveedor;
-
+                            #endregion
                         case 8: //Tipo de Uso
+                            #region
                             List<Catalogos> catTipoUso = new List<Catalogos>();
                             catTipoUso = (from tu in ctx.Sam3_TipoUso
                                           where tu.Activo
@@ -270,8 +294,9 @@ namespace BackEndSAM.DataAcces
                                           }).AsParallel().ToList();
 
                             return catTipoUso;
-
+                            #endregion
                         case 9: //Camion
+                            #region
                             List<Catalogos> catCamion = new List<Catalogos>();
                             catCamion = (from v in ctx.Sam3_TipoVehiculo
 
@@ -283,8 +308,9 @@ namespace BackEndSAM.DataAcces
                                          }).AsParallel().ToList();
 
                             return catCamion;
-
+                            #endregion
                         case 10: //Acero
+                            #region
                             List<CatalogoAcero> catAcero = new List<CatalogoAcero>();
                             catAcero = (from a in ctx.Sam3_Acero
                                         join fa in ctx.Sam3_FamiliaAcero on a.FamiliaAceroID equals fa.FamiliaAceroID
@@ -299,8 +325,9 @@ namespace BackEndSAM.DataAcces
                                         }).AsParallel().ToList();
 
                             return catAcero;
-
+                            #endregion
                         case 11: //Coladas
+                            #region
                             List<CatalogoColadas> catColadas = new List<CatalogoColadas>();
                             catColadas = (from c in ctx.Sam3_Colada
                                           join f in ctx.Sam3_Fabricante on c.FabricanteID equals f.FabricanteID
@@ -322,38 +349,9 @@ namespace BackEndSAM.DataAcces
                                           }).AsParallel().ToList();
 
                             return catColadas;
-
-                        case 12: //Familia Material
-                            List<CatalogoFamiliaMaterial> catFamiliaMaterial = new List<CatalogoFamiliaMaterial>();
-                            catFamiliaMaterial = (from fm in ctx.Sam3_FamiliaMaterial
-                                                  where fm.Activo
-                                                  select new CatalogoFamiliaMaterial
-                                                  {
-                                                      FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
-                                                      Nombre = fm.Nombre,
-                                                      Descripcion = fm.Descripcion
-                                                  }).AsParallel().ToList();
-
-                            return catFamiliaMaterial;
-
-                        case 13: //Familia Acero
-                            List<CatalogoFamiliaAcero> catFamiliaAcero = new List<CatalogoFamiliaAcero>();
-                            catFamiliaAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                               join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                                               where fa.Activo && fm.Activo
-                                               select new CatalogoFamiliaAcero
-                                               {
-                                                   FamiliaAceroID = fa.FamiliaAceroID.ToString(),
-                                                   FamiliaMaterialID = fm.FamiliaMaterialID.ToString(),
-                                                   FamiliaMaterial = fm.Nombre,
-                                                   Nombre = fa.Nombre,
-                                                   Descripcion = fa.Descripcion,
-                                                   VerificadoPorCalidad = fa.VerificadoPorCalidad == true ? "Si" : "No"
-                                               }).AsParallel().ToList();
-
-                            return catFamiliaAcero;
-
+                            #endregion
                         case 14: //fabricante
+                            #region
                             List<CatalogoFabricante> catFabricante = new List<CatalogoFabricante>();
                             catFabricante = (from f in ctx.Sam3_Fabricante
                                              join c in ctx.Sam3_Contacto on f.ContactoID equals c.ContactoID
@@ -369,14 +367,16 @@ namespace BackEndSAM.DataAcces
                                                  Telefono = f.Telefono
                                              }).AsParallel().ToList();
                             return catFabricante;
-
+                            #endregion
                         default:
+                            #region
                             TransactionalInformation result = new TransactionalInformation();
                             result.ReturnMessage.Add("Listado no encontrado");
                             result.ReturnCode = 500;
                             result.ReturnStatus = false;
                             result.IsAuthenicated = false;
                             return result;
+                            #endregion
                     }
                 }
             }
@@ -413,20 +413,62 @@ namespace BackEndSAM.DataAcces
 
                     switch (Convert.ToInt32(catalogoID))
                     {
-
                         case 1: //Patios
+                            #region
                             Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
 
-                            res = PatioBd.Instance.ActualizarPatio(patio, usuario);
-                            return res;
+                            Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == patio.PatioID && x.Activo).AsParallel().SingleOrDefault();
 
+                            patioEnBd.Descripcion = patio.Descripcion != null && patio.Descripcion != patioEnBd.Descripcion ?
+                        patio.Descripcion : patioEnBd.Descripcion;
+                            patioEnBd.Nombre = patio.Nombre != null && patio.Nombre != patioEnBd.Nombre ?
+                        patio.Nombre : patioEnBd.Nombre;
+                            patioEnBd.Propietario = patio.Propietario != null && patio.Propietario != patioEnBd.Propietario ?
+                        patio.Propietario : patioEnBd.Propietario;
+                            patioEnBd.RequierePermisoAduana = patio.RequierePermisoAduana != null && patio.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
+                        patio.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
+
+                            patioEnBd.UsuarioModificacion = usuario.UsuarioID;
+                            patioEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+                            #endregion
                         case 2: //chofer
+                            #region
                             Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
 
-                            res = ChoferBd.Instance.ActualizarChofer(chofer, usuario);
-                            return chofer;
+                            Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+                            choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                                chofer.Activo : choferEnBd.Activo;
 
+                            choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
+                                chofer.Nombre : choferEnBd.Nombre;
+
+                            choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ?
+                                chofer.TransportistaID : choferEnBd.TransportistaID;
+
+                            choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                            choferEnBd.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result.ReturnMessage.Add("OK");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.IsAuthenicated = true;
+
+                            return result;
+                            #endregion
                         case 3: //Tipo Aviso
+                            #region
                             Sam3_TipoAviso tipoAviso = serializer.Deserialize<Sam3_TipoAviso>(data);
 
                             Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID == tipoAviso.TipoAvisoID && x.Activo).AsParallel().SingleOrDefault();
@@ -447,9 +489,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
-
+                            #endregion
                         case 4: //Transportista
+                            #region
                             Sam3_Transportista transportista = serializer.Deserialize<Sam3_Transportista>(data);
 
                             Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
@@ -480,9 +522,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
-
+                            #endregion
                         case 5: //Tracto
+                            #region
                             Sam3_Vehiculo vehiculo = serializer.Deserialize<Sam3_Vehiculo>(data);
 
                             Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
@@ -508,17 +550,33 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
+                            #endregion
                         case 6: //Plana
-
+                            #region
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
 
-                            res = PlanaBd.Instance.ActualizarPlana(plana, usuario);
+                            int vehiculoID = Convert.ToInt32(plana.VehiculoID);
+                            Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
+                            planaEnBd.Activo = true;
+                            planaEnBd.TractoID = Convert.ToInt32(plana.TractoID);
+                            planaEnBd.Placas = plana.Placas;
+                            planaEnBd.Unidad = plana.Unidad;
+                            planaEnBd.Modelo = plana.Modelo;
+                            planaEnBd.UsuarioModificacion = usuario.UsuarioID;
+                            planaEnBd.FechaModificacion = DateTime.Now;
 
-                            return res;
+                            ctx.SaveChanges();
 
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
 
+                            return result;
+
+                            #endregion
                         case 7: //Proveedor
+                            #region
                             Sam3_Proveedor proveedor = serializer.Deserialize<Sam3_Proveedor>(data);
 
                             Sam3_Proveedor provEnBd = ctx.Sam3_Proveedor.Where(x => x.ProveedorID == proveedor.ProveedorID && x.Activo).AsParallel().SingleOrDefault();
@@ -550,9 +608,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
+                            #endregion
                         case 8: //Tipo de uso
-
+                            #region
                             Sam3_TipoUso tipoUso = serializer.Deserialize<Sam3_TipoUso>(data);
 
                             Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == tipoUso.TipoUsoID && x.Activo).AsParallel().SingleOrDefault();
@@ -572,8 +630,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
+                            #endregion
                         case 9: //Camion
+                            #region
                             Sam3_TipoVehiculo camion = serializer.Deserialize<Sam3_TipoVehiculo>(data);
 
                             Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID == camion.TipoVehiculoID && x.Activo).AsParallel().SingleOrDefault();
@@ -592,8 +651,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
+                            #endregion
                         case 10: //Acero
+                            #region
                             Sam3_Acero acero = serializer.Deserialize<Sam3_Acero>(data);
 
                             Sam3_Acero aceroEnBd = ctx.Sam3_Acero.Where(x => x.AceroID == acero.AceroID && x.Activo).AsParallel().SingleOrDefault();
@@ -619,8 +679,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
+                            #endregion
                         case 11: //Coladas
+                            #region
                             Sam3_Colada colada = serializer.Deserialize<Sam3_Colada>(data);
 
                             Sam3_Colada coladaEnBd = ctx.Sam3_Colada.Where(x => x.ColadaID == colada.ColadaID && x.Activo).AsParallel().SingleOrDefault();
@@ -652,62 +713,9 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
-                        case 12: //Familia material
-                            Sam3_FamiliaMaterial famMaterial = serializer.Deserialize<Sam3_FamiliaMaterial>(data);
-
-                            Sam3_FamiliaMaterial famMatEnBd = ctx.Sam3_FamiliaMaterial.Where(x => x.FamiliaMaterialID == famMaterial.FamiliaMaterialID && x.Activo).AsParallel().SingleOrDefault();
-
-                            famMatEnBd.Nombre = famMaterial.Nombre != null && famMaterial.Nombre != famMatEnBd.Nombre ?
-                                famMaterial.Nombre : famMatEnBd.Nombre;
-
-                            famMatEnBd.Descripcion = famMaterial.Descripcion != null && famMaterial.Descripcion != famMatEnBd.Descripcion ?
-                                famMaterial.Descripcion : famMatEnBd.Descripcion;
-
-                            famMatEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            famMatEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
-
-                        case 13: //Familia Acero
-                            Sam3_FamiliaAcero famAcero = serializer.Deserialize<Sam3_FamiliaAcero>(data);
-
-                            Sam3_FamiliaAcero famAceroEnBd = ctx.Sam3_FamiliaAcero.Where(x => x.FamiliaAceroID == famAcero.FamiliaAceroID && x.Activo).AsParallel().SingleOrDefault();
-
-                            famAceroEnBd.FamiliaMaterialID = famAcero.FamiliaMaterialID != null && famAcero.FamiliaMaterialID != famAceroEnBd.FamiliaMaterialID ?
-                                famAcero.FamiliaMaterialID : famAceroEnBd.FamiliaMaterialID;
-
-                            famAceroEnBd.Nombre = famAcero.Nombre != null && famAcero.Nombre != famAceroEnBd.Nombre ?
-                                famAcero.Nombre : famAceroEnBd.Nombre;
-
-                            famAcero.Descripcion = famAcero.Descripcion != null && famAcero.Descripcion != famAceroEnBd.Descripcion ?
-                                famAcero.Descripcion : famAceroEnBd.Descripcion;
-
-                            famAceroEnBd.VerificadoPorCalidad = famAcero.VerificadoPorCalidad != null && famAcero.VerificadoPorCalidad != famAceroEnBd.VerificadoPorCalidad ?
-                                famAcero.VerificadoPorCalidad : famAceroEnBd.VerificadoPorCalidad;
-
-                            famAceroEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            famAceroEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
-
+                            #endregion
                         case 14: //fabricante
+                            #region
                             Sam3_Fabricante fabricante = serializer.Deserialize<Sam3_Fabricante>(data);
 
                             Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID == fabricante.FabricanteID && fabricante.Activo).AsParallel().SingleOrDefault();
@@ -739,14 +747,389 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
+                            #endregion
                         default:
+                            #region
                             TransactionalInformation resultado = new TransactionalInformation();
                             resultado.ReturnMessage.Add("Listado no encontrado");
                             resultado.ReturnCode = 500;
                             resultado.ReturnStatus = false;
                             resultado.IsAuthenicated = false;
                             return resultado;
+                            #endregion
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para eliminar un elemento del catalogo
+        /// </summary>
+        /// <returns></returns>
+        public object EliminarElementoCatalogo(int id, string catalogoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                object res = new object();
+                TransactionalInformation result = new TransactionalInformation();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    switch (Convert.ToInt32(catalogoID))
+                    {
+                        case 1: //Patios
+                            #region
+                            res = PatioBd.Instance.EliminarPatio(id, usuario);
+                            return res;
+                            #endregion
+                        case 2: //Chofer
+                            #region
+
+                            res = ChoferBd.Instance.EliminarChofer(id, usuario);
+                            return res;
+
+                            #endregion
+                        case 3: //Tipo Aviso
+                            #region
+
+                            Sam3_TipoAviso tipoAviso = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID == id).AsParallel().SingleOrDefault();
+
+                            tipoAviso.Activo = false;
+                            tipoAviso.UsuarioModificacion = usuario.UsuarioID;
+                            tipoAviso.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 4: //Transportista 
+                            #region
+
+                            res = TransportistaBd.Instance.EliminarTransportista(id, usuario);
+                            return res;
+
+                            #endregion
+                        case 5: //Tracto
+                            #region
+
+                            res = TractoBd.Instance.EliminarTracto(id, usuario);
+                            return res;
+
+                            #endregion
+                        case 6: //Plana
+                            #region
+
+                            res = PlanaBd.Instance.EliminarPlana(id, usuario);
+                            return res;
+
+                            #endregion
+                        case 7: //Proveedor
+                            #region
+
+                            res = ProveedorBd.Instance.EliminarProveedor(id, usuario);
+                            return res;
+
+                            #endregion
+                        case 8: //Tipo de uso
+                            #region
+
+                            Sam3_TipoUso tipoUso = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == id).AsParallel().SingleOrDefault();
+                            tipoUso.Activo = false;
+                            tipoUso.UsuarioModificacion = usuario.UsuarioID;
+                            tipoUso.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 9: //Camion
+                            #region
+
+                            Sam3_TipoVehiculo tipoVehiculo = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID == id).AsParallel().SingleOrDefault();
+                            tipoVehiculo.Activo = false;
+                            tipoVehiculo.UsuarioModificacion = usuario.UsuarioID;
+                            tipoVehiculo.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 10: //Aceros
+                            #region
+
+                            Sam3_Acero acero = ctx.Sam3_Acero.Where(x => x.AceroID == id).AsParallel().SingleOrDefault();
+                            acero.Activo = false;
+                            acero.UsuarioModificacion = usuario.UsuarioID;
+                            acero.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 11: //Coladas
+                            #region
+
+                            Sam3_Colada colada = ctx.Sam3_Colada.Where(x => x.ColadaID == id).AsParallel().SingleOrDefault();
+                            colada.Activo = false;
+                            colada.UsuarioModificacion = usuario.UsuarioID;
+                            colada.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+                            #endregion
+                        case 14:  //fabricante
+                            #region
+
+                            Sam3_Fabricante fabricante = ctx.Sam3_Fabricante.Where(x => x.FabricanteID == id).AsParallel().SingleOrDefault();
+                            fabricante.Activo = false;
+                            fabricante.UsuarioModificacion = usuario.UsuarioID;
+                            fabricante.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        default:
+                            #region
+                            TransactionalInformation resultado = new TransactionalInformation();
+                            resultado.ReturnMessage.Add("Listado no encontrado");
+                            resultado.ReturnCode = 500;
+                            resultado.ReturnStatus = false;
+                            resultado.IsAuthenicated = false;
+                            return resultado;
+                            #endregion
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
+        }
+
+        public object InsertarElementoAlCatalogo(string data, string catalogoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                object res = new object();
+                TransactionalInformation result = new TransactionalInformation();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    switch (Convert.ToInt32(catalogoID))
+                    {
+                        case 1: //Patios
+                            #region
+                            Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
+                            res = PatioBd.Instance.InsertarPatio(patio, usuario);
+                            return res;
+                            #endregion
+                        case 2: //Chofer
+                            #region
+                            Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
+                            res = ChoferBd.Instance.InsertarChofer(chofer, usuario);
+                            return res;
+                            #endregion
+                        case 3: //Tipo Aviso
+                            #region
+                            Sam3_TipoAviso tipoAviso = serializer.Deserialize<Sam3_TipoAviso>(data);
+                            tipoAviso.Activo = true;
+                            tipoAviso.UsuarioModificacion = usuario.UsuarioID;
+                            tipoAviso.FechaModificacion = DateTime.Now;
+
+                            ctx.Sam3_TipoAviso.Add(tipoAviso);
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 4: //Transportista 
+                            #region
+
+                            Sam3_Transportista transportista = serializer.Deserialize<Sam3_Transportista>(data);
+                            res = TransportistaBd.Instance.InsertarTransportista(transportista, usuario);
+
+                            return res;
+                            #endregion
+                        case 5: //Tracto
+                            #region
+
+                            VehiculoJson tracto = serializer.Deserialize<VehiculoJson>(data);
+                            res = TractoBd.Instance.InsertarTracto(tracto, usuario);
+
+                            return res;
+
+                            #endregion
+                        case 6: //Plana
+                            #region
+
+                            VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
+                            res = TractoBd.Instance.InsertarTracto(plana, usuario);
+
+                            return res;
+
+                            #endregion
+                        case 7: //Proveedor
+                            #region
+
+                            Sam3_Proveedor proveedor = serializer.Deserialize<Sam3_Proveedor>(data);
+                            res = ProveedorBd.Instance.InsertarProveedor(proveedor, usuario);
+                            return res;
+
+                            #endregion
+                        case 8: //Tipo de uso
+                            #region
+
+                            Sam3_TipoUso tipoUso = serializer.Deserialize<Sam3_TipoUso>(data);
+                            res = TipoUsoBd.Instance.InsertarTipoUso(tipoUso.Nombre, usuario);
+
+                            return res;
+
+                            #endregion
+                        case 9: //Camion
+                            #region
+
+                            Sam3_TipoVehiculo vehiculo = serializer.Deserialize<Sam3_TipoVehiculo>(data);
+                            vehiculo.Activo = true;
+                            vehiculo.FechaModificacion = DateTime.Now;
+                            vehiculo.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_TipoVehiculo.Add(vehiculo);
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 10: //Aceros
+                            #region
+
+                            Sam3_Acero acero = serializer.Deserialize<Sam3_Acero>(data);
+                            acero.Activo = true;
+                            acero.FechaModificacion = DateTime.Now;
+                            acero.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Acero.Add(acero);
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        case 11: //Coladas
+                            #region
+
+                            Sam3_Colada colada = serializer.Deserialize<Sam3_Colada>(data);
+                            res = ColadaBd.Instance.GuardarColadaPopUp(colada, usuario);
+
+                            return res;
+
+                            #endregion
+                        case 14:  //fabricante
+                            #region
+
+                            Sam3_Fabricante fabricante = serializer.Deserialize<Sam3_Fabricante>(data);
+                            fabricante.Activo = true;
+                            fabricante.UsuarioModificacion = usuario.UsuarioID;
+                            fabricante.FechaModificacion = DateTime.Now;
+
+                            ctx.Sam3_Fabricante.Add(fabricante);
+                            ctx.SaveChanges();
+
+                            result = new TransactionalInformation();
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = true;
+                            result.ReturnMessage.Add("OK");
+                            result.IsAuthenicated = true;
+
+                            return result;
+
+                            #endregion
+                        default:
+                            #region
+                            TransactionalInformation resultado = new TransactionalInformation();
+                            resultado.ReturnMessage.Add("Listado no encontrado");
+                            resultado.ReturnCode = 500;
+                            resultado.ReturnStatus = false;
+                            resultado.IsAuthenicated = false;
+                            return resultado;
+                            #endregion
                     }
                 }
             }

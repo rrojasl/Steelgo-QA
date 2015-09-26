@@ -79,47 +79,56 @@ namespace BackEndSAM.DataAcces
                         .Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
 
                     proyectos = proyectos.Where(x => x > 0).ToList();
-                                
-                    
+
+
                     patios = (from p in ctx.Sam3_Proyecto
                               join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                               join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
-                              where p.Activo && pa.Activo && eq.Activo 
+                              where p.Activo && pa.Activo && eq.Activo
                               && proyectos.Contains(p.ProyectoID)
                               select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
 
                     patios = patios.Where(x => x > 0).ToList();
-                }
-                using (Sam2Context ctx2 = new Sam2Context())
-                {
 
-                    List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
-                                                        join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
-                                                        join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
-                                                        join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
-                                                        join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                        join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                        where odts.OrdenTrabajoSpoolID == ordenTrabajoSpoolID
-                                                        && !(from d in ctx2.Despacho
-                                                             where d.Cancelado == false
-                                                             select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
-                                                        && proyectos.Contains(odt.ProyectoID)
-                                                        && it.TipoMaterialID == 2
-                                                        select new LstGenerarDespacho
-                                                        {
-                                                            Descripcion = it.DescripcionEspanol,
-                                                            ItemCode = it.Codigo,
-                                                            NumeroControl = odts.NumeroControl,
-                                                            NumeroUnico = nu.Codigo,
-                                                            Etiqueta = ms.Etiqueta
-                                                        }).Distinct().AsParallel().ToList();
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+
+                        List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
+                                                            join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                            join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                            join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                            join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam2_NumeroUnicoID
+                                                            join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                            join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                            where odts.OrdenTrabajoSpoolID == ordenTrabajoSpoolID
+                                                            && !(from d in ctx2.Despacho
+                                                                 where d.Cancelado == false
+                                                                 select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
+                                                            && proyectos.Contains(odt.ProyectoID)
+                                                            && it.TipoMaterialID == 2
+                                                            select new LstGenerarDespacho
+                                                            {
+                                                                Descripcion = it.DescripcionEspanol,
+                                                                ItemCode = it.Codigo,
+                                                                NumeroControl = odts.NumeroControl,
+                                                                NumeroUnico = nu.Codigo,
+                                                                Etiqueta = ms.Etiqueta,
+                                                                Hold = (from sh in ctx2.SpoolHold
+                                                                        where sh.SpoolID == odts.SpoolID
+                                                                        && (sh.TieneHoldCalidad || sh.TieneHoldIngenieria || sh.Confinado)
+                                                                        select sh).Any()
+                                                            }).Distinct().AsParallel().ToList();
+
+                        //eliminar numeros unicos que no se encuentren en sam3
+
 
 #if DEBUG
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    string json = serializer.Serialize(listado);
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        string json = serializer.Serialize(listado);
 #endif
 
-                    return listado.OrderBy(x => x.Etiqueta).ToList();
+                        return listado.OrderBy(x => x.Etiqueta).ToList();
+                    }
                 }
             }
             catch (Exception ex)
@@ -140,6 +149,7 @@ namespace BackEndSAM.DataAcces
             try
             {
                 int proyectoID = datosJson.ProyectoID != "" ? Convert.ToInt32(datosJson.ProyectoID) : 0;
+                Sam3_Despacho nuevoDespacho = new Sam3_Despacho();
                 using (TransactionScope scope = new TransactionScope())
                 {
                     using (SamContext ctx = new SamContext())
@@ -194,41 +204,173 @@ namespace BackEndSAM.DataAcces
                                 //Actualizamos los inventarios del numero unico en sam 3
                                 Sam3_NumeroUnicoInventario numInventario = ctx.Sam3_NumeroUnicoInventario
                                     .Where(x => x.NumeroUnicoID == numeroUnico.NumeroUnicoID).AsParallel().SingleOrDefault();
+
                                 numInventario.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
                                 numInventario.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
                                 numInventario.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
                                 numInventario.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
-                                
+                                numInventario.FechaModificacion = DateTime.Now;
+                                numInventario.UsuarioModificacion = usuario.UsuarioID;
+
+                                //generamos el nuevo movimiento de inventario
+                                Sam3_NumeroUnicoMovimiento movimientoSam3 = new Sam3_NumeroUnicoMovimiento();
+                                movimientoSam3.Activo = true;
+                                movimientoSam3.Cantidad = odtMaterial.CantidadCongelada.Value;
+                                movimientoSam3.Estatus = "A";
+                                movimientoSam3.FechaModificacion = DateTime.Now;
+                                movimientoSam3.FechaMovimiento = DateTime.Now;
+                                movimientoSam3.NumeroUnicoID = numeroUnico.NumeroUnicoID;
+                                movimientoSam3.ProyectoID = numeroUnico.ProyectoID;
+                                movimientoSam3.Referencia = odtSpool.NumeroControl;
+                                movimientoSam3.Segmento = null;
+                                movimientoSam3.TipoMovimientoID = (from tp in ctx.Sam3_TipoMovimiento
+                                                                   where tp.Nombre == "Despacho Accesorio"
+                                                                   select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                movimientoSam3.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_NumeroUnicoMovimiento.Add(movimientoSam3);
+                                ctx.SaveChanges(); // guardamos los cambios para obtener el id del movimiento de inventario
+
+                                int salidaInventarioSam3 = movimientoSam3.NumeroUnicoMovimientoID;
+
+                                //generamos el despacho en sam3
+                                nuevoDespacho.Activo = true;
+                                nuevoDespacho.Cancelado = false;
+                                nuevoDespacho.Cantidad = odtMaterial.CantidadCongelada != null ? odtMaterial.CantidadCongelada.Value : 1;
+                                nuevoDespacho.EsEquivalente = odtMaterial.CongeladoEsEquivalente;
+                                nuevoDespacho.FechaDespacho = DateTime.Now;
+                                nuevoDespacho.FechaModificacion = DateTime.Now;
+                                nuevoDespacho.MaterialSpoolID = odtMaterial.MaterialSpoolID;
+                                nuevoDespacho.NumeroUnicoID = numeroUnico.NumeroUnicoID;
+                                nuevoDespacho.OrdenTrabajoSpoolID = odtSpool.OrdenTrabajoSpoolID;
+                                nuevoDespacho.ProyectoID = proyectoID;
+                                nuevoDespacho.SalidaInventarioID = salidaInventarioSam3;
+                                nuevoDespacho.Segmento = null;
+                                nuevoDespacho.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Despacho.Add(nuevoDespacho);
+                                ctx.SaveChanges();// guardamos el nuevo despacho
+
+                                //HAY QUE HACER EL MISMO PROCESO CON LOS INVENTARIOS DE SAM 2
+                                NumeroUnico numeroUnicoSam2 = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == sam2_numeroUnicoID)
+                                    .AsParallel().SingleOrDefault();
+
+                                //buscamos su inventario
+                                NumeroUnicoInventario inventarioSam2 = ctx2.NumeroUnicoInventario.Where(x => x.NumeroUnicoID == numeroUnicoSam2.NumeroUnicoID)
+                                    .AsParallel().SingleOrDefault();
+                                //Actualizamos
+                                inventarioSam2.FechaModificacion = DateTime.Now;
+                                inventarioSam2.InventarioBuenEstado -= odtMaterial.CantidadCongelada.Value;
+                                inventarioSam2.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
+                                inventarioSam2.InventarioDisponibleCruce -= odtMaterial.CantidadCongelada.Value;
+                                inventarioSam2.InventarioFisico -= odtMaterial.CantidadCongelada.Value;
+
+                                //generamos el movimiento de inventario
+                                DatabaseManager.Sam2.NumeroUnicoMovimiento nuevoMovSam2 = new DatabaseManager.Sam2.NumeroUnicoMovimiento();
+                                nuevoMovSam2.Cantidad = odtMaterial.CantidadCongelada.Value;
+                                nuevoMovSam2.Estatus = "A";
+                                nuevoMovSam2.FechaModificacion = DateTime.Now;
+                                nuevoMovSam2.FechaMovimiento = DateTime.Now;
+                                nuevoMovSam2.NumeroUnicoID = numeroUnicoSam2.NumeroUnicoID;
+                                nuevoMovSam2.ProyectoID = numeroUnicoSam2.ProyectoID;
+                                nuevoMovSam2.Referencia = odtSpool.NumeroControl;
+                                nuevoMovSam2.Segmento = null;
+                                nuevoMovSam2.TipoMovimientoID = (from tp in ctx2.TipoMovimiento
+                                                                 where tp.Nombre == "Despacho Accesorio"
+                                                                 select tp.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                //guardamos los cambios
+                                ctx2.NumeroUnicoMovimiento.Add(nuevoMovSam2);
+                                ctx2.SaveChanges();
+
+                                int salidaInventarioSam2 = nuevoMovSam2.NumeroUnicoMovimientoID;
+
+                                ////generamos el despacho en sam2
+                                //DatabaseManager.Sam2.Despacho nuevoDespachoSam2 = new DatabaseManager.Sam2.Despacho();
+                                //nuevoDespachoSam2.Cancelado = false;
+                                //nuevoDespachoSam2.Cantidad = odtMaterial.CantidadCongelada.Value;
+                                //nuevoDespachoSam2.EsEquivalente = odtMaterial.CongeladoEsEquivalente;
+                                //nuevoDespachoSam2.FechaDespacho = DateTime.Now;
+                                //nuevoDespachoSam2.FechaModificacion = DateTime.Now;
+                                //nuevoDespachoSam2.MaterialSpoolID = materialSpool.MaterialSpoolID;
+                                //nuevoDespachoSam2.NumeroUnicoID = numeroUnicoSam2.NumeroUnicoID;
+                                //nuevoDespachoSam2.OrdenTrabajoSpoolID = odtSpool.OrdenTrabajoSpoolID;
+                                //nuevoDespachoSam2.ProyectoID = numeroUnicoSam2.ProyectoID;
+                                //nuevoDespachoSam2.SalidaInventarioID = salidaInventarioSam2;
+                                //nuevoDespachoSam2.Segmento = null;
+
+                                //ctx2.Despacho.Add(nuevoDespachoSam2);
+                                //ctx2.SaveChanges();// guardamos los cambios
+
+                                //verificamos si el numero unico que se despacho es igual al que esta congelado en la orden de trabajo material
+                                if (odtMaterial.NumeroUnicoCongeladoID == numeroUnicoSam2.NumeroUnicoID)
+                                {
+                                    //si el numero unico despacho es igual al que se tenia congelado se actualiza la odtm
+                                    odtMaterial.CantidadDespachada = nuevoDespacho.Cantidad;
+                                    odtMaterial.CantidadCongelada -= nuevoDespacho.Cantidad;
+                                    odtMaterial.DespachoEsEquivalente = nuevoDespacho.EsEquivalente;
+                                    odtMaterial.DespachoID = nuevoDespacho.DespachoID;
+                                    odtMaterial.FechaModificacion = DateTime.Now;
+                                    odtMaterial.NumeroUnicoCongeladoID = null;
+                                    odtMaterial.NumeroUnicoDespachadoID = nuevoDespacho.NumeroUnicoID;
+                                    odtMaterial.TieneDespacho = true;
+
+                                }
+                                else
+                                {
+                                    //si el numero unico es diferente antes de actualizar la odtm hay que regresar a inventario el 
+                                    //material que estaba congelado
+                                    //Buscamos el numero unico que estaba congelado
+                                    DatabaseManager.Sam2.NumeroUnicoInventario numeroCongelado = ctx2.NumeroUnicoInventario
+                                        .Where(x => x.NumeroUnicoID == odtMaterial.NumeroUnicoCongeladoID).AsParallel().SingleOrDefault();
+                                    //actualizamos
+                                    numeroCongelado.FechaModificacion = DateTime.Now;
+                                    numeroCongelado.InventarioBuenEstado += odtMaterial.CantidadCongelada.Value;
+                                    numeroCongelado.InventarioCongelado -= odtMaterial.CantidadCongelada.Value;
+                                    numeroCongelado.InventarioDisponibleCruce += odtMaterial.CantidadCongelada.Value;
+                                    numeroCongelado.InventarioFisico += odtMaterial.CantidadCongelada.Value;
+                                    
+                                    //ahora si actualizamos la odtm
+                                    //si el numero unico despacho es igual al que se tenia congelado se actualiza la odtm
+                                    odtMaterial.CantidadDespachada = nuevoDespacho.Cantidad;
+                                    odtMaterial.CantidadCongelada -= nuevoDespacho.Cantidad;
+                                    odtMaterial.DespachoEsEquivalente = nuevoDespacho.EsEquivalente;
+                                    odtMaterial.DespachoID = nuevoDespacho.DespachoID;
+                                    odtMaterial.FechaModificacion = DateTime.Now;
+                                    odtMaterial.NumeroUnicoCongeladoID = null;
+                                    odtMaterial.NumeroUnicoDespachadoID = nuevoDespacho.NumeroUnicoID;
+                                    odtMaterial.TieneDespacho = true;
+                                }
+
+                                //guardamos los cambios en sam2
+                                ctx2.SaveChanges();
+
+                                ////agregamos la relacion en a tabla de equivalencia de Despacho
+                                //Sam3_EquivalenciaDespacho nuevaEquivalencia = new Sam3_EquivalenciaDespacho();
+                                //nuevaEquivalencia.Activo = true;
+                                //nuevaEquivalencia.FechaModificacion = DateTime.Now;
+                                //nuevaEquivalencia.Sam2_DespachoID = nuevoDespachoSam2.DespachoID;
+                                //nuevaEquivalencia.Sam3_DespachoID = nuevoDespacho.DespachoID;
+                                //nuevaEquivalencia.UsuarioModificacion = usuario.UsuarioID;
+
+                                //ctx.Sam3_EquivalenciaDespacho.Add(nuevaEquivalencia);
+                                //ctx.SaveChanges();
+                                ////temrminamos
 
                             }
-                            else //el numero unico no existe en Sam 3
-                            {
-                             
-                            }
-
-
-
-
-                            Sam3_Despacho nuevoDespacho = new Sam3_Despacho();
-                            nuevoDespacho.Activo = true;
-                            nuevoDespacho.Cancelado = false;
-                            nuevoDespacho.Cantidad = odtMaterial.CantidadCongelada != null ? odtMaterial.CantidadCongelada.Value : 1;
-                            nuevoDespacho.EsEquivalente = odtMaterial.CongeladoEsEquivalente;
-                            nuevoDespacho.FechaDespacho = DateTime.Now;
-                            nuevoDespacho.FechaModificacion = DateTime.Now;
-                            nuevoDespacho.MaterialSpoolID = odtMaterial.MaterialSpoolID;
-                            nuevoDespacho.NumeroUnicoID = 0;
-                            nuevoDespacho.OrdenTrabajoSpoolID = odtSpool.OrdenTrabajoSpoolID;
-                            nuevoDespacho.ProyectoID = proyectoID;
-                            nuevoDespacho.SalidaInventarioID = 0;
-
                         }
 
                     }
                     scope.Complete();
                 }
-                
-                return null;
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnMessage.Add(nuevoDespacho.DespachoID.ToString());
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return result;
             }
             catch (Exception ex)
             {

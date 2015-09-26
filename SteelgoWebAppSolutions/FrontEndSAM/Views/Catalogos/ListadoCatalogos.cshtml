@@ -31,11 +31,104 @@
 <script>
 @section JavascriptGlobalVariables {
     dataBoundCounter=0;
+    models={
+        "1":{
+            id: "PatioID",
+            fields: {
+                PatioID: { editable: false, nullable: true },
+                Descripcion: { type:"string" },
+                Propietario: { validation: { required: true } },
+                RequierePermiso: { type: "string", validation: { required: true }}
+            }
+        },
+        "2":{
+            id: "ChoferID",
+            fields: {
+                ChoferID: { editable: false, nullable: true },
+                Nombre: { type:"string",validation: { required: true } },
+                TransportistaID: { type:"number", validation: { required: true } },
+                TransportistaNombre: { type:"string",validation: { required: true } },
+            }
+        },
+        "4":{
+            id: "TransportistaID",
+            fields: {
+                TransportistaID: { editable: false, nullable: true },
+                ContactoID: { type:"number", validation: { required: true } },
+                Contacto: { type:"string",validation: { required: true } },
+                Nombre: { type:"string",validation: { required: true } },
+                Descripcion: { type:"string"},
+                Direccion: { type:"string"},
+                Telefono: { type:"string"},
+            }
+        },
+        "5":{
+            id: "VehiculoID",
+            fields: {
+                VehiculoID: { editable: false, nullable: true },
+                Placas: { type:"string",validation: { required: true } },
+                TarjetaCirculacion: { type:"string",validation: { required: true } },
+                PolizaSeguro: { type:"string"}
+            }
+        },
+        "6":{
+            id: "VehiculoID",
+            fields: {
+                VehiculoID: { editable: false, nullable: true },
+                TractoID: { type:"number", validation: { required: true } },
+                Placas: { type:"string",validation: { required: true } },
+                Unidad: { type:"string"},
+                Modelo : { type:"string"}
+            }
+        },
+        "7":{
+            id: "ProveedorID",
+            fields: {
+                ProveedorID: { editable: false, nullable: true },
+                ContactoID: { type:"number", validation: { required: true } },
+                Contacto: { type:"string",validation: { required: true } },
+                Nombre: { type:"string",validation: { required: true } },
+                Direccion : { type:"string"},
+                Descripcion : { type:"string"},
+                Telefono : { type:"string"}
+            }
+        },
+        "10":{
+            id: "AceroID",
+            fields: {
+                AceroID: { editable: false, nullable: true },
+                FAmiliaAceroID: { type:"number", validation: { required: true } },
+                FamiliaAcero: { type:"string",validation: { required: true } },
+                Nomenclatura: { type:"string",validation: { required: true } },
+                VerificadoPorCalidad : { type:"string"}
+            }
+        },
+        "11":{
+            id: "ColadasID",
+            fields: {
+                ColadasID: { editable: false, nullable: true },
+                FabricanteID: { type:"number", validation: { required: true } },
+                Fabricante: { type:"string",validation: { required: true } },
+                AceroID: { type:"number", validation: { required: true } },
+                Acero: { type:"string",validation: { required: true } },
+                ProyectoID: { type:"number", validation: { required: true } },
+                Proyecto: { type:"string",validation: { required: true } },
+                NumeroColada : { type:"string"},
+                NumeroCertificado : { type:"string"},
+                HoldCalidad : { type:"string"}
+            }
+        },
+    }
 }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        $("#grid").kendoGrid({columns:[]});
     };
+
+    function getUrl(){
+        return $Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+$("#listaCatalogos").data("kendoDropDownList").value()+"&token=";
+    }
 
     function cargarInicialGrid(val) {
         loadingStart();
@@ -67,71 +160,92 @@
             },
             toolbar: ["create"],
             editable: "inline",
+            save: function(e) {
+                var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
+                var data={};
+                for(f in models[catalogo].fields){
+                    data[f]=e.model[f];
+                }
+                if(e.model.id!==null){
+                    var direccion=parseUrl(data,catalogo);
+                }else{
+                    //
+                }
+                var grid=$("#grid").data("kendoGrid");
+                grid.options.dataSource.options.transport.update.url=direccion;
+                grid.options.dataSource.sync();
+            },
             dataBound: function (e) {
                 if(dataBoundCounter==0){
                     dataBoundCounter++;
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-                    var grid=$("#grid").data("kendoGrid");//.options;
+                    var grid=$("#grid").data("kendoGrid");
                     grid.columns.push({ command: "edit", title: "Editar",width:"75px"});
                     grid.columns.push({ command: "destroy", title: "Borrar",width:"75px"});
                     grid.options.columns=grid.columns;
                     var options=grid.options;
                     grid.destroy();
                     $("#grid").empty().kendoGrid(options);
-                    console.log(grid);
                 }
             }
         });
         loadingStop();
     };
+
+    function parseUrl(data,catalogo){
+        switch(catalogo){
+            case "1":
+                data.RequierePermiso=="Si" ? data.RequierePermiso=true : data.RequierePermiso=false;
+                return getUrl()+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
+        }
+    }
      
-        function getDataSourceGrid(val){
-            return new kendo.data.DataSource({
-                data: [],
-                schema: {
-                    model: {
-                        fields: {
-                        }
-                    }
+    function getDataSourceGrid(val){
+        return new kendo.data.DataSource({
+            data: [],
+            schema: {
+                model: models[val]
+            },
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            pageSize: 20,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            transport:{
+                read:{
+                    url:getUrl()+Cookies.get("token"),
+                    dataType:"json",
+                    cache: false
                 },
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false,
-                pageSize: 20,
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false,
-                transport:{
-                    read:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    update:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    destroy:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    create:{
-                        url:$Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+val+"&token="+Cookies.get("token"),
-                        dataType:"json"
-                    },
-                    parameterMap: function(options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return {models: kendo.stringify(options.models)};
-                        }
+                update:{
+                    url:getUrl()+Cookies.get("token"),
+                    dataType:"json"
+                },
+                destroy:{
+                    url:getUrl()+Cookies.get("token"),
+                    dataType:"json"
+                },
+                create:{
+                    url:getUrl()+Cookies.get("token"),
+                    dataType:"json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {models: kendo.stringify(options.models)};
                     }
                 }
-            });
-        }
+            },
+        });
+    }
 
-    $("#listaCatalogos").kendoDropDownList({
+    $("#listaCatalogos").width("50%").kendoDropDownList({
         dataTextField: "value",
         dataValueField: "id",
+        optionLabel: "Selecciona un catálogo",
         dataSource: {
             transport: {
                 read: {
@@ -142,60 +256,11 @@
         },
         change:function(e){
             dataBoundCounter=0;
-            cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
+            if($("#listaCatalogos").data("kendoDropDownList").value()){
+                cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
+            }
         }
     })
-
-    //function actualizarGrid(){
-    //    var grid = $("#grid").data("kendoGrid");
-        //columnas=[];
-        //camposModelo={};
-        //datos=[];
-        //pruebas=lista;
-        //var claves=Object.keys(lista[0]);
-        //claves.forEach(function(clave){
-        //    columnas.push({"field":clave,"title":clave});
-        //    if($.isNumeric(lista[0][clave])){
-        //        if(clave.toUpperCase().indexOf("ID")==-1){
-        //            camposModelo[clave]={type: "number"}
-        //        }else{
-        //            camposModelo[clave]={type: "number",editable: false}
-        //        }
-        //    }else{
-        //        camposModelo[clave]={type: "string"}
-        //    }
-        //})
-        //columnas.push({ command: "edit", title: "Editar",width:"75px"});
-        //columnas.push({ command: { text: _dictionary.ListadoAvisoLlegada0016[$("#language").data("kendoDropDownList").value()], click: function(){console.log("Borrar")} }, title: "Borrar",width:"75px"});
-        //var options=grid.options;
-        //options.columns=columnas;
-        //options.dataSource.data=lista;
-        //options.dataSource.schema.model.fields=camposModelo;
-        //options.editable="inline";
-        //options.columns=columnas;
-        //options.dataSource.data=datos;
-        //options.dataSource.schema.model.fields=camposModelo;
-        //grid.destroy();
-        //$("#grid").empty().kendoGrid(options);
-    //}
-
-    function Error(data) {
-        if (data.ReturnCode) {
-            if (data.ReturnCode != 200) {
-                if (data.ReturnCode == 401) {
-                    removeUserSession();
-                    return true;
-                } else {
-                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
-                    return false;
-                }
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
-    };
 };
 
 @section JavascriptDocumentReadyFunctions {

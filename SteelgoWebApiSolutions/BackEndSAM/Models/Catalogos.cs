@@ -45,6 +45,10 @@ namespace BackEndSAM.Models
         public string Placas { get; set; }
         public string TarjetaCirculacion { get; set; }
         public string PolizaSeguro { get; set; }
+        public string choferID {get;set;}
+        public string choferNombre { get; set; }
+        public string transportistaID { get; set; }
+        public string transportistaNombre { get; set; }
     }
 
     public class CatalogoPlana
@@ -54,6 +58,10 @@ namespace BackEndSAM.Models
         public string Placas { get; set; }
         public string Unidad { get; set; }
         public string Modelo { get; set; }
+        public string choferID { get; set; }
+        public string choferNombre { get; set; }
+        public string transportistaID { get; set; }
+        public string transportistaNombre { get; set; }
     }
 
     public class CatalogoProveedor
