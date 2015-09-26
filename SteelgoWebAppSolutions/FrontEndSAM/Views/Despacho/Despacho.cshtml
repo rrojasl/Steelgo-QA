@@ -213,14 +213,14 @@
                 schema: {
                     model: {
                         fields: {
-                            ProyectoID: { type: "string", editable: false },
-                            NumeroControl: { type: "string", editable: false },
+                            Etiqueta: { type: "string", editable: false },
                             ItemCode: { type: "string", editable: false },
                             Descripcion: { type: "string", editable: false },
                             NumeroUnico: { type: "string", editable: true },
                             Estatus: { type: "string", editable: false },
                             Baston: { type: "string", editable: true },
-                            Etiqueta: { type: "string", editable: false }
+                            ProyectoID: { type: "string", editable: false },
+                            NumeroControl: { type: "string", editable: false },
                         }
                     }
                 },
@@ -250,12 +250,12 @@
             },
             columns: [
                 { field: "NumeroControl", title: _dictionary.Despacho0012[$("#language").data("kendoDropDownList").value()] },
+                { field: "Etiqueta", title: _dictionary.Despacho0024[$("#language").data("kendoDropDownList").value()] },
                 { field: "ItemCode", title: _dictionary.Despacho0013[$("#language").data("kendoDropDownList").value()] },
                 { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
                 { field: "Estatus", title: _dictionary.Despacho0019[$("#language").data("kendoDropDownList").value()] },
-                { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },
-                { field: "Etiqueta", title: _dictionary.Despacho0024[$("#language").data("kendoDropDownList").value()] },
+                { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },               
                 { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "TieneDespacho", title: _dictionary.Despacho0018[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()], hidden: true }
