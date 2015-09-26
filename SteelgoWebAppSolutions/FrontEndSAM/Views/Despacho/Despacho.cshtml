@@ -93,6 +93,7 @@
 
     var _spoolID = getUrlParameter("SpoolID", "-1"),
         _proyectoID = getUrlParameter("ProyectoID", "-1");
+    var _DashboardDespacho = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
 
     var $DespachoModel = {
         listContainer: {
@@ -134,6 +135,7 @@
 
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
+        $("#RedirectListado").click(function () { RedirectListado(); });
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
@@ -272,7 +274,9 @@
         NumeroControl = {};
         NumeroControl = { NumeroControlID: id, NumeroControl: value };
     };
-    
+    function RedirectListado() {
+        window.location.href = _DashboardDespacho + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
     function LimpiarDatos() {
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
