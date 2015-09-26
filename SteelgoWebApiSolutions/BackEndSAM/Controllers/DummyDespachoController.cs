@@ -71,6 +71,10 @@ namespace BackEndSAM.Controllers
                 lstDespacho.Add(nuevo);
             }
 
+#if DEBUG
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string json = serializer.Serialize(lstDespacho);
+#endif
             return lstDespacho;
         }
 

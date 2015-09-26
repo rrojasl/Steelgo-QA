@@ -91,6 +91,7 @@ namespace BackEndSAM.DataAcces
 
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
+                        int ordenSpoolID = Convert.ToInt32(numeroControl);
 
                         List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -98,7 +99,7 @@ namespace BackEndSAM.DataAcces
                                                             join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                                             join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                             join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
-                                                            where odts.NumeroControl == numeroControl
+                                                            where odts.OrdenTrabajoSpoolID == ordenSpoolID
                                                             && !(from d in ctx2.Despacho
                                                                  where d.Cancelado == false
                                                                  select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
