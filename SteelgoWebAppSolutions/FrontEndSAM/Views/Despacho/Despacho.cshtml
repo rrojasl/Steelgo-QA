@@ -200,6 +200,7 @@
         $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
         $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
+        CargarNumeroControl(_spoolID);
         CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
         ObtenerDatosGrid();
     };
