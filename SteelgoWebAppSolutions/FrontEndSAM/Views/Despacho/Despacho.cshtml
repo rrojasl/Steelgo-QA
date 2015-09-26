@@ -286,8 +286,8 @@
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     function ObtenerDatosGrid() {
-        loadingStart();//NumeroControl: NumeroControl.NumeroControlID
-        $DummyDespacho.DummyDespacho.read({ NumeroControl: "1", token: Cookies.get("token") }).done(function (result) {
+        loadingStart();
+        $DummyDespacho.DummyDespacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 resultadoJson = result;
                 if ($("#grid").data("kendoGrid")) {
