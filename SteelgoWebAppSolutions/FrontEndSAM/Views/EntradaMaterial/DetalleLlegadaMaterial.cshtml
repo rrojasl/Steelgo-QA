@@ -295,72 +295,72 @@
         };
 
 
-        var $PatioModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                nombre: {
-                    visible: "#Nombre_PatioDiv",
-                    editable: "#Nombre_Patio",
-                    required: "#Nombre_Patio"
-                },
-                propietario: {
-                    visible: "#Propietario_PatioDiv",
-                    editable: "#Propietario_Patio",
-                    required: "#Propietario_Patio"
-                },
-                descripcion: {
-                    visible: "#Descripcion_PatioDiv",
-                    editable: "#Descripcion_Patio",
-                    required: "#Descripcion_Patio"
-                },
-                requierepermiso: {
-                    visible: "#RequierePermisoAduana_PatioDiv",
-                    editable: "#RequierePermisoAduana_Patio",
-                    required: "#RequierePermisoAduana_Patio"
-                }
-            }
-        };
+        //var $PatioModel = {
+        //    listContainer: {
+        //        create: "",
+        //        list: "",
+        //        detail: "",
+        //        destroy: ""
+        //    },
+        //    properties: {
+        //        nombre: {
+        //            visible: "#Nombre_PatioDiv",
+        //            editable: "#Nombre_Patio",
+        //            required: "#Nombre_Patio"
+        //        },
+        //        propietario: {
+        //            visible: "#Propietario_PatioDiv",
+        //            editable: "#Propietario_Patio",
+        //            required: "#Propietario_Patio"
+        //        },
+        //        descripcion: {
+        //            visible: "#Descripcion_PatioDiv",
+        //            editable: "#Descripcion_Patio",
+        //            required: "#Descripcion_Patio"
+        //        },
+        //        requierepermiso: {
+        //            visible: "#RequierePermisoAduana_PatioDiv",
+        //            editable: "#RequierePermisoAduana_Patio",
+        //            required: "#RequierePermisoAduana_Patio"
+        //        }
+        //    }
+        //};
 
-        var $ProveedorModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                contacto: {
-                    visible: "#ContactoID_ProveedorDiv",
-                    editable: "#ContactoID_Proveedor",
-                    required: "#ContactoID_Proveedor"
-                },
-                nombre: {
-                    visible: "#Nombre_ProveedorDiv",
-                    editable: "#Nombre_Proveedor",
-                    required: "#Nombre_Proveedor"
-                },
-                descripcion: {
-                    visible: "#Descripcion_ProveedorDiv",
-                    editable: "#Descripcion_Proveedor",
-                    required: "#Descripcion_Proveedor"
-                },
-                direccion: {
-                    visible: "#Direccion_ProveedorDiv",
-                    editable: "#Direccion_Proveedor",
-                    required: "#Direccion_Proveedor"
-                },
-                telefono: {
-                    visible: "#Telefono_ProveedorDiv",
-                    editable: "#Telefono_Proveedor",
-                    required: "#Telefono_Proveedor"
-                }
-            }
-        };
+        //var $ProveedorModel = {
+        //    listContainer: {
+        //        create: "",
+        //        list: "",
+        //        detail: "",
+        //        destroy: ""
+        //    },
+        //    properties: {
+        //        contacto: {
+        //            visible: "#ContactoID_ProveedorDiv",
+        //            editable: "#ContactoID_Proveedor",
+        //            required: "#ContactoID_Proveedor"
+        //        },
+        //        nombre: {
+        //            visible: "#Nombre_ProveedorDiv",
+        //            editable: "#Nombre_Proveedor",
+        //            required: "#Nombre_Proveedor"
+        //        },
+        //        descripcion: {
+        //            visible: "#Descripcion_ProveedorDiv",
+        //            editable: "#Descripcion_Proveedor",
+        //            required: "#Descripcion_Proveedor"
+        //        },
+        //        direccion: {
+        //            visible: "#Direccion_ProveedorDiv",
+        //            editable: "#Direccion_Proveedor",
+        //            required: "#Direccion_Proveedor"
+        //        },
+        //        telefono: {
+        //            visible: "#Telefono_ProveedorDiv",
+        //            editable: "#Telefono_Proveedor",
+        //            required: "#Telefono_Proveedor"
+        //        }
+        //    }
+        //};
 
     };
     
@@ -905,29 +905,40 @@
         function VentanaModal(id) {
 
             var modalTitle = "";
+            var content = "";
+            var window = "";
+            var height = "";
 
             switch (id) {
                 case 1:
                     $("#modalProveedor").hide();
                     $("#modalPatio").show();
+                    content = "@Url.Action("Patio", "PopUps")";
                     modalTitle = "Patio";
+                    height = "25%";
+                    window = $("#window");
                     break;
                 case 2:
                     $("#modalPatio").hide();
                     $("#modalProveedor").show();
+                    content = "@Url.Action("Proveedor", "PopUps")";
                     modalTitle = "Proveedor";
+                    height = "35%";
+                    window = $("#window");
                     break;
             };
 
-            var window = $("#window");
-            var win = window.kendoWindow({
+            window.kendoWindow({
                 actions: false,
+                content: content,
                 modal: true,
                 title: modalTitle,
-                resizable: false,
+                resizable: true,
                 visible: false,
                 width: "32.6%",
                 minWidth: 660,
+                height: height,
+                iframe: true,
                 position: {
                     top: "10%",
                     left: "20%"
@@ -1426,8 +1437,8 @@
         }
 
         $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
-        $authorizationModel["Patio"] = $PatioModel;
-        $authorizationModel["Proveedor"] = $ProveedorModel;
+        //$authorizationModel["Patio"] = $PatioModel;
+        //$authorizationModel["Proveedor"] = $ProveedorModel;
         
     };
 

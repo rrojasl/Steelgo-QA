@@ -61,6 +61,10 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                            <label id="Corte0041"></label>
+                            <input id="ProyectoID" />
+                        </div>
                         <div id="NumeroUnicoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0011"></label>
                             <input id="NumeroUnico" />
@@ -180,7 +184,7 @@
 
     @section JavascriptGlobalVariables {
     var resultadoJson = "", Maquina = {}, Operador = {},
-        NumeroUnico = {}, intento = 0,
+        Proyecto = {}, NumeroUnico = {}, intento = 0,
         _CorteUrl = "@Url.Action("Corte", "Corte")",
         _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")";
 
@@ -202,6 +206,11 @@
                 visible: "#OperadorDiv",
                 editable: "#Operador",
                 required: "#Operador"
+            },
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
             },
             numerounico: {
                 visible: "#NumeroUnicoDiv",
@@ -374,9 +383,44 @@
         });
         ObtenerOperador();
 
-        $("#NumeroUnico").kendoComboBox({
+        $("#ProyectoID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                LimpiarCamposProyecto();
+                if (!value) {
+                    Proyecto = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerProyecto();
+
+        $("#NumeroUnico").kendoAutoComplete({
             dataTextField: "NumeroControl",
             dataValueField: "NumeroControlID",
+            autoBind: false,
+            dataSource: {
+                type: "json",
+                minLength: 1,
+                serverFiltering: true,
+                transport: {
+                    read: {
+                        url: function (op) {
+                            var val = "";
+                            if (op.filter) {
+                                val = op.filter.filters[0].value;
+                            }
+                            return $UrlDummyDespacho + "&id=" + Proyecto.ProyectoID + "&texto=" + val + "&token=" + Cookies.get("token");
+                        }
+                    }
+                },
+            },
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarNumeroUnico(dataItem.NumeroControlID, dataItem.NumeroControl);
@@ -392,7 +436,26 @@
             },
             filter: "contains",
         });
-        ObtenerNumeroUnico();
+
+        //$("#NumeroUnico").kendoComboBox({
+        //    dataTextField: "NumeroControl",
+        //    dataValueField: "NumeroControlID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarNumeroUnico(dataItem.NumeroControlID, dataItem.NumeroControl);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value) {
+        //            NumeroUnico = {};
+        //        } else {
+        //            LimpiarGrid();
+        //            ObtenerDetalleNumeroUnico();
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerNumeroUnico();
         EventoSoloNumeros();
 
 
@@ -428,11 +491,17 @@
         Operador = {};
         Operador = { OperadorID: id, Nombre: value };
     };
+
+    function CargarProyecto(id, value) {
+        Proyecto = {};
+        Proyecto = { ProyectoID: parseInt(id), Nombre: value };
+    };
+
     function CargarNumeroUnico(id, value) {
         NumeroUnico = {};
         NumeroUnico = { NumeroUnicoID: id, Nombre: value };
     };
-
+   
     function ObtenerMaquina() {
         $DummyMaquina.DummyMaquina.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Maquina", result);
@@ -444,6 +513,13 @@
             ControlErroresObjetosComboBox("Operador", result);
         });
     };
+
+    function ObtenerProyecto() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+        });
+    };
+
     function ObtenerNumeroUnico() {
         $DummyNumerosUnicos.DummyNumerosUnicos.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("NumeroUnico", result);
@@ -457,7 +533,12 @@
             }
         });
     }
-    
+
+    function LimpiarCamposProyecto() {
+        NumeroControl = {};
+        $("#grid").data("kendoGrid").dataSource.data([]);
+    };
+
     function ObtenerDetalleNumeroUnico() {
         loadingStart();
         $DummyNumerosUnicos.DummyNumerosUnicos.read({ NumeroUnicoID: NumeroUnico.NumeroUnicoID, token: Cookies.get("token") }).done(function (result) {
@@ -710,6 +791,7 @@
             Listado.Maquina = Maquina.MaquinaID;
             Listado.Operador = Operador.OperadorID;
             Listado.NumeroUnico = NumeroUnico.NumeroUnicoID;
+            Listado.Segmento = NumeroUnico.Nombre;
             Listado.TramoCompleto = $("#TramoCompleto").is(":checked");
             Listado.Total = $("#Total").val();
             Listado.Sobrante = $("#Sobrante").val();

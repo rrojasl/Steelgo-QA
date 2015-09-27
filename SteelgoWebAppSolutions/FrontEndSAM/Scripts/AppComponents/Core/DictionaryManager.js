@@ -3653,6 +3653,10 @@ _dictionary = {
         "es-MX": "Dashboard Despacho y Corte",
         "en-US": "Dashboard Dispatch and Cut"
     },
+    "Despacho0026": {
+        "es-MX": "ProyectoID",
+        "en-US": "ProyectoID"
+    },
     //Corte
     "Corte0001": {
         "es-MX": "Inicio",
@@ -3813,6 +3817,10 @@ _dictionary = {
     "Corte0040": {
         "es-MX": "Listado Corte",
         "en-US": "Cut List"
+    },
+    "Corte0041": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
     },
     //DashboardDespachoCorte
     "DashboardDespachoCorte0001": {

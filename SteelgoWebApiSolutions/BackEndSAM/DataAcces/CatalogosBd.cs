@@ -242,9 +242,9 @@ namespace BackEndSAM.DataAcces
                             #region
                             List<CatalogoPlana> catPlana = new List<CatalogoPlana>();
                             catPlana = (from v in ctx.Sam3_Vehiculo
-                                        join rvch in ctx.Sam3_Rel_Vehiculo_Chofer on t.VehiculoID equals rvch.VehiculoID
+                                        join rvch in ctx.Sam3_Rel_Vehiculo_Chofer on v.VehiculoID equals rvch.VehiculoID
                                         join ch in ctx.Sam3_Chofer on rvch.ChoferID equals ch.ChoferID
-                                        join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on t.VehiculoID equals rvt.VehiculoID
+                                        join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on v.VehiculoID equals rvt.VehiculoID
                                         join tr in ctx.Sam3_Transportista on rvt.TransportistaID equals tr.TransportistaID
                                         where v.Activo && rvch.Activo && rvt.Activo
                                         && v.TipoVehiculoID == 2

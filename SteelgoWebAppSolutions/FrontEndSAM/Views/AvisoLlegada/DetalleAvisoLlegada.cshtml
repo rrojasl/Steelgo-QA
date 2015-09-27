@@ -24,7 +24,7 @@
             <span id="divFolio" class="folioLabel hidden">
                 <span id="DetalleAvisoLlegada0042"></span>
                 <span id="spanFolio"></span>
-                <span id="DetalleAvisoLlegada0053">Status</span>
+                <span id="DetalleAvisoLlegada0053"></span>
                 <span id="DetalleAvisoLlegada0084" class="statusLabel"></span>
                 <span id="DetalleAvisoLlegada0085" class="statusLabel"></span>
                 <span id="DetalleAvisoLlegada0086" class="statusLabel"></span>
@@ -168,6 +168,7 @@
     <div id="window">
         @*Content of the Window*@
         <div id="modalTransportista" style="display: none">
+           
             <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
@@ -1730,7 +1731,9 @@
             function VentanaModal(id) {
             
                 var modalTitle = "";
-
+                var content = "";
+                var window = "";
+                var height = "";
                 switch (id) {
                     case 1:
                         $("#modalProveedor").hide();
@@ -1739,7 +1742,10 @@
                         $("#modalPlana").hide();
                         $("#modalCamion").hide();
                         $("#modalTransportista").show();
+                        content = "@Url.Action("Transportista", "PopUps")";
                         modalTitle = "Transportista";
+                        window = $("#window");
+                        height = "35%";
                         break;
                     case 2:
                         $("#modalTransportista").hide();
@@ -1749,6 +1755,7 @@
                         $("#modalCamion").hide();
                         $("#modalProveedor").show();
                         modalTitle = "Proveedor";
+                        window = $("#window");
                         break;
                     case 3:
                         $("#modalTransportista").hide();
@@ -1758,6 +1765,7 @@
                         $("#modalCamion").hide();
                         $("#modalPlana").show();
                         modalTitle = "Plana";
+                        window = $("#window");
                         break;
                     case 4:
                         $("#modalTransportista").hide();
@@ -1766,7 +1774,10 @@
                         $("#modalPlana").hide();
                         $("#modalCamion").hide();
                         $("#modalPatio").show();
+                        content = "@Url.Action("Patio", "PopUps")";
                         modalTitle = "Patio";
+                        window = $("#window");
+                        height = "25%";
                         break;
                     case 5:
                         $("#modalTransportista").hide();
@@ -1775,9 +1786,13 @@
                         $("#modalPlana").hide();
                         $("#modalCamion").hide();
                         $("#modalChofer").show();
+                        content = "@Url.Action("Chofer", "PopUps")";
                         modalTitle = "Chofer";
+                        window = $("#window");
+                        height = "2%";
                         break;
                     case 6:
+
                         $("#modalTransportista").hide();
                         $("#modalProveedor").hide();
                         $("#modalPatio").hide();
@@ -1785,18 +1800,22 @@
                         $("#modalChofer").hide();
                         $("#modalCamion").show();
                         modalTitle = "Tracto";
+                        window = $("#window");
                         break;
                 };
-            
-                var window = $("#window");
+                
+               
                 var win = window.kendoWindow({
                     actions: false,
+                    content:content,
                     modal: true,
                     title: modalTitle,
-                    resizable: false,
+                    resizable: true,
                     visible: false,
                     width: "32.6%",
                     minWidth: 660,
+                    height: height,
+                    iframe:true,
                     position: {
                         top: "10%",
                         left: "20%"

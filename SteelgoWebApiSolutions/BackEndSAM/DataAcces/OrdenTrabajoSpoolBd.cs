@@ -39,10 +39,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoNumerosDeControl(Sam3_Usuario usuario)
+        public object ListadoNumerosDeControl(int proyectoID, string busqueda, Sam3_Usuario usuario)
         {
             try
             {
+                if (busqueda == null)
+                {
+                    busqueda = "";
+                }
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     List<int> proyectos = new List<int>();
@@ -53,12 +57,14 @@ namespace BackEndSAM.DataAcces
                                      join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
                                      where p.Activo && eqp.Activo
                                      && p.UsuarioID == usuario.UsuarioID
+                                     && eqp.Sam3_ProyectoID == proyectoID
                                      select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
 
-                        proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
-                       .Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
+                       // proyectos.AddRange(ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID)
+                       //.Select(x => x.ProyectoID).Distinct().AsParallel().ToList());
 
                         proyectos = proyectos.Where(x => x > 0).ToList();
+
 
 
                         patios = (from p in ctx.Sam3_Proyecto
@@ -76,19 +82,26 @@ namespace BackEndSAM.DataAcces
                                                  where !(from d in ctx2.Despacho
                                                       where d.Cancelado == false
                                                       select d.OrdenTrabajoSpoolID).Contains(odts.OrdenTrabajoSpoolID)
+                                                 && !(from sh in ctx2.SpoolHold
+                                                      where sh.SpoolID == odts.SpoolID
+                                                      && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
+                                                      select sh).Any()
                                                  && proyectos.Contains(odt.ProyectoID)
+                                                 && odts.NumeroControl.Contains(busqueda)
                                                  select new ListaCombos
                                                  {
                                                      id = odts.OrdenTrabajoSpoolID.ToString(),
                                                      value = odts.NumeroControl
                                                  }).Distinct().AsParallel().ToList();
 
+                    listado = listado.OrderBy(x => x.value).ToList();
+
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     string json = serializer.Serialize(listado);
 #endif
 
-                    return listado.OrderBy(x => x.value).ToList();
+                    return listado;
 
                 }
             }

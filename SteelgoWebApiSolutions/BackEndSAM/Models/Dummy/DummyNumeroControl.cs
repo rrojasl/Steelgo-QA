@@ -83,5 +83,6 @@ namespace BackEndSAM.Models
         public string NumeroUnico { get; set; }
         public string Etiqueta { get; set; }
         public string Baston { get; set; }
+        public string ProyectoID { get; set; }
     }
 }
