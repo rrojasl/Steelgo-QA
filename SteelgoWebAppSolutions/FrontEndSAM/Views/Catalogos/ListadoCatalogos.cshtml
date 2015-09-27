@@ -35,10 +35,10 @@
         "1":{
             id: "PatioID",
             fields: {
-                PatioID: { editable: false, nullable: true },
+                PatioID: { editable: false, nullable: true},
                 Descripcion: { type:"string" },
                 Propietario: { validation: { required: true } },
-                RequierePermiso: { type: "string", validation: { required: true }}
+                RequierePermiso: { type: "string" }
             }
         },
         "2":{
@@ -119,6 +119,14 @@
             }
         },
     }
+    columnas={
+        "1":{
+            "RequierePermiso":{ field: "RequierePermiso", title: "Requiere permiso", editor: dropdownSiNo}
+        },
+        "2":{
+            
+        }
+    }
 }
 
 @section JavascriptGlobalFunctions {
@@ -184,7 +192,15 @@
                     var grid=$("#grid").data("kendoGrid");
                     grid.columns.push({ command: "edit", title: "Editar",width:"75px"});
                     grid.columns.push({ command: "destroy", title: "Borrar",width:"75px"});
+                    for(c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]){
+                        var columna=$.grep(grid.columns, function(e){ return e.field == c; });
+                        grid.columns[grid.columns.indexOf(columna[0])]=columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
+                    }
                     grid.options.columns=grid.columns;
+                    var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
+                    ids.forEach(function(i){
+                        grid.hideColumn(i.field);
+                    });
                     var options=grid.options;
                     grid.destroy();
                     $("#grid").empty().kendoGrid(options);
@@ -197,7 +213,7 @@
     function parseUrl(data,catalogo){
         switch(catalogo){
             case "1":
-                data.RequierePermiso=="Si" ? data.RequierePermiso=true : data.RequierePermiso=false;
+                //data.RequierePermiso=="Si" ? data.RequierePermiso=true : data.RequierePermiso=false;
                 return getUrl()+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
         }
     }
@@ -261,6 +277,20 @@
             }
         }
     })
+
+    function dropdownSiNo(container, options) {
+        console.log(options);
+        $('<input data-text-field="' + options.field + '" data-value-field="' + options.model[options.field] + '" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: [
+                    { text: "Si", value: true },
+                    { text: "No", value: false }
+                ]
+            });
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
