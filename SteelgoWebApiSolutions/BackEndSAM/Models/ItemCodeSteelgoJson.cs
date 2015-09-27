@@ -22,4 +22,23 @@ namespace BackEndSAM.Models
         public int? Cantidad { get; set; }
         public string ColadaNombre { get; set; }
     }
+
+    public class ICSDatosAsociacion
+    {
+        public string ItemCodeSteelgoID { get; set; }
+        public string Codigo { get; set; }
+        public string Descripcion { get; set; }
+        public string Diametro1 { get; set; }
+        public string Diametro2 { get; set; }
+        public string Grupo { get; set; }
+        public string TipoAcero { get; set; }
+        public string CedulaA { get; set; }
+        public string CedulaB { get; set; }
+        public string Libra { get; set; }
+        public string Inch { get; set; }
+        public string MM { get; set; }
+        public string Espesor { get; set; }
+        public string Peso { get; set; }
+        public string Area { get; set; }
+    }
 }
