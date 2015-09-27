@@ -76,13 +76,13 @@ namespace BackEndSAM.DataAcces
 
                                    TotalEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                     join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
-                                                    where num.Activo && tm.Activo == 1 && tm.EsEntrada &&
+                                                    where num.Activo && tm.Activo && tm.EsEntrada &&
                                                     num.NumeroUnicoID.ToString() == numeroUnicoID
                                                     select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
 
                                    TotalSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                    join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
-                                                   where num.Activo && tm.Activo == 1 && !tm.EsEntrada &&
+                                                   where num.Activo && tm.Activo && !tm.EsEntrada &&
                                                    num.NumeroUnicoID.ToString() == numeroUnicoID
                                                    select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
 
@@ -140,14 +140,14 @@ namespace BackEndSAM.DataAcces
                                                        SalidasTemporales = nus.InventarioTransferenciaCorte.ToString(),
                                                        TotalEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                                         join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
-                                                                        where tm.Activo == 1 && num.Activo
+                                                                        where tm.Activo && num.Activo
                                                                         && num.Segmento == nus.Segmento
                                                                         && tm.EsEntrada
                                                                         && num.NumeroUnicoID.ToString() == numeroUnicoID
                                                                         select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
                                                        TotalSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                                        join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
-                                                                       where tm.Activo == 1 && num.Activo
+                                                                       where tm.Activo && num.Activo
                                                                        && num.Segmento == nus.Segmento
                                                                        && !tm.EsEntrada
                                                                        && num.NumeroUnicoID.ToString() == numeroUnicoID
@@ -186,7 +186,7 @@ namespace BackEndSAM.DataAcces
                     List<GridMovimientos> movimientos = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                          join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
                                                          join nui in ctx.Sam3_NumeroUnicoInventario on num.NumeroUnicoID equals nui.NumeroUnicoID
-                                                         where num.Activo && tm.Activo == 1 && num.NumeroUnicoID.ToString() == numeroUnicoID
+                                                         where num.Activo && tm.Activo && num.NumeroUnicoID.ToString() == numeroUnicoID
                                                          select new GridMovimientos
                                                          {
                                                              Fecha = num.FechaMovimiento.ToString(),

@@ -259,6 +259,7 @@
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
+    <Compile Include="DataAcces\CorteBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DespachoBd.cs" />
     <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
@@ -383,6 +384,7 @@
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\ListadoMaterialesPorItemCode.cs" />
+    <Compile Include="Models\lstCortes.cs" />
     <Compile Include="Models\LstDespacho.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />

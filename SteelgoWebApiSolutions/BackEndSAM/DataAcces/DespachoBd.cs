@@ -161,14 +161,14 @@ namespace BackEndSAM.DataAcces
                             {
                                 //traemos los datos de la orden de trabajo spool de Sam2
                                 OrdenTrabajoSpool odtSpool = (from odts in ctx2.OrdenTrabajoSpool
-                                                              join odt in ctx.Sam3_OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                              join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
                                                               where odts.NumeroControl == datosJson.NumeroControl
                                                               && odt.ProyectoID == proyectoID
                                                               select odts).AsParallel().SingleOrDefault();
 
                                 //traemos los datos del material de Sam 2
                                 MaterialSpool materialSpool = (from ms in ctx2.MaterialSpool
-                                                               join odts in ctx.Sam3_OrdenTrabajoSpool on ms.SpoolID equals odts.SpoolID
+                                                               join odts in ctx2.OrdenTrabajoSpool on ms.SpoolID equals odts.SpoolID
                                                                where odts.OrdenTrabajoSpoolID == odtSpool.OrdenTrabajoSpoolID
                                                                && ms.Etiqueta == datosJson.Etiqueta
                                                                select ms).AsParallel().SingleOrDefault();

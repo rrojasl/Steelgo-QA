@@ -132,7 +132,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="MermaMovimientoID" Type="int" />
           <Property Name="PreparacionCorteMovimientoID" Type="int" />
           <Property Name="Cancelado" Type="bit" Nullable="false" />
-          <Property Name="Rack" Type="int" Nullable="false" />
+          <Property Name="Rack" Type="varchar" MaxLength="50" />
           <Property Name="CortadorID" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -214,7 +214,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           </Key>
           <Property Name="EquivalenciaColadaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sam2_ColadaID" Type="int" Nullable="false" />
-          <Property Name="Sam3_ColadaID" Type="int" Nullable="false" />
+          <Property Name="Sam3_ColadaID" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -1496,7 +1496,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NombreIngles" Type="nvarchar" MaxLength="50" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
-          <Property Name="Activo" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
@@ -4201,7 +4201,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="MermaMovimientoID" Type="Int32" />
           <Property Name="PreparacionCorteMovimientoID" Type="Int32" />
           <Property Name="Cancelado" Type="Boolean" Nullable="false" />
-          <Property Name="Rack" Type="Int32" Nullable="false" />
+          <Property Name="Rack" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="CortadorID" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_NumeroUnicoCorte" Relationship="Self.FK_Corte_NumeroUnicoCorte" FromRole="Sam3_Corte" ToRole="Sam3_NumeroUnicoCorte" />
@@ -5197,7 +5197,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NombreIngles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Activo" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_NumeroUnicoMovimiento" Relationship="Self.FK_NumeroUnicoMovimiento_TipoMovimiento" FromRole="Sam3_TipoMovimiento" ToRole="Sam3_NumeroUnicoMovimiento" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
@@ -8191,7 +8191,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="EquivalenciaColadaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sam2_ColadaID" Type="Int32" Nullable="false" />
-          <Property Name="Sam3_ColadaID" Type="Int32" Nullable="false" />
+          <Property Name="Sam3_ColadaID" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />

@@ -75,7 +75,7 @@ namespace BackEndSAM.DataAcces
                                    OtrasEntradas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                     join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                     join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                    where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                    where num.Activo && tmov.Activo && nu.Activo
                                                     && tmov.TipoMovimientoID == 9
                                                     && nu.ItemCodeID == ic.ItemCodeID
                                                     select (int?)num.Cantidad).Sum().ToString(),
@@ -112,7 +112,7 @@ namespace BackEndSAM.DataAcces
                                    SalidasTemporales = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                         join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                         join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                        where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                        where num.Activo && tmov.Activo && nu.Activo
                                                         && nu.ItemCodeID == ic.ItemCodeID
                                                         && tmov.TipoMovimientoID == 12
                                                         select (int?)num.Cantidad).Sum().ToString(),
@@ -120,7 +120,7 @@ namespace BackEndSAM.DataAcces
                                    TotalOtrasSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                         join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                         join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                        where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                        where num.Activo && tmov.Activo && nu.Activo
                                                         && tmov.TipoMovimientoID == 8
                                                         && nu.ItemCodeID == ic.ItemCodeID
                                                         select (int?)num.Cantidad).Sum().ToString(),
@@ -128,7 +128,7 @@ namespace BackEndSAM.DataAcces
                                    TotalMermas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                   join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                   join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                  where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                  where num.Activo && tmov.Activo && nu.Activo
                                                   && nu.ItemCodeID == ic.ItemCodeID
                                                   && tmov.TipoMovimientoID == 4
                                                   select (int?)num.Cantidad).Sum().ToString(),
@@ -136,7 +136,7 @@ namespace BackEndSAM.DataAcces
                                    TotalDespachadoPorCortar = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                                join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                                join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                               where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                               where num.Activo && tmov.Activo && nu.Activo
                                                                && tmov.TipoMovimientoID == 12
                                                                && nu.ItemCodeID == ic.ItemCodeID
                                                                select (int?)num.Cantidad).Sum().ToString(),
@@ -144,7 +144,7 @@ namespace BackEndSAM.DataAcces
                                    TotalCortado = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                    join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                    join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                   where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                   where num.Activo && tmov.Activo && nu.Activo
                                                    && tmov.TipoMovimientoID == 15
                                                    && nu.ItemCodeID == ic.ItemCodeID
                                                    select (int?)num.Cantidad).Sum().ToString(),
@@ -152,7 +152,7 @@ namespace BackEndSAM.DataAcces
                                    DespachadoAProduccion = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                             join tmov in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tmov.TipoMovimientoID
                                                             join nu in ctx.Sam3_NumeroUnico on num.NumeroUnicoID equals nu.NumeroUnicoID
-                                                            where num.Activo && tmov.Activo == 1 && nu.Activo
+                                                            where num.Activo && tmov.Activo && nu.Activo
                                                             && tmov.TipoMovimientoID == 2
                                                             && nu.ItemCodeID == ic.ItemCodeID
                                                             select (int?)num.Cantidad).Sum().ToString(),

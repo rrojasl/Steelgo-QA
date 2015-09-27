@@ -16,7 +16,7 @@ namespace DatabaseManager.Sam3
     {
         public int EquivalenciaColadaID { get; set; }
         public int Sam2_ColadaID { get; set; }
-        public int Sam3_ColadaID { get; set; }
+        public Nullable<int> Sam3_ColadaID { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }

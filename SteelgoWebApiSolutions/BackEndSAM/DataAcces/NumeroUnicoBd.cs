@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DatabaseManager.Sam3;
+using DatabaseManager.Sam2;
 using DatabaseManager.EntidadesPersonalizadas;
 using BackEndSAM.Utilities;
 using System.Web.Script.Serialization;
@@ -366,6 +367,108 @@ namespace BackEndSAM.DataAcces
             {
                 error = ex.Message;
                 return false;
+            }
+        }
+
+        public object ListadoNumerosUnicosCorte(int proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<ListaComboNumeroUnicoCOrte> listado = new List<ListaComboNumeroUnicoCOrte>();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        int sam2_proyectoID = ctx.Sam3_EquivalenciaProyecto.Where(x => x.Sam3_ProyectoID == proyectoID)
+                            .Select(x => x.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
+                        //Busco los numeros unicos con despachos pendientes en sam 2
+                        List<int> sam2_NumerosUnicos = (from nu in ctx2.NumeroUnico
+                                                        join odtm in ctx2.OrdenTrabajoMaterial on nu.NumeroUnicoID equals odtm.NumeroUnicoCongeladoID
+                                                        join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                                        join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                        where nu.ProyectoID == sam2_proyectoID
+                                                        && !odtm.TieneCorte.Value && !odtm.TieneDespacho
+                                                        && !(from sh in ctx2.SpoolHold
+                                                             where sh.SpoolID == odts.SpoolID
+                                                             && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
+                                                             select sh).Any()
+                                                        && it.TipoMaterialID == 1
+                                                        select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
+
+                        //ahora buscamos las equivalencias de esos numeros unicos en sam 3
+
+                        List<int> sam3_NumerosUnicos = (from nueq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                        where nueq.Activo
+                                                        && sam2_NumerosUnicos.Contains(nueq.Sam2_NumeroUnicoID)
+                                                        select nueq.Sam3_NumeroUnicoID).Distinct().AsParallel().ToList();
+
+                        listado = (from nu in ctx.Sam3_NumeroUnico
+                                   join nus in ctx.Sam3_NumeroUnicoSegmento on nu.NumeroUnicoID equals nus.NumeroUnicoID
+                                   where nu.Activo && nus.Activo
+                                   && sam3_NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                   select new ListaComboNumeroUnicoCOrte
+                                   {
+                                       NumeroControlID = nu.NumeroUnicoID.ToString(),
+                                       NumeroControl = nu.Prefijo + "-" + nu.Consecutivo + "-" + nus.Segmento
+                                   }).Distinct().AsParallel().ToList();
+
+                        Sam3_ProyectoConfiguracion configuracion = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == proyectoID).AsParallel().SingleOrDefault();
+
+                        foreach (ListaComboNumeroUnicoCOrte lst in listado)
+                        {
+                            string formato = "D" + configuracion.DigitosNumeroUnico.ToString();
+                            string[] elementos = lst.NumeroControl.Split('-').ToArray();
+                            int consecutivo = Convert.ToInt32(elementos[1]);
+                            string codigo = elementos[0] + "-" + consecutivo.ToString(formato) + "-" + elementos[2];
+                            lst.NumeroControl = codigo;
+                        }
+                    }
+                }
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object DetalleNumeroUnicoCorte(int numeroUnicoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    return (from nu in ctx.Sam3_NumeroUnico
+                            join nui in ctx.Sam3_NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
+                            join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                            join pc in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals pc.ProyectoID
+                            where nu.Activo && nui.Activo && it.Activo && pc.Activo
+                            && nu.NumeroUnicoID == numeroUnicoID
+                            select new DetalleNumeroUnicoCorte
+                            {
+                                Cantidad = nui.InventarioFisico.ToString(),
+                                D1 = nu.Diametro1.ToString(),
+                                ItemCode = it.Codigo,
+                                Tolerancia = pc.ToleranciaCortes.Value.ToString()
+                            }).Distinct().AsParallel().SingleOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
     }
