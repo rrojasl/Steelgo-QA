@@ -207,6 +207,11 @@
                 editable: "#Operador",
                 required: "#Operador"
             },
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
+            },
             numerounico: {
                 visible: "#NumeroUnicoDiv",
                 editable: "#NumeroUnico",
@@ -496,7 +501,7 @@
         NumeroUnico = {};
         NumeroUnico = { NumeroUnicoID: id, Nombre: value };
     };
-
+   
     function ObtenerMaquina() {
         $DummyMaquina.DummyMaquina.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Maquina", result);
@@ -786,6 +791,7 @@
             Listado.Maquina = Maquina.MaquinaID;
             Listado.Operador = Operador.OperadorID;
             Listado.NumeroUnico = NumeroUnico.NumeroUnicoID;
+            Listado.Segmento = NumeroUnico.Nombre;
             Listado.TramoCompleto = $("#TramoCompleto").is(":checked");
             Listado.Total = $("#Total").val();
             Listado.Sobrante = $("#Sobrante").val();

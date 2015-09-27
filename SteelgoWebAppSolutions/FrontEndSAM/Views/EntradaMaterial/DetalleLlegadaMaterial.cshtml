@@ -905,12 +905,17 @@
         function VentanaModal(id) {
 
             var modalTitle = "";
+            var content = "";
+            var window = "";
+            var height = "";
 
             switch (id) {
                 case 1:
                     $("#modalProveedor").hide();
                     $("#modalPatio").show();
+                    content = "@Url.Action("Patio", "PopUps")";
                     modalTitle = "Patio";
+                    height = "25%";
                     break;
                 case 2:
                     $("#modalPatio").hide();
@@ -919,15 +924,17 @@
                     break;
             };
 
-            var window = $("#window");
             var win = window.kendoWindow({
                 actions: false,
+                content: content,
                 modal: true,
                 title: modalTitle,
-                resizable: false,
+                resizable: true,
                 visible: false,
                 width: "32.6%",
                 minWidth: 660,
+                height: height,
+                iframe: true,
                 position: {
                     top: "10%",
                     left: "20%"
