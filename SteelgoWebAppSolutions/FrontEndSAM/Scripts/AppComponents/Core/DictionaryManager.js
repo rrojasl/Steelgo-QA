@@ -3818,6 +3818,10 @@ _dictionary = {
         "es-MX": "Listado Corte",
         "en-US": "Cut List"
     },
+    "Corte0041": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
     //DashboardDespachoCorte
     "DashboardDespachoCorte0001": {
         "es-MX": "Inicio",
