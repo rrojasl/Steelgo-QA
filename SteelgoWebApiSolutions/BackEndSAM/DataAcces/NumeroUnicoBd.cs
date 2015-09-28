@@ -382,9 +382,11 @@ namespace BackEndSAM.DataAcces
 
                         char[] elementosBusqueda = busqueda.ToCharArray();
                         List<string> buscar = new List<string>();
+                        string temp = "%";
                         foreach (char i in elementosBusqueda)
                         {
                             buscar.Add(i.ToString());
+                            temp += i + "%";
                         }
 
                         int sam2_proyectoID = ctx.Sam3_EquivalenciaProyecto.Where(x => x.Sam3_ProyectoID == proyectoID)
@@ -396,13 +398,13 @@ namespace BackEndSAM.DataAcces
                                                         join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
                                                         join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
                                                         where nu.ProyectoID == sam2_proyectoID
-                                                        && !odtm.TieneCorte.Value && !odtm.TieneDespacho
+                                                        && odtm.CorteDetalleID == null && odtm.DespachoID == null
                                                         && !(from sh in ctx2.SpoolHold
                                                              where sh.SpoolID == odts.SpoolID
                                                              && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
                                                              select sh).Any()
                                                         && it.TipoMaterialID == 1
-                                                        && buscar.Contains(nu.Codigo)
+                                                        && buscar.Any(x => nu.Codigo.Contains(x))
                                                         select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
 
                         //ahora buscamos las equivalencias de esos numeros unicos en sam 3
