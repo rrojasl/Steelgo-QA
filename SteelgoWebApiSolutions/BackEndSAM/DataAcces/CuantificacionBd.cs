@@ -112,9 +112,10 @@ namespace BackEndSAM.DataAcces
                                    Cedula = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                              join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                              join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
-                                             where rics.Activo && ics.Activo && it.Activo
+                                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                             where rics.Activo && ics.Activo && it.Activo && c.Activo
                                              && rics.ItemCodeID == fc.ItemCodeID
-                                             select ics.Cedula).FirstOrDefault(),
+                                             select c.CedulaA).FirstOrDefault(),
 
                                    Colada = (from c in ctx.Sam3_Colada
                                              where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
@@ -153,7 +154,8 @@ namespace BackEndSAM.DataAcces
                                    join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
                                    join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                   where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo
+                                   join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                   where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo && c.Activo
                                    select new CuantificacionListado
                                    {
                                        ItemCode = ic.Codigo,
@@ -171,11 +173,11 @@ namespace BackEndSAM.DataAcces
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
                                                   select fa.Nombre).FirstOrDefault(),
 
-                                       Cedula = ics.Cedula,
+                                       Cedula = c.CedulaA,
 
-                                       Colada = (from c in ctx.Sam3_Colada
-                                                 where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
-                                                 select c.NumeroColada).FirstOrDefault(),
+                                       Colada = (from co in ctx.Sam3_Colada
+                                                 where co.ColadaID == ic.ColadaID && co.Activo && ic.Activo
+                                                 select co.NumeroColada).FirstOrDefault(),
 
                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
                                                     join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID

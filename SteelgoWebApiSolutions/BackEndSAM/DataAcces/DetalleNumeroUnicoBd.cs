@@ -57,7 +57,8 @@ namespace BackEndSAM.DataAcces
                                join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                join nui in ctx.Sam3_NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
-                               where nu.Activo && ic.Activo && rics.Activo && ics.Activo && nui.Activo
+                               join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                               where nu.Activo && ic.Activo && rics.Activo && ics.Activo && nui.Activo && c.Activo
                                && nu.NumeroUnicoID.ToString() == numeroUnicoID
                                select new DetalleNumeroUnico
                                {
@@ -68,7 +69,7 @@ namespace BackEndSAM.DataAcces
                                    ItemCodeSteelgo = ics.Codigo,
                                    D1 = ics.Diametro1.ToString(),
                                    D2 = ics.Diametro2.ToString(),
-                                   Cedula = ics.Cedula,
+                                   Cedula = c.CedulaA,
                                    Profile1 = "X",
                                    Profile2 = "Y",
                                    TotalRecibido = nui.CantidadRecibida.ToString(),
@@ -78,13 +79,13 @@ namespace BackEndSAM.DataAcces
                                                     join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
                                                     where num.Activo && tm.Activo && tm.EsEntrada &&
                                                     num.NumeroUnicoID.ToString() == numeroUnicoID
-                                                    select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
+                                                    select num.Cantidad).AsEnumerable().Sum(b => b).ToString(),
 
                                    TotalSalidas = (from num in ctx.Sam3_NumeroUnicoMovimiento
                                                    join tm in ctx.Sam3_TipoMovimiento on num.TipoMovimientoID equals tm.TipoMovimientoID
                                                    where num.Activo && tm.Activo && !tm.EsEntrada &&
                                                    num.NumeroUnicoID.ToString() == numeroUnicoID
-                                                   select num.Cantidad).AsEnumerable().Sum(c => c).ToString(),
+                                                   select num.Cantidad).AsEnumerable().Sum(b => b).ToString(),
 
                                    SaldoActual = nui.InventarioFisico.ToString()
                                }).AsParallel().GroupBy(x => x.NumeroUnicoID).Select(x => x.First()).SingleOrDefault();
