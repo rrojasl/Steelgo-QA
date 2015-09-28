@@ -186,6 +186,7 @@
     <Compile Include="Controllers\ListadoCuantificacionController.cs" />
     <Compile Include="Controllers\ListadoMaterialesController.cs" />
     <Compile Include="Controllers\ListadoMaterialesPorItemCodeController.cs" />
+    <Compile Include="Controllers\MaquinaController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesPorItemCodeBd.cs" />
+    <Compile Include="DataAcces\MaquinaBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
