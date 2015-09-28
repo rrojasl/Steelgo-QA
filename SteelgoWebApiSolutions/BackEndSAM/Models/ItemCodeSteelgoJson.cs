@@ -17,6 +17,7 @@ namespace BackEndSAM.Models
         public string Familia { get; set; }
         public int Area { get; set; }
         public string Cedula { get; set; }
+        public int CedulaID { get; set; }
         public string Codigo { get; set; }
         public string TipoAcero { get; set; }
         public int? Cantidad { get; set; }

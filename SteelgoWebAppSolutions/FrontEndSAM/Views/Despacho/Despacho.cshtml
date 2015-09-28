@@ -15,8 +15,8 @@
     </li>
 }
 
-<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="formDespacho" class="row">
+<div id="formDespacho" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
@@ -45,9 +45,8 @@
                     </div>
                 </div>
             </div>
-
-             <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
                         <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Despacho0020"></label>
@@ -59,23 +58,24 @@
                         </div>
                         <div class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Despacho0009"></label>
-                            <div id="todosDiv" class="col-sm-6 col-md-3 col-lg-3">
-                                <label id="Despacho0010" class="centered"></label>
-                                <input id="todos" class="" type="radio" name="radio" checked value="1">
-                            </div>
-                            <div id="vaciosDiv" class="col-sm-6 col-md-3 col-lg-3">
-                                <label id="Despacho0011" class="centered"></label>
-                                <input id="vacios" class="" type="radio" name="radio" value="2" />
+                            <div class="row">
+                                <div id="todosDiv" class="col-sm-3 col-md-3 col-lg-3">
+                                    <label id="Despacho0010" class="centered"></label>
+                                    <input id="todos" class="" type="radio" name="radio" checked value="1">
+                                </div>
+                                <div id="vaciosDiv" class="col-sm-3 col-md-3 col-lg-3">
+                                    <label id="Despacho0011" class="centered"></label>
+                                    <input id="vacios" class="" type="radio" name="radio" value="2" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                   
-                        
                 </div>
             </div>
         </div>
+
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                 <div id="grid" class="gridWithInputsStorage"></div>
+            <div id="grid" class="gridWithInputsStorage"></div>
         </div>
     </div>
 </div>
@@ -169,7 +169,7 @@
                             if(op.filter){
                                 val = op.filter.filters[0].value;
                             }
-                            return $UrlDummyDespacho + "&id=" + Proyecto.ProyectoID + "&texto=" + val + "&token=" + Cookies.get("token");
+                            return $UrlDummyDespacho + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
                 },
@@ -213,14 +213,14 @@
                 schema: {
                     model: {
                         fields: {
+                            NumeroControl: { type: "string", editable: false },
                             Etiqueta: { type: "string", editable: false },
                             ItemCode: { type: "string", editable: false },
                             Descripcion: { type: "string", editable: false },
                             NumeroUnico: { type: "string", editable: true },
-                            Estatus: { type: "string", editable: false },
                             Baston: { type: "string", editable: true },
+                            Hold: { type: "string", editable: true },
                             ProyectoID: { type: "string", editable: false },
-                            NumeroControl: { type: "string", editable: false },
                         }
                     }
                 },
@@ -254,11 +254,9 @@
                 { field: "ItemCode", title: _dictionary.Despacho0013[$("#language").data("kendoDropDownList").value()] },
                 { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
-                { field: "Estatus", title: _dictionary.Despacho0019[$("#language").data("kendoDropDownList").value()] },
                 { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },               
                 { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "TieneDespacho", title: _dictionary.Despacho0018[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()] }
+                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()], hidden: true }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -290,27 +288,30 @@
     };
     function LimpiarCamposProyecto() {
         NumeroControl = {};
+        $("#SpoolID").data("kendoAutoComplete").value("");
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     function ObtenerDatosGrid() {
-        loadingStart();
-        $DummyDespacho.DummyDespacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
-            if (Error(result)) {
-                resultadoJson = result;
-                if ($("#grid").data("kendoGrid")) {
-                    if (resultadoJson.length > 0) {
-                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                        $("#grid").data("kendoGrid").dataSource.page(1);
-                    } else {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        $("#grid").data("kendoGrid").dataSource.page(0);
+        if(NumeroControl.NumeroControlID){
+            loadingStart();
+            $DummyDespacho.DummyDespacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
+                if (Error(result)) {
+                    resultadoJson = result;
+                    if ($("#grid").data("kendoGrid")) {
+                        if (resultadoJson.length > 0) {
+                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                            $("#grid").data("kendoGrid").dataSource.page(1);
+                        } else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            $("#grid").data("kendoGrid").dataSource.page(0);
+                        };
                     };
-                };
-                applySecurityPolicy(false);
-                FiltrarDatos();
-            }
-            loadingStop();
-        });
+                    applySecurityPolicy(false);
+                    FiltrarDatos();
+                }
+                loadingStop();
+            });
+        }
     };
 
     function FiltrarDatos() {
@@ -420,6 +421,11 @@
             var Listado = { Despacho: "" };
 
             Listado.ListaDespachos = ListadoAGuardar(datasource);
+
+            if (!Listado.ListaDespachos.length) {
+                displayMessage("notificationslabel0067", "", '2');
+                return;
+            };
 
             $DummyDespacho.DummyDespacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if(Error(result)){

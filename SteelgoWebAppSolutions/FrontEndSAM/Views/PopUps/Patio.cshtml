@@ -4,7 +4,7 @@
      Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
- <div id="modalPatio" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+ <div id="modalPatio" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="row">
             <div id="Nombre_PatioDiv" class="form-group">
@@ -86,9 +86,13 @@
         $(".search-bar").hide();
         $(".notifications").hide();
         $(".logged-user").hide();
-        $(".content-container").removeClass("topbar");
+        $(".content-container").removeClass("topbar").addClass("printView");
         $(".breadcrumb-container").hide();
         $(".languageSelector").hide();
+        $(".pull-right").hide();
+        $("header").hide();
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
     };
 
     function validarRequeridosModalPatio() {

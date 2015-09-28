@@ -262,6 +262,10 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Numer__60B24907" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Proye__5FBE24CE" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Desp__Salid__61A66D40" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Cedula" Width="1.5" PointX="18" PointY="19" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Grupo" Width="1.5" PointX="18" PointY="16.125" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

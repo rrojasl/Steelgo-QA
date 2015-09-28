@@ -174,6 +174,7 @@ namespace BackEndSAM.DataAcces
                              join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
                              join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                              where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo &&
                              rfc.FolioCuantificacionID.ToString() == folioCuantificacion
                              select new ListadoMaterialesPorPL
@@ -184,7 +185,7 @@ namespace BackEndSAM.DataAcces
                                  ItemCode = ic.Codigo,
                                  ItemCodeSteelgo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
-                                 Cedula = ics.Cedula,
+                                 Cedula = c.CedulaA,
                                  TipoAcero = fm.Nombre,
                                  D1 = ics.Diametro1.ToString(),
                                  D2 = ics.Diametro2.ToString(),

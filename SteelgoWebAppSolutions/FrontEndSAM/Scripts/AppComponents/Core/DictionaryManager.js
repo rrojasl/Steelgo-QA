@@ -4369,6 +4369,10 @@ _dictionary = {
         "es-MX": "El spool ya se encuentra agregado.",
         "en-US": "The spool is already on the list"
     },
+    "notificationslabel0067": {
+        "es-MX": "No hay datos para despachar.",
+        "en-US": "No data to dispatch."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
