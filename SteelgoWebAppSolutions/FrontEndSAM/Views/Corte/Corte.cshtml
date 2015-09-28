@@ -503,13 +503,13 @@
     };
    
     function ObtenerMaquina() {
-        $DummyMaquina.DummyMaquina.read({ token: Cookies.get("token") }).done(function (result) {
+        $Maquina.Maquina.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Maquina", result);
         });
     };
 
     function ObtenerOperador() {
-        $DummyOperador.DummyOperador.read({ token: Cookies.get("token") }).done(function (result) {
+        $Cortador.Cortador.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Operador", result);
         });
     };
@@ -526,9 +526,9 @@
         });
     };
     function ObtenerMerma() {
-        $DummyMaquina.DummyMaquina.read({ MaquinaID: Maquina.MaquinaID, token: Cookies.get("token") }).done(function (result) {
+        $Maquina.Maquina.read({ maquinaID: Maquina.MaquinaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                $("#hdnMermaTeorica").val(result);
+                $("#hdnMermaTeorica").val(result ? result : 0);
                 CalcularCantidad();
             }
         });
@@ -637,18 +637,19 @@
         function ValidarInformacion() {
 
             var Listado = { DatosODT: "" };
-            var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "" };
+            var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token:"" };
 
             info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
             info.OrdenTrabajo = $("#OrdenTrabajo").val();
             info.Consecutivo = $("#Consecutivo").val();
             info.Etiqueta = $("#Etiqueta").val();
             info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
-       
+            info.token = Cookies.get("token");
+
             Listado.DatosODT = info;
 
             if(ValidarErrores(info)){
-                $DummyNumerosUnicos.DummyNumerosUnicos.update(Listado, { token: Cookies.get("token") }).done(function (result) {
+                $Corte.Corte.update({ data: JSON.stringify(Listado) }).done(function (result) {
                     if (Error(result)) {
                         if ($("#TramoCompleto").is(":checked")) {
                             LimpiarMaquina();
@@ -669,7 +670,7 @@
 
         function AgregarRegistroGrid(item) {
             if (item) {
-                var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: item.EsTramoCompleto };
+                var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: $("#TramoCompleto").is(":checked") };
                 if (!ValidarDuplicado(row)) {
                     $("#grid").data("kendoGrid").dataSource.insert(item);
                     CalcularCantidad();
@@ -799,10 +800,10 @@
             Listado.Total = $("#Total").val();
             Listado.Sobrante = $("#Sobrante").val();
             Listado.Merma = $("#Merma").val();
-            Listado.Cortes = Cortes;
+            Listado.cortes = Cortes;
 
             loadingStart();
-            $DummyNumerosUnicos.DummyNumerosUnicos.create(Listado,{ token: Cookies.get("token") }).done(function (result) {
+            $Corte.Corte.create(Listado, { token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     DesahabilitarBotones();
                 }

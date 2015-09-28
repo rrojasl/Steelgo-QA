@@ -21,42 +21,37 @@ namespace BackEndSAM.Controllers
         // GET api/dummynumerosunicos
         public object Get(string ProyectoID,string texto, string token)
         {
-             //List<DummyNumeroControl> lstNumeroUnico = new List<DummyNumeroControl>();
-             //DummyNumeroControl numerounico1 = new DummyNumeroControl();
-             //DummyNumeroControl numerounico2 = new DummyNumeroControl();
-             //DummyNumeroControl numerounico3 = new DummyNumeroControl();
-
-             //numerounico1.NumeroControlID = "1";
-             //numerounico1.NumeroControl = "Numero Unico 1";
-             //lstNumeroUnico.Add(numerounico1);
-
-             //numerounico2.NumeroControlID = "2";
-             //numerounico2.NumeroControl = "Numero Unico 2";
-             //lstNumeroUnico.Add(numerounico2);
-
-             //numerounico3.NumeroControlID = "3";
-             //numerounico3.NumeroControl = "Numero Unico 3";
-             //lstNumeroUnico.Add(numerounico3);
+             //Li
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
             int Proyecto = ProyectoID != "" ? Convert.ToInt32(ProyectoID) : 0;
-            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, texto, new Sam3_Usuario());
+            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, texto, usuario);
         }
 
 
         public object Get(string NumeroUnicoID, string token)
         {
-            //DummyDetalleNumeroUnico numerounico1 = new DummyDetalleNumeroUnico();
-            //numerounico1.Cantidad = "3500";
-            //numerounico1.ItemCode = "Item Code 1";
-            //numerounico1.D1 = "5";
-            //numerounico1.Tolerancia = "10";
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-            return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(Convert.ToInt32(NumeroUnicoID), new Sam3_Usuario());
+            return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(Convert.ToInt32(NumeroUnicoID), usuario);
 
         }
 
         public object Put(ParametrosBusquedaODT DatosODT, string token)
         {
-            return CorteBd.Instance.ListadoGenerarCorte(DatosODT, new Sam3_Usuario());
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            return CorteBd.Instance.ListadoGenerarCorte(DatosODT, usuario);
         }
 
         public void Post(DummyDatosODTCorteGuardar Cortes, string token)

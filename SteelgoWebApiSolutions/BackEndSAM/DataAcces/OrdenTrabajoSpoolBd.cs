@@ -77,6 +77,13 @@ namespace BackEndSAM.DataAcces
                         patios = patios.Where(x => x > 0).ToList();
                     }
 
+                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
+                    List<string> elementos = new List<string>();
+                    foreach (char i in lstElementoNumeroControl)
+                    {
+                        elementos.Add(i.ToString());
+                    }
+
                     List<ListaCombos> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                  join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
                                                  where !(from d in ctx2.Despacho
@@ -87,7 +94,7 @@ namespace BackEndSAM.DataAcces
                                                       && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
                                                       select sh).Any()
                                                  && proyectos.Contains(odt.ProyectoID)
-                                                 && odts.NumeroControl.Contains(busqueda)
+                                                 && elementos.Any(x => odts.NumeroControl.Contains(x))
                                                  select new ListaCombos
                                                  {
                                                      id = odts.OrdenTrabajoSpoolID.ToString(),

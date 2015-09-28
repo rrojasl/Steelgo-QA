@@ -19,14 +19,16 @@ namespace BackEndSAM.Controllers
     public class CorteController :ApiController
     {
 
-        public object Get(ParametrosBusquedaODT filtros, string token)
+        public object Get(string data)
         {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ParametrosBusquedaODT filtros = serializer.Deserialize<ParametrosBusquedaODT>(data);
             string payload = "";
             string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            bool tokenValido = ManageTokens.Instance.ValidateToken(filtros.DatosODT.token, out payload, out newToken);
             if (tokenValido)
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 return CorteBd.Instance.ListadoGenerarCorte(filtros, usuario);
             }

@@ -1,7 +1,6 @@
 ﻿ 
 @{
     ViewBag.Title = "Transportista";
-     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div id="modalTransportista" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -232,6 +231,7 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Transportista"] = $TransportistaModel;
     CargaInicial();
+   
     }
     @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
