@@ -58,7 +58,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string data, string token)
+        public object Get(string data, string diametro1, string token)
         {
             string payload = "";
             string newToken = "";
@@ -68,7 +68,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 ICSDatosAsociacion informacion = serializer.Deserialize<ICSDatosAsociacion>(data);
 
-                return AsociacionICSBd.Instance.obtenerInformacionICS(informacion);
+                return AsociacionICSBd.Instance.obtenerInformacionICS(informacion, diametro1);
             }
             else
             {
