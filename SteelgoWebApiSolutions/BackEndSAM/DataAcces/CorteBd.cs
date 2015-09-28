@@ -135,6 +135,7 @@ namespace BackEndSAM.DataAcces
             {
                 Sam3_Corte nuevoCorte = new Sam3_Corte();
                 List<Sam3_CorteDetalle> detalleCorte = new List<Sam3_CorteDetalle>();
+                int totalCorte = 0;
                 using (TransactionScope scope = new TransactionScope())
                 {
                     using (SamContext ctx = new SamContext())
@@ -234,7 +235,7 @@ namespace BackEndSAM.DataAcces
 
                             foreach(DetalleCortes detalle in corte.Detalle)
                             {
-                                
+                                totalCorte += Convert.ToInt32(detalle.Cantidad);
                                 //buscamos las ordenes de trabajo material
                                 OrdenTrabajoMaterial odtsMaterial = (from odts in ctx2.OrdenTrabajoSpool
                                                                      join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
@@ -244,94 +245,171 @@ namespace BackEndSAM.DataAcces
                                                                      select odtm).Distinct().AsParallel().SingleOrDefault();
 
                                 //verificamos si el numero unico que se esta despachando es el mismo que estaba congelado para orden
-                                if (odtsMaterial.NumeroUnicoCongeladoID == numeroUnicoID) // es el mismo
+                                if (odtsMaterial.NumeroUnicoCongeladoID != numeroUnicoID) // es el mismo
                                 {
-                                    //generamos un nuevo movimiento de corte
-                                    Sam3_NumeroUnicoMovimiento nuevoMovimiento = new Sam3_NumeroUnicoMovimiento();
-                                    nuevoMovimiento.Activo = true;
-                                    nuevoMovimiento.Cantidad = Convert.ToInt32(detalle.Cantidad);
-                                    nuevoMovimiento.Estatus = "A";
-                                    nuevoMovimiento.FechaModificacion = DateTime.Now;
-                                    nuevoMovimiento.FechaMovimiento = DateTime.Now;
-                                    nuevoMovimiento.NumeroUnicoID = numeroUnicoCorte.NumeroUnicoID;
-                                    nuevoMovimiento.ProyectoID = numeroUnicoCorte.ProyectoID;
-                                    nuevoMovimiento.Referencia = (from odts in ctx2.OrdenTrabajoSpool
-                                                                  where odts.OrdenTrabajoSpoolID == odtsMaterial.OrdenTrabajoSpoolID
-                                                                  select odts.NumeroControl).AsParallel().SingleOrDefault();
-                                    nuevoMovimiento.Segmento = corte.Segmento;
-                                    nuevoMovimiento.TipoMovimientoID = (from tpm in ctx.Sam3_TipoMovimiento
-                                                                        where tpm.Activo && tpm.Nombre == "Corte"
-                                                                        select tpm.TipoMovimientoID).AsParallel().SingleOrDefault();
+                                    //buscamos en sam2 el numero unico que estaba congelado
+                                    NumeroUnico numeroCongelado = ctx2.NumeroUnico
+                                        .Include("NumeroUnicoInventario")
+                                        .Include("NumeroUnicoSegmento")
+                                        .Where(x => x.NumeroUnicoID == odtsMaterial.NumeroUnicoCongeladoID)
+                                        .AsParallel().SingleOrDefault();
 
-                                    nuevoMovimiento.UsuarioModificacion = usuario.UsuarioID;
+                                    //quitamos los congelados y devolvemos el inventario
+                                    numeroCongelado.NumeroUnicoInventario.InventarioCongelado -= Convert.ToInt32(detalle.Cantidad);
+                                    numeroCongelado.NumeroUnicoInventario.InventarioFisico += Convert.ToInt32(detalle.Cantidad);
+                                    numeroCongelado.NumeroUnicoInventario.InventarioBuenEstado += Convert.ToInt32(detalle.Cantidad);
+                                    numeroCongelado.NumeroUnicoInventario.InventarioDisponibleCruce += Convert.ToInt32(detalle.Cantidad);
+                                    numeroCongelado.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
 
-                                    ctx.Sam3_NumeroUnicoMovimiento.Add(nuevoMovimiento);
+                                    NumeroUnicoSegmento segmentoCongelado = numeroCongelado.NumeroUnicoSegmento.Where(x => x.Segmento == corte.Segmento)
+                                        .SingleOrDefault();
+                                    segmentoCongelado.InventarioCongelado -= Convert.ToInt32(detalle.Cantidad);
+                                    segmentoCongelado.InventarioBuenEstado += Convert.ToInt32(detalle.Cantidad);
+                                    segmentoCongelado.InventarioDisponibleCruce += Convert.ToInt32(detalle.Cantidad);
+                                    segmentoCongelado.InventarioFisico += Convert.ToInt32(detalle.Cantidad);
+                                    segmentoCongelado.FechaModificacion = DateTime.Now;
+
+                                    ctx2.SaveChanges();
+
+                                    //buscamos el inventario en sam3
+                                    Sam3_NumeroUnico sam3_NUcongeldo = (from nu in ctx.Sam3_NumeroUnico
+                                                                               join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam3_NumeroUnicoID
+                                                                               where nu.Activo && nueq.Activo
+                                                                               && nueq.Sam2_NumeroUnicoID == numeroCongelado.NumeroUnicoID
+                                                                               select nu).AsParallel().SingleOrDefault();
+
+                                    sam3_NUcongeldo.Sam3_NumeroUnicoInventario.InventarioCongelado -= Convert.ToInt32(detalle.Cantidad);
+                                    sam3_NUcongeldo.Sam3_NumeroUnicoInventario.InventarioBuenEstado += Convert.ToInt32(detalle.Cantidad);
+                                    sam3_NUcongeldo.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce += Convert.ToInt32(detalle.Cantidad);
+                                    sam3_NUcongeldo.Sam3_NumeroUnicoInventario.InventarioFisico += Convert.ToInt32(detalle.Cantidad);
+                                    sam3_NUcongeldo.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+                                    sam3_NUcongeldo.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
+
+                                    Sam3_NumeroUnicoSegmento sam3_segmentoC = sam3_NUcongeldo.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == corte.Segmento).AsParallel().SingleOrDefault();
+                                    sam3_segmentoC.InventarioCongelado -= Convert.ToInt32(detalle.Cantidad);
+                                    sam3_segmentoC.InventarioDisponibleCruce += Convert.ToInt32(detalle.Cantidad);
+                                    sam3_segmentoC.InventarioBuenEstado += Convert.ToInt32(detalle.Cantidad);
+                                    sam3_segmentoC.InventarioFisico += Convert.ToInt32(detalle.Cantidad);
+                                    sam3_segmentoC.FechaModificacion = DateTime.Now;
+                                    sam3_segmentoC.UsuarioModificacion = usuario.UsuarioID;
+
                                     ctx.SaveChanges();
-
-                                    //generamos un nuevo detalle de corte
-                                    Sam3_CorteDetalle nuevoDetalle = new Sam3_CorteDetalle();
-                                    nuevoDetalle.Activo = true;
-                                    nuevoDetalle.Cancelado = false;
-                                    nuevoDetalle.Cantidad = Convert.ToInt32(detalle.Cantidad);
-                                    nuevoDetalle.CorteID = nuevoCorte.CorteID;
-                                    nuevoDetalle.EsAjuste = false;
-                                    nuevoDetalle.FechaCorte = DateTime.Now;
-                                    nuevoDetalle.FechaModificacion = DateTime.Now;
-                                    nuevoDetalle.MaquinaID = Convert.ToInt32(corte.Maquina);
-                                    nuevoDetalle.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
-                                    nuevoDetalle.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
-                                    nuevoDetalle.SalidaInventarioID = nuevoMovimiento.NumeroUnicoMovimientoID;
-                                    nuevoDetalle.UsuarioModificacion = usuario.UsuarioID;
                                     
 
-                                    ctx.Sam3_CorteDetalle.Add(nuevoDetalle);
-
-                                    //generamos el despacho
-                                    Sam3_Despacho nuevoDespacho = new Sam3_Despacho();
-                                    nuevoDespacho.Activo = true;
-                                    nuevoDespacho.Cancelado = false;
-                                    nuevoDespacho.Cantidad = Convert.ToInt32(detalle.Cantidad);
-                                    nuevoDespacho.EsEquivalente = false;
-                                    nuevoDespacho.FechaDespacho = DateTime.Now;
-                                    nuevoDespacho.FechaModificacion = DateTime.Now;
-                                    nuevoDespacho.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
-                                    nuevoDespacho.NumeroUnicoID = numeroUnicoCorte.NumeroUnicoID;
-                                    nuevoDespacho.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
-                                    nuevoDespacho.ProyectoID = numeroUnicoCorte.ProyectoID;
-                                    nuevoDespacho.Segmento = corte.Segmento;
-                                    nuevoDespacho.UsuarioModificacion = usuario.UsuarioID;
-
-                                    ctx.Sam3_Despacho.Add(nuevoDespacho);
-                                    ctx.SaveChanges();
-
-                                    odtsMaterial.TieneCorte = true;
-                                    odtsMaterial.TieneDespacho = true;
-                                    odtsMaterial.CorteDetalleID = nuevoDetalle.CorteDetalleID;
-                                    odtsMaterial.DespachoID = nuevoDespacho.DespachoID;
-
-                                    odtsMaterial.CantidadDespachada += Convert.ToInt32(detalle.Cantidad);
-                                    odtsMaterial.NumeroUnicoDespachadoID = numeroUnicoCorte.NumeroUnicoID;
-                                    odtsMaterial.SegmentoDespachado = corte.Segmento;
-                                    odtsMaterial.SegmentoCongelado = null;
-                                    odtsMaterial.CantidadCongelada = 0;
-                                    odtsMaterial.NumeroUnicoCongeladoID = null;
-                                    odtsMaterial.NumeroUnicoSugeridoID = null;
-                                    odtsMaterial.SegmentoSugerido = null;
-                                    odtsMaterial.SugeridoEsEquivalente = false;
-                                    odtsMaterial.DespachoEsEquivalente = false;
-                                    odtsMaterial.CongeladoEsEquivalente = false;
-                                    odtsMaterial.TieneInventarioCongelado = false;
-                                    odtsMaterial.FechaModificacion = DateTime.Now;
-
-
-                                    ctx.SaveChanges();
                                 }
-                                else
-                                {
-                                    //En el entendido de manejar proyectos nuevos, un numero unico que no existe en sam3 no puede ser despachada
-                                }
+
+                                //generamos un nuevo movimiento de corte
+                                Sam3_NumeroUnicoMovimiento nuevoMovimiento = new Sam3_NumeroUnicoMovimiento();
+                                nuevoMovimiento.Activo = true;
+                                nuevoMovimiento.Cantidad = Convert.ToInt32(detalle.Cantidad);
+                                nuevoMovimiento.Estatus = "A";
+                                nuevoMovimiento.FechaModificacion = DateTime.Now;
+                                nuevoMovimiento.FechaMovimiento = DateTime.Now;
+                                nuevoMovimiento.NumeroUnicoID = numeroUnicoCorte.NumeroUnicoID;
+                                nuevoMovimiento.ProyectoID = numeroUnicoCorte.ProyectoID;
+                                nuevoMovimiento.Referencia = (from odts in ctx2.OrdenTrabajoSpool
+                                                              where odts.OrdenTrabajoSpoolID == odtsMaterial.OrdenTrabajoSpoolID
+                                                              select odts.NumeroControl).AsParallel().SingleOrDefault();
+                                nuevoMovimiento.Segmento = corte.Segmento;
+                                nuevoMovimiento.TipoMovimientoID = (from tpm in ctx.Sam3_TipoMovimiento
+                                                                    where tpm.Activo && tpm.Nombre == "Corte"
+                                                                    select tpm.TipoMovimientoID).AsParallel().SingleOrDefault();
+
+                                nuevoMovimiento.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_NumeroUnicoMovimiento.Add(nuevoMovimiento);
+                                ctx.SaveChanges();
+
+                                //generamos un nuevo detalle de corte
+                                Sam3_CorteDetalle nuevoDetalle = new Sam3_CorteDetalle();
+                                nuevoDetalle.Activo = true;
+                                nuevoDetalle.Cancelado = false;
+                                nuevoDetalle.Cantidad = Convert.ToInt32(detalle.Cantidad);
+                                nuevoDetalle.CorteID = nuevoCorte.CorteID;
+                                nuevoDetalle.EsAjuste = false;
+                                nuevoDetalle.FechaCorte = DateTime.Now;
+                                nuevoDetalle.FechaModificacion = DateTime.Now;
+                                nuevoDetalle.MaquinaID = Convert.ToInt32(corte.Maquina);
+                                nuevoDetalle.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
+                                nuevoDetalle.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
+                                nuevoDetalle.SalidaInventarioID = nuevoMovimiento.NumeroUnicoMovimientoID;
+                                nuevoDetalle.UsuarioModificacion = usuario.UsuarioID;
+
+
+                                ctx.Sam3_CorteDetalle.Add(nuevoDetalle);
+
+                                //generamos el despacho
+                                Sam3_Despacho nuevoDespacho = new Sam3_Despacho();
+                                nuevoDespacho.Activo = true;
+                                nuevoDespacho.Cancelado = false;
+                                nuevoDespacho.Cantidad = Convert.ToInt32(detalle.Cantidad);
+                                nuevoDespacho.EsEquivalente = false;
+                                nuevoDespacho.FechaDespacho = DateTime.Now;
+                                nuevoDespacho.FechaModificacion = DateTime.Now;
+                                nuevoDespacho.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
+                                nuevoDespacho.NumeroUnicoID = numeroUnicoCorte.NumeroUnicoID;
+                                nuevoDespacho.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
+                                nuevoDespacho.ProyectoID = numeroUnicoCorte.ProyectoID;
+                                nuevoDespacho.Segmento = corte.Segmento;
+                                nuevoDespacho.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Despacho.Add(nuevoDespacho);
+                                ctx.SaveChanges();
+
+                                odtsMaterial.TieneCorte = true;
+                                odtsMaterial.TieneDespacho = true;
+                                odtsMaterial.CorteDetalleID = nuevoDetalle.CorteDetalleID;
+                                odtsMaterial.DespachoID = nuevoDespacho.DespachoID;
+
+                                odtsMaterial.CantidadDespachada += Convert.ToInt32(detalle.Cantidad);
+                                odtsMaterial.NumeroUnicoDespachadoID = numeroUnicoCorte.NumeroUnicoID;
+                                odtsMaterial.SegmentoDespachado = corte.Segmento;
+                                odtsMaterial.SegmentoCongelado = null;
+                                odtsMaterial.CantidadCongelada = 0;
+                                odtsMaterial.NumeroUnicoCongeladoID = null;
+                                odtsMaterial.NumeroUnicoSugeridoID = null;
+                                odtsMaterial.SegmentoSugerido = null;
+                                odtsMaterial.SugeridoEsEquivalente = false;
+                                odtsMaterial.DespachoEsEquivalente = false;
+                                odtsMaterial.CongeladoEsEquivalente = false;
+                                odtsMaterial.TieneInventarioCongelado = false;
+                                odtsMaterial.FechaModificacion = DateTime.Now;
+
+
+                                ctx.SaveChanges();
                             }
 
+                            //Actualizar inventarios
+                            numeroUnicoCorte.Sam3_NumeroUnicoInventario.InventarioFisico = Convert.ToInt32(corte.Sobrante);
+                            numeroUnicoCorte.Sam3_NumeroUnicoInventario.InventarioBuenEstado = Convert.ToInt32(corte.Sobrante);
+                            numeroUnicoCorte.Sam3_NumeroUnicoInventario.InventarioDisponibleCruce = Convert.ToInt32(corte.Sobrante);
+                            numeroUnicoCorte.Sam3_NumeroUnicoInventario.InventarioCongelado -= totalCorte;
+                            numeroUnicoCorte.Sam3_NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+                            numeroUnicoCorte.Sam3_NumeroUnicoInventario.UsuarioModificacion = usuario.UsuarioID;
+
+                            Sam3_NumeroUnicoSegmento segmento = numeroUnicoCorte.Sam3_NumeroUnicoSegmento.Where(x => x.Segmento == corte.Segmento).SingleOrDefault();
+                            segmento.InventarioBuenEstado = Convert.ToInt32(corte.Sobrante);
+                            segmento.InventarioFisico = Convert.ToInt32(corte.Sobrante);
+                            segmento.InventarioDisponibleCruce = Convert.ToInt32(corte.Sobrante);
+                            segmento.FechaModificacion = DateTime.Now;
+                            segmento.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.SaveChanges();
+
+                            //Actualizar sam2
+                            sam2_numeroUnicoCorte.NumeroUnicoInventario.InventarioFisico = Convert.ToInt32(corte.Sobrante);
+                            sam2_numeroUnicoCorte.NumeroUnicoInventario.InventarioBuenEstado = Convert.ToInt32(corte.Sobrante);
+                            sam2_numeroUnicoCorte.NumeroUnicoInventario.InventarioDisponibleCruce = Convert.ToInt32(corte.Sobrante);
+                            sam2_numeroUnicoCorte.NumeroUnicoInventario.InventarioCongelado -= totalCorte;
+                            sam2_numeroUnicoCorte.NumeroUnicoInventario.FechaModificacion = DateTime.Now;
+
+                            NumeroUnicoSegmento sam2_segmento = sam2_numeroUnicoCorte.NumeroUnicoSegmento.Where(x => x.Segmento == corte.Segmento).SingleOrDefault();
+                            sam2_segmento.InventarioBuenEstado = Convert.ToInt32(corte.Sobrante);
+                            sam2_segmento.InventarioFisico = Convert.ToInt32(corte.Sobrante);
+                            sam2_segmento.InventarioDisponibleCruce = Convert.ToInt32(corte.Sobrante);
+                            sam2_segmento.FechaModificacion = DateTime.Now;
+
+                            ctx2.SaveChanges();
                         }
                     }
                     scope.Complete();
