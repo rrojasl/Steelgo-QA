@@ -144,11 +144,12 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
-                                                   where r.Activo && r.Codigo ==itemCodeSteelgo
+                                                   join c in ctx.Sam3_Cedula on r.CedulaID equals c.CedulaID
+                                                   where r.Activo && r.Codigo ==itemCodeSteelgo && c.Activo
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,
-                                                       Cedula = r.Cedula,
+                                                       Cedula = c.CedulaA,
                                                        DescripcionEspanol = r.DescripcionEspanol,
                                                        DescripcionIngles = r.DescripcionIngles,
                                                        Diametro1 = r.Diametro1,
@@ -198,11 +199,12 @@ namespace BackEndSAM.DataAcces
                     ItemCodeSteelgoJson detalle = (from r in ctx.Sam3_ItemCodeSteelgo
                                                    join ris in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals ris.ItemCodeSteelgoID
                                                    join ic in ctx.Sam3_ItemCode on ris.ItemCodeID equals ic.ItemCodeID
-                                                   where r.Activo && ris.ItemCodeID == item.ItemCodeID
+                                                   join c in ctx.Sam3_Cedula on r.CedulaID equals c.CedulaID
+                                                   where r.Activo && ris.ItemCodeID == item.ItemCodeID && c.Activo
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,
-                                                       Cedula = r.Cedula,
+                                                       Cedula = c.CedulaA,
                                                        DescripcionEspanol = r.DescripcionEspanol,
                                                        DescripcionIngles = r.DescripcionIngles,
                                                        Diametro1 = r.Diametro1,
@@ -218,7 +220,7 @@ namespace BackEndSAM.DataAcces
                                                                     where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && fm.Activo
                                                                     select fm.Nombre).FirstOrDefault(),
                                                        Cantidad = ic.Cantidad,
-                                                       ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == ic.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault()
+                                                       ColadaNombre = (from co in ctx.Sam3_Colada where co.ColadaID == ic.ColadaID && co.Activo select co.NumeroColada).FirstOrDefault()
                                                    }).AsParallel().SingleOrDefault();
 
                     if (detalle != null)
@@ -305,7 +307,7 @@ namespace BackEndSAM.DataAcces
                     Sam3_ItemCodeSteelgo nuevoItem = new Sam3_ItemCodeSteelgo();
                     nuevoItem.Activo = true;
                     nuevoItem.Area = json.Area;
-                    nuevoItem.Cedula = json.Cedula;
+                    nuevoItem.CedulaID = json.CedulaID;
                     nuevoItem.DescripcionEspanol = json.DescripcionEspanol;
                     nuevoItem.DescripcionIngles = json.DescripcionIngles;
                     nuevoItem.Diametro1 = json.Diametro1;
@@ -351,7 +353,7 @@ namespace BackEndSAM.DataAcces
                         .AsParallel().SingleOrDefault();
 
                     itemBd.Area = json.Area;
-                    itemBd.Cedula = json.Cedula;
+                    itemBd.CedulaID = json.CedulaID;
                     itemBd.DescripcionEspanol = json.DescripcionEspanol;
                     itemBd.DescripcionIngles = json.DescripcionIngles;
                     itemBd.Diametro1 = json.Diametro1;

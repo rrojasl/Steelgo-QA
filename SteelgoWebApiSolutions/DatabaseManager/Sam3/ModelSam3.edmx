@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -27,6 +27,22 @@
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sam3_Cedula">
+          <Key>
+            <PropertyRef Name="CedulaID" />
+          </Key>
+          <Property Name="CedulaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Diametro" Type="int" />
+          <Property Name="CedulaA" Type="varchar" MaxLength="50" />
+          <Property Name="CedulaB" Type="varchar" MaxLength="50" />
+          <Property Name="CedulaC" Type="varchar" MaxLength="50" />
+          <Property Name="CedulaIn" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CedulaMM" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Espesor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
         <EntityType Name="Sam3_Chofer">
           <Key>
@@ -469,6 +485,16 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="TipoMaterialID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Sam3_Grupo">
+          <Key>
+            <PropertyRef Name="GrupoID" />
+          </Key>
+          <Property Name="GrupoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="Sam3_Incidencia">
           <Key>
             <PropertyRef Name="IncidenciaID" />
@@ -531,8 +557,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Area" Type="int" Nullable="false" />
-          <Property Name="Cedula" Type="varchar(max)" Nullable="false" />
+          <Property Name="CedulaID" Type="int" />
           <Property Name="Codigo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="GrupoID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Maquina">
           <Key>
@@ -1885,6 +1912,30 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_FolioAvisoLlegada">
               <PropertyRef Name="VehiculoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Item__Cedul__70E8B0D0">
+          <End Role="Sam3_Cedula" Type="Self.Sam3_Cedula" Multiplicity="0..1" />
+          <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Cedula">
+              <PropertyRef Name="CedulaID" />
+            </Principal>
+            <Dependent Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="CedulaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Item__Grupo__6E0C4425">
+          <End Role="Sam3_Grupo" Type="Self.Sam3_Grupo" Multiplicity="0..1" />
+          <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Grupo">
+              <PropertyRef Name="GrupoID" />
+            </Principal>
+            <Dependent Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="GrupoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3343,6 +3394,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         <EntityContainer Name="ModelSam3StoreContainer">
           <EntitySet Name="Sam3_Acero" EntityType="Self.Sam3_Acero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Bulto" EntityType="Self.Sam3_Bulto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Cedula" EntityType="Self.Sam3_Cedula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Chofer" EntityType="Self.Sam3_Chofer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Cliente" EntityType="Self.Sam3_Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Colada" EntityType="Self.Sam3_Colada" Schema="dbo" store:Type="Tables" />
@@ -3375,6 +3427,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_FolioAvisoEntrada" EntityType="Self.Sam3_FolioAvisoEntrada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_FolioAvisoLlegada" EntityType="Self.Sam3_FolioAvisoLlegada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_FolioCuantificacion" EntityType="Self.Sam3_FolioCuantificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Grupo" EntityType="Self.Sam3_Grupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Incidencia" EntityType="Self.Sam3_Incidencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ItemCode" EntityType="Self.Sam3_ItemCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ItemCodeSteelgo" EntityType="Self.Sam3_ItemCodeSteelgo" Schema="dbo" store:Type="Tables" />
@@ -3601,6 +3654,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Foli__Vehic__0C3BC58A" Association="Self.FK__Sam3_Foli__Vehic__0C3BC58A">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Item__Cedul__70E8B0D0" Association="Self.FK__Sam3_Item__Cedul__70E8B0D0">
+            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
+            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Item__Grupo__6E0C4425" Association="Self.FK__Sam3_Item__Grupo__6E0C4425">
+            <End Role="Sam3_Grupo" EntitySet="Sam3_Grupo" />
+            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Item__TipoU__7D8391DF" Association="Self.FK__Sam3_Item__TipoU__7D8391DF">
             <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
@@ -7076,6 +7137,16 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_NumeroUnicoMovimiento" EntitySet="Sam3_NumeroUnicoMovimiento" />
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
           </AssociationSet>
+          <EntitySet Name="Sam3_Cedula" EntityType="ModelSam3.Sam3_Cedula" />
+          <EntitySet Name="Sam3_Grupo" EntityType="ModelSam3.Sam3_Grupo" />
+          <AssociationSet Name="FK__Sam3_Item__Cedul__70E8B0D0" Association="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0">
+            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
+            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Item__Grupo__6E0C4425" Association="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425">
+            <End Role="Sam3_Grupo" EntitySet="Sam3_Grupo" />
+            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -7848,9 +7919,12 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Area" Type="Int32" Nullable="false" />
-          <Property Name="Cedula" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sam3_Rel_ItemCode_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
           <Property Name="Codigo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CedulaID" Type="Int32" />
+          <Property Name="GrupoID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Cedula" Relationship="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Cedula" />
+          <NavigationProperty Name="Sam3_Grupo" Relationship="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Grupo" />
         </EntityType>
         <EntityType Name="Sam3_Rel_ItemCode_ItemCodeSteelgo">
           <Key>
@@ -8433,6 +8507,58 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Despacho">
               <PropertyRef Name="SalidaInventarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sam3_Cedula">
+          <Key>
+            <PropertyRef Name="CedulaID" />
+          </Key>
+          <Property Name="CedulaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Diametro" Type="Int32" />
+          <Property Name="CedulaA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CedulaB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CedulaC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CedulaIn" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CedulaMM" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Espesor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0" FromRole="Sam3_Cedula" ToRole="Sam3_ItemCodeSteelgo" />
+        </EntityType>
+        <EntityType Name="Sam3_Grupo">
+          <Key>
+            <PropertyRef Name="GrupoID" />
+          </Key>
+          <Property Name="GrupoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" FromRole="Sam3_Grupo" ToRole="Sam3_ItemCodeSteelgo" />
+        </EntityType>
+        <Association Name="FK__Sam3_Item__Cedul__70E8B0D0">
+          <End Type="ModelSam3.Sam3_Cedula" Role="Sam3_Cedula" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_ItemCodeSteelgo" Role="Sam3_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Cedula">
+              <PropertyRef Name="CedulaID" />
+            </Principal>
+            <Dependent Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="CedulaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Item__Grupo__6E0C4425">
+          <End Type="ModelSam3.Sam3_Grupo" Role="Sam3_Grupo" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_ItemCodeSteelgo" Role="Sam3_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Grupo">
+              <PropertyRef Name="GrupoID" />
+            </Principal>
+            <Dependent Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="GrupoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9775,8 +9901,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_ItemCodeSteelgo">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_ItemCodeSteelgo">
               <MappingFragment StoreEntitySet="Sam3_ItemCodeSteelgo">
+                <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
+                <ScalarProperty Name="CedulaID" ColumnName="CedulaID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
@@ -10098,6 +10225,34 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="Sam3_NumeroUnicoMovimientoID" ColumnName="Sam3_NumeroUnicoMovimientoID" />
                 <ScalarProperty Name="Sam2_NumeroUnicoMovimientoID" ColumnName="Sam2_NumeroUnicoMovimientoID" />
                 <ScalarProperty Name="EquivalenciaNumeroUnicoMovimientoID" ColumnName="EquivalenciaNumeroUnicoMovimientoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Cedula">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Cedula">
+              <MappingFragment StoreEntitySet="Sam3_Cedula">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Espesor" ColumnName="Espesor" />
+                <ScalarProperty Name="CedulaMM" ColumnName="CedulaMM" />
+                <ScalarProperty Name="CedulaIn" ColumnName="CedulaIn" />
+                <ScalarProperty Name="CedulaC" ColumnName="CedulaC" />
+                <ScalarProperty Name="CedulaB" ColumnName="CedulaB" />
+                <ScalarProperty Name="CedulaA" ColumnName="CedulaA" />
+                <ScalarProperty Name="Diametro" ColumnName="Diametro" />
+                <ScalarProperty Name="CedulaID" ColumnName="CedulaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Grupo">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Grupo">
+              <MappingFragment StoreEntitySet="Sam3_Grupo">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
