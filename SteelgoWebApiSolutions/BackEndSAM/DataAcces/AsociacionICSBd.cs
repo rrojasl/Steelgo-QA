@@ -134,7 +134,7 @@ namespace BackEndSAM.DataAcces
                     lista = (from ics in ctx.Sam3_ItemCodeSteelgo
                                                       join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
                                                       join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
-                                                      where ics.Activo && g.Activo
+                                                      where ics.Activo && g.Activo && c.Activo
                                                        && ics.Diametro1.ToString() == diametro1
                                                       select new ICSDatosAsociacion
                                                       {
