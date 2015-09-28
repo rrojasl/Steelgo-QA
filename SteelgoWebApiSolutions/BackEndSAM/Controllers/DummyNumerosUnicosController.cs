@@ -38,8 +38,7 @@ namespace BackEndSAM.Controllers
              //numerounico3.NumeroControl = "Numero Unico 3";
              //lstNumeroUnico.Add(numerounico3);
             int Proyecto = ProyectoID != "" ? Convert.ToInt32(ProyectoID) : 0;
-            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, new Sam3_Usuario());
-
+            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, texto, new Sam3_Usuario());
         }
 
 

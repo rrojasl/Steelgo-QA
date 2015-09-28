@@ -47,7 +47,7 @@ namespace BackEndSAM.DataAcces
             {
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
-
+                DatosBusquedaODT listado = new DatosBusquedaODT();
                 using (SamContext ctx = new SamContext())
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
@@ -95,27 +95,27 @@ namespace BackEndSAM.DataAcces
 
                         elementos.Add(filtros.DatosODT.Consecutivo);
 
-                        List<DatosBusquedaODT> listado = (from odtm in ctx2.OrdenTrabajoMaterial
-                                                          join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
-                                                          join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
-                                                          join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
-                                                          join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                          where elementos.Contains(odts.NumeroControl)
-                                                          && ms.Etiqueta.Contains(filtros.DatosODT.Etiqueta)
-                                                          && odtm.NumeroUnicoCongeladoID == sam2_numeroUnicoID
-                                                          && it.TipoMaterialID == 1
-                                                          select new DatosBusquedaODT
-                                                          {
-                                                              Cantidad = odtm.CantidadCongelada.Value,
-                                                              CantidadIngenieria = odtm.CantidadCongelada.Value,
-                                                              SpoolID = odts.NumeroControl,
-                                                              Etiqueta = ms.Etiqueta
-                                                          }).Distinct().AsParallel().ToList();
+                        listado = (from odtm in ctx2.OrdenTrabajoMaterial
+                                                    join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                                    join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                    join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                    join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                    where elementos.Contains(odts.NumeroControl)
+                                                    && ms.Etiqueta.Contains(filtros.DatosODT.Etiqueta)
+                                                    && odtm.NumeroUnicoCongeladoID == sam2_numeroUnicoID
+                                                    && it.TipoMaterialID == 1
+                                                    select new DatosBusquedaODT
+                                                    {
+                                                        Cantidad = odtm.CantidadCongelada.Value,
+                                                        CantidadIngenieria = odtm.CantidadCongelada.Value,
+                                                        SpoolID = odts.NumeroControl,
+                                                        Etiqueta = ms.Etiqueta
+                                                    }).Distinct().AsParallel().SingleOrDefault();
 
  
                     }// fin sam2
                 }
-                return null;
+                return listado;
             }
             catch (Exception ex)
             {
