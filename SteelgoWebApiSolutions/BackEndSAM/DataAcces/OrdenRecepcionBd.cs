@@ -794,10 +794,10 @@ namespace BackEndSAM.DataAcces
                                     inventario.CantidadRecibida = 1;
                                     inventario.EsVirtual = false;
                                     inventario.FechaModificacion = DateTime.Now;
-                                    inventario.InventarioFisico = item.Cantidad.Value;
-                                    inventario.InventarioBuenEstado = item.Cantidad.Value;
+                                    inventario.InventarioFisico = 1;
+                                    inventario.InventarioBuenEstado = 1;
                                     inventario.InventarioCongelado = 0; // en este punto no existen los congelados;
-                                    inventario.InventarioDisponibleCruce = item.Cantidad.Value;
+                                    inventario.InventarioDisponibleCruce = 1;
                                     inventario.InventarioTransferenciaCorte = 0; //en este punto no existe este dato
                                     inventario.NumeroUnicoID = nuevoNU.NumeroUnicoID;
                                     inventario.ProyectoID = nuevoNU.ProyectoID;
