@@ -649,14 +649,14 @@
             Listado.DatosODT = info;
 
             if(ValidarErrores(info)){
-                $Corte.Corte.update({ data: JSON.stringify(Listado) }).done(function (result) {
+                $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
                     if (Error(result)) {
                         if ($("#TramoCompleto").is(":checked")) {
                             LimpiarMaquina();
                             DesahabilitarBotonesAgregar();
                             LimpiarGrid();
                         };
-                        AgregarRegistroGrid(result.DatosODT);
+                        AgregarRegistroGrid(result);
                     }
                 });
             }
