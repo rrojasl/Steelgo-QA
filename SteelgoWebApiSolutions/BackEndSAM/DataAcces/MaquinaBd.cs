@@ -45,7 +45,7 @@ namespace BackEndSAM.DataAcces
             {
                 List<int> proyectos = new List<int>();
                 List<int> patios = new List<int>();
-                List<ListaCombos> listado = new List<ListaCombos>();
+                List<Models.Maquina> listado = new List<Models.Maquina>();
 
                 using (SamContext ctx = new SamContext())
                 {
@@ -72,14 +72,36 @@ namespace BackEndSAM.DataAcces
 
                         listado = (from ma in ctx2.Maquina
                                    where patios.Contains(ma.PatioID)
-                                   select new ListaCombos
+                                   select new Models.Maquina
                                    {
-                                       id = ma.MaquinaID.ToString(),
-                                       value = ma.Nombre
+                                        MaquinaID = ma.MaquinaID.ToString(), 
+                                        Nombre = ma.Nombre
                                    }).AsParallel().Distinct().ToList();
                     }
                 }
                 return listado;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerMermaTeorica(int maquinaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    return ctx2.Maquina.Where(x => x.MaquinaID == maquinaID).Select(x => x.MermaTeorica).AsParallel().SingleOrDefault();
+                }
+ 
             }
             catch (Exception ex)
             {

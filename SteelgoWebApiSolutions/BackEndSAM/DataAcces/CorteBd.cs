@@ -100,7 +100,7 @@ namespace BackEndSAM.DataAcces
                                                     join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
                                                     join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
                                                     join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
-                                                    where elementos.Contains(odts.NumeroControl)
+                                                    where elementos.Any(x => odts.NumeroControl.Contains(x))
                                                     && ms.Etiqueta.Contains(filtros.DatosODT.Etiqueta)
                                                     && odtm.NumeroUnicoCongeladoID == sam2_numeroUnicoID
                                                     && it.TipoMaterialID == 1
