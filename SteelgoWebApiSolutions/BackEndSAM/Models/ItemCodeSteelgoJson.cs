@@ -28,6 +28,9 @@ namespace BackEndSAM.Models
         public string ItemCodeSteelgoID { get; set; }
         public string Codigo { get; set; }
         public string Descripcion { get; set; }
+        public string DescripcionLarga { get; set; }
+        public string DescripcionIngles { get; set; }
+        public string DescripcionLargaIngles { get; set; }
         public string Diametro1 { get; set; }
         public string Diametro2 { get; set; }
         public string Grupo { get; set; }
