@@ -1144,5 +1144,95 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object obtenerDatosCatalogoICS()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<ICSDatosAsociacion> lista = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                      where ics.Activo
+                                                      select new ICSDatosAsociacion
+                                                      {
+                                                          ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                                          Codigo = ics.Codigo,
+                                                          Descripcion = ics.DescripcionEspanol,
+                                                          DescripcionLarga = "",
+                                                          DescripcionIngles = ics.DescripcionIngles,
+                                                          DescripcionLargaIngles = "",
+                                                          Diametro1 = ics.Diametro1.ToString(),
+                                                          Diametro2 = ics.Diametro2.ToString(),
+                                                          Grupo = "",
+                                                          TipoAcero = "",
+                                                          CedulaA = "",
+                                                          CedulaB = "",
+                                                          Libra = "",
+                                                          Inch = "",
+                                                          MM = "",
+                                                          Espesor = "",
+                                                          Area = ics.Area.ToString(),
+                                                          Peso = ics.Peso.ToString()
+                                                      }).AsParallel().ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object guardarItemCodeSteelgo(ICSDatosAsociacion datos)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_ItemCodeSteelgo ICSteelgo = new Sam3_ItemCodeSteelgo();
+                    ICSteelgo.Codigo = datos.Codigo;
+                    ICSteelgo.DescripcionEspanol = datos.Descripcion;
+                    ICSteelgo.DescripcionIngles = datos.DescripcionIngles;
+                    ICSteelgo.Diametro1 = Convert.ToDecimal(datos.Diametro1);
+                    ICSteelgo.Diametro2 = Convert.ToDecimal(datos.Diametro2);
+
+                    ctx.Sam3_ItemCodeSteelgo.Add(ICSteelgo);
+
+                    //Insertar grupo
+                    //Sam3_grupo grupo = new Sam3_grupo();
+                    
+                    //Insertar Cedulas
+                    //Sam3_Cedula cedula = new Sam3_Cedula();
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
