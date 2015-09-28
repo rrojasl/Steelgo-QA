@@ -980,19 +980,33 @@ namespace BackEndSAM.DataAcces
                     {
                         case 1: //Patios
                             #region
-                            Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
+                            CatalogoPatio catalogoPatio = serializer.Deserialize<CatalogoPatio>(data);
+                            Sam3_Patio patio = new Sam3_Patio();
+                            patio.Nombre = catalogoPatio.Nombre;
+                            patio.Descripcion = catalogoPatio.Descripcion;
+                            patio.Propietario = catalogoPatio.Propietario;
+                            patio.RequierePermisoAduana = Convert.ToBoolean(catalogoPatio.RequierePermiso);
+
                             res = PatioBd.Instance.InsertarPatio(patio, usuario);
                             return res;
                             #endregion
                         case 2: //Chofer
                             #region
-                            Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
+                            CatalogoChofer catalogoChofer = serializer.Deserialize<CatalogoChofer>(data);
+                            Sam3_Chofer chofer = new Sam3_Chofer();
+                            chofer.Nombre = catalogoChofer.Nombre;
+                            chofer.TransportistaID = Convert.ToInt32(catalogoChofer.TransportistaID);
+
                             res = ChoferBd.Instance.InsertarChofer(chofer, usuario);
                             return res;
                             #endregion
                         case 3: //Tipo Aviso
                             #region
-                            Sam3_TipoAviso tipoAviso = serializer.Deserialize<Sam3_TipoAviso>(data);
+
+                            Catalogos CatalogotipoAviso = serializer.Deserialize<Catalogos>(data);
+                            Sam3_TipoAviso tipoAviso = new Sam3_TipoAviso();
+
+                            tipoAviso.Nombre = CatalogotipoAviso.Nombre;
                             tipoAviso.Activo = true;
                             tipoAviso.UsuarioModificacion = usuario.UsuarioID;
                             tipoAviso.FechaModificacion = DateTime.Now;
@@ -1011,8 +1025,14 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 4: //Transportista 
                             #region
+                            CatalogoTransportista catalogoTransportista = serializer.Deserialize<CatalogoTransportista>(data);
+                            Sam3_Transportista transportista = new Sam3_Transportista();
 
-                            Sam3_Transportista transportista = serializer.Deserialize<Sam3_Transportista>(data);
+                            transportista.ContactoID = Convert.ToInt32(catalogoTransportista.ContactoID);
+                            transportista.Nombre = catalogoTransportista.Nombre;
+                            transportista.Descripcion = catalogoTransportista.Descripcion;
+                            transportista.Telefono = catalogoTransportista.Telefono;
+
                             res = TransportistaBd.Instance.InsertarTransportista(transportista, usuario);
 
                             return res;
@@ -1038,7 +1058,15 @@ namespace BackEndSAM.DataAcces
                         case 7: //Proveedor
                             #region
 
-                            Sam3_Proveedor proveedor = serializer.Deserialize<Sam3_Proveedor>(data);
+                            CatalogoProveedor catalogoProveedor = serializer.Deserialize<CatalogoProveedor>(data);
+                            Sam3_Proveedor proveedor = new Sam3_Proveedor();
+
+                            proveedor.ContactoID = Convert.ToInt32(catalogoProveedor.ContactoID);
+                            proveedor.Nombre = catalogoProveedor.Nombre;
+                            proveedor.Descripcion = catalogoProveedor.Descripcion;
+                            proveedor.Direccion = catalogoProveedor.Direccion;
+                            proveedor.Telefono = catalogoProveedor.Telefono;
+
                             res = ProveedorBd.Instance.InsertarProveedor(proveedor, usuario);
                             return res;
 
@@ -1046,7 +1074,12 @@ namespace BackEndSAM.DataAcces
                         case 8: //Tipo de uso
                             #region
 
-                            Sam3_TipoUso tipoUso = serializer.Deserialize<Sam3_TipoUso>(data);
+
+                            Catalogos catalogoTipoUso = serializer.Deserialize<Catalogos>(data);
+                            Sam3_TipoUso tipoUso = new Sam3_TipoUso();
+
+                            tipoUso.Nombre = catalogoTipoUso.Nombre;
+
                             res = TipoUsoBd.Instance.InsertarTipoUso(tipoUso.Nombre, usuario);
 
                             return res;
@@ -1055,7 +1088,11 @@ namespace BackEndSAM.DataAcces
                         case 9: //Camion
                             #region
 
-                            Sam3_TipoVehiculo vehiculo = serializer.Deserialize<Sam3_TipoVehiculo>(data);
+                            Catalogos catalogosVehiculo = serializer.Deserialize<Catalogos>(data);
+                            Sam3_TipoVehiculo vehiculo = new Sam3_TipoVehiculo();
+
+                            vehiculo.Nombre = catalogosVehiculo.Nombre;
+
                             vehiculo.Activo = true;
                             vehiculo.FechaModificacion = DateTime.Now;
                             vehiculo.UsuarioModificacion = usuario.UsuarioID;
@@ -1075,7 +1112,12 @@ namespace BackEndSAM.DataAcces
                         case 10: //Aceros
                             #region
 
-                            Sam3_Acero acero = serializer.Deserialize<Sam3_Acero>(data);
+                            CatalogoAcero catalogoAcero = serializer.Deserialize<CatalogoAcero>(data);
+                            Sam3_Acero acero = new Sam3_Acero();
+                            acero.FamiliaAceroID = Convert.ToInt32(catalogoAcero.FAmiliaAceroID);
+                            acero.Nomenclatura = catalogoAcero.Nomenclatura;
+                            acero.VerificadoPorCalidad = Convert.ToBoolean(catalogoAcero.VerificadoPorCalidad);
+
                             acero.Activo = true;
                             acero.FechaModificacion = DateTime.Now;
                             acero.UsuarioModificacion = usuario.UsuarioID;
@@ -1094,8 +1136,16 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 11: //Coladas
                             #region
+                            CatalogoColadas catalogoColadas = serializer.Deserialize<CatalogoColadas>(data);
+                            Sam3_Colada colada = new Sam3_Colada();
 
-                            Sam3_Colada colada = serializer.Deserialize<Sam3_Colada>(data);
+                            colada.FabricanteID = Convert.ToInt32(catalogoColadas.FabricanteID);
+                            colada.AceroID = Convert.ToInt32(catalogoColadas.AceroID);
+                            colada.ProyectoID = Convert.ToInt32(catalogoColadas.ProyectoID);
+                            colada.NumeroColada = catalogoColadas.NumeroColada;
+                            colada.NumeroCertificado = catalogoColadas.NumeroCertificado;
+                            colada.HoldCalidad = Convert.ToBoolean(catalogoColadas.HoldCalidad);
+
                             res = ColadaBd.Instance.GuardarColadaPopUp(colada, usuario);
 
                             return res;
@@ -1103,8 +1153,15 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 14:  //fabricante
                             #region
+                            CatalogoFabricante catalogoFabricante = serializer.Deserialize<CatalogoFabricante>(data);
+                            Sam3_Fabricante fabricante = new Sam3_Fabricante();
 
-                            Sam3_Fabricante fabricante = serializer.Deserialize<Sam3_Fabricante>(data);
+                            fabricante.ContactoID = Convert.ToInt32(catalogoFabricante.ContactoID);
+                            fabricante.Nombre = catalogoFabricante.Nombre;
+                            fabricante.Descripcion = catalogoFabricante.Descripcion;
+                            fabricante.Direccion = catalogoFabricante.Direccion;
+                            fabricante.Telefono = catalogoFabricante.Telefono;
+
                             fabricante.Activo = true;
                             fabricante.UsuarioModificacion = usuario.UsuarioID;
                             fabricante.FechaModificacion = DateTime.Now;
