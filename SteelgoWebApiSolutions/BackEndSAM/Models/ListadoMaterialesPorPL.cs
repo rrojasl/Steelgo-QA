@@ -14,6 +14,7 @@ namespace BackEndSAM.Models
         public string ItemCodeSteelgo { get; set; }
         public string Descripcion { get; set; }
         public string Cedula { get; set; }
+        public string CedulaID { get; set; }
         public string TipoAcero { get; set; }
         public string D1 { get; set; }
         public string D2 { get; set; }
