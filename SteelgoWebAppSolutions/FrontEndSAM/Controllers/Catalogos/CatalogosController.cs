@@ -13,5 +13,9 @@ namespace FrontEndSAM.Controllers.Catalogos
         {
             return View();
         }
+        public ActionResult ItemCodeSteelGo()
+        {
+            return View();
+        }
     }
 }

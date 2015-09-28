@@ -1140,6 +1140,7 @@
     <Content Include="Views\PopUps\Patio.cshtml" />
     <Content Include="Views\PopUps\Chofer.cshtml" />
     <Content Include="Views\PopUps\Proveedor.cshtml" />
+    <Content Include="Views\Catalogos\ItemCodeSteelGo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
