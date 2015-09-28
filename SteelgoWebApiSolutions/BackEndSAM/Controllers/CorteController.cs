@@ -12,13 +12,14 @@ using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
+
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class NumeroUnicoController : ApiController
+    public class CorteController :ApiController
     {
 
-        public object Get(int ordenRecepcionID, string token)
+        public object Get(ParametrosBusquedaODT filtros, string token)
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return NumeroUnicoBd.Instance.ObtenerInfoEtiquetas(ordenRecepcionID, usuario);
+                return CorteBd.Instance.ListadoGenerarCorte(filtros, usuario);
             }
             else
             {
@@ -40,7 +41,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string proyectoID, string busqueda, string token)
+        public object Post(GuardarCorte cortes, string token)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +50,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Convert.ToInt32(proyectoID), busqueda, usuario);
+                return CorteBd.Instance.GenerarCorte(cortes, usuario);
             }
             else
             {
@@ -62,26 +63,6 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string token, int numeroUnicoID)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(numeroUnicoID, usuario);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+
     }
 }

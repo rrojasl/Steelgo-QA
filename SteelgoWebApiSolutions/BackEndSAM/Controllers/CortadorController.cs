@@ -13,12 +13,13 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 
+
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class DespachoController : ApiController
+    public class CortadorController : ApiController
     {
-        public object Get(string numeroControl, string token)
+        public object Get(string token)
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return DespachoBd.Instance.ListadoGenerarDespacho(numeroControl, usuario);
+                return CortadorBd.Instance.ListadoCortadores(usuario);
             }
             else
             {
@@ -39,28 +40,5 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
-        public object Post(List<DespachoItems> despachos, string token)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return DespachoBd.Instance.GenerarDespachos(despachos, usuario);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
-        
     }
 }

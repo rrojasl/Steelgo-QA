@@ -142,6 +142,8 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\CortadorController.cs" />
+    <Compile Include="Controllers\CorteController.cs" />
     <Compile Include="Controllers\DespachoController.cs" />
     <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="Controllers\ListadoCuantificacionController.cs" />
     <Compile Include="Controllers\ListadoMaterialesController.cs" />
     <Compile Include="Controllers\ListadoMaterialesPorItemCodeController.cs" />
+    <Compile Include="Controllers\MaquinaController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
@@ -260,6 +263,7 @@
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
+    <Compile Include="DataAcces\CortadorBd.cs" />
     <Compile Include="DataAcces\CorteBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DespachoBd.cs" />
@@ -278,6 +282,7 @@
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesPorItemCodeBd.cs" />
+    <Compile Include="DataAcces\MaquinaBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
