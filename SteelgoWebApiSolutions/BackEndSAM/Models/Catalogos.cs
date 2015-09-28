@@ -49,6 +49,8 @@ namespace BackEndSAM.Models
         public string choferNombre { get; set; }
         public string transportistaID { get; set; }
         public string transportistaNombre { get; set; }
+        public string relVehiculoChofer { get; set; }
+        public string relVehiculoTransportista { get; set; }
     }
 
     public class CatalogoPlana
@@ -62,6 +64,8 @@ namespace BackEndSAM.Models
         public string choferNombre { get; set; }
         public string transportistaID { get; set; }
         public string transportistaNombre { get; set; }
+        public string relVehiculoChofer { get; set; }
+        public string relVehiculoTransportista { get; set; }
     }
 
     public class CatalogoProveedor

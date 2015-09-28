@@ -234,7 +234,9 @@ namespace BackEndSAM.DataAcces
                                              choferID = rvch.ChoferID.ToString(),
                                              choferNombre = ch.Nombre,
                                              transportistaID = rvt.TransportistaID.ToString(),
-                                             transportistaNombre = tr.Nombre
+                                             transportistaNombre = tr.Nombre,
+                                             relVehiculoChofer = rvch.Rel_Vehiculo_Chofer_ID.ToString(),
+                                             relVehiculoTransportista = rvt.Rel_Vehiculo_Transportista_ID.ToString()
                                          }).AsParallel().ToList();
 
                             return catTracto;
@@ -259,7 +261,9 @@ namespace BackEndSAM.DataAcces
                                             choferID = rvch.ChoferID.ToString(),
                                             choferNombre = ch.Nombre,
                                             transportistaID = rvt.TransportistaID.ToString(),
-                                            transportistaNombre = tr.Nombre
+                                            transportistaNombre = tr.Nombre,
+                                            relVehiculoChofer = rvch.Rel_Vehiculo_Chofer_ID.ToString(),
+                                            relVehiculoTransportista = rvt.Rel_Vehiculo_Transportista_ID.ToString()
                                         }).AsParallel().ToList();
 
                             return catPlana;
@@ -526,9 +530,9 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 5: //Tracto
                             #region
-                            Sam3_Vehiculo vehiculo = serializer.Deserialize<Sam3_Vehiculo>(data);
+                            CatalogoTracto vehiculo = serializer.Deserialize<CatalogoTracto>(data);
 
-                            Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
+                            Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID.ToString() == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
 
                             vehiculoEnBd.Placas = vehiculo.Placas != null && vehiculo.Placas != vehiculoEnBd.Placas ?
                                 vehiculo.Placas : vehiculoEnBd.Placas;
@@ -545,6 +549,25 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
+                            Sam3_Rel_Vehiculo_Chofer relVehiculoChofer = ctx.Sam3_Rel_Vehiculo_Chofer
+                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == vehiculo.relVehiculoChofer && x.Activo).AsParallel().SingleOrDefault();
+
+                            relVehiculoChofer.ChoferID = Convert.ToInt32(vehiculo.choferNombre);
+                            relVehiculoChofer.Activo = true;
+                            relVehiculoChofer.UsuarioModificacion = usuario.UsuarioID;
+                            relVehiculoChofer.FechaModificacion = DateTime.Now;
+                            ctx.SaveChanges();
+
+
+                            Sam3_Rel_Vehiculo_Transportista relVehiculotransportista = ctx.Sam3_Rel_Vehiculo_Transportista
+                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == vehiculo.relVehiculoTransportista && x.Activo).AsParallel().SingleOrDefault();
+
+                            relVehiculotransportista.TransportistaID = Convert.ToInt32(vehiculo.transportistaNombre);
+                            relVehiculotransportista.Activo = true;
+                            relVehiculotransportista.UsuarioModificacion = usuario.UsuarioID;
+                            relVehiculotransportista.FechaModificacion = DateTime.Now;
+                            ctx.SaveChanges();
+
                             result.ReturnMessage.Add("OK");
                             result.ReturnCode = 200;
                             result.ReturnStatus = true;
@@ -554,7 +577,7 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 6: //Plana
                             #region
-                            VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
+                            CatalogoPlana plana = serializer.Deserialize<CatalogoPlana>(data);
 
                             int vehiculoID = Convert.ToInt32(plana.VehiculoID);
                             Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
@@ -566,6 +589,25 @@ namespace BackEndSAM.DataAcces
                             planaEnBd.UsuarioModificacion = usuario.UsuarioID;
                             planaEnBd.FechaModificacion = DateTime.Now;
 
+                            ctx.SaveChanges();
+
+                            Sam3_Rel_Vehiculo_Chofer relVehiculoChoferPlana = ctx.Sam3_Rel_Vehiculo_Chofer
+                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == plana.relVehiculoChofer && x.Activo).AsParallel().SingleOrDefault();
+
+                            relVehiculoChoferPlana.ChoferID = Convert.ToInt32(plana.choferID);
+                            relVehiculoChoferPlana.Activo = true;
+                            relVehiculoChoferPlana.UsuarioModificacion = usuario.UsuarioID;
+                            relVehiculoChoferPlana.FechaModificacion = DateTime.Now;
+                            ctx.SaveChanges();
+
+
+                            Sam3_Rel_Vehiculo_Transportista relVehiculotransportistaPlana = ctx.Sam3_Rel_Vehiculo_Transportista
+                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == plana.relVehiculoTransportista && x.Activo).AsParallel().SingleOrDefault();
+
+                            relVehiculotransportistaPlana.TransportistaID = Convert.ToInt32(plana.transportistaID);
+                            relVehiculotransportistaPlana.Activo = true;
+                            relVehiculotransportistaPlana.UsuarioModificacion = usuario.UsuarioID;
+                            relVehiculotransportistaPlana.FechaModificacion = DateTime.Now;
                             ctx.SaveChanges();
 
                             result.ReturnCode = 200;
