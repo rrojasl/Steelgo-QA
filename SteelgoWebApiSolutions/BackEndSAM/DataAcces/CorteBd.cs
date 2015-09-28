@@ -142,12 +142,7 @@ namespace BackEndSAM.DataAcces
                         using (Sam2Context ctx2 = new Sam2Context())
                         {
                             int numeroUnicoID = Convert.ToInt32(corte.NumeroUnico);
-                            //buscamos las ordenes de trabajo material
-                            List<OrdenTrabajoMaterial> odtsMaterial = (from odts in ctx2.OrdenTrabajoSpool
-                                                                       join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
-                                                                       where (from d in corte.Detalle
-                                                                              select d.SpoolID).Contains(odts.NumeroControl)
-                                                                       select odtm).Distinct().AsParallel().ToList();
+                            
 
                             //recuperamos los numeros unicos con inventarios
                             //sam3
@@ -232,31 +227,42 @@ namespace BackEndSAM.DataAcces
                             nuevoCorte.Rack = rack;
                             nuevoCorte.Sobrante = Convert.ToInt32(corte.Sobrante);
                             nuevoCorte.UsuarioModificacion = usuario.UsuarioID;
+                            
 
                             ctx.Sam3_Corte.Add(nuevoCorte);
                             ctx.SaveChanges();
 
-                            foreach(OrdenTrabajoMaterial odtm in odtsMaterial)
+                            foreach(DetalleCortes detalle in corte.Detalle)
                             {
+                                
+                                //buscamos las ordenes de trabajo material
+                                OrdenTrabajoMaterial odtsMaterial = (from odts in ctx2.OrdenTrabajoSpool
+                                                                     join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                                     join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                                     where odts.NumeroControl == detalle.SpoolID
+                                                                     && ms.Etiqueta == detalle.Etiqueta
+                                                                     select odtm).Distinct().AsParallel().SingleOrDefault();
+
                                 //verificamos si el numero unico que se esta despachando es el mismo que estaba congelado para orden
-                                if (odtm.NumeroUnicoCongeladoID == numeroUnicoID) // es el mismo
+                                if (odtsMaterial.NumeroUnicoCongeladoID == numeroUnicoID) // es el mismo
                                 {
                                     //generamos un nuevo movimiento de corte
                                     Sam3_NumeroUnicoMovimiento nuevoMovimiento = new Sam3_NumeroUnicoMovimiento();
                                     nuevoMovimiento.Activo = true;
-                                    nuevoMovimiento.Cantidad = odtm.CantidadCongelada.Value;
+                                    nuevoMovimiento.Cantidad = Convert.ToInt32(detalle.Cantidad);
                                     nuevoMovimiento.Estatus = "A";
                                     nuevoMovimiento.FechaModificacion = DateTime.Now;
                                     nuevoMovimiento.FechaMovimiento = DateTime.Now;
                                     nuevoMovimiento.NumeroUnicoID = numeroUnicoCorte.NumeroUnicoID;
                                     nuevoMovimiento.ProyectoID = numeroUnicoCorte.ProyectoID;
                                     nuevoMovimiento.Referencia = (from odts in ctx2.OrdenTrabajoSpool
-                                                                  where odts.OrdenTrabajoSpoolID == odtm.OrdenTrabajoSpoolID
+                                                                  where odts.OrdenTrabajoSpoolID == odtsMaterial.OrdenTrabajoSpoolID
                                                                   select odts.NumeroControl).AsParallel().SingleOrDefault();
                                     nuevoMovimiento.Segmento = corte.Segmento;
                                     nuevoMovimiento.TipoMovimientoID = (from tpm in ctx.Sam3_TipoMovimiento
                                                                         where tpm.Activo && tpm.Nombre == "Corte"
                                                                         select tpm.TipoMovimientoID).AsParallel().SingleOrDefault();
+
                                     nuevoMovimiento.UsuarioModificacion = usuario.UsuarioID;
 
                                     ctx.Sam3_NumeroUnicoMovimiento.Add(nuevoMovimiento);
@@ -266,16 +272,17 @@ namespace BackEndSAM.DataAcces
                                     Sam3_CorteDetalle nuevoDetalle = new Sam3_CorteDetalle();
                                     nuevoDetalle.Activo = true;
                                     nuevoDetalle.Cancelado = false;
-                                    nuevoDetalle.Cantidad = odtm.CantidadCongelada.Value;
+                                    nuevoDetalle.Cantidad = Convert.ToInt32(detalle.Cantidad);
                                     nuevoDetalle.CorteID = nuevoCorte.CorteID;
                                     nuevoDetalle.EsAjuste = false;
                                     nuevoDetalle.FechaCorte = DateTime.Now;
                                     nuevoDetalle.FechaModificacion = DateTime.Now;
                                     nuevoDetalle.MaquinaID = Convert.ToInt32(corte.Maquina);
-                                    nuevoDetalle.MaterialSpoolID = odtm.MaterialSpoolID;
-                                    nuevoDetalle.OrdenTrabajoSpoolID = odtm.OrdenTrabajoSpoolID;
+                                    nuevoDetalle.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
+                                    nuevoDetalle.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
                                     nuevoDetalle.SalidaInventarioID = nuevoMovimiento.NumeroUnicoMovimientoID;
                                     nuevoDetalle.UsuarioModificacion = usuario.UsuarioID;
+                                    
 
                                     ctx.Sam3_CorteDetalle.Add(nuevoDetalle);
 
@@ -283,13 +290,13 @@ namespace BackEndSAM.DataAcces
                                     Sam3_Despacho nuevoDespacho = new Sam3_Despacho();
                                     nuevoDespacho.Activo = true;
                                     nuevoDespacho.Cancelado = false;
-                                    nuevoDespacho.Cantidad = odtm.CantidadCongelada.Value;
+                                    nuevoDespacho.Cantidad = Convert.ToInt32(detalle.Cantidad);
                                     nuevoDespacho.EsEquivalente = false;
                                     nuevoDespacho.FechaDespacho = DateTime.Now;
                                     nuevoDespacho.FechaModificacion = DateTime.Now;
-                                    nuevoDespacho.MaterialSpoolID = odtm.MaterialSpoolID;
+                                    nuevoDespacho.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
                                     nuevoDespacho.NumeroUnicoID = numeroUnicoCorte.NumeroUnicoID;
-                                    nuevoDespacho.OrdenTrabajoSpoolID = odtm.OrdenTrabajoSpoolID;
+                                    nuevoDespacho.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
                                     nuevoDespacho.ProyectoID = numeroUnicoCorte.ProyectoID;
                                     nuevoDespacho.Segmento = corte.Segmento;
                                     nuevoDespacho.UsuarioModificacion = usuario.UsuarioID;
@@ -297,32 +304,34 @@ namespace BackEndSAM.DataAcces
                                     ctx.Sam3_Despacho.Add(nuevoDespacho);
                                     ctx.SaveChanges();
 
-                                    odtm.TieneCorte = true;
-                                    odtm.TieneDespacho = true;
-                                    odtm.CorteDetalleID = nuevoDetalle.CorteDetalleID;
-                                    odtm.DespachoID = nuevoDespacho.DespachoID;
-                                    
-                                    odtm.CantidadDespachada += odtm.CantidadCongelada;
-                                    odtm.NumeroUnicoDespachadoID = numeroUnicoCorte.NumeroUnicoID;
-                                    odtm.SegmentoDespachado = corte.Segmento;
-                                    odtm.SegmentoCongelado = null;
-                                    odtm.CantidadCongelada = 0;
-                                    odtm.NumeroUnicoCongeladoID = null;
-                                    odtm.NumeroUnicoSugeridoID = null;
-                                    odtm.SegmentoSugerido = null;
-                                    odtm.SugeridoEsEquivalente = false;
-                                    odtm.DespachoEsEquivalente = false;
-                                    odtm.CongeladoEsEquivalente = false;
-                                    odtm.TieneInventarioCongelado = false;
-                                    odtm.FechaModificacion = DateTime.Now;
+                                    odtsMaterial.TieneCorte = true;
+                                    odtsMaterial.TieneDespacho = true;
+                                    odtsMaterial.CorteDetalleID = nuevoDetalle.CorteDetalleID;
+                                    odtsMaterial.DespachoID = nuevoDespacho.DespachoID;
+
+                                    odtsMaterial.CantidadDespachada += Convert.ToInt32(detalle.Cantidad);
+                                    odtsMaterial.NumeroUnicoDespachadoID = numeroUnicoCorte.NumeroUnicoID;
+                                    odtsMaterial.SegmentoDespachado = corte.Segmento;
+                                    odtsMaterial.SegmentoCongelado = null;
+                                    odtsMaterial.CantidadCongelada = 0;
+                                    odtsMaterial.NumeroUnicoCongeladoID = null;
+                                    odtsMaterial.NumeroUnicoSugeridoID = null;
+                                    odtsMaterial.SegmentoSugerido = null;
+                                    odtsMaterial.SugeridoEsEquivalente = false;
+                                    odtsMaterial.DespachoEsEquivalente = false;
+                                    odtsMaterial.CongeladoEsEquivalente = false;
+                                    odtsMaterial.TieneInventarioCongelado = false;
+                                    odtsMaterial.FechaModificacion = DateTime.Now;
+
 
                                     ctx.SaveChanges();
                                 }
                                 else
                                 {
- 
+                                    //En el entendido de manejar proyectos nuevos, un numero unico que no existe en sam3 no puede ser despachada
                                 }
                             }
+
                         }
                     }
                     scope.Complete();

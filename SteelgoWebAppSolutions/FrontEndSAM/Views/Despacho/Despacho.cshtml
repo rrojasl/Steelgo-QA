@@ -255,8 +255,8 @@
                 { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
                 { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },               
-                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden: true },
-                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()], hidden: true }
+                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()] },
+                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()] }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -342,7 +342,7 @@
                            dataSource: {
                                type: "json",
                                transport: {
-                                   read: $UrlDummyDespacho + "&numerocontrol=" + container.parent().children()[0].innerText + "&etiqueta=" + container.parent().children()[1].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&token=" + Cookies.get("token")
+                                   read: $UrlNumerosUnicos + "&numeroControl=" + container.parent().children()[0].innerText + "&etiqueta=" + container.parent().children()[1].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&proyectoID=" + container.parent().children()[7].innerText + "&token=" + Cookies.get("token")
                                }
                            },
                            select: function (e) {

@@ -482,5 +482,73 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ListadoNumeroUnicoComboGridDespacho(string numeroControl, string etiqueta, string itemcode, int proyectoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<ListaCombos> listado = new List<ListaCombos>();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        List<int> sam2_NumerosUnicosIDs = (from odts in ctx2.OrdenTrabajoSpool
+                                                           join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                           join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.SpoolID
+                                                           join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
+                                                           join nu in ctx2.NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
+                                                           join nui in ctx2.NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
+                                                           where ms.Etiqueta == etiqueta
+                                                           && odts.NumeroControl == numeroControl
+                                                           && it.TipoMaterialID == 2
+                                                           && it.Codigo == itemcode
+                                                           && odt.ProyectoID == proyectoID
+                                                           && ms.Diametro1 == nu.Diametro1
+                                                           && ms.Diametro2 == nu.Diametro2
+                                                           select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
+
+                        listado = (from nu in ctx.Sam3_NumeroUnico
+                                   join nueq in ctx.Sam3_EquivalenciaNumeroUnico on nu.NumeroUnicoID equals nueq.Sam3_NumeroUnicoID
+                                   where nu.Activo && nueq.Activo
+                                   && sam2_NumerosUnicosIDs.Contains(nueq.Sam2_NumeroUnicoID)
+                                   select new ListaCombos
+                                   {
+                                       id = nu.NumeroUnicoID.ToString(),
+                                       value = nu.Prefijo + "-" + nu.Consecutivo
+                                   }).Distinct().AsParallel().ToList();
+
+                        foreach (ListaCombos lst in listado)
+                        {
+                            string[] elementos = lst.value.Split('-');
+
+                            int temp = Convert.ToInt32(lst.id);
+
+                            int digitos = (from nu in ctx.Sam3_NumeroUnico
+                                           join p in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals p.ProyectoID
+                                           where nu.Activo && p.Activo
+                                           && nu.NumeroUnicoID == temp
+                                           select p.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                            string formato = "D" + digitos.ToString();
+                            int consecutivo = Convert.ToInt32(elementos[1]);
+
+                            lst.value = elementos[0] + "-" + consecutivo.ToString(formato);
+
+                        }
+                    }
+                }
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

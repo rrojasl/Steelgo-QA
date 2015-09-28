@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models;
+using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -445,8 +446,8 @@ namespace BackEndSAM.DataAcces
                             Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
 
                             Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
-                            choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
-                                chofer.Activo : choferEnBd.Activo;
+                            //choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                            //    chofer.Activo : choferEnBd.Activo;
 
                             choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
                                 chofer.Nombre : choferEnBd.Nombre;
@@ -557,7 +558,7 @@ namespace BackEndSAM.DataAcces
 
                             int vehiculoID = Convert.ToInt32(plana.VehiculoID);
                             Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
-                            planaEnBd.Activo = true;
+                            //planaEnBd.Activo = true;
                             planaEnBd.TractoID = Convert.ToInt32(plana.TractoID);
                             planaEnBd.Placas = plana.Placas;
                             planaEnBd.Unidad = plana.Unidad;
@@ -1202,39 +1203,52 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Se obtienen los datos del ICS para el Grid
+        /// Pantalla Catalogo ICS
+        /// </summary>
+        /// <returns></returns>
         public object obtenerDatosCatalogoICS()
         {
             try
             {
+                List<ICSDatosAsociacion> lista = new List<ICSDatosAsociacion>();
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<ICSDatosAsociacion> lista = (from ics in ctx.Sam3_ItemCodeSteelgo
-                                                      where ics.Activo
-                                                      select new ICSDatosAsociacion
-                                                      {
-                                                          ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
-                                                          Codigo = ics.Codigo,
-                                                          Descripcion = ics.DescripcionEspanol,
-                                                          DescripcionLarga = "",
-                                                          DescripcionIngles = ics.DescripcionIngles,
-                                                          DescripcionLargaIngles = "",
-                                                          Diametro1 = ics.Diametro1.ToString(),
-                                                          Diametro2 = ics.Diametro2.ToString(),
-                                                          Grupo = "",
-                                                          TipoAcero = "",
-                                                          CedulaA = "",
-                                                          CedulaB = "",
-                                                          Libra = "",
-                                                          Inch = "",
-                                                          MM = "",
-                                                          Espesor = "",
-                                                          Area = ics.Area.ToString(),
-                                                          Peso = ics.Peso.ToString()
-                                                      }).AsParallel().ToList();
-
-                    return lista;
+                    lista = (from ics in ctx.Sam3_ItemCodeSteelgo
+                             join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
+                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                             where ics.Activo && g.Activo && c.Activo
+                             select new ICSDatosAsociacion
+                             {
+                                 ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                 Codigo = ics.Codigo,
+                                 Descripcion = ics.DescripcionEspanol,
+                                 Diametro1 = ics.Diametro1.ToString(),
+                                 Diametro2 = ics.Diametro2.ToString(),
+                                 Grupo = g.Nombre,
+                                 FamiliaAceroID = ics.FamiliaAceroID.ToString(),
+                                 CedulaA = c.CedulaA,
+                                 CedulaB = c.CedulaB,
+                                 Libra = c.CedulaC,
+                                 Inch = c.CedulaIn.ToString(),
+                                 MM = c.CedulaMM.ToString(),
+                                 Espesor = c.Espesor.ToString(),
+                                 Peso = ics.Peso.ToString(),
+                                 Area = ics.Area.ToString()
+                             }).AsParallel().ToList();
                 }
+
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    lista.ForEach(x =>
+                        x.TipoAcero = (from fa in ctx2.FamiliaAcero
+                                       where fa.FamiliaAceroID.ToString() == x.FamiliaAceroID
+                                       select fa.Nombre).AsParallel().SingleOrDefault());
+                }
+
+                return lista;
             }
             catch (Exception ex)
             {
@@ -1248,6 +1262,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Guarda la informacion del ICS
+        /// Pantalla Catalogo ICS
+        /// </summary>
+        /// <param name="datos"></param>
+        /// <returns></returns>
         public object guardarItemCodeSteelgo(ICSDatosAsociacion datos)
         {
             try
@@ -1265,7 +1285,7 @@ namespace BackEndSAM.DataAcces
 
                     //Insertar grupo
                     //Sam3_grupo grupo = new Sam3_grupo();
-                    
+
                     //Insertar Cedulas
                     //Sam3_Cedula cedula = new Sam3_Cedula();
 

@@ -36,6 +36,8 @@ var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemC
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
 var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
 var $UrlDummyNumerosUnicos = $BackEndSAMUri + '/backendsam/api/DummyNumerosUnicos?';
+var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');

@@ -83,5 +83,27 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
+        public object Get(string numeroControl, string etiqueta, string itemcode, int proyectoID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return NumeroUnicoBd.Instance.ListadoNumeroUnicoComboGridDespacho(numeroControl, etiqueta, itemcode, proyectoID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }
