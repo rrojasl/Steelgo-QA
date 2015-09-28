@@ -157,7 +157,7 @@ label {
     }
 
 .form label,
-#window label {
+.popup label {
     text-transform: uppercase;
     display: block;
     font-size: 11px;
@@ -176,7 +176,7 @@ label {
         top: -6px;
     }
 
-    #window label.security_required::after {
+    .popup label.security_required::after {
         content: '*';
         font-size: 19px;
         position: relative;
@@ -184,11 +184,11 @@ label {
     }
 
     .form label.security_required.error::after,
-    #window label.security_required.error::after {
+    .popup label.security_required.error::after {
         color: #EC4F50;
     }
 
-    #window label.checkLabel {
+    .popup label.checkLabel {
         display: inline-block;
     }
 
@@ -318,6 +318,13 @@ input {
     outline: none;
     border: none;
     box-shadow: none !important;
+}
+
+#window input[type="checkbox"], 
+.popup input[type="checkbox"] {
+    width: auto!important;
+    position: relative;
+    top: 2px; 
 }
 
 input.quickFilters {
