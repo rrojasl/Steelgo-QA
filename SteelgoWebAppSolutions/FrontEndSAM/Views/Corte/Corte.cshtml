@@ -503,13 +503,13 @@
     };
    
     function ObtenerMaquina() {
-        $DummyMaquina.DummyMaquina.read({ token: Cookies.get("token") }).done(function (result) {
+        $Maquina.Maquina.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Maquina", result);
         });
     };
 
     function ObtenerOperador() {
-        $DummyOperador.DummyOperador.read({ token: Cookies.get("token") }).done(function (result) {
+        $Cortador.Cortador.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Operador", result);
         });
     };
@@ -526,9 +526,9 @@
         });
     };
     function ObtenerMerma() {
-        $DummyMaquina.DummyMaquina.read({ MaquinaID: Maquina.MaquinaID, token: Cookies.get("token") }).done(function (result) {
+        $Maquina.Maquina.read({ maquinaID: Maquina.MaquinaID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                $("#hdnMermaTeorica").val(result);
+                $("#hdnMermaTeorica").val(result ? result : 0);
                 CalcularCantidad();
             }
         });
@@ -799,10 +799,10 @@
             Listado.Total = $("#Total").val();
             Listado.Sobrante = $("#Sobrante").val();
             Listado.Merma = $("#Merma").val();
-            Listado.Cortes = Cortes;
+            Listado.cortes = Cortes;
 
             loadingStart();
-            $DummyNumerosUnicos.DummyNumerosUnicos.create(Listado,{ token: Cookies.get("token") }).done(function (result) {
+            $Corte.Corte.create(Listado, { token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     DesahabilitarBotones();
                 }
