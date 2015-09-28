@@ -7,10 +7,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("Catalogos", "ListadoCatalogos")"><span id="ListadoCatalogos0001"></span></a>
+        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoAvisoLlegada", "AvisoLlegada")"><span id="ListadoCatalogos0002"></span></a>
+        <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0002"></span></a>
     </li>
 }
 
@@ -480,7 +480,7 @@
     function parseUrl(data,catalogo,method){
         switch(catalogo){
             case "1":
-                data.RequierePermiso=="Si" ? data.RequierePermiso=true : data.RequierePermiso=false;
+                //data.RequierePermiso=="Si" ? data.RequierePermiso=true : data.RequierePermiso=false;
                 break;
         }
         if(method!=="delete"){
@@ -558,11 +558,12 @@
     })
 
     function dropdownSiNo(container, options) {
-        $('<input data-text-field="' + options.field + '" data-value-field="' + options.model[options.field] + '" data-bind="value:' + options.field + '"/>')
+        $('<input id="sinodrop" data-text-field="text" data-value-field="value" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",
+            optionLabel:"Selecciona una opción",
             dataSource: [
                 { text: "Si", value: true },
                 { text: "No", value: false }

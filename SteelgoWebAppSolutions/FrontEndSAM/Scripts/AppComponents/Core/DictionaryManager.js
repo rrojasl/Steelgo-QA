@@ -750,6 +750,22 @@ _dictionary = {
         "es-MX": "Choferes",
         "en-US": "Drivers"
     },
+    "ItemCodeSteelGo0001": {
+        "es-MX": "Item Code SteelGo",
+        "en-US": "Item Code SteelGo"
+    },
+    "ItemCodeSteelGo0002": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ItemCodeSteelGo0003": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ItemCodeSteelGo0004": {
+        "es-MX": "Asociar Item Code Steel Go",
+        "en-US": "Set Item Code Steel Go"
+    },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
         "es-MX": "Patio",
