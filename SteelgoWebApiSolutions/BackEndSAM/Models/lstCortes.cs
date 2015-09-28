@@ -27,6 +27,7 @@ namespace BackEndSAM.Models
         public decimal Cantidad { get; set; }
         public decimal CantidadIngenieria { get; set; }
         public int ProyectoID { get; set; }
+        public string token { get; set; }
     }
 
     public class ParametrosBusquedaODT
