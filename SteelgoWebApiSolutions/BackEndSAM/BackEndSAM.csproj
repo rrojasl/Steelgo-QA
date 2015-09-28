@@ -141,6 +141,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\CorteController.cs" />
     <Compile Include="Controllers\DespachoController.cs" />
     <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />

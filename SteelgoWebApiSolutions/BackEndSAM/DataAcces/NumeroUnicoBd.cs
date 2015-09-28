@@ -370,7 +370,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoNumerosUnicosCorte(int proyectoID, Sam3_Usuario usuario)
+        public object ListadoNumerosUnicosCorte(int proyectoID, string busqueda, Sam3_Usuario usuario)
         {
             try
             {
@@ -379,6 +379,14 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
+
+                        char[] elementosBusqueda = busqueda.ToCharArray();
+                        List<string> buscar = new List<string>();
+                        foreach (char i in elementosBusqueda)
+                        {
+                            buscar.Add(i.ToString());
+                        }
+
                         int sam2_proyectoID = ctx.Sam3_EquivalenciaProyecto.Where(x => x.Sam3_ProyectoID == proyectoID)
                             .Select(x => x.Sam2_ProyectoID).AsParallel().SingleOrDefault();
 
@@ -394,6 +402,7 @@ namespace BackEndSAM.DataAcces
                                                              && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
                                                              select sh).Any()
                                                         && it.TipoMaterialID == 1
+                                                        && buscar.Contains(nu.Codigo)
                                                         select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
 
                         //ahora buscamos las equivalencias de esos numeros unicos en sam 3

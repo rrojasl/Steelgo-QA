@@ -38,7 +38,7 @@ namespace BackEndSAM.Controllers
             //numerounico3.NumeroControl = "Numero Unico 3";
             //lstNumeroUnico.Add(numerounico3);
 
-            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(16, new Sam3_Usuario());
+            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(16, "EI",  new Sam3_Usuario());
         
         }
 
