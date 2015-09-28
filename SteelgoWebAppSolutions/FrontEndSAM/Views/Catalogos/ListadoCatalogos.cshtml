@@ -161,9 +161,9 @@
                         },
                         close: function(e) {
                             var data=getDropData(e);
-                            grid._data[data.pos].TransportistaID=data.id;
-                            grid._data[data.pos].TransportistaNombre=data.nombre;
-                            console.log("dirty",dirty);
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaNombre=data.nombre;
+                            console.log("dirty",data);
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
