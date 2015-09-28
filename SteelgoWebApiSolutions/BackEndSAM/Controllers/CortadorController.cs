@@ -13,10 +13,11 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 
+
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class MaquinaController : ApiController
+    public class CortadorController : ApiController
     {
         public object Get(string token)
         {
@@ -27,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return MaquinaBd.Instance.ListadoMaquinas(usuario);
+                return CortadorBd.Instance.ListadoCortadores(usuario);
             }
             else
             {

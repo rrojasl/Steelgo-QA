@@ -142,6 +142,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
+    <Compile Include="Controllers\CortadorController.cs" />
     <Compile Include="Controllers\CorteController.cs" />
     <Compile Include="Controllers\DespachoController.cs" />
     <Compile Include="Controllers\DetalleNumeroUnicoController.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
+    <Compile Include="DataAcces\CortadorBd.cs" />
     <Compile Include="DataAcces\CorteBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
     <Compile Include="DataAcces\DespachoBd.cs" />

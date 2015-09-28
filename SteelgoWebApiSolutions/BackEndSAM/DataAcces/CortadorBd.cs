@@ -7,24 +7,25 @@ using BackEndSAM.Models;
 using SecurityManager.Api.Models;
 using System.Web.Script.Serialization;
 using System.Transactions;
+
 namespace BackEndSAM.DataAcces
 {
-    public class MaquinaBd
+    public class CortadorBd
     {
         private static readonly object _mutex = new object();
-        private static MaquinaBd _instance;
+        private static CortadorBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private MaquinaBd()
+        private CortadorBd()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static MaquinaBd Instance
+        public static CortadorBd Instance
         {
             get
             {
@@ -32,14 +33,14 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new MaquinaBd();
+                        _instance = new CortadorBd();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ListadoMaquinas(Sam3_Usuario usuario)
+        public object ListadoCortadores(Sam3_Usuario usuario)
         {
             try
             {
@@ -70,12 +71,12 @@ namespace BackEndSAM.DataAcces
 
                         patios = patios.Where(x => x > 0).ToList();
 
-                        listado = (from ma in ctx2.Maquina
-                                   where patios.Contains(ma.PatioID)
+                        listado = (from co in ctx2.Cortador
+                                   where patios.Contains(co.PatioID)
                                    select new ListaCombos
                                    {
-                                       id = ma.MaquinaID.ToString(),
-                                       value = ma.Nombre
+                                       id = co.CortadorID.ToString(),
+                                       value = co.Nombre
                                    }).AsParallel().Distinct().ToList();
                     }
                 }
