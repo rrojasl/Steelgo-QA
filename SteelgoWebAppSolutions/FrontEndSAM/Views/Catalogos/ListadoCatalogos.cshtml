@@ -159,6 +159,12 @@
                                 }
                             }
                         },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            grid._data[data.pos].TransportistaID=data.id;
+                            grid._data[data.pos].TransportistaNombre=data.nombre;
+                            console.log("dirty",dirty);
+                        },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
                     });
@@ -178,6 +184,19 @@
                                     url: $Contacto.Contacto.urlNoId+"?token="+Cookies.get("token")
                                 }
                             }
+                        },
+                        close: function(e) {
+                            var tid=e.sender._old;
+                            var tnombre=e.sender._prev;
+                            var grid=$("#grid").data("kendoGrid");
+                            var dirty = $.map(grid.dataSource.data(), function(obj, index) {
+                                if(obj.dirty == true) {
+                                    return index;
+                                }
+                            });
+                            grid._data[dirty[0]].TransportistaID=tid;
+                            grid._data[dirty[0]].TransportistaNombre=tnombre;
+                            console.log("dirty",dirty);
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ContactoID"
@@ -236,6 +255,9 @@
                                     url: $Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
                                 }
                             }
+                        },
+                        close: function(e) {
+                            console.log(e);
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
@@ -384,6 +406,18 @@
     function changeLanguageCall() {
         $("#grid").kendoGrid({columns:[]});
     };
+
+    function getDropData(e){
+        var id=e.sender._old;
+        var nombre=e.sender._prev;
+        var grid=$("#grid").data("kendoGrid");
+        var dirty = $.map(grid.dataSource.data(), function(obj, index) {
+            if(obj.dirty == true) {
+                return index;
+            }
+        });
+        return {id:id,nombre:nombre,posicion:dirty[0]}
+    }
 
     function getUrl(){
         return $Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+$("#listaCatalogos").data("kendoDropDownList").value()+"&token=";
