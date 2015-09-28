@@ -416,7 +416,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $UrlDummyNumerosUnicos + "&ProyectoID=" + Proyecto.ProyectoID + "&texto=" + val + "&token=" + Cookies.get("token");
+                            return $UrlDummyNumerosUnicos + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
                 },
@@ -540,16 +540,18 @@
     };
 
     function ObtenerDetalleNumeroUnico() {
-        loadingStart();
-        $DummyNumerosUnicos.DummyNumerosUnicos.read({ NumeroUnicoID: NumeroUnico.NumeroUnicoID, token: Cookies.get("token") }).done(function (result) {
-            if (Error(result)) {
-                $("#Cantidad").val(result.Cantidad);
-                $("#ItemCode").val(result.ItemCode);
-                $("#Diametro1").val(result.D1);
-                $("#hdnTolerancia").val(result.Tolerancia);
-            }
-            loadingStop();
-        });
+        if (NumeroUnico.NumeroUnicoID) {
+            loadingStart();
+            $DummyNumerosUnicos.DummyNumerosUnicos.read({ NumeroUnicoID: NumeroUnico.NumeroUnicoID, token: Cookies.get("token") }).done(function (result) {
+                if (Error(result)) {
+                    $("#Cantidad").val(result.Cantidad);
+                    $("#ItemCode").val(result.ItemCode);
+                    $("#Diametro1").val(result.D1);
+                    $("#hdnTolerancia").val(result.Tolerancia);
+                }
+                loadingStop();
+            });
+        }
     };
 
     function DesahabilitarBotones() {
