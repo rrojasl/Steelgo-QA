@@ -51,6 +51,14 @@
                 TransportistaNombre: { type:"string",validation: { required: true } },
             }
         },
+        //{"Id":"1","Nombre":"Material"}
+        "3":{
+            id:"Id",
+            fields:{
+                Id: { editable: false, nullable: true },
+                Nombre: { type:"string",validation: { required: true } },
+            }
+        },
         "4":{
             id: "TransportistaID",
             fields: {
@@ -163,7 +171,6 @@
                             var data=getDropData(e);
                             $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
                             $("#grid").data("kendoGrid")._data[data.posicion].TransportistaNombre=data.nombre;
-                            console.log("dirty",data);
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -186,17 +193,9 @@
                             }
                         },
                         close: function(e) {
-                            var tid=e.sender._old;
-                            var tnombre=e.sender._prev;
-                            var grid=$("#grid").data("kendoGrid");
-                            var dirty = $.map(grid.dataSource.data(), function(obj, index) {
-                                if(obj.dirty == true) {
-                                    return index;
-                                }
-                            });
-                            grid._data[dirty[0]].TransportistaID=tid;
-                            grid._data[dirty[0]].TransportistaNombre=tnombre;
-                            console.log("dirty",dirty);
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ContactoID"
@@ -218,6 +217,11 @@
                                 }
                             }
                         },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                        },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
                     });
@@ -235,6 +239,11 @@
                                     url: $Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
                                 }
                             }
+                        },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -257,7 +266,9 @@
                             }
                         },
                         close: function(e) {
-                            console.log(e);
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
@@ -276,6 +287,11 @@
                                     url: $Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
                                 }
                             }
+                        },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -297,6 +313,11 @@
                                 }
                             }
                         },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto=data.nombre;
+                        },
                         dataTextField: "Nombre",
                         dataValueField: "ContactoID"
                     });
@@ -317,11 +338,17 @@
                                 }
                             }
                         },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].FAmiliaAceroID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero=data.nombre;
+                        },
                         dataTextField: "Nombre",
                         dataValueField: "FamiliaAceroID"
                     });
                 }
-            }
+            },
+            "VerificadoPorCalidad":{ field: "VerificadoPorCalidad", title: "VerificadoPorCalidad", editor: dropdownSiNo},
         },
         "11":{
             "Fabricante":{
@@ -336,6 +363,11 @@
                                     url: $Fabricantes.Fabricantes.urlNoId+"?token="+Cookies.get("token")
                                 }
                             }
+                        },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].FabricanteID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Fabricante=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "FabricanteID"
@@ -355,6 +387,11 @@
                                 }
                             }
                         },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].AceroID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Acero=data.nombre;
+                        },
                         dataTextField: "Nomenclatura",
                         dataValueField: "AceroID"
                     });
@@ -373,11 +410,22 @@
                                 }
                             }
                         },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].FAmiliaAceroID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero=data.nombre;
+                        },
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ProyectoID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Proyecto=data.nombre;
+                        },
                         dataTextField: "Nombre",
                         dataValueField: "ProyectoID"
                     });
                 }
             },
+            "HoldCalidad":{ field: "HoldCalidad", title: "HoldCalidad", editor: dropdownSiNo}
         },
         "14":{
             "Contacto":{
@@ -460,7 +508,7 @@
                 for(f in models[catalogo].fields){
                     data[f]=e.model[f];
                 }
-                if(e.model.id!==null){
+                if(e.model.id!=="" && e.model.id!==null){
                     var direccion=parseUrl(data,catalogo,"put");
                     grid.options.dataSource.options.transport.update.url=direccion;
                 }else{
@@ -477,7 +525,7 @@
                 for(f in models[catalogo].fields){
                     data[f]=e.model[f];
                 }
-                if(e.model.id!==null){
+                if(e.model.id!=="" && e.model.id!==null){
                     var direccion=parseUrl(data,catalogo,"delete");
                     grid.options.dataSource.options.transport.destroy.url=direccion;
                     grid.options.dataSource.sync();
@@ -501,7 +549,8 @@
                     grid.options.columns=grid.columns;
                     var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
                     ids.forEach(function(i){
-                        grid.hideColumn(i.field);
+                        console.log(i.field.toUpperCase().indexOf("ID")+"\t"+i.field.length);
+                        i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : console.log(1);
                     });
                     var options=grid.options;
                     grid.destroy();
