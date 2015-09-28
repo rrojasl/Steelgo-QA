@@ -105,12 +105,9 @@ var $DummyMaquina = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyOperador = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-<<<<<<< HEAD
 var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-=======
 var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
->>>>>>> 2f2ae7f86fbe7e0c2980d33f8cef42590fbee769
 /****************************/
 /*    Document Ready        */
 /****************************/
