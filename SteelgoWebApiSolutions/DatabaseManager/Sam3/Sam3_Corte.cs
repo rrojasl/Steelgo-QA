@@ -27,7 +27,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> MermaMovimientoID { get; set; }
         public Nullable<int> PreparacionCorteMovimientoID { get; set; }
         public bool Cancelado { get; set; }
-        public int Rack { get; set; }
+        public string Rack { get; set; }
         public Nullable<int> CortadorID { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }

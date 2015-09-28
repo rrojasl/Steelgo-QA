@@ -48,4 +48,16 @@ namespace BackEndSAM.Models
         public int ProyectoID { get; set; }
         public bool TieneError { get; set; }
     }
+
+
+    public class DatosItemCode
+    {
+        public string ItemCodeID { get; set; }
+        public string Codigo { get; set; }
+        public string D1 { get; set; }
+        public string D2 { get; set; }
+        public string Descripcion { get; set; }
+        public string ItemCodeSteelgo { get; set; }
+        public string ItemCodeSteelgoID { get; set; }
+    }
 }

@@ -19,57 +19,45 @@ namespace BackEndSAM.Controllers
     public class DummyNumerosUnicosController : ApiController
     {
         // GET api/dummynumerosunicos
-        public IEnumerable<DummyNumeroControl> Get(string token)
+        public object Get(string token)
         {
-            List<DummyNumeroControl> lstNumeroUnico = new List<DummyNumeroControl>();
-            DummyNumeroControl numerounico1 = new DummyNumeroControl();
-            DummyNumeroControl numerounico2 = new DummyNumeroControl();
-            DummyNumeroControl numerounico3 = new DummyNumeroControl();
+            //List<DummyNumeroControl> lstNumeroUnico = new List<DummyNumeroControl>();
+            //DummyNumeroControl numerounico1 = new DummyNumeroControl();
+            //DummyNumeroControl numerounico2 = new DummyNumeroControl();
+            //DummyNumeroControl numerounico3 = new DummyNumeroControl();
 
-            numerounico1.NumeroControlID = "1";
-            numerounico1.NumeroControl = "Numero Unico 1";
-            lstNumeroUnico.Add(numerounico1);
+            //numerounico1.NumeroControlID = "1";
+            //numerounico1.NumeroControl = "Numero Unico 1";
+            //lstNumeroUnico.Add(numerounico1);
 
-            numerounico2.NumeroControlID = "2";
-            numerounico2.NumeroControl = "Numero Unico 2";
-            lstNumeroUnico.Add(numerounico2);
+            //numerounico2.NumeroControlID = "2";
+            //numerounico2.NumeroControl = "Numero Unico 2";
+            //lstNumeroUnico.Add(numerounico2);
 
-            numerounico3.NumeroControlID = "3";
-            numerounico3.NumeroControl = "Numero Unico 3";
-            lstNumeroUnico.Add(numerounico3);
+            //numerounico3.NumeroControlID = "3";
+            //numerounico3.NumeroControl = "Numero Unico 3";
+            //lstNumeroUnico.Add(numerounico3);
 
-            return lstNumeroUnico.AsEnumerable();
+            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(16, new Sam3_Usuario());
         
         }
 
 
-        public DummyDetalleNumeroUnico Get(string NumeroUnicoID, string token)
+        public object Get(string NumeroUnicoID, string token)
         {
-            DummyDetalleNumeroUnico numerounico1 = new DummyDetalleNumeroUnico();
-            numerounico1.Cantidad = "3500";
-            numerounico1.ItemCode = "Item Code 1";
-            numerounico1.D1 = "5";
-            numerounico1.Tolerancia = "10";
+            //DummyDetalleNumeroUnico numerounico1 = new DummyDetalleNumeroUnico();
+            //numerounico1.Cantidad = "3500";
+            //numerounico1.ItemCode = "Item Code 1";
+            //numerounico1.D1 = "5";
+            //numerounico1.Tolerancia = "10";
 
-            return numerounico1;
+            return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(Convert.ToInt32(NumeroUnicoID), new Sam3_Usuario());
 
         }
 
-        public DummyDatosODTCorte Put(DummyDatosODTCorte DatosODT, string token)
+        public object Put(ParametrosBusquedaODT DatosODT, string token)
         {
-            if (DatosODT.DatosODT.Etiqueta == "2")
-            {
-                DatosODT.DatosODT.SpoolID = "E009-001";
-                DatosODT.DatosODT.Cantidad = 600;
-                DatosODT.DatosODT.CantidadIngenieria = 800;
-            }
-            else
-            {
-                DatosODT.DatosODT.SpoolID = "E009-001";
-                DatosODT.DatosODT.Cantidad = 150;
-                DatosODT.DatosODT.CantidadIngenieria = 800;
-            }
-            return DatosODT;
+            return CorteBd.Instance.ListadoGenerarCorte(DatosODT, new Sam3_Usuario());
         }
 
         public void Post(DummyDatosODTCorteGuardar Cortes, string token)

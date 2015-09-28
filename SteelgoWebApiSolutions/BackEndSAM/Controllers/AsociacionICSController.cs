@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.Cors;
-using System.Web.Script.Serialization;
-using BackEndSAM.DataAcces;
+﻿using BackEndSAM.DataAcces;
 using BackEndSAM.Models;
-using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
+
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class NumeroUnicoController : ApiController
+    public class AsociacionICSController : ApiController
     {
-
-        public object Get(int ordenRecepcionID, string token)
+        // GET api/<controller>/5
+        public object Get(string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return NumeroUnicoBd.Instance.ObtenerInfoEtiquetas(ordenRecepcionID, usuario);
+                return AsociacionICSBd.Instance.obtenerListadoItemCodes();
             }
             else
             {
@@ -40,16 +38,14 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string proyectoID,string token)
+        public object Get(int itemCode, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Convert.ToInt32(proyectoID), usuario);
+                return AsociacionICSBd.Instance.obtenerInformacionItemCode(itemCode);
             }
             else
             {
@@ -62,7 +58,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string token, int numeroUnicoID)
+        public object Get(string data, string token)
         {
             string payload = "";
             string newToken = "";
@@ -70,8 +66,9 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(numeroUnicoID, usuario);
+                ICSDatosAsociacion informacion = serializer.Deserialize<ICSDatosAsociacion>(data);
+
+                return AsociacionICSBd.Instance.obtenerInformacionICS(informacion);
             }
             else
             {
@@ -82,6 +79,40 @@ namespace BackEndSAM.Controllers
                 result.IsAuthenicated = false;
                 return result;
             }
+        }
+
+        // POST api/<controller>
+        public object Post(string itemCode, string itemCodeSteelgo, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return AsociacionICSBd.Instance.crearRelacion(itemCode, itemCodeSteelgo, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        // PUT api/<controller>/5
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        // DELETE api/<controller>/5
+        public void Delete(int id)
+        {
         }
     }
 }

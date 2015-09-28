@@ -1081,6 +1081,12 @@ header .menu > div {
         border-right: 1px solid #DCDCDC;
     }
 
+        .formNav .button-section.last-button {
+            border-right: none;
+            margin-right: 0;
+            padding-right: 0;
+        }
+
     .formNav .dropdown {
         display: inline-block;
     }

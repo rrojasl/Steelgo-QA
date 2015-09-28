@@ -57,6 +57,7 @@ namespace BackEndSAM.Models
             Cortes = new List<DummyDatosValidarGuardar>();
         }
     }
+
     public class DummyDatosValidarGuardar
     {
         public string SpoolID { get; set; }
@@ -64,8 +65,6 @@ namespace BackEndSAM.Models
         public string Cantidad { get; set; }
         public string CantidadIngenieria { get; set; }
     }
-
-
 
     public class Despacho
     {
