@@ -637,18 +637,19 @@
         function ValidarInformacion() {
 
             var Listado = { DatosODT: "" };
-            var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "" };
+            var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token:"" };
 
             info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
             info.OrdenTrabajo = $("#OrdenTrabajo").val();
             info.Consecutivo = $("#Consecutivo").val();
             info.Etiqueta = $("#Etiqueta").val();
             info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
-       
-            Listado.filtros = info;
+            info.token = Cookies.get("token");
+
+            Listado.DatosODT = info;
 
             if(ValidarErrores(info)){
-                $Corte.Corte.read(Listado, { token: Cookies.get("token") }).done(function (result) {
+                $Corte.Corte.update({ data: JSON.stringify(Listado) }).done(function (result) {
                     if (Error(result)) {
                         if ($("#TramoCompleto").is(":checked")) {
                             LimpiarMaquina();
