@@ -342,7 +342,7 @@
                            dataSource: {
                                type: "json",
                                transport: {
-                                   read: $UrlDummyDespacho + "&ItemCode=" + container.parent().children()[1].innerText + "&prueba=a" +"&prueba1=aa" + "&token=" + Cookies.get("token")
+                                   read: $UrlDummyDespacho + "&numerocontrol=" + container.parent().children()[0].innerText + "&etiqueta=" + container.parent().children()[1].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&token=" + Cookies.get("token")
                                }
                            },
                            select: function (e) {
