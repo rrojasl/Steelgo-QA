@@ -527,6 +527,11 @@ input.quickFilters.arrivalMaterial {
     width: 12.54%;
 }
 
+#DespachoCorte .btn-tab.Accesorios,
+#DespachoCorte .btn-tab.Tubos {
+    width: 14.33%;
+}
+
 /*.btn-tab span#spanSinAutorizacion {
         color: #E90000;
     }*/
@@ -695,6 +700,11 @@ input.quickFilters.arrivalMaterial {
         padding: 2px 29px 0 9px;
     }
 
+    #Nuevo.btn.btn-Despachar {
+        height: 34px!important;
+        padding-right: 33px;
+    }
+
 #massiveUpload.btn {
     margin-bottom: 3px;
 }
@@ -792,6 +802,11 @@ h2 {
     .btn-tab.Accesorios,
     .btn-tab.Tubos {
         width: 25.04%;
+    }
+
+    #DespachoCorte .btn-tab.Accesorios,
+    #DespachoCorte .btn-tab.Tubos {
+        width: 14.41%;
     }
 
     /*input*/
