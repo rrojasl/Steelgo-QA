@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models;
+using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -72,6 +73,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtengo la informacion del item code seleccionado en el combo
+        /// Pantalla Asociacion ICs
+        /// </summary>
+        /// <param name="itemCodeID"></param>
+        /// <returns></returns>
         public object obtenerInformacionItemCode(int itemCodeID)
         {
             try
@@ -87,9 +94,9 @@ namespace BackEndSAM.DataAcces
                                                          {
                                                              ItemCodeID = ic.ItemCodeID.ToString(),
                                                              Codigo = ic.Codigo,
-                                                             D1 = ic.Diametro1.ToString(),
-                                                             D2 = ic.Diametro2.ToString(),
-                                                             Descripcion = ic.DescripcionEspanol,
+                                                             D1 = ics.Diametro1.ToString(),
+                                                             D2 = ics.Diametro2.ToString(),
+                                                             Descripcion = ics.DescripcionEspanol,
                                                              ItemCodeSteelgo = ics.Codigo,
                                                              ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString()
                                                          }).AsParallel().ToList();
@@ -109,14 +116,26 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object obtenerInformacionICS(ICSDatosAsociacion datos)
+        /// <summary>
+        /// Obtener la informacion del Item Code Steelgo para el grid
+        /// pantalla AsociacionIcs
+        /// 
+        /// </summary>
+        /// <param name="datos"></param>
+        /// <param name="diametro1"></param>
+        /// <returns></returns>
+        public object obtenerInformacionICS(ICSDatosAsociacion datos, string diametro1)
         {
             try
             {
+                List<ICSDatosAsociacion> lista = new List<ICSDatosAsociacion>();
                 using(SamContext ctx = new SamContext())
                 {
-                    List<ICSDatosAsociacion> lista = (from ics in ctx.Sam3_ItemCodeSteelgo
-                                                      where ics.Activo
+                    lista = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                                      join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
+                                                      join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                                      where ics.Activo && g.Activo
+                                                       && ics.Diametro1.ToString() == diametro1
                                                       select new ICSDatosAsociacion
                                                       {
                                                           ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
@@ -124,14 +143,14 @@ namespace BackEndSAM.DataAcces
                                                           Descripcion = ics.DescripcionEspanol,
                                                           Diametro1 = ics.Diametro1.ToString(),
                                                           Diametro2 = ics.Diametro2.ToString(),
-                                                          Grupo = "",
-                                                          TipoAcero = "",
-                                                          CedulaA = "",
-                                                          CedulaB = "",
-                                                          Libra = "",
-                                                          Inch = "",
-                                                          MM = "",
-                                                          Espesor = "",
+                                                          Grupo = g.Nombre,
+                                                          FamiliaAceroID = ics.FamiliaAceroID.ToString(),
+                                                          CedulaA = c.CedulaA,
+                                                          CedulaB = c.CedulaB,
+                                                          Libra = c.CedulaC,
+                                                          Inch = c.CedulaIn.ToString(),
+                                                          MM = c.CedulaMM.ToString(),
+                                                          Espesor = c.Espesor.ToString(),
                                                           Peso = ics.Peso.ToString(),
                                                           Area = ics.Area.ToString()
                                                       }).AsParallel().ToList();
@@ -150,9 +169,17 @@ namespace BackEndSAM.DataAcces
                     lista = datos.Espesor != null && datos.Espesor != "" ? lista.Where(x => x.Espesor.StartsWith(datos.Espesor)).ToList() : lista;
                     lista = datos.Peso != null && datos.Peso != "" ? lista.Where(x => x.Peso.StartsWith(datos.Peso)).ToList() : lista;
                     lista = datos.Area != null && datos.Area != "" ? lista.Where(x => x.Area.StartsWith(datos.Area)).ToList() : lista;
-
-                    return lista;
                 }
+
+                using (Sam2Context ctx2 = new Sam2Context())
+                {
+                    lista.ForEach(x =>
+                        x.TipoAcero = (from fa in ctx2.FamiliaAcero
+                                       where fa.FamiliaAceroID.ToString() == x.FamiliaAceroID
+                                       select fa.Nombre).AsParallel().SingleOrDefault());
+                }
+
+                return lista;
             }
             catch (Exception ex)
             {
@@ -166,6 +193,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Crea la relacion entre ItemCode y ItemCode Steelgo
+        /// </summary>
+        /// <param name="itemCodeID"></param>
+        /// <param name="itemCodeSteelgoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object crearRelacion(string itemCodeID, string itemCodeSteelgoID, Sam3_Usuario usuario)
         {
             try
