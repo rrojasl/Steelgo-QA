@@ -138,6 +138,7 @@
     <Compile Include="Controllers\AsociacionICSController.cs" />
     <Compile Include="Controllers\CambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
+    <Compile Include="Controllers\CatalogoICSteelgoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />

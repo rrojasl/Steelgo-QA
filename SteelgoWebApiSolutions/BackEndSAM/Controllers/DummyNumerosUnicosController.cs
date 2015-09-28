@@ -19,27 +19,26 @@ namespace BackEndSAM.Controllers
     public class DummyNumerosUnicosController : ApiController
     {
         // GET api/dummynumerosunicos
-        public object Get(string token)
+        public object Get(string ProyectoID,string texto, string token)
         {
-            //List<DummyNumeroControl> lstNumeroUnico = new List<DummyNumeroControl>();
-            //DummyNumeroControl numerounico1 = new DummyNumeroControl();
-            //DummyNumeroControl numerounico2 = new DummyNumeroControl();
-            //DummyNumeroControl numerounico3 = new DummyNumeroControl();
+             //List<DummyNumeroControl> lstNumeroUnico = new List<DummyNumeroControl>();
+             //DummyNumeroControl numerounico1 = new DummyNumeroControl();
+             //DummyNumeroControl numerounico2 = new DummyNumeroControl();
+             //DummyNumeroControl numerounico3 = new DummyNumeroControl();
 
-            //numerounico1.NumeroControlID = "1";
-            //numerounico1.NumeroControl = "Numero Unico 1";
-            //lstNumeroUnico.Add(numerounico1);
+             //numerounico1.NumeroControlID = "1";
+             //numerounico1.NumeroControl = "Numero Unico 1";
+             //lstNumeroUnico.Add(numerounico1);
 
-            //numerounico2.NumeroControlID = "2";
-            //numerounico2.NumeroControl = "Numero Unico 2";
-            //lstNumeroUnico.Add(numerounico2);
+             //numerounico2.NumeroControlID = "2";
+             //numerounico2.NumeroControl = "Numero Unico 2";
+             //lstNumeroUnico.Add(numerounico2);
 
-            //numerounico3.NumeroControlID = "3";
-            //numerounico3.NumeroControl = "Numero Unico 3";
-            //lstNumeroUnico.Add(numerounico3);
-
-            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(16, "EI",  new Sam3_Usuario());
-        
+             //numerounico3.NumeroControlID = "3";
+             //numerounico3.NumeroControl = "Numero Unico 3";
+             //lstNumeroUnico.Add(numerounico3);
+            int Proyecto = ProyectoID != "" ? Convert.ToInt32(ProyectoID) : 0;
+            return NumeroUnicoBd.Instance.ListadoNumerosUnicosCorte(Proyecto, new Sam3_Usuario());
         }
 
 
