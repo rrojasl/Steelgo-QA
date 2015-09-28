@@ -556,6 +556,7 @@
     };
 
     function DesahabilitarBotones() {
+        $("#ProyectoID").data("kendoComboBox").enable(false);
         $("#OrdenTrabajo").attr("disabled", "disabled");
         $("#Consecutivo").attr("disabled", "disabled");
         $("#Etiqueta").attr("disabled", "disabled");
