@@ -255,8 +255,8 @@
                 { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
                 { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },               
-                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()] },
-                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()] }
+                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden:true},
+                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()], hidden: true }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
