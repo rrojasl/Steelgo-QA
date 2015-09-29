@@ -216,9 +216,11 @@
         familiaItemCodeSteelgo = {};
         cedulasItemCodeSteelgo = {};
     };
+
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
     };
+
     function GuardarItemCodeSteelgo() {
         ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", CedulaID: "", Codigo: "" };
         ItemCodeSteelgo.DescripcionEspanol = $("#Descripcion_ItemCodeSteelgo").val();
