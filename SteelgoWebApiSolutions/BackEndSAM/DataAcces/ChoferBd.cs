@@ -99,17 +99,17 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Chofer nuevoChofer = new Sam3_Chofer();
-                    nuevoChofer.Activo = true;
-                    nuevoChofer.FechaModificacion = DateTime.Now;
-                    nuevoChofer.Nombre = chofer.Nombre;
-                    nuevoChofer.UsuarioModificacion = usuario.UsuarioID;
-                    nuevoChofer.TransportistaID = chofer.TransportistaID;
+                    //Sam3_Chofer nuevoChofer = new Sam3_Chofer();
+                    chofer.Activo = true;
+                    chofer.FechaModificacion = DateTime.Now;
+                    //nuevoChofer.Nombre = chofer.Nombre;
+                    chofer.UsuarioModificacion = usuario.UsuarioID;
+                    //chofer.TransportistaID = chofer.TransportistaID;
 
-                    ctx.Sam3_Chofer.Add(nuevoChofer);
+                    ctx.Sam3_Chofer.Add(chofer);
                     ctx.SaveChanges();
 
-                    return new Chofer { Nombre = chofer.Nombre, ChoferID = nuevoChofer.ChoferID.ToString() };
+                    return new Chofer { Nombre = chofer.Nombre, ChoferID = chofer.ChoferID.ToString() };
                 }
             }
             catch (Exception ex)

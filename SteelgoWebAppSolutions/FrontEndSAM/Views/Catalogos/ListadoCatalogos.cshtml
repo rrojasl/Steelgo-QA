@@ -474,7 +474,11 @@
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        $("#grid").kendoGrid({ columns: [] });
+        if ($("#listaCatalogos").data("kendoDropDownList").value()) {
+            cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
+        }else{
+            $("#grid").kendoGrid({ columns: [] });
+        }
     };
 
     function getDropData(e){
@@ -504,16 +508,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: true,
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -657,12 +652,22 @@
     })
 
     function dropdownSiNo(container, options) {
+        function getvalor(){
+            console.log(container);
+            console.log(options);
+            for(key in options.model){ 
+                if(options.model[key]==="Si" || options.model[key]==="No"){ 
+                    return options.model[key] 
+                }
+            }
+        };
+        var valor=getvalor();
         $('<input id="sinodrop" data-text-field="text" data-value-field="value" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",
-            optionLabel: "Selecciona una opción",
+            optionLabel: "Actual: "+valor,
             dataSource: [
                 { text: "Si", value: true },
                 { text: "No", value: false }

@@ -117,7 +117,20 @@ namespace BackEndSAM.DataAcces
 
                     ctx.SaveChanges();
 
-                    return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.VehiculoID.ToString() };
+                        return new CatalogoTracto
+                        {
+                            VehiculoID = nuevoCamion.VehiculoID.ToString(),
+                            Placas = nuevoCamion.Placas,
+                            TarjetaCirculacion = nuevoCamion.TarjetaCirculacion,
+                            PolizaSeguro = nuevoCamion.PolizaSeguro,
+                            choferNombre = cambios.choferNombre,
+                            choferID = cambios.ChoferID.ToString(),
+                            transportistaNombre = cambios.transportistaNombre,
+                            transportistaID = cambios.TransportistaID.ToString(),
+                            relVehiculoChoferID = nuevoRegistroChofer.Rel_Vehiculo_Chofer_ID.ToString(),
+                            relVehiculoTransportistaID = transportista.Rel_Vehiculo_Transportista_ID.ToString()
+                        };
+                    //return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.VehiculoID.ToString() };
                 }
             }
             catch (Exception ex)
