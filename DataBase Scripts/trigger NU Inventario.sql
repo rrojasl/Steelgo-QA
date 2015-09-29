@@ -58,19 +58,61 @@ BEGIN
 			FROM inserted
 
 	--Creo un cusor para recorrer los registros insertados
-	DECLARE @numeroUnicoID INT
+	DECLARE @numeroUnicoID INT,
+			@sam2_numeroUnicoID INT,
+			@proyectoID INT,
+			@sam2_proyectoID INT
 
 
 	DECLARE RecorrerRegistros CURSOR FOR
-	SELECT NumeroUnicoID FROM @registroTemporal
+	SELECT NumeroUnicoID, ProyectoID FROM @registroTemporal
 	OPEN RecorrerRegistros
-	FETCH NEXT FROM RecorrerRegistros INTO @numeroUnicoID
+	FETCH NEXT FROM RecorrerRegistros INTO @numeroUnicoID, @proyectoID
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 
-		
+		SET @sam2_numeroUnicoID = (
+				SELECT Sam2_NumeroUnicoID FROM Sam3_EquivalenciaNumeroUnico
+				WHERE Sam3_NumeroUnicoID = @numeroUnicoID
+			)
 
-		FETCH NEXT FROM RecorrerRegistros INTO @proyectoID, @codigo, @itemCodeID
+		SET @sam2_proyectoID = (
+			SELECT SAm2_ProyectoID FROM Sam3_EquivalenciaProyecto 
+			WHERE Sam3_ProyectoID = @proyectoID
+		)
+
+		IF (SELECT NumeroUnicoID FROM SAM2.SAM.DBO.NumeroUnicoInventario
+			WHERE NumeroUnicoID = @sam2_numeroUnicoID) IS NULL
+		BEGIN
+			--insertar en sam2
+			INSERT INTO [dbo].[NumeroUnicoInventario]
+					   ([NumeroUnicoID]
+					   ,[ProyectoID]
+					   ,[CantidadRecibida]
+					   ,[CantidadDanada]
+					   ,[InventarioFisico]
+					   ,[InventarioBuenEstado]
+					   ,[InventarioCongelado]
+					   ,[InventarioTransferenciaCorte]
+					   ,[InventarioDisponibleCruce]
+					   )
+			SELECT 
+				@sam2_numeroUnicoID,
+				@sam2_proyectoID,
+				CantidadRecibida,
+				CantidadDanada,
+				InventarioFisico,
+				InventarioBuenEstado,
+				InventarioCongelado,
+				InventarioTransferenciaCorte,
+				InventarioDisponibleCruce
+			FROM Sam3_NumeroUnicoInventario nui
+			WHERE nui.NumeroUnicoID = @numeroUnicoID
+
+
+		END
+
+		FETCH NEXT FROM RecorrerRegistros INTO @numeroUnicoID, @proyectoID
 	END
 	CLOSE RecorrerRegistros;
 	DEALLOCATE RecorrerRegistros;

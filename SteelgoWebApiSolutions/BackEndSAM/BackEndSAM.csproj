@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CambiarEstatusCuantificacionController.cs" />
     <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
     <Compile Include="Controllers\CatalogoICSteelgoController.cs" />
+    <Compile Include="Controllers\CedulasController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="DataAcces\AsociacionICSBd.cs" />
     <Compile Include="DataAcces\AvisoLlegadaBd.cs" />
     <Compile Include="DataAcces\CatalogosBd.cs" />
+    <Compile Include="DataAcces\CedulasBd.cs" />
     <Compile Include="DataAcces\ClienteBd.cs" />
     <Compile Include="DataAcces\ColadaBd.cs" />
     <Compile Include="DataAcces\ComplementoRecepcionBd.cs" />
@@ -312,6 +314,7 @@
     <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\Catalogos.cs" />
     <Compile Include="Models\CuantificacionListado.cs" />
+    <Compile Include="Models\DashBoardDespacho.cs" />
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />
