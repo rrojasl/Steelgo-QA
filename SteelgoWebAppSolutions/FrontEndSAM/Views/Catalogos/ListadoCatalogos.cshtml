@@ -53,7 +53,6 @@
                 TransportistaNombre: { type: "string", validation: { required: true } },
             }
         },
-        //{"Id":"1","Nombre":"Material"}
         "3": {
             id: "Id",
             fields: {
@@ -77,12 +76,12 @@
             id: "VehiculoID",
             fields: {
                 VehiculoID: { editable: false, nullable: true },
-                Placas: { type: "string", validation: { required: true } },
-                TarjetaCirculacion: { type: "string", validation: { required: true } },
-                PolizaSeguro: { type: "string" },
-                ChoferID: { editable: false, nullable: true },
-                choferNombre: { type: "string", validation: { required: true } },
-                TransportistaID: { editable: false, nullable: true },
+                Placas: { type:"string",validation: { required: true } },
+                TarjetaCirculacion: { type:"string",validation: { required: true } },
+                PolizaSeguro: { type:"string"},
+                choferID: { editable: false, nullable: true },
+                choferNombre: { type:"string",validation: { required: true } },
+                transportistaID: { editable: false, nullable: true },
                 transportistaNombre: { type: "string", validation: { required: true } },
                 relVehiculoChoferID: { editable: false, nullable: true },
                 relVehiculoTransportistaID: { editable: false, nullable: true },
@@ -92,13 +91,13 @@
             id: "VehiculoID",
             fields: {
                 VehiculoID: { editable: false, nullable: true },
-                TractoID: { type: "number", validation: { required: true } },
-                Placas: { type: "string", validation: { required: true } },
-                Unidad: { type: "string" },
-                Modelo: { type: "string" },
-                ChoferID: { editable: false, nullable: true },
-                choferNombre: { type: "string", validation: { required: true } },
-                TransportistaID: { editable: false, nullable: true },
+                TractoID: { type:"number", validation: { required: true } },
+                Placas: { type:"string",validation: { required: true } },
+                Unidad: { type:"string"},
+                Modelo : { type:"string"},
+                choferID: { editable: false, nullable: true },
+                choferNombre: { type:"string",validation: { required: true } },
+                transportistaID: { editable: false, nullable: true },
                 transportistaNombre: { type: "string", validation: { required: true } },
                 relVehiculoChoferID: { editable: false, nullable: true },
                 relVehiculoTransportistaID: { editable: false, nullable: true },
@@ -116,7 +115,21 @@
                 Telefono: { type: "string" }
             }
         },
-        "10": {
+        "8":{
+            id:"Id",
+            fields:{
+                Id: { editable: false, nullable: true },
+                Nombre: { type:"string",validation: { required: true } },
+            }
+        },
+        "9":{
+            id:"Id",
+            fields:{
+                Id: { editable: false, nullable: true },
+                Nombre: { type:"string",validation: { required: true } },
+            }
+        },
+        "10":{
             id: "AceroID",
             fields: {
                 AceroID: { editable: false, nullable: true },
@@ -223,10 +236,10 @@
                                 }
                             }
                         },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre = data.nombre;
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
@@ -246,10 +259,10 @@
                                 }
                             }
                         },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre = data.nombre;
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -271,10 +284,10 @@
                                 }
                             }
                         },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre = data.nombre;
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
@@ -294,10 +307,10 @@
                                 }
                             }
                         },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre = data.nombre;
+                        close: function(e) {
+                            var data=getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -461,16 +474,16 @@
         $("#grid").kendoGrid({ columns: [] });
     };
 
-    function getDropData(e) {
-        var id = e.sender._old;
-        var nombre = e.sender._prev;
-        var grid = $("#grid").data("kendoGrid");
-        var dirty = $.map(grid.dataSource.data(), function (obj, index) {
-            if (obj.dirty == true) {
+    function getDropData(e){
+        var id=e.sender._old;
+        var nombre=e.sender._prev;
+        var grid=$("#grid").data("kendoGrid");
+        var dirty = $.map(grid._data, function(obj, index) {
+            if(obj.dirty == true) {
                 return index;
             }
         });
-        return { id: id, nombre: nombre, posicion: dirty[0] }
+        return {id:id,nombre:nombre,posicion:dirty[dirty.length-1]}
     }
 
     function getUrl() {
@@ -514,15 +527,14 @@
                 for (f in models[catalogo].fields) {
                     data[f] = e.model[f];
                 }
-                if (e.model.id !== "" && e.model.id !== null) {
-                    var direccion = parseUrl(data, catalogo, "put");
-                    grid.options.dataSource.options.transport.update.url = direccion;
-                } else {
-                    data[models[catalogo].id] = "0";
-                    var direccion = parseUrl(data, catalogo, "post");
-                    grid.options.dataSource.options.transport.create.url = direccion;
+                if(e.model.id!==null && e.model.id!==""){
+                    var direccion=parseUrl(data,catalogo,"put");
+                    grid.options.dataSource.options.transport.update.url=direccion;
+                }else{
+                    data[models[catalogo].id]="0";
+                    var direccion=parseUrl(data,catalogo,"post");
+                    grid.options.dataSource.options.transport.create.url=direccion;
                 }
-                grid.options.dataSource.sync();
             },
             remove: function (e) {
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
@@ -531,11 +543,10 @@
                 for (f in models[catalogo].fields) {
                     data[f] = e.model[f];
                 }
-                if (e.model.id !== "" && e.model.id !== null) {
-                    var direccion = parseUrl(data, catalogo, "delete");
-                    grid.options.dataSource.options.transport.destroy.url = direccion;
-                    grid.options.dataSource.sync();
-                } else {
+                if(e.model.id!==null && e.model.id!==""){
+                    var direccion=parseUrl(data,catalogo,"delete");
+                    grid.options.dataSource.options.transport.destroy.url=direccion;
+                }else{
                     alert("Ha ocurrido un error: El elemento aun no existe en la BD");
                 }
             },
@@ -552,11 +563,10 @@
                         var columna = $.grep(grid.columns, function (e) { return e.field == c; });
                         grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
                     }
-                    grid.options.columns = grid.columns;
-                    var ids = $.grep(grid.columns, function (e) { if (e.field) { return e.field.toString().toUpperCase().indexOf("ID") > -1; } });
-                    ids.forEach(function (i) {
-                        console.log(i.field.toUpperCase().indexOf("ID") + "\t" + i.field.length);
-                        i.field.length - i.field.toUpperCase().indexOf("ID") == 2 ? grid.hideColumn(i.field) : console.log(1);
+                    grid.options.columns=grid.columns;
+                    var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
+                    ids.forEach(function(i){
+                        i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : null;
                     });
                     var options = grid.options;
                     grid.destroy();
@@ -600,22 +610,19 @@
                     type: "GET",
                     cache: false
                 },
-                update: {
-                    url: getUrl() + Cookies.get("token"),
-                    dataType: "json",
-                    type: "PUT",
+                update:{
+                    dataType:"json",
+                    type:"PUT",
                     cache: false
                 },
-                destroy: {
-                    url: getUrl() + Cookies.get("token"),
-                    dataType: "json",
-                    type: "DELETE",
+                destroy:{
+                    dataType:"json",
+                    type:"DELETE",
                     cache: false
                 },
-                create: {
-                    url: getUrl() + Cookies.get("token"),
-                    dataType: "json",
-                    type: "POST",
+                create:{
+                    dataType:"json",
+                    type:"POST",
                     cache: false
                 },
                 parameterMap: function (options, operation) {
