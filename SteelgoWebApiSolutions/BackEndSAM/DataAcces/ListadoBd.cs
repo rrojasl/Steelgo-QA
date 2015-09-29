@@ -1777,11 +1777,12 @@ namespace BackEndSAM.DataAcces
                                             where p.Activo && pa.Activo
                                             select pa.PatioID).Distinct().AsParallel().ToList();
 
-                        int folioAvisoLlegadaID = Convert.ToInt32(filtros.FolioAvisoLlegadaID);
-                        int clienteID = Convert.ToInt32(filtros.ClienteID);
-                        int proyectoID = Convert.ToInt32(filtros.ProyectoID);
-                        int folioCuantificacionID = Convert.ToInt32(filtros.PackingListID);
-                        int tipoMaterialID = Convert.ToInt32(filtros.TipoMaterialID);
+                        int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        int folioCuantificacionID = filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int tipoMaterialID = filtros.TipoMaterialID != "" ? Convert.ToInt32(filtros.TipoMaterialID) : 0;
+
 
                         DateTime fechaInicial = new DateTime();
                         DateTime fechaFinal = new DateTime();

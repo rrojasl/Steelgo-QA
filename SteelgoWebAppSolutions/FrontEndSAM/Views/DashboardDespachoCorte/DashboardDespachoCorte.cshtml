@@ -51,10 +51,10 @@
                                 <label id="DashboardDespachoCorte0009"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                           @* <div class="col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardDespachoCorte0047"></label>
                                 <input id="UnidadMedida" class="" />
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
             CargarGridTubos();
             CargarGridAccesorios();
             CrearPeriodoTiempo();
-            CrearUnidadMedida();
+            //CrearUnidadMedida();
         };
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
@@ -462,19 +462,19 @@
 
         function ArregloListado(tipolistado, tipomaterial) {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
-            Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+            Listado.FolioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
             Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";
             Listado.TipoMaterialID = tipomaterial;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
-            Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            //Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
             Listado.token = Cookies.get("token");
             Listado.TipoListado = tipolistado;
 
@@ -540,7 +540,7 @@
         };
 
         function OrdenesTrabajo(tipomaterial) {
-            var Listado = ArregloListado("11", tipomaterial);
+            var Listado = ArregloListado("25", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 if (Error(result)) {
@@ -598,7 +598,7 @@
         };
 
         function OrdenesTrabajoActivas(tipomaterial) {
-            var Listado = ArregloListado("12", tipomaterial);
+            var Listado = ArregloListado("25", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 if (Error(result)) {
@@ -1207,43 +1207,41 @@
         };
         function CantidadesDelMenuDashboardTubos() {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
-            Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+            Listado.FolioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
             Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";
             Listado.TipoMaterialID = 1;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
-            Listado.TipoListado = 7;
-            Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
-            console.log("CantidadesDelMenuDashboardTubos: " + JSON.stringify(Listado));
+            Listado.TipoListado = 26;
+            //Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
 
             ObtenerAccionesListadoTubos(Listado);
         };
         function CantidadesDelMenuDashboardAccesorios() {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoEntradaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
             Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
-            Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
+            Listado.FolioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
             Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";;
             Listado.TipoMaterialID = 2;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
-            Listado.TipoListado = 7;
-            Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
-            console.log("CantidadesDelMenuDashboardAccesorios: " + JSON.stringify(Listado));
+            Listado.TipoListado = 26;
+            //Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
 
             ObtenerAccionesListadoAccesorios(Listado);
         };
