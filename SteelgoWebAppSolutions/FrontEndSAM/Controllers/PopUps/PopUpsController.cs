@@ -34,5 +34,10 @@ namespace FrontEndSAM.Controllers
         {
             return View();
         }
+
+        public ActionResult ItemCode()
+        {
+            return View();
+        }
     }
 }

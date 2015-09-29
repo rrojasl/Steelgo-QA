@@ -1,0 +1,330 @@
+﻿@{
+    ViewBag.Title = "Item Code";
+}
+
+ <div id="modalItemCode" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
+     <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="row">
+                <div id="Proyecto_ItemCodeDiv" class="form-group">
+                    <label id="Cuantificacion0055"></label>
+                    <input id="Proyecto_ItemCode" class="" />
+                </div>
+                <div id="TipoMaterial_ItemCodeDiv" class="form-group">
+                    <label id="Cuantificacion0056"></label>
+                    <input id="TipoMaterial_ItemCode" class="" />
+                </div>
+                <div id="Colada_ItemCodeDiv" class="form-group">
+                    <label id="Cuantificacion0057"></label>
+                    <input id="Colada_ItemCode" class="" />
+                </div>
+                <div id="ItemCode_ItemCodeDiv" class="form-group">
+                    <label id="Cuantificacion0045"></label>
+                    <input id="ItemCode_ItemCode" class="" />
+                </div>
+                <div id="Descripcion_ItemCodeDiv" class="form-group">
+                    <label id="Cuantificacion0046"></label>
+                    <input id="Descripcion_ItemCode" class="" />
+                </div>
+                <div id="Familia_ItemCodeDiv" class="form-group">
+                    <label id="Cuantificacion0047"></label>
+                    <input id="Familia_ItemCode" class="" />
+                </div>
+                <div class="buttonSave">
+                    <a id="GuardarItemCode" href="#" class="btn btn-primary">
+                        <span id="Cuantificacion0048"></span>
+                    </a>
+                    <a id="CancelarItemCode" href="#" class="btn btn-primary">
+                        <span id="Cuantificacion0049"></span>
+                    </a>
+                </div>
+        </div>
+    </div>
+</div>
+<script>
+    @section JavascriptGlobalVariables {
+    var ProyectoItemCode = {}, TipoPackingListItemCode = {}, ColadaItemCode = {},
+        familiaItemCode = {};
+
+    var $ItemCodeModel = {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "",
+            destroy: ""
+        },
+        properties: {
+            proyecto: {
+                visible: "#Proyecto_ItemCodeDiv",
+                editable: "#Proyecto_ItemCode",
+                required: "#Proyecto_ItemCode"
+            },
+            tipomaterial: {
+                visible: "#TipoMaterial_ItemCodeDiv",
+                editable: "#TipoMaterial_ItemCode",
+                required: "#TipoMaterial_ItemCode"
+            },
+            colada: {
+                visible: "#Colada_ItemCodeDiv",
+                editable: "#Colada_ItemCode",
+                required: "#Colada_ItemCode"
+            },
+            codigo: {
+                visible: "#ItemCode_ItemCodeDiv",
+                editable: "#ItemCode_ItemCode",
+                required: "#ItemCode_ItemCode"
+            },
+            descripcion: {
+                visible: "#Descripcion_ItemCodeDiv",
+                editable: "#Descripcion_ItemCode",
+                required: "#Descripcion_ItemCode"
+            },
+            familia: {
+                visible: "#Familia_ItemCodeDiv",
+                editable: "#Familia_ItemCode",
+                required: "#Familia_ItemCode"
+            }
+        }
+    };
+    }
+    @section JavascriptGlobalFunctions {
+
+    function CargaInicial() {
+        hideElementsItemCode();
+        $("#Proyecto_ItemCode").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyectoItemCode(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    ProyectoItemCode = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerProyecto("Proyecto_ItemCode");
+
+        $("#TipoMaterial_ItemCode").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "id",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    TipoPackingListItemCode = {};
+                }
+            },
+            filter: "contains",
+        });
+        obtenerTipoPackingList("TipoMaterial_ItemCode");
+
+        $("#Colada_ItemCode").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ColadaID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarColadaItemCode(dataItem.ColadaID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    ColadaItemCode = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerColada("Colada_ItemCode", 0, 0);
+
+        $("#Familia_ItemCode").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "FamiliaAceroID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarFamiliaItemCode(dataItem.FamiliaAceroID);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    familiaItemCode = {};
+                };
+            },
+            filter: "contains",
+        });
+        ObtenerFamiliaItemCode();
+
+        $("#GuardarItemCode").click(function () {
+            if (validarRequeridosModalItemCode()) {
+                GuardarItemCode();
+            } else {
+                displayMessage("notificationslabel0031", "", '1');
+            }
+        });
+
+        $("#CancelarItemCode").click(function () { CancelarModalItemCode(); });
+    };
+    function hideElementsItemCode() {
+        $(".sidebar").hide();
+        $(".logo").hide();
+        $(".search-bar").hide();
+        $(".notifications").hide();
+        $(".logged-user").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".breadcrumb-container").hide();
+        $(".languageSelector").hide();
+        $(".pull-right").hide();
+        $("header").hide();
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
+    };
+    function CargarProyectoItemCode(id, value) {
+        ProyectoItemCode = {};
+        ProyectoItemCode = { ProyectoID: id, Nombre: value };
+    };
+
+    function CargarTipoPackingListItemCode(id, value) {
+        TipoPackingListItemCode = {};
+        TipoPackingListItemCode = { TipoPackingListID: id, Nombre: value };
+    };
+    function CargarColadaItemCode(id, value) {
+        ColadaItemCode = {};
+        ColadaItemCode = { ColadaID: id, Nombre: value };
+    };
+
+    function CargarFamiliaItemCode(id) {
+        familiaItemCode = {};
+        familiaItemCode = { FamiliaID: id };
+    };
+
+    function ObtenerProyecto(id) {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox(id, result);
+        });
+    };
+
+    function obtenerTipoPackingList(id) {
+        $TipoPackingList.TipoPackingList.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox(id, result);
+        });
+    };
+
+    function ObtenerColada(id, opciones, mostrarOpcion) {
+        $Colada.Colada.read({ token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
+            ControlErroresObjetosComboBox(id, result);
+        });
+    };
+
+    function ObtenerFamiliaItemCode() {
+        $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("Familia_ItemCode", result);
+        });
+    };
+
+    function validarRequeridosModalItemCode() {
+        var bool = true;
+        $("#modalItemCode .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if (!$(this).val()) {
+                    bool = false;
+                    $(this).closest("div").find("label").addClass("error");
+                    $(this).closest("div").addClass("clearfix");
+                } else {
+                    $(this).closest("div").find("label").removeClass("error");
+                    $(this).closest("div").removeClass("clearfix");
+                };
+            };
+        });
+        return bool;
+    };
+
+    function cerrarVentanaModal() {
+        window.parent.$("#window").data("kendoWindow").close();
+    };
+
+    function LimpiarModalItemCode() {
+        $("#ItemCode_ItemCode").val("");
+        $("#Descripcion_ItemCode").val("");
+        $("#Familia_ItemCode").data("kendoComboBox").value("");
+        $("#Proyecto_ItemCode").data("kendoComboBox").value("");
+        $("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
+        $("#Colada_ItemCode").data("kendoComboBox").value("");
+
+        familiaItemCode = {};
+        ProyectoItemCode = {};
+        TipoPackingListItemCode = {};
+        ColadaItemCode = {};
+    };
+
+    function GuardarItemCode() {
+        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "" };
+        ItemCode.ProyectoID = ProyectoItemCode.ProyectoID;
+        ItemCode.TipoPackingList = TipoPackingListItemCode.TipoPackingListID;
+        ItemCode.ColadaID = ColadaItemCode.ColadaID;
+        ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
+        ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
+        ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
+
+        $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
+            LimpiarModalItemCode();
+            if (Error(data)) {
+                cerrarVentanaModal();
+            };
+        });
+
+    };
+
+    function cancelarvalidacionRequeridosModalItemCode() {
+        $("#modalItemCode .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                $(this).closest("div").find("label").removeClass("error");
+                $(this).closest("div").removeClass("clearfix");
+            };
+        });
+    };
+
+    function CancelarModalItemCode() {
+        LimpiarModalItemCode();
+        cerrarVentanaModal();
+        cancelarvalidacionRequeridosModalItemCode();
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+    }
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Item Code"] = $ItemCodeModel;
+    CargaInicial();
+    }
+    @section JavascriptDocumentReadyHomeCookie {
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "35", { path: '/' });
+    }
+</script>
