@@ -689,12 +689,12 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 14: //fabricante
                             #region
-                            Sam3_Fabricante fabricante = serializer.Deserialize<Sam3_Fabricante>(data);
+                            CatalogoFabricante fabricante = serializer.Deserialize<CatalogoFabricante>(data);
 
-                            Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID == fabricante.FabricanteID && fabricante.Activo).AsParallel().SingleOrDefault();
+                            Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID.ToString() == fabricante.FabricanteID && x.Activo).AsParallel().SingleOrDefault();
 
-                            fabricanteEnBd.ContactoID = fabricante.ContactoID != null && fabricante.ContactoID != fabricanteEnBd.ContactoID ?
-                                fabricante.ContactoID : fabricanteEnBd.ContactoID;
+                            fabricanteEnBd.ContactoID = fabricante.ContactoID != null && fabricante.ContactoID != fabricanteEnBd.ContactoID.ToString() ?
+                                Convert.ToInt32(fabricante.ContactoID) : fabricanteEnBd.ContactoID;
 
                             fabricanteEnBd.Nombre = fabricante.Nombre != null && fabricante.Nombre != fabricanteEnBd.Nombre ?
                                 fabricante.Nombre : fabricanteEnBd.Nombre;
@@ -714,12 +714,15 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new CatalogoFabricante
+                            {
+                                Contacto = fabricante.Contacto,
+                                ContactoID = fabricante.ContactoID,
+                                Nombre = fabricanteEnBd.Nombre,
+                                Descripcion = fabricanteEnBd.Descripcion,
+                                Direccion = fabricanteEnBd.Direccion,
+                                Telefono = fabricanteEnBd.Telefono
+                            };
                             #endregion
                         default:
                             #region
