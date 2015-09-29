@@ -17,5 +17,9 @@ namespace FrontEndSAM.Controllers.Catalogos
         {
             return View();
         }
+        public ActionResult AsociacionItemCodes()
+        {
+            return View();
+        }
     }
 }
