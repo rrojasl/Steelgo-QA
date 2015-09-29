@@ -29,5 +29,15 @@ namespace FrontEndSAM.Controllers
         {
             return View();
         }
+
+        public ActionResult ItemCodeSteelgo() 
+        {
+            return View();
+        }
+
+        public ActionResult ItemCode()
+        {
+            return View();
+        }
     }
 }

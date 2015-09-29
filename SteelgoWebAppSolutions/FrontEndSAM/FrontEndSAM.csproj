@@ -1141,6 +1141,8 @@
     <Content Include="Views\PopUps\Chofer.cshtml" />
     <Content Include="Views\PopUps\Proveedor.cshtml" />
     <Content Include="Views\Catalogos\ItemCodeSteelGo.cshtml" />
+    <Content Include="Views\PopUps\ItemCodeSteelgo.cshtml" />
+    <Content Include="Views\PopUps\ItemCode.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
