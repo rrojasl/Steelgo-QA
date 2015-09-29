@@ -41,7 +41,7 @@
                 Nombre: { type: "string" },
                 Descripcion: { type: "string" },
                 Propietario: { validation: { required: true } },
-                RequierePermiso: { type: "string" }
+                RequierePermisoAduana: { type: "string" }
             }
         },
         "2": {
@@ -169,7 +169,7 @@
     }
     columnas = {
         "1": {
-            "RequierePermiso": { field: "RequierePermiso", title: "Requiere permiso", editor: dropdownSiNo }
+            "RequierePermisoAduana": { field: "RequierePermisoAduana", title: "Requiere permiso Aduana", editor: dropdownSiNo }
         },
         "2": {
             "TransportistaNombre": {
