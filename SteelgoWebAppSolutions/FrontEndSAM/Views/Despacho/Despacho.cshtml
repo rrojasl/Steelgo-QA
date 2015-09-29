@@ -335,7 +335,7 @@
     };
 
     function NumeroUnicoAutocomplete(container, options) {
-        $('<input required data-text-field="NumeroUnico" data-value-field="NumeroUnicoID" data-bind="value:' + options.field + '"/>')
+        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                        .appendTo(container)
                        .kendoComboBox({
                            autoBind: false,
