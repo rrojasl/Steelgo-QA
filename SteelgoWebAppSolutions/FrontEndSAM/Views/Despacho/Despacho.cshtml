@@ -347,7 +347,7 @@
                            },
                            select: function (e) {
                                var dataItem = this.dataItem(e.item.index());
-                               lastEditedCellID.NumeroUnico = dataItem.NumeroUnico;
+                               lastEditedCellID.NumeroUnico = dataItem.value;
                                $('#grid').data('kendoGrid').refresh();
                            },
                            change: function (e) {
