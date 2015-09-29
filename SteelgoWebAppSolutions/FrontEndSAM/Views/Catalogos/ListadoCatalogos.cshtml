@@ -14,18 +14,22 @@
     </li>*@
 }
 
-<div class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-5">
+<div id="listadoCatalagos" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <label id="ListadoCatalogos0003"></label>
-    </div>
-    <div class="row">
-        <input type="text" id="listaCatalogos" />
-    </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid" style="width: 100%"></div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                    <label id="ListadoCatalogos0003"></label>
+                    <input id="listaCatalogos" class="" />
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="grid" style="width: 100%"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -556,8 +560,8 @@
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     var grid = $("#grid").data("kendoGrid");
-                    grid.columns.push({ command: "edit", title: "Editar", width: "75px" });
-                    grid.columns.push({ command: "destroy", title: "Borrar", width: "75px" });
+                    grid.columns.push({ command: "edit", title: "Editar", width: "91px" });
+                    grid.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
                     for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
                         var columna = $.grep(grid.columns, function (e) { return e.field == c; });
                         grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
@@ -632,7 +636,7 @@
         });
     }
 
-    $("#listaCatalogos").width("50%").kendoDropDownList({
+    $("#listaCatalogos").width("88%").kendoDropDownList({
         dataTextField: "value",
         dataValueField: "id",
         optionLabel: "Selecciona un catálogo",
