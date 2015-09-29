@@ -1084,6 +1084,7 @@ namespace BackEndSAM.DataAcces
                             #region
 
                             VehiculoJson tracto = serializer.Deserialize<VehiculoJson>(data);
+                            tracto.TipoVehiculoID = "1";
                             res = TractoBd.Instance.InsertarTracto(tracto, usuario);
 
                             return res;
@@ -1093,6 +1094,7 @@ namespace BackEndSAM.DataAcces
                             #region
 
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
+                            plana.TipoVehiculoID = "2";
                             res = TractoBd.Instance.InsertarTracto(plana, usuario);
 
                             return res;
