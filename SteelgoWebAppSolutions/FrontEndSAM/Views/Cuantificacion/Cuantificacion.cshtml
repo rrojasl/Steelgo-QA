@@ -198,7 +198,7 @@
         </div>
     
     <div id="modalItemCodeSteelgo" style="display: none">
-            <div class="alert-container">
+            @*<div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
                 </div>
@@ -242,7 +242,7 @@
                 <a id="CancelarItemCodeSteelgo" href="#" class="btn btn-primary">
                     <span id="Cuantificacion0054"></span>
                 </a>
-            </div>
+            </div>*@
     </div>
 
     <div id="modalColada" style="display: none">
@@ -446,57 +446,6 @@
                         visible: "#Familia_ItemCodeDiv",
                         editable: "#Familia_ItemCode",
                         required: "#Familia_ItemCode"
-                    }
-                }
-            };
-            
-            var $ItemCodeSteelgoModel = {
-                listContainer: {
-                    create: "",
-                    list: "",
-                    detail: "",
-                    destroy: ""
-                },
-                properties: {
-                    descripcion: {
-                        visible: "#Descripcion_ItemCodeSteelgoDiv",
-                        editable: "#Descripcion_ItemCodeSteelgo",
-                        required: "#Descripcion_ItemCodeSteelgo"
-                    },
-                    familia: {
-                        visible: "#Familia_ItemCodeSteelgoDiv",
-                        editable: "#Familia_ItemCodeSteelgo",
-                        required: "#Familia_ItemCodeSteelgo"
-                    },
-                    peso: {
-                        visible: "#Peso_ItemCodeSteelgoDiv",
-                        editable: "#Peso_ItemCodeSteelgo",
-                        required: "#Peso_ItemCodeSteelgo"
-                    },
-                    diametro1: {
-                        visible: "#Diametro1_ItemCodeSteelgoDiv",
-                        editable: "#Diametro1_ItemCodeSteelgo",
-                        required: "#Diametro1_ItemCodeSteelgo"
-                    },
-                    diametro2: {
-                        visible: "#Diametro2_ItemCodeSteelgoDiv",
-                        editable: "#Diametro2_ItemCodeSteelgo",
-                        required: "#Diametro2_ItemCodeSteelgo"
-                    },
-                    area: {
-                        visible: "#Area_ItemCodeSteelgoDiv",
-                        editable: "#Area_ItemCodeSteelgo",
-                        required: "#Area_ItemCodeSteelgo"
-                    },
-                    cedula: {
-                        visible: "#Cedula_ItemCodeSteelgoDiv",
-                        editable: "#Cedula_ItemCodeSteelgo",
-                        required: "#Cedula_ItemCodeSteelgo"
-                    },
-                    codigo: {
-                        visible: "#Codigo_ItemCodeSteelgoDiv",
-                        editable: "#Codigo_ItemCodeSteelgo",
-                        required: "#Codigo_ItemCodeSteelgo"
                     }
                 }
             };
@@ -772,13 +721,13 @@
                 }
             });
 
-            $("#GuardarItemCodeSteelgo").click(function () {
-                if (validarRequeridosModalItemCodeSteelgo()) {
-                    GuardarItemCodeSteelgo();
-                } else {
-                    displayMessage("notificationslabel0031", "", '1');
-                }
-            });
+            //$("#GuardarItemCodeSteelgo").click(function () {
+            //    if (validarRequeridosModalItemCodeSteelgo()) {
+            //        GuardarItemCodeSteelgo();
+            //    } else {
+            //        displayMessage("notificationslabel0031", "", '1');
+            //    }
+            //});
 
             $("#GuardarColada").click(function () {
                 if (validarRequeridosModalColada()) {
@@ -790,7 +739,7 @@
             
             $("#Cancelar").click(function () { Cancelar(); });
             $("#CancelarItemCode").click(function () { CancelarModalItemCode(); });
-            $("#CancelarItemCodeSteelgo").click(function () { CancelarItemCodeSteelgo(); });
+            //$("#CancelarItemCodeSteelgo").click(function () { CancelarItemCodeSteelgo(); });
             $("#CancelarColada").click(function () { CancelarColada(); });
 
 
@@ -997,22 +946,22 @@
 
             //Ventana Modal ItemCodeSteelgo
 
-            $("#Familia_ItemCodeSteelgo").kendoComboBox({
-                dataTextField: "Nombre",
-                dataValueField: "FamiliaAceroID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID);
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        familiaItemCodeSteelgo = {};
-                    };
-                },
-                filter: "contains",
-            });
-            ObtenerFamiliaItemCodeSteelgo();
+            //$("#Familia_ItemCodeSteelgo").kendoComboBox({
+            //    dataTextField: "Nombre",
+            //    dataValueField: "FamiliaAceroID",
+            //    select: function (e) {
+            //        var dataItem = this.dataItem(e.item.index());
+            //        CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID);
+            //    },
+            //    change: function (e) {
+            //        var value = this.value();
+            //        if (!value) {
+            //            familiaItemCodeSteelgo = {};
+            //        };
+            //    },
+            //    filter: "contains",
+            //});
+            //ObtenerFamiliaItemCodeSteelgo();
 
 
             //Ventana Modal Colada
@@ -1251,11 +1200,11 @@
             cancelarvalidacionRequeridosModalItemCode();
         };
 
-        function CancelarItemCodeSteelgo() {
-            LimpiarModalItemCodeSteelgo();
-            cerrarVentanaModal();
-            cancelarvalidacionRequeridosModalItemCodeSteelgo();
-        };
+        //function CancelarItemCodeSteelgo() {
+        //    LimpiarModalItemCodeSteelgo();
+        //    cerrarVentanaModal();
+        //    cancelarvalidacionRequeridosModalItemCodeSteelgo();
+        //};
 
         function CancelarColada() {
             LimpiarModalColada();
@@ -1277,18 +1226,18 @@
             ColadaItemCode = {};
         };
 
-        function LimpiarModalItemCodeSteelgo() {
-            $("#Descripcion_ItemCodeSteelgo").val("");
-            $("#Familia_ItemCodeSteelgo").data("kendoComboBox").value("");
-            $("#Peso_ItemCodeSteelgo").val("");
-            $("#Diametro1_ItemCodeSteelgo").val("");
-            $("#Diametro2_ItemCodeSteelgo").val("");
-            $("#Area_ItemCodeSteelgo").val("");
-            $("#Cedula_ItemCodeSteelgo").val("");
-            $("#Codigo_ItemCodeSteelgo").val("");
+        //function LimpiarModalItemCodeSteelgo() {
+        //    $("#Descripcion_ItemCodeSteelgo").val("");
+        //    $("#Familia_ItemCodeSteelgo").data("kendoComboBox").value("");
+        //    $("#Peso_ItemCodeSteelgo").val("");
+        //    $("#Diametro1_ItemCodeSteelgo").val("");
+        //    $("#Diametro2_ItemCodeSteelgo").val("");
+        //    $("#Area_ItemCodeSteelgo").val("");
+        //    $("#Cedula_ItemCodeSteelgo").val("");
+        //    $("#Codigo_ItemCodeSteelgo").val("");
 
-            familiaItemCodeSteelgo = {};
-        };
+        //    familiaItemCodeSteelgo = {};
+        //};
 
         function LimpiarModalColada() {
             $("#Fabricante_Colada").data("kendoComboBox").value("");
@@ -1313,14 +1262,14 @@
             });
         };
 
-        function cancelarvalidacionRequeridosModalItemCodeSteelgo() {
-            $("#modalItemCodeSteelgo .security_required").each(function (i, elem) {
-                if (elem.tagName.toLowerCase() != 'label') {
-                    $(this).closest("div").find("label").removeClass("error");
-                    $(this).closest("div").removeClass("clearfix");
-                };
-            });
-        };
+        //function cancelarvalidacionRequeridosModalItemCodeSteelgo() {
+        //    $("#modalItemCodeSteelgo .security_required").each(function (i, elem) {
+        //        if (elem.tagName.toLowerCase() != 'label') {
+        //            $(this).closest("div").find("label").removeClass("error");
+        //            $(this).closest("div").removeClass("clearfix");
+        //        };
+        //    });
+        //};
 
         function cancelarvalidacionRequeridosModalColada() {
             $("#modalColada .security_required").each(function (i, elem) {
@@ -1445,25 +1394,25 @@
 
         };
         
-        function GuardarItemCodeSteelgo() {
-            ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
-            ItemCodeSteelgo.DescripcionEspanol = $("#Descripcion_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.FamiliaAceroID = familiaItemCodeSteelgo.FamiliaID;
-            ItemCodeSteelgo.Peso = $("#Peso_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.Diametro1 = $("#Diametro1_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.Diametro2 = $("#Diametro2_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.Area = $("#Area_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.Cedula = $("#Cedula_ItemCodeSteelgo").val();
-            ItemCodeSteelgo.Codigo = $("#Codigo_ItemCodeSteelgo").val();
+        //function GuardarItemCodeSteelgo() {
+        //    ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
+        //    ItemCodeSteelgo.DescripcionEspanol = $("#Descripcion_ItemCodeSteelgo").val();
+        //    ItemCodeSteelgo.FamiliaAceroID = familiaItemCodeSteelgo.FamiliaID;
+        //    ItemCodeSteelgo.Peso = $("#Peso_ItemCodeSteelgo").val();
+        //    ItemCodeSteelgo.Diametro1 = $("#Diametro1_ItemCodeSteelgo").val();
+        //    ItemCodeSteelgo.Diametro2 = $("#Diametro2_ItemCodeSteelgo").val();
+        //    ItemCodeSteelgo.Area = $("#Area_ItemCodeSteelgo").val();
+        //    ItemCodeSteelgo.Cedula = $("#Cedula_ItemCodeSteelgo").val();
+        //    ItemCodeSteelgo.Codigo = $("#Codigo_ItemCodeSteelgo").val();
           
-            $ItemCodeSteelgo.ItemCodeSteelgo.create({}, { json: JSON.stringify(ItemCodeSteelgo), token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalItemCodeSteelgo();
-                if (Error(data)) {
-                    $("#window").data("kendoWindow").close();
-                };
-            });
+        //    $ItemCodeSteelgo.ItemCodeSteelgo.create({}, { json: JSON.stringify(ItemCodeSteelgo), token: Cookies.get("token") }).done(function (data) {
+        //        LimpiarModalItemCodeSteelgo();
+        //        if (Error(data)) {
+        //            $("#window").data("kendoWindow").close();
+        //        };
+        //    });
 
-        };
+        //};
 
         function GuardarColada() {
             ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
@@ -1714,6 +1663,9 @@
         function VentanaModal(id) {
 
             var modalTitle = "";
+            var content = "";
+            var window = "";
+            var height = "";
 
             switch (id) {
                 case 1:
@@ -1727,6 +1679,9 @@
                     $("#modalItemCode").hide();
                     $("#modalItemCodeSteelgo").show();
                     modalTitle = "Item Code Steelgo";
+                    content = "@Url.Action("ItemCodeSteelgo", "PopUps")";                   
+                    window = $("#window");
+                    height = "60%";
                     break;
                 case 3:
                     $("#modalItemCodeSteelgo").hide();
@@ -1736,15 +1691,17 @@
                     break;
             };
 
-            var window = $("#window");
             var win = window.kendoWindow({
                 actions: false,
+                content: content,
                 modal: true,
                 title: modalTitle,
-                resizable: false,
+                resizable: true,
                 visible: false,
                 width: "32.6%",
                 minWidth: 660,
+                height: height,
+                iframe: true,
                 position: {
                     top: "10%",
                     left: "20%"
@@ -3271,7 +3228,6 @@
 
             $authorizationModel["Cuantificacion"] = $CuantificacionModel;
             $authorizationModel["Item Code"] = $ItemCodeModel;
-            $authorizationModel["Item Code Steelgo"] = $ItemCodeSteelgoModel;
             $authorizationModel["Colada"] = $ColadaModel
             
     }
