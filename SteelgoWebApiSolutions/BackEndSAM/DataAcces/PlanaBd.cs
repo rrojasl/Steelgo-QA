@@ -85,7 +85,41 @@ namespace BackEndSAM.DataAcces
                     ctx.Sam3_Vehiculo.Add(nuevaPlana);
                     ctx.SaveChanges();
 
-                    return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.VehiculoID) };
+
+                    Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
+                    nuevoRegistroChofer.VehiculoID = nuevaPlana.VehiculoID;
+                    nuevoRegistroChofer.Activo = true;
+                    nuevoRegistroChofer.ChoferID = Convert.ToInt32(plana.ChoferID);
+                    nuevoRegistroChofer.FechaModificacion = DateTime.Now;
+                    nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
+
+                    Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
+                    transportista.Activo = true;
+                    transportista.FechaModificacion = DateTime.Now;
+                    transportista.TransportistaID = Convert.ToInt32(plana.TransportistaID);
+                    transportista.VehiculoID = nuevaPlana.VehiculoID;
+                    transportista.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
+
+                    ctx.SaveChanges();
+
+                        return new CatalogoPlana
+                        {
+                            VehiculoID = nuevaPlana.VehiculoID.ToString(),
+                            Placas = nuevaPlana.Placas,
+                            Unidad = nuevaPlana.Unidad,
+                            Modelo = nuevaPlana.Modelo,
+                            choferNombre = plana.choferNombre,
+                            choferID = plana.ChoferID.ToString(),
+                            transportistaNombre = plana.transportistaNombre,
+                            transportistaID = plana.TransportistaID.ToString(),
+                            relVehiculoChoferID = nuevoRegistroChofer.Rel_Vehiculo_Chofer_ID.ToString(),
+                            relVehiculoTransportistaID = transportista.Rel_Vehiculo_Transportista_ID.ToString()
+                        };
+                    //return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.VehiculoID) };
                 }
             }
             catch (Exception ex)

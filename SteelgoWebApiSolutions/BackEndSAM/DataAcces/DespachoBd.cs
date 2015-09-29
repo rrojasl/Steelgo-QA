@@ -363,7 +363,7 @@ namespace BackEndSAM.DataAcces
                             }
 
                         }
-                        scope.Complete();
+                        //scope.Complete();
                     }
                 }
 

@@ -103,11 +103,7 @@ namespace BackEndSAM.DataAcces
                     camion.value = "Camion";
                     valoresCombo.Add(camion);
 
-                    Acero.id = "10";
-                    Acero.value = "Acero";
-                    valoresCombo.Add(Acero);
-
-                    fabricante.id = "14";
+                    fabricante.id = "10";
                     fabricante.value = "Fabricante";
                     valoresCombo.Add(fabricante);
 
@@ -302,24 +298,7 @@ namespace BackEndSAM.DataAcces
 
                             return catCamion;
                             #endregion
-                        case 10: //Acero
-                            #region
-                            List<CatalogoAcero> catAcero = new List<CatalogoAcero>();
-                            catAcero = (from a in ctx.Sam3_Acero
-                                        join fa in ctx.Sam3_FamiliaAcero on a.FamiliaAceroID equals fa.FamiliaAceroID
-                                        where a.Activo && fa.Activo
-                                        select new CatalogoAcero
-                                        {
-                                            AceroID = a.AceroID.ToString(),
-                                            FamiliaAceroID = fa.FamiliaAceroID.ToString(),
-                                            FamiliaAcero = fa.Nombre,
-                                            Nomenclatura = a.Nomenclatura,
-                                            VerificadoPorCalidad = a.VerificadoPorCalidad == true ? "Si" : "No"
-                                        }).AsParallel().ToList();
-
-                            return catAcero;
-                            #endregion
-                        case 14: //fabricante
+                        case 10: //fabricante
                             #region
                             List<CatalogoFabricante> catFabricante = new List<CatalogoFabricante>();
                             catFabricante = (from f in ctx.Sam3_Fabricante
@@ -401,7 +380,14 @@ namespace BackEndSAM.DataAcces
                             patioEnBd.FechaModificacion = DateTime.Now;
 
                             ctx.SaveChanges();
-                            return new CatalogoPatio { PatioID = patioEnBd.PatioID.ToString(), Nombre = patioEnBd.Nombre, Descripcion = patioEnBd.Descripcion, Propietario = patioEnBd.Propietario, RequierePermisoAduana = patioEnBd.RequierePermisoAduana == true ? "Si" : "No" };
+                            return new CatalogoPatio 
+                            { 
+                                PatioID = patioEnBd.PatioID.ToString(), 
+                                Nombre = patioEnBd.Nombre, 
+                                Descripcion = patioEnBd.Descripcion, 
+                                Propietario = patioEnBd.Propietario, 
+                                RequierePermisoAduana = patioEnBd.RequierePermisoAduana == true ? "Si" : "No" 
+                            };
                             #endregion
                         case 2: //chofer
                             #region
@@ -421,7 +407,13 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            return new CatalogoChofer { ChoferID = choferEnBd.ChoferID.ToString(), Nombre = choferEnBd.Nombre, TransportistaID = choferEnBd.TransportistaID.ToString(), TransportistaNombre = chofer.TransportistaNombre};
+                            return new CatalogoChofer 
+                            { 
+                                ChoferID = choferEnBd.ChoferID.ToString(), 
+                                Nombre = choferEnBd.Nombre, 
+                                TransportistaID = choferEnBd.TransportistaID.ToString(), 
+                                TransportistaNombre = chofer.TransportistaNombre
+                            };
                             #endregion
                         case 3: //Tipo Aviso
                             #region
@@ -438,7 +430,11 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            return new Catalogos { Id = avisoEnBd.TipoAvisoID.ToString(), Nombre = avisoEnBd.Nombre };
+                            return new Catalogos 
+                            { 
+                                Id = avisoEnBd.TipoAvisoID.ToString(), 
+                                Nombre = avisoEnBd.Nombre 
+                            };
                             #endregion
                         case 4: //Transportista
                             #region
@@ -660,37 +656,7 @@ namespace BackEndSAM.DataAcces
                                 Nombre = camionEnBd.Nombre
                             };
                             #endregion
-                        case 10: //Acero
-                            #region
-                            CatalogoAcero acero = serializer.Deserialize<CatalogoAcero>(data);
-
-                            Sam3_Acero aceroEnBd = ctx.Sam3_Acero.Where(x => x.AceroID.ToString() == acero.AceroID && x.Activo).AsParallel().SingleOrDefault();
-
-                            aceroEnBd.FamiliaAceroID = acero.FamiliaAceroID != null && acero.FamiliaAceroID != aceroEnBd.FamiliaAceroID.ToString() ?
-                                Convert.ToInt32(acero.FamiliaAceroID) : aceroEnBd.FamiliaAceroID;
-
-                            aceroEnBd.Nomenclatura = acero.Nomenclatura != null && acero.Nomenclatura != aceroEnBd.Nomenclatura ?
-                                acero.Nomenclatura : aceroEnBd.Nomenclatura;
-
-                            aceroEnBd.VerificadoPorCalidad = acero.VerificadoPorCalidad != null && Convert.ToBoolean(acero.VerificadoPorCalidad) != aceroEnBd.VerificadoPorCalidad ?
-                                Convert.ToBoolean(acero.VerificadoPorCalidad) : aceroEnBd.VerificadoPorCalidad;
-
-                            aceroEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            aceroEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new CatalogoAcero
-                            {
-                                FamiliaAcero = acero.FamiliaAcero,
-                                FamiliaAceroID = acero.FamiliaAceroID.ToString(),
-                                Nomenclatura = aceroEnBd.Nomenclatura,
-                                VerificadoPorCalidad = aceroEnBd.VerificadoPorCalidad.ToString(),
-                                AceroID = aceroEnBd.AceroID.ToString()
-                            };
-                            #endregion
-                        case 14: //fabricante
+                        case 10: //fabricante
                             #region
                             CatalogoFabricante fabricante = serializer.Deserialize<CatalogoFabricante>(data);
 
@@ -864,26 +830,7 @@ namespace BackEndSAM.DataAcces
                             return result;
 
                             #endregion
-                        case 10: //Aceros
-                            #region
-
-                            Sam3_Acero acero = ctx.Sam3_Acero.Where(x => x.AceroID == id).AsParallel().SingleOrDefault();
-                            acero.Activo = false;
-                            acero.UsuarioModificacion = usuario.UsuarioID;
-                            acero.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
-
-                            #endregion
-                        case 14:  //fabricante
+                        case 10:  //fabricante
                             #region
 
                             Sam3_Fabricante fabricante = ctx.Sam3_Fabricante.Where(x => x.FabricanteID == id).AsParallel().SingleOrDefault();
@@ -948,8 +895,16 @@ namespace BackEndSAM.DataAcces
                             patio.Propietario = catalogoPatio.Propietario;
                             patio.RequierePermisoAduana = Convert.ToBoolean(catalogoPatio.RequierePermisoAduana);
 
-                            res = PatioBd.Instance.InsertarPatio(patio, usuario);
-                            return res;
+                            PatioBd.Instance.InsertarPatio(patio, usuario);
+
+                            return new CatalogoPatio
+                            {
+                                PatioID = patio.PatioID.ToString(),
+                                Nombre = patio.Nombre,
+                                Descripcion = patio.Descripcion,
+                                Propietario = patio.Propietario,
+                                RequierePermisoAduana = patio.RequierePermisoAduana == true ? "Si" : "No"
+                            };
                             #endregion
                         case 2: //Chofer
                             #region
@@ -958,8 +913,14 @@ namespace BackEndSAM.DataAcces
                             chofer.Nombre = catalogoChofer.Nombre;
                             chofer.TransportistaID = Convert.ToInt32(catalogoChofer.TransportistaID);
 
-                            res = ChoferBd.Instance.InsertarChofer(chofer, usuario);
-                            return res;
+                            ChoferBd.Instance.InsertarChofer(chofer, usuario);
+                            return new CatalogoChofer
+                            {
+                                ChoferID = chofer.ChoferID.ToString(),
+                                Nombre = chofer.Nombre,
+                                TransportistaID = chofer.TransportistaID.ToString(),
+                                TransportistaNombre = catalogoChofer.TransportistaNombre
+                            };
                             #endregion
                         case 3: //Tipo Aviso
                             #region
@@ -975,13 +936,11 @@ namespace BackEndSAM.DataAcces
                             ctx.Sam3_TipoAviso.Add(tipoAviso);
                             ctx.SaveChanges();
 
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new Catalogos
+                            {
+                                Id = tipoAviso.TipoAvisoID.ToString(),
+                                Nombre = tipoAviso.Nombre
+                            };
 
                             #endregion
                         case 4: //Transportista 
@@ -992,19 +951,28 @@ namespace BackEndSAM.DataAcces
                             transportista.ContactoID = Convert.ToInt32(catalogoTransportista.ContactoID);
                             transportista.Nombre = catalogoTransportista.Nombre;
                             transportista.Descripcion = catalogoTransportista.Descripcion;
+                            transportista.Direccion = catalogoTransportista.Direccion;
                             transportista.Telefono = catalogoTransportista.Telefono;
 
-                            res = TransportistaBd.Instance.InsertarTransportista(transportista, usuario);
+                            TransportistaBd.Instance.InsertarTransportista(transportista, usuario);
 
-                            return res;
+                            return new CatalogoTransportista
+                            {
+                                TransportistaID = transportista.TransportistaID.ToString(),
+                                ContactoID = transportista.ContactoID.ToString(),
+                                Contacto = catalogoTransportista.Contacto,
+                                Descripcion = transportista.Descripcion,
+                                Direccion = transportista.Direccion,
+                                Nombre = transportista.Nombre,
+                                Telefono = transportista.Telefono
+                            };
                             #endregion
                         case 5: //Tracto
                             #region
 
                             VehiculoJson tracto = serializer.Deserialize<VehiculoJson>(data);
                             tracto.TipoVehiculoID = "1";
-                            res = TractoBd.Instance.InsertarTracto(tracto, usuario);
-
+                            res =TractoBd.Instance.InsertarTracto(tracto, usuario);
                             return res;
 
                             #endregion
@@ -1013,7 +981,7 @@ namespace BackEndSAM.DataAcces
 
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
                             plana.TipoVehiculoID = "2";
-                            res = TractoBd.Instance.InsertarTracto(plana, usuario);
+                            res = PlanaBd.Instance.InsertarPlana(plana,usuario);
 
                             return res;
 
@@ -1030,22 +998,40 @@ namespace BackEndSAM.DataAcces
                             proveedor.Direccion = catalogoProveedor.Direccion;
                             proveedor.Telefono = catalogoProveedor.Telefono;
 
-                            res = ProveedorBd.Instance.InsertarProveedor(proveedor, usuario);
-                            return res;
+                            ProveedorBd.Instance.InsertarProveedor(proveedor, usuario);
+                            return new CatalogoProveedor
+                            {
+                                Contacto = catalogoProveedor.Contacto,
+                                ContactoID = proveedor.ContactoID.ToString(),
+                                Nombre = proveedor.Nombre,
+                                Descripcion = proveedor.Descripcion,
+                                Direccion = proveedor.Direccion,
+                                Telefono = proveedor.Telefono,
+                                ProveedorID = proveedor.ProveedorID.ToString()
+                            };
 
                             #endregion
                         case 8: //Tipo de uso
                             #region
-
-
                             Catalogos catalogoTipoUso = serializer.Deserialize<Catalogos>(data);
                             Sam3_TipoUso tipoUso = new Sam3_TipoUso();
 
-                            tipoUso.Nombre = catalogoTipoUso.Nombre;
+                            if (!ctx.Sam3_TipoUso.Where(x => x.Nombre == catalogoTipoUso.Nombre).Any())
+                            {
+                                tipoUso.Activo = true;
+                                tipoUso.FechaModificacion = DateTime.Now;
+                                tipoUso.Nombre = catalogoTipoUso.Nombre; ;
+                                tipoUso.UsuarioModificacion = usuario.UsuarioID;
 
-                            res = TipoUsoBd.Instance.InsertarTipoUso(tipoUso.Nombre, usuario);
-
-                            return res;
+                                ctx.Sam3_TipoUso.Add(tipoUso);
+                                ctx.SaveChanges();
+                            }
+                            
+                            return new Catalogos
+                            {
+                                Id = tipoUso.TipoUsoID.ToString(),
+                                Nombre = tipoUso.Nombre
+                            };
 
                             #endregion
                         case 9: //Camion
@@ -1063,41 +1049,14 @@ namespace BackEndSAM.DataAcces
                             ctx.Sam3_TipoVehiculo.Add(vehiculo);
                             ctx.SaveChanges();
 
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new Catalogos
+                            {
+                                Id = vehiculo.TipoVehiculoID.ToString(),
+                                Nombre = vehiculo.Nombre
+                            };
 
                             #endregion
-                        case 10: //Aceros
-                            #region
-
-                            CatalogoAcero catalogoAcero = serializer.Deserialize<CatalogoAcero>(data);
-                            Sam3_Acero acero = new Sam3_Acero();
-                            acero.FamiliaAceroID = Convert.ToInt32(catalogoAcero.FamiliaAceroID);
-                            acero.Nomenclatura = catalogoAcero.Nomenclatura;
-                            acero.VerificadoPorCalidad = Convert.ToBoolean(catalogoAcero.VerificadoPorCalidad);
-
-                            acero.Activo = true;
-                            acero.FechaModificacion = DateTime.Now;
-                            acero.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_Acero.Add(acero);
-                            ctx.SaveChanges();
-
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
-
-                            #endregion
-                        case 14:  //fabricante
+                        case 10:  //fabricante
                             #region
                             CatalogoFabricante catalogoFabricante = serializer.Deserialize<CatalogoFabricante>(data);
                             Sam3_Fabricante fabricante = new Sam3_Fabricante();
@@ -1115,14 +1074,16 @@ namespace BackEndSAM.DataAcces
                             ctx.Sam3_Fabricante.Add(fabricante);
                             ctx.SaveChanges();
 
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
-
+                            return new CatalogoFabricante
+                            {
+                                FabricanteID = fabricante.FabricanteID.ToString(),
+                                Contacto = catalogoFabricante.Contacto,
+                                ContactoID = catalogoFabricante.ContactoID,
+                                Nombre = fabricante.Nombre,
+                                Descripcion = fabricante.Descripcion,
+                                Direccion = fabricante.Direccion,
+                                Telefono = fabricante.Telefono
+                            };
                             #endregion
                         default:
                             #region
