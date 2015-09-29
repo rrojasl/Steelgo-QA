@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Post(List<DespachoItems> despachos, string token)
+        public object Post(Despacho Despacho, string token)
         {
             string payload = "";
             string newToken = "";
@@ -49,7 +49,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return DespachoBd.Instance.GenerarDespachos(despachos, usuario);
+                return DespachoBd.Instance.GenerarDespachos(Despacho.ListaDespachos, usuario);
             }
             else
             {

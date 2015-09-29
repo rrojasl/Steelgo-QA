@@ -294,7 +294,7 @@
     function ObtenerDatosGrid() {
         if(NumeroControl.NumeroControlID){
             loadingStart();
-            $DummyDespacho.DummyDespacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
+            $Despacho.Despacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     resultadoJson = result;
                     if ($("#grid").data("kendoGrid")) {
@@ -422,12 +422,12 @@
 
             Listado.ListaDespachos = ListadoAGuardar(datasource);
 
-            if (!Listado.ListaDespachos.length) {
+            if (!datasource.length) {
                 displayMessage("notificationslabel0067", "", '2');
                 return;
             };
 
-            $DummyDespacho.DummyDespacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
+            $Despacho.Despacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if(Error(result)){
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
