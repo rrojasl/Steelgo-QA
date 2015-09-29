@@ -247,6 +247,38 @@ _dictionary = {
         "es-MX": "Detalle de Orden de Almacenaje",
         "en-US": "Detail Storage Order"
     },
+    "menuLabel0040": {
+        "es-MX": "Dashboard de Despacho y Corte",
+        "en-US": "Dashboard Dispatch and Cut"
+    },
+    "menuLabel0041": {
+        "es-MX": "Listado de Despacho y Corte",
+        "en-US": "Listing Dispatch and Cut"
+    },
+    "menuLabel0042": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "menuLabel0043": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "menuLabel0044": {
+        "es-MX": "Almacenaje",
+        "en-US": "Storage"
+    },
+    "menuLabel0045": {
+        "es-MX": "Administración de Catálogos",
+        "en-US": "Catalog Management"
+    },
+    "menuLabel0046": {
+        "es-MX": "Listado de Materiales",
+        "en-US": "List Materials"
+    },
+    "menuLabel0047": {
+        "es-MX": "Listado de Materiales por ItemCode",
+        "en-US": "List Materials by Item Code"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
