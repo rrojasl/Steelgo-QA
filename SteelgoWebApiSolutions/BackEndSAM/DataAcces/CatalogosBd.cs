@@ -656,7 +656,7 @@ namespace BackEndSAM.DataAcces
                             #region
                             Catalogos tipoUso = serializer.Deserialize<Catalogos>(data);
 
-                            Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == tipoUso.Id && x.Activo).AsParallel().SingleOrDefault();
+                            Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID.ToString() == tipoUso.Id && x.Activo).AsParallel().SingleOrDefault();
 
                             tipoUsoEnBd.Nombre = tipoUso.Nombre != null && tipoUso.Nombre != tipoUsoEnBd.Nombre ?
                                 tipoUso.Nombre : tipoUsoEnBd.Nombre;
@@ -678,7 +678,7 @@ namespace BackEndSAM.DataAcces
                             #region
                             Catalogos camion = serializer.Deserialize<Catalogos>(data);
 
-                            Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID == camion.Id && x.Activo).AsParallel().SingleOrDefault();
+                            Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID.ToString() == camion.Id && x.Activo).AsParallel().SingleOrDefault();
                             camionEnBd.Nombre = camion.Nombre != null && camion.Nombre != camionEnBd.Nombre ?
                                 camion.Nombre : camionEnBd.Nombre;
 
