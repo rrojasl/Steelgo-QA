@@ -102,7 +102,7 @@ var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Almacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DetalleNumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMaterialesPorItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Despacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Maquina = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cortador = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -186,7 +186,7 @@ $ListadoMateriales.add("ListadoMateriales")
 $Almacenaje.add("Almacenaje");
 $DetalleNumeroUnico.add("DetalleNumeroUnico");
 $ListadoMaterialesPorItemCode.add("ListadoMaterialesPorItemCode");
-$DummyDespacho.add("DummyDespacho");
+$Despacho.add("Despacho");
 $Maquina.add("Maquina");
 $Cortador.add("Cortador");
 $DummyNumerosUnicos.add("DummyNumerosUnicos");

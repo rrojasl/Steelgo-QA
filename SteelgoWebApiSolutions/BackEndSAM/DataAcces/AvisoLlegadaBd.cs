@@ -733,7 +733,7 @@ namespace BackEndSAM.DataAcces
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
-                                                      value = r.Consecutivo.ToString()
+                                                      value = r.FolioAvisoLlegadaID.ToString()
                                                   }).AsParallel().ToList();
 
                     return lstFolios;

@@ -255,8 +255,8 @@
                 { field: "Descripcion", title: _dictionary.Despacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnico", title: _dictionary.Despacho0015[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
                 { field: "Baston", title: _dictionary.Despacho0023[$("#language").data("kendoDropDownList").value()], editor: bastonAutoComplete },               
-                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()] },
-                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()] }
+                { field: "Hold", title: _dictionary.Despacho0017[$("#language").data("kendoDropDownList").value()], hidden:true},
+                { field: "ProyectoID", title: _dictionary.Despacho0026[$("#language").data("kendoDropDownList").value()], hidden: true }
             ],
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
@@ -294,7 +294,7 @@
     function ObtenerDatosGrid() {
         if(NumeroControl.NumeroControlID){
             loadingStart();
-            $DummyDespacho.DummyDespacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
+            $Despacho.Despacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     resultadoJson = result;
                     if ($("#grid").data("kendoGrid")) {
@@ -335,7 +335,7 @@
     };
 
     function NumeroUnicoAutocomplete(container, options) {
-        $('<input required data-text-field="NumeroUnico" data-value-field="NumeroUnicoID" data-bind="value:' + options.field + '"/>')
+        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                        .appendTo(container)
                        .kendoComboBox({
                            autoBind: false,
@@ -422,12 +422,12 @@
 
             Listado.ListaDespachos = ListadoAGuardar(datasource);
 
-            if (!Listado.ListaDespachos.length) {
+            if (!datasource.length) {
                 displayMessage("notificationslabel0067", "", '2');
                 return;
             };
 
-            $DummyDespacho.DummyDespacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
+            $Despacho.Despacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if(Error(result)){
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
