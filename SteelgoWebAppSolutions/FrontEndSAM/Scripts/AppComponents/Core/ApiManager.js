@@ -109,7 +109,7 @@ var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $Cedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -193,4 +193,4 @@ $DummyNumerosUnicos.add("DummyNumerosUnicos");
 $Catalogos.add("AdministracionCatalogos");
 $Corte.add("Corte")
 $AsociacionICS.add("AsociacionICS");
-
+$Cedulas.add("Cedulas");

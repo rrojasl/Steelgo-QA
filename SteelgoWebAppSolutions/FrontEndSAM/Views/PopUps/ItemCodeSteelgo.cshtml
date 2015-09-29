@@ -50,7 +50,7 @@
     </div>
 <script>
     @section JavascriptGlobalVariables {
-    var familiaItemCodeSteelgo = {};
+    var familiaItemCodeSteelgo = {}, cedulasItemCodeSteelgo = {};
 
     var $ItemCodeSteelgoModel = {
         listContainer: {
@@ -124,6 +124,23 @@
         });
         ObtenerFamiliaItemCodeSteelgo();
 
+        $("#Cedula_ItemCodeSteelgo").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCedulasItemCodeSteelgo(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    cedulasItemCodeSteelgo = {};
+                };
+            },
+            filter: "contains",
+        });
+        ObtenerCedulasItemCodeSteelgo();
+
         $("#GuardarItemCodeSteelgo").click(function () {
             if (validarRequeridosModalItemCodeSteelgo()) {
                 GuardarItemCodeSteelgo();
@@ -154,12 +171,21 @@
         familiaItemCodeSteelgo = { FamiliaID: id };
     };
 
+    function CargarCedulasItemCodeSteelgo(id) {
+        cedulasItemCodeSteelgo = {};
+        cedulasItemCodeSteelgo = { CedulaID: id };
+    };
+    
     function ObtenerFamiliaItemCodeSteelgo() {
         $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Familia_ItemCodeSteelgo", result);
         });
     };
-
+    function ObtenerCedulasItemCodeSteelgo() {
+        $Cedulas.Cedulas.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("Cedula_ItemCodeSteelgo", result);
+        });
+    };
     function validarRequeridosModalItemCodeSteelgo() {
         var bool = true;
         $("#modalItemCodeSteelgo .security_required").each(function (i, elem) {
@@ -188,19 +214,20 @@
         $("#Codigo_ItemCodeSteelgo").val("");
 
         familiaItemCodeSteelgo = {};
+        cedulasItemCodeSteelgo = {};
     };
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
     };
     function GuardarItemCodeSteelgo() {
-        ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
+        ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", CedulaID: "", Codigo: "" };
         ItemCodeSteelgo.DescripcionEspanol = $("#Descripcion_ItemCodeSteelgo").val();
         ItemCodeSteelgo.FamiliaAceroID = familiaItemCodeSteelgo.FamiliaID;
         ItemCodeSteelgo.Peso = $("#Peso_ItemCodeSteelgo").val();
         ItemCodeSteelgo.Diametro1 = $("#Diametro1_ItemCodeSteelgo").val();
         ItemCodeSteelgo.Diametro2 = $("#Diametro2_ItemCodeSteelgo").val();
         ItemCodeSteelgo.Area = $("#Area_ItemCodeSteelgo").val();
-        ItemCodeSteelgo.Cedula = $("#Cedula_ItemCodeSteelgo").val();
+        ItemCodeSteelgo.CedulaID = cedulasItemCodeSteelgo.CedulaID;
         ItemCodeSteelgo.Codigo = $("#Codigo_ItemCodeSteelgo").val();
 
         $ItemCodeSteelgo.ItemCodeSteelgo.create({}, { json: JSON.stringify(ItemCodeSteelgo), token: Cookies.get("token") }).done(function (data) {

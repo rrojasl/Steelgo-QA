@@ -107,18 +107,6 @@ namespace BackEndSAM.DataAcces
                     Acero.value = "Acero";
                     valoresCombo.Add(Acero);
 
-                    coladas.id = "11";
-                    coladas.value = "Coladas";
-                    valoresCombo.Add(coladas);
-
-                    //familiaMaterial.id = "12";
-                    //familiaMaterial.value = "Familia Material";
-                    //valoresCombo.Add(familiaMaterial);
-
-                    //familiaAcero.id = "13";
-                    //familiaAcero.value = "Familia Acero";
-                    //valoresCombo.Add(familiaAcero);
-
                     fabricante.id = "14";
                     fabricante.value = "Fabricante";
                     valoresCombo.Add(fabricante);
@@ -331,30 +319,6 @@ namespace BackEndSAM.DataAcces
 
                             return catAcero;
                             #endregion
-                        case 11: //Coladas
-                            #region
-                            List<CatalogoColadas> catColadas = new List<CatalogoColadas>();
-                            catColadas = (from c in ctx.Sam3_Colada
-                                          join f in ctx.Sam3_Fabricante on c.FabricanteID equals f.FabricanteID
-                                          join a in ctx.Sam3_Acero on c.AceroID equals a.AceroID
-                                          join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
-                                          where f.Activo && a.Activo && p.Activo
-                                          select new CatalogoColadas
-                                          {
-                                              ColadaID = c.ColadaID.ToString(),
-                                              FabricanteID = f.FabricanteID.ToString(),
-                                              Fabricante = f.Nombre,
-                                              AceroID = a.AceroID.ToString(),
-                                              Acero = a.Nomenclatura,
-                                              ProyectoID = p.ProyectoID.ToString(),
-                                              Proyecto = p.Nombre,
-                                              NumeroColada = c.NumeroColada,
-                                              NumeroCertificado = c.NumeroCertificado,
-                                              HoldCalidad = c.HoldCalidad == true ? "Si" : "No"
-                                          }).AsParallel().ToList();
-
-                            return catColadas;
-                            #endregion
                         case 14: //fabricante
                             #region
                             List<CatalogoFabricante> catFabricante = new List<CatalogoFabricante>();
@@ -437,27 +401,19 @@ namespace BackEndSAM.DataAcces
                             patioEnBd.FechaModificacion = DateTime.Now;
 
                             ctx.SaveChanges();
-
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new CatalogoPatio { PatioID = patioEnBd.PatioID.ToString(), Nombre = patioEnBd.Nombre, Descripcion = patioEnBd.Descripcion, Propietario = patioEnBd.Propietario, RequierePermiso = patioEnBd.RequierePermisoAduana == true ? "Si" : "No" };
                             #endregion
                         case 2: //chofer
                             #region
-                            Sam3_Chofer chofer = serializer.Deserialize<Sam3_Chofer>(data);
+                            CatalogoChofer chofer = serializer.Deserialize<CatalogoChofer>(data);
 
-                            Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
-                            //choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
-                            //    chofer.Activo : choferEnBd.Activo;
+                            Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID.ToString() == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
 
                             choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
                                 chofer.Nombre : choferEnBd.Nombre;
 
-                            choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ?
-                                chofer.TransportistaID : choferEnBd.TransportistaID;
+                            choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID.ToString() ?
+                                Convert.ToInt32(chofer.TransportistaID) : choferEnBd.TransportistaID;
 
                             choferEnBd.UsuarioModificacion = usuario.UsuarioID;
 
@@ -465,12 +421,7 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new CatalogoChofer { ChoferID = choferEnBd.ChoferID.ToString(), Nombre = choferEnBd.Nombre, TransportistaID = choferEnBd.TransportistaID.ToString(), TransportistaNombre = chofer.TransportistaNombre};
                             #endregion
                         case 3: //Tipo Aviso
                             #region
@@ -487,21 +438,15 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new Catalogos { Id = avisoEnBd.TipoAvisoID.ToString(), Nombre = avisoEnBd.Nombre };
                             #endregion
                         case 4: //Transportista
                             #region
-                            Sam3_Transportista transportista = serializer.Deserialize<Sam3_Transportista>(data);
+                            CatalogoTransportista transportista = serializer.Deserialize<CatalogoTransportista>(data);
 
-                            Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
-                            transEnBd.ContactoID = transportista.ContactoID != null && transportista.ContactoID != transEnBd.ContactoID ?
-                                transportista.ContactoID : transEnBd.ContactoID;
+                            Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID.ToString() == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
+                            transEnBd.ContactoID = transportista.ContactoID != null && transportista.ContactoID != transEnBd.ContactoID.ToString() ?
+                                Convert.ToInt32(transportista.ContactoID) : transEnBd.ContactoID;
 
                             transEnBd.Nombre = transportista.Nombre != null && transportista.Nombre != transEnBd.Nombre ?
                                 transportista.Nombre : transEnBd.Nombre;
@@ -521,12 +466,17 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
+                            return new CatalogoTransportista 
+                            { 
+                                TransportistaID = transEnBd.TransportistaID.ToString(), 
+                                ContactoID = transEnBd.ContactoID.ToString(), 
+                                Contacto = transportista.Contacto, 
+                                Descripcion = transEnBd.Descripcion, 
+                                Direccion = transEnBd.Direccion, 
+                                Nombre = transEnBd.Nombre, 
+                                Telefono = transEnBd.Telefono 
+                            };
 
-                            return result;
                             #endregion
                         case 5: //Tracto
                             #region
@@ -568,12 +518,19 @@ namespace BackEndSAM.DataAcces
                             relVehiculotransportista.FechaModificacion = DateTime.Now;
                             ctx.SaveChanges();
 
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new CatalogoTracto
+                            {
+                                VehiculoID = vehiculoEnBd.VehiculoID.ToString(),
+                                Placas = vehiculoEnBd.Placas,
+                                TarjetaCirculacion = vehiculoEnBd.TarjetaCirculacion,
+                                PolizaSeguro = vehiculoEnBd.PolizaSeguro,
+                                choferNombre = vehiculo.choferNombre,
+                                choferID = relVehiculoChofer.ChoferID.ToString(),
+                                transportistaNombre = vehiculo.transportistaNombre,
+                                transportistaID = relVehiculotransportista.TransportistaID.ToString(),
+                                relVehiculoChoferID = relVehiculoChofer.Rel_Vehiculo_Chofer_ID.ToString(),
+                                relVehiculoTransportistaID = relVehiculotransportista.Rel_Vehiculo_Transportista_ID.ToString()
+                            };
                             #endregion
                         case 6: //Plana
                             #region
@@ -610,12 +567,19 @@ namespace BackEndSAM.DataAcces
                             relVehiculotransportistaPlana.FechaModificacion = DateTime.Now;
                             ctx.SaveChanges();
 
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
+                            return new CatalogoPlana
+                            {
+                                VehiculoID = planaEnBd.VehiculoID.ToString(),
+                                Placas = planaEnBd.Placas,
+                                Unidad = planaEnBd.Unidad,
+                                Modelo = planaEnBd.Modelo,
+                                choferNombre = plana.choferNombre,
+                                choferID = relVehiculoChoferPlana.ChoferID.ToString(),
+                                transportistaNombre = plana.transportistaNombre,
+                                transportistaID = relVehiculotransportistaPlana.TransportistaID.ToString(),
+                                relVehiculoChoferID = relVehiculoChoferPlana.Rel_Vehiculo_Chofer_ID.ToString(),
+                                relVehiculoTransportistaID = relVehiculotransportistaPlana.Rel_Vehiculo_Transportista_ID.ToString()
+                            };
 
                             #endregion
                         case 7: //Proveedor
@@ -713,40 +677,6 @@ namespace BackEndSAM.DataAcces
                             aceroEnBd.UsuarioModificacion = usuario.UsuarioID;
 
                             aceroEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            result.ReturnMessage.Add("OK");
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.IsAuthenicated = true;
-
-                            return result;
-                            #endregion
-                        case 11: //Coladas
-                            #region
-                            Sam3_Colada colada = serializer.Deserialize<Sam3_Colada>(data);
-
-                            Sam3_Colada coladaEnBd = ctx.Sam3_Colada.Where(x => x.ColadaID == colada.ColadaID && x.Activo).AsParallel().SingleOrDefault();
-
-                            coladaEnBd.FabricanteID = colada.FabricanteID != null && colada.FabricanteID != coladaEnBd.FabricanteID ?
-                                colada.FabricanteID : coladaEnBd.FabricanteID;
-
-                            coladaEnBd.AceroID = colada.AceroID != null && colada.AceroID != coladaEnBd.AceroID ?
-                                colada.AceroID : coladaEnBd.AceroID;
-
-                            coladaEnBd.ProyectoID = colada.ProyectoID != null && colada.ProyectoID != coladaEnBd.ProyectoID ?
-                                colada.ProyectoID : coladaEnBd.ProyectoID;
-
-                            coladaEnBd.NumeroColada = colada.NumeroColada != null && colada.NumeroColada != coladaEnBd.NumeroColada ?
-                                colada.NumeroColada : coladaEnBd.NumeroColada;
-
-                            coladaEnBd.HoldCalidad = colada.HoldCalidad != null && colada.HoldCalidad != coladaEnBd.HoldCalidad ?
-                                colada.HoldCalidad : coladaEnBd.HoldCalidad;
-
-                            coladaEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            coladaEnBd.FechaModificacion = DateTime.Now;
 
                             ctx.SaveChanges();
 
@@ -947,24 +877,6 @@ namespace BackEndSAM.DataAcces
                             return result;
 
                             #endregion
-                        case 11: //Coladas
-                            #region
-
-                            Sam3_Colada colada = ctx.Sam3_Colada.Where(x => x.ColadaID == id).AsParallel().SingleOrDefault();
-                            colada.Activo = false;
-                            colada.UsuarioModificacion = usuario.UsuarioID;
-                            colada.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
-                            #endregion
                         case 14:  //fabricante
                             #region
 
@@ -1084,6 +996,7 @@ namespace BackEndSAM.DataAcces
                             #region
 
                             VehiculoJson tracto = serializer.Deserialize<VehiculoJson>(data);
+                            tracto.TipoVehiculoID = "1";
                             res = TractoBd.Instance.InsertarTracto(tracto, usuario);
 
                             return res;
@@ -1093,6 +1006,7 @@ namespace BackEndSAM.DataAcces
                             #region
 
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
+                            plana.TipoVehiculoID = "2";
                             res = TractoBd.Instance.InsertarTracto(plana, usuario);
 
                             return res;
@@ -1175,23 +1089,6 @@ namespace BackEndSAM.DataAcces
                             result.IsAuthenicated = true;
 
                             return result;
-
-                            #endregion
-                        case 11: //Coladas
-                            #region
-                            CatalogoColadas catalogoColadas = serializer.Deserialize<CatalogoColadas>(data);
-                            Sam3_Colada colada = new Sam3_Colada();
-
-                            colada.FabricanteID = Convert.ToInt32(catalogoColadas.FabricanteID);
-                            colada.AceroID = Convert.ToInt32(catalogoColadas.AceroID);
-                            colada.ProyectoID = Convert.ToInt32(catalogoColadas.ProyectoID);
-                            colada.NumeroColada = catalogoColadas.NumeroColada;
-                            colada.NumeroCertificado = catalogoColadas.NumeroCertificado;
-                            colada.HoldCalidad = Convert.ToBoolean(catalogoColadas.HoldCalidad);
-
-                            res = ColadaBd.Instance.GuardarColadaPopUp(colada, usuario);
-
-                            return res;
 
                             #endregion
                         case 14:  //fabricante
