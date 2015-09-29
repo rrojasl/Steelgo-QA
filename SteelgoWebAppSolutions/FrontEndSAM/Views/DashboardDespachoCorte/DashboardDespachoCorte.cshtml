@@ -530,7 +530,7 @@
         function DefinicionColumnasOrdenesTrabajo() {
             var columnas =
             [
-                { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleOrdenesTrabajo(#:SpoolID#)'>#:SpoolID#</a>" },
+                { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick=\"MostrarDetalleOrdenesTrabajo('#:SpoolID#')\">#:SpoolID#</a>" },
                 { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
             ];
             return columnas;
@@ -588,7 +588,7 @@
         function DefinicionColumnasOrdenesTrabajoActivas() {
             var columnas =
            [
-               { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleOrdenesTrabajoActivas(#:SpoolID#)'>#:SpoolID#</a>" },
+               { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick=\"MostrarDetalleOrdenesTrabajoActivas('#:SpoolID#')\">#:SpoolID#</a>" },
                { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
            ];
             return columnas;
@@ -974,26 +974,51 @@
                 case "3":
                     alert("pendiente");
                     loadingStop();
+                    if (tipomaterial == 1) {
+                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                    } else {
+                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                    }
                     //PreDespachar(tipomaterial);
                     break;
                 case "4":
                     alert("pendiente");
                     loadingStop();
-                    PorDespachar(tipomaterial);
+                    if (tipomaterial == 1) {
+                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                    } else {
+                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                    }
+                    //PorDespachar(tipomaterial);
                     break;
                 case "5":
                     alert("pendiente");
                     loadingStop();
+                    if (tipomaterial == 1) {
+                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                    } else {
+                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                    }
                     //Entregar(tipomaterial);
                     break;
                 case "6":
                     alert("pendiente");
                     loadingStop();
+                    if (tipomaterial == 1) {
+                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                    } else {
+                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                    }
                     //TravelerPendiente(tipomaterial);
                     break;
                 case "7":
                     alert("pendiente");
                     loadingStop();
+                    if (tipomaterial == 1) {
+                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                    } else {
+                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                    }
                     //Despacho(tipomaterial);
                     break;
                 //case "8":
