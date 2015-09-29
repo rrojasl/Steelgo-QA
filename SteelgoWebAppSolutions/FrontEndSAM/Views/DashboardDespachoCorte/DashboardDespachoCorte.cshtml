@@ -424,8 +424,8 @@
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
 
-                $("#spanOrdenesTrabajoTubos").html(result.OrdenesTrabajo ? result.OrdenesTrabajo : 0);
-                $("#spanOrdenesTrabajoActivasTubos").html(result.OrdenesTrabajoActivas ? result.OrdenesTrabajoActivas : 0);
+                $("#spanOrdenesTrabajoTubos").html(result.CantidadODT ? result.CantidadODT : 0);
+                $("#spanOrdenesTrabajoActivasTubos").html(result.CantidadODTActiva ? result.CantidadODTActiva : 0);
                 $("#spanPreDespacharTubos").html(result.PreDespachar ? result.PreDespachar : 0);
                 $("#spanDespacharTubos").html(result.Despachar ? result.Despachar : 0);
                 $("#spanEntregarTubos").html(result.Entregar ? result.Entregar : 0);
@@ -440,8 +440,8 @@
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
                 Error(result);
 
-                $("#spanOrdenesTrabajoAccesorios").html(result.OrdenesTrabajo ? result.OrdenesTrabajo : 0);
-                $("#spanOrdenesTrabajoActivasAccesorios").html(result.OrdenesTrabajoActivas ? result.OrdenesTrabajoActivas : 0);
+                $("#spanOrdenesTrabajoAccesorios").html(result.CantidadODT ? result.CantidadODT : 0);
+                $("#spanOrdenesTrabajoActivasAccesorios").html(result.CantidadODTActiva ? result.CantidadODTActiva : 0);
                 $("#spanPreDespacharAccesorios").html(result.PreDespachar ? result.PreDespachar : 0);
                 $("#spanDespacharAccesorios").html(result.Despachar ? result.Despachar : 0);
                 $("#spanEntregarAccesorios").html(result.Entregar ? result.Entregar : 0);
@@ -972,21 +972,28 @@
                     break;
                 case "3":
                     alert("pendiente");
+                    loadingStop();
                     //PreDespachar(tipomaterial);
                     break;
                 case "4":
+                    alert("pendiente");
+                    loadingStop();
                     PorDespachar(tipomaterial);
                     break;
                 case "5":
                     alert("pendiente");
+                    loadingStop();
                     //Entregar(tipomaterial);
                     break;
                 case "6":
                     alert("pendiente");
+                    loadingStop();
                     //TravelerPendiente(tipomaterial);
                     break;
                 case "7":
-                    Despacho(tipomaterial);
+                    alert("pendiente");
+                    loadingStop();
+                    //Despacho(tipomaterial);
                     break;
                 //case "8":
                 //    Corte(tipomaterial);
