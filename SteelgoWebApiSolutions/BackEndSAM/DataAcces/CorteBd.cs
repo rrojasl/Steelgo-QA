@@ -412,7 +412,7 @@ namespace BackEndSAM.DataAcces
                             ctx2.SaveChanges();
                         }
                     }
-                    scope.Complete();
+                    //scope.Complete();
                 }
 
                 return corte;
