@@ -17,7 +17,7 @@ namespace BackEndSAM.Models
         public string Nombre { get; set; }
         public string Propietario { get; set; }
         public string Descripcion { get; set; }
-        public string RequierePermiso { get; set; }
+        public string RequierePermisoAduana { get; set; }
     }
 
     public class CatalogoChofer
