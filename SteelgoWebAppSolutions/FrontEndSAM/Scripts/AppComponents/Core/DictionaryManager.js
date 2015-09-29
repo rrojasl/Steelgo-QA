@@ -4351,7 +4351,7 @@ _dictionary = {
     },
     "notificationslabel0062": {
         "es-MX": "La suma de los cortes no puede ser mayor al inventario fisico.",
-        "en-US": "The sum of the cuts may not exceed the available."
+        "en-US": "The sum of the cuts may not exceed the physical inventory."
     },
     "notificationslabel0063": {
         "es-MX": "Favor de seleccionar una maquina.",
