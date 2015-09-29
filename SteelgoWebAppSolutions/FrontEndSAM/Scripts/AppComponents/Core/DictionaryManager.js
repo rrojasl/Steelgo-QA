@@ -271,6 +271,14 @@ _dictionary = {
         "es-MX": "Administración de Catálogos",
         "en-US": "Catalog Management"
     },
+    "menuLabel0046": {
+        "es-MX": "Listado de Materiales",
+        "en-US": "List Materials"
+    },
+    "menuLabel0047": {
+        "es-MX": "Listado de Materiales por ItemCode",
+        "en-US": "List Materials by Item Code"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
