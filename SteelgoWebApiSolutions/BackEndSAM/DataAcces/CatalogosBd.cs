@@ -103,11 +103,7 @@ namespace BackEndSAM.DataAcces
                     camion.value = "Camion";
                     valoresCombo.Add(camion);
 
-                    Acero.id = "10";
-                    Acero.value = "Acero";
-                    valoresCombo.Add(Acero);
-
-                    fabricante.id = "14";
+                    fabricante.id = "10";
                     fabricante.value = "Fabricante";
                     valoresCombo.Add(fabricante);
 
@@ -302,24 +298,7 @@ namespace BackEndSAM.DataAcces
 
                             return catCamion;
                             #endregion
-                        case 10: //Acero
-                            #region
-                            List<CatalogoAcero> catAcero = new List<CatalogoAcero>();
-                            catAcero = (from a in ctx.Sam3_Acero
-                                        join fa in ctx.Sam3_FamiliaAcero on a.FamiliaAceroID equals fa.FamiliaAceroID
-                                        where a.Activo && fa.Activo
-                                        select new CatalogoAcero
-                                        {
-                                            AceroID = a.AceroID.ToString(),
-                                            FamiliaAceroID = fa.FamiliaAceroID.ToString(),
-                                            FamiliaAcero = fa.Nombre,
-                                            Nomenclatura = a.Nomenclatura,
-                                            VerificadoPorCalidad = a.VerificadoPorCalidad == true ? "Si" : "No"
-                                        }).AsParallel().ToList();
-
-                            return catAcero;
-                            #endregion
-                        case 14: //fabricante
+                        case 10: //fabricante
                             #region
                             List<CatalogoFabricante> catFabricante = new List<CatalogoFabricante>();
                             catFabricante = (from f in ctx.Sam3_Fabricante
@@ -677,37 +656,7 @@ namespace BackEndSAM.DataAcces
                                 Nombre = camionEnBd.Nombre
                             };
                             #endregion
-                        case 10: //Acero
-                            #region
-                            CatalogoAcero acero = serializer.Deserialize<CatalogoAcero>(data);
-
-                            Sam3_Acero aceroEnBd = ctx.Sam3_Acero.Where(x => x.AceroID.ToString() == acero.AceroID && x.Activo).AsParallel().SingleOrDefault();
-
-                            aceroEnBd.FamiliaAceroID = acero.FamiliaAceroID != null && acero.FamiliaAceroID != aceroEnBd.FamiliaAceroID.ToString() ?
-                                Convert.ToInt32(acero.FamiliaAceroID) : aceroEnBd.FamiliaAceroID;
-
-                            aceroEnBd.Nomenclatura = acero.Nomenclatura != null && acero.Nomenclatura != aceroEnBd.Nomenclatura ?
-                                acero.Nomenclatura : aceroEnBd.Nomenclatura;
-
-                            aceroEnBd.VerificadoPorCalidad = acero.VerificadoPorCalidad != null && Convert.ToBoolean(acero.VerificadoPorCalidad) != aceroEnBd.VerificadoPorCalidad ?
-                                Convert.ToBoolean(acero.VerificadoPorCalidad) : aceroEnBd.VerificadoPorCalidad;
-
-                            aceroEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            aceroEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new CatalogoAcero
-                            {
-                                FamiliaAcero = acero.FamiliaAcero,
-                                FamiliaAceroID = acero.FamiliaAceroID.ToString(),
-                                Nomenclatura = aceroEnBd.Nomenclatura,
-                                VerificadoPorCalidad = aceroEnBd.VerificadoPorCalidad == true ? "Si" : "No",
-                                AceroID = aceroEnBd.AceroID.ToString()
-                            };
-                            #endregion
-                        case 14: //fabricante
+                        case 10: //fabricante
                             #region
                             CatalogoFabricante fabricante = serializer.Deserialize<CatalogoFabricante>(data);
 
@@ -881,26 +830,7 @@ namespace BackEndSAM.DataAcces
                             return result;
 
                             #endregion
-                        case 10: //Aceros
-                            #region
-
-                            Sam3_Acero acero = ctx.Sam3_Acero.Where(x => x.AceroID == id).AsParallel().SingleOrDefault();
-                            acero.Activo = false;
-                            acero.UsuarioModificacion = usuario.UsuarioID;
-                            acero.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            result = new TransactionalInformation();
-                            result.ReturnCode = 200;
-                            result.ReturnStatus = true;
-                            result.ReturnMessage.Add("OK");
-                            result.IsAuthenicated = true;
-
-                            return result;
-
-                            #endregion
-                        case 14:  //fabricante
+                        case 10:  //fabricante
                             #region
 
                             Sam3_Fabricante fabricante = ctx.Sam3_Fabricante.Where(x => x.FabricanteID == id).AsParallel().SingleOrDefault();
@@ -1126,33 +1056,7 @@ namespace BackEndSAM.DataAcces
                             };
 
                             #endregion
-                        case 10: //Aceros
-                            #region
-
-                            CatalogoAcero catalogoAcero = serializer.Deserialize<CatalogoAcero>(data);
-                            Sam3_Acero acero = new Sam3_Acero();
-                            acero.FamiliaAceroID = Convert.ToInt32(catalogoAcero.FamiliaAceroID);
-                            acero.Nomenclatura = catalogoAcero.Nomenclatura;
-                            acero.VerificadoPorCalidad = Convert.ToBoolean(catalogoAcero.VerificadoPorCalidad);
-
-                            acero.Activo = true;
-                            acero.FechaModificacion = DateTime.Now;
-                            acero.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_Acero.Add(acero);
-                            ctx.SaveChanges();
-
-                            return new CatalogoAcero
-                            {
-                                FamiliaAcero = catalogoAcero.FamiliaAcero,
-                                FamiliaAceroID = catalogoAcero.FamiliaAceroID.ToString(),
-                                Nomenclatura = acero.Nomenclatura,
-                                VerificadoPorCalidad = acero.VerificadoPorCalidad == true ? "Si" : "No",
-                                AceroID = acero.AceroID.ToString()
-                            };
-
-                            #endregion
-                        case 14:  //fabricante
+                        case 10:  //fabricante
                             #region
                             CatalogoFabricante catalogoFabricante = serializer.Deserialize<CatalogoFabricante>(data);
                             Sam3_Fabricante fabricante = new Sam3_Fabricante();
