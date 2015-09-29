@@ -287,7 +287,7 @@
 
             ObtenerFechasporDefecto();
             CantidadesDelMenuDashboardTubos();
-            CantidadesDelMenuDashboardAccesorios();
+            
         };
 
     function CargarGridTubos(dataSource, columnas, detailInit) {
@@ -432,6 +432,7 @@
                 $("#spanTravelerPendienteTubos").html(result.TravelerPendiente ? result.TravelerPendiente : 0);
                 $("#spanDespachoTubos").html(result.Despacho ? result.Despacho : 0);
                 $("#spanCorteTubos").html(result.Corte ? result.Corte : 0);
+                CantidadesDelMenuDashboardAccesorios();
 
             });
         };
