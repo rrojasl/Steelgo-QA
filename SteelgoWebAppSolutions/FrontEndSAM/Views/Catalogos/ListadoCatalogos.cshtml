@@ -133,16 +133,16 @@
                 Nombre: { type:"string",validation: { required: true } },
             }
         },
-        "10":{
-            id: "AceroID",
-            fields: {
-                AceroID: { editable: false, nullable: true },
-                FamiliaAceroID: { type: "number", validation: { required: true } },
-                FamiliaAcero: { type: "string", validation: { required: true } },
-                Nomenclatura: { type: "string", validation: { required: true } },
-                VerificadoPorCalidad: { type: "string" }
-            }
-        },
+        //"10":{
+        //    id: "AceroID",
+        //    fields: {
+        //        AceroID: { editable: false, nullable: true },
+        //        FamiliaAceroID: { type: "number", validation: { required: true } },
+        //        FamiliaAcero: { type: "string", validation: { required: true } },
+        //        Nomenclatura: { type: "string", validation: { required: true } },
+        //        VerificadoPorCalidad: { type: "string" }
+        //    }
+        //},
         //"11": {
         //    id: "ColadasID",
         //    fields: {
@@ -158,7 +158,7 @@
         //        HoldCalidad: { type: "string" }
         //    }
         //},
-        "14": {
+        "10": {
             id: "FabricanteID",
             fields: {
                 FabricanteID: { editable: false, nullable: true },
@@ -346,32 +346,32 @@
                 }
             }
         },
-        "10": {
-            "FamiliaAcero": {
-                field: "FamiliaAcero",
-                title: "Familia Acero",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Familia.Familia.urlNoId + "?token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAceroID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero = data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "FamiliaAceroID"
-                    });
-                }
-            },
-            "VerificadoPorCalidad": { field: "VerificadoPorCalidad", title: "VerificadoPorCalidad", editor: dropdownSiNo },
-        },
+        //"10": {
+        //    "FamiliaAcero": {
+        //        field: "FamiliaAcero",
+        //        title: "Familia Acero",
+        //        editor: function (container, options) {
+        //            $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+        //                dataSource: {
+        //                    transport: {
+        //                        read: {
+        //                            dataType: "json",
+        //                            url: $Familia.Familia.urlNoId + "?token=" + Cookies.get("token")
+        //                        }
+        //                    }
+        //                },
+        //                close: function (e) {
+        //                    var data = getDropData(e);
+        //                    $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAceroID = data.id;
+        //                    $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero = data.nombre;
+        //                },
+        //                dataTextField: "Nombre",
+        //                dataValueField: "FamiliaAceroID"
+        //            });
+        //        }
+        //    },
+        //    "VerificadoPorCalidad": { field: "VerificadoPorCalidad", title: "VerificadoPorCalidad", editor: dropdownSiNo },
+        //},
         //"11": {
         //    "Fabricante": {
         //        field: "Fabricante",
@@ -444,7 +444,7 @@
         //    },
         //    "HoldCalidad": { field: "HoldCalidad", title: "HoldCalidad", editor: dropdownSiNo }
         //},
-        "14": {
+        "10": {
             "Contacto": {
                 field: "Contacto",
                 title: "Contacto",
@@ -652,22 +652,13 @@
     })
 
     function dropdownSiNo(container, options) {
-        function getvalor(){
-            console.log(container);
-            console.log(options);
-            for(key in options.model){ 
-                if(options.model[key]==="Si" || options.model[key]==="No"){ 
-                    return options.model[key] 
-                }
-            }
-        };
-        var valor=getvalor();
+        function getvalor(){ for(key in options.model){ if(options.model[key]==="Si" || options.model[key]==="No"){ return options.model[key] } } return "Ninguno"; };
         $('<input id="sinodrop" data-text-field="text" data-value-field="value" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",
-            optionLabel: "Actual: "+valor,
+            optionLabel: "Actual: "+getvalor(),
             dataSource: [
                 { text: "Si", value: true },
                 { text: "No", value: false }
