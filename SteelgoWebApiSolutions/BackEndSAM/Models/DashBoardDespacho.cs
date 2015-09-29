@@ -20,4 +20,9 @@ namespace BackEndSAM.Models
         public string SpoolID { get; set; }
         public string Spool { get; set; }
     }
+
+    //public class ListadoODTPorDespachar
+    //{
+ 
+    //}
 }
