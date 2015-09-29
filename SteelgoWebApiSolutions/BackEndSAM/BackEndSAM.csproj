@@ -314,6 +314,7 @@
     <Compile Include="Models\CantidadesDashboard.cs" />
     <Compile Include="Models\Catalogos.cs" />
     <Compile Include="Models\CuantificacionListado.cs" />
+    <Compile Include="Models\DashBoardDespacho.cs" />
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />
