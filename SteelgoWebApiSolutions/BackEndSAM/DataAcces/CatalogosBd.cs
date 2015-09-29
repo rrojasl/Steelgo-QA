@@ -474,9 +474,9 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 3: //Tipo Aviso
                             #region
-                            Sam3_TipoAviso tipoAviso = serializer.Deserialize<Sam3_TipoAviso>(data);
+                            Catalogos tipoAviso = serializer.Deserialize<Catalogos>(data);
 
-                            Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID == tipoAviso.TipoAvisoID && x.Activo).AsParallel().SingleOrDefault();
+                            Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID.ToString() == tipoAviso.Id && x.Activo).AsParallel().SingleOrDefault();
 
                             avisoEnBd.Nombre = tipoAviso.Nombre != null && tipoAviso.Nombre != avisoEnBd.Nombre ?
                                 tipoAviso.Nombre : avisoEnBd.Nombre;
@@ -654,9 +654,9 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 8: //Tipo de uso
                             #region
-                            Sam3_TipoUso tipoUso = serializer.Deserialize<Sam3_TipoUso>(data);
+                            Catalogos tipoUso = serializer.Deserialize<Catalogos>(data);
 
-                            Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == tipoUso.TipoUsoID && x.Activo).AsParallel().SingleOrDefault();
+                            Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID == tipoUso.Id && x.Activo).AsParallel().SingleOrDefault();
 
                             tipoUsoEnBd.Nombre = tipoUso.Nombre != null && tipoUso.Nombre != tipoUsoEnBd.Nombre ?
                                 tipoUso.Nombre : tipoUsoEnBd.Nombre;
@@ -676,9 +676,9 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 9: //Camion
                             #region
-                            Sam3_TipoVehiculo camion = serializer.Deserialize<Sam3_TipoVehiculo>(data);
+                            Catalogos camion = serializer.Deserialize<Catalogos>(data);
 
-                            Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID == camion.TipoVehiculoID && x.Activo).AsParallel().SingleOrDefault();
+                            Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID == camion.Id && x.Activo).AsParallel().SingleOrDefault();
                             camionEnBd.Nombre = camion.Nombre != null && camion.Nombre != camionEnBd.Nombre ?
                                 camion.Nombre : camionEnBd.Nombre;
 
