@@ -6,175 +6,177 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
     </li>
-    <li>
-        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
-    </li>
     <li class="active">
-        <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0002"></span></a>
+        <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
     </li>
+    @* <li class="active">
+        <a href="@Url.Action("ListadoCatalogos", "Catalogos")"><span id="ListadoCatalogos0002"></span></a>
+    </li>*@
 }
 
 <div class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-5">
-    @*<select id="listaCatalogos" class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-5">
-        <option disabled selected="true" value="---------">--------</option>
-        <option value="transportistas">Transportistas</option>
-        <option value="camiones">Camiones</option>
-        <option value="choferes">Choferes</option>
-        <option value="plana">Planas</option>
-    </select>*@
-    <input type="text" id="listaCatalogos"/>
+    <div class="row">
+        <label id="ListadoCatalogos0003"></label>
+    </div>
+    <div class="row">
+        <input type="text" id="listaCatalogos" />
+    </div>
 </div>
-<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="grid"></div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid" style="width: 100%"></div>
+        </div>
+    </div>
 </div>
 
 <script>
 @section JavascriptGlobalVariables {
-    dataBoundCounter=0;
-    models={
-        "1":{
+    dataBoundCounter = 0;
+    models = {
+        "1": {
             id: "PatioID",
             fields: {
-                PatioID: { editable: false, nullable: true},
-                Nombre: { type:"string" },
-                Descripcion: { type:"string" },
+                PatioID: { editable: false, nullable: true },
+                Nombre: { type: "string" },
+                Descripcion: { type: "string" },
                 Propietario: { validation: { required: true } },
                 RequierePermiso: { type: "string" }
             }
         },
-        "2":{
+        "2": {
             id: "ChoferID",
             fields: {
                 ChoferID: { editable: false, nullable: true },
-                Nombre: { type:"string",validation: { required: true } },
-                TransportistaID: { type:"number", validation: { required: true } },
-                TransportistaNombre: { type:"string",validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
+                TransportistaID: { type: "number", validation: { required: true } },
+                TransportistaNombre: { type: "string", validation: { required: true } },
             }
         },
         //{"Id":"1","Nombre":"Material"}
-        "3":{
-            id:"Id",
-            fields:{
+        "3": {
+            id: "Id",
+            fields: {
                 Id: { editable: false, nullable: true },
-                Nombre: { type:"string",validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
             }
         },
-        "4":{
+        "4": {
             id: "TransportistaID",
             fields: {
                 TransportistaID: { editable: false, nullable: true },
-                ContactoID: { type:"number", validation: { required: true } },
-                Contacto: { type:"string",validation: { required: true } },
-                Nombre: { type:"string",validation: { required: true } },
-                Descripcion: { type:"string"},
-                Direccion: { type:"string"},
-                Telefono: { type:"string"},
+                ContactoID: { type: "number", validation: { required: true } },
+                Contacto: { type: "string", validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
+                Descripcion: { type: "string" },
+                Direccion: { type: "string" },
+                Telefono: { type: "string" },
             }
         },
-        "5":{
+        "5": {
             id: "VehiculoID",
             fields: {
                 VehiculoID: { editable: false, nullable: true },
-                Placas: { type:"string",validation: { required: true } },
-                TarjetaCirculacion: { type:"string",validation: { required: true } },
-                PolizaSeguro: { type:"string"},
+                Placas: { type: "string", validation: { required: true } },
+                TarjetaCirculacion: { type: "string", validation: { required: true } },
+                PolizaSeguro: { type: "string" },
                 ChoferID: { editable: false, nullable: true },
-                choferNombre: { type:"string",validation: { required: true } },
-                TransportistaID: { editable: false, nullable: true },
-                transportistaNombre: { type: "string", validation: { required: true } },
-                relVehiculoChoferID: { editable: false, nullable: true },
-                relVehiculoTransportistaID: {editable: false, nullable: true},
-            }
-        },
-        "6":{
-            id: "VehiculoID",
-            fields: {
-                VehiculoID: { editable: false, nullable: true },
-                TractoID: { type:"number", validation: { required: true } },
-                Placas: { type:"string",validation: { required: true } },
-                Unidad: { type:"string"},
-                Modelo : { type:"string"},
-                ChoferID: { editable: false, nullable: true },
-                choferNombre: { type:"string",validation: { required: true } },
+                choferNombre: { type: "string", validation: { required: true } },
                 TransportistaID: { editable: false, nullable: true },
                 transportistaNombre: { type: "string", validation: { required: true } },
                 relVehiculoChoferID: { editable: false, nullable: true },
                 relVehiculoTransportistaID: { editable: false, nullable: true },
             }
         },
-        "7":{
+        "6": {
+            id: "VehiculoID",
+            fields: {
+                VehiculoID: { editable: false, nullable: true },
+                TractoID: { type: "number", validation: { required: true } },
+                Placas: { type: "string", validation: { required: true } },
+                Unidad: { type: "string" },
+                Modelo: { type: "string" },
+                ChoferID: { editable: false, nullable: true },
+                choferNombre: { type: "string", validation: { required: true } },
+                TransportistaID: { editable: false, nullable: true },
+                transportistaNombre: { type: "string", validation: { required: true } },
+                relVehiculoChoferID: { editable: false, nullable: true },
+                relVehiculoTransportistaID: { editable: false, nullable: true },
+            }
+        },
+        "7": {
             id: "ProveedorID",
             fields: {
                 ProveedorID: { editable: false, nullable: true },
-                ContactoID: { type:"number", validation: { required: true } },
-                Contacto: { type:"string",validation: { required: true } },
-                Nombre: { type:"string",validation: { required: true } },
-                Direccion : { type:"string"},
-                Descripcion : { type:"string"},
-                Telefono : { type:"string"}
+                ContactoID: { type: "number", validation: { required: true } },
+                Contacto: { type: "string", validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
+                Direccion: { type: "string" },
+                Descripcion: { type: "string" },
+                Telefono: { type: "string" }
             }
         },
-        "10":{
+        "10": {
             id: "AceroID",
             fields: {
                 AceroID: { editable: false, nullable: true },
-                FAmiliaAceroID: { type:"number", validation: { required: true } },
-                FamiliaAcero: { type:"string",validation: { required: true } },
-                Nomenclatura: { type:"string",validation: { required: true } },
-                VerificadoPorCalidad : { type:"string"}
+                FamiliaAceroID: { type: "number", validation: { required: true } },
+                FamiliaAcero: { type: "string", validation: { required: true } },
+                Nomenclatura: { type: "string", validation: { required: true } },
+                VerificadoPorCalidad: { type: "string" }
             }
         },
-        "11":{
+        "11": {
             id: "ColadasID",
             fields: {
                 ColadasID: { editable: false, nullable: true },
-                FabricanteID: { type:"number", validation: { required: true } },
-                Fabricante: { type:"string",validation: { required: true } },
-                AceroID: { type:"number", validation: { required: true } },
-                Acero: { type:"string",validation: { required: true } },
-                ProyectoID: { type:"number", validation: { required: true } },
-                Proyecto: { type:"string",validation: { required: true } },
-                NumeroColada : { type:"string"},
-                NumeroCertificado : { type:"string"},
-                HoldCalidad : { type:"string"}
+                FabricanteID: { type: "number", validation: { required: true } },
+                Fabricante: { type: "string", validation: { required: true } },
+                AceroID: { type: "number", validation: { required: true } },
+                Acero: { type: "string", validation: { required: true } },
+                ProyectoID: { type: "number", validation: { required: true } },
+                Proyecto: { type: "string", validation: { required: true } },
+                NumeroColada: { type: "string" },
+                NumeroCertificado: { type: "string" },
+                HoldCalidad: { type: "string" }
             }
         },
-        "14":{
+        "14": {
             id: "FabricanteID",
             fields: {
                 FabricanteID: { editable: false, nullable: true },
-                ContactoID: { type:"number", validation: { required: true } },
-                Contacto: { type:"string",validation: { required: true } },
-                Nombre: { type:"string", validation: { required: true } },
-                Descripcion: { type:"string",validation: { required: true } },
-                ProyectoID: { type:"number", validation: { required: true } },
-                Direccion: { type:"string",validation: { required: true } },
-                Telefono: { type:"string",validation: { required: true } },
+                ContactoID: { type: "number", validation: { required: true } },
+                Contacto: { type: "string", validation: { required: true } },
+                Nombre: { type: "string", validation: { required: true } },
+                Descripcion: { type: "string", validation: { required: true } },
+                ProyectoID: { type: "number", validation: { required: true } },
+                Direccion: { type: "string", validation: { required: true } },
+                Telefono: { type: "string", validation: { required: true } },
             }
         },
     }
-    columnas={
-        "1":{
-            "RequierePermiso":{ field: "RequierePermiso", title: "Requiere permiso", editor: dropdownSiNo}
+    columnas = {
+        "1": {
+            "RequierePermiso": { field: "RequierePermiso", title: "Requiere permiso", editor: dropdownSiNo }
         },
-        "2":{
-            "TransportistaNombre":{
+        "2": {
+            "TransportistaNombre": {
                 field: "TransportistaNombre",
                 title: "Nombre Transportista",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
+                                    url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaNombre=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaNombre = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -182,24 +184,24 @@
                 }
             }
         },
-        "4":{
-            "Contacto":{
+        "4": {
+            "Contacto": {
                 field: "Contacto",
                 title: "Contacto",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Contacto.Contacto.urlNoId+"?token="+Cookies.get("token")
+                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ContactoID"
@@ -207,47 +209,47 @@
                 }
             }
         },
-        "5":{
-            "choferNombre":{
+        "5": {
+            "choferNombre": {
                 field: "choferNombre",
                 title: "Nombre Chofer",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
+                                    url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
                     });
                 }
             },
-            "transportistaNombre":{
+            "transportistaNombre": {
                 field: "transportistaNombre",
                 title: "Nombre Transportista",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
+                                    url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -255,47 +257,47 @@
                 }
             },
         },
-        "6":{
-            "choferNombre":{
+        "6": {
+            "choferNombre": {
                 field: "choferNombre",
                 title: "Nombre Chofer",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Chofer.Chofer.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
+                                    url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ChoferID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ChoferID"
                     });
                 }
             },
-            "transportistaNombre":{
+            "transportistaNombre": {
                 field: "transportistaNombre",
                 title: "Nombre Transportista",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Transportista.Transportista.urlNoId+"?esAvisoEntrada=0&token="+Cookies.get("token")
+                                    url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "TransportistaID"
@@ -303,24 +305,24 @@
                 }
             }
         },
-        "7":{
-            "Contacto":{
+        "7": {
+            "Contacto": {
                 field: "Contacto",
                 title: "Contacto",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Contacto.Contacto.urlNoId+"?token="+Cookies.get("token")
+                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ContactoID"
@@ -328,120 +330,120 @@
                 }
             }
         },
-        "10":{
-            "FamiliaAcero":{
+        "10": {
+            "FamiliaAcero": {
                 field: "FamiliaAcero",
                 title: "Familia Acero",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Familia.Familia.urlNoId+"?token="+Cookies.get("token")
+                                    url: $Familia.Familia.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].FAmiliaAceroID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].FAmiliaAceroID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "FamiliaAceroID"
                     });
                 }
             },
-            "VerificadoPorCalidad":{ field: "VerificadoPorCalidad", title: "VerificadoPorCalidad", editor: dropdownSiNo},
+            "VerificadoPorCalidad": { field: "VerificadoPorCalidad", title: "VerificadoPorCalidad", editor: dropdownSiNo },
         },
-        "11":{
-            "Fabricante":{
+        "11": {
+            "Fabricante": {
                 field: "Fabricante",
                 title: "Fabricante",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Fabricantes.Fabricantes.urlNoId+"?token="+Cookies.get("token")
+                                    url: $Fabricantes.Fabricantes.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].FabricanteID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Fabricante=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].FabricanteID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Fabricante = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "FabricanteID"
                     });
                 }
             },
-            "Acero":{
+            "Acero": {
                 field: "Acero",
                 title: "Acero",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $TipoAcero.TipoAcero.urlNoId+"?token="+Cookies.get("token")
+                                    url: $TipoAcero.TipoAcero.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].AceroID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Acero=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].AceroID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Acero = data.nombre;
                         },
                         dataTextField: "Nomenclatura",
                         dataValueField: "AceroID"
                     });
                 }
             },
-            "Proyecto":{
+            "Proyecto": {
                 field: "Proyecto",
                 title: "Proyecto",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Proyecto.Proyecto.urlNoId+"?token="+Cookies.get("token")
+                                    url: $Proyecto.Proyecto.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].FAmiliaAceroID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].FAmiliaAceroID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero = data.nombre;
                         },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ProyectoID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Proyecto=data.nombre;
+                        close: function (e) {
+                            var data = getDropData(e);
+                            $("#grid").data("kendoGrid")._data[data.posicion].ProyectoID = data.id;
+                            $("#grid").data("kendoGrid")._data[data.posicion].Proyecto = data.nombre;
                         },
                         dataTextField: "Nombre",
                         dataValueField: "ProyectoID"
                     });
                 }
             },
-            "HoldCalidad":{ field: "HoldCalidad", title: "HoldCalidad", editor: dropdownSiNo}
+            "HoldCalidad": { field: "HoldCalidad", title: "HoldCalidad", editor: dropdownSiNo }
         },
-        "14":{
-            "Contacto":{
+        "14": {
+            "Contacto": {
                 field: "Contacto",
                 title: "Contacto",
-                editor: function(container, options) {
+                editor: function (container, options) {
                     $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
                         dataSource: {
                             transport: {
                                 read: {
                                     dataType: "json",
-                                    url: $Contacto.Contacto.urlNoId+"?token="+Cookies.get("token")
+                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
                                 }
                             }
                         },
@@ -452,35 +454,35 @@
             }
         },
     }
-}
+    }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        $("#grid").kendoGrid({columns:[]});
+        $("#grid").kendoGrid({ columns: [] });
     };
 
-    function getDropData(e){
-        var id=e.sender._old;
-        var nombre=e.sender._prev;
-        var grid=$("#grid").data("kendoGrid");
-        var dirty = $.map(grid.dataSource.data(), function(obj, index) {
-            if(obj.dirty == true) {
+    function getDropData(e) {
+        var id = e.sender._old;
+        var nombre = e.sender._prev;
+        var grid = $("#grid").data("kendoGrid");
+        var dirty = $.map(grid.dataSource.data(), function (obj, index) {
+            if (obj.dirty == true) {
                 return index;
             }
         });
-        return {id:id,nombre:nombre,posicion:dirty[0]}
+        return { id: id, nombre: nombre, posicion: dirty[0] }
     }
 
-    function getUrl(){
-        return $Catalogos.AdministracionCatalogos.urlNoId+"?catalogoID="+$("#listaCatalogos").data("kendoDropDownList").value()+"&token=";
+    function getUrl() {
+        return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + $("#listaCatalogos").data("kendoDropDownList").value() + "&token=";
     }
 
     function cargarInicialGrid(val) {
         loadingStart();
-        var contenedor=$("#grid").parent();
+        var contenedor = $("#grid").parent();
         $("#grid").remove();
         contenedor.append("<div id='grid'></div>");
-        var dataSGrid=getDataSourceGrid(val);
+        var dataSGrid = getDataSourceGrid(val);
         $("#grid").kendoGrid({
             dataSource: dataSGrid,
             autoHeight: true,
@@ -505,58 +507,58 @@
             },
             toolbar: ["create"],
             editable: "inline",
-            save: function(e) {
-                var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
-                var grid=$("#grid").data("kendoGrid");
-                var data={};
-                for(f in models[catalogo].fields){
-                    data[f]=e.model[f];
+            save: function (e) {
+                var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
+                var grid = $("#grid").data("kendoGrid");
+                var data = {};
+                for (f in models[catalogo].fields) {
+                    data[f] = e.model[f];
                 }
-                if(e.model.id!=="" && e.model.id!==null){
-                    var direccion=parseUrl(data,catalogo,"put");
-                    grid.options.dataSource.options.transport.update.url=direccion;
-                }else{
-                    data[models[catalogo].id]="0";
-                    var direccion=parseUrl(data,catalogo,"post");
-                    grid.options.dataSource.options.transport.create.url=direccion;
+                if (e.model.id !== "" && e.model.id !== null) {
+                    var direccion = parseUrl(data, catalogo, "put");
+                    grid.options.dataSource.options.transport.update.url = direccion;
+                } else {
+                    data[models[catalogo].id] = "0";
+                    var direccion = parseUrl(data, catalogo, "post");
+                    grid.options.dataSource.options.transport.create.url = direccion;
                 }
                 grid.options.dataSource.sync();
             },
-            remove: function(e) {
-                var catalogo=$("#listaCatalogos").data("kendoDropDownList").value();
-                var grid=$("#grid").data("kendoGrid");
-                var data={};
-                for(f in models[catalogo].fields){
-                    data[f]=e.model[f];
+            remove: function (e) {
+                var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
+                var grid = $("#grid").data("kendoGrid");
+                var data = {};
+                for (f in models[catalogo].fields) {
+                    data[f] = e.model[f];
                 }
-                if(e.model.id!=="" && e.model.id!==null){
-                    var direccion=parseUrl(data,catalogo,"delete");
-                    grid.options.dataSource.options.transport.destroy.url=direccion;
+                if (e.model.id !== "" && e.model.id !== null) {
+                    var direccion = parseUrl(data, catalogo, "delete");
+                    grid.options.dataSource.options.transport.destroy.url = direccion;
                     grid.options.dataSource.sync();
-                }else{
+                } else {
                     alert("Ha ocurrido un error: El elemento aun no existe en la BD");
                 }
             },
             dataBound: function (e) {
-                if(dataBoundCounter==0){
+                if (dataBoundCounter == 0) {
                     dataBoundCounter++;
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-                    var grid=$("#grid").data("kendoGrid");
-                    grid.columns.push({ command: "edit", title: "Editar",width:"75px"});
-                    grid.columns.push({ command: "destroy", title: "Borrar",width:"75px"});
-                    for(c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]){
-                        var columna=$.grep(grid.columns, function(e){ return e.field == c; });
-                        grid.columns[grid.columns.indexOf(columna[0])]=columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
+                    var grid = $("#grid").data("kendoGrid");
+                    grid.columns.push({ command: "edit", title: "Editar", width: "75px" });
+                    grid.columns.push({ command: "destroy", title: "Borrar", width: "75px" });
+                    for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
+                        var columna = $.grep(grid.columns, function (e) { return e.field == c; });
+                        grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];
                     }
-                    grid.options.columns=grid.columns;
-                    var ids=$.grep(grid.columns, function(e){ if(e.field){return e.field.toString().toUpperCase().indexOf("ID")>-1;} });
-                    ids.forEach(function(i){
-                        console.log(i.field.toUpperCase().indexOf("ID")+"\t"+i.field.length);
-                        i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : console.log(1);
+                    grid.options.columns = grid.columns;
+                    var ids = $.grep(grid.columns, function (e) { if (e.field) { return e.field.toString().toUpperCase().indexOf("ID") > -1; } });
+                    ids.forEach(function (i) {
+                        console.log(i.field.toUpperCase().indexOf("ID") + "\t" + i.field.length);
+                        i.field.length - i.field.toUpperCase().indexOf("ID") == 2 ? grid.hideColumn(i.field) : console.log(1);
                     });
-                    var options=grid.options;
+                    var options = grid.options;
                     grid.destroy();
                     $("#grid").empty().kendoGrid(options);
                 }
@@ -565,20 +567,20 @@
         loadingStop();
     };
 
-    function parseUrl(data,catalogo,method){
-        switch(catalogo){
+    function parseUrl(data, catalogo, method) {
+        switch (catalogo) {
             case "1":
                 //data.RequierePermiso=="Si" ? data.RequierePermiso=true : data.RequierePermiso=false;
                 break;
         }
-        if(method!=="delete"){
-            return getUrl()+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
-        }else{
-            return getUrl()+Cookies.get("token")+"&id="+data[models[catalogo].id];
+        if (method !== "delete") {
+            return getUrl() + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
+        } else {
+            return getUrl() + Cookies.get("token") + "&id=" + data[models[catalogo].id];
         }
     }
-     
-    function getDataSourceGrid(val){
+
+    function getDataSourceGrid(val) {
         return new kendo.data.DataSource({
             data: [],
             schema: {
@@ -591,34 +593,34 @@
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false,
-            transport:{
-                read:{
-                    url:getUrl()+Cookies.get("token"),
-                    dataType:"json",
-                    type:"GET",
+            transport: {
+                read: {
+                    url: getUrl() + Cookies.get("token"),
+                    dataType: "json",
+                    type: "GET",
                     cache: false
                 },
-                update:{
-                    url:getUrl()+Cookies.get("token"),
-                    dataType:"json",
-                    type:"PUT",
+                update: {
+                    url: getUrl() + Cookies.get("token"),
+                    dataType: "json",
+                    type: "PUT",
                     cache: false
                 },
-                destroy:{
-                    url:getUrl()+Cookies.get("token"),
-                    dataType:"json",
-                    type:"DELETE",
+                destroy: {
+                    url: getUrl() + Cookies.get("token"),
+                    dataType: "json",
+                    type: "DELETE",
                     cache: false
                 },
-                create:{
-                    url:getUrl()+Cookies.get("token"),
-                    dataType:"json",
-                    type:"POST",
+                create: {
+                    url: getUrl() + Cookies.get("token"),
+                    dataType: "json",
+                    type: "POST",
                     cache: false
                 },
-                parameterMap: function(options, operation) {
+                parameterMap: function (options, operation) {
                     if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
+                        return { models: kendo.stringify(options.models) };
                     }
                 }
             },
@@ -633,13 +635,13 @@
             transport: {
                 read: {
                     dataType: "json",
-                    url: $Catalogos.AdministracionCatalogos.urlNoId+"?token="+Cookies.get("token")
+                    url: $Catalogos.AdministracionCatalogos.urlNoId + "?token=" + Cookies.get("token")
                 }
             }
         },
-        change:function(e){
-            dataBoundCounter=0;
-            if($("#listaCatalogos").data("kendoDropDownList").value()){
+        change: function (e) {
+            dataBoundCounter = 0;
+            if ($("#listaCatalogos").data("kendoDropDownList").value()) {
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }
         }
@@ -651,21 +653,21 @@
         .kendoDropDownList({
             dataTextField: "text",
             dataValueField: "value",
-            optionLabel:"Selecciona una opción",
+            optionLabel: "Selecciona una opción",
             dataSource: [
                 { text: "Si", value: true },
                 { text: "No", value: false }
             ]
         });
     }
-};
+    };
 
-@section JavascriptDocumentReadyFunctions {
-};
+    @section JavascriptDocumentReadyFunctions {
+    };
     
-@section JavascriptDocumentReadyHomeCookie {
+    @section JavascriptDocumentReadyHomeCookie {
     //Cookies.set("home", true, { path: '/' });
     //Cookies.set("navegacion", "7", { path: '/' });
-};
+    };
 
 </script>

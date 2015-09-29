@@ -82,7 +82,7 @@ namespace BackEndSAM.Models
     public class CatalogoAcero
     {
         public string AceroID { get; set; }
-        public string FAmiliaAceroID { get; set; }
+        public string FamiliaAceroID { get; set; }
         public string FamiliaAcero { get; set; }
         public string Nomenclatura { get; set; }
         public string VerificadoPorCalidad { get; set; }
@@ -91,7 +91,7 @@ namespace BackEndSAM.Models
 
     public class CatalogoColadas
     {
-        public string ColadasID { get; set; }
+        public string ColadaID { get; set; }
         public string FabricanteID { get; set; }
         public string Fabricante { get; set; }
         public string AceroID { get; set; }

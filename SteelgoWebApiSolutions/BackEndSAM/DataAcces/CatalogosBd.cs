@@ -323,7 +323,7 @@ namespace BackEndSAM.DataAcces
                                         select new CatalogoAcero
                                         {
                                             AceroID = a.AceroID.ToString(),
-                                            FAmiliaAceroID = fa.FamiliaAceroID.ToString(),
+                                            FamiliaAceroID = fa.FamiliaAceroID.ToString(),
                                             FamiliaAcero = fa.Nombre,
                                             Nomenclatura = a.Nomenclatura,
                                             VerificadoPorCalidad = a.VerificadoPorCalidad == true ? "Si" : "No"
@@ -341,7 +341,7 @@ namespace BackEndSAM.DataAcces
                                           where f.Activo && a.Activo && p.Activo
                                           select new CatalogoColadas
                                           {
-                                              ColadasID = c.ColadaID.ToString(),
+                                              ColadaID = c.ColadaID.ToString(),
                                               FabricanteID = f.FabricanteID.ToString(),
                                               Fabricante = f.Nombre,
                                               AceroID = a.AceroID.ToString(),
@@ -1157,7 +1157,7 @@ namespace BackEndSAM.DataAcces
 
                             CatalogoAcero catalogoAcero = serializer.Deserialize<CatalogoAcero>(data);
                             Sam3_Acero acero = new Sam3_Acero();
-                            acero.FamiliaAceroID = Convert.ToInt32(catalogoAcero.FAmiliaAceroID);
+                            acero.FamiliaAceroID = Convert.ToInt32(catalogoAcero.FamiliaAceroID);
                             acero.Nomenclatura = catalogoAcero.Nomenclatura;
                             acero.VerificadoPorCalidad = Convert.ToBoolean(catalogoAcero.VerificadoPorCalidad);
 
