@@ -217,7 +217,7 @@
                             Etiqueta: { type: "string", editable: false },
                             ItemCode: { type: "string", editable: false },
                             Descripcion: { type: "string", editable: false },
-                            NumeroUnico: { type: "string", editable: true },
+                            NumeroUnico: { type: "string", editable: true, defaultValue: { id: "0", value: " " } },
                             Baston: { type: "string", editable: true },
                             Hold: { type: "string", editable: true },
                             ProyectoID: { type: "string", editable: false },
@@ -264,6 +264,7 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
+
     }
     function CargarProyecto(id, value) {
         Proyecto = {};
@@ -335,7 +336,7 @@
     };
 
     function NumeroUnicoAutocomplete(container, options) {
-        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+        $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                        .appendTo(container)
                        .kendoComboBox({
                            autoBind: false,
@@ -359,7 +360,7 @@
         lastEditedCellID = options.model;
     };
     function bastonAutoComplete(container, options) {
-        $('<input required data-text-field="Baston" data-value-field="BastonID" data-bind="value:' + options.field + '"/>')
+        $('<input data-text-field="Baston" data-value-field="BastonID" data-bind="value:' + options.field + '"/>')
                       .appendTo(container)
                       .kendoComboBox({
                           autoBind: false,
