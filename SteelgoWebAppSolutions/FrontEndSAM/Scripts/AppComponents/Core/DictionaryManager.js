@@ -4350,7 +4350,7 @@ _dictionary = {
         "en-US": "Please provide a label."
     },
     "notificationslabel0062": {
-        "es-MX": "La suma de los cortes no puede ser mayor al disponible.",
+        "es-MX": "La suma de los cortes no puede ser mayor al inventario fisico.",
         "en-US": "The sum of the cuts may not exceed the available."
     },
     "notificationslabel0063": {
