@@ -13,24 +13,54 @@
         <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
     </li>
 }
-<h3>Item Code Steelgo</h3>
+<h3>Item Code Steelgo - Item Codes</h3>
 <div class="formNav clearfix">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="button-section">
                 <div class="btn-group save-group">
                     <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
-                    <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="LlegadaMaterial0044"></span></button>
                 </div>
                 <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
             </div>
-            <div class="button-section">
-                <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="LlegadaMaterial0039"></span></a>
-            </div>
-            <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
         </div>
     </div>
 </div>
+<div class="col-sm-12 col-md-6 col-lg-2">
+    <label for="icinput" id="AsociacionICS0001"></label>
+    <input id="icinput" />
+</div>
+<div class="col-sm-12 col-md-6 col-lg-2">
+    <label for="D1">D1</label>
+    <input id="D1" />
+</div>
+<div class="col-sm-12 col-md-6 col-lg-2">
+    <label for="D2">D2</label>
+    <input id="D2" />
+</div>
+<div class="col-sm-12 col-md-6 col-lg-2">
+    <label for="descripcionIC" id="AsociacionICS0002"></label>
+    <input id="descripcionIC" />
+</div>
+<div class="col-sm-12 col-md-6 col-lg-2">
+    <label for="icsasociado" id="AsociacionICS0003"></label>
+    <input id="icsasociado" />
+</div>
+<script>
+    $("#icinput").kendoComboBox({
+        dataSource: {
+            transport: {
+                read: {
+                    url:$AsociacionICS.AsociacionICS.urlNoId + "?token=" + Cookies.get("token"),
+                    dataType: "json",
+                    type:"GET"
+                }
+            }
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+</script>
 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div id="grid"></div>
 </div>

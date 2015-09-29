@@ -766,6 +766,18 @@ _dictionary = {
         "es-MX": "Asociar Item Code Steel Go",
         "en-US": "Set Item Code Steel Go"
     },
+    "AsociacionICS0001": {
+        "es-MX": "Item Code Cliente",
+        "en-US": "Customer Item Code"
+    },
+    "AsociacionICS0002": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "AsociacionICS0003": {
+        "es-MX": "ICS Asociado",
+        "en-US": "Associated ICS"
+    },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
         "es-MX": "Patio",
