@@ -82,8 +82,8 @@
                 choferNombre: { type:"string",validation: { required: true } },
                 TransportistaID: { editable: false, nullable: true },
                 transportistaNombre: { type: "string", validation: { required: true } },
-                relVehiculoChofer: { editable: false, nullable: true },
-                relVehiculoTransportista: {editable: false, nullable: true},
+                relVehiculoChoferID: { editable: false, nullable: true },
+                relVehiculoTransportistaID: {editable: false, nullable: true},
             }
         },
         "6":{
@@ -97,7 +97,9 @@
                 ChoferID: { editable: false, nullable: true },
                 choferNombre: { type:"string",validation: { required: true } },
                 TransportistaID: { editable: false, nullable: true },
-                transportistaNombre: { type:"string",validation: { required: true } },
+                transportistaNombre: { type: "string", validation: { required: true } },
+                relVehiculoChoferID: { editable: false, nullable: true },
+                relVehiculoTransportistaID: { editable: false, nullable: true },
             }
         },
         "7":{

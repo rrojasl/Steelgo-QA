@@ -235,8 +235,8 @@ namespace BackEndSAM.DataAcces
                                              choferNombre = ch.Nombre,
                                              transportistaID = rvt.TransportistaID.ToString(),
                                              transportistaNombre = tr.Nombre,
-                                             relVehiculoChofer = rvch.Rel_Vehiculo_Chofer_ID.ToString(),
-                                             relVehiculoTransportista = rvt.Rel_Vehiculo_Transportista_ID.ToString()
+                                             relVehiculoChoferID = rvch.Rel_Vehiculo_Chofer_ID.ToString(),
+                                             relVehiculoTransportistaID = rvt.Rel_Vehiculo_Transportista_ID.ToString()
                                          }).AsParallel().ToList();
 
                             return catTracto;
@@ -262,8 +262,8 @@ namespace BackEndSAM.DataAcces
                                             choferNombre = ch.Nombre,
                                             transportistaID = rvt.TransportistaID.ToString(),
                                             transportistaNombre = tr.Nombre,
-                                            relVehiculoChofer = rvch.Rel_Vehiculo_Chofer_ID.ToString(),
-                                            relVehiculoTransportista = rvt.Rel_Vehiculo_Transportista_ID.ToString()
+                                            relVehiculoChoferID = rvch.Rel_Vehiculo_Chofer_ID.ToString(),
+                                            relVehiculoTransportistaID = rvt.Rel_Vehiculo_Transportista_ID.ToString()
                                         }).AsParallel().ToList();
 
                             return catPlana;
@@ -550,9 +550,9 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
 
                             Sam3_Rel_Vehiculo_Chofer relVehiculoChofer = ctx.Sam3_Rel_Vehiculo_Chofer
-                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == vehiculo.relVehiculoChofer && x.Activo).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == vehiculo.relVehiculoChoferID && x.Activo).AsParallel().SingleOrDefault();
 
-                            relVehiculoChofer.ChoferID = Convert.ToInt32(vehiculo.choferNombre);
+                            relVehiculoChofer.ChoferID = Convert.ToInt32(vehiculo.choferID);
                             relVehiculoChofer.Activo = true;
                             relVehiculoChofer.UsuarioModificacion = usuario.UsuarioID;
                             relVehiculoChofer.FechaModificacion = DateTime.Now;
@@ -560,9 +560,9 @@ namespace BackEndSAM.DataAcces
 
 
                             Sam3_Rel_Vehiculo_Transportista relVehiculotransportista = ctx.Sam3_Rel_Vehiculo_Transportista
-                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == vehiculo.relVehiculoTransportista && x.Activo).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == vehiculo.relVehiculoTransportistaID && x.Activo).AsParallel().SingleOrDefault();
 
-                            relVehiculotransportista.TransportistaID = Convert.ToInt32(vehiculo.transportistaNombre);
+                            relVehiculotransportista.TransportistaID = Convert.ToInt32(vehiculo.transportistaID);
                             relVehiculotransportista.Activo = true;
                             relVehiculotransportista.UsuarioModificacion = usuario.UsuarioID;
                             relVehiculotransportista.FechaModificacion = DateTime.Now;
@@ -592,7 +592,7 @@ namespace BackEndSAM.DataAcces
                             ctx.SaveChanges();
 
                             Sam3_Rel_Vehiculo_Chofer relVehiculoChoferPlana = ctx.Sam3_Rel_Vehiculo_Chofer
-                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == plana.relVehiculoChofer && x.Activo).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == plana.relVehiculoChoferID && x.Activo).AsParallel().SingleOrDefault();
 
                             relVehiculoChoferPlana.ChoferID = Convert.ToInt32(plana.choferID);
                             relVehiculoChoferPlana.Activo = true;
@@ -602,7 +602,7 @@ namespace BackEndSAM.DataAcces
 
 
                             Sam3_Rel_Vehiculo_Transportista relVehiculotransportistaPlana = ctx.Sam3_Rel_Vehiculo_Transportista
-                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == plana.relVehiculoTransportista && x.Activo).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == plana.relVehiculoTransportistaID && x.Activo).AsParallel().SingleOrDefault();
 
                             relVehiculotransportistaPlana.TransportistaID = Convert.ToInt32(plana.transportistaID);
                             relVehiculotransportistaPlana.Activo = true;
