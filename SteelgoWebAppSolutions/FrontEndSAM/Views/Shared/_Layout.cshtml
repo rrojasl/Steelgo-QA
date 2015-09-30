@@ -65,6 +65,11 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="menuMobile hidden-sm hidden-md hidden-lg">
+                            <a>
+                                <img src="~/Content/images/mobileMenu.png" />
+                            </a>
+                        </div>
                         <div class="notifications">
                             <div class="dropdown">
                                 <a id="notifications" role="button" data-target="#" href="#">
@@ -364,10 +369,10 @@
             //Add the body to the menu context
             registerToContextMenu("main-content");
 
-			//Set on the dropdownlist the url language and change the current language
+            //Set on the dropdownlist the url language and change the current language
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
-			
+            
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
 

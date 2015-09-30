@@ -22,6 +22,7 @@
     15  $_departurePermit
     16  $_folioGraphs
     17  $_formatTag
+    18  $_menuMobile
 
     Color Palette: Look at site.css
 
@@ -1422,6 +1423,22 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_menuMobile
+ Description:   Customize mobile menu button.
+**********************************************************************************/
+.menuMobile {
+    position: relative;
+    top: 4px;
+    float: left;
+}
+
+    .menuMobile a > img {
+        width: 26px;
+        height: auto;
+    }
+/**********************************************************************************/
+
 
 /* Media Queries */
 
@@ -1447,6 +1464,43 @@ header .menu > div {
         .login form input {
             width: 68% !important;
         }
+
+    /*$_header*/
+    header {
+        max-height: 110px;
+    }
+
+    header .menu {
+        text-align: right;
+    }
+
+    /*$_search-bar*/
+    .search-bar {
+        position: relative;
+        top: -16px;
+        margin: 0; 
+        padding-left: 38%;
+        width: 100%;
+        max-width: 100%;      
+    }
+
+    /*$_notifications*/
+    .notifications .notification-menu {
+        right: -222px;
+        width: 400px;
+    }
+
+    /*$_sidebar*/
+    .sidebar {
+        width: 100%;
+        display: none;
+    }
+
+    /*$_content-container*/
+    .content-container {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* sm viewport */

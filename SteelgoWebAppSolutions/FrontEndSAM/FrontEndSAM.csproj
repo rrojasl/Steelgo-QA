@@ -127,6 +127,7 @@
     <Content Include="Content\images\loadingGift\loading.gif" />
     <Content Include="Content\images\logoPase.png" />
     <Content Include="Content\images\Logo_Login.jpg" />
+    <Content Include="Content\images\mobileMenu.png" />
     <Content Include="Content\images\SAMC_Add.png" />
     <Content Include="Content\images\SAMC_AddIcon.png" />
     <Content Include="Content\images\SAMC_Attachtment.png" />
