@@ -66,6 +66,7 @@ namespace BackEndSAM.DataAcces
                     ListaCombos familiaMaterial = new ListaCombos();
                     ListaCombos familiaAcero = new ListaCombos();
                     ListaCombos fabricante = new ListaCombos();
+                    ListaCombos cedula = new ListaCombos();
 
                     patios.id = "1";
                     patios.value = "Patios";
@@ -107,6 +108,9 @@ namespace BackEndSAM.DataAcces
                     fabricante.value = "Fabricante";
                     valoresCombo.Add(fabricante);
 
+                    cedula.id = "11";
+                    cedula.value = "Cedula";
+                    valoresCombo.Add(cedula);
                     return valoresCombo;
                 }
             }

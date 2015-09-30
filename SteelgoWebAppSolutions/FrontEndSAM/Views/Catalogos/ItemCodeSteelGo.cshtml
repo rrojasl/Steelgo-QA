@@ -25,7 +25,7 @@
                 <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
             </div>
             <div class="button-section">
-                <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="LlegadaMaterial0039"></span></a>
+                <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="ItemCodeSteelGo0004"></span></a>
             </div>
             <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
         </div>
@@ -75,7 +75,7 @@
             serverSorting: false,
             transport:{
                 read:{
-                    url:"",
+                    url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
                     dataType:"json",
                     type:"GET",
                     cache: false

@@ -110,6 +110,7 @@ var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -194,3 +195,4 @@ $Catalogos.add("AdministracionCatalogos");
 $Corte.add("Corte")
 $AsociacionICS.add("AsociacionICS");
 $Cedulas.add("Cedulas");
+$CatalogoICSteelgo.add("CatalogoICSteelgo");
