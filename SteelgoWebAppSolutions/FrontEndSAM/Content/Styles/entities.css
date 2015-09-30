@@ -1542,6 +1542,10 @@ header .menu > div {
         border: none;
         padding: 0;
     }
+
+        .formNav .button-section.last-button {
+            padding: 0 15px;
+        }
             
 }
 
