@@ -33,7 +33,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual Sam3_NumeroUnicoCorte Sam3_NumeroUnicoCorte { get; set; }
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento { get; set; }
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento1 { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }

@@ -142,7 +142,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           </Key>
           <Property Name="CorteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProyectoID" Type="int" Nullable="false" />
-          <Property Name="NumeroUnicoCorteID" Type="int" Nullable="false" />
+          <Property Name="NumeroUnicoCorteID" Type="int" Nullable="true" />
           <Property Name="Sobrante" Type="int" />
           <Property Name="Merma" Type="int" />
           <Property Name="MermaMovimientoID" Type="int" />
@@ -2431,18 +2431,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Corte_NumeroUnicoCorte">
-          <End Role="Sam3_NumeroUnicoCorte" Type="Self.Sam3_NumeroUnicoCorte" Multiplicity="1" />
-          <End Role="Sam3_Corte" Type="Self.Sam3_Corte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_NumeroUnicoCorte">
-              <PropertyRef Name="NumeroUnicoCorteID" />
-            </Principal>
-            <Dependent Role="Sam3_Corte">
-              <PropertyRef Name="NumeroUnicoCorteID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Corte_NumeroUnicoMovimiento_Merma">
           <End Role="Sam3_NumeroUnicoMovimiento" Type="Self.Sam3_NumeroUnicoMovimiento" Multiplicity="0..1" />
           <End Role="Sam3_Corte" Type="Self.Sam3_Corte" Multiplicity="*" />
@@ -3827,10 +3815,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Colada" EntitySet="Sam3_Colada" />
           </AssociationSet>
-          <AssociationSet Name="FK_Corte_NumeroUnicoCorte" Association="Self.FK_Corte_NumeroUnicoCorte">
-            <End Role="Sam3_NumeroUnicoCorte" EntitySet="Sam3_NumeroUnicoCorte" />
-            <End Role="Sam3_Corte" EntitySet="Sam3_Corte" />
-          </AssociationSet>
           <AssociationSet Name="FK_Corte_NumeroUnicoMovimiento_Merma" Association="Self.FK_Corte_NumeroUnicoMovimiento_Merma">
             <End Role="Sam3_NumeroUnicoMovimiento" EntitySet="Sam3_NumeroUnicoMovimiento" />
             <End Role="Sam3_Corte" EntitySet="Sam3_Corte" />
@@ -4256,7 +4240,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="CorteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProyectoID" Type="Int32" Nullable="false" />
-          <Property Name="NumeroUnicoCorteID" Type="Int32" Nullable="false" />
+          <Property Name="NumeroUnicoCorteID" Type="Int32" Nullable="true" />
           <Property Name="Sobrante" Type="Int32" />
           <Property Name="Merma" Type="Int32" />
           <Property Name="MermaMovimientoID" Type="Int32" />
@@ -4265,7 +4249,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Rack" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="CortadorID" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Sam3_NumeroUnicoCorte" Relationship="Self.FK_Corte_NumeroUnicoCorte" FromRole="Sam3_Corte" ToRole="Sam3_NumeroUnicoCorte" />
           <NavigationProperty Name="Sam3_NumeroUnicoMovimiento" Relationship="Self.FK_Corte_NumeroUnicoMovimiento_Merma" FromRole="Sam3_Corte" ToRole="Sam3_NumeroUnicoMovimiento" />
           <NavigationProperty Name="Sam3_NumeroUnicoMovimiento1" Relationship="Self.FK_Corte_NumeroUnicoMovimiento_Preparacion" FromRole="Sam3_Corte" ToRole="Sam3_NumeroUnicoMovimiento" />
           <NavigationProperty Name="Sam3_Proyecto" Relationship="Self.FK_Corte_Proyecto" FromRole="Sam3_Corte" ToRole="Sam3_Proyecto" />
@@ -4666,7 +4649,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaTraspaso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TieneCorte" Type="Boolean" Nullable="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Sam3_Corte" Relationship="Self.FK_Corte_NumeroUnicoCorte" FromRole="Sam3_NumeroUnicoCorte" ToRole="Sam3_Corte" />
           <NavigationProperty Name="Sam3_NumeroUnico" Relationship="Self.FK_NumeroUnicoCorte_NumeroUnico" FromRole="Sam3_NumeroUnicoCorte" ToRole="Sam3_NumeroUnico" />
           <NavigationProperty Name="Sam3_NumeroUnicoMovimiento" Relationship="Self.FK_NumeroUnicoCorte_NumeroUnicoMovimiento" FromRole="Sam3_NumeroUnicoCorte" ToRole="Sam3_NumeroUnicoMovimiento" />
           <NavigationProperty Name="Sam3_OrdenTrabajo" Relationship="Self.FK_NumeroUnicoCorte_OrdenTrabajo" FromRole="Sam3_NumeroUnicoCorte" ToRole="Sam3_OrdenTrabajo" />
@@ -5489,18 +5471,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Transportista">
               <PropertyRef Name="ContactoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Corte_NumeroUnicoCorte">
-          <End Role="Sam3_NumeroUnicoCorte" Type="Self.Sam3_NumeroUnicoCorte" Multiplicity="1" />
-          <End Role="Sam3_Corte" Type="Self.Sam3_Corte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_NumeroUnicoCorte">
-              <PropertyRef Name="NumeroUnicoCorteID" />
-            </Principal>
-            <Dependent Role="Sam3_Corte">
-              <PropertyRef Name="NumeroUnicoCorteID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6548,10 +6518,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK_Transportista_Contacto" Association="Self.FK_Transportista_Contacto">
             <End Role="Sam3_Contacto" EntitySet="Sam3_Contacto" />
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Corte_NumeroUnicoCorte" Association="Self.FK_Corte_NumeroUnicoCorte">
-            <End Role="Sam3_NumeroUnicoCorte" EntitySet="Sam3_NumeroUnicoCorte" />
-            <End Role="Sam3_Corte" EntitySet="Sam3_Corte" />
           </AssociationSet>
           <AssociationSet Name="FK_Corte_NumeroUnicoMovimiento_Merma" Association="Self.FK_Corte_NumeroUnicoMovimiento_Merma">
             <End Role="Sam3_NumeroUnicoMovimiento" EntitySet="Sam3_NumeroUnicoMovimiento" />

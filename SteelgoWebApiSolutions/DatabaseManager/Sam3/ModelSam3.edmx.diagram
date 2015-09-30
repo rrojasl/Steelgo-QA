@@ -81,7 +81,6 @@
         <AssociationConnector Association="ModelSam3.FK_Proveedor_Contacto" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Proyecto_Contacto" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Transportista_Contacto" ManuallyRouted="false" />
-        <AssociationConnector Association="ModelSam3.FK_Corte_NumeroUnicoCorte" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Corte_NumeroUnicoMovimiento_Merma" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Corte_NumeroUnicoMovimiento_Preparacion" ManuallyRouted="false" />
         <AssociationConnector Association="ModelSam3.FK_Corte_Proyecto" ManuallyRouted="false" />

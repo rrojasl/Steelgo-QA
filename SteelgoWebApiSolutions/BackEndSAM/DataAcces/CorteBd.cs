@@ -224,7 +224,7 @@ namespace BackEndSAM.DataAcces
                                     nuevoCorte.FechaModificacion = DateTime.Now;
                                     nuevoCorte.Merma = Convert.ToInt32(corte.Merma);
                                     nuevoCorte.MermaMovimientoID = Sam3_MovimientoMermaID;
-                                    nuevoCorte.NumeroUnicoCorteID = numeroUnicoCorte.NumeroUnicoID;
+                                    //nuevoCorte.NumeroUnicoCorteID = numeroUnicoCorte.NumeroUnicoID;
                                     nuevoCorte.PreparacionCorteMovimientoID = Sam3_MovimientoPreparacionID;
                                     nuevoCorte.ProyectoID = numeroUnicoCorte.ProyectoID;
                                     nuevoCorte.Rack = rack;
@@ -246,8 +246,10 @@ namespace BackEndSAM.DataAcces
                                                                              && ms.Etiqueta == detalle.Etiqueta
                                                                              select odtm).Distinct().AsParallel().SingleOrDefault();
 
+                                        
+
                                         //verificamos si el numero unico que se esta despachando es el mismo que estaba congelado para orden
-                                        if (odtsMaterial.NumeroUnicoCongeladoID != numeroUnicoID) // es el mismo
+                                        if (odtsMaterial.NumeroUnicoCongeladoID != sam2_numeroUnicoID) // es el mismo
                                         {
                                             //buscamos en sam2 el numero unico que estaba congelado
                                             NumeroUnico numeroCongelado = ctx2.NumeroUnico
@@ -296,8 +298,6 @@ namespace BackEndSAM.DataAcces
                                             sam3_segmentoC.UsuarioModificacion = usuario.UsuarioID;
 
                                             ctx.SaveChanges();
-
-
                                         }
 
                                         //generamos un nuevo movimiento de corte
@@ -331,7 +331,10 @@ namespace BackEndSAM.DataAcces
                                         nuevoDetalle.EsAjuste = false;
                                         nuevoDetalle.FechaCorte = DateTime.Now;
                                         nuevoDetalle.FechaModificacion = DateTime.Now;
-                                        nuevoDetalle.MaquinaID = Convert.ToInt32(corte.Maquina);
+                                        if (corte.Maquina != "" && corte.Maquina != null)
+                                        {
+                                            nuevoDetalle.MaquinaID = Convert.ToInt32(corte.Maquina);
+                                        }
                                         nuevoDetalle.MaterialSpoolID = odtsMaterial.MaterialSpoolID;
                                         nuevoDetalle.OrdenTrabajoSpoolID = odtsMaterial.OrdenTrabajoSpoolID;
                                         nuevoDetalle.SalidaInventarioID = nuevoMovimiento.NumeroUnicoMovimientoID;
