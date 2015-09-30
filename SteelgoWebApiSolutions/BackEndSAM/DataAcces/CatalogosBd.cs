@@ -324,7 +324,22 @@ namespace BackEndSAM.DataAcces
                             #endregion
                         case 11: //Catalogo Cedulas
                         #region
+                            List<CatalogoCedulas> catCedulas = new List<CatalogoCedulas>();
+                            catCedulas = (from c in ctx.Sam3_Cedula
+                                          where c.Activo
+                                          select new CatalogoCedulas
+                                          {
+                                              CedulaID = c.CedulaID.ToString(),
+                                              Diametro = c.Diametro.ToString(),
+                                              CedulaA = c.CedulaA,
+                                              CedulaB = c.CedulaB,
+                                              CedulaC = c.CedulaC,
+                                              CedulaIn = c.CedulaIn.ToString(),
+                                              CedulaMM = c.CedulaMM.ToString(),
+                                              Espesor = c.Espesor.ToString()
+                                          }).AsParallel().ToList();
 
+                            return catCedulas;
                         #endregion
 
                         default:
