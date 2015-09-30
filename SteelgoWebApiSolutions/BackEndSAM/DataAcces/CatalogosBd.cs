@@ -4,6 +4,7 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -66,7 +67,7 @@ namespace BackEndSAM.DataAcces
                     ListaCombos familiaMaterial = new ListaCombos();
                     ListaCombos familiaAcero = new ListaCombos();
                     ListaCombos fabricante = new ListaCombos();
-                    ListaCombos cedula = new ListaCombos();
+                    ListaCombos Cedulas = new ListaCombos();
 
                     patios.id = "1";
                     patios.value = "Patios";
@@ -108,9 +109,10 @@ namespace BackEndSAM.DataAcces
                     fabricante.value = "Fabricante";
                     valoresCombo.Add(fabricante);
 
-                    cedula.id = "11";
-                    cedula.value = "Cedula";
-                    valoresCombo.Add(cedula);
+                    Cedulas.id = "11";
+                    Cedulas.value = "Cédulas";
+                    valoresCombo.Add(Cedulas);
+
                     return valoresCombo;
                 }
             }
@@ -320,6 +322,26 @@ namespace BackEndSAM.DataAcces
                                              }).AsParallel().ToList();
                             return catFabricante;
                             #endregion
+                        case 11: //Catalogo Cedulas
+                        #region
+                            List<CatalogoCedulas> catCedulas = new List<CatalogoCedulas>();
+                            catCedulas = (from c in ctx.Sam3_Cedula
+                                          where c.Activo
+                                          select new CatalogoCedulas
+                                          {
+                                              CedulaID = c.CedulaID.ToString(),
+                                              Diametro = c.Diametro.ToString(),
+                                              CedulaA = c.CedulaA,
+                                              CedulaB = c.CedulaB,
+                                              CedulaC = c.CedulaC,
+                                              CedulaIn = c.CedulaIn.ToString(),
+                                              CedulaMM = c.CedulaMM.ToString(),
+                                              Espesor = c.Espesor.ToString()
+                                          }).AsParallel().ToList();
+
+                            return catCedulas;
+                        #endregion
+
                         default:
                             #region
                             TransactionalInformation result = new TransactionalInformation();
@@ -1100,6 +1122,26 @@ namespace BackEndSAM.DataAcces
                             #endregion
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object obtenerFactorConversion(string catalogoID)
+        {
+            try
+            {
+                var factor = ConfigurationManager.AppSettings["factorConversion"];
+
+                return factor;
             }
             catch (Exception ex)
             {
