@@ -141,5 +141,6 @@ namespace BackEndSAM.Models
         public string CedulaIn { get; set; }
         public string CedulaMM { get; set; }
         public string Espesor { get; set; }
+        public bool Estatus { get; set; }
     }
 }
