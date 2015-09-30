@@ -1441,6 +1441,7 @@ header .menu > div {
             .login form div label.loginLabel {
                 margin-right: 4px;
                 font-size: 11px;
+                min-width: 95px;
             }
 
         .login form input {
