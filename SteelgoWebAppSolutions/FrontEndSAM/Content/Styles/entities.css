@@ -1531,6 +1531,7 @@ header .menu > div {
     .message {
         margin-left: 0;
         margin-bottom: 10px;
+        height: auto;
     }
 
     /*$_formNav*/
