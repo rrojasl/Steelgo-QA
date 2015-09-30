@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -37,9 +37,9 @@
           <Property Name="CedulaA" Type="varchar" MaxLength="50" />
           <Property Name="CedulaB" Type="varchar" MaxLength="50" />
           <Property Name="CedulaC" Type="varchar" MaxLength="50" />
-          <Property Name="CedulaIn" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="CedulaMM" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Espesor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CedulaIn" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="CedulaMM" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="Espesor" Type="decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
@@ -549,7 +549,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="ItemCodeSteelgoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DescripcionEspanol" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DescripcionIngles" Type="nvarchar(max)" />
-          <Property Name="Peso" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Peso" Type="decimal" Precision="7" Scale="3" Nullable="false" />
           <Property Name="Diametro1" Type="decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="Diametro2" Type="decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="FamiliaAceroID" Type="int" Nullable="false" />
@@ -1915,7 +1915,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Item__Cedul__70E8B0D0">
+        <Association Name="FK__Sam3_Item__Cedul__7F36D027">
           <End Role="Sam3_Cedula" Type="Self.Sam3_Cedula" Multiplicity="0..1" />
           <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3607,7 +3607,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Item__Cedul__70E8B0D0" Association="Self.FK__Sam3_Item__Cedul__70E8B0D0">
+          <AssociationSet Name="FK__Sam3_Item__Cedul__7F36D027" Association="Self.FK__Sam3_Item__Cedul__7F36D027">
             <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
           </AssociationSet>
@@ -7829,7 +7829,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="ItemCodeSteelgoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DescripcionEspanol" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DescripcionIngles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Peso" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="Peso" Type="Decimal" Nullable="false" Precision="7" Scale="3" />
           <Property Name="Diametro1" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
           <Property Name="Diametro2" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
           <Property Name="FamiliaAceroID" Type="Int32" Nullable="false" />
@@ -8437,9 +8437,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="CedulaA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CedulaB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CedulaC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CedulaIn" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CedulaMM" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Espesor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CedulaIn" Type="Decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="CedulaMM" Type="Decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="Espesor" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />

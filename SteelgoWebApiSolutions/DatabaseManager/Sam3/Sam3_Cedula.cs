@@ -24,8 +24,8 @@ namespace DatabaseManager.Sam3
         public string CedulaA { get; set; }
         public string CedulaB { get; set; }
         public string CedulaC { get; set; }
-        public Nullable<decimal> CedulaIn { get; set; }
-        public Nullable<decimal> CedulaMM { get; set; }
+        public decimal CedulaIn { get; set; }
+        public decimal CedulaMM { get; set; }
         public decimal Espesor { get; set; }
         public bool Activo { get; set; }
         public int UsuarioModificacion { get; set; }
