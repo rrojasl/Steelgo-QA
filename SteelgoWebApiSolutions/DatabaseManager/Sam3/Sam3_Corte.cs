@@ -21,7 +21,7 @@ namespace DatabaseManager.Sam3
     
         public int CorteID { get; set; }
         public int ProyectoID { get; set; }
-        public int NumeroUnicoCorteID { get; set; }
+        public Nullable<int> NumeroUnicoCorteID { get; set; }
         public Nullable<int> Sobrante { get; set; }
         public Nullable<int> Merma { get; set; }
         public Nullable<int> MermaMovimientoID { get; set; }

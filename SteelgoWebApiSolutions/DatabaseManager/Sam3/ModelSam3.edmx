@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -142,7 +142,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           </Key>
           <Property Name="CorteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProyectoID" Type="int" Nullable="false" />
-          <Property Name="NumeroUnicoCorteID" Type="int" Nullable="true" />
+          <Property Name="NumeroUnicoCorteID" Type="int" />
           <Property Name="Sobrante" Type="int" />
           <Property Name="Merma" Type="int" />
           <Property Name="MermaMovimientoID" Type="int" />
@@ -2479,30 +2479,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CorteDetalle_Maquina">
-          <End Role="Sam3_Maquina" Type="Self.Sam3_Maquina" Multiplicity="0..1" />
-          <End Role="Sam3_CorteDetalle" Type="Self.Sam3_CorteDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Maquina">
-              <PropertyRef Name="MaquinaID" />
-            </Principal>
-            <Dependent Role="Sam3_CorteDetalle">
-              <PropertyRef Name="MaquinaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CorteDetalle_MaterialSpool">
-          <End Role="Sam3_MaterialSpool" Type="Self.Sam3_MaterialSpool" Multiplicity="1" />
-          <End Role="Sam3_CorteDetalle" Type="Self.Sam3_CorteDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_MaterialSpool">
-              <PropertyRef Name="MaterialSpoolID" />
-            </Principal>
-            <Dependent Role="Sam3_CorteDetalle">
-              <PropertyRef Name="MaterialSpoolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CorteDetalle_NumeroUnicoMovimiento">
           <End Role="Sam3_NumeroUnicoMovimiento" Type="Self.Sam3_NumeroUnicoMovimiento" Multiplicity="0..1" />
           <End Role="Sam3_CorteDetalle" Type="Self.Sam3_CorteDetalle" Multiplicity="*" />
@@ -2512,18 +2488,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_CorteDetalle">
               <PropertyRef Name="SalidaInventarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CorteDetalle_OrdenTrabajoSpool">
-          <End Role="Sam3_OrdenTrabajoSpool" Type="Self.Sam3_OrdenTrabajoSpool" Multiplicity="1" />
-          <End Role="Sam3_CorteDetalle" Type="Self.Sam3_CorteDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_OrdenTrabajoSpool">
-              <PropertyRef Name="OrdenTrabajoSpoolID" />
-            </Principal>
-            <Dependent Role="Sam3_CorteDetalle">
-              <PropertyRef Name="OrdenTrabajoSpoolID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3831,20 +3795,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Corte" EntitySet="Sam3_Corte" />
             <End Role="Sam3_CorteDetalle" EntitySet="Sam3_CorteDetalle" />
           </AssociationSet>
-          <AssociationSet Name="FK_CorteDetalle_Maquina" Association="Self.FK_CorteDetalle_Maquina">
-            <End Role="Sam3_Maquina" EntitySet="Sam3_Maquina" />
-            <End Role="Sam3_CorteDetalle" EntitySet="Sam3_CorteDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CorteDetalle_MaterialSpool" Association="Self.FK_CorteDetalle_MaterialSpool">
-            <End Role="Sam3_MaterialSpool" EntitySet="Sam3_MaterialSpool" />
-            <End Role="Sam3_CorteDetalle" EntitySet="Sam3_CorteDetalle" />
-          </AssociationSet>
           <AssociationSet Name="FK_CorteDetalle_NumeroUnicoMovimiento" Association="Self.FK_CorteDetalle_NumeroUnicoMovimiento">
             <End Role="Sam3_NumeroUnicoMovimiento" EntitySet="Sam3_NumeroUnicoMovimiento" />
-            <End Role="Sam3_CorteDetalle" EntitySet="Sam3_CorteDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CorteDetalle_OrdenTrabajoSpool" Association="Self.FK_CorteDetalle_OrdenTrabajoSpool">
-            <End Role="Sam3_OrdenTrabajoSpool" EntitySet="Sam3_OrdenTrabajoSpool" />
             <End Role="Sam3_CorteDetalle" EntitySet="Sam3_CorteDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_Fabricante_Contacto" Association="Self.FK_Fabricante_Contacto">

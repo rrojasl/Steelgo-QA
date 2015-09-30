@@ -357,6 +357,8 @@ namespace BackEndSAM.DataAcces
                                         nuevoDespacho.ProyectoID = numeroUnicoCorte.ProyectoID;
                                         nuevoDespacho.Segmento = corte.Segmento;
                                         nuevoDespacho.UsuarioModificacion = usuario.UsuarioID;
+                                        nuevoDespacho.SalidaInventarioID = nuevoMovimiento.NumeroUnicoMovimientoID;
+                                        
 
                                         ctx.Sam3_Despacho.Add(nuevoDespacho);
                                         ctx.SaveChanges();
@@ -381,7 +383,7 @@ namespace BackEndSAM.DataAcces
                                         odtsMaterial.FechaModificacion = DateTime.Now;
 
 
-                                        ctx.SaveChanges();
+                                        ctx2.SaveChanges();
                                     }
 
                                     //Actualizar inventarios
