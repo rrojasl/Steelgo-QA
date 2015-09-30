@@ -33,7 +33,7 @@
             <PropertyRef Name="CedulaID" />
           </Key>
           <Property Name="CedulaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Diametro" Type="int" />
+          <Property Name="Diametro" Type="decimal" Precision="7" Scale="4" />
           <Property Name="CedulaA" Type="varchar" MaxLength="50" />
           <Property Name="CedulaB" Type="varchar" MaxLength="50" />
           <Property Name="CedulaC" Type="varchar" MaxLength="50" />
