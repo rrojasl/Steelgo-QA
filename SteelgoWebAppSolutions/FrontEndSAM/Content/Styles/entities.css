@@ -1515,7 +1515,33 @@ header .menu > div {
 
         .content-container.expanded {
             padding-left: 15px;
-        }    
+        }
+
+    /*$_breadcrumb*/
+    .breadcrumb {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+    }
+
+        .breadcrumb li {
+            font-size: 13px;
+        }
+
+    /*$_alert-container*/
+    .message {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    /*$_formNav*/
+    .formNav .button-section,
+    .formNav.filtersFields .button-section {
+        margin: 0;
+        margin-bottom: 15px;
+        border: none;
+        padding: 0;
+    }
+            
 }
 
 /* sm viewport */
