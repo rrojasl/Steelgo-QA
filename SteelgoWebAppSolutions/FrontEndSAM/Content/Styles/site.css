@@ -780,6 +780,10 @@ h2 {
         top: 110px;
     }
 
+        .content-frame .container .main-content {
+            margin: 0;
+        }
+
     /*$_footer*/
     footer {
         text-align: center;

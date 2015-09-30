@@ -66,9 +66,7 @@
                             </div>
                         </div>
                         <div class="menuMobile hidden-sm hidden-md hidden-lg">
-                            <a>
-                                <img src="~/Content/images/mobileMenu.png" />
-                            </a>
+                            <img src="~/Content/images/mobileMenu.png" />
                         </div>
                         <div class="notifications">
                             <div class="dropdown">
@@ -326,7 +324,6 @@
             //Validate Logged User Credentials
             validateCredentials();
 
-
             $("#logout").click(function (event) {
                 event.preventDefault();
                 removeUserSession();
@@ -412,6 +409,11 @@
             //    $(".message-header").addClass("hidden");
             //    $(".notification-menu li.messageBody").addClass("hidden");
             //});
+
+            //Toggle sidebar when menuMobile is clicked
+            $(".menuMobile").on("click", function() {
+                $(".sidebar").removeClass("minified").toggle();
+            });
 
         });
        

@@ -1432,8 +1432,7 @@ header .menu > div {
     top: 4px;
     float: left;
 }
-
-    .menuMobile a > img {
+    .menuMobile img {
         width: 26px;
         height: auto;
     }
@@ -1496,11 +1495,27 @@ header .menu > div {
         display: none;
     }
 
+        .sidebar.minified {
+            display: none!important;
+        }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
+            position: relative;
+            right: 0;            
+            box-shadow: none;
+            border: none;
+            padding-top: 8px;
+        }
+
     /*$_content-container*/
     .content-container {
         width: 100%;
         max-width: 100%;
     }
+
+        .content-container.expanded {
+            padding-left: 15px;
+        }    
 }
 
 /* sm viewport */
