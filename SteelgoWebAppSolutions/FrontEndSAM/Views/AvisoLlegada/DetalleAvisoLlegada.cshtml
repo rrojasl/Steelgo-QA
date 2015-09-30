@@ -663,8 +663,9 @@
                             case 'ProyectoID':
                                 if ($(elem).attr("id") == 'ProyectoID') {
                                     if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
-                                        bool = false;
-                                        $(this).closest("div").find("label").addClass("error");
+                                        //bool = false;
+                                        $("#ProyectoID").data("kendoMultiSelect").value(1);
+                                        //$(this).closest("div").find("label").addClass("error");
                                     } else {
                                         $(this).closest("div").find("label").removeClass("error");
                                     };
