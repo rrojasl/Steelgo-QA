@@ -1122,10 +1122,10 @@ namespace BackEndSAM.DataAcces
 
                             bool existe = false;
                             
-                            decimal factor = Convert.ToDecimal(ConfigurationManager.AppSettings["factorConversion"]);
-
                             foreach (CatalogoCedulas item in cedulasNuevas)
                             {
+                                decimal factor = Convert.ToDecimal(item.FactorConversion);
+
                                 if (String.IsNullOrEmpty(item.Diametro))
                                 { 
                                     existe = (from ced in ctx.Sam3_Cedula
