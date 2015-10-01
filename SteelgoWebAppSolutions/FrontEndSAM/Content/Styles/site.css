@@ -824,6 +824,38 @@ h2 {
         margin-left: -1px!important;
     }
 
+    .btn.btn-tabList {
+        height: 50px;
+        white-space: normal;
+        padding: 4px;
+    }
+
+        .btn.btn-tabList.active {
+            height: 54px;
+        }
+
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    /*input*/
+    input.quickFilters,
+    .expanded input.quickFilters {
+        width: 25%;
+    }
+
+        input.quickFilters:first-of-type,
+        .expanded input.quickFilters:first-of-type {
+            width: 24.85%;
+        }
+
+        input.quickFilters:last-of-type,
+        .expanded input.quickFilters:last-of-type {
+            width: 25.96%;
+        }  
+
 }
 
 /* sm viewport */

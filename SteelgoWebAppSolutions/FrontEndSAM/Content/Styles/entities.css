@@ -1098,6 +1098,10 @@ header .menu > div {
         text-align: left;
     }
 
+    .formNav .save-group #Editar {
+        border-radius: 3px;
+    }
+
     .formNav .save-group.open button {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -1536,16 +1540,32 @@ header .menu > div {
     }
 
     /*$_formNav*/
-    .formNav .button-section,
-    .formNav.filtersFields .button-section {
-        margin: 0;
-        margin-bottom: 15px;
-        border: none;
-        padding: 0;
+    .formNav {
+        margin: 0px 0px 20px;
+        padding: 0px 0 5px;
     }
 
-        .formNav .button-section.last-button {
-            padding: 0 15px;
+        .formNav .button-section,
+        .formNav.filtersFields .button-section {
+            margin: 0;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+
+            .formNav .button-section.last-button {
+                padding: 0 15px;
+            }
+
+        .formNav.filtersFields .button-section {
+            width: 100%;
+        }
+
+        .formNav.filtersFields .button-section button {
+            width: 100%;
+            text-align: left;
+            background-position: 97% center!important;
+
         }
 
     /*$_modal*/
@@ -1556,7 +1576,25 @@ header .menu > div {
     #window .buttonSave {
         margin-bottom: 5px;
     }
-            
+
+    /*$_filesTable*/
+    .filesTable thead td {
+        width: 25%;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    /*$_addedSection*/
+    .addedSection {
+        margin: 0px 0 15px;
+        padding-top: 15px;
+        padding-bottom: 0px;
+    }
+
+        .addedSection div.form-group > div {
+            padding-right: 0;
+            padding-left: 0;
+        }        
 }
 
 /* sm viewport */

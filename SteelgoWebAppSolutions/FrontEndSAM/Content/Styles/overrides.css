@@ -763,6 +763,10 @@
     .form-group {
         margin-bottom: 15px;
     }
+
+    .k-upload > .k-upload-button {
+        margin-top: 5px;
+    }
 }
 
 /* sm viewport */
