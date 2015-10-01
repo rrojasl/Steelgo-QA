@@ -868,11 +868,11 @@
 
                 //**Eventos
                 $("#Guardar").click(function (e) {
-                    if(validarRequeridosFormaAvisoLlegada()){
+                   // if(validarRequeridosFormaAvisoLlegada()){
                         GuardarAvisoLlegada(false);
-                    } else {
-                        displayMessage("notificationslabel0031", "", '1');
-                    }
+                    //} else {
+                    //    displayMessage("notificationslabel0031", "", '1');
+                    //}
                 });
 
                 $("#GuardarNuevo").click(function (e) {
@@ -1286,6 +1286,8 @@
                 _permisoAduana[0].PermisoAutorizado = false;
                 _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
 
+                CargarDefaults();
+
                 var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
                 $.each(proyectos, function (index, value) {
                     ProyectoIDs[index] = { ProyectoID: value };
@@ -1307,7 +1309,7 @@
                     };
                 });
 
-                CargarDefaults();
+               
 
                 var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
                 var curr_date = d.getDate();
@@ -1377,29 +1379,34 @@
                                 }
                                 break;
                             case 'ClienteID':
-                                if (!$("#ClienteID").data("kendoComboBox").value().length > 0) {
+                                if (!$("#ClienteID").data("kendoComboBox").value()) {
                                     CargarCliente(1, "");
                                 }
                                 break;
                             case 'PatioID':
-                                if (!$("#PatioID").data("kendoComboBox").value() > 0) {
+                                if (!$("#PatioID").data("kendoComboBox").value()) {
                                     CargarPatio(1, "");
                                 }
                                 break;
                             case 'ChoferID':
-                                if (!$("#ChoferID").data("kendoComboBox").value() > 0) {
+                                if (!$("#ChoferID").data("kendoComboBox").value()) {
                                     CargarChofer(1, "");
                                 }
                                 break;
                             case 'Tracto':
-                                if (!$("#Tracto").data("kendoComboBox").value() > 0) {
+                                if (!$("#Tracto").data("kendoComboBox").value()) {
                                     CargarCamionEntradaMaterial(1, "");
                                 }
                                 break;
                             case 'TransportistaID':
-                                if (!$("#TransportistaID").data("kendoComboBox").value() > 0) {
+                                if (!$("#TransportistaID").data("kendoComboBox").value()) {
                                     CargarTransportista(1, "");
                                 }
+                                break;
+                            case 'ProyectoID':
+                                if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
+                                    $("#ProyectoID").data("kendoMultiSelect").value(1);
+                                };
                                 break;
                         };
                     };
