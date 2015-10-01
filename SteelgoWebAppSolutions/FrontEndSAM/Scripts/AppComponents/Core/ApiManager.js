@@ -110,6 +110,8 @@ var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Clasificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -194,3 +196,5 @@ $Catalogos.add("AdministracionCatalogos");
 $Corte.add("Corte")
 $AsociacionICS.add("AsociacionICS");
 $Cedulas.add("Cedulas");
+$Clasificacion.add("Clasificacion");
+$TipoIncidencia.add("TipoIncidencia");

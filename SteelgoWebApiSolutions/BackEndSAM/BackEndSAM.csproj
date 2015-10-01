@@ -140,6 +140,7 @@
     <Compile Include="Controllers\CargarGridCuantificacionController.cs" />
     <Compile Include="Controllers\CatalogoICSteelgoController.cs" />
     <Compile Include="Controllers\CedulasController.cs" />
+    <Compile Include="Controllers\ClasificacionController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ColadaController.cs" />
     <Compile Include="Controllers\ComplementarRecepcionController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Controllers\TipoAceroController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
+    <Compile Include="Controllers\TipoIncidenciaController.cs" />
     <Compile Include="Controllers\TipoPackingListController.cs" />
     <Compile Include="Controllers\TipoUsoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
@@ -324,6 +326,7 @@
     <Compile Include="Models\Dummy\Camion.cs" />
     <Compile Include="Models\Dummy\Cedula.cs" />
     <Compile Include="Models\Dummy\Chofer.cs" />
+    <Compile Include="Models\Dummy\Clasificacion.cs" />
     <Compile Include="Models\Dummy\Cliente.cs" />
     <Compile Include="Models\Dummy\Coladas.cs" />
     <Compile Include="Models\Dummy\Contacto.cs" />
@@ -367,6 +370,7 @@
     <Compile Include="Models\Dummy\RegistroTiempos.cs" />
     <Compile Include="Models\Dummy\TipoAcero.cs" />
     <Compile Include="Models\Dummy\TipoAviso.cs" />
+    <Compile Include="Models\Dummy\TipoIncidencia.cs" />
     <Compile Include="Models\Dummy\TipoVehiculo.cs" />
     <Compile Include="Models\Dummy\Transportista.cs" />
     <Compile Include="Models\Dummy\Tubos.cs" />
