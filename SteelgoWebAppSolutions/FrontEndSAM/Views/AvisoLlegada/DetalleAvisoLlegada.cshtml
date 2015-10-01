@@ -166,7 +166,7 @@
 
 @*Ventana Modal*@
     <div id="window">
-        <div id="modalPlana" style="display: none">
+@*        <div id="modalPlana" style="display: none">
             <div class="alert-container">
                 <div class="message">
                     Mensaje de éxito/error/advertencia
@@ -200,58 +200,8 @@
                     <span id="DetalleAvisoLlegada0080"></span>
                 </a>
             </div>
-        </div>
-        <div id="modalCamion" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="TipoVehiculo_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0071"></label>
-                <input id="TipoVehiculo_Camion" class="" />
-            </div>
-            <div id="TransportistaID_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0056"></label>
-                <input id="TransportistaID_Camion" class="" />
-            </div>
-            <div id="ChoferID_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0057"></label>
-                <input id="ChoferID_Camion" class="" />
-            </div>
-            <div id="Placas_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0058"></label>
-                <input id="Placas_Camion" class="" />
-            </div>
-            <div id="TarjetaCirculacion_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0059"></label>
-                <input id="TarjetaCirculacion_Camion" class="" />
-            </div>
-            <div id="PolizaSeguroDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0060"></label>
-                <input id="PolizaSeguro" class="" />
-            </div>
-            <div id="Unidad_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0072"></label>
-                <input id="Unidad_Camion" class="" />
-            </div>
-            <div id="Modelo_CamionDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0073"></label>
-                <input id="Modelo_Camion" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarCamion" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0061"></span>
-                </a>
-                <a id="CancelarCamion" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0081"></span>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="windowIframe">
-        @*Content of the Window*@
-
+        </div>*@
+       
     </div>
 
 <input id="hdPermisoAutorizado" type="hidden" value="false" />
@@ -359,139 +309,6 @@
             }
         };
 
-        var $PatioModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                nombre: {
-                    visible: "#Nombre_PatioDiv",
-                    editable: "#Nombre_Patio",
-                    required: "#Nombre_Patio"
-                },
-                propietario: {
-                    visible: "#Propietario_PatioDiv",
-                    editable: "#Propietario_Patio",
-                    required: "#Propietario_Patio"
-                },
-                descripcion: {
-                    visible: "#Descripcion_PatioDiv",
-                    editable: "#Descripcion_Patio",
-                    required: "#Descripcion_Patio"
-                },
-                requierepermiso: {
-                    visible: "#RequierePermisoAduana_PatioDiv",
-                    editable: "#RequierePermisoAduana_Patio",
-                    required: "#RequierePermisoAduana_Patio"
-                }
-            }
-        };
-
-        var $TransportistaModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                contacto: {
-                    visible: "#ContactoID_TransportistaDiv",
-                    editable: "#ContactoID_Transportista",
-                    required: "#ContactoID_Transportista"
-                },
-                nombre: {
-                    visible: "#Nombre_TransportistaDiv",
-                    editable: "#Nombre_Transportista",
-                    required: "#Nombre_Transportista"
-                },
-                descripcion: {
-                    visible: "#Descripcion_TransportistaDiv",
-                    editable: "#Descripcion_Transportista",
-                    required: "#Descripcion_Transportista"
-                },
-                direccion: {
-                    visible: "#Direccion_TransportistaDiv",
-                    editable: "#Direccion_Transportista",
-                    required: "#Direccion_Transportista"
-                },
-                telefono: {
-                    visible: "#Telefono_TransportistaDiv",
-                    editable: "#Telefono_Transportista",
-                    required: "#Telefono_Transportista"
-                }
-            }
-        };
-
-        var $ChoferModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                nombre: {
-                    visible: "#Nombre_ChoferDiv",
-                    editable: "#Nombre_Chofer",
-                    required: "#Nombre_Chofer"
-                }
-            }
-        };
-
-        var $TractoModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                tipoVehiculo: {
-                    visible: "#TipoVehiculo_CamionDiv",
-                    editable: "#TipoVehiculo_Camion",
-                    required: "#TipoVehiculo_Camion"
-                },
-                transportista: {
-                    visible: "#TransportistaID_CamionDiv",
-                    editable: "#TransportistaID_Camion",
-                    required: "#TransportistaID_Camion"
-                },
-                chofer: {
-                    visible: "#ChoferID_CamionDiv",
-                    editable: "#ChoferID_Camion",
-                    required: "#ChoferID_Camion"
-                },
-                placas: {
-                    visible: "#Placas_CamionDiv",
-                    editable: "#Placas_Camion",
-                    required: "#Placas_Camion"
-                },
-                tarjetacirculacion: {
-                    visible: "#TarjetaCirculacion_CamionDiv",
-                    editable: "#TarjetaCirculacion_Camion",
-                    required: "#TarjetaCirculacion_Camion"
-                },
-                poliza: {
-                    visible: "#PolizaSeguroDiv",
-                    editable: "#PolizaSeguro",
-                    required: "#PolizaSeguro"
-                },
-                unidad: {
-                    visible: "#Unidad_CamionDiv",
-                    editable: "#Unidad_Camion",
-                    required: "#Unidad_Camion"
-                },
-                modelo: {
-                    visible: "#Modelo_CamionDiv",
-                    editable: "#Modelo_Camion",
-                    required: "#Modelo_Camion"
-                },
-            }
-        };
 
         var $PlanaModel = {
             listContainer: {
@@ -1653,45 +1470,37 @@
             
                 var modalTitle = "";
                 var content = "";
-                var window = "";
+                var window = $("#window");;
                 var height = "";
                 var iframe = false;
                 switch (id) {
                     case 1:
                         content = "@Url.Action("Transportista", "PopUps")";
                         modalTitle = "Transportista";
-                        window = $("#windowIframe");
-                        height = "22%";
+                        height = "35%";
                         iframe = true;
                         break;
                     case 3:
-                        $("#modalCamion").hide();
-                        $("#modalPlana").show();
                         modalTitle = "Plana";
-                        window = $("#window");
                         iframe = false;
                         break;
                     case 4:
                         content = "@Url.Action("Patio", "PopUps")";
                         modalTitle = "Patio";
-                        window = $("#windowIframe");
-                        height = "8%";
+                        height = "15%";
                         iframe = true;
                         break;
                     case 5:
                         content = "@Url.Action("Chofer", "PopUps")";
                         modalTitle = "Chofer";
-                        window = $("#windowIframe");
-                        height = "150px";
+                        height = "200px";
                         iframe = true;
                         break;
                     case 6:
-                        $("#modalPlana").hide();
-                        $("#modalCamion").show();
-                        content = "";
+                        content = "@Url.Action("Tracto", "PopUps")";
                         modalTitle = "Tracto";
-                        window = $("#window");                        
-                        iframe = false;
+                        height = "60%";
+                        iframe = true;
                         break;
                 };
                 
@@ -1714,7 +1523,7 @@
                 }).data("kendoWindow");
 
                 //Se actualiza el tamaño
-                $("#windowIframe").data("kendoWindow").setOptions({
+                $("#window").data("kendoWindow").setOptions({
                     width: "32.6%",
                     height: height,
                 });
@@ -2235,10 +2044,6 @@
 
             $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
             $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-            $authorizationModel["Patio"] = $PatioModel;
-            $authorizationModel["Transportista"] = $TransportistaModel;
-            $authorizationModel["Chofer"] = $ChoferModel;
-            $authorizationModel["Tracto"] = $TractoModel;
             $authorizationModel["Plana"] = $PlanaModel;
             
     }
