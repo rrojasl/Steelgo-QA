@@ -983,9 +983,9 @@ header .menu > div {
     }
 
     #window .btn {
-        margin-top: 19px;
-        margin-bottom: 22px;
-        width: 220px;
+        margin-top: 0;
+        //margin-bottom: 22px;
+        //width: 220px;
         display: inline-block;
         letter-spacing: 0.7px;
         font-size: 15px;
@@ -995,7 +995,8 @@ header .menu > div {
         padding: 9px 6px 0;
     }
 
-    #window .buttonSave {
+    #window .buttonSave,
+    .popup .buttonSave {
         text-align: center;
     }
 /**********************************************************************************/
@@ -1546,6 +1547,15 @@ header .menu > div {
         .formNav .button-section.last-button {
             padding: 0 15px;
         }
+
+    /*$_modal*/
+    #window > div {
+        padding: 0;
+    }
+
+    #window .buttonSave {
+        margin-bottom: 5px;
+    }
             
 }
 
