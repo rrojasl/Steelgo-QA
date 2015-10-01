@@ -1151,6 +1151,8 @@
     <Content Include="Views\ImpresionDocumental\ImpresionDocumental.cshtml" />
     <Content Include="Views\Incidencias\Incidencias.cshtml" />
     <Content Include="Views\Incidencias\ListadoIncidencias.cshtml" />
+    <Content Include="Views\PopUps\Tracto.cshtml" />
+    <Content Include="Views\PopUps\Plana.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
