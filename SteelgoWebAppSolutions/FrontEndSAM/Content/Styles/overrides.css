@@ -754,6 +754,12 @@
         .form .input-group > .input-group-btn {
             display: none;
         }
+
+    /*$_k-widget*/
+    .k-widget.k-window {
+        min-width: 100%!important;
+        height: auto;
+    }
 }
 
 /* sm viewport */

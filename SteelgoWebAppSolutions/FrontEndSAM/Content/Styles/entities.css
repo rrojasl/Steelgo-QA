@@ -1546,6 +1546,11 @@ header .menu > div {
         .formNav .button-section.last-button {
             padding: 0 15px;
         }
+
+    /*$_modal*/
+    #window > div {
+        padding: 0;
+    }
             
 }
 
