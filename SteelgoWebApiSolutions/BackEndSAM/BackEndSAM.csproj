@@ -151,6 +151,7 @@
     <Compile Include="Controllers\DocumentoAvisoLlegadaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\DocumentoFolioAvisoEntradaController.cs" />
+    <Compile Include="Controllers\DocumentoIncidenciaController.cs" />
     <Compile Include="Controllers\DocumentoLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
@@ -184,7 +185,7 @@
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\GenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
-    <Compile Include="Controllers\IncidenciasController.cs" />
+    <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\ListadoCuantificacionController.cs" />
@@ -350,7 +351,6 @@
     <Compile Include="Models\Dummy\FormatoPaseSalida.cs" />
     <Compile Include="Models\Dummy\GridCuantificacion.cs" />
     <Compile Include="Models\Dummy\Incidencia.cs" />
-    <Compile Include="Models\Dummy\Incidencias.cs" />
     <Compile Include="Models\Dummy\ItemCode.cs" />
     <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />

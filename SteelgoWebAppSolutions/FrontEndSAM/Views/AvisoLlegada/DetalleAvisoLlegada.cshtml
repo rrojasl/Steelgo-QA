@@ -166,96 +166,6 @@
 
 @*Ventana Modal*@
     <div id="window">
-        @*Content of the Window*@
-        <div id="modalTransportista" style="display: none">
-           
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="ContactoID_TransportistaDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0012"></label>
-                <input id="ContactoID_Transportista" class="" />
-            </div>
-            <div id="Nombre_TransportistaDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0013"></label>
-                <input id="Nombre_Transportista" class="" />
-            </div>
-            <div id="Descripcion_TransportistaDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0014"></label>
-                <input id="Descripcion_Transportista" class="" />
-            </div>
-            <div id="Direccion_TransportistaDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0015"></label>
-                <input id="Direccion_Transportista" class="" />
-            </div>
-            <div id="Telefono_TransportistaDiv" class ="form-group">
-                <label id="DetalleAvisoLlegada0016"></label>
-                <input id="Telefono_Transportista" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarTransportista" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0019"></span>
-                </a>
-                <a id="CancelarTransportista" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0076"></span>
-                </a>
-            </div>
-        </div>
-
-        <div id="modalPatio" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="Nombre_PatioDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0026"></label>
-                <input id="Nombre_Patio" class="" />
-            </div>
-            <div id="Propietario_PatioDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0027"></label>
-                <input id="Propietario_Patio" class="" />
-            </div>
-            <div id="Descripcion_PatioDiv" class ="form-group">
-                <label id="DetalleAvisoLlegada0028"></label>
-                <input id="Descripcion_Patio" class="l" />
-            </div>
-            <div id="RequierePermisoAduana_PatioDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0075" class="checkLabel"></label>
-                <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarPatio" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0029"></span>
-                </a>
-                <a id="CancelarPatio" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0078"></span>
-                </a>
-            </div>
-        </div>
-
-        <div id="modalChofer" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="Nombre_ChoferDiv" class="form-group">
-                <label id="DetalleAvisoLlegada0030"></label>
-                <input id="Nombre_Chofer" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarChofer" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0031"></span>
-                </a>
-                <a id="CancelarChofer" href="#" class="btn btn-primary">
-                    <span id="DetalleAvisoLlegada0079"></span>
-                </a>
-            </div>
-        </div>
-
         <div id="modalPlana" style="display: none">
             <div class="alert-container">
                 <div class="message">
@@ -338,6 +248,10 @@
                 </a>
             </div>
         </div>
+    </div>
+    <div id="windowIframe">
+        @*Content of the Window*@
+
     </div>
 
 <input id="hdPermisoAutorizado" type="hidden" value="false" />
@@ -1741,78 +1655,48 @@
                 var content = "";
                 var window = "";
                 var height = "";
+                var iframe = false;
                 switch (id) {
                     case 1:
-                        $("#modalProveedor").hide();
-                        $("#modalPatio").hide();
-                        $("#modalChofer").hide();
-                        $("#modalPlana").hide();
-                        $("#modalCamion").hide();
-                        $("#modalTransportista").show();
                         content = "@Url.Action("Transportista", "PopUps")";
                         modalTitle = "Transportista";
-                        window = $("#window");
+                        window = $("#windowIframe");
                         height = "35%";
-                        break;
-                    case 2:
-                        $("#modalTransportista").hide();
-                        $("#modalPatio").hide();
-                        $("#modalChofer").hide();
-                        $("#modalPlana").hide();
-                        $("#modalCamion").hide();
-                        $("#modalProveedor").show();
-                        modalTitle = "Proveedor";
-                        window = $("#window");
+                        iframe = true;
                         break;
                     case 3:
-                        $("#modalTransportista").hide();
-                        $("#modalPatio").hide();
-                        $("#modalChofer").hide();
-                        $("#modalProveedor").hide();
                         $("#modalCamion").hide();
                         $("#modalPlana").show();
                         modalTitle = "Plana";
                         window = $("#window");
+                        iframe = false;
                         break;
                     case 4:
-                        $("#modalTransportista").hide();
-                        $("#modalProveedor").hide();
-                        $("#modalChofer").hide();
-                        $("#modalPlana").hide();
-                        $("#modalCamion").hide();
-                        $("#modalPatio").show();
                         content = "@Url.Action("Patio", "PopUps")";
                         modalTitle = "Patio";
-                        window = $("#window");
-                        height = "25%";
+                        window = $("#windowIframe");
+                        height = "15%";
+                        iframe = true;
                         break;
                     case 5:
-                        $("#modalTransportista").hide();
-                        $("#modalProveedor").hide();
-                        $("#modalPatio").hide();
-                        $("#modalPlana").hide();
-                        $("#modalCamion").hide();
-                        $("#modalChofer").show();
                         content = "@Url.Action("Chofer", "PopUps")";
                         modalTitle = "Chofer";
-                        window = $("#window");
-                        height = "2%";
+                        window = $("#windowIframe");
+                        height = "5%";
+                        iframe = true;
                         break;
                     case 6:
-
-                        $("#modalTransportista").hide();
-                        $("#modalProveedor").hide();
-                        $("#modalPatio").hide();
                         $("#modalPlana").hide();
-                        $("#modalChofer").hide();
                         $("#modalCamion").show();
+                        content = "";
                         modalTitle = "Tracto";
                         window = $("#window");
+                        iframe = false;
                         break;
                 };
                 
-               
-                var win = window.kendoWindow({
+              
+                window.kendoWindow({
                     actions: false,
                     content:content,
                     modal: true,
@@ -1822,12 +1706,13 @@
                     width: "32.6%",
                     minWidth: 660,
                     height: height,
-                    iframe:true,
+                    iframe:iframe,
                     position: {
                         top: "10%",
                         left: "20%"
                     }
                 }).data("kendoWindow");
+
                 window.data("kendoWindow").title(modalTitle);
                 window.data("kendoWindow").center().open();
             };
