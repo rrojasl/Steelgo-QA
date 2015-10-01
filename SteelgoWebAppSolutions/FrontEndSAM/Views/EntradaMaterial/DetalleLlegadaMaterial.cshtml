@@ -145,74 +145,8 @@
     </div>
 </div>
 @*Ventana Modal*@
-<div id="window">
-    <div id="modalPatio" style="display: none">
-                <div class="alert-container">
-                    <div class="message">
-                        Mensaje de éxito/error/advertencia
-                    </div>
-                </div>
-                <div id="Nombre_PatioDiv" class="form-group">
-                    <label id="LlegadaMaterial0045"></label>
-                    <input id="Nombre_Patio" class="" />
-                </div>
-                <div id="Propietario_PatioDiv" class="form-group">
-                    <label id="LlegadaMaterial0046"></label>
-                    <input id="Propietario_Patio" class="" />
-                </div>
-                <div id="Descripcion_PatioDiv" class ="form-group">
-                    <label id="LlegadaMaterial0047"></label>
-                    <input id="Descripcion_Patio" class="l" />
-                </div>
-                <div id="RequierePermisoAduana_PatioDiv" class="form-group">
-                    <label id="LlegadaMaterial0048" class="checkLabel"></label>
-                    <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
-                </div>
-                <div class="buttonSave">
-                    <a id="GuardarPatio" href="#" class="btn btn-primary">
-                        <span id="LlegadaMaterial0049"></span>
-                    </a>
-                    <a id="CancelarPatio" href="#" class="btn btn-primary">
-                        <span id="LlegadaMaterial0050"></span>
-                    </a>
-                </div>
-    </div>
+<div id="windowIframe">
 
-     <div id="modalProveedor" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="ContactoID_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0052"></label>
-                <input id="ContactoID_Proveedor" class="" />
-            </div>
-            <div id="Nombre_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0053"></label>
-                <input id="Nombre_Proveedor" class="" />
-            </div>
-            <div id="Descripcion_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0054"></label>
-                <input id="Descripcion_Proveedor" class="" />
-            </div>
-            <div id="Direccion_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0055"></label>
-                <input id="Direccion_Proveedor" class="" />
-            </div>
-            <div id="Telefono_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0056"></label>
-                <input id="Telefono_Proveedor" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarProveedor" href="javascript:void(0);" class="btn btn-primary">
-                    <span id="LlegadaMaterial0057"></span>
-                </a>
-                <a id="CancelarProveedor" href="javascript:void(0);" class="btn btn-primary">
-                    <span id="LlegadaMaterial0058"></span>
-                </a>
-            </div>
-        </div>
 </div>
 <input id="hdnOrdenDescargada" type="hidden" />
 <script type="text/javascript">
@@ -903,28 +837,21 @@
         };
 
         function VentanaModal(id) {
-
             var modalTitle = "";
             var content = "";
-            var window = "";
+            var window = $("#windowIframe");
             var height = "";
 
             switch (id) {
                 case 1:
-                    $("#modalProveedor").hide();
-                    $("#modalPatio").show();
                     content = "@Url.Action("Patio", "PopUps")";
                     modalTitle = "Patio";
-                    height = "25%";
-                    window = $("#window");
+                    height = "20%";
                     break;
                 case 2:
-                    $("#modalPatio").hide();
-                    $("#modalProveedor").show();
                     content = "@Url.Action("Proveedor", "PopUps")";
                     modalTitle = "Proveedor";
                     height = "35%";
-                    window = $("#window");
                     break;
             };
 
@@ -944,6 +871,12 @@
                     left: "20%"
                 }
             }).data("kendoWindow");
+
+            //Se actualiza el tamaño
+            window.data("kendoWindow").setOptions({
+                width: "32.6%",
+                height: height,
+            });
             window.data("kendoWindow").title(modalTitle);
             window.data("kendoWindow").center().open();
         };

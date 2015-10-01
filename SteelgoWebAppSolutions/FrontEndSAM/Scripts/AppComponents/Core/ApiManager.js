@@ -30,6 +30,7 @@ var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/Document
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
+var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?folioIncidenciaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
@@ -114,6 +115,7 @@ var $Clasificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -201,4 +203,5 @@ $Cedulas.add("Cedulas");
 $Clasificacion.add("Clasificacion");
 $TipoIncidencia.add("TipoIncidencia");
 $CatalogoICSteelgo.add("CatalogoICSteelgo");
-$Incidencia.add("Incidencia")
+$Incidencia.add("Incidencia");
+$DocumentoIncidencia.add("DocumentoIncidencia");
