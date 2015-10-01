@@ -352,7 +352,7 @@
 
         function ObtenerIncidencias(id) {
             $('#ListaIncidencias tbody').empty();
-            $Incidencias.DummyIncidencias.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
+            $DummyIncidencias.DummyIncidencias.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
                 $.each(result, function (index, value) {
                     $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.NumeroIncidencia + "' class='l' type='checkbox' /></td><td>"+ value.NumeroIncidencia +"</td><td>" + value.Descripcion + "</td></tr>");
                 });
