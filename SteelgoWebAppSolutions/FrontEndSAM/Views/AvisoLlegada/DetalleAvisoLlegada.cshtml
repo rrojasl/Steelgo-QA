@@ -1682,7 +1682,7 @@
                         content = "@Url.Action("Chofer", "PopUps")";
                         modalTitle = "Chofer";
                         window = $("#windowIframe");
-                        height = "5%";
+                        height = "110px";
                         iframe = true;
                         break;
                     case 6:
@@ -1695,7 +1695,7 @@
                         break;
                 };
                 
-              
+                
                 window.kendoWindow({
                     actions: false,
                     content:content,
@@ -1713,6 +1713,12 @@
                     }
                 }).data("kendoWindow");
 
+                //Se actualiza el tamaño
+                $("#windowIframe").data("kendoWindow").setOptions({
+                    width: "32.6%",
+                    height: height,
+                });
+                
                 window.data("kendoWindow").title(modalTitle);
                 window.data("kendoWindow").center().open();
             };
