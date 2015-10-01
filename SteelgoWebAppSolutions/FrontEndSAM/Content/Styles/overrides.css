@@ -759,6 +759,10 @@
     .k-widget.k-window {
         min-width: 100%!important;
     }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
 }
 
 /* sm viewport */

@@ -804,6 +804,26 @@ h2 {
             display: block;
             font-size: 9px;
         }
+
+    /*$_btn*/
+    .btn.btn-tab {
+        padding: 7px;
+    }
+
+    .btn-tab label {
+        letter-spacing: 0;
+        font-size: 11px;
+    }
+
+    .btn-tab.Accesorios, .btn-tab.Tubos,
+    #DespachoCorte .btn-tab.Accesorios,
+    #DespachoCorte .btn-tab.Tubos {
+        width: 25.1%;
+        border-radius: 0;
+        margin-top: -1px;
+        margin-left: -1px!important;
+    }
+
 }
 
 /* sm viewport */
