@@ -17,12 +17,12 @@ namespace BackEndSAM.Controllers
         {
             List<Incidencia> lstincidencia = new List<Incidencia>();
             Incidencia incidencia = new Incidencia();
-            incidencia.NumeroIncidencia = "12424103";
+            incidencia.FolioIncidenciaID = 12424103;
             incidencia.Descripcion = "Incidencia con tubos";
             lstincidencia.Add(incidencia);
 
             Incidencia incidencia2 = new Incidencia();
-            incidencia2.NumeroIncidencia = "12424104";
+            incidencia2.FolioIncidenciaID = 12424104;
             incidencia2.Descripcion = "Incidencia con accesorios";
             lstincidencia.Add(incidencia2);
 

@@ -159,7 +159,7 @@
     @section JavascriptGlobalVariables {
     var Clasificacion = {}, TipoIncidencia = {},
         FechaRegistro, FechaResolucion,
-        FechaRespuesta, FolioIncidencia;
+        FechaRespuesta, FolioIncidencia = "-1";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $IncidenciasModel = {
@@ -509,6 +509,7 @@
         var d1 = new Date($("#FechaResolucion").data("kendoDatePicker").value());
         var d2 = new Date($("#FechaRespuesta").data("kendoDatePicker").value());
 
+        Listado.FolioIncidenciaID = FolioIncidencia;
         Listado.ClasificacionID = Clasificacion.ClasificacionID;
         Listado.TipoIncidenciaID = TipoIncidencia.TipoIncidenciaID;
         Listado.Version = $("#Version").val();
@@ -576,21 +577,41 @@
         habilitarControles();
     };
     
+    function Alta(Listado) {
+        $Incidencia.Incidencia.create(Listado, { token: $.cookie("token") }).done(function (result) {
+            if (Error(result)) {
+                FolioIncidencia = result.FolioIncidenciaID;
+                $("#Version").val(result.Version);
+                BotonAlta();
+                cargarTituloFolio();
+                displayMessage("notificationslabel0056", "", '0');
+            }
+            loadingStop();
+        });
+    };
+
+    function Editar(Listado) {
+        $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
+            if (Error(result)) {
+                FolioIncidencia = result.FolioIncidenciaID;
+                $("#Version").val(result.Version);
+                BotonAlta();
+                cargarTituloFolio();
+                displayMessage("notificationslabel0056", "", '0');
+            }
+            loadingStop();
+        });
+    };
 
     function Guardar() {
         loadingStart();
         if (validarRequeridosFormaIncidencias()) {
             var Listado = ArrayListado();
-
-            FolioIncidencia = 2;
-            BotonAlta();
-            cargarTituloFolio();
-            loadingStop();
-            //$Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
-            //    Error(result);
-            //    displayMessage("notificationslabel0056", "", '0');
-            //    loadingStop();
-            //});
+            if(Listado.FolioIncidenciaID!="-1"){
+                Editar(Listado);
+            } else {
+                Alta(Listado);
+            }
         } else {
             displayMessage("notificationslabel0031", "", '1');
             loadingStop();
@@ -608,6 +629,7 @@
             $("#" + control).data("kendoComboBox").dataSource.data([]);
         };
     };
+
     function Error(data) {
         if (data.ReturnCode) {
             if (data.ReturnCode != 200) {
