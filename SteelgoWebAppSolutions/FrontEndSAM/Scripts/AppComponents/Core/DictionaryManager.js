@@ -4575,6 +4575,10 @@ _dictionary = {
         "es-MX": "No hay datos para despachar.",
         "en-US": "No data to dispatch."
     },
+    "notificationslabel0068": {
+        "es-MX": "Favor de ingresar el nombre de usuario y contraseña",
+        "en-US": "Please enter a username and password"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

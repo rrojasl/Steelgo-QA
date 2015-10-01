@@ -22,6 +22,7 @@
     15  $_departurePermit
     16  $_folioGraphs
     17  $_formatTag
+    18  $_menuMobile
 
     Color Palette: Look at site.css
 
@@ -1422,6 +1423,21 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_menuMobile
+ Description:   Customize mobile menu button.
+**********************************************************************************/
+.menuMobile {
+    position: relative;
+    top: 4px;
+    float: left;
+}
+    .menuMobile img {
+        width: 26px;
+        height: auto;
+    }
+/**********************************************************************************/
+
 
 /* Media Queries */
 
@@ -1441,11 +1457,96 @@ header .menu > div {
             .login form div label.loginLabel {
                 margin-right: 4px;
                 font-size: 11px;
+                min-width: 95px;
             }
 
         .login form input {
             width: 68% !important;
         }
+
+    /*$_header*/
+    header {
+        max-height: 110px;
+    }
+
+    header .menu {
+        text-align: right;
+    }
+
+    /*$_search-bar*/
+    .search-bar {
+        position: relative;
+        top: -16px;
+        margin: 0; 
+        padding-left: 38%;
+        width: 100%;
+        max-width: 100%;      
+    }
+
+    /*$_notifications*/
+    .notifications .notification-menu {
+        right: -222px;
+        width: 400px;
+    }
+
+    /*$_sidebar*/
+    .sidebar {
+        width: 100%;
+        display: none;
+    }
+
+        .sidebar.minified {
+            display: none!important;
+        }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
+            position: relative;
+            right: 0;            
+            box-shadow: none;
+            border: none;
+            padding-top: 8px;
+        }
+
+    /*$_content-container*/
+    .content-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+        .content-container.expanded {
+            padding-left: 15px;
+        }
+
+    /*$_breadcrumb*/
+    .breadcrumb {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+    }
+
+        .breadcrumb li {
+            font-size: 13px;
+        }
+
+    /*$_alert-container*/
+    .message {
+        margin-left: 0;
+        margin-bottom: 10px;
+        height: auto;
+    }
+
+    /*$_formNav*/
+    .formNav .button-section,
+    .formNav.filtersFields .button-section {
+        margin: 0;
+        margin-bottom: 15px;
+        border: none;
+        padding: 0;
+    }
+
+        .formNav .button-section.last-button {
+            padding: 0 15px;
+        }
+            
 }
 
 /* sm viewport */

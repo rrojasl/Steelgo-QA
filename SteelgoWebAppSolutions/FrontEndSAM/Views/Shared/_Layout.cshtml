@@ -65,6 +65,9 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="menuMobile hidden-sm hidden-md hidden-lg">
+                            <img src="~/Content/images/mobileMenu.png" />
+                        </div>
                         <div class="notifications">
                             <div class="dropdown">
                                 <a id="notifications" role="button" data-target="#" href="#">
@@ -321,7 +324,6 @@
             //Validate Logged User Credentials
             validateCredentials();
 
-
             $("#logout").click(function (event) {
                 event.preventDefault();
                 removeUserSession();
@@ -364,10 +366,10 @@
             //Add the body to the menu context
             registerToContextMenu("main-content");
 
-			//Set on the dropdownlist the url language and change the current language
+            //Set on the dropdownlist the url language and change the current language
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
-			
+            
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
 
@@ -407,6 +409,11 @@
             //    $(".message-header").addClass("hidden");
             //    $(".notification-menu li.messageBody").addClass("hidden");
             //});
+
+            //Toggle sidebar when menuMobile is clicked
+            $(".menuMobile").on("click", function() {
+                $(".sidebar").removeClass("minified").toggle();
+            });
 
         });
        

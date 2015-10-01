@@ -775,6 +775,15 @@ h2 {
 /* xs viewport */
 @media screen and (max-width: 767px) {
 
+    /*$_content-frame*/
+    .content-frame {
+        top: 110px;
+    }
+
+        .content-frame .container .main-content {
+            margin: 0;
+        }
+
     /*$_footer*/
     footer {
         text-align: center;

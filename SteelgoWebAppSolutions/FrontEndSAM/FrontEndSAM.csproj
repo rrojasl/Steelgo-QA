@@ -127,6 +127,7 @@
     <Content Include="Content\images\loadingGift\loading.gif" />
     <Content Include="Content\images\logoPase.png" />
     <Content Include="Content\images\Logo_Login.jpg" />
+    <Content Include="Content\images\mobileMenu.png" />
     <Content Include="Content\images\SAMC_Add.png" />
     <Content Include="Content\images\SAMC_AddIcon.png" />
     <Content Include="Content\images\SAMC_Attachtment.png" />
@@ -443,6 +444,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="FormatoCargaMasiva.csv" />
+    <None Include="Properties\PublishProfiles\front.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEnd.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />

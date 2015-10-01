@@ -497,11 +497,15 @@
         return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + $("#listaCatalogos").data("kendoDropDownList").value() + "&token=";
     }
 
-    function cargarInicialGrid(val) {
-        loadingStart();
+    function removeGrid(){
         var contenedor = $("#grid").parent();
         $("#grid").remove();
         contenedor.append("<div id='grid'></div>");
+    }
+
+    function cargarInicialGrid(val) {
+        loadingStart();
+        removeGrid();
         var dataSGrid = getDataSourceGrid(val);
         $("#grid").kendoGrid({
             dataSource: dataSGrid,
@@ -645,8 +649,71 @@
         },
         change: function (e) {
             dataBoundCounter = 0;
-            if ($("#listaCatalogos").data("kendoDropDownList").value()) {
+            if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value()!="11") {
+                $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
+            }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" class="" /> </div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Carga masiva</label> <input name="files" id="files" type="file" /> </div><a href="#" id="templateced">Descargar template</a></div>');
+                $("#files").kendoUpload();
+                removeGrid();
+                $("#grid").kendoGrid({
+                    dataSource: {
+                        data: [],
+                        schema: {
+                            model: {}
+                        },
+                        serverPaging: false,
+                        serverFiltering: false,
+                        serverSorting: false,
+                        pageSize: 20,
+                        serverPaging: false,
+                        serverFiltering: false,
+                        serverSorting: false,
+                        transport:{
+                            read:{
+                                url:"",
+                                dataType:"json",
+                                type:"GET",
+                                cache: false
+                            },
+                            parameterMap: function(options, operation) {
+                                if (operation !== "read" && options.models) {
+                                    return {models: kendo.stringify(options.models)};
+                                }
+                            }
+                        },
+                        autoHeight: true,
+                        sortable: true,
+                        scrollable: false,
+                        filterable: {
+                            extra: false,
+                            operators: {
+                                string: {
+                                    startswith: "Starts with",
+                                    eq: "Is equal to",
+                                    neq: "Is not equal to"
+                                }
+                            }
+                        },
+                        pageable: {
+                            refresh: false,
+                            pageSizes: [10, 15, 20],
+                            info: false,
+                            input: false,
+                            numeric: true,
+                        },
+                        toolbar: ["create"],
+                        save: function(e) {
+                            console.log(e);
+                        },
+                        remove: function(e) {
+                            console.log(e);
+                        },
+                        dataBound: function(e) {
+                            console.log(e);
+                        }
+                    }
+                });
             }
         }
     })

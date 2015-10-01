@@ -4,6 +4,7 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -66,6 +67,7 @@ namespace BackEndSAM.DataAcces
                     ListaCombos familiaMaterial = new ListaCombos();
                     ListaCombos familiaAcero = new ListaCombos();
                     ListaCombos fabricante = new ListaCombos();
+                    ListaCombos Cedulas = new ListaCombos();
 
                     patios.id = "1";
                     patios.value = "Patios";
@@ -106,6 +108,10 @@ namespace BackEndSAM.DataAcces
                     fabricante.id = "10";
                     fabricante.value = "Fabricante";
                     valoresCombo.Add(fabricante);
+
+                    Cedulas.id = "11";
+                    Cedulas.value = "Cédulas";
+                    valoresCombo.Add(Cedulas);
 
                     return valoresCombo;
                 }
@@ -207,7 +213,7 @@ namespace BackEndSAM.DataAcces
                                          join ch in ctx.Sam3_Chofer on rvch.ChoferID equals ch.ChoferID
                                          join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on t.VehiculoID equals rvt.VehiculoID
                                          join tr in ctx.Sam3_Transportista on rvt.TransportistaID equals tr.TransportistaID
-                                         where t.Activo && rvch.Activo && rvt.Activo
+                                         where t.Activo && rvch.Activo && rvt.Activo && ch.Activo && tr.Activo
                                          && t.TipoVehiculoID == 1
                                          select new CatalogoTracto
                                          {
@@ -233,7 +239,7 @@ namespace BackEndSAM.DataAcces
                                         join ch in ctx.Sam3_Chofer on rvch.ChoferID equals ch.ChoferID
                                         join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on v.VehiculoID equals rvt.VehiculoID
                                         join tr in ctx.Sam3_Transportista on rvt.TransportistaID equals tr.TransportistaID
-                                        where v.Activo && rvch.Activo && rvt.Activo
+                                        where v.Activo && rvch.Activo && rvt.Activo && ch.Activo && tr.Activo
                                         && v.TipoVehiculoID == 2
                                         select new CatalogoPlana
                                         {
@@ -316,6 +322,26 @@ namespace BackEndSAM.DataAcces
                                              }).AsParallel().ToList();
                             return catFabricante;
                             #endregion
+                        case 11: //Catalogo Cedulas
+                            #region
+                            List<CatalogoCedulas> catCedulas = new List<CatalogoCedulas>();
+                            catCedulas = (from c in ctx.Sam3_Cedula
+                                          where c.Activo
+                                          select new CatalogoCedulas
+                                          {
+                                              CedulaID = c.CedulaID.ToString(),
+                                              Diametro = c.Diametro.ToString(),
+                                              CedulaA = c.CedulaA,
+                                              CedulaB = c.CedulaB,
+                                              CedulaC = c.CedulaC,
+                                              CedulaIn = c.CedulaIn.ToString(),
+                                              CedulaMM = c.CedulaMM.ToString(),
+                                              Espesor = c.Espesor.ToString()
+                                          }).AsParallel().ToList();
+
+                            return catCedulas;
+                            #endregion
+
                         default:
                             #region
                             TransactionalInformation result = new TransactionalInformation();
@@ -380,13 +406,13 @@ namespace BackEndSAM.DataAcces
                             patioEnBd.FechaModificacion = DateTime.Now;
 
                             ctx.SaveChanges();
-                            return new CatalogoPatio 
-                            { 
-                                PatioID = patioEnBd.PatioID.ToString(), 
-                                Nombre = patioEnBd.Nombre, 
-                                Descripcion = patioEnBd.Descripcion, 
-                                Propietario = patioEnBd.Propietario, 
-                                RequierePermisoAduana = patioEnBd.RequierePermisoAduana == true ? "Si" : "No" 
+                            return new CatalogoPatio
+                            {
+                                PatioID = patioEnBd.PatioID.ToString(),
+                                Nombre = patioEnBd.Nombre,
+                                Descripcion = patioEnBd.Descripcion,
+                                Propietario = patioEnBd.Propietario,
+                                RequierePermisoAduana = patioEnBd.RequierePermisoAduana == true ? "Si" : "No"
                             };
                             #endregion
                         case 2: //chofer
@@ -407,11 +433,11 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            return new CatalogoChofer 
-                            { 
-                                ChoferID = choferEnBd.ChoferID.ToString(), 
-                                Nombre = choferEnBd.Nombre, 
-                                TransportistaID = choferEnBd.TransportistaID.ToString(), 
+                            return new CatalogoChofer
+                            {
+                                ChoferID = choferEnBd.ChoferID.ToString(),
+                                Nombre = choferEnBd.Nombre,
+                                TransportistaID = choferEnBd.TransportistaID.ToString(),
                                 TransportistaNombre = chofer.TransportistaNombre
                             };
                             #endregion
@@ -430,10 +456,10 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            return new Catalogos 
-                            { 
-                                Id = avisoEnBd.TipoAvisoID.ToString(), 
-                                Nombre = avisoEnBd.Nombre 
+                            return new Catalogos
+                            {
+                                Id = avisoEnBd.TipoAvisoID.ToString(),
+                                Nombre = avisoEnBd.Nombre
                             };
                             #endregion
                         case 4: //Transportista
@@ -462,15 +488,15 @@ namespace BackEndSAM.DataAcces
 
                             ctx.SaveChanges();
 
-                            return new CatalogoTransportista 
-                            { 
-                                TransportistaID = transEnBd.TransportistaID.ToString(), 
-                                ContactoID = transEnBd.ContactoID.ToString(), 
-                                Contacto = transportista.Contacto, 
-                                Descripcion = transEnBd.Descripcion, 
-                                Direccion = transEnBd.Direccion, 
-                                Nombre = transEnBd.Nombre, 
-                                Telefono = transEnBd.Telefono 
+                            return new CatalogoTransportista
+                            {
+                                TransportistaID = transEnBd.TransportistaID.ToString(),
+                                ContactoID = transEnBd.ContactoID.ToString(),
+                                Contacto = transportista.Contacto,
+                                Descripcion = transEnBd.Descripcion,
+                                Direccion = transEnBd.Direccion,
+                                Nombre = transEnBd.Nombre,
+                                Telefono = transEnBd.Telefono
                             };
 
                             #endregion
@@ -972,7 +998,7 @@ namespace BackEndSAM.DataAcces
 
                             VehiculoJson tracto = serializer.Deserialize<VehiculoJson>(data);
                             tracto.TipoVehiculoID = "1";
-                            res =TractoBd.Instance.InsertarTracto(tracto, usuario);
+                            res = TractoBd.Instance.InsertarTracto(tracto, usuario);
                             return res;
 
                             #endregion
@@ -981,7 +1007,7 @@ namespace BackEndSAM.DataAcces
 
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
                             plana.TipoVehiculoID = "2";
-                            res = PlanaBd.Instance.InsertarPlana(plana,usuario);
+                            res = PlanaBd.Instance.InsertarPlana(plana, usuario);
 
                             return res;
 
@@ -1026,7 +1052,7 @@ namespace BackEndSAM.DataAcces
                                 ctx.Sam3_TipoUso.Add(tipoUso);
                                 ctx.SaveChanges();
                             }
-                            
+
                             return new Catalogos
                             {
                                 Id = tipoUso.TipoUsoID.ToString(),
@@ -1085,6 +1111,59 @@ namespace BackEndSAM.DataAcces
                                 Telefono = fabricante.Telefono
                             };
                             #endregion
+
+                        case 11: //Catalogo Cedulas
+                            #region
+                            List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
+                            List<CatalogoCedulas> cedulasCorrectas = new List<CatalogoCedulas>();
+
+                            bool correcto = false;
+
+                            foreach (CatalogoCedulas item in catalogoCedulas)
+                            {
+                                Sam3_Cedula cedulas = new Sam3_Cedula();
+                                correcto = (from ced in ctx.Sam3_Cedula
+                                            where (ced.CedulaA == item.CedulaA ||
+                                            ced.CedulaB == item.CedulaB ||
+                                            ced.CedulaC == item.CedulaC) &&
+                                            ced.Diametro.ToString() == item.Diametro
+                                            select ced.CedulaID).Any();
+
+                                if (!correcto)
+                                {
+                                    //Multiplicar espesor ===================================================================================
+                                    cedulas.Diametro = Convert.ToInt32(item.Diametro);
+                                    cedulas.CedulaA = item.CedulaA;
+                                    cedulas.CedulaB = item.CedulaB;
+                                    cedulas.CedulaC = item.CedulaC;
+                                    cedulas.CedulaIn = Convert.ToDecimal(item.CedulaIn);
+                                    cedulas.CedulaMM = Convert.ToDecimal(item.CedulaMM);
+                                    cedulas.Espesor = Convert.ToDecimal(item.Espesor);
+                                    cedulas.Activo = true;
+                                    cedulas.UsuarioModificacion = usuario.UsuarioID;
+                                    cedulas.FechaModificacion = DateTime.Now;
+
+                                    ctx.Sam3_Cedula.Add(cedulas);
+                                    ctx.SaveChanges();
+
+                                }
+                                cedulasCorrectas.Add(new CatalogoCedulas
+                                {
+                                    Estatus = correcto,
+                                    Diametro = cedulas.Diametro.ToString(),
+                                    CedulaID = cedulas.CedulaID.ToString(),
+                                    CedulaA = cedulas.CedulaA,
+                                    CedulaB = cedulas.CedulaB,
+                                    CedulaC = cedulas.CedulaC,
+                                    CedulaIn = cedulas.CedulaIn.ToString(),
+                                    CedulaMM = cedulas.CedulaMM.ToString(),
+                                    Espesor = cedulas.Espesor.ToString()
+                                });
+                            }
+
+                            return cedulasCorrectas;
+
+                            #endregion
                         default:
                             #region
                             TransactionalInformation resultado = new TransactionalInformation();
@@ -1096,6 +1175,26 @@ namespace BackEndSAM.DataAcces
                             #endregion
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object obtenerFactorConversion(string catalogoID)
+        {
+            try
+            {
+                var factor = ConfigurationManager.AppSettings["factorConversion"];
+
+                return factor;
             }
             catch (Exception ex)
             {
