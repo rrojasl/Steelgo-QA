@@ -14,5 +14,10 @@ namespace FrontEndSAM.Controllers.Incidencias
         {
             return View();
         }
+
+        public ActionResult ListadoIncidencias()
+        {
+            return View();
+        }
     }
 }

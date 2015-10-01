@@ -1150,6 +1150,7 @@
     <Content Include="Views\Catalogos\AsociacionItemCodes.cshtml" />
     <Content Include="Views\ImpresionDocumental\ImpresionDocumental.cshtml" />
     <Content Include="Views\Incidencias\Incidencias.cshtml" />
+    <Content Include="Views\Incidencias\ListadoIncidencias.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

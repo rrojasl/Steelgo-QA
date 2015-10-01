@@ -4306,6 +4306,59 @@ _dictionary = {
         "es-MX": "Incidencia - Folio ",
         "en-US": "Incidence - Folio "
     },
+    //Listado Incidencias
+    "ListadoIncidencias0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoIncidencias0002": {
+        "es-MX": "Listado de Incidencias",
+        "en-US": "Incidences List"
+    },
+    "ListadoIncidencias0003": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidence"
+    },
+    "ListadoIncidencias0004": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoIncidencias0005": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "ListadoIncidencias0006": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoIncidencias0007": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoIncidencias0008": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "ListadoIncidencias0009": {
+        "es-MX": "Clasificación",
+        "en-US": "Classification"
+    },
+    "ListadoIncidencias0010": {
+        "es-MX": "Tipo Incidencia",
+        "en-US": "Incidence Type"
+    },
+    "ListadoIncidencias0011": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "ListadoIncidencias0012": {
+        "es-MX": "Registrado Por",
+        "en-US": "Registered by"
+    },
+    "ListadoIncidencias0013": {
+        "es-MX": "Fecha Registro",
+        "en-US": "Registration date"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
