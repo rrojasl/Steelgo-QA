@@ -1132,8 +1132,6 @@ namespace BackEndSAM.DataAcces
                                               ced.CedulaB == item.CedulaB ||
                                               ced.CedulaC == item.CedulaC)
                                               select ced.CedulaID).Any();
-
-                                    //item.Diametro = "0";
                                 }
                                 else
                                 {
@@ -1158,11 +1156,11 @@ namespace BackEndSAM.DataAcces
                                     cedulas.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0.####")) : Decimal.Parse(item.CedulaMM);
                                     cedulas.Espesor = Decimal.Parse(item.Espesor);
                                     cedulas.Activo = true;
-                                    cedulas.UsuarioModificacion = 1;//usuario.UsuarioID;
+                                    cedulas.UsuarioModificacion = usuario.UsuarioID;
                                     cedulas.FechaModificacion = DateTime.Now;
 
                                     ctx.Sam3_Cedula.Add(cedulas);
-                                    //ctx.SaveChanges();
+                                    ctx.SaveChanges();
 
                                     cedulasCorrectas.Add(new CatalogoCedulas
                                     {
