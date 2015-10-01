@@ -151,6 +151,8 @@ namespace BackEndSAM.Controllers
                          return ListadoBd.Instance.ListadoOrdenesDeTrabajo(filtros, usuario); 
                     case 26: // Conteos de dashboard de Despachos
                          return ListadoBd.Instance.ConteoDashBoardDespachos(filtros, usuario);
+                    case 27:
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");

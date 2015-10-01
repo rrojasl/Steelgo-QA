@@ -1,0 +1,359 @@
+﻿@{
+    ViewBag.Title = "Listado Incidencias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoIncidencias0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ListadoIncidencias", "ListadoIncidencias")"><span id="ListadoIncidencias0002"></span></a>
+    </li>
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav filtersFields clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3 longButton">
+                        <div class="button-section">
+                            <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="ListadoIncidencias0003"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-9 col-md-8 col-lg-9 filter-section">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoIncidencias0004"></label>
+                                <input id="ClienteID" class="" />
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoIncidencias0005"></label>
+                                <input id="ProyectoID" class="" />
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoIncidencias0006"></label>
+                                <input id="FechaInicial" class="" />
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <label id="ListadoIncidencias0007"></label>
+                                <input id="FechaFinal" class="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+<script>
+    @section JavascriptGlobalVariables 
+    {
+    var Cliente = {}, Proyecto = {}, FechaInicial, FechaFinal, resultadoJson;
+    var _IncidenciasUrl = "@Url.Action("Incidencias", "Incidencias")";
+
+    var $ListadoIncidenciasListModel = {
+        listContainer: {
+            create: "#Nuevo",
+            list: "#grid",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+    };
+    }
+
+    @section JavascriptGlobalFunctions 
+    {
+    function changeLanguageCall() {
+        cargarInicialGrid();
+    };
+    function changeDatePickerDateFormat(datePickerOptions) {
+        FechaInicial.setOptions(datePickerOptions);
+        FechaFinal.setOptions(datePickerOptions);
+    };
+
+    
+
+    function CargaInicial() {
+        $("#Nuevo").click(function () {
+            window.location.href = _IncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
+
+        $("#ClienteID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ClienteID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarCliente(dataItem.ClienteID, dataItem.Nombre);
+
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Cliente = {};
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+        ObtenerCliente();
+
+        $("#ProyectoID").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ProyectoID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarProyecto(dataItem.ProyectoID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+
+                if (!value) {
+                    Proyecto = {};
+                }
+                Filtros();
+            },
+            filter: "contains",
+        });
+
+        ObtenerProyecto();
+
+        FechaInicial = new kendo.ui.DatePicker($("#FechaInicial"));
+        FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
+
+        $("#FechaInicial").bind("change", function () {
+            Filtros();
+        });
+
+        $("#FechaFinal").bind("change", function () {
+            Filtros();
+        });
+
+        ObtenerFechasporDefecto();
+        Filtros();
+    };
+
+    function cargarInicialGrid() {
+         $("#grid").kendoGrid({
+            dataSource: {
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            FolioIncidenciaID: { type: "string" },
+                            Clasificacion: { type: "string" },
+                            TipoIncidencia: { type: "string" },
+                            Estatus: { type: "string" },
+                            RegistradoPor: { type: "string" },
+                            FechaRegistro: { type: "string" }
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        startswith: "Starts with",
+                        eq: "Is equal to",
+                        neq: "Is not equal to"
+                    }
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            columns: [
+                { field: "FolioIncidenciaID", title: _dictionary.ListadoIncidencias0008[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:FolioIncidenciaID#)'>#:FolioIncidenciaID#</a>" },
+                { field: "Clasificacion", title: _dictionary.ListadoIncidencias0009[$("#language").data("kendoDropDownList").value()] },
+                { field: "TipoIncidencia", title: _dictionary.ListadoIncidencias0010[$("#language").data("kendoDropDownList").value()] },
+                { field: "Estatus", title: _dictionary.ListadoIncidencias0011[$("#language").data("kendoDropDownList").value()] },
+                { field: "RegistradoPor", title: _dictionary.ListadoIncidencias0012[$("#language").data("kendoDropDownList").value()] },
+                { field: "FechaRegistro", title: _dictionary.ListadoIncidencias0013[$("#language").data("kendoDropDownList").value()] }
+            ],
+            dataBound: function (e) {
+                $(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            }
+         });
+    };
+
+   
+
+    function ObtenerFechasporDefecto() {
+        var fechaFinal = new Date();
+        var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
+
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        };
+
+        var curr_date0 = fechainicio.getDate();
+        var curr_month0 = fechainicio.getMonth() + 1; //Months are zero based
+        var curr_year0 = fechainicio.getFullYear();
+
+
+        var curr_date = fechaFinal.getDate();
+        var curr_month = fechaFinal.getMonth() + 1; //Months are zero based
+        var curr_year = fechaFinal.getFullYear();
+
+
+        var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+        var fechFinal = new Date(curr_year, curr_month - 1, curr_date);
+
+        var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+        var fechaFinalkendo = kendo.parseDate(fechFinal, format);
+
+        $("#FechaInicial").data("kendoDatePicker").value(fechaInicialkendo);
+        $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+    };
+
+    function CargarCliente(id, value) {
+        Cliente = {};
+        Cliente = { ClienteID: id };
+    };
+
+    function CargarProyecto(id, value) {
+        Proyecto = {};
+        Proyecto = { ProyectoID: id, Nombre: value };
+    };
+
+    function ObtenerProyecto() {
+        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ProyectoID", result);
+        });
+    };
+
+    function ObtenerCliente() {
+        $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("ClienteID", result);
+        });
+    };
+ 
+    function mostrarDetalle(folioAvisoLlegadaID, foliocuantificacion) {
+        window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
+    };
+    
+    function mostrarDetalleComplemento(foliocuantificacion) {
+        window.location.href = _complementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&Edicion=1&FolioCuantificacionID=" + foliocuantificacion;
+    };
+    function Filtros() {
+        var Listado;
+        AccionesListado();
+    };
+
+    function AccionesListado() {
+        loadingStart();
+        var Listado;
+        Listado = ArregloListado();
+
+        $folioEntradaMaterial.Listado.read({  data: JSON.stringify(Listado) }).done(function (data) {
+            if (Error(data)) {
+                resultadoJson = data;
+                if ($("#grid").data("kendoGrid")) {
+                    if (resultadoJson.length > 0) {
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        $("#grid").data("kendoGrid").dataSource.page(1);
+                    } else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#grid").data("kendoGrid").dataSource.page(0);
+                    };
+                    applySecurityPolicy(false);
+                };
+            };
+            loadingStop();
+        });
+    };
+
+    function ArregloListado(accion) {
+        var Listado;
+        Listado = { ProyectoID: "", ClienteID: "", FechaInicial: "", FechaFinal: "", token: "" };
+
+        var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
+        var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+        Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
+        Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
+        Listado.FechaInicial = obtenerFormatoFecha(d);
+        Listado.FechaFinal = obtenerFormatoFecha(d1);
+        Listado.token = Cookies.get("token");
+        Listado.TipoListado = 27;
+        
+        return Listado;
+    };
+
+    function imprimirOrden() {
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var OrdenRecepcion = dataItem.OrdenRecepcion;
+        window.open("http://www.asp.net");
+    };
+
+    function obtenerFormatoFecha(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+        var horaActual = new Date();
+
+        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+    }
+
+    @section JavascriptDocumentReadyFunctions {
+    CargaInicial();
+    $authorizationModel["Cuantificacion"] = $ListadoPackingListModel;
+    }
+    @section JavascriptDocumentReadyHomeCookie 
+    {
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "19", { path: '/' });
+    }
+
+</script>
