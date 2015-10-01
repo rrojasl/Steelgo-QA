@@ -294,7 +294,8 @@ input {
     font-weight: 600;
 }
 
-.content-container .form input:not(.k-input) {
+/*Para inputs no generados por kendo-ui*/
+.content-container .form input.general-input {
     height: 40px;
     min-height: 40px;
     color: #1B3F70;
@@ -305,7 +306,7 @@ input {
     z-index: 1;
 }
 
-    .content-container .form input:not(.k-input):focus {
+    .content-container .form input.general-input:focus {
         border-color: #4486CB;
         -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
         -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */

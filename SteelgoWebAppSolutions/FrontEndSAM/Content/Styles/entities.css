@@ -309,19 +309,21 @@ header .menu > div {
                 z-index: 3;
             }
 
-    .notifications .notification-menu li:not(.messageBody) {
+    .notifications .notification-menu li {
         padding: 16px 20px;
         border-bottom: 1px solid #CCCCCC;
         max-height: 97px;
         font-size: 14px;
     }
 
-        .notifications .notification-menu li:not(.messageBody):hover {
+        .notifications .notification-menu li:hover {
             background-color: rgba(048, 094, 142, 0.2);
         }
 
     .notifications .notification-menu li.messageBody {
         padding: 17px 17px 16px;
+        border-bottom: none;
+        max-height: none;
     }
 
         .notifications .notification-menu li.messageBody span,
@@ -1490,7 +1492,7 @@ header .menu > div {
 
     /*$_notifications*/
     .notifications .notification-menu {
-        right: -222px;
+        right: -261px;
         width: 400px;
     }
 
@@ -1557,8 +1559,15 @@ header .menu > div {
                 padding: 0 15px;
             }
 
-        .formNav.filtersFields .button-section {
+        .formNav .button-section .btn-group + .btn {
+            margin-right: 0;
+        }
+
+        .formNav.filtersFields .button-section,
+        .formNav.filtersFields .longButton,
+        .formNav.filtersFields .extralongButton {
             width: 100%;
+            max-width: 100%;
         }
 
         .formNav.filtersFields .button-section button {
@@ -1567,6 +1576,11 @@ header .menu > div {
             background-position: 97% center!important;
 
         }
+
+    #formOrdenRecepcion .formNav .btn-group,
+    #formOrdenAlmacenaje .formNav .btn-group {
+        margin-bottom: 15px;
+    }
 
     /*$_modal*/
     #window > div {
@@ -1594,7 +1608,12 @@ header .menu > div {
         .addedSection div.form-group > div {
             padding-right: 0;
             padding-left: 0;
-        }        
+        }
+
+    /*$_branchCut*/
+    .branchCut {
+        margin: 12px 0 15px;
+    }
 }
 
 /* sm viewport */
