@@ -165,10 +165,13 @@ BEGIN TRY
 		DetalleResolucion VARCHAR(MAX) NULL,
 		UsuarioResuelveID INT NULL,
 		FechaSolucion DATETIME NULL,
+		ClasificacionID INT NULL,
 		FOREIGN KEY (TipoIncidenciaID) REFERENCES Sam3_TipoIncidencia(TipoIncidenciaId),
-		FOREIGN KEY (UsuarioResuelveID) REFERENCES Sam3_Usuario(UsuarioID)
+		FOREIGN KEY (UsuarioResuelveID) REFERENCES Sam3_Usuario(UsuarioID),
+		FOREIGN KEY (ClasificacionID) REFERENCES Sam3_ClasificacionIncidencia(ClasificacionIncidenciaID)
 
 	ALTER TABLE Sam3_Incidencia ALTER COLUMN TipoIncidenciaID INT NOT NULL
+	ALTER TABLE Sam3_Incidencia ALTER COLUMN ClasificacionID INT NOT NULL
 
 	CREATE TABLE [dbo].[Sam3_Rel_Incidencia_Documento](
 		[Rel_Incidencia_DocumentoID] [int] IDENTITY(1,1) NOT NULL,
