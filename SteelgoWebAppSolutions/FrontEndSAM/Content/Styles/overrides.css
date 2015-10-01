@@ -754,6 +754,19 @@
         .form .input-group > .input-group-btn {
             display: none;
         }
+
+    /*$_k-widget*/
+    .k-widget.k-window {
+        min-width: 100%!important;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .k-upload > .k-upload-button {
+        margin-top: 5px;
+    }
 }
 
 /* sm viewport */

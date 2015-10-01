@@ -65,8 +65,8 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 return CatalogosBd.Instance.InsertarElementoAlCatalogo(data, catalogoID, usuario);
             }

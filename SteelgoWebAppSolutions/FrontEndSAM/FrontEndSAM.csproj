@@ -127,6 +127,7 @@
     <Content Include="Content\images\loadingGift\loading.gif" />
     <Content Include="Content\images\logoPase.png" />
     <Content Include="Content\images\Logo_Login.jpg" />
+    <Content Include="Content\images\mobileMenu.png" />
     <Content Include="Content\images\SAMC_Add.png" />
     <Content Include="Content\images\SAMC_AddIcon.png" />
     <Content Include="Content\images\SAMC_Attachtment.png" />
@@ -443,6 +444,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="FormatoCargaMasiva.csv" />
+    <None Include="Properties\PublishProfiles\front.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEnd.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -972,6 +974,8 @@
     <Compile Include="Controllers\Despacho\DespachoController.cs" />
     <Compile Include="Controllers\Errors\ErrorsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\ImpresionDocumental\ImpresionDocumentalController.cs" />
+    <Compile Include="Controllers\Incidencias\IncidenciasController.cs" />
     <Compile Include="Controllers\ListadoMateriales\ListadoMaterialesController.cs" />
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
     <Compile Include="Controllers\OrdenAlmacenaje\OrdenAlmacenajeController.cs" />
@@ -1144,6 +1148,11 @@
     <Content Include="Views\PopUps\ItemCodeSteelgo.cshtml" />
     <Content Include="Views\PopUps\ItemCode.cshtml" />
     <Content Include="Views\Catalogos\AsociacionItemCodes.cshtml" />
+    <Content Include="Views\ImpresionDocumental\ImpresionDocumental.cshtml" />
+    <Content Include="Views\Incidencias\Incidencias.cshtml" />
+    <Content Include="Views\Incidencias\ListadoIncidencias.cshtml" />
+    <Content Include="Views\PopUps\Tracto.cshtml" />
+    <Content Include="Views\PopUps\Plana.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

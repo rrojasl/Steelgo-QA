@@ -33,7 +33,7 @@ namespace BackEndSAM.Controllers
 
             Incidencia incidencia = new Incidencia();
             incidencia.TieneIncidencia = true;
-            incidencia.NumeroIncidencia = "1242415A";
+            incidencia.FolioIncidenciaID = 1242415;
 
             FormatoPaseSalida formato = new FormatoPaseSalida();
             formato.NombreProyecto = "Proyecto 1";

@@ -22,6 +22,7 @@
     15  $_departurePermit
     16  $_folioGraphs
     17  $_formatTag
+    18  $_menuMobile
 
     Color Palette: Look at site.css
 
@@ -308,19 +309,21 @@ header .menu > div {
                 z-index: 3;
             }
 
-    .notifications .notification-menu li:not(.messageBody) {
+    .notifications .notification-menu li {
         padding: 16px 20px;
         border-bottom: 1px solid #CCCCCC;
         max-height: 97px;
         font-size: 14px;
     }
 
-        .notifications .notification-menu li:not(.messageBody):hover {
+        .notifications .notification-menu li:hover {
             background-color: rgba(048, 094, 142, 0.2);
         }
 
     .notifications .notification-menu li.messageBody {
         padding: 17px 17px 16px;
+        border-bottom: none;
+        max-height: none;
     }
 
         .notifications .notification-menu li.messageBody span,
@@ -949,7 +952,7 @@ header .menu > div {
     overflow: hidden;
 }
 
-    #window input:not(.k-input) {
+    #window input.general-input {
         box-sizing: border-box;
         height: 40px;
         min-height: 40px;
@@ -960,7 +963,7 @@ header .menu > div {
         padding: 0 5px;
     }
 
-        #window input:not(.k-input):focus {
+        #window input.general-input:focus {
             border-color: #4486CB;
             -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
             -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
@@ -982,9 +985,9 @@ header .menu > div {
     }
 
     #window .btn {
-        margin-top: 19px;
-        margin-bottom: 22px;
-        width: 220px;
+        margin-top: 0;
+        //margin-bottom: 22px;
+        //width: 220px;
         display: inline-block;
         letter-spacing: 0.7px;
         font-size: 15px;
@@ -994,7 +997,8 @@ header .menu > div {
         padding: 9px 6px 0;
     }
 
-    #window .buttonSave {
+    #window .buttonSave,
+    .popup .buttonSave {
         text-align: center;
     }
 /**********************************************************************************/
@@ -1094,6 +1098,10 @@ header .menu > div {
     .formNav .save-group #Guardar {
         min-width: 110px;
         text-align: left;
+    }
+
+    .formNav .save-group #Editar {
+        border-radius: 3px;
     }
 
     .formNav .save-group.open button {
@@ -1422,6 +1430,21 @@ header .menu > div {
 /**********************************************************************************/
 
 
+/**********************************************************************************
+ Class name:    $_menuMobile
+ Description:   Customize mobile menu button.
+**********************************************************************************/
+.menuMobile {
+    position: relative;
+    top: 4px;
+    float: left;
+}
+    .menuMobile img {
+        width: 26px;
+        height: auto;
+    }
+/**********************************************************************************/
+
 
 /* Media Queries */
 
@@ -1447,6 +1470,150 @@ header .menu > div {
         .login form input {
             width: 68% !important;
         }
+
+    /*$_header*/
+    header {
+        max-height: 110px;
+    }
+
+    header .menu {
+        text-align: right;
+    }
+
+    /*$_search-bar*/
+    .search-bar {
+        position: relative;
+        top: -16px;
+        margin: 0; 
+        padding-left: 38%;
+        width: 100%;
+        max-width: 100%;      
+    }
+
+    /*$_notifications*/
+    .notifications .notification-menu {
+        right: -261px;
+        width: 400px;
+    }
+
+    /*$_sidebar*/
+    .sidebar {
+        width: 100%;
+        display: none;
+    }
+
+        .sidebar.minified {
+            display: none!important;
+        }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
+            position: relative;
+            right: 0;            
+            box-shadow: none;
+            border: none;
+            padding-top: 8px;
+        }
+
+    /*$_content-container*/
+    .content-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+        .content-container.expanded {
+            padding-left: 15px;
+        }
+
+    /*$_breadcrumb*/
+    .breadcrumb {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+    }
+
+        .breadcrumb li {
+            font-size: 13px;
+        }
+
+    /*$_alert-container*/
+    .message {
+        margin-left: 0;
+        margin-bottom: 10px;
+        height: auto;
+    }
+
+    /*$_formNav*/
+    .formNav {
+        margin: 0px 0px 20px;
+        padding: 0px 0 5px;
+    }
+
+        .formNav .button-section,
+        .formNav.filtersFields .button-section {
+            margin: 0;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+
+            .formNav .button-section.last-button {
+                padding: 0 15px;
+            }
+
+        .formNav .button-section .btn-group + .btn {
+            margin-right: 0;
+        }
+
+        .formNav.filtersFields .button-section,
+        .formNav.filtersFields .longButton,
+        .formNav.filtersFields .extralongButton {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .formNav.filtersFields .button-section button {
+            width: 100%;
+            text-align: left;
+            background-position: 97% center!important;
+
+        }
+
+    #formOrdenRecepcion .formNav .btn-group,
+    #formOrdenAlmacenaje .formNav .btn-group {
+        margin-bottom: 15px;
+    }
+
+    /*$_modal*/
+    #window > div {
+        padding: 0;
+    }
+
+    #window .buttonSave {
+        margin-bottom: 5px;
+    }
+
+    /*$_filesTable*/
+    .filesTable thead td {
+        width: 25%;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    /*$_addedSection*/
+    .addedSection {
+        margin: 0px 0 15px;
+        padding-top: 15px;
+        padding-bottom: 0px;
+    }
+
+        .addedSection div.form-group > div {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+    /*$_branchCut*/
+    .branchCut {
+        margin: 12px 0 15px;
+    }
 }
 
 /* sm viewport */

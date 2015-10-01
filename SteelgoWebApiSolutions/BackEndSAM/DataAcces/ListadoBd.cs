@@ -2105,5 +2105,44 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object ListadoIncidencias(FiltrosJson filtro, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<ListadoIncidencias> lstIncidencias = new List<ListadoIncidencias>();
+                ListadoIncidencias incidencia1 = new ListadoIncidencias();
+                incidencia1.FolioIncidenciaID = "1";
+                incidencia1.Clasificacion = "Materiales";
+                incidencia1.TipoIncidencia = "Número Único";
+                incidencia1.Estatus = "Estatus";
+                incidencia1.RegistradoPor = "Pedro Sepulveda";
+                incidencia1.FechaRegistro = "10/10/2015";
+                lstIncidencias.Add(incidencia1);
+
+                ListadoIncidencias incidencia2 = new ListadoIncidencias();
+                incidencia2.FolioIncidenciaID = "2";
+                incidencia2.Clasificacion = "Materiales";
+                incidencia2.TipoIncidencia = "Número Único";
+                incidencia2.Estatus = "Estatus";
+                incidencia2.RegistradoPor = "Pedro Sepulveda";
+                incidencia2.FechaRegistro = "10/10/2015";
+                lstIncidencias.Add(incidencia2);
+
+                return lstIncidencias;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
+        }
+
+
     }
 }

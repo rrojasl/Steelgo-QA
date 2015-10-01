@@ -381,22 +381,16 @@
         //client.add("AdministracionCatalogos");
         //client.AdministracionCatalogos.create({}, { data: JSON.stringify(listado), catalogoID: "1", token: "" }).done(function (data) { console.log(data) });
 
-        //var listado = { ItemCodeSteelgoID: "", Codigo: "", DescripcionLarga: "", DescripcionIngles: "", DescripcionLargaIngles: "", Diametro1: "", Diametro2: "", Cedula: ""  };
-        ////listado.PatioID = "2";
-        //listado.ItemCodeSteelgoID = "";
-        //listado.Codigo = "ics";
-        //listado.DescripcionLarga = "";
-        //listado.DescripcionIngles = "";
-        //listado.DescripcionLargaIngles = "";
-        //listado.Diametro1 = "";
-        //listado.Diametro2 = "";
-        //listado.Cedula = "";
+        var listado = [{ CedulaID: "", Diametro: "2", CedulaA: "", CedulaB: "", CedulaC: "31#", CedulaIn: "15", CedulaMM: "", Espesor: "33.0000" },
+            { CedulaID: "", Diametro: "2", CedulaA: "", CedulaB: "", CedulaC: "31#", CedulaIn: "15", CedulaMM: "", Espesor: "33.0000" }];
+       
+        console.log(JSON.stringify(listado));
 
         //client.add("AsociacionICS");
         //client.AsociacionICS.read({}, { data: JSON.stringify(listado), token: "" }).done(function (data) { console.log(data) });
 
         client.add("AdministracionCatalogos");
-        client.AdministracionCatalogos.read({}, { catalogoID: "11", token: "" }).done(function (data) { console.log(data) });
+        client.AdministracionCatalogos.create({}, { data: JSON.stringify(listado), catalogoID: "11", token: "" }).done(function (data) { console.log(data) });
     </script>
 </body>
 </html>

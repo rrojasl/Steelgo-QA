@@ -20,7 +20,7 @@
 
 <div id="formLlegadaMaterial" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <span id="divFolio" class="folioLabel hidden">
                 <span id="DetalleAvisoLlegada0042"></span>
                 <span id="spanFolio"></span>
@@ -32,7 +32,7 @@
             </span>
             <div class="formNav clearfix">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
@@ -42,7 +42,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a id="GuardarNuevo" href="#"><span id="LlegadaMaterial0037"></span></a></li>
-                                    <li><a href="#"><span id="LlegadaMaterial0038"></span></a></li>
+                                    @*<li><a href="#"><span id="LlegadaMaterial0038"></span></a></li>*@
                                 </ul>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
@@ -68,37 +68,37 @@
                 </div>
             </div>
             <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                <div class="filterForm col-xs-12 col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div id="divFolioEntradaID" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="divFolioEntradaID" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0003"></label>
                             <input id="FolioEntradaID" />
                         </div>
-                        <div id="ClienteIDDiv" class="form-group col-sm-6 col-md-8 col-lg-3">
+                        <div id="ClienteIDDiv" class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-3">
                             <label id="LlegadaMaterial0043" ></label>
                             <input id="ClienteID" />
                         </div>
-                        <div id="ProyectoIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ProyectoIDDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0002"></label>
                             <input id="ProyectoID" />
                         </div>
-                        <div id="ProveedorIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ProveedorIDDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0035"></label>
                             <input id="ProveedorID" class="" />
                         </div>
-                         <div id="OrdenDeCompraDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                         <div id="OrdenDeCompraDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0033"></label>
-                            <input id="OrdenDeCompra" />
+                            <input id="OrdenDeCompra" class="general-input"/>
                         </div>
-                        <div id="FacturaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="FacturaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0034"></label>
-                            <input id="Factura" />
+                            <input id="Factura" class="general-input"/>
                         </div>
-                        <div id="EstatusDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="EstatusDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0004"></label>
                             <input id="Estatus" />
                         </div>
-                        <div id="PatioIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3" style="display: none">
+                        <div id="PatioIDDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" style="display: none">
                             <label id="LlegadaMaterial0001"></label>
                             <input id="PatioID" />
                         </div>
@@ -107,18 +107,18 @@
             </div>
             <div class="row">
                 <div class="addedSection clearfix">
-                    <div class="form-group col-sm-12 col-md-12 col-lg-11">
-                        <div id="DescripcionDiv" class="col-sm-5 col-md-4 col-lg-3">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                        <div id="DescripcionDiv" class="form-group col-xs-12 col-sm-5 col-md-4 col-lg-3">
                             <label id="LlegadaMaterial0006"></label>
-                            <input id="Descripcion" />
+                            <input id="Descripcion" class="general-input"/>
                         </div>
-                        <div id="AdjuntarArchivosDiv" class="col-sm-7 col-md-8 col-lg-5">
+                        <div id="AdjuntarArchivosDiv" class="form-group col-xs-12 col-sm-7 col-md-8 col-lg-5">
                             <label id="LlegadaMaterial0005"></label>
                             <input name="files" id="AdjuntarArchivos" type="file" />
                         </div>
                     </div>
-                    <div id="listaArchivosDiv" class="form-group col-sm-12 col-md-12 col-lg-12">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div id="listaArchivosDiv" class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <table id="listaArchivos" class="filesTable">
                                 <thead>
                                     <tr>
@@ -146,73 +146,7 @@
 </div>
 @*Ventana Modal*@
 <div id="window">
-    <div id="modalPatio" style="display: none">
-                <div class="alert-container">
-                    <div class="message">
-                        Mensaje de éxito/error/advertencia
-                    </div>
-                </div>
-                <div id="Nombre_PatioDiv" class="form-group">
-                    <label id="LlegadaMaterial0045"></label>
-                    <input id="Nombre_Patio" class="" />
-                </div>
-                <div id="Propietario_PatioDiv" class="form-group">
-                    <label id="LlegadaMaterial0046"></label>
-                    <input id="Propietario_Patio" class="" />
-                </div>
-                <div id="Descripcion_PatioDiv" class ="form-group">
-                    <label id="LlegadaMaterial0047"></label>
-                    <input id="Descripcion_Patio" class="l" />
-                </div>
-                <div id="RequierePermisoAduana_PatioDiv" class="form-group">
-                    <label id="LlegadaMaterial0048" class="checkLabel"></label>
-                    <input id="RequierePermisoAduana_Patio" class="l" type="checkbox" />
-                </div>
-                <div class="buttonSave">
-                    <a id="GuardarPatio" href="#" class="btn btn-primary">
-                        <span id="LlegadaMaterial0049"></span>
-                    </a>
-                    <a id="CancelarPatio" href="#" class="btn btn-primary">
-                        <span id="LlegadaMaterial0050"></span>
-                    </a>
-                </div>
-    </div>
 
-     <div id="modalProveedor" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="ContactoID_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0052"></label>
-                <input id="ContactoID_Proveedor" class="" />
-            </div>
-            <div id="Nombre_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0053"></label>
-                <input id="Nombre_Proveedor" class="" />
-            </div>
-            <div id="Descripcion_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0054"></label>
-                <input id="Descripcion_Proveedor" class="" />
-            </div>
-            <div id="Direccion_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0055"></label>
-                <input id="Direccion_Proveedor" class="" />
-            </div>
-            <div id="Telefono_ProveedorDiv" class="form-group">
-                <label id="LlegadaMaterial0056"></label>
-                <input id="Telefono_Proveedor" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarProveedor" href="javascript:void(0);" class="btn btn-primary">
-                    <span id="LlegadaMaterial0057"></span>
-                </a>
-                <a id="CancelarProveedor" href="javascript:void(0);" class="btn btn-primary">
-                    <span id="LlegadaMaterial0058"></span>
-                </a>
-            </div>
-        </div>
 </div>
 <input id="hdnOrdenDescargada" type="hidden" />
 <script type="text/javascript">
@@ -903,28 +837,21 @@
         };
 
         function VentanaModal(id) {
-
             var modalTitle = "";
             var content = "";
-            var window = "";
+            var window = $("#window");
             var height = "";
 
             switch (id) {
                 case 1:
-                    $("#modalProveedor").hide();
-                    $("#modalPatio").show();
                     content = "@Url.Action("Patio", "PopUps")";
                     modalTitle = "Patio";
-                    height = "25%";
-                    window = $("#window");
+                    height = "5%";
                     break;
                 case 2:
-                    $("#modalPatio").hide();
-                    $("#modalProveedor").show();
                     content = "@Url.Action("Proveedor", "PopUps")";
                     modalTitle = "Proveedor";
-                    height = "35%";
-                    window = $("#window");
+                    height = "22%";
                     break;
             };
 
@@ -944,6 +871,12 @@
                     left: "20%"
                 }
             }).data("kendoWindow");
+
+            //Se actualiza el tamaño
+            window.data("kendoWindow").setOptions({
+                width: "32.6%",
+                height: height,
+            });
             window.data("kendoWindow").title(modalTitle);
             window.data("kendoWindow").center().open();
         };
@@ -1019,13 +952,13 @@
             Documentos = [];
             ProyectoIDs = [];
 
+            CargarDefaults();
+
             var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
             $.each(proyectos, function (index, value) {
                 ProyectoIDs[index] = value;
             });
 
-            
-            CargarDefaults();
 
             $('#listaArchivos > tbody  > tr').each(function (index, value) {
                 if ($(this).find("td:first").length > 0) {
@@ -1107,7 +1040,8 @@
                 ocultarStatus();
                 $("#LlegadaMaterial0063").show();
             };
-        }
+        };
+
         function CargarDefaults() {
             $("#formLlegadaMaterial :not(.security_required)").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {

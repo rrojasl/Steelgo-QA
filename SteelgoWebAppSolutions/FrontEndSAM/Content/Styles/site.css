@@ -157,6 +157,7 @@ label {
     }
 
 .form label,
+#window label,
 .popup label {
     text-transform: uppercase;
     display: block;
@@ -176,6 +177,7 @@ label {
         top: -6px;
     }
 
+    #window label.security_required::after,
     .popup label.security_required::after {
         content: '*';
         font-size: 19px;
@@ -184,10 +186,12 @@ label {
     }
 
     .form label.security_required.error::after,
+    #window label.security_required.error::after,
     .popup label.security_required.error::after {
         color: #EC4F50;
     }
 
+    #window label.checkLabel,
     .popup label.checkLabel {
         display: inline-block;
     }
@@ -264,7 +268,8 @@ input {
         font-weight: 600;
     }
 
-    input:not(.k-input).error {
+    /*Para inputs no generados por kendo-ui*/
+    input.general-input.error {
         border-color: #EC4F50 !important;
     }
 
@@ -290,7 +295,8 @@ input {
     font-weight: 600;
 }
 
-.content-container .form input:not(.k-input) {
+/*Para inputs no generados por kendo-ui*/
+.content-container .form input.general-input {
     height: 40px;
     min-height: 40px;
     color: #1B3F70;
@@ -301,7 +307,7 @@ input {
     z-index: 1;
 }
 
-    .content-container .form input:not(.k-input):focus {
+    .content-container .form input.general-input:focus {
         border-color: #4486CB;
         -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
         -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
@@ -775,6 +781,15 @@ h2 {
 /* xs viewport */
 @media screen and (max-width: 767px) {
 
+    /*$_content-frame*/
+    .content-frame {
+        top: 110px;
+    }
+
+        .content-frame .container .main-content {
+            margin: 0;
+        }
+
     /*$_footer*/
     footer {
         text-align: center;
@@ -791,6 +806,58 @@ h2 {
             display: block;
             font-size: 9px;
         }
+
+    /*$_btn*/
+    .btn.btn-tab {
+        padding: 7px;
+    }
+
+    .btn-tab label {
+        letter-spacing: 0;
+        font-size: 11px;
+    }
+
+    .btn-tab.Accesorios, .btn-tab.Tubos,
+    #DespachoCorte .btn-tab.Accesorios,
+    #DespachoCorte .btn-tab.Tubos {
+        width: 25.1%;
+        border-radius: 0;
+        margin-top: -1px;
+        margin-left: -1px!important;
+    }
+
+    .btn.btn-tabList {
+        height: 50px;
+        white-space: normal;
+        padding: 4px;
+    }
+
+        .btn.btn-tabList.active {
+            height: 54px;
+        }
+
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    /*input*/
+    input.quickFilters,
+    .expanded input.quickFilters {
+        width: 25%;
+    }
+
+        input.quickFilters:first-of-type,
+        .expanded input.quickFilters:first-of-type {
+            width: 24.85%;
+        }
+
+        input.quickFilters:last-of-type,
+        .expanded input.quickFilters:last-of-type {
+            width: 25.96%;
+        }  
+
 }
 
 /* sm viewport */

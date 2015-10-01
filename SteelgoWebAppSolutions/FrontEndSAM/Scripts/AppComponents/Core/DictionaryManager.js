@@ -1613,7 +1613,7 @@ _dictionary = {
     },
     "FormatoPaseSalida0015": {
         "es-MX": "Incidencia",
-        "en-US": "Incidencia"
+        "en-US": "Incidences"
     },
     "FormatoPaseSalida0016": {
         "es-MX": "Si, ",
@@ -2691,7 +2691,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0046": {
         "es-MX": "Cantidad de incidencias",
-        "en-US": "Number of incidents"
+        "en-US": "Number of Incidences"
     },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
@@ -4156,6 +4156,217 @@ _dictionary = {
         "es-MX": "Año",
         "en-US": "Year"
     },
+    //Impresion Documental
+    "ImpresionDocumental0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ImpresionDocumental0002": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "ImpresionDocumental0003": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "ImpresionDocumental0004": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    //Incidencias
+    "Incidencias0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Incidencias0002": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "Incidencias0003": {
+        "es-MX": "Clasificación",
+        "en-US": "Classification"
+    },
+    "Incidencias0004": {
+        "es-MX": "Tipo Incidencia",
+        "en-US": "Incidences Type"
+    },
+    "Incidencias0005": {
+        "es-MX": "Versión",
+        "en-US": "version"
+    },
+    "Incidencias0006": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "Incidencias0007": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0008": {
+        "es-MX": "Respuesta",
+        "en-US": "Answer"
+    },
+    "Incidencias0009": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Incidencias0010": {
+        "es-MX": "Resolver",
+        "en-US": "Resolve"
+    },
+    "Incidencias0011": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Incidencias0012": {
+        "es-MX": "Motivo Cancelación",
+        "en-US": "Cancellation Reason"
+    },
+    "Incidencias0013": {
+        "es-MX": "Detalle Resolución",
+        "en-US": "Detail Resolution"
+    },
+    "Incidencias0014": {
+        "es-MX": "Registrado Por",
+        "en-US": "Registered by"
+    },
+    "Incidencias0015": {
+        "es-MX": "Fecha de Registro",
+        "en-US": "Registration Date"
+    },
+    "Incidencias0016": {
+        "es-MX": "Resuelto Por",
+        "en-US": "Resolved By"
+    },
+    "Incidencias0017": {
+        "es-MX": "Fecha Resolución",
+        "en-US": "Resolution Date"
+    },
+    "Incidencias0018": {
+        "es-MX": "Respondido Por",
+        "en-US": "Answered by"
+    },
+    "Incidencias0019": {
+        "es-MX": "Fecha Respuesta",
+        "en-US": "Date Response"
+    },
+    "Incidencias0020": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0021": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0022": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0023": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0024": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "Incidencias0025": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Incidencias0026": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Incidencias0027": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Incidencias0028": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "Incidencias0029": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "Incidencias0030": {
+        "es-MX": "Ingeniería",
+        "en-US": "Engineering"
+    },
+    "Incidencias0031": {
+        "es-MX": "Calidad",
+        "en-US": "Quality"
+    },
+    "Incidencias0032": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "Incidencias0033": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "Incidencias0034": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Incidencias0035": {
+        "es-MX": "Incidencia - Folio ",
+        "en-US": "Incidence - Folio "
+    },
+    //Listado Incidencias
+    "ListadoIncidencias0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoIncidencias0002": {
+        "es-MX": "Listado de Incidencias",
+        "en-US": "Incidences List"
+    },
+    "ListadoIncidencias0003": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidence"
+    },
+    "ListadoIncidencias0004": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoIncidencias0005": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "ListadoIncidencias0006": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoIncidencias0007": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoIncidencias0008": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "ListadoIncidencias0009": {
+        "es-MX": "Clasificación",
+        "en-US": "Classification"
+    },
+    "ListadoIncidencias0010": {
+        "es-MX": "Tipo Incidencia",
+        "en-US": "Incidence Type"
+    },
+    "ListadoIncidencias0011": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "ListadoIncidencias0012": {
+        "es-MX": "Registrado Por",
+        "en-US": "Registered by"
+    },
+    "ListadoIncidencias0013": {
+        "es-MX": "Fecha Registro",
+        "en-US": "Registration date"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
@@ -4424,6 +4635,10 @@ _dictionary = {
     "notificationslabel0067": {
         "es-MX": "No hay datos para despachar.",
         "en-US": "No data to dispatch."
+    },
+    "notificationslabel0068": {
+        "es-MX": "Favor de ingresar el nombre de usuario y contraseña",
+        "en-US": "Please enter a username and password"
     },
     //Default to copy
     "label9999": {
