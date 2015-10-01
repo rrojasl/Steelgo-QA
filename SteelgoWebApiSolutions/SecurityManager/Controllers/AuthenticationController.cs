@@ -112,6 +112,7 @@ namespace SecurityManager
                 string token = ManageTokens.Instance.CreateJwtToken(usuario);
                 token = token;
                 transaction.IsAuthenicated = true;
+                transaction.ReturnMessage.Add(usuario.Nombre + " " + usuario.ApellidoPaterno);
                 transaction.ReturnMessage.Add(token);
                 transaction.ReturnCode = 200;
                 transaction.ReturnStatus = true;

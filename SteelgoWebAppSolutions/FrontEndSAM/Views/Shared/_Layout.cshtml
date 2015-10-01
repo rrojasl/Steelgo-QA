@@ -381,7 +381,7 @@
 
             //Set the user name to the 
             if (Cookies.get("user") != null) {
-                $("#nameSpan").text(decrypt(Cookies.get("user")));
+                $("#nameSpan").text(Cookies.get("nameUserLogged"));
             }
 
             loadMessages();
