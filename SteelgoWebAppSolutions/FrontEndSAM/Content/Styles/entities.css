@@ -952,7 +952,7 @@ header .menu > div {
     overflow: hidden;
 }
 
-    #window input:not(.k-input) {
+    #window input.general-input {
         box-sizing: border-box;
         height: 40px;
         min-height: 40px;
@@ -963,7 +963,7 @@ header .menu > div {
         padding: 0 5px;
     }
 
-        #window input:not(.k-input):focus {
+        #window input.general-input:focus {
             border-color: #4486CB;
             -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
             -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
