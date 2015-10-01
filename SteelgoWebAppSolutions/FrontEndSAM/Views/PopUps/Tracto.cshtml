@@ -158,7 +158,8 @@
         $("#CancelarCamion").click(function (e) { CancelarCamion(); });
 
         $("#TipoVehiculo_Camion").data("kendoComboBox").value(1);
-        CargarTipoVehiculoTracto(1, "");
+        $("#TipoVehiculo_Camion").data("kendoComboBox").enable(false);
+        CargarTipoVehiculoTracto(1, "Tracto");
     };
 
 

@@ -116,6 +116,10 @@
             };
         });
         $("#CancelarPlana").click(function () { CancelarPlana(); });
+
+        $("#TipoVehiculo_Plana").data("kendoComboBox").value(2);
+        $("#TipoVehiculo_Plana").data("kendoComboBox").enable(false);
+        CargarTipoVehiculoPlana(1, "Plana");
     };
 
     function CargarTipoVehiculoPlana(id, value) {
