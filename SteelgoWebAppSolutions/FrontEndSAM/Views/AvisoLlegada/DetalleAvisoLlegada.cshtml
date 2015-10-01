@@ -1066,7 +1066,7 @@
                     case 3:
                         content = "@Url.Action("Plana", "PopUps")";
                         modalTitle = "Plana";
-                        height = "25%";
+                        height = "40%";
                         iframe = true;
                         break;
                     case 4:
@@ -1116,24 +1116,6 @@
                 window.data("kendoWindow").title(modalTitle);
                 window.data("kendoWindow").center().open();
             };
-       
-            //function GuardarProveedor() {
-            //    ProveedorModal = [];
-            //    ProveedorModal[0] = { ContactoID: "", Nombre: "", Descripcion: "", Direccion: "", Telefono: "" };
-            //    ProveedorModal[0].ContactoID = Contacto[0].ContactoID;
-            //    ProveedorModal[0].Nombre = $("#Nombre_Proveedor").val();
-            //    ProveedorModal[0].Descripcion = $("#Descripcion_Proveedor").val();
-            //    ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
-            //    ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
-
-            //    console.log(ProveedorModal[0]);
-
-            //    $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
-            //        LimpiarModalProveedor();
-            //        $("#window").data("kendoWindow").close();
-            //        ObtenerProveedor();
-            //    });
-            //};
 
             function GenerarPermiso() {
                 if (folio == -1) {

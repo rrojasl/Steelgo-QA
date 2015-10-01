@@ -13,6 +13,14 @@
                     <label id="DetalleAvisoLlegada0032"></label>
                     <input id="CamionID_Plana" class="" />
                 </div>
+                <div id="TransportistaDiv" class="form-group">
+                    <label id="DetalleAvisoLlegada0056"></label>
+                    <input id="Transportista" class="" />
+                </div>
+                <div id="ChoferDiv" class="form-group">
+                    <label id="DetalleAvisoLlegada0057"></label>
+                    <input id="Chofer" class="" />
+                </div>
                 <div id="Placas_PlanaDiv" class="form-group">
                     <label id="DetalleAvisoLlegada0033"></label>
                     <input id="Placas_Plana" class="" />
@@ -39,7 +47,7 @@
 
 <script>
     @section JavascriptGlobalVariables {
-    var TipoVehiculoPlana = {}, Camion = {};
+    var TipoVehiculoPlana = {}, Camion = {}, Transportista = {}, Chofer = {};
     var $PlanaModel = {
         listContainer: {
             create: "",
@@ -72,6 +80,16 @@
                 visible: "#Modelo_PlanaDiv",
                 editable: "#Modelo_Plana",
                 required: "#Modelo_Plana"
+            },
+            transportista: {
+                visible: "#TransportistaDiv",
+                editable: "#Transportista",
+                required: "#Transportista"
+            },
+            chofer: {
+                visible: "#ChoferDiv",
+                editable: "#Chofer",
+                required: "#Chofer"
             }
         }
     };
@@ -108,6 +126,29 @@
         });
         ObtenerCamion();
 
+        $("#Transportista").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "TransportistaID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+            },
+            filter: "contains",
+        });
+        ObtenerTransportista();
+
+        $("#Chofer").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ChoferID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarChofer(dataItem.ChoferID, dataItem.Nombre);
+
+            },
+            filter: "contains",
+        });
+        ObtenerChofer();
+
         $("#GuardarPlana").click(function (e) {
             if (validarRequeridosModalPlana()) {
                 GuardarPlana();
@@ -115,11 +156,12 @@
                 displayMessage("notificationslabel0031", "", '1');
             };
         });
+
         $("#CancelarPlana").click(function () { CancelarPlana(); });
 
         $("#TipoVehiculo_Plana").data("kendoComboBox").value(2);
         $("#TipoVehiculo_Plana").data("kendoComboBox").enable(false);
-        CargarTipoVehiculoPlana(1, "Plana");
+        CargarTipoVehiculoPlana(2, "Plana");
     };
 
     function CargarTipoVehiculoPlana(id, value) {
@@ -131,16 +173,36 @@
         Camion = {};
         Camion = { CamionID: id, Placas: value };
     };
+    function CargarTransportista(id, value) {
+        Transportista = {};
+        Transportista = { TransportistaID: id, Nombre: value };
+    };
 
+    function CargarChofer(id, value) {
+        Chofer = {};
+        Chofer = { ChoferID: id, Nombre: value };
+    };
+    
     function ObtenerTipoVehiculoPlana() {
         $TipoVehiculo.TipoVehiculo.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("TipoVehiculo_Plana", result);
         });
     };
-
+    
     function ObtenerCamion() {
         $Camion.Tracto.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("CamionID_Plana", result);
+        });
+    };
+    function ObtenerTransportista() {
+        $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("Transportista", result);
+        });
+    };
+
+    function ObtenerChofer() {
+        $Chofer.Chofer.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("Chofer", result);
         });
     };
 
@@ -211,8 +273,8 @@
         PlanaModal.Unidad = $("#Unidad_Plana").val();
         PlanaModal.Modelo = $("#Modelo_Plana").val();
         PlanaModal.VehiculoID = "";
-        PlanaModal.ChoferID = "";
-        PlanaModal.TransPortistaID = "";
+        PlanaModal.ChoferID = Chofer.ChoferID ? Chofer.ChoferID : "-1";
+        PlanaModal.TransPortistaID = Transportista.TransportistaID ? Transportista.TransportistaID : "-1";
         PlanaModal.TractoID = camionid;
 
         $Plana.Plana.create(PlanaModal, { token: Cookies.get("token") }).done(function (data) {
