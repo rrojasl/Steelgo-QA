@@ -145,7 +145,7 @@
     </div>
 </div>
 @*Ventana Modal*@
-<div id="windowIframe">
+<div id="window">
 
 </div>
 <input id="hdnOrdenDescargada" type="hidden" />
@@ -839,19 +839,19 @@
         function VentanaModal(id) {
             var modalTitle = "";
             var content = "";
-            var window = $("#windowIframe");
+            var window = $("#window");
             var height = "";
 
             switch (id) {
                 case 1:
                     content = "@Url.Action("Patio", "PopUps")";
                     modalTitle = "Patio";
-                    height = "20%";
+                    height = "10%";
                     break;
                 case 2:
                     content = "@Url.Action("Proveedor", "PopUps")";
                     modalTitle = "Proveedor";
-                    height = "35%";
+                    height = "25%";
                     break;
             };
 
