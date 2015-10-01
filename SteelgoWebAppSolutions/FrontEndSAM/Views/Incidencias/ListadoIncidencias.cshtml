@@ -251,13 +251,11 @@
         });
     };
  
-    function mostrarDetalle(folioAvisoLlegadaID, foliocuantificacion) {
-        window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
+    function mostrarDetalle(FolioIncidenciaID) {
+        window.location.href = _IncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioIncidenciaID=" + FolioIncidenciaID + "&Edicion=1";
     };
     
-    function mostrarDetalleComplemento(foliocuantificacion) {
-        window.location.href = _complementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&Edicion=1&FolioCuantificacionID=" + foliocuantificacion;
-    };
+
     function Filtros() {
         var Listado;
         AccionesListado();

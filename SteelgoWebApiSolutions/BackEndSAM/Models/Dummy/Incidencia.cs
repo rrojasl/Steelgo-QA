@@ -23,5 +23,6 @@ namespace BackEndSAM.Models
         public string RespondidoPor { get; set; }
         public string FechaRespuesta { get; set; }
         public bool TieneIncidencia { get; set; }
+        public List<ListaDocumentos> Archivos { get; set; }
     }
 }

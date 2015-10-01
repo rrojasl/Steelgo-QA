@@ -37,9 +37,47 @@ namespace BackEndSAM.Controllers
         //}
 
         // GET api/incidencias/5
-        public string Get(int id)
+        public Incidencia Get(int folioIncidenciaID)
         {
-            return "value";
+            Incidencia incidencia = new Incidencia();
+            incidencia.Version = "11";
+            incidencia.FolioIncidenciaID = 2;
+            incidencia.ClasificacionID = 1;
+            incidencia.TipoIncidenciaID = 1;
+            incidencia.Version = "15";
+            incidencia.Titulo = "Titulo Prueba";
+            incidencia.Descripcion = "Descripcion 1";
+            incidencia.Respuesta = "Respuesta 1";
+            incidencia.MotivoCancelacion = "Motivo Cancelacion 1";
+            incidencia.DetalleResolucion = "Detalle Resolucion 1";
+            incidencia.RegistradoPor = "Registrado por 1";
+            incidencia.FechaRegistro = "2015-09-25";
+            incidencia.ResueltoPor = "Resuelto por 1";
+            incidencia.FechaResolucion = "2015-09-26";
+            incidencia.RespondidoPor = "Respondido por";
+            incidencia.FechaRespuesta = "2015-09-27";
+
+            List<ListaDocumentos> lstListaDocumentos = new List<ListaDocumentos>();
+            ListaDocumentos documento1 = new ListaDocumentos();
+            documento1.DocumentoID = "1";
+            documento1.Extencion = ".doc";
+            documento1.Nombre = "Archivo 1";
+            documento1.TipoArchivo = "Incidencia";
+            documento1.Url = "www.google.com";
+            documento1.Descripcion = "Prueba 1";
+            lstListaDocumentos.Add(documento1);
+
+            ListaDocumentos documento2 = new ListaDocumentos();
+            documento2.DocumentoID = "2";
+            documento2.Extencion = ".docx";
+            documento2.Nombre = "Archivo 2";
+            documento2.TipoArchivo = "Incidencia 2";
+            documento2.Url = "www.com";
+            documento2.Descripcion = "Prueba 2";
+            lstListaDocumentos.Add(documento2);
+
+            incidencia.Archivos = lstListaDocumentos;
+            return incidencia;
         }
 
         // POST api/incidencias
