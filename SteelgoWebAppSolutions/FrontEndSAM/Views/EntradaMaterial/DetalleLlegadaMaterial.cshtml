@@ -42,7 +42,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a id="GuardarNuevo" href="#"><span id="LlegadaMaterial0037"></span></a></li>
-                                    <li><a href="#"><span id="LlegadaMaterial0038"></span></a></li>
+                                    @*<li><a href="#"><span id="LlegadaMaterial0038"></span></a></li>*@
                                 </ul>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
@@ -1019,13 +1019,13 @@
             Documentos = [];
             ProyectoIDs = [];
 
+            CargarDefaults();
+
             var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
             $.each(proyectos, function (index, value) {
                 ProyectoIDs[index] = value;
             });
 
-            
-            CargarDefaults();
 
             $('#listaArchivos > tbody  > tr').each(function (index, value) {
                 if ($(this).find("td:first").length > 0) {
@@ -1107,7 +1107,8 @@
                 ocultarStatus();
                 $("#LlegadaMaterial0063").show();
             };
-        }
+        };
+
         function CargarDefaults() {
             $("#formLlegadaMaterial :not(.security_required)").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
