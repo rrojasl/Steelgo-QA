@@ -37,6 +37,7 @@
 <script>
 @section JavascriptGlobalVariables {
     dataBoundCounter = 0;
+    csvTypes=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
     models = {
         "1": {
             id: "PatioID",
@@ -570,14 +571,18 @@
                     ids.forEach(function(i){
                         i.field.length-i.field.toUpperCase().indexOf("ID")==2 ? grid.hideColumn(i.field) : null;
                     });
-                    var options = grid.options;
-                    grid.destroy();
-                    $("#grid").empty().kendoGrid(options);
+                    regenerarGrid();
                 }
             }
         });
         loadingStop();
     };
+
+    function regenerarGrid(){
+        var options = $("#grid").data("kendoGrid").options;
+        $("#grid").data("kendoGrid").destroy();
+        $("#grid").empty().kendoGrid(options);
+    }
 
     function parseUrl(data, catalogo, method) {
         for(key in data){
@@ -653,14 +658,71 @@
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" class="" /> </div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Carga masiva</label> <input name="files" id="files" type="file" /> </div><a href="#" id="templateced">Descargar template</a></div>');
-                $("#files").kendoUpload();
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fconversion">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn">Cargar</button></div><a href="#" id="templateced">Descargar plantilla</a></div>');
+                $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
+                    $("#fconversion").val(result);
+                });
+                document.getElementById("files").addEventListener("change",function(evt){
+                    if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+                        alert(_dictionary.ListadoCatalogos0007[$("#language").data("kendoDropDownList").value()]);
+                    } else {
+                        var data = null;
+                        var file = evt.target.files[0];
+                        if(csvTypes.indexOf(file.type.toLowerCase())==-1){
+                            this.value=null;
+                            alert(_dictionary.ListadoCatalogos0008[$("#language").data("kendoDropDownList").value()]);
+                        }else{
+                            var reader = new FileReader();
+                            reader.readAsText(file);
+                            reader.onload = function(event) {
+                                var csvData = event.target.result;
+                                var errors=false;
+                                csvToJson(csvData,"CedulaID").forEach(function(c){
+                                    //if(validData(c)){
+                                    $("#grid").data("kendoGrid").dataSource.insert(c);
+                                    //}
+                                });
+                            };
+                            reader.onerror = function() {
+                                alert('Unable to read ' + file.fileName);
+                            };
+                            reader.onloadend=function(){
+                                var nuevos=$.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
+                                    if($("#grid").data("kendoGrid").dataItem(n).id==null){
+                                        n.style.backgroundColor="#E3FCCB";
+                                    }
+                                })
+                            }
+                        }
+                    }
+                });
                 removeGrid();
                 $("#grid").kendoGrid({
+                    columns: [
+                        { field: "Diametro" },
+                        { field: "CedulaA",title:"Cedula A" },
+                        { field: "CedulaB",title:"Cedula B" },
+                        { field: "CedulaC",title:"Cedula C" },
+                        { field: "CedulaIn",title:"Cedula In" },
+                        { field: "CedulaMM",title:"Cedula MM" },
+                        { field: "Espesor" },
+                    ],
                     dataSource: {
                         data: [],
                         schema: {
-                            model: {}
+                            model: {
+                                id: "CedulaID",
+                                fields: {
+                                    CedulaID: { type: "number", editable: false, nullable: true },
+                                    Diametro: { type: "number", validation: { required: false } },
+                                    CedulaA: { type: "string", validation: { required: false } },
+                                    CedulaB: { type: "string", validation: { required: false } },
+                                    CedulaC: { type: "string", validation: { required: false } },
+                                    CedulaIn: { type: "number", validation: { required: false } },
+                                    CedulaMM: { type: "number", validation: { required: false } },
+                                    Espesor: { type: "number", validation: { required: true } },
+                                }
+                            }
                         },
                         serverPaging: false,
                         serverFiltering: false,
@@ -671,7 +733,7 @@
                         serverSorting: false,
                         transport:{
                             read:{
-                                url:"",
+                                url:$Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=11&token=" +Cookies.get("token"),
                                 dataType:"json",
                                 type:"GET",
                                 cache: false
@@ -683,7 +745,7 @@
                             }
                         },
                         autoHeight: true,
-                        sortable: true,
+                        sortable: false,
                         scrollable: false,
                         filterable: {
                             extra: false,
@@ -717,6 +779,30 @@
             }
         }
     })
+
+    function csvToJson(data,idField){
+        data=data.split("\n");
+        data.shift();
+        data.pop();
+        data=data.join("\n");
+        data=data.split("\r").join("");
+        var encabezados=Object.keys($("#grid").data("kendoGrid").options.dataSource.schema.model.fields);
+        encabezados.splice(encabezados.indexOf(idField),1);
+        var csv=[];
+        data.split("\n").forEach(function(d,i){
+            if(d.split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
+                var tmp={};
+                tmp[idField]=null;
+                d.split(",").forEach(function(cell,z){
+                    tmp[encabezados[z]]=cell;
+                });
+                csv.push(tmp);
+            }else{
+                console.log("Verifica que la cantidad de datos de las filas coincida con la plantilla");
+            }
+        })
+        return csv;
+    }
 
     function dropdownSiNo(container, options) {
         function getvalor(){ for(key in options.model){ if(options.model[key]==="Si" || options.model[key]==="No"){ return options.model[key] } } return "Ninguno"; };
