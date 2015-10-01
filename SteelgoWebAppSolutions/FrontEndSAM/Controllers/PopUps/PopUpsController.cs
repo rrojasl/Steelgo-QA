@@ -44,5 +44,10 @@ namespace FrontEndSAM.Controllers
         {
             return View();
         }
+
+        public ActionResult Plana()
+        {
+            return View();
+        }
     }
 }
