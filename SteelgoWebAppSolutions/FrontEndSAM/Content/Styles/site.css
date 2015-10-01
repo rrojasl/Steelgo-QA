@@ -268,7 +268,8 @@ input {
         font-weight: 600;
     }
 
-    input:not(.k-input).error {
+    /*Para inputs no generados por kendo-ui*/
+    input.general-input.error {
         border-color: #EC4F50 !important;
     }
 
