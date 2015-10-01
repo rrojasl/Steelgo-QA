@@ -868,11 +868,11 @@
 
                 //**Eventos
                 $("#Guardar").click(function (e) {
-                   // if(validarRequeridosFormaAvisoLlegada()){
+                    if(validarRequeridosFormaAvisoLlegada()){
                         GuardarAvisoLlegada(false);
-                    //} else {
-                    //    displayMessage("notificationslabel0031", "", '1');
-                    //}
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                    }
                 });
 
                 $("#GuardarNuevo").click(function (e) {
