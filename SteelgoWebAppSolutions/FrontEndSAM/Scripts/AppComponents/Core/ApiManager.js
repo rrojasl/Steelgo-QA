@@ -116,6 +116,7 @@ var $TipoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -205,3 +206,4 @@ $TipoIncidencia.add("TipoIncidencia");
 $CatalogoICSteelgo.add("CatalogoICSteelgo");
 $Incidencia.add("Incidencia");
 $DocumentoIncidencia.add("DocumentoIncidencia");
+$DocumentosCatalogos.add("DocumentosCatalogos");

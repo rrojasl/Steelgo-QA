@@ -1154,6 +1154,7 @@
     <Content Include="Views\PopUps\Tracto.cshtml" />
     <Content Include="Views\PopUps\Plana.cshtml" />
     <Content Include="Views\PopUps\Colada.cshtml" />
+    <Content Include="Views\PopUps\Archivos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
