@@ -184,6 +184,7 @@
     <Compile Include="Controllers\FoliosCuantificacionController.cs" />
     <Compile Include="Controllers\DummyGuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\GenerarOrdenAlmacenajeController.cs" />
+    <Compile Include="Controllers\GrupoController.cs" />
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="DataAcces\FabricantesBd.cs" />
     <Compile Include="DataAcces\FamiliaBd.cs" />
     <Compile Include="DataAcces\FolioAvisoEntradaBd.cs" />
+    <Compile Include="DataAcces\GrupoBd.cs" />
     <Compile Include="DataAcces\GuardarFolioLlegadaCuantificacionBd.cs" />
     <Compile Include="DataAcces\GuardarItemCodesBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />

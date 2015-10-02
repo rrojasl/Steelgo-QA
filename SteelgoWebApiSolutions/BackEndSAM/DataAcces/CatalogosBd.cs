@@ -1290,7 +1290,7 @@ namespace BackEndSAM.DataAcces
                                  Diametro1 = ics.Diametro1.ToString(),
                                  Diametro2 = ics.Diametro2.ToString(),
                                  Grupo = g.Nombre,
-                                 FamiliaAceroID = ics.FamiliaAceroID.ToString(),
+                                 AceroID = ics.FamiliaAceroID.ToString(),
                                  CedulaA = c.CedulaA,
                                  CedulaB = c.CedulaB,
                                  Libra = c.CedulaC,
@@ -1305,8 +1305,8 @@ namespace BackEndSAM.DataAcces
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     lista.ForEach(x =>
-                        x.TipoAcero = (from fa in ctx2.FamiliaAcero
-                                       where fa.FamiliaAceroID.ToString() == x.FamiliaAceroID
+                        x.Acero = (from fa in ctx2.FamiliaAcero
+                                       where fa.FamiliaAceroID.ToString() == x.AceroID
                                        select fa.Nombre).AsParallel().SingleOrDefault());
                 }
 
@@ -1330,7 +1330,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="datos"></param>
         /// <returns></returns>
-        public object guardarItemCodeSteelgo(ICSDatosAsociacion datos)
+        public object guardarItemCodeSteelgo(ICSDatosAsociacion datos, Sam3_Usuario usuario)
         {
             try
             {
@@ -1339,27 +1339,45 @@ namespace BackEndSAM.DataAcces
                     Sam3_ItemCodeSteelgo ICSteelgo = new Sam3_ItemCodeSteelgo();
                     ICSteelgo.Codigo = datos.Codigo;
                     ICSteelgo.DescripcionEspanol = datos.Descripcion;
+                    //Descripcion larga es
+                    //Descripcion corta ing
                     ICSteelgo.DescripcionIngles = datos.DescripcionIngles;
                     ICSteelgo.Diametro1 = Convert.ToDecimal(datos.Diametro1);
                     ICSteelgo.Diametro2 = Convert.ToDecimal(datos.Diametro2);
+                    ICSteelgo.GrupoID = Convert.ToInt32(datos.GrupoID);
+                    ICSteelgo.CedulaID = Convert.ToInt32(datos.CedulaID);
+                    ICSteelgo.Peso = Convert.ToDecimal(datos.Peso);
+                    ICSteelgo.Area = Convert.ToInt32(datos.Area);
+                    ICSteelgo.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
+                    ICSteelgo.Activo = true;
+                    ICSteelgo.UsuarioModificacion = usuario.UsuarioID;
+                    ICSteelgo.FechaModificacion = DateTime.Now;
 
                     ctx.Sam3_ItemCodeSteelgo.Add(ICSteelgo);
 
-                    //Insertar grupo
-                    //Sam3_grupo grupo = new Sam3_grupo();
-
-                    //Insertar Cedulas
-                    //Sam3_Cedula cedula = new Sam3_Cedula();
-
                     ctx.SaveChanges();
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
+                    return new ICSDatosAsociacion
+                    {
+                        ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID.ToString(),
+                        Codigo = ICSteelgo.Codigo,
+                        Descripcion = ICSteelgo.DescripcionEspanol,
+                        //DescripcionLarga = ICSteelgo.DescripcionEspanolLarga,
+                        DescripcionIngles = ICSteelgo.DescripcionIngles,
+                        //DescripcionLargaIngles = ICSteelgo.DescripcionInglesLarrga,
+                        Diametro1 = ICSteelgo.Diametro1.ToString(),
+                        Diametro2 = ICSteelgo.Diametro2.ToString(),
+                        Grupo = datos.Grupo,
+                        Acero = datos.Acero,
+                        CedulaA = datos.CedulaA,
+                        CedulaB = datos.CedulaB,
+                        Libra = datos.Libra,
+                        Inch = datos.Inch,
+                        MM = datos.MM,
+                        Espesor = datos.Espesor,
+                        Peso = ICSteelgo.Peso.ToString(),
+                        Area = ICSteelgo.Area.ToString()
+                    };
                 }
             }
             catch (Exception ex)
@@ -1373,5 +1391,34 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        //public object obtenerCedulasICS(CatalogoCedulas datosCedulas)
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            Sam3_Cedula cedula = (from c in ctx.Sam3_Cedula
+        //                                  where c.Activo &&
+        //                                  (c.Diametro.ToString() == datosCedulas.Diametro ||
+        //                                  c.CedulaA = datosCedulas ||
+        //                                  )
+        //                                  select new CatalogoCedulas 
+        //                                  {
+
+        //                                  }).AsParallel().SingleOrDefault();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+
+        //        return result;
+        //    }
+        //}
     }
 }
