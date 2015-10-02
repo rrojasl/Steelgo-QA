@@ -1543,13 +1543,13 @@ namespace BackEndSAM.DataAcces
         /// <param name="id">id del elemento a eliminar</param>
         /// <param name="usuario">usuario actual</param>
         /// <returns></returns>
-        public object EliminarItemCodeSteelgo(string id, Sam3_Usuario usuario)
+        public object EliminarItemCodeSteelgo(int id, Sam3_Usuario usuario)
         {
             try 
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_ItemCodeSteelgo ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == id && x.Activo).AsParallel().SingleOrDefault();
+                    Sam3_ItemCodeSteelgo ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID == id && x.Activo).AsParallel().SingleOrDefault();
                     ics.Activo = false;
                     ics.UsuarioModificacion = usuario.UsuarioID;
                     ics.FechaModificacion = DateTime.Now;
