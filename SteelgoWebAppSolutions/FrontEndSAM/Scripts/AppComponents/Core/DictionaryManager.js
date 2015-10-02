@@ -782,6 +782,14 @@ _dictionary = {
         "es-MX": "Choferes",
         "en-US": "Drivers"
     },
+    "ListadoCatalogos0007": {
+        "es-MX": "Tu navegador web no es plenamente compatible, por favor usa uno más reciente",
+        "en-US": "You web browser is not fully compatible, please use a more recent one"
+    },
+    "ListadoCatalogos0008": {
+        "es-MX": "Por favor, sube un archivo CSV valido",
+        "en-US": "Please, upload a valid CSV file"
+    },
     "ItemCodeSteelGo0001": {
         "es-MX": "Item Code SteelGo",
         "en-US": "Item Code SteelGo"

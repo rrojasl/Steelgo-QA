@@ -268,7 +268,8 @@ input {
         font-weight: 600;
     }
 
-    input:not(.k-input).error {
+    /*Para inputs no generados por kendo-ui*/
+    input.general-input.error {
         border-color: #EC4F50 !important;
     }
 
@@ -294,7 +295,8 @@ input {
     font-weight: 600;
 }
 
-.content-container .form input:not(.k-input) {
+/*Para inputs no generados por kendo-ui*/
+.content-container .form input.general-input {
     height: 40px;
     min-height: 40px;
     color: #1B3F70;
@@ -305,7 +307,7 @@ input {
     z-index: 1;
 }
 
-    .content-container .form input:not(.k-input):focus {
+    .content-container .form input.general-input:focus {
         border-color: #4486CB;
         -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
         -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
@@ -823,6 +825,38 @@ h2 {
         margin-top: -1px;
         margin-left: -1px!important;
     }
+
+    .btn.btn-tabList {
+        height: 50px;
+        white-space: normal;
+        padding: 4px;
+    }
+
+        .btn.btn-tabList.active {
+            height: 54px;
+        }
+
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    /*input*/
+    input.quickFilters,
+    .expanded input.quickFilters {
+        width: 25%;
+    }
+
+        input.quickFilters:first-of-type,
+        .expanded input.quickFilters:first-of-type {
+            width: 24.85%;
+        }
+
+        input.quickFilters:last-of-type,
+        .expanded input.quickFilters:last-of-type {
+            width: 25.96%;
+        }  
 
 }
 

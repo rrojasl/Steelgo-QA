@@ -1,5 +1,6 @@
 ﻿using BackEndSAM.DataAcces;
 using BackEndSAM.Models;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System.Web.Http;
@@ -42,8 +43,9 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 ICSDatosAsociacion datosICS = serializer.Deserialize<ICSDatosAsociacion>(data);
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CatalogosBd.Instance.guardarItemCodeSteelgo(datosICS);
+                return CatalogosBd.Instance.guardarItemCodeSteelgo(datosICS, usuario);
             }
             else
             {
