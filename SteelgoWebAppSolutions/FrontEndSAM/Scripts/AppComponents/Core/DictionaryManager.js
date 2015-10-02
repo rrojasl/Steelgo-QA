@@ -4306,6 +4306,7 @@ _dictionary = {
         "es-MX": "Incidencia - Folio ",
         "en-US": "Incidence - Folio "
     },
+
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Inicio",
@@ -4631,6 +4632,14 @@ _dictionary = {
     "notificationslabel0068": {
         "es-MX": "Favor de ingresar el nombre de usuario y contraseña",
         "en-US": "Please enter a username and password"
+    },
+    "notificationslabel0069": {
+        "es-MX": "Favor de ingresar el motivo de cancelación.",
+        "en-US": "Please enter the reason for cancellation."
+    },
+    "notificationslabel0070": {
+        "es-MX": "Favor de ingresar el detalle de resolución.",
+        "en-US": "Please enter the detail resolution."
     },
     //Default to copy
     "label9999": {
