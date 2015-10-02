@@ -38,6 +38,10 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtener los grupos para el combo del Catalogo Item Code Steelgo
+        /// </summary>
+        /// <returns>lista de Grupos</returns>
         public object obtenerListadoGrupo()
         {
             try

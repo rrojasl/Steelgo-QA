@@ -49,5 +49,10 @@ namespace FrontEndSAM.Controllers
         {
             return View();
         }
+
+        public ActionResult Colada()
+        {
+            return View();
+        }
     }
 }

@@ -43,7 +43,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="DetalleOrdenAlmacenaje0005"></span></a></li>
-                                    <li><a><span id="DetalleOrdenAlmacenaje0006"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="DetalleOrdenAlmacenaje0006"></span></a></li>
                                     <li><a id="NuevaCaptura"><span id="DetalleOrdenAlmacenaje0007"></span></a></li>
                                 </ul>
                             </div>
@@ -89,6 +89,8 @@
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenAlmacenaje", "OrdenAlmacenaje")";
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+
     var $GenerarOrdenAlmacenajeModel = {
         listContainer: {
             create: "#Guardar",
@@ -114,6 +116,7 @@
     function CargaInicial() {
         $("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);
         $("#Editar").click(function () { HabilitarCampos(); $("#edicion").val(1); });
+        $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -451,6 +454,9 @@
         });
     };
 
+    function Incidencias() {
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+    };
 
     
     function CancelarFolio(row) {

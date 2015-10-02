@@ -36,6 +36,7 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    nuevasCedulas=[];
     dataBoundCounter = 0;
     csvTypes=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
     models = {
@@ -134,31 +135,6 @@
                 Nombre: { type:"string",validation: { required: true } },
             }
         },
-        //"10":{
-        //    id: "AceroID",
-        //    fields: {
-        //        AceroID: { editable: false, nullable: true },
-        //        FamiliaAceroID: { type: "number", validation: { required: true } },
-        //        FamiliaAcero: { type: "string", validation: { required: true } },
-        //        Nomenclatura: { type: "string", validation: { required: true } },
-        //        VerificadoPorCalidad: { type: "string" }
-        //    }
-        //},
-        //"11": {
-        //    id: "ColadasID",
-        //    fields: {
-        //        ColadaID: { editable: false, nullable: true },
-        //        FabricanteID: { type: "number", validation: { required: true } },
-        //        Fabricante: { type: "string", validation: { required: true } },
-        //        AceroID: { type: "number", validation: { required: true } },
-        //        Acero: { type: "string", validation: { required: true } },
-        //        ProyectoID: { type: "number", validation: { required: true } },
-        //        Proyecto: { type: "string", validation: { required: true } },
-        //        NumeroColada: { type: "string" },
-        //        NumeroCertificado: { type: "string" },
-        //        HoldCalidad: { type: "string" }
-        //    }
-        //},
         "10": {
             id: "FabricanteID",
             fields: {
@@ -347,104 +323,6 @@
                 }
             }
         },
-        //"10": {
-        //    "FamiliaAcero": {
-        //        field: "FamiliaAcero",
-        //        title: "Familia Acero",
-        //        editor: function (container, options) {
-        //            $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-        //                dataSource: {
-        //                    transport: {
-        //                        read: {
-        //                            dataType: "json",
-        //                            url: $Familia.Familia.urlNoId + "?token=" + Cookies.get("token")
-        //                        }
-        //                    }
-        //                },
-        //                close: function (e) {
-        //                    var data = getDropData(e);
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAceroID = data.id;
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].FamiliaAcero = data.nombre;
-        //                },
-        //                dataTextField: "Nombre",
-        //                dataValueField: "FamiliaAceroID"
-        //            });
-        //        }
-        //    },
-        //    "VerificadoPorCalidad": { field: "VerificadoPorCalidad", title: "VerificadoPorCalidad", editor: dropdownSiNo },
-        //},
-        //"11": {
-        //    "Fabricante": {
-        //        field: "Fabricante",
-        //        title: "Fabricante",
-        //        editor: function (container, options) {
-        //            $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-        //                dataSource: {
-        //                    transport: {
-        //                        read: {
-        //                            dataType: "json",
-        //                            url: $Fabricantes.Fabricantes.urlNoId + "?token=" + Cookies.get("token")
-        //                        }
-        //                    }
-        //                },
-        //                close: function (e) {
-        //                    var data = getDropData(e);
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].FabricanteID = data.id;
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].Fabricante = data.nombre;
-        //                },
-        //                dataTextField: "Nombre",
-        //                dataValueField: "FabricanteID"
-        //            });
-        //        }
-        //    },
-        //    "Acero": {
-        //        field: "Acero",
-        //        title: "Acero",
-        //        editor: function (container, options) {
-        //            $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-        //                dataSource: {
-        //                    transport: {
-        //                        read: {
-        //                            dataType: "json",
-        //                            url: $TipoAcero.TipoAcero.urlNoId + "?token=" + Cookies.get("token")
-        //                        }
-        //                    }
-        //                },
-        //                close: function (e) {
-        //                    var data = getDropData(e);
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].AceroID = data.id;
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].Acero = data.nombre;
-        //                },
-        //                dataTextField: "Nomenclatura",
-        //                dataValueField: "AceroID"
-        //            });
-        //        }
-        //    },
-        //    "Proyecto": {
-        //        field: "Proyecto",
-        //        title: "Proyecto",
-        //        editor: function (container, options) {
-        //            $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-        //                dataSource: {
-        //                    transport: {
-        //                        read: {
-        //                            dataType: "json",
-        //                            url: $Proyecto.Proyecto.urlNoId + "?token=" + Cookies.get("token")
-        //                        }
-        //                    }
-        //                },
-        //                close: function (e) {
-        //                    var data = getDropData(e);
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].ProyectoID = data.id;
-        //                    $("#grid").data("kendoGrid")._data[data.posicion].Proyecto = data.nombre;
-        //                },
-        //                dataTextField: "Nombre",
-        //                dataValueField: "ProyectoID"
-        //            });
-        //        }
-        //    },
-        //    "HoldCalidad": { field: "HoldCalidad", title: "HoldCalidad", editor: dropdownSiNo }
-        //},
         "10": {
             "Contacto": {
                 field: "Contacto",
@@ -526,10 +404,7 @@
             save: function (e) {
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
                 var grid = $("#grid").data("kendoGrid");
-                var data = {};
-                for (f in models[catalogo].fields) {
-                    data[f] = e.model[f];
-                }
+                var data=getDataFromModel(models[catalogo].fields,e.model);
                 if(e.model.id!==null && e.model.id!==""){
                     var direccion=parseUrl(data,catalogo,"put");
                     grid.options.dataSource.options.transport.update.url=direccion;
@@ -550,7 +425,7 @@
                     var direccion=parseUrl(data,catalogo,"delete");
                     grid.options.dataSource.options.transport.destroy.url=direccion;
                 }else{
-                    alert("Ha ocurrido un error: El elemento aun no existe en la BD");
+                    alert(_dictionary.ListadoCatalogos0009[$("#language").data("kendoDropDownList").value()]);
                 }
             },
             dataBound: function (e) {
@@ -578,6 +453,14 @@
         loadingStop();
     };
 
+    function getDataFromModel(fields,model){
+        var data = {};
+        for (f in fields) {
+            data[f] = model[f];
+        }
+        return data;
+    }
+
     function regenerarGrid(){
         var options = $("#grid").data("kendoGrid").options;
         $("#grid").data("kendoGrid").destroy();
@@ -587,7 +470,7 @@
     function parseUrl(data, catalogo, method) {
         for(key in data){
             data[key]==="Si" ? data[key]=true : 0;
-            data[key]==="No" ? data[key]=true : 0;
+            data[key]==="No" ? data[key]=false : 0;
         }
         if (method !== "delete") {
             return getUrl() + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
@@ -655,13 +538,27 @@
         change: function (e) {
             dataBoundCounter = 0;
             if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value()!="11") {
+                nuevasCedulas=[];
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fconversion">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn">Cargar</button></div><a href="#" id="templateced">Descargar plantilla</a></div>');
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fconversion">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a href="#" id="templateced">Descargar plantilla</a></div>');
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
                     $("#fconversion").val(result);
                 });
+                $("#fcarga").on("click",function(){
+                    if(nuevasCedulas.length!=0){
+                        var data=[];
+                        nuevasCedulas.forEach(function(c){
+                            data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields,c));
+                        })
+                        $.post(parseUrl(data,$("#listaCatalogos").data("kendoDropDownList").value(),"post")).done(function(result){
+                            regenerarGrid();
+                        });
+                    }else{
+                        alert(_dictionary.ListadoCatalogos0010[$("#language").data("kendoDropDownList").value()]);
+                    }
+                })
                 document.getElementById("files").addEventListener("change",function(evt){
                     if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
                         alert(_dictionary.ListadoCatalogos0007[$("#language").data("kendoDropDownList").value()]);
@@ -676,22 +573,35 @@
                             reader.readAsText(file);
                             reader.onload = function(event) {
                                 var csvData = event.target.result;
-                                var errors=false;
                                 csvToJson(csvData,"CedulaID").forEach(function(c){
-                                    //if(validData(c)){
-                                    $("#grid").data("kendoGrid").dataSource.insert(c);
-                                    //}
+                                    if(validData(c)){
+                                        $("#grid").data("kendoGrid").dataSource.insert(c);
+                                    }else{
+                                        c["valido"]=false;
+                                        $("#grid").data("kendoGrid").dataSource.insert(c);
+                                    }
                                 });
                             };
                             reader.onerror = function() {
                                 alert('Unable to read ' + file.fileName);
                             };
                             reader.onloadend=function(){
+                                var valido=true;
                                 var nuevos=$.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
-                                    if($("#grid").data("kendoGrid").dataItem(n).id==null){
+                                    return $("#grid").data("kendoGrid").dataItem(n).id===null;
+                                });
+                                nuevos.forEach(function(n){
+                                    if($("#grid").data("kendoGrid").dataItem(n).valido!==false){
                                         n.style.backgroundColor="#E3FCCB";
+                                        nuevasCedulas.push($("#grid").data("kendoGrid").dataItem(n));
+                                    }else{
+                                        n.style.backgroundColor="#FEDEE8";
+                                        valido=false;
                                     }
-                                })
+                                });
+                                if(!valido){
+                                    alert(_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()]);
+                                }
                             }
                         }
                     }
@@ -780,6 +690,34 @@
         }
     })
 
+    function validData(c){
+        var modelo=$("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
+        var valido=true;
+        for(n in modelo){
+            switch(modelo[n]["type"]){
+                case "string":
+                    if(modelo[n]["type"]!=typeof c[n]){
+                        valido==false;
+                    }
+                    break;
+                case "number":
+                    if(!$.isNumeric(c[n])){
+                        valido=false;
+                    }
+                    break;
+                case "boolean":
+                    if(!(true.toString()==c[n] || false.toString()==c[n])){
+                        valido==false
+                    }
+                    break;
+            }
+            if((c[n]==null) && (modelo[n]["nullable"]==true)){
+                valido=true;
+            }
+        }
+        return valido;
+    }
+
     function csvToJson(data,idField){
         data=data.split("\n");
         data.shift();
@@ -789,18 +727,26 @@
         var encabezados=Object.keys($("#grid").data("kendoGrid").options.dataSource.schema.model.fields);
         encabezados.splice(encabezados.indexOf(idField),1);
         var csv=[];
-        data.split("\n").forEach(function(d,i){
-            if(d.split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
-                var tmp={};
-                tmp[idField]=null;
-                d.split(",").forEach(function(cell,z){
-                    tmp[encabezados[z]]=cell;
-                });
-                csv.push(tmp);
+        try{
+            data.split("\n").forEach(function(d,i){
+                if(d.split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
+                    var tmp={};
+                    tmp[idField]=null;
+                    d.split(",").forEach(function(cell,z){
+                        tmp[encabezados[z]]=cell;
+                    });
+                    csv.push(tmp);
+                }else{
+                    throw -1;
+                }
+            })
+        }catch(e){
+            if (e!==-1){ 
+                throw e;
             }else{
-                console.log("Verifica que la cantidad de datos de las filas coincida con la plantilla");
+                alert(_dictionary.ListadoCatalogos0012[$("#language").data("kendoDropDownList").value()]);
             }
-        })
+        }
         return csv;
     }
 
@@ -818,14 +764,14 @@
             ]
         });
     }
-    };
+};
 
-    @section JavascriptDocumentReadyFunctions {
-    };
+@section JavascriptDocumentReadyFunctions {
+};
     
-    @section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "7", { path: '/' });
-    };
+@section JavascriptDocumentReadyHomeCookie {
+//Cookies.set("home", true, { path: '/' });
+//Cookies.set("navegacion", "7", { path: '/' });
+};
 
 </script>

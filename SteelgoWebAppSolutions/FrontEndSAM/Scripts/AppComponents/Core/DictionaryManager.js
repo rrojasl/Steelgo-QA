@@ -790,6 +790,22 @@ _dictionary = {
         "es-MX": "Por favor, sube un archivo CSV valido",
         "en-US": "Please, upload a valid CSV file"
     },
+    "ListadoCatalogos0009": {
+        "es-MX": "Ha ocurrido un error: El elemento aun no existe en la BD",
+        "en-US": "There had been an error: The element does not exists yet in the DataBase"
+    },
+    "ListadoCatalogos0010": {
+        "es-MX": "Antes de cargar datos al sistema, sube un archivo",
+        "en-US": "Before of load data to the system, upload a file"
+    },
+    "ListadoCatalogos0011": {
+        "es-MX": "Las filas en rojo muestran datos inválidos que no serán cargados",
+        "en-US": "Red rows shows invalid data which wont be uploaded"
+    },
+    "ListadoCatalogos0012": {
+        "es-MX": "Verifica que la cantidad de datos en las columnas coincida con la plantilla",
+        "en-US": "Verify the number of data in the columns is same than template file"
+    },
     "ItemCodeSteelGo0001": {
         "es-MX": "Item Code SteelGo",
         "en-US": "Item Code SteelGo"
@@ -1494,8 +1510,8 @@ _dictionary = {
         "en-US": "Print Order Reception"
     },
     "Cuantificacion0083": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Cuantificacion0084": {
         "es-MX": "Dashboard Recepción y Almacenaje",
@@ -1935,8 +1951,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "GenerarOrdenRecepcion0005": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "GenerarOrdenRecepcion0006": {
         "es-MX": "Proyecto",
@@ -2146,8 +2162,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "DetalleOrdenRecepcion0004": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "DetalleOrdenRecepcion0005": {
         "es-MX": "Item Code ID",
@@ -2247,8 +2263,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "DetalleOrdenAlmacenaje0006": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "DetalleOrdenAlmacenaje0007": {
         "es-MX": "Nueva captura",
@@ -2441,8 +2457,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "GenerarOrdenAlmacenaje0011": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "GenerarOrdenAlmacenaje0012": {
         "es-MX": "Proyecto",
@@ -2941,8 +2957,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "ComplementoRecepcion0012": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "ComplementoRecepcion0013": {
         "es-MX": "Proyecto",
@@ -3561,8 +3577,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Almacenaje0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Almacenaje0009": {
         "es-MX": "Proyecto",
@@ -3646,8 +3662,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Despacho0007": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Despacho0008": {
         "es-MX": "Spool ID",
@@ -3755,8 +3771,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Corte0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Corte0009": {
         "es-MX": "Máquina",
