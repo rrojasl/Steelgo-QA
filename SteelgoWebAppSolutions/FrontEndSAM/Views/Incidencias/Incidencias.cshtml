@@ -59,11 +59,11 @@
                                 </div>
                                 <div id="VersionDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0005"></label>
-                                    <input id="Version" class="" disabled />
+                                    <input id="Version" class="general-input" disabled />
                                 </div>
                                 <div id="TituloDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0006"></label>
-                                    <input id="Titulo" class="" />
+                                    <input id="Titulo" class="general-input" />
                                 </div>
                                 <div id="DescripcionDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0007"></label>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div id="RegistradoPorDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0014"></label>
-                                    <input id="RegistradoPor" class="" />
+                                    <input id="RegistradoPor" class="general-input" />
                                 </div>
                                 <div id="FechaRegistroDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0015"></label>
@@ -91,7 +91,7 @@
                                 </div>
                                 <div id="ResueltoPorDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0016"></label>
-                                    <input id="ResueltoPor" class="" />
+                                    <input id="ResueltoPor" class="general-input" />
                                 </div>
                                 <div id="FechaResolucionDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0017"></label>
@@ -99,7 +99,7 @@
                                 </div>
                                 <div id="RespondidoPorDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0018"></label>
-                                    <input id="RespondidoPor" class="" />
+                                    <input id="RespondidoPor" class="general-input" />
                                 </div>
                                 <div id="FechaRespuestaDiv" class="form-group col-sm-6 col-md-6 col-lg-3">
                                     <label id="Incidencias0019"></label>
@@ -115,7 +115,7 @@
                     <div class="form-group col-sm-12 col-md-12 col-lg-11">
                         <div id="DescripcionArchivoDiv" class="col-sm-5 col-md-4 col-lg-3">
                             <label id="Incidencias0021"></label>
-                            <input id="DescripcionArchivo" disabled />
+                            <input id="DescripcionArchivo" class="general-input" disabled />
                         </div>
                         <div id="AdjuntarArchivosDiv" class="col-sm-7 col-md-8 col-lg-5">
                             <label id="Incidencias0020"></label>
@@ -842,10 +842,10 @@
 
 
     @section JavascriptDocumentReadyFunctions {
-    $authorizationModel["Incidencias"] = $IncidenciasModel;
+    //$authorizationModel["Incidencias"] = $IncidenciasModel;
     CargaInicial();
 
-    if (_Edicion != -1) {
+    if (_Edicion != "-1") {
         CargaInicialEdicion(_FolioIncidencia);
     };
 
