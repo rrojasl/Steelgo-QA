@@ -12,22 +12,19 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_OrdenAlmacenaje
+    public partial class Sam3_ClasificacionIncidencia
     {
-        public Sam3_OrdenAlmacenaje()
+        public Sam3_ClasificacionIncidencia()
         {
-            this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
-            this.Sam3_Rel_Incidencia_OrdenAlmacenaje = new HashSet<Sam3_Rel_Incidencia_OrdenAlmacenaje>();
+            this.Sam3_Incidencia = new HashSet<Sam3_Incidencia>();
         }
     
-        public int OrdenAlmacenajeID { get; set; }
-        public int Folio { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
+        public int ClasificacionIncidenciaID { get; set; }
+        public string Nombre { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
+        public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia { get; set; }
     }
 }

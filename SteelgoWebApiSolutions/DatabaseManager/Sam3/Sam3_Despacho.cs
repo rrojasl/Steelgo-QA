@@ -14,6 +14,11 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Despacho
     {
+        public Sam3_Despacho()
+        {
+            this.Sam3_Rel_Incidencia_Despacho = new HashSet<Sam3_Rel_Incidencia_Despacho>();
+        }
+    
         public int DespachoID { get; set; }
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
@@ -33,5 +38,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_NumeroUnico Sam3_NumeroUnico { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
     }
 }

@@ -284,6 +284,7 @@
     <Compile Include="DataAcces\GrupoBd.cs" />
     <Compile Include="DataAcces\GuardarFolioLlegadaCuantificacionBd.cs" />
     <Compile Include="DataAcces\GuardarItemCodesBd.cs" />
+    <Compile Include="DataAcces\IncidenciaBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
     <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
     <Compile Include="DataAcces\FoliosCuantificacionBd.cs" />
@@ -352,11 +353,11 @@
     <Compile Include="Models\Dummy\FormatoIncidencias.cs" />
     <Compile Include="Models\Dummy\FormatoPaseSalida.cs" />
     <Compile Include="Models\Dummy\GridCuantificacion.cs" />
-    <Compile Include="Models\Dummy\Incidencia.cs" />
+    <Compile Include="Models\Incidencia.cs" />
     <Compile Include="Models\Dummy\ItemCode.cs" />
     <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
     <Compile Include="Models\Dummy\ListadoFolioAvisoLlegada.cs" />
-    <Compile Include="Models\Dummy\ListadoIncidencias.cs" />
+    <Compile Include="Models\ListadoIncidencias.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\DummyNumeroControl.cs" />

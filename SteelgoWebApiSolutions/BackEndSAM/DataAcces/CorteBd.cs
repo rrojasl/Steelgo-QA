@@ -438,5 +438,23 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
+            DateTime fechaInicial, DateTime fechaFinal)
+        {
+            try
+            {
+                List<ListadoIncidencias> listado;
+                using (SamContext ctx = new SamContext())
+                {
+
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

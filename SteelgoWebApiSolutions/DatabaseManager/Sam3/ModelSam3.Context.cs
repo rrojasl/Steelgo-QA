@@ -135,5 +135,18 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_EquivalenciaNumeroUnicoMovimiento> Sam3_EquivalenciaNumeroUnicoMovimiento { get; set; }
         public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
         public virtual DbSet<Sam3_Grupo> Sam3_Grupo { get; set; }
+        public virtual DbSet<Sam3_ClasificacionIncidencia> Sam3_ClasificacionIncidencia { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_ComplementoRecepcion> Sam3_Rel_Incidencia_ComplementoRecepcion { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_FolioAvisoEntrada> Sam3_Rel_Incidencia_FolioAvisoEntrada { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_FolioCuantificacion> Sam3_Rel_Incidencia_FolioCuantificacion { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
+        public virtual DbSet<Sam3_TipoIncidencia> Sam3_TipoIncidencia { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
     }
 }

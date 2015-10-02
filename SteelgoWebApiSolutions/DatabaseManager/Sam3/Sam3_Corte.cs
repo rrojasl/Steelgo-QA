@@ -17,6 +17,7 @@ namespace DatabaseManager.Sam3
         public Sam3_Corte()
         {
             this.Sam3_CorteDetalle = new HashSet<Sam3_CorteDetalle>();
+            this.Sam3_Rel_Incidencia_Corte = new HashSet<Sam3_Rel_Incidencia_Corte>();
         }
     
         public int CorteID { get; set; }
@@ -37,5 +38,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento1 { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual ICollection<Sam3_CorteDetalle> Sam3_CorteDetalle { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
     }
 }

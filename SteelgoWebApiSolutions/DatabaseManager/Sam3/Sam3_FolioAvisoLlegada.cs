@@ -22,6 +22,8 @@ namespace DatabaseManager.Sam3
             this.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo = new HashSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo>();
             this.Sam3_Rel_FolioAvisoLlegada_Vehiculo = new HashSet<Sam3_Rel_FolioAvisoLlegada_Vehiculo>();
             this.Sam3_FolioAvisoEntrada = new HashSet<Sam3_FolioAvisoEntrada>();
+            this.Sam3_Rel_Incidencia_FolioAvisoLlegada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoLlegada>();
+            this.Sam3_Rel_Incidencia_PaseSalida = new HashSet<Sam3_Rel_Incidencia_PaseSalida>();
         }
     
         public int FolioAvisoLlegadaID { get; set; }
@@ -51,5 +53,7 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Vehiculo> Sam3_Rel_FolioAvisoLlegada_Vehiculo { get; set; }
         public virtual ICollection<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
         public virtual Sam3_TipoAviso Sam3_TipoAviso { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
     }
 }
