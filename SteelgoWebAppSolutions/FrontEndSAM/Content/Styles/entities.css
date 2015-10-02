@@ -914,7 +914,7 @@ header .menu > div {
                 background-image: url("/Content/images/Delete_Grey.png");
             }
 
-    .filesTable input:not(.k-input)[type=checkbox] {
+    .filesTable input.general-input[type=checkbox] {
         height: auto;
         min-height: auto;
         width: 13px;
