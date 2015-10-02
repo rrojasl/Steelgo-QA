@@ -61,7 +61,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="ImprimirOrdenRecepcion"><span id="Cuantificacion0082"></span></a></li>
-                                    <li><a ><span id="Cuantificacion0083"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="Cuantificacion0083"></span></a></li>
                                     <li id="AccionRegresar"><a id="RegresarListadoPadre" href="#" ><span id="Cuantificacion0085"></span></a></li>
                                 </ul>
                             </div>
@@ -156,134 +156,6 @@
 </div>
 
 <div id="window">
-@*Contenido de la ventana modal *@
-        <div id="modalItemCode" style="display: none">
-           @* <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="Proyecto_ItemCodeDiv" class="form-group">
-                <label id="Cuantificacion0055"></label>
-                <input id="Proyecto_ItemCode" class="" />
-            </div>
-            <div id="TipoMaterial_ItemCodeDiv" class="form-group">
-                <label id="Cuantificacion0056"></label>
-                <input id="TipoMaterial_ItemCode" class="" />
-            </div>
-            <div id="Colada_ItemCodeDiv" class="form-group">
-                <label id="Cuantificacion0057"></label>
-                <input id="Colada_ItemCode" class="" />
-            </div>
-            <div id="ItemCode_ItemCodeDiv" class="form-group">
-                <label id="Cuantificacion0045"></label>
-                <input id="ItemCode_ItemCode" class="" />
-            </div>
-            <div id="Descripcion_ItemCodeDiv" class="form-group">
-                <label id="Cuantificacion0046"></label>
-                <input id="Descripcion_ItemCode" class="" />
-            </div>
-            <div id="Familia_ItemCodeDiv" class="form-group">
-                <label id="Cuantificacion0047"></label>
-                <input id="Familia_ItemCode" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarItemCode" href="#" class="btn btn-primary">
-                    <span id="Cuantificacion0048"></span>
-                </a>
-                <a id="CancelarItemCode" href="#" class="btn btn-primary">
-                    <span id="Cuantificacion0049"></span>
-                </a>
-            </div>*@
-        </div>
-    
-    <div id="modalItemCodeSteelgo" style="display: none">
-            @*<div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="Descripcion_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0051"></label>
-                <input id="Descripcion_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Familia_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0052"></label>
-                <input id="Familia_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Peso_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0069"></label>
-                <input id="Peso_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Diametro1_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0070"></label>
-                <input id="Diametro1_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Diametro2_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0071"></label>
-                <input id="Diametro2_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Area_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0072"></label>
-                <input id="Area_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Cedula_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0073"></label>
-                <input id="Cedula_ItemCodeSteelgo" class="" />
-            </div>
-            <div id="Codigo_ItemCodeSteelgoDiv" class="form-group">
-                <label id="Cuantificacion0074"></label>
-                <input id="Codigo_ItemCodeSteelgo" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarItemCodeSteelgo" href="#" class="btn btn-primary">
-                    <span id="Cuantificacion0053"></span>
-                </a>
-                <a id="CancelarItemCodeSteelgo" href="#" class="btn btn-primary">
-                    <span id="Cuantificacion0054"></span>
-                </a>
-            </div>*@
-    </div>
-
-    <div id="modalColada" style="display: none">
-            <div class="alert-container">
-                <div class="message">
-                    Mensaje de éxito/error/advertencia
-                </div>
-            </div>
-            <div id="Fabricante_ColadaDiv" class="form-group">
-                <label id="Cuantificacion0061"></label>
-                <input id="Fabricante_Colada" class="" />
-            </div>
-            <div id="Acero_ColadaDiv" class="form-group">
-                <label id="Cuantificacion0062"></label>
-                <input id="Acero_Colada" class="" />
-            </div>
-            <div id="Proyecto_ColadaDiv" class="form-group">
-                <label id="Cuantificacion0063"></label>
-                <input id="Proyecto_Colada" class="" />
-            </div>
-            <div id="NumeroColada_ColadaDiv" class="form-group">
-                <label id="Cuantificacion0066"></label>
-                <input id="NumeroColada_Colada" class="" />
-            </div>
-            <div id="NumeroCertificado_ColadaDiv" class="form-group">
-                <label id="Cuantificacion0067"></label>
-                <input id="NumeroCertificado_Colada" class="" />
-            </div>
-            <div id="HoldCalidad_ColadaDiv" class="form-group">
-                <label id="Cuantificacion0068"></label>
-                <input id="HoldCalidad_Colada" type="checkbox" class="" />
-            </div>
-            <div class="buttonSave">
-                <a id="GuardarColada" href="#" class="btn btn-primary">
-                    <span id="Cuantificacion0064"></span>
-                </a>
-                <a id="CancelarColada" href="#" class="btn btn-primary">
-                    <span id="Cuantificacion0065"></span>
-                </a>
-            </div>
-        </div>
 </div>
 
 <script>
@@ -293,7 +165,7 @@
             itemCodesJson, itemCodesJsonSteelgo, lastEditedCellID = "", lastEditedCellIDSteelgo = "", lastEditedCellIDSColada,
             familiaItemCode = {}, familiaItemCodeSteelgo = {}, ProyectoItemCode = {},
             ProyectoItemCodeSteelgo = {}, TipoPackingListItemCode = {}, TipoPackingListItemCodeSteelgo = {},
-            ColadaItemCodeSteelgo = {}, ColadaItemCode = {}, FabricanteColada = {}, AceroColada = {}, ProyectoColada = {},
+            ColadaItemCodeSteelgo = {}, ColadaItemCode = {},
             ctrlDown = false, ctrlKey = 17, vKey = 86, cKey = 67, focusResp = "FolioAvisoEntradaID";;
             var _cuantificacionUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
 
@@ -303,7 +175,7 @@
             var _bultoID = getUrlParameter("BultoID", "-1");
             var _detalleBulto = getUrlParameter("DetalleBulto", "-1");
             var _edicion = getUrlParameter("EdicionPackingList", "-1");
-
+            var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
             //Mappeo de Controles y sus flechas
             var mapeoNavegacion = {
@@ -404,48 +276,6 @@
                         visible: "#MMDiv",
                         editable: "#MM",
                         required: "#MM"
-                    }
-                }
-            };
-
-
-            var $ColadaModel = {
-                listContainer: {
-                    create: "",
-                    list: "",
-                    detail: "",
-                    destroy: ""
-                },
-                properties: {
-                    fabricante: {
-                        visible: "#Fabricante_ColadaDiv",
-                        editable: "#Fabricante_Colada",
-                        required: "#Fabricante_Colada"
-                    },
-                    acero: {
-                        visible: "#Acero_ColadaDiv",
-                        editable: "#Acero_Colada",
-                        required: "#Acero_Colada"
-                    },
-                    proyecto: {
-                        visible: "#Proyecto_ColadaDiv",
-                        editable: "#Proyecto_Colada",
-                        required: "#Proyecto_Colada"
-                    },
-                    numerocolada: {
-                        visible: "#NumeroColada_ColadaDiv",
-                        editable: "#NumeroColada_Colada",
-                        required: "#NumeroColada_Colada"
-                    },
-                    numerocertificado: {
-                        visible: "#NumeroCertificado_ColadaDiv",
-                        editable: "#NumeroCertificado_Colada",
-                        required: "#NumeroCertificado_Colada"
-                    },
-                    holdcalidad: {
-                        visible: "#HoldCalidad_ColadaDiv",
-                        editable: "#HoldCalidad_Colada",
-                        required: "#HoldCalidad_Colada"
                     }
                 }
             };
@@ -671,35 +501,9 @@
                 RegresarListadoPadre();
             });
            
-            //$("#GuardarItemCode").click(function () {
-            //    if (validarRequeridosModalItemCode()) {
-            //        GuardarItemCode();
-            //    } else {
-            //        displayMessage("notificationslabel0031", "", '1');
-            //    }
-            //});
 
-            //$("#GuardarItemCodeSteelgo").click(function () {
-            //    if (validarRequeridosModalItemCodeSteelgo()) {
-            //        GuardarItemCodeSteelgo();
-            //    } else {
-            //        displayMessage("notificationslabel0031", "", '1');
-            //    }
-            //});
-
-            $("#GuardarColada").click(function () {
-                if (validarRequeridosModalColada()) {
-                    GuardarColada();
-                } else {
-                    displayMessage("notificationslabel0031", "", '1');
-                }
-            });
-            
             $("#Cancelar").click(function () { Cancelar(); });
-            $("#CancelarItemCode").click(function () { CancelarModalItemCode(); });
-            //$("#CancelarItemCodeSteelgo").click(function () { CancelarItemCodeSteelgo(); });
-            $("#CancelarColada").click(function () { CancelarColada(); });
-
+            $("#IrIncidencia").click(function () { Incidencias(); });
 
             $("#FolioAvisoEntradaID").kendoComboBox({
                     dataTextField: "value",
@@ -832,148 +636,6 @@
                     changeValueColumnsClear();
                 }
             });
-
-            //Ventana Modal ItemCode
-            //$("#Proyecto_ItemCode").kendoComboBox({
-            //    dataTextField: "Nombre",
-            //    dataValueField: "ProyectoID",
-            //    select: function (e) {
-            //        var dataItem = this.dataItem(e.item.index());
-            //        CargarProyectoItemCode(dataItem.ProyectoID, dataItem.Nombre);
-            //    },
-            //    change: function (e) {
-            //        var value = this.value();
-            //        if (!value) {
-            //            ProyectoItemCode = {};
-            //        }
-            //    },
-            //    filter: "contains",
-            //});
-            //ObtenerProyecto("Proyecto_ItemCode");
-           
-            //$("#TipoMaterial_ItemCode").kendoComboBox({
-            //    dataTextField: "Nombre",
-            //    dataValueField: "id",
-            //    select: function (e) {
-            //        var dataItem = this.dataItem(e.item.index());
-            //        CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
-            //    },
-            //    change: function (e) {
-            //        var value = this.value();
-            //        if (!value) {
-            //            TipoPackingListItemCode = {};
-            //        }
-            //    },
-            //    filter: "contains",
-            //});
-            //obtenerTipoPackingList("TipoMaterial_ItemCode");
-
-            //$("#Colada_ItemCode").kendoComboBox({
-            //    dataTextField: "Nombre",
-            //    dataValueField: "ColadaID",
-            //    select: function (e) {
-            //        var dataItem = this.dataItem(e.item.index());
-            //        CargarColadaItemCode(dataItem.ColadaID, dataItem.Nombre);
-            //    },
-            //    change: function (e) {
-            //        var value = this.value();
-            //        if (!value) {
-            //            ColadaItemCode = {};
-            //        }
-            //    },
-            //    filter: "contains",
-            //});
-            //ObtenerColada("Colada_ItemCode", 0, 0);
-
-            //$("#Familia_ItemCode").kendoComboBox({
-            //    dataTextField: "Nombre",
-            //    dataValueField: "FamiliaAceroID",
-            //    select: function (e) {
-            //        var dataItem = this.dataItem(e.item.index());
-            //        CargarFamiliaItemCode(dataItem.FamiliaAceroID);
-            //    },
-            //    change: function (e) {
-            //        var value = this.value();
-            //        if (!value) {
-            //            familiaItemCode = {};
-            //        };
-            //    },
-            //    filter: "contains",
-            //});
-            //ObtenerFamiliaItemCode();
-
-            //Ventana Modal ItemCodeSteelgo
-
-            //$("#Familia_ItemCodeSteelgo").kendoComboBox({
-            //    dataTextField: "Nombre",
-            //    dataValueField: "FamiliaAceroID",
-            //    select: function (e) {
-            //        var dataItem = this.dataItem(e.item.index());
-            //        CargarFamiliaItemCodeSteelgo(dataItem.FamiliaAceroID);
-            //    },
-            //    change: function (e) {
-            //        var value = this.value();
-            //        if (!value) {
-            //            familiaItemCodeSteelgo = {};
-            //        };
-            //    },
-            //    filter: "contains",
-            //});
-            //ObtenerFamiliaItemCodeSteelgo();
-
-
-            //Ventana Modal Colada
-            $("#Fabricante_Colada").kendoComboBox({
-                dataTextField: "Nombre",
-                dataValueField: "FabricanteID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre);
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        FabricanteColada = {};
-                    };
-                },
-                filter: "contains",
-            });
-            ObtenerFabricanteColada();
-
-
-            $("#Acero_Colada").kendoComboBox({
-                dataTextField: "Nomenclatura",
-                dataValueField: "AceroID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura);
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        AceroColada = {};
-                    };
-                },
-                filter: "contains",
-            });
-            ObtenerAceroColada();
-            
-            $("#Proyecto_Colada").kendoComboBox({
-                dataTextField: "Nombre",
-                dataValueField: "ProyectoID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
-                },
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        ProyectoColada = {};
-                    }
-                },
-                filter: "contains",
-            });
-            ObtenerProyecto("Proyecto_Colada");
 
             //Por default tubos
             CargarTipoPackingList(1, "");
@@ -1137,110 +799,7 @@
             familiaItemCodeSteelgo = { FamiliaID: id };
         };
 
-        function CargarFabricanteColada(id, value) {
-            FabricanteColada = {};
-            FabricanteColada = { FabricanteID: id, Nombre: value };
-        };
 
-        function CargarAceroColada(id, value) {
-            AceroColada = {};
-            AceroColada = { AceroID: id, Nombre: value };
-        };
-        
-        function CargarProyectoColada(id, value) {
-            ProyectoColada = {};
-            ProyectoColada = { ProyectoID: id, Nombre: value };
-        };
-
-        //function CancelarModalItemCode() {
-        //    LimpiarModalItemCode();
-        //    cerrarVentanaModal();
-        //    cancelarvalidacionRequeridosModalItemCode();
-        //};
-
-        //function CancelarItemCodeSteelgo() {
-        //    LimpiarModalItemCodeSteelgo();
-        //    cerrarVentanaModal();
-        //    cancelarvalidacionRequeridosModalItemCodeSteelgo();
-        //};
-
-        function CancelarColada() {
-            LimpiarModalColada();
-            cerrarVentanaModal();
-            cancelarvalidacionRequeridosModalColada();
-        };
-        
-        //function LimpiarModalItemCode() {
-        //    $("#ItemCode_ItemCode").val("");
-        //    $("#Descripcion_ItemCode").val("");
-        //    $("#Familia_ItemCode").data("kendoComboBox").value("");
-        //    $("#Proyecto_ItemCode").data("kendoComboBox").value("");
-        //    $("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
-        //    $("#Colada_ItemCode").data("kendoComboBox").value("");
-            
-        //    familiaItemCode = {};
-        //    ProyectoItemCode = {};
-        //    TipoPackingListItemCode = {};
-        //    ColadaItemCode = {};
-        //};
-
-        //function LimpiarModalItemCodeSteelgo() {
-        //    $("#Descripcion_ItemCodeSteelgo").val("");
-        //    $("#Familia_ItemCodeSteelgo").data("kendoComboBox").value("");
-        //    $("#Peso_ItemCodeSteelgo").val("");
-        //    $("#Diametro1_ItemCodeSteelgo").val("");
-        //    $("#Diametro2_ItemCodeSteelgo").val("");
-        //    $("#Area_ItemCodeSteelgo").val("");
-        //    $("#Cedula_ItemCodeSteelgo").val("");
-        //    $("#Codigo_ItemCodeSteelgo").val("");
-
-        //    familiaItemCodeSteelgo = {};
-        //};
-
-        function LimpiarModalColada() {
-            $("#Fabricante_Colada").data("kendoComboBox").value("");
-            $("#Acero_Colada").data("kendoComboBox").value("");
-            $("#Proyecto_Colada").data("kendoComboBox").value("");
-            $("#NumeroColada_Colada").val("");
-            $("#NumeroCertificado_Colada").val("");
-            $("#HoldCalidad_Colada").attr("checked", false);
-
-            FabricanteColada = {};
-            AceroColada = {};
-            ProyectoColada = {};
-
-        };
-
-        //function cancelarvalidacionRequeridosModalItemCode() {
-        //    $("#modalItemCode .security_required").each(function (i, elem) {
-        //        if (elem.tagName.toLowerCase() != 'label') {
-        //            $(this).closest("div").find("label").removeClass("error");
-        //            $(this).closest("div").removeClass("clearfix");
-        //        };
-        //    });
-        //};
-
-        //function cancelarvalidacionRequeridosModalItemCodeSteelgo() {
-        //    $("#modalItemCodeSteelgo .security_required").each(function (i, elem) {
-        //        if (elem.tagName.toLowerCase() != 'label') {
-        //            $(this).closest("div").find("label").removeClass("error");
-        //            $(this).closest("div").removeClass("clearfix");
-        //        };
-        //    });
-        //};
-
-        function cancelarvalidacionRequeridosModalColada() {
-            $("#modalColada .security_required").each(function (i, elem) {
-                if (elem.tagName.toLowerCase() != 'label') {
-                    $(this).closest("div").find("label").removeClass("error");
-                    $(this).closest("div").removeClass("clearfix");
-                };
-            });
-        };
-
-        function cerrarVentanaModal() {
-            $("#window").data("kendoWindow").close();
-        };
 
         function validarRequeridosFormaCuantificacion() {
             var bool = true;
@@ -1252,68 +811,6 @@
                     } else {
                         $(this).closest("div").find("label").removeClass("error");
                     };
-                };
-            });
-            return bool;
-        };
-
-        //function validarRequeridosModalItemCode() {
-        //    var bool = true;
-        //    $("#modalItemCode .security_required").each(function (i, elem) {
-        //        if (elem.tagName.toLowerCase() != 'label') {
-        //            if (!$(this).val()) {
-        //                bool = false;
-        //                $(this).closest("div").find("label").addClass("error");
-        //                $(this).closest("div").addClass("clearfix");
-        //            } else {
-        //                $(this).closest("div").find("label").removeClass("error");
-        //                $(this).closest("div").removeClass("clearfix");
-        //            };
-        //        };
-        //    });
-        //    return bool;
-        //};
-
-        function validarRequeridosModalItemCodeSteelgo() {
-            var bool = true;
-            $("#modalItemCodeSteelgo .security_required").each(function (i, elem) {
-                if (elem.tagName.toLowerCase() != 'label') {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    };
-                };
-            });
-            return bool;
-        };
-
-        function validarRequeridosModalColada() {
-            var bool = true;
-            $("#modalColada .security_required").each(function (i, elem) {
-                if (elem.tagName.toLowerCase() != 'label') {
-                    if ($(this).attr("id") == "HoldCalidad_Colada") {
-                        if (!$(this).is(':checked')) {
-                            bool = false;
-                            $(this).closest("div").find("label").addClass("error");
-                            $(this).closest("div").addClass("clearfix");
-                        } else {
-                            $(this).closest("div").find("label").removeClass("error");
-                            $(this).closest("div").removeClass("clearfix");
-                        }
-                    } else {
-                        if (!$(this).val()) {
-                            bool = false;
-                            $(this).closest("div").find("label").addClass("error");
-                            $(this).closest("div").addClass("clearfix");
-                        } else {
-                            $(this).closest("div").find("label").removeClass("error");
-                            $(this).closest("div").removeClass("clearfix");
-                        };
-                    }
                 };
             });
             return bool;
@@ -1332,63 +829,6 @@
             } else {
                 displayMessage("notificationslabel0040", "", '1');
             } 
-        };
-
-        //function GuardarItemCode() {
-        //    ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "" };
-        //    ItemCode.ProyectoID = ProyectoItemCode.ProyectoID;
-        //    ItemCode.TipoPackingList = TipoPackingListItemCode.TipoPackingListID;
-        //    ItemCode.ColadaID = ColadaItemCode.ColadaID;
-        //    ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
-        //    ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
-        //    ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
-
-        //    $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
-        //        LimpiarModalItemCode();
-        //        if (Error(data)) {
-        //            $("#window").data("kendoWindow").close();
-        //        };
-        //    });
-
-        //};
-        
-        //function GuardarItemCodeSteelgo() {
-        //    ItemCodeSteelgo = { Descripcion: "", FamiliaID: "", Peso: "", Diametro1: "", Diametro2: "", Area: "", Cedula: "", Codigo: "" };
-        //    ItemCodeSteelgo.DescripcionEspanol = $("#Descripcion_ItemCodeSteelgo").val();
-        //    ItemCodeSteelgo.FamiliaAceroID = familiaItemCodeSteelgo.FamiliaID;
-        //    ItemCodeSteelgo.Peso = $("#Peso_ItemCodeSteelgo").val();
-        //    ItemCodeSteelgo.Diametro1 = $("#Diametro1_ItemCodeSteelgo").val();
-        //    ItemCodeSteelgo.Diametro2 = $("#Diametro2_ItemCodeSteelgo").val();
-        //    ItemCodeSteelgo.Area = $("#Area_ItemCodeSteelgo").val();
-        //    ItemCodeSteelgo.Cedula = $("#Cedula_ItemCodeSteelgo").val();
-        //    ItemCodeSteelgo.Codigo = $("#Codigo_ItemCodeSteelgo").val();
-          
-        //    $ItemCodeSteelgo.ItemCodeSteelgo.create({}, { json: JSON.stringify(ItemCodeSteelgo), token: Cookies.get("token") }).done(function (data) {
-        //        LimpiarModalItemCodeSteelgo();
-        //        if (Error(data)) {
-        //            $("#window").data("kendoWindow").close();
-        //        };
-        //    });
-
-        //};
-
-        function GuardarColada() {
-            ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
-            ColadaModal.FabricanteID = FabricanteColada.FabricanteID;
-            ColadaModal.AceroID = AceroColada.AceroID;
-            ColadaModal.ProyectoID = ProyectoColada.ProyectoID;
-            ColadaModal.NumeroColada = $("#NumeroColada_Colada").val();
-            ColadaModal.NumeroCertificado = $("#NumeroCertificado_Colada").val();
-            ColadaModal.HoldCalidad = $("#HoldCalidad_Colada").is(":checked");
-
-            $Colada.Colada.create({}, { data: JSON.stringify(ColadaModal), token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalColada();
-                if (Error(data)) {
-                    $("#window").data("kendoWindow").close();
-                    ObtenerColada("Colada");
-                    ObtenerColada("Colada_ItemCode");
-                }
-            });
         };
 
         function LoadGridQuantification() {
@@ -1622,37 +1062,28 @@
 
             var modalTitle = "";
             var content = "";
-            var window = "";
+            var window = $("#window");
             var height = "";
 
             switch (id) {
                 case 1:
-                    $("#modalColada").hide();
-                    $("#modalItemCodeSteelgo").hide();
-                    $("#modalItemCode").show();
                     modalTitle = "Item Code";
                     content = "@Url.Action("ItemCode", "PopUps")";
-                    window = $("#window");
-                    height = "45%";
+                    height = "35%";
                     break;
                 case 2:
-                    $("#modalColada").hide();
-                    $("#modalItemCode").hide();
-                    $("#modalItemCodeSteelgo").show();
                     modalTitle = "Item Code Steelgo";
-                    content = "@Url.Action("ItemCodeSteelgo", "PopUps")";                   
-                    window = $("#window");
-                    height = "60%";
+                    content = "@Url.Action("ItemCodeSteelgo", "PopUps")";
+                    height = "55%";
                     break;
                 case 3:
-                    $("#modalItemCodeSteelgo").hide();
-                    $("#modalItemCode").hide();
-                    $("#modalColada").show();
                     modalTitle = "Colada";
+                    content = "@Url.Action("Colada", "PopUps")";
+                    height = "30%";
                     break;
             };
 
-            var win = window.kendoWindow({
+            window.kendoWindow({
                 actions: false,
                 content: content,
                 modal: true,
@@ -1668,6 +1099,13 @@
                     left: "20%"
                 }
             }).data("kendoWindow");
+
+            //Se actualiza el tamaño
+            $("#window").data("kendoWindow").setOptions({
+                width: "32.6%",
+                height: height,
+            });
+
             window.data("kendoWindow").title(modalTitle);
             window.data("kendoWindow").center().open();
         };
@@ -1760,18 +1198,6 @@
         function ObtenerFamiliaItemCodeSteelgo() {
             $Familia.Familia.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("Familia_ItemCodeSteelgo", result);
-            });
-        };
-
-        function ObtenerFabricanteColada() {
-            $Fabricantes.Fabricantes.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("Fabricante_Colada", result);
-            });
-        };
-
-        function ObtenerAceroColada() {
-            $TipoAcero.TipoAcero.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("Acero_Colada", result);
             });
         };
 
@@ -1921,7 +1347,11 @@
             $("#divFolio").addClass("hidden");
             $("#spanFolio").html("");
         }
-        
+
+        function Incidencias() {
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        };
+
         function GuardaryTerminar() {
             loadingStart();
             var j = 0, z = 0, cerrar = true, incompletos = false;
@@ -2772,15 +2202,11 @@
             $('<input required data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
-                    dataTextField: "Codigo",
-                    dataValueField: "ItemCodeID",
-                    filter: "contains",
+                    autoBind: false,
                     dataSource: {
                         type: "json",
-                        serverFiltering: true,
                         transport: {
                             read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
-                            //read: $URLItemCode + "&" + container.parent().children()[0].innerText + "&TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
                         }
                     },
                     select: function (e) {
@@ -2824,18 +2250,13 @@
             $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
-                    dataTextField: "value",
-                    dataValueField: "id",
+                    autoBind: false,
                     dataSource: {
                         type: "json",
                         transport: {
-                            //read: $URLItemCodeSteelgo + "?token=" + Cookies.get("token")
                             read: $URLItemCodeSteelgo + "&ItemCode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token")
                         },
-                        serverPaging: true,
-                        serverFiltering: true
                     },
-                    filter: "contains",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         if (dataItem.id == 0) {
@@ -2870,16 +2291,11 @@
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
-                    dataTextField: "Nombre",
-                    dataValueField: "ColadaID",
                     dataSource: {
                         type: "json",
                         transport: {
                             read: $URLColada + "token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
-                            //read: $DummyTipoAcero + container.parent().children()[5].innerText + "&proyectoid=" + Proyecto.ProyectoID + "&token=" + Cookies.get("token")
                         },
-                        serverPaging: true,
-                        serverFiltering: true
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
@@ -3188,8 +2604,6 @@
             });
 
             $authorizationModel["Cuantificacion"] = $CuantificacionModel;
-            $authorizationModel["Colada"] = $ColadaModel
-            
     }
 
     @section JavascriptDocumentReadyHomeCookie {

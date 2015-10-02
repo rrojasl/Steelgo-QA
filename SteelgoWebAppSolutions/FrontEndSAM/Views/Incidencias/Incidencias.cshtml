@@ -38,7 +38,7 @@
                                     <li id="MenuEditarIncidencias" style="display:none"><a id="EditarIncidencia" href="#"><span id="Incidencias0009"></span></a></li>
                                 </ul>
                             </div>
-                            <a id="Cancelar" class="btn btn-black"><span id="Incidencias0027"></span></a>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="Incidencias0027"></span></a>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
                     </div>
@@ -790,10 +790,47 @@
             loadingStop();
         }
     };
+
     function Cancelar() {
         window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
+    
+    function LimpiarPantalla() {
+        loadingStart();
+        $("#Clasificacion").data("kendoComboBox").value("");
+        $("#TipoIncidencia").data("kendoComboBox").value("");
+        $("#Version").val("");
+        $("#Titulo").val("");
+        $("#Descripcion").val("");
+        $("#Respuesta").val("");
+        $("#MotivoCancelacion").val("");
+        $("#DetalleResolucion").val("");
+        $("#RegistradoPor").val("");
+        $("#ResueltoPor").val("");
+        $("#RespondidoPor").val("");
+        $("#DescripcionArchivo").val("");
+        Clasificacion = {};
+        TipoIncidencia = {};
+        _FolioIncidencia = "-1";
+        ObtenerFechasporDefecto();
+        loadingStop();
+    };
+    function hideElementsIncidencias() {
+        $(".sidebar").hide();
+        $(".logo").hide();
+        $(".search-bar").hide();
+        $(".notifications").hide();
+        $(".logged-user").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".breadcrumb-container").hide();
+        $(".languageSelector").hide();
+        $(".pull-right").hide();
+        $("header").hide();
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
 
+    };
+    
     function formatoFechaKendo(splitYear, splitMonth, splitDay) {
         var FechaRegistro = new Date(splitYear, splitMonth - 1, splitDay);
         var curr_date = FechaRegistro.getDate();
@@ -844,7 +881,7 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Incidencias"] = $IncidenciasModel;
     CargaInicial();
-
+    
     if (_Edicion != "-1") {
         CargaInicialEdicion(_FolioIncidencia);
     };

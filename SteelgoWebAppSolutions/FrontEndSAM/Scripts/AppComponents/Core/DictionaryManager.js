@@ -1494,8 +1494,8 @@ _dictionary = {
         "en-US": "Print Order Reception"
     },
     "Cuantificacion0083": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Cuantificacion0084": {
         "es-MX": "Dashboard Recepción y Almacenaje",
@@ -2941,8 +2941,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "ComplementoRecepcion0012": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "ComplementoRecepcion0013": {
         "es-MX": "Proyecto",
@@ -3561,8 +3561,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Almacenaje0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Almacenaje0009": {
         "es-MX": "Proyecto",
@@ -3755,8 +3755,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Corte0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Corte0009": {
         "es-MX": "Máquina",

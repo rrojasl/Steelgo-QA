@@ -104,9 +104,6 @@
         <input type="hidden" id="ChecksAlmacenaje" value="1" />@*1 todos 2 sin localizacion*@ 
     </div>
 
-    @*<input type="button" id="FiltrarItemCode" value="FiltrarItemCode" />
-    <input type="button" id="FiltrarNumeroUnico" value="FiltrarNumeroUnico" />
-    <input type="button" id="FiltrarSinLocalizacion" value="FiltrarSinLocalizacion" />*@            
 </div>
 
 <script>
@@ -540,8 +537,9 @@
     };
 
     function Incidencias() {
-        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
     };
+
     function Error(data) {
         if (data.ReturnCode) {
             if (data.ReturnCode != 200) {

@@ -63,7 +63,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectDashboard" ><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                     <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>
                                 </ul>
                             </div>
@@ -186,6 +186,7 @@
             Plana = [], Chofer = [], Contacto = [], 
             CamionEntradaMaterial = {}, Cliente = {}, TipoAvisos = {},
             TipoArchivo = {};
+        var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
         var $AvisoLLegadaModel = {
             listContainer: {
@@ -402,7 +403,8 @@
                     var detalleIdeaUrl = "@Url.Action("DashboardAvisoLlegada", "AvisoLLegada")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
-                
+
+                $("#IrIncidencia").click(function () { Incidencias(); });
                
                 //Permiso Aduana
                 $("#TramitarPermiso").attr('disabled', 'disabled');
@@ -1344,6 +1346,10 @@
 
             function DescargarArchivo(a) {
                 window.open(a.innerHTML);
+            };
+
+            function Incidencias() {
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
             };
 
             function Error(data) {
