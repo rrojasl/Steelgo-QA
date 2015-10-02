@@ -58,7 +58,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectDashboard"><span id="LlegadaMaterial0041"></span></a></li>
-                                    <li><a><span id="LlegadaMaterial0042"></span></a></li>
+                                    <li><a  id="IrIncidencia" href="#"><span id="LlegadaMaterial0042"></span></a></li>
                                     <li><a id="CancelarFolio" href="#"><span id="LlegadaMaterial0051"></span></a></li>
                                 </ul>
                             </div>
@@ -160,7 +160,7 @@
             Cliente = {}, Estatus = {}, _estatus = "En Patio",
             _estatusDescargada = "Orden de Descarga Generada",
             _estatusCierreDevolucion = "Cierre de Folio Por Devolución", Contacto = [];
-
+        var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
         var $DetalleLlegadaMaterialModel = {
             listContainer: {
@@ -300,7 +300,7 @@
     
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
-
+            $("#IrIncidencia").click(function () { Incidencias(); });
             $("#GenerarOrdenDescarga").click(function (e) {
                if (folioLlegada == -1) {
                    displayMessage("notificationslabel0035", "", '1');
@@ -914,6 +914,10 @@
                 fila.closest("tr").remove();
                 console.log("$DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy");
             });
+        };
+
+        function Incidencias() {
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
         };
 
         function DesahabilitarObtenerDocumentosLlegadaMaterial() {

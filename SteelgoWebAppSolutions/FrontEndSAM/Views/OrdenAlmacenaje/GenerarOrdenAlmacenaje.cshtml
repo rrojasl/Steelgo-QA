@@ -46,7 +46,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="GenerarOrdenAlmacenaje0010"></span></a></li>
-                                    <li><a><span id="GenerarOrdenAlmacenaje0011"></span></a></li>
+                                    <li><a id="IrIncidencia"  href="#"><span id="GenerarOrdenAlmacenaje0011"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
 
     var _folioCuantificacionID = getUrlParameter("FolioCuantificacionID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
-    
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $GenerarOrdenAlmacenajeModel = {
         listContainer: {
@@ -121,7 +121,7 @@
         cargarInicialGrid();
     }
     function CargaInicial() {
-
+        $("#IrIncidencia").click(function () { Incidencias(); });
         $("#Guardar").click(function () {
             GenerarOrdenAlmacenaje();
         });
@@ -543,6 +543,10 @@
             checkNumerosUnicos.push(value + "," + checkbox.is(":checked"));
         }
 
+    };
+
+    function Incidencias() {
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
     };
 
     function GenerarOrdenAlmacenaje() {
