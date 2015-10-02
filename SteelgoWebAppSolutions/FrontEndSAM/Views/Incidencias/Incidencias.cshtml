@@ -644,7 +644,9 @@
         $("#AdjuntarArchivos").data("kendoUpload").enable(true);
         $("#DescripcionArchivo").removeAttr("disabled");
         HabilitarObtenerDocumentosIncidencias();
-        if (_Edicion!="-1") {
+        if (_Edicion != "-1") {
+            $("#RegistradoPor").attr("disabled", "disabled");
+            $("#TipoIncidencia").data("kendoComboBox").enable(false);
             $("#MenuEditarIncidencias").css("display", "block");
         }
     };
