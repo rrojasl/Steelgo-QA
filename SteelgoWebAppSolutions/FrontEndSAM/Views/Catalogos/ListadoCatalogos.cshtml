@@ -33,9 +33,11 @@
         </div>
     </div>
 </div>
+<div id="window"></div>
 
 <script>
 @section JavascriptGlobalVariables {
+    datosRegistro={};
     nuevasCedulas=[];
     dataBoundCounter = 0;
     csvTypes=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
@@ -435,6 +437,7 @@
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     var grid = $("#grid").data("kendoGrid");
+                    if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.columns.push({ command: { text: _dictionary.ListadoCatalogos0013[$("#language").data("kendoDropDownList").value()], click: showFiles}, title: "Archivos", width: "91px" });
                     grid.columns.push({ command: "edit", title: "Editar", width: "91px" });
                     grid.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
                     for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
@@ -459,6 +462,16 @@
             data[f] = model[f];
         }
         return data;
+    }
+
+    function showFiles(e){
+        e.stopPropagation();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        datosRegistro["catalogo"]=$("#listaCatalogos").data("kendoDropDownList").value();
+        datosRegistro["id"]=dataItem.id;
+        if(dataItem.id){
+            VentanaModal()
+        }
     }
 
     function regenerarGrid(){
@@ -763,6 +776,27 @@
                 { text: "No", value: false }
             ]
         });
+    }
+
+    function VentanaModal() {
+        $("#window").kendoWindow({
+            actions: false,
+            content: "@Url.Action("Archivos", "PopUps")",
+            modal: true,
+            title: "Archivos",
+            resizable: true,
+            visible: false,
+            width: "40%",
+            minWidth: 660,
+            height: "20%",
+            iframe: true,
+            position: {
+                top: "10%",
+                left: "20%"
+            }
+        }).data("kendoWindow");
+        $("#window").data("kendoWindow").title("Archivos");
+        $("#window").data("kendoWindow").center().open();
     }
 };
 

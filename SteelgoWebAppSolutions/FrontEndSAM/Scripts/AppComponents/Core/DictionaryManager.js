@@ -806,6 +806,22 @@ _dictionary = {
         "es-MX": "Verifica que la cantidad de datos en las columnas coincida con la plantilla",
         "en-US": "Verify the number of data in the columns is same than template file"
     },
+    "ListadoCatalogos0013": {
+        "es-MX": "Archivos",
+        "en-US": "Files"
+    },
+    "ListadoCatalogos0014": {
+        "es-MX": "Tipo de archivo",
+        "en-US": "Type of file"
+    },
+    "ListadoCatalogos0015": {
+        "es-MX": "Selecciona un archivo",
+        "en-US": "Select a file"
+    },
+    "ListadoCatalogos0016": {
+        "es-MX": "Subir",
+        "en-US": "Upload"
+    },
     "ItemCodeSteelGo0001": {
         "es-MX": "Item Code SteelGo",
         "en-US": "Item Code SteelGo"
