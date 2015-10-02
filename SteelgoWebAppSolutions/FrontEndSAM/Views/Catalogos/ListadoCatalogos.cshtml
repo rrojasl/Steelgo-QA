@@ -470,7 +470,7 @@
     function parseUrl(data, catalogo, method) {
         for(key in data){
             data[key]==="Si" ? data[key]=true : 0;
-            data[key]==="No" ? data[key]=true : 0;
+            data[key]==="No" ? data[key]=false : 0;
         }
         if (method !== "delete") {
             return getUrl() + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
@@ -552,7 +552,9 @@
                         nuevasCedulas.forEach(function(c){
                             data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields,c));
                         })
-                        console.log(data);
+                        $.post(parseUrl(data,$("#listaCatalogos").data("kendoDropDownList").value(),"post")).done(function(result){
+                            regenerarGrid();
+                        });
                     }else{
                         alert(_dictionary.ListadoCatalogos0010[$("#language").data("kendoDropDownList").value()]);
                     }
