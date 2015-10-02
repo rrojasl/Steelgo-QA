@@ -54,7 +54,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a href="#" id="IrListado"><span id="ComplementoRecepcion0011"></span></a></li>
-                                    <li><a href="#"><span id="ComplementoRecepcion0012"></span></a></li>
+                                    <li><a href="#" id="IrIncidencia"><span id="ComplementoRecepcion0012"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -217,6 +217,7 @@
     var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
     var _folioCuantificacion = getUrlParameter("FolioCuantificacionID", "-1");
     var _edicion = getUrlParameter("Edicion", "-1");
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
     //Mappeo de Controles y sus flechas
     var mapeoNavegacion = {
         "ProyectoID": { 37: "FolioCuantificacionID", 38: "ProyectoID", 39: "FolioCuantificacionID", 40: "EstatusFisico" },
@@ -416,6 +417,7 @@
         $("#IrListado").click(function () {
             IrListado();
         });
+        $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -1251,8 +1253,6 @@
             $("#divFolio").addClass("hidden");
         }
 
-
-
         function CicloTerminaryNuevo(incompletos, ListadoCuantificacion, i, error) {
             if (ListadoCuantificacion[i]) {
                 $ComplementarRecepcion.ComplementarRecepcion.update(ListadoCuantificacion[i], { tipoGuardado: 2, token: Cookies.get("token") }).done(function (data) {
@@ -1574,6 +1574,9 @@
             //if (e.keyCode == ctrlKey) ctrlDown = true;
         }
 
+        function Incidencias() {
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        };
 
         function ErrorBool(data) {
             if (data.ReturnCode) {

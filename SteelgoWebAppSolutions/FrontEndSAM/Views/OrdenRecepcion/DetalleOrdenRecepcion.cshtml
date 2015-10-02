@@ -49,7 +49,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado" href="#"><span id="DetalleOrdenRecepcion0003"></span></a></li>
-                                    <li><a href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="DetalleOrdenRecepcion0004"></span></a></li>
                                     <li><a id="NuevaCaptura" href="#"><span id="DetalleOrdenRecepcion0014"></span></a></li>
                                     @*<li><a id="Etiquetas" href="#"><span id="DetalleOrdenRecepcion0022"></span></a></li>
                                     *@
@@ -95,6 +95,7 @@
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
     var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
     var _GenerarOrdenAlmacenajeUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
     var $GenerarOrdenRecepcionModel = {
         listContainer: {
@@ -120,6 +121,7 @@
 
     function CargaInicial() {
         $("#spanOrdenRecepcion").html(_ordenRecepcionID);
+        $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -413,6 +415,10 @@
 
     function cancelarItemCode() {
 
+    };
+
+    function Incidencias() {
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
     };
 
     function Error(data) {

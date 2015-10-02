@@ -38,7 +38,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado" href="#"><span id="Despacho0006"></span></a></li>
-                                    <li><a href="#"><span id="Despacho0007"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="Despacho0007"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -94,6 +94,7 @@
     var _spoolID = getUrlParameter("SpoolID", "-1"),
         _proyectoID = getUrlParameter("ProyectoID", "-1");
     var _DashboardDespacho = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
     var $DespachoModel = {
         listContainer: {
@@ -136,6 +137,8 @@
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
+        $("#IrIncidencia").click(function () { Incidencias(); });
+
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",
@@ -409,6 +412,10 @@
             };
         });
         return bool;
+    };
+
+    function Incidencias() {
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
     };
 
     function Guardar() {

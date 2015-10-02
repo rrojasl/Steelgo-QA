@@ -40,7 +40,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado" href="#"><span id="Corte0007"></span></a></li>
-                                    <li><a href="#"><span id="Corte0008"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="Corte0008"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
         Proyecto = {}, NumeroUnico = {}, intento = 0,
         _CorteUrl = "@Url.Action("Corte", "Corte")",
         _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")";
-
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
         
     var $CorteModel = {
         listContainer: {
@@ -347,6 +347,7 @@
         $("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
         $("#GenerarPickingTicket").click(function () { GenerarPickingTicket(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
+        $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#Maquina").kendoComboBox({
             dataTextField: "Nombre",
@@ -857,6 +858,10 @@
             $("#hdnMerma").val(merma);
             $("#window").data("kendoWindow").close();
             Guardar();
+        };
+
+        function Incidencias() {
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
         };
 
         function ControlErroresObjetosComboBox(control, result) {

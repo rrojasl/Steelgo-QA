@@ -46,7 +46,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="GenerarOrdenRecepcion0004"></span></a></li>
-                                    <li><a><span id="GenerarOrdenRecepcion0005"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#" ><span id="GenerarOrdenRecepcion0005"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -89,6 +89,7 @@
 
     var _folioAvisoEntradaID = getUrlParameter("FolioAvisoEntradaID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
     var $GenerarOrdenRecepcionModel = {
         listContainer: {
@@ -114,7 +115,7 @@
         cargarInicialGrid();
     }
     function CargaInicial() {
-
+        $("#IrIncidencia").click(function () { Incidencias(); });
         $("#Guardar").click(function () {
             GenerarOrdenRecepcion();
         });
@@ -460,6 +461,10 @@
             }
         }
         return itemCodes;
+    };
+
+    function Incidencias() {
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
     };
 
     function GenerarOrdenRecepcionNuevo() {

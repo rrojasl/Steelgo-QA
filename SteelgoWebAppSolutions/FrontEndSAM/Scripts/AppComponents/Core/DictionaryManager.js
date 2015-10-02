@@ -1510,8 +1510,8 @@ _dictionary = {
         "en-US": "Print Order Reception"
     },
     "Cuantificacion0083": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Cuantificacion0084": {
         "es-MX": "Dashboard Recepción y Almacenaje",
@@ -1951,8 +1951,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "GenerarOrdenRecepcion0005": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "GenerarOrdenRecepcion0006": {
         "es-MX": "Proyecto",
@@ -2162,8 +2162,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "DetalleOrdenRecepcion0004": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "DetalleOrdenRecepcion0005": {
         "es-MX": "Item Code ID",
@@ -2263,8 +2263,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "DetalleOrdenAlmacenaje0006": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "DetalleOrdenAlmacenaje0007": {
         "es-MX": "Nueva captura",
@@ -2457,8 +2457,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "GenerarOrdenAlmacenaje0011": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "GenerarOrdenAlmacenaje0012": {
         "es-MX": "Proyecto",
@@ -2957,8 +2957,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "ComplementoRecepcion0012": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "ComplementoRecepcion0013": {
         "es-MX": "Proyecto",
@@ -3577,8 +3577,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Almacenaje0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Almacenaje0009": {
         "es-MX": "Proyecto",
@@ -3662,8 +3662,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Despacho0007": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Despacho0008": {
         "es-MX": "Spool ID",
@@ -3771,8 +3771,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Corte0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Corte0009": {
         "es-MX": "Máquina",
