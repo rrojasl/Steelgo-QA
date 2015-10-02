@@ -114,6 +114,10 @@
     height: inherit;
 }
 
+.k-dropdown.fullWidth {
+    width: 100%;
+}
+
 .k-multiselect, .k-combobox,
 .k-autocomplete {
     width: 100%;

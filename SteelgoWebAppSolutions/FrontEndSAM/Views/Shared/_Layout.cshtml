@@ -65,9 +65,8 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="menuMobile hidden-sm hidden-md hidden-lg">
-                            <img src="~/Content/images/mobileMenu.png" />
-                        </div>
+                        <a href="#" id="mobile-menu" class="menuMobile hidden-sm hidden-md hidden-lg">                            
+                        </a>
                         <div class="notifications">
                             <div class="dropdown">
                                 <a id="notifications" role="button" data-target="#" href="#">
@@ -386,8 +385,9 @@
 
             loadMessages();
             
-            //Show message body when notification is clicked
-            $("#notifications").click(function(){
+            //Show message body when notification is clicked           
+            $("#notifications").click(function (e){
+                e.preventDefault();
                 $(this).parent().toggleClass("open");
                 $(".peak").toggleClass("hidden");
             });
@@ -410,9 +410,12 @@
             //    $(".notification-menu li.messageBody").addClass("hidden");
             //});
 
-            //Toggle sidebar when menuMobile is clicked
-            $(".menuMobile").on("click", function() {
-                $(".sidebar").removeClass("minified").toggle();
+            //Toggle sidebar when menuMobile is clicked           
+            var ios_devices = navigator.userAgent.match(/(iPhone|iPod|iPad)/) ? "touchstart" : "click"; //check if the devices are ios devices
+            $("#mobile-menu").on(ios_devices, function(event) {
+                event.preventDefault();
+                $("#sidebar").removeClass("minified");                
+                $("#sidebar").toggleClass("open");
             });
 
         });

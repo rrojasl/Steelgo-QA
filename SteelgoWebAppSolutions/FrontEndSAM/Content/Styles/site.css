@@ -255,7 +255,7 @@ input {
     box-shadow: none;
     width: 100%;
     box-sizing: border-box;
-}
+}    
 
     input:focus {
         outline: none;
@@ -323,7 +323,7 @@ input {
     margin: 4px auto 0;
     outline: none;
     border: none;
-    box-shadow: none !important;
+    box-shadow: none !important;    
 }
 
 #window input[type="checkbox"], 
@@ -746,7 +746,7 @@ h2 {
 
 /**********************************************************************************
  Class name:    $_dropdown
- Description:   Customize headings tag.
+ Description:   Customize dropdown menu.
 **********************************************************************************/
 .dropdown {
 }
@@ -858,7 +858,12 @@ h2 {
         input.quickFilters:last-of-type,
         .expanded input.quickFilters:last-of-type {
             width: 25.96%;
-        }  
+        }
+
+    /*$_dropdown*/
+    .dropdown-menu > li > a {
+        white-space: normal;
+    }
 
 }
 

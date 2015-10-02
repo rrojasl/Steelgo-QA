@@ -138,7 +138,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
     $("i.minify").click(function () {
         $("ul").removeClass("open");
         $("i.arrow").removeClass("down");
-        $("#sidebar").toggleClass("minified").css("display", "");
+        $("#sidebar").toggleClass("minified").removeClass("open");
         $(".content-container").toggleClass("expanded");
     });
 }

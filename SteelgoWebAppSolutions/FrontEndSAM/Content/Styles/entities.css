@@ -1434,15 +1434,15 @@ header .menu > div {
  Class name:    $_menuMobile
  Description:   Customize mobile menu button.
 **********************************************************************************/
-.menuMobile {
+.menuMobile {    
     position: relative;
     top: 4px;
     float: left;
+    background: #FFFFFF url("/Content/images/mobileMenu.png");
+    background-size: cover;    
+    width: 25.5px;
+    height: 23px;      
 }
-    .menuMobile img {
-        width: 26px;
-        height: auto;
-    }
 /**********************************************************************************/
 
 
@@ -1503,12 +1503,12 @@ header .menu > div {
 
     /*$_sidebar*/
     .sidebar {
-        width: 100%;
+        width: 100%;        
         display: none;
     }
 
-        .sidebar.minified {
-            display: none!important;
+        .sidebar.open {
+            display: block;
         }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
@@ -1517,6 +1517,10 @@ header .menu > div {
             box-shadow: none;
             border: none;
             padding-top: 8px;
+        }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li {
+            margin-bottom: 13px;
         }
 
     /*$_content-container*/
@@ -1564,8 +1568,8 @@ header .menu > div {
                 padding: 0 15px;
             }
 
-        .formNav .button-section .btn-group + .btn {
-            margin-right: 0;
+        .formNav .btn, .formNav .btn-group {
+            margin-right: 20px;
         }
 
         .formNav.filtersFields .button-section,
@@ -1575,16 +1579,21 @@ header .menu > div {
             max-width: 100%;
         }
 
-        .formNav.filtersFields .button-section button {
-            width: 100%;
-            text-align: left;
-            background-position: 97% center!important;
+            .formNav.filtersFields .button-section button {
+                width: 100%;
+                text-align: left;
+                background-position: 97% center!important;
+            }
 
-        }
+            .formNav.filtersFields .button-section.last-button a {
+                width: 100%;
+                margin: 0;
+            }
 
     #formOrdenRecepcion .formNav .btn-group,
     #formOrdenAlmacenaje .formNav .btn-group {
         margin-bottom: 15px;
+        margin-right: 25%;
     }
 
     /*$_modal*/
@@ -1597,10 +1606,19 @@ header .menu > div {
     }
 
     /*$_filesTable*/
+    .filesTable td {
+        padding: 12px 6px 8px;
+        white-space: normal;
+        text-align: center;
+        max-width: 157px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
     .filesTable thead td {
         width: 25%;
+        padding: 12px 15.5px 6px;
         white-space: nowrap;
-        text-align: center;
     }
 
     /*$_addedSection*/
@@ -1610,7 +1628,8 @@ header .menu > div {
         padding-bottom: 0px;
     }
 
-        .addedSection div.form-group > div {
+        .addedSection div.form-group > div,
+        .addedSection div > div.form-group {
             padding-right: 0;
             padding-left: 0;
         }
