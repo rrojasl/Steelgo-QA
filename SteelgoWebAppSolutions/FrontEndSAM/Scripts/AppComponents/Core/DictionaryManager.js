@@ -790,6 +790,22 @@ _dictionary = {
         "es-MX": "Por favor, sube un archivo CSV valido",
         "en-US": "Please, upload a valid CSV file"
     },
+    "ListadoCatalogos0009": {
+        "es-MX": "Ha ocurrido un error: El elemento aun no existe en la BD",
+        "en-US": "There had been an error: The element does not exists yet in the DataBase"
+    },
+    "ListadoCatalogos0010": {
+        "es-MX": "Antes de cargar datos al sistema, sube un archivo",
+        "en-US": "Before of load data to the system, upload a file"
+    },
+    "ListadoCatalogos0011": {
+        "es-MX": "Las filas en rojo muestran datos inválidos que no serán cargados",
+        "en-US": "Red rows shows invalid data which wont be uploaded"
+    },
+    "ListadoCatalogos0012": {
+        "es-MX": "Verifica que la cantidad de datos en las columnas coincida con la plantilla",
+        "en-US": "Verify the number of data in the columns is same than template file"
+    },
     "ItemCodeSteelGo0001": {
         "es-MX": "Item Code SteelGo",
         "en-US": "Item Code SteelGo"
