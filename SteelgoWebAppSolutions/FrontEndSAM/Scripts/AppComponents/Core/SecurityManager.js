@@ -401,7 +401,7 @@ function validateCredentials() {
         } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1"
                     && Cookies.get("LogOut") != null) {
             Cookies.remove("LogOut", { path: '/' });
-            displayMessage("notificationslabel0005", "", '2');
+            //displayMessage("notificationslabel0005", "", '2');
             document.location.href = '/';
         }
     }
