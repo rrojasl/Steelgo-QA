@@ -2105,30 +2105,95 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoIncidencias(FiltrosJson filtro, Sam3_Usuario usuario)
+        public object ListadoIncidencias(FiltrosJson filtros, Sam3_Usuario usuario)
         {
             try
             {
-                List<ListadoIncidencias> lstIncidencias = new List<ListadoIncidencias>();
-                ListadoIncidencias incidencia1 = new ListadoIncidencias();
-                incidencia1.FolioIncidenciaID = "1";
-                incidencia1.Clasificacion = "Materiales";
-                incidencia1.TipoIncidencia = "Número Único";
-                incidencia1.Estatus = "Estatus";
-                incidencia1.RegistradoPor = "Pedro Sepulveda";
-                incidencia1.FechaRegistro = "10/10/2015";
-                lstIncidencias.Add(incidencia1);
+                using (SamContext ctx = new SamContext())
+                {
+                    #region Filtros
+                    //traemos la informacion de los proyectos y patios del usuario
+                    List<int> proyectos = ctx.Sam3_Rel_Usuario_Proyecto.Where(x => x.UsuarioID == usuario.UsuarioID && x.Activo)
+                        .Select(x => x.ProyectoID).Distinct().AsParallel().ToList();
 
-                ListadoIncidencias incidencia2 = new ListadoIncidencias();
-                incidencia2.FolioIncidenciaID = "2";
-                incidencia2.Clasificacion = "Materiales";
-                incidencia2.TipoIncidencia = "Número Único";
-                incidencia2.Estatus = "Estatus";
-                incidencia2.RegistradoPor = "Pedro Sepulveda";
-                incidencia2.FechaRegistro = "10/10/2015";
-                lstIncidencias.Add(incidencia2);
+                    List<int> patios = (from p in ctx.Sam3_Proyecto
+                                        join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                        where p.Activo && pa.Activo
+                                        select pa.PatioID).Distinct().AsParallel().ToList();
 
-                return lstIncidencias;
+                    int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                    int proyectoID = filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+
+                    DateTime fechaInicial = new DateTime();
+                    DateTime fechaFinal = new DateTime();
+                    DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                    DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+
+                    if (fechaFinal.ToShortDateString() == "1/1/0001")
+                    {
+                        fechaFinal = DateTime.Now;
+                    }
+
+                    if (fechaInicial.ToShortDateString() == "1/1/0001")
+                    {
+                        int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                        int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                        fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                    }
+                    #endregion
+
+                    //Primero obtengo todas las incidencias activas dentro del rango de tiempo
+                    List<Sam3_Incidencia> registrosIncidencias = (from incidencia in ctx.Sam3_Incidencia
+                                                                  where incidencia.Activo
+                                                                  && (incidencia.FechaCreacion >= fechaInicial && incidencia.FechaCreacion <= fechaFinal)
+                                                                  select incidencia).Distinct().AsParallel().ToList();
+
+                    List<int> incidenciasIDs = registrosIncidencias.Select(x => x.IncidenciaID).Distinct().ToList();
+
+                    List<ListadoIncidencias> listado = new List<ListadoIncidencias>();
+                    List<int> temp = new List<int>();
+
+                    //folios aviso de llegada -- OK
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.IncidenciaID).AsParallel().Distinct().ToList();
+
+                    listado.AddRange(AvisoLlegadaBd.Instance.ListadoInciendias(clienteID, proyectoID, proyectos, patios,
+                        temp, fechaInicial, fechaFinal));
+
+                    //Entrada de material
+                    listado.AddRange(FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Pase salida, no se si existe la incidencia a nivel pase de salida o es de tipo aviso de entrada
+                    //listado.AddRange(PaseSalidaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Packing list (Folio Cuantificacion)
+                    listado.AddRange(FoliosCuantificacionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Orden recepcion
+                    listado.AddRange(OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Complemento recepcion
+                    // N/A
+
+                    //ItemCode
+                    listado.AddRange(ItemCodeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Orden Almacenaje
+                    listado.AddRange(OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Numero Unico
+                    listado.AddRange(NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Despacho
+                    listado.AddRange(DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+                    //Corte
+                    listado.AddRange(CorteBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+
+
+                    return listado.OrderBy(x => x.FolioIncidenciaID).ToList();
+                }
             }
             catch (Exception ex)
             {

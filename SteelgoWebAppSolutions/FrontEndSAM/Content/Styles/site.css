@@ -300,7 +300,7 @@ input {
     height: 40px;
     min-height: 40px;
     color: #1B3F70;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC!important;
     border-radius: 0;
     font-size: 14px;
     padding: 0 5px;
@@ -349,6 +349,7 @@ input.quickFilters {
 
         input.quickFilters:last-of-type[disabled] {
             background: #FFFFFF;
+            opacity:1!important;
         }
 
 .expanded input.quickFilters {
@@ -846,11 +847,12 @@ h2 {
     input.quickFilters,
     .expanded input.quickFilters {
         width: 25%;
+        -webkit-appearance: none;
     }
 
         input.quickFilters:first-of-type,
         .expanded input.quickFilters:first-of-type {
-            width: 24.85%;
+            width: 24.9%;
         }
 
         input.quickFilters:last-of-type,

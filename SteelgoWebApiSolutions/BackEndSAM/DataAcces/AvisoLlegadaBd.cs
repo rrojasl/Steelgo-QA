@@ -895,5 +895,66 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
+            DateTime fechainicial, DateTime fechaFinal)
+        {
+            try
+            {
+                List<ListadoIncidencias> listado;
+                using (SamContext ctx = new SamContext())
+                {
+                    //obtenemos todos los avisos de llegada segun los datos propuestos
+                    List<Sam3_FolioAvisoLlegada> registros = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                                              join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                                              join p in ctx.Sam3_Proyecto on rfp.ProyectoID equals p.ProyectoID
+                                                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                              where fa.Activo && rfp.Activo
+                                                              && proyectos.Contains(rfp.ProyectoID)
+                                                              && patios.Contains(pa.PatioID)
+                                                              && (fa.FechaModificacion >= fechainicial && fa.FechaModificacion <= fechaFinal)
+                                                              select fa).Distinct().AsParallel().ToList();
+
+                    if (clienteID > 0)
+                    {
+                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                    }
+
+                    if (proyectoID > 0)
+                    {
+                        registros = (from r in registros
+                                     join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
+                                     where r.Activo && rfp.Activo
+                                     && rfp.ProyectoID == proyectoID
+                                     select r).Distinct().AsParallel().ToList();
+                    }
+
+
+                    listado = (from r in registros
+                               join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals rif.FolioAvisoLlegadaID
+                               join incd in ctx.Sam3_Incidencia on rif.IncidenciaID equals incd.IncidenciaID
+                               join cls in ctx.Sam3_ClasificacionIncidencia on incd.ClasificacionID equals cls.ClasificacionIncidenciaID
+                               join ti in ctx.Sam3_TipoIncidencia on incd.TipoIncidenciaID equals ti.TipoIncidenciaID
+                               join us in ctx.Sam3_Usuario on incd.UsuarioID equals us.UsuarioID
+                               where r.Activo && rif.Activo && incd.Activo
+                               && incidenciaIDs.Contains(incd.IncidenciaID)
+                               select new ListadoIncidencias
+                               {
+                                   Clasificacion = cls.Nombre,
+                                   Estatus = incd.Estatus,
+                                   FechaRegistro = incd.FechaCreacion.ToString(),
+                                   FolioIncidenciaID = incd.IncidenciaID.ToString(),
+                                   RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
+                                   TipoIncidencia = ti.Nombre
+                               }).Distinct().AsParallel().ToList();
+                    
+                }
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }//Fin Clase
 }

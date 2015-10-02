@@ -1455,6 +1455,7 @@ header .menu > div {
     .login {
         width: 100%;
         max-width: 510px;
+        top: 0%;
     }
 
         .login form div {
@@ -1469,6 +1470,10 @@ header .menu > div {
 
         .login form input {
             width: 68% !important;
+        }
+
+        .login img {
+            margin: 20px 0;
         }
 
     /*$_header*/
@@ -1508,7 +1513,7 @@ header .menu > div {
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
             position: relative;
-            right: 0;            
+            right: 0;
             box-shadow: none;
             border: none;
             padding-top: 8px;
