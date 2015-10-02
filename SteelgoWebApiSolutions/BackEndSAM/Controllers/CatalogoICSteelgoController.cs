@@ -33,6 +33,29 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string data, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                CatalogoCedulas datoscedulas = serializer.Deserialize<CatalogoCedulas>(data);
+
+                return CatalogosBd.Instance.obtenerCedulasICS(datoscedulas);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         // POST api/<controller>
         public object Post(string data, string token)
         {
