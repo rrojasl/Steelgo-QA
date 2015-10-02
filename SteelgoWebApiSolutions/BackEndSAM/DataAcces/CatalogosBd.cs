@@ -43,6 +43,7 @@ namespace BackEndSAM.DataAcces
 
         /// <summary>
         /// Funcion con llenar el combo de catalogos
+        /// Catalogos ABC
         /// </summary>
         /// <returns></returns>
         public object obtenerCatalogos()
@@ -341,7 +342,6 @@ namespace BackEndSAM.DataAcces
 
                             return catCedulas;
                             #endregion
-
                         default:
                             #region
                             TransactionalInformation result = new TransactionalInformation();
@@ -371,9 +371,9 @@ namespace BackEndSAM.DataAcces
         /// Funcion para actualizar la informacion de los catalogos
         /// Segun la informacion capturada en el grid de Administracion de Catalogos
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="catalogoID"></param>
-        /// <param name="usuario"></param>
+        /// <param name="data">datos a actualizar</param>
+        /// <param name="catalogoID">id del catalogo seleccionado</param>
+        /// <param name="usuario">usuario actua</param>
         /// <returns></returns>
         public object actualizarCatalogo(string data, string catalogoID, Sam3_Usuario usuario)
         {
@@ -745,7 +745,11 @@ namespace BackEndSAM.DataAcces
 
         /// <summary>
         /// Funcion para eliminar un elemento del catalogo
+        /// Catalogos ABC 
         /// </summary>
+        /// <param name="id">id del elemento a eliminar</param>
+        /// <param name="catalogoID">catalogo seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
         /// <returns></returns>
         public object EliminarElementoCatalogo(int id, string catalogoID, Sam3_Usuario usuario)
         {
@@ -900,6 +904,15 @@ namespace BackEndSAM.DataAcces
 
         }
 
+        /// <summary>
+        /// Funcion para insertar un nuevo elemento del 
+        /// catalogo seleccionado a la base de datos
+        /// Catalogos ABC
+        /// </summary>
+        /// <param name="data">datos capturados en el grid</param>
+        /// <param name="catalogoID">catalogo seleccionado</param>
+        /// <param name="usuario">usuario actual</param>
+        /// <returns>datos del elemento insertado</returns>
         public object InsertarElementoAlCatalogo(string data, string catalogoID, Sam3_Usuario usuario)
         {
             try
@@ -1111,23 +1124,22 @@ namespace BackEndSAM.DataAcces
                                 Telefono = fabricante.Telefono
                             };
                             #endregion
-
                         case 11: //Catalogo Cedulas
                             #region
                             List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
                             List<CatalogoCedulas> cedulasCorrectas = new List<CatalogoCedulas>();
                             List<CatalogoCedulas> cedulasNuevas = new List<CatalogoCedulas>();
 
-                            cedulasNuevas.AddRange(catalogoCedulas.Where(x=> String.IsNullOrEmpty(x.CedulaID)));
+                            cedulasNuevas.AddRange(catalogoCedulas.Where(x => String.IsNullOrEmpty(x.CedulaID)));
 
                             bool existe = false;
-                            
+
                             foreach (CatalogoCedulas item in cedulasNuevas)
                             {
                                 decimal factor = Convert.ToDecimal(item.FactorConversion);
 
                                 if (String.IsNullOrEmpty(item.Diametro))
-                                { 
+                                {
                                     existe = (from ced in ctx.Sam3_Cedula
                                               where (ced.CedulaA == item.CedulaA ||
                                               ced.CedulaB == item.CedulaB ||
@@ -1180,14 +1192,14 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else //Update
                                 {
-                                    Sam3_Cedula cedula = ctx.Sam3_Cedula.Where(x=> x.Activo && 
-                                        (x.Diametro.ToString() == item.Diametro && (x.CedulaA == item.CedulaA || 
-                                        x.CedulaB == item.CedulaB || 
-                                        x.CedulaC == item.CedulaC)) || 
-                                        (x.Diametro.ToString() == null && 
-                                        (x.CedulaA == item.CedulaA || 
-                                        x.CedulaB == item.CedulaB || 
-                                        x.CedulaC == item.CedulaC ))).AsParallel().SingleOrDefault();
+                                    Sam3_Cedula cedula = ctx.Sam3_Cedula.Where(x => x.Activo &&
+                                        (x.Diametro.ToString() == item.Diametro && (x.CedulaA == item.CedulaA ||
+                                        x.CedulaB == item.CedulaB ||
+                                        x.CedulaC == item.CedulaC)) ||
+                                        (x.Diametro.ToString() == null &&
+                                        (x.CedulaA == item.CedulaA ||
+                                        x.CedulaB == item.CedulaB ||
+                                        x.CedulaC == item.CedulaC))).AsParallel().SingleOrDefault();
 
                                     cedula.Diametro = String.IsNullOrEmpty(item.Diametro) ? (int?)null : Convert.ToInt32(item.Diametro);
                                     cedula.CedulaA = item.CedulaA;
@@ -1245,11 +1257,17 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Se obtiene el factor de conversion 
+        /// para el catalogo de Cedulas
+        /// </summary>
+        /// <param name="catalogoID">catalogo de cedulas</param>
+        /// <returns>string con el dato del factor</returns>
         public object obtenerFactorConversion(string catalogoID)
         {
             try
             {
-                var factor = ConfigurationManager.AppSettings["factorConversion"];
+                string factor = ConfigurationManager.AppSettings["factorConversion"];
 
                 return factor;
             }
@@ -1290,7 +1308,7 @@ namespace BackEndSAM.DataAcces
                                  Diametro1 = ics.Diametro1.ToString(),
                                  Diametro2 = ics.Diametro2.ToString(),
                                  Grupo = g.Nombre,
-                                 FamiliaAceroID = ics.FamiliaAceroID.ToString(),
+                                 AceroID = ics.FamiliaAceroID.ToString(),
                                  CedulaA = c.CedulaA,
                                  CedulaB = c.CedulaB,
                                  Libra = c.CedulaC,
@@ -1305,9 +1323,9 @@ namespace BackEndSAM.DataAcces
                 using (Sam2Context ctx2 = new Sam2Context())
                 {
                     lista.ForEach(x =>
-                        x.TipoAcero = (from fa in ctx2.FamiliaAcero
-                                       where fa.FamiliaAceroID.ToString() == x.FamiliaAceroID
-                                       select fa.Nombre).AsParallel().SingleOrDefault());
+                        x.Acero = (from fa in ctx2.FamiliaAcero
+                                   where fa.FamiliaAceroID.ToString() == x.AceroID
+                                   select fa.Nombre).AsParallel().SingleOrDefault());
                 }
 
                 return lista;
@@ -1330,7 +1348,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="datos"></param>
         /// <returns></returns>
-        public object guardarItemCodeSteelgo(ICSDatosAsociacion datos)
+        public object guardarItemCodeSteelgo(ICSDatosAsociacion datos, Sam3_Usuario usuario)
         {
             try
             {
@@ -1339,27 +1357,96 @@ namespace BackEndSAM.DataAcces
                     Sam3_ItemCodeSteelgo ICSteelgo = new Sam3_ItemCodeSteelgo();
                     ICSteelgo.Codigo = datos.Codigo;
                     ICSteelgo.DescripcionEspanol = datos.Descripcion;
+                    //Descripcion larga es
+                    //Descripcion corta ing
                     ICSteelgo.DescripcionIngles = datos.DescripcionIngles;
                     ICSteelgo.Diametro1 = Convert.ToDecimal(datos.Diametro1);
                     ICSteelgo.Diametro2 = Convert.ToDecimal(datos.Diametro2);
+                    ICSteelgo.GrupoID = Convert.ToInt32(datos.GrupoID);
+                    ICSteelgo.CedulaID = Convert.ToInt32(datos.CedulaID);
+                    ICSteelgo.Peso = Convert.ToDecimal(datos.Peso);
+                    ICSteelgo.Area = Convert.ToInt32(datos.Area);
+                    ICSteelgo.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
+                    ICSteelgo.Activo = true;
+                    ICSteelgo.UsuarioModificacion = usuario.UsuarioID;
+                    ICSteelgo.FechaModificacion = DateTime.Now;
 
                     ctx.Sam3_ItemCodeSteelgo.Add(ICSteelgo);
 
-                    //Insertar grupo
-                    //Sam3_grupo grupo = new Sam3_grupo();
-
-                    //Insertar Cedulas
-                    //Sam3_Cedula cedula = new Sam3_Cedula();
-
                     ctx.SaveChanges();
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
+                    return new ICSDatosAsociacion
+                    {
+                        ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID.ToString(),
+                        Codigo = ICSteelgo.Codigo,
+                        Descripcion = ICSteelgo.DescripcionEspanol,
+                        //DescripcionLarga = ICSteelgo.DescripcionEspanolLarga,
+                        DescripcionIngles = ICSteelgo.DescripcionIngles,
+                        //DescripcionLargaIngles = ICSteelgo.DescripcionInglesLarga,
+                        Diametro1 = ICSteelgo.Diametro1.ToString(),
+                        Diametro2 = ICSteelgo.Diametro2.ToString(),
+                        Grupo = datos.Grupo,
+                        Acero = datos.Acero,
+                        CedulaA = datos.CedulaA,
+                        CedulaB = datos.CedulaB,
+                        Libra = datos.Libra,
+                        Inch = datos.Inch,
+                        MM = datos.MM,
+                        Espesor = datos.Espesor,
+                        Peso = ICSteelgo.Peso.ToString(),
+                        Area = ICSteelgo.Area.ToString()
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
-                    return result;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para obtener los datos de las cedulas para un item code steelgo
+        /// catalogo item code steelgo
+        /// </summary>
+        /// <param name="datosCedulas"> </param>
+        /// <returns></returns>
+        public object obtenerCedulasICS(CatalogoCedulas datosCedulas)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    CatalogoCedulas cedula = new CatalogoCedulas();
+
+                        List<CatalogoCedulas> lista = (from c in ctx.Sam3_Cedula
+                                                       where c.Activo 
+                                                       //&& c.Diametro.ToString() == datosCedulas.Diametro
+                                                       && (!String.IsNullOrEmpty(datosCedulas.CedulaA) ? c.CedulaA == datosCedulas.CedulaA :
+                                                       !String.IsNullOrEmpty(datosCedulas.CedulaB) ? c.CedulaB == datosCedulas.CedulaB :
+                                                       !String.IsNullOrEmpty(datosCedulas.CedulaC) ? c.CedulaC == datosCedulas.CedulaC : c.Diametro.ToString() == datosCedulas.Diametro)
+                                                       select new CatalogoCedulas
+                                                       {
+                                                           CedulaID = c.CedulaID.ToString(),
+                                                           Diametro = c.Diametro.ToString(),
+                                                           CedulaA = c.CedulaA,
+                                                           CedulaB = c.CedulaB,
+                                                           CedulaC = c.CedulaC,
+                                                           CedulaIn = c.CedulaIn.ToString(),
+                                                           CedulaMM = c.CedulaMM.ToString(),
+                                                           Espesor = c.Espesor.ToString()
+                                                       }).AsParallel().ToList();
+
+                        cedula = lista.Where(x => x.Diametro == datosCedulas.Diametro).Count() == 0 ? 
+                            lista.Where(x=> x.Diametro == "").AsParallel().SingleOrDefault() : 
+                            lista.Where(x => x.Diametro == datosCedulas.Diametro).AsParallel().SingleOrDefault();
+                        
+                    return cedula;
                 }
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using BackEndSAM.DataAcces;
 using BackEndSAM.Models;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System.Web.Http;
@@ -32,6 +33,29 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string data, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                CatalogoCedulas datoscedulas = serializer.Deserialize<CatalogoCedulas>(data);
+
+                return CatalogosBd.Instance.obtenerCedulasICS(datoscedulas);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         // POST api/<controller>
         public object Post(string data, string token)
         {
@@ -42,8 +66,9 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 ICSDatosAsociacion datosICS = serializer.Deserialize<ICSDatosAsociacion>(data);
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CatalogosBd.Instance.guardarItemCodeSteelgo(datosICS);
+                return CatalogosBd.Instance.guardarItemCodeSteelgo(datosICS, usuario);
             }
             else
             {

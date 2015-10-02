@@ -38,7 +38,7 @@
                                     @*
                             <li><a id="irListado" href="#"><span id="Almacenaje0007"></span></a></li>
                                     *@
-                                    <li><a href="#"><span id="Almacenaje0008"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="Almacenaje0008"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -120,6 +120,7 @@
         ItemCode = {}, NumeroUnico = {},
         resultadoJson = "";
     var _almacenaje = "@Url.Action("Almacenaje", "Almacenaje")";
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $AlmacenajeModel = {
         listContainer: {
@@ -186,6 +187,7 @@
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
+        $("#IrIncidencia").click(function () { Incidencias(); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -537,6 +539,9 @@
         window.location.href = _almacenaje + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
 
+    function Incidencias() {
+        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
     function Error(data) {
         if (data.ReturnCode) {
             if (data.ReturnCode != 200) {

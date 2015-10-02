@@ -724,12 +724,12 @@
 .k-tabstrip .k-textbox > input, .k-tabstrip .k-autocomplete .k-input,
 .k-tabstrip .k-picker-wrap .k-input, .k-tabstrip .k-numeric-wrap .k-input,
 .k-tabstrip .k-dropdown-wrap .k-input, .k-tabstrip .k-selectbox .k-input,
-.k-tabstrip.form input:not(.k-input) {
+.k-tabstrip.form input.general-input {
     min-height: 36px;
     height: 36px;
 }
 
-.k-tabstrip.form input:not(.k-input),
+.k-tabstrip.form input.general-input,
 .k-tabstrip .k-dropzone .k-upload-button,
 .k-tabstrip .k-upload .k-upload-selected {
     min-height: 38px;
