@@ -86,6 +86,47 @@ namespace BackEndSAM.DataAcces
         }
 
         /// <summary>
+        /// Funccion para guardar un documento para un catalogo
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public bool GuardarDocumentoCatalogos(List<DocumentosEnCatalogos> files)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    foreach (DocumentosEnCatalogos f in files)
+                    {
+                        Sam3_Rel_Catalogos_Documento nuevoDoc = new Sam3_Rel_Catalogos_Documento();
+                        nuevoDoc.Activo = true;
+                        nuevoDoc.DocumentoID = 0;
+                        nuevoDoc.DocGuid = f.DocGuid;
+                        nuevoDoc.Extension = f.Extension;
+                        nuevoDoc.FechaModificacion = DateTime.Now;
+                        nuevoDoc.CatalogoID = Int32.Parse(f.CatalogoID);
+                        nuevoDoc.ElementoCatalogoID = Int32.Parse(f.ElementoCatalogoID);
+                        nuevoDoc.Nombre = f.FileName;
+                        nuevoDoc.Url = f.Path;
+                        nuevoDoc.UsuarioModificacion = f.UserId;
+                        nuevoDoc.TipoArchivoID = f.TipoArchivoID;
+                        nuevoDoc.ContentType = f.ContentType;
+
+                        ctx.Sam3_Rel_Catalogos_Documento.Add(nuevoDoc);
+                    }
+
+                    ctx.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Guarda registrso de los documentos cargados en para los avisos de entrada
         /// </summary>
         /// <param name="files"></param>
@@ -471,6 +512,46 @@ namespace BackEndSAM.DataAcces
                     docDb.Activo = false;
                     docDb.FechaModificacion = DateTime.Now;
                     docDb.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para eliminar un documento de catalogos
+        /// </summary>
+        /// <param name="documentoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object EliminarDocumentoCatalogos(int documentoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_Catalogos_Documento cat = ctx.Sam3_Rel_Catalogos_Documento.Where(x => x.Rel_Catalogos_DocumentoID == documentoID && x.Activo).AsParallel().SingleOrDefault();
+                    cat.Activo = false;
+                    cat.FechaModificacion = DateTime.Now;
+                    cat.UsuarioModificacion = usuario.UsuarioID;
 
                     ctx.SaveChanges();
 
