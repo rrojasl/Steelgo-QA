@@ -157,7 +157,8 @@ label {
     }
 
 .form label,
-#window label {
+#window label,
+.popup label {
     text-transform: uppercase;
     display: block;
     font-size: 11px;
@@ -176,7 +177,8 @@ label {
         top: -6px;
     }
 
-    #window label.security_required::after {
+    #window label.security_required::after,
+    .popup label.security_required::after {
         content: '*';
         font-size: 19px;
         position: relative;
@@ -184,11 +186,13 @@ label {
     }
 
     .form label.security_required.error::after,
-    #window label.security_required.error::after {
+    #window label.security_required.error::after,
+    .popup label.security_required.error::after {
         color: #EC4F50;
     }
 
-    #window label.checkLabel {
+    #window label.checkLabel,
+    .popup label.checkLabel {
         display: inline-block;
     }
 
@@ -251,7 +255,7 @@ input {
     box-shadow: none;
     width: 100%;
     box-sizing: border-box;
-}
+}    
 
     input:focus {
         outline: none;
@@ -264,7 +268,8 @@ input {
         font-weight: 600;
     }
 
-    input:not(.k-input).error {
+    /*Para inputs no generados por kendo-ui*/
+    input.general-input.error {
         border-color: #EC4F50 !important;
     }
 
@@ -290,18 +295,19 @@ input {
     font-weight: 600;
 }
 
-.content-container .form input:not(.k-input) {
+/*Para inputs no generados por kendo-ui*/
+.content-container .form input.general-input {
     height: 40px;
     min-height: 40px;
     color: #1B3F70;
-    border: 1px solid #CCCCCC;
+    border: 1px solid #CCCCCC!important;
     border-radius: 0;
     font-size: 14px;
     padding: 0 5px;
     z-index: 1;
 }
 
-    .content-container .form input:not(.k-input):focus {
+    .content-container .form input.general-input:focus {
         border-color: #4486CB;
         -moz-box-shadow: 0px 0px 3px #4486CB; /* FF3.5+ */
         -webkit-box-shadow: 0px 0px 3px #4486CB; /* Saf3.0+, Chrome */
@@ -317,7 +323,14 @@ input {
     margin: 4px auto 0;
     outline: none;
     border: none;
-    box-shadow: none !important;
+    box-shadow: none !important;    
+}
+
+#window input[type="checkbox"], 
+.popup input[type="checkbox"] {
+    width: auto!important;
+    position: relative;
+    top: 2px; 
 }
 
 input.quickFilters {
@@ -336,6 +349,7 @@ input.quickFilters {
 
         input.quickFilters:last-of-type[disabled] {
             background: #FFFFFF;
+            opacity:1!important;
         }
 
 .expanded input.quickFilters {
@@ -527,6 +541,11 @@ input.quickFilters.arrivalMaterial {
     width: 12.54%;
 }
 
+#DespachoCorte .btn-tab.Accesorios,
+#DespachoCorte .btn-tab.Tubos {
+    width: 14.33%;
+}
+
 /*.btn-tab span#spanSinAutorizacion {
         color: #E90000;
     }*/
@@ -695,6 +714,11 @@ input.quickFilters.arrivalMaterial {
         padding: 2px 29px 0 9px;
     }
 
+    #Nuevo.btn.btn-Despachar {
+        height: 34px!important;
+        padding-right: 33px;
+    }
+
 #massiveUpload.btn {
     margin-bottom: 3px;
 }
@@ -722,7 +746,7 @@ h2 {
 
 /**********************************************************************************
  Class name:    $_dropdown
- Description:   Customize headings tag.
+ Description:   Customize dropdown menu.
 **********************************************************************************/
 .dropdown {
 }
@@ -758,6 +782,15 @@ h2 {
 /* xs viewport */
 @media screen and (max-width: 767px) {
 
+    /*$_content-frame*/
+    .content-frame {
+        top: 110px;
+    }
+
+        .content-frame .container .main-content {
+            margin: 0;
+        }
+
     /*$_footer*/
     footer {
         text-align: center;
@@ -774,6 +807,64 @@ h2 {
             display: block;
             font-size: 9px;
         }
+
+    /*$_btn*/
+    .btn.btn-tab {
+        padding: 7px;
+    }
+
+    .btn-tab label {
+        letter-spacing: 0;
+        font-size: 11px;
+    }
+
+    .btn-tab.Accesorios, .btn-tab.Tubos,
+    #DespachoCorte .btn-tab.Accesorios,
+    #DespachoCorte .btn-tab.Tubos {
+        width: 25.1%;
+        border-radius: 0;
+        margin-top: -1px;
+        margin-left: -1px!important;
+    }
+
+    .btn.btn-tabList {
+        height: 50px;
+        white-space: normal;
+        padding: 4px;
+    }
+
+        .btn.btn-tabList.active {
+            height: 54px;
+        }
+
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    /*input*/
+    input.quickFilters,
+    .expanded input.quickFilters {
+        width: 25%;
+        -webkit-appearance: none;
+    }
+
+        input.quickFilters:first-of-type,
+        .expanded input.quickFilters:first-of-type {
+            width: 24.9%;
+        }
+
+        input.quickFilters:last-of-type,
+        .expanded input.quickFilters:last-of-type {
+            width: 25.96%;
+        }
+
+    /*$_dropdown*/
+    .dropdown-menu > li > a {
+        white-space: normal;
+    }
+
 }
 
 /* sm viewport */
@@ -792,6 +883,11 @@ h2 {
     .btn-tab.Accesorios,
     .btn-tab.Tubos {
         width: 25.04%;
+    }
+
+    #DespachoCorte .btn-tab.Accesorios,
+    #DespachoCorte .btn-tab.Tubos {
+        width: 14.41%;
     }
 
     /*input*/

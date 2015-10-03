@@ -30,10 +30,15 @@ var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/Document
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
+var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?folioIncidenciaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
+var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
+var $UrlDummyNumerosUnicos = $BackEndSAMUri + '/backendsam/api/DummyNumerosUnicos?';
+var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -61,7 +66,7 @@ var $PermisoTramite = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoArchivo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoAvisoLlegada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionFolioConPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $Incidencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyIncidencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PaseSalida= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoFolioAvisoEntrada = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -95,7 +100,23 @@ var $GuardarFolioLlegadaCuantificacion = new $.RestClient($BackEndSAMUri + '/bac
 var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Almacenaje = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DetalleNumeroUnico = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoMaterialesPorItemCode = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Despacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Maquina = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Cortador = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Cedulas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Clasificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -134,7 +155,7 @@ $TipoArchivo.add("TipoArchivo");
 $PermisoTramite.add("PermisoAduana");
 $DocumentoAvisoLlegada.add("DocumentoAvisoLlegada");
 $ValidacionFolioConPermisoAduana.add("ValidacionFolioConPermisoAduana");
-$Incidencias.add("DummyIncidencias")
+$DummyIncidencias.add("DummyIncidencias")
 $DocumentoPaseSalida.add("DocumentoPaseSalida");
 $PaseSalida.add("PaseSalida");
 $DocumentoFolioAvisoEntrada.add("DocumentoFolioAvisoEntrada");
@@ -169,4 +190,20 @@ $GuardarFolioLlegadaCuantificacion.add("GuardarFolioLlegadaCuantificacion");
 $CambiarEstatusCuantificacion.add("CambiarEstatusCuantificacion");
 $ComplementarRecepcion.add("ComplementarRecepcion");
 $ListadoMateriales.add("ListadoMateriales")
-$DummyAlmacenajeRack.add("DummyAlmacenajeRack");
+$Almacenaje.add("Almacenaje");
+$DetalleNumeroUnico.add("DetalleNumeroUnico");
+$ListadoMaterialesPorItemCode.add("ListadoMaterialesPorItemCode");
+$Despacho.add("Despacho");
+$Maquina.add("Maquina");
+$Cortador.add("Cortador");
+$DummyNumerosUnicos.add("DummyNumerosUnicos");
+$Catalogos.add("AdministracionCatalogos");
+$Corte.add("Corte")
+$AsociacionICS.add("AsociacionICS");
+$Cedulas.add("Cedulas");
+$Clasificacion.add("Clasificacion");
+$TipoIncidencia.add("TipoIncidencia");
+$CatalogoICSteelgo.add("CatalogoICSteelgo");
+$Incidencia.add("Incidencia");
+$DocumentoIncidencia.add("DocumentoIncidencia");
+$DocumentosCatalogos.add("DocumentosCatalogos");

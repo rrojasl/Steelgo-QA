@@ -13,43 +13,43 @@
     </li>
 }
 
-<div class="form clearfix col-sm-12 col-md-12 col-lg-12">
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
                 <div class="row">
-                    <div class="col-sm-3 col-md-4 col-lg-3 longButton">
+                    <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3 longButton">
                         <div class="button-section">
                             <button id="Nuevo" type="button" class="btn btn-yellow btn-newReception"><span id="DashboardRecepcionAlmacenaje0010"></span></button>
                         </div>
                     </div>
-                    <div class="col-sm-9 col-md-8 col-lg-9 filter-section">
+                    <div class="col-xs-12 col-sm-9 col-md-8 col-lg-9 filter-section">
                         <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0003"></label>
                                 <input id="ClienteID" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0004"></label>
                                 <input id="ProyectoID" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0005"></label>
                                 <input id="FolioAvisoEntradaID" class="" />
                             </div>
-                             <div class="col-sm-6 col-md-6 col-lg-3">
+                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0006"></label>
                                 <input id="PackingList" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0007"></label>
                                 <input id="FechaInicial" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0008"></label>
                                 <input id="FechaFinal" class="" />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardRecepcionAlmacenaje0009"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
@@ -58,10 +58,10 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <label id="DashboardRecepcionAlmacenaje0011"></label>
             <div class="row">
-                <div class="btn-group form-group col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+                <div class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
                     <button id="btnEntradaPorCuantificarAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardRecepcionAlmacenaje0012"></label>
                         <span id="spanEntradaPorCuantificarAccesorios"></span>
@@ -101,10 +101,10 @@
                 <div id="gridAccesorios"></div>
             </div>
         </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <label id="DashboardRecepcionAlmacenaje0020"></label>
             <div class="row">
-                <div class="btn-group form-group col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
+                <div class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabs">
                     <button id="btnEntradaPorCuantificarTubos" class="btn btn-tab Tubos">
                         <label id="DashboardRecepcionAlmacenaje0021"></label>
                         <span id="spanEntradaPorCuantificarTubos"></span>
@@ -150,22 +150,12 @@
 <input id="hdAccionFiltradoAccesorios" type="hidden" />
 <script>
     @section JavascriptDocumentReadyHomeCookie {
-        //Cookies.set("home", true, { path: '/' });
-        //Cookies.set("navegacion", "9", { path: '/' });
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "27", { path: '/' });
     }
     @section JavascriptGlobalVariables {
     var Proyecto = {}, Cliente = {}, FolioAvisoEntrada = {}, PackingList = {};
     var FechaInicial, FechaFinal, PeriodoTiempo = {}, resultadoJson;
-        //var $AvisoLLegadaModel = {
-        //    listContainer: {
-        //        create: "#Nuevo",
-        //        list: ".btn-group",
-        //        detail: ".graphContainer",
-        //        destroy: ""
-        //    },
-        //    properties: {
-        //    }
-        //};
     }
 
     @section JavascriptGlobalFunctions {

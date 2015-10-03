@@ -17,5 +17,6 @@ namespace DatabaseManager.Sam2
         public string siglas { get; set; }
         public string descripcion { get; set; }
         public int secuencia { get; set; }
+        public string ProyectoID { get; set; }
     }
 }

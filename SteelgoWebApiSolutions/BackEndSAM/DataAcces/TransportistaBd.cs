@@ -79,14 +79,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object InsertarTransportista(Sam3_Transportista nuevoRegistro, string payload)
+        public object InsertarTransportista(Sam3_Transportista nuevoRegistro, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                     nuevoRegistro.Activo = true;
                     nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
                     nuevoRegistro.FechaModificacion = DateTime.Now;

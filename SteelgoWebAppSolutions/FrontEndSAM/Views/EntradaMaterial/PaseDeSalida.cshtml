@@ -21,10 +21,10 @@
 
 <div id="formPaseSalida" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="GenerarPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0005"></span></button>
@@ -51,21 +51,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="filterForm form col-sm-12 col-md-12 col-lg-11">
+                <div class="filterForm col-xs-12 col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div id="FolioAvisoLlegadaIDDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="FolioAvisoLlegadaIDDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="PaseDeSalida0008"></label>
                             <input id="FolioAvisoLlegadaID" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="PaseDeSalida0009"></label>
                             <a id="ImprimirIncidencias" href="javascript:void(0);" class="btn btn-primary"><span id="PaseDeSalida0010"></span></a>
                         </div>
                     </div>
                     <div class="row">
-                        <div id="ListaIncidenciasDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ListaIncidenciasDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <table id="ListaIncidencias" class="filesTable">
                                 <thead>
                                     <tr>
@@ -87,21 +87,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-11">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div id="TipoArchivoDiv" class="col-sm-5 col-md-4 col-lg-3">
+                        <div id="TipoArchivoDiv" class="form-group col-xs-12 col-sm-5 col-md-4 col-lg-3">
                             <label id="PaseDeSalida0013"></label>
                             <input id="TipoArchivo" class="" />
                         </div>
-                        <div id="PackingListDiv" class="col-sm-7 col-md-8 col-lg-5">
+                        <div id="PackingListDiv" class="form-group col-xs-12 col-sm-7 col-md-8 col-lg-5">
                             <label id="PaseDeSalida0014"></label>
                             <input name="files" id="PackingList" type="file" class="" />
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <div id="listaArchivosPaseSalidaDiv" class="col-sm-12 col-md-12 col-lg-12">
+                        <div id="listaArchivosPaseSalidaDiv" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <table id="listaArchivosPaseSalida" class="filesTable">
                                 <thead>
                                     <tr>
@@ -352,7 +352,7 @@
 
         function ObtenerIncidencias(id) {
             $('#ListaIncidencias tbody').empty();
-            $Incidencias.DummyIncidencias.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
+            $DummyIncidencias.DummyIncidencias.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
                 $.each(result, function (index, value) {
                     $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.NumeroIncidencia + "' class='l' type='checkbox' /></td><td>"+ value.NumeroIncidencia +"</td><td>" + value.Descripcion + "</td></tr>");
                 });

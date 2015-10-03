@@ -86,6 +86,8 @@ namespace SecurityManager
         {
             username = dataSecurity.Decode(username);
             password = dataSecurity.Decode(password);
+            //Create a generic return object
+            TransactionalInformation transaction = new TransactionalInformation();
             Sam3_Usuario usuario;
             string perfil = "";
             //Check in data base
@@ -93,18 +95,24 @@ namespace SecurityManager
             {
                 usuario = (from us in ctx.Sam3_Usuario
                            where us.NombreUsuario == username && us.ContrasenaHash == password
-                           select us).SingleOrDefault();
+                           select us).AsParallel().SingleOrDefault();
             }
 
-            //Create a generic return object
-            TransactionalInformation transaction = new TransactionalInformation();
+            
             transaction.IsAuthenicated = false;
 
             if (usuario != null)
             {
+                int user = string.Compare(usuario.NombreUsuario, username, false);
+                int pass = string.Compare(usuario.ContrasenaHash, password, false);
+            }
+
+            if (usuario != null && string.Compare(usuario.ContrasenaHash, password, false) == 0  && string.Compare(usuario.NombreUsuario, username, false) == 0)
+            {
                 string token = ManageTokens.Instance.CreateJwtToken(usuario);
                 token = token;
                 transaction.IsAuthenicated = true;
+                transaction.ReturnMessage.Add(usuario.Nombre + " " + usuario.ApellidoPaterno);
                 transaction.ReturnMessage.Add(token);
                 transaction.ReturnCode = 200;
                 transaction.ReturnStatus = true;

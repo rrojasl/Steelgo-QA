@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ModelSam2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -193,7 +193,7 @@
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.BI_Join_MaterialSeguimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.BI_Join_MaterialSeguimiento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BI_Join_MaterialSeguimiento">
           <Key>
             <PropertyRef Name="ProyectoID" />
@@ -297,160 +297,6 @@ warning 6002: The table/view 'steelgo-sam2.dbo.BI_Join_MaterialSeguimiento' does
           <Property Name="FechaHold" Type="varchar" MaxLength="50" />
           <Property Name="DiametroPlano" Type="float" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.BI_SeguimientoDeSpools' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="BI_SeguimientoDeSpools">
-          <Property Name="GeneralSpoolID" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralProyectoID" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralProyecto" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralOrdenDeTrabajo" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralNumeroDeControl" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralSpool" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralNumeroJuntas" Type="int" />
-          <Property Name="GeneralFamiliaAcero1" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralFamiliaMaterial1" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralFamiliaAcero2" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralFamiliaMaterial2" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPrioridad" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPdi" Type="float" />
-          <Property Name="GeneralPeso" Type="float" />
-          <Property Name="GeneralArea" Type="float" />
-          <Property Name="GeneralEspecificacion" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPeqs" Type="float" />
-          <Property Name="GeneralKgsTeoricos" Type="float" />
-          <Property Name="GeneralTieneHold" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento1" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento2" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento3" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento4" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento5" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento6" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento7" Type="varchar" MaxLength="50" />
-          <Property Name="Isometrico" Type="varchar" MaxLength="50" />
-          <Property Name="RevisionCte" Type="varchar" MaxLength="50" />
-          <Property Name="RevisionStgo" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalFecha" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalFechaReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalNumeroReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalHoja" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalResultado" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalObservaciones" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalNumeroRechazos" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresFecha" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresFechaReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresNumeroReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresHoja" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresResultado" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresObservaciones" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresNumeroRechazos" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaRequisicion" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaNumeroRequisicion" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaSistema" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaColor" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaCodigo" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaSendBlast" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteSendBlast" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaPrimarios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReportePrimarios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaIntermedios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteIntermedios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaAcabadoVisual" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteAcabadoVisual" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaAdherencia" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteAdherencia" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaPullOff" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReportePullOff" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueEtiqueta" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueFechaEtiqueta" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueFechaPreparacion" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueFechaEmbarque" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueNumeroEmbarque" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPorcentajePnd" Type="float" />
-          <Property Name="PorcentajeArmado" Type="varchar" MaxLength="50" />
-          <Property Name="PorcentajeSoldado" Type="float" />
-          <Property Name="ObservacionesHold" Type="varchar" MaxLength="255" />
-          <Property Name="FechaHold" Type="varchar" MaxLength="50" />
-          <Property Name="DiametroPlano" Type="float" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.BI_SeguimientoDeSpoolsSegmentos' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="BI_SeguimientoDeSpoolsSegmentos">
-          <Property Name="UNIDAD" Type="varchar" MaxLength="50" />
-          <Property Name="SERVICIO" Type="varchar" MaxLength="50" />
-          <Property Name="LINEA" Type="varchar" MaxLength="50" />
-          <Property Name="AREA" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralSpoolID" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralProyectoID" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralProyecto" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralOrdenDeTrabajo" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralNumeroDeControl" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralSpool" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralNumeroJuntas" Type="int" />
-          <Property Name="GeneralFamiliaAcero1" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralFamiliaMaterial1" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralFamiliaAcero2" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralFamiliaMaterial2" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPrioridad" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPdi" Type="float" />
-          <Property Name="GeneralPeso" Type="float" />
-          <Property Name="GeneralArea" Type="float" />
-          <Property Name="GeneralEspecificacion" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPeqs" Type="float" />
-          <Property Name="GeneralKgsTeoricos" Type="float" />
-          <Property Name="GeneralTieneHold" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento1" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento2" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento3" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento4" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento5" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento6" Type="varchar" MaxLength="50" />
-          <Property Name="Segmento7" Type="varchar" MaxLength="50" />
-          <Property Name="Isometrico" Type="varchar" MaxLength="50" />
-          <Property Name="RevisionCte" Type="varchar" MaxLength="50" />
-          <Property Name="RevisionStgo" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalFecha" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalFechaReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalNumeroReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalHoja" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalResultado" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalObservaciones" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionDimensionalNumeroRechazos" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresFecha" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresFechaReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresNumeroReporte" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresHoja" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresResultado" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresObservaciones" Type="varchar" MaxLength="50" />
-          <Property Name="InspeccionEspesoresNumeroRechazos" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaRequisicion" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaNumeroRequisicion" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaSistema" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaColor" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaCodigo" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaSendBlast" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteSendBlast" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaPrimarios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReportePrimarios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaIntermedios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteIntermedios" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaAcabadoVisual" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteAcabadoVisual" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaAdherencia" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReporteAdherencia" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaFechaPullOff" Type="varchar" MaxLength="50" />
-          <Property Name="PinturaReportePullOff" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueEtiqueta" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueFechaEtiqueta" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueFechaPreparacion" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueFechaEmbarque" Type="varchar" MaxLength="50" />
-          <Property Name="EmbarqueNumeroEmbarque" Type="varchar" MaxLength="50" />
-          <Property Name="GeneralPorcentajePnd" Type="float" />
-          <Property Name="PorcentajeArmado" Type="varchar" MaxLength="50" />
-          <Property Name="PorcentajeSoldado" Type="float" />
-          <Property Name="ObservacionesHold" Type="varchar" MaxLength="255" />
-          <Property Name="FechaHold" Type="varchar" MaxLength="50" />
-          <Property Name="DiametroPlano" Type="float" />
-        </EntityType>-->
         <EntityType Name="BuscaArchivo">
           <Key>
             <PropertyRef Name="NumeroControl" />
@@ -683,14 +529,6 @@ warning 6013: The table/view 'steelgo-sam2.dbo.BI_SeguimientoDeSpoolsSegmentos' 
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.ControlLocalizacion' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="ControlLocalizacion">
-          <Property Name="NumeroControl" Type="nvarchar" MaxLength="50" />
-          <Property Name="ProyectoID" Type="int" />
-          <Property Name="Inspector" Type="nvarchar" MaxLength="100" />
-          <Property Name="FechaLocalizacion" Type="date" />
-        </EntityType>-->
         <EntityType Name="Cortador">
           <Key>
             <PropertyRef Name="CortadorID" />
@@ -944,7 +782,7 @@ warning 6013: The table/view 'steelgo-sam2.dbo.ControlLocalizacion' does not hav
           <Property Name="DespachadorID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.DestajoArmado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.DestajoArmado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DestajoArmado">
           <Key>
             <PropertyRef Name="IdConfiguracionDestajoArmado" />
@@ -1374,7 +1212,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.DestajoArmado' does not have a pr
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.FactorCedula' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.FactorCedula' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FactorCedula">
           <Key>
             <PropertyRef Name="IdCedulaFactor" />
@@ -1439,7 +1277,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.FactorCedula' does not have a pri
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.FechasDestajo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.FechasDestajo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FechasDestajo">
           <Key>
             <PropertyRef Name="FechaActividad" />
@@ -1677,29 +1515,6 @@ warning 6002: The table/view 'steelgo-sam2.dbo.FechasDestajo' does not have a pr
           <Property Name="FechaInsercion" Type="datetime" Nullable="false" />
           <Property Name="PendienteValidacion" Type="nvarchar" MaxLength="1" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.JuntaArmadoPagadoValor' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="JuntaArmadoPagadoValor">
-          <Property Name="Proyecto" Type="nvarchar" MaxLength="500" />
-          <Property Name="Spool" Type="nvarchar" MaxLength="1500" />
-          <Property Name="Numero_Orden" Type="nvarchar" MaxLength="500" />
-          <Property Name="Numero_Control" Type="nvarchar" MaxLength="500" />
-          <Property Name="Etiqueta" Type="nvarchar" MaxLength="500" />
-          <Property Name="Tipo" Type="nvarchar" MaxLength="500" />
-          <Property Name="Cedula" Type="nvarchar" MaxLength="500" />
-          <Property Name="Espesor" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Acero" Type="nvarchar" MaxLength="500" />
-          <Property Name="Material" Type="nvarchar" MaxLength="500" />
-          <Property Name="Diametro" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Fecha" Type="nvarchar" MaxLength="500" />
-          <Property Name="Observaciones" Type="nvarchar" MaxLength="1500" />
-          <Property Name="Precio_Sin_Volumen" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Multiplicador" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Precio_Total_Sin_Ajuste" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Ajuste" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Gran_Total" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="JuntaSpoolID" Type="int" />
-        </EntityType>-->
         <EntityType Name="JuntaCampo">
           <Key>
             <PropertyRef Name="JuntaCampoID" />
@@ -1868,7 +1683,7 @@ warning 6013: The table/view 'steelgo-sam2.dbo.JuntaArmadoPagadoValor' does not 
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.JuntaInspeccionDig' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.JuntaInspeccionDig' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="JuntaInspeccionDig">
           <Key>
             <PropertyRef Name="InspeccionVisualID" />
@@ -2044,49 +1859,6 @@ warning 6002: The table/view 'steelgo-sam2.dbo.JuntaInspeccionDig' does not have
           <Property Name="FechaInsercion" Type="datetime" Nullable="false" />
           <Property Name="Validar" Type="nvarchar" MaxLength="1" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.JuntaSoldaduraRaizPagadoValor' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="JuntaSoldaduraRaizPagadoValor">
-          <Property Name="Proyecto" Type="nvarchar" MaxLength="500" />
-          <Property Name="Spool" Type="nvarchar" MaxLength="1500" />
-          <Property Name="Numero_Orden" Type="nvarchar" MaxLength="500" />
-          <Property Name="Numero_Control" Type="nvarchar" MaxLength="500" />
-          <Property Name="Etiqueta" Type="nvarchar" MaxLength="500" />
-          <Property Name="Tipo" Type="nvarchar" MaxLength="500" />
-          <Property Name="Cedula" Type="nvarchar" MaxLength="500" />
-          <Property Name="Espesor" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Acero" Type="nvarchar" MaxLength="500" />
-          <Property Name="Material" Type="nvarchar" MaxLength="500" />
-          <Property Name="Diametro" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Fecha" Type="nvarchar" MaxLength="500" />
-          <Property Name="Precio" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Multiplicador" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Precio_Total" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="JuntaSpoolID" Type="int" />
-          <Property Name="ProcesoRaiz" Type="nvarchar" MaxLength="500" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.JuntaSoldaduraRellenoPagadoValor' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="JuntaSoldaduraRellenoPagadoValor">
-          <Property Name="Proyecto" Type="nvarchar" MaxLength="500" />
-          <Property Name="Spool" Type="nvarchar" MaxLength="1500" />
-          <Property Name="Numero_Orden" Type="nvarchar" MaxLength="500" />
-          <Property Name="Numero_Control" Type="nvarchar" MaxLength="500" />
-          <Property Name="Etiqueta" Type="nvarchar" MaxLength="500" />
-          <Property Name="Tipo" Type="nvarchar" MaxLength="500" />
-          <Property Name="Cedula" Type="nvarchar" MaxLength="500" />
-          <Property Name="Espesor" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Acero" Type="nvarchar" MaxLength="500" />
-          <Property Name="Material" Type="nvarchar" MaxLength="500" />
-          <Property Name="Diametro" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Fecha" Type="nvarchar" MaxLength="500" />
-          <Property Name="Precio" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Proceso_Relleno" Type="nvarchar" MaxLength="500" />
-          <Property Name="Multiplicador" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="Precio_Total" Type="decimal" Precision="18" Scale="6" />
-          <Property Name="JuntaSpoolID" Type="int" />
-          <Property Name="ProcesoRelleno" Type="nvarchar" MaxLength="500" />
-        </EntityType>-->
         <EntityType Name="JuntaSpool">
           <Key>
             <PropertyRef Name="JuntaSpoolID" />
@@ -2117,6 +1889,26 @@ warning 6013: The table/view 'steelgo-sam2.dbo.JuntaSoldaduraRellenoPagadoValor'
           <Property Name="Campo5" Type="nvarchar" MaxLength="150" />
           <Property Name="RequierePwht" Type="bit" Nullable="false" />
           <Property Name="RequierePruebaNeumatica" Type="bit" />
+          <Property Name="Campo6" Type="nvarchar(max)" />
+          <Property Name="Campo7" Type="nvarchar(max)" />
+          <Property Name="Campo8" Type="nvarchar(max)" />
+          <Property Name="Campo9" Type="nvarchar(max)" />
+          <Property Name="Campo10" Type="nvarchar(max)" />
+          <Property Name="Campo11" Type="nvarchar(max)" />
+          <Property Name="Campo12" Type="nvarchar(max)" />
+          <Property Name="Campo13" Type="nvarchar(max)" />
+          <Property Name="Campo14" Type="nvarchar(max)" />
+          <Property Name="Campo15" Type="nvarchar(max)" />
+          <Property Name="Campo16" Type="nvarchar(max)" />
+          <Property Name="Campo17" Type="nvarchar(max)" />
+          <Property Name="Campo18" Type="nvarchar(max)" />
+          <Property Name="Campo19" Type="nvarchar(max)" />
+          <Property Name="Campo20" Type="nvarchar(max)" />
+          <Property Name="Campo21" Type="nvarchar(max)" />
+          <Property Name="Campo22" Type="nvarchar(max)" />
+          <Property Name="Campo23" Type="nvarchar(max)" />
+          <Property Name="Campo24" Type="nvarchar(max)" />
+          <Property Name="Campo25" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="JuntaSpoolDeleted">
           <Key>
@@ -2225,6 +2017,27 @@ warning 6013: The table/view 'steelgo-sam2.dbo.JuntaSoldaduraRellenoPagadoValor'
           <Property Name="UsuarioModifica" Type="uniqueidentifier" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="Campo70" Type="nvarchar(max)" />
+          <Property Name="Campo71" Type="nvarchar(max)" />
+          <Property Name="Campo72" Type="nvarchar(max)" />
+          <Property Name="Campo73" Type="nvarchar(max)" />
+          <Property Name="Campo74" Type="nvarchar(max)" />
+          <Property Name="Campo75" Type="nvarchar(max)" />
+          <Property Name="Campo76" Type="nvarchar(max)" />
+          <Property Name="Campo77" Type="nvarchar(max)" />
+          <Property Name="Campo78" Type="nvarchar(max)" />
+          <Property Name="Campo79" Type="nvarchar(max)" />
+          <Property Name="Campo80" Type="nvarchar(max)" />
+          <Property Name="Campo81" Type="nvarchar(max)" />
+          <Property Name="Campo82" Type="nvarchar(max)" />
+          <Property Name="Campo83" Type="nvarchar(max)" />
+          <Property Name="Campo84" Type="nvarchar(max)" />
+          <Property Name="Campo85" Type="nvarchar(max)" />
+          <Property Name="Campo86" Type="nvarchar(max)" />
+          <Property Name="Campo87" Type="nvarchar(max)" />
+          <Property Name="Campo88" Type="nvarchar(max)" />
+          <Property Name="Campo89" Type="nvarchar(max)" />
+          <Property Name="Campo90" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="KgTeorico">
           <Key>
@@ -2410,7 +2223,7 @@ warning 6013: The table/view 'steelgo-sam2.dbo.JuntaSoldaduraRellenoPagadoValor'
           <Property Name="TipoCorte2ID" Type="int" />
           <Property Name="Codigo" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Estatus" Type="nchar" MaxLength="1" />
-          <Property Name="Factura" Type="nvarchar" MaxLength="20" />
+          <Property Name="Factura" Type="nvarchar" MaxLength="25" />
           <Property Name="PartidaFactura" Type="nvarchar" MaxLength="10" />
           <Property Name="OrdenDeCompra" Type="nvarchar" MaxLength="20" />
           <Property Name="PartidaOrdenDeCompra" Type="nvarchar" MaxLength="10" />
@@ -2884,7 +2697,7 @@ warning 6013: The table/view 'steelgo-sam2.dbo.JuntaSoldaduraRellenoPagadoValor'
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.PinturaReporteInspeccion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.PinturaReporteInspeccion' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PinturaReporteInspeccion">
           <Key>
             <PropertyRef Name="PinturaReporteInspeccionID" />
@@ -2960,7 +2773,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.PinturaReporteInspeccion' does no
           <Property Name="Prioridad" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.ProcesoPintura' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.ProcesoPintura' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProcesoPintura">
           <Key>
             <PropertyRef Name="ProcesoID" />
@@ -3468,7 +3281,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.ProcesoPintura' does not have a p
           <Property Name="SpoolID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.RespaldoTransferencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.RespaldoTransferencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RespaldoTransferencias">
           <Key>
             <PropertyRef Name="TransferenciaID" />
@@ -3489,7 +3302,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.RespaldoTransferencias' does not 
           <Property Name="Cancelado" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.RespaldoTransferenciasSpool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.RespaldoTransferenciasSpool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RespaldoTransferenciasSpool">
           <Key>
             <PropertyRef Name="TransferenciaSpoolID" />
@@ -3516,7 +3329,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.RespaldoTransferenciasSpool' does
           <Property Name="StatusPND" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.RevisadosAsignacionMateriales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.RevisadosAsignacionMateriales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RevisadosAsignacionMateriales">
           <Key>
             <PropertyRef Name="Isometrico" />
@@ -3527,7 +3340,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.RevisadosAsignacionMateriales' do
           <Property Name="FechaConsulta" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.rid_dragados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.rid_dragados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="rid_dragados">
           <Key>
             <PropertyRef Name="id" />
@@ -3542,6 +3355,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.rid_dragados' does not have a pri
           <Property Name="area" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="subparte" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="idreporte" Type="int" />
+          <Property Name="proyectoid" Type="int" />
         </EntityType>
         <EntityType Name="RSF_Settings">
           <Key>
@@ -3587,12 +3401,6 @@ warning 6002: The table/view 'steelgo-sam2.dbo.rid_dragados' does not have a pri
           <Property Name="ControlNO" Type="varchar" MaxLength="10" />
           <Property Name="CantidadAsignada" Type="float" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.SAC_temp_pintura' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="SAC_temp_pintura">
-          <Property Name="Spool_No" Type="nvarchar" MaxLength="30" />
-          <Property Name="CWP" Type="nvarchar" MaxLength="15" />
-        </EntityType>-->
         <EntityType Name="SAC_Temp_WPS">
           <Key>
             <PropertyRef Name="TempWPSID" />
@@ -3709,6 +3517,76 @@ warning 6013: The table/view 'steelgo-sam2.dbo.SAC_temp_pintura' does not have a
           <Property Name="Inox" Type="nvarchar" MaxLength="500" />
           <Property Name="ClasifInox" Type="nvarchar" MaxLength="500" />
           <Property Name="FechaHomologacion" Type="datetime" />
+          <Property Name="Campo6" Type="nvarchar(max)" />
+          <Property Name="Campo7" Type="nvarchar(max)" />
+          <Property Name="Campo8" Type="nvarchar(max)" />
+          <Property Name="Campo9" Type="nvarchar(max)" />
+          <Property Name="Campo10" Type="nvarchar(max)" />
+          <Property Name="Campo11" Type="nvarchar(max)" />
+          <Property Name="Campo12" Type="nvarchar(max)" />
+          <Property Name="Campo13" Type="nvarchar(max)" />
+          <Property Name="Campo14" Type="nvarchar(max)" />
+          <Property Name="Campo15" Type="nvarchar(max)" />
+          <Property Name="Campo16" Type="nvarchar(max)" />
+          <Property Name="Campo17" Type="nvarchar(max)" />
+          <Property Name="Campo18" Type="nvarchar(max)" />
+          <Property Name="Campo19" Type="nvarchar(max)" />
+          <Property Name="Campo20" Type="nvarchar(max)" />
+          <Property Name="Campo21" Type="nvarchar(max)" />
+          <Property Name="Campo22" Type="nvarchar(max)" />
+          <Property Name="Campo23" Type="nvarchar(max)" />
+          <Property Name="Campo24" Type="nvarchar(max)" />
+          <Property Name="Campo25" Type="nvarchar(max)" />
+          <Property Name="Campo26" Type="varchar(max)" />
+          <Property Name="Campo27" Type="varchar(max)" />
+          <Property Name="Campo28" Type="varchar(max)" />
+          <Property Name="Campo29" Type="varchar(max)" />
+          <Property Name="Campo30" Type="varchar(max)" />
+          <Property Name="Campo31" Type="varchar(max)" />
+          <Property Name="Campo32" Type="varchar(max)" />
+          <Property Name="Campo33" Type="varchar(max)" />
+          <Property Name="Campo34" Type="varchar(max)" />
+          <Property Name="Campo35" Type="varchar(max)" />
+          <Property Name="Campo36" Type="varchar(max)" />
+          <Property Name="Campo37" Type="varchar(max)" />
+          <Property Name="Campo38" Type="varchar(max)" />
+          <Property Name="Campo39" Type="varchar(max)" />
+          <Property Name="Campo40" Type="varchar(max)" />
+          <Property Name="Campo41" Type="varchar(max)" />
+          <Property Name="Campo42" Type="varchar(max)" />
+          <Property Name="Campo43" Type="varchar(max)" />
+          <Property Name="Campo44" Type="varchar(max)" />
+          <Property Name="Campo45" Type="varchar(max)" />
+          <Property Name="Campo46" Type="varchar(max)" />
+          <Property Name="Campo47" Type="varchar(max)" />
+          <Property Name="Campo48" Type="varchar(max)" />
+          <Property Name="Campo49" Type="varchar(max)" />
+          <Property Name="Campo50" Type="varchar(max)" />
+          <Property Name="Campo51" Type="varchar(max)" />
+          <Property Name="Campo52" Type="varchar(max)" />
+          <Property Name="Campo53" Type="varchar(max)" />
+          <Property Name="Campo54" Type="varchar(max)" />
+          <Property Name="Campo55" Type="varchar(max)" />
+          <Property Name="Campo56" Type="varchar(max)" />
+          <Property Name="Campo57" Type="varchar(max)" />
+          <Property Name="Campo58" Type="varchar(max)" />
+          <Property Name="Campo59" Type="varchar(max)" />
+          <Property Name="Campo60" Type="varchar(max)" />
+          <Property Name="Campo61" Type="varchar(max)" />
+          <Property Name="Campo62" Type="varchar(max)" />
+          <Property Name="Campo63" Type="varchar(max)" />
+          <Property Name="Campo64" Type="varchar(max)" />
+          <Property Name="Campo65" Type="varchar(max)" />
+          <Property Name="Campo66" Type="varchar(max)" />
+          <Property Name="Campo67" Type="varchar(max)" />
+          <Property Name="Campo68" Type="varchar(max)" />
+          <Property Name="Campo69" Type="varchar(max)" />
+          <Property Name="Campo70" Type="varchar(max)" />
+          <Property Name="Campo71" Type="varchar(max)" />
+          <Property Name="Campo72" Type="varchar(max)" />
+          <Property Name="Campo73" Type="varchar(max)" />
+          <Property Name="Campo74" Type="varchar(max)" />
+          <Property Name="Campo75" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="SpoolDimensionPintura">
           <Key>
@@ -3942,19 +3820,15 @@ warning 6013: The table/view 'steelgo-sam2.dbo.SAC_temp_pintura' does not have a
           <Property Name="NumeroJuntas" Type="int" />
           <Property Name="SoloSoporte" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'steelgo-sam2.dbo.subparte' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="subparte">
-          <Property Name="siglas" Type="varchar" MaxLength="10" />
-          <Property Name="descripcion" Type="varchar" MaxLength="200" />
-        </EntityType>-->
         <EntityType Name="Subparte_Dragados">
           <Key>
             <PropertyRef Name="siglas" />
+            <PropertyRef Name="ProyectoID" />
           </Key>
           <Property Name="siglas" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="secuencia" Type="int" Nullable="false" />
+          <Property Name="ProyectoID" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -3988,7 +3862,7 @@ warning 6013: The table/view 'steelgo-sam2.dbo.subparte' does not have a primary
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TempCargaMasiva' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TempCargaMasiva' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TempCargaMasiva">
           <Key>
             <PropertyRef Name="Nombre" />
@@ -4004,7 +3878,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TempCargaMasiva' does not have a 
           <Property Name="Codigo" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempDespachos20150205' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempDespachos20150205' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempDespachos20150205">
           <Key>
             <PropertyRef Name="DespachoID" />
@@ -4035,7 +3909,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempDespachos20150205' does not h
           <Property Name="DespachadorID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempMovimientosInventario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempMovimientosInventario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempMovimientosInventario">
           <Key>
             <PropertyRef Name="NumeroUnicoMovimientoID" />
@@ -4061,7 +3935,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempMovimientosInventario' does n
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TempNumerosTransferencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TempNumerosTransferencias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TempNumerosTransferencias">
           <Key>
             <PropertyRef Name="idx" />
@@ -4075,7 +3949,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TempNumerosTransferencias' does n
           <Property Name="cantidad" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TempNumeroUnico' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TempNumeroUnico' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TempNumeroUnico">
           <Key>
             <PropertyRef Name="NumeroUnico" />
@@ -4084,7 +3958,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TempNumeroUnico' does not have a 
           <Property Name="Codigo" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoInventario0210' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempNumeroUnicoInventario0210' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempNumeroUnicoInventario0210">
           <Key>
             <PropertyRef Name="NumeroUnicoID" />
@@ -4112,7 +3986,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoInventario0210' do
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoInventarioRespaldo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempNumeroUnicoInventarioRespaldo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempNumeroUnicoInventarioRespaldo">
           <Key>
             <PropertyRef Name="NumeroUnicoID" />
@@ -4140,7 +4014,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoInventarioRespaldo
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoMovimiento0210' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempNumeroUnicoMovimiento0210' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempNumeroUnicoMovimiento0210">
           <Key>
             <PropertyRef Name="NumeroUnicoMovimientoID" />
@@ -4166,7 +4040,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoMovimiento0210' do
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoSegmento0210' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempNumeroUnicoSegmento0210' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempNumeroUnicoSegmento0210">
           <Key>
             <PropertyRef Name="NumeroUnicoSegmentoID" />
@@ -4197,7 +4071,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempNumeroUnicoSegmento0210' does
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TempSpoolCargaJuntasPND' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TempSpoolCargaJuntasPND' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TempSpoolCargaJuntasPND">
           <Key>
             <PropertyRef Name="Spool" />
@@ -4209,7 +4083,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TempSpoolCargaJuntasPND' does not
           <Property Name="RT" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TempTransferenciaModificado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TempTransferenciaModificado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TempTransferenciaModificado">
           <Key>
             <PropertyRef Name="NumeroTransferencia" />
@@ -4225,7 +4099,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TempTransferenciaModificado' does
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TempTransferenciaSpoolModificado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TempTransferenciaSpoolModificado' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TempTransferenciaSpoolModificado">
           <Key>
             <PropertyRef Name="TransferenciaSpoolID" />
@@ -4248,7 +4122,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TempTransferenciaSpoolModificado'
           <Property Name="CanceladoTransferencia" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.tempWksSpool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.tempWksSpool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tempWksSpool">
           <Key>
             <PropertyRef Name="WorkstatusSpoolID" />
@@ -4301,7 +4175,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.tempWksSpool' does not have a pri
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TipoFabClass' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TipoFabClass' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TipoFabClass">
           <Key>
             <PropertyRef Name="FamiliaAceroID" />
@@ -4327,7 +4201,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TipoFabClass' does not have a pri
           <Property Name="Prioridad" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TipoFabLine' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TipoFabLine' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TipoFabLine">
           <Key>
             <PropertyRef Name="FabClas" />
@@ -4449,7 +4323,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TipoFabLine' does not have a prim
           <Property Name="VersionRegistro" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TMP_UpdateSpool' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TMP_UpdateSpool">
           <Key>
             <PropertyRef Name="Nombre" />
@@ -4459,7 +4333,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpool' does not have a 
           <Property Name="Observacion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'SAM.dbo.TMP_UpdateSpoolID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TMP_UpdateSpoolID">
           <Key>
             <PropertyRef Name="UpdateID" />
@@ -11576,7 +11450,8 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
     [rid_dragados].[spool] AS [spool], 
     [rid_dragados].[area] AS [area], 
     [rid_dragados].[subparte] AS [subparte], 
-    [rid_dragados].[idreporte] AS [idreporte]
+    [rid_dragados].[idreporte] AS [idreporte], 
+    [rid_dragados].[proyectoid] AS [proyectoid]
     FROM [dbo].[rid_dragados] AS [rid_dragados]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TempCargaMasiva" EntityType="Self.TempCargaMasiva" store:Type="Tables" store:Schema="dbo">
@@ -13942,8 +13817,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
             <End Role="WpsProyecto" EntitySet="WpsProyecto" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ModelSam2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -16218,6 +16092,26 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <NavigationProperty Name="TipoJunta" Relationship="Self.FK_JuntaSpool_TipoJunta" FromRole="JuntaSpool" ToRole="TipoJunta" />
           <NavigationProperty Name="JuntaWorkstatus" Relationship="Self.FK_JuntaWorkstatus_JuntaSpool" FromRole="JuntaSpool" ToRole="JuntaWorkstatus" />
           <NavigationProperty Name="OrdenTrabajoJunta" Relationship="Self.FK_OrdenTrabajoJunta_JuntaSpool" FromRole="JuntaSpool" ToRole="OrdenTrabajoJunta" />
+          <Property Name="Campo6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo8" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo9" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo11" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo12" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo13" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo14" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo15" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo16" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo17" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo18" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo19" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo20" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo21" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo22" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo23" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo24" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo25" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="JuntaSpoolDeleted">
           <Key>
@@ -16352,6 +16246,27 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <NavigationProperty Name="JuntaWorkstatus2" Relationship="Self.FK_JuntaAnterior" FromRole="JuntaWorkstatus1" ToRole="JuntaWorkstatus" />
           <NavigationProperty Name="OrdenTrabajoSpool" Relationship="Self.FK_JuntaWorkstatus_OrdenTrabajoSpool" FromRole="JuntaWorkstatus" ToRole="OrdenTrabajoSpool" />
           <NavigationProperty Name="UltimoProceso" Relationship="Self.FK_JuntaWorkstatus_UltimoProceso" FromRole="JuntaWorkstatus" ToRole="UltimoProceso" />
+          <Property Name="Campo70" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo71" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo72" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo73" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo74" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo75" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo76" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo77" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo78" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo79" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo80" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo81" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo82" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo83" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo84" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo85" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo86" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo87" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo88" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo89" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo90" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KgTeorico">
           <Key>
@@ -16561,7 +16476,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <Property Name="TipoCorte2ID" Type="Int32" />
           <Property Name="Codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Estatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="Factura" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Factura" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="PartidaFactura" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="OrdenDeCompra" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="PartidaOrdenDeCompra" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -18079,6 +17994,76 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <NavigationProperty Name="SpoolHold" Relationship="Self.FK_SpoolHold_Spool" FromRole="Spool" ToRole="SpoolHold" />
           <NavigationProperty Name="SpoolHoldHistorial" Relationship="Self.FK_SpoolHoldHistorial_Spool" FromRole="Spool" ToRole="SpoolHoldHistorial" />
           <NavigationProperty Name="TransferenciaSpool" Relationship="Self.FK_TransferenciaSpool_Spool" FromRole="Spool" ToRole="TransferenciaSpool" />
+          <Property Name="Campo6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo8" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo9" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo11" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo12" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo13" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo14" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo15" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo16" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo17" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo18" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo19" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo20" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo21" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo22" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo23" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo24" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo25" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Campo26" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo27" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo28" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo29" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo30" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo31" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo32" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo33" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo34" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo35" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo36" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo37" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo38" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo39" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo40" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo41" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo42" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo43" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo44" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo45" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo46" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo47" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo48" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo49" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo50" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo51" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo52" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo53" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo54" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo55" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo56" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo57" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo58" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo59" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo60" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo61" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo62" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo63" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo64" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo65" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo66" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo67" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo68" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo69" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo70" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo71" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo72" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo73" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo74" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Campo75" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SpoolDimensionPintura">
           <Key>
@@ -18335,10 +18320,12 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
         <EntityType Name="Subparte_Dragados">
           <Key>
             <PropertyRef Name="siglas" />
+            <PropertyRef Name="ProyectoID" />
           </Key>
           <Property Name="siglas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="secuencia" Type="Int32" Nullable="false" />
+          <Property Name="ProyectoID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -19056,6 +19043,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <Property Name="area" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="subparte" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idreporte" Type="Int32" />
+          <Property Name="proyectoid" Type="Int32" />
         </EntityType>
         <EntityType Name="TempCargaMasiva">
           <Key>
@@ -30055,6 +30043,26 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <EntitySetMapping Name="JuntaSpool">
             <EntityTypeMapping TypeName="ModelSam2.JuntaSpool">
               <MappingFragment StoreEntitySet="JuntaSpool">
+                <ScalarProperty Name="Campo25" ColumnName="Campo25" />
+                <ScalarProperty Name="Campo24" ColumnName="Campo24" />
+                <ScalarProperty Name="Campo23" ColumnName="Campo23" />
+                <ScalarProperty Name="Campo22" ColumnName="Campo22" />
+                <ScalarProperty Name="Campo21" ColumnName="Campo21" />
+                <ScalarProperty Name="Campo20" ColumnName="Campo20" />
+                <ScalarProperty Name="Campo19" ColumnName="Campo19" />
+                <ScalarProperty Name="Campo18" ColumnName="Campo18" />
+                <ScalarProperty Name="Campo17" ColumnName="Campo17" />
+                <ScalarProperty Name="Campo16" ColumnName="Campo16" />
+                <ScalarProperty Name="Campo15" ColumnName="Campo15" />
+                <ScalarProperty Name="Campo14" ColumnName="Campo14" />
+                <ScalarProperty Name="Campo13" ColumnName="Campo13" />
+                <ScalarProperty Name="Campo12" ColumnName="Campo12" />
+                <ScalarProperty Name="Campo11" ColumnName="Campo11" />
+                <ScalarProperty Name="Campo10" ColumnName="Campo10" />
+                <ScalarProperty Name="Campo9" ColumnName="Campo9" />
+                <ScalarProperty Name="Campo8" ColumnName="Campo8" />
+                <ScalarProperty Name="Campo7" ColumnName="Campo7" />
+                <ScalarProperty Name="Campo6" ColumnName="Campo6" />
                 <ScalarProperty Name="JuntaSpoolID" ColumnName="JuntaSpoolID" />
                 <ScalarProperty Name="SpoolID" ColumnName="SpoolID" />
                 <ScalarProperty Name="TipoJuntaID" ColumnName="TipoJuntaID" />
@@ -30171,6 +30179,27 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <EntitySetMapping Name="JuntaWorkstatus">
             <EntityTypeMapping TypeName="ModelSam2.JuntaWorkstatus">
               <MappingFragment StoreEntitySet="JuntaWorkstatus">
+                <ScalarProperty Name="Campo90" ColumnName="Campo90" />
+                <ScalarProperty Name="Campo89" ColumnName="Campo89" />
+                <ScalarProperty Name="Campo88" ColumnName="Campo88" />
+                <ScalarProperty Name="Campo87" ColumnName="Campo87" />
+                <ScalarProperty Name="Campo86" ColumnName="Campo86" />
+                <ScalarProperty Name="Campo85" ColumnName="Campo85" />
+                <ScalarProperty Name="Campo84" ColumnName="Campo84" />
+                <ScalarProperty Name="Campo83" ColumnName="Campo83" />
+                <ScalarProperty Name="Campo82" ColumnName="Campo82" />
+                <ScalarProperty Name="Campo81" ColumnName="Campo81" />
+                <ScalarProperty Name="Campo80" ColumnName="Campo80" />
+                <ScalarProperty Name="Campo79" ColumnName="Campo79" />
+                <ScalarProperty Name="Campo78" ColumnName="Campo78" />
+                <ScalarProperty Name="Campo77" ColumnName="Campo77" />
+                <ScalarProperty Name="Campo76" ColumnName="Campo76" />
+                <ScalarProperty Name="Campo75" ColumnName="Campo75" />
+                <ScalarProperty Name="Campo74" ColumnName="Campo74" />
+                <ScalarProperty Name="Campo73" ColumnName="Campo73" />
+                <ScalarProperty Name="Campo72" ColumnName="Campo72" />
+                <ScalarProperty Name="Campo71" ColumnName="Campo71" />
+                <ScalarProperty Name="Campo70" ColumnName="Campo70" />
                 <ScalarProperty Name="JuntaWorkstatusID" ColumnName="JuntaWorkstatusID" />
                 <ScalarProperty Name="OrdenTrabajoSpoolID" ColumnName="OrdenTrabajoSpoolID" />
                 <ScalarProperty Name="JuntaSpoolID" ColumnName="JuntaSpoolID" />
@@ -31593,6 +31622,76 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <EntitySetMapping Name="Spool">
             <EntityTypeMapping TypeName="ModelSam2.Spool">
               <MappingFragment StoreEntitySet="Spool">
+                <ScalarProperty Name="Campo75" ColumnName="Campo75" />
+                <ScalarProperty Name="Campo74" ColumnName="Campo74" />
+                <ScalarProperty Name="Campo73" ColumnName="Campo73" />
+                <ScalarProperty Name="Campo72" ColumnName="Campo72" />
+                <ScalarProperty Name="Campo71" ColumnName="Campo71" />
+                <ScalarProperty Name="Campo70" ColumnName="Campo70" />
+                <ScalarProperty Name="Campo69" ColumnName="Campo69" />
+                <ScalarProperty Name="Campo68" ColumnName="Campo68" />
+                <ScalarProperty Name="Campo67" ColumnName="Campo67" />
+                <ScalarProperty Name="Campo66" ColumnName="Campo66" />
+                <ScalarProperty Name="Campo65" ColumnName="Campo65" />
+                <ScalarProperty Name="Campo64" ColumnName="Campo64" />
+                <ScalarProperty Name="Campo63" ColumnName="Campo63" />
+                <ScalarProperty Name="Campo62" ColumnName="Campo62" />
+                <ScalarProperty Name="Campo61" ColumnName="Campo61" />
+                <ScalarProperty Name="Campo60" ColumnName="Campo60" />
+                <ScalarProperty Name="Campo59" ColumnName="Campo59" />
+                <ScalarProperty Name="Campo58" ColumnName="Campo58" />
+                <ScalarProperty Name="Campo57" ColumnName="Campo57" />
+                <ScalarProperty Name="Campo56" ColumnName="Campo56" />
+                <ScalarProperty Name="Campo55" ColumnName="Campo55" />
+                <ScalarProperty Name="Campo54" ColumnName="Campo54" />
+                <ScalarProperty Name="Campo53" ColumnName="Campo53" />
+                <ScalarProperty Name="Campo52" ColumnName="Campo52" />
+                <ScalarProperty Name="Campo51" ColumnName="Campo51" />
+                <ScalarProperty Name="Campo50" ColumnName="Campo50" />
+                <ScalarProperty Name="Campo49" ColumnName="Campo49" />
+                <ScalarProperty Name="Campo48" ColumnName="Campo48" />
+                <ScalarProperty Name="Campo47" ColumnName="Campo47" />
+                <ScalarProperty Name="Campo46" ColumnName="Campo46" />
+                <ScalarProperty Name="Campo45" ColumnName="Campo45" />
+                <ScalarProperty Name="Campo44" ColumnName="Campo44" />
+                <ScalarProperty Name="Campo43" ColumnName="Campo43" />
+                <ScalarProperty Name="Campo42" ColumnName="Campo42" />
+                <ScalarProperty Name="Campo41" ColumnName="Campo41" />
+                <ScalarProperty Name="Campo40" ColumnName="Campo40" />
+                <ScalarProperty Name="Campo39" ColumnName="Campo39" />
+                <ScalarProperty Name="Campo38" ColumnName="Campo38" />
+                <ScalarProperty Name="Campo37" ColumnName="Campo37" />
+                <ScalarProperty Name="Campo36" ColumnName="Campo36" />
+                <ScalarProperty Name="Campo35" ColumnName="Campo35" />
+                <ScalarProperty Name="Campo34" ColumnName="Campo34" />
+                <ScalarProperty Name="Campo33" ColumnName="Campo33" />
+                <ScalarProperty Name="Campo32" ColumnName="Campo32" />
+                <ScalarProperty Name="Campo31" ColumnName="Campo31" />
+                <ScalarProperty Name="Campo30" ColumnName="Campo30" />
+                <ScalarProperty Name="Campo29" ColumnName="Campo29" />
+                <ScalarProperty Name="Campo28" ColumnName="Campo28" />
+                <ScalarProperty Name="Campo27" ColumnName="Campo27" />
+                <ScalarProperty Name="Campo26" ColumnName="Campo26" />
+                <ScalarProperty Name="Campo25" ColumnName="Campo25" />
+                <ScalarProperty Name="Campo24" ColumnName="Campo24" />
+                <ScalarProperty Name="Campo23" ColumnName="Campo23" />
+                <ScalarProperty Name="Campo22" ColumnName="Campo22" />
+                <ScalarProperty Name="Campo21" ColumnName="Campo21" />
+                <ScalarProperty Name="Campo20" ColumnName="Campo20" />
+                <ScalarProperty Name="Campo19" ColumnName="Campo19" />
+                <ScalarProperty Name="Campo18" ColumnName="Campo18" />
+                <ScalarProperty Name="Campo17" ColumnName="Campo17" />
+                <ScalarProperty Name="Campo16" ColumnName="Campo16" />
+                <ScalarProperty Name="Campo15" ColumnName="Campo15" />
+                <ScalarProperty Name="Campo14" ColumnName="Campo14" />
+                <ScalarProperty Name="Campo13" ColumnName="Campo13" />
+                <ScalarProperty Name="Campo12" ColumnName="Campo12" />
+                <ScalarProperty Name="Campo11" ColumnName="Campo11" />
+                <ScalarProperty Name="Campo10" ColumnName="Campo10" />
+                <ScalarProperty Name="Campo9" ColumnName="Campo9" />
+                <ScalarProperty Name="Campo8" ColumnName="Campo8" />
+                <ScalarProperty Name="Campo7" ColumnName="Campo7" />
+                <ScalarProperty Name="Campo6" ColumnName="Campo6" />
                 <ScalarProperty Name="SpoolID" ColumnName="SpoolID" />
                 <ScalarProperty Name="ProyectoID" ColumnName="ProyectoID" />
                 <ScalarProperty Name="FamiliaAcero1ID" ColumnName="FamiliaAcero1ID" />
@@ -31897,6 +31996,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <EntitySetMapping Name="Subparte_Dragados">
             <EntityTypeMapping TypeName="ModelSam2.Subparte_Dragados">
               <MappingFragment StoreEntitySet="Subparte_Dragados">
+                <ScalarProperty Name="ProyectoID" ColumnName="ProyectoID" />
                 <ScalarProperty Name="siglas" ColumnName="siglas" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="secuencia" ColumnName="secuencia" />
@@ -32498,6 +32598,7 @@ warning 6002: The table/view 'steelgo-sam2.dbo.TMP_UpdateSpoolID' does not have 
           <EntitySetMapping Name="rid_dragados">
             <EntityTypeMapping TypeName="ModelSam2.rid_dragados">
               <MappingFragment StoreEntitySet="rid_dragados">
+                <ScalarProperty Name="proyectoid" ColumnName="proyectoid" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="dibujo" ColumnName="dibujo" />
                 <ScalarProperty Name="spool" ColumnName="spool" />

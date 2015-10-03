@@ -28,7 +28,7 @@ function securityManagerToBeExecutedOnDocumentReady() {
 //Method to change the visibility, editability and required attributes of the elements
 function applySecurityPolicy(loadMenu) {
     //Block the screen
-    loadingStart();
+    //loadingStart();
 
     //If this page its not the login page
     if (Cookies.get("navegacion") != "1") {
@@ -64,7 +64,7 @@ function applySecurityPolicy(loadMenu) {
 
             //Apply Security
             applySecurity();
-            loadingStop();
+            //loadingStop();
             //$("#language").data("kendoDropDownList").trigger("change");
             changeLayoutLabels($("#language").data("kendoDropDownList").value());
             changeLayoutSpans($("#language").data("kendoDropDownList").value());
@@ -73,7 +73,7 @@ function applySecurityPolicy(loadMenu) {
     } else {
         //Apply Security
         applySecurity();
-        loadingStop();
+        //loadingStop();
         //$("#language").data("kendoDropDownList").trigger("change");
         changeLayoutLabels($("#language").data("kendoDropDownList").value());
         changeLayoutSpans($("#language").data("kendoDropDownList").value());
@@ -331,7 +331,8 @@ function createUserSession(username, password) {
         if (data.IsAuthenicated) {
             Cookies.set("home", false, { path: '/' });
             Cookies.set("user", username, { path: '/' });
-            Cookies.set("token", data.ReturnMessage[0], { path: '/' });
+            Cookies.set("nameUserLogged", data.ReturnMessage[0], { path: '/' });
+            Cookies.set("token", data.ReturnMessage[1], { path: '/' });
             //RedirectToLanding
             document.location.href = $homeURI;
         } else {

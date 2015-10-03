@@ -65,6 +65,8 @@
                                 </span>
                             </div>
                         </div>
+                        <a href="#" id="mobile-menu" class="menuMobile hidden-sm hidden-md hidden-lg">                            
+                        </a>
                         <div class="notifications">
                             <div class="dropdown">
                                 <a id="notifications" role="button" data-target="#" href="#">
@@ -321,7 +323,6 @@
             //Validate Logged User Credentials
             validateCredentials();
 
-
             $("#logout").click(function (event) {
                 event.preventDefault();
                 removeUserSession();
@@ -364,10 +365,10 @@
             //Add the body to the menu context
             registerToContextMenu("main-content");
 
-			//Set on the dropdownlist the url language and change the current language
+            //Set on the dropdownlist the url language and change the current language
             $("#language").data("kendoDropDownList").select(_languageOrder[getUrlParameter("leng", "es-MX")]);
             $("#language").data("kendoDropDownList").trigger("change");
-			
+            
             //Partial Views Javascript Code Container
             @RenderSection("JavascriptDocumentReadyFunctions", required: false)
 
@@ -379,13 +380,14 @@
 
             //Set the user name to the 
             if (Cookies.get("user") != null) {
-                $("#nameSpan").text(decrypt(Cookies.get("user")));
+                $("#nameSpan").text(Cookies.get("nameUserLogged"));
             }
 
             loadMessages();
             
-            //Show message body when notification is clicked
-            $("#notifications").click(function(){
+            //Show message body when notification is clicked           
+            $("#notifications").click(function (e){
+                e.preventDefault();
                 $(this).parent().toggleClass("open");
                 $(".peak").toggleClass("hidden");
             });
@@ -408,20 +410,29 @@
             //    $(".notification-menu li.messageBody").addClass("hidden");
             //});
 
+            //Toggle sidebar when menuMobile is clicked           
+            var ios_devices = navigator.userAgent.match(/(iPhone|iPod|iPad)/) ? "touchstart" : "click"; //check if the devices are ios devices
+            $("#mobile-menu").on(ios_devices, function(event) {
+                event.preventDefault();
+                $("#sidebar").removeClass("minified");                
+                $("#sidebar").toggleClass("open");
+            });
+
         });
        
         function loadMessages() {
             $MessagesManager.MessageManager.read({ token: Cookies.get("token") }).done(function (data) {
                 if (ValidateError(data)) {
-                    $(".count").html(data.length);
-                    $(".counter").html(data.length);
                     $(".message-frame").empty();
+                    var contador = data.length, contadorLectura = 0, cantidadNotificaciones = 0;
+
                     $.each(data, function (key) {
                         var strhtml = "";
                         if (data[key].EstatusLectura) {
-                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#' class='read'>";
+                            contadorLectura += 1;
+                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a id='" + data[key].NotificacionID + "' href='#' class='read'>";
                         } else {
-                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a href='#'>";
+                            strhtml += "<li onclick='BindEventClick(" + data[key].NotificacionID + ");'><a  id='" + data[key].NotificacionID + "' href='#'>";
                         }
                         var d = new Date(data[key].FechaEnvio);
 
@@ -444,6 +455,9 @@
                     strhtml += "<span id='message'></span>";
                     strhtml += "</li>";
 
+                    cantidadNotificaciones = contador - contadorLectura;
+                    $(".count").html(cantidadNotificaciones ? cantidadNotificaciones : 0);
+                    $(".counter").html(data.length);
                     $(".message-frame").append(strhtml);
                 }
             });
@@ -452,6 +466,8 @@
         function BindEventClick(NotificacionID) {
             $MessagesManager.MessageManager.read({ notificacionID: NotificacionID, token: Cookies.get("token") }).done(function (data) {
                 if (ValidateError(data)) {
+                    updateEstatusRead(NotificacionID);
+                    $("#" + NotificacionID).addClass("read");
                     var strhtml = "";
                     var d = new Date(data.FechaEnvio);
 
@@ -464,7 +480,9 @@
                     strhtml += "</span>";
                     strhtml += "<span class='messageDate'>" + obtenerFormatoFechaMensajes(d) + "</span>";
 
-                   
+                    
+                    var cantidadNotificaciones = (parseInt($("span.counter").text()) - parseInt($("a.read").length));
+                    $(".count").html(cantidadNotificaciones ? cantidadNotificaciones : 0);
                     $(".message-header").empty();
                     $(".message-header").append(strhtml);
                     $("#message").html(data.Mensaje);
@@ -478,6 +496,12 @@
             $("#messagesCounter").addClass("hidden");
             $(".message-header").removeClass("hidden");
             $(".notification-menu li.messageBody").removeClass("hidden");
+        };
+
+        function updateEstatusRead(NotificacionID) {
+            $MessagesManager.MessageManager.update({}, { notificacionID: NotificacionID, token: Cookies.get("token"), id: NotificacionID }).done(function (data) {
+                ValidateError(data);
+            });
         };
 
         function deleteMessage(NotificacionID) {

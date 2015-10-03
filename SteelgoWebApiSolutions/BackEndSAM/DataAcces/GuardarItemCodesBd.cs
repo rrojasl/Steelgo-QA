@@ -1034,6 +1034,7 @@ namespace BackEndSAM.DataAcces
             {
                 //Update ICS
                 ICS = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
+                int cedulaID = ctx.Sam3_Cedula.Where(x => x.CedulaA == item.Cedula && x.Activo).Select(x=> x.CedulaID).AsParallel().SingleOrDefault();
 
                 ICS.DescripcionEspanol = item.Descripcion;
                 ICS.DescripcionIngles = item.Descripcion;
@@ -1041,7 +1042,7 @@ namespace BackEndSAM.DataAcces
                 //ICS.Diametro1 = item.D1;
                 //ICS.Diametro2 = item.D2;
                 ICS.FamiliaAceroID = Int32.Parse(item.FamiliaMaterial);
-                ICS.Cedula = item.Cedula;
+                ICS.CedulaID = cedulaID;
                 ICS.Codigo = item.ItemCodeSteelgo;
                 ICS.Activo = true;
                 ICS.UsuarioModificacion = usuario.UsuarioID;

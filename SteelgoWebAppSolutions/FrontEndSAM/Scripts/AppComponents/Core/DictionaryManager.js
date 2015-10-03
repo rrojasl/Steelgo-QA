@@ -247,6 +247,38 @@ _dictionary = {
         "es-MX": "Detalle de Orden de Almacenaje",
         "en-US": "Detail Storage Order"
     },
+    "menuLabel0040": {
+        "es-MX": "Dashboard de Despacho y Corte",
+        "en-US": "Dashboard Dispatch and Cut"
+    },
+    "menuLabel0041": {
+        "es-MX": "Listado de Despacho y Corte",
+        "en-US": "Listing Dispatch and Cut"
+    },
+    "menuLabel0042": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "menuLabel0043": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "menuLabel0044": {
+        "es-MX": "Almacenaje",
+        "en-US": "Storage"
+    },
+    "menuLabel0045": {
+        "es-MX": "Administración de Catálogos",
+        "en-US": "Catalog Management"
+    },
+    "menuLabel0046": {
+        "es-MX": "Listado de Materiales",
+        "en-US": "List Materials"
+    },
+    "menuLabel0047": {
+        "es-MX": "Listado de Materiales por ItemCode",
+        "en-US": "List Materials by Item Code"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
@@ -724,6 +756,99 @@ _dictionary = {
     "DetalleAvisoLlegada0090": {
         "es-MX": "Folio creado",
         "en-US": "Folio Created"
+    },
+    //Listado Catalogos Partial view Labels
+    "ListadoCatalogos0001": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "ListadoCatalogos0002": {
+        "es-MX": "Listado de Catálogos",
+        "en-US": "Catalogs List"
+    },
+    "ListadoCatalogos0003": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "ListadoCatalogos0004": {
+        "es-MX": "Transportistas",
+        "en-US": "Carriers"
+    },
+    "ListadoCatalogos0005": {
+        "es-MX": "Camiones",
+        "en-US": "Trucks"
+    },
+    "ListadoCatalogos0006": {
+        "es-MX": "Choferes",
+        "en-US": "Drivers"
+    },
+    "ListadoCatalogos0007": {
+        "es-MX": "Tu navegador web no es plenamente compatible, por favor usa uno más reciente",
+        "en-US": "You web browser is not fully compatible, please use a more recent one"
+    },
+    "ListadoCatalogos0008": {
+        "es-MX": "Por favor, sube un archivo CSV valido",
+        "en-US": "Please, upload a valid CSV file"
+    },
+    "ListadoCatalogos0009": {
+        "es-MX": "Ha ocurrido un error: El elemento aun no existe en la BD",
+        "en-US": "There had been an error: The element does not exists yet in the DataBase"
+    },
+    "ListadoCatalogos0010": {
+        "es-MX": "Antes de cargar datos al sistema, sube un archivo",
+        "en-US": "Before of load data to the system, upload a file"
+    },
+    "ListadoCatalogos0011": {
+        "es-MX": "Las filas en rojo muestran datos inválidos que no serán cargados",
+        "en-US": "Red rows shows invalid data which wont be uploaded"
+    },
+    "ListadoCatalogos0012": {
+        "es-MX": "Verifica que la cantidad de datos en las columnas coincida con la plantilla",
+        "en-US": "Verify the number of data in the columns is same than template file"
+    },
+    "ListadoCatalogos0013": {
+        "es-MX": "Archivos",
+        "en-US": "Files"
+    },
+    "ListadoCatalogos0014": {
+        "es-MX": "Tipo de archivo",
+        "en-US": "Type of file"
+    },
+    "ListadoCatalogos0015": {
+        "es-MX": "Selecciona un archivo",
+        "en-US": "Select a file"
+    },
+    "ListadoCatalogos0016": {
+        "es-MX": "Subir",
+        "en-US": "Upload"
+    },
+    "ItemCodeSteelGo0001": {
+        "es-MX": "Item Code SteelGo",
+        "en-US": "Item Code SteelGo"
+    },
+    "ItemCodeSteelGo0002": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "ItemCodeSteelGo0003": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "ItemCodeSteelGo0004": {
+        "es-MX": "Asociar Item Code Steel Go",
+        "en-US": "Set Item Code Steel Go"
+    },
+    "AsociacionICS0001": {
+        "es-MX": "Item Code Cliente",
+        "en-US": "Customer Item Code"
+    },
+    "AsociacionICS0002": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "AsociacionICS0003": {
+        "es-MX": "ICS Asociado",
+        "en-US": "Associated ICS"
     },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
@@ -1401,8 +1526,8 @@ _dictionary = {
         "en-US": "Print Order Reception"
     },
     "Cuantificacion0083": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Cuantificacion0084": {
         "es-MX": "Dashboard Recepción y Almacenaje",
@@ -1520,7 +1645,7 @@ _dictionary = {
     },
     "FormatoPaseSalida0015": {
         "es-MX": "Incidencia",
-        "en-US": "Incidencia"
+        "en-US": "Incidences"
     },
     "FormatoPaseSalida0016": {
         "es-MX": "Si, ",
@@ -1842,8 +1967,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "GenerarOrdenRecepcion0005": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "GenerarOrdenRecepcion0006": {
         "es-MX": "Proyecto",
@@ -2053,8 +2178,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "DetalleOrdenRecepcion0004": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "DetalleOrdenRecepcion0005": {
         "es-MX": "Item Code ID",
@@ -2154,8 +2279,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "DetalleOrdenAlmacenaje0006": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "DetalleOrdenAlmacenaje0007": {
         "es-MX": "Nueva captura",
@@ -2348,8 +2473,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "GenerarOrdenAlmacenaje0011": {
-        "es-MX": "Incidencias",
-        "en-US": "Incidences"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "GenerarOrdenAlmacenaje0012": {
         "es-MX": "Proyecto",
@@ -2598,7 +2723,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0046": {
         "es-MX": "Cantidad de incidencias",
-        "en-US": "Number of incidents"
+        "en-US": "Number of Incidences"
     },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
@@ -2848,8 +2973,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "ComplementoRecepcion0012": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "ComplementoRecepcion0013": {
         "es-MX": "Proyecto",
@@ -3148,6 +3273,10 @@ _dictionary = {
         "es-MX": "Listado Materiales Packing List",
         "en-US": "Materials List Packing List"
     },
+    "ListaMateriales0022": {
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
+    },
     // Detalle Numero Unico
     "DetalleNumeroUnico0001": {
         "es-MX": "Inicio",
@@ -3358,6 +3487,82 @@ _dictionary = {
         "es-MX": "Inicio",
         "en-US": "Home"
     },
+    "ListadoMaterialesItemCode0019": {
+        "es-MX": "Total Ingeniería",
+        "en-US": "Total Engineering"
+    },
+    "ListadoMaterialesItemCode0020": {
+        "es-MX": "Total Dañado",
+        "en-US": "Total Damaged"
+    },
+    "ListadoMaterialesItemCode0021": {
+        "es-MX": "Entradas desde IC Equivalente",
+        "en-US": "Tickets from IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0022": {
+        "es-MX": "Total Mermas",
+        "en-US": "Total Losses"
+    },
+    "ListadoMaterialesItemCode0023": {
+        "es-MX": "Total Orden Trabajo",
+        "en-US": "Total Work Order"
+    },
+    "ListadoMaterialesItemCode0024": {
+        "es-MX": "Despachado por cortar IC equivalente",
+        "en-US": "Dispatched by cutting IC equivalent"
+    },
+    "ListadoMaterialesItemCode0025": {
+        "es-MX": "Cortado para IC equivalente",
+        "en-US": "Cut equivalent to IC"
+    },
+    "ListadoMaterialesItemCode0026": {
+        "es-MX": "Total Despachado  por cortar",
+        "en-US": "Dispatched by cutting total"
+    },
+    "ListadoMaterialesItemCode0027": {
+        "es-MX": "Total Cortado",
+        "en-US": "Total Cut"
+    },
+    "ListadoMaterialesItemCode0028": {
+        "es-MX": "Despachado desde IC equivalente",
+        "en-US": "Dispatched from  IC equivalent"
+    },
+    "ListadoMaterialesItemCode0029": {
+        "es-MX": "Despachado a Producción",
+        "en-US": "Dispatched to Production"
+    },
+    "ListadoMaterialesItemCode0030": {
+        "es-MX": "Salida para IC Equivalente",
+        "en-US": "IC Output Equivalent"
+    },
+    "ListadoMaterialesItemCode0031": {
+        "es-MX": "Total por Despachar",
+        "en-US": "Dispatch total"
+    },
+    "ListadoMaterialesItemCode0032": {
+        "es-MX": "Total Físico en Almacén",
+        "en-US": "Total Physical in Stock"
+    },
+    "ListadoMaterialesItemCode0033": {
+        "es-MX": "Asignado para IC Equivalente",
+        "en-US": "Assigned to IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0034": {
+        "es-MX": "Total Congelado",
+        "en-US": "Total Frozen"
+    },
+    "ListadoMaterialesItemCode0035": {
+        "es-MX": "Inventario Disponible Cruce",
+        "en-US": "Available inventory Crossing"
+    },
+    "ListadoMaterialesItemCode0036": {
+        "es-MX": "Disponible IC Equivalente",
+        "en-US": "Available IC Equivalent"
+    },
+    "ListadoMaterialesItemCode0037": {
+        "es-MX": "Total Disponible para Cruce",
+        "en-US": "Total Available for Cross"
+    },
     //Almacenaje
     "Almacenaje0001": {
         "es-MX": "Inicio",
@@ -3388,8 +3593,8 @@ _dictionary = {
         "en-US": "Go to List Input"
     },
     "Almacenaje0008": {
-        "es-MX": "Incidencia",
-        "en-US": "Incidence"
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     "Almacenaje0009": {
         "es-MX": "Proyecto",
@@ -3446,6 +3651,754 @@ _dictionary = {
     "Almacenaje0022": {
         "es-MX": "TieneLocalizacion",
         "en-US": "TieneLocalizacion"
+    },
+    //Despacho
+    "Despacho0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Despacho0002": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "Despacho0003": {
+        "es-MX": "Despachar",
+        "en-US": "Dispatch"
+    },
+    "Despacho0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Despacho0005": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Despacho0006": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "Despacho0007": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Despacho0008": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "Despacho0009": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "Despacho0010": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Despacho0011": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
+    "Despacho0012": {
+        "es-MX": "Número de control",
+        "en-US": "Control number"
+    },
+    "Despacho0013": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Despacho0014": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Despacho0015": {
+        "es-MX": "Número único",
+        "en-US": "Unique number"
+    },
+    "Despacho0016": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "Despacho0017": {
+        "es-MX": "Hold",
+        "en-US": "Hold"
+    },
+    "Despacho0018": {
+        "es-MX": "Tiene Despacho",
+        "en-US": "Tiene Despacho"
+    },
+    "Despacho0019": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "Despacho0020": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "Despacho0021": {
+        "es-MX": "Agregar Nuevo",
+        "en-US": "Add New"
+    },
+    "Despacho0022": {
+        "es-MX": "Baston 1",
+        "en-US": "Stick 1"
+    },
+    "Despacho0023": {
+        "es-MX": "Baston",
+        "en-US": "Stick"
+    },
+    "Despacho0024": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "Despacho0025": {
+        "es-MX": "Dashboard Despacho y Corte",
+        "en-US": "Dashboard Dispatch and Cut"
+    },
+    "Despacho0026": {
+        "es-MX": "ProyectoID",
+        "en-US": "ProyectoID"
+    },
+    //Corte
+    "Corte0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Corte0002": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "Corte0003": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Corte0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Corte0005": {
+        "es-MX": "Generar Picking Ticket",
+        "en-US": "Generate Picking Ticket"
+    },
+    "Corte0006": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Corte0007": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "Corte0008": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Corte0009": {
+        "es-MX": "Máquina",
+        "en-US": "Machine"
+    },
+    "Corte0010": {
+        "es-MX": "Operador",
+        "en-US": "Operator"
+    },
+    "Corte0011": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "Corte0012": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Corte0013": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Corte0014": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "Corte0015": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "Corte0016": {
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
+    },
+    "Corte0017": {
+        "es-MX": "Consecutivo",
+        "en-US": "Consecutive"
+    },
+    "Corte0018": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "Corte0019": {
+        "es-MX": "Tramo Completo",
+        "en-US": "Full stretch"
+    },
+    "Corte0020": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "Corte0021": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "Corte0022": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "Corte0023": {
+        "es-MX": "Total",
+        "en-US": "Total"
+    },
+    "Corte0024": {
+        "es-MX": "Sobrante",
+        "en-US": "Remnant"
+    },
+    "Corte0025": {
+        "es-MX": "Merma",
+        "en-US": "Scrap"
+    },
+    "Corte0026": {
+        "es-MX": "MaquinaID",
+        "en-US": "MaquinaID"
+    },
+    "Corte0027": {
+        "es-MX": "OperadorID",
+        "en-US": "OperadorID"
+    },
+    "Corte0028": {
+        "es-MX": "MermaTeorica",
+        "en-US": "MermaTeorica"
+    },
+    "Corte0029": {
+        "es-MX": "EsTramoCompleto",
+        "en-US": "EsTramoCompleto"
+    },
+    "Corte0030": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Corte0031": {
+        "es-MX": "Cantidad Ingenieria",
+        "en-US": "Cantidad Ingenieria"
+    },
+    "Corte0032": {
+        "es-MX": "Cantidad fuera de tolerancia. Favor de corregir la cantidad.",
+        "en-US": "Number out of tolerance. Please correct the amount."
+    },
+    "Corte0033": {
+        "es-MX": "Corregir.",
+        "en-US": "Correct."
+    },
+    "Corte0034": {
+        "es-MX": "Existen incongruencias en el Sobrante. Favor de corregir el Sobrante.",
+        "en-US": "There are inconsistencies in the result of the Remnant. Please correct the amount."
+    },
+    "Corte0035": {
+        "es-MX": "Corregir.",
+        "en-US": "Correct."
+    },
+    "Corte0036": {
+        "es-MX": "Existen incongruencias en el resultado de la merma. Favor de corregir la cantidad.",
+        "en-US": "There are inconsistencies in the result of the scrap. Please correct the amount."
+    },
+    "Corte0037": {
+        "es-MX": "Corregir.",
+        "en-US": "Correct."
+    },
+    "Corte0038": {
+        "es-MX": "Existen incongruencias en el resultado de la merma.",
+        "en-US": "There are inconsistencies in the result of the scrap."
+    },
+    "Corte0039": {
+        "es-MX": "Asumir incongruencia.",
+        "en-US": "Assume inconsistency."
+    },
+    "Corte0040": {
+        "es-MX": "Listado Corte",
+        "en-US": "Cut List"
+    },
+    "Corte0041": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    //DashboardDespachoCorte
+    "DashboardDespachoCorte0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "DashboardDespachoCorte0002": {
+        "es-MX": "Despachar",
+        "en-US": "Dispatch"
+    },
+    "DashboardDespachoCorte0003": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "DashboardDespachoCorte0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DashboardDespachoCorte0005": {
+        "es-MX": "Folio Aviso Entrada",
+        "en-US": "Notice Folio Entry"
+    },
+    "DashboardDespachoCorte0006": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "DashboardDespachoCorte0007": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "DashboardDespachoCorte0008": {
+        "es-MX": "Fecha Final",
+        "en-US": "End Date"
+    },
+    "DashboardDespachoCorte0009": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "DashboardDespachoCorte0010": {
+        "es-MX": "Unidad Medida",
+        "en-US": "Unit Measure"
+    },
+    "DashboardDespachoCorte0011": {
+        "es-MX": "Accesorios",
+        "en-US": "Accessories"
+    },
+    "DashboardDespachoCorte0012": {
+        "es-MX": "Ordenes de Trabajo",
+        "en-US": "Work Orders"
+    },
+    "DashboardDespachoCorte0013": {
+        "es-MX": "Ordenes de Trabajo Activas",
+        "en-US": "Active work orders"
+    },
+    "DashboardDespachoCorte0014": {
+        "es-MX": "Por Pre-Despachar",
+        "en-US": "By Pre-Dispatch"
+    },
+    "DashboardDespachoCorte0015": {
+        "es-MX": "Por Despachar",
+        "en-US": "By Dispatch"
+    },
+    "DashboardDespachoCorte0016": {
+        "es-MX": "Por Entregar",
+        "en-US": "By Submit"
+    },
+    "DashboardDespachoCorte0017": {
+        "es-MX": "Traveler Pendiente",
+        "en-US": "Traveler Pending"
+    },
+    "DashboardDespachoCorte0018": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "DashboardDespachoCorte0019": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "DashboardDespachoCorte0020": {
+        "es-MX": "Tubos",
+        "en-US": "Tubes"
+    },
+    "DashboardDespachoCorte0021": {
+        "es-MX": "Ordenes de Trabajo",
+        "en-US": "Work Orders"
+    },
+    "DashboardDespachoCorte0022": {
+        "es-MX": "Ordenes de Trabajo Activas",
+        "en-US": "Active work orders"
+    },
+    "DashboardDespachoCorte0023": {
+        "es-MX": "Por Pre-Despachar",
+        "en-US": "By Pre-Dispatch"
+    },
+    "DashboardDespachoCorte0024": {
+        "es-MX": "Por Despachar",
+        "en-US": "By Dispatch"
+    },
+    "DashboardDespachoCorte0025": {
+        "es-MX": "Por Entregar",
+        "en-US": "By Submit"
+    },
+    "DashboardDespachoCorte0026": {
+        "es-MX": "Traveler Pendiente",
+        "en-US": "Traveler Pending"
+    },
+    "DashboardDespachoCorte0027": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "DashboardDespachoCorte0028": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "DashboardDespachoCorte0029": {
+        "es-MX": "Dashboard Despacho y Corte",
+        "en-US": "Dashboard Dispatch and Cut"
+    },
+    "DashboardDespachoCorte0030": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "DashboardDespachoCorte0031": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "DashboardDespachoCorte0032": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "DashboardDespachoCorte0033": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "DashboardDespachoCorte0034": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "DashboardDespachoCorte0035": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "DashboardDespachoCorte0036": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "DashboardDespachoCorte0037": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    "DashboardDespachoCorte0038": {
+        "es-MX": "Cantidad Material",
+        "en-US": "Amount of material"
+    },
+    "DashboardDespachoCorte0039": {
+        "es-MX": "Cantidad Despachados",
+        "en-US": "Amount of Dispatched"
+    },
+    "DashboardDespachoCorte0040": {
+        "es-MX": "Faltantes por Despachar",
+        "en-US": "Missing by Dispatch"
+    },
+    "DashboardDespachoCorte0041": {
+        "es-MX": "Etiqueta",
+        "en-US": "Label"
+    },
+    "DashboardDespachoCorte0042": {
+        "es-MX": "Tiene Despacho",
+        "en-US": "It has dispatch"
+    },
+    "DashboardDespachoCorte0043": {
+        "es-MX": "Picking Ticket",
+        "en-US": "Picking Ticket"
+    },
+    "DashboardDespachoCorte0044": {
+        "es-MX": "No. Empleado entrega",
+        "en-US": "No. Employee delivery"
+    },
+    "DashboardDespachoCorte0045": {
+        "es-MX": "No. Empleado recibe",
+        "en-US": "No. Employee receives"
+    },
+    "DashboardDespachoCorte0046": {
+        "es-MX": "Fecha entrega",
+        "en-US": "Deliver date"
+    },
+    "DashboardDespachoCorte0047": {
+        "es-MX": "Unidad de Medida",
+        "en-US": "Unit Measure"
+    },
+    "DashboardDespachoCorte0048": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "DashboardDespachoCorte0049": {
+        "es-MX": "Pieza",
+        "en-US": "Piece"
+    },
+    "DashboardDespachoCorte0050": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
+    "DashboardDespachoCorte0051": {
+        "es-MX": "Milímetros",
+        "en-US": "Millimeters"
+    },
+    "DashboardDespachoCorte0052": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "DashboardDespachoCorte0053": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "DashboardDespachoCorte0054": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    //Listado Corte
+    "ListadoCorte0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoCorte0002": {
+        "es-MX": "Listado Corte",
+        "en-US": "Cut List"
+    },
+    "ListadoCorte0003": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "ListadoCorte0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ListadoCorte0005": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoCorte0006": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoCorte0007": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoCorte0008": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoCorte0009": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoCorte0010": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoCorte0011": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoCorte0012": {
+        "es-MX": "Año",
+        "en-US": "Year"
+    },
+    //Impresion Documental
+    "ImpresionDocumental0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ImpresionDocumental0002": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "ImpresionDocumental0003": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "ImpresionDocumental0004": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    //Incidencias
+    "Incidencias0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Incidencias0002": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "Incidencias0003": {
+        "es-MX": "Clasificación",
+        "en-US": "Classification"
+    },
+    "Incidencias0004": {
+        "es-MX": "Tipo Incidencia",
+        "en-US": "Incidences Type"
+    },
+    "Incidencias0005": {
+        "es-MX": "Versión",
+        "en-US": "version"
+    },
+    "Incidencias0006": {
+        "es-MX": "Titulo",
+        "en-US": "Title"
+    },
+    "Incidencias0007": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0008": {
+        "es-MX": "Respuesta",
+        "en-US": "Answer"
+    },
+    "Incidencias0009": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Incidencias0010": {
+        "es-MX": "Resolver",
+        "en-US": "Resolve"
+    },
+    "Incidencias0011": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Incidencias0012": {
+        "es-MX": "Motivo Cancelación",
+        "en-US": "Cancellation Reason"
+    },
+    "Incidencias0013": {
+        "es-MX": "Detalle Resolución",
+        "en-US": "Detail Resolution"
+    },
+    "Incidencias0014": {
+        "es-MX": "Registrado Por",
+        "en-US": "Registered by"
+    },
+    "Incidencias0015": {
+        "es-MX": "Fecha de Registro",
+        "en-US": "Registration Date"
+    },
+    "Incidencias0016": {
+        "es-MX": "Resuelto Por",
+        "en-US": "Resolved By"
+    },
+    "Incidencias0017": {
+        "es-MX": "Fecha Resolución",
+        "en-US": "Resolution Date"
+    },
+    "Incidencias0018": {
+        "es-MX": "Respondido Por",
+        "en-US": "Answered by"
+    },
+    "Incidencias0019": {
+        "es-MX": "Fecha Respuesta",
+        "en-US": "Date Response"
+    },
+    "Incidencias0020": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Attach Files"
+    },
+    "Incidencias0021": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0022": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "Incidencias0023": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Incidencias0024": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
+    "Incidencias0025": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Incidencias0026": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
+    "Incidencias0027": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Incidencias0028": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
+    "Incidencias0029": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "Incidencias0030": {
+        "es-MX": "Ingeniería",
+        "en-US": "Engineering"
+    },
+    "Incidencias0031": {
+        "es-MX": "Calidad",
+        "en-US": "Quality"
+    },
+    "Incidencias0032": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
+    "Incidencias0033": {
+        "es-MX": "Número Único",
+        "en-US": "Unique Number"
+    },
+    "Incidencias0034": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Incidencias0035": {
+        "es-MX": "Incidencia - Folio ",
+        "en-US": "Incidence - Folio "
+    },
+
+    //Listado Incidencias
+    "ListadoIncidencias0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "ListadoIncidencias0002": {
+        "es-MX": "Listado de Incidencias",
+        "en-US": "Incidences List"
+    },
+    "ListadoIncidencias0003": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidence"
+    },
+    "ListadoIncidencias0004": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "ListadoIncidencias0005": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "ListadoIncidencias0006": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Start Date"
+    },
+    "ListadoIncidencias0007": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "ListadoIncidencias0008": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "ListadoIncidencias0009": {
+        "es-MX": "Clasificación",
+        "en-US": "Classification"
+    },
+    "ListadoIncidencias0010": {
+        "es-MX": "Tipo Incidencia",
+        "en-US": "Incidence Type"
+    },
+    "ListadoIncidencias0011": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "ListadoIncidencias0012": {
+        "es-MX": "Registrado Por",
+        "en-US": "Registered by"
+    },
+    "ListadoIncidencias0013": {
+        "es-MX": "Fecha Registro",
+        "en-US": "Registration date"
     },
     //Default to copy
     "notificationslabel0001": {
@@ -3667,6 +4620,66 @@ _dictionary = {
     "notificationslabel0055": {
         "es-MX": "No se encontraron datos.",
         "en-US": "No data found."
+    },
+    "notificationslabel0056": {
+        "es-MX": "Se han guardado los cambios.",
+        "en-US": "Your changes have been saved."
+    },
+    "notificationslabel0057": {
+        "es-MX": "El spool se encuentra en hold.",
+        "en-US": "The spool is on hold."
+    },
+    "notificationslabel0058": {
+        "es-MX": "Favor de seleccionar un numero unico.",
+        "en-US": "Please select a unique number."
+    },
+    "notificationslabel0059": {
+        "es-MX": "Favor de proporcionar una orden de trabajo.",
+        "en-US": "Please provide a work order."
+    },
+    "notificationslabel0060": {
+        "es-MX": "Favor de proporcionar un consecutivo.",
+        "en-US": "Please provide a consecutive."
+    },
+    "notificationslabel0061": {
+        "es-MX": "Favor de proporcionar una Etiqueta.",
+        "en-US": "Please provide a label."
+    },
+    "notificationslabel0062": {
+        "es-MX": "La suma de los cortes no puede ser mayor al inventario fisico.",
+        "en-US": "The sum of the cuts may not exceed the physical inventory."
+    },
+    "notificationslabel0063": {
+        "es-MX": "Favor de seleccionar una maquina.",
+        "en-US": "Please select a machine."
+    },
+    "notificationslabel0064": {
+        "es-MX": "Fuera de tolerancia.",
+        "en-US": "Out of tolerance."
+    },
+    "notificationslabel0065": {
+        "es-MX": "No se encontraron datos generar los cortes.",
+        "en-US": "No data have been found to generate cuts."
+    },
+    "notificationslabel0066": {
+        "es-MX": "El spool ya se encuentra agregado.",
+        "en-US": "The spool is already on the list"
+    },
+    "notificationslabel0067": {
+        "es-MX": "No hay datos para despachar.",
+        "en-US": "No data to dispatch."
+    },
+    "notificationslabel0068": {
+        "es-MX": "Favor de ingresar el nombre de usuario y contraseña",
+        "en-US": "Please enter a username and password"
+    },
+    "notificationslabel0069": {
+        "es-MX": "Favor de ingresar el motivo de cancelación.",
+        "en-US": "Please enter the reason for cancellation."
+    },
+    "notificationslabel0070": {
+        "es-MX": "Favor de ingresar el detalle de resolución.",
+        "en-US": "Please enter the detail resolution."
     },
     //Default to copy
     "label9999": {

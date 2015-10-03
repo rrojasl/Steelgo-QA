@@ -24,7 +24,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="GenerarOrdenAlmacenaje0005"></span></button>
@@ -46,7 +46,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="GenerarOrdenAlmacenaje0010"></span></a></li>
-                                    <li><a><span id="GenerarOrdenAlmacenaje0011"></span></a></li>
+                                    <li><a id="IrIncidencia"  href="#"><span id="GenerarOrdenAlmacenaje0011"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -55,21 +55,21 @@
             </div>
 
              <div class="row">
-                <div class="filterForm col-sm-12 col-md-12 col-lg-11">
+                <div class="filterForm col-xs-12 col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
-                        <div id="ProyectoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ProyectoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="GenerarOrdenRecepcion0006"></label>
                             <input id="ProyectoID" />
                         </div>
-                         <div id="FolioCuantificacionDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                         <div id="FolioCuantificacionDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="GenerarOrdenAlmacenaje0013"></label>
                             <input id="FolioCuantificacionID" class="" />
                         </div>
-                        <div id="ItemCodeDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="ItemCodeDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="GenerarOrdenAlmacenaje0014"></label>
                             <input id="ItemCode" />
                         </div>
-                        <div id="NumeroUnicoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+                        <div id="NumeroUnicoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="GenerarOrdenAlmacenaje0015"></label>
                             <input id="NumeroUnico" />
                         </div>
@@ -95,7 +95,7 @@
 
     var _folioCuantificacionID = getUrlParameter("FolioCuantificacionID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
-    
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $GenerarOrdenAlmacenajeModel = {
         listContainer: {
@@ -121,7 +121,7 @@
         cargarInicialGrid();
     }
     function CargaInicial() {
-
+        $("#IrIncidencia").click(function () { Incidencias(); });
         $("#Guardar").click(function () {
             GenerarOrdenAlmacenaje();
         });
@@ -421,6 +421,7 @@
                         } else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                         };
+                        applySecurityPolicy(false);
             }
             loadingStop();
         });
@@ -544,32 +545,9 @@
 
     };
 
-@*    function GenerarOrdenRecepcionNuevo() {
-        var itemCodes = [], x = 0, folios = [], numerosunicos = [];
-        OrdenAlmacenaje = { listaFoliosCuantificacion: "", listaItemCodes: "", listaNumerosUnicos: "" };
-
-        folios = ObtenerFoliosDeMemoria();
-        itemCodes = ObtenerItemCodesDeMemoria();
-        numerosunicos = ObtenerNumerosUnicosDeMemoria();
-
-        loadingStart();
-        OrdenAlmacenaje.listaFoliosCuantificacion = folios;
-        OrdenAlmacenaje.listaItemCodes = itemCodes;
-        OrdenAlmacenaje.listaNumerosUnicos = numerosunicos;
-
-        if (itemCodes.length > 0 || folios.length > 0 || numerosunicos.length > 0) {
-            $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje(OrdenAlmacenaje, { token: $.cookie("token") }).done(function (result) {
-                loadingStop();
-                if (Error(result)) {
-                    var url = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value();
-                }
-            });
-        } else {
-            displayMessage("notificationslabel0045", "", '1');
-            loadingStop();
-        }
-    };*@
+    function Incidencias() {
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+    };
 
     function GenerarOrdenAlmacenaje() {
         var itemCodes = [], x = 0, folios = [], numerosunicos = [];

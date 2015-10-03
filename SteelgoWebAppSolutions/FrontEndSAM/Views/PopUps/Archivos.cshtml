@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Archivos";
+}
+
+<div id="modalTransportista" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div id="Tipo_ArchivoDiv" class="form-group">
+                <label id="ListadoCatalogos0014"></label>
+                <input id="Tipo_Archivo" class="" />
+            </div>
+            <div id="Input_ArchivoDiv" class="form-group">
+                <label id="ListadoCatalogos0015"></label>
+                <input id="Input_Archivo" class="general-input" type="file"/>
+            </div>
+            <div id="grid"></div>
+            <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
+        </div>
+    </div>
+</div>
+<script>
+    @section JavascriptGlobalVariables {
+    }
+    @section JavascriptGlobalFunctions {
+        $("#close").on("click",function(){
+            window.parent.$("#window").data("kendoWindow").close();
+        })
+        $("#Input_Archivo").kendoUpload({
+            async: {
+                saveUrl: "save",
+                autoUpload: true
+            },
+            complete:function(e){
+                var options = $("#grid").data("kendoGrid").options;
+                $("#grid").data("kendoGrid").destroy();
+                $("#grid").empty().kendoGrid(options);
+            }
+        });
+
+        $("#grid").kendoGrid({
+            columns: [
+                { field: "Nombre",title:"Nombre",template: "<a href='#: Url #'>#: Nombre # </a>" },
+                { field: "Extencion",title:"Extensión" },
+                { field: "TipoArchivo",title:"Tipo de Archivo" },
+                { command: "destroy", title: "Borrar", width: "91px" }
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id: "DocumentoID",
+                        fields: {
+                            DocumentoID: { type: "number", editable: false, nullable: true },
+                            Nombre: { type: "string", validation: { required: false } },
+                            Extencion: { type: "string", validation: { required: false } },
+                            Url: { type: "string", validation: { required: false } },
+                            TipoArchivo: { type: "string", validation: { required: false } },
+                        }
+                    }
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                transport:{
+                    read:{
+                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalago+"&elementoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
+                        dataType:"json",
+                        type:"GET",
+                        cache: false
+                    },
+                    read:{
+                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalago+"&elementoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
+                        dataType:"json",
+                        type:"DELETE",
+                        cache: false
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+                autoHeight: true,
+                sortable: false,
+                scrollable: false,
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            startswith: "Starts with",
+                            eq: "Is equal to",
+                            neq: "Is not equal to"
+                        }
+                    }
+                },
+                pageable: {
+                    refresh: false,
+                    pageSizes: [10, 15, 20],
+                    info: false,
+                    input: false,
+                    numeric: true,
+                },
+                toolbar: ["create"],
+                save: function(e) {
+                    console.log(e);
+                },
+                remove: function (e) {
+                    if(e.model.id!==null && e.model.id!==""){
+                        var direccion=grid.options.dataSource.options.transport.destroy.url+"&DocumentoID="+e.model.id;
+                        grid.options.dataSource.options.transport.destroy.url=direccion;
+                    }else{
+                        alert(_dictionary.ListadoCatalogos0009[$("#language").data("kendoDropDownList").value()]);
+                    }
+                },
+                dataBound: function(e) {
+                    console.log(e);
+                }
+            }
+        })
+    }
+    @section JavascriptDocumentReadyFunctions {
+        $(".sidebar").hide();
+        $(".logo").hide();
+        $(".search-bar").hide();
+        $(".notifications").hide();
+        $(".logged-user").hide();
+        $(".content-container").removeClass("topbar").addClass("printView");
+        $(".breadcrumb-container").hide();
+        $(".languageSelector").hide();
+        $(".pull-right").hide();
+        $("header").hide();
+        $(".content-frame").removeClass("content-frame");
+        $("body").css("background", "#FFFFFF");
+    }
+    @section JavascriptDocumentReadyHomeCookie {
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "30", { path: '/' });
+    }
+   
+</script>

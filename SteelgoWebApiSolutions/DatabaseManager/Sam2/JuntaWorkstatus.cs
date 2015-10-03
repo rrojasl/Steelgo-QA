@@ -51,6 +51,27 @@ namespace DatabaseManager.Sam2
         public Nullable<System.Guid> UsuarioModifica { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public byte[] VersionRegistro { get; set; }
+        public string Campo70 { get; set; }
+        public string Campo71 { get; set; }
+        public string Campo72 { get; set; }
+        public string Campo73 { get; set; }
+        public string Campo74 { get; set; }
+        public string Campo75 { get; set; }
+        public string Campo76 { get; set; }
+        public string Campo77 { get; set; }
+        public string Campo78 { get; set; }
+        public string Campo79 { get; set; }
+        public string Campo80 { get; set; }
+        public string Campo81 { get; set; }
+        public string Campo82 { get; set; }
+        public string Campo83 { get; set; }
+        public string Campo84 { get; set; }
+        public string Campo85 { get; set; }
+        public string Campo86 { get; set; }
+        public string Campo87 { get; set; }
+        public string Campo88 { get; set; }
+        public string Campo89 { get; set; }
+        public string Campo90 { get; set; }
     
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual ICollection<DestajoSoldadorDetalle> DestajoSoldadorDetalle { get; set; }

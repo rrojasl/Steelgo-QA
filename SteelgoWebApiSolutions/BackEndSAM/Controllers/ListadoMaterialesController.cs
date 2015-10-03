@@ -11,7 +11,7 @@ using System.Web.Http.Cors;
 
 namespace BackEndSAM.Controllers
 {
-     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ListadoMaterialesController : ApiController
     {
 
