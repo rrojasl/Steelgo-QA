@@ -282,6 +282,46 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object obtenerDocumentoCatalogos(int catalogoID, int elementoCatalogoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaDocumentosCatalogos> documentos = (from c in ctx.Sam3_Catalogos
+                                                                 join cd in ctx.Sam3_Rel_Catalogos_Documento on c.CatalogoID equals cd.CatalogoID
+                                                                 join ta in ctx.Sam3_TipoArchivo_Catalogo on cd.TipoArchivoID equals ta.TipoArchivoID
+                                                                 where c.CatalogoID == catalogoID && cd.ElementoCatalogoID == elementoCatalogoID
+                                                                 && c.Activo && cd.Activo && ta.Activo
+                                                                 select new ListaDocumentosCatalogos
+                                                                 {
+                                                                     DocumentoID = cd.Rel_Catalogos_DocumentoID.ToString(),
+                                                                     Nombre = cd.Nombre,
+                                                                     Extencion = cd.Extension,
+                                                                     Url = cd.Url,
+                                                                     TipoArchivoID = ta.TipoArchivoID.ToString(),
+                                                                     TipoArchivo = ta.Nombre,
+                                                                     CatalogoID = c.CatalogoID.ToString(),
+                                                                     CatalogoNombre = c.CatalogoNombre,
+                                                                     ElementoCatalogoID = cd.ElementoCatalogoID.ToString()
+                                                                 }).AsParallel().ToList();
+
+                    return documentos;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Guarda registro de los documentos cargados para permiso de aduana
         /// </summary>

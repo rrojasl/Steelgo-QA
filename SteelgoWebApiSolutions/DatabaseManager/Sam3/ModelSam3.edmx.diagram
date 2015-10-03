@@ -302,6 +302,12 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__33AA9866" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__386F4D83" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__2A212E2C" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Catalogos" Width="1.5" PointX="14.375" PointY="3.625" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_Catalogos_Documento" Width="1.5" PointX="18.875" PointY="5.25" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_TipoArchivo_Catalogo" Width="1.5" PointX="16.625" PointY="8.125" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Catal__5F891AA4" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Tipo__Catal__5CACADF9" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__607D3EDD" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

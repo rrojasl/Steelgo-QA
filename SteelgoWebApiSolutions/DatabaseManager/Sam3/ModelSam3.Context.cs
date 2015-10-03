@@ -148,5 +148,8 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
         public virtual DbSet<Sam3_TipoIncidencia> Sam3_TipoIncidencia { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
+        public virtual DbSet<Sam3_Catalogos> Sam3_Catalogos { get; set; }
+        public virtual DbSet<Sam3_Rel_Catalogos_Documento> Sam3_Rel_Catalogos_Documento { get; set; }
+        public virtual DbSet<Sam3_TipoArchivo_Catalogo> Sam3_TipoArchivo_Catalogo { get; set; }
     }
 }

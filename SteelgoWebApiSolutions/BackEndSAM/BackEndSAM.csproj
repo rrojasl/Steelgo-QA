@@ -155,6 +155,7 @@
     <Compile Include="Controllers\DocumentoLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DocumentoPaseSalidaController.cs" />
     <Compile Include="Controllers\DocumentoPermisoAduanaController.cs" />
+    <Compile Include="Controllers\DocumentosCatalogosController.cs" />
     <Compile Include="Controllers\DummyAceroController.cs" />
     <Compile Include="Controllers\DummyAlmacenajeRackController.cs" />
     <Compile Include="Controllers\DummyColadaController.cs" />

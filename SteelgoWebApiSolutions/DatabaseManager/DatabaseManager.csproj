@@ -929,6 +929,9 @@
     <Compile Include="Sam3\Sam3_Bulto.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Catalogos.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Cedula.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1127,6 +1130,9 @@
     <Compile Include="Sam3\Sam3_Rel_Bulto_ItemCode.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Catalogos_Documento.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_Documento_Entidad.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1248,6 +1254,9 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoArchivo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TipoArchivo_Catalogo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoAviso.cs">

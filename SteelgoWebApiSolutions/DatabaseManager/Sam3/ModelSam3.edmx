@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -27,6 +27,16 @@
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sam3_Catalogos">
+          <Key>
+            <PropertyRef Name="CatalogoID" />
+          </Key>
+          <Property Name="CatalogoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogoNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
         <EntityType Name="Sam3_Cedula">
           <Key>
@@ -576,6 +586,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="CedulaID" Type="int" />
           <Property Name="Codigo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="GrupoID" Type="int" />
+          <Property Name="DescripcionLargaEspanol" Type="varchar" MaxLength="250" />
+          <Property Name="DescripcionLargaIngles" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Sam3_Maquina">
           <Key>
@@ -1047,6 +1059,24 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sam3_Rel_Catalogos_Documento">
+          <Key>
+            <PropertyRef Name="Rel_Catalogos_DocumentoID" />
+          </Key>
+          <Property Name="Rel_Catalogos_DocumentoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogoID" Type="int" />
+          <Property Name="TipoArchivoID" Type="int" />
+          <Property Name="DocumentoID" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Extension" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DocGuid" Type="uniqueidentifier" />
+          <Property Name="Url" Type="varchar(max)" />
+          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="ElementoCatalogoID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Documento_Entidad">
           <Key>
@@ -1619,6 +1649,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_TipoArchivo_Catalogo">
+          <Key>
+            <PropertyRef Name="TipoArchivoID" />
+          </Key>
+          <Property Name="TipoArchivoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogoID" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_TipoAviso">
           <Key>
             <PropertyRef Name="TipoAvisoID" />
@@ -2158,6 +2199,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_ProyectoConsecutivo">
               <PropertyRef Name="ProyectoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Catal__5F891AA4">
+          <End Role="Sam3_Catalogos" Type="Self.Sam3_Catalogos" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_Catalogos_Documento" Type="Self.Sam3_Rel_Catalogos_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Catalogos">
+              <PropertyRef Name="CatalogoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Catalogos_Documento">
+              <PropertyRef Name="CatalogoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2749,6 +2802,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Rel___TipoA__607D3EDD">
+          <End Role="Sam3_TipoArchivo_Catalogo" Type="Self.Sam3_TipoArchivo_Catalogo" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_Catalogos_Documento" Type="Self.Sam3_Rel_Catalogos_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoArchivo_Catalogo">
+              <PropertyRef Name="TipoArchivoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Catalogos_Documento">
+              <PropertyRef Name="TipoArchivoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sam3_Rel___Trans__03A67F89">
           <End Role="Sam3_Transportista" Type="Self.Sam3_Transportista" Multiplicity="1" />
           <End Role="Sam3_Rel_Vehiculo_Transportista" Type="Self.Sam3_Rel_Vehiculo_Transportista" Multiplicity="*" />
@@ -2794,6 +2859,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo">
               <PropertyRef Name="VehiculoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Tipo__Catal__5CACADF9">
+          <End Role="Sam3_Catalogos" Type="Self.Sam3_Catalogos" Multiplicity="0..1" />
+          <End Role="Sam3_TipoArchivo_Catalogo" Type="Self.Sam3_TipoArchivo_Catalogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Catalogos">
+              <PropertyRef Name="CatalogoID" />
+            </Principal>
+            <Dependent Role="Sam3_TipoArchivo_Catalogo">
+              <PropertyRef Name="CatalogoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3796,6 +3873,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         <EntityContainer Name="ModelSam3StoreContainer">
           <EntitySet Name="Sam3_Acero" EntityType="Self.Sam3_Acero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Bulto" EntityType="Self.Sam3_Bulto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Catalogos" EntityType="Self.Sam3_Catalogos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Cedula" EntityType="Self.Sam3_Cedula" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Chofer" EntityType="Self.Sam3_Chofer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ClasificacionIncidencia" EntityType="Self.Sam3_ClasificacionIncidencia" Schema="dbo" store:Type="Tables" />
@@ -3860,6 +3938,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_ProyectoConsecutivo" EntityType="Self.Sam3_ProyectoConsecutivo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Recepcion" EntityType="Self.Sam3_Recepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Bulto_ItemCode" EntityType="Self.Sam3_Rel_Bulto_ItemCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_Catalogos_Documento" EntityType="Self.Sam3_Rel_Catalogos_Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Documento_Entidad" EntityType="Self.Sam3_Rel_Documento_Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_FolioAvisoEntrada_Documento" EntityType="Self.Sam3_Rel_FolioAvisoEntrada_Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" EntityType="Self.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Schema="dbo" store:Type="Tables" />
@@ -3899,6 +3978,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Spool" EntityType="Self.Sam3_Spool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Taller" EntityType="Self.Sam3_Taller" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoArchivo" EntityType="Self.Sam3_TipoArchivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_TipoArchivo_Catalogo" EntityType="Self.Sam3_TipoArchivo_Catalogo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoAviso" EntityType="Self.Sam3_TipoAviso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoCorte" EntityType="Self.Sam3_TipoCorte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_TipoDocumento" EntityType="Self.Sam3_TipoDocumento" Schema="dbo" store:Type="Tables" />
@@ -4114,6 +4194,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_ProyectoConsecutivo" EntitySet="Sam3_ProyectoConsecutivo" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Catal__5F891AA4" Association="Self.FK__Sam3_Rel___Catal__5F891AA4">
+            <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
+            <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Chofe__0777106D" Association="Self.FK__Sam3_Rel___Chofe__0777106D">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
             <End Role="Sam3_Rel_Vehiculo_Chofer" EntitySet="Sam3_Rel_Vehiculo_Chofer" />
@@ -4310,6 +4394,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" EntitySet="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___TipoA__607D3EDD" Association="Self.FK__Sam3_Rel___TipoA__607D3EDD">
+            <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
+            <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Trans__03A67F89" Association="Self.FK__Sam3_Rel___Trans__03A67F89">
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
             <End Role="Sam3_Rel_Vehiculo_Transportista" EntitySet="Sam3_Rel_Vehiculo_Transportista" />
@@ -4325,6 +4413,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___Vehic__0B47A151" Association="Self.FK__Sam3_Rel___Vehic__0B47A151">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_Vehiculo" EntitySet="Sam3_Rel_FolioAvisoLlegada_Vehiculo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Tipo__Catal__5CACADF9" Association="Self.FK__Sam3_Tipo__Catal__5CACADF9">
+            <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
+            <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Usua__TipoN__5887175A" Association="Self.FK__Sam3_Usua__TipoN__5887175A">
             <End Role="Sam3_TipoNotificacion" EntitySet="Sam3_TipoNotificacion" />
@@ -7774,6 +7866,21 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
             <End Role="Sam3_Rel_Incidencia_OrdenRecepcion" EntitySet="Sam3_Rel_Incidencia_OrdenRecepcion" />
           </AssociationSet>
+          <EntitySet Name="Sam3_Catalogos" EntityType="ModelSam3.Sam3_Catalogos" />
+          <EntitySet Name="Sam3_Rel_Catalogos_Documento" EntityType="ModelSam3.Sam3_Rel_Catalogos_Documento" />
+          <EntitySet Name="Sam3_TipoArchivo_Catalogo" EntityType="ModelSam3.Sam3_TipoArchivo_Catalogo" />
+          <AssociationSet Name="FK__Sam3_Rel___Catal__5F891AA4" Association="ModelSam3.FK__Sam3_Rel___Catal__5F891AA4">
+            <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
+            <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Tipo__Catal__5CACADF9" Association="ModelSam3.FK__Sam3_Tipo__Catal__5CACADF9">
+            <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
+            <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___TipoA__607D3EDD" Association="ModelSam3.FK__Sam3_Rel___TipoA__607D3EDD">
+            <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
+            <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -8555,6 +8662,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="GrupoID" Type="Int32" />
           <NavigationProperty Name="Sam3_Cedula" Relationship="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Cedula" />
           <NavigationProperty Name="Sam3_Grupo" Relationship="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Grupo" />
+          <Property Name="DescripcionLargaEspanol" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionLargaIngles" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Sam3_Rel_ItemCode_ItemCodeSteelgo">
           <Key>
@@ -9657,6 +9766,87 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_Incidencia_OrdenRecepcion">
               <PropertyRef Name="OrdenRecepcionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sam3_Catalogos">
+          <Key>
+            <PropertyRef Name="CatalogoID" />
+          </Key>
+          <Property Name="CatalogoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatalogoNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_Rel_Catalogos_Documento" Relationship="ModelSam3.FK__Sam3_Rel___Catal__5F891AA4" FromRole="Sam3_Catalogos" ToRole="Sam3_Rel_Catalogos_Documento" />
+          <NavigationProperty Name="Sam3_TipoArchivo_Catalogo" Relationship="ModelSam3.FK__Sam3_Tipo__Catal__5CACADF9" FromRole="Sam3_Catalogos" ToRole="Sam3_TipoArchivo_Catalogo" />
+        </EntityType>
+        <EntityType Name="Sam3_Rel_Catalogos_Documento">
+          <Key>
+            <PropertyRef Name="Rel_Catalogos_DocumentoID" />
+          </Key>
+          <Property Name="Rel_Catalogos_DocumentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatalogoID" Type="Int32" />
+          <Property Name="TipoArchivoID" Type="Int32" />
+          <Property Name="DocumentoID" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Extension" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DocGuid" Type="Guid" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="ElementoCatalogoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sam3_Catalogos" Relationship="ModelSam3.FK__Sam3_Rel___Catal__5F891AA4" FromRole="Sam3_Rel_Catalogos_Documento" ToRole="Sam3_Catalogos" />
+          <NavigationProperty Name="Sam3_TipoArchivo_Catalogo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__607D3EDD" FromRole="Sam3_Rel_Catalogos_Documento" ToRole="Sam3_TipoArchivo_Catalogo" />
+        </EntityType>
+        <EntityType Name="Sam3_TipoArchivo_Catalogo">
+          <Key>
+            <PropertyRef Name="TipoArchivoID" />
+          </Key>
+          <Property Name="TipoArchivoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatalogoID" Type="Int32" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_Catalogos" Relationship="ModelSam3.FK__Sam3_Tipo__Catal__5CACADF9" FromRole="Sam3_TipoArchivo_Catalogo" ToRole="Sam3_Catalogos" />
+          <NavigationProperty Name="Sam3_Rel_Catalogos_Documento" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__607D3EDD" FromRole="Sam3_TipoArchivo_Catalogo" ToRole="Sam3_Rel_Catalogos_Documento" />
+        </EntityType>
+        <Association Name="FK__Sam3_Rel___Catal__5F891AA4">
+          <End Type="ModelSam3.Sam3_Catalogos" Role="Sam3_Catalogos" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_Catalogos_Documento" Role="Sam3_Rel_Catalogos_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Catalogos">
+              <PropertyRef Name="CatalogoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Catalogos_Documento">
+              <PropertyRef Name="CatalogoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Tipo__Catal__5CACADF9">
+          <End Type="ModelSam3.Sam3_Catalogos" Role="Sam3_Catalogos" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_TipoArchivo_Catalogo" Role="Sam3_TipoArchivo_Catalogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Catalogos">
+              <PropertyRef Name="CatalogoID" />
+            </Principal>
+            <Dependent Role="Sam3_TipoArchivo_Catalogo">
+              <PropertyRef Name="CatalogoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___TipoA__607D3EDD">
+          <End Type="ModelSam3.Sam3_TipoArchivo_Catalogo" Role="Sam3_TipoArchivo_Catalogo" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_Catalogos_Documento" Role="Sam3_Rel_Catalogos_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoArchivo_Catalogo">
+              <PropertyRef Name="TipoArchivoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Catalogos_Documento">
+              <PropertyRef Name="TipoArchivoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11005,6 +11195,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_ItemCodeSteelgo">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_ItemCodeSteelgo">
               <MappingFragment StoreEntitySet="Sam3_ItemCodeSteelgo">
+                <ScalarProperty Name="DescripcionLargaIngles" ColumnName="DescripcionLargaIngles" />
+                <ScalarProperty Name="DescripcionLargaEspanol" ColumnName="DescripcionLargaEspanol" />
                 <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
                 <ScalarProperty Name="CedulaID" ColumnName="CedulaID" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
@@ -11518,6 +11710,48 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
                 <ScalarProperty Name="IncidenciaID" ColumnName="IncidenciaID" />
                 <ScalarProperty Name="Rel_Incidencia_DocumentoID" ColumnName="Rel_Incidencia_DocumentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Catalogos">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Catalogos">
+              <MappingFragment StoreEntitySet="Sam3_Catalogos">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="CatalogoNombre" ColumnName="CatalogoNombre" />
+                <ScalarProperty Name="CatalogoID" ColumnName="CatalogoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Rel_Catalogos_Documento">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_Catalogos_Documento">
+              <MappingFragment StoreEntitySet="Sam3_Rel_Catalogos_Documento">
+                <ScalarProperty Name="ElementoCatalogoID" ColumnName="ElementoCatalogoID" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="DocGuid" ColumnName="DocGuid" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DocumentoID" ColumnName="DocumentoID" />
+                <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
+                <ScalarProperty Name="CatalogoID" ColumnName="CatalogoID" />
+                <ScalarProperty Name="Rel_Catalogos_DocumentoID" ColumnName="Rel_Catalogos_DocumentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_TipoArchivo_Catalogo">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_TipoArchivo_Catalogo">
+              <MappingFragment StoreEntitySet="Sam3_TipoArchivo_Catalogo">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CatalogoID" ColumnName="CatalogoID" />
+                <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
