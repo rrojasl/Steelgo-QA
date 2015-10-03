@@ -69,6 +69,35 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object obtenerListadoTipoArchivosPorCatalogoID(int catalogoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<TipoArchivo> lista = (from ta in ctx.Sam3_TipoArchivo_Catalogo
+                                               where ta.Activo
+                                               select new TipoArchivo
+                                               {
+                                                   Nombre = ta.Nombre,
+                                                   TipoArchivoID = ta.TipoArchivoID.ToString()
+                                               }).AsParallel().ToList();
+
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object InsertarTipoArchivo(Sam3_TipoArchivo nuevo, Sam3_Usuario usuario)
         {
             try
