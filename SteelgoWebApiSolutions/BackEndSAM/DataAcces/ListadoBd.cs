@@ -2162,16 +2162,19 @@ namespace BackEndSAM.DataAcces
                         temp, fechaInicial, fechaFinal));
 
                     //Entrada de material
-                    listado.AddRange(FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
+                        fechaInicial, fechaFinal));
 
                     //Pase salida, no se si existe la incidencia a nivel pase de salida o es de tipo aviso de entrada
                     //listado.AddRange(PaseSalidaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
 
                     //Packing list (Folio Cuantificacion)
-                    listado.AddRange(FoliosCuantificacionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(FoliosCuantificacionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
+                        fechaInicial, fechaFinal));
 
                     //Orden recepcion
-                    listado.AddRange(OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial,
+                        fechaFinal));
 
                     //Complemento recepcion
                     // N/A
@@ -2180,16 +2183,20 @@ namespace BackEndSAM.DataAcces
                     listado.AddRange(ItemCodeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
 
                     //Orden Almacenaje
-                    listado.AddRange(OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
+                        fechaInicial, fechaFinal));
 
                     //Numero Unico
-                    listado.AddRange(NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
+                        fechaInicial, fechaFinal));
 
                     //Despacho
-                    listado.AddRange(DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
+                        fechaInicial, fechaFinal));
 
                     //Corte
-                    listado.AddRange(CorteBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    listado.AddRange(CorteBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
+                        fechaInicial, fechaFinal));
 
 
                     return listado.OrderBy(x => x.FolioIncidenciaID).ToList();
