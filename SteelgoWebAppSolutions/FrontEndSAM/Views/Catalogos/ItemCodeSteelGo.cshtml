@@ -47,14 +47,23 @@
     function cargarInicialGrid() {
         $("#grid").kendoGrid({
             columns: [
-                { field: "DescripcionEspanol",title:"Descripción Español" },
-                { field: "DescripcionIngles",title:"Descripción Inglés" },
-                { field: "Peso",title:"Peso" },
-                { field: "Diametro1",title:"Diametro 1" },
-                { field: "Diametro2",title:"Diametro 2" },
-                { field: "Area", title:"Área" },
-                { field: "Cedula"},
-                { field: "Codigo",title:"Código"},
+                { field: "Codigo",title:_dictionary.ItemCodeSteelGo0004[$("#language").data("kendoDropDownList").value()]}, 
+                { field: "Descripcion",title:_dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()] },
+                { field: "DescripcionLarga",title:_dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()]},
+                { field: "DescripcionIngles",title:_dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()]},
+                { field: "DescripcionInglesLarga",title:_dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()] },
+                { field: "Diametro1",title:_dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()]},
+                { field: "Diametro2",title:_dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()]},
+                { field: "Grupo",title:_dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()]},
+                { field: "Acero",title:_dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()]},
+                { field: "CedulaA",title:_dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()]},
+                { field: "CedulaB",title:_dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()]},
+                { field: "Libra",title:_dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()]},
+                { field: "Inch",title:_dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()]},
+                { field: "MM",title:"MM"},
+                { field: "Espesor",title:_dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()]},
+                { field: "Peso",title:_dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()]},
+                { field: "Area", title:_dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()]},
             ],
             dataSource: {
                 data: [],
@@ -63,15 +72,26 @@
                         id:"ItemCodeSteelgoID",
                         fields: {
                             ItemCodeSteelgoID: { editable: false, nullable: true },
-                            DescripcionEspanol: { type:"string",validation: { required: false } },
+                            Codigo: { type:"string",validation: { required: false } },
+                            Descripcion: { type:"string",validation: { required: false } },
+                            DescripcionLarga: { type:"string",validation: { required: false } },
                             DescripcionIngles: { type:"string",validation: { required: false } },
-                            Peso: { type:"number", validation: { required: true } },
+                            DescripcionLargaIngles: { type:"string",validation: { required: false } },
                             Diametro1: { type:"number", validation: { required: false } },
                             Diametro2: { type:"number", validation: { required: false } },
-                            FamiliaAceroID: { type:"number", validation: { required: true } },
+                            Grupo: { type:"string",validation: { required: false } },
+                            GrupoID: { editable: false, nullable: true },
+                            Acero: { type:"string",validation: { required: false } },
+                            AceroID: { editable: false, nullable: true },
+                            CedulaID: { editable: false, nullable: true },
+                            CedulaA: { type:"string",validation: { required: false } },
+                            CedulaB: { type:"string",validation: { required: false } },
+                            Libra: { type:"string",validation: { required: false } },
+                            Inch: { type:"number", validation: { required: false } },
+                            MM: { type:"number", validation: { required: false } },
+                            Espesor: { type:"number", validation: { required: false } },
+                            Peso: { type:"number", validation: { required: true } },
                             Area: { type:"number", validation: { required: false } },
-                            Cedula: { type:"string",validation: { required: false } },
-                            Codigo: { type:"string",validation: { required: false } },
                         }
                     }
                 },
@@ -101,39 +121,39 @@
                         }
                     }
                 },
-                autoHeight: true,
-                sortable: true,
-                scrollable: false,
-                filterable: {
-                    extra: false,
-                    operators: {
-                        string: {
-                            startswith: "Starts with",
-                            eq: "Is equal to",
-                            neq: "Is not equal to"
-                        }
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        startswith: "Starts with",
+                        eq: "Is equal to",
+                        neq: "Is not equal to"
                     }
-                },
-                pageable: {
-                    refresh: false,
-                    pageSizes: [10, 15, 20],
-                    info: false,
-                    input: false,
-                    numeric: true,
-                    buttonCount: 2
-                },
-                toolbar: ["create"],
-                editable: "inline",
-                save: function(e) {
-                    console.log(e);
-                },
-                remove: function(e) {
-                    console.log(e);
-                },
-                dataBound: function(e) {
-                    console.log(e);
-                },
-            }
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+                buttonCount: 2
+            },
+            toolbar: ["create"],
+            editable: "inline",
+            save: function(e) {
+                //console.log(e);
+            },
+            remove: function(e) {
+                //console.log(e);
+            },
+            dataBound: function(e) {
+                //console.log(e);
+            },
         });
     };
 };

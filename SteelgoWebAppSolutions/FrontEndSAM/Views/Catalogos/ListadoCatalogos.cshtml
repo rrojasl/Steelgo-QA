@@ -588,7 +588,7 @@
                             reader.onload = function(event) {
                                 var csvData = event.target.result;
                                 csvToJson(csvData,"CedulaID").forEach(function(c){
-                                    if(validData(c)){
+                                    if(validData(c) && ((c.CedulaIn)||(c.CedulaMM))){
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     }else{
                                         c["valido"]=false;
@@ -638,12 +638,12 @@
                                 id: "CedulaID",
                                 fields: {
                                     CedulaID: { type: "number", editable: false, nullable: true },
-                                    Diametro: { type: "string", validation: { required: false } },
-                                    CedulaA: { type: "string", validation: { required: false } },
-                                    CedulaB: { type: "string", validation: { required: false } },
-                                    CedulaC: { type: "string", validation: { required: false } },
-                                    CedulaIn: { type: "number", validation: { required: false } },
-                                    CedulaMM: { type: "number", validation: { required: false } },
+                                    Diametro: { type: "string", validation: { required: false }, nullable: true },
+                                    CedulaA: { type: "string", validation: { required: false }, nullable: true },
+                                    CedulaB: { type: "string", validation: { required: false }, nullable: true },
+                                    CedulaC: { type: "string", validation: { required: false }, nullable: true},
+                                    CedulaIn: { type: "number", validation: { required: false }, nullable: true },
+                                    CedulaMM: { type: "number", validation: { required: false }, nullable: true},
                                     Espesor: { type: "number", validation: { required: true } },
                                 }
                             }
@@ -726,7 +726,7 @@
                     }
                     break;
             }
-            if((c[n]==null) && (modelo[n]["nullable"]==true)){
+            if(((c[n]===null)||(c[n]==="")) && (modelo[n]["nullable"]==true)){
                 valido=true;
             }
         }
