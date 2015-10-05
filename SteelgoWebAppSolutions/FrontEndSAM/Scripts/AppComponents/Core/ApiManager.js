@@ -38,6 +38,7 @@ var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
 var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
 var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumerosUnicos?';
 var $UrlNumerosUnicosDespacho = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
+var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumental?';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -117,6 +118,7 @@ var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -207,3 +209,4 @@ $CatalogoICSteelgo.add("CatalogoICSteelgo");
 $Incidencia.add("Incidencia");
 $DocumentoIncidencia.add("DocumentoIncidencia");
 $DocumentosCatalogos.add("DocumentosCatalogos");
+$ImpresionDocumental.add("ImpresionDocumental");

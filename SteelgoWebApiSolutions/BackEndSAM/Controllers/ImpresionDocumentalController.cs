@@ -42,13 +42,28 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/impresiondocumental/5
-        public string Get(int id)
+        public IEnumerable<ListadoImpresionDocumental> Get(string NumeroControl, string token)
         {
-            return "value";
+            List<ListadoImpresionDocumental> lstImpresionDoc = new List<ListadoImpresionDocumental>();
+            ListadoImpresionDocumental ImpresionDoc1 = new ListadoImpresionDocumental();
+            ListadoImpresionDocumental ImpresionDoc2 = new ListadoImpresionDocumental();
+            ListadoImpresionDocumental ImpresionDoc3 = new ListadoImpresionDocumental();
+
+            ImpresionDoc1.TipoMaterial = "Tubo";
+            ImpresionDoc1.ItemCodeSteelgo = "A123T01";
+            ImpresionDoc1.Cantidad = "400";
+            lstImpresionDoc.Add(ImpresionDoc1);
+
+            ImpresionDoc2.TipoMaterial = "Accesorio";
+            ImpresionDoc2.ItemCodeSteelgo = "A123A01";
+            ImpresionDoc2.Cantidad = "1";
+            lstImpresionDoc.Add(ImpresionDoc2);
+
+            return lstImpresionDoc.AsEnumerable();
         }
 
         // POST api/impresiondocumental
-        public void Post([FromBody]string value)
+        public void Post(ImpresionDocumental Listado, string token)
         {
         }
 

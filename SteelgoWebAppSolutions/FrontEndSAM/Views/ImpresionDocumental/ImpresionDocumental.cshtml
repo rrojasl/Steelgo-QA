@@ -60,13 +60,32 @@
 <script>
     @section JavascriptDocumentReadyHomeCookie {
         Cookies.set("home", true, { path: '/' });
-        Cookies.set("navegacion", "24", { path: '/' });
+        Cookies.set("navegacion", "40", { path: '/' });
     }
 
     @section JavascriptGlobalVariables {
     var Proyecto = {}, NumeroControl = {},
         resultadoJson = "";
-   
+    var $ImpresionDocumentalModel = {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "",
+            destroy: ""
+        },
+        properties: {
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
+            },
+            numerocontrol: {
+                visible: "#SpoolDiv",
+                editable: "#SpoolID",
+                required: "#SpoolID"
+            }
+        }
+    };
     }
 
     @section JavascriptGlobalFunctions {
@@ -75,7 +94,7 @@
     };
 
     function CargaInicial() {
-        $("#Guardar").click(function () { Guardar(); });
+        $("#Imprimir").click(function () { Imprimir(); });
 
         $("#ProyectoID").kendoComboBox({
             dataTextField: "Nombre",
@@ -110,7 +129,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $UrlDummyDespacho + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
+                            return $UrlImpresionDocumental + "&id=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
                 },
@@ -201,11 +220,12 @@
     function ObtenerDatosGrid() {
         if (NumeroControl.NumeroControlID) {
             loadingStart();
-            $Despacho.Despacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
+            $ImpresionDocumental.ImpresionDocumental.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     resultadoJson = result;
                     if ($("#grid").data("kendoGrid")) {
                         if (resultadoJson.length > 0) {
+                            displayMessage("notificationslabel0074", "", '2');
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
@@ -214,16 +234,12 @@
                         };
                     };
                     applySecurityPolicy(false);
-                    FiltrarDatos();
                 }
                 loadingStop();
             });
         }
     };
 
-   
-
-       
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
             $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -247,17 +263,23 @@
         return bool;
     };
 
-    function Guardar() {
+    function Imprimir() {
         loadingStart();
         if (validarRequeridosImpresionDocumental()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
-            var Listado = { ProyectoID: "", SpoolID: "" };
+            var Listado = { ProyectoID: "", NumeroControl: "" };
             Listado.ProyectoID = Proyecto.ProyectoID;
-            Listado.SpoolID = Spool.SpoolID;
+            Listado.NumeroControl = NumeroControl.NumeroControl;
 
-            $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
+            if (datasource.length) {
+                displayMessage("notificationslabel0073", "", '1');
+                loadingStop();
+                return;
+            }
+
+            $ImpresionDocumental.ImpresionDocumental.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 Error(result);
-                displayMessage("notificationslabel0056", "", '0');
+                //displayMessage("notificationslabel0056", "", '0');
                 loadingStop();
             });
         } else {
@@ -286,7 +308,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-        //$authorizationModel["Almacenaje"] = $AlmacenajeModel;
+    $authorizationModel["ImpresionDocumental"] = $ImpresionDocumentalModel;
         CargaInicial();
     }
 
