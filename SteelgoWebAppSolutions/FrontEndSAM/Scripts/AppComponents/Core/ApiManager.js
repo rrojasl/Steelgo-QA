@@ -36,8 +36,9 @@ var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
 var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
-var $UrlDummyNumerosUnicos = $BackEndSAMUri + '/backendsam/api/DummyNumerosUnicos?';
-var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
+var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumerosUnicos?';
+var $UrlNumerosUnicosDespacho = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
+var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumental?';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -106,7 +107,7 @@ var $ListadoMaterialesPorItemCode = new $.RestClient($BackEndSAMUri + '/backends
 var $Despacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Maquina = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cortador = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $DummyNumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $NumerosUnicos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Catalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Corte = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $AsociacionICS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -117,6 +118,7 @@ var $CatalogoICSteelgo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -196,7 +198,7 @@ $ListadoMaterialesPorItemCode.add("ListadoMaterialesPorItemCode");
 $Despacho.add("Despacho");
 $Maquina.add("Maquina");
 $Cortador.add("Cortador");
-$DummyNumerosUnicos.add("DummyNumerosUnicos");
+$NumerosUnicos.add("NumerosUnicos");
 $Catalogos.add("AdministracionCatalogos");
 $Corte.add("Corte")
 $AsociacionICS.add("AsociacionICS");
@@ -207,3 +209,4 @@ $CatalogoICSteelgo.add("CatalogoICSteelgo");
 $Incidencia.add("Incidencia");
 $DocumentoIncidencia.add("DocumentoIncidencia");
 $DocumentosCatalogos.add("DocumentosCatalogos");
+$ImpresionDocumental.add("ImpresionDocumental");

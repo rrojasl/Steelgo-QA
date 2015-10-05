@@ -16,7 +16,7 @@ using SecurityManager.TokenHandler;
 namespace BackEndSAM.Controllers
 {
      [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class DummyNumerosUnicosController : ApiController
+    public class NumerosUnicosController : ApiController
     {
         // GET api/dummynumerosunicos
         public object Get(string ProyectoID,string texto, string token)
@@ -54,9 +54,6 @@ namespace BackEndSAM.Controllers
             return CorteBd.Instance.ListadoGenerarCorte(DatosODT, usuario);
         }
 
-        public void Post(DummyDatosODTCorteGuardar Cortes, string token)
-        {
 
-        }
     }
 }

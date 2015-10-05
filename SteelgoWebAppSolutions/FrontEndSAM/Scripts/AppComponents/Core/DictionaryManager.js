@@ -4267,8 +4267,24 @@ _dictionary = {
         "en-US": "Printing Documentary"
     },
     "ImpresionDocumental0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ImpresionDocumental0005": {
         "es-MX": "Spool ID",
         "en-US": "Spool ID"
+    },
+    "ImpresionDocumental0006": {
+        "es-MX": "Tipo de Material",
+        "en-US": "Type Material"
+    },
+    "ImpresionDocumental0007": {
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
+    },
+    "ImpresionDocumental0008": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
     },
     //Incidencias
     "Incidencias0001": {
@@ -4753,6 +4769,14 @@ _dictionary = {
     "notificationslabel0072": {
         "es-MX": "No se puede levantar una incidencia, favor de guardar la informacion",
         "en-US": "You can not raise an issue, please save information"
+    },
+    "notificationslabel0073": {
+        "es-MX": "El Spool ID tiene materiales pendientes.",
+        "en-US": "The Spool ID has outstanding materials."
+    },
+    "notificationslabel0074": {
+        "es-MX": "El Spool seleccionado no cuenta con todos sus materiales cortados y/o despachados. A continuación se muestra un listado de estados materiales faltantes.",
+        "en-US": "The selected Spool has not cut all materials and / or shipped. Here is a list of missing material states is shown."
     },
     //Default to copy
     "label9999": {

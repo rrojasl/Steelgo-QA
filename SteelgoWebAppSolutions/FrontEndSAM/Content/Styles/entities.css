@@ -1583,6 +1583,7 @@ header .menu > div {
                 width: 100%;
                 text-align: left;
                 background-position: 97% center!important;
+                margin-right: 0;
             }
 
             .formNav.filtersFields .button-section.last-button a {

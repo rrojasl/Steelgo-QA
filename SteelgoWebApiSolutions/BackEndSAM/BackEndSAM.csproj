@@ -165,7 +165,7 @@
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyMaquinaController.cs" />
-    <Compile Include="Controllers\DummyNumerosUnicosController.cs" />
+    <Compile Include="Controllers\NumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\DummyOperadorController.cs" />
@@ -187,6 +187,7 @@
     <Compile Include="Controllers\GenerarOrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
     <Compile Include="Controllers\GuardarFolioLlegadaCuantificacionController.cs" />
+    <Compile Include="Controllers\ImpresionDocumentalController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\ItemCodeController.cs" />
     <Compile Include="Controllers\ItemCodeSteelgoController.cs" />
@@ -355,6 +356,8 @@
     <Compile Include="Models\Dummy\FormatoIncidencias.cs" />
     <Compile Include="Models\Dummy\FormatoPaseSalida.cs" />
     <Compile Include="Models\Dummy\GridCuantificacion.cs" />
+    <Compile Include="Models\Dummy\ImpresionDocumental.cs" />
+    <Compile Include="Models\Dummy\ListadoImpresionDocumental.cs" />
     <Compile Include="Models\Incidencia.cs" />
     <Compile Include="Models\Dummy\ItemCode.cs" />
     <Compile Include="Models\Dummy\ListadoCuantificacion.cs" />
@@ -362,7 +365,7 @@
     <Compile Include="Models\ListadoIncidencias.cs" />
     <Compile Include="Models\Dummy\ListadoItemCodes.cs" />
     <Compile Include="Models\Dummy\ListadoLlegadaMaterial.cs" />
-    <Compile Include="Models\Dummy\DummyNumeroControl.cs" />
+    <Compile Include="Models\Dummy\NumeroControl.cs" />
     <Compile Include="Models\Dummy\Maquina.cs" />
     <Compile Include="Models\Dummy\NumerosUnicos.cs" />
     <Compile Include="Models\Dummy\Operador.cs" />
