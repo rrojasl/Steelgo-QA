@@ -845,8 +845,9 @@ h2 {
 
     /*$_input*/
     .content-container .form input[type="radio"] {
+        width: auto;
         text-align: center;
-        margin: 4px 45% 0;
+        margin: 4px 45% 0;        
     }
 
     input.quickFilters,

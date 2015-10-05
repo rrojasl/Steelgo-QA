@@ -76,7 +76,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<TipoArchivo> lista = (from ta in ctx.Sam3_TipoArchivo_Catalogo
-                                               where ta.Activo
+                                               where ta.Activo && ta.CatalogoID == catalogoID
                                                select new TipoArchivo
                                                {
                                                    Nombre = ta.Nombre,
