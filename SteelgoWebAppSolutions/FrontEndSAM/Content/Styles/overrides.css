@@ -820,6 +820,26 @@
         border-top: 1px solid #CCCCCC;
     }
 
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
+        min-width: 641px;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"],
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"] {
+        width: auto;
+        margin-left: 30%;
+    }
+
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid th input[type="checkbox"] {
+        margin-left: 40%;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td {
+        border-bottom: none;
+    }
+
 
 }
 
