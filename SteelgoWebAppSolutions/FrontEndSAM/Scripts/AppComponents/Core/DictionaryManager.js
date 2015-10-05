@@ -4202,8 +4202,24 @@ _dictionary = {
         "en-US": "Printing Documentary"
     },
     "ImpresionDocumental0004": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "ImpresionDocumental0005": {
         "es-MX": "Spool ID",
         "en-US": "Spool ID"
+    },
+    "ImpresionDocumental0006": {
+        "es-MX": "Tipo de Material",
+        "en-US": "Type Material"
+    },
+    "ImpresionDocumental0007": {
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
+    },
+    "ImpresionDocumental0008": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
     },
     //Incidencias
     "Incidencias0001": {

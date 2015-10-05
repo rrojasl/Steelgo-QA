@@ -71,29 +71,29 @@
                         </div>
                         <div id="CantidadDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0012"></label>
-                            <input id="Cantidad" disabled />
+                            <input id="Cantidad" class="general-input" disabled />
                         </div>
                         <div id="ItemCodeDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0013"></label>
-                            <input id="ItemCode" disabled />
+                            <input id="ItemCode" class="general-input" disabled />
                         </div>
                         <div id="Diametro1Div" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0014"></label>
-                            <input id="Diametro1" disabled />
+                            <input id="Diametro1" class="general-input" disabled />
                         </div>
                     </div>
                     <div class="row">
                         <div id="OrdenTrabajoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0016"></label>
-                            <input id="OrdenTrabajo" />
+                            <input id="OrdenTrabajo" class="general-input" />
                         </div>
                         <div id="ConsecutivoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0017"></label>
-                            <input id="Consecutivo" />
+                            <input id="Consecutivo"  class="general-input"/>
                         </div>
                         <div id="EtiquetaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0018"></label>
-                            <input id="Etiqueta" />
+                            <input id="Etiqueta"  class="general-input"/>
                         </div>
                         <div id="TramoCompletoDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0019"></label>
@@ -111,15 +111,15 @@
             <div class="row">
                 <div id="TotalDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                     <label id="Corte0023"></label>
-                    <input id="Total" />
+                    <input id="Total" class="general-input" />
                 </div>
                 <div id="SobranteDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                     <label id="Corte0024"></label>
-                    <input id="Sobrante" />
+                    <input id="Sobrante" class="general-input" />
                 </div>
                 <div id="MermaDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
                     <label id="Corte0025"></label>
-                    <input id="Merma" />
+                    <input id="Merma"  class="general-input"/>
                 </div>
             </div>
         </div>
@@ -417,7 +417,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $UrlDummyNumerosUnicos + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
+                            return $UrlNumerosUnicos + "&ProyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&texto=" + val + "&token=" + Cookies.get("token");
                         }
                     }
                 },
@@ -522,7 +522,7 @@
     };
 
     function ObtenerNumeroUnico() {
-        $DummyNumerosUnicos.DummyNumerosUnicos.read({ token: Cookies.get("token") }).done(function (result) {
+        $NumerosUnicos.NumerosUnicos.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("NumeroUnico", result);
         });
     };
@@ -544,7 +544,7 @@
     function ObtenerDetalleNumeroUnico() {
         if (NumeroUnico.NumeroUnicoID) {
             loadingStart();
-            $DummyNumerosUnicos.DummyNumerosUnicos.read({ NumeroUnicoID: NumeroUnico.NumeroUnicoID, token: Cookies.get("token") }).done(function (result) {
+            $NumerosUnicos.NumerosUnicos.read({ NumeroUnicoID: NumeroUnico.NumeroUnicoID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     $("#Cantidad").val(result.Cantidad);
                     $("#ItemCode").val(result.ItemCode);
