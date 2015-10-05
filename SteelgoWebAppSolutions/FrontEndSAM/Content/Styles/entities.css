@@ -1597,12 +1597,21 @@ header .menu > div {
     }
 
     /*$_modal*/
+    #window {
+        overflow: initial;
+    }
+
     #window > div {
         padding: 0;
     }
 
-    #window .buttonSave {
-        margin-bottom: 5px;
+    #window .buttonSave,
+    .popup .buttonSave {
+        margin-bottom: 10px;
+    }
+
+    .popup {
+        overflow-y: initial;
     }
 
     /*$_filesTable*/
