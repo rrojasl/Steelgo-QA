@@ -87,6 +87,7 @@
                 info: false,
                 input: false,
                 numeric: true,
+                buttonCount: 2
             },
             remove: function (e) {
                 if(e.model.id!==null && e.model.id!==""){
@@ -147,8 +148,7 @@
                             return {models: kendo.stringify(options.models)};
                         }
                     }
-                },
-                    buttonCount: 2
+                },                    
             })
         }
     }
