@@ -12,10 +12,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DocumentosCatalogosController : ApiController
     {
         public object Get(int catalogoID, int elementoCatalogoID, string token)
