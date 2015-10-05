@@ -39,10 +39,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*
-                                    <li><a><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                    <li><a><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                    *@
+                                    @*<li><a><span id="DetalleAvisoLlegada0065"></span></a></li>*@
+                                    <li><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -143,6 +141,7 @@
 
     @section JavascriptGlobalVariables {
         var Folio = {};
+        var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
         var $PaseSalidaModel = {
             listContainer: {
@@ -183,7 +182,8 @@
 
     @section JavascriptGlobalFunctions {
         
-        function CargaInicial() {
+    function CargaInicial() {
+            $("#IrIncidencia").click(function () { Incidencias(); });
             $("#Cancelar").click(function () {
                 Folio = {};
                 $('#ListaIncidencias tbody').empty();
@@ -461,6 +461,16 @@
                 };
             });
         }
+
+        function Incidencias() {
+            if (Folio.FolioAvisoLlegadaID) {
+                displayMessage("notificationslabel0036", "", '1');
+                return;
+            };
+
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + Folio.FolioAvisoLlegadaID);
+        };
+
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);

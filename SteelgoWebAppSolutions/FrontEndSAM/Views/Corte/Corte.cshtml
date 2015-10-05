@@ -186,8 +186,8 @@
     var resultadoJson = "", Maquina = {}, Operador = {},
         Proyecto = {}, NumeroUnico = {}, intento = 0,
         _CorteUrl = "@Url.Action("Corte", "Corte")",
-        _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")";
-    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+        _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")", _CorteID = "-1";
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")" 
         
     var $CorteModel = {
         listContainer: {
@@ -809,6 +809,7 @@
             loadingStart();
             $Corte.Corte.create(Listado, { token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
+                    _CorteID = result.CorteID;
                     DesahabilitarBotones();
                 }
                 loadingStop();
@@ -861,7 +862,12 @@
         };
 
         function Incidencias() {
-            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+            if (_CorteID == "-1") {
+                displayMessage("notificationslabel0072", "", '1');
+                return;
+            } else {
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _CorteID);
+            }
         };
 
         function ControlErroresObjetosComboBox(control, result) {
@@ -956,7 +962,7 @@
                 displayMessage("notificationslabel0062", "", '2');
                 return;
             }
-
+            
             $("#Total").val(sum);
             $("#Sobrante").val(Sobrante);
             $("#Merma").val(mermaTeorica);

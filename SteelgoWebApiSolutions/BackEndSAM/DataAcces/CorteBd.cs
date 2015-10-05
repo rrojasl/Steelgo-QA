@@ -425,6 +425,7 @@ namespace BackEndSAM.DataAcces
                         }// tran sam3
                     }// using ctx
 
+                corte.CorteID = nuevoCorte.CorteID.ToString();
                 return corte;
             }
             catch (Exception ex)

@@ -762,6 +762,7 @@
     /*$_k-widget*/
     .k-widget.k-window {
         min-width: 100%!important;
+        left: 0!important;        
     }
 
     .form-group {

@@ -427,6 +427,13 @@
                     window.open("@Url.Action("FormatoPaseSalida", "AvisoLlegada")");
                 });
 
+                $("#ProyectoID").kendoMultiSelect({
+                    dataTextField: "Nombre",
+                    dataValueField: "ProyectoID",
+                    filter: "contains",
+                });
+                ObtenerProyectos();
+
                 $("#ClienteID").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "ClienteID",
@@ -438,11 +445,21 @@
                         var value = this.value();
                         if (!value) {
                             Cliente = [];
+                        } else {
+                            var filters = [];
+                            filters.push({
+                                field: "ClienteID",
+                                operator: "eq",
+                                value: parseInt(Cliente.ClienteID)
+                            });
+                            $("#ProyectoID").data("kendoMultiSelect").dataSource.filter(filters);
                         };
                     },
                     filter: "contains",
                 });
                 ObtenerCliente();
+
+                
 
                 $("#TipoAvisoID").kendoComboBox({
                     dataTextField: "Nombre",
@@ -460,13 +477,6 @@
                     filter: "contains",
                 });
                 ObtenerTipoAviso();
-                
-                $("#ProyectoID").kendoMultiSelect({
-                    dataTextField: "Nombre",
-                    dataValueField: "ProyectoID",
-                    filter: "contains",
-                });
-                ObtenerProyectos();
 
                 $("#TransportistaID").kendoComboBox({
                     dataTextField: "Nombre",
@@ -1080,7 +1090,7 @@
                     case 5:
                         content = "@Url.Action("Chofer", "PopUps")";
                         modalTitle = "Chofer";
-                        height = "140px";
+                        height = "135px";
                         iframe = true;
                         break;
                     case 6:
@@ -1349,7 +1359,11 @@
             };
 
             function Incidencias() {
-                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+                if (folio == -1) {
+                    displayMessage("notificationslabel0071", "", '1');
+                    return;
+                };
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() & "&ReferenciaID=" + folio);
             };
 
             function Error(data) {

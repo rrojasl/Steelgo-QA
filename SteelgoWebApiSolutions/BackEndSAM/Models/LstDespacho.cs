@@ -30,6 +30,7 @@ namespace BackEndSAM.Models
 
     public class GuardarCorte
     {
+        public string CorteID { get; set; }
         public string Maquina { get; set; }
         public string Operador { get; set; }
         public string NumeroUnico { get; set; }

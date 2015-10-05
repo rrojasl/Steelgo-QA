@@ -81,7 +81,8 @@ namespace BackEndSAM.DataAcces
                                                    select new Proyecto
                                                    {
                                                        Nombre = r.Nombre,
-                                                       ProyectoID = r.ProyectoID.ToString()
+                                                       ProyectoID = r.ProyectoID.ToString(),
+                                                       ClienteID= r.ClienteID.ToString()
                                                    }).AsParallel().ToList();
                     lstProyectos = lstProyectos.GroupBy(x => x.ProyectoID).Select(x => x.First()).ToList();
                     return lstProyectos;

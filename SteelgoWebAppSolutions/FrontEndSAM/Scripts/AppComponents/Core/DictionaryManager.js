@@ -4681,6 +4681,14 @@ _dictionary = {
         "es-MX": "Favor de ingresar el detalle de resolución.",
         "en-US": "Please enter the detail resolution."
     },
+    "notificationslabel0071": {
+        "es-MX": "Favor de guardar el aviso de llegada, antes de levantar una incidencia",
+        "en-US": ""
+    },
+    "notificationslabel0072": {
+        "es-MX": "No se puede levantar una incidencia, favor de guardar la informacion",
+        "en-US": "You can not raise an issue, please save information"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
