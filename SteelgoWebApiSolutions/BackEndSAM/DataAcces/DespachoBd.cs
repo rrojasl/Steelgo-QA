@@ -342,7 +342,6 @@ namespace BackEndSAM.DataAcces
                 } // using ctx
 
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("Ok");
                 result.ReturnMessage.Add(nuevoDespacho.DespachoID.ToString());
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
