@@ -573,6 +573,7 @@
             font-size: 14px;
             padding: 5px;
             letter-spacing: normal;
+            line-height: 1.7;
         }
 
         .k-grid-pager .k-pager-sizes .k-dropdown .k-dropdown-wrap .k-select {
@@ -772,6 +773,54 @@
     .k-upload > .k-upload-button {
         margin-top: 5px;
     }
+
+    /*$_k-grid*/
+    .k-grid {
+        overflow: hidden;
+        overflow-x: auto;
+    }
+
+        .k-grid > table {
+            table-layout: auto;
+            margin-left: -1px;
+        }
+
+        .k-grid tbody tr td a.k-button {
+            max-width: 100%;
+        }
+
+        .k-grid tr:last-child td {
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+    .k-grid-pager {
+        border-top: none;
+    }
+
+        .k-grid-pager .k-pager-sizes {
+            letter-spacing: 0;
+            max-width: 120px;
+            white-space: normal;
+            line-height: normal;
+        }
+
+            .k-grid-pager .k-pager-sizes .k-dropdown {
+                margin-left: 5px;
+            }
+
+            .k-grid-pager .k-pager-sizes .k-dropdown-wrap .k-input {
+                line-height: 1.7;
+            }
+
+    #formCuantificacion .k-grid .k-grouping-header {
+        border: none;
+    }
+
+    #formCuantificacion .k-grid .k-grid-header tr th.k-header {
+        border-top: 1px solid #CCCCCC;
+    }
+
+
 }
 
 /* sm viewport */
