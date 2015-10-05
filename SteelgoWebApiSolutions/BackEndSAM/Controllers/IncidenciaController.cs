@@ -81,11 +81,26 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/incidencias
-        public Incidencia Post(Incidencia incidencia)
+        public object Post(Incidencia incidencia, string token)
         {
-            incidencia.Version = "11";
-            incidencia.FolioIncidenciaID = 2;
-            return incidencia;
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return IncidenciaBd.Instance.GenerarIncidencia(incidencia, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // PUT api/incidencias/5

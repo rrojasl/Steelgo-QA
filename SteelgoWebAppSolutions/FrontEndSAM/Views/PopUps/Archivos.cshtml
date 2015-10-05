@@ -10,8 +10,11 @@
                 <input id="Tipo_Archivo" class="" />
             </div>
             <div id="Input_ArchivoDiv" class="form-group">
-                <label id="ListadoCatalogos0015"></label>
-                <input id="Input_Archivo" class="general-input" type="file"/>
+                <form action="#" method="post" enctype="multipart/form-data" id="sendFiles">
+                    <label id="ListadoCatalogos0015"></label>
+                    <input id="Input_Archivo" class="general-input" type="file"/>
+                    <button type="submit" class="btn-primary">Enviar</button>
+                </form>
             </div>
             <div id="grid"></div>
             <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
@@ -25,15 +28,24 @@
         $("#close").on("click",function(){
             window.parent.$("#window").data("kendoWindow").close();
         })
-        $("#Input_Archivo").kendoUpload({
-            async: {
-                saveUrl: "save",
-                autoUpload: true
+        
+        $("#Tipo_Archivo").kendoDropDownList({
+            dataTextField: "Nombre",
+            dataValueField: "TipoArchivoID",
+            optionLabel: "Selecciona un tipo de archivo",
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: $TipoArchivo.TipoArchivo.urlNoId+"?catalogoID="+window.parent.datosRegistro.catalogo+"&token="+Cookies.get("token")
+                    }
+                }
             },
-            complete:function(e){
-                var options = $("#grid").data("kendoGrid").options;
-                $("#grid").data("kendoGrid").destroy();
-                $("#grid").empty().kendoGrid(options);
+            change: function (e) {
+                console.log($("#Input_Archivo").data("kendoUpload"));
+                if($("#Tipo_Archivo").data("kendoDropDownList").value()){
+                    $("#sendFiles").attr("action",$DocumentosCatalogos.DocumentosCatalogos.urlNoId+"?CatalogoID="+window.parent.datosRegistro.catalogo+"&elementoCatalogoID="+window.parent.datosRegistro.id+"&token="+Cookies.get("token")+"&tipoArchivoID="+$("#Tipo_Archivo").data("kendoDropDownList").value());
+                }
             }
         });
 
@@ -67,12 +79,12 @@
                 serverSorting: false,
                 transport:{
                     read:{
-                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalago+"&elementoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
+                        url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalogo+"&elementoCatalogoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
                         dataType:"json",
                         type:"GET",
                         cache: false
                     },
-                    read:{
+                    destroy:{
                         url:$DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?catalogoID="+window.parent.datosRegistro.catalago+"&elementoID="+window.parent.datosRegistro.id+"&token=" +Cookies.get("token"),
                         dataType:"json",
                         type:"DELETE",

@@ -24,5 +24,7 @@ namespace BackEndSAM.Models
         public string FechaRespuesta { get; set; }
         public bool TieneIncidencia { get; set; }
         public List<ListaDocumentos> Archivos { get; set; }
+        public int ReferenciaID { get; set; }
+        public string Estatus { get; set; }
     }
 }

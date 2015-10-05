@@ -41,90 +41,100 @@
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        cargarInicialGrid();
     };
 
-    function cargarInicialGrid(val) {
-    };
-    
-    $("#grid").kendoGrid({
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    id:"ItemCodeSteelgoID",
-                    fields: {
-                        ItemCodeSteelgoID: { editable: false, nullable: true },
-                        DescripcionEspanol: { type:"string",validation: { required: false } },
-                        DescripcionIngles: { type:"string",validation: { required: false } },
-                        Peso: { type:"number", validation: { required: true } },
-                        Diametro1: { type:"number", validation: { required: false } },
-                        Diametro2: { type:"number", validation: { required: false } },
-                        FamiliaAceroID: { type:"number", validation: { required: true } },
-                        Area: { type:"number", validation: { required: false } },
-                        Cedula: { type:"string",validation: { required: false } },
-                        Codigo: { type:"string",validation: { required: false } },
+    function cargarInicialGrid() {
+        $("#grid").kendoGrid({
+            columns: [
+                { field: "DescripcionEspanol",title:"Descripción Español" },
+                { field: "DescripcionIngles",title:"Descripción Inglés" },
+                { field: "Peso",title:"Peso" },
+                { field: "Diametro1",title:"Diametro 1" },
+                { field: "Diametro2",title:"Diametro 2" },
+                { field: "Area", title:"Área" },
+                { field: "Cedula"},
+                { field: "Codigo",title:"Código"},
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id:"ItemCodeSteelgoID",
+                        fields: {
+                            ItemCodeSteelgoID: { editable: false, nullable: true },
+                            DescripcionEspanol: { type:"string",validation: { required: false } },
+                            DescripcionIngles: { type:"string",validation: { required: false } },
+                            Peso: { type:"number", validation: { required: true } },
+                            Diametro1: { type:"number", validation: { required: false } },
+                            Diametro2: { type:"number", validation: { required: false } },
+                            FamiliaAceroID: { type:"number", validation: { required: true } },
+                            Area: { type:"number", validation: { required: false } },
+                            Cedula: { type:"string",validation: { required: false } },
+                            Codigo: { type:"string",validation: { required: false } },
+                        }
                     }
-                }
-            },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            transport:{
-                read:{
-                    url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
-                    dataType:"json",
-                    type:"GET",
-                    cache: false
                 },
-                create:{
-                    url:"",
-                    dataType:"json",
-                    type:"POST",
-                    cache: false
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                transport:{
+                    read:{
+                        url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
+                        dataType:"json",
+                        type:"GET",
+                        cache: false
+                    },
+                    create:{
+                        url:"save",
+                        dataType:"json",
+                        type:"POST",
+                        cache: false
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
                 },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
+                autoHeight: true,
+                sortable: true,
+                scrollable: false,
+                filterable: {
+                    extra: false,
+                    operators: {
+                        string: {
+                            startswith: "Starts with",
+                            eq: "Is equal to",
+                            neq: "Is not equal to"
+                        }
                     }
-                }
-            },
-            autoHeight: true,
-            sortable: true,
-            scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
-            pageable: {
-                refresh: false,
-                pageSizes: [10, 15, 20],
-                info: false,
-                input: false,
-                numeric: true,
-            },
-            toolbar: ["create"],
-            save: function(e) {
-                console.log(e);
-            },
-            remove: function(e) {
-                console.log(e);
-            },
-            dataBound: function(e) {
-                console.log(e);
+                },
+                pageable: {
+                    refresh: false,
+                    pageSizes: [10, 15, 20],
+                    info: false,
+                    input: false,
+                    numeric: true,
+                },
+                toolbar: ["create"],
+                editable: "inline",
+                save: function(e) {
+                    console.log(e);
+                },
+                remove: function(e) {
+                    console.log(e);
+                },
+                dataBound: function(e) {
+                    console.log(e);
+                },
             }
-        }
-    });
-    loadingStop();
+        });
+    };
 };
 
 @section JavascriptDocumentReadyFunctions {
