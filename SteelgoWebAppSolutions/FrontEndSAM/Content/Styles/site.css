@@ -323,7 +323,7 @@ input {
     margin: 4px auto 0;
     outline: none;
     border: none;
-    box-shadow: none !important;    
+    box-shadow: none !important;        
 }
 
 #window input[type="checkbox"], 
@@ -843,7 +843,12 @@ h2 {
         letter-spacing: 0;
     }
 
-    /*input*/
+    /*$_input*/
+    .content-container .form input[type="radio"] {
+        text-align: center;
+        margin: 4px 45% 0;
+    }
+
     input.quickFilters,
     .expanded input.quickFilters {
         width: 25%;
