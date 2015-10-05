@@ -33,6 +33,7 @@
                 withCredentials: false,
                 batch: false
             },
+            enabled: false,
             success: function (data) {
                 regenerarGrid();
             },
@@ -56,6 +57,9 @@
                 if($("#Tipo_Archivo").data("kendoDropDownList").value()){
                     $("#Input_Archivo").data("kendoUpload").options.async.saveUrl=$DocumentosCatalogos.DocumentosCatalogos.urlNoId+"?CatalogoID="+window.parent.datosRegistro.catalogo+"&elementoCatalogoID="+window.parent.datosRegistro.id+"&token="+Cookies.get("token")+"&tipoArchivoID="+$("#Tipo_Archivo").data("kendoDropDownList").value();
                     console.log($("#Input_Archivo").data("kendoUpload").options.async.saveUrl);
+                    $("#Input_Archivo").data("kendoUpload").toggle();
+                }else{
+                    $("#Input_Archivo").data("kendoUpload").toggle();
                 }
             }
         });
@@ -90,10 +94,6 @@
             },
             remove: function (e) {
                 if(e.model.id!==null && e.model.id!==""){
-                    //var direccion=$DocumentosCatalogos.DocumentosCatalogos.urlNoId+"?token="+Cookies.get("token")+"&documentoID="+e.model.id;
-                    //this.options.dataSource.options.transport.destroy.url=direccion;
-                    //console.log(this.options.dataSource.options.transport.destroy.url);
-                    //this.dataSource.sync();
                     $DocumentosCatalogos.DocumentosCatalogos.destroy({},{token:Cookies.get("token"),documentoID:e.model.id}).done(regenerarGrid);
                 }else{
                     alert(_dictionary.ListadoCatalogos0009[$("#language").data("kendoDropDownList").value()]);
