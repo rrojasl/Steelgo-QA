@@ -89,7 +89,7 @@
 
     @section JavascriptGlobalVariables {
     var resultadoJson, NumeroControl = {}, lastEditedCellID = "",
-        Proyecto = {}, lastEditedBastonCellID = "", x = 1;
+        Proyecto = {}, lastEditedBastonCellID = "", x = 1, _DespachoID = "-1";
 
     var _spoolID = getUrlParameter("SpoolID", "-1"),
         _proyectoID = getUrlParameter("ProyectoID", "-1");
@@ -152,6 +152,7 @@
                 if (!value) {
                     Proyecto = {};
                 }
+                _DespachoID == "-1";
             },
             filter: "contains",
         });
@@ -186,6 +187,7 @@
                 if (!value) {
                     NumeroControl = {};
                 }
+                _DespachoID == "-1";
                 ObtenerDatosGrid();
             },
             filter: "contains",
@@ -416,7 +418,11 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        if (_DespachoID == "-1") {
+            displayMessage("notificationslabel0072", "", '1');
+            return;
+        };
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _DespachoID);
     };
 
     function Guardar() {
@@ -437,7 +443,8 @@
             };
 
             $Despacho.Despacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
-                if(Error(result)){
+                if (Error(result)) {
+                    _DespachoID = result.ReturnMessage[1];
                     displayMessage("notificationslabel0056", "", '0');
                     ObtenerDatosGrid();
                 }

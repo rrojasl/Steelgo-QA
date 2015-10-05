@@ -456,7 +456,12 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        if (_ordenAlmacenajeID == "-1") {
+            displayMessage("notificationslabel0036", "", '1');
+            return;
+        };
+
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _ordenAlmacenajeID);
     };
 
     

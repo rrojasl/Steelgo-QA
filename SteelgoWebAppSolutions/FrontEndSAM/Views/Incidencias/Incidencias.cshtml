@@ -161,6 +161,7 @@
         FechaRegistro, FechaResolucion,
         FechaRespuesta;
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
+    var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
     var _Edicion = getUrlParameter("Edicion", "-1");
 
@@ -601,7 +602,7 @@
             Titulo: "", Descripcion: "", Respuesta: "", MotivoCancelacion: "",
             DetalleResolucion: "", RegistradoPor: "", FechaRegistro: "",
             ResueltoPor: "", FechaResolucion: "", RespondidoPor: "",
-            FechaRespuesta: "", Nuevo: ""
+            FechaRespuesta: "", Nuevo: "", ReferenciaID: ""
         };
 
         var d = new Date($("#FechaRegistro").data("kendoDatePicker").value());
@@ -623,6 +624,7 @@
         Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
         Listado.RespondidoPor = $("#RespondidoPor").val();
         Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
+        Listado.ReferenciaID = _ReferenciaID;
         Listado.Nuevo = false;
         return Listado;
     };

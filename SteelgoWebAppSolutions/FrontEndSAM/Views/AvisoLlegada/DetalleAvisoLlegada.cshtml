@@ -1359,7 +1359,11 @@
             };
 
             function Incidencias() {
-                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+                if (folio == -1) {
+                    displayMessage("notificationslabel0071", "", '1');
+                    return;
+                };
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() & "&ReferenciaID=" + folio);
             };
 
             function Error(data) {
