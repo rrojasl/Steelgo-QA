@@ -304,11 +304,11 @@ _dictionary = {
         "en-US": "List of Incidences"
     },
     "menuLabel1047": {
-        "es-MX": "Catalogos",
+        "es-MX": "Catálogos",
         "en-US": "Catalogs"
     },
     "menuLabel1048": {
-        "es-MX": "Catalogo Item Code Steelgo",
+        "es-MX": "Catálogo Item Code Steelgo",
         "en-US": "Catalog Item Code Steelgo"
     },
     //Listado Aviso Llegada- Partial view Labels

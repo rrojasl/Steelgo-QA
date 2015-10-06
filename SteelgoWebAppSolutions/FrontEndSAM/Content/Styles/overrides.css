@@ -451,7 +451,9 @@
     }
 
     .k-grid tbody tr td a.k-button.k-grid-Detalle,
-    .k-grid tbody tr td a.k-button.k-grid-Detail {
+    .k-grid tbody tr td a.k-button.k-grid-Detail,
+    .k-grid tbody tr td a.k-button.k-grid-Archivos,
+    .k-grid tbody tr td a.k-button.k-grid-Files {
         background-image: url("/Content/images/SAMC_DetailIcon.png");
     }
 

@@ -1306,8 +1306,8 @@ namespace BackEndSAM.DataAcces
                                  Codigo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
                                  DescripcionIngles = ics.DescripcionIngles,
-                                 DescripcionLarga = ics.DescripcionEspanol, //Descripcion larga en espanol
-                                 DescripcionLargaIngles = ics.DescripcionIngles, //Descripcion larga ingles
+                                 DescripcionLarga = ics.DescripcionLargaEspanol,
+                                 DescripcionLargaIngles = ics.DescripcionLargaIngles,
                                  Diametro1 = ics.Diametro1.ToString(),
                                  Diametro2 = ics.Diametro2.ToString(),
                                  Grupo = g.Nombre,
@@ -1362,8 +1362,8 @@ namespace BackEndSAM.DataAcces
                     Sam3_ItemCodeSteelgo ICSteelgo = new Sam3_ItemCodeSteelgo();
                     ICSteelgo.Codigo = datos.Codigo;
                     ICSteelgo.DescripcionEspanol = datos.Descripcion;
-                    //Descripcion larga es
-                    //Descripcion corta ing
+                    ICSteelgo.DescripcionLargaEspanol = datos.DescripcionLarga;
+                    ICSteelgo.DescripcionLargaIngles = datos.DescripcionLargaIngles;
                     ICSteelgo.DescripcionIngles = datos.DescripcionIngles;
                     ICSteelgo.Diametro1 = Convert.ToDecimal(datos.Diametro1);
                     ICSteelgo.Diametro2 = Convert.ToDecimal(datos.Diametro2);
@@ -1385,9 +1385,9 @@ namespace BackEndSAM.DataAcces
                         ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID.ToString(),
                         Codigo = ICSteelgo.Codigo,
                         Descripcion = ICSteelgo.DescripcionEspanol,
-                        //DescripcionLarga = ICSteelgo.DescripcionEspanolLarga,
+                        DescripcionLarga = ICSteelgo.DescripcionLargaEspanol,
                         DescripcionIngles = ICSteelgo.DescripcionIngles,
-                        //DescripcionLargaIngles = ICSteelgo.DescripcionInglesLarga,
+                        DescripcionLargaIngles = ICSteelgo.DescripcionLargaIngles,
                         Diametro1 = ICSteelgo.Diametro1.ToString(),
                         Diametro2 = ICSteelgo.Diametro2.ToString(),
                         Grupo = datos.Grupo,
@@ -1483,8 +1483,8 @@ namespace BackEndSAM.DataAcces
                     ics.Codigo = datos.Codigo;
                     ics.DescripcionEspanol = datos.Descripcion;
                     ics.DescripcionIngles = datos.DescripcionIngles;
-                    //Descripcion Larga
-                    //Descripcion Corta
+                    ics.DescripcionLargaEspanol = datos.DescripcionLarga;
+                    ics.DescripcionLargaIngles = datos.DescripcionLargaIngles;
                     ics.Diametro1 = Decimal.Parse(datos.Diametro1);
                     ics.Diametro2 = Decimal.Parse(datos.Diametro2);
                     ics.GrupoID = Int32.Parse(datos.GrupoID);
@@ -1504,8 +1504,8 @@ namespace BackEndSAM.DataAcces
                         Codigo = ics.Codigo,
                         Descripcion = ics.DescripcionEspanol,
                         DescripcionIngles = ics.DescripcionIngles,
-                        //DescripcionLarga
-                        //DescripcionLargaIngles
+                        DescripcionLarga = ics.DescripcionLargaEspanol,
+                        DescripcionLargaIngles = ics.DescripcionLargaIngles,
                         Diametro1 = ics.Diametro1.ToString(),
                         Diametro2 = ics.Diametro2.ToString(),
                         GrupoID = ics.GrupoID.ToString(),
