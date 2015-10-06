@@ -165,6 +165,7 @@
     <Compile Include="Controllers\DummyGridOrdenRecepcionController.cs" />
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyMaquinaController.cs" />
+    <Compile Include="Controllers\MaterialPendienteController.cs" />
     <Compile Include="Controllers\NumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
