@@ -4481,6 +4481,55 @@ _dictionary = {
         "es-MX": "Fecha Registro",
         "en-US": "Registration date"
     },
+    //Entrega
+    "Entrega0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Entrega0002": {
+        "es-MX": "Entrega",
+        "en-US": "Delivery"
+    },
+    "Entrega0003": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "Entrega0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Entrega0005": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Entrega0006": {
+        "es-MX": "Masivo",
+        "en-US": "Massive"
+    },
+    "Entrega0007": {
+        "es-MX": "1 A 1",
+        "en-US": "1 A 1"
+    },
+    "Entrega0008": {
+        "es-MX": "Fecha de Entrega",
+        "en-US": "Date Delivery"
+    },
+    "Entrega0009": {
+        "es-MX": "Empleado Entrega",
+        "en-US": "Delivery Employee"
+    },
+    "Entrega0010": {
+        "es-MX": "No. Picking Ticket",
+        "en-US": "No. Picking Ticket"
+    },
+    "Entrega0011": {
+        "es-MX": "No. Empleado entrega",
+        "en-US": "No. Delivery Employee"
+    },
+    "Entrega0012": {
+        "es-MX": "No. Empleado recibe",
+        "en-US": "No. Employee receives"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
