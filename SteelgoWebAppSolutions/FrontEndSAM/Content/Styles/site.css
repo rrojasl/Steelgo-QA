@@ -397,6 +397,12 @@ input.quickFilters.arrivalMaterial {
     background-repeat: no-repeat;
 }
 
+.content-container .form textarea {
+    width: 100%;
+    border: 1px solid #CCCCCC!important;
+    resize:none;
+    overflow:auto;
+}
 /**********************************************************************************/
 
 

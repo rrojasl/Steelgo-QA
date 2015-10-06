@@ -1100,7 +1100,9 @@ header .menu > div {
         text-align: left;
     }
 
-    .formNav .save-group #Editar {
+    .formNav .save-group #Editar,
+    .formNav .save-group #GenerarPaseSalida,
+    .formNav .save-group #ImprimirPaseSalida {
         border-radius: 3px;
     }
 
