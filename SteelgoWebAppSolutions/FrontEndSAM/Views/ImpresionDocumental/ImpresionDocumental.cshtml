@@ -66,6 +66,9 @@
     @section JavascriptGlobalVariables {
     var Proyecto = {}, NumeroControl = {},
         resultadoJson = "";
+    var _UrlDespacho = "@Url.Action("Despacho", "Despacho")";
+    var _UrlCorte = "@Url.Action("Corte", "Corte")";
+
     var $ImpresionDocumentalModel = {
         listContainer: {
             create: "",
@@ -181,7 +184,7 @@
             },
             columns: [
                 { field: "TipoMaterial", title: _dictionary.ImpresionDocumental0006[$("#language").data("kendoDropDownList").value()] },
-                { field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()] },
+                { field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"MostrarDetalle('#=TipoMaterial#','#=ItemCodeSteelgo#')\">#:ItemCodeSteelgo#</a>" },
                 { field: "Cantidad", title: _dictionary.ImpresionDocumental0008[$("#language").data("kendoDropDownList").value()] }
             ],
             dataBound: function (e) {
@@ -240,14 +243,7 @@
         }
     };
 
-    function ControlErroresObjetosComboBox(control, result) {
-        if (Error(result)) {
-            $("#" + control).data("kendoComboBox").dataSource.data(result);
-        } else {
-            $("#" + control).data("kendoComboBox").dataSource.data([]);
-        };
-    };
-
+    
     function validarRequeridosImpresionDocumental() {
         var bool = true;
         $("#frmImpresionDocumental .security_required").each(function (i, elem) {
@@ -261,6 +257,18 @@
             };
         });
         return bool;
+    };
+
+    function MostrarDetalle(tipomaterial,itemcodesteelgo) {
+       
+        switch (tipomaterial) {
+            case "Tubo":
+                window.location.href = _UrlCorte + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + NumeroControl.NumeroControlID + "&ProyectoID=" + Proyecto.ProyectoID + "&ItemCodeSteelgo=" + itemcodesteelgo + "&MaterialPendiente=1";
+                break;
+            case "Accesorio":
+                window.location.href = _UrlDespacho + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + NumeroControl.NumeroControlID + "&NumeroControl=" + NumeroControl.NumeroControl + "&ProyectoID=" + Proyecto.ProyectoID;
+                break;
+        };
     };
 
     function Imprimir() {
@@ -286,6 +294,14 @@
             displayMessage("notificationslabel0031", "", '1');
             loadingStop();
         }
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
     };
 
     function Error(data) {

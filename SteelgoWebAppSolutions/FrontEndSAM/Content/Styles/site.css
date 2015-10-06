@@ -254,7 +254,7 @@ input {
     outline: none;
     box-shadow: none;
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }    
 
     input:focus {
@@ -305,6 +305,7 @@ input {
     font-size: 14px;
     padding: 0 5px;
     z-index: 1;
+    -webkit-appearance: none;
 }
 
     .content-container .form input.general-input:focus {
@@ -397,6 +398,14 @@ input.quickFilters.arrivalMaterial {
     background-repeat: no-repeat;
 }
 
+.content-container .form textarea {
+    width: 100%;
+    border: 1px solid #CCCCCC!important;
+    resize:none;
+    overflow:auto;
+    border-radius: 0!important;
+    -webkit-appearance: none;
+}
 /**********************************************************************************/
 
 
@@ -894,6 +903,11 @@ h2 {
     #DespachoCorte .btn-tab.Accesorios,
     #DespachoCorte .btn-tab.Tubos {
         width: 14.41%;
+    }
+
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
     }
 
     /*input*/

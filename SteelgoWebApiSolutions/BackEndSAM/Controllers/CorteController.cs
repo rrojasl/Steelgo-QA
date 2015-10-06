@@ -43,6 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        
         public object Post(GuardarCorte cortes, string token)
         {
             string payload = "";

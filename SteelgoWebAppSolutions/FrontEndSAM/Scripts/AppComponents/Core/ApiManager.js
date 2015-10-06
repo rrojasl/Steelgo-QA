@@ -39,6 +39,8 @@ var $UrlDummyDespacho = $BackEndSAMUri + '/backendsam/api/DummyDespacho?';
 var $UrlNumerosUnicos = $BackEndSAMUri + '/backendsam/api/NumerosUnicos?';
 var $UrlNumerosUnicosDespacho = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
 var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumental?';
+var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
+var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
 
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -120,6 +122,8 @@ var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $MaterialPendiente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -212,3 +216,5 @@ $DocumentoIncidencia.add("DocumentoIncidencia");
 $DocumentosCatalogos.add("DocumentosCatalogos");
 $ImpresionDocumental.add("ImpresionDocumental");
 $Grupo.add("Grupo");
+$MaterialPendiente.add("MaterialPendiente");
+$Entrega.add("Entrega");

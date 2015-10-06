@@ -1,0 +1,357 @@
+﻿
+@{
+    ViewBag.Title = "Entrega";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="Entrega0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("Entrega", "Entrega")"><span id="Entrega0002"></span></a>
+    </li>
+}
+
+<div id="formaAlmacenaje" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section editButtonSection">
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Entrega0003"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caretWhite"></span>
+                                </button>
+                            </div>
+                            <a id="Cancelar" class="btn btn-black"><span id="Entrega0004"></span></a>
+                        </div>
+                        <div class="button-section actionButtonSection">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="Entrega0005"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                </ul>
+                            </div>
+                        </div>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                    <div class="row">
+                                        <div id="MasivoDiv" class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                            <label id="Entrega0006" class="centered"></label>
+                                            <input id="Masivo" class="" type="radio" name="radio" checked value="1">
+                                        </div>
+                                        <div id="1a1Div" class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
+                                            <label id="Entrega0007" class="centered"></label>
+                                            <input id="1a1" class="" type="radio" name="radio" value="2" />
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div id="FechaEntregaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                    <label id="Entrega0008"></label>
+                                    <input id="FechaEntrega" class="" />
+                                </div>
+                                <div id="EmpleadoEntregaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                    <label id="Entrega0009"></label>
+                                    <input id="EmpleadoEntrega" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="grid"></div>
+        </div>
+        <input type="hidden" id="ChecksEntrega" value="1" />@*1 todos 2 sin localizacion*@ 
+    </div>
+
+</div>
+
+<script>
+    @section JavascriptDocumentReadyHomeCookie {
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "24", { path: '/' });
+    }
+
+    @section JavascriptGlobalVariables {
+    var EmpleadoEntrega = {}, resultadoJson = "", FechaEntrega,
+        lastEditedCellIDSEmpleadoEntrega = "", lastEditedCellIDSEmpleadoRecibe = "",
+        lastEditedCellIDSPickingTicket = "";
+
+    var $EntregaModel = {
+        listContainer: {
+            create: ".editButtonSection",
+            list: "#grid",
+            detail: ".detailLink",
+            destroy: ".k-grid-Cancelar"
+        },
+        properties: {
+            masivo: {
+                visible: "#MasivoDiv",
+                editable: "#Masivo",
+                required: "#Masivo"
+            },
+            unoauno: {
+                visible: "#1a1Div",
+                editable: "#1a1",
+                required: "#1a1"
+            },
+            fechaentrega: {
+                visible: "#FechaEntregaDiv",
+                editable: "#FechaEntrega",
+                required: "#FechaEntrega"
+            },
+            empleadoentrega: {
+                visible: "#EmpleadoEntregaDiv",
+                editable: "#EmpleadoEntrega",
+                required: "#EmpleadoEntrega"
+            }
+        }
+    };
+    }
+
+    @section JavascriptGlobalFunctions {
+    function changeLanguageCall() {
+        CargarGridEntrega();
+    };
+    function changeDatePickerDateFormat(datePickerOptions) {
+        FechaEntrega.setOptions(datePickerOptions);
+    };
+
+    function CargaInicial() {
+        $("#Guardar").click(function () { Guardar(); });
+        $("#Cancelar").click(function () { Cancelar(); });
+
+        $("#EmpleadoEntrega").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarEmpleado(dataItem.id, dataItem.value);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    EmpleadoEntrega = {};
+                } else {
+                    AgregarRow();
+                }
+                
+            },
+            filter: "contains",
+        });
+        ObtenerEmpleadoEntrega();
+
+        FechaEntrega = new kendo.ui.DatePicker($("#FechaEntrega"));
+    };
+
+    function CargarEmpleado(id, value) {
+        EmpleadoEntrega = {};
+        EmpleadoEntrega = { EmpleadoID: id, Empleado: value };
+    };
+
+    function ObtenerEmpleadoEntrega() {
+        $Entrega.Entrega.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("EmpleadoEntrega", result);
+        });
+    };
+
+    function AgregarRow() {
+        var row = { NoPickingTicket: "", NoEmpleadoEntrega: "", NoEmpleadoRecibe: "" };
+        $("#grid").data("kendoGrid").dataSource.insert(row);
+    };
+   
+    function CargarGridEntrega() {
+        $("#grid").kendoGrid({
+            dataSource: {
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            NoPickingTicket: { type: "string", editable: true },
+                            NoEmpleadoEntrega: { type: "string", editable: true },
+                            NoEmpleadoRecibe: { type: "string", editable: true }
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            editable: {
+                mode: "incell",
+                confirmation: false
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+                buttonCount: 2
+            },
+            columns: [
+                { field: "NoPickingTicket", title: _dictionary.Entrega0010[$("#language").data("kendoDropDownList").value()], editor: ObtenerPickingTicket },
+                { field: "NoEmpleadoEntrega", title: _dictionary.Entrega0011[$("#language").data("kendoDropDownList").value()], editor: EmpleadoEntregaAutocomplete },
+                { field: "NoEmpleadoRecibe", title: _dictionary.Entrega0012[$("#language").data("kendoDropDownList").value()], editor: EmpleadoRecibeAutocomplete }
+            ],
+            dataBound: function (e) {
+                $(".k-grid input.k-textbox").prop('readonly', true);
+                $(".k-grid td .k-button").text('');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            }
+        });
+    };
+
+    function ObtenerPickingTicket(container, options) {
+        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+           .appendTo(container)
+           .kendoAutoComplete({
+               autoBind: false,
+               dataSource: {
+                   type: "json",
+                   transport: {
+                       read: $UrlNoPickingTicket + "token=" + Cookies.get("token")
+                   },
+               },
+               select: function (e) {
+               },
+               change: function (e) {
+                   var value = this.text();
+                   lastEditedCellIDSPickingTicket.NoPickingTicket = value;
+                   lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
+                   $('#grid').data('kendoGrid').refresh();
+               },
+               filter: "contains",
+           });
+
+        lastEditedCellIDSPickingTicket = options.model;
+
+    };
+
+    function EmpleadoEntregaAutocomplete(container, options) {
+        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoAutoComplete({
+                autoBind: false,
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: $UrlNoEmpleado + "token=" + Cookies.get("token")
+                    },
+                },
+                select: function (e) {
+                },
+                change: function (e) {
+                    var value = this.text();
+                    lastEditedCellIDSEmpleadoEntrega.NoEmpleadoEntrega = value;
+                    $('#grid').data('kendoGrid').refresh();
+                },
+                filter: "contains",
+            });
+
+        lastEditedCellIDSEmpleadoEntrega = options.model;
+    };
+
+
+    function EmpleadoRecibeAutocomplete(container, options) {
+        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoAutoComplete({
+                autoBind: false,
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: $UrlNoEmpleado + "token=" + Cookies.get("token")
+                    },
+                },
+                select: function (e) {
+                },
+                change: function (e) {
+                    var value = this.text();
+                    lastEditedCellIDSEmpleadoRecibe.NoEmpleadoRecibe = value;
+                    $('#grid').data('kendoGrid').refresh();
+                },
+                filter: "contains",
+            });
+
+        lastEditedCellIDSEmpleadoRecibe = options.model;
+    };
+
+    function Guardar() {
+        loadingStart();
+        //if (validarRequeridosFormaAlmacenaje()) {
+            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+            var Listado = { OrdenAlmacenajeID: "", Items: "" };
+            Listado.OrdenAlmacenajeID = OrdenAlmacenaje.OrdenAlmacenajeID;
+            Listado.NumerosUnicos = ListadoAGuardar(datasource);
+
+            $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
+                Error(result);
+                displayMessage("notificationslabel0056", "", '0');
+                loadingStop();
+            });
+        //} else {
+        //    displayMessage("notificationslabel0031", "", '1');
+        //    loadingStop();
+        //}
+    };
+
+    function Cancelar() {
+        window.location.href = _almacenaje + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
+        };
+    };
+
+    function Error(data) {
+        if (data.ReturnCode) {
+            if (data.ReturnCode != 200) {
+                if (data.ReturnCode == 401) {
+                    removeUserSession();
+                    return true;
+                } else {
+                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+}
+
+
+
+    @section JavascriptDocumentReadyFunctions {
+        //$authorizationModel["Entrega"] = $EntregaModel;
+        CargaInicial();
+    }
+
+</script>

@@ -185,7 +185,13 @@
         _CorteUrl = "@Url.Action("Corte", "Corte")",
         _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")", _CorteID = "-1";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")" 
-        
+    var _MaterialPendiente = getUrlParameter("MaterialPendiente", "-1"),
+        _SpoolID = getUrlParameter("SpoolID", "-1"),
+        _NumeroControl = getUrlParameter("NumeroControl", "-1"),
+        _ProyectoID = getUrlParameter("ProyectoID", "-1"),
+        _ItemCodeSteelgo = getUrlParameter("ItemCodeSteelgo", "-1");
+
+
     var $CorteModel = {
         listContainer: {
             create: ".button-section",
@@ -479,6 +485,10 @@
         $("#TramoCompleto").click(function (e) {
             ValidarInformacion();
         });
+    };
+
+    function CargaInicialEdicionMaterialPendiente() {
+        MaterialPendienteEdicion();
     };
 
     function CargarMaquina(id, value) {
@@ -868,6 +878,39 @@
             }
         };
 
+
+        function MaterialPendienteEdicion() {
+            var Listado = { SpoolID: "", ProyectoID: "", ItemCodeSteelgo: "", token: "" };
+
+            Listado.SpoolID = NumeroUnico.NumeroUnicoID;
+            Listado.ProyectoID = $("#OrdenTrabajo").val();
+            Listado.ItemCodeSteelgo = $("#Consecutivo").val();
+            Listado.token = Cookies.get("token");
+
+           
+            $MaterialPendiente.MaterialPendiente.read({ data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
+                    if (ValidarErrores(result)) {
+                        $("#hdnMermaTeorica").val(result.MermaTeorica ? result.MermaTeorica : 0);
+                        $("#Cantidad").val(result.Cantidad);
+                        $("#ItemCode").val(result.ItemCode);
+                        $("#Diametro1").val(result.D1);
+                        $("#hdnTolerancia").val(result.Tolerancia);
+                        $("#OrdenTrabajo").val(result.OrdenTrabajo);
+                        $("#Consecutivo").val(result.Consecutivo);
+                        $("#Etiqueta").val(result.Etiqueta);
+
+                        CargarNumeroUnico(result.NumeroControlID, result.NumeroControl);
+                        CargarProyecto(result.ProyectoID);
+
+                        $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
+                        $("#NumeroUnico").data("kendoAutoComplete").value(result.NumeroControlID);
+                        ValidarInformacion();
+                    }
+                }
+            });
+        };
+
         function ControlErroresObjetosComboBox(control, result) {
             if (Error(result)) {
                 $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -1029,5 +1072,9 @@
         @section JavascriptDocumentReadyFunctions {
         $authorizationModel["Corte"] = $CorteModel;
         CargaInicial();
+        if (_MaterialPendiente != "-1") {
+            alert("edicion=" +_MaterialPendiente);
+            CargaInicialEdicionMaterialPendiente();
+        }
         }
 </script>
