@@ -547,6 +547,8 @@ header .menu > div {
             -moz-box-shadow: 1px 1px 1px #CCCCCC; /* FF3.5+ */
             -webkit-box-shadow: 1px 1px 1px #CCCCCC; /* Saf3.0+, Chrome */
             box-shadow: 1px 1px 1px #CCCCCC; /* Opera 10.5, IE9, Chrome 10+ */
+            overflow: hidden;
+            overflow-y: auto;
         }
 
             .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li {
