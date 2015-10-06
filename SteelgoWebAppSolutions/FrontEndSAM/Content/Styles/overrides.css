@@ -822,6 +822,10 @@
         border-top: 1px solid #CCCCCC;
     }
 
+    #formCuantificacion .k-grid .k-grid-toolbar {
+        border-bottom: 1px solid #CCCCCC;
+    }
+
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
     .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
         min-width: 641px;
@@ -896,6 +900,10 @@
             .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header {
                 border-top: 1px solid #CCCCCC;
             }
+
+    #formCuantificacion .k-grid .k-grid-toolbar {
+        border-bottom: 1px solid #CCCCCC;
+    }
 
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
     .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
