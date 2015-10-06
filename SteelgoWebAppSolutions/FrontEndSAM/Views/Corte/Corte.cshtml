@@ -185,7 +185,13 @@
         _CorteUrl = "@Url.Action("Corte", "Corte")",
         _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")", _CorteID = "-1";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")" 
-        
+    var _MaterialPendiente = getUrlParameter("MaterialPendiente", "-1"),
+        _SpoolID = getUrlParameter("SpoolID", "-1"),
+        _NumeroControl = getUrlParameter("NumeroControl", "-1"),
+        _ProyectoID = getUrlParameter("ProyectoID", "-1"),
+        _ItemCodeSteelgo = getUrlParameter("ItemCodeSteelgo", "-1");
+
+
     var $CorteModel = {
         listContainer: {
             create: ".button-section",
@@ -1029,5 +1035,8 @@
         @section JavascriptDocumentReadyFunctions {
         $authorizationModel["Corte"] = $CorteModel;
         CargaInicial();
+        if (_MaterialPendiente != "-1") {
+            CargaInicialEdicionMaterialPendiente();
+        }
         }
 </script>

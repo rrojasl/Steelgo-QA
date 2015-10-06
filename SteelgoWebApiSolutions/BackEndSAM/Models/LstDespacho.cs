@@ -70,4 +70,19 @@ namespace BackEndSAM.Models
         public string CantidadIngenieria { get; set; }
     }
 
+    public class EdicionCorte
+    {
+        public Maquina Maquina { get; set; }
+        public Operador Operador { get; set; }
+        public Proyecto Proyecto { get; set; }
+        public NumerosUnicos NumeroUnico { get; set; }
+        public int Cantidad { get; set; }
+        public string ItemCode { get; set; }
+        public decimal Diametro1 { get; set; }
+        public string OrdenTrabajo { get; set; }
+        public string Consecutivo { get; set; }
+        public string Etiqueta { get; set; }
+        public int MermaTeorica { get; set; }
+        public int Tolerancia { get; set; }
+    }
 }
