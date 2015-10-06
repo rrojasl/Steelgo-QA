@@ -731,6 +731,16 @@ input.quickFilters.arrivalMaterial {
 #massiveUpload.btn {
     margin-bottom: 3px;
 }
+
+/*Form button without label*/
+.standalone {
+    margin-top: 24px;
+}
+
+    .standalone > .btn {
+        position: relative;
+        top: -5px;
+    }
 /**********************************************************************************/
 
 
@@ -852,6 +862,14 @@ h2 {
         letter-spacing: 0;
     }
 
+    .standalone {
+    margin-top: 0;
+}
+
+    .standalone > .btn {
+        width: 100%;
+    }
+
     /*$_input*/
     .content-container .form input[type="radio"] {
         width: auto;
@@ -908,7 +926,7 @@ h2 {
     .btn-tabList span {
         display: block;
         font-size: 11px;
-    }
+    }    
 
     /*input*/
     input.quickFilters {
@@ -971,6 +989,10 @@ h2 {
     /*$_btn*/
     #ImprimirPase {
         margin-top: 21px;
+    }
+
+    .standalone > .btn {
+        width: 100%;
     }
 
     /*.formButtons {
