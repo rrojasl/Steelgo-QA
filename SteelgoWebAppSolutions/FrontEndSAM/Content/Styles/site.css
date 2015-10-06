@@ -896,6 +896,11 @@ h2 {
         width: 14.41%;
     }
 
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
+    }
+
     /*input*/
     input.quickFilters {
         width: 27.1%;
