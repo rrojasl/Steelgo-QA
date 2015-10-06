@@ -4827,6 +4827,10 @@ _dictionary = {
         "es-MX": "El Spool seleccionado no cuenta con todos sus materiales cortados y/o despachados. A continuación se muestra un listado de estados materiales faltantes.",
         "en-US": "The selected Spool has not cut all materials and / or shipped. Here is a list of missing material states is shown."
     },
+    "notificationslabel0075": {
+        "es-MX": "Favor de verificar que la informacion este completa.",
+        "en-US": "Please Verify that the information is complete."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

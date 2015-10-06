@@ -985,6 +985,7 @@
     <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\PackingList\PackingListController.cs" />
     <Compile Include="Controllers\PopUps\PopUpsController.cs" />
+    <Compile Include="Controllers\Prueba\PruebaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1160,6 +1161,7 @@
     <Content Include="Views\PopUps\Archivos.cshtml" />
     <Content Include="Views\Busqueda\Busqueda.cshtml" />
     <Content Include="Views\Entrega\Entrega.cshtml" />
+    <Content Include="Views\Prueba\Prueba.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
