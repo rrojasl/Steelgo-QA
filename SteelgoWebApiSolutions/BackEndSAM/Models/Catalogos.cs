@@ -134,7 +134,8 @@ namespace BackEndSAM.Models
     public class CatalogoCedulas
     {
         public string CedulaID { get; set; }
-        public string Diametro { get; set; }
+        public string Diametro1 { get; set; }
+        public string Diametro2 { get; set; }
         public string CedulaA { get; set; }
         public string CedulaB { get; set; }
         public string CedulaC { get; set; }
