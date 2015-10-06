@@ -397,6 +397,12 @@ input.quickFilters.arrivalMaterial {
     background-repeat: no-repeat;
 }
 
+.content-container .form textarea {
+    width: 100%;
+    border: 1px solid #CCCCCC!important;
+    resize:none;
+    overflow:auto;
+}
 /**********************************************************************************/
 
 
@@ -894,6 +900,11 @@ h2 {
     #DespachoCorte .btn-tab.Accesorios,
     #DespachoCorte .btn-tab.Tubos {
         width: 14.41%;
+    }
+
+    .btn-tabList span {
+        display: block;
+        font-size: 11px;
     }
 
     /*input*/

@@ -812,11 +812,13 @@
                 line-height: 1.7;
             }
 
-    #formCuantificacion .k-grid .k-grouping-header {
+    #formCuantificacion .k-grid .k-grouping-header,
+    .k-grid .k-grid-toolbar {
         border: none;
     }
 
-    #formCuantificacion .k-grid .k-grid-header tr th.k-header {
+    #formCuantificacion .k-grid .k-grid-header tr th.k-header,
+    .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header {
         border-top: 1px solid #CCCCCC;
     }
 
