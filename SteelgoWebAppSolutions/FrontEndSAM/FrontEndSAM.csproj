@@ -447,6 +447,7 @@
     <Content Include="FormatoCargaMasiva.csv" />
     <None Include="Properties\PublishProfiles\front.pubxml" />
     <None Include="Properties\PublishProfiles\FrontEnd.pubxml" />
+    <None Include="Properties\PublishProfiles\FrontEndSam.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Icon.png" />
