@@ -92,7 +92,9 @@
         Proyecto = {}, lastEditedBastonCellID = "", x = 1, _DespachoID = "-1";
 
     var _spoolID = getUrlParameter("SpoolID", "-1"),
-        _proyectoID = getUrlParameter("ProyectoID", "-1");
+        _proyectoID = getUrlParameter("ProyectoID", "-1"),
+        _NumeroControl = getUrlParameter("NumeroControl", "-1").replace(/%20/g, " ");
+    
     var _DashboardDespacho = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
@@ -204,10 +206,11 @@
         });
     };
     function CargaInicialEdicion() {
-        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
-        $("#SpoolID").data("kendoAutoComplete").value(_spoolID);
 
-        CargarNumeroControl(_spoolID);
+        $("#ProyectoID").data("kendoComboBox").value(_proyectoID);
+        $("#SpoolID").data("kendoAutoComplete").value(_NumeroControl);
+
+        CargarNumeroControl(_spoolID, _NumeroControl);
         CargarProyecto(_proyectoID, $("#ProyectoID").data("kendoComboBox").text());
         ObtenerDatosGrid();
     };
