@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object get(EdicionCorte cortes, string token)
+        public object get(MaterialPendiente MaterialPendiente, string token)
         {
             string payload = "";
             string newToken = "";

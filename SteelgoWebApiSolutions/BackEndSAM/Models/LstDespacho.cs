@@ -70,6 +70,13 @@ namespace BackEndSAM.Models
         public string CantidadIngenieria { get; set; }
     }
 
+    public class MaterialPendiente 
+    {
+        public string SpoolID { get; set; }
+        public string ProyectoID { get; set; }
+        public string ItemCodeSteelgo { get; set; }
+    }
+
     public class EdicionCorte
     {
         public Maquina Maquina { get; set; }
