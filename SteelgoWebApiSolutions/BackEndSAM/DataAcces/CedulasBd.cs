@@ -49,7 +49,7 @@ namespace BackEndSAM.DataAcces
                                                  select new ListaCombos
                                                  {
                                                      id = c.CedulaID.ToString(),
-                                                     value = c.CedulaA
+                                                     value = c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC
                                                  }).AsParallel().ToList();
 
                     return cedulas;
