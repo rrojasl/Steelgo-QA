@@ -255,6 +255,7 @@ input {
     box-shadow: none;
     width: 100%;
     box-sizing: border-box;
+    -webkit-appearance: none;
 }    
 
     input:focus {
@@ -402,6 +403,8 @@ input.quickFilters.arrivalMaterial {
     border: 1px solid #CCCCCC!important;
     resize:none;
     overflow:auto;
+    border-radius: 0!important;
+    -webkit-appearance: none;
 }
 /**********************************************************************************/
 
