@@ -254,8 +254,7 @@ input {
     outline: none;
     box-shadow: none;
     width: 100%;
-    box-sizing: border-box;
-    -webkit-appearance: none;
+    box-sizing: border-box;    
 }    
 
     input:focus {
@@ -306,6 +305,7 @@ input {
     font-size: 14px;
     padding: 0 5px;
     z-index: 1;
+    -webkit-appearance: none;
 }
 
     .content-container .form input.general-input:focus {
