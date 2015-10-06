@@ -13,6 +13,7 @@
         <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
     </li>
 }
+
 <h3>Item Code Steelgo - Item Codes</h3>
 <div class="formNav clearfix">
     <div class="row">
@@ -26,27 +27,44 @@
         </div>
     </div>
 </div>
+
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="icinput" id="AsociacionICS0001"></label>
-    <input id="icinput" />
+    <input id="icinput" type="text"/>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="D1">D1</label>
-    <input id="D1" />
+    <input id="D1" readonly disabled type="number"/>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="D2">D2</label>
-    <input id="D2" />
+    <input id="D2" readonly disabled type="number"/>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="descripcionIC" id="AsociacionICS0002"></label>
-    <input id="descripcionIC" />
+    <input id="descripcionIC" readonly disabled type="text"/>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="icsasociado" id="AsociacionICS0003"></label>
-    <input id="icsasociado" />
+    <input id="icsasociado" type="text"/>
 </div>
+<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="grid"></div>
+</div>
+
+<ul id="context-menu">
+    <li>Selecccionar Item Code Steelgo</li>
+</ul>
+
 <script>
+@section JavascriptGlobalVariables {
+}
+
+@section JavascriptGlobalFunctions {
+    function changeLanguageCall() {
+        cargarInicialGrid();
+    };
+
     $("#icinput").kendoComboBox({
         dataSource: {
             transport: {
@@ -57,84 +75,93 @@
                 }
             }
         },
+        change:function(e){
+            $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
+                $("#D1").val(data.D1);
+                $("#D2").val(data.D2);
+                $("#descripcionIC").val(data.Descripcion);
+            })
+        },
         dataTextField: "value",
         dataValueField: "id"
     });
-</script>
-<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="grid"></div>
-</div>
 
-<script>
-@section JavascriptGlobalVariables {
-}
-
-@section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-    };
-
-    function cargarInicialGrid(val) {
-    };
-    
-    $("#grid").kendoGrid({
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    id:"ItemCodeSteelgoID",
-                    fields: {
-                        ItemCodeSteelgoID: { editable: false, nullable: true },
-                        DescripcionEspanol: { type:"string",validation: { required: false } },
-                        DescripcionIngles: { type:"string",validation: { required: false } },
-                        Peso: { type:"number", validation: { required: true } },
-                        Diametro1: { type:"number", validation: { required: false } },
-                        Diametro2: { type:"number", validation: { required: false } },
-                        FamiliaAceroID: { type:"number", validation: { required: true } },
-                        Area: { type:"number", validation: { required: false } },
-                        Cedula: { type:"string",validation: { required: false } },
-                        Codigo: { type:"string",validation: { required: false } },
+    function cargarInicialGrid() {
+        $("#grid").kendoGrid({
+            columns: [
+                { field: "Codigo",title:_dictionary.ItemCodeSteelGo0004[$("#language").data("kendoDropDownList").value()]}, 
+                { field: "Descripcion",title:_dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()] },
+                { field: "DescripcionLarga",title:_dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()]},
+                { field: "DescripcionIngles",title:_dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()]},
+                { field: "DescripcionLargaIngles",title:_dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()] },
+                { field: "Diametro1",title:_dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()]},
+                { field: "Diametro2",title:_dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()]},
+                { field: "Grupo",title:_dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()]},
+                { field: "Acero",title:_dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()]},
+                { field: "CedulaA",title:_dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()]},
+                { field: "CedulaB",title:_dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()]},
+                { field: "Libra",title:_dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()]},
+                { field: "Inch",title:_dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()]},
+                { field: "MM",title:"MM"},
+                { field: "Espesor",title:_dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()]},
+                { field: "Peso",title:_dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()]},
+                { field: "Area", title:_dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()]},
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id:"ItemCodeSteelgoID",
+                        fields: {
+                            ItemCodeSteelgoID: { editable: false, nullable: true },
+                            Codigo: { type:"string",validation: { required: false } },
+                            Descripcion: { type:"string",validation: { required: false } },
+                            DescripcionLarga: { type:"string",validation: { required: false } },
+                            DescripcionIngles: { type:"string",validation: { required: false } },
+                            DescripcionLargaIngles: { type:"string",validation: { required: false } },
+                            Diametro1: { type:"number", validation: { required: false } },
+                            Diametro2: { type:"number", validation: { required: false } },
+                            Grupo: { type:"string",validation: { required: false } },
+                            GrupoID: { editable: false, nullable: true },
+                            Acero: { type:"string",validation: { required: false } },
+                            AceroID: { editable: false, nullable: true },
+                            CedulaID: { editable: false, nullable: true },
+                            CedulaA: { type:"string",validation: { required: false }},
+                            CedulaB: { type:"string",validation: { required: false }},
+                            Libra: { type:"string",validation: { required: false }},
+                            Inch: { type:"number", validation: { required: false }, editable: false},
+                            MM: { type:"number", validation: { required: false }, editable: false },
+                            Espesor: { type:"number", validation: { required: false },editable: false },
+                            Peso: { type:"number", validation: { required: true },editable: false },
+                            Area: { type:"number", validation: { required: false }, editable: false },
+                        }
                     }
-                }
-            },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            transport:{
-                read:{
-                    url:"",
-                    dataType:"json",
-                    type:"GET",
-                    cache: false
                 },
-                create:{
-                    url:"",
-                    dataType:"json",
-                    type:"POST",
-                    cache: false
-                },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                transport:{
+                    read:{
+                        url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
+                        dataType:"json",
+                        type:"GET",
+                        cache: false
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
                     }
-                }
+                },
             },
             autoHeight: true,
-            sortable: true,
+            sortable: false,
             scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: true,
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -143,19 +170,20 @@
                 numeric: true,
                 buttonCount: 2
             },
-            toolbar: ["create"],
-            save: function(e) {
-                console.log(e);
-            },
-            remove: function(e) {
-                console.log(e);
-            },
             dataBound: function(e) {
-                console.log(e);
-            }
+                $("#grid td").hide();
+            },
+        });
+    };
+
+    $("#context-menu").kendoContextMenu({
+        target: "[name=Codigo]",
+        alignToAnchor: true,
+        select:function(e){
+            var dataItem = this.dataItem($(e.target).closest("tr"));
+            $("#icsasociado").val(dataItem.Codigo);
         }
     });
-    loadingStop();
 };
 
 @section JavascriptDocumentReadyFunctions {
