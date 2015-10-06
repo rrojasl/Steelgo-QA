@@ -15,7 +15,7 @@
             <input type="text" name="name" class="" id="dropProyecto"/>
         </div>
         <div class="btn-group">
-            <h5>Tipo</h5>
+            <h4>Tipo</h4>
             <div style="display:inline">
                 <input type="checkbox" id="requireFolio" style="width:inherit"/>
                 <label for="requireFolio">Folio entrada</label>
@@ -35,14 +35,110 @@
         </div>
     </div>
 </div>
-<div id="resultados"></div>
+<div id="grid"></div>
 <script>
 @section JavascriptGlobalVariables {
+    filtros=[{ field: "Proyecto", operator: "eq", value: "" },{ field: "FolioEntrada", operator: "neq", value: null||"" },{ field: "PackingList", operator: "neq", value: null||"" },{ field: "ItemCode", operator: "neq", value: null||"" },{ field: "NumUnico", operator: "neq", value: null||"" }]
+    dataGrid=[
+        {
+            NumUnico:"al008",
+            Proyecto:"Altamira XX",
+            Cliente:"Construcción y Clientes Relacionados, SA de CV",
+            FechaCreacion:"09/09/2014",
+            FolioEntrada:"001",
+            ItemCode:null,
+            PackingList:null
+        },
+        {
+            NumUnico:"al008",
+            Proyecto:"Altamira 2",
+            Cliente:"COMDISTRAL",
+            FechaCreacion:"09/10/2013",
+            FolioEntrada:"034",
+            ItemCode:null,
+            PackingList:null
+        },
+        {
+            NumUnico:null,
+            Proyecto:"Altamira XX",
+            Cliente:"Construcción y Clientes Relacionados, SA de CV",
+            FechaCreacion:"09/09/2014",
+            FolioEntrada:"001",
+            ItemCode:"alc08GR098",
+            PackingList:null
+        },
+        {
+            NumUnico:null,
+            Proyecto:"Altamira XX",
+            Cliente:"Construcción y Clientes Relacionados, SA de CV",
+            FechaCreacion:"09/02/2015",
+            FolioEntrada:"001",
+            ItemCode:"alc08GR098-C",
+            PackingList:null
+        },
+        {
+            NumUnico:null,
+            Proyecto:"Altamira 2",
+            Cliente:"COMDISTRAL",
+            FechaCreacion:"09/11/2013",
+            FolioEntrada:"al008abc",
+            PackingList:null
+        },
+        {
+            NumUnico:"al008",
+            Proyecto:"Altamira XX",
+            Cliente:"Construcción y Clientes Relacionados, SA de CV",
+            FechaCreacion:"09/09/2014",
+            FolioEntrada:"001",
+            PackingList:"al008abcDE"
+        },
+    ]
 }
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {};
-    $("#dropProyecto").kendoComboBox();
+    $("#grid").kendoGrid({
+        dataSource: dataGrid,
+        rowTemplate: kendo.template('<tr data-uid="#= uid #" style="border-bottom:1px solid black"><td colspan="15"> # if (NumUnico !== null && NumUnico !== "") { # <h4 style="display:inline">Número único:</h4> <span>#= NumUnico #</span><br/> # } if (Proyecto !== null && Proyecto !== "") { #<h4 style="display:inline">Proyecto:</h4> <span>#= Proyecto #</span><br/># } if (Cliente !== null && Cliente !== "") { #<h4 style="display:inline">Cliente:</h4> <span>#= Cliente #</span><br/># } if (FechaCreacion !== null && FechaCreacion !== "") { #<h4 style="display:inline">Fecha de Creacion:</h4> <span>#= FechaCreacion #</span><br/># } if (FolioEntrada !== null && FolioEntrada !== "") { #<h4 style="display:inline">Folio de Entrada:</h4> <span>#= FolioEntrada #</span><br/># } if (PackingList !== null && PackingList !== "") { #<h4 style="display:inline">PackingList:</h4> <span>#= PackingList #</span><br/># }# </td></tr>'),
+        dataBound:function(e){
+            $(".k-grid .k-grid-header").hide();
+        }
+    });
+    $("#dropProyecto").kendoComboBox({
+        dataSource: getProyectos(),
+        change:function(e){
+            $("#grid").data("kendoGrid").dataSource.filter(getFiltros());
+        }
+    });
+
+    $("#requireFolio,#requirePacking,#requireIC,#requireNumUnico").on("change",function(){
+        $("#grid").data("kendoGrid").dataSource.filter(getFiltros());
+    })
+
+    function regenerarGrid(){
+        var options = $("#grid").data("kendoGrid").options;
+        $("#grid").data("kendoGrid").destroy();
+        $("#grid").empty().kendoGrid(options);
+    }
+
+    function getProyectos(){
+        data=[];
+        dataGrid.forEach(function(d){
+            data.indexOf(d.Proyecto)==-1 ? data.push(d.Proyecto) : 0;
+        })
+        return data;
+    }
+
+    function getFiltros(){
+        $("#dropProyecto").data("kendoComboBox").value() ? filtros[0]["value"]=$("#dropProyecto").data("kendoComboBox").value() : filtros[0]["value"]="";
+        var tmp=[];
+        $("#dropProyecto").data("kendoComboBox").value() ? tmp.push(filtros[0]) : 0;
+        document.getElementById("requireFolio").checked ? tmp.push(filtros[1]) : 0;
+        document.getElementById("requirePacking").checked ? tmp.push(filtros[2]) : 0;
+        document.getElementById("requireIC").checked ? tmp.push(filtros[3]) : 0;
+        document.getElementById("requireNumUnico").checked ? tmp.push(filtros[4]) : 0;
+        return tmp;
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
