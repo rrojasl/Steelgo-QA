@@ -14,7 +14,7 @@
     </li>
 }
 
-<h3>Item Code Steelgo - Item Codes</h3>
+<h3>Asociación Item Code Steelgo</h3>
 <div class="formNav clearfix">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -77,9 +77,9 @@
         },
         change:function(e){
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
-                $("#D1").val(data.D1);
-                $("#D2").val(data.D2);
-                $("#descripcionIC").val(data.Descripcion);
+                $("#D1").val(data[0].D1);
+                $("#D2").val(data[0].D2);
+                $("#descripcionIC").val(data[0].Descripcion);
             })
         },
         dataTextField: "value",

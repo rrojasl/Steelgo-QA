@@ -62,9 +62,9 @@
                 if($("#Tipo_Archivo").data("kendoDropDownList").value()){
                     $("#Input_Archivo").data("kendoUpload").options.async.saveUrl=$DocumentosCatalogos.DocumentosCatalogos.urlNoId+"?CatalogoID="+window.parent.datosRegistro.catalogo+"&elementoCatalogoID="+window.parent.datosRegistro.id+"&token="+Cookies.get("token")+"&tipoArchivoID="+$("#Tipo_Archivo").data("kendoDropDownList").value();
                     console.log($("#Input_Archivo").data("kendoUpload").options.async.saveUrl);
-                    $("#Input_Archivo").data("kendoUpload").toggle();
+                    $("#Input_Archivo").data("kendoUpload").enable();
                 }else{
-                    $("#Input_Archivo").data("kendoUpload").toggle();
+                    $("#Input_Archivo").data("kendoUpload").disable();
                 }
             }
         });
