@@ -149,7 +149,7 @@ namespace BackEndSAM.DataAcces
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,
-                                                       Cedula = c.CedulaA,
+                                                       Cedula = c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC,
                                                        DescripcionEspanol = r.DescripcionEspanol,
                                                        DescripcionIngles = r.DescripcionIngles,
                                                        Diametro1 = r.Diametro1,
