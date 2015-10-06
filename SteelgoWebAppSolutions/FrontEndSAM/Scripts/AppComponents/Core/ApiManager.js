@@ -119,6 +119,7 @@ var $Incidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentoIncidencia = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DocumentosCatalogos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -210,3 +211,4 @@ $Incidencia.add("Incidencia");
 $DocumentoIncidencia.add("DocumentoIncidencia");
 $DocumentosCatalogos.add("DocumentosCatalogos");
 $ImpresionDocumental.add("ImpresionDocumental");
+$Grupo.add("Grupo");
