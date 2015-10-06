@@ -51,6 +51,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -965,6 +966,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Almacenaje\AlmacenajeController.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
+    <Compile Include="Controllers\Busqueda\BusquedaController.cs" />
     <Compile Include="Controllers\Catalogos\CatalogosController.cs" />
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
     <Compile Include="Controllers\Corte\CorteController.cs" />
@@ -1155,6 +1157,7 @@
     <Content Include="Views\PopUps\Plana.cshtml" />
     <Content Include="Views\PopUps\Colada.cshtml" />
     <Content Include="Views\PopUps\Archivos.cshtml" />
+    <Content Include="Views\Busqueda\Busqueda.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

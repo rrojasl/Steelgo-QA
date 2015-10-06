@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Búsqueda";
+}
+
+@section breadcrumb {
+    <li>
+        <span id="Busqueda0001"></span>
+    </li>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="btn-group">
+            <label for="dropProyecto">Proyecto</label>
+            <input type="text" name="name" class="" id="dropProyecto"/>
+        </div>
+        <div class="btn-group">
+            <h5>Tipo</h5>
+            <div style="display:inline">
+                <input type="checkbox" id="requireFolio" style="width:inherit"/>
+                <label for="requireFolio">Folio entrada</label>
+            </div>
+            <div style="display:inline">
+                <input type="checkbox" id="requirePacking" style="width:inherit"/>
+                <label for="requirePacking">Packing List</label>
+            </div>
+            <div style="display:inline">
+                <input type="checkbox" id="requireIC" style="width:inherit"/>
+                <label for="requireIC">Item Code</label>
+            </div>
+            <div style="display:inline">
+                <input type="checkbox" id="requireNumUnico" style="width:inherit"/>
+                <label for="requireNumUnico">Número único</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="resultados"></div>
+<script>
+@section JavascriptGlobalVariables {
+}
+
+@section JavascriptGlobalFunctions {
+    function changeLanguageCall() {};
+    $("#dropProyecto").kendoComboBox();
+};
+
+@section JavascriptDocumentReadyFunctions {
+};
+    
+@section JavascriptDocumentReadyHomeCookie {
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "7", { path: '/' });
+};
+
+</script>

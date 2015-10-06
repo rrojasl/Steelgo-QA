@@ -835,8 +835,68 @@ _dictionary = {
         "en-US": "Cancel"
     },
     "ItemCodeSteelGo0004": {
-        "es-MX": "Asociar Item Code Steel Go",
-        "en-US": "Set Item Code Steel Go"
+        "es-MX": "Código",
+        "en-US": "Code"
+    },
+    "ItemCodeSteelGo0005": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ItemCodeSteelGo0006": {
+        "es-MX": "Descripción Larga",
+        "en-US": "Large Description"
+    },
+    "ItemCodeSteelGo0007": {
+        "es-MX": "Descripción Inglés",
+        "en-US": "English Description"
+    },
+    "ItemCodeSteelGo0008": {
+        "es-MX": "Descripción Inglés Larga",
+        "en-US": "Large English Description"
+    },
+    "ItemCodeSteelGo0009": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "ItemCodeSteelGo0010": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "ItemCodeSteelGo0011": {
+        "es-MX": "Grupo",
+        "en-US": "Group"
+    },
+    "ItemCodeSteelGo0012": {
+        "es-MX": "Acero",
+        "en-US": "Steel"
+    },
+    "ItemCodeSteelGo0013": {
+        "es-MX": "Cédula A",
+        "en-US": "Document A"
+    },
+    "ItemCodeSteelGo0014": {
+        "es-MX": "Cédula B",
+        "en-US": "Document B"
+    },
+    "ItemCodeSteelGo0015": {
+        "es-MX": "Cédula C(Libra)",
+        "en-US": "Document C(Pound)"
+    },
+    "ItemCodeSteelGo0016": {
+        "es-MX": "Pulgadas",
+        "en-US": "Inchs"
+    },
+    "ItemCodeSteelGo0017": {
+        "es-MX": "Espesor",
+        "en-US": "Thickness"
+    },
+    "ItemCodeSteelGo0018": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
+    "ItemCodeSteelGo0019": {
+        "es-MX": "Área",
+        "en-US": "Area"
     },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
@@ -849,6 +909,11 @@ _dictionary = {
     "AsociacionICS0003": {
         "es-MX": "ICS Asociado",
         "en-US": "Associated ICS"
+    },
+    //Búsqueda
+    "Busqueda0001": {
+        "es-MX": "Resultados de Búsqueda",
+        "en-US": "Search results"
     },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
