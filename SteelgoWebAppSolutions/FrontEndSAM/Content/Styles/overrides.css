@@ -317,6 +317,9 @@
     background-color: #F5F5F5;
 }
 
+.popup .k-dropdown {
+    width: 30%;
+}
 
 /**********************************************************************************/
 
@@ -848,6 +851,13 @@
         border-bottom: none;
     }
 
+    .popup .k-grid > table {
+        table-layout: fixed;
+    }
+
+    .popup .k-dropdown {
+        width: 100%;
+    }
 
 }
 
