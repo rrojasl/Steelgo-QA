@@ -115,7 +115,7 @@ namespace BackEndSAM.DataAcces
                                              join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                                              where rics.Activo && ics.Activo && it.Activo && c.Activo
                                              && rics.ItemCodeID == fc.ItemCodeID
-                                             select c.CedulaA).FirstOrDefault(),
+                                             select c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
 
                                    Colada = (from c in ctx.Sam3_Colada
                                              where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo

@@ -942,6 +942,10 @@ _dictionary = {
         "es-MX": "ICS Asociado",
         "en-US": "Associated ICS"
     },
+    "AsociacionICS0004": {
+        "es-MX": "Asociación Item Code SteelGo",
+        "en-US": "Associated ICS"
+    },
     //Búsqueda
     "Busqueda0001": {
         "es-MX": "Resultados de Búsqueda",
