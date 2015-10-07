@@ -59,7 +59,8 @@
 
 <script>
 @section JavascriptGlobalVariables {
-    inicial=true;
+    editado=false;
+    itemActual={};
 }
 
 @section JavascriptGlobalFunctions {
@@ -83,6 +84,7 @@
                 $("#D2").val(data[0].D2);
                 $("#descripcionIC").val(data[0].Descripcion);
                 $("#icsasociado").val(data[0].ItemCodeSteelgo);
+                itemActual=data[0];
             })
         },
         dataTextField: "value",
@@ -184,7 +186,8 @@
                     select:function(e){
                         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr"));
                         $("#icsasociado").val(dataItem.Codigo);
-                        $("#idICS").val(dataItem.ItemCodeSteelgoID);
+                        itemActual["ItemCodeSteelgoIDNuevo"]=dataItem.ItemCodeSteelgoID;
+                        editado=true;
                         this.close();
                     }
                 })
@@ -198,7 +201,11 @@
     }
 
     $("#GuardarICS").on("click",function(){
-        
+        if(itemActual["ItemCodeSteelgoIDNuevo"]){
+            $AsociacionICS.AsociacionICS.create({},{itemCode:itemActual["ItemCodeID"],itemCodeSteelgo:itemActual["ItemCodeSteelgoIDNuevo"],token:Cookies.get("token")}).done(function(data){
+                console.log(data);
+            });
+        }
     })
 };
 
