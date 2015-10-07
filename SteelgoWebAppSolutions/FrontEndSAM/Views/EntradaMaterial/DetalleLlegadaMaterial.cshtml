@@ -540,6 +540,7 @@
         }
 
         function CargarDetalleFolio(id) {
+            ocultarStatus();
             folioAvisoLlegada = id;
             $FolioAvisoEntrada.FolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
                 var concat = "";
@@ -701,15 +702,12 @@
         }
 
         function CargaInicialEdicion(id) {
-           
+            ocultarStatus();
             BotonAlta();
             $FolioAvisoEntrada.FolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
                     var concat = "";
                     CargarFolio(folioAvisoLlegada);
                     folioLlegada = data.FolioAvisoEntradaID;
-
-                    console.log("folioAvisoLlegada: " + folioAvisoLlegada);
-                    console.log("folioLlegada: " + folioLlegada);
                     cargarTituloFolio();
                     ActualizarTitulosEdicion(data);
 
