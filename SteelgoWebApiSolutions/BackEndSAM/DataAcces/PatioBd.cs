@@ -53,12 +53,12 @@ namespace BackEndSAM.DataAcces
                         lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
                     }
 
-                    //List<int> patios;
-                    //List<int> proyectos;
-                    //UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+                    List<int> patios;
+                    List<int> proyectos;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                     List<Patio> result = (from p in ctx.Sam3_Patio
-                                          where p.Activo
+                                          where p.Activo && patios.Contains(p.PatioID)
                                           select new Patio
                                           {
                                               Nombre = p.Nombre,
