@@ -11,7 +11,7 @@
             </div>
             <div id="seleccionarArchivoDiv" class="form-group">
                 <label id="ListadoCatalogos0015"></label>
-                <input id="seleccionarArchivo" class="general-input" type="file" />
+                <input id="seleccionarArchivo"  type="file" />
             </div>
             <div class="form-group">
                 <div id="grid"></div>
@@ -57,7 +57,7 @@
             window.parent.$("#window").data("kendoWindow").close();
         });
 
-        $('#Input_Archivo').kendoUpload({
+        $('#seleccionarArchivo').kendoUpload({
             async: {
                 saveUrl: $DocumentosCatalogos.DocumentosCatalogos.urlNoId + "?CatalogoID=" + window.parent.datosRegistro.catalogo + "&elementoCatalogoID=" + window.parent.datosRegistro.id + "&token=" + Cookies.get("token"),
                 autoUpload: false,
