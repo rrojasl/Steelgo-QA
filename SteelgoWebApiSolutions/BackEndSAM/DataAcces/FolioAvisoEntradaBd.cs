@@ -207,6 +207,7 @@ namespace BackEndSAM.DataAcces
                         //                       ClienteID = c.ClienteID.ToString(),
                         //                       Nombre = c.Nombre
                         //                   }).AsParallel().SingleOrDefault();
+
                         detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
                                               where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo
                                               select new ListaDocumentos
@@ -230,7 +231,7 @@ namespace BackEndSAM.DataAcces
                         detalle.ComboEstatus = registro.ComboEstatus;
 
                         detalle.Patio = (from p in ctx.Sam3_Patio
-                                         where p.PatioID == registro.PatioID
+                                         where p.Activo && p.PatioID == registro.Sam3_FolioAvisoLlegada.PatioID
                                          select new Models.Patio
                                          {
                                              PatioID = p.PatioID.ToString(),
@@ -319,7 +320,9 @@ namespace BackEndSAM.DataAcces
                     nuevo.FechaModificacion = DateTime.Now;
                     nuevo.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
                     nuevo.OrdenCompra = json.OrdenCompra;
-                    nuevo.PatioID = json.PatioID;
+                    nuevo.PatioID = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                     where fa.Activo && fa.FolioAvisoLlegadaID == json.FolioAvisollegadaId
+                                     select fa.PatioID).AsParallel().SingleOrDefault();
                     nuevo.ProveedorID = json.ProveedorID;
                     nuevo.UsuarioModificacion = usuario.UsuarioID;
                     nuevo.ComboEstatus = json.ComboEstatus;
