@@ -348,6 +348,7 @@
     <Compile Include="Models\Dummy\EdicionCuantificacion.cs" />
     <Compile Include="Models\Dummy\EdicionLlegadaMaterial.cs" />
     <Compile Include="Models\Dummy\EntradaMaterial.cs" />
+    <Compile Include="Models\Dummy\Entrega.cs" />
     <Compile Include="Models\Dummy\Estatus.cs" />
     <Compile Include="Models\Dummy\Familia.cs" />
     <Compile Include="Models\Dummy\FamiliaAcero.cs" />

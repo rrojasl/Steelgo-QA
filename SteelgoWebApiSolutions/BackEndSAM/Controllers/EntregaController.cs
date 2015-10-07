@@ -48,7 +48,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/entrega
-        public void Post([FromBody]string value)
+        public void Post(ListadoEntrega entrega)
         {
         }
 

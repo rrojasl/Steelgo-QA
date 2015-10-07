@@ -11,10 +11,12 @@
             </div>
             <div id="seleccionarArchivoDiv" class="form-group">
                 <label id="ListadoCatalogos0015"></label>
-                <input id="seleccionarArchivo" class="general-input" type="file" />
+                <input id="seleccionarArchivo"  type="file" />
             </div>
-            <div class="form-group">
-                <div id="grid"></div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div id="grid"></div>
+                </div>
             </div>
             <div class="buttonSave">
                 <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
@@ -98,9 +100,9 @@
     function CargarGrid() {
         $("#grid").kendoGrid({
             columns: [
-                { field: "Nombre", title: "Nombre", template: "<a href='#: Url #'>#: Nombre # </a>" },
-                { field: "Extencion", title: "Extensión" },
-                { field: "TipoArchivo", title: "Tipo de Archivo" },
+                { field: "Nombre", title: "Nombre", template: "<a href='#: Url #'>#: Nombre # </a>"},
+                { field: "Extencion", title: "Extensión"},
+                { field: "TipoArchivo", title: "Tipo de Archivo"},
                 { command: "destroy", title: "Borrar", width: "91px" }
             ],
             dataSource: getDataSource(),
