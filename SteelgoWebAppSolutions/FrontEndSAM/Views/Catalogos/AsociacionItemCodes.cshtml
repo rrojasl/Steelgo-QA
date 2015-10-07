@@ -10,7 +10,7 @@
         <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
+        <a href="@Url.Action("AsociacionItemCodes", "Catalogos")"><span id="AsociacionICS0004"></span></a>
     </li>
 }
 
@@ -161,10 +161,14 @@
             sortable: false,
             scrollable: false,
             filterable:{
-                extra: false
+                extra: false,
+                mode: "row",
             },
             filterMenuInit: function(e) {
                 $("#grid td").show();
+                e.container.data("kendoPopup").bind("close", function (e) {
+                    $("#grid td").hide();
+                });
             },
             pageable: {
                 refresh: false,

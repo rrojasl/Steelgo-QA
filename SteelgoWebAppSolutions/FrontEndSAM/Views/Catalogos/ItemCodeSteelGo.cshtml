@@ -25,7 +25,7 @@
                 <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
             </div>
             <div class="button-section">
-                <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="ItemCodeSteelGo0004"></span></a>
+                <a href="@Url.Action("AsociacionItemCodes", "Catalogos")" href="#" class="btn btn-primary"><span id="ItemCodeSteelGo0004"></span></a>
             </div>
             <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
         </div>
@@ -37,7 +37,7 @@
 
 <script>
 @section JavascriptGlobalVariables {
-
+    editado=false;
 }
 
 @section JavascriptGlobalFunctions {
@@ -151,8 +151,8 @@
                             Inch: { type:"number", validation: { required: false }, editable: false},
                             MM: { type:"number", validation: { required: false }, editable: false },
                             Espesor: { type:"number", validation: { required: false },editable: false },
-                            Peso: { type:"number", validation: { required: true },editable: false },
-                            Area: { type:"number", validation: { required: false }, editable: false },
+                            Peso: { type:"number", validation: { required: true },editable: true },
+                            Area: { type:"number", validation: { required: false }, editable: true },
                         }
                     }
                 },
@@ -226,6 +226,7 @@
                         data[f] = e.model[f];
                     }
                     grid.options.dataSource.transport.create.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
+                    editado=false;
                 }else if((e.model.id!==null && e.model.id!=="") && (e.model.Espesor!=="" && $.isNumeric(e.model.Espesor)) ){
                     var grid = $("#grid").data("kendoGrid");
                     var data = {};
@@ -233,6 +234,7 @@
                         data[f] = e.model[f];
                     }
                     grid.options.dataSource.transport.update.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
+                    editado=false;
                 }else{
                     grid.options.dataSource.transport.create.url="save";
                     grid.options.dataSource.transport.update.url="update";
@@ -240,32 +242,58 @@
                 }
             },
             edit: function(e) {
+                if(e.model.id && !editado){
+                    $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){
+                        var input=this;
+                        $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']").each(function(){
+                            if(this!==input){
+                                e.model[this.name]=null;
+                            }
+                        })
+                        e.model[this.name]=this.value.toString();
+                        e.model.Inch=0;
+                        e.model.MM=0;
+                        e.model.Espesor=0;
+                        e.model.Peso=0;
+                        e.model.Area=0;
+                        $("#grid").data("kendoGrid").refresh();
+                        $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid="+e.container[0].getAttribute("data-uid")+"]"));
+                        editado=true;
+                    })
+                }
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).blur(function(){
                     var data={};
                     var i=$(this);
-                    data['CedulaA']=e.model.CedulaA;
-                    data['CedulaB']=e.model.CedulaB;
-                    data['Libra']=e.model.Libra;
-                    data["Diametro1"]=e.model.Diametro1;
-                    data["Diametro2"]=e.model.Diametro2;
-                    $CatalogoICSteelgo.CatalogoICSteelgo.read({},{data:JSON.stringify(data),token:Cookies.get("token")}).done(function(data){
-                        if(data===null){
-                            alert("no hay datos");
-                        }else{
-                            e.model.CedulaID=data.CedulaID;
-                            e.model.CedulaA=data.CedulaA;
-                            e.model.CedulaB=data.CedulaB;
-                            e.model.Libra=data.CedulaC;
-                            e.model.Inch=data.CedulaIn;
-                            e.model.MM=data.CedulaMM;
-                            e.model.Espesor=data.Espesor;
-                            e.model.Peso=data.Peso;
-                            e.model.Area=data.Area;
-                            $("#grid").data("kendoGrid").refresh();
-                            $("#grid").data("kendoGrid").editRow($("#grid tr:eq(1)"));
-                        }
-                    });
+                    if(e.model.Diametro1!==null && e.model.Diametro1!==""){
+                        data['CedulaA']=e.model.CedulaA;
+                        data['CedulaB']=e.model.CedulaB;
+                        data['Libra']=e.model.Libra;
+                        data["Diametro1"]=e.model.Diametro1;
+                        data["Diametro2"]=e.model.Diametro2;
+                        $CatalogoICSteelgo.CatalogoICSteelgo.read({},{data:JSON.stringify(data),token:Cookies.get("token")}).done(function(data){
+                            if(data===null){
+                                alert("no hay datos");
+                            }else{
+                                e.model.CedulaID=data.CedulaID;
+                                e.model.CedulaA=data.CedulaA;
+                                e.model.CedulaB=data.CedulaB;
+                                e.model.Libra=data.CedulaC;
+                                e.model.Inch=data.CedulaIn;
+                                e.model.MM=data.CedulaMM;
+                                e.model.Espesor=data.Espesor;
+                                e.model.Peso=data.Peso;
+                                e.model.Area=data.Area;
+                                $("#grid").data("kendoGrid").refresh();
+                                $("#grid").data("kendoGrid").editRow($("#grid tr:eq(1)"));
+                            }
+                        });
+                    }else{
+                        alert("Necesitas ingresar un diametro");
+                    }
                 });
+            },
+            cancel: function(e) {
+                editado=false;
             },
             remove: function (e) {
                 if(e.model.id!==null && e.model.id!==""){
