@@ -249,23 +249,25 @@
                 }
             },
             edit: function(e) {
-                if(e.model.id && !editado){
+                if(e.model.id){
                     $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).on("change",function(){
-                        var input=this;
-                        $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']").each(function(){
-                            if(this!==input){
-                                e.model[this.name]=null;
-                            }
-                        })
-                        e.model[this.name]=this.value.toString();
-                        e.model.Inch=0;
-                        e.model.MM=0;
-                        e.model.Espesor=0;
-                        e.model.Peso=0;
-                        e.model.Area=0;
-                        $("#grid").data("kendoGrid").refresh();
-                        $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid="+e.container[0].getAttribute("data-uid")+"]"));
-                        editado=true;
+                        if(editado==false){
+                            var input=this;
+                            $("[name='Diametro1'],[name='CedulaA'],[name='CedulaB'],[name='Libra']").each(function(){
+                                if(this!==input){
+                                    e.model[this.name]=null;
+                                }
+                            })
+                            e.model[this.name]=this.value.toString();
+                            e.model.Inch=0;
+                            e.model.MM=0;
+                            e.model.Espesor=0;
+                            e.model.Peso=0;
+                            e.model.Area=0;
+                            $("#grid").data("kendoGrid").refresh();
+                            $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid="+e.container[0].getAttribute("data-uid")+"]"));
+                            editado=true;
+                        }
                     })
                 }
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).blur(function(){
