@@ -14,48 +14,61 @@
     </li>
 }
 
-<h3>Asociación Item Code Steelgo</h3>
-<div class="formNav clearfix">
+<div id="formAsociacionItemCodes" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="button-section">
-                <div class="btn-group save-group">
-                    <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <div class="btn-group save-group">
+                                <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+                            </div>
+                            <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
+                        </div>
+                    </div>
                 </div>
-                <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="icinput" id="AsociacionICS0001"></label>
+                            <input id="icinput" type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="D1">D1</label>
+                            <input id="D1" class="general-input" readonly disabled type="number" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="D2">D2</label>
+                            <input id="D2" class="general-input" readonly disabled type="number" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="descripcionIC" id="AsociacionICS0002"></label>
+                            <input id="descripcionIC" class="general-input" readonly disabled type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="icsasociado" id="AsociacionICS0003"></label>
+                            <input id="icsasociado" class="general-input" type="text" />
+                            <input type="number" hidden id="idICS" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="grid"></div>
+                </div>
+            </div>
+        </div>
+        <ul id="context-menu">
+            <li>Selecccionar Item Code Steelgo</li>
+        </ul>
     </div>
 </div>
-
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="icinput" id="AsociacionICS0001"></label>
-    <input id="icinput" type="text"/>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="D1">D1</label>
-    <input id="D1" readonly disabled type="number"/>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="D2">D2</label>
-    <input id="D2" readonly disabled type="number"/>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="descripcionIC" id="AsociacionICS0002"></label>
-    <input id="descripcionIC" readonly disabled type="text"/>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-    <label for="icsasociado" id="AsociacionICS0003"></label>
-    <input id="icsasociado" type="text"/>
-    <input type="number" hidden id="idICS"/>
-</div>
-<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div id="grid"></div>
-</div>
-
-<ul id="context-menu">
-    <li>Selecccionar Item Code Steelgo</li>
-</ul>
 
 <script>
 @section JavascriptGlobalVariables {
@@ -94,23 +107,23 @@
     function cargarInicialGrid(){
         $("#grid").kendoGrid({
             columns: [
-                { field: "Codigo",title:_dictionary.ItemCodeSteelGo0004[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }}, 
-                { field: "Descripcion",title:_dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } } },
-                { field: "DescripcionLarga",title:_dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "DescripcionIngles",title:_dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "DescripcionLargaIngles",title:_dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } } },
-                { field: "Diametro1",title:_dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Diametro2",title:_dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Grupo",title:_dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Acero",title:_dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "CedulaA",title:_dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "CedulaB",title:_dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Libra",title:_dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Inch",title:_dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "MM",title:"MM",filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Espesor",title:_dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Peso",title:_dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Area", title:_dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
+                { field: "Codigo",title:_dictionary.ItemCodeSteelGo0004[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"}, 
+                { field: "Descripcion",title:_dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px" },
+                { field: "DescripcionLarga",title:_dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "DescripcionIngles",title:_dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "DescripcionLargaIngles",title:_dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px" },
+                { field: "Diametro1",title:_dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Diametro2",title:_dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Grupo",title:_dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Acero",title:_dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "CedulaA",title:_dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "CedulaB",title:_dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Libra",title:_dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Inch",title:_dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "MM",title:"MM",filterable: { cell: { showOperators: false, operator: "contains" } },width: "150px"},
+                { field: "Espesor",title:_dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Peso",title:_dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
+                { field: "Area", title:_dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }, width: "150px"},
             ],
             dataSource: {
                 data: [],
@@ -162,7 +175,7 @@
             },
             autoHeight: true,
             sortable: false,
-            scrollable: false,
+            scrollable: true,
             filterable:{
                 extra: false,
                 mode: "row",
