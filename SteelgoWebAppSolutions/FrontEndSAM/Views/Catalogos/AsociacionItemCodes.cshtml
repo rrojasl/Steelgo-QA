@@ -47,6 +47,7 @@
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="icsasociado" id="AsociacionICS0003"></label>
     <input id="icsasociado" type="text"/>
+    <input type="number" hidden id="idICS"/>
 </div>
 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div id="grid"></div>
@@ -80,6 +81,7 @@
                 $("#D1").val(data[0].D1);
                 $("#D2").val(data[0].D2);
                 $("#descripcionIC").val(data[0].Descripcion);
+                $("#icsasociado").val(data[0].ItemCodeSteelgo);
             })
         },
         dataTextField: "value",
@@ -185,9 +187,14 @@
             select:function(e){
                 var dataItem = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr"));
                 $("#icsasociado").val(dataItem.Codigo);
+                $("#idICS").val(dataItem.ItemCodeSteelgoID);
             }
         })
     },3000);
+
+    $("#GuardarICS").on("click",function(){
+        
+    })
 };
 
 @section JavascriptDocumentReadyFunctions {
