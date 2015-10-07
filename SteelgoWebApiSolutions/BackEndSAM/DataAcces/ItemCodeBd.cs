@@ -173,7 +173,7 @@ namespace BackEndSAM.DataAcces
                                 //itemS3.Cantidad = DatosItemCode.Cantidad;
                                 //itemS3.MM = DatosItemCode.MM;
                                 itemS3.ColadaID = DatosItemCode.ColadaID;//
-                                itemS3.TipoUsoID = 1;
+                                itemS3.TipoUsoID = Convert.ToInt32(DatosItemCode.TipoUsoID) == -1 ? 1 : Convert.ToInt32(DatosItemCode.TipoUsoID);
                                 ctx.Sam3_ItemCode.Add(itemS3);
                                 ctx.SaveChanges();
 

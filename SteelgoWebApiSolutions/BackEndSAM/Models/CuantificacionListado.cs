@@ -31,5 +31,6 @@ namespace BackEndSAM.Models
         public string TieneNU { get; set; }
         public bool TieneError { get; set; }
         public string Estatus { get; set; }
+        public string TipoUsoID { get; set; }
     }
 }
