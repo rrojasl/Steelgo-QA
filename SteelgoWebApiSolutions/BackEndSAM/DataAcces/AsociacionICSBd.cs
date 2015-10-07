@@ -216,7 +216,8 @@ namespace BackEndSAM.DataAcces
                     if (existe) //update
                     {
                         Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
-                        relacion.ItemCodeSteelgoID = ic;
+                        relacion.ItemCodeSteelgoID = ics;
+                        relacion.Activo = true;
                         relacion.UsuarioModificacion = usuario.UsuarioID;
                         relacion.FechaModificacion = DateTime.Now;
 
@@ -226,8 +227,8 @@ namespace BackEndSAM.DataAcces
                     {
                         Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = new Sam3_Rel_ItemCode_ItemCodeSteelgo();
 
-                        relacion.ItemCodeID = ics;
-                        relacion.ItemCodeSteelgoID = Convert.ToInt32(itemCodeSteelgoID);
+                        relacion.ItemCodeID = ic;
+                        relacion.ItemCodeSteelgoID = ics;
                         relacion.Activo = true;
                         relacion.FechaModificacion = DateTime.Now;
                         relacion.UsuarioModificacion = usuario.UsuarioID;
