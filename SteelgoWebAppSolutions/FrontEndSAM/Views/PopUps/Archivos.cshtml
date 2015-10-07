@@ -2,7 +2,7 @@
     ViewBag.Title = "Archivos";
 }
 
-<div id="modalTransportista" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="modalArchivo" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="row">
             <div id="Tipo_ArchivoDiv" class="form-group">
@@ -10,14 +10,19 @@
                 <input id="Tipo_Archivo" class="" />
             </div>
             <div id="Input_ArchivoDiv" class="form-group">
-                    <label id="ListadoCatalogos0015"></label>
-                    <input id="Input_Archivo" class="general-input" type="file"/>
+                <label id="ListadoCatalogos0015"></label>
+                <input id="Input_Archivo" class="general-input" type="file" />
             </div>
-            <div id="grid"></div>
-            <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
+            <div class="form-group">
+                <div id="grid"></div>
+            </div>
+            <div class="buttonSave">
+                <button id="close" class="btn btn-primary buttonSave">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
+
 <script>
     @section JavascriptGlobalVariables {
     }
@@ -57,9 +62,9 @@
                 if($("#Tipo_Archivo").data("kendoDropDownList").value()){
                     $("#Input_Archivo").data("kendoUpload").options.async.saveUrl=$DocumentosCatalogos.DocumentosCatalogos.urlNoId+"?CatalogoID="+window.parent.datosRegistro.catalogo+"&elementoCatalogoID="+window.parent.datosRegistro.id+"&token="+Cookies.get("token")+"&tipoArchivoID="+$("#Tipo_Archivo").data("kendoDropDownList").value();
                     console.log($("#Input_Archivo").data("kendoUpload").options.async.saveUrl);
-                    $("#Input_Archivo").data("kendoUpload").toggle();
+                    $("#Input_Archivo").data("kendoUpload").enable();
                 }else{
-                    $("#Input_Archivo").data("kendoUpload").toggle();
+                    $("#Input_Archivo").data("kendoUpload").disable();
                 }
             }
         });

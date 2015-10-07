@@ -547,6 +547,8 @@ header .menu > div {
             -moz-box-shadow: 1px 1px 1px #CCCCCC; /* FF3.5+ */
             -webkit-box-shadow: 1px 1px 1px #CCCCCC; /* Saf3.0+, Chrome */
             box-shadow: 1px 1px 1px #CCCCCC; /* Opera 10.5, IE9, Chrome 10+ */
+            overflow: hidden;
+            overflow-y: auto;
         }
 
             .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 > li {
@@ -568,6 +570,10 @@ header .menu > div {
         margin: 0;
         padding: 12px 0;
     }
+
+        .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3:empty {
+            padding-top: 0;
+        }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu2 li ul.sub-menu3 > li {
             margin-bottom: 6px;
@@ -914,10 +920,10 @@ header .menu > div {
                 background-image: url("/Content/images/Delete_Grey.png");
             }
 
-    .filesTable input.general-input[type=checkbox] {
+    .filesTable input[type=checkbox] {
         height: auto;
         min-height: auto;
-        width: 13px;
+        width: auto!important;
     }
 /**********************************************************************************/
 
@@ -1089,7 +1095,7 @@ header .menu > div {
             border-right: none;
             margin-right: 0;
             padding-right: 0;
-        }
+        }        
 
     .formNav .dropdown {
         display: inline-block;
@@ -1599,6 +1605,10 @@ header .menu > div {
         margin-right: 25%;
     }
 
+    #frmImpresionDocumental .formNav {
+        padding-bottom: 15px;
+    }
+
     /*$_modal*/
     #window {
         overflow: initial;
@@ -1712,6 +1722,10 @@ header .menu > div {
             text-align: center;
         }
 
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2 {
+            padding-left: 14px;
+        }
+
     /*$_content-container*/
     .content-container {
         max-width: 76.5%;
@@ -1740,7 +1754,8 @@ header .menu > div {
 }
 
 /* md viewport */
-@media (min-width: 992px) and (max-width: 1024px) {
+@media (min-width: 992px) and (max-width: 1024px) {    
+
 }
 
 @media (max-width: 1200px) {

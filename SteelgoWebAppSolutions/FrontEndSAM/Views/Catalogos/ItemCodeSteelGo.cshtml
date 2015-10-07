@@ -61,6 +61,7 @@
         try{
             $("#grid").data("kendoGrid").saveRow();    
         }catch(e){
+            console.log(e)
             console.log("NaiN")
         }
     })
@@ -221,27 +222,25 @@
                 if((e.model.id===null || e.model.id==="") && (e.model.Espesor!=="" && $.isNumeric(e.model.Espesor)) ){
                     var grid = $("#grid").data("kendoGrid");
                     var data = {};
-                    for (f in grid.options.dataSource.options.schema.model.fields) {
-                        data[f] = grid.options.dataSource.options.schema.model.fields[f];
+                    for (f in grid.options.dataSource.schema.model.fields) {
+                        data[f] = e.model[f];
                     }
-                    grid.options.dataSource.options.transport.create.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&data="+JSON.stringify(data);
+                    grid.options.dataSource.transport.create.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
                 }else if((e.model.id!==null && e.model.id!=="") && (e.model.Espesor!=="" && $.isNumeric(e.model.Espesor)) ){
                     var grid = $("#grid").data("kendoGrid");
                     var data = {};
-                    for (f in grid.options.dataSource.options.schema.model.fields) {
-                        data[f] = grid.options.dataSource.options.schema.model.fields[f];
+                    for (f in grid.options.dataSource.schema.model.fields) {
+                        data[f] = e.model[f];
                     }
-                    grid.options.dataSource.options.transport.update.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&data="+JSON.stringify(data);
+                    grid.options.dataSource.transport.update.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&data="+encodeURIComponent(JSON.stringify(data));
                 }else{
-                    grid.options.dataSource.options.transport.create.url="save";
-                    grid.options.dataSource.options.transport.update.url="update";
+                    grid.options.dataSource.transport.create.url="save";
+                    grid.options.dataSource.transport.update.url="update";
                     alert("Debes hacer un registro válido");
                 }
             },
             edit: function(e) {
                 $("[name='CedulaA'],[name='CedulaB'],[name='Libra']", e.container).blur(function(){
-                    //alert(e.model.Diametro1);
-                    //alert($(this).attr("name"))
                     var data={};
                     var i=$(this);
                     data['CedulaA']=e.model.CedulaA;
@@ -253,11 +252,12 @@
                         if(data===null){
                             alert("no hay datos");
                         }else{
+                            e.model.CedulaID=data.CedulaID;
                             e.model.CedulaA=data.CedulaA;
                             e.model.CedulaB=data.CedulaB;
-                            e.model.Libra=data.Libra;
-                            e.model.Inch=data.Inch;
-                            e.model.MM=data.MM;
+                            e.model.Libra=data.CedulaC;
+                            e.model.Inch=data.CedulaIn;
+                            e.model.MM=data.CedulaMM;
                             e.model.Espesor=data.Espesor;
                             e.model.Peso=data.Peso;
                             e.model.Area=data.Area;
@@ -269,9 +269,9 @@
             },
             remove: function (e) {
                 if(e.model.id!==null && e.model.id!==""){
-                    grid.options.dataSource.options.transport.destroy.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&id="+e.model.id;
+                    $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url=$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token")+"&id="+e.model.id;
                 }else{
-                    grid.options.dataSource.options.transport.destroy.url="delete";
+                    $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url="delete";
                     alert("Este elemento aún no existe en la BD");
                 }
             },

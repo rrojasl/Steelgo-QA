@@ -451,7 +451,9 @@
     }
 
     .k-grid tbody tr td a.k-button.k-grid-Detalle,
-    .k-grid tbody tr td a.k-button.k-grid-Detail {
+    .k-grid tbody tr td a.k-button.k-grid-Detail,
+    .k-grid tbody tr td a.k-button.k-grid-Archivos,
+    .k-grid tbody tr td a.k-button.k-grid-Files {
         background-image: url("/Content/images/SAMC_DetailIcon.png");
     }
 
@@ -822,6 +824,10 @@
         border-top: 1px solid #CCCCCC;
     }
 
+    #formCuantificacion .k-grid .k-grid-toolbar {
+        border-bottom: 1px solid #CCCCCC;
+    }
+
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
     .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
         min-width: 641px;
@@ -867,6 +873,63 @@
         .form .input-group > .input-group-btn {
             display: none;
         }
+
+    /*$_k-grid*/
+    .k-grid {
+        overflow: hidden;
+        overflow-x: auto;
+    }
+
+        .k-grid > table {
+            table-layout: auto;
+            margin-left: -1px;
+        }
+
+        .k-grid tbody tr td a.k-button {
+            max-width: 100%;
+        }
+
+        .k-grid tr:last-child td {
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        #formCuantificacion .k-grid .k-grouping-header,
+        .k-grid .k-grid-toolbar {
+            border: none;
+        }
+
+            #formCuantificacion .k-grid .k-grid-header tr th.k-header,
+            .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header {
+                border-top: 1px solid #CCCCCC;
+            }
+
+    #formCuantificacion .k-grid .k-grid-toolbar {
+        border-bottom: 1px solid #CCCCCC;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {
+        min-width: 641px;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"],
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid input[type="checkbox"] {
+        width: auto;
+        margin-left: 30%;
+    }
+
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid th input[type="checkbox"] {
+        margin-left: 40%;
+    }
+
+    .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td,
+    .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell .k-grid tr:last-child td {
+        border-bottom: none;
+    }
+
+    .k-grid-pager {
+        border-top: none;
+    }
 }
 
 /* md viewport */

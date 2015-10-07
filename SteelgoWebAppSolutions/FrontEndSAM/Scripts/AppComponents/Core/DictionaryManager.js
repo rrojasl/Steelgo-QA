@@ -279,6 +279,38 @@ _dictionary = {
         "es-MX": "Listado de Materiales por ItemCode",
         "en-US": "List Materials by Item Code"
     },
+    "menuLabel1040": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
+    "menuLabel1041": {
+        "es-MX": "Entrega",
+        "en-US": "Delivery"
+    },
+    "menuLabel1042": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "menuLabel1044": {
+        "es-MX": "Incidencia",
+        "en-US": "Incidences"
+    },
+    "menuLabel1045": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidences"
+    },
+    "menuLabel1046": {
+        "es-MX": "Listado Incidencia",
+        "en-US": "List of Incidences"
+    },
+    "menuLabel1047": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "menuLabel1048": {
+        "es-MX": "Catálogo Item Code Steelgo",
+        "en-US": "Catalog Item Code Steelgo"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",

@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="grid" style="width: 100%"></div>
+                    <div id="grid"></div>
                 </div>
             </div>
         </div>
@@ -438,7 +438,7 @@
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
                     var grid = $("#grid").data("kendoGrid");
-                    if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.columns.push({ command: { text: _dictionary.ListadoCatalogos0013[$("#language").data("kendoDropDownList").value()], click: showFiles}, title: "Archivos", width: "91px" });
+                    if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.columns.push({ command: { text: "Archivos", click: showFiles}, title: "Archivos", width: "95px" });
                     grid.columns.push({ command: "edit", title: "Editar", width: "91px" });
                     grid.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
                     for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
@@ -790,7 +790,7 @@
             visible: false,
             width: "40%",
             minWidth: 660,
-            height: "20%",
+            height: "4%",
             iframe: true,
             position: {
                 top: "10%",

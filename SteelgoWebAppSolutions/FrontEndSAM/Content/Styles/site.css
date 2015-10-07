@@ -254,7 +254,7 @@ input {
     outline: none;
     box-shadow: none;
     width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }    
 
     input:focus {
@@ -305,6 +305,7 @@ input {
     font-size: 14px;
     padding: 0 5px;
     z-index: 1;
+    -webkit-appearance: none;
 }
 
     .content-container .form input.general-input:focus {
@@ -402,6 +403,8 @@ input.quickFilters.arrivalMaterial {
     border: 1px solid #CCCCCC!important;
     resize:none;
     overflow:auto;
+    border-radius: 0!important;
+    -webkit-appearance: none;
 }
 /**********************************************************************************/
 
@@ -728,6 +731,16 @@ input.quickFilters.arrivalMaterial {
 #massiveUpload.btn {
     margin-bottom: 3px;
 }
+
+/*Form button without label*/
+.standalone {
+    margin-top: 24px;
+}
+
+    .standalone > .btn {
+        position: relative;
+        top: -5px;
+    }
 /**********************************************************************************/
 
 
@@ -849,6 +862,14 @@ h2 {
         letter-spacing: 0;
     }
 
+    .standalone {
+    margin-top: 0;
+}
+
+    .standalone > .btn {
+        width: 100%;
+    }
+
     /*$_input*/
     .content-container .form input[type="radio"] {
         width: auto;
@@ -905,7 +926,7 @@ h2 {
     .btn-tabList span {
         display: block;
         font-size: 11px;
-    }
+    }    
 
     /*input*/
     input.quickFilters {
@@ -968,6 +989,10 @@ h2 {
     /*$_btn*/
     #ImprimirPase {
         margin-top: 21px;
+    }
+
+    .standalone > .btn {
+        width: 100%;
     }
 
     /*.formButtons {
