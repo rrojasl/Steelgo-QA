@@ -77,7 +77,6 @@
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid"></div>
         </div>
-        <input type="hidden" id="ChecksEntrega" value="1" />@*1 todos 2 sin localizacion*@ 
     </div>
 
 </div>
@@ -93,6 +92,7 @@
         lastEditedCellIDSEmpleadoEntrega = "", lastEditedCellIDSEmpleadoRecibe = "",
         lastEditedCellIDSPickingTicket = "";
 
+    var _UrlEntrega = "@Url.Action("Entrega", "Entrega")";
     var $EntregaModel = {
         listContainer: {
             create: ".editButtonSection",
@@ -134,7 +134,7 @@
     };
 
     function CargaInicial() {
-        $("#Guardar").click(function () { Guardar(); });
+        $("#Guardar").click(function () { GuardarMasivo(); });
         $("#Cancelar").click(function () { Cancelar(); });
 
         $("#EmpleadoEntrega").kendoComboBox({
@@ -194,9 +194,6 @@
                 serverFiltering: false,
                 serverSorting: false
             },
-            toolbar: [
-                        "create"
-            ],
             autoHeight: true,
             sortable: true,
             scrollable: false,
@@ -221,41 +218,6 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-            }
-        });
-
-        $("#grid table").on("keydown", "tr", function (e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
-            if (code == 13) { //If key is ENTER
-                console.log("--KendoEnter--");
-                //find index of the td element
-                var tdIndex = $(e.target).closest('td').index();
-                //get the next row's cell
-                var nextRow = $(e.target).closest('tr').next();
-                var nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
-                //Check if the next row is the last one and add one
-                if (nextRowCell.length == 0) {
-                    var grids = $("#grid").data("kendoGrid");
-                    if (grids) {
-                        var dataSource = grids.dataSource;
-                        var total = dataSource.data().length;
-                        dataSource.insert(total, {});
-                    }
-                    //find index of the td element
-                    tdIndex = $(e.target).closest('td').index();
-                    //get the next row's cell
-                    nextRow = $(e.target).closest('tr').next();
-                    nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
-
-                    alert("keydown " + $("input:checked").val());
-                }
-
-                //focus the next cell on a different context
-                setTimeout(function () {
-                    console.log("--Changing Current--");
-                    var grid = $("#grid").data("kendoGrid");
-                    grid.current(nextRowCell);
-                }, 0);
             }
         });
     };
@@ -329,6 +291,13 @@
                 },
                 change: function (e) {
                     var value = this.value();
+
+                    if($("input:checked").val() == "2"){
+                        GuardarUnoAUno();
+                    } else {
+                        AgregarRowGrid(container);
+                    }
+
                     lastEditedCellIDSEmpleadoRecibe.NoEmpleadoRecibe = value;
                     $('#grid').data('kendoGrid').refresh();
                 },
@@ -337,26 +306,51 @@
 
         lastEditedCellIDSEmpleadoRecibe = options.model;
     };
-
-    function Guardar() {
+   
+    function GuardarUnoAUno() {
         loadingStart();
         //if (validarRequeridosFormaAlmacenaje()) {
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
-            var Listado = ListadoAGuardar(datasource);
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var Listado = ListadoAGuardar(datasource);
 
-            $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
-                Error(result);
+        //$Almacenaje.Almacenaje.create(Listado, { token: $.cookie("token") }).done(function (result) {
+            //if (Error(result))
+            //{
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 displayMessage("notificationslabel0056", "", '0');
+                
+            //}
                 loadingStop();
-            });
+            //});
         //} else {
         //    displayMessage("notificationslabel0031", "", '1');
         //    loadingStop();
         //}
     };
 
+    function GuardarMasivo() {
+        loadingStart();
+        //if (validarRequeridosFormaAlmacenaje()) {
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var Listado = ListadoAGuardar(datasource);
+
+        //$Almacenaje.Almacenaje.create(Listado, { token: $.cookie("token") }).done(function (result) {
+        //if (Error(result))
+        //{
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        displayMessage("notificationslabel0056", "", '0');
+                
+        //}
+        loadingStop();
+        //});
+        //} else {
+        //    displayMessage("notificationslabel0031", "", '1');
+        //    loadingStop();
+        //}
+    };
+    
     function Cancelar() {
-        window.location.href = _almacenaje + "?leng=" + $("#language").data("kendoDropDownList").value();
+        window.location.href = _UrlEntrega + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
 
     function obtenerFormatoFecha(d) {
@@ -366,6 +360,26 @@
         var horaActual = new Date();
 
         return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+    };
+
+    function AgregarRowGrid(container) {
+        var tdIndex = 2;
+        //get the next row's cell
+        var nextRow = $(container.parent()).next();
+        var nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
+        if (nextRowCell.length == 0) {
+            var grids = $("#grid").data("kendoGrid");
+            if (grids) {
+                var dataSource = grids.dataSource;
+                var total = dataSource.data().length;
+                dataSource.insert(total, {});
+            }
+            //find index of the td element
+            tdIndex = 2;
+            //get the next row's cell
+            nextRow = $(container.parent()).next();
+            nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
+        }
     };
 
     function ControlErroresObjetosComboBox(control, result) {
@@ -393,11 +407,10 @@
             return true;
         }
     };
-}
 
-
+    };
+    
     function ListadoAGuardar(datasource) {
-
         var Listado = {};
         var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
         var FechaEntrega = obtenerFormatoFecha(d);
@@ -406,8 +419,8 @@
             var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
             var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
 
-            if (NoPickingTicket && NoEmpleadoEntrega && NoEmpleadoRecibe) {
-                displayMessage("notificationslabel0075", data.ReturnMessage, '2');
+            if (!NoPickingTicket && !NoEmpleadoEntrega && !NoEmpleadoRecibe) {
+                displayMessage("notificationslabel0075", "", "2");
                 return;
             };
 
