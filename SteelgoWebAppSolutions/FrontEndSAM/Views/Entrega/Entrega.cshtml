@@ -352,8 +352,9 @@
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
         var Listado = ListadoAGuardar(datasource);
 
-        if (!ValidarInformacionCompleta()) {
+        if (!ValidarInformacionCompleta(datasource)) {
             displayMessage("notificationslabel0075", "", "2");
+            loadingStop();
             return;
 
         }
