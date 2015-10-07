@@ -867,8 +867,8 @@ _dictionary = {
         "en-US": "Cancel"
     },
     "ItemCodeSteelGo0004": {
-        "es-MX": "Código",
-        "en-US": "Code"
+        "es-MX": "Asociar Item Codes",
+        "en-US": "Associate Item Codes"
     },
     "ItemCodeSteelGo0005": {
         "es-MX": "Descripción",
