@@ -8,34 +8,48 @@
     </li>
 }
 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="btn-group">
-            <label for="dropProyecto">Proyecto</label>
-            <input type="text" name="name" class="" id="dropProyecto"/>
+<div id="formBusqueda" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                    <label for="dropProyecto">Proyecto</label>
+                    <input type="text" name="name" class="" id="dropProyecto" />
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-9">
+                    <label>Tipo</label>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <input type="checkbox" id="requireFolio" />
+                            <label for="requireFolio" class="checkLabel">Folio entrada</label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <input type="checkbox" id="requirePacking" />
+                            <label for="requirePacking" class="checkLabel">Packing List</label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <input type="checkbox" id="requireIC" />
+                            <label for="requireIC" class="checkLabel">Item Code</label>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
+                            <input type="checkbox" id="requireNumUnico" />
+                            <label for="requireNumUnico" class="checkLabel">Número único</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="btn-group">
-            <h4>Tipo</h4>
-            <div style="display:inline">
-                <input type="checkbox" id="requireFolio" style="width:inherit"/>
-                <label for="requireFolio">Folio entrada</label>
-            </div>
-            <div style="display:inline">
-                <input type="checkbox" id="requirePacking" style="width:inherit"/>
-                <label for="requirePacking">Packing List</label>
-            </div>
-            <div style="display:inline">
-                <input type="checkbox" id="requireIC" style="width:inherit"/>
-                <label for="requireIC">Item Code</label>
-            </div>
-            <div style="display:inline">
-                <input type="checkbox" id="requireNumUnico" style="width:inherit"/>
-                <label for="requireNumUnico">Número único</label>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="grid"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div id="grid"></div>
+
+
 <script>
 @section JavascriptGlobalVariables {
     filtros=[{ field: "Proyecto", operator: "eq", value: "" },{ field: "FolioEntrada", operator: "neq", value: null||"" },{ field: "PackingList", operator: "neq", value: null||"" },{ field: "ItemCode", operator: "neq", value: null||"" },{ field: "NumUnico", operator: "neq", value: null||"" }]
@@ -102,7 +116,8 @@
         rowTemplate: kendo.template('<tr data-uid="#= uid #" style="border-bottom:1px solid black"><td colspan="15"> # if (NumUnico !== null && NumUnico !== "") { # <h4 style="display:inline">Número único:</h4> <span>#= NumUnico #</span><br/> # } if (Proyecto !== null && Proyecto !== "") { #<h4 style="display:inline">Proyecto:</h4> <span>#= Proyecto #</span><br/># } if (Cliente !== null && Cliente !== "") { #<h4 style="display:inline">Cliente:</h4> <span>#= Cliente #</span><br/># } if (FechaCreacion !== null && FechaCreacion !== "") { #<h4 style="display:inline">Fecha de Creacion:</h4> <span>#= FechaCreacion #</span><br/># } if (FolioEntrada !== null && FolioEntrada !== "") { #<h4 style="display:inline">Folio de Entrada:</h4> <span>#= FolioEntrada #</span><br/># } if (PackingList !== null && PackingList !== "") { #<h4 style="display:inline">PackingList:</h4> <span>#= PackingList #</span><br/># }# </td></tr>'),
         dataBound:function(e){
             $(".k-grid .k-grid-header").hide();
-        }
+        },
+        scrollable: true
     });
     $("#dropProyecto").kendoComboBox({
         dataSource: getProyectos(),
