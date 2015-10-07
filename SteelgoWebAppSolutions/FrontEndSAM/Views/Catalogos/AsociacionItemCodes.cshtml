@@ -7,7 +7,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
+        <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("AsociacionItemCodes", "Catalogos")"><span id="AsociacionICS0004"></span></a>
@@ -46,15 +46,15 @@
 </div>
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
     <label for="icsasociado" id="AsociacionICS0003"></label>
-    <input id="icsasociado" type="text"/>
-    <input type="number" hidden id="idICS"/>
+    <input id="icsasociado" readonly disabled type="text"/>
+    <input type="number"  hidden id="idICS"/>
 </div>
 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div id="grid"></div>
 </div>
 
 <ul id="context-menu">
-    <li>Selecccionar Item Code Steelgo</li>
+    <li>Seleccionar Item Code Steelgo</li>
 </ul>
 
 <script>
@@ -107,23 +107,23 @@
     function cargarInicialGrid(){
         $("#grid").kendoGrid({
             columns: [
-                { field: "Codigo",title:_dictionary.ItemCodeSteelGo0004[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }}, 
-                { field: "Descripcion",title:_dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } } },
-                { field: "DescripcionLarga",title:_dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "DescripcionIngles",title:_dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "DescripcionLargaIngles",title:_dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } } },
-                { field: "Diametro1",title:_dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Diametro2",title:_dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Grupo",title:_dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Acero",title:_dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "CedulaA",title:_dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "CedulaB",title:_dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Libra",title:_dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Inch",title:_dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "MM",title:"MM",filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Espesor",title:_dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Peso",title:_dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
-                { field: "Area", title:_dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()],filterable: { cell: { showOperators: false, operator: "contains" } }},
+                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Acero", title: _dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "CedulaB", title: _dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Libra", title: _dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Inch", title: _dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "MM", title: "MM", filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Espesor", title: _dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Peso", title: _dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
+                { field: "Area", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith" } } },
             ],
             dataSource: {
                 data: [],
@@ -137,8 +137,8 @@
                             DescripcionLarga: { type:"string",validation: { required: false } },
                             DescripcionIngles: { type:"string",validation: { required: false } },
                             DescripcionLargaIngles: { type:"string",validation: { required: false } },
-                            Diametro1: { type:"number", validation: { required: false } },
-                            Diametro2: { type:"number", validation: { required: false } },
+                            Diametro1: { type:"string", validation: { required: false } },
+                            Diametro2: { type:"string", validation: { required: false } },
                             Grupo: { type:"string",validation: { required: false } },
                             GrupoID: { editable: false, nullable: true },
                             Acero: { type:"string",validation: { required: false } },
@@ -147,11 +147,11 @@
                             CedulaA: { type:"string",validation: { required: false }},
                             CedulaB: { type:"string",validation: { required: false }},
                             Libra: { type:"string",validation: { required: false }},
-                            Inch: { type:"number", validation: { required: false }, editable: false},
-                            MM: { type:"number", validation: { required: false }, editable: false },
-                            Espesor: { type:"number", validation: { required: false },editable: false },
-                            Peso: { type:"number", validation: { required: true },editable: false },
-                            Area: { type:"number", validation: { required: false }, editable: false },
+                            Inch: { type: "string", validation: { required: false }, editable: false },
+                            MM: { type: "string", validation: { required: false }, editable: false },
+                            Espesor: { type: "string", validation: { required: false }, editable: false },
+                            Peso: { type: "string", validation: { required: true }, editable: false },
+                            Area: { type: "string", validation: { required: false }, editable: false },
                         }
                     }
                 },

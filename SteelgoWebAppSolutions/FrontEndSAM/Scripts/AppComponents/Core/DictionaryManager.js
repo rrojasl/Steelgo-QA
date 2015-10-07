@@ -855,8 +855,8 @@ _dictionary = {
         "en-US": "Upload"
     },
     "ItemCodeSteelGo0001": {
-        "es-MX": "Item Code SteelGo",
-        "en-US": "Item Code SteelGo"
+        "es-MX": "Item Code Steelgo",
+        "en-US": "Item Code Steelgo"
     },
     "ItemCodeSteelGo0002": {
         "es-MX": "Guardar",
@@ -943,8 +943,8 @@ _dictionary = {
         "en-US": "Associated ICS"
     },
     "AsociacionICS0004": {
-        "es-MX": "Asociación Item Code SteelGo",
-        "en-US": "Associated ICS"
+        "es-MX": "Asociación Item Code Steelgo",
+        "en-US": "Associated Item Code Steelgo"
     },
     //Búsqueda
     "Busqueda0001": {
