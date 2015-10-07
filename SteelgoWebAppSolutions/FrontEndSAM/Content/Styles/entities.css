@@ -1605,6 +1605,10 @@ header .menu > div {
         margin-right: 25%;
     }
 
+    #frmImpresionDocumental .formNav {
+        padding-bottom: 15px;
+    }
+
     /*$_modal*/
     #window {
         overflow: initial;
