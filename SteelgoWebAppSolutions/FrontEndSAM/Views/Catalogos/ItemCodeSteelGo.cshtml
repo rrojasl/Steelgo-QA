@@ -158,7 +158,7 @@
                             Inch: { type:"number", validation: { required: false }, editable: false},
                             MM: { type:"number", validation: { required: false }, editable: false },
                             Espesor: { type:"number", validation: { required: false },editable: false },
-                            Peso: { type:"number", validation: { required: true },editable: true },
+                            Peso: { type:"decimal", validation: { required: true },editable: true },
                             Area: { type:"number", validation: { required: false }, editable: true },
                         }
                     }
@@ -262,8 +262,8 @@
                             e.model.Inch=0;
                             e.model.MM=0;
                             e.model.Espesor=0;
-                            e.model.Peso=0;
-                            e.model.Area=0;
+                            //e.model.Peso=0;
+                            //e.model.Area=0;
                             $("#grid").data("kendoGrid").refresh();
                             $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid="+e.container[0].getAttribute("data-uid")+"]"));
                             editado=true;
@@ -290,10 +290,10 @@
                                 e.model.Inch=data.CedulaIn;
                                 e.model.MM=data.CedulaMM;
                                 e.model.Espesor=data.Espesor;
-                                e.model.Peso=data.Peso;
-                                e.model.Area=data.Area;
+                                //e.model.Peso=data.Peso;
+                                //e.model.Area=data.Area;
                                 $("#grid").data("kendoGrid").refresh();
-                                $("#grid").data("kendoGrid").editRow($("#grid tr:eq(1)"));
+                                $("#grid").data("kendoGrid").editRow($("#grid tr[data-uid=" + e.container[0].getAttribute("data-uid") + "]"));
                             }
                         });
                     }else{
