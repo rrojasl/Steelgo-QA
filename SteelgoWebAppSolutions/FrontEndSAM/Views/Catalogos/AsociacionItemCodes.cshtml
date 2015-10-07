@@ -68,6 +68,19 @@
         cargarInicialGrid();
     };
 
+    $("#Cancelar").on("click",function(){
+        var options = $("#grid").data("kendoGrid").options;
+        $("#grid").data("kendoGrid").destroy();
+        $("#grid").empty().kendoGrid(options);
+        options=$("#icinput").data("kendoComboBox").options;
+        $("#icinput").data("kendoComboBox").destroy();
+        $("#icinput").empty().kendoComboBox(options);
+        $("#D1").val(null);
+        $("#D2").val(null);
+        $("#descripcionIC").val(null);
+        $("#icsasociado").val(null);
+    })
+
     $("#icinput").kendoComboBox({
         dataSource: {
             transport: {
