@@ -13,7 +13,7 @@
     </li>
 }
 
-<div id="formaAlmacenaje" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="formaEntrega" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
@@ -320,60 +320,73 @@
         loadingStop();
     };
 
+    function validarRequeridosFormaEntrega() {
+        var bool = true;
+        $("#formaEntrega .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if (!$(this).val()) {
+                    bool = false;
+                    $(this).closest("div").find("label").addClass("error");
+                } else {
+                    $(this).closest("div").find("label").removeClass("error");
+                };
+            };
+        });
+        return bool;
+    };
     function GuardarUnoAUno() {
         loadingStart();
-        //if (validarRequeridosFormaAlmacenaje()) {
-        var datasource = $("#grid").data("kendoGrid").dataSource.data();
-        var Listado = ListadoAGuardar(datasource);
+        if (validarRequeridosFormaEntrega()) {
+            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+            var Listado = { Entregas: "" };
+            Listado.Entregas = ListadoAGuardar(datasource);
 
-        if (!ValidarInformacionCompleta(datasource)) {
-            displayMessage("notificationslabel0075", "", "2");
-            loadingStop();
-            return;
-        };
-        //$Almacenaje.Almacenaje.create(Listado, { token: $.cookie("token") }).done(function (result) {
-            //if (Error(result))
-            //{
-                $("#grid").data("kendoGrid").dataSource.data([]);
-                displayMessage("notificationslabel0056", "", '0');
-                
-            //}
+            if (!ValidarInformacionCompleta(datasource)) {
+                displayMessage("notificationslabel0075", "", "2");
                 loadingStop();
-            //});
-        //} else {
-        //    displayMessage("notificationslabel0031", "", '1');
-        //    loadingStop();
-        //}
+                return;
+            };
+
+            $Entrega.Entrega.create(Listado, {}).done(function (result) {
+                if (Error(result))
+                {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    displayMessage("notificationslabel0056", "", '0');
+                }
+                loadingStop();
+             });
+        } else {
+            displayMessage("notificationslabel0031", "", '1');
+            loadingStop();
+        }
     };
 
     function GuardarMasivo() {
         loadingStart();
-        //if (validarRequeridosFormaAlmacenaje()) {
-        var datasource = $("#grid").data("kendoGrid").dataSource.data();
-        var Listado = ListadoAGuardar(datasource);
+        if (validarRequeridosFormaEntrega()) {
+            var datasource = $("#grid").data("kendoGrid").dataSource.data();
+            var Listado = { Entregas: "" };
+             Listado.Entregas = ListadoAGuardar(datasource);
 
-        if (!ValidarInformacionCompleta(datasource)) {
-            displayMessage("notificationslabel0075", "", "2");
+            if (!ValidarInformacionCompleta(datasource)) {
+                displayMessage("notificationslabel0075", "", "2");
+                loadingStop();
+                return;
+            }
+            $Entrega.Entrega.create(Listado, {}).done(function (result) {
+                if (Error(result))
+                {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    EmpleadoEntrega = {};
+                    $("#EmpleadoEntrega").data("kendoComboBox").value("");
+                    displayMessage("notificationslabel0056", "", '0');
+                }
+                loadingStop();
+            });
+        } else {
+            displayMessage("notificationslabel0031", "", '1');
             loadingStop();
-            return;
-
         }
-        //$Almacenaje.Almacenaje.create(Listado, { token: $.cookie("token") }).done(function (result) {
-        //if (Error(result))
-        //{
-            $("#grid").data("kendoGrid").dataSource.data([]);
-            EmpleadoEntrega = {};
-            $("#EmpleadoEntrega").data("kendoComboBox").value("");
-            displayMessage("notificationslabel0056", "", '0');
-        
-                
-        //}
-        loadingStop();
-        //});
-        //} else {
-        //    displayMessage("notificationslabel0031", "", '1');
-        //    loadingStop();
-        //}
     };
     
     function Cancelar() {
@@ -460,8 +473,8 @@
             var NoPickingTicket = datasource[i].NoPickingTicket;
             var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
             var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
-
-            Listado[i] = { FechaEntrega: FechaEntrega, NoPickingTicket: NoPickingTicket, NoEmpleadoEntrega: NoEmpleadoEntrega, NoEmpleadoRecibe: NoEmpleadoRecibe };
+            var token = $.cookie("token");
+            Listado[i] = { FechaEntrega: FechaEntrega, NoPickingTicket: NoPickingTicket, NoEmpleadoEntrega: NoEmpleadoEntrega, NoEmpleadoRecibe: NoEmpleadoRecibe, token: token };
         };
         return Listado;
     };
