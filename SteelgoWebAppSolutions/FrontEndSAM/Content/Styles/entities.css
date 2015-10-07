@@ -1108,7 +1108,8 @@ header .menu > div {
 
     .formNav .save-group #Editar,
     .formNav .save-group #GenerarPaseSalida,
-    .formNav .save-group #ImprimirPaseSalida {
+    .formNav .save-group #ImprimirPaseSalida,
+    .formNav .save-group #GuardarICS {
         border-radius: 3px;
     }
 
