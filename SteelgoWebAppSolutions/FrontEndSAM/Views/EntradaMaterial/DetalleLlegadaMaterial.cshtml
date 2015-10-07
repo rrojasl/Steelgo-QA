@@ -567,13 +567,13 @@
                     //$("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
 
 
-                    $Proyecto.Proyecto.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
-                        $.each(data, function (index, value) {
-                            concat += "," + value;
-                            console.log(" concat:" + concat);
-                        });
-                        $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
-                    });
+                    //$Proyecto.Proyecto.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
+                    //    $.each(data, function (index, value) {
+                    //        concat += "," + value;
+                    //        console.log(" concat:" + concat);
+                    //    });
+                    //    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
+                    //});
 
                     if (data.Estatus) {
                         $("#Estatus").data("kendoComboBox").value(data.ComboEstatus);
@@ -718,18 +718,9 @@
                     if (data.Cliente) {
                         CargarProyecto(data.Cliente.ClienteID, data.Cliente.Nombre);
                         $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
+                        ObtenerCargarProyectos(data);
                     };
 
-                    //if (data.Proyectos) {
-                    //    CargarProyecto(data.Proyectos.ProyectoID, data.Proyectos.Nombre);
-                    //    $("#ProyectoID").data("kendoComboBox").value(data.Proyectos.Nombre);
-                    //};
-
-                    $.each(data.Proyectos, function (index, value) {
-                        concat += "," + value;
-                        console.log(" concat:" + concat);
-                    });
-                    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
 
                     if (data.Estatus) {
                         $("#Estatus").data("kendoComboBox").value(data.ComboEstatus);
