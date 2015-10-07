@@ -192,7 +192,8 @@ label {
     }
 
     #window label.checkLabel,
-    .popup label.checkLabel {
+    .popup label.checkLabel,
+    .form label.checkLabel {
         display: inline-block;
     }
 
@@ -328,7 +329,8 @@ input {
 }
 
 #window input[type="checkbox"], 
-.popup input[type="checkbox"] {
+.popup input[type="checkbox"],
+#formBusqueda input[type="checkbox"] {
     width: auto!important;
     position: relative;
     top: 2px; 

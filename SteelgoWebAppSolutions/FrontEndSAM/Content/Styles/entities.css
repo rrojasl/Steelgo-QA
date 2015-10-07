@@ -497,6 +497,10 @@ header .menu > div {
         padding: 0;
     }
 
+        .sidebar .main-nav ul.main-menu li ul.sub-menu:empty {
+            display: none!important;
+        }
+
         .sidebar .main-nav ul.main-menu li ul.sub-menu > li {
             padding: 11.5px 12px 11.5px;
         }
