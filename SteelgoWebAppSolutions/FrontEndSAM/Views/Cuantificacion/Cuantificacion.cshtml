@@ -2196,7 +2196,7 @@
         };
 
         function itemCodeAutocomplete(container, options) {
-            $('<input required data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="Codigo" data-value-field="ItemCodeID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
                     autoBind: false,
@@ -2244,7 +2244,7 @@
 
 
         function itemCodeSteelgoAutocomplete(container, options) {
-            $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoAutoComplete({
                     autoBind: false,
@@ -2284,7 +2284,7 @@
         //};
         
         function ColadaAutocomplete(container, options) {
-            $('<input required data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
