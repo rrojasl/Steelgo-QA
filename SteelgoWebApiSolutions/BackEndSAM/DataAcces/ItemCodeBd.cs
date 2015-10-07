@@ -142,7 +142,7 @@ namespace BackEndSAM.DataAcces
                                 itemS2.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
                                 itemS2.DescripcionEspanol = DatosItemCode.Descripcion;
                                 itemS2.DescripcionIngles = DatosItemCode.DescripcionIngles;
-                                itemS2.UsuarioModifica = Guid.Parse("42AF3D10-B17A-4776-BD9A-96E9D0F0DCF6");
+                                //itemS2.UsuarioModifica = Guid.Parse("42AF3D10-B17A-4776-BD9A-96E9D0F0DCF6");
                                 itemS2.FechaModificacion = DateTime.Now;
                                 //nuevoIC.VersionRegistro
                                 itemS2.Peso = DatosItemCode.Peso;
