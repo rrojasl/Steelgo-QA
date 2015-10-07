@@ -4566,6 +4566,10 @@ _dictionary = {
         "es-MX": "No. Empleado recibe",
         "en-US": "No. Employee receives"
     },
+    "Entrega0013": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Default to copy
     "notificationslabel0001": {
         "es-MX": "Se redireccona a home por error de credenciales",
