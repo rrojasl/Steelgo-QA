@@ -885,12 +885,7 @@
                     $("#TramitarPermiso").attr('disabled', 'disabled');
                     $("#AutorizarPermiso").attr('disabled', 'disabled');
 
-                    $.each(data.Proyectos, function (index, value) {
-                        concat += "," + value.ProyectoID;
-                        console.log(" concat:" + concat);
-                    });
 
-                    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
 
                     //Se carga el arreglo transportista
                     if(data.Transportista.length > 0){
@@ -903,7 +898,9 @@
                     if (data.Cliente) {
                         CargarCliente(data.Cliente.ClienteID, data.Cliente.Nombre);
                         $("#ClienteID").data("kendoComboBox").value(data.Cliente.Nombre);
+                        ObtenerCargarProyectos(data);
                     }
+
 
                     if (data.TipoAviso) {
                         CargarTipoAviso(data.TipoAviso.TipoAvisoID, data.TipoAviso.Nombre);
@@ -1164,7 +1161,25 @@
 
                 $("#FechaRecepcion").data("kendoDatePicker").value(fechakendo);
             };
-
+            
+            function ObtenerCargarProyectos(data) {
+                var concat = "";
+                $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+                    ControlErroresObjetosMultiselect("ProyectoID", result);
+                    var filters = [];
+                    filters.push({
+                        field: "ClienteID",
+                        operator: "eq",
+                        value: parseInt(Cliente.ClienteID)
+                    });
+                    $("#ProyectoID").data("kendoMultiSelect").dataSource.filter(filters);
+                    $.each(data.Proyectos, function (index, value) {
+                        concat += "," + value.ProyectoID;
+                        console.log(" concat:" + concat);
+                    });
+                    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
+                });
+            }
             function ObtenerProyectos() {
                 $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("ProyectoID", result);

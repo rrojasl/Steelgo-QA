@@ -181,11 +181,24 @@ namespace BackEndSAM.DataAcces
                 {
                     DetalleAvisoEntradaJson detalle = new DetalleAvisoEntradaJson();
                     Sam3_FolioAvisoEntrada registro =  ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
+
+                    int ClienteFolioAvisoLlegada = FolioAvisoLlegada.ClienteID.GetValueOrDefault();
+                    detalle.Cliente = (from c in ctx.Sam3_Cliente
+                                       where c.ClienteID == ClienteFolioAvisoLlegada
+                                       select new Models.Cliente
+                                       {
+                                           ClienteID = c.ClienteID.ToString(),
+                                           Nombre = c.Nombre
+                                       }).AsParallel().SingleOrDefault();
+
 
                     if (registro != null)
                     {
+
+                        int ClienteID= registro.ClienteID!=null? registro.ClienteID: ClienteFolioAvisoLlegada;
                         detalle.Cliente = (from c in ctx.Sam3_Cliente
-                                           where c.ClienteID == registro.ClienteID
+                                           where c.ClienteID == ClienteID
                                            select new Models.Cliente
                                            {
                                                ClienteID = c.ClienteID.ToString(),
@@ -340,12 +353,20 @@ namespace BackEndSAM.DataAcces
 
                     ctx.SaveChanges();
 
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                    FolioAvisoLlegada.ClienteID = json.ClienteId;
+                    FolioAvisoLlegada.FechaModificacion = DateTime.Now;
+                    FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
+                    ctx.SaveChanges();
+
                     if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
                         string.Format("Se generó un nuevo aviso de Entrada para el folio {0} con fecha {1}",
                         nuevo.FolioAvisoLlegadaID, nuevo.FechaModificacion), usuario))
                     {
                         //Agregar error a la bitacora  PENDIENTE
                     }
+
+                    
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -413,6 +434,12 @@ namespace BackEndSAM.DataAcces
                             }
                         }
                     }
+
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                    FolioAvisoLlegada.ClienteID = json.ClienteId;
+                    FolioAvisoLlegada.FechaModificacion = DateTime.Now;
+                    FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
+                    
 
                     ctx.SaveChanges();
 
