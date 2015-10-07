@@ -268,6 +268,7 @@
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
+        ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
 
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();

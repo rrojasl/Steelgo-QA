@@ -181,17 +181,32 @@ namespace BackEndSAM.DataAcces
                 {
                     DetalleAvisoEntradaJson detalle = new DetalleAvisoEntradaJson();
                     Sam3_FolioAvisoEntrada registro =  ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
+
+                    int ClienteFolioAvisoLlegada = FolioAvisoLlegada.ClienteID.GetValueOrDefault();
+                    detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
+
+                    //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
+                    detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                         join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
+                                         join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                         where r.Activo && f.Activo && p.Activo
+                                         && r.FolioAvisoLlegadaID == folio
+                                         select r.ProyectoID).AsParallel().ToList();
 
                     if (registro != null)
                     {
-                        detalle.Cliente = (from c in ctx.Sam3_Cliente
-                                           where c.ClienteID == registro.ClienteID
-                                           select new Models.Cliente
-                                           {
-                                               ClienteID = c.ClienteID.ToString(),
-                                               Nombre = c.Nombre
-                                           }).AsParallel().SingleOrDefault();
 
+                        int ClienteID= registro.ClienteID!=null? registro.ClienteID: ClienteFolioAvisoLlegada;
+                        detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
+
+                        //detalle.Cliente = (from c in ctx.Sam3_Cliente
+                        //                   where c.ClienteID == ClienteID
+                        //                   select new Models.Cliente
+                        //                   {
+                        //                       ClienteID = c.ClienteID.ToString(),
+                        //                       Nombre = c.Nombre
+                        //                   }).AsParallel().SingleOrDefault();
                         detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
                                               where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo
                                               select new ListaDocumentos
@@ -230,13 +245,6 @@ namespace BackEndSAM.DataAcces
                                                  Nombre = p.Nombre
                                              }).AsParallel().SingleOrDefault();
 
-                        //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
-                        detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                             join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
-                                             join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
-                                             where r.Activo && f.Activo && p.Activo
-                                             && r.FolioAvisoLlegadaID == folio
-                                             select r.ProyectoID).AsParallel().ToList();
                     }
                     return detalle;
                 }
@@ -340,12 +348,20 @@ namespace BackEndSAM.DataAcces
 
                     ctx.SaveChanges();
 
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                    FolioAvisoLlegada.ClienteID = json.ClienteId;
+                    FolioAvisoLlegada.FechaModificacion = DateTime.Now;
+                    FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
+                    ctx.SaveChanges();
+
                     if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
                         string.Format("Se generó un nuevo aviso de Entrada para el folio {0} con fecha {1}",
                         nuevo.FolioAvisoLlegadaID, nuevo.FechaModificacion), usuario))
                     {
                         //Agregar error a la bitacora  PENDIENTE
                     }
+
+                    
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -413,6 +429,12 @@ namespace BackEndSAM.DataAcces
                             }
                         }
                     }
+
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                    FolioAvisoLlegada.ClienteID = json.ClienteId;
+                    FolioAvisoLlegada.FechaModificacion = DateTime.Now;
+                    FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
+                    
 
                     ctx.SaveChanges();
 

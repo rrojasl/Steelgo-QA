@@ -49,10 +49,10 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<ListaCombos> ics = new List<ListaCombos>();
+                //List<ListaCombos> ics = new List<ListaCombos>();
                 using (SamContext ctx = new SamContext())
                 {
-                    ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
+                    //ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
                     List<ListaCombos> listado = (from r in ctx.Sam3_ItemCodeSteelgo
                                                  where r.Activo
                                                  select new ListaCombos
@@ -60,8 +60,8 @@ namespace BackEndSAM.DataAcces
                                                      id = r.ItemCodeSteelgoID.ToString(),
                                                      value = r.Codigo
                                                  }).AsParallel().ToList();
-                    ics.AddRange(listado);
-                    return ics;
+                    //ics.AddRange(listado);
+                    return listado;
 
                 }
             }
@@ -86,10 +86,10 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                List<ListaCombos> ics = new List<ListaCombos>();
+                //List<ListaCombos> ics = new List<ListaCombos>();
                 using (SamContext ctx = new SamContext())
                 {
-                    ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
+                    //ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
                     List<ListaCombos> listado = (from r in ctx.Sam3_ItemCodeSteelgo
                                                  join rel in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals rel.ItemCodeSteelgoID
                                                  join item in ctx.Sam3_ItemCode on rel.ItemCodeID equals item.ItemCodeID
@@ -114,8 +114,8 @@ namespace BackEndSAM.DataAcces
                                    }).AsParallel().ToList();
                     }
 
-                    ics.AddRange(listado);
-                    return ics;
+                    //ics.AddRange(listado);
+                    return listado;
 
                 }
             }

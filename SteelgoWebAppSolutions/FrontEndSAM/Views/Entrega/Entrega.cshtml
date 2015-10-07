@@ -46,24 +46,24 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-2">
                                     <div class="row">
-                                        <div id="MasivoDiv" class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                                        <div id="MasivoDiv" class="col-xs-6 col-sm-6 col-md-4 col-lg-6">
                                             <label id="Entrega0006" class="centered"></label>
                                             <input id="Masivo" class="" type="radio" name="radio" checked value="1">
                                         </div>
-                                        <div id="1a1Div" class="col-xs-6 col-sm-9 col-md-9 col-lg-9">
+                                        <div id="1a1Div" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Entrega0007" class="centered"></label>
                                             <input id="1a1" class="" type="radio" name="radio" value="2" />
                                         </div>
                                     </div>
-                            </div>
-                            <div class="row">
-                                <div id="FechaEntregaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                </div>
+                                <div id="FechaEntregaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                                     <label id="Entrega0008"></label>
                                     <input id="FechaEntrega" class="" />
                                 </div>
-                                <div id="EmpleadoEntregaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <div id="EmpleadoEntregaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                                     <label id="Entrega0009"></label>
                                     <input id="EmpleadoEntrega" />
                                 </div>
@@ -194,6 +194,9 @@
                 serverFiltering: false,
                 serverSorting: false
             },
+            toolbar: [
+                        "create"
+            ],
             autoHeight: true,
             sortable: true,
             scrollable: false,
@@ -220,10 +223,45 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
+
+        $("#grid table").on("keydown", "tr", function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) { //If key is ENTER
+                console.log("--KendoEnter--");
+                //find index of the td element
+                var tdIndex = $(e.target).closest('td').index();
+                //get the next row's cell
+                var nextRow = $(e.target).closest('tr').next();
+                var nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
+                //Check if the next row is the last one and add one
+                if (nextRowCell.length == 0) {
+                    var grids = $("#grid").data("kendoGrid");
+                    if (grids) {
+                        var dataSource = grids.dataSource;
+                        var total = dataSource.data().length;
+                        dataSource.insert(total, {});
+                    }
+                    //find index of the td element
+                    tdIndex = $(e.target).closest('td').index();
+                    //get the next row's cell
+                    nextRow = $(e.target).closest('tr').next();
+                    nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
+
+                    alert("keydown " + $("input:checked").val());
+                }
+
+                //focus the next cell on a different context
+                setTimeout(function () {
+                    console.log("--Changing Current--");
+                    var grid = $("#grid").data("kendoGrid");
+                    grid.current(nextRowCell);
+                }, 0);
+            }
+        });
     };
 
     function ObtenerPickingTicket(container, options) {
-        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+        $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
            .appendTo(container)
            .kendoAutoComplete({
                autoBind: false,
@@ -234,9 +272,11 @@
                    },
                },
                select: function (e) {
+                  
                },
                change: function (e) {
-                   var value = this.text();
+                   
+                   var value = this.value();
                    lastEditedCellIDSPickingTicket.NoPickingTicket = value;
                    lastEditedCellIDSPickingTicket.NoEmpleadoEntrega = $("#EmpleadoEntrega").data("kendoComboBox").value();
                    $('#grid').data('kendoGrid').refresh();
@@ -249,7 +289,7 @@
     };
 
     function EmpleadoEntregaAutocomplete(container, options) {
-        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+        $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoAutoComplete({
                 autoBind: false,
@@ -260,9 +300,10 @@
                     },
                 },
                 select: function (e) {
+
                 },
                 change: function (e) {
-                    var value = this.text();
+                    var value = this.value();
                     lastEditedCellIDSEmpleadoEntrega.NoEmpleadoEntrega = value;
                     $('#grid').data('kendoGrid').refresh();
                 },
@@ -274,7 +315,7 @@
 
 
     function EmpleadoRecibeAutocomplete(container, options) {
-        $('<input required data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
+        $('<input data-text-field="value" data-value-field="id" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoAutoComplete({
                 autoBind: false,
@@ -287,7 +328,7 @@
                 select: function (e) {
                 },
                 change: function (e) {
-                    var value = this.text();
+                    var value = this.value();
                     lastEditedCellIDSEmpleadoRecibe.NoEmpleadoRecibe = value;
                     $('#grid').data('kendoGrid').refresh();
                 },
@@ -301,9 +342,7 @@
         loadingStart();
         //if (validarRequeridosFormaAlmacenaje()) {
             var datasource = $("#grid").data("kendoGrid").dataSource.data();
-            var Listado = { OrdenAlmacenajeID: "", Items: "" };
-            Listado.OrdenAlmacenajeID = OrdenAlmacenaje.OrdenAlmacenajeID;
-            Listado.NumerosUnicos = ListadoAGuardar(datasource);
+            var Listado = ListadoAGuardar(datasource);
 
             $Almacenaje.Almacenaje.update(Listado, { token: $.cookie("token") }).done(function (result) {
                 Error(result);
@@ -318,6 +357,15 @@
 
     function Cancelar() {
         window.location.href = _almacenaje + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
+
+    function obtenerFormatoFecha(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+        var horaActual = new Date();
+
+        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
     };
 
     function ControlErroresObjetosComboBox(control, result) {
@@ -348,6 +396,25 @@
 }
 
 
+    function ListadoAGuardar(datasource) {
+
+        var Listado = {};
+        var d = new Date($("#FechaEntrega").data("kendoDatePicker").value());
+        var FechaEntrega = obtenerFormatoFecha(d);
+        for (var i = 0; i < datasource.length; i++) {
+            var NoPickingTicket = datasource[i].NoPickingTicket;
+            var NoEmpleadoEntrega = datasource[i].NoEmpleadoEntrega;
+            var NoEmpleadoRecibe = datasource[i].NoEmpleadoRecibe;
+
+            if (NoPickingTicket && NoEmpleadoEntrega && NoEmpleadoRecibe) {
+                displayMessage("notificationslabel0075", data.ReturnMessage, '2');
+                return;
+            };
+
+            Listado[i] = { FechaEntrega: FechaEntrega, NoPickingTicket: NoPickingTicket, NoEmpleadoEntrega: NoEmpleadoEntrega, NoEmpleadoRecibe: NoEmpleadoRecibe };
+        };
+        return Listado;
+    };
 
     @section JavascriptDocumentReadyFunctions {
         //$authorizationModel["Entrega"] = $EntregaModel;

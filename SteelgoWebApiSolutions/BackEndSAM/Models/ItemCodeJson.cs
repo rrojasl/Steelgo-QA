@@ -26,6 +26,7 @@ namespace BackEndSAM.Models
         public Nullable<int> MM { get; set; }
         public int ColadaID { get; set; }
         public string ColadaNombre { get; set; }
+        public string TipoUsoID { get; set; }
     }
 
     public class ItemCodeComplemento

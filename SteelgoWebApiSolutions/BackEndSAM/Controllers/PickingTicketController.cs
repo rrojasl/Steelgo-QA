@@ -13,12 +13,13 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 
+
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class EntregaController : ApiController
+    public class PickingTicketController : ApiController
     {
-        // GET api/entrega
+        // GET api/pickingticket
         public IEnumerable<ListaCombos> Get(string token)
         {
             List<ListaCombos> lstCombos = new List<ListaCombos>();
@@ -26,38 +27,38 @@ namespace BackEndSAM.Controllers
             ListaCombos combo2 = new ListaCombos();
             ListaCombos combo3 = new ListaCombos();
 
-            combo1.id = "123";
-            combo1.value = "123";
+            combo1.id = "1";
+            combo1.value = "Picking ticket 1";
             lstCombos.Add(combo1);
 
-            combo2.id = "124";
-            combo2.value = "124";
+            combo2.id = "2";
+            combo2.value = "Picking ticket 2";
             lstCombos.Add(combo2);
 
-            combo3.id = "125";
-            combo3.value = "125";
+            combo3.id = "3";
+            combo3.value = "Picking ticket 3";
             lstCombos.Add(combo3);
-            
+
             return lstCombos.AsEnumerable();
         }
 
-        // GET api/entrega/5
+        // GET api/pickingticket/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/entrega
+        // POST api/pickingticket
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/entrega/5
+        // PUT api/pickingticket/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/entrega/5
+        // DELETE api/pickingticket/5
         public void Delete(int id)
         {
         }
