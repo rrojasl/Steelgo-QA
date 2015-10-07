@@ -184,27 +184,29 @@ namespace BackEndSAM.DataAcces
                     Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
 
                     int ClienteFolioAvisoLlegada = FolioAvisoLlegada.ClienteID.GetValueOrDefault();
-                    detalle.Cliente = (from c in ctx.Sam3_Cliente
-                                       where c.ClienteID == ClienteFolioAvisoLlegada
-                                       select new Models.Cliente
-                                       {
-                                           ClienteID = c.ClienteID.ToString(),
-                                           Nombre = c.Nombre
-                                       }).AsParallel().SingleOrDefault();
+                    detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
 
+                    //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
+                    detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                         join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
+                                         join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                         where r.Activo && f.Activo && p.Activo
+                                         && r.FolioAvisoLlegadaID == folio
+                                         select r.ProyectoID).AsParallel().ToList();
 
                     if (registro != null)
                     {
 
                         int ClienteID= registro.ClienteID!=null? registro.ClienteID: ClienteFolioAvisoLlegada;
-                        detalle.Cliente = (from c in ctx.Sam3_Cliente
-                                           where c.ClienteID == ClienteID
-                                           select new Models.Cliente
-                                           {
-                                               ClienteID = c.ClienteID.ToString(),
-                                               Nombre = c.Nombre
-                                           }).AsParallel().SingleOrDefault();
+                        detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
 
+                        //detalle.Cliente = (from c in ctx.Sam3_Cliente
+                        //                   where c.ClienteID == ClienteID
+                        //                   select new Models.Cliente
+                        //                   {
+                        //                       ClienteID = c.ClienteID.ToString(),
+                        //                       Nombre = c.Nombre
+                        //                   }).AsParallel().SingleOrDefault();
                         detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
                                               where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo
                                               select new ListaDocumentos
@@ -243,13 +245,6 @@ namespace BackEndSAM.DataAcces
                                                  Nombre = p.Nombre
                                              }).AsParallel().SingleOrDefault();
 
-                        //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
-                        detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
-                                             join f in ctx.Sam3_FolioAvisoLlegada on r.FolioAvisoLlegadaID equals f.FolioAvisoLlegadaID
-                                             join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
-                                             where r.Activo && f.Activo && p.Activo
-                                             && r.FolioAvisoLlegadaID == folio
-                                             select r.ProyectoID).AsParallel().ToList();
                     }
                     return detalle;
                 }
