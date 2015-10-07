@@ -708,6 +708,7 @@
                     var concat = "";
                     CargarFolio(folioAvisoLlegada);
                     folioLlegada = data.FolioAvisoEntradaID;
+
                     cargarTituloFolio();
                     ActualizarTitulosEdicion(data);
 
@@ -1066,27 +1067,27 @@
                 if (elem.tagName.toLowerCase() != 'label') {
                     switch ($(elem).attr("id")) {
                         case 'ClienteID':
-                            if (!$("#ClienteID").data("kendoComboBox").value().length > 0) {
+                            if (!$("#ClienteID").data("kendoComboBox").value()) {
                                 CargarCliente(1, "");
                             }
                             break;
                         case 'ProyectoID':
-                            if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
+                            if (!$("#ProyectoID").data("kendoMultiSelect").value().length) {
                                 $("#ProyectoID").data("kendoMultiSelect").value(["1"]);
                             }
                             break;
                         case 'ProveedorID':
-                            if (!$("#ProveedorID").data("kendoComboBox").value().length > 0) {
+                            if (!$("#ProveedorID").data("kendoComboBox").value()) {
                                 CargarProveedor(1, "");
                             }
                             break;
                         case 'PatioID':
-                            if (!$("#PatioID").data("kendoComboBox").value().length > 0) {
+                            if (!$("#PatioID").data("kendoComboBox").value()) {
                                 CargarPatio(1, "");
                             }
                             break;
                         case 'Estatus':
-                            if (!$("#Estatus").data("kendoComboBox").value().length > 0) {
+                            if (!$("#Estatus").data("kendoComboBox").value()) {
                                 CargarEstatus(1, "En Patio");
                             }
                             break;
@@ -1340,7 +1341,7 @@
             $("#formLlegadaMaterial .security_required").each(function (i, elem) {
                 if (elem.tagName.toLowerCase() != 'label') {
                     if ($(elem).attr("id") == "ProyectoID") {
-                        if (!$("#ProyectoID").data("kendoMultiSelect").value()) {
+                        if (!$("#ProyectoID").data("kendoMultiSelect").value().length) {
                             bool = false;
                             $(this).closest("div").find("label").addClass("error");
                         } else {
