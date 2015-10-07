@@ -6,9 +6,6 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
     </li>
-    <li>
-        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
-    </li>
     <li class="active">
         <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
     </li>
@@ -21,16 +18,15 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
-                            <div class="btn-group save-group">
+                            @*<div class="btn-group save-group">
                                 <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="LlegadaMaterial0044"></span></button>
-                            </div>
+                            </div>*@
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
                         </div>
                         <div class="button-section">
                             <a href="@Url.Action("AsociacionItemCodes", "Catalogos")" class="btn btn-primary"><span id="ItemCodeSteelGo0004"></span></a>
                         </div>
-                        <a id="Imprimir" href="#" class="btn btn-fadeBlue"></a>
                     </div>
                 </div>
             </div>
@@ -71,6 +67,12 @@
             console.log(e)
             console.log("NaiN")
         }
+    })
+
+    $("#Cancelar").on("click",function(){
+        var options = $("#grid").data("kendoGrid").options;
+        $("#grid").data("kendoGrid").destroy();
+        $("#grid").empty().kendoGrid(options);
     })
 
     function cargarInicialGrid() {
@@ -162,7 +164,7 @@
                             Inch: { type: "number", validation: { required: false }, editable: false },
                             MM: { type: "number", validation: { required: false }, editable: false },
                             Espesor: { type: "number", validation: { required: true }, editable: false },
-                            Peso: { type: "decimal", validation: { required: true }, editable: true },
+                            Peso: { type: "decimal", validation: { required: false }, editable: true },
                             Area: { type: "number", validation: { required: false }, editable: true },
                         }
                     }
