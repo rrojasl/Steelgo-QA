@@ -432,7 +432,7 @@
                     dataValueField: "ProyectoID",
                     filter: "contains",
                 });
-                ObtenerProyectos();
+                
 
                 $("#ClienteID").kendoComboBox({
                     dataTextField: "Nombre",
@@ -446,13 +446,8 @@
                         if (!value) {
                             Cliente = [];
                         } else {
-                            var filters = [];
-                            filters.push({
-                                field: "ClienteID",
-                                operator: "eq",
-                                value: parseInt(Cliente.ClienteID)
-                            });
-                            $("#ProyectoID").data("kendoMultiSelect").dataSource.filter(filters);
+                            ObtenerProyectos();
+                           
                         };
                     },
                     filter: "contains",
@@ -1173,6 +1168,13 @@
             function ObtenerProyectos() {
                 $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("ProyectoID", result);
+                    var filters = [];
+                    filters.push({
+                        field: "ClienteID",
+                        operator: "eq",
+                        value: parseInt(Cliente.ClienteID)
+                    });
+                    $("#ProyectoID").data("kendoMultiSelect").dataSource.filter(filters);
                 });
             };
 
