@@ -908,28 +908,29 @@
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
-            grid.table.bind("keypress", function (e) {
-                keydown(e);
-                if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-                    //get currently navigated cell, this id follows user's navigation
-                    var activeCell = $("#grid_active_cell");
+            var dispositivo = navigator.userAgent.toLowerCase();
+            if (!dispositivo.match(/(iphone|ipod|ipad|android)/)) {
+                grid.table.bind("keypress", function (e) {
+                    keydown(e);
+                    if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                        //get currently navigated cell, this id follows user's navigation
+                        var activeCell = $("#grid_active_cell");
 
-                    //don't do anything if already editing cell        
-                    if (activeCell.hasClass("k-edit-cell")) return;
+                        //don't do anything if already editing cell        
+                        if (activeCell.hasClass("k-edit-cell")) return;
 
-                    grid.editCell(activeCell);
-                    var input = activeCell.find("input");
+                        grid.editCell(activeCell);
+                        var input = activeCell.find("input");
 
-                    //number datatype editor loses key press character when entering edit
-                    if (input.last().attr('data-type') === 'number') {
-                        input.val(String.fromCharCode(e.keyCode | e.charCode));
-                    } else {
-                        input.val("");
+                        //number datatype editor loses key press character when entering edit
+                        if (input.last().attr('data-type') === 'number') {
+                            input.val(String.fromCharCode(e.keyCode | e.charCode));
+                        } else {
+                            input.val("");
+                        }
                     }
-
-
-                }
-            });
+                });
+            };
             //Kendo "Enter" key input is captured through this binding
             $("#grid table").on("keydown", "tr", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
