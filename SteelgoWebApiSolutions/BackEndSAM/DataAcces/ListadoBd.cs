@@ -294,9 +294,12 @@ namespace BackEndSAM.DataAcces
 
                     result.TotalCreados = registrosBd.Count();
 
-                    result.SinEstaus = (from r in registrosBd
-                                        where r.Estatus == ""
-                                        select r).Count();
+                    result.SinEstaus = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                        where fa.Activo
+                                        && !(from fe in ctx.Sam3_FolioAvisoEntrada
+                                             where fe.Activo
+                                             select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                                        select fa).AsParallel().Distinct().Count();
 
                     result.SinOrdenDescarga = (from r in registrosBd
                                                where r.FolioDescarga <= 0

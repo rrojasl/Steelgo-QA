@@ -114,11 +114,27 @@ namespace BackEndSAM.DataAcces
                         }
                     }
 
+                    List<ElementoListadoFolioEntradaMaterial> elementos = new List<ElementoListadoFolioEntradaMaterial>();
+
                     if (result.Count > 0)
                     {
                         if (filtros.PorLlegar)
                         {
-                            result = result.Where(x => x.Estatus == "").ToList();
+                            elementos = (from fa in ctx.Sam3_FolioAvisoLlegada
+                                         where fa.Activo
+                                         && !(from fe in ctx.Sam3_FolioAvisoEntrada
+                                              where fe.Activo
+                                              select fe.FolioAvisoLlegadaID).Contains(fa.FolioAvisoLlegadaID)
+                                         select new ElementoListadoFolioEntradaMaterial
+                                         {
+                                             EstatusFolio = fa.Estatus,
+                                             FechaCreación = fa.FechaModificacion.Value.ToString(),
+                                             FolioAvisoEntradaID = fa.FolioAvisoLlegadaID.ToString(),
+                                             FolioAvisoLlegadaID = fa.FolioAvisoLlegadaID.ToString(),
+                                             Patio = fa.Sam3_Patio.Nombre
+                                         }).AsParallel().ToList();
+
+                            return elementos;
                         }
 
                         if (filtros.PorDescargar)
@@ -138,8 +154,7 @@ namespace BackEndSAM.DataAcces
 
                     result = result.GroupBy(x => x.FolioAvisoEntradaID).Select(x => x.First()).ToList();
 
-                    List<ElementoListadoFolioEntradaMaterial> elementos = new List<ElementoListadoFolioEntradaMaterial>();
-
+                    
                     foreach (Sam3_FolioAvisoEntrada folio in result)
                     {
                         ElementoListadoFolioEntradaMaterial nuevoElemento = new ElementoListadoFolioEntradaMaterial();
