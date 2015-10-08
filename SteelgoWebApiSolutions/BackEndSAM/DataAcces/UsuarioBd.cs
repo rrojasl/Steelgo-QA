@@ -70,6 +70,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 proyectos = null;
                 patios = null;
                 TransactionalInformation result = new TransactionalInformation();

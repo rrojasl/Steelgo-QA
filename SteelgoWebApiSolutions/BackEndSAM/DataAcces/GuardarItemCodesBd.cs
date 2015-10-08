@@ -995,6 +995,9 @@ namespace BackEndSAM.DataAcces
 
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -1013,26 +1016,37 @@ namespace BackEndSAM.DataAcces
         /// <returns>Bulto object</returns>
         public Sam3_Bulto InsertarBulto(int FolioCuantificacion, Sam3_Usuario usuario)
         {
-            using (SamContext ctx = new SamContext())
+            try
             {
-                Sam3_Bulto bulto = new Sam3_Bulto();
-                bulto.FolioCuantificacionID = FolioCuantificacion;
-                bulto.Estatus = "En Proceso de Recepción";
-                bulto.FechaModificacion = DateTime.Now;
-                bulto.UsuarioModificacion = usuario.UsuarioID;
-                bulto.Activo = true;
-                ctx.Sam3_Bulto.Add(bulto);
-                ctx.SaveChanges();
-
-                if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
-                       string.Format("Se generó un nuevo bulto para el folio Cuantificación {0} con fecha {1}",
-                       FolioCuantificacion, bulto.FechaModificacion), usuario))
+                using (SamContext ctx = new SamContext())
                 {
-                    //Agregar error a la bitacora  PENDIENTE
+                    Sam3_Bulto bulto = new Sam3_Bulto();
+                    bulto.FolioCuantificacionID = FolioCuantificacion;
+                    bulto.Estatus = "En Proceso de Recepción";
+                    bulto.FechaModificacion = DateTime.Now;
+                    bulto.UsuarioModificacion = usuario.UsuarioID;
+                    bulto.Activo = true;
+                    ctx.Sam3_Bulto.Add(bulto);
+                    ctx.SaveChanges();
+
+                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(1,
+                           string.Format("Se generó un nuevo bulto para el folio Cuantificación {0} con fecha {1}",
+                           FolioCuantificacion, bulto.FechaModificacion), usuario))
+                    {
+                        //Agregar error a la bitacora  PENDIENTE
+                    }
+
+
+                    return bulto;
                 }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
 
-
-                return bulto;
+                return null;
             }
         }
 
