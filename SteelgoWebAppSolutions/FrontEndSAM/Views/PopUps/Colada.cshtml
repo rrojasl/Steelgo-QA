@@ -92,6 +92,9 @@
     function CargaInicial() {
         hideElementsColada();
 
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarColada();
+        });
         $("#GuardarColada").click(function () {
             if (validarRequeridosModalColada()) {
                 GuardarColada();

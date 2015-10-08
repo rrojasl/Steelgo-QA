@@ -69,6 +69,11 @@
     @section JavascriptGlobalFunctions {
     function CargarIncial() {
         hideElementsPatio();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarPatio();
+        });
+
         $("#GuardarPatio").click(function (e) {
             if (validarRequeridosModalPatio()) {
                 GuardarPatio();

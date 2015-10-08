@@ -98,6 +98,10 @@
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
         hideElementsPlana();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarPlana();
+        });
         $("#TipoVehiculo_Plana").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "TipoVehiculoID",

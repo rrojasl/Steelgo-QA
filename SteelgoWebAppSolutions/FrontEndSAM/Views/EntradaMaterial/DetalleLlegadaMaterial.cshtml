@@ -499,22 +499,6 @@
                 upload: onUploadAdjuntarArchivos
             });
 
-            $("#ContactoID_Proveedor").kendoComboBox({
-                dataTextField: "Nombre",
-                dataValueField: "ProveedorID",
-                select: function (e) {
-                    var dataItem = this.dataItem(e.item.index());
-                    CargarContacto(dataItem.ContactoID, dataItem.Nombre);
-                },
-                filter: "contains",
-                change: function (e) {
-                    var value = this.value();
-                    if (!value) {
-                        Contacto = [];
-                    };
-                },
-            });
-            ObtenerContacto();
            
             $("#AdjuntarArchivos").data("kendoUpload").enable(false);
             $("#Descripcion").attr('disabled', 'disabled');
@@ -870,6 +854,7 @@
                 actions: false,
                 content: content,
                 modal: true,
+                actions: ["Close"],
                 title: modalTitle,
                 resizable: true,
                 visible: false,

@@ -1163,6 +1163,7 @@
     <Content Include="Views\Busqueda\Busqueda.cshtml" />
     <Content Include="Views\Entrega\Entrega.cshtml" />
     <Content Include="Views\Prueba\Prueba.cshtml" />
+    <Content Include="Views\PopUps\TipoUso.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

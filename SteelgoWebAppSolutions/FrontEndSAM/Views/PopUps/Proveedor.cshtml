@@ -79,6 +79,11 @@
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
         hideElementsProveedor();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarProveedor();
+        });
+
         $("#ContactoID_Proveedor").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProveedorID",
@@ -179,7 +184,7 @@
     function CancelarProveedor() {
         LimpiarModalProveedor();
         cerrarVentanaModal();
-        cancelarvalidacionRequeridosModalProveedor();
+        cancelarvalidacionRequeridosModalChofer();
     };
 
     function hideElementsProveedor() {

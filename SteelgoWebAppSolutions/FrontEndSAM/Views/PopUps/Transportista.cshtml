@@ -94,6 +94,11 @@
 
     function CargaInicial() {
         hideElementsTransportista();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarTransportista();
+        });
+
         $("#GuardarTransportista").click(function (e) {
             if (validarRequeridosModalTransportista()) {
                 GuardarTransportista();
@@ -180,7 +185,12 @@
         });
     };
     
-    
+    window.parent.$("#close").click(function (e) {
+        CancelarTransportista();
+        cerrarVentanaModal();
+    });
+
+
     function GuardarTransportista() {
 
         TransportistaModal = [];

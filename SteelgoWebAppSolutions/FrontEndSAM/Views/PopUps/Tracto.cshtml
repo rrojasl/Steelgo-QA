@@ -108,6 +108,9 @@
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
         hideElementsTracto();
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarCamion();
+        });
         $("#TipoVehiculo_Camion").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "TipoVehiculoID",

@@ -90,6 +90,11 @@
 
     function CargaInicial() {
         hideElementsItemCode();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarModalItemCode()
+        });
+
         $("#Proyecto_ItemCode").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ProyectoID",

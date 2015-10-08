@@ -44,6 +44,10 @@
     @section JavascriptGlobalFunctions {
     function CargaInicial() {
         hideElementsChofer();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarChofer();
+        });
         $("#GuardarChofer").click(function (e) {
             if (validarRequeridosModalChofer()) {
                 GuardarChofer();

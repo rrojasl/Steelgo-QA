@@ -107,6 +107,10 @@
     @section JavascriptGlobalFunctions {
     function CargarInicial() {
         hideElementsItemCodeSteelgo();
+
+        window.parent.$(".k-i-close").click(function (e) {
+            CancelarItemCodeSteelgo();
+        });
         $("#Familia_ItemCodeSteelgo").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "FamiliaAceroID",
