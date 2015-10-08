@@ -267,7 +267,7 @@
             LimpiarModalColada();
             if (Error(data)) {
                 cerrarVentanaModal();
-                window.parent.ObtenerColada("Colada", 0, 0);
+                window.parent.ActualizarPaginaPadre();
             }
         });
     };
@@ -276,6 +276,7 @@
         LimpiarModalColada();
         cerrarVentanaModal();
         cancelarvalidacionRequeridosModalColada();
+        window.parent.CancelarPadre();
     };
 
     function cerrarVentanaModal() {

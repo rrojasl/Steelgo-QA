@@ -1186,6 +1186,10 @@
             }
         };
 
+        function ActualizarPaginaPadre() {
+            ObtenerColada("Colada", 0, 0);
+        };
+
         function ObtenerColada(id, opciones, mostrarOpcion) {
             $Colada.Colada.read({ token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
                 ControlErroresObjetosComboBox(id, result);
