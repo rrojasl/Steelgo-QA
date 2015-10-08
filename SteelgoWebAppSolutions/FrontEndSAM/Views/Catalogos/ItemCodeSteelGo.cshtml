@@ -41,7 +41,16 @@
 <script>
 @section JavascriptGlobalVariables {
     editado = false;
-    }
+    var $ItemCodeSteelGoModel = {
+        listContainer: {
+            create: ".k-grid-add",
+            list: ["#grid",".k-combobox"],
+            detail: "",
+            destroy: ".k-grid-delete"
+        },
+        properties:{}
+    };
+}
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
@@ -59,15 +68,6 @@
         });
         return { id: id, nombre: nombre, posicion: dirty[dirty.length - 1] }
     }
-
-    $("#GuardarICS").on("click", function () {
-        try {
-            $("#grid").data("kendoGrid").saveRow();
-        } catch (e) {
-            console.log(e)
-            console.log("NaiN")
-        }
-    })
 
     $("#Cancelar").on("click",function(){
         var options = $("#grid").data("kendoGrid").options;
@@ -326,11 +326,12 @@
     };
 
     @section JavascriptDocumentReadyFunctions {
+        $authorizationModel["ItemCodeSteelGo"] = $ItemCodeSteelGoModel;
     };
     
     @section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "7", { path: '/' });
+        Cookies.set("home", true, { path: '/' });
+        Cookies.set("navegacion", "44", { path: '/' });
     };
 
 </script>

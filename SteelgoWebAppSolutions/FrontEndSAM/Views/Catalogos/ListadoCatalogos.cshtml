@@ -37,11 +37,41 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    var $ListadoCatalogosModel = {
+        listContainer: {
+            create: ".k-grid-add",
+            list: ["#grid",".k-combobox","k-dropdown"],
+            detail: "",
+            destroy: "k-grid-delete"
+        },
+        //properties:{
+        //    listacatalogos:{
+        //        visible: ".form-group:first",
+        //        editable: "#listaCatalogos",
+        //        required: "#listaCatalogos"
+        //    },
+        //    fconversion:{
+        //        visible: ".form-group:second",
+        //        editable: "#fconversion",
+        //        required: "#fconversion"
+        //    },
+        //    files:{
+        //        visible: ".form-group:third",
+        //        editable: "#files",
+        //        required: "#files"
+        //    },
+        //    fcarga:{
+        //        visible: ".form-group:fourth",
+        //        editable: "#fcarga",
+        //        required: "#fcarga"
+        //    }
+        //}
+    };
     datosRegistro={};
     nuevasCedulas=[];
-    dataBoundCounter = 0;
-    csvTypes=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
-    models = {
+    contadorDataBound = 0;
+    tiposCSV=["application/csv","application/excel","application/lotus123","application/msexcel","application/vnd.lotus-1-2-3","application/vnd.ms-excel","application/vnd.ms-works","application/vnd.msexcel","application/wk1","application/wks","application/x-123","application/x-dos_ms_excel","application/x-excel","application/x-lotus123","application/x-ms-excel","application/x-msexcel","application/x-msworks","application/x-wks","application/x-xls","application/xlc","application/xls","text/anytext","text/comma-separated-values","text/csv","zz-application/zz-winassoc-wk1"];
+    modelos = {
         "1": {
             id: "PatioID",
             fields: {
@@ -407,12 +437,12 @@
             save: function (e) {
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
                 var grid = $("#grid").data("kendoGrid");
-                var data=getDataFromModel(models[catalogo].fields,e.model);
+                var data=getDataFromModel(modelos[catalogo].fields,e.model);
                 if(e.model.id!==null && e.model.id!==""){
                     var direccion=parseUrl(data,catalogo,"put");
                     grid.options.dataSource.options.transport.update.url=direccion;
                 }else{
-                    data[models[catalogo].id]="0";
+                    data[modelos[catalogo].id]="0";
                     var direccion=parseUrl(data,catalogo,"post");
                     grid.options.dataSource.options.transport.create.url=direccion;
                 }
@@ -421,7 +451,7 @@
                 var catalogo = $("#listaCatalogos").data("kendoDropDownList").value();
                 var grid = $("#grid").data("kendoGrid");
                 var data = {};
-                for (f in models[catalogo].fields) {
+                for (f in modelos[catalogo].fields) {
                     data[f] = e.model[f];
                 }
                 if(e.model.id!==null && e.model.id!==""){
@@ -432,8 +462,8 @@
                 }
             },
             dataBound: function (e) {
-                if (dataBoundCounter == 0) {
-                    dataBoundCounter++;
+                if (contadorDataBound == 0) {
+                    contadorDataBound++;
                     $(".k-grid input.k-textbox").prop('readonly', true);
                     $(".k-grid td .k-button").text('');
                     $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
@@ -489,7 +519,7 @@
         if (method !== "delete") {
             return getUrl() + Cookies.get("token") + "&data=" + encodeURIComponent(JSON.stringify(data));
         } else {
-            return getUrl() + Cookies.get("token") + "&id=" + data[models[catalogo].id];
+            return getUrl() + Cookies.get("token") + "&id=" + data[modelos[catalogo].id];
         }
     }
 
@@ -497,7 +527,7 @@
         return new kendo.data.DataSource({
             data: [],
             schema: {
-                model: models[val]
+                model: modelos[val]
             },
             serverPaging: false,
             serverFiltering: false,
@@ -550,13 +580,13 @@
             }
         },
         change: function (e) {
-            dataBoundCounter = 0;
+            contadorDataBound = 0;
             if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value()!="11") {
                 nuevasCedulas=[];
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
-            }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fconversion">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a href="#" id="templateced">Descargar plantilla</a></div>');
+            }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a href="../TemplateCed.csv" id="templateced">Descargar plantilla</a></div>');
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
                     $("#fconversion").val(result);
                 });
@@ -579,7 +609,7 @@
                     } else {
                         var data = null;
                         var file = evt.target.files[0];
-                        if(csvTypes.indexOf(file.type.toLowerCase())==-1){
+                        if(tiposCSV.indexOf(file.type.toLowerCase())==-1){
                             this.value=null;
                             displayMessage("ListadoCatalogos0008", "", '2');
                         }else{
@@ -623,7 +653,7 @@
                 removeGrid();
                 $("#grid").kendoGrid({
                     columns: [
-                        { field: "Diametro" },
+                        { field: "Diametro1", title:"Diametro" },
                         { field: "CedulaA",title:"Cedula A" },
                         { field: "CedulaB",title:"Cedula B" },
                         { field: "CedulaC",title:"Cedula C" },
@@ -638,7 +668,7 @@
                                 id: "CedulaID",
                                 fields: {
                                     CedulaID: { type: "number", editable: false, nullable: true },
-                                    Diametro: { type: "string", validation: { required: false }, nullable: true },
+                                    Diametro1: { type: "number", validation: { required: false }, nullable: true },
                                     CedulaA: { type: "string", validation: { required: false }, nullable: true },
                                     CedulaB: { type: "string", validation: { required: false }, nullable: true },
                                     CedulaC: { type: "string", validation: { required: false }, nullable: true},
@@ -668,37 +698,37 @@
                                 }
                             }
                         },
-                        autoHeight: true,
-                        sortable: false,
-                        scrollable: false,
-                        filterable: {
-                            extra: false,
-                            operators: {
-                                string: {
-                                    startswith: "Starts with",
-                                    eq: "Is equal to",
-                                    neq: "Is not equal to"
-                                }
+                    },
+                    autoHeight: true,
+                    sortable: false,
+                    scrollable: false,
+                    filterable: {
+                        extra: false,
+                        operators: {
+                            string: {
+                                startswith: "Starts with",
+                                eq: "Is equal to",
+                                neq: "Is not equal to"
                             }
-                        },
-                        pageable: {
-                            refresh: false,
-                            pageSizes: [10, 15, 20],
-                            info: false,
-                            input: false,
-                            numeric: true,
-                            buttonCount: 2
-                        },
-                        toolbar: ["create"],
-                        save: function(e) {
-                            console.log(e);
-                        },
-                        remove: function(e) {
-                            console.log(e);
-                        },
-                        dataBound: function(e) {
-                            console.log(e);
                         }
+                    },
+                    pageable: {
+                        refresh: false,
+                        pageSizes: [10, 15, 20],
+                        info: false,
+                        input: false,
+                        numeric: true,
+                        buttonCount: 2
+                    },
+                    editable:false,
+                    save: function(e) {
+                        console.log(e);
+                    },
+                    remove: function(e) {
+                        console.log(e);
+                    },
+                    dataBound: function(e) {
+                        console.log(e);
                     }
                 });
             }
@@ -707,30 +737,30 @@
 
     function validData(c){
         var modelo=$("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
-        var valido=true;
+        var valido=0;
         for(n in modelo){
             switch(modelo[n]["type"]){
                 case "string":
-                    if(modelo[n]["type"]!=typeof c[n]){
-                        valido==false;
+                    if(modelo[n]["type"]==typeof c[n] && c[n].length!=0 && c[n]!=""){
+                        valido++;
                     }
                     break;
                 case "number":
-                    if(!$.isNumeric(c[n])){
-                        valido=false;
+                    if($.isNumeric(c[n])){
+                        valido++;
                     }
                     break;
                 case "boolean":
-                    if(!(true.toString()==c[n] || false.toString()==c[n])){
-                        valido==false
+                    if((true.toString()==c[n] || false.toString()==c[n])){
+                        valido++;
                     }
                     break;
             }
             if( ((c[n]===null)||(c[n]==="")) && (modelo[n]["nullable"]==true) ){
-                valido=true;
+                valido++;
             }
         }
-        return valido;
+        return valido==Object.keys(modelo).length;
     }
 
     function csvToJson(data,idField){
@@ -782,9 +812,9 @@
 
     function VentanaModal() {
         $("#window").kendoWindow({
-            actions: false,
             content: "@Url.Action("Archivos", "PopUps")",
             modal: true,
+            actions: ["Close"],
             title: "Archivos",
             resizable: true,
             visible: false,
@@ -803,11 +833,12 @@
 };
 
 @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
 };
     
 @section JavascriptDocumentReadyHomeCookie {
-//Cookies.set("home", true, { path: '/' });
-//Cookies.set("navegacion", "7", { path: '/' });
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "47", { path: '/' });
 };
 
 </script>
