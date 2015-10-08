@@ -2581,7 +2581,7 @@
         @section JavascriptDocumentReadyFunctions 
         {
             var dispositivo = navigator.userAgent.toLowerCase();
-            if (!dispositivo.match(/iphone|ipod|ipad|android/)) {
+            if (!dispositivo.match(/(iphone|ipod|ipad|android)/)) {
                 $(document).keydown(function (e) {
                     keydown(e);
                 }).keyup(function (e) {
