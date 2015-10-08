@@ -2580,11 +2580,15 @@
         };
         @section JavascriptDocumentReadyFunctions 
         {
-            $(document).keydown(function (e) {
-                keydown(e);
-            }).keyup(function (e) {
-                if (e.keyCode == ctrlKey) ctrlDown = false;
-            });
+            var dispositivo = navigator.userAgent.toLowerCase();
+            if (!dispositivo.match(/iphone|ipod|ipad|android/)) {
+                $(document).keydown(function (e) {
+                    keydown(e);
+                }).keyup(function (e) {
+                    if (e.keyCode == ctrlKey) ctrlDown = false;
+                });
+            };
+
             cargaInicial();
 
             //detallar un bulto
