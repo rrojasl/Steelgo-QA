@@ -79,6 +79,8 @@
         $("#D2").val(null);
         $("#descripcionIC").val(null);
         $("#icsasociado").val(null);
+        itemActual=[];
+        editado=false;
     })
 
     $("#icinput").kendoComboBox({
@@ -216,10 +218,14 @@
     $("#GuardarICS").on("click",function(){
         if(itemActual["ItemCodeSteelgoIDNuevo"]){
             $AsociacionICS.AsociacionICS.create({},{itemCode:itemActual["ItemCodeID"],itemCodeSteelgo:itemActual["ItemCodeSteelgoIDNuevo"],token:Cookies.get("token")}).done(function(data){
-                alert("Guardado");
+                if(data.ReturnMessage[0]=="OK"){
+                    displayMessage("AsociacionICS0005", "", '0');
+                }else{
+                    displayMessage("",data.ReturnMessage[0], '2');
+                }
             });
         }else{
-            alert("No ha habido modificaciones.");
+            displayMessage("AsociacionICS0006", "", '1');
         }
     })
 };

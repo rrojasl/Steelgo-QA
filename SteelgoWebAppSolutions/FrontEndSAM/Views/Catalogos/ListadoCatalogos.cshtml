@@ -428,7 +428,7 @@
                     var direccion=parseUrl(data,catalogo,"delete");
                     grid.options.dataSource.options.transport.destroy.url=direccion;
                 }else{
-                    alert(_dictionary.ListadoCatalogos0009[$("#language").data("kendoDropDownList").value()]);
+                    displayMessage("ListadoCatalogos0009", "", '2');
                 }
             },
             dataBound: function (e) {
@@ -570,18 +570,18 @@
                             regenerarGrid();
                         });
                     }else{
-                        alert(_dictionary.ListadoCatalogos0010[$("#language").data("kendoDropDownList").value()]);
+                        displayMessage("ListadoCatalogos0010", "", '2');
                     }
                 })
                 document.getElementById("files").addEventListener("change",function(evt){
                     if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
-                        alert(_dictionary.ListadoCatalogos0007[$("#language").data("kendoDropDownList").value()]);
+                        displayMessage("ListadoCatalogos0007", "", '2');
                     } else {
                         var data = null;
                         var file = evt.target.files[0];
                         if(csvTypes.indexOf(file.type.toLowerCase())==-1){
                             this.value=null;
-                            alert(_dictionary.ListadoCatalogos0008[$("#language").data("kendoDropDownList").value()]);
+                            displayMessage("ListadoCatalogos0008", "", '2');
                         }else{
                             var reader = new FileReader();
                             reader.readAsText(file);
@@ -614,7 +614,7 @@
                                     }
                                 });
                                 if(!valido){
-                                    alert(_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()]);
+                                    displayMessage("ListadoCatalogos0011", "", '1');
                                 }
                             }
                         }
@@ -759,7 +759,7 @@
             if (e!==-1){ 
                 throw e;
             }else{
-                alert(_dictionary.ListadoCatalogos0012[$("#language").data("kendoDropDownList").value()]);
+                displayMessage("ListadoCatalogos0012", "", '2');
             }
         }
         return csv;

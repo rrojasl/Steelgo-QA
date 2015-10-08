@@ -131,7 +131,7 @@
                 if (e.model.id !== null && e.model.id !== "") {
                     $DocumentosCatalogos.DocumentosCatalogos.destroy({}, { token: Cookies.get("token"), documentoID: e.model.id }).done(regenerarGrid);
                 } else {
-                    alert(_dictionary.ListadoCatalogos0009[$("#language").data("kendoDropDownList").value()]);
+                    displayMessage("ListadoCatalogos0009", "", '2');
                 }
             },
             editable: true,

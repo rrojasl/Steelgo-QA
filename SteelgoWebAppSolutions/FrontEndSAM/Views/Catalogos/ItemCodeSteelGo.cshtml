@@ -254,7 +254,7 @@
                 } else {
                     grid.options.dataSource.transport.create.url = "save";
                     grid.options.dataSource.transport.update.url = "update";
-                    alert("Debes hacer un registro válido");
+                    displayMessage("ItemCodeSteelGo0020", "", '1');
                 }
             },
             edit: function (e) {
@@ -290,7 +290,7 @@
                         data["Diametro2"] = e.model.Diametro2;
                         $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
                             if (data === null) {
-                                alert("no hay datos");
+                                displayMessage("ItemCodeSteelGo0021", "", '2');
                             } else {
                                 e.model.CedulaID = data.CedulaID;
                                 e.model.CedulaA = data.CedulaA;
@@ -306,7 +306,7 @@
                             }
                         });
                     } else {
-                        alert("Necesitas ingresar un diametro");
+                        displayMessage("ItemCodeSteelGo0022", "", '1');
                     }
                 });
             },
@@ -318,7 +318,7 @@
                     $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&id=" + e.model.id;
                 } else {
                     $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = "delete";
-                    alert("Este elemento aún no existe en la BD");
+                    displayMessage("ItemCodeSteelGo0023", "", '2');
                 }
             },
             dataBound: function (e) {

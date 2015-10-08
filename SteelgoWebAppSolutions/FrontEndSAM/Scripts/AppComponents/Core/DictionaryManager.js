@@ -930,6 +930,22 @@ _dictionary = {
         "es-MX": "Área",
         "en-US": "Area"
     },
+    "ItemCodeSteelGo0020": {
+        "es-MX": "Debes hacer un registro válido",
+        "en-US": "You must make a valid registration"
+    },
+    "ItemCodeSteelGo0021": {
+        "es-MX": "No hay datos",
+        "en-US": "There is no data"
+    },
+    "ItemCodeSteelGo0022": {
+        "es-MX": "Necesitas ingresar un diametro",
+        "en-US": "You should type a diameter"
+    },
+    "ItemCodeSteelGo0023": {
+        "es-MX": "Este elemento aún no existe en la BD",
+        "en-US": "This element doesnt exist yet in the database"
+    },
     "AsociacionICS0001": {
         "es-MX": "Item Code Cliente",
         "en-US": "Customer Item Code"
@@ -945,6 +961,14 @@ _dictionary = {
     "AsociacionICS0004": {
         "es-MX": "Asociación Item Code SteelGo",
         "en-US": "Associated ICS"
+    },
+    "AsociacionICS0005": {
+        "es-MX": "Guardado",
+        "en-US": "Saved"
+    },
+    "AsociacionICS0006": {
+        "es-MX": "No ha habido modificaciones",
+        "en-US": "There has not been modifications"
     },
     //Búsqueda
     "Busqueda0001": {
