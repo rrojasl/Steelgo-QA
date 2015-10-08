@@ -963,8 +963,8 @@ _dictionary = {
         "en-US": "Associated Item Code Steelgo"
     },
     "AsociacionICS0005": {
-        "es-MX": "Guardado",
-        "en-US": "Saved"
+        "es-MX": "Se ha creado la asociación",
+        "en-US": "The association has been created"
     },
     "AsociacionICS0006": {
         "es-MX": "No ha habido modificaciones",
