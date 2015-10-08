@@ -216,8 +216,10 @@
 
 
     function mostrarDetalle(folio) {
+        var esAlta = $("#hdAccionFiltrado").val() == "1" ? "1" : "-1";
+
         var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
+        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
     }
 
     function cancelarFolio(e) {

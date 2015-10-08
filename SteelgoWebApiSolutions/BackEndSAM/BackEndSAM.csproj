@@ -296,6 +296,7 @@
     <Compile Include="DataAcces\ListadoBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesPorItemCodeBd.cs" />
+    <Compile Include="DataAcces\LoggerBd.cs" />
     <Compile Include="DataAcces\MaquinaBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />

@@ -161,6 +161,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -229,6 +232,14 @@ namespace BackEndSAM.DataAcces
                                       && proyectosUsuario.Contains(p.ProyectoID)
                                       && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
                                       select r).AsParallel().ToList();
+
+                            result.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
+                                             where r.Activo
+                                             && !(from rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                                  where rfp.Activo
+                                                  select rfp.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                                  && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
+                                             select r).AsParallel().Distinct().ToList());
                         }
                         else
                         {
@@ -392,6 +403,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -547,6 +561,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -591,6 +608,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -707,6 +727,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -741,6 +764,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -776,6 +802,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -811,6 +840,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -843,6 +875,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -885,6 +920,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -952,6 +990,9 @@ namespace BackEndSAM.DataAcces
             }
             catch (Exception ex)
             {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
             }
         }

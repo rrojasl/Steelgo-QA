@@ -62,7 +62,7 @@
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
 .form-group {
-    margin-bottom: 31px;
+    margin-bottom: 29px;
 }
 
 .k-widget {
@@ -403,6 +403,10 @@
                 background-position: center !important;
                 vertical-align: middle;
             }
+
+        .k-grid .k-grid-header tr.k-filter-row th {
+            border-bottom: 1px solid #CCCCCC;
+        }
 
     .k-grid tbody tr td a.k-button {
         color: transparent !important;
@@ -818,18 +822,19 @@
                 line-height: 1.7;
             }
 
-    #formCuantificacion .k-grid .k-grouping-header,
+    .k-grid .k-grouping-header,
     .k-grid .k-grid-toolbar {
         border: none;
     }
 
-    #formCuantificacion .k-grid .k-grid-header tr th.k-header,
-    .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header {
-        border-top: 1px solid #CCCCCC;
-    }
+        .k-grid .k-grouping-header + table .k-grid-header tr th.k-header,
+        .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header,
+        .k-grid .k-grid-toolbar + .k-grid-header {
+            border-top: 1px solid #CCCCCC;
+        }
 
-    #formCuantificacion .k-grid .k-grid-toolbar {
-        border-bottom: 1px solid #CCCCCC;
+    .k-grid .k-grid-header > tr:first-child th {
+        border-bottom: none;
     }
 
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
@@ -904,19 +909,20 @@
             border-bottom: 1px solid #CCCCCC;
         }
 
-        #formCuantificacion .k-grid .k-grouping-header,
+        .k-grid .k-grouping-header,
         .k-grid .k-grid-toolbar {
             border: none;
         }
 
-            #formCuantificacion .k-grid .k-grid-header tr th.k-header,
-            .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header {
+            .k-grid .k-grouping-header + table .k-grid-header tr th.k-header,
+            .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header,
+            .k-grid .k-grid-toolbar + .k-grid-header {
                 border-top: 1px solid #CCCCCC;
             }
 
-    #formCuantificacion .k-grid .k-grid-toolbar {
-        border-bottom: 1px solid #CCCCCC;
-    }
+        .k-grid .k-grid-header > tr:first-child th {
+            border-bottom: none;
+        }
 
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
     .gridWithInputsStorage.k-grid tbody tr.k-detail-row td.k-detail-cell table {

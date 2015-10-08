@@ -152,7 +152,9 @@
 <script type="text/javascript">
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
-        var folioAvisoLlegada = getUrlParameter("folioAvisoLlegadaID", "-1");
+    var folioAvisoLlegada = getUrlParameter("folioAvisoLlegadaID", "-1");
+    var _esAlta = getUrlParameter("esAlta", "-1");
+
         var folioLlegada = -1;
             //your partial views variables
         var Patio = {}, Proyecto = {},
@@ -692,9 +694,13 @@
                     var concat = "";
                     CargarFolio(folioAvisoLlegada);
                     folioLlegada = data.FolioAvisoEntradaID;
-
-                    cargarTituloFolio();
-                    ActualizarTitulosEdicion(data);
+                    if (_esAlta != "-1") {
+                        BotonEdicion();
+                        limpiarTituloFolio();
+                    }else{
+                        cargarTituloFolio();
+                        ActualizarTitulosEdicion(data);
+                    }
 
                     $("#FolioEntradaID").data("kendoComboBox").text(folioAvisoLlegada);
 
@@ -1369,15 +1375,14 @@
     };
    
     @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
     CargaInicial();
         if (folioAvisoLlegada != -1)
         {
             CargaInicialEdicion(folioLlegada);
         }
 
-        $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
-        //$authorizationModel["Patio"] = $PatioModel;
-        //$authorizationModel["Proveedor"] = $ProveedorModel;
+       
         
     };
 

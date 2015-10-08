@@ -121,9 +121,27 @@
     </div>
 </div>
 
+<div id="windowColada">
+    <div id="modalEdicionColada" style="display: none">
+         <div class="alert-container">
+            <div class="message">
+                Mensaje de éxito/error/advertencia
+            </div>
+        </div>
+         <div id="EdicionColadaDiv" class="form-group">
+            <label id="ComplementoRecepcion0064"></label>
+            <input id="EdicionColada" class="" />
+        </div>
+         <div class="buttonSave">
+           <a id="CerrarEdicionColada" href="#" class="btn btn-primary">
+                <span id="ComplementoRecepcion0065"></span>
+            </a>
+         </div>
+     </div>
+</div>
 <div id="window">
     @*Contenido de la ventana modal *@
-    <div id="modalColada" style="display: none">
+@*    <div id="modalColada" style="display: none">
         <div class="alert-container">
             <div class="message">
                 Mensaje de éxito/error/advertencia
@@ -163,42 +181,7 @@
         </div>
     </div>
 
-    <div id="modalTipoUso" style="display:none">
-        <div class="alert-container">
-            <div class="message">
-                Mensaje de éxito/error/advertencia
-            </div>
-        </div>
-         <div id="TipoUso_TipoUsoDiv" class="form-group">
-            <label id="ComplementoRecepcion0059"></label>
-            <input id="Nombre_TipoUso" class="" />
-        </div>
-        <div class="buttonSave">
-            <a id="GuardarTipoUso" href="#" class="btn btn-primary">
-                <span id="ComplementoRecepcion0060"></span>
-            </a>
-            <a id="CancelarTipoUso" href="#" class="btn btn-primary">
-                <span id="ComplementoRecepcion0061"></span>
-            </a>
-        </div>
-    </div>
-
-     <div id="modalEdicionColada" style="display: none">
-         <div class="alert-container">
-            <div class="message">
-                Mensaje de éxito/error/advertencia
-            </div>
-        </div>
-         <div id="EdicionColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0064"></label>
-            <input id="EdicionColada" class="" />
-        </div>
-         <div class="buttonSave">
-           <a id="CerrarEdicionColada" href="#" class="btn btn-primary">
-                <span id="ComplementoRecepcion0065"></span>
-            </a>
-         </div>
-     </div>
+     *@
 </div>
 
 <script>
@@ -288,62 +271,6 @@
         }
     };
 
-    var $ColadaModel = {
-        listContainer: {
-            create: "",
-            list: "",
-            detail: "",
-            destroy: ""
-        },
-        properties: {
-            fabricante: {
-                visible: "#Fabricante_ColadaDiv",
-                editable: "#Fabricante_Colada",
-                required: "#Fabricante_Colada"
-            },
-            acero: {
-                visible: "#Acero_ColadaDiv",
-                editable: "#Acero_Colada",
-                required: "#Acero_Colada"
-            },
-            proyecto: {
-                visible: "#Proyecto_ColadaDiv",
-                editable: "#Proyecto_Colada",
-                required: "#Proyecto_Colada"
-            },
-            numerocolada: {
-                visible: "#NumeroColada_ColadaDiv",
-                editable: "#NumeroColada_Colada",
-                required: "#NumeroColada_Colada"
-            },
-            numerocertificado: {
-                visible: "#NumeroCertificado_ColadaDiv",
-                editable: "#NumeroCertificado_Colada",
-                required: "#NumeroCertificado_Colada"
-            },
-            holdcalidad: {
-                visible: "#HoldCalidad_ColadaDiv",
-                editable: "#HoldCalidad_Colada",
-                required: "#HoldCalidad_Colada"
-            }
-        }
-    };
-   
-    var $TipoUsoModel= {
-        listContainer: {
-            create: "",
-            list: "",
-            detail: "",
-            destroy: ""
-        },
-        properties: {
-            nombre: {
-                visible: "#EdicionColadaDiv",
-                editable: "#Nombre_TipoUso",
-                required: "#Nombre_TipoUso"
-            },
-        }
-    };
     };
 
 
@@ -367,7 +294,7 @@
                 if (data.Colada != sinColadaPL) {
                     rowselected = data;
                     $("#EdicionColada").data("kendoComboBox").text(data.Colada);
-                    VentanaModal(3);
+                    VentanaEdicionColada(3);
                     e.preventDefault();
                 };
             }
@@ -403,13 +330,7 @@
             }
         });
 
-        $("#GuardarColada").click(function () {
-            if (validarRequeridosModalColada()) {
-                GuardarColada();
-            } else {
-                displayMessage("notificationslabel0031", "", '1');
-            }
-        });
+
         $("#Mostrar").click(function () { ObtenerDatosDelFolioCuantificacion(); });
         
         $("#Cancelar").click(function () { Cancelar(); });
@@ -563,43 +484,7 @@
             filter: "contains",
         });
         ObtenerColada("EdicionColada", 0, 1);
-        //$("#Colada").keydown(function (e) {
-        //    if (e.keyCode == 13) {
-        //        changeValueColumnColada(this.value);
-        //        $("#Colada").data("kendoComboBox").value("");
-        //    }
-        //});
 
-
-        //$("#EstatusFisico").keydown(function (e) {
-        //    if (e.keyCode == 13) {
-        //        changeValueColumnEstatusFisico(this.value);
-        //        $("#EstatusFisico").data("kendoComboBox").value("");
-        //    }
-        //});
-
-        //$("#EstatusDocumental").keydown(function (e) {
-        //    if (e.keyCode == 13) {
-        //        changeValueColumnEstatusDocumental(this.value);
-        //        $("#EstatusDocumental").data("kendoComboBox").value("");
-        //    }
-        //});
-
-        //$("#TipoUso").keydown(function (e) {
-        //    if (e.keyCode == 13) {
-        //        changeValueColumnTipoUso(this.value);
-        //        $("#TipoUso").data("kendoComboBox").value("");
-        //    }
-        //});
-
-        $("#GuardarTipoUso").click(function () {
-            if (validarRequeridosModalColada()) {
-                GuardarTipoUso();
-            } else {
-                displayMessage("notificationslabel0031", "", '1');
-            }
-        });
-        $("#CancelarTipoUso").click(function () { CancelarTipoUso(); });
         $("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada();});
         
     };
@@ -736,9 +621,14 @@
             filter: "contains",
         });
     };
+
+    function CancelarPadre() {
+        VentanaEdicionColada(3);
+    };
+
     function CancelarColada() {
         LimpiarModalColada();
-        VentanaModal(3);
+        VentanaEdicionColada(3);
         cancelarvalidacionRequeridosModalColada();
     };
 
@@ -765,26 +655,7 @@
 
     function LimpiarModalEdicionColada() {
         $("#EdicionColada").data("kendoComboBox").value("");
-        cerrarVentanaModal();
-    };
-    function CancelarTipoUso() {
-        LimpiarModalTipoUso();
-        cerrarVentanaModal();
-        cancelarvalidacionRequeridosModalTipoUso
-    };
-
-    function LimpiarModalTipoUso() {
-        $("#Nombre_TipoUso").val("");
-
-    };
-
-    function cancelarvalidacionRequeridosModalTipoUso() {
-        $("#modalTipoUso .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                $(this).closest("div").find("label").removeClass("error");
-                $(this).closest("div").removeClass("clearfix");
-            };
-        });
+        $("#windowColada").data("kendoWindow").close();
     };
 
     function cerrarVentanaModal() {
@@ -806,33 +677,7 @@
         return bool;
     };
 
-    function validarRequeridosModalColada() {
-        var bool = true;
-        $("#modalColada .security_required").each(function (i, elem) {
-            if (elem.tagName.toLowerCase() != 'label') {
-                if ($(this).attr("id") == "HoldCalidad_Colada") {
-                    if (!$(this).is(':checked')) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    }
-                } else {
-                    if (!$(this).val()) {
-                        bool = false;
-                        $(this).closest("div").find("label").addClass("error");
-                        $(this).closest("div").addClass("clearfix");
-                    } else {
-                        $(this).closest("div").find("label").removeClass("error");
-                        $(this).closest("div").removeClass("clearfix");
-                    };
-                }
-            };
-        });
-        return bool;
-    };
+
 
     function ocultarStatus() {
         $("#ComplementoRecepcion0042").hide();
@@ -859,32 +704,12 @@
         }
     };
 
-        function GuardarColada() {
-            ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
-            ColadaModal.FabricanteID = FabricanteColada.FabricanteID;
-            ColadaModal.AceroID = AceroColada.AceroID;
-            ColadaModal.ProyectoID = ProyectoColada.ProyectoID;
-            ColadaModal.NumeroColada = $("#NumeroColada_Colada").val();
-            ColadaModal.NumeroCertificado = $("#NumeroCertificado_Colada").val();
-            ColadaModal.HoldCalidad = $("#HoldCalidad_Colada").is(":checked");
+    function ActualizarPaginaPadre() {
+        ObtenerColada("EdicionColada", 0, 1);
+        ObtenerColada("Colada", 1, 0);
+        VentanaEdicionColada(3);
+    };
 
-            $Colada.Colada.create({}, { data: JSON.stringify(ColadaModal), token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalColada();
-                if (Error(data)) {
-                    ObtenerColada("EdicionColada", 0, 1);
-                    VentanaModal(3);
-                }
-            });
-        };
-
-        function GuardarTipoUso() {
-            $TipoUso.TipoUso.create({}, { nombre: $("#Nombre_TipoUso").val(), token: Cookies.get("token") }).done(function (data) {
-                LimpiarModalTipoUso();
-                if (Error(data)) {
-                    $("#window").data("kendoWindow").close();
-                }
-            });
-        };
 
         function LoadGridQuantification() {
             $("#grid").kendoGrid({
@@ -951,28 +776,32 @@
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
-            grid.table.bind("keypress", function (e) {
-                keydown(e);
-                if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-                    //get currently navigated cell, this id follows user's navigation
-                    var activeCell = $("#grid_active_cell");
 
-                    //don't do anything if already editing cell        
-                    if (activeCell.hasClass("k-edit-cell")) return;
+            var dispositivo = navigator.userAgent.toLowerCase();
+            if (!dispositivo.match(/(iphone|ipod|ipad|android)/)) {
+                grid.table.bind("keypress", function (e) {
+                    keydown(e);
+                    if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                        //get currently navigated cell, this id follows user's navigation
+                        var activeCell = $("#grid_active_cell");
 
-                    grid.editCell(activeCell);
-                    var input = activeCell.find("input");
+                        //don't do anything if already editing cell        
+                        if (activeCell.hasClass("k-edit-cell")) return;
 
-                    //number datatype editor loses key press character when entering edit
-                    if (input.last().attr('data-type') === 'number') {
-                        input.val(String.fromCharCode(e.keyCode | e.charCode));
-                    } else {
-                        input.val("");
+                        grid.editCell(activeCell);
+                        var input = activeCell.find("input");
+
+                        //number datatype editor loses key press character when entering edit
+                        if (input.last().attr('data-type') === 'number') {
+                            input.val(String.fromCharCode(e.keyCode | e.charCode));
+                        } else {
+                            input.val("");
+                        }
+
+
                     }
-
-
-                }
-            });
+                });
+            }
             //Kendo "Enter" key input is captured through this binding
             $("#grid table").on("keydown", "tr", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
@@ -1046,45 +875,79 @@
             });
         };
 
-        function VentanaModal(id) {
-
+        function VentanaEdicionColada(id) {
             var modalTitle = "";
+            var content = "";
+            var window = $("#windowColada");
+            var height = "";
 
-            switch (id) {
-                case 1:
-                    $("#modalEdicionColada").hide();
-                    $("#modalTipoUso").hide();
-                    $("#modalColada").show();
-                    modalTitle = "Colada";
-                    break;
-                case 2:
-                    $("#modalEdicionColada").hide();
-                    $("#modalColada").hide();
-                    $("#modalTipoUso").show();
-                    modalTitle = "Tipo de Uso";
-                    break;
-                case 3:
-                    $("#modalColada").hide();
-                    $("#modalTipoUso").hide();
-                    $("#modalEdicionColada").show();
-                    break;
-            };
+            $("#modalEdicionColada").show();
 
-            var window = $("#window");
-            var win = window.kendoWindow({
+            window.kendoWindow({
                 actions: false,
+                content: content,
                 modal: true,
                 title: modalTitle,
-                resizable: false,
-                visible: false,
+                resizable: true,
                 actions: ["Close"],
+                visible: false,
                 width: "32.6%",
                 minWidth: 660,
+                height: "135px",
                 position: {
                     top: "10%",
                     left: "20%"
                 }
             }).data("kendoWindow");
+
+
+            window.data("kendoWindow").title(modalTitle);
+            window.data("kendoWindow").center().open();
+        };
+        function VentanaModal(id) {
+
+            var modalTitle = "";
+            var content = "";
+            var window = $("#window");
+            var height = "";
+
+            switch (id) {
+                case 1:
+                    modalTitle = "Colada";
+                    content = "@Url.Action("Colada", "PopUps")";
+                    height = "30%";
+                    break;
+                case 2:
+                    modalTitle = "Tipo de Uso";
+                    content = "@Url.Action("TipoUso", "PopUps")";
+                    height = "170px";
+                    break;
+            };
+
+            window.kendoWindow({
+                actions: false,
+                content: content,
+                modal: true,
+                title: modalTitle,
+                resizable: true,
+                actions: ["Close"],
+                visible: false,
+                width: "32.6%",
+                minWidth: 660,
+                height: height,
+                iframe: true,
+                position: {
+                    top: "10%",
+                    left: "20%"
+                }
+            }).data("kendoWindow");
+
+            //Se actualiza el tamaño
+            $("#window").data("kendoWindow").setOptions({
+                width: "32.6%",
+                height: height,
+            });
+
             window.data("kendoWindow").title(modalTitle);
             window.data("kendoWindow").center().open();
         };
@@ -1415,7 +1278,7 @@
         };
 
         function EstatusFisicoAutocomplete(container, options) {
-            $('<input required data-text-field="Nombre" data-value-field="EstatFisicoID" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="Nombre" data-value-field="EstatFisicoID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     dataTextField: "Nombre",
@@ -1439,7 +1302,7 @@
         };
 
         function EstatusDepartamentalAutocomplete(container, options) {
-            $('<input required data-text-field="Nombre" data-value-field="EstatusDocumentalID" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="Nombre" data-value-field="EstatusDocumentalID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     dataTextField: "Nombre",
@@ -1461,7 +1324,7 @@
         };
 
         function ColadaAutocomplete(container, options) {
-            $('<input required data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
@@ -1478,7 +1341,7 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         if (dataItem.ColadaID == 0) {
-                            VentanaModal(3);
+                            VentanaEdicionColada(3);
                             e.preventDefault();
                         }
                     },
@@ -1495,7 +1358,7 @@
 
 
         function TipoUsoAutocomplete(container, options) {
-            $('<input required data-text-field="Nombre" data-value-field="id" data-bind="value:' + options.field + '"/>')
+            $('<input data-text-field="Nombre" data-value-field="id" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
                 .kendoComboBox({
                     autoBind: false,
@@ -1789,12 +1652,14 @@
 
     @section JavascriptDocumentReadyFunctions 
     {
-    $(document).keydown(function (e) {
-        keydown(e);
-    }).keyup(function (e) {
-        if (e.keyCode == ctrlKey) ctrlDown = false;
-    });
-
+    var dispositivo = navigator.userAgent.toLowerCase();
+    if (!dispositivo.match(/(iphone|ipod|ipad|android)/)) {
+        $(document).keydown(function (e) {
+            keydown(e);
+        }).keyup(function (e) {
+            if (e.keyCode == ctrlKey) ctrlDown = false;
+        });
+    };
     cargaInicial();
 
     ////edicion de un folio cuantificacion
@@ -1803,8 +1668,6 @@
     };
 
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
-    $authorizationModel["Colada"] = $ColadaModel
-    $authorizationModel["Tipo Uso"] = $TipoUsoModel
     }
 
     @section JavascriptDocumentReadyHomeCookie {

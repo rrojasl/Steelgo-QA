@@ -59,5 +59,10 @@ namespace FrontEndSAM.Controllers
         {
             return View();
         }
+
+        public ActionResult TipoUso()
+        {
+            return View();
+        }
     }
 }
