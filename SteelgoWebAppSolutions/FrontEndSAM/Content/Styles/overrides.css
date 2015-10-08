@@ -404,6 +404,10 @@
                 vertical-align: middle;
             }
 
+        .k-grid .k-grid-header tr.k-filter-row th {
+            border-bottom: 1px solid #CCCCCC;
+        }
+
     .k-grid tbody tr td a.k-button {
         color: transparent !important;
         height: 27px;
