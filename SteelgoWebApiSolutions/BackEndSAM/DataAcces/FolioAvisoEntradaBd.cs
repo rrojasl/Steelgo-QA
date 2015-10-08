@@ -197,7 +197,7 @@ namespace BackEndSAM.DataAcces
                     if (registro != null)
                     {
 
-                        int ClienteID= registro.ClienteID!=null? registro.ClienteID: ClienteFolioAvisoLlegada;
+                        int ClienteID = registro.ClienteID != null ? registro.ClienteID : ClienteFolioAvisoLlegada;
                         detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
 
                         //detalle.Cliente = (from c in ctx.Sam3_Cliente
