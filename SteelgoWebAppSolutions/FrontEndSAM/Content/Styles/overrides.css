@@ -114,14 +114,15 @@
     height: inherit;
 }
 
-.k-dropdown.fullWidth {
+.k-multiselect, .k-combobox,
+.k-autocomplete, .k-dropdown.fullWidth,
+.k-numerictextbox {
     width: 100%;
 }
 
-.k-multiselect, .k-combobox,
-.k-autocomplete {
-    width: 100%;
-}
+    .k-numerictextbox .k-numeric-wrap .k-link {
+        height: 1.4em;
+    }
 
 .k-multiselect-wrap {
     color: #000000;
