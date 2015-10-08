@@ -855,8 +855,8 @@ _dictionary = {
         "en-US": "Upload"
     },
     "ItemCodeSteelGo0001": {
-        "es-MX": "Item Code Steelgo",
-        "en-US": "Item Code Steelgo"
+        "es-MX": "IC Steelgo",
+        "en-US": "IC Steelgo"
     },
     "ItemCodeSteelGo0002": {
         "es-MX": "Guardar",
