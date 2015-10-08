@@ -183,9 +183,9 @@
         var folio = getUrlParameter("folio", "-1");
         var _tipoArchivo = 0;
         var Transportista = [], Proveedor = [], Patio = [],
-            Plana = [], Chofer = [], Contacto = [], 
+            Plana = [], Chofer = [], Contacto = [],
             CamionEntradaMaterial = {}, Cliente = {}, TipoAvisos = {},
-            TipoArchivo = {};
+            TipoArchivo = {}, Proyecto = {};
         var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
         var $AvisoLLegadaModel = {
@@ -325,6 +325,7 @@
                                     if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
                                         //bool = false;
                                         $("#ProyectoID").data("kendoMultiSelect").value(1);
+                                        CargarProyecto(1);
                                         //$(this).closest("div").find("label").addClass("error");
                                     } else {
                                         $(this).closest("div").find("label").removeClass("error");
@@ -653,6 +654,10 @@
                     ProyectoIDs[index] = { ProyectoID: value };
                 });
 
+                if (!proyectos.length) {
+                    ProyectoIDs[0] = { ProyectoID: Proyecto.ProyectoID };
+                };
+
                 var planas = $("#PlanaID").data("kendoMultiSelect").value();
                 $.each(planas, function (index, value) {
                     PlanaIDs[index] = { PlanaID: value };
@@ -766,6 +771,7 @@
                             case 'ProyectoID':
                                 if (!$("#ProyectoID").data("kendoMultiSelect").value().length > 0) {
                                     $("#ProyectoID").data("kendoMultiSelect").value(1);
+                                    CargarProyecto(1);
                                 };
                                 break;
                         };
@@ -991,7 +997,10 @@
                     loadingStop();
                 });
             };
-
+            function CargarProyecto(id) {
+                Proyecto = {};
+                Proyecto = { ProyectoID: id };
+            };
             function CargarTransportista(id, value) {
                 Transportista = [];
                 _transportista = {};
