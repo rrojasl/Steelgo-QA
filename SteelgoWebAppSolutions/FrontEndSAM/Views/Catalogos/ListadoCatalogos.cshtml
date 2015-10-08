@@ -557,7 +557,8 @@
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
                 $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fconversion">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a href="#" id="templateced">Descargar plantilla</a></div>');
-                $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
+                $Cedulas.Cedulas.read({}, { catalogoID: "11", token: Cookies.get("token") }).done(function (result) {
+                    console.log(result);
                     $("#fconversion").val(result);
                 });
                 $("#fcarga").on("click",function(){
@@ -623,7 +624,7 @@
                 removeGrid();
                 $("#grid").kendoGrid({
                     columns: [
-                        { field: "Diametro" },
+                        { field: "Diametro1" },
                         { field: "CedulaA",title:"Cedula A" },
                         { field: "CedulaB",title:"Cedula B" },
                         { field: "CedulaC",title:"Cedula C" },
@@ -638,7 +639,7 @@
                                 id: "CedulaID",
                                 fields: {
                                     CedulaID: { type: "number", editable: false, nullable: true },
-                                    Diametro: { type: "string", validation: { required: false }, nullable: true },
+                                    Diametro1: { type: "string", validation: { required: false }, nullable: true },
                                     CedulaA: { type: "string", validation: { required: false }, nullable: true },
                                     CedulaB: { type: "string", validation: { required: false }, nullable: true },
                                     CedulaC: { type: "string", validation: { required: false }, nullable: true},
