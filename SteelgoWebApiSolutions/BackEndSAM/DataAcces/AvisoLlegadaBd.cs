@@ -232,6 +232,14 @@ namespace BackEndSAM.DataAcces
                                       && proyectosUsuario.Contains(p.ProyectoID)
                                       && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
                                       select r).AsParallel().ToList();
+
+                            result.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
+                                             where r.Activo
+                                             && !(from rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                                  where rfp.Activo
+                                                  select rfp.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                                  && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
+                                             select r).AsParallel().Distinct().ToList());
                         }
                         else
                         {
