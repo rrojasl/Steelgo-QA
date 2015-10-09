@@ -384,13 +384,15 @@
         //var listado = [{ CedulaID: "", Diametro: "8", CedulaA: "", CedulaB: "", CedulaC: "", CedulaIn: "", CedulaMM: "", Espesor: "33.0000" },
         //    { CedulaID: "", Diametro: "2", CedulaA: "", CedulaB: "", CedulaC: "31#", CedulaIn: "15", CedulaMM: "", Espesor: "33.0000" }];
        
-        var listado = { CedulaID: "", Diametro: "", CedulaA: "150", CedulaB: "", CedulaC: "", CedulaIn: "", CedulaMM: "", Espesor: "" };
+        //var listado = { CedulaID: "", Diametro: "", CedulaA: "150", CedulaB: "", CedulaC: "", CedulaIn: "", CedulaMM: "", Espesor: "" };
          
-        console.log(JSON.stringify(listado));
+        //console.log(JSON.stringify(listado));
 
-        client.add("CatalogoICSteelgo");
-        client.CatalogoICSteelgo.read({}, { data: JSON.stringify(listado), token: "" }).done(function (data) { console.log(data) });
+        //client.add("CatalogoICSteelgo");
+        //client.CatalogoICSteelgo.read({}, { data: JSON.stringify(listado), token: "" }).done(function (data) { console.log(data) });
 
+        client.add("Cedulas");
+        client.Cedulas.read({}, { catalogoID: "11", token: "" }).done(function (data) { console.log(data) });
 
         //client.add("AsociacionICS");
         //client.AsociacionICS.read({}, { data: JSON.stringify(listado), token: "" }).done(function (data) { console.log(data) });
