@@ -406,6 +406,7 @@
 
         .k-grid .k-grid-header tr.k-filter-row th {
             border-bottom: 1px solid #CCCCCC;
+            border-top: none;
         }
 
     .k-grid tbody tr td a.k-button {
@@ -921,7 +922,7 @@
             }
 
         .k-grid .k-grid-header > tr:first-child th {
-            border-bottom: none;
+            //border-bottom: none;
         }
 
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
