@@ -145,4 +145,17 @@ namespace BackEndSAM.Models
         public bool EstatusCorrecto { get; set; }
         public string FactorConversion { get; set; }
     }
+
+    public class ValidarCedulas
+    {
+        public bool HayConflictos { get; set; }
+        public List<CatalogoCedulas> CedulasNuevas { get; set; }
+        public List<CatalogoCedulas> CedulasExistentes { get; set; }
+
+        public ValidarCedulas()
+        {
+            CedulasNuevas = new List<CatalogoCedulas>();
+            CedulasExistentes = new List<CatalogoCedulas>();
+        }
+    }
 }
