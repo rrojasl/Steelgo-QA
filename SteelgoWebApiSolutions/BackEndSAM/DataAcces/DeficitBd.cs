@@ -76,7 +76,7 @@ namespace BackEndSAM.DataAcces
                         patios = patios.Where(x => x > 0).ToList();
 
                         ordenes = (from ot in ctx2.OrdenTrabajo
-                                   where ot.EstatusOrdenID == 1 && 
+                                   where ot.EstatusOrdenID == 1 &&
                                    proyectos.Contains(ot.ProyectoID)
                                    select new ListaCombos
                                    {
@@ -147,22 +147,79 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="itemCode"></param>
         /// <returns></returns>
-        public object ObtenerDiametros(string itemCode)
+        public object ObtenerDiametros(int itemCode)
         {
             try
             {
-                using(SamContext ctx = new SamContext())
+                using (SamContext ctx = new SamContext())
                 {
                     List<DiametrosItemCode> diametro = (from eq in ctx.Sam3_EquivalenciaItemCode
                                                         join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on eq.Sam3_ItemCodeID equals rics.ItemCodeID
                                                         join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                        where eq.Sam2_ItemCodeID.ToString() == itemCode
+                                                        where eq.Sam2_ItemCodeID == itemCode
                                                         select new DiametrosItemCode
                                                         {
                                                             Diametro1 = ics.Diametro1.ToString(),
                                                             Diametro2 = ics.Diametro2.ToString()
                                                         }).AsParallel().ToList();
                     return diametro;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Obtener la informacion del grid en Notificacion de Deficit
+        /// </summary>
+        /// <param name="ordenTrabajo"></param>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public object ObtenerInformacionItemCode(string ordenTrabajo, int itemCode)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        List<Deficit> lista = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on eq.Sam3_ItemCodeID equals rics.ItemCodeID
+                                               join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                               join ic in ctx.Sam3_ItemCode on eq.Sam3_ItemCodeID equals ic.ItemCodeID
+                                               where eq.Sam2_ItemCodeID == itemCode
+                                               select new Deficit
+                                               {
+                                                   ItemCodeID = ic.ItemCodeID.ToString(),
+                                                   ItemCode = ic.Codigo,
+                                                   Diametro1 = ics.Diametro1.ToString(),
+                                                   Diametro2 = ics.Diametro2.ToString(),
+                                               }).AsParallel().ToList();
+
+                        lista.ForEach(x =>
+                        {
+                            x.Cantidad = (from ot in ctx2.OrdenTrabajo
+                                          join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
+                                          join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                          join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                          join itmc in ctx2.ItemCode on ms.ItemCodeID equals itmc.ItemCodeID
+                                          where ot.OrdenTrabajoID.ToString() == ordenTrabajo && ms.ItemCodeID == itemCode
+                                          select ms.Cantidad).Sum().ToString();
+                        });
+
+                        return lista;
+                    }
                 }
             }
             catch (Exception ex)

@@ -20,15 +20,81 @@ namespace BackEndSAM.Controllers
         public object Get(string token)
         {
             string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+
+                return DeficitBd.Instance.ObtenerOrdenesDeTrabajo(usuario);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(string ordenTrabajo, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                return DeficitBd.Instance.ObtenerItemCodesOT(ordenTrabajo);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(int itemCodeID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                return DeficitBd.Instance.ObtenerDiametros(itemCodeID);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(string ordenTrabajo, int itemCodeID, string token)
+        {
+            //string payload = "";
             //string newToken = "";
             //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
 
             //if (tokenValido)
             //{
-                JavaScriptSerializer ser = new JavaScriptSerializer();
-                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-
-                return DeficitBd.Instance.ObtenerOrdenesDeTrabajo(usuario);
+                return DeficitBd.Instance.ObtenerInformacionItemCode(ordenTrabajo, itemCodeID);
 
             //}
             //else
