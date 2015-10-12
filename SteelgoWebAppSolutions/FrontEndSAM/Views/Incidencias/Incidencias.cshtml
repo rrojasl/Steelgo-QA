@@ -444,7 +444,7 @@
                 var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
                 $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
 
-                $("#Registro").data("kendoAutoComplete").value(_ReferenciaID);
+                $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
 
                 $("#listaArchivos tbody").empty();
                 $.each(data.Archivos, function (index, value) {
@@ -680,8 +680,9 @@
     };
 
     function habilitarControles() {
-        $("#Clasificacion").data("kendoComboBox").enable(true);
+        $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(true);
+        $("#Registro").data("kendoAutoComplete").enable(true);
         $("#Titulo").removeAttr("disabled");
         $("#Descripcion").removeAttr("disabled");
         $("#Respuesta").removeAttr("disabled");
@@ -694,7 +695,7 @@
         $("#RespondidoPor").removeAttr("disabled");
         $("#FechaRespuesta").data("kendoDatePicker").enable(true);
         $("#AdjuntarArchivos").data("kendoUpload").enable(true);
-        $("#DescripcionArchivo").removeAttr("disabled");
+        $("#DescripcionArchivo").removeAttr("disabled");        
         HabilitarObtenerDocumentosIncidencias();
         if (_Edicion != "-1") {
             $("#RegistradoPor").attr("disabled", "disabled");
@@ -706,6 +707,7 @@
     function DeshabilitarControles() {
         $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(false);
+        $("#Registro").data("kendoAutoComplete").enable(false);
         $("#Version").attr("disabled", "disabled");
         $("#Titulo").attr("disabled", "disabled");
         $("#Descripcion").attr("disabled", "disabled");
