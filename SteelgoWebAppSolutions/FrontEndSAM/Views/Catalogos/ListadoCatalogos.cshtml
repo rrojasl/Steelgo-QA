@@ -44,28 +44,6 @@
             detail: "",
             destroy: "k-grid-delete"
         },
-        //properties:{
-        //    listacatalogos:{
-        //        visible: ".form-group:first",
-        //        editable: "#listaCatalogos",
-        //        required: "#listaCatalogos"
-        //    },
-        //    fconversion:{
-        //        visible: ".form-group:second",
-        //        editable: "#fconversion",
-        //        required: "#fconversion"
-        //    },
-        //    files:{
-        //        visible: ".form-group:third",
-        //        editable: "#files",
-        //        required: "#files"
-        //    },
-        //    fcarga:{
-        //        visible: ".form-group:fourth",
-        //        editable: "#fcarga",
-        //        required: "#fcarga"
-        //    }
-        //}
     };
     datosRegistro={};
     nuevasCedulas=[];
@@ -546,6 +524,45 @@
         }
     }
 
+    function mostrarConflictos(result){
+        var fields=$("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
+        var existentes=[];
+        var conflictos=[];
+        $("#grid tr[data-uid]:not([style])").each(function(){
+            existentes.push($("#grid").data("kendoGrid").dataItem(this));
+        })
+        result.CedulasExistentes.forEach(function(c){
+            $.grep(existentes,function(d){
+                if (c.CedulaID==d.CedulaID.toString()){
+                    $("#grid tr[data-uid='"+d.uid+"']").css("background-color","#FEDEE8");
+                    conflictos.push(d);
+                }
+            })
+        })
+        var nuevos=[];
+        $.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
+            if($("#grid").data("kendoGrid").dataItem(n).id===null) nuevos.push($("#grid").data("kendoGrid").dataItem(n));
+        });
+        
+        conflictos.forEach(function(c){
+            $.grep(nuevos,function(d){
+                if (((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
+                    0;
+                }else{
+                    $("#grid tr[data-uid='"+d.uid+"']").removeAttr("style");
+                }
+            })
+        })
+        displayMessage("ListadoCatalogos0019", "", '2');
+    }
+
+    function enviarCedulas(data){
+        $Catalogos.AdministracionCatalogos.create({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data)}).done(function(result){
+            displayMessage("ListadoCatalogos0018", "", '0');
+            regenerarGrid();
+        })
+    }
+
     function getDataSourceGrid(val) {
         return new kendo.data.DataSource({
             data: [],
@@ -624,8 +641,9 @@
                         nuevasCedulas.forEach(function(c){
                             data.push(getDataFromModel($("#grid").data("kendoGrid").options.dataSource.schema.model.fields,c));
                         })
-                        $.post(parseUrl(data,$("#listaCatalogos").data("kendoDropDownList").value(),"post")).done(function(result){
-                            regenerarGrid();
+                        $Catalogos.AdministracionCatalogos.read({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data)}).done(function(result){
+                            //regenerarGrid();
+                            result.HayConflictos ? mostrarConflictos(result) : enviarCedulas(data);
                         });
                     }else{
                         displayMessage("ListadoCatalogos0010", "", '2');
@@ -646,10 +664,15 @@
                             reader.onload = function(event) {
                                 var csvData = event.target.result;
                                 csvToJson(csvData,"CedulaID").forEach(function(c){
-                                    if(validData(c) && ((c.CedulaIn)||(c.CedulaMM))){
+                                    var tmp=cedulaValida(c);
+                                    if(validModelData(c) && tmp!=1){
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     }else{
-                                        c["valido"]=false;
+                                        if(tmp==1){
+                                            c["advertencia"]=true;
+                                        }else{
+                                            c["valido"]=false;
+                                        }
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     }
                                 });
@@ -662,17 +685,31 @@
                                 var nuevos=$.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
                                     return $("#grid").data("kendoGrid").dataItem(n).id===null;
                                 });
+                                var advertencia=null;
                                 nuevos.forEach(function(n){
                                     if($("#grid").data("kendoGrid").dataItem(n).valido!==false){
-                                        n.style.backgroundColor="#E3FCCB";
+                                        if($("#grid").data("kendoGrid").dataItem(n).advertencia){
+                                            n.style.backgroundColor="#FDF9AA";
+                                            advertencia=true;
+                                        }else{
+                                            n.style.backgroundColor="#E3FCCB";
+                                        }
                                         nuevasCedulas.push($("#grid").data("kendoGrid").dataItem(n));
                                     }else{
                                         n.style.backgroundColor="#FEDEE8";
                                         valido=false;
                                     }
                                 });
-                                if(!valido){
-                                    displayMessage("ListadoCatalogos0011", "", '1');
+                                var mensaje=null;
+                                if(!valido && advertencia){
+                                    mensaje=_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()]+"\n"+_dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
+                                }else if(!valido){
+                                    mensaje=_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()];
+                                }else if(advertencia){
+                                    mensaje=_dictionary.ListadoCatalogos0017[$("#language").data("kendoDropDownList").value()];
+                                }
+                                if(mensaje!=null){
+                                    displayMessage("", mensaje, '2');
                                 }
                             }
                         }
@@ -756,14 +793,16 @@
                         console.log(e);
                     },
                     dataBound: function(e) {
-                        console.log(e);
+                        $("#grid tr td:first-child").each(function(){
+                            this.innerHTML=="" ? this.innerHTML="0-9999" : 0;
+                        })
                     }
                 });
             }
         }
     })
 
-    function validData(c){
+    function validModelData(c){
         var modelo=$("#grid").data("kendoGrid").options.dataSource.schema.model.fields;
         var valido=0;
         for(n in modelo){
@@ -789,6 +828,27 @@
             }
         }
         return valido==Object.keys(modelo).length;
+    }
+    
+    function cedulaValida(c){
+        var valida=0;
+        var datos=$("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data();
+        try{
+            datos.forEach(function(d){
+                d.Diametro1==null ? d.Diametro1="" : 0;
+                if((d.Espesor==c.Espesor) || ((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
+                    throw 1;
+                }
+            })
+            return 0;
+        }catch(e){
+            if($.isNumeric(e)){
+                return e;
+            }else{
+                console.log(e);
+                alert(e);
+            }
+        }
     }
 
     function csvToJson(data,idField){

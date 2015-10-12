@@ -854,6 +854,18 @@ _dictionary = {
         "es-MX": "Subir",
         "en-US": "Upload"
     },
+    "ListadoCatalogos0017": {
+        "es-MX": "Las filas en amarillo muestran datos que serán sobreescritos",
+        "en-US": "Yellow rows shows data which will be overwritten"
+    },
+    "ListadoCatalogos0018": {
+        "es-MX": "El catálogo de cédulas ha sido actualizado",
+        "en-US": "The documents catalog has been updated"
+    },
+    "ListadoCatalogos0019": {
+        "es-MX": "Las filas en color amarillo muestran conflictos con las filas color rojo, corrige el archivo CSV e inténtalo nuevamente",
+        "en-US": "The yellow  rows shows conflicts with the red rows, correct the CSV file and try it again"
+    },
     "ItemCodeSteelGo0001": {
         "es-MX": "IC Steelgo",
         "en-US": "IC Steelgo"
