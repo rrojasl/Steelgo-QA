@@ -59,6 +59,9 @@
                                             <label id="Incidencias0004"></label>
                                             <input id="TipoIncidencia" class="" />
                                         </div>
+                                        <div id="FolioDiv" class="hidden">
+                                            <input id="Folio" class="" />
+                                        </div>
                                         <div id="VersionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                             <label id="Incidencias0005"></label>
                                             <input id="Version" class="general-input" disabled />
@@ -412,6 +415,7 @@
                 if (!value) {
                     TipoIncidencia = {};
                 }
+                ObtenerDatosPorTipoIncidencia();
             },
             filter: "contains",
         });
@@ -435,7 +439,7 @@
         TipoIncidencia = {};
         TipoIncidencia = { TipoIncidenciaID: id, Nombre: value };
     };
-   
+
     function ObtenerClasificacion() {
         $Clasificacion.Clasificacion.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Clasificacion", result);
@@ -447,6 +451,13 @@
             ControlErroresObjetosComboBox("TipoIncidencia", result);
         });
     };
+
+    function ObtenerDatosPorTipoIncidencia() {
+        $TipoIncidencia.TipoIncidencia.read({ tipoIncidenciaID: TipoIncidencia.TipoIncidenciaID, token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox("Folio", result);
+        });
+    };
+
     function onUploadAdjuntarArchivos() {
         var bool = false;
         $("#formLlegadaMaterial .security_required").each(function (i, elem) {

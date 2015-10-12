@@ -24,21 +24,48 @@ namespace BackEndSAM.Controllers
             List<TipoIncidencia> LstTipoIncidencia = new List<TipoIncidencia>();
             TipoIncidencia incidencia1 = new TipoIncidencia();
             incidencia1.TipoIncidenciaID = "2001";
-            incidencia1.Nombre = "TipoIncidencia 1";
+            incidencia1.Nombre = "ItemCode";
             LstTipoIncidencia.Add(incidencia1);
 
             TipoIncidencia incidencia2 = new TipoIncidencia();
             incidencia2.TipoIncidenciaID = "2002";
-            incidencia2.Nombre = "TipoIncidencia 2";
+            incidencia2.Nombre = "Numero Unico";
             LstTipoIncidencia.Add(incidencia2);
 
             return LstTipoIncidencia.AsEnumerable();
         }
 
         // GET api/tipoincidencia/5
-        public string Get(int id)
+        public IEnumerable<ListaCombos> Get(int tipoIncidenciaID, string token)
         {
-            return "value";
+            List<ListaCombos> lstCombo = new List<ListaCombos>();
+            ListaCombos combo1 = new ListaCombos();
+            ListaCombos combo2 = new ListaCombos();
+            ListaCombos combo3 = new ListaCombos();
+
+            if (tipoIncidenciaID == 2001)
+            {
+                combo1.id = "1";
+                combo1.value = "ItemCode 1";
+                lstCombo.Add(combo1);
+
+                combo2.id = "2";
+                combo2.value = "ItemCode 2";
+                lstCombo.Add(combo2);
+            }
+
+            if (tipoIncidenciaID == 2002)
+            {
+                combo1.id = "1";
+                combo1.value = "Numero Unico 1";
+                lstCombo.Add(combo1);
+
+                combo2.id = "2";
+                combo2.value = "Numero Unico 2";
+                lstCombo.Add(combo2);
+            }
+
+            return lstCombo.AsEnumerable();
         }
 
         // POST api/tipoincidencia
