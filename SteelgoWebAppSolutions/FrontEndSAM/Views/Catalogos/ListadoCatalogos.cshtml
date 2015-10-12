@@ -543,16 +543,31 @@
         $.grep($("#grid").data("kendoGrid").tbody.children(),function(n){
             if($("#grid").data("kendoGrid").dataItem(n).id===null) nuevos.push($("#grid").data("kendoGrid").dataItem(n));
         });
-        
+        var porCambiar=[];
         conflictos.forEach(function(c){
-            $.grep(nuevos,function(d){
-                if (((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
-                    0;
-                }else{
-                    $("#grid tr[data-uid='"+d.uid+"']").removeAttr("style");
+            $.grep(nuevos,function(n,i){
+                if(((n.Diametro1 == c.Diametro1) && (n.CedulaA == c.CedulaA)) || ((n.Diametro1 == c.Diametro1) && (n.CedulaB == c.CedulaB)) || ((n.Diametro1 == c.Diametro1) && (n.CedulaC == c.CedulaC))){
+                    porCambiar.push(n);
                 }
             })
         })
+        var i=0;
+        nuevos.forEach(function(n){
+            if(n.uid!=porCambiar[i].uid){
+                $("#grid tr[data-uid='"+n.uid+"']").removeAttr("style");
+            }else{
+                i++;
+            }
+        })
+        //nuevos.forEach(function(c){
+        //    $.grep(conflictos,function(d){
+        //        if (((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
+        //            0;
+        //        }else{
+        //            $("#grid tr[data-uid='"+c.uid+"']").removeAttr("style");
+        //        }
+        //    })
+        //})
         displayMessage("ListadoCatalogos0019", "", '2');
     }
 
