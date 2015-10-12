@@ -19,26 +19,26 @@ namespace BackEndSAM.Controllers
     public class ImpresionDocumentalController : ApiController
     {
         // GET api/impresiondocumental
-        public IEnumerable<ComboNumeroControl> Get(string id, string texto, string token)
+        public object Get(string id, string texto, string token)
         {
-            List<ComboNumeroControl> lstNumeroUnico = new List<ComboNumeroControl>();
-            ComboNumeroControl numerounico1 = new ComboNumeroControl();
-            ComboNumeroControl numerounico2 = new ComboNumeroControl();
-            ComboNumeroControl numerounico3 = new ComboNumeroControl();
-
-            numerounico1.NumeroControlID = "1";
-            numerounico1.NumeroControl = "Numero Unico 1";
-            lstNumeroUnico.Add(numerounico1);
-
-            numerounico2.NumeroControlID = "2";
-            numerounico2.NumeroControl = "Numero Unico 2";
-            lstNumeroUnico.Add(numerounico2);
-
-            numerounico3.NumeroControlID = "3";
-            numerounico3.NumeroControl = "Numero Unico 3";
-            lstNumeroUnico.Add(numerounico3);
-
-            return lstNumeroUnico.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(texto, Convert.ToInt32(id), usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // GET api/impresiondocumental/5
