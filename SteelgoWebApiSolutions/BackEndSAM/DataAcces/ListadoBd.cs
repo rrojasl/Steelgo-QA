@@ -2202,26 +2202,45 @@ namespace BackEndSAM.DataAcces
                     List<int> incidenciasIDs = registrosIncidencias.Select(x => x.IncidenciaID).Distinct().ToList();
 
                     List<ListadoIncidencias> listado = new List<ListadoIncidencias>();
+                    List<ListadoIncidencias> listaTemporal = new List<Models.ListadoIncidencias>();
                     List<int> temp = new List<int>();
 
                     //folios aviso de llegada -- OK
                     temp = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada
                             where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
-                            select r.IncidenciaID).AsParallel().Distinct().ToList();
+                            select r.FolioAvisoLlegadaID).AsParallel().Distinct().ToList();
 
-                    listado.AddRange(AvisoLlegadaBd.Instance.ListadoInciendias(clienteID, proyectoID, proyectos, patios,
-                        temp, fechaInicial, fechaFinal));
+                    listaTemporal = AvisoLlegadaBd.Instance.ListadoInciendias(clienteID, proyectoID, proyectos, patios,
+                        temp, fechaInicial, fechaFinal);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Entrada de material
-                    listado.AddRange(FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
-                        fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.FolioAvisoEntradaID).AsParallel().ToList();
+
+                    listaTemporal = FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp,
+                        fechaInicial, fechaFinal);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Pase salida, no se si existe la incidencia a nivel pase de salida o es de tipo aviso de entrada
                     //listado.AddRange(PaseSalidaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
 
                     //Packing list (Folio Cuantificacion)
-                    listado.AddRange(FoliosCuantificacionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
-                        fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_FolioCuantificacion
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.FolioCuantificacionID).AsParallel().ToList();
+
+                    listaTemporal = FoliosCuantificacionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp,
+                        fechaInicial, fechaFinal);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Orden recepcion
                     listado.AddRange(OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial,
@@ -2266,7 +2285,156 @@ namespace BackEndSAM.DataAcces
 
                 return result;
             }
+        }
 
+        public object ListaComboIncidencia(int tipoIncidenciaID, string busqueda)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> listado = new List<ListaCombos>();
+
+                    char[] lstElementoNumeroControl = busqueda.ToCharArray();
+                    List<string> elementos = new List<string>();
+                    foreach (char i in lstElementoNumeroControl)
+                    {
+                        elementos.Add(i.ToString());
+                    }
+
+                    switch (tipoIncidenciaID)
+                    {
+                        case 1: //Folio Aviso Entrada
+                            listado = (from fe in ctx.Sam3_FolioAvisoLlegada
+                                       where fe.Activo
+                                       && elementos.Any(x => fe.FolioAvisoLlegadaID.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = fe.FolioAvisoLlegadaID.ToString(),
+                                           value = fe.FolioAvisoLlegadaID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 2: // Entrada de Material
+                            listado = (from fem in ctx.Sam3_FolioAvisoEntrada
+                                       where fem.Activo
+                                       && elementos.Any(x => fem.FolioAvisoEntradaID.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = fem.FolioAvisoEntradaID.ToString(),
+                                           value = fem.FolioAvisoEntradaID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 3: // Pase Salida. Por el momento sin implementacion
+                            break;
+                        case 4: // Packing List
+                            listado = (from fc in ctx.Sam3_FolioCuantificacion
+                                       where fc.Activo
+                                       && elementos.Any(x => fc.FolioCuantificacionID.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = fc.FolioCuantificacionID.ToString(),
+                                           value = fc.FolioCuantificacionID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 5: // Orden de recepcion
+                            listado = (from ordr in ctx.Sam3_OrdenRecepcion
+                                       where ordr.Activo
+                                       && elementos.Any(x => ordr.Folio.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = ordr.OrdenRecepcionID.ToString(),
+                                           value = ordr.OrdenRecepcionID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 6: // Complemento de recepcion. Por el momento sin implementacion
+                            break;
+                        case 7: // ItemCode
+                            listado = (from it in ctx.Sam3_ItemCode
+                                       where it.Activo
+                                       && elementos.Any(x => it.Codigo.Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = it.ItemCodeID.ToString(),
+                                           value = it.Codigo
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 8: // Orden de almacenaje
+                            listado = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                       where oa.Activo
+                                       && elementos.Any(x => oa.Folio.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = oa.OrdenAlmacenajeID.ToString(),
+                                           value = oa.Folio.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 9: // Numero unico
+                            listado = (from nu in ctx.Sam3_NumeroUnico
+                                       where nu.Activo
+                                       && elementos.Any(x => (nu.Prefijo + nu.Consecutivo).Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = nu.NumeroUnicoID.ToString(),
+                                           value = nu.Prefijo + "-" + nu.Consecutivo
+                                       }).AsParallel().Distinct().ToList();
+
+                            foreach (ListaCombos i in listado)
+                            {
+                                int temp = Convert.ToInt32(i.id);
+                                int digitos = (from nu in ctx.Sam3_NumeroUnico
+                                               join p in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals p.ProyectoID
+                                               where nu.NumeroUnicoID == temp
+                                               select p.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                                string formato = "D" + digitos.ToString();
+                                string[] partes = i.value.Split('-').ToArray();
+                                int consecutivo = Convert.ToInt32(partes[1]);
+
+                                i.value = partes[0] + "-" + consecutivo.ToString(formato);
+                                
+                            }
+
+                            break;
+                        case 10: // Despacho
+                            listado = (from d in ctx.Sam3_Despacho
+                                       where d.Activo
+                                       && elementos.Any(x => d.DespachoID.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = d.DespachoID.ToString(),
+                                           value = d.DespachoID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        case 11: // Corte
+                            listado = (from c in ctx.Sam3_Corte
+                                       where c.Activo
+                                       && elementos.Any(x => c.CortadorID.ToString().Contains(x))
+                                       select new ListaCombos
+                                       {
+                                           id = c.CorteID.ToString(),
+                                           value = c.CorteID.ToString()
+                                       }).AsParallel().Distinct().ToList();
+                            break;
+                        default:
+                            throw new Exception("No se encontro el tipo de incidencia");
+                    }
+
+                    return listado;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
         }
     }
 }

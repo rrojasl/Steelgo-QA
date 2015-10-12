@@ -21,5 +21,6 @@ namespace BackEndSAM.Models
         public int FolioAvisoEntradaID { get; set; }
         public string Descripcion { get; set; }
         public string TipoArchivoPaseSalida { get; set; }
+        public Nullable<int> IncidenciaID { get; set; }
     }
 }

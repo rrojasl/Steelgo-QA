@@ -19,20 +19,26 @@ namespace BackEndSAM.Controllers
     public class TipoIncidenciaController : ApiController
     {
         // GET api/tipoincidencia
-        public IEnumerable<TipoIncidencia> Get(string token)
+        public object Get(string token)
         {
-            List<TipoIncidencia> LstTipoIncidencia = new List<TipoIncidencia>();
-            TipoIncidencia incidencia1 = new TipoIncidencia();
-            incidencia1.TipoIncidenciaID = "2001";
-            incidencia1.Nombre = "TipoIncidencia 1";
-            LstTipoIncidencia.Add(incidencia1);
-
-            TipoIncidencia incidencia2 = new TipoIncidencia();
-            incidencia2.TipoIncidenciaID = "2002";
-            incidencia2.Nombre = "TipoIncidencia 2";
-            LstTipoIncidencia.Add(incidencia2);
-
-            return LstTipoIncidencia.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return IncidenciaBd.Instance.TiposIncidencias(usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // GET api/tipoincidencia/5

@@ -26,46 +26,153 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DocumentoIncidenciaController : ApiController
     {
-        // GET api/documentoincidencia
-        public IEnumerable<ListaDocumentos> Get(string folio, string token)
+        public object Get(int incidenciaID, string token)
         {
-            List<ListaDocumentos> lstListaDocumentos = new List<ListaDocumentos>();
-            ListaDocumentos documento1 = new ListaDocumentos();
-            documento1.DocumentoID = "1";
-            documento1.Extencion = ".doc";
-            documento1.Nombre = "Archivo 1";
-            documento1.TipoArchivo = "Incidencia";
-            documento1.Url = "www.google.com";
-            documento1.Descripcion = "Prueba 1";
-            lstListaDocumentos.Add(documento1);
-
-            ListaDocumentos documento2 = new ListaDocumentos();
-            documento2.DocumentoID = "2";
-            documento2.Extencion = ".docx";
-            documento2.Nombre = "Archivo 2";
-            documento2.TipoArchivo = "Incidencia 2";
-            documento2.Url = "www.com";
-            documento2.Descripcion = "Prueba 2";
-            lstListaDocumentos.Add(documento2);
-
-            return lstListaDocumentos.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return DocumentosBd.Instance.ObtenerDocumentosIncidencia(incidenciaID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
-
-        // POST api/documentoincidencia
-        public void Post(int folioIncidenciaID, int tipoArchivoID, string descripcion, string token)
+        public object Post(int incidenciaID, string descripcion, string token)
         {
+            try
+            {
+                string newToken = "";
+                string payload = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (tokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
+                    HttpResponseMessage result = null;
+
+                    var httpRequest = HttpContext.Current.Request;
+
+                    if (httpRequest.Files.Count > 0)
+                    {
+
+                        var docfiles = new List<string>();
+                        HttpPostedFile postedFile;
+                        List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
+                        foreach (string file in httpRequest.Files)
+                        {
+                            Guid docguID = Guid.NewGuid();
+                            postedFile = httpRequest.Files[file];
+                            string nombreArchivo = "";
+
+                            //verificar si el nombre del archivo es una ruta completa
+                            if (postedFile.FileName.Contains("\\"))
+                            {
+                                string[] temp = postedFile.FileName.Split('\\');
+                                nombreArchivo = temp[temp.Count() - 1];
+                            }
+                            else
+                            {
+                                nombreArchivo = postedFile.FileName;
+                            }
+
+                            var path = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["urlFisica"] + docguID + "_" + nombreArchivo);
+                            string ruta = ConfigurationManager.AppSettings["urlBase"] + docguID + "_" + nombreArchivo;
+                            string[] st = nombreArchivo.Split('.');
+                            string extencion = "." + st[1];
+                            lstArchivos.Add(new DocumentoPosteado
+                            {
+                                FileName = nombreArchivo,
+                                ContentType = postedFile.ContentType,
+                                Size = postedFile.ContentLength,
+                                Path = ruta,
+                                DocGuid = docguID,
+                                IncidenciaID = incidenciaID,
+                                UserId = usuario.UsuarioID,
+                                TipoArchivoID = 0,
+                                Extencion = extencion,
+                                Descripcion = descripcion
+                            });
+
+                            postedFile.SaveAs(path);
+                            docfiles.Add(ruta);
+                        }
+
+                        if (DocumentosBd.Instance.GuardarDocumentoIncidencia(lstArchivos))
+                        {
+                            return Ok();
+                        }
+                        else
+                        {
+                            foreach (string path in docfiles)
+                            {
+                                if (File.Exists(path))
+                                {
+                                    File.Delete(path);
+                                }
+                            }
+                            result = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                        }
+                    }
+                    else
+                    {
+                        result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.ReturnMessage.Add(payload);
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.ReturnMessage.Add(ex.Message);
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
-        // PUT api/documentoincidencia/5
-        public void Put(int id, [FromBody]string value)
+        public object Delete(int documentoID, string token)
         {
-        }
-
-        // DELETE api/documentoincidencia/5
-        public void Delete(string documentoID, string token)
-        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return DocumentosBd.Instance.EliminarDocumentoIncidencia(documentoID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }

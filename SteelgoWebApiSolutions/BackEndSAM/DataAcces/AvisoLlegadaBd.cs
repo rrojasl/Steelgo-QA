@@ -933,7 +933,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
+        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs,
             DateTime fechainicial, DateTime fechaFinal)
         {
             try
@@ -950,6 +950,7 @@ namespace BackEndSAM.DataAcces
                                                               && proyectos.Contains(rfp.ProyectoID)
                                                               && patios.Contains(pa.PatioID)
                                                               && (fa.FechaModificacion >= fechainicial && fa.FechaModificacion <= fechaFinal)
+                                                              && IDs.Contains(fa.FolioAvisoLlegadaID)
                                                               select fa).Distinct().AsParallel().ToList();
 
                     if (clienteID > 0)
@@ -974,7 +975,6 @@ namespace BackEndSAM.DataAcces
                                join ti in ctx.Sam3_TipoIncidencia on incd.TipoIncidenciaID equals ti.TipoIncidenciaID
                                join us in ctx.Sam3_Usuario on incd.UsuarioID equals us.UsuarioID
                                where r.Activo && rif.Activo && incd.Activo
-                               && incidenciaIDs.Contains(incd.IncidenciaID)
                                select new ListadoIncidencias
                                {
                                    Clasificacion = cls.Nombre,
