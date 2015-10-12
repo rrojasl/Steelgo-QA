@@ -1081,7 +1081,7 @@
                 case 3:
                     modalTitle = "Colada";
                     content = "@Url.Action("Colada", "PopUps")";
-                    height = "22%";
+                    height = "30%";
                     break;
             };
 
@@ -1184,6 +1184,10 @@
             if (status == "Recepción Terminada") {
                 $("#Cuantificacion0086").show();
             }
+        };
+
+        function ActualizarPaginaPadre() {
+            ObtenerColada("Colada", 0, 0);
         };
 
         function ObtenerColada(id, opciones, mostrarOpcion) {

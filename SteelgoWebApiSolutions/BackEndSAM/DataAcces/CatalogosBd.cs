@@ -1140,15 +1140,15 @@ namespace BackEndSAM.DataAcces
                             #region
                             List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
                             List<CatalogoCedulas> cedulasCorrectas = new List<CatalogoCedulas>();
-                            List<CatalogoCedulas> cedulasNuevas = new List<CatalogoCedulas>();
+                            //List<CatalogoCedulas> cedulasNuevas = new List<CatalogoCedulas>();
 
-                            cedulasNuevas.AddRange(catalogoCedulas.Where(x => String.IsNullOrEmpty(x.CedulaID)));
+                            //cedulasNuevas.AddRange(catalogoCedulas.Where(x => String.IsNullOrEmpty(x.CedulaID)));
 
                             bool existe = false;
 
-                            foreach (CatalogoCedulas item in cedulasNuevas)
+                            foreach (CatalogoCedulas item in catalogoCedulas)
                             {
-                                decimal factor = Convert.ToDecimal(item.FactorConversion);
+                                decimal factor = Convert.ToDecimal("25.4006"); //Convert.ToDecimal(item.FactorConversion);
 
                                 if (String.IsNullOrEmpty(item.Diametro1))
                                 {
@@ -1204,6 +1204,10 @@ namespace BackEndSAM.DataAcces
                                 }
                                 else //Update
                                 {
+                                    List<CatalogoCedulas> lista = new List<CatalogoCedulas>();
+
+
+
                                     Sam3_Cedula cedula = ctx.Sam3_Cedula.Where(x => x.Activo &&
                                         (x.Diametro.ToString() == item.Diametro1 && (x.CedulaA == item.CedulaA ||
                                         x.CedulaB == item.CedulaB ||
@@ -1211,7 +1215,7 @@ namespace BackEndSAM.DataAcces
                                         (x.Diametro.ToString() == null &&
                                         (x.CedulaA == item.CedulaA ||
                                         x.CedulaB == item.CedulaB ||
-                                        x.CedulaC == item.CedulaC))).AsParallel().SingleOrDefault();
+                                        x.CedulaC == item.CedulaC))).AsParallel().FirstOrDefault();
 
                                     cedula.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
                                     cedula.CedulaA = item.CedulaA;
@@ -1271,6 +1275,71 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        /// <summary>
+        /// Funcion para validar si una cedula tiene conflictos
+        /// Que afecte 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="catalogoID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object validarCedulas(string data, string catalogoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
+                List<CatalogoCedulas> cedulasEnBD = new List<CatalogoCedulas>();
+                ValidarCedulas datos = new ValidarCedulas();
+
+                using (SamContext ctx = new SamContext())
+                {
+                    foreach (CatalogoCedulas item in catalogoCedulas)
+                    {
+                        cedulasEnBD = (from c in ctx.Sam3_Cedula
+                                       where c.Activo &&
+                                       (c.Diametro.ToString() == item.Diametro1
+                                       && (c.CedulaA == item.CedulaA || c.CedulaB == item.CedulaB || c.CedulaC == item.CedulaC))
+                                       || (c.Diametro.ToString() == null
+                                       && (c.CedulaA == item.CedulaA || c.CedulaB == item.CedulaB || c.CedulaC == item.CedulaC))
+                                       select new CatalogoCedulas 
+                                       {
+                                           CedulaID = c.CedulaID.ToString(),
+                                           Diametro1 = c.Diametro.ToString(),
+                                           CedulaA = c.CedulaA,
+                                           CedulaB = c.CedulaB,
+                                           CedulaC = c.CedulaC,
+                                           CedulaIn = c.CedulaIn.ToString(),
+                                           CedulaMM = c.CedulaMM.ToString(),
+                                           Espesor = c.Espesor.ToString()
+                                       }).AsParallel().ToList();
+
+                        if (cedulasEnBD.Count > 1)
+                        {
+                            datos.HayConflictos = true;
+                            datos.CedulasExistentes.AddRange(cedulasEnBD);
+                            datos.CedulasNuevas.AddRange(catalogoCedulas);
+                        }
+                    }
+                    return datos;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
 
         /// <summary>
         /// Se obtiene el factor de conversion 

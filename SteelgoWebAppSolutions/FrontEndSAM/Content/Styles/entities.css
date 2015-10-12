@@ -1756,6 +1756,24 @@ header .menu > div {
     .addedSection:last-of-type {
         margin-bottom: 0;
     }
+
+    /*$_modal*/
+    #window {
+        overflow: initial;
+    }
+
+    #window > div {
+        padding: 0;
+    }
+
+    #window .buttonSave,
+    .popup .buttonSave {
+        margin-bottom: 10px;
+    }
+
+    .popup {
+        overflow-y: initial;
+    }
 }
 
 /* md viewport */

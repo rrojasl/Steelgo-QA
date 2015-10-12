@@ -27,27 +27,28 @@
 
 <script>
     @section JavascriptGlobalVariables {
-    var $ArchivosModel = {
-        listContainer: {
-            create: "",
-            list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-delete"
-        },
-        properties: {
-            tipoarchivo: {
-                visible: "#Tipo_ArchivoDiv",
-                editable: "#Tipo_Archivo",
-                required: "#Tipo_Archivo"
+        var $ArchivosModel = {
+            listContainer: {
+                create: "",
+                list: "#grid",
+                detail: ".detailLink",
+                destroy: ".k-grid-delete"
             },
-            seleccionararchivo: {
-                visible: "#seleccionarArchivoDiv",
-                editable: "#seleccionarArchivo",
-                required: "#seleccionarArchivo"
+            properties: {
+                tipoarchivo: {
+                    visible: "#Tipo_ArchivoDiv",
+                    editable: "#Tipo_Archivo",
+                    required: "#Tipo_Archivo"
+                },
+                seleccionararchivo: {
+                    visible: "#seleccionarArchivoDiv",
+                    editable: "#seleccionarArchivo",
+                    required: "#seleccionarArchivo"
+                }
             }
-        }
-    };
+        };
     }
+
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
         CargarGrid();

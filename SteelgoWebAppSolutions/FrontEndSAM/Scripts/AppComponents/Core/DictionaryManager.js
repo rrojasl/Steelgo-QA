@@ -4487,7 +4487,10 @@ _dictionary = {
         "es-MX": "Incidencia - Folio ",
         "en-US": "Incidence - Folio "
     },
-
+    "Incidencias0036": {
+        "es-MX": "Registro",
+        "en-US": "Record"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Inicio",
