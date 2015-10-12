@@ -1292,6 +1292,7 @@ namespace BackEndSAM.DataAcces
                 List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
                 List<CatalogoCedulas> cedulasEnBD = new List<CatalogoCedulas>();
                 ValidarCedulas datos = new ValidarCedulas();
+                datos.HayConflictos = false;
 
                 using (SamContext ctx = new SamContext())
                 {
