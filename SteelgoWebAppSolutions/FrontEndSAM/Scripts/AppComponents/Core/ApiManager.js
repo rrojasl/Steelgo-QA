@@ -37,7 +37,7 @@ var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/Document
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
-var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?folioIncidenciaID=";
+var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?incidenciaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';

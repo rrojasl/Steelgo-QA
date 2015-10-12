@@ -302,7 +302,7 @@
 
         $('#AdjuntarArchivos').kendoUpload({
             async: {
-                saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + + "&tipoArchivoID=-1" + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token"),
+                saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token"),
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -444,6 +444,7 @@
                 var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
                 $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
 
+                $("#Registro").data("kendoAutoComplete").value(_ReferenciaID);
 
                 $("#listaArchivos tbody").empty();
                 $.each(data.Archivos, function (index, value) {
@@ -484,15 +485,10 @@
         });
     };
 
-    //function ObtenerDatosPorTipoIncidencia() {
-    //    $TipoIncidencia.TipoIncidencia.read({ tipoIncidenciaID: TipoIncidencia.TipoIncidenciaID, token: Cookies.get("token") }).done(function (result) {
-    //        ControlErroresObjetosComboBox("Registro", result);
-    //    });
-    //};
-
     function limpiarRegistro() {
         Registro = {};
     };
+
     function onUploadAdjuntarArchivos() {
         var bool = false;
         $("#formLlegadaMaterial .security_required").each(function (i, elem) {
@@ -517,11 +513,11 @@
             }
         }
 
-        $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&tipoArchivoID=-1" + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token");
+        $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token");
     };
 
     function DesahabilitarObtenerDocumentosIncidencias() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ folio: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 if (result.length > 0) {
@@ -536,7 +532,7 @@
     };
 
     function HabilitarObtenerDocumentosIncidencias() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ folio: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 if (result.length > 0) {
@@ -678,7 +674,7 @@
         Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
         Listado.RespondidoPor = $("#RespondidoPor").val();
         Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
-        Listado.ReferenciaID = _ReferenciaID;
+        Listado.ReferenciaID = $("#Registro").data("kendoAutoComplete").value();
         Listado.Nuevo = false;
         return Listado;
     };
