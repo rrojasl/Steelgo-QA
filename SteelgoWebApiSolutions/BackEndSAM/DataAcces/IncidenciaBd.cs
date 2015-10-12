@@ -63,12 +63,17 @@ namespace BackEndSAM.DataAcces
                         nuevaIncidencia.UsuarioModificacion = usuario.UsuarioID;
                         nuevaIncidencia.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta);
                         nuevaIncidencia.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion);
-                        nuevaIncidencia.UsuarioIDRespuesta = datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
-                        nuevaIncidencia.UsuarioResuelveID = datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
-                        nuevaIncidencia.Estatus = datos.Estatus == "" ? "Abierta" : datos.Estatus;
+                        nuevaIncidencia.UsuarioIDRespuesta = usuario.UsuarioID;
+                        nuevaIncidencia.UsuarioResuelveID = usuario.UsuarioID;
+                        nuevaIncidencia.Estatus = datos.Estatus == null || datos.Estatus == "" ? "Abierta" : datos.Estatus;
+                        nuevaIncidencia.RespondidoPor = datos.RespondidoPor;
+                        nuevaIncidencia.ResueltoPor = datos.ResueltoPor;
+                        nuevaIncidencia.RegistradoPor = datos.RegistradoPor;
                         
 
                         ctx.Sam3_Incidencia.Add(nuevaIncidencia);
+
+                        ctx.SaveChanges();
 
                         if (datos.TipoIncidenciaID > 0)
                         {
