@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(int tipoIncidencia, string busqueda, string token)
+        public object Get(string tipoIncidencia, string busqueda, string token)
         {
             string payload = "";
             string newToken = "";
@@ -50,7 +50,9 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ListadoBd.Instance.ListaComboIncidencia(tipoIncidencia, busqueda);
+
+                int tipoIncidenciaID = tipoIncidencia != "" ? Convert.ToInt32(tipoIncidencia) : 0;
+                return ListadoBd.Instance.ListaComboIncidencia(tipoIncidenciaID, busqueda);
             }
             else
             {

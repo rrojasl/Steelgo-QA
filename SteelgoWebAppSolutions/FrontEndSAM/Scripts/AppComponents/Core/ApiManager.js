@@ -49,7 +49,7 @@ var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumen
 var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
 var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
 var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
-
+var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -132,6 +132,7 @@ var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MaterialPendiente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/

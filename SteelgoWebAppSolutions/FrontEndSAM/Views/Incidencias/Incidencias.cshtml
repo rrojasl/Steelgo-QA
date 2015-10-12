@@ -280,9 +280,7 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-        CargarCombosML();
-    }
+
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaRegistro.setOptions(datePickerOptions);
         FechaResolucion.setOptions(datePickerOptions);
@@ -326,9 +324,62 @@
         $("#TipoIncidencia").kendoComboBox({});
 
 
-         $("#Registro").kendoComboBox({
+        $("#Clasificacion").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ClasificacionID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Clasificacion = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerClasificacion();
+
+
+        $("#TipoIncidencia").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "TipoIncidenciaID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                limpiarRegistro();
+
+                if (!value) {
+                    TipoIncidencia = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerTipoIncidencia();
+
+        $("#Registro").kendoAutoComplete({
              dataTextField: "value",
              dataValueField: "id",
+             dataSource: {
+                 type: "json",
+                 minLength: 1,
+                 serverFiltering: true,
+                 transport: {
+                     read: {
+                         url: function (op) {
+                             var val = "";
+                             if (op.filter) {
+                                 val = op.filter.filters[0].value;
+                             }
+                             return $UrlTipoIncidencia + "tipoIncidencia=" + $("#TipoIncidencia").data("kendoComboBox").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
+                         }
+                     }
+                 },
+             },
              select: function (e) {
                  var dataItem = this.dataItem(e.item.index());
                  CargarRegistro(dataItem.id);
@@ -342,6 +393,11 @@
              },
              filter: "contains",
          });
+
+         if (_Edicion == "-1") {
+             $("#Clasificacion").data("kendoComboBox").value(1);//default materiales 
+             CargarClasificacion(1, "");
+         };
     };
 
     function CargaInicialEdicion(id) {
@@ -400,62 +456,6 @@
     };
 
 
-    function CargarCombosML() {
-
-        $("#Clasificacion").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ClasificacionID",
-            dataSource: [
-                { "ClasificacionID": "1", "Nombre": _dictionary.Incidencias0029[$("#language").data("kendoDropDownList").value()] },
-                { "ClasificacionID": "2", "Nombre": _dictionary.Incidencias0030[$("#language").data("kendoDropDownList").value()] },
-                { "ClasificacionID": "3", "Nombre": _dictionary.Incidencias0031[$("#language").data("kendoDropDownList").value()] }
-            ],
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    Clasificacion = {};
-                }
-            },
-            filter: "contains",
-        });
-        $("#TipoIncidencia").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "TipoIncidenciaID",
-            dataSource: [
-                { "TipoIncidenciaID": "1", "Nombre": _dictionary.Incidencias0032[$("#language").data("kendoDropDownList").value()] },
-                { "TipoIncidenciaID": "2", "Nombre": _dictionary.Incidencias0033[$("#language").data("kendoDropDownList").value()] },
-                { "TipoIncidenciaID": "3", "Nombre": _dictionary.Incidencias0034[$("#language").data("kendoDropDownList").value()] }
-            ],
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                limpiarRegistro();
-
-                if (!value) {
-                    TipoIncidencia = {};
-                } else {
-                    ObtenerDatosPorTipoIncidencia();
-                };
-            },
-            filter: "contains",
-        });
-
-        if (_Edicion != "-1") {
-
-        } else {
-            $("#Clasificacion").data("kendoComboBox").value(1);//default materiales 
-            CargarClasificacion(1, "");
-        };
-        
-    }
-
 
     function CargarClasificacion(id, value) {
         Clasificacion = {};
@@ -484,16 +484,14 @@
         });
     };
 
-    function ObtenerDatosPorTipoIncidencia() {
-        $TipoIncidencia.TipoIncidencia.read({ tipoIncidenciaID: TipoIncidencia.TipoIncidenciaID, token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("Registro", result);
-        });
-    };
+    //function ObtenerDatosPorTipoIncidencia() {
+    //    $TipoIncidencia.TipoIncidencia.read({ tipoIncidenciaID: TipoIncidencia.TipoIncidenciaID, token: Cookies.get("token") }).done(function (result) {
+    //        ControlErroresObjetosComboBox("Registro", result);
+    //    });
+    //};
 
     function limpiarRegistro() {
         Registro = {};
-        $("#Registro").data("kendoComboBox").value("");
-        $("#Registro").data("kendoComboBox").dataSource.data([]);
     };
     function onUploadAdjuntarArchivos() {
         var bool = false;
