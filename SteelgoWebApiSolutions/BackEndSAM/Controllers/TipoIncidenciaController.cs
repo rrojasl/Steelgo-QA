@@ -43,18 +43,18 @@ namespace BackEndSAM.Controllers
             ListaCombos combo2 = new ListaCombos();
             ListaCombos combo3 = new ListaCombos();
 
-            if (tipoIncidenciaID == 2001)
+            if (tipoIncidenciaID == 1)
             {
                 combo1.id = "1";
-                combo1.value = "ItemCode 1";
+                combo1.value = "Packing List 1";
                 lstCombo.Add(combo1);
 
                 combo2.id = "2";
-                combo2.value = "ItemCode 2";
+                combo2.value = "Packing List 2";
                 lstCombo.Add(combo2);
             }
 
-            if (tipoIncidenciaID == 2002)
+            if (tipoIncidenciaID == 2)
             {
                 combo1.id = "1";
                 combo1.value = "Numero Unico 1";
@@ -62,6 +62,17 @@ namespace BackEndSAM.Controllers
 
                 combo2.id = "2";
                 combo2.value = "Numero Unico 2";
+                lstCombo.Add(combo2);
+            }
+
+            if (tipoIncidenciaID == 3)
+            {
+                combo1.id = "1";
+                combo1.value = "ItemCode 1";
+                lstCombo.Add(combo1);
+
+                combo2.id = "2";
+                combo2.value = "ItemCode 2";
                 lstCombo.Add(combo2);
             }
 

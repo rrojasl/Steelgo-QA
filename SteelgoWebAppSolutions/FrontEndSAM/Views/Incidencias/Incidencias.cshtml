@@ -59,8 +59,9 @@
                                             <label id="Incidencias0004"></label>
                                             <input id="TipoIncidencia" class="" />
                                         </div>
-                                        <div id="FolioDiv" class="hidden">
-                                            <input id="Folio" class="" />
+                                        <div id="RegistroDiv"  class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                                            <label id="Incidencias0036"></label>
+                                            <input id="Registro" class="" />
                                         </div>
                                         <div id="VersionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                             <label id="Incidencias0005"></label>
@@ -170,7 +171,7 @@
     @section JavascriptGlobalVariables {
     var Clasificacion = {}, TipoIncidencia = {},
         FechaRegistro, FechaResolucion,
-        FechaRespuesta;
+        FechaRespuesta, Registro = {};
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
@@ -193,6 +194,11 @@
                 visible: "#TipoIncidenciaDiv",
                 editable: "#TipoIncidencia",
                 required: "#TipoIncidencia"
+            },
+            registro: {
+                visible: "#RegistroDiv",
+                editable: "#Registro",
+                required: "#Registro"
             },
             version: {
                 visible: "#VersionDiv",
@@ -318,6 +324,24 @@
 
         $("#Clasificacion").kendoComboBox({});
         $("#TipoIncidencia").kendoComboBox({});
+
+
+         $("#Registro").kendoComboBox({
+             dataTextField: "value",
+             dataValueField: "id",
+             select: function (e) {
+                 var dataItem = this.dataItem(e.item.index());
+                 CargarRegistro(dataItem.id);
+             },
+             change: function (e) {
+                 var value = this.value();
+
+                 if (!value) {
+                     Registro = {};
+                 }
+             },
+             filter: "contains",
+         });
     };
 
     function CargaInicialEdicion(id) {
@@ -412,10 +436,13 @@
             },
             change: function (e) {
                 var value = this.value();
+                limpiarRegistro();
+
                 if (!value) {
                     TipoIncidencia = {};
-                }
-                ObtenerDatosPorTipoIncidencia();
+                } else {
+                    ObtenerDatosPorTipoIncidencia();
+                };
             },
             filter: "contains",
         });
@@ -440,6 +467,11 @@
         TipoIncidencia = { TipoIncidenciaID: id, Nombre: value };
     };
 
+    function CargarRegistro(id) {
+        Registro = {};
+        Registro = { RegistroID: id};
+    };
+
     function ObtenerClasificacion() {
         $Clasificacion.Clasificacion.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Clasificacion", result);
@@ -454,10 +486,15 @@
 
     function ObtenerDatosPorTipoIncidencia() {
         $TipoIncidencia.TipoIncidencia.read({ tipoIncidenciaID: TipoIncidencia.TipoIncidenciaID, token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("Folio", result);
+            ControlErroresObjetosComboBox("Registro", result);
         });
     };
 
+    function limpiarRegistro() {
+        Registro = {};
+        $("#Registro").data("kendoComboBox").value("");
+        $("#Registro").data("kendoComboBox").dataSource.data([]);
+    };
     function onUploadAdjuntarArchivos() {
         var bool = false;
         $("#formLlegadaMaterial .security_required").each(function (i, elem) {
