@@ -733,6 +733,62 @@ namespace BackEndSAM.DataAcces
                                               Titulo = inc.Titulo,
                                               Version = inc.Version.ToString()
                                           }).AsParallel().SingleOrDefault();
+
+                    switch (detalle.TipoIncidenciaID)
+                    {
+                        case 1: //Folio Aviso Entrada
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.FolioAvisoLlegadaID).AsParallel().SingleOrDefault();
+                            break;
+                        case 2: // Entrada de Material
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
+                            break;
+                        case 3: // Pase Salida. Por el momento sin implementacion
+                            break;
+                        case 4: // Packing List
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioCuantificacion
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.FolioCuantificacionID).AsParallel().SingleOrDefault();
+                            break;
+                        case 5: // Orden de recepcion
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_OrdenRecepcion
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.OrdenRecepcionID).AsParallel().SingleOrDefault();
+                            break;
+                        case 6: // Complemento de recepcion. Por el momento sin implementacion
+                            break;
+                        case 7: // ItemCode
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.ItemCodeID).AsParallel().SingleOrDefault();
+                            break;
+                        case 8: // Orden de almacenaje
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.OrdenalmacenajeID).AsParallel().SingleOrDefault();
+                            break;
+                        case 9: // Numero unico
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_NumeroUnico
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.NumeroUnicoID).AsParallel().SingleOrDefault();
+                            break;
+                        case 10: // Despacho
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_Despacho
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.DespachoID).AsParallel().SingleOrDefault();
+                            break;
+                        case 11: // Corte
+                            detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_Corte
+                                                    where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                    select r.CorteID).AsParallel().SingleOrDefault();
+                            break;
+                        default:
+                            throw new Exception("No se encontro el tipo de incidencia");
+                    }
+
                     return detalle;
                 }
             }
