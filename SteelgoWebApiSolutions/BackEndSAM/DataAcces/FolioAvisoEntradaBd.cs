@@ -624,7 +624,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs
             , DateTime fechaInicial, DateTime fechaFinal )
         {
             try
@@ -644,6 +644,7 @@ namespace BackEndSAM.DataAcces
                                      && patios.Contains(pa.PatioID)
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && p.ProyectoID == proyectoID
+                                     && IDs.Contains(fe.FolioAvisoEntradaID)
                                      select fe).Distinct().AsParallel().ToList();
                     }
                     else
@@ -656,6 +657,7 @@ namespace BackEndSAM.DataAcces
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
                                      && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
+                                     && IDs.Contains(fe.FolioAvisoEntradaID)
                                      select fe).Distinct().AsParallel().ToList();
                     }
 
@@ -671,7 +673,6 @@ namespace BackEndSAM.DataAcces
                                join ti in ctx.Sam3_TipoIncidencia on ind.TipoIncidenciaID equals ti.TipoIncidenciaID
                                join us in ctx.Sam3_Usuario on ind.UsuarioID equals us.UsuarioID
                                where r.Activo && rif.Activo && ind.Activo && clas.Activo && ti.Activo
-                               && incidenciaIDs.Contains(ind.IncidenciaID)
                                select new ListadoIncidencias
                                {
                                    Clasificacion = clas.Nombre,

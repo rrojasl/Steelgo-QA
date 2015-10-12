@@ -30,14 +30,14 @@ var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
 var $SearchSAMUri = 'http://localhost:60921';
-var $FilesSAMUri = 'http://localhost:60921'; 
+var $FilesSAMUri = 'http://localhost:60921';
 
 //Combos Base URL
 var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";
 var $DocumentoPaseSalidaUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoPaseSalida?folioAvisoLlegada=";
 var $DocumentoLlegadaMaterialUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoFolioAvisoEntrada?folioAvisoEntradaID=";
-var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?folioIncidenciaID=";
+var $DocumentoIncidenciasUploadFiles = $BackEndSAMUri + "/backendsam/api/DocumentoIncidencia?incidenciaID=";
 var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
@@ -48,7 +48,8 @@ var $UrlNumerosUnicosDespacho = $BackEndSAMUri + '/backendsam/api/NumeroUnico?';
 var $UrlImpresionDocumental = $BackEndSAMUri + '/backendsam/api/ImpresionDocumental?';
 var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
 var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
-
+var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
+var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -131,6 +132,7 @@ var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MaterialPendiente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/

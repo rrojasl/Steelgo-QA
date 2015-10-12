@@ -747,5 +747,119 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public bool GuardarDocumentoIncidencia(List<DocumentoPosteado> documentos)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int incidenciaID = documentos[0].IncidenciaID.Value;
+
+                    //Guardamos la informacion de los documentos
+                    foreach (DocumentoPosteado d in documentos)
+                    {
+                        Sam3_Rel_Incidencia_Documento nuevoDoc = new Sam3_Rel_Incidencia_Documento();
+                        nuevoDoc.Activo = true;
+                        nuevoDoc.ContentType = d.ContentType;
+                        nuevoDoc.DocGuid = d.DocGuid;
+                        nuevoDoc.DocumentoID = 0;
+                        nuevoDoc.Extencion = d.Extencion;
+                        nuevoDoc.FechaModificacion = DateTime.Now;
+                        nuevoDoc.Nombre = d.FileName;
+                        nuevoDoc.IncidenciaID= incidenciaID;
+                        //nuevoDoc.TipoArchivoID = tipoArchivoID;
+                        nuevoDoc.Url = d.Path;
+                        nuevoDoc.UsuarioModificacion = d.UserId;
+
+                        ctx.Sam3_Rel_Incidencia_Documento.Add(nuevoDoc);
+                    }
+
+                    ctx.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                return false;
+            }
+        }
+
+        public object ObtenerDocumentosIncidencia(int incidenciaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaDocumentos> documentos = (from rid in ctx.Sam3_Rel_Incidencia_Documento
+                                                        where rid.Activo
+                                                        select new ListaDocumentos
+                                                        {
+                                                            DocumentoID = rid.Rel_Incidencia_DocumentoID.ToString(),
+                                                            Nombre = rid.Nombre,
+                                                            Extencion = rid.Extencion,
+                                                            Url = rid.Url,
+                                                            TipoArchivo = string.Empty
+                                                        }).AsParallel().ToList();
+                    return documentos;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarDocumentoIncidencia(int documentoID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Rel_Incidencia_Documento docDb = ctx.Sam3_Rel_Incidencia_Documento
+                        .Where(x => x.Rel_Incidencia_DocumentoID == documentoID).AsParallel().SingleOrDefault();
+
+                    docDb.Activo = false;
+                    docDb.FechaModificacion = DateTime.Now;
+                    docDb.UsuarioModificacion = usuario.UsuarioID;
+
+                    ctx.SaveChanges();
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

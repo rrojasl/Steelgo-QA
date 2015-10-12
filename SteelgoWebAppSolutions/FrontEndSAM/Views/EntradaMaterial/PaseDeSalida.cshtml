@@ -142,7 +142,7 @@
     @section JavascriptGlobalVariables {
         var Folio = {};
         var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
-
+        var _UrlReporte = $UrlReportingServices;
         var $PaseSalidaModel = {
             listContainer: {
                 create: "",
@@ -209,8 +209,8 @@
             });
 
             $("#ImprimirPaseSalida").click(function () {
-                var url = "@Url.Action("FormatoPaseSalida", "EntradaMaterial")" + "?FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID;
-                window.open(url);
+                alert(Folio.FolioAvisoLlegadaID);
+                window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
             });
 
             $("#ImprimirIncidencias").click(function () {
@@ -338,7 +338,7 @@
             Folio = {};
             Folio = { FolioAvisoLlegadaID: id };
         };
-
+       
         function CargarTipoArchivo(id, value) {
             TipoArchivo = {};
             TipoArchivo = { TipoArchivoID: id, Nombre: value};

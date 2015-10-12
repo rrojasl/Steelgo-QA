@@ -59,6 +59,10 @@
                                             <label id="Incidencias0004"></label>
                                             <input id="TipoIncidencia" class="" />
                                         </div>
+                                        <div id="RegistroDiv"  class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                                            <label id="Incidencias0036"></label>
+                                            <input id="Registro" class="" />
+                                        </div>
                                         <div id="VersionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-4">
                                             <label id="Incidencias0005"></label>
                                             <input id="Version" class="general-input" disabled />
@@ -167,7 +171,7 @@
     @section JavascriptGlobalVariables {
     var Clasificacion = {}, TipoIncidencia = {},
         FechaRegistro, FechaResolucion,
-        FechaRespuesta;
+        FechaRespuesta, Registro = {};
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
@@ -190,6 +194,11 @@
                 visible: "#TipoIncidenciaDiv",
                 editable: "#TipoIncidencia",
                 required: "#TipoIncidencia"
+            },
+            registro: {
+                visible: "#RegistroDiv",
+                editable: "#Registro",
+                required: "#Registro"
             },
             version: {
                 visible: "#VersionDiv",
@@ -271,9 +280,7 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-        CargarCombosML();
-    }
+
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaRegistro.setOptions(datePickerOptions);
         FechaResolucion.setOptions(datePickerOptions);
@@ -295,7 +302,7 @@
 
         $('#AdjuntarArchivos').kendoUpload({
             async: {
-                saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + + "&tipoArchivoID=-1" + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token"),
+                saveUrl: $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token"),
                 autoUpload: false,
                 withCredentials: false,
                 batch: true
@@ -315,6 +322,82 @@
 
         $("#Clasificacion").kendoComboBox({});
         $("#TipoIncidencia").kendoComboBox({});
+
+
+        $("#Clasificacion").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "ClasificacionID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Clasificacion = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerClasificacion();
+
+
+        $("#TipoIncidencia").kendoComboBox({
+            dataTextField: "Nombre",
+            dataValueField: "TipoIncidenciaID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                limpiarRegistro();
+
+                if (!value) {
+                    TipoIncidencia = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerTipoIncidencia();
+
+        $("#Registro").kendoAutoComplete({
+             dataTextField: "value",
+             dataValueField: "id",
+             dataSource: {
+                 type: "json",
+                 minLength: 1,
+                 serverFiltering: true,
+                 transport: {
+                     read: {
+                         url: function (op) {
+                             var val = "";
+                             if (op.filter) {
+                                 val = op.filter.filters[0].value;
+                             }
+                             return $UrlTipoIncidencia + "tipoIncidencia=" + $("#TipoIncidencia").data("kendoComboBox").value() + "&busqueda=" + val + "&token=" + Cookies.get("token");
+                         }
+                     }
+                 },
+             },
+             select: function (e) {
+                 var dataItem = this.dataItem(e.item.index());
+                 CargarRegistro(dataItem.id);
+             },
+             change: function (e) {
+                 var value = this.value();
+
+                 if (!value) {
+                     Registro = {};
+                 }
+             },
+             filter: "contains",
+         });
+
+         if (_Edicion == "-1") {
+             $("#Clasificacion").data("kendoComboBox").value(1);//default materiales 
+             CargarClasificacion(1, "");
+         };
     };
 
     function CargaInicialEdicion(id) {
@@ -361,6 +444,7 @@
                 var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
                 $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
 
+                $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
 
                 $("#listaArchivos tbody").empty();
                 $.each(data.Archivos, function (index, value) {
@@ -373,58 +457,6 @@
     };
 
 
-    function CargarCombosML() {
-
-        $("#Clasificacion").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ClasificacionID",
-            dataSource: [
-                { "ClasificacionID": "1", "Nombre": _dictionary.Incidencias0029[$("#language").data("kendoDropDownList").value()] },
-                { "ClasificacionID": "2", "Nombre": _dictionary.Incidencias0030[$("#language").data("kendoDropDownList").value()] },
-                { "ClasificacionID": "3", "Nombre": _dictionary.Incidencias0031[$("#language").data("kendoDropDownList").value()] }
-            ],
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarClasificacion(dataItem.ClasificacionID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    Clasificacion = {};
-                }
-            },
-            filter: "contains",
-        });
-        $("#TipoIncidencia").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "TipoIncidenciaID",
-            dataSource: [
-                { "TipoIncidenciaID": "1", "Nombre": _dictionary.Incidencias0032[$("#language").data("kendoDropDownList").value()] },
-                { "TipoIncidenciaID": "2", "Nombre": _dictionary.Incidencias0033[$("#language").data("kendoDropDownList").value()] },
-                { "TipoIncidenciaID": "3", "Nombre": _dictionary.Incidencias0034[$("#language").data("kendoDropDownList").value()] }
-            ],
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoIncidencia(dataItem.TipoIncidenciaID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    TipoIncidencia = {};
-                }
-            },
-            filter: "contains",
-        });
-
-        if (_Edicion != "-1") {
-
-        } else {
-            $("#Clasificacion").data("kendoComboBox").value(1);//default materiales 
-            CargarClasificacion(1, "");
-        };
-        
-    }
-
 
     function CargarClasificacion(id, value) {
         Clasificacion = {};
@@ -435,7 +467,12 @@
         TipoIncidencia = {};
         TipoIncidencia = { TipoIncidenciaID: id, Nombre: value };
     };
-   
+
+    function CargarRegistro(id) {
+        Registro = {};
+        Registro = { RegistroID: id};
+    };
+
     function ObtenerClasificacion() {
         $Clasificacion.Clasificacion.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Clasificacion", result);
@@ -447,6 +484,11 @@
             ControlErroresObjetosComboBox("TipoIncidencia", result);
         });
     };
+
+    function limpiarRegistro() {
+        Registro = {};
+    };
+
     function onUploadAdjuntarArchivos() {
         var bool = false;
         $("#formLlegadaMaterial .security_required").each(function (i, elem) {
@@ -471,11 +513,11 @@
             }
         }
 
-        $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&tipoArchivoID=-1" + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token");
+        $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token");
     };
 
     function DesahabilitarObtenerDocumentosIncidencias() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ folio: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 if (result.length > 0) {
@@ -490,7 +532,7 @@
     };
 
     function HabilitarObtenerDocumentosIncidencias() {
-        $DocumentoIncidencia.DocumentoIncidencia.read({ folio: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
+        $DocumentoIncidencia.DocumentoIncidencia.read({ incidenciaID: _FolioIncidencia, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
             if (Error(result)) {
                 if (result.length > 0) {
@@ -632,14 +674,15 @@
         Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
         Listado.RespondidoPor = $("#RespondidoPor").val();
         Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
-        Listado.ReferenciaID = _ReferenciaID;
+        Listado.ReferenciaID = $("#Registro").data("kendoAutoComplete").value();
         Listado.Nuevo = false;
         return Listado;
     };
 
     function habilitarControles() {
-        $("#Clasificacion").data("kendoComboBox").enable(true);
+        $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(true);
+        $("#Registro").data("kendoAutoComplete").enable(true);
         $("#Titulo").removeAttr("disabled");
         $("#Descripcion").removeAttr("disabled");
         $("#Respuesta").removeAttr("disabled");
@@ -652,7 +695,7 @@
         $("#RespondidoPor").removeAttr("disabled");
         $("#FechaRespuesta").data("kendoDatePicker").enable(true);
         $("#AdjuntarArchivos").data("kendoUpload").enable(true);
-        $("#DescripcionArchivo").removeAttr("disabled");
+        $("#DescripcionArchivo").removeAttr("disabled");        
         HabilitarObtenerDocumentosIncidencias();
         if (_Edicion != "-1") {
             $("#RegistradoPor").attr("disabled", "disabled");
@@ -664,6 +707,7 @@
     function DeshabilitarControles() {
         $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(false);
+        $("#Registro").data("kendoAutoComplete").enable(false);
         $("#Version").attr("disabled", "disabled");
         $("#Titulo").attr("disabled", "disabled");
         $("#Descripcion").attr("disabled", "disabled");
