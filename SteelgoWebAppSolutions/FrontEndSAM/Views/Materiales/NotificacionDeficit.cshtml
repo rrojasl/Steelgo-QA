@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Materiales - Notificación de Déficit";
+}
+
+@section breadcrumb {
+    <li class="active">
+        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="AsociacionICS0004"></span></a>
+    </li>
+}
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section">
+                            <button type="button" class="btn" id="notificar">Notificar</button>
+                            <button type="button" class="btn" id="cancelar">Cancelar</button>
+                        </div>
+                        <div class="button-section"></div>
+                        <div class="button-section">
+                            <button type="button" class="btn" id="notificar">Acciones</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="ordtrabajo" id="NotificacionDeficit0001"></label>
+                            <input id="ordtrabajo" type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="itemcode">Item Code</label>
+                            <input id="itemcode" type="text" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="D1">D1</label>
+                            <input id="D1" class="general-input" type="text" disabled/>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="D2">D2</label>
+                            <input id="D2" class="general-input" type="text" disabled/>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                            <label for="spoolCheck" id="NotificacionDeficit0002">D2</label>
+                            <input id="spoolCheck" type="checkbox" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+@section JavascriptGlobalVariables {
+    
+}
+
+@section JavascriptGlobalFunctions {
+    function regenerarCombo(){
+        var options = $("#itemcode").data("kendoComboBox").options;
+        $("#itemcode").data("kendoComboBox").destroy();
+        $("#itemcode").empty().kendoComboBox(options);
+        limpiarDiametros();
+    }
+
+    function limpiarDiametros(){
+        $("#D1").val("");
+        $("#D2").val("");
+    }
+};
+
+@section JavascriptDocumentReadyFunctions {
+    //$authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
+
+    $("#ordtrabajo").kendoComboBox({
+        dataSource: {
+            transport: {
+                read: {
+                    url:$NotificacionDeficit.NotificacionDeficit.urlNoId + "?token=" + Cookies.get("token"),
+                    dataType: "json",
+                    type:"GET"
+                }
+            }
+        },
+        change:function(e){
+            $("#itemcode").data("kendoComboBox").options.dataSource.transport.read.url=$NotificacionDeficit.NotificacionDeficit.urlNoId + "?token=" + Cookies.get("token")+"&ordenTrabajo="+$("#ordtrabajo").data("kendoComboBox").value();
+            regenerarCombo();
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+
+    $("#itemcode").kendoComboBox({
+        dataSource: {
+            transport: {
+                read: {
+                    url:"",
+                    dataType: "json",
+                    type:"GET"
+                }
+            }
+        },
+        change:function(e){
+            $NotificacionDeficit.NotificacionDeficit.read({},{itemCodeID:$("#itemcode").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
+                $("#D1").val(result[0].Diametro1);
+                $("#D2").val(result[0].Diametro2);
+            })
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+};
+    
+@section JavascriptDocumentReadyHomeCookie {
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "46", { path: '/' });
+};
+
+</script>

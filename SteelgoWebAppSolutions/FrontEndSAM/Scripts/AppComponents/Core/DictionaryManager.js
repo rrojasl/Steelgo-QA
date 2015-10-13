@@ -982,6 +982,15 @@ _dictionary = {
         "es-MX": "No ha habido modificaciones",
         "en-US": "There has not been modifications"
     },
+    //Notificacion Deficit
+    "NotificacionDeficit0001": {
+        "es-MX": "Orden de trabajo",
+        "en-US": "Work order"
+    },
+    "NotificacionDeficit0002": {
+        "es-MX": "Seleccionar spool",
+        "en-US": "Select spool"
+    },
     //Búsqueda
     "Busqueda0001": {
         "es-MX": "Resultados de Búsqueda",

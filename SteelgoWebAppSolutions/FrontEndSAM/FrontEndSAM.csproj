@@ -982,6 +982,7 @@
     <Compile Include="Controllers\Incidencias\IncidenciasController.cs" />
     <Compile Include="Controllers\ListadoMateriales\ListadoMaterialesController.cs" />
     <Compile Include="Controllers\LlegadaMaterial\EntradaMaterialController.cs" />
+    <Compile Include="Controllers\Materiales\MaterialesController.cs" />
     <Compile Include="Controllers\OrdenAlmacenaje\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\PackingList\PackingListController.cs" />
@@ -1164,6 +1165,7 @@
     <Content Include="Views\Entrega\Entrega.cshtml" />
     <Content Include="Views\Prueba\Prueba.cshtml" />
     <Content Include="Views\PopUps\TipoUso.cshtml" />
+    <Content Include="Views\Materiales\NotificacionDeficit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
