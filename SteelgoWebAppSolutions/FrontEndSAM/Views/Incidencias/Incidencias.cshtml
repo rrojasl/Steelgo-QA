@@ -160,7 +160,7 @@
         </div>
     </div>
 </div>
-
+<input id="hdEstatus" type="hidden"/>
 <script>
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptDocumentReadyHomeCookie {
@@ -296,6 +296,8 @@
         $("#Cancelar").click(function () { Cancelar(); });
         $("#Editar").click(function () { BotonEdicion(); });
 
+        $("#MotivoCancelacionDiv").addClass("hidden");
+        $("#DetalleResolucionDiv").addClass("hidden");
         FechaRegistro = new kendo.ui.DatePicker($("#FechaRegistro"));
         FechaResolucion = new kendo.ui.DatePicker($("#FechaResolucion"));
         FechaRespuesta = new kendo.ui.DatePicker($("#FechaRespuesta"));
@@ -446,6 +448,14 @@
 
                 $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
 
+                if (data.Estatus == "Cancelado") {
+                    $("#MotivoCancelacionDiv").removeClass("hidden");
+                };
+
+                if (data.Estatus == "Resuelto") {
+                    $("#DetalleResolucionDiv").removeClass("hidden");
+                };
+                $("#hdEstatus").val(data.Estatus);
                 $("#listaArchivos tbody").empty();
                 $.each(data.Archivos, function (index, value) {
                     $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
@@ -674,15 +684,16 @@
         Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
         Listado.RespondidoPor = $("#RespondidoPor").val();
         Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
-        Listado.ReferenciaID = $("#Registro").data("kendoAutoComplete").value();
+        Listado.ReferenciaID = Registro.RegistroID;
         Listado.Nuevo = false;
+        Listado.Estatus = $("#hdEstatus").val();
         return Listado;
     };
 
     function habilitarControles() {
         $("#Clasificacion").data("kendoComboBox").enable(false);
         $("#TipoIncidencia").data("kendoComboBox").enable(true);
-        $("#Registro").data("kendoAutoComplete").enable(true);
+        $("#Registro").data("kendoAutoComplete").enable(false);
         $("#Titulo").removeAttr("disabled");
         $("#Descripcion").removeAttr("disabled");
         $("#Respuesta").removeAttr("disabled");
@@ -758,8 +769,6 @@
     function Editar(Listado) {
         $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
-                _FolioIncidencia = result.FolioIncidenciaID;
-                $("#Version").val(result.Version);
                 BotonAlta();
                 cargarTituloFolio();
                 LimpiarHistorialFiles();
@@ -827,6 +836,8 @@
         } else {
             displayMessage("notificationslabel0031", "", '1');
             loadingStop();
+            $("#DetalleResolucionDiv").removeClass("hidden");
+            $("#MotivoCancelacionDiv").addClass("hidden");
         }
     };
 
@@ -843,6 +854,8 @@
         } else {
             displayMessage("notificationslabel0031", "", '1');
             loadingStop();
+            $("#MotivoCancelacionDiv").removeClass("hidden");
+            $("#DetalleResolucionDiv").addClass("hidden");
         }
     };
 
