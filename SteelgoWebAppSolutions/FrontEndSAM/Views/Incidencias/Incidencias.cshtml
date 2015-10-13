@@ -160,7 +160,7 @@
         </div>
     </div>
 </div>
-<input id="hdEstatus" type="hidden"/>
+<input id="hdEstatus" type="hidden" value="Abierta"/>
 <script>
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptDocumentReadyHomeCookie {
@@ -753,11 +753,11 @@
         Listado.Respuesta = $("#Respuesta").val();
         Listado.MotivoCancelacion = $("#MotivoCancelacion").val();
         Listado.DetalleResolucion = $("#DetalleResolucion").val();
-        Listado.RegistradoPor = $("#RegistradoPor").val();
+        Listado.RegistradoPor = RegistradoPor.RegistradoPorID;
         Listado.FechaRegistro = obtenerFormatoFechaConHora(d);
-        Listado.ResueltoPor = $("#ResueltoPor").val();
+        Listado.ResueltoPor = ResueltoPor.ResueltoPorID;
         Listado.FechaResolucion = obtenerFormatoFechaConHora(d1);
-        Listado.RespondidoPor = $("#RespondidoPor").val();
+        Listado.RespondidoPor = RespondidoPor.RespondidoPorID;
         Listado.FechaRespuesta = obtenerFormatoFechaConHora(d2);
         Listado.ReferenciaID = Registro.RegistroID;
         Listado.Nuevo = false;

@@ -795,7 +795,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaDocumentos> documentos = (from rid in ctx.Sam3_Rel_Incidencia_Documento
-                                                        where rid.Activo
+                                                        where rid.Activo && rid.IncidenciaID == incidenciaID
                                                         select new ListaDocumentos
                                                         {
                                                             DocumentoID = rid.Rel_Incidencia_DocumentoID.ToString(),
