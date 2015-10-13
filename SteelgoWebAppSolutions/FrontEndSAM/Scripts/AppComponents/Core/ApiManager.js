@@ -132,6 +132,7 @@ var $ImpresionDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MaterialPendiente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $NotificacionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -227,3 +228,4 @@ $ImpresionDocumental.add("ImpresionDocumental");
 $Grupo.add("Grupo");
 $MaterialPendiente.add("MaterialPendiente");
 $Entrega.add("Entrega");
+$NotificacionDeficit.add("NotificacionDeficit");

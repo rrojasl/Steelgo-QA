@@ -8,7 +8,6 @@ namespace FrontEndSAM.Controllers.Catalogos
 {
     public class CatalogosController : Controller
     {
-        // GET: /AvisoLlegada/
         public ActionResult ListadoCatalogos()
         {
             return View();

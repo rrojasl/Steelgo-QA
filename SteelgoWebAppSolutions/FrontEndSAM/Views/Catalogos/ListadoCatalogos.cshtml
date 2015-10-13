@@ -572,7 +572,7 @@
     }
 
     function enviarCedulas(data){
-        $Catalogos.AdministracionCatalogos.create({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data)}).done(function(result){
+        $Catalogos.AdministracionCatalogos.create({},{catalogoID:$("#listaCatalogos").data("kendoDropDownList").value(),token:Cookies.get("token"),data:JSON.stringify(data),factorConversion:$("#fconversion").val()}).done(function(result){
             displayMessage("ListadoCatalogos0018", "", '0');
             regenerarGrid();
         })
