@@ -446,17 +446,67 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
-            DateTime fechaInicial, DateTime fechaFinal)
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs)
         {
             try
             {
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_Corte> registros = new List<Sam3_Corte>();
+
+                    if (proyectoID > 0)
+                    {
+                        registros = (from c in ctx.Sam3_Corte
+                                     join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && p.ProyectoID == proyectoID
+                                     && IDs.Contains(c.CorteID)
+                                     select c).AsParallel().Distinct().ToList();
+                    }
+                    else
+                    {
+                        registros = (from c in ctx.Sam3_Corte
+                                     join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && IDs.Contains(c.CorteID)
+                                     select c).AsParallel().Distinct().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        registros = (from r in registros
+                                     join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                     where p.ClienteID == clienteID
+                                     select r).AsParallel().Distinct().ToList();
+                    }
+
+                    listado = (from r in registros
+                               join ric in ctx.Sam3_Rel_Incidencia_Corte on r.CorteID equals ric.CorteID
+                               join inc in ctx.Sam3_Incidencia on ric.IncidenciaID equals inc.IncidenciaID
+                               join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
+                               join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               where ric.Activo && inc.Activo && c.Activo && tpi.Activo
+                               select new ListadoIncidencias
+                               {
+                                   Clasificacion = c.Nombre,
+                                   Estatus = inc.Estatus,
+                                   TipoIncidencia = tpi.Nombre,
+                                   RegistradoPor = (from us in ctx.Sam3_Usuario
+                                                    where us.Activo && us.UsuarioID == inc.UsuarioID
+                                                    select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
+                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   FechaRegistro = inc.FechaCreacion.ToString()
+                               }).AsParallel().Distinct().ToList();
 
                 }
-                return null;
+                return listado;
             }
             catch (Exception ex)
             {

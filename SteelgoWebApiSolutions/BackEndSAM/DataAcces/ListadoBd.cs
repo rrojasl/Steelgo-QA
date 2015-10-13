@@ -2213,7 +2213,7 @@ namespace BackEndSAM.DataAcces
                     listaTemporal = AvisoLlegadaBd.Instance.ListadoInciendias(clienteID, proyectoID, proyectos, patios,
                         temp, fechaInicial, fechaFinal);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Entrada de material
                     temp.Clear();
@@ -2225,7 +2225,7 @@ namespace BackEndSAM.DataAcces
                     listaTemporal = FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp,
                         fechaInicial, fechaFinal);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Pase salida, no se si existe la incidencia a nivel pase de salida o es de tipo aviso de entrada
                     //listado.AddRange(PaseSalidaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
@@ -2240,7 +2240,7 @@ namespace BackEndSAM.DataAcces
                     listaTemporal = FoliosCuantificacionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp,
                         fechaInicial, fechaFinal);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Orden recepcion
                     temp.Clear();
@@ -2252,7 +2252,7 @@ namespace BackEndSAM.DataAcces
 
                     listaTemporal = OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Complemento recepcion
                     // N/A
@@ -2267,7 +2267,7 @@ namespace BackEndSAM.DataAcces
 
                     listaTemporal = ItemCodeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Orden Almacenaje
                     temp.Clear();
@@ -2279,7 +2279,7 @@ namespace BackEndSAM.DataAcces
 
                     listaTemporal = OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Numero Unico
                     temp.Clear();
@@ -2291,7 +2291,7 @@ namespace BackEndSAM.DataAcces
 
                     listaTemporal = NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Despacho
                     temp.Clear();
@@ -2303,12 +2303,32 @@ namespace BackEndSAM.DataAcces
 
                     listaTemporal = DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
-                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
                     //Corte
-                    listado.AddRange(CorteBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
-                        fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
 
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_Corte
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.CorteID).AsParallel().ToList();
+
+                    listaTemporal = CorteBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
+
+                    if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
+
+                    foreach(ListadoIncidencias l in listado)
+                    {
+                        DateTime fechaCreacion = new DateTime();
+                        DateTime.TryParse(l.FechaRegistro, out fechaCreacion);
+
+                        l.FechaRegistro = fechaCreacion.ToString("yyyy-MM-dd");
+                    }
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(listado);
+#endif
 
                     return listado.OrderBy(x => x.FolioIncidenciaID).ToList();
                 }

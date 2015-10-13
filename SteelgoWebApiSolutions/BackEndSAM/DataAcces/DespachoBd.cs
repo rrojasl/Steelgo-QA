@@ -381,15 +381,56 @@ namespace BackEndSAM.DataAcces
 
                     if (proyectoID > 0)
                     {
-                        
+                        registros = (from d in ctx.Sam3_Despacho
+                                     join p in ctx.Sam3_Proyecto on d.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where d.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(proyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && p.ProyectoID == proyectoID
+                                     && IDs.Contains(d.DespachoID)
+                                     select d).AsParallel().Distinct().ToList();
                     }
                     else
                     {
- 
+                        registros = (from d in ctx.Sam3_Despacho
+                                     join p in ctx.Sam3_Proyecto on d.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where d.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(proyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && IDs.Contains(d.DespachoID)
+                                     select d).AsParallel().Distinct().ToList();
                     }
 
+                    if (clienteID > 0)
+                    {
+                        registros = (from r in registros
+                                     join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                     where p.ClienteID == clienteID
+                                     select r).AsParallel().Distinct().ToList();
+                    }
+
+                    listado = (from r in registros
+                               join rid in ctx.Sam3_Rel_Incidencia_Despacho on r.DespachoID equals rid.DespachoID
+                               join inc in ctx.Sam3_Incidencia on rid.IncidenciaID equals inc.IncidenciaID
+                               join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
+                               join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               where rid.Activo && inc.Activo && c.Activo && tpi.Activo
+                               select new ListadoIncidencias
+                               {
+                                   Clasificacion = c.Nombre,
+                                   FechaRegistro = inc.FechaCreacion.ToString(),
+                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   RegistradoPor = (from us in ctx.Sam3_Usuario
+                                                    where us.Activo && us.UsuarioID == inc.UsuarioID
+                                                    select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
+                                   TipoIncidencia = tpi.Nombre,
+                                   Estatus = inc.Estatus
+                               }).AsParallel().Distinct().ToList();
+
                 }
-                return null;
+                return listado;
             }
             catch (Exception ex)
             {
