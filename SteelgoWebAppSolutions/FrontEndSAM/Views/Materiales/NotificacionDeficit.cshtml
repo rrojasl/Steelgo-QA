@@ -65,6 +65,10 @@
         var options = $("#itemcode").data("kendoComboBox").options;
         $("#itemcode").data("kendoComboBox").destroy();
         $("#itemcode").empty().kendoComboBox(options);
+        limpiarDiametros();
+    }
+
+    function limpiarDiametros(){
         $("#D1").val("");
         $("#D2").val("");
     }
@@ -103,8 +107,8 @@
         },
         change:function(e){
             $NotificacionDeficit.NotificacionDeficit.read({},{itemCodeID:$("#itemcode").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
-                $("#D1").val(result.Diametro1);
-                $("#D2").val(result.Diametro2);
+                $("#D1").val(result[0].Diametro1);
+                $("#D2").val(result[0].Diametro2);
             })
         },
         dataTextField: "value",
