@@ -121,8 +121,15 @@
             filter: "contains",
         });
         ObtenerContacto();
-        
-    }
+
+        $("#ContactoID_Transportista").focusout(function () {
+            if (!$("#ContactoID_Transportista").data("kendoComboBox").dataItem()) {
+                Contacto = [];
+                $("#ContactoID_Transportista").data("kendoComboBox").value("");
+            }
+        });
+    };
+
     function CargarContacto(id, value) {
         Contacto = [];
         _contacto = {};
