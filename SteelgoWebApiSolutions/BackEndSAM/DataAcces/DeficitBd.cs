@@ -205,6 +205,8 @@ namespace BackEndSAM.DataAcces
                                                    ItemCode = ic.Codigo,
                                                    Diametro1 = ics.Diametro1.ToString(),
                                                    Diametro2 = ics.Diametro2.ToString(),
+                                                   Descripcion = ics.DescripcionEspanol,
+                                                   Deficit = ""
                                                }).AsParallel().ToList();
 
                         lista.ForEach(x =>
@@ -279,7 +281,8 @@ namespace BackEndSAM.DataAcces
                                                ItemCode = ic.Codigo,
                                                ItemCodeID = ic.ItemCodeID.ToString(),
                                                Diametro1 = ics.Diametro1.ToString(),
-                                               Diametro2 = ics.Diametro2.ToString()
+                                               Diametro2 = ics.Diametro2.ToString(),
+                                               Descripcion = ics.DescripcionEspanol
                                            }).AsParallel().ToList();
                         });
 
