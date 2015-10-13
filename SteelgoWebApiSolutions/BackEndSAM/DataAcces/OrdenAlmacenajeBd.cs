@@ -1104,10 +1104,69 @@ namespace BackEndSAM.DataAcces
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_OrdenAlmacenaje> registros = new List<Sam3_OrdenAlmacenaje>();
 
+                    if (proyectoID > 0)
+                    {
+                        registros = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                     join ron in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals ron.OrdenAlmacenajeID
+                                     join nu in ctx.Sam3_NumeroUnico on ron.NumeroUnicoID equals nu.NumeroUnicoID
+                                     join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where oa.Activo && ron.Activo && nu.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && p.ProyectoID == proyectoID
+                                     && IDs.Contains(oa.OrdenAlmacenajeID)
+                                     select oa).AsParallel().Distinct().ToList();
+
+                    }
+                    else
+                    {
+                        registros = (from oa in ctx.Sam3_OrdenAlmacenaje
+                                     join ron in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on oa.OrdenAlmacenajeID equals ron.OrdenAlmacenajeID
+                                     join nu in ctx.Sam3_NumeroUnico on ron.NumeroUnicoID equals nu.NumeroUnicoID
+                                     join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where oa.Activo && ron.Activo && nu.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(pa.PatioID)
+                                     && IDs.Contains(oa.OrdenAlmacenajeID)
+                                     select oa).AsParallel().Distinct().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        registros = (from r in registros
+                                     join ron in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on r.OrdenAlmacenajeID equals ron.OrdenAlmacenajeID
+                                     join nu in ctx.Sam3_NumeroUnico on ron.NumeroUnicoID equals nu.NumeroUnicoID
+                                     join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                     where ron.Activo && nu.Activo && p.Activo
+                                     && p.ClienteID == clienteID
+                                     select r).AsParallel().Distinct().ToList();
+                    }
+
+                    listado = (from r in registros
+                               join rio in ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje on r.OrdenAlmacenajeID equals rio.OrdenalmacenajeID
+                               join inc in ctx.Sam3_Incidencia on rio.IncidenciaID equals inc.IncidenciaID
+                               join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
+                               join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               where rio.Activo && inc.Activo && c.Activo && tpi.Activo
+                               select new ListadoIncidencias
+                               {
+                                   FechaRegistro = inc.FechaCreacion.ToString(),
+                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   RegistradoPor = (from us in ctx.Sam3_Usuario
+                                                    where us.Activo && us.UsuarioID == inc.UsuarioID
+                                                    select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
+                                   TipoIncidencia = tpi.Nombre,
+                                   Estatus = inc.Estatus,
+                                   Clasificacion = c.Nombre
+                               }).AsParallel().Distinct().ToList();
 
                 }
-                return null;
+
+                return listado;
             }
             catch (Exception ex)
             {

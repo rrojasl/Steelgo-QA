@@ -2273,17 +2273,25 @@ namespace BackEndSAM.DataAcces
                     temp.Clear();
                     listaTemporal.Clear();
 
-                    temp = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje
                             where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
-                            select r.ItemCodeID).AsParallel().ToList();
+                            select r.OrdenalmacenajeID).AsParallel().ToList();
 
                     listaTemporal = OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
                     if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Numero Unico
-                    listado.AddRange(NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
-                        fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_NumeroUnico
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.NumeroUnicoID).AsParallel().ToList();
+
+                    listaTemporal = NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Despacho
                     listado.AddRange(DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
