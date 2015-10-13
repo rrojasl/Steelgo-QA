@@ -292,6 +292,7 @@
     <Compile Include="DataAcces\GrupoBd.cs" />
     <Compile Include="DataAcces\GuardarFolioLlegadaCuantificacionBd.cs" />
     <Compile Include="DataAcces\GuardarItemCodesBd.cs" />
+    <Compile Include="DataAcces\ImpresionDocumentalBd.cs" />
     <Compile Include="DataAcces\IncidenciaBd.cs" />
     <Compile Include="DataAcces\ItemCodeBd.cs" />
     <Compile Include="DataAcces\ItemCodeSteelgoBd.cs" />
