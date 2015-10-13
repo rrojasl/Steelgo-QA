@@ -93,7 +93,7 @@
                                     <div class="row">
                                         <div id="RegistradoPorDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Incidencias0014"></label>
-                                            <input id="RegistradoPor" class="general-input" />
+                                            <input id="RegistradoPor" class="" />
                                         </div>
                                         <div id="FechaRegistroDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Incidencias0015"></label>
@@ -101,7 +101,7 @@
                                         </div>
                                         <div id="ResueltoPorDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Incidencias0016"></label>
-                                            <input id="ResueltoPor" class="general-input" />
+                                            <input id="ResueltoPor" class="" />
                                         </div>
                                         <div id="FechaResolucionDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Incidencias0017"></label>
@@ -109,7 +109,7 @@
                                         </div>
                                         <div id="RespondidoPorDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Incidencias0018"></label>
-                                            <input id="RespondidoPor" class="general-input" />
+                                            <input id="RespondidoPor" class="" />
                                         </div>
                                         <div id="FechaRespuestaDiv" class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <label id="Incidencias0019"></label>
@@ -171,7 +171,9 @@
     @section JavascriptGlobalVariables {
     var Clasificacion = {}, TipoIncidencia = {},
         FechaRegistro, FechaResolucion,
-        FechaRespuesta, Registro = {};
+        FechaRespuesta, Registro = {},
+        RegistradoPor = {}, ResueltoPor = {},
+        RespondidoPor = {};
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
@@ -396,6 +398,61 @@
              filter: "contains",
          });
 
+
+        $("#RegistradoPor").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarRegistradoPor(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    RegistradoPor = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerUsuarios("RegistradoPor");
+
+
+
+        $("#ResueltoPor").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarResueltoPor(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    ResueltoPor = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerUsuarios("ResueltoPor");
+
+
+        $("#RespondidoPor").kendoComboBox({
+            dataTextField: "value",
+            dataValueField: "id",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarRespondidoPor(dataItem.id);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    RespondidoPor = {};
+                }
+            },
+            filter: "contains",
+        });
+        ObtenerUsuarios("RespondidoPor");
+
          if (_Edicion == "-1") {
              $("#Clasificacion").data("kendoComboBox").value(1);//default materiales 
              CargarClasificacion(1, "");
@@ -466,8 +523,6 @@
         });
     };
 
-
-
     function CargarClasificacion(id, value) {
         Clasificacion = {};
         Clasificacion = { ClasificacionID: id, Nombre: value };
@@ -483,6 +538,21 @@
         Registro = { RegistroID: id};
     };
 
+    function CargarRegistradoPor(id) {
+        RegistradoPor = {};
+        RegistradoPor = { RegistradoPorID: id };
+    };
+
+    function CargarResueltoPor(id) {
+        ResueltoPor = {};
+        ResueltoPor = { ResueltoPorID: id };
+    };
+
+    function CargarRespondidoPor(id) {
+        RespondidoPor = {};
+        RespondidoPor = { RespondidoPorID: id };
+    };
+
     function ObtenerClasificacion() {
         $Clasificacion.Clasificacion.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Clasificacion", result);
@@ -495,6 +565,11 @@
         });
     };
 
+    function ObtenerUsuarios(control) {
+        $Usuario.Usuario.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox(control, result);
+        });
+    };
     function limpiarRegistro() {
         Registro = {};
     };
