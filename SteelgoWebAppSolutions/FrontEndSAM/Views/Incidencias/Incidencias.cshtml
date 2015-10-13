@@ -176,8 +176,11 @@
         RespondidoPor = {};
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
+    var _TipoIncidencia = getUrlParameter("TipoIncidencia", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
     var _Edicion = getUrlParameter("Edicion", "-1");
+    var _LevantarIncidencia = getUrlParameter("LevantarIncidencia", "-1");
+    var _Clasificacion = getUrlParameter("Clasificacion", "-1");
 
     var $IncidenciasModel = {
         listContainer: {
@@ -463,7 +466,7 @@
         loadingStart();
         cargarTituloFolio();
         BotonAlta();
-        
+
         $Incidencia.Incidencia.read({}, { folioIncidenciaID: id, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 $("#Clasificacion").data("kendoComboBox").value(data.ClasificacionID);
@@ -525,6 +528,79 @@
             };
             loadingStop();
         });
+    };
+
+    function CargaInicialLevantarIncidenciaConReferencia(tipoincidenciaID, referenciaID) {
+        BotonEdicion();
+        $Incidencia.Incidencia.read({ tipoIncidenciaID: tipoincidenciaID, referenciaID: referenciaID, token: Cookies.get("token") }).done(function (data) {
+            if (Error(data)) {
+                $("#Clasificacion").data("kendoComboBox").value(data.ClasificacionID);
+                CargarClasificacion(data.ClasificacionID);
+
+                $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
+                CargarTipoIncidencia(data.TipoIncidenciaID);
+
+                $("#Version").val(data.Version);
+                $("#Titulo").val(data.Titulo);
+                $("#Descripcion").val(data.Descripcion);
+                $("#Respuesta").val(data.Respuesta);
+                $("#MotivoCancelacion").val(data.MotivoCancelacion);
+                $("#DetalleResolucion").val(data.DetalleResolucion);
+                $("#RegistradoPor").val(data.RegistradoPor);
+                $("#ResueltoPor").val(data.ResueltoPor);
+                $("#RespondidoPor").val(data.RespondidoPor);
+
+                CargarRegistradoPor(data.RegistradoPor);
+                CargarResueltoPor(data.ResueltoPor)
+                CargarRespondidoPor(data.RespondidoPor);
+
+                var splitYear = data.FechaRegistro.split("-")[0];
+                var splitMonth = data.FechaRegistro.split("-")[1];
+                var splitDay = data.FechaRegistro.split("-")[2];
+
+                var splitYear1 = data.FechaResolucion.split("-")[0];
+                var splitMonth1 = data.FechaResolucion.split("-")[1];
+                var splitDay1 = data.FechaResolucion.split("-")[2];
+
+                var splitYear2 = data.FechaRespuesta.split("-")[0];
+                var splitMonth2 = data.FechaRespuesta.split("-")[1];
+                var splitDay2 = data.FechaRespuesta.split("-")[2];
+
+                var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
+                $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
+
+                var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
+                $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
+
+                var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
+                $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
+
+                $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
+
+                if (data.Estatus == "Cancelado") {
+                    $("#MotivoCancelacionDiv").removeClass("hidden");
+                };
+
+                if (data.Estatus == "Resuelto") {
+                    $("#DetalleResolucionDiv").removeClass("hidden");
+                };
+                $("#hdEstatus").val(data.Estatus);
+                $("#listaArchivos tbody").empty();
+                $.each(data.Archivos, function (index, value) {
+                    $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                });
+
+            };
+            loadingStop();
+        });
+    };
+
+    function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion) {
+        $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
+        CargarClasificacion(clasificacion);
+
+        $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
+        CargarTipoIncidencia(tipoincidenciaID);
     };
 
     function CargarClasificacion(id, value) {
@@ -1021,9 +1097,12 @@
             return true;
         }
     };
+
+   
+
     }
 
-
+    
 
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Incidencias"] = $IncidenciasModel;
@@ -1032,7 +1111,14 @@
     if (_Edicion != "-1") {
         CargaInicialEdicion(_FolioIncidencia);
     };
-
+    
+    if(_LevantarIncidencia!="-1") {
+        if (_ReferenciaID != "-1") {
+            CargaInicialLevantarIncidenciaConReferencia(_TipoIncidencia, _ReferenciaID);
+        } else {
+            cargaInicialLentarNuevaIncidencia(_TipoIncidencia, _Clasificacion);
+        };
+    };
     }
 
 </script>
