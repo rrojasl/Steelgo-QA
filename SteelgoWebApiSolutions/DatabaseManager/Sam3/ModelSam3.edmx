@@ -1225,17 +1225,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Incidencia_Documento' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sam3_Rel_Incidencia_Documento">
           <Key>
             <PropertyRef Name="Rel_Incidencia_DocumentoID" />
-            <PropertyRef Name="IncidenciaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Extencion" />
-            <PropertyRef Name="Activo" />
-            <PropertyRef Name="TipoArchivoID" />
           </Key>
           <Property Name="Rel_Incidencia_DocumentoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IncidenciaID" Type="int" Nullable="false" />
@@ -3953,6 +3945,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Rel_Incidencia_ComplementoRecepcion" EntityType="Self.Sam3_Rel_Incidencia_ComplementoRecepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_Corte" EntityType="Self.Sam3_Rel_Incidencia_Corte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_Despacho" EntityType="Self.Sam3_Rel_Incidencia_Despacho" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_Incidencia_Documento" EntityType="Self.Sam3_Rel_Incidencia_Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_Entidad" EntityType="Self.Sam3_Rel_Incidencia_Entidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_FolioAvisoEntrada" EntityType="Self.Sam3_Rel_Incidencia_FolioAvisoEntrada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_FolioAvisoLlegada" EntityType="Self.Sam3_Rel_Incidencia_FolioAvisoLlegada" Schema="dbo" store:Type="Tables" />
@@ -4039,23 +4032,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
     [Sam3_ProyectoConfiguracion].[DigitosFolioOrdenAlmacenaje] AS [DigitosFolioOrdenAlmacenaje], 
     [Sam3_ProyectoConfiguracion].[DigitosFolioPermisoAduana] AS [DigitosFolioPermisoAduana]
     FROM [dbo].[Sam3_ProyectoConfiguracion] AS [Sam3_ProyectoConfiguracion]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Sam3_Rel_Incidencia_Documento" EntityType="Self.Sam3_Rel_Incidencia_Documento" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Sam3_Rel_Incidencia_Documento].[Rel_Incidencia_DocumentoID] AS [Rel_Incidencia_DocumentoID], 
-    [Sam3_Rel_Incidencia_Documento].[IncidenciaID] AS [IncidenciaID], 
-    [Sam3_Rel_Incidencia_Documento].[DocumentoID] AS [DocumentoID], 
-    [Sam3_Rel_Incidencia_Documento].[Nombre] AS [Nombre], 
-    [Sam3_Rel_Incidencia_Documento].[Extencion] AS [Extencion], 
-    [Sam3_Rel_Incidencia_Documento].[Activo] AS [Activo], 
-    [Sam3_Rel_Incidencia_Documento].[UsuarioModificacion] AS [UsuarioModificacion], 
-    [Sam3_Rel_Incidencia_Documento].[FechaModificacion] AS [FechaModificacion], 
-    [Sam3_Rel_Incidencia_Documento].[DocGuid] AS [DocGuid], 
-    [Sam3_Rel_Incidencia_Documento].[Url] AS [Url], 
-    [Sam3_Rel_Incidencia_Documento].[TipoArchivoID] AS [TipoArchivoID], 
-    [Sam3_Rel_Incidencia_Documento].[ContentType] AS [ContentType], 
-    [Sam3_Rel_Incidencia_Documento].[Descripcion] AS [Descripcion]
-    FROM [dbo].[Sam3_Rel_Incidencia_Documento] AS [Sam3_Rel_Incidencia_Documento]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Sam3_Rel_Perfil_Entidad_Pagina" EntityType="Self.Sam3_Rel_Perfil_Entidad_Pagina" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -9465,12 +9441,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         <EntityType Name="Sam3_Rel_Incidencia_Documento">
           <Key>
             <PropertyRef Name="Rel_Incidencia_DocumentoID" />
-            <PropertyRef Name="IncidenciaID" />
-            <PropertyRef Name="DocumentoID" />
-            <PropertyRef Name="Nombre" />
-            <PropertyRef Name="Extencion" />
-            <PropertyRef Name="Activo" />
-            <PropertyRef Name="TipoArchivoID" />
           </Key>
           <Property Name="Rel_Incidencia_DocumentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IncidenciaID" Type="Int32" Nullable="false" />

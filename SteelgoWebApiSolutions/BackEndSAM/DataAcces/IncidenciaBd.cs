@@ -58,17 +58,17 @@ namespace BackEndSAM.DataAcces
                         nuevaIncidencia.Respuesta = datos.Respuesta;
                         nuevaIncidencia.TipoIncidenciaID = datos.TipoIncidenciaID;
                         nuevaIncidencia.Titulo = datos.Titulo;
-                        nuevaIncidencia.UsuarioID = usuario.UsuarioID;
+                        nuevaIncidencia.UsuarioID = datos.RegistradoPor != null && datos.RegistradoPor != "" ? Convert.ToInt32(datos.RegistradoPor) : 1;
                         nuevaIncidencia.Version = 1;
                         nuevaIncidencia.UsuarioModificacion = usuario.UsuarioID;
                         nuevaIncidencia.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta);
                         nuevaIncidencia.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion);
-                        nuevaIncidencia.UsuarioIDRespuesta = usuario.UsuarioID;
-                        nuevaIncidencia.UsuarioResuelveID = usuario.UsuarioID;
+                        nuevaIncidencia.UsuarioIDRespuesta = datos.RespondidoPor != null && datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
+                        nuevaIncidencia.UsuarioResuelveID = datos.ResueltoPor != null && datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
                         nuevaIncidencia.Estatus = datos.Estatus == null || datos.Estatus == "" ? "Abierta" : datos.Estatus;
-                        nuevaIncidencia.RespondidoPor = datos.RespondidoPor;
-                        nuevaIncidencia.ResueltoPor = datos.ResueltoPor;
-                        nuevaIncidencia.RegistradoPor = datos.RegistradoPor;
+                        //nuevaIncidencia.RespondidoPor = datos.RespondidoPor;
+                        //nuevaIncidencia.ResueltoPor = datos.ResueltoPor;
+                        //nuevaIncidencia.RegistradoPor = datos.RegistradoPor;
                         
 
                         ctx.Sam3_Incidencia.Add(nuevaIncidencia);
@@ -788,6 +788,18 @@ namespace BackEndSAM.DataAcces
                         default:
                             throw new Exception("No se encontro el tipo de incidencia");
                     }
+
+                    DateTime fechaRegistro = new DateTime();
+                    DateTime fechaResuelto = new DateTime();
+                    DateTime fechaRespuesta = new DateTime();
+
+                    DateTime.TryParse(detalle.FechaRegistro, out fechaRegistro);
+                    DateTime.TryParse(detalle.FechaResolucion, out fechaResuelto);
+                    DateTime.TryParse(detalle.FechaRespuesta, out fechaRespuesta);
+
+                    detalle.FechaRegistro = fechaRegistro.ToString("yyyy-MM-dd");
+                    detalle.FechaResolucion = fechaResuelto.ToString("yyyy-MM-dd");
+                    detalle.FechaRespuesta = fechaRespuesta.ToString("yyyy-MM-dd");
 
                     return detalle;
                 }
