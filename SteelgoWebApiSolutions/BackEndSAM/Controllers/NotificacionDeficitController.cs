@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -131,7 +132,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public object Post(int ordenTrabajoID, int itemCodeID, int spoolID, int deficit, string token)
+        public object Post(int ordenTrabajoID, string spoolID, string deficit, string token)
         {
             string payload = "";
             string newToken = "";
@@ -141,8 +142,10 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                List<string> listaSpool = ser.Deserialize<List<string>>(spoolID);
+                List<DatosDeficitItemCodes> listaDeficit = ser.Deserialize<List<DatosDeficitItemCodes>>(deficit);
 
-                return DeficitBd.Instance.GuardarDeficit(ordenTrabajoID, itemCodeID, spoolID, deficit, usuario);
+                return DeficitBd.Instance.GuardarDeficit(ordenTrabajoID, listaSpool, listaDeficit, usuario);
             }
             else
             {

@@ -322,33 +322,35 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object GuardarDeficit(int ordenTrabajoID, int itemCodeID, int spoolID, int deficit, Sam3_Usuario usuario)
+        public object GuardarDeficit(int ordenTrabajoID, List<string> spoolID, List<DatosDeficitItemCodes> deficit, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
-                    nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
-                    nuevoDeficit.ItemCodeID = itemCodeID;
-                    nuevoDeficit.SpoolID = spoolID;
-                    nuevoDeficit.Deficit = deficit;
-                    nuevoDeficit.Activo = true;
-                    nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
-                    nuevoDeficit.FechaModificacion = DateTime.Now;
+                    foreach (string item in spoolID)
+                    {
+                        Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
+                        nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
+                        nuevoDeficit.ItemCodeID = deficit[0].ItemCodeID;
+                        nuevoDeficit.SpoolID = Int32.Parse(item);
+                        nuevoDeficit.Deficit = deficit[0].DeficitTotal;
+                        nuevoDeficit.Activo = true;
+                        nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
+                        nuevoDeficit.FechaModificacion = DateTime.Now;
 
-                    ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
-                    ctx.SaveChanges();
+                        ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
+                        ctx.SaveChanges();
+                    }
 
                     if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(10,
                            string.Format("La orden de trabajo {0} tiene una nueva notificación de déficit con fecha {1}",
-                           ordenTrabajoID, nuevoDeficit.FechaModificacion), usuario))
+                           ordenTrabajoID, DateTime.Now), usuario))
                     {
                         //Agregar error a la bitacora  PENDIENTE
                     }
 
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(nuevoDeficit.DeficitID.ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

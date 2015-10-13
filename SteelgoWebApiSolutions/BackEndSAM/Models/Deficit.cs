@@ -37,4 +37,10 @@ namespace BackEndSAM.Models
             ItemCodes = new List<Deficit>();
         }
     }
+
+    public class DatosDeficitItemCodes
+    {
+        public int ItemCodeID { get; set; }
+        public int DeficitTotal { get; set; }
+    }
 }
