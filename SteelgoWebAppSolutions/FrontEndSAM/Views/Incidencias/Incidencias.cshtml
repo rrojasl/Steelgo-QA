@@ -482,6 +482,10 @@
                 $("#ResueltoPor").val(data.ResueltoPor);
                 $("#RespondidoPor").val(data.RespondidoPor);
 
+                CargarRegistradoPor(data.RegistradoPor);
+                CargarResueltoPor(data.ResueltoPor)
+                CargarRespondidoPor(data.RespondidoPor);
+
                 var splitYear = data.FechaRegistro.split("-")[0];
                 var splitMonth = data.FechaRegistro.split("-")[1];
                 var splitDay = data.FechaRegistro.split("-")[2];
@@ -767,7 +771,7 @@
 
     function habilitarControles() {
         $("#Clasificacion").data("kendoComboBox").enable(false);
-        $("#TipoIncidencia").data("kendoComboBox").enable(true);
+        $("#TipoIncidencia").data("kendoComboBox").enable(false);
         $("#Registro").data("kendoAutoComplete").enable(false);
         $("#Titulo").removeAttr("disabled");
         $("#Descripcion").removeAttr("disabled");
@@ -827,14 +831,14 @@
     function Alta(Listado) {
         $Incidencia.Incidencia.create(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
+                if (Listado.Nuevo) {
+                    Cancelar();
+                }
                 _FolioIncidencia = result.FolioIncidenciaID;
                 $("#Version").val(result.Version);
                 BotonAlta();
                 cargarTituloFolio();
                 LimpiarHistorialFiles();
-                if (Listado.Nuevo) {
-                    Cancelar();
-                }
                 displayMessage("notificationslabel0056", "", '0');
             }
             loadingStop();
@@ -844,12 +848,14 @@
     function Editar(Listado) {
         $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
-                BotonAlta();
-                cargarTituloFolio();
-                LimpiarHistorialFiles();
                 if (Listado.Nuevo) {
                     Cancelar();
                 }
+                _FolioIncidencia = result.ReturnMessage[0];
+                BotonAlta();
+                cargarTituloFolio();
+                LimpiarHistorialFiles();
+                CargaInicialEdicion(_FolioIncidencia);
                 displayMessage("notificationslabel0056", "", '0');
             }
             loadingStop();
