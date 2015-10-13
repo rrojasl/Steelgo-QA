@@ -316,7 +316,7 @@ namespace BackEndSAM.DataAcces
                                     break;
                                 case 2: // Entrada de Material
                                     Sam3_Rel_Incidencia_FolioAvisoEntrada relFolioEntrada = ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada
-                                        .Where(x => x.Activo && x.FolioAvisoEntradaID == registro.IncidenciaID).AsParallel().SingleOrDefault();
+                                        .Where(x => x.Activo && x.IncidenciaID == registro.IncidenciaID).AsParallel().SingleOrDefault();
                                     relFolioEntrada.Activo = false;
                                     relFolioEntrada.FechaModificacion = DateTime.Now;
                                     relFolioEntrada.UsuarioModificacion = usuario.UsuarioID;
@@ -339,7 +339,7 @@ namespace BackEndSAM.DataAcces
                                     break;
                                 case 4: // Packing List
                                     Sam3_Rel_Incidencia_FolioCuantificacion RelFolioC = ctx.Sam3_Rel_Incidencia_FolioCuantificacion
-                                        .Where(x => x.Activo && x.FolioCuantificacionID == registro.IncidenciaID).AsParallel().SingleOrDefault();
+                                        .Where(x => x.Activo && x.IncidenciaID == registro.IncidenciaID).AsParallel().SingleOrDefault();
                                     RelFolioC.Activo = false;
                                     RelFolioC.FechaModificacion = DateTime.Now;
                                     RelFolioC.UsuarioModificacion = usuario.UsuarioID;
@@ -494,7 +494,7 @@ namespace BackEndSAM.DataAcces
                         ctx_tran.Commit();
 
                         TransactionalInformation result = new TransactionalInformation();
-                        result.ReturnMessage.Add("Ok");
+                        result.ReturnMessage.Add(nuevoRegistro.IncidenciaID.ToString());
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
                         result.IsAuthenicated = true;
