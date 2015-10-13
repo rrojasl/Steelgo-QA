@@ -56,6 +56,11 @@ namespace BackEndSAM.DataAcces
             {
                 using (Sam2Context ctx = new Sam2Context())
                 {
+                    List<int> proyectos = new List<int>();
+                    List<int> patios = new List<int>();
+
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
                     List<Models.Cliente> cliente = (from r in ctx.Cliente
                                                     select new Models.Cliente
                                                     {

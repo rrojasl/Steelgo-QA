@@ -260,17 +260,69 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
-            DateTime fechaInicial, DateTime fechaFinal)
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> Ids)
         {
             try
             {
                 List<ListadoIncidencias> listado;
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_ItemCode> registros = new List<Sam3_ItemCode>();
+
+                    if (proyectoID > 0)
+                    {
+                        registros = (from it in ctx.Sam3_ItemCode
+                                     join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where it.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(+pa.PatioID)
+                                     && p.ProyectoID == proyectoID
+                                     && Ids.Contains(it.ItemCodeID)
+                                     select it).AsParallel().Distinct().ToList();
+                    }
+                    else
+                    {
+                        registros = (from it in ctx.Sam3_ItemCode
+                                     join p in ctx.Sam3_Proyecto on it.ProyectoID equals p.ProyectoID
+                                     join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                     where it.Activo && p.Activo && pa.Activo
+                                     && proyectos.Contains(p.ProyectoID)
+                                     && patios.Contains(+pa.PatioID)
+                                     && Ids.Contains(it.ItemCodeID)
+                                     select it).AsParallel().Distinct().ToList();
+                    }
+
+                    if (clienteID > 0)
+                    {
+                        registros = (from r in registros
+                                     join p in ctx.Sam3_Proyecto on r.ProyectoID equals p.ProyectoID
+                                     where p.Activo
+                                     && p.ClienteID == clienteID
+                                     select r).AsParallel().Distinct().ToList();
+                    }
+
+                    listado = (from r in registros
+                               join riit in ctx.Sam3_Rel_Incidencia_ItemCode on r.ItemCodeID equals riit.ItemCodeID
+                               join inc in ctx.Sam3_Incidencia on riit.IncidenciaID equals inc.IncidenciaID
+                               join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
+                               join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               where riit.Activo && inc.Activo && c.Activo && tpi.Activo
+                               select new ListadoIncidencias
+                               {
+                                   Clasificacion = c.Nombre,
+                                   Estatus = inc.Estatus,
+                                   TipoIncidencia = tpi.Nombre,
+                                   RegistradoPor = (from us in ctx.Sam3_Usuario
+                                                    where us.Activo
+                                                    && us.UsuarioID == inc.UsuarioID
+                                                    select us.Nombre + " " + us.ApellidoPaterno).SingleOrDefault(),
+                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
+                                   FechaRegistro = inc.FechaCreacion.ToString()
+                               }).AsParallel().Distinct().ToList();
 
                 }
-                return null;
+                return listado;
             }
             catch (Exception ex)
             {

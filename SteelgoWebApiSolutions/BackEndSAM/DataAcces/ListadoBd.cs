@@ -2243,18 +2243,43 @@ namespace BackEndSAM.DataAcces
                     if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Orden recepcion
-                    listado.AddRange(OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial,
-                        fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_OrdenRecepcion
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.OrdenRecepcionID).AsParallel().ToList();
+
+                    listaTemporal = OrdenRecepcionBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Complemento recepcion
                     // N/A
 
                     //ItemCode
-                    listado.AddRange(ItemCodeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs, fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.ItemCodeID).AsParallel().ToList();
+
+                    listaTemporal = ItemCodeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Orden Almacenaje
-                    listado.AddRange(OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
-                        fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.ItemCodeID).AsParallel().ToList();
+
+                    listaTemporal = OrdenAlmacenajeBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Numero Unico
                     listado.AddRange(NumeroUnicoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
