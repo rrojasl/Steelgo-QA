@@ -157,6 +157,7 @@ namespace BackEndSAM.DataAcces
                                                         join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on eq.Sam3_ItemCodeID equals rics.ItemCodeID
                                                         join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                         where eq.Sam2_ItemCodeID == itemCode
+                                                        && eq.Activo && rics.Activo && ics.Activo
                                                         select new DiametrosItemCode
                                                         {
                                                             Diametro1 = ics.Diametro1.ToString(),
@@ -199,6 +200,7 @@ namespace BackEndSAM.DataAcces
                                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                join ic in ctx.Sam3_ItemCode on eq.Sam3_ItemCodeID equals ic.ItemCodeID
                                                where eq.Sam2_ItemCodeID == itemCode
+                                               && eq.Activo && rics.Activo && ics.Activo && ic.Activo
                                                select new Deficit
                                                {
                                                    ItemCodeID = ic.ItemCodeID.ToString(),
@@ -206,7 +208,11 @@ namespace BackEndSAM.DataAcces
                                                    Diametro1 = ics.Diametro1.ToString(),
                                                    Diametro2 = ics.Diametro2.ToString(),
                                                    Descripcion = ics.DescripcionEspanol,
-                                                   Deficit = ""
+                                                   DeficitTotal = (from dm in ctx.Sam3_DeficitMateriales
+                                                                       where dm.Activo 
+                                                                       && dm.OrdenTrabajoID.ToString() == ordenTrabajo
+                                                                       && dm.ItemCodeID == itemCode
+                                                                       select dm.DeficitID).SingleOrDefault().ToString()
                                                }).AsParallel().ToList();
 
                         lista.ForEach(x =>
@@ -276,6 +282,7 @@ namespace BackEndSAM.DataAcces
                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                            join ic in ctx.Sam3_ItemCode on eq.Sam3_ItemCodeID equals ic.ItemCodeID
                                            where eq.Sam2_ItemCodeID.ToString() == x.ItemCodeID
+                                           && eq.Activo && rics.Activo && ics.Activo && ic.Activo
                                            select new Deficit
                                            {
                                                ItemCode = ic.Codigo,
@@ -298,6 +305,55 @@ namespace BackEndSAM.DataAcces
 
                         return lista;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GuardarDeficit(int ordenTrabajoID, int itemCodeID, int spoolID, int deficit, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
+                    nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
+                    nuevoDeficit.ItemCodeID = itemCodeID;
+                    nuevoDeficit.SpoolID = spoolID;
+                    nuevoDeficit.Deficit = deficit;
+                    nuevoDeficit.Activo = true;
+                    nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
+                    nuevoDeficit.FechaModificacion = DateTime.Now;
+
+                    ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
+                    ctx.SaveChanges();
+
+                    if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(10,
+                           string.Format("La orden de trabajo {0} tiene una nueva notificación de déficit con fecha {1}",
+                           ordenTrabajoID, nuevoDeficit.FechaModificacion), usuario))
+                    {
+                        //Agregar error a la bitacora  PENDIENTE
+                    }
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(nuevoDeficit.DeficitID.ToString());
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)

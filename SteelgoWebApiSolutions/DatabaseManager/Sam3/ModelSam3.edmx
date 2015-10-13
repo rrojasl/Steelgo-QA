@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -188,6 +188,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="MaquinaID" Type="int" />
           <Property Name="Cancelado" Type="bit" Nullable="false" />
           <Property Name="EsAjuste" Type="bit" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sam3_DeficitMateriales">
+          <Key>
+            <PropertyRef Name="DeficitID" />
+          </Key>
+          <Property Name="DeficitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdenTrabajoID" Type="int" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="SpoolID" Type="int" />
+          <Property Name="Deficit" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
@@ -3878,6 +3891,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Contacto" EntityType="Self.Sam3_Contacto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Corte" EntityType="Self.Sam3_Corte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_CorteDetalle" EntityType="Self.Sam3_CorteDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_DeficitMateriales" EntityType="Self.Sam3_DeficitMateriales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Despacho" EntityType="Self.Sam3_Despacho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Diametro" EntityType="Self.Sam3_Diametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Entidad" EntityType="Self.Sam3_Entidad" Schema="dbo" store:Type="Tables" />
@@ -7863,6 +7877,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_TipoArchivo_Catalogo" EntitySet="Sam3_TipoArchivo_Catalogo" />
             <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
           </AssociationSet>
+          <EntitySet Name="Sam3_DeficitMateriales" EntityType="ModelSam3.Sam3_DeficitMateriales" />
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -9826,6 +9841,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Sam3_DeficitMateriales">
+          <Key>
+            <PropertyRef Name="DeficitID" />
+          </Key>
+          <Property Name="DeficitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdenTrabajoID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="SpoolID" Type="Int32" />
+          <Property Name="Deficit" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11731,6 +11759,20 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="CatalogoID" ColumnName="CatalogoID" />
                 <ScalarProperty Name="TipoArchivoID" ColumnName="TipoArchivoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_DeficitMateriales">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_DeficitMateriales">
+              <MappingFragment StoreEntitySet="Sam3_DeficitMateriales">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Deficit" ColumnName="Deficit" />
+                <ScalarProperty Name="SpoolID" ColumnName="SpoolID" />
+                <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
+                <ScalarProperty Name="OrdenTrabajoID" ColumnName="OrdenTrabajoID" />
+                <ScalarProperty Name="DeficitID" ColumnName="DeficitID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

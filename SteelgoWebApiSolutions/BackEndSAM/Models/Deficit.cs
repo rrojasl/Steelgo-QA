@@ -13,7 +13,7 @@ namespace BackEndSAM.Models
         public string Diametro2 { get; set; }
         public string Descripcion { get; set; }
         public string Cantidad { get; set; }
-        public string Deficit { get; set; }
+        public string DeficitTotal { get; set; }
     }
 
     public class DiametrosItemCode

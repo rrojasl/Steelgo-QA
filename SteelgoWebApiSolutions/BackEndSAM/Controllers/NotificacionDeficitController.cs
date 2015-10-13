@@ -131,8 +131,28 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public object Post(int ordenTrabajoID, int itemCodeID, int spoolID, int deficit, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+
+                return DeficitBd.Instance.GuardarDeficit(ordenTrabajoID, itemCodeID, spoolID, deficit, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // PUT api/<controller>/5

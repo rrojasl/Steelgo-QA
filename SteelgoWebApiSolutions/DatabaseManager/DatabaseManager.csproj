@@ -962,6 +962,9 @@
     <Compile Include="Sam3\Sam3_CorteDetalle.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_DeficitMateriales.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Despacho.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>

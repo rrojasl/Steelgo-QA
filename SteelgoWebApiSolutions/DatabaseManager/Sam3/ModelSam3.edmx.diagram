@@ -308,6 +308,7 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Catal__5F891AA4" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Tipo__Catal__5CACADF9" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___TipoA__607D3EDD" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_DeficitMateriales" Width="1.5" PointX="0.75" PointY="14.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
