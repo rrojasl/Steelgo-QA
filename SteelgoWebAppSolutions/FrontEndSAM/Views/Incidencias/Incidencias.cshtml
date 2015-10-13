@@ -491,9 +491,9 @@
 
     function onUploadAdjuntarArchivos() {
         var bool = false;
-        $("#formLlegadaMaterial .security_required").each(function (i, elem) {
+        $("#formaIncidencias .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
-                if ($(elem).attr("id") == "Descripcion") {
+                if ($(elem).attr("id") == "DescripcionArchivo") {
                     if (!$(this).val()) {
                         bool = true;
                         $(this).closest("div").find("label").addClass("error");
@@ -652,7 +652,7 @@
             Titulo: "", Descripcion: "", Respuesta: "", MotivoCancelacion: "",
             DetalleResolucion: "", RegistradoPor: "", FechaRegistro: "",
             ResueltoPor: "", FechaResolucion: "", RespondidoPor: "",
-            FechaRespuesta: "", Nuevo: "", ReferenciaID: ""
+            FechaRespuesta: "", Nuevo: "", ReferenciaID: "", Estatus: ""
         };
 
         var d = new Date($("#FechaRegistro").data("kendoDatePicker").value());
@@ -818,6 +818,7 @@
         if (validarRequeridosFormaIncidenciasResolverIncidencia()) {
             var Listado = ArrayListado();
 
+            Listado.Estatus = "Resuelto";
             if (Listado.FolioIncidenciaID != "-1") {
                 Editar(Listado);
             } else {
@@ -833,7 +834,7 @@
         loadingStart();
         if (validarRequeridosFormaIncidenciasCancelarIncidencia()) {
             var Listado = ArrayListado();
-
+            Listado.Estatus = "Cancelado";
             if (Listado.FolioIncidenciaID != "-1") {
                 Editar(Listado);
             } else {
