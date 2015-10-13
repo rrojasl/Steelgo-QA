@@ -88,24 +88,46 @@ namespace BackEndSAM.Controllers
 
         public object Get(string ordenTrabajo, int itemCodeID, string token)
         {
-            //string payload = "";
-            //string newToken = "";
-            //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
 
-            //if (tokenValido)
-            //{
+            if (tokenValido)
+            {
                 return DeficitBd.Instance.ObtenerInformacionItemCode(ordenTrabajo, itemCodeID);
 
-            //}
-            //else
-            //{
-            //    TransactionalInformation result = new TransactionalInformation();
-            //    result.ReturnMessage.Add(payload);
-            //    result.ReturnCode = 401;
-            //    result.ReturnStatus = false;
-            //    result.IsAuthenicated = false;
-            //    return result;
-            //}
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(int ordenTrabajoID, int itemCodeID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                return DeficitBd.Instance.ObtenerInformacionSpools(ordenTrabajoID, itemCodeID);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/<controller>

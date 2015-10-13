@@ -328,6 +328,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelFolioEntrada.IncidenciaID = nuevoRegistro.IncidenciaID;
                                     nuevaRelFolioEntrada.UsuarioModificacion = usuario.UsuarioID;
 
+                                    ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada.Add(nuevaRelFolioEntrada);
+
                                     ctx.SaveChanges();
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -351,6 +353,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelFolioC.IncidenciaID = nuevoRegistro.IncidenciaID;
                                     nuevaRelFolioC.UsuarioModificacion = usuario.UsuarioID;
 
+                                    ctx.Sam3_Rel_Incidencia_FolioCuantificacion.Add(nuevaRelFolioC);
+
                                     ctx.SaveChanges();
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -371,6 +375,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelOrdenR.IncidenciaID = nuevoRegistro.IncidenciaID;
                                     nuevaRelOrdenR.OrdenRecepcionID = datos.ReferenciaID;
                                     nuevaRelOrdenR.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Incidencia_OrdenRecepcion.Add(nuevaRelOrdenR);
 
                                     ctx.SaveChanges();
 
@@ -395,6 +401,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelItemCode.ItemCodeID = datos.ReferenciaID;
                                     nuevaRelItemCode.UsuarioModificacion = usuario.UsuarioID;
 
+                                    ctx.Sam3_Rel_Incidencia_ItemCode.Add(nuevaRelItemCode);
+
                                     ctx.SaveChanges();
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -415,6 +423,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelOrdenAlmacenaje.IncidenciaID = nuevoRegistro.IncidenciaID;
                                     nuevaRelOrdenAlmacenaje.OrdenalmacenajeID = datos.ReferenciaID;
                                     nuevaRelOrdenAlmacenaje.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje.Add(nuevaRelOrdenAlmacenaje);
 
                                     ctx.SaveChanges();
 
@@ -437,6 +447,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelNumeroUnico.NumeroUnicoID = datos.ReferenciaID;
                                     nuevaRelNumeroUnico.UsuarioModificacion = usuario.UsuarioID;
 
+                                    ctx.Sam3_Rel_Incidencia_NumeroUnico.Add(nuevaRelNumeroUnico);
+
                                     ctx.SaveChanges();
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -457,6 +469,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelDespacho.FechaModificacion = DateTime.Now;
                                     nuevaRelDespacho.IncidenciaID = nuevoRegistro.IncidenciaID;
                                     nuevaRelDespacho.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_Rel_Incidencia_Despacho.Add(nuevaRelDespacho);
 
                                     ctx.SaveChanges();
 
@@ -479,6 +493,8 @@ namespace BackEndSAM.DataAcces
                                     nuevaRelCorte.IncidenciaID = nuevoRegistro.IncidenciaID;
                                     nuevaRelCorte.UsuarioModificacion = usuario.UsuarioID;
 
+                                    ctx.Sam3_Rel_Incidencia_Corte.Add(nuevaRelCorte);
+
                                     ctx.SaveChanges();
 
                                     EnviarAvisosBd.Instance.EnviarNotificación(1,
@@ -490,6 +506,31 @@ namespace BackEndSAM.DataAcces
                                     throw new Exception("No se encontro el tipo de incidencia");
                             }
                         }
+
+                        foreach (Sam3_Rel_Incidencia_Documento doc in registro.Sam3_Rel_Incidencia_Documento)
+                        {
+                            if(doc.Activo)
+                            {
+                                Sam3_Rel_Incidencia_Documento nuevaRelDocumento = new Sam3_Rel_Incidencia_Documento();
+                                nuevaRelDocumento.Activo = true;
+                                nuevaRelDocumento.ContentType = doc.ContentType;
+                                nuevaRelDocumento.Descripcion = doc.Descripcion;
+                                nuevaRelDocumento.DocGuid = doc.DocGuid;
+                                nuevaRelDocumento.DocumentoID = doc.DocumentoID;
+                                nuevaRelDocumento.Extencion = doc.Extencion;
+                                nuevaRelDocumento.FechaModificacion = DateTime.Now;
+                                nuevaRelDocumento.IncidenciaID = nuevoRegistro.IncidenciaID;
+                                nuevaRelDocumento.Nombre = doc.Nombre;
+                                nuevaRelDocumento.TipoArchivoID = 0;
+                                nuevaRelDocumento.Url = doc.Url;
+                                nuevaRelDocumento.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_Incidencia_Documento.Add(nuevaRelDocumento);
+                            }
+                        }
+
+                        ctx.SaveChanges();
+
 
                         ctx_tran.Commit();
 

@@ -2294,8 +2294,16 @@ namespace BackEndSAM.DataAcces
                     if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Despacho
-                    listado.AddRange(DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
-                        fechaInicial, fechaFinal));
+                    temp.Clear();
+                    listaTemporal.Clear();
+
+                    temp = (from r in ctx.Sam3_Rel_Incidencia_Despacho
+                            where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
+                            select r.DespachoID).AsParallel().ToList();
+
+                    listaTemporal = DespachoBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
+
+                    if (listaTemporal != null) { listado.AddRange(listaTemporal); }
 
                     //Corte
                     listado.AddRange(CorteBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, incidenciasIDs,
