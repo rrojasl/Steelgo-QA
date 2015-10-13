@@ -167,6 +167,7 @@
     <Compile Include="Controllers\DummyMaquinaController.cs" />
     <Compile Include="Controllers\EntregaController.cs" />
     <Compile Include="Controllers\MaterialPendienteController.cs" />
+    <Compile Include="Controllers\NotificacionDeficitController.cs" />
     <Compile Include="Controllers\NumerosUnicosController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\DummyObtenerDatosFolioLlegadaMaterialController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Controllers\DummyVerificarCancelacionController.cs" />
     <Compile Include="Controllers\ProyectoPorFolioLlegadaController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValidacionesFolioAvisoLlegadaController.cs" />
     <Compile Include="Controllers\ValidacionFolioConPermisoAduanaController.cs" />
     <Compile Include="Controllers\ValidarItemCodeNuCuantificacionController.cs" />
@@ -278,6 +280,7 @@
     <Compile Include="DataAcces\CortadorBd.cs" />
     <Compile Include="DataAcces\CorteBd.cs" />
     <Compile Include="DataAcces\CuantificacionBd.cs" />
+    <Compile Include="DataAcces\DeficitBd.cs" />
     <Compile Include="DataAcces\DespachoBd.cs" />
     <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
@@ -329,6 +332,7 @@
     <Compile Include="Models\CuantificacionListado.cs" />
     <Compile Include="Models\DashBoardDespacho.cs" />
     <Compile Include="Models\DatosFolioLlegadaCuantificacion.cs" />
+    <Compile Include="Models\Deficit.cs" />
     <Compile Include="Models\DocumentoPosteado.cs" />
     <Compile Include="Models\DocumentosEnCatalogos.cs" />
     <Compile Include="Models\Dummy\Accesorios.cs" />

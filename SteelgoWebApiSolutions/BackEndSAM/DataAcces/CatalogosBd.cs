@@ -1136,119 +1136,7 @@ namespace BackEndSAM.DataAcces
                                 Telefono = fabricante.Telefono
                             };
                             #endregion
-                        case 11: //Catalogo Cedulas
-                            #region
-                            List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
-                            List<CatalogoCedulas> cedulasCorrectas = new List<CatalogoCedulas>();
-                            //List<CatalogoCedulas> cedulasNuevas = new List<CatalogoCedulas>();
 
-                            //cedulasNuevas.AddRange(catalogoCedulas.Where(x => String.IsNullOrEmpty(x.CedulaID)));
-
-                            bool existe = false;
-
-                            foreach (CatalogoCedulas item in catalogoCedulas)
-                            {
-                                decimal factor = Convert.ToDecimal("25.4006"); //Convert.ToDecimal(item.FactorConversion);
-
-                                if (String.IsNullOrEmpty(item.Diametro1))
-                                {
-                                    existe = (from ced in ctx.Sam3_Cedula
-                                              where (ced.CedulaA == item.CedulaA ||
-                                              ced.CedulaB == item.CedulaB ||
-                                              ced.CedulaC == item.CedulaC)
-                                              select ced.CedulaID).Any();
-                                }
-                                else
-                                {
-                                    existe = (from ced in ctx.Sam3_Cedula
-                                              where ((ced.CedulaA == item.CedulaA ||
-                                              ced.CedulaB == item.CedulaB ||
-                                              ced.CedulaC == item.CedulaC) &&
-                                              ced.Diametro.ToString() == item.Diametro1) ||
-                                              ((ced.CedulaA == item.CedulaA ||
-                                              ced.CedulaB == item.CedulaB ||
-                                              ced.CedulaC == item.CedulaC) &&
-                                              ced.Diametro.ToString() == null)
-                                              select ced.CedulaID).Any();
-                                }
-                                if (!existe) //Insert
-                                {
-                                    Sam3_Cedula cedulas = new Sam3_Cedula();
-
-                                    cedulas.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
-                                    cedulas.CedulaA = item.CedulaA;
-                                    cedulas.CedulaB = item.CedulaB;
-                                    cedulas.CedulaC = item.CedulaC;
-                                    cedulas.CedulaIn = String.IsNullOrEmpty(item.CedulaIn) ? Decimal.Parse((Decimal.Parse(item.CedulaMM) / factor).ToString("0.####")) : Decimal.Parse(item.CedulaIn);
-                                    cedulas.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0.####")) : Decimal.Parse(item.CedulaMM);
-                                    cedulas.Espesor = Decimal.Parse(item.Espesor);
-                                    cedulas.Activo = true;
-                                    cedulas.UsuarioModificacion = usuario.UsuarioID;
-                                    cedulas.FechaModificacion = DateTime.Now;
-
-                                    ctx.Sam3_Cedula.Add(cedulas);
-                                    ctx.SaveChanges();
-
-                                    cedulasCorrectas.Add(new CatalogoCedulas
-                                    {
-                                        EstatusCorrecto = true,
-                                        Diametro1 = cedulas.Diametro.ToString(),
-                                        CedulaID = cedulas.CedulaID.ToString(),
-                                        CedulaA = cedulas.CedulaA,
-                                        CedulaB = cedulas.CedulaB,
-                                        CedulaC = cedulas.CedulaC,
-                                        CedulaIn = cedulas.CedulaIn.ToString(),
-                                        CedulaMM = cedulas.CedulaMM.ToString(),
-                                        Espesor = cedulas.Espesor.ToString()
-                                    });
-                                }
-                                else //Update
-                                {
-                                    List<CatalogoCedulas> lista = new List<CatalogoCedulas>();
-
-
-
-                                    Sam3_Cedula cedula = ctx.Sam3_Cedula.Where(x => x.Activo &&
-                                        (x.Diametro.ToString() == item.Diametro1 && (x.CedulaA == item.CedulaA ||
-                                        x.CedulaB == item.CedulaB ||
-                                        x.CedulaC == item.CedulaC)) ||
-                                        (x.Diametro.ToString() == null &&
-                                        (x.CedulaA == item.CedulaA ||
-                                        x.CedulaB == item.CedulaB ||
-                                        x.CedulaC == item.CedulaC))).AsParallel().FirstOrDefault();
-
-                                    cedula.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
-                                    cedula.CedulaA = item.CedulaA;
-                                    cedula.CedulaB = item.CedulaB;
-                                    cedula.CedulaC = item.CedulaC;
-                                    cedula.CedulaIn = String.IsNullOrEmpty(item.CedulaIn) ? Decimal.Parse((Decimal.Parse(item.CedulaMM) / factor).ToString("0.####")) : Decimal.Parse(item.CedulaIn);
-                                    cedula.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0.####")) : Decimal.Parse(item.CedulaMM);
-                                    cedula.Espesor = Decimal.Parse(item.Espesor);
-
-                                    cedula.Activo = true;
-                                    cedula.UsuarioModificacion = usuario.UsuarioID;
-                                    cedula.FechaModificacion = DateTime.Now;
-
-                                    ctx.SaveChanges();
-
-                                    cedulasCorrectas.Add(new CatalogoCedulas
-                                    {
-                                        EstatusCorrecto = false,
-                                        Diametro1 = cedula.Diametro.ToString(),
-                                        CedulaID = cedula.CedulaID.ToString(),
-                                        CedulaA = cedula.CedulaA,
-                                        CedulaB = cedula.CedulaB,
-                                        CedulaC = cedula.CedulaC,
-                                        CedulaIn = cedula.CedulaIn.ToString(),
-                                        CedulaMM = cedula.CedulaMM.ToString(),
-                                        Espesor = cedula.Espesor.ToString()
-                                    });
-                                }
-                            }
-
-                            return cedulasCorrectas;
-
-                            #endregion
                         default:
                             #region
                             TransactionalInformation resultado = new TransactionalInformation();
@@ -1259,6 +1147,142 @@ namespace BackEndSAM.DataAcces
                             return resultado;
                             #endregion
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Guardar nueva cedula
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="catalogoID"></param>
+        /// <param name="factorConversion"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object InsertarCedula(string data, string catalogoID, string factorConversion, Sam3_Usuario usuario)
+        {
+            try 
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
+                    List<CatalogoCedulas> cedulasCorrectas = new List<CatalogoCedulas>();
+
+                    bool existe = false;
+
+                    foreach (CatalogoCedulas item in catalogoCedulas)
+                    {
+                        decimal factor = Convert.ToDecimal(factorConversion);
+
+                        if (String.IsNullOrEmpty(item.Diametro1))
+                        {
+                            existe = (from ced in ctx.Sam3_Cedula
+                                      where (ced.CedulaA == item.CedulaA ||
+                                      ced.CedulaB == item.CedulaB ||
+                                      ced.CedulaC == item.CedulaC)
+                                      select ced.CedulaID).Any();
+                        }
+                        else
+                        {
+                            existe = (from ced in ctx.Sam3_Cedula
+                                      where ((ced.CedulaA == item.CedulaA ||
+                                      ced.CedulaB == item.CedulaB ||
+                                      ced.CedulaC == item.CedulaC) &&
+                                      ced.Diametro.ToString() == item.Diametro1) ||
+                                      ((ced.CedulaA == item.CedulaA ||
+                                      ced.CedulaB == item.CedulaB ||
+                                      ced.CedulaC == item.CedulaC) &&
+                                      ced.Diametro.ToString() == null)
+                                      select ced.CedulaID).Any();
+                        }
+                        if (!existe) //Insert
+                        {
+                            Sam3_Cedula cedulas = new Sam3_Cedula();
+
+                            cedulas.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
+                            cedulas.CedulaA = item.CedulaA;
+                            cedulas.CedulaB = item.CedulaB;
+                            cedulas.CedulaC = item.CedulaC;
+                            cedulas.CedulaIn = String.IsNullOrEmpty(item.CedulaIn) ? Decimal.Parse((Decimal.Parse(item.CedulaMM) / factor).ToString("0.####")) : Decimal.Parse(item.CedulaIn);
+                            cedulas.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0.####")) : Decimal.Parse(item.CedulaMM);
+                            cedulas.Espesor = Decimal.Parse(item.Espesor);
+                            cedulas.Activo = true;
+                            cedulas.UsuarioModificacion = usuario.UsuarioID;
+                            cedulas.FechaModificacion = DateTime.Now;
+
+                            ctx.Sam3_Cedula.Add(cedulas);
+                            ctx.SaveChanges();
+
+                            cedulasCorrectas.Add(new CatalogoCedulas
+                            {
+                                EstatusCorrecto = true,
+                                Diametro1 = cedulas.Diametro.ToString(),
+                                CedulaID = cedulas.CedulaID.ToString(),
+                                CedulaA = cedulas.CedulaA,
+                                CedulaB = cedulas.CedulaB,
+                                CedulaC = cedulas.CedulaC,
+                                CedulaIn = cedulas.CedulaIn.ToString(),
+                                CedulaMM = cedulas.CedulaMM.ToString(),
+                                Espesor = cedulas.Espesor.ToString()
+                            });
+                        }
+                        else //Update
+                        {
+                            List<CatalogoCedulas> lista = new List<CatalogoCedulas>();
+
+                            Sam3_Cedula cedula = ctx.Sam3_Cedula.Where(x => x.Activo &&
+                                (x.Diametro.ToString() == item.Diametro1 && (x.CedulaA == item.CedulaA ||
+                                x.CedulaB == item.CedulaB ||
+                                x.CedulaC == item.CedulaC)) ||
+                                (x.Diametro.ToString() == null &&
+                                (x.CedulaA == item.CedulaA ||
+                                x.CedulaB == item.CedulaB ||
+                                x.CedulaC == item.CedulaC))).AsParallel().FirstOrDefault();
+
+                            cedula.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
+                            cedula.CedulaA = item.CedulaA;
+                            cedula.CedulaB = item.CedulaB;
+                            cedula.CedulaC = item.CedulaC;
+                            cedula.CedulaIn = String.IsNullOrEmpty(item.CedulaIn) ? Decimal.Parse((Decimal.Parse(item.CedulaMM) / factor).ToString("0.####")) : Decimal.Parse(item.CedulaIn);
+                            cedula.CedulaMM = String.IsNullOrEmpty(item.CedulaMM) ? Decimal.Parse((Decimal.Parse(item.CedulaIn) * factor).ToString("0.####")) : Decimal.Parse(item.CedulaMM);
+                            cedula.Espesor = Decimal.Parse(item.Espesor);
+
+                            cedula.Activo = true;
+                            cedula.UsuarioModificacion = usuario.UsuarioID;
+                            cedula.FechaModificacion = DateTime.Now;
+
+                            ctx.SaveChanges();
+
+                            cedulasCorrectas.Add(new CatalogoCedulas
+                            {
+                                EstatusCorrecto = false,
+                                Diametro1 = cedula.Diametro.ToString(),
+                                CedulaID = cedula.CedulaID.ToString(),
+                                CedulaA = cedula.CedulaA,
+                                CedulaB = cedula.CedulaB,
+                                CedulaC = cedula.CedulaC,
+                                CedulaIn = cedula.CedulaIn.ToString(),
+                                CedulaMM = cedula.CedulaMM.ToString(),
+                                Espesor = cedula.Espesor.ToString()
+                            });
+                        }
+                    }
+
+                    return cedulasCorrectas;
                 }
             }
             catch (Exception ex)
@@ -1292,6 +1316,7 @@ namespace BackEndSAM.DataAcces
                 List<CatalogoCedulas> catalogoCedulas = serializer.Deserialize<List<CatalogoCedulas>>(data);
                 List<CatalogoCedulas> cedulasEnBD = new List<CatalogoCedulas>();
                 ValidarCedulas datos = new ValidarCedulas();
+                datos.HayConflictos = false;
 
                 using (SamContext ctx = new SamContext())
                 {
