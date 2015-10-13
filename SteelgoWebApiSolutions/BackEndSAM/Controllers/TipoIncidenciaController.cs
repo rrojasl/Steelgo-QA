@@ -41,6 +41,30 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string tipoIncidencia, string busqueda, string levantarincidencia, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                int tipoIncidenciaID = tipoIncidencia != "" ? Convert.ToInt32(tipoIncidencia) : 0;
+                return ListadoBd.Instance.ObtenerEntidadComboIncidencia(tipoIncidenciaID, busqueda);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         public object Get(string tipoIncidencia, string busqueda, string token)
         {
             string payload = "";

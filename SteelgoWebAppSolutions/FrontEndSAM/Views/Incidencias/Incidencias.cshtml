@@ -595,12 +595,21 @@
         });
     };
 
-    function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion) {
+    function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion,referenciaID) {
+        loadingStart();
         $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
         CargarClasificacion(clasificacion);
 
         $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
         CargarTipoIncidencia(tipoincidenciaID);
+
+        $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID,levantarincidencia:_LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
+            if (Error(data)) {
+                $("#Registro").data("kendoAutoComplete").value(data[0].value);
+                CargarRegistro(data[0].id);
+            }
+            loadingStop();
+        });
     };
 
     function CargarClasificacion(id, value) {
@@ -1113,11 +1122,7 @@
     };
     
     if(_LevantarIncidencia!="-1") {
-        if (_ReferenciaID != "-1") {
-            CargaInicialLevantarIncidenciaConReferencia(_TipoIncidencia, _ReferenciaID);
-        } else {
-            cargaInicialLentarNuevaIncidencia(_TipoIncidencia, _Clasificacion);
-        };
+       cargaInicialLentarNuevaIncidencia(_TipoIncidencia, _Clasificacion,_ReferenciaID);
     };
     }
 
