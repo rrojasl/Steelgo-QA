@@ -334,10 +334,12 @@ namespace BackEndSAM.DataAcces
 
                     foreach (string item in spoolID)
                     {
+                        int IDspool = Int32.Parse(item);
+
                         Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
                         nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
                         nuevoDeficit.ItemCodeID = itemCodeSam3;
-                        nuevoDeficit.SpoolID = Int32.Parse(item);
+                        nuevoDeficit.SpoolID = IDspool;
                         nuevoDeficit.Deficit = deficit[0].DeficitTotal;
                         nuevoDeficit.Activo = true;
                         nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
@@ -379,6 +381,12 @@ namespace BackEndSAM.DataAcces
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Funcion para obtener los detalles de un deficit
+        /// pantalla revision de deficit
+        /// </summary>
+        /// <param name="ordenTrabajoID"></param>
+        /// <returns></returns>
         public object ObtenerGridDeficit(int ordenTrabajoID)
         {
             try
@@ -437,7 +445,6 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
-
 
     }
 }
