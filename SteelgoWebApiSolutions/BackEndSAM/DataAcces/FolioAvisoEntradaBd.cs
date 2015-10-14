@@ -654,7 +654,6 @@ namespace BackEndSAM.DataAcces
                                      where fe.Activo && rfp.Activo && p.Activo && pa.Activo
                                      && proyectos.Contains(p.ProyectoID)
                                      && patios.Contains(pa.PatioID)
-                                     && (fe.FechaCreacion >= fechaInicial && fe.FechaCreacion <= fechaFinal)
                                      && IDs.Contains(fe.FolioAvisoEntradaID)
                                      select fe).Distinct().AsParallel().ToList();
                     }
