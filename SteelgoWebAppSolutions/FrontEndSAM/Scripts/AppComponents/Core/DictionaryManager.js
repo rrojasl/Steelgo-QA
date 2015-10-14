@@ -3346,6 +3346,14 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    "ComplementoRecepcion0066": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "ComplementoRecepcion0067": {
+        "es-MX": "NumeroUnicoID",
+        "en-US": "NumeroUnicoID"
+    },
     // Lista Materiales
     "ListaMateriales0001": {
         "es-MX": "Inicio",

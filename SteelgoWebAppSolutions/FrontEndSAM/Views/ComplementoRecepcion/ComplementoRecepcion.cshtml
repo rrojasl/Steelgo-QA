@@ -115,8 +115,8 @@
         </div>
         
         <ul id="menu">
-            <li><span id="ComplementoRecepcion0063"></span>
-            </li>
+            <li id="Complemento"><span id="ComplementoRecepcion0063"></span></li>
+            <li id="Incidencia"><span id="ComplementoRecepcion0066"></span></li>
         </ul>
     </div>
 </div>
@@ -140,48 +140,7 @@
      </div>
 </div>
 <div id="window">
-    @*Contenido de la ventana modal *@
-@*    <div id="modalColada" style="display: none">
-        <div class="alert-container">
-            <div class="message">
-                Mensaje de éxito/error/advertencia
-            </div>
-        </div>
-        <div id="Fabricante_ColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0044"></label>
-            <input id="Fabricante_Colada" class="" />
-        </div>
-        <div id="Acero_ColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0045"></label>
-            <input id="Acero_Colada" class="" />
-        </div>
-        <div id="Proyecto_ColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0046"></label>
-            <input id="Proyecto_Colada" class="" />
-        </div>
-        <div id="NumeroColada_ColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0047"></label>
-            <input id="NumeroColada_Colada" class="" />
-        </div>
-        <div id="NumeroCertificado_ColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0048"></label>
-            <input id="NumeroCertificado_Colada" class="" />
-        </div>
-        <div id="HoldCalidad_ColadaDiv" class="form-group">
-            <label id="ComplementoRecepcion0049"></label>
-            <input id="HoldCalidad_Colada" type="checkbox" class="" />
-        </div>
-        <div class="buttonSave">
-            <a id="GuardarColada" href="#" class="btn btn-primary">
-                <span id="ComplementoRecepcion0050"></span>
-            </a>
-            <a id="CancelarColada" href="#" class="btn btn-primary">
-                <span id="ComplementoRecepcion0051"></span>
-            </a>
-        </div>
-    </div>
 
-     *@
 </div>
 
 <script>
@@ -190,7 +149,6 @@
     var Proyecto = {}, Cuantificacion = {}, TipoUso = {}, resultadoJson,
         lastEditedFisicoCellIDS = "", lastEditedTipoUsoCellIDS = "",
         lastEditedDepartamentalCellID = "", lastEditedCellIDSColada,
-        FabricanteColada = {}, AceroColada = {}, ProyectoColada = {},
         ctrlDown = false, ctrlKey = 17, vKey = 86, cKey = 67,
         focusResp = "ProyectoID", sinColadaPL = "Sin Colada PL", rowselected="";
 
@@ -291,6 +249,11 @@
                 var select = grid.select();
                 var data = grid.dataItem(select);
                 
+                if (e.item.id == "Incidencia") {
+                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+                    return;
+                };
+
                 if (data.Colada != sinColadaPL) {
                     rowselected = data;
                     $("#EdicionColada").data("kendoComboBox").text(data.Colada);
@@ -302,6 +265,9 @@
 
         $("#grid").on("mousedown", "tr[role='row']", function (e) {
             $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
         });
 
         //Botones
@@ -334,7 +300,6 @@
         $("#Mostrar").click(function () { ObtenerDatosDelFolioCuantificacion(); });
         
         $("#Cancelar").click(function () { Cancelar(); });
-        $("#CancelarColada").click(function () { CancelarColada(); });
         $("#IrListado").click(function () {
             IrListado();
         });
@@ -399,60 +364,6 @@
                 changeValueColumnsClear();
             }
         });
-
-
-        //Ventana Modal Colada
-        $("#Fabricante_Colada").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "FabricanteID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarFabricanteColada(dataItem.FabricanteID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    FabricanteColada = {};
-                };
-            },
-            filter: "contains",
-        });
-        ObtenerFabricanteColada();
-
-
-        $("#Acero_Colada").kendoComboBox({
-            dataTextField: "Nomenclatura",
-            dataValueField: "AceroID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarAceroColada(dataItem.AceroID, dataItem.Nomenclatura);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    AceroColada = {};
-                };
-            },
-            filter: "contains",
-        });
-        ObtenerAceroColada();
-
-        $("#Proyecto_Colada").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ProyectoID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value) {
-                    ProyectoColada = {};
-                }
-            },
-            filter: "contains",
-        });
-        ObtenerProyecto("Proyecto_Colada");
 
 
         $("#Colada").kendoComboBox({
@@ -572,21 +483,6 @@
     function CargarFolioCuantificacion(id) {
         Cuantificacion = {};
         Cuantificacion = { FolioCuantificacionID: id };
-    };
-
-    function CargarFabricanteColada(id, value) {
-        FabricanteColada = {};
-        FabricanteColada = { FabricanteID: id, Nombre: value };
-    };
-
-    function CargarAceroColada(id, value) {
-        AceroColada = {};
-        AceroColada = { AceroID: id, Nombre: value };
-    };
-
-    function CargarProyectoColada(id, value) {
-        ProyectoColada = {};
-        ProyectoColada = { ProyectoID: id, Nombre: value };
     };
 
     function CargarEstatusFisico() {
@@ -719,6 +615,7 @@
                     schema: {
                         model: {
                             fields: {
+                                NumeroUnicoID: { type: "string", editable: false },
                                 NumeroUnico: { type: "string", editable: false },
                                 NumeroUnicoCliente: { type: "string", editable: true },
                                 ItemCode: { type: "string", editable: false },
@@ -758,6 +655,7 @@
                 },
                 navigatable: true,
                 columns: [
+                    { field: "NumeroUnicoID", title: _dictionary.ComplementoRecepcion0067[$("#language").data("kendoDropDownList").value()], filterable: true, width: 150, hidden:true },
                     { field: "NumeroUnico", title: _dictionary.ComplementoRecepcion0022[$("#language").data("kendoDropDownList").value()], filterable: true, width:150},
                     { field: "NumeroUnicoCliente", title: _dictionary.ComplementoRecepcion0023[$("#language").data("kendoDropDownList").value()], filterable: true, width: 200 },
                     { field: "ItemCode", title: _dictionary.ComplementoRecepcion0024[$("#language").data("kendoDropDownList").value()], filterable: true },
@@ -990,19 +888,6 @@
             }
 
             
-        };
-
-
-        function ObtenerFabricanteColada() {
-            $Fabricantes.Fabricantes.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("Fabricante_Colada", result);
-            });
-        };
-
-        function ObtenerAceroColada() {
-            $TipoAcero.TipoAcero.read({ token: Cookies.get("token") }).done(function (result) {
-                ControlErroresObjetosComboBox("Acero_Colada", result);
-            });
         };
 
         function changeValueColumnColada(value) {
