@@ -870,12 +870,8 @@
     };
 
     function Incidencias() {
-        if (_CorteID == "-1") {
-            displayMessage("notificationslabel0072", "", '1');
-            return;
-        } else {
-            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _CorteID);
-        }
+        var CorteID = _CorteID ? _CorteID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + CorteID + "&TipoIncidencia=11&Clasificacion=1");
     };
 
 

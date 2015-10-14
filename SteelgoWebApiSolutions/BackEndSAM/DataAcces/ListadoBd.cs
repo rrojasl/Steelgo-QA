@@ -2460,7 +2460,7 @@ namespace BackEndSAM.DataAcces
                         case 11: // Corte
                             listado = (from c in ctx.Sam3_Corte
                                        where c.Activo
-                                       && c.CortadorID.ToString() == busqueda
+                                       && c.CorteID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = c.CorteID.ToString(),
@@ -2610,7 +2610,7 @@ namespace BackEndSAM.DataAcces
                         case 11: // Corte
                             listado = (from c in ctx.Sam3_Corte
                                        where c.Activo
-                                       && elementos.Any(x => c.CortadorID.ToString().Contains(x))
+                                       && elementos.Any(x => c.CorteID.ToString().Contains(x))
                                        select new ListaCombos
                                        {
                                            id = c.CorteID.ToString(),
