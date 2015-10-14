@@ -19,23 +19,45 @@ namespace BackEndSAM.Controllers
         // GET api/<controller>/5
             public object Get(int ordenTrabajoID, string token)
             {
-                //string payload = "";
-                //string newToken = "";
-                //bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                string payload = "";
+                string newToken = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
 
-                //if (tokenValido)
-                //{
+                if (tokenValido)
+                {
                     return DeficitBd.Instance.ObtenerGridDeficit(ordenTrabajoID);
-                //}
-                //else
-                //{
-                //    TransactionalInformation result = new TransactionalInformation();
-                //    result.ReturnMessage.Add(payload);
-                //    result.ReturnCode = 401;
-                //    result.ReturnStatus = false;
-                //    result.IsAuthenicated = false;
-                //    return result;
-                //}
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+
+            // GET api/<controller>/5
+            public object Get(string ordenTrabajo, string token)
+            {
+                string payload = "";
+                string newToken = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+                if (tokenValido)
+                {
+                    return DeficitBd.Instance.obtenerSpoolsRevision(ordenTrabajo);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
             }
 
 
