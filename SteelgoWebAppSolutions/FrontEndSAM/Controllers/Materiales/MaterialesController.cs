@@ -12,5 +12,10 @@ namespace FrontEndSAM.Controllers.Materiales
         {
             return View();
         }
+
+        public ActionResult RevisionDeficit()
+        {
+            return View();
+        }
     }
 }
