@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Listado Orden Recepcion";
+    ViewBag.Title = "Listado Packing List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -62,12 +62,17 @@
     </div>
 </div>
 <input id="hdAccionFiltrado" type="hidden" />
+
+<ul id="menu">
+    <li id="Incidencia"><span id="ListadoPackingList0023"></span></li>
+</ul>
 <script>
     @section JavascriptGlobalVariables 
     {
     var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
     var _cuantificacionUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
     var _complementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
 
     var $ListadoPackingListModel = {
         listContainer: {
@@ -173,6 +178,26 @@
 
         ObtenerFechasporDefecto();
         Filtros();
+
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacion + "&TipoIncidencia=4&Clasificacion=1");
+
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
+        });
+
     };
 
     function cargarInicialGrid() {
@@ -198,6 +223,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            selectable: true,
             filterable: {
                 extra: false,
                 operators: {
@@ -288,6 +314,7 @@
                     PeriodoTiempo = [];
                 }
                 ObtenerFechasporPeriodo(value);
+                Filtros();
             },
             filter: "contains",
         });

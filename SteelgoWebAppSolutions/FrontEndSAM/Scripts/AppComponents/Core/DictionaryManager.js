@@ -3085,6 +3085,10 @@ _dictionary = {
         "es-MX": "Dashboard Recepcion y Almacenaje",
         "en-US": "Dashboard Recepcion y Almacenaje"
     },
+    "ListadoPackingList0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Complemento Recepcion
     "ComplementoRecepcion0001": {
         "es-MX": "Inicio",
