@@ -440,6 +440,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\templates\" />
     <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>

@@ -3094,6 +3094,10 @@ _dictionary = {
         "es-MX": "Dashboard Recepcion y Almacenaje",
         "en-US": "Dashboard Recepcion y Almacenaje"
     },
+    "ListadoPackingList0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Complemento Recepcion
     "ComplementoRecepcion0001": {
         "es-MX": "Inicio",
@@ -4597,6 +4601,30 @@ _dictionary = {
     "ListadoIncidencias0013": {
         "es-MX": "Fecha Registro",
         "en-US": "Registration date"
+    },
+    "ListadoIncidencias0014": {
+        "es-MX": "Período de Tiempo",
+        "en-US": "Time Frame"
+    },
+    "ListadoIncidencias0015": {
+        "es-MX": "Semana Actual",
+        "en-US": "Current Week"
+    },
+    "ListadoIncidencias0016": {
+        "es-MX": "Dos Semanas",
+        "en-US": "Two Weeks"
+    },
+    "ListadoIncidencias0017": {
+        "es-MX": "Mes",
+        "en-US": "Month"
+    },
+    "ListadoIncidencias0018": {
+        "es-MX": "Trimestre",
+        "en-US": "Trimester"
+    },
+    "ListadoIncidencias0019": {
+        "es-MX": "Año",
+        "en-US": "Year"
     },
     //Entrega
     "Entrega0001": {

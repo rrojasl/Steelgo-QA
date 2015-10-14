@@ -933,8 +933,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs,
-            DateTime fechainicial, DateTime fechaFinal)
+        public List<ListadoIncidencias> ListadoInciendias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> IDs)
         {
             try
             {
@@ -949,7 +948,6 @@ namespace BackEndSAM.DataAcces
                                                               where fa.Activo && rfp.Activo
                                                               && proyectos.Contains(rfp.ProyectoID)
                                                               && patios.Contains(pa.PatioID)
-                                                              && (fa.FechaModificacion >= fechainicial && fa.FechaModificacion <= fechaFinal)
                                                               && IDs.Contains(fa.FolioAvisoLlegadaID)
                                                               select fa).Distinct().AsParallel().ToList();
 

@@ -174,7 +174,10 @@
         FechaRespuesta, Registro = {},
         RegistradoPor = {}, ResueltoPor = {},
         RespondidoPor = {};
+
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
+    var _ListadoIncidenciasUrl = "@Url.Action("ListadoIncidencias", "Incidencias")"; 
+
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _TipoIncidencia = getUrlParameter("TipoIncidencia", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
@@ -478,42 +481,51 @@
                 $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
                 CargarTipoIncidencia(data.TipoIncidenciaID);
 
+                
                 $("#Version").val(data.Version);
                 $("#Titulo").val(data.Titulo);
                 $("#Descripcion").val(data.Descripcion);
                 $("#Respuesta").val(data.Respuesta);
                 $("#MotivoCancelacion").val(data.MotivoCancelacion);
                 $("#DetalleResolucion").val(data.DetalleResolucion);
-                $("#RegistradoPor").val(data.RegistradoPor);
-                $("#ResueltoPor").val(data.ResueltoPor);
-                $("#RespondidoPor").val(data.RespondidoPor);
+
+                $("#RegistradoPor").data("kendoComboBox").value(data.RegistradoPor)
+                $("#ResueltoPor").data("kendoComboBox").value(data.ResueltoPor)
+                $("#RespondidoPor").data("kendoComboBox").value(data.RespondidoPor)
 
                 CargarRegistradoPor(data.RegistradoPor);
                 CargarResueltoPor(data.ResueltoPor)
                 CargarRespondidoPor(data.RespondidoPor);
 
-                var splitYear = data.FechaRegistro.split("-")[0];
-                var splitMonth = data.FechaRegistro.split("-")[1];
-                var splitDay = data.FechaRegistro.split("-")[2];
+                if( data.FechaRegistro){
+                    var splitYear = data.FechaRegistro.split("-")[0];
+                    var splitMonth = data.FechaRegistro.split("-")[1];
+                    var splitDay = data.FechaRegistro.split("-")[2];
 
-                var splitYear1 = data.FechaResolucion.split("-")[0];
-                var splitMonth1 = data.FechaResolucion.split("-")[1];
-                var splitDay1 = data.FechaResolucion.split("-")[2];
+                    var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
+                    $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
+                }
 
-                var splitYear2 = data.FechaRespuesta.split("-")[0];
-                var splitMonth2 = data.FechaRespuesta.split("-")[1];
-                var splitDay2 = data.FechaRespuesta.split("-")[2];
+                if (data.FechaResolucion) {
+                    var splitYear1 = data.FechaResolucion.split("-")[0];
+                    var splitMonth1 = data.FechaResolucion.split("-")[1];
+                    var splitDay1 = data.FechaResolucion.split("-")[2];
 
-                var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
-                $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
+                    var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
+                    $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
+                };
 
-                var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
-                $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
+                if (data.FechaRespuesta) {
+                    var splitYear2 = data.FechaRespuesta.split("-")[0];
+                    var splitMonth2 = data.FechaRespuesta.split("-")[1];
+                    var splitDay2 = data.FechaRespuesta.split("-")[2];
 
-                var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
-                $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
+                    var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
+                    $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
+                }
 
-                $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
+                $("#Registro").data("kendoAutoComplete").value(data.ValorReferencia);
+                CargarRegistro(data.ReferenciaID);
 
                 if (data.Estatus == "Cancelado") {
                     $("#MotivoCancelacionDiv").removeClass("hidden");
@@ -809,8 +821,11 @@
         var curr_year = d.getFullYear();
 
         var horaActual = new Date();
-
-        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        if (curr_year == "1969") {
+            return null;
+        } else {
+            return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        }
     };
 
     function ObtenerFechasporDefecto() {
@@ -877,18 +892,21 @@
         $("#Respuesta").removeAttr("disabled");
         $("#MotivoCancelacion").removeAttr("disabled");
         $("#DetalleResolucion").removeAttr("disabled");
-        $("#RegistradoPor").removeAttr("disabled");
         $("#FechaRegistro").data("kendoDatePicker").enable(true);
-        $("#ResueltoPor").removeAttr("disabled");
         $("#FechaResolucion").data("kendoDatePicker").enable(true);
-        $("#RespondidoPor").removeAttr("disabled");
         $("#FechaRespuesta").data("kendoDatePicker").enable(true);
         $("#AdjuntarArchivos").data("kendoUpload").enable(true);
-        $("#DescripcionArchivo").removeAttr("disabled");        
+        $("#DescripcionArchivo").removeAttr("disabled");
+        $("#RegistradoPor").data("kendoComboBox").enable(true);
+        $("#ResueltoPor").data("kendoComboBox").enable(true);
+        $("#RespondidoPor").data("kendoComboBox").enable(true);
         HabilitarObtenerDocumentosIncidencias();
         if (_Edicion != "-1") {
-            $("#RegistradoPor").attr("disabled", "disabled");
+            $("#RegistradoPor").data("kendoComboBox").enable(false);
+            $("#FechaRegistro").data("kendoDatePicker").enable(false);
             $("#TipoIncidencia").data("kendoComboBox").enable(false);
+            $("#FechaRespuesta").data("kendoDatePicker").enable(false);
+            $("#RespondidoPor").data("kendoComboBox").enable(false);
             $("#MenuEditarIncidencias").css("display", "block");
         }
     };
@@ -903,14 +921,14 @@
         $("#Respuesta").attr("disabled", "disabled");
         $("#MotivoCancelacion").attr("disabled", "disabled");
         $("#DetalleResolucion").attr("disabled", "disabled");
-        $("#RegistradoPor").attr("disabled", "disabled");
         $("#FechaRegistro").data("kendoDatePicker").enable(false);
-        $("#ResueltoPor").attr("disabled", "disabled");
         $("#FechaResolucion").data("kendoDatePicker").enable(false);
-        $("#RespondidoPor").attr("disabled", "disabled");
         $("#FechaRespuesta").data("kendoDatePicker").enable(false);
         $("#AdjuntarArchivos").data("kendoUpload").enable(false);
         $("#DescripcionArchivo").attr("disabled", "disabled");
+        $("#RegistradoPor").data("kendoComboBox").enable(false);
+        $("#ResueltoPor").data("kendoComboBox").enable(false);
+        $("#RespondidoPor").data("kendoComboBox").enable(false);
         DesahabilitarObtenerDocumentosIncidencias();
     };
     function BotonAlta() {
@@ -931,7 +949,7 @@
         $Incidencia.Incidencia.create(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 if (Listado.Nuevo) {
-                    Cancelar();
+                    Nuevo();
                 }
                 _FolioIncidencia = result.FolioIncidenciaID;
                 $("#Version").val(result.Version);
@@ -948,7 +966,7 @@
         $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 if (Listado.Nuevo) {
-                    Cancelar();
+                    Nuevo();
                 }
                 _FolioIncidencia = result.ReturnMessage[0];
                 LimpiarHistorialFiles();
@@ -1040,9 +1058,17 @@
             $("#FechaResolucionDiv").addClass("hidden");
         }
     };
+    function Nuevo() {
+        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
 
     function Cancelar() {
-        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        if (_Edicion != "-1") {
+            window.location.href = _ListadoIncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        }
+        else {
+            window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        }
     };
     
     function LimpiarPantalla() {

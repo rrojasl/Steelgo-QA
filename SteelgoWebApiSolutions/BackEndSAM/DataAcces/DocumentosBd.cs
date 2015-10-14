@@ -770,6 +770,7 @@ namespace BackEndSAM.DataAcces
                         //nuevoDoc.TipoArchivoID = tipoArchivoID;
                         nuevoDoc.Url = d.Path;
                         nuevoDoc.UsuarioModificacion = d.UserId;
+                        nuevoDoc.Descripcion = d.Descripcion;
 
                         ctx.Sam3_Rel_Incidencia_Documento.Add(nuevoDoc);
                     }

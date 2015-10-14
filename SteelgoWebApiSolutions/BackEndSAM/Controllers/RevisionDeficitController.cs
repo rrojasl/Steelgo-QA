@@ -38,6 +38,28 @@ namespace BackEndSAM.Controllers
                 }
             }
 
+            // GET api/<controller>/5
+            public object Get(string ordenTrabajo, string token)
+            {
+                string payload = "";
+                string newToken = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+                if (tokenValido)
+                {
+                    return DeficitBd.Instance.obtenerSpoolsRevision(ordenTrabajo);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+
 
         // POST api/<controller>
         public void Post([FromBody]string value)

@@ -54,20 +54,23 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
-                using (Sam2Context ctx = new Sam2Context())
+                using (Sam2Context ctx2 = new Sam2Context())
                 {
-                    List<int> proyectos = new List<int>();
-                    List<int> patios = new List<int>();
+                    using (SamContext ctx = new SamContext())
+                    {
+                        List<int> proyectos = new List<int>();
+                        List<int> patios = new List<int>();
 
-                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
-                    List<Models.Cliente> cliente = (from r in ctx.Cliente
-                                                    select new Models.Cliente
-                                                    {
-                                                        Nombre = r.Nombre,
-                                                        ClienteID = r.ClienteID.ToString()
-                                                    }).AsParallel().ToList();
-                    return cliente;
+                        List<Models.Cliente> cliente = (from r in ctx2.Cliente
+                                                        select new Models.Cliente
+                                                        {
+                                                            Nombre = r.Nombre,
+                                                            ClienteID = r.ClienteID.ToString()
+                                                        }).AsParallel().ToList();
+                        return cliente;
+                    }
                 }
             }
             catch (Exception ex)
