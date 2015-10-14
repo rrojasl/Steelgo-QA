@@ -3668,6 +3668,93 @@ _dictionary = {
         "es-MX": "No se encontraron datos.",
         "en-US": "No data found."
     },
+    //Trabajos Adicionales
+    "TrabajosAdicionales0002": {
+        "es-MX": "Trabajo Adicional",
+        "en-US": "Aditional Work"
+    },
+    "TrabajosAdicionales0003": {
+        "es-MX": "Nombre corto",
+        "en-US": "Short Name"
+    },
+    "TrabajosAdicionales0004": {
+        "es-MX": "Nombre Extendido",
+        "en-US": "Extend Name"
+    },
+    "TrabajosAdicionales0005": {
+        "es-MX": "Cuenta Contable",
+        "en-US": "Contable Account"
+    },
+    "TrabajosAdicionales0006": {
+        "es-MX": "Signo Informativo",
+        "en-US": "Informational sign"
+    },
+    "TrabajosAdicionales0007": {
+        "es-MX": "Activo",
+        "en-US": "Active"
+    },
+    "TrabajosAdicionales0008": {
+        "es-MX": "Listado Trabajos Adicionales",
+        "en-US": "Aditional Work List"
+    },
+    "TrabajosAdicionales0009": {
+        "es-MX": "Tipo Trabajo Adicional",
+        "en-US": "Aditional Work type"
+    },
+    "TrabajosAdicionales0001": {
+        "es-MX": "Seguro que desea deshabilitar el trabajo adicional?",
+        "en-US": "Are you sure to disable the aditional work"
+    },
+    "TrabajosAdicionales0010": {
+        "es-MX": "Nuevo Trabajo Adicional",
+        "en-US": "New Aditional Work"
+    },
+    // obreros
+    "Obrero0002": {
+        "es-MX": "Tipo Obrero",
+        "en-US": "Obrero Type"
+    },
+    "Obrero0003": {
+        "es-MX": "Tipo Obrero Jefe",
+        "en-US": "Chief Obrero Type"
+    },
+    "Obrero0001": {
+        "es-MX": "Tipo Obrero ID",
+        "en-US": "Obrero Type ID"
+    },
+    "Obrero0004": {
+        "es-MX": "Numero Empleado",
+        "en-US": "Employee Number"
+    },
+    "Obrero0005": {
+        "es-MX": "Código",
+        "en-US": "Code"
+    },
+    "Obrero0006": {
+        "es-MX": "Esta seguro de eliminar el obrero?",
+        "en-US": "Are you sure to delete the obrero"
+    },
+    "Obrero0007": {
+        "es-MX": "Nuevo Tipo Obrero",
+        "en-US": "New Obrero Type"
+    },
+    "Obrero0008": {
+        "es-MX": "Nuevo Obrero",
+        "en-US": "New Obrero"
+    },
+    "Obrero0009": {
+        "es-MX": "Patio",
+        "en-US": "Patio"
+    },
+    "Obrero0010": {
+        "es-MX": "Fecha Inicio Labor",
+        "en-US": "Begin Date Work"
+    },
+    "Obrero0011": {
+        "es-MX": "Fecha Fin Labor",
+        "en-US": "End Date Work"
+    },
+
     //Default to copy
     "label9999": {
         "es-MX": "",
