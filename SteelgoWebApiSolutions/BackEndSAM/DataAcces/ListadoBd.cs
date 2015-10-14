@@ -2638,5 +2638,28 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ListadoIncidenciaPaseSalida(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<IncicidenciaEnPaseSalida> listado = new List<IncicidenciaEnPaseSalida>();
+                return null;
+ 
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
