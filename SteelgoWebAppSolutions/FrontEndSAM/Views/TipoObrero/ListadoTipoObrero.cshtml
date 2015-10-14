@@ -1,0 +1,38 @@
+﻿<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="formNav filtersFields clearfix">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                <div class="button-section">
+                                    <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="Obrero0007"></span></button>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-10">
+                    <div id="grid" class=""></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="window" style="display: none">
+
+    @Html.Partial("../TipoObrero/creaTipoObrero")
+</div>
+
+
+<script src="~/Scripts/AppComponents/Catalogos/TipoObrero.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Tipo Obrero"] = $TipoObreroModel;
+    }
+</script>

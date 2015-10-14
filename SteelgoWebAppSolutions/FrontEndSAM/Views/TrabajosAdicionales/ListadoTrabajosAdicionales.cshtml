@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "ListadoTrabajosAdicionales";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoLlegadaMaterial0020"></span></a>
+    </li>
+
+    <li class="active">
+        <a href="@Url.Action("ListadoTrabajosAdicionales", "TrabajosAdicionales")"><span id="TrabajosAdicionales0008"></span></a>
+    </li>
+}
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="formNav filtersFields clearfix">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                <div class="button-section">
+                                    <button id="Nuevo" type="button" class="btn btn-newArrival btn-yellow"><span id="TrabajosAdicionales0010"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="grid" class="entradaMaterial"></div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div id="window" style="display: none">
+    
+    @Html.Partial("../AgregarTrabajoAdicional/creaTrabajoAdicional")
+</div>
+
+
+
+<script src="~/Scripts/AppComponents/Catalogos/TrabajosAdicionales.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Trabajos Adicionales"] = $TrabajosAdicionalesModel;
+    }
+</script>
+
