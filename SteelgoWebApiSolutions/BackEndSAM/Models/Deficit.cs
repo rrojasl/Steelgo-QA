@@ -43,4 +43,16 @@ namespace BackEndSAM.Models
         public int ItemCodeID { get; set; }
         public int DeficitTotal { get; set; }
     }
+
+    public class RevisionDeficitDatos
+    {
+        public string SpoolID { get; set; }
+        public string ItemCodeID { get; set; }
+        public string ItemCode { get; set; }
+        public string Diametro1 { get; set; }
+        public string Diametro2 { get; set; }
+        public string Descripcion { get; set; }
+        public string Cantidad { get; set; }
+        public string Deficit { get; set; }
+    }
 }
