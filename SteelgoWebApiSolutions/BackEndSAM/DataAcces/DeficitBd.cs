@@ -370,7 +370,7 @@ namespace BackEndSAM.DataAcces
                     }
 
                     if (!(bool)EnviarAvisosBd.Instance.EnviarNotificación(10,
-                           string.Format("La orden de trabajo {0} tiene una nueva notificación de déficit con fecha {1}",
+                           string.Format("La orden de trabajo {0} tiene una nueva notificacion de deficit con fecha {1}",
                            ordenTrabajoID, DateTime.Now), usuario))
                     {
                         //Agregar error a la bitacora  PENDIENTE
@@ -438,12 +438,16 @@ namespace BackEndSAM.DataAcces
 
                     lista.ForEach(x =>
                     {
+                        int icSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                      where eq.Sam3_ItemCodeID.ToString() == x.ItemCodeID && eq.Activo
+                                      select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
+
                         x.ItemCode = (from ic in ctx2.ItemCode
-                                      where ic.ItemCodeID.ToString() == x.ItemCodeID
+                                      where ic.ItemCodeID == icSam2
                                       select ic.Codigo).AsParallel().SingleOrDefault();
 
                         x.Cantidad = (from ms in ctx2.MaterialSpool
-                                      where ms.SpoolID.ToString() == x.SpoolID && ms.ItemCodeID.ToString() == x.ItemCodeID
+                                      where ms.SpoolID.ToString() == x.SpoolID && ms.ItemCodeID == icSam2
                                       select ms.Cantidad).Sum().ToString();
                     });
 
