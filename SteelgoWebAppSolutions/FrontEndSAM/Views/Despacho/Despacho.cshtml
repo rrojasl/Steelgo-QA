@@ -97,6 +97,7 @@
     
     var _DashboardDespacho = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+    var _DespachoURL = "@Url.Action("Despacho", "Despacho")";
 
     var $DespachoModel = {
         listContainer: {
@@ -138,6 +139,7 @@
 
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
+        $("#Cancelar").click(function () { Cancelar(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
         $("#IrIncidencia").click(function () { Incidencias(); });
 
@@ -421,11 +423,12 @@
     };
 
     function Incidencias() {
-        if (_DespachoID == "-1") {
-            displayMessage("notificationslabel0072", "", '1');
-            return;
-        };
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _DespachoID);
+        var DespachoID = _DespachoID ? _DespachoID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + DespachoID + "&TipoIncidencia=10&Clasificacion=1");
+    };
+
+    function Cancelar() {
+        window.location.href = _DespachoURL + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
 
     function Guardar() {
