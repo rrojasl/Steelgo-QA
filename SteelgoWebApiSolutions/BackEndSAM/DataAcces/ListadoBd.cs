@@ -2210,8 +2210,7 @@ namespace BackEndSAM.DataAcces
                             where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
                             select r.FolioAvisoLlegadaID).AsParallel().Distinct().ToList();
 
-                    listaTemporal = AvisoLlegadaBd.Instance.ListadoInciendias(clienteID, proyectoID, proyectos, patios,
-                        temp, fechaInicial, fechaFinal);
+                    listaTemporal = AvisoLlegadaBd.Instance.ListadoInciendias(clienteID, proyectoID, proyectos, patios, temp);
 
                     if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
@@ -2222,8 +2221,7 @@ namespace BackEndSAM.DataAcces
                             where r.Activo && incidenciasIDs.Contains(r.IncidenciaID)
                             select r.FolioAvisoEntradaID).AsParallel().ToList();
 
-                    listaTemporal = FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp,
-                        fechaInicial, fechaFinal);
+                    listaTemporal = FolioAvisoEntradaBd.Instance.ListadoIncidencias(clienteID, proyectoID, proyectos, patios, temp);
 
                     if (listaTemporal.Count > 0) { listado.AddRange(listaTemporal); }
 
