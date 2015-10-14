@@ -51,7 +51,10 @@ namespace BackEndSAM.DataAcces
                         nuevaIncidencia.ClasificacionID = datos.ClasificacionID;
                         nuevaIncidencia.Descripcion = datos.Descripcion;
                         nuevaIncidencia.DetalleResolucion = datos.DetalleResolucion;
-                        nuevaIncidencia.FechaCreacion = DateTime.Now;
+                        if (datos.FechaRegistro != null)
+                        { nuevaIncidencia.FechaCreacion = Convert.ToDateTime(datos.FechaRegistro); }
+                        else { nuevaIncidencia.FechaCreacion = DateTime.Now; }
+
                         nuevaIncidencia.FechaModificacion = DateTime.Now;
                         nuevaIncidencia.MotivoCancelacion = datos.MotivoCancelacion;
                         nuevaIncidencia.NoRFI = null;
@@ -61,8 +64,8 @@ namespace BackEndSAM.DataAcces
                         nuevaIncidencia.UsuarioID = datos.RegistradoPor != null && datos.RegistradoPor != "" ? Convert.ToInt32(datos.RegistradoPor) : 1;
                         nuevaIncidencia.Version = 1;
                         nuevaIncidencia.UsuarioModificacion = usuario.UsuarioID;
-                        nuevaIncidencia.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta);
-                        nuevaIncidencia.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion);
+                        if (datos.FechaRespuesta != null) { nuevaIncidencia.FechaRespuesta = Convert.ToDateTime(datos.FechaRespuesta); }
+                        if (datos.FechaResolucion != null) { nuevaIncidencia.FechaSolucion = Convert.ToDateTime(datos.FechaResolucion); }
                         nuevaIncidencia.UsuarioIDRespuesta = datos.RespondidoPor != null && datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
                         nuevaIncidencia.UsuarioResuelveID = datos.ResueltoPor != null && datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
                         nuevaIncidencia.Estatus = datos.Estatus == null || datos.Estatus == "" ? "Abierta" : datos.Estatus;
@@ -226,9 +229,9 @@ namespace BackEndSAM.DataAcces
                         DateTime fechaSolucion = new DateTime();
                         DateTime fechaRegistro = new DateTime();
 
-                        DateTime.TryParse(datos.FechaRespuesta, out fechaRespuesta);
-                        DateTime.TryParse(datos.FechaResolucion, out fechaSolucion);
-                        DateTime.TryParse(datos.FechaRegistro, out fechaRegistro);
+                        if (datos.FechaRespuesta != null) { DateTime.TryParse(datos.FechaRespuesta, out fechaRespuesta); }
+                        if (datos.FechaResolucion != null) { DateTime.TryParse(datos.FechaResolucion, out fechaSolucion); }
+                        if (datos.FechaRegistro != null) { DateTime.TryParse(datos.FechaRegistro, out fechaRegistro); }
 
                         Sam3_Incidencia nuevoRegistro = new Sam3_Incidencia();
                         Sam3_Incidencia registro = ctx.Sam3_Incidencia.Where(x => x.IncidenciaID == datos.FolioIncidenciaID).AsParallel().SingleOrDefault();
@@ -240,10 +243,12 @@ namespace BackEndSAM.DataAcces
                             registro.Descripcion = datos.Descripcion;
                             registro.DetalleResolucion = datos.DetalleResolucion;
                             registro.Estatus = datos.Estatus;
-                            registro.FechaCreacion = fechaRegistro;
+                            if (fechaRegistro.ToShortTimeString() != "1/1/0001") 
+                            { registro.FechaCreacion = fechaRegistro; } else { registro.FechaCreacion = DateTime.Now; }
+
                             registro.FechaModificacion = DateTime.Now;
-                            registro.FechaRespuesta = fechaRespuesta;
-                            registro.FechaSolucion = fechaSolucion;
+                            if (fechaRespuesta.ToShortDateString() != "1/1/0001") { registro.FechaRespuesta = fechaRespuesta; }
+                            if (fechaSolucion.ToShortDateString() != "1/1/0001") { registro.FechaSolucion = fechaSolucion; }
                             registro.IncidenciaOriginalID = registro.IncidenciaID;
                             registro.MotivoCancelacion = datos.MotivoCancelacion;
                             registro.NoRFI = null;
