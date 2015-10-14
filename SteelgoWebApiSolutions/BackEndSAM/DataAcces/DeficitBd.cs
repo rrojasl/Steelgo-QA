@@ -209,10 +209,10 @@ namespace BackEndSAM.DataAcces
                                                    Diametro2 = ics.Diametro2.ToString(),
                                                    Descripcion = ics.DescripcionEspanol,
                                                    DeficitTotal = (from dm in ctx.Sam3_DeficitMateriales
-                                                                       where dm.Activo 
-                                                                       && dm.OrdenTrabajoID.ToString() == ordenTrabajo
-                                                                       && dm.ItemCodeID == itemCode
-                                                                       select dm.DeficitID).SingleOrDefault().ToString()
+                                                                   where dm.Activo
+                                                                   && dm.OrdenTrabajoID.ToString() == ordenTrabajo
+                                                                   && dm.ItemCodeID == itemCode
+                                                                   select dm.DeficitID).FirstOrDefault().ToString()
                                                }).AsParallel().ToList();
 
                         lista.ForEach(x =>
@@ -254,7 +254,7 @@ namespace BackEndSAM.DataAcces
         /// <returns></returns>
         public object ObtenerInformacionSpools(int ordenTrabajo, int itemCode)
         {
-            try 
+            try
             {
                 using (SamContext ctx = new SamContext())
                 {
@@ -328,11 +328,15 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int itemCodeSam3 = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                        where eq.Activo && eq.Sam2_ItemCodeID == deficit[0].ItemCodeID
+                                        select eq.Sam3_ItemCodeID).AsParallel().SingleOrDefault();
+
                     foreach (string item in spoolID)
                     {
                         Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
                         nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
-                        nuevoDeficit.ItemCodeID = deficit[0].ItemCodeID;
+                        nuevoDeficit.ItemCodeID = itemCodeSam3;
                         nuevoDeficit.SpoolID = Int32.Parse(item);
                         nuevoDeficit.Deficit = deficit[0].DeficitTotal;
                         nuevoDeficit.Activo = true;
@@ -372,5 +376,68 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public object ObtenerGridDeficit(int ordenTrabajoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using(Sam2Context ctx2 = new Sam2Context())
+                    {
+                    List<RevisionDeficitDatos> lista = (from dm in ctx.Sam3_DeficitMateriales
+                                                        where dm.Activo && dm.OrdenTrabajoID == ordenTrabajoID
+                                                        select new RevisionDeficitDatos
+                                                        {
+                                                            SpoolID = dm.SpoolID.ToString(),
+                                                            ItemCodeID = dm.ItemCodeID.ToString(),
+                                                            Diametro1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                                         join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                         where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
+                                                                         select ics.Diametro1).FirstOrDefault().ToString(),
+                                                            Diametro2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                                         join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                         where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
+                                                                         select ics.Diametro2).FirstOrDefault().ToString(),
+                                                            Descripcion = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                           where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
+                                                                           select ics.DescripcionEspanol).FirstOrDefault().ToString(),
+                                                            Deficit = dm.Deficit.ToString()
+                                                        }).AsParallel().ToList();
+
+                    lista.ForEach(x =>
+                    {
+                        x.ItemCode = (from ic in ctx2.ItemCode
+                                      where ic.ItemCodeID.ToString() == x.ItemCodeID
+                                      select ic.Codigo).AsParallel().SingleOrDefault();
+
+                        x.Cantidad = (from ms in ctx2.MaterialSpool
+                                      where ms.SpoolID.ToString() == x.SpoolID && ms.ItemCodeID.ToString() == x.ItemCodeID
+                                      select ms.Cantidad).Sum().ToString();
+                    });
+
+                    return lista;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
     }
 }

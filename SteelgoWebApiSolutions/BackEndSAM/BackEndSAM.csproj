@@ -210,6 +210,7 @@
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\PickingTicketController.cs" />
     <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
+    <Compile Include="Controllers\RevisionDeficitController.cs" />
     <Compile Include="Controllers\TipoAceroController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
