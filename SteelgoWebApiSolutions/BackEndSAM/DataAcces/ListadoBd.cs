@@ -2428,7 +2428,7 @@ namespace BackEndSAM.DataAcces
                         case 9: // Numero unico
                             listado = (from nu in ctx.Sam3_NumeroUnico
                                        where nu.Activo
-                                       && elementos.Any(x => (nu.Prefijo + nu.Consecutivo).Contains(x))
+                                       && elementos.Any(x => nu.NumeroUnicoID.ToString().Contains(x))
                                        select new ListaCombos
                                        {
                                            id = nu.NumeroUnicoID.ToString(),

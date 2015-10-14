@@ -428,6 +428,10 @@ _dictionary = {
         "es-MX": "Dashboard Aviso Llegada",
         "en-US": "Dashboard Aviso Llegada"
     },
+    "ListadoAvisoLlegada0030": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Detalle Aviso Llegada- Partial view Labels
     "DetalleAvisoLlegada0001": {
         "es-MX": "Proyecto",
@@ -3797,6 +3801,10 @@ _dictionary = {
     "Almacenaje0022": {
         "es-MX": "TieneLocalizacion",
         "en-US": "TieneLocalizacion"
+    },
+    "Almacenaje0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
     //Despacho
     "Despacho0001": {

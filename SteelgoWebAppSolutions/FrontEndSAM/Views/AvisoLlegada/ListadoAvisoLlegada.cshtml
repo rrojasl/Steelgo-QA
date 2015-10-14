@@ -78,6 +78,10 @@
     </div>
 </div>
 
+<ul id="menu">
+    <li><span id="ListadoAvisoLlegada0030"></span>
+    </li>
+</ul>
 <input id="hdAccionFiltrado" type="hidden" />
 
 <script>
@@ -99,6 +103,8 @@
     var DashClienteID = getUrlParameter("DashClienteID", "-1");
     var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
     var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
+
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $AvisoLLegadaModel = {
         listContainer: {
@@ -254,6 +260,27 @@
             tabActivo(1);//default 1 creados
             Filtros();
         }
+
+
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoLlegadaID + "&TipoIncidencia=1&Clasificacion=1");
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
+        });
+
     };
     //Es la carga del grid donde especifican las propiedades y columnas
     //Funcion: CargarGridAvisoLlegada
@@ -282,6 +309,7 @@
             sortable: true,
             scrollable: false,
             //filterable: true,
+            selectable: true,
             filterable: {
                 extra: false,
                 operators: {

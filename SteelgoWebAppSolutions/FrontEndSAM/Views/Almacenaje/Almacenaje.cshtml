@@ -35,10 +35,8 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    @*
-                            <li><a id="irListado" href="#"><span id="Almacenaje0007"></span></a></li>
-                                    *@
-                                    @*<li><a id="IrIncidencia" href="#"><span id="Almacenaje0008"></span></a></li>*@
+                                    @*<li><a id="irListado" href="#"><span id="Almacenaje0007"></span></a></li>*@
+                                    <li><a id="IrIncidencia" href="#"><span id="Almacenaje0008"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -103,6 +101,11 @@
         </div>
         <input type="hidden" id="ChecksAlmacenaje" value="1" />@*1 todos 2 sin localizacion*@ 
     </div>
+
+    <ul id="menu">
+        <li><span id="Almacenaje0023"></span>
+        </li>
+    </ul>
 
 </div>
 
@@ -280,6 +283,25 @@
                 $("#ChecksAlmacenaje").val(2);
                 FiltrarDatos();
             }
+        });
+
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
         });
     };
 
@@ -468,6 +490,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            selectable: true,
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -538,7 +561,8 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        var OrdenAlmacenajeID = OrdenAlmacenaje.OrdenAlmacenajeID ? OrdenAlmacenaje.OrdenAlmacenajeID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + OrdenAlmacenajeID + "&TipoIncidencia=8&Clasificacion=1");
     };
 
     function Error(data) {

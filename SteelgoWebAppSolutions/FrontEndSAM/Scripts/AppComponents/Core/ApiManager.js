@@ -133,7 +133,8 @@ var $Grupo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $MaterialPendiente = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $NotificacionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $Usuario= new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Usuario = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 /****************************/
 /*    Document Ready        */
 /****************************/

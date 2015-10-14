@@ -303,6 +303,9 @@
 
         $("#MotivoCancelacionDiv").addClass("hidden");
         $("#DetalleResolucionDiv").addClass("hidden");
+        $("#ResueltoPorDiv").addClass("hidden");
+        $("#FechaResolucionDiv").addClass("hidden");
+
         FechaRegistro = new kendo.ui.DatePicker($("#FechaRegistro"));
         FechaResolucion = new kendo.ui.DatePicker($("#FechaResolucion"));
         FechaRespuesta = new kendo.ui.DatePicker($("#FechaRespuesta"));
@@ -325,7 +328,7 @@
             event.preventDefault();
         });
 
-        ObtenerFechasporDefecto();
+        //ObtenerFechasporDefecto();
 
         $("#Clasificacion").kendoComboBox({});
         $("#TipoIncidencia").kendoComboBox({});
@@ -518,6 +521,8 @@
 
                 if (data.Estatus == "Resuelto") {
                     $("#DetalleResolucionDiv").removeClass("hidden");
+                    $("#ResueltoPorDiv").removeClass("hidden"); 
+                    $("#FechaResolucionDiv").removeClass("hidden"); 
                 };
                 $("#hdEstatus").val(data.Estatus);
                 $("#listaArchivos tbody").empty();
@@ -583,6 +588,8 @@
 
                 if (data.Estatus == "Resuelto") {
                     $("#DetalleResolucionDiv").removeClass("hidden");
+                    $("#ResueltoPorDiv").removeClass("hidden");
+                    $("#FechaResolucionDiv").removeClass("hidden");
                 };
                 $("#hdEstatus").val(data.Estatus);
                 $("#listaArchivos tbody").empty();
@@ -598,18 +605,25 @@
     function cargaInicialLentarNuevaIncidencia(tipoincidenciaID, clasificacion,referenciaID) {
         loadingStart();
         $("#Clasificacion").data("kendoComboBox").value(clasificacion);//Materiales
+        $("#Clasificacion").data("kendoComboBox").enable(false);
         CargarClasificacion(clasificacion);
 
         $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
+        $("#TipoIncidencia").data("kendoComboBox").enable(false);
         CargarTipoIncidencia(tipoincidenciaID);
 
-        $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID,levantarincidencia:_LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
-            if (Error(data)) {
-                $("#Registro").data("kendoAutoComplete").value(data[0].value);
-                CargarRegistro(data[0].id);
-            }
+        if (referenciaID != "-1") {
+            $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {
+                if (Error(data)) {
+                    $("#Registro").data("kendoAutoComplete").value(data[0].value);
+                    $("#Registro").data("kendoAutoComplete").enable(false);
+                    CargarRegistro(data[0].id);
+                }
+                loadingStop();
+            });
+        } else {
             loadingStop();
-        });
+        };
     };
 
     function CargarClasificacion(id, value) {
@@ -1001,6 +1015,8 @@
             displayMessage("notificationslabel0031", "", '1');
             loadingStop();
             $("#DetalleResolucionDiv").removeClass("hidden");
+            $("#ResueltoPorDiv").removeClass("hidden");
+            $("#FechaResolucionDiv").removeClass("hidden");
             $("#MotivoCancelacionDiv").addClass("hidden");
         }
     };
@@ -1020,6 +1036,8 @@
             loadingStop();
             $("#MotivoCancelacionDiv").removeClass("hidden");
             $("#DetalleResolucionDiv").addClass("hidden");
+            $("#ResueltoPorDiv").addClass("hidden");
+            $("#FechaResolucionDiv").addClass("hidden");
         }
     };
 
@@ -1044,7 +1062,7 @@
         Clasificacion = {};
         TipoIncidencia = {};
         _FolioIncidencia = "-1";
-        ObtenerFechasporDefecto();
+        //ObtenerFechasporDefecto();
         loadingStop();
     };
     function hideElementsIncidencias() {
