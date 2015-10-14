@@ -335,14 +335,31 @@ namespace BackEndSAM.DataAcces
                     //                    where eq.Activo && eq.Sam2_ItemCodeID == IDItemCode
                     //                    select eq.Sam3_ItemCodeID).AsParallel().SingleOrDefault();
 
-                    foreach (string item in spoolID)
+                    if (spoolID.Count > 0)
                     {
-                        int IDspool = Int32.Parse(item);
+                        foreach (string item in spoolID)
+                        {
+                            int IDspool = Int32.Parse(item);
 
+                            Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
+                            nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
+                            nuevoDeficit.ItemCodeID = IDItemCode;
+                            nuevoDeficit.SpoolID = IDspool;
+                            nuevoDeficit.Deficit = cantidadDeficit;
+                            nuevoDeficit.Activo = true;
+                            nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
+                            nuevoDeficit.FechaModificacion = DateTime.Now;
+
+                            ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
+                            ctx.SaveChanges();
+                        }
+                    }
+                    else
+                    {
                         Sam3_DeficitMateriales nuevoDeficit = new Sam3_DeficitMateriales();
                         nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
                         nuevoDeficit.ItemCodeID = IDItemCode;
-                        nuevoDeficit.SpoolID = IDspool;
+                        nuevoDeficit.SpoolID = 0;
                         nuevoDeficit.Deficit = cantidadDeficit;
                         nuevoDeficit.Activo = true;
                         nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
