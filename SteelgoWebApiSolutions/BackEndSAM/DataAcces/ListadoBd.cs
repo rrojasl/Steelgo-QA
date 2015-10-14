@@ -2355,16 +2355,13 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> listado = new List<ListaCombos>();
-                    List<string> elementos = new List<string>();
-                    elementos.Add(busqueda);
-                    
 
                     switch (tipoIncidenciaID)
                     {
                         case 1: //Folio Aviso Entrada
                             listado = (from fe in ctx.Sam3_FolioAvisoLlegada
                                        where fe.Activo
-                                       && elementos.Any(x => fe.FolioAvisoLlegadaID.ToString().Contains(x))
+                                       && fe.FolioAvisoLlegadaID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = fe.FolioAvisoLlegadaID.ToString(),
@@ -2374,7 +2371,7 @@ namespace BackEndSAM.DataAcces
                         case 2: // Entrada de Material
                             listado = (from fem in ctx.Sam3_FolioAvisoEntrada
                                        where fem.Activo
-                                       && elementos.Any(x => fem.FolioAvisoEntradaID.ToString().Contains(x))
+                                       && fem.FolioAvisoEntradaID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = fem.FolioAvisoEntradaID.ToString(),
@@ -2386,7 +2383,7 @@ namespace BackEndSAM.DataAcces
                         case 4: // Packing List
                             listado = (from fc in ctx.Sam3_FolioCuantificacion
                                        where fc.Activo
-                                       && elementos.Any(x => fc.FolioCuantificacionID.ToString().Contains(x))
+                                       && fc.FolioCuantificacionID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = fc.FolioCuantificacionID.ToString(),
@@ -2396,7 +2393,7 @@ namespace BackEndSAM.DataAcces
                         case 5: // Orden de recepcion
                             listado = (from ordr in ctx.Sam3_OrdenRecepcion
                                        where ordr.Activo
-                                       && elementos.Any(x => ordr.Folio.ToString().Contains(x))
+                                       && ordr.Folio.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = ordr.OrdenRecepcionID.ToString(),
@@ -2408,7 +2405,7 @@ namespace BackEndSAM.DataAcces
                         case 7: // ItemCode
                             listado = (from it in ctx.Sam3_ItemCode
                                        where it.Activo
-                                       && elementos.Any(x => it.Codigo.Contains(x))
+                                       && it.Codigo == busqueda
                                        select new ListaCombos
                                        {
                                            id = it.ItemCodeID.ToString(),
@@ -2418,7 +2415,7 @@ namespace BackEndSAM.DataAcces
                         case 8: // Orden de almacenaje
                             listado = (from oa in ctx.Sam3_OrdenAlmacenaje
                                        where oa.Activo
-                                       && elementos.Any(x => oa.Folio.ToString().Contains(x))
+                                       && oa.Folio.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = oa.OrdenAlmacenajeID.ToString(),
@@ -2428,7 +2425,7 @@ namespace BackEndSAM.DataAcces
                         case 9: // Numero unico
                             listado = (from nu in ctx.Sam3_NumeroUnico
                                        where nu.Activo
-                                       && elementos.Any(x => nu.NumeroUnicoID.ToString().Contains(x))
+                                       && nu.NumeroUnicoID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = nu.NumeroUnicoID.ToString(),
@@ -2455,7 +2452,7 @@ namespace BackEndSAM.DataAcces
                         case 10: // Despacho
                             listado = (from d in ctx.Sam3_Despacho
                                        where d.Activo
-                                       && elementos.Any(x => d.DespachoID.ToString().Contains(x))
+                                       && d.DespachoID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = d.DespachoID.ToString(),
@@ -2465,7 +2462,7 @@ namespace BackEndSAM.DataAcces
                         case 11: // Corte
                             listado = (from c in ctx.Sam3_Corte
                                        where c.Activo
-                                       && elementos.Any(x => c.CortadorID.ToString().Contains(x))
+                                       && c.CortadorID.ToString() == busqueda
                                        select new ListaCombos
                                        {
                                            id = c.CorteID.ToString(),
