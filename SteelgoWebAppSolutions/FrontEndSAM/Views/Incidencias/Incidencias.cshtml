@@ -494,28 +494,34 @@
                 CargarResueltoPor(data.ResueltoPor)
                 CargarRespondidoPor(data.RespondidoPor);
 
-                var splitYear = data.FechaRegistro.split("-")[0];
-                var splitMonth = data.FechaRegistro.split("-")[1];
-                var splitDay = data.FechaRegistro.split("-")[2];
+                if( data.FechaRegistro){
+                    var splitYear = data.FechaRegistro.split("-")[0];
+                    var splitMonth = data.FechaRegistro.split("-")[1];
+                    var splitDay = data.FechaRegistro.split("-")[2];
 
-                var splitYear1 = data.FechaResolucion.split("-")[0];
-                var splitMonth1 = data.FechaResolucion.split("-")[1];
-                var splitDay1 = data.FechaResolucion.split("-")[2];
+                    var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
+                    $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
+                }
 
-                var splitYear2 = data.FechaRespuesta.split("-")[0];
-                var splitMonth2 = data.FechaRespuesta.split("-")[1];
-                var splitDay2 = data.FechaRespuesta.split("-")[2];
+                if (data.FechaResolucion) {
+                    var splitYear1 = data.FechaResolucion.split("-")[0];
+                    var splitMonth1 = data.FechaResolucion.split("-")[1];
+                    var splitDay1 = data.FechaResolucion.split("-")[2];
 
-                var fechakendoRegistro = formatoFechaKendo(splitYear, splitMonth, splitDay);
-                $("#FechaRegistro").data("kendoDatePicker").value(fechakendoRegistro);
+                    var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
+                    $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
+                };
 
-                var fechakendoResolucion = formatoFechaKendo(splitYear1, splitMonth1, splitDay1);
-                $("#FechaResolucion").data("kendoDatePicker").value(fechakendoResolucion);
+                if (data.FechaRespuesta) {
+                    var splitYear2 = data.FechaRespuesta.split("-")[0];
+                    var splitMonth2 = data.FechaRespuesta.split("-")[1];
+                    var splitDay2 = data.FechaRespuesta.split("-")[2];
 
-                var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
-                $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
+                    var fechakendoRespuesta = formatoFechaKendo(splitYear2, splitMonth2, splitDay2);
+                    $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
+                }
 
-                $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
+                $("#Registro").data("kendoAutoComplete").value(data.ValorReferencia);
                 CargarRegistro(data.ReferenciaID);
 
                 if (data.Estatus == "Cancelado") {
@@ -812,8 +818,11 @@
         var curr_year = d.getFullYear();
 
         var horaActual = new Date();
-
-        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        if (curr_year == "1969") {
+            return null;
+        } else {
+            return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        }
     };
 
     function ObtenerFechasporDefecto() {
