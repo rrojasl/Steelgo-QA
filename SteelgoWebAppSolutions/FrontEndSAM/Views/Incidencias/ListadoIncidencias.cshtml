@@ -8,7 +8,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="ListadoIncidencias0001"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoIncidencias", "ListadoIncidencias")"><span id="ListadoIncidencias0002"></span></a>
+        <a href="@Url.Action("ListadoIncidencias", "Incidencias")"><span id="ListadoIncidencias0002"></span></a>
     </li>
 }
 
@@ -60,7 +60,6 @@
     var Cliente = {}, Proyecto = {}, FechaInicial, FechaFinal, resultadoJson,
         PeriodoTiempo = {};
     var _IncidenciasUrl = "@Url.Action("Incidencias", "Incidencias")";
-
     var $ListadoIncidenciasModel = {
         listContainer: {
             create: "#Nuevo",

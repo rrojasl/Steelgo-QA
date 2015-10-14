@@ -174,7 +174,10 @@
         FechaRespuesta, Registro = {},
         RegistradoPor = {}, ResueltoPor = {},
         RespondidoPor = {};
+
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
+    var _ListadoIncidenciasUrl = "@Url.Action("ListadoIncidencias", "Incidencias")"; 
+
     var _ReferenciaID = getUrlParameter("ReferenciaID", "-1");
     var _TipoIncidencia = getUrlParameter("TipoIncidencia", "-1");
     var _FolioIncidencia = getUrlParameter("FolioIncidenciaID", "-1");
@@ -946,7 +949,7 @@
         $Incidencia.Incidencia.create(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 if (Listado.Nuevo) {
-                    Cancelar();
+                    Nuevo();
                 }
                 _FolioIncidencia = result.FolioIncidenciaID;
                 $("#Version").val(result.Version);
@@ -963,7 +966,7 @@
         $Incidencia.Incidencia.update(Listado, { token: $.cookie("token") }).done(function (result) {
             if (Error(result)) {
                 if (Listado.Nuevo) {
-                    Cancelar();
+                    Nuevo();
                 }
                 _FolioIncidencia = result.ReturnMessage[0];
                 LimpiarHistorialFiles();
@@ -1055,9 +1058,17 @@
             $("#FechaResolucionDiv").addClass("hidden");
         }
     };
+    function Nuevo() {
+        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
 
     function Cancelar() {
-        window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        if (_Edicion != "-1") {
+            window.location.href = _ListadoIncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        }
+        else {
+            window.location.href = _incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        }
     };
     
     function LimpiarPantalla() {
