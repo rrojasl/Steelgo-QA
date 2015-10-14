@@ -995,6 +995,15 @@ _dictionary = {
         "es-MX": "Seleccionar spool",
         "en-US": "Select spool"
     },
+    "NotificacionDeficit0003": {
+        "es-MX": "Notificación de Déficit",
+        "en-US": "Deficit notification"
+    },
+    //Revisión de deficit
+    "RevisionDeficit0001": {
+        "es-MX": "Revisión de Déficit",
+        "en-US": "Deficit review"
+    },
     //Búsqueda
     "Busqueda0001": {
         "es-MX": "Resultados de Búsqueda",

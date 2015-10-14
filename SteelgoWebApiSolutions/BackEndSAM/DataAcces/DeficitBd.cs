@@ -470,5 +470,93 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public object obtenerSpoolsRevision(string ordenTrabajoID)
+        {
+            try
+            {
+                List<SpoolsDeficit> totalSpools = new List<SpoolsDeficit>();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        List<int> listaItemCodesSam3 = (from dm in ctx.Sam3_DeficitMateriales
+                                                        where dm.OrdenTrabajoID.ToString() == ordenTrabajoID && dm.Activo
+                                                        select dm.ItemCodeID).AsParallel().ToList();
+
+                        List<int> listaItemCodesSam2 = new List<int>();
+
+                        listaItemCodesSam3.ForEach(x =>
+                        {
+                            listaItemCodesSam2.Add((from eq in ctx.Sam3_EquivalenciaItemCode
+                                                    where eq.Sam3_ItemCodeID == x && eq.Activo
+                                                    select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault());
+                        });
+
+                        foreach (int item in listaItemCodesSam2)
+                        {
+                            List<SpoolsDeficit> lista = (from ots in ctx2.OrdenTrabajoSpool
+                                                         join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                         join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                         join s in ctx2.Spool on ms.SpoolID equals s.SpoolID
+                                                         where ots.OrdenTrabajoID.ToString() == ordenTrabajoID && ms.ItemCodeID == item
+                                                         select new SpoolsDeficit
+                                                         {
+                                                             SpoolID = s.SpoolID.ToString(),
+                                                             Spool = s.Nombre,
+                                                             Prioridad = s.Prioridad.ToString(),
+                                                             Peqs = s.PeqGrupo,
+                                                             Peso = s.Peso.ToString(),
+                                                             ItemCodeID = ms.ItemCodeID.ToString(),
+                                                         }).AsParallel().GroupBy(x => x.SpoolID).Select(x => x.First()).ToList();
+
+                            lista.ForEach(x =>
+                            {
+                                x.ItemCodes = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                               join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on eq.Sam3_ItemCodeID equals rics.ItemCodeID
+                                               join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                               join ic in ctx.Sam3_ItemCode on eq.Sam3_ItemCodeID equals ic.ItemCodeID
+                                               where eq.Sam2_ItemCodeID.ToString() == x.ItemCodeID
+                                               && eq.Activo && rics.Activo && ics.Activo && ic.Activo
+                                               select new Deficit
+                                               {
+                                                   ItemCode = ic.Codigo,
+                                                   ItemCodeID = ic.ItemCodeID.ToString(),
+                                                   Diametro1 = ics.Diametro1.ToString(),
+                                                   Diametro2 = ics.Diametro2.ToString(),
+                                                   Descripcion = ics.DescripcionEspanol
+                                               }).AsParallel().ToList();
+                            });
+
+                            lista.ForEach(x =>
+                            {
+                                x.ItemCodes.ForEach(y =>
+                                {
+                                    y.Cantidad = (from ms in ctx2.MaterialSpool
+                                                  where ms.SpoolID.ToString() == x.SpoolID && ms.ItemCodeID == item
+                                                  select ms.Cantidad).Sum().ToString();
+                                });
+                            });
+
+                            totalSpools.AddRange(lista);
+                        }
+
+                        return totalSpools;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
