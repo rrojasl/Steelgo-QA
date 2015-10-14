@@ -39,7 +39,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectListado" href="#"><span id="Corte0007"></span></a></li>
+                                    @*<li><a id="RedirectListado" href="#"><span id="Corte0007"></span></a></li>*@
                                     <li><a id="IrIncidencia" href="#"><span id="Corte0008"></span></a></li>
                                 </ul>
                             </div>
@@ -85,12 +85,12 @@
                         </div>
                         <div id="ConsecutivoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0017"></label>
-                            <input id="Consecutivo"  class="general-input"/>
+                            <input id="Consecutivo" class="general-input" />
 
                         </div>
                         <div id="EtiquetaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                             <label id="Corte0018"></label>
-                            <input id="Etiqueta"  class="general-input"/>
+                            <input id="Etiqueta" class="general-input" />
 
                         </div>
                         <div id="TramoCompletoDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -116,7 +116,7 @@
                 </div>
                 <div id="MermaDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <label id="Corte0025"></label>
-                    <input id="Merma"  class="general-input"/>
+                    <input id="Merma" class="general-input" />
                 </div>
             </div>
         </div>
@@ -127,41 +127,41 @@
     <div id="modalTolerancia" style="display: none">
         <div class="form-group">
             <label id="Corte0032"></label>
-           <div class="buttonSave">
-               <a id="CorregirTolerancia" href="#" class="btn btn-primary">
+            <div class="buttonSave">
+                <a id="CorregirTolerancia" href="#" class="btn btn-primary">
                     <span id="Corte0033"></span>
                 </a>
-           </div>
+            </div>
         </div>
     </div>
     <div id="modalSobrante" style="display: none">
         <div class="form-group">
             <label id="Corte0034"></label>
-           <div class="buttonSave">
-               <a id="CorregirSobrante" href="#" class="btn btn-primary">
+            <div class="buttonSave">
+                <a id="CorregirSobrante" href="#" class="btn btn-primary">
                     <span id="Corte0035"></span>
                 </a>
-           </div>
+            </div>
         </div>
     </div>
     <div id="modalMermaPrimerIntento" style="display: none">
         <div class="form-group">
             <label id="Corte0036"></label>
-           <div class="buttonSave">
-               <a id="CorregirMermaPrimerIntento" href="#" class="btn btn-primary">
+            <div class="buttonSave">
+                <a id="CorregirMermaPrimerIntento" href="#" class="btn btn-primary">
                     <span id="Corte0037"></span>
                 </a>
-           </div>
+            </div>
         </div>
     </div>
     <div id="modalMermaSegundoIntento" style="display: none">
         <div class="form-group">
             <label id="Corte0038"></label>
-           <div class="buttonSave">
-               <a id="CorregirMermaSegundoIntento" href="#" class="btn btn-primary">
+            <div class="buttonSave">
+                <a id="CorregirMermaSegundoIntento" href="#" class="btn btn-primary">
                     <span id="Corte0039"></span>
                 </a>
-           </div>
+            </div>
         </div>
     </div>
 </div>
@@ -184,7 +184,7 @@
         Proyecto = {}, NumeroUnico = {}, intento = 0,
         _CorteUrl = "@Url.Action("Corte", "Corte")",
         _ListadoCorte = "@Url.Action("ListadoCorte", "Corte")", _CorteID = "-1";
-    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")" 
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"
     var _MaterialPendiente = getUrlParameter("MaterialPendiente", "-1"),
         _SpoolID = getUrlParameter("SpoolID", "-1"),
         _NumeroControl = getUrlParameter("NumeroControl", "-1"),
@@ -334,7 +334,7 @@
         $("#grid table").on("keydown", "tr", function (e) {
             var code = (e.keyCode ? e.keyCode : e.which);
             if (code == 13) { //If key is ENTER
-                if(!ValidarTolerancia(parseInt($(e.currentTarget).closest("tr").find("input").val()), parseInt($(e.currentTarget).closest("tr").find("td")[3].innerHTML))){
+                if (!ValidarTolerancia(parseInt($(e.currentTarget).closest("tr").find("input").val()), parseInt($(e.currentTarget).closest("tr").find("td")[3].innerHTML))) {
                     displayMessage("notificationslabel0064", "", '2');
                 }
                 CalcularCantidad();
@@ -510,7 +510,7 @@
         NumeroUnico = {};
         NumeroUnico = { NumeroUnicoID: id, Nombre: value };
     };
-   
+
     function ObtenerMaquina() {
         $Maquina.Maquina.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Maquina", result);
@@ -642,439 +642,437 @@
             return false;
         };
         return true;
-        };
+    };
 
-        function ValidarInformacion() {
+    function ValidarInformacion() {
 
-            var Listado = { DatosODT: "" };
-            var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token:"" };
+        var Listado = { DatosODT: "" };
+        var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
-            info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
-            info.OrdenTrabajo = $("#OrdenTrabajo").val();
-            info.Consecutivo = $("#Consecutivo").val();
-            info.Etiqueta = $("#Etiqueta").val();
-            info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
-            info.token = Cookies.get("token");
+        info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
+        info.OrdenTrabajo = $("#OrdenTrabajo").val();
+        info.Consecutivo = $("#Consecutivo").val();
+        info.Etiqueta = $("#Etiqueta").val();
+        info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
+        info.token = Cookies.get("token");
 
-            Listado.DatosODT = info;
+        Listado.DatosODT = info;
 
-            if(ValidarErrores(info)){
-                $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
-                    if (Error(result)) {
-                        if ($("#TramoCompleto").is(":checked")) {
-                            LimpiarMaquina();
-                            DesahabilitarBotonesAgregar();
-                            LimpiarGrid();
-                        };
-                        AgregarRegistroGrid(result);
-                    }
-                });
-            }
-        };
-
-        function LimpiarMaquina() {
-            Maquina = {};
-            $("#Maquina").data("kendoComboBox").value("");
-            $("#hdnMermaTeorica").val("0");
-        };
-
-        function AgregarRegistroGrid(item) {
-            if (item) {
-                var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: $("#TramoCompleto").is(":checked") };
-                if (!ValidarDuplicado(row)) {
-                    $("#grid").data("kendoGrid").dataSource.insert(item);
-                    CalcularCantidad();
-                } else {
-                    displayMessage("notificationslabel0066", "", '2');
-                }
-            } else {
-                displayMessage("notificationslabel0055", "", '2');
-            }
-        };
-
-        function VentanaModal(id) {
-
-            var modalTitle = "";
-
-            switch (id) {
-                case 1:
-                    $("#modalSobrante").hide();
-                    $("#modalMermaPrimerIntento").hide();
-                    $("#modalMermaSegundoIntento").hide();
-                    $("#modalTolerancia").show();
-                    modalTitle = "Tolerancia";
-                    break;
-                case 2:
-                    $("#modalMermaPrimerIntento").hide();
-                    $("#modalMermaSegundoIntento").hide();
-                    $("#modalTolerancia").hide();
-                    $("#modalSobrante").show();
-                    modalTitle = "Sobrante";
-                    break;
-                case 3:
-                    $("#modalSobrante").hide();
-                    $("#modalMermaSegundoIntento").hide();
-                    $("#modalTolerancia").hide();
-                    $("#modalMermaPrimerIntento").show();
-                    modalTitle = "Merma";
-                    break;
-                case 4:
-                    $("#modalSobrante").hide();
-                    $("#modalMermaPrimerIntento").hide();
-                    $("#modalTolerancia").hide();
-                    $("#modalMermaSegundoIntento").show();
-                    modalTitle = "Merma";
-                    break;
-            };
-
-            var window = $("#window");
-            var win = window.kendoWindow({
-                actions: false,
-                modal: true,
-                title: modalTitle,
-                resizable: false,
-                visible: false,
-                width: "32.6%",
-                minWidth: 660,
-                position: {
-                    top: "10%",
-                    left: "20%"
-                }
-            }).data("kendoWindow");
-            window.data("kendoWindow").title(modalTitle);
-            window.data("kendoWindow").center().open();
-        };
-
-        function GenerarPickingTicket() {
-            $("#GenerarPickingTicket").attr("disabled","disabled");
-        };
-
-        function Cancelar() {
-            window.location.href = _CorteUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-        };
-        function RedirectListado() {
-            window.location.href = _ListadoCorte + "?leng=" + $("#language").data("kendoDropDownList").value();
-        };
-        function Guardar() {
-            var gridData = $("#grid").data("kendoGrid").dataSource.view();
-            var datasource = $("#grid").data("kendoGrid").dataSource.data();
-            var boolTolerancia = false, Cortes = {}, boolSobranteIrreal = false,
-                TramoCompleto = $("#TramoCompleto").is(":checked");
-            var hdnAsumirIncongruencia = $("#hdnAsumirIncongruencia").val();
-            var Listado = { Maquina: "", Operador: "", NumeroUnico: "", TramoCompleto: "", Total: "", Sobrante: "", Merma: "", Detalle: "" };
-
-
-            if (!datasource.length) {
-                displayMessage("notificationslabel0065", "", '2');
-                return;
-            }
-
-            if (!TramoCompleto) {
-                if (!Maquina.MaquinaID) {
-                    //Favor de seleccionar una maquina
-                    displayMessage("notificationslabel0063", "", '2');
-                    return false;
-                };
-            }
-
-            boolTolerancia = ValidarToleranciaGuardando(gridData);
-            boolSobranteIrreal = ValidarSobrante();
-            boolMermaExcesiva = ValidarMermaExcesiva();
-
-            if (boolTolerancia){
-                VentanaModal(1);//Ventana Modal Tolerancia
-                return;
-            };
-
-            if (boolSobranteIrreal) {
-                VentanaModal(2);
-                return;
-            }
-       
-            if (boolMermaExcesiva) {
-                intento += 1;
-                var ventana = 2 + intento;//ventana modal 3 primer intento y 4 segundo intento
-                VentanaModal(ventana);
-                if (intento >= 2) {
-                    intento = 0;
-                };
-                return;
-            }
-
-            ValidarCantidadTramoRecto(datasource);
-            Cortes = ListadoAGuardar(datasource);
-
-            Listado.Maquina = Maquina.MaquinaID;
-            Listado.Operador = Operador.OperadorID;
-            Listado.NumeroUnico = NumeroUnico.NumeroUnicoID;
-            Listado.Segmento = NumeroUnico.Nombre;
-            Listado.TramoCompleto = $("#TramoCompleto").is(":checked");
-            Listado.Total = $("#Total").val();
-            Listado.Sobrante = $("#Sobrante").val();
-            Listado.Merma = $("#Merma").val();
-            Listado.Detalle = Cortes;
-
-            loadingStart();
-            $Corte.Corte.create(Listado, { token: Cookies.get("token") }).done(function (result) {
+        if (ValidarErrores(info)) {
+            $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
                 if (Error(result)) {
-                    _CorteID = result.CorteID;
-                    DesahabilitarBotones();
-                }
-                loadingStop();
-            });
-        
-        };
-
-        function ValidarSobrante() {
-            var boolSobranteIrreal = false;
-            var sobrante = $("#hdnSobrante").val() ? $("#hdnSobrante").val() : 0;
-            var SobranteModificado = $("#Sobrante").val() ? $("#Sobrante").val() : 0;
-
-            if (parseInt(SobranteModificado) > parseInt(sobrante)) {
-                boolSobranteIrreal = true;
-            }
-
-            return boolSobranteIrreal;
-        };
-
-        function AplicarCambioSobrante() {
-            var hdnsobrante = $("#hdnSobrante").val() ? $("#hdnSobrante").val() : 0;
-            $("#Sobrante").val(hdnsobrante);
-            $("#window").data("kendoWindow").close();
-        };
-
-        function ValidarMermaExcesiva() {
-            var boolMermaExcesiva = false;
-            var merma = $("#hdnMerma").val() ? $("#hdnMerma").val() : 0;
-            var MermaModificado = $("#Merma").val() ? $("#Merma").val() : 0;
-
-            if (parseInt(MermaModificado) > parseInt(merma)) {
-                boolMermaExcesiva = true;
-            }
-
-            return boolMermaExcesiva;
-        };
-
-
-        function AplicarCambioMermaCorregir() {
-            var hdnmerma = $("#hdnMerma").val() ? $("#hdnMerma").val() : 0;
-            $("#Merma").val(hdnmerma);
-            $("#window").data("kendoWindow").close();
-        };
-
-        function AplicarCambioAsumirIncongruencia() {
-            var merma = $("#Merma").val() ? $("#Merma").val() : 0;
-            $("#hdnMerma").val(merma);
-            $("#window").data("kendoWindow").close();
-            Guardar();
-        };
-
-        function Incidencias() {
-            if (_CorteID == "-1") {
-                displayMessage("notificationslabel0072", "", '1');
-                return;
-            } else {
-                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _CorteID);
-            }
-        };
-
-
-        function MaterialPendienteEdicion() {
-            var Listado = { SpoolID: "", ProyectoID: "", ItemCodeSteelgo: "", token: "" };
-
-            Listado.SpoolID = NumeroUnico.NumeroUnicoID;
-            Listado.ProyectoID = $("#OrdenTrabajo").val();
-            Listado.ItemCodeSteelgo = $("#Consecutivo").val();
-            Listado.token = Cookies.get("token");
-
-           
-            $MaterialPendiente.MaterialPendiente.read({ data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
-                    if (ValidarErrores(result)) {
-                        $("#hdnMermaTeorica").val(result.MermaTeorica ? result.MermaTeorica : 0);
-                        $("#Cantidad").val(result.Cantidad);
-                        $("#ItemCode").val(result.ItemCode);
-                        $("#Diametro1").val(result.D1);
-                        $("#hdnTolerancia").val(result.Tolerancia);
-                        $("#OrdenTrabajo").val(result.OrdenTrabajo);
-                        $("#Consecutivo").val(result.Consecutivo);
-                        $("#Etiqueta").val(result.Etiqueta);
-
-                        CargarNumeroUnico(result.NumeroControlID, result.NumeroControl);
-                        CargarProyecto(result.ProyectoID);
-
-                        $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
-                        $("#NumeroUnico").data("kendoAutoComplete").value(result.NumeroControlID);
-                        ValidarInformacion();
-                    }
+                    if ($("#TramoCompleto").is(":checked")) {
+                        LimpiarMaquina();
+                        DesahabilitarBotonesAgregar();
+                        LimpiarGrid();
+                    };
+                    AgregarRegistroGrid(result);
                 }
             });
+        }
+    };
+
+    function LimpiarMaquina() {
+        Maquina = {};
+        $("#Maquina").data("kendoComboBox").value("");
+        $("#hdnMermaTeorica").val("0");
+    };
+
+    function AgregarRegistroGrid(item) {
+        if (item) {
+            var row = { SpoolID: item.SpoolID, Etiqueta: item.Etiqueta, Cantidad: item.Cantidad, CantidadIngenieria: item.CantidadIngenieria, EsTramoCompleto: $("#TramoCompleto").is(":checked") };
+            if (!ValidarDuplicado(row)) {
+                $("#grid").data("kendoGrid").dataSource.insert(item);
+                CalcularCantidad();
+            } else {
+                displayMessage("notificationslabel0066", "", '2');
+            }
+        } else {
+            displayMessage("notificationslabel0055", "", '2');
+        }
+    };
+
+    function VentanaModal(id) {
+
+        var modalTitle = "";
+
+        switch (id) {
+            case 1:
+                $("#modalSobrante").hide();
+                $("#modalMermaPrimerIntento").hide();
+                $("#modalMermaSegundoIntento").hide();
+                $("#modalTolerancia").show();
+                modalTitle = "Tolerancia";
+                break;
+            case 2:
+                $("#modalMermaPrimerIntento").hide();
+                $("#modalMermaSegundoIntento").hide();
+                $("#modalTolerancia").hide();
+                $("#modalSobrante").show();
+                modalTitle = "Sobrante";
+                break;
+            case 3:
+                $("#modalSobrante").hide();
+                $("#modalMermaSegundoIntento").hide();
+                $("#modalTolerancia").hide();
+                $("#modalMermaPrimerIntento").show();
+                modalTitle = "Merma";
+                break;
+            case 4:
+                $("#modalSobrante").hide();
+                $("#modalMermaPrimerIntento").hide();
+                $("#modalTolerancia").hide();
+                $("#modalMermaSegundoIntento").show();
+                modalTitle = "Merma";
+                break;
         };
 
-        function ControlErroresObjetosComboBox(control, result) {
+        var window = $("#window");
+        var win = window.kendoWindow({
+            actions: false,
+            modal: true,
+            title: modalTitle,
+            resizable: false,
+            visible: false,
+            width: "32.6%",
+            minWidth: 660,
+            position: {
+                top: "10%",
+                left: "20%"
+            }
+        }).data("kendoWindow");
+        window.data("kendoWindow").title(modalTitle);
+        window.data("kendoWindow").center().open();
+    };
+
+    function GenerarPickingTicket() {
+        $("#GenerarPickingTicket").attr("disabled", "disabled");
+    };
+
+    function Cancelar() {
+        window.location.href = _CorteUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
+    function RedirectListado() {
+        window.location.href = _ListadoCorte + "?leng=" + $("#language").data("kendoDropDownList").value();
+    };
+    function Guardar() {
+        var gridData = $("#grid").data("kendoGrid").dataSource.view();
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        var boolTolerancia = false, Cortes = {}, boolSobranteIrreal = false,
+            TramoCompleto = $("#TramoCompleto").is(":checked");
+        var hdnAsumirIncongruencia = $("#hdnAsumirIncongruencia").val();
+        var Listado = { Maquina: "", Operador: "", NumeroUnico: "", TramoCompleto: "", Total: "", Sobrante: "", Merma: "", Detalle: "" };
+
+
+        if (!datasource.length) {
+            displayMessage("notificationslabel0065", "", '2');
+            return;
+        }
+
+        if (!TramoCompleto) {
+            if (!Maquina.MaquinaID) {
+                //Favor de seleccionar una maquina
+                displayMessage("notificationslabel0063", "", '2');
+                return false;
+            };
+        }
+
+        boolTolerancia = ValidarToleranciaGuardando(gridData);
+        boolSobranteIrreal = ValidarSobrante();
+        boolMermaExcesiva = ValidarMermaExcesiva();
+
+        if (boolTolerancia) {
+            VentanaModal(1);//Ventana Modal Tolerancia
+            return;
+        };
+
+        if (boolSobranteIrreal) {
+            VentanaModal(2);
+            return;
+        }
+
+        if (boolMermaExcesiva) {
+            intento += 1;
+            var ventana = 2 + intento;//ventana modal 3 primer intento y 4 segundo intento
+            VentanaModal(ventana);
+            if (intento >= 2) {
+                intento = 0;
+            };
+            return;
+        }
+
+        ValidarCantidadTramoRecto(datasource);
+        Cortes = ListadoAGuardar(datasource);
+
+        Listado.Maquina = Maquina.MaquinaID;
+        Listado.Operador = Operador.OperadorID;
+        Listado.NumeroUnico = NumeroUnico.NumeroUnicoID;
+        Listado.Segmento = NumeroUnico.Nombre;
+        Listado.TramoCompleto = $("#TramoCompleto").is(":checked");
+        Listado.Total = $("#Total").val();
+        Listado.Sobrante = $("#Sobrante").val();
+        Listado.Merma = $("#Merma").val();
+        Listado.Detalle = Cortes;
+
+        loadingStart();
+        $Corte.Corte.create(Listado, { token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                $("#" + control).data("kendoComboBox").dataSource.data(result);
-            } else {
-                $("#" + control).data("kendoComboBox").dataSource.data([]);
-            };
+                _CorteID = result.CorteID;
+                DesahabilitarBotones();
+            }
+            loadingStop();
+        });
+
+    };
+
+    function ValidarSobrante() {
+        var boolSobranteIrreal = false;
+        var sobrante = $("#hdnSobrante").val() ? $("#hdnSobrante").val() : 0;
+        var SobranteModificado = $("#Sobrante").val() ? $("#Sobrante").val() : 0;
+
+        if (parseInt(SobranteModificado) > parseInt(sobrante)) {
+            boolSobranteIrreal = true;
+        }
+
+        return boolSobranteIrreal;
+    };
+
+    function AplicarCambioSobrante() {
+        var hdnsobrante = $("#hdnSobrante").val() ? $("#hdnSobrante").val() : 0;
+        $("#Sobrante").val(hdnsobrante);
+        $("#window").data("kendoWindow").close();
+    };
+
+    function ValidarMermaExcesiva() {
+        var boolMermaExcesiva = false;
+        var merma = $("#hdnMerma").val() ? $("#hdnMerma").val() : 0;
+        var MermaModificado = $("#Merma").val() ? $("#Merma").val() : 0;
+
+        if (parseInt(MermaModificado) > parseInt(merma)) {
+            boolMermaExcesiva = true;
+        }
+
+        return boolMermaExcesiva;
+    };
+
+
+    function AplicarCambioMermaCorregir() {
+        var hdnmerma = $("#hdnMerma").val() ? $("#hdnMerma").val() : 0;
+        $("#Merma").val(hdnmerma);
+        $("#window").data("kendoWindow").close();
+    };
+
+    function AplicarCambioAsumirIncongruencia() {
+        var merma = $("#Merma").val() ? $("#Merma").val() : 0;
+        $("#hdnMerma").val(merma);
+        $("#window").data("kendoWindow").close();
+        Guardar();
+    };
+
+    function Incidencias() {
+        if (_CorteID == "-1") {
+            displayMessage("notificationslabel0072", "", '1');
+            return;
+        } else {
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _CorteID);
+        }
+    };
+
+
+    function MaterialPendienteEdicion() {
+        var Listado = { SpoolID: "", ProyectoID: "", ItemCodeSteelgo: "", token: "" };
+
+        Listado.SpoolID = NumeroUnico.NumeroUnicoID;
+        Listado.ProyectoID = $("#OrdenTrabajo").val();
+        Listado.ItemCodeSteelgo = $("#Consecutivo").val();
+        Listado.token = Cookies.get("token");
+
+
+        $MaterialPendiente.MaterialPendiente.read({ data: JSON.stringify(Listado) }).done(function (result) {
+            if (Error(result)) {
+                if (ValidarErrores(result)) {
+                    $("#hdnMermaTeorica").val(result.MermaTeorica ? result.MermaTeorica : 0);
+                    $("#Cantidad").val(result.Cantidad);
+                    $("#ItemCode").val(result.ItemCode);
+                    $("#Diametro1").val(result.D1);
+                    $("#hdnTolerancia").val(result.Tolerancia);
+                    $("#OrdenTrabajo").val(result.OrdenTrabajo);
+                    $("#Consecutivo").val(result.Consecutivo);
+                    $("#Etiqueta").val(result.Etiqueta);
+
+                    CargarNumeroUnico(result.NumeroControlID, result.NumeroControl);
+                    CargarProyecto(result.ProyectoID);
+
+                    $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
+                    $("#NumeroUnico").data("kendoAutoComplete").value(result.NumeroControlID);
+                    ValidarInformacion();
+                }
+            }
+        });
+    };
+
+    function ControlErroresObjetosComboBox(control, result) {
+        if (Error(result)) {
+            $("#" + control).data("kendoComboBox").dataSource.data(result);
+        } else {
+            $("#" + control).data("kendoComboBox").dataSource.data([]);
         };
+    };
 
         }
-        
-        function EventoSoloNumeros() {
-            $("#Etiqueta").keypress(function (e) {
-                var code = (e.which) ? e.which : e.keyCode;
-                if(code==8)
-                {
-                    return true;
-                }
-                else if(code>=48 && code<=57)//Es un numero
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            });
 
-            $("#Consecutivo").keypress(function (e) {
-                var code = (e.which) ? e.which : e.keyCode;
-                if (code == 8) {
-                    return true;
-                }
-                else if (code >= 48 && code <= 57) {//Es un numero
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        };
-
-        function ValidarTolerancia(CantidadCorte, CantidadIngenieria) {
-            var valorTolerancia = $("#hdnTolerancia").val() ? $("#hdnTolerancia").val() : "0";
-            var Tolerancia = parseInt(valorTolerancia);
-
-            if (CantidadCorte <= (CantidadIngenieria + Tolerancia)
-                && CantidadCorte >= (CantidadIngenieria - Tolerancia)) {
+    function EventoSoloNumeros() {
+        $("#Etiqueta").keypress(function (e) {
+            var code = (e.which) ? e.which : e.keyCode;
+            if (code == 8) {
                 return true;
-            } else {
+            }
+            else if (code >= 48 && code <= 57)//Es un numero
+            {
+                return true;
+            }
+            else {
                 return false;
             }
-        };
-        function ValidarDuplicado(row) {
-            var boolduplicado = false;
-            var dataSource = $("#grid").data("kendoGrid").dataSource.data()
+        });
 
-            for (var i = 0; i < dataSource.length; i++) {
-                var SpoolID = dataSource[i].SpoolID;
-                var Etiqueta = dataSource[i].Etiqueta;
-                if (row.SpoolID == SpoolID && row.Etiqueta == Etiqueta) {
-                    boolduplicado = true;
-                }
-            };
-            return boolduplicado
-        };
-
-        function CalcularCantidad() {
-            var dataSource = $("#grid").data("kendoGrid").dataSource.data(), sum = 0,
-                Sobrante = 0, Merma = 0, mermaTeorica = 0,
-                TramoCompleto = $("#TramoCompleto").is(":checked"),
-                valorMerma = $("#hdnMermaTeorica").val() ? $("#hdnMermaTeorica").val() : "0",
-                valorCantidad = $("#Cantidad").val() ? $("#Cantidad").val() : "0";
-
-            //Total
-            for (var i = 0; i < dataSource.length; i++) {
-                var Cantidad = dataSource[i].Cantidad;
-                sum += Cantidad;
-                mermaTeorica += parseInt(valorMerma);
-            };
-
-            //Sobrante
-            if (TramoCompleto) {
-                Sobrante = 0;
-                mermaTeorica = 0;
-            } else {
-                Sobrante = parseInt(valorCantidad) - sum - mermaTeorica;
+        $("#Consecutivo").keypress(function (e) {
+            var code = (e.which) ? e.which : e.keyCode;
+            if (code == 8) {
+                return true;
             }
-        
-            if (Sobrante < 0) {
-                displayMessage("notificationslabel0062", "", '2');
-                return;
+            else if (code >= 48 && code <= 57) {//Es un numero
+                return true;
             }
-            
-            $("#Total").val(sum);
-            $("#Sobrante").val(Sobrante);
-            $("#Merma").val(mermaTeorica);
-
-            $("#hdnTotal").val(sum);
-            $("#hdnSobrante").val(Sobrante);
-            $("#hdnMerma").val(mermaTeorica);
-        };
-
-        function ValidarToleranciaGuardando(gridData){
-            var boolTolerancia = false;
-            var grid = $("#grid").data("kendoGrid");
-            for (var i = 0; i < gridData.length; i++) {
-                var Cantidad = gridData[i].Cantidad;
-                var CantidadIngenieria = gridData[i].CantidadIngenieria;
-                if(!ValidarTolerancia( Cantidad,CantidadIngenieria)) {
-                    grid.table.find("tr[data-uid='" + gridData[i].uid + "']").css("background-color", "#FFCCCC");
-                    boolTolerancia=true;
-                };
+            else {
+                return false;
             }
+        });
+    };
 
-            return boolTolerancia;
+    function ValidarTolerancia(CantidadCorte, CantidadIngenieria) {
+        var valorTolerancia = $("#hdnTolerancia").val() ? $("#hdnTolerancia").val() : "0";
+        var Tolerancia = parseInt(valorTolerancia);
+
+        if (CantidadCorte <= (CantidadIngenieria + Tolerancia)
+            && CantidadCorte >= (CantidadIngenieria - Tolerancia)) {
+            return true;
+        } else {
+            return false;
         }
-     
-        function AplicarCambioTolerancia() {
-            var boolTolerancia = false;
-            var grid = $("#grid").data("kendoGrid");
-            var gridData = grid.dataSource.view();
-            for (var i = 0; i < gridData.length; i++) {
-                var Cantidad = gridData[i].Cantidad;
-                var CantidadIngenieria = gridData[i].CantidadIngenieria;
-                if (!ValidarTolerancia(Cantidad, CantidadIngenieria)) {
-                    gridData[i].Cantidad = gridData[i].CantidadIngenieria;
-                };
+    };
+    function ValidarDuplicado(row) {
+        var boolduplicado = false;
+        var dataSource = $("#grid").data("kendoGrid").dataSource.data()
+
+        for (var i = 0; i < dataSource.length; i++) {
+            var SpoolID = dataSource[i].SpoolID;
+            var Etiqueta = dataSource[i].Etiqueta;
+            if (row.SpoolID == SpoolID && row.Etiqueta == Etiqueta) {
+                boolduplicado = true;
             }
-            grid.refresh();
-            $("#window").data("kendoWindow").close();
         };
-        function ValidarCantidadTramoRecto(datasource) {
-            var boolValidarMismaCantidadNU = false;
-            if (datasource.length == 1) {
-                if (datasource[0].Cantidad == $("#Cantidad").val()) {
-                    boolValidarMismaCantidadNU = true;
-                };
-            };
+        return boolduplicado
+    };
 
-            if (boolValidarMismaCantidadNU) {
-                $("#TramoCompleto").attr("checked", "checked");
-                LimpiarMaquina();
-            };
-        };
-        function ListadoAGuardar(datasource) {
-            var Listado = {}, z = 0, boolValidarMismaCantidadNU = false;
-            for (var i = 0; i < datasource.length; i++) {
-                var SpoolID = datasource[i].SpoolID;
-                var Etiqueta = datasource[i].Etiqueta;
-                var Cantidad = datasource[i].Cantidad;
-                var CantidadIngenieria = datasource[i].CantidadIngenieria;
+    function CalcularCantidad() {
+        var dataSource = $("#grid").data("kendoGrid").dataSource.data(), sum = 0,
+            Sobrante = 0, Merma = 0, mermaTeorica = 0,
+            TramoCompleto = $("#TramoCompleto").is(":checked"),
+            valorMerma = $("#hdnMermaTeorica").val() ? $("#hdnMermaTeorica").val() : "0",
+            valorCantidad = $("#Cantidad").val() ? $("#Cantidad").val() : "0";
 
-                Listado[i] = { SpoolID: SpoolID, Etiqueta: Etiqueta, Cantidad: Cantidad, CantidadIngenieria: CantidadIngenieria };
-            };
-            return Listado;
+        //Total
+        for (var i = 0; i < dataSource.length; i++) {
+            var Cantidad = dataSource[i].Cantidad;
+            sum += Cantidad;
+            mermaTeorica += parseInt(valorMerma);
         };
+
+        //Sobrante
+        if (TramoCompleto) {
+            Sobrante = 0;
+            mermaTeorica = 0;
+        } else {
+            Sobrante = parseInt(valorCantidad) - sum - mermaTeorica;
+        }
+
+        if (Sobrante < 0) {
+            displayMessage("notificationslabel0062", "", '2');
+            return;
+        }
+
+        $("#Total").val(sum);
+        $("#Sobrante").val(Sobrante);
+        $("#Merma").val(mermaTeorica);
+
+        $("#hdnTotal").val(sum);
+        $("#hdnSobrante").val(Sobrante);
+        $("#hdnMerma").val(mermaTeorica);
+    };
+
+    function ValidarToleranciaGuardando(gridData) {
+        var boolTolerancia = false;
+        var grid = $("#grid").data("kendoGrid");
+        for (var i = 0; i < gridData.length; i++) {
+            var Cantidad = gridData[i].Cantidad;
+            var CantidadIngenieria = gridData[i].CantidadIngenieria;
+            if (!ValidarTolerancia(Cantidad, CantidadIngenieria)) {
+                grid.table.find("tr[data-uid='" + gridData[i].uid + "']").css("background-color", "#FFCCCC");
+                boolTolerancia = true;
+            };
+        }
+
+        return boolTolerancia;
+    }
+
+    function AplicarCambioTolerancia() {
+        var boolTolerancia = false;
+        var grid = $("#grid").data("kendoGrid");
+        var gridData = grid.dataSource.view();
+        for (var i = 0; i < gridData.length; i++) {
+            var Cantidad = gridData[i].Cantidad;
+            var CantidadIngenieria = gridData[i].CantidadIngenieria;
+            if (!ValidarTolerancia(Cantidad, CantidadIngenieria)) {
+                gridData[i].Cantidad = gridData[i].CantidadIngenieria;
+            };
+        }
+        grid.refresh();
+        $("#window").data("kendoWindow").close();
+    };
+    function ValidarCantidadTramoRecto(datasource) {
+        var boolValidarMismaCantidadNU = false;
+        if (datasource.length == 1) {
+            if (datasource[0].Cantidad == $("#Cantidad").val()) {
+                boolValidarMismaCantidadNU = true;
+            };
+        };
+
+        if (boolValidarMismaCantidadNU) {
+            $("#TramoCompleto").attr("checked", "checked");
+            LimpiarMaquina();
+        };
+    };
+    function ListadoAGuardar(datasource) {
+        var Listado = {}, z = 0, boolValidarMismaCantidadNU = false;
+        for (var i = 0; i < datasource.length; i++) {
+            var SpoolID = datasource[i].SpoolID;
+            var Etiqueta = datasource[i].Etiqueta;
+            var Cantidad = datasource[i].Cantidad;
+            var CantidadIngenieria = datasource[i].CantidadIngenieria;
+
+            Listado[i] = { SpoolID: SpoolID, Etiqueta: Etiqueta, Cantidad: Cantidad, CantidadIngenieria: CantidadIngenieria };
+        };
+        return Listado;
+    };
 
 
         @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["Corte"] = $CorteModel;
-        CargaInicial();
-        if (_MaterialPendiente != "-1") {
-            alert("edicion=" +_MaterialPendiente);
-            CargaInicialEdicionMaterialPendiente();
-        }
-        }
+    $authorizationModel["Corte"] = $CorteModel;
+    CargaInicial();
+    if (_MaterialPendiente != "-1") {
+        alert("edicion=" + _MaterialPendiente);
+        CargaInicialEdicionMaterialPendiente();
+    }
+    }
 </script>

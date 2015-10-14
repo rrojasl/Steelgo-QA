@@ -478,15 +478,17 @@
                 $("#TipoIncidencia").data("kendoComboBox").value(data.TipoIncidenciaID);
                 CargarTipoIncidencia(data.TipoIncidenciaID);
 
+                
                 $("#Version").val(data.Version);
                 $("#Titulo").val(data.Titulo);
                 $("#Descripcion").val(data.Descripcion);
                 $("#Respuesta").val(data.Respuesta);
                 $("#MotivoCancelacion").val(data.MotivoCancelacion);
                 $("#DetalleResolucion").val(data.DetalleResolucion);
-                $("#RegistradoPor").val(data.RegistradoPor);
-                $("#ResueltoPor").val(data.ResueltoPor);
-                $("#RespondidoPor").val(data.RespondidoPor);
+
+                $("#RegistradoPor").data("kendoComboBox").value(data.RegistradoPor)
+                $("#ResueltoPor").data("kendoComboBox").value(data.ResueltoPor)
+                $("#RespondidoPor").data("kendoComboBox").value(data.RespondidoPor)
 
                 CargarRegistradoPor(data.RegistradoPor);
                 CargarResueltoPor(data.ResueltoPor)
@@ -514,6 +516,7 @@
                 $("#FechaRespuesta").data("kendoDatePicker").value(fechakendoRespuesta);
 
                 $("#Registro").data("kendoAutoComplete").value(data.ReferenciaID);
+                CargarRegistro(data.ReferenciaID);
 
                 if (data.Estatus == "Cancelado") {
                     $("#MotivoCancelacionDiv").removeClass("hidden");
@@ -877,18 +880,21 @@
         $("#Respuesta").removeAttr("disabled");
         $("#MotivoCancelacion").removeAttr("disabled");
         $("#DetalleResolucion").removeAttr("disabled");
-        $("#RegistradoPor").removeAttr("disabled");
         $("#FechaRegistro").data("kendoDatePicker").enable(true);
-        $("#ResueltoPor").removeAttr("disabled");
         $("#FechaResolucion").data("kendoDatePicker").enable(true);
-        $("#RespondidoPor").removeAttr("disabled");
         $("#FechaRespuesta").data("kendoDatePicker").enable(true);
         $("#AdjuntarArchivos").data("kendoUpload").enable(true);
-        $("#DescripcionArchivo").removeAttr("disabled");        
+        $("#DescripcionArchivo").removeAttr("disabled");
+        $("#RegistradoPor").data("kendoComboBox").enable(true);
+        $("#ResueltoPor").data("kendoComboBox").enable(true);
+        $("#RespondidoPor").data("kendoComboBox").enable(true);
         HabilitarObtenerDocumentosIncidencias();
         if (_Edicion != "-1") {
-            $("#RegistradoPor").attr("disabled", "disabled");
+            $("#RegistradoPor").data("kendoComboBox").enable(false);
+            $("#FechaRegistro").data("kendoDatePicker").enable(false);
             $("#TipoIncidencia").data("kendoComboBox").enable(false);
+            $("#FechaRespuesta").data("kendoDatePicker").enable(false);
+            $("#RespondidoPor").data("kendoComboBox").enable(false);
             $("#MenuEditarIncidencias").css("display", "block");
         }
     };
@@ -903,14 +909,14 @@
         $("#Respuesta").attr("disabled", "disabled");
         $("#MotivoCancelacion").attr("disabled", "disabled");
         $("#DetalleResolucion").attr("disabled", "disabled");
-        $("#RegistradoPor").attr("disabled", "disabled");
         $("#FechaRegistro").data("kendoDatePicker").enable(false);
-        $("#ResueltoPor").attr("disabled", "disabled");
         $("#FechaResolucion").data("kendoDatePicker").enable(false);
-        $("#RespondidoPor").attr("disabled", "disabled");
         $("#FechaRespuesta").data("kendoDatePicker").enable(false);
         $("#AdjuntarArchivos").data("kendoUpload").enable(false);
         $("#DescripcionArchivo").attr("disabled", "disabled");
+        $("#RegistradoPor").data("kendoComboBox").enable(false);
+        $("#ResueltoPor").data("kendoComboBox").enable(false);
+        $("#RespondidoPor").data("kendoComboBox").enable(false);
         DesahabilitarObtenerDocumentosIncidencias();
     };
     function BotonAlta() {

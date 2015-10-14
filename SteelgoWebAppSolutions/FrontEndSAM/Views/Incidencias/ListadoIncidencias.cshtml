@@ -56,7 +56,7 @@
     var Cliente = {}, Proyecto = {}, FechaInicial, FechaFinal, resultadoJson;
     var _IncidenciasUrl = "@Url.Action("Incidencias", "Incidencias")";
 
-    var $ListadoIncidenciasListModel = {
+    var $ListadoIncidenciasModel = {
         listContainer: {
             create: "#Nuevo",
             list: "#grid",
@@ -347,12 +347,12 @@
 
     @section JavascriptDocumentReadyFunctions {
     CargaInicial();
-    $authorizationModel["Incidencias"] = $ListadoPackingListModel;
+    $authorizationModel["Incidencias"] = $ListadoIncidenciasModel;
     }
     @section JavascriptDocumentReadyHomeCookie 
     {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "43", { path: '/' });
+    Cookies.set("navegacion", "38", { path: '/' });
     }
 
 </script>
