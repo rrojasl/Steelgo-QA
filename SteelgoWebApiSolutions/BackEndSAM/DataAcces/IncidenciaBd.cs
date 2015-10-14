@@ -840,12 +840,18 @@ namespace BackEndSAM.DataAcces
                     DateTime fechaRespuesta = new DateTime();
 
                     DateTime.TryParse(detalle.FechaRegistro, out fechaRegistro);
-                    DateTime.TryParse(detalle.FechaResolucion, out fechaResuelto);
-                    DateTime.TryParse(detalle.FechaRespuesta, out fechaRespuesta);
-
                     detalle.FechaRegistro = fechaRegistro.ToString("yyyy-MM-dd");
-                    detalle.FechaResolucion = fechaResuelto.ToString("yyyy-MM-dd");
-                    detalle.FechaRespuesta = fechaRespuesta.ToString("yyyy-MM-dd");
+
+                    if (detalle.FechaResolucion != "") 
+                    { 
+                        DateTime.TryParse(detalle.FechaResolucion, out fechaResuelto);
+                        detalle.FechaResolucion = fechaResuelto.ToString("yyyy-MM-dd");
+                    }
+                    if (detalle.FechaRespuesta != "") 
+                    { 
+                        DateTime.TryParse(detalle.FechaRespuesta, out fechaRespuesta);
+                        detalle.FechaRespuesta = fechaRespuesta.ToString("yyyy-MM-dd");
+                    }
 
                     return detalle;
                 }
@@ -988,7 +994,8 @@ namespace BackEndSAM.DataAcces
                                                         Nombre = tpi.Nombre,
                                                         TipoIncidenciaID = tpi.TipoIncidenciaID.ToString()
                                                     }).AsParallel().Distinct().ToList();
-                    return listado;
+
+                    return listado.OrderBy(x => x.Nombre).ToList();
                 }
             }
             catch (Exception ex)
