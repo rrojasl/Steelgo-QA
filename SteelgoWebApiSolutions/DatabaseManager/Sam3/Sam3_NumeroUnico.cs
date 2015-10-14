@@ -14,17 +14,6 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_NumeroUnico
     {
-        public Sam3_NumeroUnico()
-        {
-            this.Sam3_NumeroUnicoCorte = new HashSet<Sam3_NumeroUnicoCorte>();
-            this.Sam3_NumeroUnicoMovimiento = new HashSet<Sam3_NumeroUnicoMovimiento>();
-            this.Sam3_NumeroUnicoSegmento = new HashSet<Sam3_NumeroUnicoSegmento>();
-            this.Sam3_PinturaNumeroUnico = new HashSet<Sam3_PinturaNumeroUnico>();
-            this.Sam3_RequisicionNumeroUnicoDetalle = new HashSet<Sam3_RequisicionNumeroUnicoDetalle>();
-            this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
-            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
-        }
-    
         public int NumeroUnicoID { get; set; }
         public int ProyectoID { get; set; }
         public Nullable<int> ItemCodeID { get; set; }
@@ -38,15 +27,15 @@ namespace DatabaseManager.Sam3
         public string PartidaFactura { get; set; }
         public string OrdenDeCompra { get; set; }
         public string PartidaOrdenDeCompra { get; set; }
-        public decimal Diametro1 { get; set; }
-        public decimal Diametro2 { get; set; }
+        public Nullable<decimal> Diametro1 { get; set; }
+        public Nullable<decimal> Diametro2 { get; set; }
         public string Cedula { get; set; }
         public string NumeroUnicoCliente { get; set; }
-        public bool MarcadoAsme { get; set; }
-        public bool MarcadoGolpe { get; set; }
-        public bool MarcadoPintura { get; set; }
+        public Nullable<bool> MarcadoAsme { get; set; }
+        public Nullable<bool> MarcadoGolpe { get; set; }
+        public Nullable<bool> MarcadoPintura { get; set; }
         public string PruebasHidrostaticas { get; set; }
-        public bool TieneDano { get; set; }
+        public Nullable<bool> TieneDano { get; set; }
         public string Rack { get; set; }
         public string Observaciones { get; set; }
         public string CampoLibreRecepcion1 { get; set; }
@@ -59,31 +48,12 @@ namespace DatabaseManager.Sam3
         public string CampoLibre3 { get; set; }
         public string CampoLibre4 { get; set; }
         public string CampoLibre5 { get; set; }
-        public bool EsVirtual { get; set; }
+        public Nullable<bool> EsVirtual { get; set; }
         public Nullable<int> RecepcionID { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string Prefijo { get; set; }
         public int Consecutivo { get; set; }
-    
-        public virtual Sam3_Colada Sam3_Colada { get; set; }
-        public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
-        public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
-        public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
-        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
-        public virtual Sam3_Recepcion Sam3_Recepcion { get; set; }
-        public virtual Sam3_TipoCorte Sam3_TipoCorte { get; set; }
-        public virtual Sam3_TipoCorte Sam3_TipoCorte1 { get; set; }
-        public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
-        public virtual ICollection<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
-        public virtual ICollection<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
-        public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
-        public virtual ICollection<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }
-        public virtual Sam3_NumeroUnico Sam3_NumeroUnico1 { get; set; }
-        public virtual Sam3_NumeroUnico Sam3_NumeroUnico2 { get; set; }
-        public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
-        public virtual Sam3_NumeroUnicoInventario Sam3_NumeroUnicoInventario { get; set; }
     }
 }

@@ -14,17 +14,10 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_FamiliaItemCode
     {
-        public Sam3_FamiliaItemCode()
-        {
-            this.Sam3_Recepcion = new HashSet<Sam3_Recepcion>();
-        }
-    
         public int FamiliaItemCodeID { get; set; }
         public string Nombre { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-    
-        public virtual ICollection<Sam3_Recepcion> Sam3_Recepcion { get; set; }
     }
 }

@@ -14,11 +14,12 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Transportista
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Transportista()
         {
+            this.Sam3_Chofer = new HashSet<Sam3_Chofer>();
             this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
             this.Sam3_Rel_Vehiculo_Transportista = new HashSet<Sam3_Rel_Vehiculo_Transportista>();
-            this.Sam3_Chofer = new HashSet<Sam3_Chofer>();
         }
     
         public int TransportistaID { get; set; }
@@ -31,9 +32,12 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual Sam3_Contacto Sam3_Contacto { get; set; }
-        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
-        public virtual ICollection<Sam3_Rel_Vehiculo_Transportista> Sam3_Rel_Vehiculo_Transportista { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Chofer> Sam3_Chofer { get; set; }
+        public virtual Sam3_Contacto Sam3_Contacto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Vehiculo_Transportista> Sam3_Rel_Vehiculo_Transportista { get; set; }
     }
 }

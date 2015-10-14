@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Spool
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Spool()
         {
             this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
@@ -80,7 +81,9 @@ namespace DatabaseManager.Sam3
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_OrdenTrabajoSpool> Sam3_OrdenTrabajoSpool { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }

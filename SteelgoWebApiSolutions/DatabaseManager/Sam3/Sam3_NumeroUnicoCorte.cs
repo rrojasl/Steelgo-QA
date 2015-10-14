@@ -14,11 +14,6 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_NumeroUnicoCorte
     {
-        public Sam3_NumeroUnicoCorte()
-        {
-            this.Sam3_Corte = new HashSet<Sam3_Corte>();
-        }
-    
         public int NumeroUnicoCorteID { get; set; }
         public int NumeroUnicoID { get; set; }
         public int ProyectoID { get; set; }
@@ -33,8 +28,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_Corte> Sam3_Corte { get; set; }
-        public virtual Sam3_NumeroUnico Sam3_NumeroUnico { get; set; }
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento { get; set; }
         public virtual Sam3_OrdenTrabajo Sam3_OrdenTrabajo { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }

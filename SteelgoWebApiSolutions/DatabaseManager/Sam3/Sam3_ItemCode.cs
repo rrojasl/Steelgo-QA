@@ -14,14 +14,16 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_ItemCode
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_ItemCode()
         {
-            this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
-            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
+            this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
+            this.Sam3_Rel_Incidencia_ItemCode = new HashSet<Sam3_Rel_Incidencia_ItemCode>();
             this.Sam3_Rel_Bulto_ItemCode = new HashSet<Sam3_Rel_Bulto_ItemCode>();
             this.Sam3_Rel_FolioCuantificacion_ItemCode = new HashSet<Sam3_Rel_FolioCuantificacion_ItemCode>();
             this.Sam3_Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
             this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
+            this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
         }
     
         public int ItemCodeID { get; set; }
@@ -47,16 +49,24 @@ namespace DatabaseManager.Sam3
         public string EstatusDocumental { get; set; }
         public int TipoUsoID { get; set; }
     
+        public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
+        public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
-        public virtual ICollection<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
-        public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
-        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
-        public virtual Sam3_Colada Sam3_Colada { get; set; }
-        public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
     }
 }

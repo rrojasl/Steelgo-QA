@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_ItemCodeSteelgo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_ItemCodeSteelgo()
         {
             this.Sam3_Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
@@ -33,6 +34,7 @@ namespace DatabaseManager.Sam3
         public string Cedula { get; set; }
         public string Codigo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
     }
 }

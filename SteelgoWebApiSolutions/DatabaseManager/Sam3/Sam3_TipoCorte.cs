@@ -14,12 +14,6 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_TipoCorte
     {
-        public Sam3_TipoCorte()
-        {
-            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
-            this.Sam3_NumeroUnico1 = new HashSet<Sam3_NumeroUnico>();
-        }
-    
         public int TipoCorteID { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
@@ -28,8 +22,5 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-    
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico1 { get; set; }
     }
 }

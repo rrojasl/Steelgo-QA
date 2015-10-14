@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Repositorio
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Repositorio()
         {
             this.Sam3_Rel_Documento_Entidad = new HashSet<Sam3_Rel_Documento_Entidad>();
@@ -25,6 +26,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_Documento_Entidad> Sam3_Rel_Documento_Entidad { get; set; }
     }
 }

@@ -70,7 +70,7 @@ namespace BackEndSAM.DataAcces
                                          ProyectoID = it.ProyectoID,
                                          Cantidad = it.Cantidad,
                                          MM = it.MM.ToString(),
-                                         Colada = nu.Sam3_Colada.NumeroColada,
+                                        // Colada = ctx.Sam3_Colada.NumeroColada,
                                          EstatusDocumental = it.EstatusDocumental,
                                          EstatusFisico = it.EstatusFisico,
                                          TipoUso = it.Sam3_TipoUso.Nombre
@@ -101,7 +101,7 @@ namespace BackEndSAM.DataAcces
                                           ProyectoID = it.ProyectoID,
                                           Cantidad = it.Cantidad,
                                           MM = it.MM.ToString(),
-                                          Colada = nu.Sam3_Colada.NumeroColada, 
+                                         // Colada = nu.Sam3_Colada.NumeroColada, 
                                           EstatusDocumental = it.EstatusDocumental, 
                                           EstatusFisico = it.EstatusFisico, 
                                           TipoUso = it.Sam3_TipoUso.Nombre
@@ -179,7 +179,7 @@ namespace BackEndSAM.DataAcces
                                           ProyectoID = it.ProyectoID,
                                           Cantidad = it.Cantidad,
                                           MM = it.MM.ToString(),
-                                          Colada = nu.Sam3_Colada.NumeroColada,
+                                         // Colada = nu.Sam3_Colada.NumeroColada,
                                           EstatusDocumental = it.EstatusDocumental,
                                           EstatusFisico = it.EstatusFisico,
                                           TipoUso = it.Sam3_TipoUso.Nombre

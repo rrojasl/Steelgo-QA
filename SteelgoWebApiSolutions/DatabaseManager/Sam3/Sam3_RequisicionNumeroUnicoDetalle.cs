@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_RequisicionNumeroUnicoDetalle
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_RequisicionNumeroUnicoDetalle()
         {
             this.Sam3_PinturaNumeroUnico = new HashSet<Sam3_PinturaNumeroUnico>();
@@ -26,7 +27,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual Sam3_NumeroUnico Sam3_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
         public virtual Sam3_RequisicionNumeroUnico Sam3_RequisicionNumeroUnico { get; set; }
     }

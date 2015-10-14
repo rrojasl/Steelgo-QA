@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Color
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Color()
         {
             this.Sam3_Proyecto = new HashSet<Sam3_Proyecto>();
@@ -27,6 +28,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
     }
 }

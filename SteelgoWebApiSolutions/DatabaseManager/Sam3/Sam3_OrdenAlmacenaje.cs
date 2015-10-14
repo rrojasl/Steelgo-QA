@@ -14,8 +14,10 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_OrdenAlmacenaje
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_OrdenAlmacenaje()
         {
+            this.Sam3_Rel_Incidencia_OrdenAlmacenaje = new HashSet<Sam3_Rel_Incidencia_OrdenAlmacenaje>();
             this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
         }
     
@@ -26,6 +28,9 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
     }
 }

@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -449,6 +450,11 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\AppComponents\AvisoLlegada\Dashboard.js" />
     <Content Include="Scripts\AppComponents\AvisoLlegada\ListadoEspecifico.js" />
+    <Content Include="Scripts\AppComponents\Catalogos\Obrero.js" />
+    <Content Include="Scripts\AppComponents\Catalogos\ObreroUbicacion.js" />
+    <Content Include="Scripts\AppComponents\Catalogos\TipoObrero.js" />
+    <Content Include="Scripts\AppComponents\Catalogos\TipoTrabajosAdicionales.js" />
+    <Content Include="Scripts\AppComponents\Catalogos\TrabajosAdicionales.js" />
     <Content Include="Scripts\AppComponents\Core\ApiManager.js" />
     <Content Include="Scripts\AppComponents\Core\ContextMenuManager.js" />
     <Content Include="Scripts\AppComponents\Core\GridExtensionsManager.js" />
@@ -963,6 +969,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Almacenaje\AlmacenajeController.cs" />
     <Compile Include="Controllers\AvisoLlegada\AvisoLlegadaController.cs" />
+    <Compile Include="Controllers\Catalogos\ObreroController.cs" />
+    <Compile Include="Controllers\Catalogos\ObreroUbicacionController.cs" />
+    <Compile Include="Controllers\Catalogos\TipoObreroController.cs" />
+    <Compile Include="Controllers\Catalogos\TipoTrabajosAdicionalesController.cs" />
+    <Compile Include="Controllers\Catalogos\TrabajosAdicionalesController.cs" />
     <Compile Include="Controllers\ComplementoRecepcion\ComplementoRecepcionController.cs" />
     <Compile Include="Controllers\Cuantificacion\CuantificacionController.cs" />
     <Compile Include="Controllers\DashboardRecepcionAlmacenaje\DashboardRecepcionAlmacenajeController.cs" />
@@ -973,6 +984,8 @@
     <Compile Include="Controllers\OrdenAlmacenaje\OrdenAlmacenajeController.cs" />
     <Compile Include="Controllers\OrdenRecepcion\OrdenRecepcionController.cs" />
     <Compile Include="Controllers\PackingList\PackingListController.cs" />
+    <Compile Include="Controllers\popups\AgregarTipoTrabajoAdicionalController.cs" />
+    <Compile Include="Controllers\popups\AgregarTrabajoAdicionalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1126,6 +1139,16 @@
     <Content Include="Views\ListadoMateriales\DetalleNumeroUnico.cshtml" />
     <Content Include="Views\ListadoMateriales\ListadoMaterialesItemCode.cshtml" />
     <Content Include="Views\Almacenaje\Almacenaje.cshtml" />
+    <Content Include="Views\AgregarTipoTrabajoAdicional\creaTipoTrabajoAdicional.cshtml" />
+    <Content Include="Views\AgregarTrabajoAdicional\creaTrabajoAdicional.cshtml" />
+    <Content Include="Views\Obrero\creaObrero.cshtml" />
+    <Content Include="Views\Obrero\ListadoObrero.cshtml" />
+    <Content Include="Views\ObreroUbicacion\CreaObreroUbicacion.cshtml" />
+    <Content Include="Views\ObreroUbicacion\ListadoObreroUbicacion.cshtml" />
+    <Content Include="Views\TipoObrero\creaTipoObrero.cshtml" />
+    <Content Include="Views\TipoObrero\ListadoTipoObrero.cshtml" />
+    <Content Include="Views\TipoTrabajosAdicionales\ListadoTipoTrabajosAdicionales.cshtml" />
+    <Content Include="Views\TrabajosAdicionales\ListadoTrabajosAdicionales.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

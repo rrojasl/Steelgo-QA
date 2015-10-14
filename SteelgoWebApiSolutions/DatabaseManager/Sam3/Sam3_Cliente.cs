@@ -14,10 +14,11 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Cliente
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Cliente()
         {
-            this.Sam3_Proyecto = new HashSet<Sam3_Proyecto>();
             this.Sam3_FolioAvisoEntrada = new HashSet<Sam3_FolioAvisoEntrada>();
+            this.Sam3_Proyecto = new HashSet<Sam3_Proyecto>();
         }
     
         public int ClienteID { get; set; }
@@ -31,7 +32,9 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> Sam2ClienteID { get; set; }
     
-        public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Proyecto> Sam3_Proyecto { get; set; }
     }
 }

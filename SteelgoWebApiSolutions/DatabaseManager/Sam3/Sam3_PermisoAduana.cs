@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_PermisoAduana
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_PermisoAduana()
         {
             this.Sam3_Rel_PermisoAduana_Documento = new HashSet<Sam3_Rel_PermisoAduana_Documento>();
@@ -32,6 +33,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaAutorización { get; set; }
     
         public virtual Sam3_FolioAvisoLlegada Sam3_FolioAvisoLlegada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
     }
 }

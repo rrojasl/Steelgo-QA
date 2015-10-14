@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\SAM3.0-master\SteelgoWebApiSolutions\BackEndSAM\bin\CommonTools.dll</HintPath>
+    </Reference>
+    <Reference Include="DatabaseManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\SAM3.0-master\SteelgoWebApiSolutions\BackEndSAM\bin\DatabaseManager.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -175,7 +184,10 @@
     <Compile Include="Controllers\ListadoCuantificacionController.cs" />
     <Compile Include="Controllers\ListadoMaterialesController.cs" />
     <Compile Include="Controllers\ListadoMaterialesPorItemCodeController.cs" />
+    <Compile Include="Controllers\ListadoTrabajosAdicionalesController.cs" />
     <Compile Include="Controllers\NumeroUnicoController.cs" />
+    <Compile Include="Controllers\ObreroController.cs" />
+    <Compile Include="Controllers\ObreroUbicacionController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioAvisoEntradaController.cs" />
     <Compile Include="Controllers\ObtenerDatosFolioLlegadaMaterialController.cs" />
     <Compile Include="Controllers\ObtenerItemCodesController.cs" />
@@ -188,7 +200,9 @@
     <Compile Include="Controllers\TipoAceroController.cs" />
     <Compile Include="Controllers\TipoArchivoController.cs" />
     <Compile Include="Controllers\TipoAvisoController.cs" />
+    <Compile Include="Controllers\TipoObreroController.cs" />
     <Compile Include="Controllers\TipoPackingListController.cs" />
+    <Compile Include="Controllers\TipoTrabajoAdicionalController.cs" />
     <Compile Include="Controllers\TipoUsoController.cs" />
     <Compile Include="Controllers\TipoVehiculoController.cs" />
     <Compile Include="Controllers\TractoController.cs" />
@@ -262,14 +276,19 @@
     <Compile Include="DataAcces\ListadoMaterialesBd.cs" />
     <Compile Include="DataAcces\ListadoMaterialesPorItemCodeBd.cs" />
     <Compile Include="DataAcces\NumeroUnicoBd.cs" />
+    <Compile Include="DataAcces\ObreroBD.cs" />
+    <Compile Include="DataAcces\ObreroUbicacionBD.cs" />
     <Compile Include="DataAcces\OrdenAlmacenajeBd.cs" />
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
+    <Compile Include="DataAcces\TipoObreroBD.cs" />
     <Compile Include="DataAcces\TipoPackingListBd.cs" />
+    <Compile Include="DataAcces\TipoTrabajoAdicionalBd.cs" />
     <Compile Include="DataAcces\TipoUsoBd.cs" />
+    <Compile Include="DataAcces\TrabajosAdicionalesBD.cs" />
     <Compile Include="DataAcces\TractoBd.cs" />
     <Compile Include="DataAcces\ChoferBd.cs" />
     <Compile Include="DataAcces\ContactoBd.cs" />
@@ -360,9 +379,12 @@
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
+    <Compile Include="Models\Obrero.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
     <Compile Include="Models\TipoArchivo.cs" />
+    <Compile Include="Models\TipoTrabajoAdicional.cs" />
+    <Compile Include="Models\TrabajosAdicionales.cs" />
     <Compile Include="Models\VehiculoJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Enums.cs" />
@@ -382,17 +404,21 @@
     <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
-      <Project>{bb113978-d8cb-4855-8be1-8b5eeab0a526}</Project>
-      <Name>CommonTools</Name>
+    <ProjectReference Include="..\FileManager\FileManager.csproj">
+      <Project>{23e5ef77-916d-4d2c-9858-8de798e4edd0}</Project>
+      <Name>FileManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DatabaseManager\DatabaseManager.csproj">
-      <Project>{6b1ad69e-07da-4d33-9d07-0868aaaaa780}</Project>
-      <Name>DatabaseManager</Name>
+    <ProjectReference Include="..\LoggerDaemon\LoggerDaemon.csproj">
+      <Project>{aebfab41-3e29-4699-9ab0-c664104fc266}</Project>
+      <Name>LoggerDaemon</Name>
     </ProjectReference>
     <ProjectReference Include="..\MessagesManager\MessagesManager.csproj">
       <Project>{b29e3866-bba6-41a2-93a9-6079552a4c50}</Project>
       <Name>MessagesManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SearchManager\SearchManager.csproj">
+      <Project>{0c901bf5-60fe-4799-820a-70c2c02a01f5}</Project>
+      <Name>SearchManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\SecurityManager\SecurityManager.csproj">
       <Project>{fadb83c7-600e-43cd-8493-0ea5929e1536}</Project>

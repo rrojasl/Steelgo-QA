@@ -926,13 +926,55 @@
     <Compile Include="Sam3\Sam3_Acero.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Armado_Get_DetallaTrabajoAdicional_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Armado_Get_DetalleJuntaArmado_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Armado_Get_MaterialesSpool_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Armado_ObtieneDetalleCaptura_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Bulto.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_CamposPredeterminados.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_CamposPredeterminados_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_PQR_Aporte_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_PQR_GrupoF_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_PQR_GrupoP_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_PQR_Mezcla_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_PQR_NumeroP_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Cat_TipoJunta_Result.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Chofer.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_ClasificacionIncidencia.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Cliente.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_ColaCreacionNumerosUnicos.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Colada.cs">
@@ -950,10 +992,52 @@
     <Compile Include="Sam3\Sam3_CorteDetalle.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Despacho.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Diametro.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Entidad.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaAcero.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaColada.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaCorte.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaDespacho.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaFabricante.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaFamiliaAcero.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaFamiliaMaterial.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaItemCode.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaNumeroUnico.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaNumeroUnicoMovimiento.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaPatio.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaProveedor.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_EquivalenciaProyecto.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_EstatusOrden.cs">
@@ -992,6 +1076,12 @@
     <Compile Include="Sam3\Sam3_ItemCodeSteelgo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_JuntaArmado.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\sam3_JuntaArmadoTrabajoAdicional.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Maquina.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1022,6 +1112,12 @@
     <Compile Include="Sam3\Sam3_NumeroUnicoSegmento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Obrero.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_ObreroUbicacion.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_OrdenAlmacenaje.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1049,7 +1145,31 @@
     <Compile Include="Sam3\Sam3_PinturaNumeroUnico.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_PQR.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_PQR_Aporte.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_PQR_GrupoF.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_PQR_GrupoP.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_PQR_Mezcla.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_PQR_NumeroP.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_PQR_Respaldo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Preferencia.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\sam3_ProcesoSoldadura.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Propiedad.cs">
@@ -1097,10 +1217,43 @@
     <Compile Include="Sam3\Sam3_Rel_FolioCuantificacion_ItemCode.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_ComplementoRecepcion.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_Corte.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_Despacho.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_Documento.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_Incidencia_Entidad.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_FolioAvisoEntrada.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_FolioAvisoLlegada.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_FolioCuantificacion.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_ItemCode.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_Incidencia_NumeroUnico.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_OrdenAlmacenaje.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_OrdenRecepcion.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Incidencia_PaseSalida.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Rel_ItemCode_ItemCodeSteelgo.cs">
@@ -1154,13 +1307,37 @@
     <Compile Include="Sam3\Sam3_Sesion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Soldadura_PQR_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_SplitInts_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Spool.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_SpoolHold.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Steelgo_Get_JuntaSpool_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Steelgo_Get_Obrero_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_Steelgo_Get_SpoolID_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_SteelGo_Get_Taller_Result.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Taller.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoArchivo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TipoArchivo_Catalogo.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoAviso.cs">
@@ -1172,6 +1349,12 @@
     <Compile Include="Sam3\Sam3_TipoDocumento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_TipoIncidencia.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TipoJunta.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_TipoMaterial.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
@@ -1181,10 +1364,19 @@
     <Compile Include="Sam3\Sam3_TipoNotificacion.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_TipoObrero.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TipoTrabajoAdicional.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_TipoUso.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_TipoVehiculo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam3_TrabajoAdicional.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Transportista.cs">
@@ -1200,6 +1392,45 @@
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="Sam3\Sam3_Vehiculo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_JuntaSpool.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_JuntaWorkstatus.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_MaterialSpool.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_OrdenTrabajo.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_OrdenTrabajoSpool.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_Proyecto.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\Sam_SpoolHold.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\SplitInts_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\SSP_sam3_ObreroUbicacion_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\SSP_sam3_Obrero_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\SSP_sam3_TipoObrero_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\SSP_sam3_TipoTrabajoAdicional_Result.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sam3\SSP_sam3_TrabajoAdicional_Result.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
     <Compile Include="SamLogging\Bitacora.cs">
@@ -1233,10 +1464,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelSamLogging.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="Sam3\ModelSam3.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelSam3.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="Sam2\ModelSam2.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelSam2.Designer.cs</LastGenOutput>
@@ -1254,18 +1481,12 @@
       <DependentUpon>ModelSam2.edmx</DependentUpon>
       <LastGenOutput>ModelSam2.cs</LastGenOutput>
     </None>
-    <None Include="Sam3\ModelSam3.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelSam3.edmx</DependentUpon>
-      <LastGenOutput>ModelSam3.Context.cs</LastGenOutput>
-    </None>
+    <EntityDeploy Include="Sam3\ModelSam3.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelSam3.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Sam3\ModelSam3.edmx.diagram">
       <DependentUpon>ModelSam3.edmx</DependentUpon>
-    </None>
-    <None Include="Sam3\ModelSam3.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelSam3.edmx</DependentUpon>
-      <LastGenOutput>ModelSam3.cs</LastGenOutput>
     </None>
     <None Include="SamLogging\ModelSamLogging.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1284,7 +1505,18 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Sam3\ModelSam3.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelSam3.edmx</DependentUpon>
+      <LastGenOutput>ModelSam3.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Sam3\ModelSam3.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelSam3.edmx</DependentUpon>
+      <LastGenOutput>ModelSam3.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

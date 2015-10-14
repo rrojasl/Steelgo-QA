@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Acero
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Acero()
         {
             this.Sam3_Colada = new HashSet<Sam3_Colada>();
@@ -28,6 +29,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_FamiliaAcero Sam3_FamiliaAcero { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Colada> Sam3_Colada { get; set; }
     }
 }

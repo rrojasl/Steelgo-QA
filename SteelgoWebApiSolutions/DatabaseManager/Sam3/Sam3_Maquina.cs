@@ -14,11 +14,6 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Maquina
     {
-        public Sam3_Maquina()
-        {
-            this.Sam3_CorteDetalle = new HashSet<Sam3_CorteDetalle>();
-        }
-    
         public int MaquinaID { get; set; }
         public int PatioID { get; set; }
         public string Nombre { get; set; }
@@ -27,7 +22,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_CorteDetalle> Sam3_CorteDetalle { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
     }
 }

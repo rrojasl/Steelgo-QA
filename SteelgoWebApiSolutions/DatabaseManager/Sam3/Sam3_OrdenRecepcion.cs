@@ -14,10 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_OrdenRecepcion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_OrdenRecepcion()
         {
-            this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
+            this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
+            this.Sam3_Rel_Incidencia_OrdenRecepcion = new HashSet<Sam3_Rel_Incidencia_OrdenRecepcion>();
             this.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion = new HashSet<Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion>();
+            this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
         }
     
         public int OrdenRecepcionID { get; set; }
@@ -27,7 +30,13 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion> Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
     }
 }

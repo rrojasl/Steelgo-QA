@@ -14,11 +14,6 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_OrdenTrabajoSpool
     {
-        public Sam3_OrdenTrabajoSpool()
-        {
-            this.Sam3_CorteDetalle = new HashSet<Sam3_CorteDetalle>();
-        }
-    
         public int OrdenTrabajoSpoolID { get; set; }
         public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
@@ -29,7 +24,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_CorteDetalle> Sam3_CorteDetalle { get; set; }
         public virtual Sam3_OrdenTrabajo Sam3_OrdenTrabajo { get; set; }
         public virtual Sam3_Spool Sam3_Spool { get; set; }
     }

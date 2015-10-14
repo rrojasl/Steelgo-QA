@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_MenuContextual
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_MenuContextual()
         {
             this.Sam3_Rel_Perfil_MenuContextual = new HashSet<Sam3_Rel_Perfil_MenuContextual>();
@@ -27,6 +28,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string Descripcion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_Perfil_MenuContextual> Sam3_Rel_Perfil_MenuContextual { get; set; }
     }
 }
