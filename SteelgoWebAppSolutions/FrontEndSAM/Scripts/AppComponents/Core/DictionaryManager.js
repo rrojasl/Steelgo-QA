@@ -1691,6 +1691,14 @@ _dictionary = {
         "es-MX": "Recepción Terminada",
         "en-US": "Reception Finished"
     },
+    "Cuantificacion0087": {
+        "es-MX": "Detallar",
+        "en-US": "Detail"
+    },
+    "Cuantificacion0088": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -4793,11 +4801,11 @@ _dictionary = {
     },
     "notificationslabel0042": {
         "es-MX": "Solo se puede detallar un Bulto.",
-        "en-US": ""
+        "en-US": "You can only detail a Lump"
     },
     "notificationslabel0043": {
         "es-MX": "No se puede detallar un bulto dentro de otro.",
-        "en-US": ""
+        "en-US": "You can not detail a lump inside another."
     },
     "notificationslabel0044": {
         "es-MX": "Favor de seleccionar Item Codes",
@@ -4926,6 +4934,10 @@ _dictionary = {
     "notificationslabel0075": {
         "es-MX": "Favor de verificar que la informacion este completa.",
         "en-US": "Please Verify that the information is complete."
+    },
+    "notificationslabel0076": {
+        "es-MX": "No se puede levantar una incidencia de un bulto.",
+        "en-US": "You can not fill an incidence of a lump"
     },
     //Default to copy
     "label9999": {

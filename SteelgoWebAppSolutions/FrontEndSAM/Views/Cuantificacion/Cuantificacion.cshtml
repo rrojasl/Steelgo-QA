@@ -149,7 +149,9 @@
             <div id="grid"></div>
         </div>        
         <ul id="menu">
-            <li>Detallar
+            <li id="Detallar"><span id="Cuantificacion0087"></span>
+            </li>
+            <li id="Incidencia"><span id="Cuantificacion0088"></span>
             </li>
         </ul>
     </div>
@@ -419,6 +421,14 @@
                     var valor = filaseleccionada.BultoID;
                     var ItemCode = filaseleccionada.ItemCode;
 
+                    if (e.item.id == "Incidencia") {
+                        if (!(ItemCode.indexOf("Bulto") != -1)) {
+                            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + ItemCode + "&TipoIncidencia=7&Clasificacion=1");
+                        } else {
+                            displayMessage("notificationslabel0076", "", '1');
+                        };
+                        return;
+                    }
                     //Si se trata del detalle de un bulto,
                     //no se puede generar otro bulto
                     if (_bultoID != "-1") {
@@ -443,7 +453,10 @@
 
             $("#grid").on("mousedown", "tr[role='row']", function (e) {
                 $('#grid').data("kendoGrid").select(e.target.parentElement);
-            });
+                $("#grid thead .k-state-selected> .k-link").css({
+                    "color": "black"
+                });
+            });;
 
             //Botones
 
@@ -1356,7 +1369,7 @@
         }
 
         function Incidencias() {
-            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + _folioCuantificacion + "&TipoIncidencia=4&Clasificacion=1");
         };
 
         function GuardaryTerminar() {
