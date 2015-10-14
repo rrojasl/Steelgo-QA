@@ -48,33 +48,34 @@ namespace BackEndSAM.DataAcces
                     List<ItemCodeComplemento> listado = new List<ItemCodeComplemento>();
                     //Agregamos items con relacion con Folio Cuantificacion
                     listado.AddRange((from fc in ctx.Sam3_FolioCuantificacion
-                                     join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                     join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
-                                     join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                     where fc.Activo && rfi.Activo && it.Activo && nu.Activo
-                                     && fc.FolioCuantificacionID == folioCuantificacionID
-                                     && !it.TieneComplementoRecepcion
-                                     select new ItemCodeComplemento
-                                     {
-                                         NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                                         ItemCode = it.Codigo,
-                                         NumeroUnicoCliente = nu.NumeroUnicoCliente,
-                                         Descripcion = it.DescripcionEspanol,
-                                         Cedula = nu.Cedula,
-                                         TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                      where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
-                                                      select fa.Nombre).FirstOrDefault(),
-                                         D1 = it.Diametro1.ToString(),
-                                         D2 = it.Diametro2.ToString(),
-                                         ItemCodeID = it.ItemCodeID,
-                                         ProyectoID = it.ProyectoID,
-                                         Cantidad = it.Cantidad,
-                                         MM = it.MM.ToString(),
-                                         Colada = nu.Sam3_Colada.NumeroColada,
-                                         EstatusDocumental = it.EstatusDocumental,
-                                         EstatusFisico = it.EstatusFisico,
-                                         TipoUso = it.Sam3_TipoUso.Nombre
-                                     }).AsParallel().Distinct().ToList());
+                                      join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                      join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
+                                      where fc.Activo && rfi.Activo && it.Activo && nu.Activo
+                                      && fc.FolioCuantificacionID == folioCuantificacionID
+                                      && !it.TieneComplementoRecepcion
+                                      select new ItemCodeComplemento
+                                      {
+                                          NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                          NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                          ItemCode = it.Codigo,
+                                          NumeroUnicoCliente = nu.NumeroUnicoCliente,
+                                          Descripcion = it.DescripcionEspanol,
+                                          Cedula = nu.Cedula,
+                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                                       select fa.Nombre).FirstOrDefault(),
+                                          D1 = it.Diametro1.ToString(),
+                                          D2 = it.Diametro2.ToString(),
+                                          ItemCodeID = it.ItemCodeID,
+                                          ProyectoID = it.ProyectoID,
+                                          Cantidad = it.Cantidad,
+                                          MM = it.MM.ToString(),
+                                          Colada = nu.Sam3_Colada.NumeroColada,
+                                          EstatusDocumental = it.EstatusDocumental,
+                                          EstatusFisico = it.EstatusFisico,
+                                          TipoUso = it.Sam3_TipoUso.Nombre
+                                      }).AsParallel().Distinct().ToList());
 
                     //agregar items en bulto
                     listado.AddRange((from fc in ctx.Sam3_FolioCuantificacion
@@ -87,6 +88,7 @@ namespace BackEndSAM.DataAcces
                                       && !it.TieneComplementoRecepcion
                                       select new ItemCodeComplemento
                                       {
+                                          NumeroUnicoID = nu.NumeroUnicoID.ToString(),
                                           NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
                                           ItemCode = it.Codigo,
                                           NumeroUnicoCliente = nu.NumeroUnicoCliente,

@@ -31,6 +31,7 @@ namespace BackEndSAM.Models
 
     public class ItemCodeComplemento
     {
+        public string NumeroUnicoID { get; set; }
         public string NumeroUnico { get; set; }
         public string NumeroUnicoCliente { get; set; }
         public string ItemCode { get; set; }
