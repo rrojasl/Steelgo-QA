@@ -846,7 +846,7 @@
     }
     
     function cedulaValida(c){
-        if (!$.isNumeric(c.Diametro1)) return -1;
+        if (!$.isNumeric(c.Diametro1) && c.Diametro1!="") return -1;
         var valida=0;
         var datos=$.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data() , function(n){
             return n.id != null
