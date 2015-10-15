@@ -1355,6 +1355,10 @@ _dictionary = {
         "es-MX": "Registrar Incidencia",
         "en-US": "Register Incidence"
     },
+    "ListadoLlegadaMaterial0024": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Cuantificacion
     "Cuantificacion0001": {
         "es-MX": "Inicio",

@@ -995,7 +995,7 @@ namespace BackEndSAM.DataAcces
                                                         TipoIncidenciaID = tpi.TipoIncidenciaID.ToString()
                                                     }).AsParallel().Distinct().ToList();
 
-                    return listado.OrderBy(x => x.Nombre).ToList();
+                    return listado.OrderBy(x => x.TipoIncidenciaID).ToList();
                 }
             }
             catch (Exception ex)

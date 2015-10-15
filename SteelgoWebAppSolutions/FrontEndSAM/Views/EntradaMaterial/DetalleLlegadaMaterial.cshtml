@@ -919,12 +919,7 @@
         };
 
         function Incidencias() {
-            if (folioLlegada == "-1") {
-                displayMessage("notificationslabel0036", "", '1');
-                return;
-            };
-
-            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + folioLlegada);
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + folioLlegada + "&TipoIncidencia=2&Clasificacion=1");
         };
 
         function DesahabilitarObtenerDocumentosLlegadaMaterial() {
