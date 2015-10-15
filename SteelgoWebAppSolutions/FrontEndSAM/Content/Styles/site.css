@@ -530,6 +530,10 @@ input.quickFilters.arrivalMaterial {
     font-size: 14px;
     margin: 6px 0px 3px 0;
     white-space: normal;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 0;
 }
 
 .btn-tab.Accesorios label,
@@ -538,6 +542,11 @@ input.quickFilters.arrivalMaterial {
 }
 
 .btn-tab span {
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    right: 0;
+    width: 100%;
     color: #305E8D;
     font-size: 50px;
     letter-spacing: 1.1px;
@@ -1019,7 +1028,7 @@ h2 {
     }
 
     .btn-tab span {
-        font-size: 36px;
+        font-size: 46px;        
     }
 }
 
