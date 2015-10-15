@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Materiales - Notificación de Déficit";
+    ViewBag.Title = "Materiales - Revisión de Déficit";
 }
 
 @section breadcrumb {
     <li class="active">
-        <a href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="NotificacionDeficit0003"></span></a>
+        <a href="@Url.Action("RevisionDeficit", "Materiales")"><span id="RevisionDeficit0001"></span></a>
     </li>
 }
 
@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
-                            <button type="button" class="btn" id="notificar">Notificar</button>
+                            <button type="button" class="btn" id="solucionar">Solucionar</button>
                             <button type="button" class="btn" id="cancelar">Cancelar</button>
                         </div>
                         <div class="button-section"></div>
@@ -56,7 +56,7 @@
         $("#itemcode").data("kendoComboBox").destroy();
         $("#itemcode").empty().kendoComboBox(options);
     }
-
+    
     function regenerarGrid(grid){
         var options = grid.options;
         var tmp=grid.element.context;
@@ -123,8 +123,6 @@
         minLength: 3,
         change:function(e){
             $("#itemcode").data("kendoComboBox").options.dataSource.transport.read.url=$NotificacionDeficit.NotificacionDeficit.urlNoId + "?token=" + Cookies.get("token")+"&ordenTrabajo="+$("#ordtrabajo").data("kendoComboBox").value();
-            $("#gridIC").data("kendoGrid").options.dataSource.transport.read.url="";
-            regenerarGrid($("#gridIC").data("kendoGrid"));
             regenerarCombo();
         },
         dataTextField: "value",
@@ -143,15 +141,12 @@
         },
         minLength: 3,
         change:function(e){
-            $NotificacionDeficit.NotificacionDeficit.read({},{itemCodeID:$("#itemcode").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(result){
-                $("#D1").val(result[0].Diametro1);
-                $("#D2").val(result[0].Diametro2);
-                $("#gridIC").data("kendoGrid").options.dataSource.transport.read.url=$NotificacionDeficit.NotificacionDeficit.urlNoId+"?ordenTrabajo="+$("#ordtrabajo").data("kendoComboBox").value()+"&itemCodeID="+$("#itemcode").data("kendoComboBox").value()+"&token="+Cookies.get("token");
-                regenerarGrid($("#gridIC").data("kendoGrid"));
-                $NotificacionDeficit.NotificacionDeficit.read({},{token:Cookies.get("token"),itemCodeID:$("#itemcode").data("kendoComboBox").value(),ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value()}).done(function(data){
-                    $("#gridSp").data("kendoGrid").dataSource.data(data);
-                    $("#gridSp").show();
-                })
+            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
+                $("#gridIC").data("kendoGrid").dataSource.data(data);
+            })
+            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
+                $("#gridSp").data("kendoGrid").dataSource.data(data);
+                $("#gridSp").show();
             })
         },
         dataTextField: "value",
@@ -160,55 +155,52 @@
 
     $("#gridIC").kendoGrid({
         columns: [
+            {field:"SpoolID",title:"SpoolID", },
             {field:"ItemCode",title:"Item Code"},
             {field:"Diametro1",title:"Diametro 1"},
             {field:"Diametro2",title:"Diametro 2"},
+            {field:"Descripcion"},
             {field:"Cantidad"},
-            {field:"DeficitTotal"},
+            {field:"Deficit"},
+            { command: "edit", title: "Editar", width: "91px" },
+            { command: "destroy", title: "Borrar", width: "91px" }
         ],
         dataSource: {
             data: [],
-            schema: {
+            schema:{
                 model: {
-                    id:"ItemCodeID",
-                    fields:{
+                    id:"SpoolID",
+                    fields:{//{"SpoolID":"108581","ItemCodeID":"8","ItemCode":"PCRC70389","Diametro1":"8.0000","Diametro2":"58.0000","Descripcion":"Item Code Steelgo Prueba 01","Cantidad":"0","Deficit":"10"}
+                        SpoolID:{ editable: false, nullable: true },
                         ItemCodeID:{ editable: false, nullable: true },
                         ItemCode: { editable: false,type:"string",validation: { required: false } },
                         Diametro1: { editable: false,type:"number", validation: { required: false } },
                         Diametro2: { editable: false,type:"number", validation: { required: false } },
+                        Descripcion:{ editable: false,type:"string", validation: { required: false } },
                         Cantidad:{editable: false,type:"number"},
-                        DeficitTotal:{editable: true,type:"number"}
+                        Deficit:{editable: true,type:"number"}
                     }
                 },
             },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
             transport:{
-                read:{
+                update:{
                     url:"",
-                    dataType:"json",
-                    type:"GET",
-                    cache: false
+                    type:"PUT",
+                    dataType:"json"
                 },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
-                    }
-                }
+                destroy:{
+                    url:"",
+                    type:"DELETE",
+                    dataType:"json"
+                },
             },
         },
         autoHeight: true,
         sortable: false,
         scrollable: false,
         filterable: false,
-        editable:"inline",
         pageable: false,
-        editable:false,
+        editable:"inline",
         save: function(e) {
             console.log(e);
         },
@@ -216,13 +208,9 @@
             console.log(e);
         },
         dataBound: function(e) {
-            $("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
+            //$("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
         },
         edit:function(e){
-            $("#gridIC tr[data-uid] input[name=Deficit]").on("blur",function(){
-                var dataItem = $("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-                if(this.value > parseFloat(dataItem.Cantidad)) displayMessage("", "El deficit no puede ser menor que la cantidad", '2');
-            })
         }
     });
 
@@ -239,7 +227,7 @@
             data: [],
             schema: {
                 model: {
-                    id:"SpoolID",//SPOOLID	SPOOL	PRIORIDAD	PEQS	PESO	ITEMCODEID	ITEMCODES
+                    id:"SpoolID",
                     fields:{
                         SpoolID:{ editable: false, nullable: true },
                         Spool: { editable: false,type:"string",validation: { required: false } },
@@ -273,7 +261,7 @@
         }
     });
 
-    $("#notificar").on("click",function(){
+    $("#solucionar").on("click",function(){
         var deficits=[];
         var spools=[];
         var orden=$("#ordtrabajo").data("kendoComboBox").value();
