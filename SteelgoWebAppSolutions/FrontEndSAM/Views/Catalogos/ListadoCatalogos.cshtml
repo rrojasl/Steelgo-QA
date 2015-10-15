@@ -677,17 +677,20 @@
                             reader.onload = function(event) {
                                 var csvData = event.target.result;
                                 csvToJson(csvData,"CedulaID").forEach(function(c){
-                                    var tmp=cedulaValida(c);
-                                    if(validModelData(c) && tmp==0){
+                                    var cedVal=cedulaValida(c);
+                                    var modVal=validModelData(c);
+                                    if(modVal && cedVal==0){
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
                                     }else{
-                                        if(tmp==1){
+                                        if(modVal && cedVal==1){
                                             c["advertencia"]=true;
-                                        }else
+                                        }else{
+
                                             c["valido"]=false;
                                         }
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
-                                    });
+                                    }
+                                });
                             };
                             reader.onerror = function() {
                                 alert('Unable to read ' + file.fileName);
@@ -843,7 +846,7 @@
     }
     
     function cedulaValida(c){
-        if(c.Diametro1=="") return 2;
+        if (!$.isNumeric(c.Diametro1)) return -1;
         var valida=0;
         var datos=$.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data() , function(n){
             return n.id != null
@@ -877,7 +880,7 @@
         var csv=[];
         try{
             data.split("\n").forEach(function(d,i){
-                if(d.split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
+                if(d.substring(0, d.length - 1).split(",").length===encabezados.length-(encabezados.length - $("#grid").data("kendoGrid").columns.length)){
                     var tmp={};
                     tmp[idField]=null;
                     d.split(",").forEach(function(cell,z){
