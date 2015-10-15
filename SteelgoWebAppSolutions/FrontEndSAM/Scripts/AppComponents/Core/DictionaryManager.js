@@ -2903,6 +2903,10 @@ _dictionary = {
         "es-MX": "Cantidad de incidencias",
         "en-US": "Number of Incidences"
     },
+    "DashboardRecepcionAlmacenaje0047": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
