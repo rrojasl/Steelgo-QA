@@ -79,11 +79,8 @@
 </div>
 <input id="hdAccionFiltrado" type="hidden" />
 <ul id="menu">
-    <li>Registrar Incidencia
-    </li>
+    <li><span id="ListadoLlegadaMaterial0024"></span></li>
 </ul>
-<div id="modalIncidencias">
-</div>
 <script>
 
      @section JavascriptDocumentReadyHomeCookie {
@@ -97,7 +94,7 @@
     var FechaInic, FechaFinal, resultadoJson, PeriodoTiempo;
     var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
     var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
-
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     //vars Dashboard
     var DashBoardAccionListado = getUrlParameter("DashBoardAccionListado", "-1");
     var DashPatioID = getUrlParameter("DashPatioID", "-1");
@@ -180,6 +177,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            selectable:true,
             filterable: {
                 extra: false,
                 operators: {
@@ -522,17 +520,19 @@
         target: "#grid",
         filter: "td",
         select: function (e) {
-            $("#modalIncidencias").kendoWindow({
-                actions: ["Minimize", "Maximize", "Close"],
-                draggable: true,
-                height: "300px",
-                modal: true,
-                resizable: false,
-                title: "Registro de Incidencia",
-                width: "500px",
-                visible: false
-            }).data("kendoWindow").center().open();
+            var grid = $("#grid").data("kendoGrid");
+            var select = grid.select();
+            var data = grid.dataItem(select);
+
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntradaID + "&TipoIncidencia=2&Clasificacion=1");
         }
+    });
+
+    $("#grid").on("mousedown", "tr[role='row']", function (e) {
+        $('#grid').data("kendoGrid").select(e.target.parentElement);
+        $("#grid thead .k-state-selected> .k-link").css({
+            "color": "black"
+        });
     });
 
     $("#btnPorLlegar").click(function () { tabActivo("1"); AccionesListado(1); });

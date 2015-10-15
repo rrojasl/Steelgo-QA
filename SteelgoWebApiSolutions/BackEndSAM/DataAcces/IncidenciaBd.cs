@@ -118,11 +118,14 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                     break;
                                 case 5: // Orden de recepcion
+
+                                    Sam3_OrdenRecepcion orden = ctx.Sam3_OrdenRecepcion.Where(x => x.Folio == datos.ReferenciaID).AsParallel().SingleOrDefault();
+
                                     Sam3_Rel_Incidencia_OrdenRecepcion nuevaRelOrdenR = new Sam3_Rel_Incidencia_OrdenRecepcion();
                                     nuevaRelOrdenR.Activo = true;
                                     nuevaRelOrdenR.FechaModificacion = DateTime.Now;
                                     nuevaRelOrdenR.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelOrdenR.OrdenRecepcionID = datos.ReferenciaID;
+                                    nuevaRelOrdenR.OrdenRecepcionID = orden.OrdenRecepcionID;
                                     nuevaRelOrdenR.UsuarioModificacion = usuario.UsuarioID;
 
                                     ctx.Sam3_Rel_Incidencia_OrdenRecepcion.Add(nuevaRelOrdenR);
@@ -142,11 +145,15 @@ namespace BackEndSAM.DataAcces
                                     ctx.SaveChanges();
                                     break;
                                 case 8: // Orden de almacenaje
+
+                                    Sam3_OrdenAlmacenaje ordenAlmacenaje = ctx.Sam3_OrdenAlmacenaje.Where(x => x.Folio == datos.ReferenciaID)
+                                        .AsParallel().SingleOrDefault();
+
                                     Sam3_Rel_Incidencia_OrdenAlmacenaje nuevaRelOrdenAlmacenaje = new Sam3_Rel_Incidencia_OrdenAlmacenaje();
                                     nuevaRelOrdenAlmacenaje.Activo = true;
                                     nuevaRelOrdenAlmacenaje.FechaModificacion = DateTime.Now;
                                     nuevaRelOrdenAlmacenaje.IncidenciaID = nuevaIncidencia.IncidenciaID;
-                                    nuevaRelOrdenAlmacenaje.OrdenalmacenajeID = datos.ReferenciaID;
+                                    nuevaRelOrdenAlmacenaje.OrdenalmacenajeID = ordenAlmacenaje.OrdenAlmacenajeID;
                                     nuevaRelOrdenAlmacenaje.UsuarioModificacion = usuario.UsuarioID;
 
                                     ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje.Add(nuevaRelOrdenAlmacenaje);
@@ -995,7 +1002,7 @@ namespace BackEndSAM.DataAcces
                                                         TipoIncidenciaID = tpi.TipoIncidenciaID.ToString()
                                                     }).AsParallel().Distinct().ToList();
 
-                    return listado.OrderBy(x => x.Nombre).ToList();
+                    return listado.OrderBy(x => x.TipoIncidenciaID).ToList();
                 }
             }
             catch (Exception ex)

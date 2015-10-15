@@ -1355,6 +1355,10 @@ _dictionary = {
         "es-MX": "Registrar Incidencia",
         "en-US": "Register Incidence"
     },
+    "ListadoLlegadaMaterial0024": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
     //Cuantificacion
     "Cuantificacion0001": {
         "es-MX": "Inicio",
@@ -2330,7 +2334,10 @@ _dictionary = {
         "es-MX": "Imprimir Etiquetas",
         "en-US": "Print Labels"
     },
-   
+    "ListadoOrdenRecepcion0030": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
         "es-MX": "Cancelar",
@@ -2597,6 +2604,10 @@ _dictionary = {
     "ListadoOrdenAlmacenaje0022": {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
+    },
+    "ListadoOrdenAlmacenaje0023": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
     },
 //Generar Orden Almacenaje
     "GenerarOrdenAlmacenaje0001": {

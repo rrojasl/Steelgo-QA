@@ -419,12 +419,8 @@
     };
 
     function Incidencias() {
-        if (_ordenRecepcionID == "-1") {
-            displayMessage("notificationslabel0036", "", '1');
-            return;
-        };
-
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _ordenRecepcionID);
+        var OrdenRecepcionID = _ordenRecepcionID ? _ordenRecepcionID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + OrdenRecepcionID + "&TipoIncidencia=5&Clasificacion=1");
     };
 
     function Error(data) {

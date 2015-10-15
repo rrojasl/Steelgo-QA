@@ -456,12 +456,8 @@
     };
 
     function Incidencias() {
-        if (_ordenAlmacenajeID == "-1") {
-            displayMessage("notificationslabel0036", "", '1');
-            return;
-        };
-
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + _ordenAlmacenajeID);
+        var OrdenAlmacenajeID = _ordenAlmacenajeID ? _ordenAlmacenajeID : "-1";
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + OrdenAlmacenajeID + "&TipoIncidencia=8&Clasificacion=1");
     };
 
     

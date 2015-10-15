@@ -46,7 +46,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="GenerarOrdenRecepcion0004"></span></a></li>
-                                    @*<li><a id="IrIncidencia" href="#" ><span id="GenerarOrdenRecepcion0005"></span></a></li>*@
+                                    <li><a id="IrIncidencia" href="#" ><span id="GenerarOrdenRecepcion0005"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -465,7 +465,7 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=-1&TipoIncidencia=-1&Clasificacion=1");
     };
 
     function GenerarOrdenRecepcionNuevo() {
@@ -510,8 +510,7 @@
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    var url = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
-                    window.location.href = url + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1];
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID;;
                 }
             });
         } else {

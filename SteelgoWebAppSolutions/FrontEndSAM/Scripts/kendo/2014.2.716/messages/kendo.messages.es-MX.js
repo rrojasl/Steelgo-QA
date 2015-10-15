@@ -439,18 +439,18 @@ if (kendo.ui.TreeView) {
 if (kendo.ui.Upload) {
     kendo.ui.Upload.prototype.options.localization =
     $.extend(true, kendo.ui.Upload.prototype.options.localization, {
-        "select": "Select files...",
-        "cancel": "Cancel",
-        "retry": "Retry",
-        "remove": "Remove",
-        "uploadSelectedFiles": "Upload files",
-        "dropFilesHere": "drop files here to upload",
-        "statusUploading": "uploading",
-        "statusUploaded": "uploaded",
-        "statusWarning": "warning",
-        "statusFailed": "failed",
-        "headerStatusUploading": "Uploading...",
-        "headerStatusUploaded": "Done"
+        "select": "Seleccionar Archivo...",
+        "cancel": "Cancelar",
+        "retry": "Reintentar",
+        "remove": "Remover",
+        "uploadSelectedFiles": "Cargar Archivos",
+        "dropFilesHere": "Suelte archivos aquí para cargarlos",
+        "statusUploading": "cargando",
+        "statusUploaded": "cargado",
+        "statusWarning": "peligro",
+        "statusFailed": "fallo",
+        "headerStatusUploading": "Cargando...",
+        "headerStatusUploaded": "Listo"
     });
 }
 

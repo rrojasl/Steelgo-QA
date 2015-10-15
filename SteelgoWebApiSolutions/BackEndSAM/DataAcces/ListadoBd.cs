@@ -2394,8 +2394,8 @@ namespace BackEndSAM.DataAcces
                                        && ordr.Folio.ToString() == busqueda
                                        select new ListaCombos
                                        {
-                                           id = ordr.OrdenRecepcionID.ToString(),
-                                           value = ordr.OrdenRecepcionID.ToString()
+                                           id = ordr.Folio.ToString(),
+                                           value = ordr.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
                             break;
                         case 6: // Complemento de recepcion. Por el momento sin implementacion
@@ -2416,7 +2416,7 @@ namespace BackEndSAM.DataAcces
                                        && oa.Folio.ToString() == busqueda
                                        select new ListaCombos
                                        {
-                                           id = oa.OrdenAlmacenajeID.ToString(),
+                                           id = oa.Folio.ToString(),
                                            value = oa.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
                             break;
@@ -2544,7 +2544,7 @@ namespace BackEndSAM.DataAcces
                                        && ordr.Folio.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
-                                           id = ordr.OrdenRecepcionID.ToString(),
+                                           id = ordr.Folio.ToString(),
                                            value = ordr.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
                             break;
@@ -2566,7 +2566,7 @@ namespace BackEndSAM.DataAcces
                                        && oa.Folio.ToString().Contains(busqueda)
                                        select new ListaCombos
                                        {
-                                           id = oa.OrdenAlmacenajeID.ToString(),
+                                           id = oa.Folio.ToString(),
                                            value = oa.Folio.ToString()
                                        }).AsParallel().Distinct().ToList();
                             break;
