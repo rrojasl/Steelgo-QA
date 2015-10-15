@@ -620,9 +620,11 @@
         $("#Clasificacion").data("kendoComboBox").enable(false);
         CargarClasificacion(clasificacion);
 
-        $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
-        $("#TipoIncidencia").data("kendoComboBox").enable(false);
-        CargarTipoIncidencia(tipoincidenciaID);
+        if (tipoincidenciaID != "-1") {
+            $("#TipoIncidencia").data("kendoComboBox").value(tipoincidenciaID);
+            $("#TipoIncidencia").data("kendoComboBox").enable(false);
+            CargarTipoIncidencia(tipoincidenciaID);
+        }
 
         if (referenciaID != "-1") {
             $TipoIncidencia.TipoIncidencia.read({ tipoIncidencia: tipoincidenciaID, busqueda: referenciaID, levantarincidencia: _LevantarIncidencia, token: Cookies.get("token") }).done(function (data) {

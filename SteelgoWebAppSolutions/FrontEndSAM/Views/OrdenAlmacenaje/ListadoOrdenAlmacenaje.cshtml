@@ -68,12 +68,16 @@
     </div>
 </div>
        
-        
+@*<ul id="menu">
+    <li><span id="ListadoOrdenAlmacenaje0023"></span>
+    </li>
+</ul>*@
 <input id="hdAccionFiltrado" type="hidden" />
 <script>
     @section JavascriptGlobalVariables 
     {
     var Cliente = {}, Proyecto = {}, FolioCuantificacion = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $ListadoOrdenAlmacenajeModel = {
         listContainer: {
@@ -178,6 +182,26 @@
 
         ObtenerFechasporDefecto();
         Filtros();
+
+
+        //$("#menu").kendoContextMenu({
+        //    target: "#grid",
+        //    filter: "td",
+        //    select: function (e) {
+        //        var grid = $("#grid").data("kendoGrid");
+        //        var select = grid.select();
+        //        var data = grid.dataItem(select);
+
+        //        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenAlmacenaje + "&TipoIncidencia=8&Clasificacion=1");
+        //    }
+        //});
+
+        //$("#grid").on("mousedown", "tr[role='row']", function (e) {
+        //    $('#grid').data("kendoGrid").select(e.target.parentElement);
+        //    $("#grid thead .k-state-selected> .k-link").css({
+        //        "color": "black"
+        //    });
+        //});
     };
 
     function cargarInicialGrid() {
@@ -200,6 +224,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            selectable:true,
             filterable: {
                 extra: false,
                 operators: {
@@ -250,6 +275,7 @@
             autoBind: true,
             scrollable: false,
             sortable: false,
+            selectable:true,
             columns: [
                 { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()] },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },

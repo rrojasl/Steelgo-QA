@@ -46,7 +46,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="GenerarOrdenAlmacenaje0010"></span></a></li>
-                                    @*<li><a id="IrIncidencia"  href="#"><span id="GenerarOrdenAlmacenaje0011"></span></a></li>*@
+                                    <li><a id="IrIncidencia"  href="#"><span id="GenerarOrdenAlmacenaje0011"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -239,6 +239,7 @@
                 pageSize: 20,
             },
             autoHeight: true,
+            selectable:true,
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -547,7 +548,7 @@
     };
 
     function Incidencias() {
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=-1&TipoIncidencia=-1&Clasificacion=1");
     };
 
     function GenerarOrdenAlmacenaje() {
@@ -740,6 +741,7 @@
             autoBind: true,
             scrollable: false,
             sortable: false,
+            selectable: true,
             columns: [
                 { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + '  class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.FolioCuantificacion + ');"></label>', width: '8%'},
                 { field: "ItemCodeID", title: _dictionary.GenerarOrdenAlmacenaje0018[$("#language").data("kendoDropDownList").value()], hidden:true },
@@ -779,6 +781,7 @@
             autoBind: true,
             scrollable: false,
             sortable: false,
+            selectable: true,
             columns: [
                 { template: '<input type="checkbox" ' + checked + ' class="numerosunicos" onclick="NodoHijoNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + ' id="checkAll" onclick="NodoPadreNumerosUnicos(this,' + e.data.FolioCuantificacion + ');"></label>', width: '8%' },
                 { field: "FolioCuantificacion", title: _dictionary.GenerarOrdenAlmacenaje0024[$("#language").data("kendoDropDownList").value()], width: "110px", hidden: true },
