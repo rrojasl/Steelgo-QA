@@ -108,6 +108,13 @@
             ]
         });
     }
+    
+    function ocultarSpool(){
+        if(document.getElementById("spoolCheck").checked){
+            document.getElementById("spoolCheck").checked=false;
+            $("#gridSp").hide();
+        }
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
@@ -141,7 +148,10 @@
         minLength: 3,
         change:function(e){
             $("#itemcode").data("kendoComboBox").options.dataSource.transport.read.url=$NotificacionDeficit.NotificacionDeficit.urlNoId + "?token=" + Cookies.get("token")+"&ordenTrabajo="+$("#ordtrabajo").data("kendoComboBox").value();
+            $("#gridIC").data("kendoGrid").options.dataSource.transport.read.url="";
+            regenerarGrid($("#gridIC").data("kendoGrid"));
             regenerarCombo();
+            ocultarSpool();
         },
         dataTextField: "value",
         dataValueField: "id"
@@ -164,10 +174,7 @@
                 $("#D2").val(result[0].Diametro2);
                 $("#gridIC").data("kendoGrid").options.dataSource.transport.read.url=$NotificacionDeficit.NotificacionDeficit.urlNoId+"?ordenTrabajo="+$("#ordtrabajo").data("kendoComboBox").value()+"&itemCodeID="+$("#itemcode").data("kendoComboBox").value()+"&token="+Cookies.get("token");
                 regenerarGrid($("#gridIC").data("kendoGrid"));
-                if(document.getElementById("spoolCheck").checked){
-                    document.getElementById("spoolCheck").checked=false;
-                    $("#gridSp").hide();
-                }
+                ocultarSpool();
             })
         },
         dataTextField: "value",
@@ -193,7 +200,7 @@
                         Diametro1: { editable: false,type:"number", validation: { required: false } },
                         Diametro2: { editable: false,type:"number", validation: { required: false } },
                         Cantidad:{editable: false,type:"number"},
-                        DeficitTotal:{editable: true,type:"number",defaultvalue:0}
+                        DeficitTotal:{editable: true,type:"number"}
                     }
                 },
             },
