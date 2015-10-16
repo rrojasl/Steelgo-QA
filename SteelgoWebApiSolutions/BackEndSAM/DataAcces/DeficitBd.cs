@@ -335,10 +335,10 @@ namespace BackEndSAM.DataAcces
                         if (ctx.Sam3_DeficitMateriales.Where(x => x.Activo && x.ItemCodeID == itemCode).Any())
                         {
                             spoolsGuardados = (from dm in ctx.Sam3_DeficitMateriales
-                                               where dm.Activo 
-                                               && dm.OrdenTrabajoID == ordenTrabajo 
+                                               where dm.Activo
+                                               && dm.OrdenTrabajoID == ordenTrabajo
                                                && dm.ItemCodeID == itemCode
-                                               select dm.SpoolID).AsParallel().ToList();                            
+                                               select dm.SpoolID).AsParallel().ToList();
                         }
 
                         int icSam2 = (from eq in ctx.Sam3_EquivalenciaItemCode
@@ -441,7 +441,7 @@ namespace BackEndSAM.DataAcces
                                     materiales.Activo = true;
                                     materiales.UsuarioModificacion = usuario.UsuarioID;
                                     materiales.FechaModificacion = DateTime.Now;
-
+                                    materiales.Solucionado = false;
                                     //ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
                                     ctx.SaveChanges();
                                 }
@@ -475,6 +475,7 @@ namespace BackEndSAM.DataAcces
                             nuevo.Activo = true;
                             nuevo.UsuarioModificacion = usuario.UsuarioID;
                             nuevo.FechaModificacion = DateTime.Now;
+                            nuevo.Solucionado = false;
 
                             ctx.Sam3_DeficitMateriales.Add(nuevo);
                             ctx.SaveChanges();
@@ -503,6 +504,7 @@ namespace BackEndSAM.DataAcces
                                 nuevoDeficit.Activo = true;
                                 nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
                                 nuevoDeficit.FechaModificacion = DateTime.Now;
+                                nuevoDeficit.Solucionado = false;
 
                                 ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
                                 ctx.SaveChanges();
@@ -518,6 +520,7 @@ namespace BackEndSAM.DataAcces
                             nuevoDeficit.Activo = true;
                             nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
                             nuevoDeficit.FechaModificacion = DateTime.Now;
+                            nuevoDeficit.Solucionado = false;
 
                             ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
                             ctx.SaveChanges();
@@ -778,37 +781,49 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object SolucionarDeficit(List<int> deficitID, SolucionarRevision datos, Sam3_Usuario usuario)
+        public object SolucionarDeficit(int ordenTrabajoID, List<SolucionarRevision> datos, List<SpoolsSeleccionados> spoolsID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    foreach (int item in deficitID)
+                    using (var sam3_tran = ctx.Database.BeginTransaction())
                     {
-                        foreach (int spool in datos.SpoolID)
+                        using (Sam2Context ctx2 = new Sam2Context())
                         {
-                            Sam3_DeficitMateriales nuevoDeficit = ctx.Sam3_DeficitMateriales.Where(x => x.DeficitID == item).AsParallel().SingleOrDefault();
-                            nuevoDeficit.OrdenTrabajoID = datos.OrdenTrabajoID;
-                            nuevoDeficit.ItemCodeID = datos.ItemCodeID;
-                            nuevoDeficit.SpoolID = spool;
-                            nuevoDeficit.Deficit = datos.Deficit;
-                            nuevoDeficit.Activo = true;
-                            nuevoDeficit.FechaModificacion = DateTime.Now;
-                            nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
+                            using (var sam2_tran = ctx2.Database.BeginTransaction())
+                            {
 
-                            ctx.SaveChanges();
+                                foreach (SolucionarRevision item in datos)
+                                {
+                                    Sam3_DeficitMateriales nuevoDeficit = ctx.Sam3_DeficitMateriales.Where(x => x.DeficitID == item.DeficitID).AsParallel().SingleOrDefault();
+                                    nuevoDeficit.OrdenTrabajoID = ordenTrabajoID;
+                                    nuevoDeficit.ItemCodeID = nuevoDeficit.ItemCodeID;
+                                    nuevoDeficit.SpoolID = (int?)spoolsID.Where(x=> x.ItemCodeID.Contains(nuevoDeficit.ItemCodeID)).Select(z=> z.Spool).AsParallel().SingleOrDefault() ?? (int?) null;
+                                    nuevoDeficit.Deficit = item.Deficit;
+                                    nuevoDeficit.Activo = true;
+                                    nuevoDeficit.FechaModificacion = DateTime.Now;
+                                    nuevoDeficit.UsuarioModificacion = usuario.UsuarioID;
+                                    nuevoDeficit.Solucionado = true;
+                                    ctx.SaveChanges();
+                                }
 
-                        }
-                    }
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
 
-                    return result;
-                }
+                                sam2_tran.Commit();
+                            } // tran sam2
+                        } //using ctx2
+                        sam3_tran.Commit();
+                    }// tran sam3
+                }// using ctx
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return result;
+
             }
             catch (Exception ex)
             {

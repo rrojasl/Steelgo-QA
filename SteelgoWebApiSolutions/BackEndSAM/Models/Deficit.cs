@@ -58,11 +58,19 @@ namespace BackEndSAM.Models
         public string Deficit { get; set; }
     }
 
+    public class SpoolsSeleccionados
+    {
+        public int Spool { get; set; }
+        public List<int> ItemCodeID { get; set; }
+
+        public SpoolsSeleccionados()
+        {
+            ItemCodeID = new List<int>();
+        }
+    }
     public class SolucionarRevision
     {
-        public int OrdenTrabajoID { get; set; }
-        public int ItemCodeID { get; set; }
-        public List<int> SpoolID { get; set; }
+        public int DeficitID { get; set; }
         public int Deficit { get; set; }
     }
 }

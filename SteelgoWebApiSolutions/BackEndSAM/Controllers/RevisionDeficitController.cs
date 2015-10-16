@@ -68,7 +68,7 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public object Put(string deficitID, string datos, string token)
+        public object Put(int ordenTrabajoID, string datosDeficit, string datosSpools, string token)
         {
             string payload = "";
             string newToken = "";
@@ -78,10 +78,10 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                List<int> IDsDeficit = new List<int>();
-                SolucionarRevision datosSpools = ser.Deserialize<SolucionarRevision>(datos);
+                List<SolucionarRevision> datos = ser.Deserialize<List<SolucionarRevision>>(datosDeficit);
+                List<SpoolsSeleccionados> spoolsID = ser.Deserialize<List<SpoolsSeleccionados>>(datosSpools);
 
-                return DeficitBd.Instance.SolucionarDeficit(IDsDeficit, datosSpools, usuario);
+                return DeficitBd.Instance.SolucionarDeficit(ordenTrabajoID, datos, spoolsID, usuario);
             }
             else
             {
