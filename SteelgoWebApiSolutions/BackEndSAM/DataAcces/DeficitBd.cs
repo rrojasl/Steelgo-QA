@@ -433,14 +433,14 @@ namespace BackEndSAM.DataAcces
 
                                 foreach (Sam3_DeficitMateriales materiales in nuevoDeficit)
                                 {
-                                    Sam3_DeficitMateriales actualizarDeficit = new Sam3_DeficitMateriales();
-                                    actualizarDeficit.OrdenTrabajoID = materiales.OrdenTrabajoID;
-                                    actualizarDeficit.ItemCodeID = materiales.ItemCodeID;
-                                    actualizarDeficit.SpoolID = IDspool;
-                                    actualizarDeficit.Deficit = cantidadDeficit;
-                                    actualizarDeficit.Activo = true;
-                                    actualizarDeficit.UsuarioModificacion = usuario.UsuarioID;
-                                    actualizarDeficit.FechaModificacion = DateTime.Now;
+                                    //Sam3_DeficitMateriales actualizarDeficit = new Sam3_DeficitMateriales();
+                                    materiales.OrdenTrabajoID = ordenTrabajoID;
+                                    materiales.ItemCodeID = IDItemCode;
+                                    materiales.SpoolID = IDspool;
+                                    materiales.Deficit = cantidadDeficit;
+                                    materiales.Activo = true;
+                                    materiales.UsuarioModificacion = usuario.UsuarioID;
+                                    materiales.FechaModificacion = DateTime.Now;
 
                                     //ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
                                     ctx.SaveChanges();
@@ -454,14 +454,14 @@ namespace BackEndSAM.DataAcces
 
                             foreach (Sam3_DeficitMateriales materiales in nuevoDeficit)
                             {
-                                Sam3_DeficitMateriales actualizarDeficit = new Sam3_DeficitMateriales();
+                                //Sam3_DeficitMateriales actualizarDeficit = new Sam3_DeficitMateriales();
                                 //actualizarDeficit.OrdenTrabajoID = materiales.OrdenTrabajoID;
                                 //actualizarDeficit.ItemCodeID = materiales.ItemCodeID;
                                 //actualizarDeficit.SpoolID = IDspool;
                                 //actualizarDeficit.Deficit = cantidadDeficit;
-                                actualizarDeficit.Activo = false;
-                                actualizarDeficit.UsuarioModificacion = usuario.UsuarioID;
-                                actualizarDeficit.FechaModificacion = DateTime.Now;
+                                materiales.Activo = false;
+                                materiales.UsuarioModificacion = usuario.UsuarioID;
+                                materiales.FechaModificacion = DateTime.Now;
 
                                 //ctx.Sam3_DeficitMateriales.Add(nuevoDeficit);
                                 ctx.SaveChanges();
@@ -562,7 +562,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="ordenTrabajoID"></param>
         /// <returns></returns>
-        public object ObtenerGridDeficit(int ordenTrabajoID, int itemCodeID)
+        public object ObtenerGridDeficit(int ordenTrabajoID)
         {
             try
             {
@@ -571,13 +571,13 @@ namespace BackEndSAM.DataAcces
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
                         List<RevisionDeficitDatos> lista = (from dm in ctx.Sam3_DeficitMateriales
-                                                            where dm.Activo && dm.OrdenTrabajoID == ordenTrabajoID && dm.ItemCodeID == itemCodeID
+                                                            where dm.Activo && dm.OrdenTrabajoID == ordenTrabajoID
                                                             select new RevisionDeficitDatos
                                                             {
-                                                                SpoolID = dm.SpoolID.ToString(),
+                                                                //SpoolID = dm.SpoolID.ToString(),
                                                                 ItemCodeID = dm.ItemCodeID.ToString(),
                                                                 ItemCode = (from ic in ctx.Sam3_ItemCode
-                                                                            where ic.ItemCodeID == itemCodeID && ic.Activo
+                                                                            where ic.ItemCodeID == dm.ItemCodeID && ic.Activo
                                                                             select ic.Codigo).FirstOrDefault(),
                                                                 Diametro1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                                              join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
