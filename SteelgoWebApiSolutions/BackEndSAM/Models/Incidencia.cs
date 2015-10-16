@@ -26,6 +26,7 @@ namespace BackEndSAM.Models
         public List<ListaDocumentos> Archivos { get; set; }
         public int ReferenciaID { get; set; }
         public string Estatus { get; set; }
+        public string ValorReferencia { get; set; }
     }
 
     public class IncicidenciaEnPaseSalida

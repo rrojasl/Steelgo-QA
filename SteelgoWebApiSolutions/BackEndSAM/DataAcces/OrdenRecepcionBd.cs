@@ -550,6 +550,7 @@ namespace BackEndSAM.DataAcces
                 {
                     using (SamContext ctx = new SamContext())
                     {
+                        
                         foliosEntrada = (from i in ctx.Sam3_ItemCode
                                          join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on i.ItemCodeID equals fci.ItemCodeID
                                          join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
