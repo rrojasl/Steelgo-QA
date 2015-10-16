@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces;
+using BackEndSAM.Models;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -13,52 +14,52 @@ using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers
 {
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RevisionDeficitController : ApiController
     {
         // GET api/<controller>/5
-            public object Get(int ordenTrabajoID, string token)
+        public object Get(int ordenTrabajoID, int itemCodeID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
             {
-                string payload = "";
-                string newToken = "";
-                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-
-                if (tokenValido)
-                {
-                    return DeficitBd.Instance.ObtenerGridDeficit(ordenTrabajoID);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payload);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
+                return DeficitBd.Instance.ObtenerGridDeficit(ordenTrabajoID, itemCodeID);
             }
-
-            // GET api/<controller>/5
-            public object Get(string ordenTrabajo, string token)
+            else
             {
-                string payload = "";
-                string newToken = "";
-                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-
-                if (tokenValido)
-                {
-                    return DeficitBd.Instance.obtenerSpoolsRevision(ordenTrabajo);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payload);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
             }
+        }
+
+        // GET api/<controller>/5
+        //public object Get(string ordenTrabajo, string token)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+        //    if (tokenValido)
+        //    {
+        //        return DeficitBd.Instance.obtenerSpoolsRevision(ordenTrabajo);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
 
         // POST api/<controller>
@@ -67,13 +68,55 @@ namespace BackEndSAM.Controllers
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public object Put(string deficitID, string datos, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+                List<int> IDsDeficit = new List<int>();
+                SolucionarRevision datosSpools = ser.Deserialize<SolucionarRevision>(datos);
+
+                return DeficitBd.Instance.SolucionarDeficit(IDsDeficit, datosSpools, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public object Delete(int ordenTrabajoID, string token)
         {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer ser = new JavaScriptSerializer();
+                Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
+
+                return DeficitBd.Instance.EliminarDeficit(ordenTrabajoID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
     }
 }
