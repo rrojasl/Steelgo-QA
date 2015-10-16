@@ -764,7 +764,8 @@ namespace BackEndSAM.DataAcces
                                                                  FolioAvisoEntrada = r.FolioAvisoLlegadaID.ToString(),
                                                                  FechaDescarga = r.FechaFolioDescarga != null ? r.FechaFolioDescarga.Value.ToString() : "",
                                                                  FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString() : "",
-                                                                 PackingList = fc.PackingList
+                                                                 PackingList = fc.PackingList,
+                                                                 FolioCuantificacionID = fc.FolioCuantificacionID.ToString()
                                                              }).AsParallel().ToList();
 
                     if (conteo)
@@ -914,7 +915,7 @@ namespace BackEndSAM.DataAcces
                             elemento.FechaCreacionPackingList = fc.FechaCreacion != null ? fc.FechaCreacion.Value.ToString("dd/MM/yyyy") : "";
                             elemento.PackingList = fc.PackingList;
                             elemento.Proyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == fc.ProyectoID).Select(x => x.Nombre).SingleOrDefault();
-
+                            elemento.FolioCuantificacionID = fc.FolioCuantificacionID.ToString();
                             elemento.CantidadSinICS = (from f in ctx.Sam3_FolioCuantificacion
                                                        join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on f.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                                        join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
@@ -1058,6 +1059,7 @@ namespace BackEndSAM.DataAcces
                                             where cr.Activo
                                             select cr.FolioCuantificacionID).Contains(fc.FolioCuantificacionID)
                                        && fc.FolioAvisoEntradaID == f.FolioAvisoEntradaID
+                                       && fc.FolioCuantificacionID == packingListID
                                        select o).AsParallel().ToList();
                         }
                         else
@@ -1071,7 +1073,6 @@ namespace BackEndSAM.DataAcces
                                             where cr.Activo
                                             select cr.FolioCuantificacionID).Contains(fc.FolioCuantificacionID)
                                        && fc.FolioAvisoEntradaID == f.FolioAvisoEntradaID
-                                       && fc.FolioCuantificacionID == packingListID
                                        select o).AsParallel().ToList();
                         }
 
@@ -1081,7 +1082,7 @@ namespace BackEndSAM.DataAcces
                         {
                             elemento = new ListadoNUPorRecepcionar();
                             elemento.FechaOrdenRecepcion = orden.FechaCreacion != null ? orden.FechaCreacion.ToString("dd/MM/yyyy") : "";
-                            elemento.OrdenRecepcion = orden.OrdenRecepcionID.ToString();
+                            elemento.OrdenRecepcion = orden.Folio.ToString();
 
                             elemento.CantidadNUEnOrdenRecepcion = (from roi in ctx.Sam3_Rel_OrdenRecepcion_ItemCode
                                                                    join nu in ctx.Sam3_NumeroUnico on roi.ItemCodeID equals nu.ItemCodeID
@@ -1436,7 +1437,7 @@ namespace BackEndSAM.DataAcces
 
                             elemento = new ListadoIncidenciasAbiertas();
                             elemento.NumeroUnico = numUnico.Prefijo + "-" + numUnico.Consecutivo.ToString(formato);
-
+                            elemento.NumeroUnicoID = numUnico.NumeroUnicoID.ToString();
                             elemento.CantidadIncidencias = (from rinu in ctx.Sam3_Rel_Incidencia_NumeroUnico
                                                             join inc in ctx.Sam3_Incidencia on rinu.IncidenciaID equals inc.IncidenciaID
                                                             join nu in ctx.Sam3_NumeroUnico on rinu.NumeroUnicoID equals nu.NumeroUnicoID

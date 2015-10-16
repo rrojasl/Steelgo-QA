@@ -2904,6 +2904,34 @@ _dictionary = {
         "en-US": "Number of Incidences"
     },
     "DashboardRecepcionAlmacenaje0047": {
+        "es-MX": "Levantar Incidencia Aviso Entrada",
+        "en-US": "Fill Incidence Aviso Entrada"
+    },
+    "DashboardRecepcionAlmacenaje0048": {
+        "es-MX": "Levantar Incidencia Packing List",
+        "en-US": "Fill Incidence Packing List"
+    },
+    "DashboardRecepcionAlmacenaje0049": {
+        "es-MX": "FolioCuantificacionID",
+        "en-US": "FolioCuantificacionID"
+    },
+    "DashboardRecepcionAlmacenaje0050": {
+        "es-MX": "Folio",
+        "en-US": "Folio"
+    },
+    "DashboardRecepcionAlmacenaje0051": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0052": {
+        "es-MX": "Folio Orden Recepción",
+        "en-US": "Folio Order Reception"
+    },
+    "DashboardRecepcionAlmacenaje0053": {
+        "es-MX": "NumeroUnicoID",
+        "en-US": "NumeroUnicoID"
+    },
+    "DashboardRecepcionAlmacenaje0054": {
         "es-MX": "Levantar Incidencia",
         "en-US": "Fill Incidence"
     },
