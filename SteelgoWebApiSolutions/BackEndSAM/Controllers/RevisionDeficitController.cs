@@ -95,7 +95,7 @@ namespace BackEndSAM.Controllers
         }
 
         // DELETE api/<controller>/5
-        public object Delete(int ordenTrabajoID, string token)
+        public object Delete(int deficitID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -106,7 +106,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
 
-                return DeficitBd.Instance.EliminarDeficit(ordenTrabajoID, usuario);
+                return DeficitBd.Instance.EliminarDeficit(deficitID, usuario);
             }
             else
             {
