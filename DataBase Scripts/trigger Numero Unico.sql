@@ -119,15 +119,18 @@ BEGIN
 			@codigo VARCHAR(100),
 			@prefijo VARCHAR(50),
 			@consecutivo INT,
-			@numeroDigitos INT
+			@numeroDigitos INT,
+			@sam2_coladaID INT,
+			@coladaID INT
+
 
 
 	DECLARE RecorrerRegistros CURSOR FOR
-	SELECT NumeroUnicoID, ProyectoID, ItemCodeID, ProveedorID, FabricanteID, Prefijo, Consecutivo
+	SELECT NumeroUnicoID, ProyectoID, ItemCodeID, ProveedorID, FabricanteID, Prefijo, Consecutivo, ColadaID
 		FROM @registroTemporal
 	OPEN RecorrerRegistros
 	FETCH NEXT FROM RecorrerRegistros 
-		INTO @numeroUnicoID, @proyectoID, @itemCodeID, @proveedorID, @fabricanteID, @prefijo, @consecutivo
+		INTO @numeroUnicoID, @proyectoID, @itemCodeID, @proveedorID, @fabricanteID, @prefijo, @consecutivo, @coladaID 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 
@@ -163,6 +166,11 @@ BEGIN
 		SET @codigo = @prefijo + '-' + 
 			(REPLICATE('0',(@numeroDigitos - LEN(@consecutivo))) + CONVERT(varchar, @consecutivo))
 
+		SET @sam2_coladaID = (
+			SELECT Sam2_ColadaID FROM Sam3_EquivalenciaColada 
+			WHERE Sam3_ColadaID = @coladaID
+		)
+
 		--Verificamos si existe este numero unico en la base de sam2
 		IF (SELECT NumeroUnicoID FROM SAM2.SAM.DBO.NumeroUnico
 			WHERE Codigo = @codigo AND ProyectoID = @proyectoID) IS NULL
@@ -195,7 +203,7 @@ BEGIN
 		   SELECT 
 				@sam2_ProyectoID,
 				@sam2_ItemCodeID,
-				ColadaID,
+				@sam2_coladaID,
 				@sam2_ProveedorID,
 				@sam2_FabricanteID,
 				NULL,
@@ -248,7 +256,7 @@ BEGIN
 		END
 		
 		FETCH NEXT FROM RecorrerRegistros 
-		INTO @numeroUnicoID, @proyectoID, @itemCodeID, @proveedorID, @fabricanteID, @prefijo, @consecutivo
+		INTO @numeroUnicoID, @proyectoID, @itemCodeID, @proveedorID, @fabricanteID, @prefijo, @consecutivo, @coladaID
 	END
 	CLOSE RecorrerRegistros;
 	DEALLOCATE RecorrerRegistros;
