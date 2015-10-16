@@ -4,7 +4,7 @@
 --SELECT 'insert into Sam3_Rel_Perfil_Entidad_Pagina values(' + CONVERT(VARCHAR(MAX),PerfilID) +',' +  CONVERT(VARCHAR(MAX),EntidadID) + ',' + CONVERT(VARCHAR(MAX),PaginaID) + ',' + CONVERT(VARCHAR(MAX),PermisoDetalle) + ',' + CONVERT(VARCHAR(MAX),PermisoCreacion)+ ',' + CONVERT(VARCHAR(MAX),PermisoEliminacion) + ',' +CONVERT(VARCHAR(MAX),PermisoListado)+ ',' +CONVERT(VARCHAR(MAX),PermisoCapturaIncidencia)+ ','+CONVERT(VARCHAR(MAX),PermisoCapturaIncidencia)+ ','+ CONVERT(VARCHAR(MAX),Activo)+ ',NULL'  +',NULL )', * FROM Sam3_Rel_Perfil_Entidad_Pagina
 --SELECT 'insert into Sam3_Rel_Perfil_Propiedad_Pagina values(' + CONVERT(VARCHAR(MAX),PerfilID) +',' +  CONVERT(VARCHAR(MAX),PropiedadID) + ',' + CONVERT(VARCHAR(MAX),PaginaID) + ',' + CONVERT(VARCHAR(MAX),PermisoEdicion) + ',' + CONVERT(VARCHAR(MAX),PermisoLectura)+ ',' + CONVERT(VARCHAR(MAX),Requerido) + ',' +CONVERT(VARCHAR(MAX),Activo)+ ',NULL'  +',NULL )', *  FROM Sam3_Rel_Perfil_Propiedad_Pagina
 
-
+BEGIN TRANSACTION
 --Paginas
 insert into Sam3_Entidad values('Index','HomeController',1,NULL,NULL )
 insert into Sam3_Entidad values('Layout','MainController',1,NULL,NULL )
@@ -94,6 +94,11 @@ insert into Sam3_Entidad values('AsociacionItemCodes',1,NULL,NULL )
 insert into Sam3_Entidad values('ListadoCatalogos',1,NULL,NULL )
 
 
+select * from Sam3_Rel_Perfil_Propiedad_Pagina  a
+inner join Sam3_Propiedad b
+on a.PropiedadID=a.PropiedadID 
+where a.PropiedadID=68
+order by PaginaID
 
 insert into Sam3_Propiedad values(1,'username',1,NULL,NULL )
 insert into Sam3_Propiedad values(1,'password',1,NULL,NULL )
@@ -538,3 +543,5 @@ insert into Sam3_Rel_Perfil_Propiedad_Pagina values(2,43,4,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(2,44,4,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(2,45,4,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(2,46,4,1,1,1,1,NULL,NULL )
+
+commit tran

@@ -300,7 +300,7 @@
 
             ObtenerFechasporDefecto();
             CantidadesDelMenuDashboardTubos();
-            CantidadesDelMenuDashboardAccesorios();
+           
 
         
             $("#menuAccesorios").kendoContextMenu({
@@ -482,7 +482,7 @@
                 $("#spanNUsinOATubos").html(result.NUSinOrdenAlmacenaje ? result.NUSinOrdenAlmacenaje : 0);
                 $("#spanNUsinAlmacenarTubos").html(result.NUSinAlmacenar ? result.NUSinAlmacenar : 0);
                 $("#spanIncidenciasAbiertasTubos").html(result.IncidenciasAbiertas ? result.IncidenciasAbiertas : 0);
-
+                CantidadesDelMenuDashboardAccesorios();
             });
         };
 
