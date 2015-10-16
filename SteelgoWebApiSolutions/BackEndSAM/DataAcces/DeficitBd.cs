@@ -601,12 +601,12 @@ namespace BackEndSAM.DataAcces
                                           where eq.Sam3_ItemCodeID.ToString() == x.ItemCodeID && eq.Activo
                                           select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault();
 
-                            //x.ItemCode = (from ic in ctx2.ItemCode
-                            //              where ic.ItemCodeID == icSam2
-                            //              select ic.Codigo).AsParallel().SingleOrDefault();
-
-                            x.Cantidad = (from ms in ctx2.MaterialSpool
-                                          where ms.SpoolID.ToString() == x.SpoolID && ms.ItemCodeID == icSam2
+                            x.Cantidad = (from ot in ctx2.OrdenTrabajo
+                                          join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
+                                          join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                          join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
+                                          join itmc in ctx2.ItemCode on ms.ItemCodeID equals itmc.ItemCodeID
+                                          where ot.OrdenTrabajoID == ordenTrabajoID && ms.ItemCodeID == icSam2
                                           select ms.Cantidad).Sum().ToString();
                         });
 
