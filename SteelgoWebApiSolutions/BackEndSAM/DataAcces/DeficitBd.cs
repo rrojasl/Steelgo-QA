@@ -748,7 +748,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_DeficitMateriales deficit = new Sam3_DeficitMateriales();
+                    Sam3_DeficitMateriales deficit = ctx.Sam3_DeficitMateriales.Where(x => x.Activo && x.DeficitID == deficitID).AsParallel().SingleOrDefault();
                     deficit.Activo = false;
                     deficit.FechaModificacion = DateTime.Now;
                     deficit.UsuarioModificacion = usuario.UsuarioID;
