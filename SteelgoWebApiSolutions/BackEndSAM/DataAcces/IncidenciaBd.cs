@@ -262,10 +262,10 @@ namespace BackEndSAM.DataAcces
                             registro.Respuesta = datos.Respuesta;
                             registro.TipoIncidenciaID = datos.TipoIncidenciaID;
                             registro.Titulo = datos.Titulo;
-                            registro.UsuarioID = datos.RegistradoPor != "" ? Convert.ToInt32(datos.RegistradoPor) : 1;
-                            registro.UsuarioIDRespuesta = datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
+                            if (datos.RegistradoPor != null && datos.RegistradoPor != "") { nuevoRegistro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
+                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { nuevoRegistro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
+                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { nuevoRegistro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
                             registro.UsuarioModificacion = usuario.UsuarioID;
-                            registro.UsuarioResuelveID = datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
 
                             ctx.SaveChanges();
 
@@ -282,20 +282,23 @@ namespace BackEndSAM.DataAcces
                             nuevoRegistro.Descripcion = datos.Descripcion;
                             nuevoRegistro.DetalleResolucion = datos.DetalleResolucion;
                             nuevoRegistro.Estatus = datos.Estatus;
-                            nuevoRegistro.FechaCreacion = fechaRegistro;
+                            if (fechaRegistro.ToShortTimeString() != "1/1/0001")
+                            { nuevoRegistro.FechaCreacion = fechaRegistro; }
+                            else { nuevoRegistro.FechaCreacion = DateTime.Now; }
+
                             nuevoRegistro.FechaModificacion = DateTime.Now;
-                            nuevoRegistro.FechaRespuesta = fechaRespuesta;
-                            nuevoRegistro.FechaSolucion = fechaSolucion;
+                            if (fechaRespuesta.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaRespuesta = fechaRespuesta; }
+                            if (fechaSolucion.ToShortDateString() != "1/1/0001") { nuevoRegistro.FechaSolucion = fechaSolucion; }
                             nuevoRegistro.IncidenciaOriginalID = registro.IncidenciaID;
                             nuevoRegistro.MotivoCancelacion = datos.MotivoCancelacion;
                             nuevoRegistro.NoRFI = null;
                             nuevoRegistro.Respuesta = datos.Respuesta;
                             nuevoRegistro.TipoIncidenciaID = datos.TipoIncidenciaID;
                             nuevoRegistro.Titulo = datos.Titulo;
-                            nuevoRegistro.UsuarioID = datos.RegistradoPor != "" ? Convert.ToInt32(datos.RegistradoPor) : 1;
-                            nuevoRegistro.UsuarioIDRespuesta = datos.RespondidoPor != "" ? Convert.ToInt32(datos.RespondidoPor) : 1;
+                            if (datos.RegistradoPor != null && datos.RegistradoPor != "") { nuevoRegistro.UsuarioID = Convert.ToInt32(datos.RegistradoPor); }
+                            if (datos.RespondidoPor != null && datos.RespondidoPor != "") { nuevoRegistro.UsuarioIDRespuesta = Convert.ToInt32(datos.RespondidoPor); }
+                            if (datos.ResueltoPor != null && datos.ResueltoPor != "") { nuevoRegistro.UsuarioResuelveID = Convert.ToInt32(datos.ResueltoPor); }
                             nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
-                            nuevoRegistro.UsuarioResuelveID = datos.ResueltoPor != "" ? Convert.ToInt32(datos.ResueltoPor) : 1;
                             nuevoRegistro.Version = registro.Version + 1;
 
                             ctx.Sam3_Incidencia.Add(nuevoRegistro);
@@ -793,11 +796,17 @@ namespace BackEndSAM.DataAcces
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.FolioAvisoLlegadaID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
                             break;
                         case 2: // Entrada de Material
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
                             break;
                         case 3: // Pase Salida. Por el momento sin implementacion
                             break;
@@ -805,11 +814,20 @@ namespace BackEndSAM.DataAcces
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_FolioCuantificacion
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.FolioCuantificacionID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
                             break;
                         case 5: // Orden de recepcion
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_OrdenRecepcion
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.OrdenRecepcionID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = (from r in ctx.Sam3_Rel_Incidencia_OrdenRecepcion
+                                                       join o in ctx.Sam3_OrdenRecepcion on r.OrdenRecepcionID equals o.OrdenRecepcionID
+                                                       where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                       select o.Folio).AsParallel().SingleOrDefault().ToString();
+
                             break;
                         case 6: // Complemento de recepcion. Por el momento sin implementacion
                             break;
@@ -817,26 +835,64 @@ namespace BackEndSAM.DataAcces
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.ItemCodeID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = (from r in ctx.Sam3_Rel_Incidencia_ItemCode
+                                                       join it in ctx.Sam3_ItemCode on r.ItemCodeID equals it.ItemCodeID
+                                                       where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                       select it.Codigo).AsParallel().SingleOrDefault();
+
                             break;
                         case 8: // Orden de almacenaje
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.OrdenalmacenajeID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = (from r in ctx.Sam3_Rel_Incidencia_OrdenAlmacenaje
+                                                       join oa in ctx.Sam3_OrdenAlmacenaje on r.OrdenalmacenajeID equals oa.OrdenAlmacenajeID
+                                                       where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                       select oa.Folio).AsParallel().SingleOrDefault().ToString();
+
                             break;
                         case 9: // Numero unico
+
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_NumeroUnico
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = (from r in ctx.Sam3_Rel_Incidencia_NumeroUnico
+                                                       join nu in ctx.Sam3_NumeroUnico on r.NumeroUnicoID equals nu.NumeroUnicoID
+                                                       where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
+                                                       select nu.Prefijo + "-" + nu.Consecutivo).AsParallel().SingleOrDefault();
+
+                            int digitos = (from d in ctx.Sam3_ProyectoConfiguracion
+                                           join nu in ctx.Sam3_NumeroUnico on d.ProyectoID equals nu.ProyectoID
+                                           where d.Activo && nu.NumeroUnicoID == detalle.ReferenciaID
+                                           select d.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+
+                            string[] elementos = detalle.ValorReferencia.Split('-').ToArray();
+                            string formato = "D" + digitos.ToString();
+                            int temp = Convert.ToInt32(elementos[1]);
+
+                            detalle.ValorReferencia = elementos[0] + "-" + temp.ToString(formato);
+
+
                             break;
                         case 10: // Despacho
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_Despacho
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.DespachoID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
                             break;
                         case 11: // Corte
                             detalle.ReferenciaID = (from r in ctx.Sam3_Rel_Incidencia_Corte
                                                     where r.Activo && r.IncidenciaID == detalle.FolioIncidenciaID
                                                     select r.CorteID).AsParallel().SingleOrDefault();
+
+                            detalle.ValorReferencia = detalle.ReferenciaID.ToString();
+
                             break;
                         default:
                             throw new Exception("No se encontro el tipo de incidencia");

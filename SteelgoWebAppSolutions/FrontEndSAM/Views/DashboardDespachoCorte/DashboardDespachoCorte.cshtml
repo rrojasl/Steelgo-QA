@@ -88,10 +88,10 @@
                         <label id="DashboardDespachoCorte0017"></label>
                         <span id="spanTravelerPendienteAccesorios"></span>
                     </button>
-                    <button id="btnDespachoAccesorios" class="btn btn-tab Accesorios">
+                    @*<button id="btnDespachoAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardDespachoCorte0018"></label>
                         <span id="spanDespachoAccesorios"></span>
-                    </button>
+                    </button>*@
                     @*<button id="btnCorteAccesorios" class="btn btn-tab Accesorios">
                         <label id="DashboardDespachoCorte0019"></label>
                         <span id="spanCorteAccesorios"></span>
@@ -130,10 +130,10 @@
                         <label id="DashboardDespachoCorte0026"></label>
                         <span id="spanTravelerPendienteTubos"></span>
                     </button>
-                    <button id="btnDespachoTubos" class="btn btn-tab Tubos">
+                    @*<button id="btnDespachoTubos" class="btn btn-tab Tubos">
                         <label id="DashboardDespachoCorte0027"></label>
                         <span id="spanDespachoTubos"></span>
-                    </button>
+                    </button>*@
                     @*<button id="btnCorteTubos" class="btn btn-tab Tubos">
                         <label id="DashboardDespachoCorte0028"></label>
                         <span id="spanCorteTubos"></span>
@@ -145,6 +145,23 @@
             </div>
         </div>
     </div>
+
+</div>
+
+<div>
+    <ul id="menuAccesorios" >
+        <li id="LevantarIncidenciaFolioAvisoEntradaAccesorios"><span id="DashboardRecepcionAlmacenaje0047"></span></li>
+        <li id="LevantarIncidenciaPackingListAccesorios"><span id="DashboardRecepcionAlmacenaje0048"></span></li>
+        <li id="LevantarIncidenciaOrdenRecepcionAccesorios"><span id="DashboardRecepcionAlmacenaje0051"></span></li>
+        <li id="LevantarIncidenciaNumeroUnicoAccesorios"><span id="DashboardRecepcionAlmacenaje0054"></span></li>
+    </ul>
+
+    <ul id="menuTubos" >
+        <li id="LevantarIncidenciaFolioAvisoEntradaTubos"><span id="DashboardRecepcionAlmacenaje0055"></span></li>
+        <li id="LevantarIncidenciaPackingListTubos"><span id="DashboardRecepcionAlmacenaje0056"></span></li>
+        <li id="LevantarIncidenciaOrdenRecepcionTubos"><span id="DashboardRecepcionAlmacenaje0057"></span></li>
+        <li id="LevantarIncidenciaNumeroUnicoTubos"><span id="DashboardRecepcionAlmacenaje0058"></span></li>
+    </ul>
 </div>
 
 <input id="hdAccionFiltradoTubos" type="hidden" />
@@ -186,7 +203,7 @@
             $("#btnDespacharAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("4"); AccionesListado("4", 2); });
             $("#btnEntregarAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("5"); AccionesListado("5", 2); });
             $("#btnTravelerPendienteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("6"); AccionesListado("6", 2); });
-            $("#btnDespachoAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("7"); AccionesListado("7", 2); });
+            //$("#btnDespachoAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("7"); AccionesListado("7", 2); });
             //$("#btnCorteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("8"); AccionesListado("8", 2); });
 
             //Tubos
@@ -196,7 +213,7 @@
             $("#btnDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("4"); AccionesListado("4", 1); });
             $("#btnEntregarTubos").click(function () { MostrarGrid(1); tabActivoTubos("5"); AccionesListado("5", 1); });
             $("#btnTravelerPendienteTubos").click(function () { MostrarGrid(1); tabActivoTubos("6"); AccionesListado("6", 1); });
-            $("#btnDespachoTubos").click(function () { MostrarGrid(1); tabActivoTubos("7"); AccionesListado("7", 1); });
+            //$("#btnDespachoTubos").click(function () { MostrarGrid(1); tabActivoTubos("7"); AccionesListado("7", 1); });
             //$("#btnCorteTubos").click(function () { MostrarGrid(1); tabActivoTubos("8"); AccionesListado("8", 1); });
             
 

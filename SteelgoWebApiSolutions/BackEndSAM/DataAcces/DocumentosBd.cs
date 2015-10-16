@@ -803,7 +803,8 @@ namespace BackEndSAM.DataAcces
                                                             Nombre = rid.Nombre,
                                                             Extencion = rid.Extencion,
                                                             Url = rid.Url,
-                                                            TipoArchivo = string.Empty
+                                                            TipoArchivo = string.Empty,
+                                                            Descripcion=rid.Descripcion
                                                         }).AsParallel().ToList();
                     return documentos;
                 }
