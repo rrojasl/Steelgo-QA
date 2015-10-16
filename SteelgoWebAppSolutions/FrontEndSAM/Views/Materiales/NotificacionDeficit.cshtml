@@ -19,8 +19,14 @@
                             <button type="button" class="btn" id="cancelar">Cancelar</button>
                         </div>
                         <div class="button-section"></div>
-                        <div class="button-section">
-                            <button type="button" class="btn" id="acciones">Acciones</button>
+                        <div class="btn-group">
+                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn">Acciones</button>
+                            <button id="dropdown-toggle" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caretWhite"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a id="revNot" href="@Url.Action("RevisionDeficit", "Materiales")">Revisar notificaciones</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
