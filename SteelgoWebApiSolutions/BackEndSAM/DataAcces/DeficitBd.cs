@@ -650,6 +650,16 @@ namespace BackEndSAM.DataAcces
 
                         List<int> listaItemCodesSam2 = new List<int>();
 
+                        List<int?> spoolsGuardados = new List<int?>();
+
+                        if (ctx.Sam3_DeficitMateriales.Where(x => x.Activo && x.OrdenTrabajoID.ToString() == ordenTrabajoID).Any())
+                        {
+                            spoolsGuardados = (from dm in ctx.Sam3_DeficitMateriales
+                                               where dm.Activo
+                                               && dm.OrdenTrabajoID.ToString() == ordenTrabajoID
+                                               select dm.SpoolID).AsParallel().ToList();
+                        }
+
                         listaItemCodesSam3.ForEach(x =>
                         {
                             listaItemCodesSam2.Add((from eq in ctx.Sam3_EquivalenciaItemCode
@@ -672,6 +682,7 @@ namespace BackEndSAM.DataAcces
                                                              Peqs = s.PeqGrupo,
                                                              Peso = s.Peso.ToString(),
                                                              ItemCodeID = ms.ItemCodeID.ToString(),
+                                                             Seleccionado = spoolsGuardados.Contains(s.SpoolID)
                                                          }).AsParallel().GroupBy(x => x.SpoolID).Select(x => x.First()).ToList();
 
                             lista.ForEach(x =>
