@@ -144,11 +144,18 @@
     </div>
 </div>
 <div id="example">
-    <ul id="menu" >
-        <li id="LevantarIncidenciaFolioAvisoEntrada"><span id="DashboardRecepcionAlmacenaje0047"></span></li>
-        <li id="LevantarIncidenciaPackingList"><span id="DashboardRecepcionAlmacenaje0048"></span></li>
-        <li id="LevantarIncidenciaOrdenRecepcion"><span id="DashboardRecepcionAlmacenaje0051"></span></li>
-        <li id="LevantarIncidenciaNumeroUnico"><span id="DashboardRecepcionAlmacenaje0054"></span></li>
+    <ul id="menuAccesorios" >
+        <li id="LevantarIncidenciaFolioAvisoEntradaAccesorios"><span id="DashboardRecepcionAlmacenaje0047"></span></li>
+        <li id="LevantarIncidenciaPackingListAccesorios"><span id="DashboardRecepcionAlmacenaje0048"></span></li>
+        <li id="LevantarIncidenciaOrdenRecepcionAccesorios"><span id="DashboardRecepcionAlmacenaje0051"></span></li>
+        <li id="LevantarIncidenciaNumeroUnicoAccesorios"><span id="DashboardRecepcionAlmacenaje0054"></span></li>
+    </ul>
+
+    <ul id="menuTubos" >
+        <li id="LevantarIncidenciaFolioAvisoEntradaTubos"><span id="DashboardRecepcionAlmacenaje0055"></span></li>
+        <li id="LevantarIncidenciaPackingListTubos"><span id="DashboardRecepcionAlmacenaje0056"></span></li>
+        <li id="LevantarIncidenciaOrdenRecepcionTubos"><span id="DashboardRecepcionAlmacenaje0057"></span></li>
+        <li id="LevantarIncidenciaNumeroUnicoTubos"><span id="DashboardRecepcionAlmacenaje0058"></span></li>
     </ul>
 </div>
 
@@ -296,7 +303,7 @@
             CantidadesDelMenuDashboardAccesorios();
 
         
-            $("#menu").kendoContextMenu({
+            $("#menuAccesorios").kendoContextMenu({
                 target: "#gridAccesorios",
                 filter: "td",
                 select: function (e) {
@@ -304,19 +311,19 @@
                     var select = grid.select();
                     var data = grid.dataItem(select);
 
-                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntrada") {
+                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaAccesorios") {
                         window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
                     };
 
-                    if (e.item.id == "LevantarIncidenciaPackingList") {
+                    if (e.item.id == "LevantarIncidenciaPackingListAccesorios") {
                         window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
                     };
 
-                    if (e.item.id == "LevantarIncidenciaOrdenRecepcion") {
+                    if (e.item.id == "LevantarIncidenciaOrdenRecepcionAccesorios") {
                         window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
                     };
 
-                    if (e.item.id == "LevantarIncidenciaNumeroUnico") {
+                    if (e.item.id == "LevantarIncidenciaNumeroUnicoAccesorios") {
                         window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
                     };
                     
@@ -324,6 +331,32 @@
             });
 
             
+            $("#menuTubos").kendoContextMenu({
+                target: "#gridTubos",
+                filter: "td",
+                select: function (e) {
+                    var grid = $("#gridTubos").data("kendoGrid");
+                    var select = grid.select();
+                    var data = grid.dataItem(select);
+
+                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaPackingListTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaOrdenRecepcionTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaNumeroUnicoTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+                    };
+
+                }
+            });
         };
 
 
@@ -567,12 +600,14 @@
                         CantidadesDelMenuDashboardTubos();
                         CargaDatosGridTubos();
                         bindeareventogrid("#gridTubos");
+                        //$("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
                         $("#hdAccionFiltradoTubos").val("1");
                     } else {
                         CargarGridAccesorios(dataSource, columnas);
                         CantidadesDelMenuDashboardAccesorios();
                         CargaDatosGridAccesorios();
                         bindeareventogrid("#gridAccesorios");
+                        //$("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
                         $("#hdAccionFiltradoAccesorios").val("1");
                     };
 
@@ -881,7 +916,7 @@
         function DefinicionColumnasIncidenciasAbiertas() {
             var columnas =
            [
-               { field: "NumeroUnicoID", title: _dictionary.DashboardRecepcionAlmacenaje0053[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "NumeroUnicoID", title: _dictionary.DashboardRecepcionAlmacenaje0053[$("#language").data("kendoDropDownList").value()], filterable: true, hidden:true },
                { field: "NumeroUnico", title: _dictionary.DashboardRecepcionAlmacenaje0045[$("#language").data("kendoDropDownList").value()], filterable: true },
                { field: "CantidadIncidencias", title: _dictionary.DashboardRecepcionAlmacenaje0046[$("#language").data("kendoDropDownList").value()], filterable: true },
                //{ command: { text: _dictionary.DashboardRecepcionAlmacenaje0032[$("#language").data("kendoDropDownList").value()], click: cancelarIncidenciasAbiertas }, title: " ", width: "99px" }
@@ -938,47 +973,62 @@
 
         function AccionesListado(accion, tipomaterial) {
             loadingStart();
-            OcultarOpcionesMenu();
+            OcultarOpcionesMenuAccesorios();
+            OcultarOpcionesMenuTubos();
             switch (accion) {
                 case "1":
-                    $("#LevantarIncidenciaFolioAvisoEntrada").removeClass("hidden");
+                    $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
                     EntradaPorCuantificar(tipomaterial);
                     break;
                 case "2":
-                    $("#LevantarIncidenciaFolioAvisoEntrada").removeClass("hidden");
-                    $("#LevantarIncidenciaPackingList").removeClass("hidden");
+                    $("#LevantarIncidenciaFolioAvisoEntradaTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").removeClass("hidden");
+                    $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
                     PLporCuantificar(tipomaterial);
                     break;
                 case "3":
-                    $("#LevantarIncidenciaPackingList").removeClass("hidden");
+                    $("#LevantarIncidenciaPackingListTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaPackingListAccesorios").removeClass("hidden");
                     MTLsinICS(tipomaterial);
                     break;
                 case "4":
                     MTLsinOR(tipomaterial);//PENDIENTE
                     break;
                 case "5":
-                    $("#LevantarIncidenciaOrdenRecepcion").removeClass("hidden");
+                    $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
                     NUporRecepcionar(tipomaterial);
                     break;
                 case "6":
                     NUsinOA(tipomaterial);//PENDIENTE
                     break;
                 case "7":
-                    $("#LevantarIncidenciaOrdenRecepcion").removeClass("hidden");
+                    $("#LevantarIncidenciaOrdenRecepcionTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaOrdenRecepcionAccesorios").removeClass("hidden");
                     NUsinAlmacenar(tipomaterial);
                     break;
                 case "8":
-                    $("#LevantarIncidenciaNumeroUnico").removeClass("hidden");
+                    $("#LevantarIncidenciaNumeroUnicoTubos").removeClass("hidden");
+                    $("#LevantarIncidenciaNumeroUnicoAccesorios").removeClass("hidden");
                     IncidenciasAbiertas(tipomaterial);
                     break;
             }
         };
 
-        function OcultarOpcionesMenu() {
-            $("#LevantarIncidenciaFolioAvisoEntrada").addClass("hidden");
-            $("#LevantarIncidenciaPackingList").addClass("hidden");
-            $("#LevantarIncidenciaOrdenRecepcion").addClass("hidden");
-            $("#LevantarIncidenciaNumeroUnico").addClass("hidden");
+        function OcultarOpcionesMenuAccesorios() {
+            $("#LevantarIncidenciaFolioAvisoEntradaAccesorios").addClass("hidden");
+            $("#LevantarIncidenciaPackingListAccesorios").addClass("hidden");
+            $("#LevantarIncidenciaOrdenRecepcionAccesorios").addClass("hidden");
+            $("#LevantarIncidenciaNumeroUnicoAccesorios").addClass("hidden");
+        };
+
+        function OcultarOpcionesMenuTubos() {
+            $("#LevantarIncidenciaFolioAvisoEntradaTubos").addClass("hidden");
+            $("#LevantarIncidenciaPackingListTubos").addClass("hidden");
+            $("#LevantarIncidenciaOrdenRecepcionTubos").addClass("hidden");
+            $("#LevantarIncidenciaNumeroUnicoTubos").addClass("hidden");
         };
 
         function tabActivoTubos(AccionListado) {

@@ -2935,6 +2935,22 @@ _dictionary = {
         "es-MX": "Levantar Incidencia",
         "en-US": "Fill Incidence"
     },
+    "DashboardRecepcionAlmacenaje0055": {
+        "es-MX": "Levantar Incidencia Aviso Entrada",
+        "en-US": "Fill Incidence Aviso Entrada"
+    },
+    "DashboardRecepcionAlmacenaje0056": {
+        "es-MX": "Levantar Incidencia Packing List",
+        "en-US": "Fill Incidence Packing List"
+    },
+    "DashboardRecepcionAlmacenaje0057": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "DashboardRecepcionAlmacenaje0058": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
 //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
