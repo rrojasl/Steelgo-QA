@@ -31,6 +31,7 @@ namespace BackEndSAM.Models
         public string Peso { get; set; }
         public string ItemCodeID { get; set; }
         public List<Deficit> ItemCodes { get; set; }
+        public bool Seleccionado { get; set; }
 
         public SpoolsDeficit()
         {
@@ -53,6 +54,15 @@ namespace BackEndSAM.Models
         public string Diametro2 { get; set; }
         public string Descripcion { get; set; }
         public string Cantidad { get; set; }
+        public string DeficitID { get; set; }
         public string Deficit { get; set; }
+    }
+
+    public class SolucionarRevision
+    {
+        public int OrdenTrabajoID { get; set; }
+        public int ItemCodeID { get; set; }
+        public List<int> SpoolID { get; set; }
+        public int Deficit { get; set; }
     }
 }
