@@ -50,6 +50,7 @@
 <script>
 @section JavascriptGlobalVariables {
     var spools=[];
+    var once=true;
 }
 
 @section JavascriptGlobalFunctions {
@@ -86,6 +87,21 @@
             ]
         });
     }
+
+    function checarPorCubrir(dataItemCantidad,dataItemDeficit){
+        dataItemCantidad.forEach(function(d){
+            try{
+                dataItemDeficit.forEach(function(e){
+                    e.ItemCodeID==d.ItemCodeID ? e.PorCubrir=(parseInt(e.PorCubrir)-parseInt(d.Cantidad)).toString() : 1;
+                    //if(e.ItemCodeID==d.ItemCodeID){
+                    //    e.PorCubrir=(parseFloat(e.PorCubrir)-parseFloat(d.Cantidad)).toString();
+                    //    parseFloat(e.PorCubrir)<0 ? e.PorCubrir="0" : false;
+                    //}
+                })
+            }catch(e){}
+        });
+        $("#gridIC").data("kendoGrid").refresh();
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
@@ -103,6 +119,7 @@
         },
         minLength: 3,
         change:function(e){
+            once=true;
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
                 $("#gridIC").data("kendoGrid").dataSource.data(data);
             })
@@ -120,8 +137,8 @@
             {field:"Diametro1",title:"Diametro 1"},
             {field:"Diametro2",title:"Diametro 2"},
             {field:"Cantidad"},
-            {field:"Deficit"},
-            {field: "Por cubrir", template: "<strong>#: Deficit # </strong>"},
+            {field:"Deficit",title:"Deficit"},
+            {field:"PorCubrir",title:"Por cubrir"},
             { command: "edit", title: "Editar", width: "91px" },
             { command: "destroy", title: "Borrar", width: "91px" }
         ],
@@ -137,7 +154,8 @@
                         Diametro1: { editable: false,type:"number", validation: { required: false } },
                         Diametro2: { editable: false,type:"number", validation: { required: false } },
                         Cantidad:{editable: false,type:"number"},
-                        Deficit:{editable: true,type:"number",defaultvalue:0}
+                        Deficit:{editable: true,type:"number",defaultvalue:0},
+                        PorCubrir:{editable: false,type:"number",defaultvalue:0}
                     }
                 },
             },
@@ -169,10 +187,18 @@
             console.log(e);
         },
         remove: function(e) {
-            console.log(e);
+            $RevisionDeficit.RevisionDeficit.destroy({},{deficitID:e.model.DeficitID,token:Cookies.get("token")}).done(function(){
+                displayMessage("","Borrado exitosamente","0");
+            });
         },
         dataBound: function(e) {
-            //$("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
+            if(once){
+                once=false;
+                $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(d){
+                    d.PorCubrir=d.Deficit;
+                })
+                $("#gridIC").data("kendoGrid").refresh();
+            }
         },
         edit:function(e){
         }
@@ -219,36 +245,19 @@
         },
         dataBound: function(e) {
             $(".sub").on("change",function(){
-                var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
-                var dataItemDeficit=$.grep($("#gridIC").data("kendoGrid").dataSource.data(),function(d){
-                    return d.ItemCodeID==dataItemItemCodeID;
-                })
-                
+                if(this.checked){
+                    var dataItemCantidad=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr")).ItemCodes;
+                    var dataItemDeficit=$("#gridIC").data("kendoGrid").dataSource.data();
+                    checarPorCubrir(dataItemCantidad,dataItemDeficit);
+                }
             })
         },
         edit:function(e){
             console.log(e);
-        }
+        },
     });
 
-    $("#solucionar").on("click",function(){
-        var deficits=[];
-        var spools=[];
-        var orden=$("#ordtrabajo").data("kendoComboBox").value();
-        $("#gridIC tr[data-uid]").each(function(){
-            var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-            deficits.push({ItemCodeID:dataItem.ItemCodeID,DeficitTotal:dataItem.DeficitTotal});
-        })
-        if(document.getElementById("spoolCheck").checked){
-            $("#gridSp input.sub:checked").each(function(){
-                var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
-                spools.push(dataItem.SpoolID);
-            })
-        }
-        $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
-            console.log(result);
-        });
-    })
+    $("#solucionar").on("click",function(){});
 };
     
 @section JavascriptDocumentReadyHomeCookie {
