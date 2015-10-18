@@ -46,21 +46,13 @@
         </div>
     </div>
 </div>
-
 <script>
 @section JavascriptGlobalVariables {
-    var spools=[];
-    var once=true;
+    unaVez=null;
+    deficitPrevio=0;
 }
 
 @section JavascriptGlobalFunctions {
-    function regenerarGrid(grid){
-        var options = grid.options;
-        var tmp=grid.element.context;
-        grid.destroy();
-        $("#"+tmp.id).empty().kendoGrid(options);
-    }
-
     function detailInit(e) {
         $("<div/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
@@ -87,26 +79,9 @@
             ]
         });
     }
-
-    function checarPorCubrir(dataItemCantidad,dataItemDeficit){
-        dataItemCantidad.forEach(function(d){
-            try{
-                dataItemDeficit.forEach(function(e){
-                    e.ItemCodeID==d.ItemCodeID ? e.PorCubrir=(parseInt(e.PorCubrir)-parseInt(d.Cantidad)).toString() : 1;
-                    //if(e.ItemCodeID==d.ItemCodeID){
-                    //    e.PorCubrir=(parseFloat(e.PorCubrir)-parseFloat(d.Cantidad)).toString();
-                    //    parseFloat(e.PorCubrir)<0 ? e.PorCubrir="0" : false;
-                    //}
-                })
-            }catch(e){}
-        });
-        $("#gridIC").data("kendoGrid").refresh();
-    }
-};
+}
 
 @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
-
     $("#ordtrabajo").kendoComboBox({
         dataSource: {
             transport: {
@@ -118,82 +93,68 @@
             }
         },
         minLength: 3,
+        dataTextField:"value",
+        dataValueField:"id",
         change:function(e){
-            once=true;
-            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
+            unaVez=true;
+            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
                 $("#gridIC").data("kendoGrid").dataSource.data(data);
             })
-            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
+            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
                 $("#gridSp").data("kendoGrid").dataSource.data(data);
             })
-        },
-        dataTextField: "value",
-        dataValueField: "id"
+        }
     });
 
     $("#gridIC").kendoGrid({
-        columns: [
-            {field:"ItemCode",title:"Item Code"},
+        columns:[
+            {field:"ItemCode"},
             {field:"Diametro1",title:"Diametro 1"},
             {field:"Diametro2",title:"Diametro 2"},
+            {field:"Descripcion"},
             {field:"Cantidad"},
-            {field:"Deficit",title:"Deficit"},
-            {field:"PorCubrir",title:"Por cubrir"},
-            { command: "edit", title: "Editar", width: "91px" },
+            {field:"Deficit"},
+            {field:"PorCubrir",title:"Por Cubrir"},
             { command: "destroy", title: "Borrar", width: "91px" }
         ],
-        dataSource: {
-            data: [],
+        dataSource:{
+            data:[],
             schema:{
-                model: {
-                    id:"SpoolID",
+                model:{
+                    id:"DeficitID",
                     fields:{
-                        SpoolID:{ editable: false, nullable: true },
-                        ItemCodeID:{ editable: false, nullable: true },
-                        ItemCode: { editable: false,type:"string",validation: { required: false } },
-                        Diametro1: { editable: false,type:"number", validation: { required: false } },
-                        Diametro2: { editable: false,type:"number", validation: { required: false } },
-                        Cantidad:{editable: false,type:"number"},
-                        Deficit:{editable: true,type:"number",defaultvalue:0},
-                        PorCubrir:{editable: false,type:"number",defaultvalue:0}
+                        DeficitID:{type:"number",nullable:false,editable:false},
+                        SpoolID:{type:"number",nullable:false,editable:false},
+                        ItemCodeID:{type:"number",nullable:false,editable:false},
+                        ItemCode:{type:"string",nullable:false,editable:false},
+                        Diametro1:{type:"number",nullable:false,editable:false},
+                        Diametro2:{type:"number",nullable:false,editable:false},
+                        Descripcion:{type:"string",nullable:false,editable:false},
+                        Cantidad:{type:"number",nullable:false,editable:false},
+                        Deficit:{type:"number",nullable:false,editable:true},
+                        PorCubrir:{type:"number",nullable:false,editable:false,defaultValue:0},
                     }
-                },
+                }
             },
             transport:{
                 read:{
                     url:"",
-                    dataType:"json",
+                    dataType:"JSON",
                     type:"GET"
                 },
                 update:{
                     url:"",
-                    dataType:"json",
+                    dataType:"JSON",
                     type:"PUT"
                 },
-                destroy:{
-                    url:"",
-                    dataType:"json",
-                    type:"DELETE"
-                }
+                destroy:{},
             }
         },
-        autoHeight: true,
-        sortable: false,
-        scrollable: false,
-        filterable: false,
-        pageable: false,
-        editable:"inline",
-        save: function(e) {
-            console.log(e);
-        },
-        remove: function(e) {
-            $RevisionDeficit.RevisionDeficit.destroy({},{deficitID:e.model.DeficitID,token:Cookies.get("token")}).done(function(){
-                displayMessage("","Borrado exitosamente","0");
-            });
-        },
-        dataBound: function(e) {
-            if(once){
-                once=false;
+        editable:true,
+        batch:true,
+        dataBound:function(e){
+            if(unaVez){
+                unaVez=false;
                 $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(d){
                     d.PorCubrir=d.Deficit;
                 })
@@ -201,67 +162,68 @@
             }
         },
         edit:function(e){
+            deficitPrevio=e.model.Deficit;
+        },
+        save:function(e){
+            e.model.PorCubrir=parseFloat(e.model.PorCubrir)+(e.values.Deficit-parseFloat(deficitPrevio));
+            $("#gridIC").data("kendoGrid").refresh();
+        },
+        remove:function(e){
+            $("#gridIC").data("kendoGrid").options.dataSource.transport.delete.url=$RevisionsDeficit.RevisionDeficit.urlNoId+"?deficitID="+e.model.id+"&token="+Cookies.get("token");
         }
     });
 
     $("#gridSp").kendoGrid({
-        columns: [
+        columns:[
             { template: '<input type="checkbox" class="sub" >', width: 45 },
-            {field:"SpoolID",title:"SpoolID"},
-            {field:"Spool",title:"Spool"},
-            {field:"Prioridad",title:"Prioridad"},
-            {field:"Peqs"},
+            {field:"SpoolID"},
+            {field:"Spool"},
+            {field:"Prioridad"},
             {field:"Peso"},
+            {field:"Peqs"},
         ],
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
+        dataSource:{
+            data:[],
+            schema:{
+                model:{
                     id:"SpoolID",
                     fields:{
-                        SpoolID:{ editable: false, nullable: true },
-                        Spool: { editable: false,type:"string",validation: { required: false } },
-                        Prioridad: { editable: false,type:"number", validation: { required: false } },
-                        Peqs: { editable: false,type:"string", validation: { required: false } },
-                        Peso:{editable: false,type:"number"},
-                        ItemCodeID:{editable: false,type:"number"}
+                        SpoolID:{type:"number",nullable:false,editable:false},
+                        Spool:{type:"String",nullable:false,editable:false},
+                        Prioridad:{type:"number",nullable:false,editable:false},
+                        Peso:{type:"number",nullable:false,editable:false},
+                        Peqs:{type:"string",nullable:false,editable:false},
+                        ItemCodeID:{type:"number",nullable:false,editable:false},
+                        Seleccionado:{type:"boolean",nullable:false,editable:false}
                     }
-                },
-            },
+                }
+            }
         },
-        detailInit: detailInit,
-        autoHeight: true,
-        sortable: false,
-        scrollable: false,
-        filterable: false,
-        editable:"inline",
-        pageable: false,
-        editable:false,
-        save: function(e) {
-            console.log(e);
-        },
-        remove: function(e) {
-            console.log(e);
-        },
-        dataBound: function(e) {
+        detailInit:detailInit,
+        dataBound:function(e){
+            $("#gridSp").data("kendoGrid").dataSource.data().forEach(function(d){
+                if(d.Seleccionado){
+                    $("[data-uid="+d.uid+"] input[type=checkbox]").attr("checked","true");
+                }
+            })
             $(".sub").on("change",function(){
                 if(this.checked){
                     var dataItemCantidad=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr")).ItemCodes;
                     var dataItemDeficit=$("#gridIC").data("kendoGrid").dataSource.data();
-                    checarPorCubrir(dataItemCantidad,dataItemDeficit);
+                    $.grep(dataItemCantidad,function(d){
+                        $.grep(dataItemDeficit,function(e){
+                            e.ItemCodeID==d.ItemCodeID ? e.PorCubrir=parseFloat(e.PorCubrir)-parseFloat(d.Cantidad) : false;
+                            0>parseFloat(e.PorCubrir) ? e.PorCubrir="0": false;
+                        })
+                    })
+                    $("#gridIC").data("kendoGrid").refresh();
                 }
             })
-        },
-        edit:function(e){
-            console.log(e);
-        },
+        }
     });
+}
 
-    $("#solucionar").on("click",function(){});
-};
-    
 @section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "46", { path: '/' });
-};
+
+}
 </script>

@@ -15,12 +15,18 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
-                            <button type="button" class="btn" id="solucionar">Solucionar</button>
+                            <button type="button" class="btn btn-primary" id="solucionar">Solucionar</button>
                             <button type="button" class="btn" id="cancelar">Cancelar</button>
                         </div>
                         <div class="button-section"></div>
-                        <div class="button-section">
-                            <button type="button" class="btn" id="acciones">Acciones</button>
+                        <div class="btn-group">
+                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn">Acciones</button>
+                            <button id="dropdown-toggle" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caretWhite"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a id="revNot" href="@Url.Action("NotificacionDeficit", "Materiales")">Ir a listado</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -31,10 +37,6 @@
                         <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
                             <label for="ordtrabajo" id="NotificacionDeficit0001"></label>
                             <input id="ordtrabajo" type="text" />
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
-                            <label for="itemcode">Item Code</label>
-                            <input id="itemcode" type="text" />
                         </div>
                     </div>
                 </div>
@@ -47,16 +49,11 @@
 
 <script>
 @section JavascriptGlobalVariables {
-    
+    var spools=[];
+    var once=true;
 }
 
 @section JavascriptGlobalFunctions {
-    function regenerarCombo(){
-        var options = $("#itemcode").data("kendoComboBox").options;
-        $("#itemcode").data("kendoComboBox").destroy();
-        $("#itemcode").empty().kendoComboBox(options);
-    }
-    
     function regenerarGrid(grid){
         var options = grid.options;
         var tmp=grid.element.context;
@@ -90,25 +87,22 @@
             ]
         });
     }
+
+    function checarPorCubrir(dataItemCantidad,dataItemDeficit){
+        dataItemCantidad.forEach(function(d){
+            try{
+                dataItemDeficit.forEach(function(e){
+                    e.ItemCodeID==d.ItemCodeID ? e.PorCubrir=(parseInt(e.PorCubrir)-parseInt(d.Cantidad)).toString() : 1;
+                    
+                })
+            }catch(e){}
+        });
+        $("#gridIC").data("kendoGrid").refresh();
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
     //$authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
-
-    $("#gridSp").hide();
-
-    $("#spoolCheck").on("change",function(){
-        if(this.checked && $("#gridIC").data("kendoGrid").dataSource.data().length>0){
-            $NotificacionDeficit.NotificacionDeficit.read({},{token:Cookies.get("token"),itemCodeID:$("#itemcode").data("kendoComboBox").value(),ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value()}).done(function(data){
-                $("#gridSp").data("kendoGrid").dataSource.data(data);
-                $("#gridSp").show();
-            })
-        }else if($("#gridIC").data("kendoGrid").dataSource.data().length==0){
-            displayMessage("", "El item code no tiene spools", '2');
-        }else{
-            $("#gridSp").hide();
-        }
-    });
 
     $("#ordtrabajo").kendoComboBox({
         dataSource: {
@@ -122,31 +116,12 @@
         },
         minLength: 3,
         change:function(e){
-            $("#itemcode").data("kendoComboBox").options.dataSource.transport.read.url=$NotificacionDeficit.NotificacionDeficit.urlNoId + "?token=" + Cookies.get("token")+"&ordenTrabajo="+$("#ordtrabajo").data("kendoComboBox").value();
-            regenerarCombo();
-        },
-        dataTextField: "value",
-        dataValueField: "id"
-    });
-
-    $("#itemcode").kendoComboBox({
-        dataSource: {
-            transport: {
-                read: {
-                    url:"",
-                    dataType: "json",
-                    type:"GET"
-                }
-            }
-        },
-        minLength: 3,
-        change:function(e){
+            once=true;
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
                 $("#gridIC").data("kendoGrid").dataSource.data(data);
             })
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:$("#ordtrabajo").data("kendoComboBox").value(),token:Cookies.get("token")}).done(function(data){
                 $("#gridSp").data("kendoGrid").dataSource.data(data);
-                $("#gridSp").show();
             })
         },
         dataTextField: "value",
@@ -155,13 +130,12 @@
 
     $("#gridIC").kendoGrid({
         columns: [
-            {field:"SpoolID",title:"SpoolID", },
             {field:"ItemCode",title:"Item Code"},
             {field:"Diametro1",title:"Diametro 1"},
             {field:"Diametro2",title:"Diametro 2"},
-            {field:"Descripcion"},
             {field:"Cantidad"},
-            {field:"Deficit"},
+            {field:"Deficit",title:"Deficit"},
+            {field:"PorCubrir",title:"Por cubrir"},
             { command: "edit", title: "Editar", width: "91px" },
             { command: "destroy", title: "Borrar", width: "91px" }
         ],
@@ -170,30 +144,35 @@
             schema:{
                 model: {
                     id:"SpoolID",
-                    fields:{//{"SpoolID":"108581","ItemCodeID":"8","ItemCode":"PCRC70389","Diametro1":"8.0000","Diametro2":"58.0000","Descripcion":"Item Code Steelgo Prueba 01","Cantidad":"0","Deficit":"10"}
+                    fields:{
                         SpoolID:{ editable: false, nullable: true },
                         ItemCodeID:{ editable: false, nullable: true },
                         ItemCode: { editable: false,type:"string",validation: { required: false } },
                         Diametro1: { editable: false,type:"number", validation: { required: false } },
                         Diametro2: { editable: false,type:"number", validation: { required: false } },
-                        Descripcion:{ editable: false,type:"string", validation: { required: false } },
                         Cantidad:{editable: false,type:"number"},
-                        Deficit:{editable: true,type:"number"}
+                        Deficit:{editable: true,type:"number",defaultvalue:0},
+                        PorCubrir:{editable: false,type:"number",defaultvalue:0}
                     }
                 },
             },
             transport:{
+                read:{
+                    url:"",
+                    dataType:"json",
+                    type:"GET"
+                },
                 update:{
                     url:"",
-                    type:"PUT",
-                    dataType:"json"
+                    dataType:"json",
+                    type:"PUT"
                 },
                 destroy:{
                     url:"",
-                    type:"DELETE",
-                    dataType:"json"
-                },
-            },
+                    dataType:"json",
+                    type:"DELETE"
+                }
+            }
         },
         autoHeight: true,
         sortable: false,
@@ -205,10 +184,18 @@
             console.log(e);
         },
         remove: function(e) {
-            console.log(e);
+            $RevisionDeficit.RevisionDeficit.destroy({},{deficitID:e.model.DeficitID,token:Cookies.get("token")}).done(function(){
+                displayMessage("","Borrado exitosamente","0");
+            });
         },
         dataBound: function(e) {
-            //$("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
+            if(once){
+                once=false;
+                $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(d){
+                    d.PorCubrir=d.Deficit;
+                })
+                $("#gridIC").data("kendoGrid").refresh();
+            }
         },
         edit:function(e){
         }
@@ -254,31 +241,20 @@
             console.log(e);
         },
         dataBound: function(e) {
-            console.log(e);
+            $(".sub").on("change",function(){
+                if(this.checked){
+                    var dataItemCantidad=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr")).ItemCodes;
+                    var dataItemDeficit=$("#gridIC").data("kendoGrid").dataSource.data();
+                    checarPorCubrir(dataItemCantidad,dataItemDeficit);
+                }
+            })
         },
         edit:function(e){
             console.log(e);
-        }
+        },
     });
 
-    $("#solucionar").on("click",function(){
-        var deficits=[];
-        var spools=[];
-        var orden=$("#ordtrabajo").data("kendoComboBox").value();
-        $("#gridIC tr[data-uid]").each(function(){
-            var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-            deficits.push({ItemCodeID:dataItem.ItemCodeID,DeficitTotal:dataItem.DeficitTotal});
-        })
-        if(document.getElementById("spoolCheck").checked){
-            $("#gridSp input.sub:checked").each(function(){
-                var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
-                spools.push(dataItem.SpoolID);
-            })
-        }
-        $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
-            console.log(result);
-        });
-    })
+    $("#solucionar").on("click",function(){});
 };
     
 @section JavascriptDocumentReadyHomeCookie {
