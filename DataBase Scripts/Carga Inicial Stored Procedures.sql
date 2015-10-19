@@ -8,10 +8,11 @@ CREATE PROCEDURE Sam3_ObtenerFormatoEtiquetas
 	@OrdenRecepcionID int
 AS
 BEGIN
-	declare @formato varchar(max), @numeroDigitos int
+	declare @formato varchar(max), @numeroDigitos int, @Orden int
 	set @formato='';
 	set @numeroDigitos=0;
 
+	select @Orden=OrdenRecepcionID from Sam3_OrdenRecepcion where Folio=@OrdenRecepcionID
 	select distinct @numeroDigitos=p.DigitosNumeroUnico from Sam3_OrdenRecepcion r
 	inner join Sam3_Rel_OrdenRecepcion_ItemCode rel
 		on r.OrdenRecepcionID= rel.OrdenRecepcionID
@@ -44,7 +45,7 @@ BEGIN
 		on r.ColadaID= c.ColadaID
 	inner join Sam3_Proyecto p
 		on r.ProyectoID=p.ProyectoID
-	where o.OrdenRecepcionID=@OrdenRecepcionID
+	where o.OrdenRecepcionID=@Orden
 	and r.Activo=1 and o.Activo=1
 
 
