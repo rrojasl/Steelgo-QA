@@ -15,17 +15,17 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
-                            <button type="button" class="btn btn-primary" id="solucionar">Solucionar</button>
-                            <button type="button" class="btn" id="cancelar">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="solucionar"><span id="RevisionDeficit0006"></span></button>
+                            <button type="button" class="btn" id="cancelar"><span id="RevisionDeficit0007"></span></button>
                         </div>
                         <div class="button-section"></div>
                         <div class="btn-group">
-                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn">Acciones</button>
+                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn"><span id="RevisionDeficit0008"></span></button>
                             <button id="dropdown-toggle" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="caretWhite"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a id="revNot" href="@Url.Action("NotificacionDeficit", "Materiales")">Ir a listado</a></li>
+                                <li><a id="revNot" href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="RevisionDeficit0009"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
-                            <label for="ordtrabajo" id="NotificacionDeficit0001"></label>
+                            <label for="ordtrabajo" id="RevisionDeficit0005"></label>
                             <input id="ordtrabajo" type="text" />
                         </div>
                     </div>
@@ -110,10 +110,14 @@
         change:function(e){
             unaVez=true;
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
-                $("#gridIC").data("kendoGrid").dataSource.data(data);
-            })
-            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
-                $("#gridSp").data("kendoGrid").dataSource.data(data);
+                if(data.length>0){
+                    $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
+                        $("#gridSp").data("kendoGrid").dataSource.data(data);
+                    })
+                    $("#gridIC").data("kendoGrid").dataSource.data(data);
+                }else{
+                    displayMessage("","No hay deficit en la orden de trabajo espeficicada","1");
+                }
             })
         }
     });
@@ -177,8 +181,21 @@
             deficitPrevio=e.model.Deficit;
         },
         save:function(e){
-            e.model.PorCubrir=parseFloat(e.model.PorCubrir)+(e.values.Deficit-parseFloat(deficitPrevio));
-            $("#gridIC").data("kendoGrid").refresh();
+            if(!(parseFloat(e.values.Deficit)>parseFloat(e.model.Cantidad))){
+                e.model.PorCubrir=parseFloat(e.model.PorCubrir)+(e.values.Deficit-parseFloat(deficitPrevio));
+                $("#gridSp").data("kendoGrid").dataSource.data().forEach(function(d){
+                    var tmp=$.grep(d.ItemCodes,function(n){
+                        return n.ItemCodeID===e.model.ItemCodeID;
+                    })
+                    tmp.forEach(function(t){
+                        e.model.PorCubrir=parseFloat(e.model.PorCubrir)-parseFloat(t.Cantidad);
+                    })
+                    0>parseFloat(e.PorCubrir) ? e.PorCubrir="0": false;
+                })
+                $("#gridIC").data("kendoGrid").refresh();
+            }else{
+                displayMessage("",_dictionary.RevisionDeficit0002[$("#language").data("kendoDropDownList").value()], '2');
+            }
         },
         remove:function(e){
             $("#gridIC").data("kendoGrid").options.dataSource.transport.delete.url=$RevisionsDeficit.RevisionDeficit.urlNoId+"?deficitID="+e.model.id+"&token="+Cookies.get("token");
@@ -249,11 +266,14 @@
                 datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:ItemCodes});
             })
             $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:JSON.stringify(datosDeficit),datosSpools:JSON.stringify(datosSpools),token:Cookies.get("token")}).done(function(data){
-                console.log(data);
-                displayMessage("",data.ReturnMessage[0],"0");
+                if(data.ReturnCode==200){
+                    displayMessage("",_dictionary.RevisionDeficit0003[$("#language").data("kendoDropDownList").value()], '0');
+                }else{
+                    displayMessage("",data.ReturnMessage[0],"2");
+                }
             })
         }else{
-            displayMessage("","Necesitas cubrir todos los déficit listados","2");
+            displayMessage("",_dictionary.RevisionDeficit0004[$("#language").data("kendoDropDownList").value()], '0');
         }
     })
 }
