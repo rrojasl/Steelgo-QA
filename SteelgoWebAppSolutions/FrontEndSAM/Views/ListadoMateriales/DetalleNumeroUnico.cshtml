@@ -18,56 +18,56 @@
 
 <div id="formaDetalleNumeroUnico" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
                 <div class="row">
-                    <div class="col-sm-10 col-md-10 col-lg-9 filter-section">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 filter-section">
                         <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0002"></label>
                                 <input id="numerounico" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0003"></label>
                                 <input id="d1" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0004"></label>
                                 <input id="d2" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0005"></label>
                                 <input id="cedula" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0006"></label>
                                 <input id="totalrecibido" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0007"></label>
                                 <input id="totaldañado" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0008"></label>
                                 <input id="itemcode" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0009"></label>
                                 <input id="profile1" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0010"></label>
                                 <input id="profile2" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0011"></label>
                                 <input id="totalentradas" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0031"></label>
                                 <input id="totalsalidas" class="" disabled />
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DetalleNumeroUnico0012"></label>
                                 <input id="saldoactual" class="" disabled />
                             </div>
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div id="CerrarDiv" class="form-group col-sm-6 col-md-4 col-lg-3">
+        <div id="CerrarDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <a id="Cerrar" href="#" class="btn btn-primary"><span id="DetalleNumeroUnico0032"></span></a>
         </div>
     </div>
@@ -165,6 +165,9 @@
     };
 
     function CargaInicial() {
+        ObtenerDetalleNumeroUnico();
+        ObtenerMovimientos();
+        ObtenerSegmentos();
         $("#Cerrar").click(function () {
             window.location.href = _listadoMateriales + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
@@ -180,7 +183,7 @@
                             Segmento: { type: "string" },
                             Entrada: { type: "string" },
                             Salida: { type: "string" },
-                            Saldo: { type: "string" },
+                            SaldoActual: { type: "string" },
                             Referencia: { type: "string" }
                         }
                     }
@@ -216,7 +219,7 @@
                 { field: "Segmento", title: _dictionary.ListaMateriales0009[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Entrada", title: _dictionary.ListaMateriales0010[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Salida", title: _dictionary.ListaMateriales0011[$("#language").data("kendoDropDownList").value()], filterable: true },
-                { field: "Saldo", title: _dictionary.ListaMateriales0012[$("#language").data("kendoDropDownList").value()], filterable: true },
+                { field: "SaldoActual", title: _dictionary.ListaMateriales0012[$("#language").data("kendoDropDownList").value()], filterable: true },
                 { field: "Referencia", title: _dictionary.ListaMateriales0013[$("#language").data("kendoDropDownList").value()], filterable: true },
             ],
             dataBound: function (e) {
@@ -226,36 +229,55 @@
             }
         });
     }
-    function obtenerDetalleNumeroUnico(){
-        $folioEntradaMaterial.Listado.read({}, { NumeroUnicoID: _NumeroUnico, token: Cookies.get("token") }).done(function (result) {
-            loadingStart();
+    function ObtenerDetalleNumeroUnico() {
+        loadingStart();
+        $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, token: Cookies.get("token") }).done(function (result) {
             if(Error(result)) {
-                $("#numerounico").val(result.numerounico);
-                $("#d1").val(result.d1);
-                $("#d2").val(result.d2);
-                $("#cedula").val(result.cedula);
-                $("#totalrecibido").val(result.totalrecibido);
-                $("#totaldañado").val(result.totaldañado);
-                $("#itemcode").val(result.itemcode);
-                $("#profile1").val(result.profile1);
-                $("#profile2").val(result.profile2);
-                $("#totalentradas").val(result.totalentradas);
-                $("#totalsalidas").val(result.totalsalidas);
-                $("#saldoactual").val(result.saldoactual);
+                $("#numerounico").val(result.NumeroUnico);
+                $("#d1").val(result.D1);
+                $("#d2").val(result.D2);
+                $("#cedula").val(result.Cedula);
+                $("#totalrecibido").val(result.TotalRecibido);
+                $("#totaldañado").val(result.TotalDanado);
+                $("#itemcode").val(result.ItemCode);
+                $("#profile1").val(result.Profile1);
+                $("#profile2").val(result.Profile2);
+                $("#totalentradas").val(result.TotalEntradas);
+                $("#totalsalidas").val(result.TotalSalidas);
+                $("#saldoactual").val(result.SaldoActual);
 
-                if ($("#gridSegmentos").data("kendoGrid")) {
-                    if (result.Segmentos.length > 0) {
-                        $("#gridSegmentos").data("kendoGrid").dataSource.data(result.Segmentos);
-                        $("#gridSegmentos").data("kendoGrid").dataSource.page(1);
-                    } else {
-                        $("#gridSegmentos").data("kendoGrid").dataSource.data([]);
-                        $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
-                    };
-                };
+                //if ($("#gridSegmentos").data("kendoGrid")) {
+                //    if (result.Segmentos.length > 0) {
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.data(result.Segmentos);
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.page(1);
+                //    } else {
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.data([]);
+                //        $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
+                //    };
+                //};
 
+                //if ($("#gridMovimientosInventario").data("kendoGrid")) {
+                //    if (result.Movimientos.length > 0) {
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(result.Movimientos);
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(1);
+                //    } else {
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data([]);
+                //        $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(0);
+                //    };
+                //};
+                //applySecurityPolicy(false);
+            };
+            loadingStop();
+        });
+    };
+
+    function ObtenerMovimientos() {
+        loadingStart();
+        $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "1", token: Cookies.get("token") }).done(function (result) {
+            if(Error(result)) {
                 if ($("#gridMovimientosInventario").data("kendoGrid")) {
-                    if (result.Movimientos.length > 0) {
-                        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(result.Movimientos);
+                    if (result.length > 0) {
+                        $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(result);
                         $("#gridMovimientosInventario").data("kendoGrid").dataSource.page(1);
                     } else {
                         $("#gridMovimientosInventario").data("kendoGrid").dataSource.data([]);
@@ -263,7 +285,26 @@
                     };
                 };
                 applySecurityPolicy(false);
-            };
+            }
+            loadingStop();
+        });
+    };
+
+    function ObtenerSegmentos() {
+        loadingStart();
+        $DetalleNumeroUnico.DetalleNumeroUnico.read({}, { NumeroUnicoID: _NumeroUnico, TipoGrid: "2", token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                if ($("#gridSegmentos").data("kendoGrid")) {
+                    if (result.length > 0) {
+                        $("#gridSegmentos").data("kendoGrid").dataSource.data(result);
+                        $("#gridSegmentos").data("kendoGrid").dataSource.page(1);
+                    } else {
+                        $("#gridSegmentos").data("kendoGrid").dataSource.data([]);
+                        $("#gridSegmentos").data("kendoGrid").dataSource.page(0);
+                    };
+                };
+                applySecurityPolicy(false);
+            }
             loadingStop();
         });
     };

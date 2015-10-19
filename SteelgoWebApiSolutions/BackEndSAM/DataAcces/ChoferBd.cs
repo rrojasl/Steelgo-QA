@@ -99,17 +99,17 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Chofer nuevoChofer = new Sam3_Chofer();
-                    nuevoChofer.Activo = true;
-                    nuevoChofer.FechaModificacion = DateTime.Now;
-                    nuevoChofer.Nombre = chofer.Nombre;
-                    nuevoChofer.UsuarioModificacion = usuario.UsuarioID;
-                    nuevoChofer.TransportistaID = chofer.TransportistaID;
+                    //Sam3_Chofer nuevoChofer = new Sam3_Chofer();
+                    chofer.Activo = true;
+                    chofer.FechaModificacion = DateTime.Now;
+                    //nuevoChofer.Nombre = chofer.Nombre;
+                    chofer.UsuarioModificacion = usuario.UsuarioID;
+                    //chofer.TransportistaID = chofer.TransportistaID;
 
-                    ctx.Sam3_Chofer.Add(nuevoChofer);
+                    ctx.Sam3_Chofer.Add(chofer);
                     ctx.SaveChanges();
 
-                    return new Chofer { Nombre = chofer.Nombre, ChoferID = nuevoChofer.ChoferID.ToString() };
+                    return new Chofer { Nombre = chofer.Nombre, ChoferID = chofer.ChoferID.ToString() };
                 }
             }
             catch (Exception ex)
@@ -136,6 +136,21 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+                    choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                        chofer.Activo : choferEnBd.Activo;
+
+                    choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ? 
+                        chofer.Nombre : choferEnBd.Nombre;
+
+                    choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ? 
+                        chofer.TransportistaID : choferEnBd.TransportistaID;
+
+                    choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                    choferEnBd.FechaModificacion = DateTime.Now;
+
+                    ctx.SaveChanges();
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");

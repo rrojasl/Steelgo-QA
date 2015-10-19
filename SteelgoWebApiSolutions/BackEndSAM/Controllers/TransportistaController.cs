@@ -46,7 +46,9 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return TransportistaBd.Instance.InsertarTransportista(transportista, payload);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return TransportistaBd.Instance.InsertarTransportista(transportista, usuario);
             }
             else
             {

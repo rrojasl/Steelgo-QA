@@ -30,9 +30,14 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public int Area { get; set; }
-        public string Cedula { get; set; }
         public string Codigo { get; set; }
+        public Nullable<int> CedulaID { get; set; }
+        public Nullable<int> GrupoID { get; set; }
+        public string DescripcionLargaEspanol { get; set; }
+        public string DescripcionLargaIngles { get; set; }
     
         public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
+        public virtual Sam3_Cedula Sam3_Cedula { get; set; }
+        public virtual Sam3_Grupo Sam3_Grupo { get; set; }
     }
 }

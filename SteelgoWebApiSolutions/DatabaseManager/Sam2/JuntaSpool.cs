@@ -52,6 +52,26 @@ namespace DatabaseManager.Sam2
         public string Campo5 { get; set; }
         public bool RequierePwht { get; set; }
         public Nullable<bool> RequierePruebaNeumatica { get; set; }
+        public string Campo6 { get; set; }
+        public string Campo7 { get; set; }
+        public string Campo8 { get; set; }
+        public string Campo9 { get; set; }
+        public string Campo10 { get; set; }
+        public string Campo11 { get; set; }
+        public string Campo12 { get; set; }
+        public string Campo13 { get; set; }
+        public string Campo14 { get; set; }
+        public string Campo15 { get; set; }
+        public string Campo16 { get; set; }
+        public string Campo17 { get; set; }
+        public string Campo18 { get; set; }
+        public string Campo19 { get; set; }
+        public string Campo20 { get; set; }
+        public string Campo21 { get; set; }
+        public string Campo22 { get; set; }
+        public string Campo23 { get; set; }
+        public string Campo24 { get; set; }
+        public string Campo25 { get; set; }
     
         public virtual ICollection<AgrupadoresPND> AgrupadoresPND { get; set; }
         public virtual ICollection<AgrupadoresPorJunta> AgrupadoresPorJunta { get; set; }

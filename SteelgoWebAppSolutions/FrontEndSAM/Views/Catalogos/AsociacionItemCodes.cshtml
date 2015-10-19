@@ -1,0 +1,168 @@
+﻿@{
+    ViewBag.Title = "Catálogos - Item Code Steelgo";
+}
+
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoAvisoLlegada0020"></span></a>
+    </li>
+    <li>
+        <a href="@Url.Action("Catalogos", "Catalogos")"><span id="ListadoCatalogos0001"></span></a>
+    </li>
+    <li class="active">
+        <a href="@Url.Action("ItemCodeSteelGo", "Catalogos")"><span id="ItemCodeSteelGo0001"></span></a>
+    </li>
+}
+<h3>Item Code Steelgo - Item Codes</h3>
+<div class="formNav clearfix">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="button-section">
+                <div class="btn-group save-group">
+                    <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+                </div>
+                <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+    <label for="icinput" id="AsociacionICS0001"></label>
+    <input id="icinput" />
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+    <label for="D1">D1</label>
+    <input id="D1" />
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+    <label for="D2">D2</label>
+    <input id="D2" />
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+    <label for="descripcionIC" id="AsociacionICS0002"></label>
+    <input id="descripcionIC" />
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
+    <label for="icsasociado" id="AsociacionICS0003"></label>
+    <input id="icsasociado" />
+</div>
+<script>
+    $("#icinput").kendoComboBox({
+        dataSource: {
+            transport: {
+                read: {
+                    url:$AsociacionICS.AsociacionICS.urlNoId + "?token=" + Cookies.get("token"),
+                    dataType: "json",
+                    type:"GET"
+                }
+            }
+        },
+        dataTextField: "value",
+        dataValueField: "id"
+    });
+</script>
+<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="grid"></div>
+</div>
+
+<script>
+@section JavascriptGlobalVariables {
+}
+
+@section JavascriptGlobalFunctions {
+    function changeLanguageCall() {
+    };
+
+    function cargarInicialGrid(val) {
+    };
+    
+    $("#grid").kendoGrid({
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    id:"ItemCodeSteelgoID",
+                    fields: {
+                        ItemCodeSteelgoID: { editable: false, nullable: true },
+                        DescripcionEspanol: { type:"string",validation: { required: false } },
+                        DescripcionIngles: { type:"string",validation: { required: false } },
+                        Peso: { type:"number", validation: { required: true } },
+                        Diametro1: { type:"number", validation: { required: false } },
+                        Diametro2: { type:"number", validation: { required: false } },
+                        FamiliaAceroID: { type:"number", validation: { required: true } },
+                        Area: { type:"number", validation: { required: false } },
+                        Cedula: { type:"string",validation: { required: false } },
+                        Codigo: { type:"string",validation: { required: false } },
+                    }
+                }
+            },
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            pageSize: 20,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            transport:{
+                read:{
+                    url:"",
+                    dataType:"json",
+                    type:"GET",
+                    cache: false
+                },
+                create:{
+                    url:"",
+                    dataType:"json",
+                    type:"POST",
+                    cache: false
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {models: kendo.stringify(options.models)};
+                    }
+                }
+            },
+            autoHeight: true,
+            sortable: true,
+            scrollable: false,
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        startswith: "Starts with",
+                        eq: "Is equal to",
+                        neq: "Is not equal to"
+                    }
+                }
+            },
+            pageable: {
+                refresh: false,
+                pageSizes: [10, 15, 20],
+                info: false,
+                input: false,
+                numeric: true,
+            },
+            toolbar: ["create"],
+            save: function(e) {
+                console.log(e);
+            },
+            remove: function(e) {
+                console.log(e);
+            },
+            dataBound: function(e) {
+                console.log(e);
+            }
+        }
+    });
+    loadingStop();
+};
+
+@section JavascriptDocumentReadyFunctions {
+};
+    
+@section JavascriptDocumentReadyHomeCookie {
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "7", { path: '/' });
+};
+
+</script>

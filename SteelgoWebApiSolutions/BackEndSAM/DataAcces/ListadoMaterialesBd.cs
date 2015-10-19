@@ -139,9 +139,7 @@ namespace BackEndSAM.DataAcces
                                             id = fc.FolioCuantificacionID.ToString(),
                                             value = fc.FolioCuantificacionID.ToString()
                                         }).AsParallel().ToList();
-
                     return folios;
-
                 }
             }
             catch (Exception ex)
@@ -176,15 +174,18 @@ namespace BackEndSAM.DataAcces
                              join nu in ctx.Sam3_NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
                              join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                              where rfc.Activo && ic.Activo && rics.Activo && ics.Activo && nu.Activo && fa.Activo && fm.Activo &&
                              rfc.FolioCuantificacionID.ToString() == folioCuantificacion
                              select new ListadoMaterialesPorPL
                              {
-                                 NumeroUnico = nu.NumeroUnicoID.ToString(),
+                                 NumeroUnicoID = nu.NumeroUnicoID.ToString(),
+                                 NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                 ItemCodeID = ic.ItemCodeID.ToString(),
                                  ItemCode = ic.Codigo,
                                  ItemCodeSteelgo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
-                                 Cedula = ics.Cedula,
+                                 Cedula = c.CedulaA,
                                  TipoAcero = fm.Nombre,
                                  D1 = ics.Diametro1.ToString(),
                                  D2 = ics.Diametro2.ToString(),
@@ -203,6 +204,20 @@ namespace BackEndSAM.DataAcces
                                  AlmacenVirtual = "X"
                              }).AsParallel().ToList();
 
+                    foreach (var i in lista)
+                    {
+                        int itemcodeID = Convert.ToInt32(i.ItemCodeID);
+                        int numeroDigitos = (from it in ctx.Sam3_ItemCode
+                                             join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
+                                             where it.ItemCodeID == itemcodeID
+                                             select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                        string formato = "D" + numeroDigitos.ToString();
+
+                        string[] codigo = i.NumeroUnico.Split('-').ToArray();
+                        int consecutivo = Convert.ToInt32(codigo[1]);
+                        i.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
+                    }
                     return lista;
                 }
             }

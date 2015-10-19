@@ -762,6 +762,7 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                TransactionalInformation result = new TransactionalInformation();
                 using (SamContext ctx = new SamContext())
                 {
                     int numerounicoid = Convert.ToInt32(numerounico);
@@ -770,17 +771,30 @@ namespace BackEndSAM.DataAcces
                         .AsParallel().SingleOrDefault();
 
 
-                    almacenaje.Activo = false;
-                    almacenaje.UsuarioModificacion = usuario.UsuarioID;
-                    almacenaje.FechaModificacion = DateTime.Now;
+                    if (ctx.Sam3_NumeroUnico.Where(x => x.NumeroUnicoID == numerounicoid && !(x.Rack == null || x.Rack.Equals(""))).Any())
+                    {
+                        result.ReturnMessage.Add("No se puede eliminar el numero unico. Se encuentra almacenado.");
+                        result.ReturnCode = 500;
+                        result.ReturnStatus = false;
+                        result.IsAuthenicated = true;
 
-                    ctx.SaveChanges();
+                        return result;
+                    }
+                    else { 
+                            almacenaje.Activo = false;
+                            almacenaje.UsuarioModificacion = usuario.UsuarioID;
+                            almacenaje.FechaModificacion = DateTime.Now;
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = true;
+                            ctx.SaveChanges();
+
+                    
+                            result.ReturnMessage.Add("Ok");
+                            result.ReturnCode = 200;
+                            result.ReturnStatus = false;
+                            result.IsAuthenicated = true;
+                    }
+
+                    
 
                     return result;
                 }
@@ -814,14 +828,27 @@ namespace BackEndSAM.DataAcces
 
                         List<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> relacion = ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico.Where(x => x.OrdenAlmacenajeID == orden.OrdenAlmacenajeID)
                             .AsParallel().ToList();
+                        List<int> numeros = relacion.Select(x => x.NumeroUnicoID).AsParallel().ToList();
 
-
-                        foreach (Sam3_Rel_OrdenAlmacenaje_NumeroUnico r in relacion)
+                        if (ctx.Sam3_NumeroUnico.Where(x => numeros.Contains(x.NumeroUnicoID) && !(x.Rack == null || x.Rack.Equals(""))).Any())
                         {
-                            r.Activo = false;
-                            r.FechaModificacion = DateTime.Now;
-                            r.UsuarioModificacion = usuario.UsuarioID;
+                            result.ReturnMessage.Add("No se puede eliminar la orden de almacenaje. Los numeros unicos tienen asignado un Rack.");
+                            result.ReturnCode = 500;
+                            result.ReturnStatus = false;
+                            result.IsAuthenicated = true;
+
+                            return result;
                         }
+                        else { 
+                            foreach (Sam3_Rel_OrdenAlmacenaje_NumeroUnico r in relacion)
+                            {
+                                r.Activo = false;
+                                r.FechaModificacion = DateTime.Now;
+                                r.UsuarioModificacion = usuario.UsuarioID;
+                            }
+                        }
+
+                       
 
                         ctx.SaveChanges();
                     }
@@ -1034,6 +1061,24 @@ namespace BackEndSAM.DataAcces
                 result.IsAuthenicated = true;
 
                 return result;
+            }
+        }
+
+        public List<ListadoIncidencias> ListadoIncidencias(int clienteID, int proyectoID, List<int> proyectos, List<int> patios, List<int> incidenciaIDs,
+            DateTime fechaInicial, DateTime fechaFinal)
+        {
+            try
+            {
+                List<ListadoIncidencias> listado;
+                using (SamContext ctx = new SamContext())
+                {
+
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 

@@ -20,5 +20,6 @@ namespace DatabaseManager.Sam2
         public string area { get; set; }
         public string subparte { get; set; }
         public Nullable<int> idreporte { get; set; }
+        public Nullable<int> proyectoid { get; set; }
     }
 }

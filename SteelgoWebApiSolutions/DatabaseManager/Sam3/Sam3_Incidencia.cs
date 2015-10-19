@@ -18,6 +18,17 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_Incidencia1 = new HashSet<Sam3_Incidencia>();
             this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
+            this.Sam3_Rel_Incidencia_FolioAvisoLlegada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoLlegada>();
+            this.Sam3_Rel_Incidencia_FolioAvisoEntrada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoEntrada>();
+            this.Sam3_Rel_Incidencia_PaseSalida = new HashSet<Sam3_Rel_Incidencia_PaseSalida>();
+            this.Sam3_Rel_Incidencia_FolioCuantificacion = new HashSet<Sam3_Rel_Incidencia_FolioCuantificacion>();
+            this.Sam3_Rel_Incidencia_OrdenRecepcion = new HashSet<Sam3_Rel_Incidencia_OrdenRecepcion>();
+            this.Sam3_Rel_Incidencia_ComplementoRecepcion = new HashSet<Sam3_Rel_Incidencia_ComplementoRecepcion>();
+            this.Sam3_Rel_Incidencia_ItemCode = new HashSet<Sam3_Rel_Incidencia_ItemCode>();
+            this.Sam3_Rel_Incidencia_OrdenAlmacenaje = new HashSet<Sam3_Rel_Incidencia_OrdenAlmacenaje>();
+            this.Sam3_Rel_Incidencia_Despacho = new HashSet<Sam3_Rel_Incidencia_Despacho>();
+            this.Sam3_Rel_Incidencia_Corte = new HashSet<Sam3_Rel_Incidencia_Corte>();
+            this.Sam3_Rel_Incidencia_Documento = new HashSet<Sam3_Rel_Incidencia_Documento>();
         }
     
         public int IncidenciaID { get; set; }
@@ -35,6 +46,12 @@ namespace DatabaseManager.Sam3
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int TipoIncidenciaID { get; set; }
+        public string MotivoCancelacion { get; set; }
+        public string DetalleResolucion { get; set; }
+        public Nullable<int> UsuarioResuelveID { get; set; }
+        public Nullable<System.DateTime> FechaSolucion { get; set; }
+        public int ClasificacionID { get; set; }
     
         public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
         public virtual Sam3_Incidencia Sam3_Incidencia2 { get; set; }
@@ -42,5 +59,19 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_Usuario Sam3_Usuario1 { get; set; }
         public virtual Sam3_Rel_Incidencia_Entidad Sam3_Rel_Incidencia_Entidad { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
+        public virtual Sam3_ClasificacionIncidencia Sam3_ClasificacionIncidencia { get; set; }
+        public virtual Sam3_TipoIncidencia Sam3_TipoIncidencia { get; set; }
+        public virtual Sam3_Usuario Sam3_Usuario2 { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoEntrada> Sam3_Rel_Incidencia_FolioAvisoEntrada { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioCuantificacion> Sam3_Rel_Incidencia_FolioCuantificacion { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_ComplementoRecepcion> Sam3_Rel_Incidencia_ComplementoRecepcion { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
+        public virtual ICollection<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
     }
 }

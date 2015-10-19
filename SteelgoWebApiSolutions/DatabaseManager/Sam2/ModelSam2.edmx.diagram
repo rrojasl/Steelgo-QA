@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="296cd0c1043b4c099bb278b53a1ed16d" Name="Diagram1">
+      <Diagram DiagramId="296cd0c1043b4c099bb278b53a1ed16d" Name="Diagram1" ZoomLevel="17">
         <EntityTypeShape EntityType="ModelSam2.Acero" Width="1.5" PointX="8.25" PointY="301" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam2.AgrupadoresPND" Width="1.5" PointX="35.25" PointY="329.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam2.AgrupadoresPorJunta" Width="1.5" PointX="35.25" PointY="333.25" IsExpanded="true" />
