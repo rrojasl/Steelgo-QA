@@ -158,7 +158,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    if(ctx.Sam3_Patio.Where(x=> x.Nombre == cambios.Nombre && x.Activo).AsParallel().Any())
+                    if(!ctx.Sam3_Patio.Where(x=> x.Nombre == cambios.Nombre && x.Activo).AsParallel().Any())
                     {
                         Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == cambios.PatioID && x.Activo).AsParallel().SingleOrDefault();
                         patioEnBd.Activo = cambios.Activo != null && cambios.Activo != patioEnBd.Activo ?
