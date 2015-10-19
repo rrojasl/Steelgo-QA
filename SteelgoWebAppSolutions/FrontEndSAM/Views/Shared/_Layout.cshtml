@@ -418,6 +418,18 @@
                 $("#sidebar").toggleClass("open");
             });
 
+            $("input").each(function () {
+                var cb = $(this).data("kendoComboBox");
+                if (cb) {
+                    $(this).focusout(function () {
+                        if (!$(this).data("kendoComboBox").dataItem()) {
+                            cb.value("");
+                            cb.trigger("change");
+                        }
+                    });
+                }
+            });
+
         });
        
         function loadMessages() {
