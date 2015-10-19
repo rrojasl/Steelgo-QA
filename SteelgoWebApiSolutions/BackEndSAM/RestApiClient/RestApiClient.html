@@ -408,7 +408,9 @@
 
         var client = new $.RestClient('http://localhost:60960/backendsam/api/');
         client.add("ImpresionDocumental");
-        client.ImpresionDocumental.read({}, { "proyectoID": 1, "NumeroControl": "77480", "token": "123456789" }).done(function (data) { console.log(data) });
+        client.ImpresionDocumental.read({}, { "proyectoID": 1, "NumeroControl": "77480", "token": "123456789" }).done(
+            function (data) { console.log(data) }
+            );
 
     </script>
 </body>

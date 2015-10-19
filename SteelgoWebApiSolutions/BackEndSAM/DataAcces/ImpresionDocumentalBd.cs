@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Configuration;
 
 namespace BackEndSAM.DataAcces
 {
@@ -95,17 +96,18 @@ namespace BackEndSAM.DataAcces
                         else
                         {
                             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                            string ruta = "C:\\SAM3files\\" + nombreProyecto + "\\Traveler\\" + numeroControl + ".pdf";
+                            string rutaBase = ConfigurationManager.AppSettings["SamFiles"];
+                            string ruta = rutaBase + nombreProyecto + "\\Traveler\\" + numeroControl + ".pdf";
+                            string fileName = numeroControl + ".pdf";
 
-                            Stream iStream = new FileStream(ruta, FileMode.Open, FileAccess.Read, FileShare.Read);
+                            FileStream iStream = new FileStream(ruta, FileMode.Open); //, FileAccess.Read, FileShare.Read);
 
-
-                            
                             response.Content = new StreamContent(iStream);
                             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                            response.Content.Headers.ContentDisposition.FileName = fileName;
 
                             return response;
-
                         }  
                     }
                 }
