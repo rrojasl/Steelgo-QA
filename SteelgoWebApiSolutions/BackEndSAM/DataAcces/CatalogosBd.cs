@@ -396,334 +396,393 @@ namespace BackEndSAM.DataAcces
                         case 1: //Patios
                             #region
                             Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
-
-                            Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == patio.PatioID && x.Activo).AsParallel().SingleOrDefault();
-
-                            patioEnBd.Descripcion = patio.Descripcion != null && patio.Descripcion != patioEnBd.Descripcion ?
-                        patio.Descripcion : patioEnBd.Descripcion;
-                            patioEnBd.Nombre = patio.Nombre != null && patio.Nombre != patioEnBd.Nombre ?
-                        patio.Nombre : patioEnBd.Nombre;
-                            patioEnBd.Propietario = patio.Propietario != null && patio.Propietario != patioEnBd.Propietario ?
-                        patio.Propietario : patioEnBd.Propietario;
-                            patioEnBd.RequierePermisoAduana = patio.RequierePermisoAduana != null && patio.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
-                        patio.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
-
-                            patioEnBd.UsuarioModificacion = usuario.UsuarioID;
-                            patioEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-                            return new CatalogoPatio
+                            if (!ctx.Sam3_Patio.Where(x => x.Nombre == patio.Nombre && x.Activo).AsParallel().Any())
                             {
-                                PatioID = patioEnBd.PatioID.ToString(),
-                                Nombre = patioEnBd.Nombre,
-                                Descripcion = patioEnBd.Descripcion,
-                                Propietario = patioEnBd.Propietario,
-                                RequierePermisoAduana = patioEnBd.RequierePermisoAduana == true ? "Si" : "No"
-                            };
+                                Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == patio.PatioID && x.Activo).AsParallel().SingleOrDefault();
+
+                                patioEnBd.Descripcion = patio.Descripcion != null && patio.Descripcion != patioEnBd.Descripcion ?
+                            patio.Descripcion : patioEnBd.Descripcion;
+                                patioEnBd.Nombre = patio.Nombre != null && patio.Nombre != patioEnBd.Nombre ?
+                            patio.Nombre : patioEnBd.Nombre;
+                                patioEnBd.Propietario = patio.Propietario != null && patio.Propietario != patioEnBd.Propietario ?
+                            patio.Propietario : patioEnBd.Propietario;
+                                patioEnBd.RequierePermisoAduana = patio.RequierePermisoAduana != null && patio.RequierePermisoAduana != patioEnBd.RequierePermisoAduana ?
+                            patio.RequierePermisoAduana : patioEnBd.RequierePermisoAduana;
+
+                                patioEnBd.UsuarioModificacion = usuario.UsuarioID;
+                                patioEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+                                return new CatalogoPatio
+                                {
+                                    PatioID = patioEnBd.PatioID.ToString(),
+                                    Nombre = patioEnBd.Nombre,
+                                    Descripcion = patioEnBd.Descripcion,
+                                    Propietario = patioEnBd.Propietario,
+                                    RequierePermisoAduana = patioEnBd.RequierePermisoAduana == true ? "Si" : "No"
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Patio existente");
+                            }
                             #endregion
                         case 2: //chofer
                             #region
                             CatalogoChofer chofer = serializer.Deserialize<CatalogoChofer>(data);
-
-                            Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID.ToString() == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
-
-                            choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
-                                chofer.Nombre : choferEnBd.Nombre;
-
-                            choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID.ToString() ?
-                                Convert.ToInt32(chofer.TransportistaID) : choferEnBd.TransportistaID;
-
-                            choferEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            choferEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new CatalogoChofer
+                            if (!ctx.Sam3_Chofer.Where(c => c.Nombre == chofer.Nombre && c.Activo).AsParallel().Any())
                             {
-                                ChoferID = choferEnBd.ChoferID.ToString(),
-                                Nombre = choferEnBd.Nombre,
-                                TransportistaID = choferEnBd.TransportistaID.ToString(),
-                                TransportistaNombre = chofer.TransportistaNombre
-                            };
+                                Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID.ToString() == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+
+                                choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
+                                    chofer.Nombre : choferEnBd.Nombre;
+
+                                choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID.ToString() ?
+                                    Convert.ToInt32(chofer.TransportistaID) : choferEnBd.TransportistaID;
+
+                                choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                choferEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoChofer
+                                {
+                                    ChoferID = choferEnBd.ChoferID.ToString(),
+                                    Nombre = choferEnBd.Nombre,
+                                    TransportistaID = choferEnBd.TransportistaID.ToString(),
+                                    TransportistaNombre = chofer.TransportistaNombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Chofer existente");
+                            }
                             #endregion
                         case 3: //Tipo Aviso
                             #region
                             Catalogos tipoAviso = serializer.Deserialize<Catalogos>(data);
 
-                            Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID.ToString() == tipoAviso.Id && x.Activo).AsParallel().SingleOrDefault();
-
-                            avisoEnBd.Nombre = tipoAviso.Nombre != null && tipoAviso.Nombre != avisoEnBd.Nombre ?
-                                tipoAviso.Nombre : avisoEnBd.Nombre;
-
-                            avisoEnBd.FechaModificacion = DateTime.Now;
-
-                            avisoEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.SaveChanges();
-
-                            return new Catalogos
+                            if (!ctx.Sam3_TipoAviso.Where(x => x.Activo && x.Nombre == tipoAviso.Nombre).AsParallel().Any())
                             {
-                                Id = avisoEnBd.TipoAvisoID.ToString(),
-                                Nombre = avisoEnBd.Nombre
-                            };
+                                Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID.ToString() == tipoAviso.Id && x.Activo).AsParallel().SingleOrDefault();
+
+                                avisoEnBd.Nombre = tipoAviso.Nombre != null && tipoAviso.Nombre != avisoEnBd.Nombre ?
+                                    tipoAviso.Nombre : avisoEnBd.Nombre;
+
+                                avisoEnBd.FechaModificacion = DateTime.Now;
+
+                                avisoEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.SaveChanges();
+
+                                return new Catalogos
+                                {
+                                    Id = avisoEnBd.TipoAvisoID.ToString(),
+                                    Nombre = avisoEnBd.Nombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Tipo Aviso existente");
+                            }
                             #endregion
                         case 4: //Transportista
                             #region
                             CatalogoTransportista transportista = serializer.Deserialize<CatalogoTransportista>(data);
-
-                            Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID.ToString() == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
-                            transEnBd.ContactoID = transportista.ContactoID != null && transportista.ContactoID != transEnBd.ContactoID.ToString() ?
-                                Convert.ToInt32(transportista.ContactoID) : transEnBd.ContactoID;
-
-                            transEnBd.Nombre = transportista.Nombre != null && transportista.Nombre != transEnBd.Nombre ?
-                                transportista.Nombre : transEnBd.Nombre;
-
-                            transEnBd.Descripcion = transportista.Descripcion != null && transportista.Descripcion != transEnBd.Descripcion ?
-                                transportista.Descripcion : transEnBd.Descripcion;
-
-                            transEnBd.Direccion = transportista.Direccion != null && transportista.Direccion != transEnBd.Direccion ?
-                                transportista.Direccion : transEnBd.Direccion;
-
-                            transEnBd.Telefono = transportista.Telefono != null && transportista.Telefono != transEnBd.Telefono ?
-                                transportista.Telefono : transEnBd.Telefono;
-
-                            transEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            transEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new CatalogoTransportista
+                            if (!ctx.Sam3_Transportista.Where(x => x.Nombre == transportista.Nombre && x.Activo).AsParallel().Any())
                             {
-                                TransportistaID = transEnBd.TransportistaID.ToString(),
-                                ContactoID = transEnBd.ContactoID.ToString(),
-                                Contacto = transportista.Contacto,
-                                Descripcion = transEnBd.Descripcion,
-                                Direccion = transEnBd.Direccion,
-                                Nombre = transEnBd.Nombre,
-                                Telefono = transEnBd.Telefono
-                            };
+                                Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID.ToString() == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
+                                transEnBd.ContactoID = transportista.ContactoID != null && transportista.ContactoID != transEnBd.ContactoID.ToString() ?
+                                    Convert.ToInt32(transportista.ContactoID) : transEnBd.ContactoID;
 
+                                transEnBd.Nombre = transportista.Nombre != null && transportista.Nombre != transEnBd.Nombre ?
+                                    transportista.Nombre : transEnBd.Nombre;
+
+                                transEnBd.Descripcion = transportista.Descripcion != null && transportista.Descripcion != transEnBd.Descripcion ?
+                                    transportista.Descripcion : transEnBd.Descripcion;
+
+                                transEnBd.Direccion = transportista.Direccion != null && transportista.Direccion != transEnBd.Direccion ?
+                                    transportista.Direccion : transEnBd.Direccion;
+
+                                transEnBd.Telefono = transportista.Telefono != null && transportista.Telefono != transEnBd.Telefono ?
+                                    transportista.Telefono : transEnBd.Telefono;
+
+                                transEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                transEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoTransportista
+                                {
+                                    TransportistaID = transEnBd.TransportistaID.ToString(),
+                                    ContactoID = transEnBd.ContactoID.ToString(),
+                                    Contacto = transportista.Contacto,
+                                    Descripcion = transEnBd.Descripcion,
+                                    Direccion = transEnBd.Direccion,
+                                    Nombre = transEnBd.Nombre,
+                                    Telefono = transEnBd.Telefono
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Transportista existente");
+                            }
                             #endregion
                         case 5: //Tracto
                             #region
                             CatalogoTracto vehiculo = serializer.Deserialize<CatalogoTracto>(data);
-
-                            Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID.ToString() == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
-
-                            vehiculoEnBd.Placas = vehiculo.Placas != null && vehiculo.Placas != vehiculoEnBd.Placas ?
-                                vehiculo.Placas : vehiculoEnBd.Placas;
-
-                            vehiculoEnBd.TarjetaCirculacion = vehiculo.TarjetaCirculacion != null && vehiculo.TarjetaCirculacion != vehiculoEnBd.TarjetaCirculacion ?
-                                vehiculo.TarjetaCirculacion : vehiculoEnBd.TarjetaCirculacion;
-
-                            vehiculoEnBd.PolizaSeguro = vehiculo.PolizaSeguro != null && vehiculo.PolizaSeguro != vehiculoEnBd.PolizaSeguro ?
-                                vehiculo.PolizaSeguro : vehiculoEnBd.PolizaSeguro;
-
-                            vehiculoEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            vehiculoEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            Sam3_Rel_Vehiculo_Chofer relVehiculoChofer = ctx.Sam3_Rel_Vehiculo_Chofer
-                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == vehiculo.relVehiculoChoferID && x.Activo).AsParallel().SingleOrDefault();
-
-                            relVehiculoChofer.ChoferID = Convert.ToInt32(vehiculo.choferID);
-                            relVehiculoChofer.Activo = true;
-                            relVehiculoChofer.UsuarioModificacion = usuario.UsuarioID;
-                            relVehiculoChofer.FechaModificacion = DateTime.Now;
-                            ctx.SaveChanges();
-
-
-                            Sam3_Rel_Vehiculo_Transportista relVehiculotransportista = ctx.Sam3_Rel_Vehiculo_Transportista
-                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == vehiculo.relVehiculoTransportistaID && x.Activo).AsParallel().SingleOrDefault();
-
-                            relVehiculotransportista.TransportistaID = Convert.ToInt32(vehiculo.transportistaID);
-                            relVehiculotransportista.Activo = true;
-                            relVehiculotransportista.UsuarioModificacion = usuario.UsuarioID;
-                            relVehiculotransportista.FechaModificacion = DateTime.Now;
-                            ctx.SaveChanges();
-
-                            return new CatalogoTracto
+                            if (!ctx.Sam3_Vehiculo.Where(x => x.Placas == vehiculo.Placas && x.Activo && x.TipoVehiculoID == 1).AsParallel().Any())
                             {
-                                VehiculoID = vehiculoEnBd.VehiculoID.ToString(),
-                                Placas = vehiculoEnBd.Placas,
-                                TarjetaCirculacion = vehiculoEnBd.TarjetaCirculacion,
-                                PolizaSeguro = vehiculoEnBd.PolizaSeguro,
-                                choferNombre = vehiculo.choferNombre,
-                                choferID = relVehiculoChofer.ChoferID.ToString(),
-                                transportistaNombre = vehiculo.transportistaNombre,
-                                transportistaID = relVehiculotransportista.TransportistaID.ToString(),
-                                relVehiculoChoferID = relVehiculoChofer.Rel_Vehiculo_Chofer_ID.ToString(),
-                                relVehiculoTransportistaID = relVehiculotransportista.Rel_Vehiculo_Transportista_ID.ToString()
-                            };
+                                Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID.ToString() == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
+
+                                vehiculoEnBd.Placas = vehiculo.Placas != null && vehiculo.Placas != vehiculoEnBd.Placas ?
+                                    vehiculo.Placas : vehiculoEnBd.Placas;
+
+                                vehiculoEnBd.TarjetaCirculacion = vehiculo.TarjetaCirculacion != null && vehiculo.TarjetaCirculacion != vehiculoEnBd.TarjetaCirculacion ?
+                                    vehiculo.TarjetaCirculacion : vehiculoEnBd.TarjetaCirculacion;
+
+                                vehiculoEnBd.PolizaSeguro = vehiculo.PolizaSeguro != null && vehiculo.PolizaSeguro != vehiculoEnBd.PolizaSeguro ?
+                                    vehiculo.PolizaSeguro : vehiculoEnBd.PolizaSeguro;
+
+                                vehiculoEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                vehiculoEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                Sam3_Rel_Vehiculo_Chofer relVehiculoChofer = ctx.Sam3_Rel_Vehiculo_Chofer
+                                    .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == vehiculo.relVehiculoChoferID && x.Activo).AsParallel().SingleOrDefault();
+
+                                relVehiculoChofer.ChoferID = Convert.ToInt32(vehiculo.choferID);
+                                relVehiculoChofer.Activo = true;
+                                relVehiculoChofer.UsuarioModificacion = usuario.UsuarioID;
+                                relVehiculoChofer.FechaModificacion = DateTime.Now;
+                                ctx.SaveChanges();
+
+
+                                Sam3_Rel_Vehiculo_Transportista relVehiculotransportista = ctx.Sam3_Rel_Vehiculo_Transportista
+                                    .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == vehiculo.relVehiculoTransportistaID && x.Activo).AsParallel().SingleOrDefault();
+
+                                relVehiculotransportista.TransportistaID = Convert.ToInt32(vehiculo.transportistaID);
+                                relVehiculotransportista.Activo = true;
+                                relVehiculotransportista.UsuarioModificacion = usuario.UsuarioID;
+                                relVehiculotransportista.FechaModificacion = DateTime.Now;
+                                ctx.SaveChanges();
+
+                                return new CatalogoTracto
+                                {
+                                    VehiculoID = vehiculoEnBd.VehiculoID.ToString(),
+                                    Placas = vehiculoEnBd.Placas,
+                                    TarjetaCirculacion = vehiculoEnBd.TarjetaCirculacion,
+                                    PolizaSeguro = vehiculoEnBd.PolizaSeguro,
+                                    choferNombre = vehiculo.choferNombre,
+                                    choferID = relVehiculoChofer.ChoferID.ToString(),
+                                    transportistaNombre = vehiculo.transportistaNombre,
+                                    transportistaID = relVehiculotransportista.TransportistaID.ToString(),
+                                    relVehiculoChoferID = relVehiculoChofer.Rel_Vehiculo_Chofer_ID.ToString(),
+                                    relVehiculoTransportistaID = relVehiculotransportista.Rel_Vehiculo_Transportista_ID.ToString()
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Tracto existente");
+                            }
+                           
                             #endregion
                         case 6: //Plana
                             #region
                             CatalogoPlana plana = serializer.Deserialize<CatalogoPlana>(data);
-
-                            int vehiculoID = Convert.ToInt32(plana.VehiculoID);
-                            Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
-                            //planaEnBd.Activo = true;
-                            planaEnBd.TractoID = Convert.ToInt32(plana.TractoID);
-                            planaEnBd.Placas = plana.Placas;
-                            planaEnBd.Unidad = plana.Unidad;
-                            planaEnBd.Modelo = plana.Modelo;
-                            planaEnBd.UsuarioModificacion = usuario.UsuarioID;
-                            planaEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            Sam3_Rel_Vehiculo_Chofer relVehiculoChoferPlana = ctx.Sam3_Rel_Vehiculo_Chofer
-                                .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == plana.relVehiculoChoferID && x.Activo).AsParallel().SingleOrDefault();
-
-                            relVehiculoChoferPlana.ChoferID = Convert.ToInt32(plana.choferID);
-                            relVehiculoChoferPlana.Activo = true;
-                            relVehiculoChoferPlana.UsuarioModificacion = usuario.UsuarioID;
-                            relVehiculoChoferPlana.FechaModificacion = DateTime.Now;
-                            ctx.SaveChanges();
-
-
-                            Sam3_Rel_Vehiculo_Transportista relVehiculotransportistaPlana = ctx.Sam3_Rel_Vehiculo_Transportista
-                                .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == plana.relVehiculoTransportistaID && x.Activo).AsParallel().SingleOrDefault();
-
-                            relVehiculotransportistaPlana.TransportistaID = Convert.ToInt32(plana.transportistaID);
-                            relVehiculotransportistaPlana.Activo = true;
-                            relVehiculotransportistaPlana.UsuarioModificacion = usuario.UsuarioID;
-                            relVehiculotransportistaPlana.FechaModificacion = DateTime.Now;
-                            ctx.SaveChanges();
-
-                            return new CatalogoPlana
+                            if (!ctx.Sam3_Vehiculo.Where(x => x.TipoVehiculoID == 2 && x.Activo && x.Placas == plana.Placas).AsParallel().Any())
                             {
-                                VehiculoID = planaEnBd.VehiculoID.ToString(),
-                                Placas = planaEnBd.Placas,
-                                Unidad = planaEnBd.Unidad,
-                                Modelo = planaEnBd.Modelo,
-                                choferNombre = plana.choferNombre,
-                                choferID = relVehiculoChoferPlana.ChoferID.ToString(),
-                                transportistaNombre = plana.transportistaNombre,
-                                transportistaID = relVehiculotransportistaPlana.TransportistaID.ToString(),
-                                relVehiculoChoferID = relVehiculoChoferPlana.Rel_Vehiculo_Chofer_ID.ToString(),
-                                relVehiculoTransportistaID = relVehiculotransportistaPlana.Rel_Vehiculo_Transportista_ID.ToString()
-                            };
+                                int vehiculoID = Convert.ToInt32(plana.VehiculoID);
+                                Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
+                                //planaEnBd.Activo = true;
+                                planaEnBd.TractoID = Convert.ToInt32(plana.TractoID);
+                                planaEnBd.Placas = plana.Placas;
+                                planaEnBd.Unidad = plana.Unidad;
+                                planaEnBd.Modelo = plana.Modelo;
+                                planaEnBd.UsuarioModificacion = usuario.UsuarioID;
+                                planaEnBd.FechaModificacion = DateTime.Now;
 
+                                ctx.SaveChanges();
+
+                                Sam3_Rel_Vehiculo_Chofer relVehiculoChoferPlana = ctx.Sam3_Rel_Vehiculo_Chofer
+                                    .Where(x => x.Rel_Vehiculo_Chofer_ID.ToString() == plana.relVehiculoChoferID && x.Activo).AsParallel().SingleOrDefault();
+
+                                relVehiculoChoferPlana.ChoferID = Convert.ToInt32(plana.choferID);
+                                relVehiculoChoferPlana.Activo = true;
+                                relVehiculoChoferPlana.UsuarioModificacion = usuario.UsuarioID;
+                                relVehiculoChoferPlana.FechaModificacion = DateTime.Now;
+                                ctx.SaveChanges();
+
+
+                                Sam3_Rel_Vehiculo_Transportista relVehiculotransportistaPlana = ctx.Sam3_Rel_Vehiculo_Transportista
+                                    .Where(x => x.Rel_Vehiculo_Transportista_ID.ToString() == plana.relVehiculoTransportistaID && x.Activo).AsParallel().SingleOrDefault();
+
+                                relVehiculotransportistaPlana.TransportistaID = Convert.ToInt32(plana.transportistaID);
+                                relVehiculotransportistaPlana.Activo = true;
+                                relVehiculotransportistaPlana.UsuarioModificacion = usuario.UsuarioID;
+                                relVehiculotransportistaPlana.FechaModificacion = DateTime.Now;
+                                ctx.SaveChanges();
+
+                                return new CatalogoPlana
+                                {
+                                    VehiculoID = planaEnBd.VehiculoID.ToString(),
+                                    Placas = planaEnBd.Placas,
+                                    Unidad = planaEnBd.Unidad,
+                                    Modelo = planaEnBd.Modelo,
+                                    choferNombre = plana.choferNombre,
+                                    choferID = relVehiculoChoferPlana.ChoferID.ToString(),
+                                    transportistaNombre = plana.transportistaNombre,
+                                    transportistaID = relVehiculotransportistaPlana.TransportistaID.ToString(),
+                                    relVehiculoChoferID = relVehiculoChoferPlana.Rel_Vehiculo_Chofer_ID.ToString(),
+                                    relVehiculoTransportistaID = relVehiculotransportistaPlana.Rel_Vehiculo_Transportista_ID.ToString()
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Plana existente");
+                            }
                             #endregion
                         case 7: //Proveedor
                             #region
                             CatalogoProveedor proveedor = serializer.Deserialize<CatalogoProveedor>(data);
-
-                            Sam3_Proveedor provEnBd = ctx.Sam3_Proveedor.Where(x => x.ProveedorID.ToString() == proveedor.ProveedorID && x.Activo).AsParallel().SingleOrDefault();
-
-                            provEnBd.ContactoID = proveedor.ContactoID != null && proveedor.ContactoID != provEnBd.ContactoID.ToString() ?
-                                Convert.ToInt32(proveedor.ContactoID) : provEnBd.ContactoID;
-
-                            provEnBd.Nombre = proveedor.Nombre != null && proveedor.Nombre != provEnBd.Nombre ?
-                                proveedor.Nombre : provEnBd.Nombre;
-
-                            provEnBd.Descripcion = proveedor.Descripcion != null && proveedor.Descripcion != provEnBd.Descripcion ?
-                                proveedor.Descripcion : provEnBd.Descripcion;
-
-                            provEnBd.Direccion = proveedor.Direccion != null && proveedor.Direccion != provEnBd.Direccion ?
-                                proveedor.Direccion : provEnBd.Direccion;
-
-                            provEnBd.Telefono = proveedor.Telefono != null && proveedor.Telefono != provEnBd.Telefono ?
-                                proveedor.Telefono : provEnBd.Telefono;
-
-                            provEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            provEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new CatalogoProveedor
+                            if (!ctx.Sam3_Proveedor.Where(x => x.Nombre == proveedor.Nombre && x.Activo).AsParallel().Any())
                             {
-                                Contacto = proveedor.Contacto,
-                                ContactoID = provEnBd.ContactoID.ToString(),
-                                Nombre = provEnBd.Nombre,
-                                Descripcion = provEnBd.Descripcion,
-                                Direccion = provEnBd.Direccion,
-                                Telefono = provEnBd.Telefono
-                            };
+                                Sam3_Proveedor provEnBd = ctx.Sam3_Proveedor.Where(x => x.ProveedorID.ToString() == proveedor.ProveedorID && x.Activo).AsParallel().SingleOrDefault();
+
+                                provEnBd.ContactoID = proveedor.ContactoID != null && proveedor.ContactoID != provEnBd.ContactoID.ToString() ?
+                                    Convert.ToInt32(proveedor.ContactoID) : provEnBd.ContactoID;
+
+                                provEnBd.Nombre = proveedor.Nombre != null && proveedor.Nombre != provEnBd.Nombre ?
+                                    proveedor.Nombre : provEnBd.Nombre;
+
+                                provEnBd.Descripcion = proveedor.Descripcion != null && proveedor.Descripcion != provEnBd.Descripcion ?
+                                    proveedor.Descripcion : provEnBd.Descripcion;
+
+                                provEnBd.Direccion = proveedor.Direccion != null && proveedor.Direccion != provEnBd.Direccion ?
+                                    proveedor.Direccion : provEnBd.Direccion;
+
+                                provEnBd.Telefono = proveedor.Telefono != null && proveedor.Telefono != provEnBd.Telefono ?
+                                    proveedor.Telefono : provEnBd.Telefono;
+
+                                provEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                provEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoProveedor
+                                {
+                                    Contacto = proveedor.Contacto,
+                                    ContactoID = provEnBd.ContactoID.ToString(),
+                                    Nombre = provEnBd.Nombre,
+                                    Descripcion = provEnBd.Descripcion,
+                                    Direccion = provEnBd.Direccion,
+                                    Telefono = provEnBd.Telefono
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Proveedor existente");
+                            }
                             #endregion
                         case 8: //Tipo de uso
                             #region
                             Catalogos tipoUso = serializer.Deserialize<Catalogos>(data);
-
-                            Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID.ToString() == tipoUso.Id && x.Activo).AsParallel().SingleOrDefault();
-
-                            tipoUsoEnBd.Nombre = tipoUso.Nombre != null && tipoUso.Nombre != tipoUsoEnBd.Nombre ?
-                                tipoUso.Nombre : tipoUsoEnBd.Nombre;
-
-                            tipoUsoEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            tipoUsoEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new Catalogos
+                            if (!ctx.Sam3_TipoUso.Where(x => x.Activo && x.Nombre == tipoUso.Nombre).AsParallel().Any())
                             {
-                                Id = tipoUsoEnBd.TipoUsoID.ToString(),
-                                Nombre = tipoUsoEnBd.Nombre
-                            };
+                                Sam3_TipoUso tipoUsoEnBd = ctx.Sam3_TipoUso.Where(x => x.TipoUsoID.ToString() == tipoUso.Id && x.Activo).AsParallel().SingleOrDefault();
+
+                                tipoUsoEnBd.Nombre = tipoUso.Nombre != null && tipoUso.Nombre != tipoUsoEnBd.Nombre ?
+                                    tipoUso.Nombre : tipoUsoEnBd.Nombre;
+
+                                tipoUsoEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                tipoUsoEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                return new Catalogos
+                                {
+                                    Id = tipoUsoEnBd.TipoUsoID.ToString(),
+                                    Nombre = tipoUsoEnBd.Nombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Tipo de uso existente");
+                            }
                             #endregion
                         case 9: //Camion
                             #region
                             Catalogos camion = serializer.Deserialize<Catalogos>(data);
-
-                            Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID.ToString() == camion.Id && x.Activo).AsParallel().SingleOrDefault();
-                            camionEnBd.Nombre = camion.Nombre != null && camion.Nombre != camionEnBd.Nombre ?
-                                camion.Nombre : camionEnBd.Nombre;
-
-                            camionEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            camionEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new Catalogos
+                            if (!ctx.Sam3_TipoVehiculo.Where(x => x.Activo && x.Nombre == camion.Nombre).AsParallel().Any())
                             {
-                                Id = camionEnBd.TipoVehiculoID.ToString(),
-                                Nombre = camionEnBd.Nombre
-                            };
+                                Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID.ToString() == camion.Id && x.Activo).AsParallel().SingleOrDefault();
+                                camionEnBd.Nombre = camion.Nombre != null && camion.Nombre != camionEnBd.Nombre ?
+                                    camion.Nombre : camionEnBd.Nombre;
+
+                                camionEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                camionEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                return new Catalogos
+                                {
+                                    Id = camionEnBd.TipoVehiculoID.ToString(),
+                                    Nombre = camionEnBd.Nombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Camion existente");
+                            }
                             #endregion
                         case 10: //fabricante
                             #region
                             CatalogoFabricante fabricante = serializer.Deserialize<CatalogoFabricante>(data);
-
-                            Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID.ToString() == fabricante.FabricanteID && x.Activo).AsParallel().SingleOrDefault();
-
-                            fabricanteEnBd.ContactoID = fabricante.ContactoID != null && fabricante.ContactoID != fabricanteEnBd.ContactoID.ToString() ?
-                                Convert.ToInt32(fabricante.ContactoID) : fabricanteEnBd.ContactoID;
-
-                            fabricanteEnBd.Nombre = fabricante.Nombre != null && fabricante.Nombre != fabricanteEnBd.Nombre ?
-                                fabricante.Nombre : fabricanteEnBd.Nombre;
-
-                            fabricanteEnBd.Descripcion = fabricante.Descripcion != null && fabricante.Descripcion != fabricanteEnBd.Descripcion ?
-                                fabricante.Descripcion : fabricanteEnBd.Descripcion;
-
-                            fabricanteEnBd.Direccion = fabricante.Direccion != null && fabricante.Direccion != fabricanteEnBd.Direccion ?
-                                fabricante.Direccion : fabricanteEnBd.Direccion;
-
-                            fabricanteEnBd.Telefono = fabricante.Telefono != null && fabricante.Telefono != fabricanteEnBd.Telefono ?
-                                fabricante.Telefono : fabricanteEnBd.Telefono;
-
-                            fabricanteEnBd.UsuarioModificacion = usuario.UsuarioID;
-
-                            fabricanteEnBd.FechaModificacion = DateTime.Now;
-
-                            ctx.SaveChanges();
-
-                            return new CatalogoFabricante
+                            if (!ctx.Sam3_Fabricante.Where(x => x.Nombre == fabricante.Nombre && x.Activo).AsParallel().Any())
                             {
-                                Contacto = fabricante.Contacto,
-                                ContactoID = fabricante.ContactoID,
-                                Nombre = fabricanteEnBd.Nombre,
-                                Descripcion = fabricanteEnBd.Descripcion,
-                                Direccion = fabricanteEnBd.Direccion,
-                                Telefono = fabricanteEnBd.Telefono
-                            };
+                                Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID.ToString() == fabricante.FabricanteID && x.Activo).AsParallel().SingleOrDefault();
+
+                                fabricanteEnBd.ContactoID = fabricante.ContactoID != null && fabricante.ContactoID != fabricanteEnBd.ContactoID.ToString() ?
+                                    Convert.ToInt32(fabricante.ContactoID) : fabricanteEnBd.ContactoID;
+
+                                fabricanteEnBd.Nombre = fabricante.Nombre != null && fabricante.Nombre != fabricanteEnBd.Nombre ?
+                                    fabricante.Nombre : fabricanteEnBd.Nombre;
+
+                                fabricanteEnBd.Descripcion = fabricante.Descripcion != null && fabricante.Descripcion != fabricanteEnBd.Descripcion ?
+                                    fabricante.Descripcion : fabricanteEnBd.Descripcion;
+
+                                fabricanteEnBd.Direccion = fabricante.Direccion != null && fabricante.Direccion != fabricanteEnBd.Direccion ?
+                                    fabricante.Direccion : fabricanteEnBd.Direccion;
+
+                                fabricanteEnBd.Telefono = fabricante.Telefono != null && fabricante.Telefono != fabricanteEnBd.Telefono ?
+                                    fabricante.Telefono : fabricanteEnBd.Telefono;
+
+                                fabricanteEnBd.UsuarioModificacion = usuario.UsuarioID;
+
+                                fabricanteEnBd.FechaModificacion = DateTime.Now;
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoFabricante
+                                {
+                                    Contacto = fabricante.Contacto,
+                                    ContactoID = fabricante.ContactoID,
+                                    Nombre = fabricanteEnBd.Nombre,
+                                    Descripcion = fabricanteEnBd.Descripcion,
+                                    Direccion = fabricanteEnBd.Direccion,
+                                    Telefono = fabricanteEnBd.Telefono
+                                };
+                            }
+                            {
+                                throw new Exception("Fabricante existente");
+                            }
                             #endregion
                         default:
                             #region
@@ -1310,7 +1369,6 @@ namespace BackEndSAM.DataAcces
                                 throw new Exception("Fabricante existente");
                             }
                             #endregion
-
                         default:
                             #region
                             TransactionalInformation resultado = new TransactionalInformation();
@@ -1523,23 +1581,6 @@ namespace BackEndSAM.DataAcces
                 {
                     foreach (CatalogoCedulas item in catalogoCedulas)
                     {
-
-
-                        //existe = (from ced in ctx.Sam3_Cedula
-                        //          where ced.Activo && ((ced.CedulaA == item.CedulaA ||
-                        //          ced.CedulaB == item.CedulaB ||
-                        //          ced.CedulaC == item.CedulaC) &&
-                        //          ced.Diametro.ToString() == item.Diametro1) ||
-                        //          ((ced.CedulaA == item.CedulaA ||
-                        //          ced.CedulaB == item.CedulaB ||
-                        //          ced.CedulaC == item.CedulaC) &&
-                        //          String.IsNullOrEmpty(ced.Diametro.ToString()))
-                        //          select ced.CedulaID).Any();
-
-
-
-
-
                         cedulasEnBD = (from c in ctx.Sam3_Cedula
                                        where c.Activo && ((c.CedulaA == item.CedulaA ||
                                   c.CedulaB == item.CedulaB ||
