@@ -940,22 +940,34 @@ namespace BackEndSAM.DataAcces
                         case 1: //Patios
                             #region
                             CatalogoPatio catalogoPatio = serializer.Deserialize<CatalogoPatio>(data);
-                            Sam3_Patio patio = new Sam3_Patio();
-                            patio.Nombre = catalogoPatio.Nombre;
-                            patio.Descripcion = catalogoPatio.Descripcion;
-                            patio.Propietario = catalogoPatio.Propietario;
-                            patio.RequierePermisoAduana = Convert.ToBoolean(catalogoPatio.RequierePermisoAduana);
-
-                            PatioBd.Instance.InsertarPatio(patio, usuario);
-
-                            return new CatalogoPatio
+                            if(!ctx.Sam3_Patio.Where(x=> x.Nombre == catalogoPatio.Nombre && x.Activo).AsParallel().Any())
                             {
-                                PatioID = patio.PatioID.ToString(),
-                                Nombre = patio.Nombre,
-                                Descripcion = patio.Descripcion,
-                                Propietario = patio.Propietario,
-                                RequierePermisoAduana = patio.RequierePermisoAduana == true ? "Si" : "No"
-                            };
+                                Sam3_Patio patio = new Sam3_Patio();
+                                patio.Nombre = catalogoPatio.Nombre;
+                                patio.Descripcion = catalogoPatio.Descripcion;
+                                patio.Propietario = catalogoPatio.Propietario;
+                                patio.RequierePermisoAduana = Convert.ToBoolean(catalogoPatio.RequierePermisoAduana);
+                                patio.Activo = true;
+                                patio.UsuarioModificacion = usuario.UsuarioID;
+                                patio.FechaModificacion = DateTime.Now;
+
+                                ctx.Sam3_Patio.Add(patio);
+                                ctx.SaveChanges();
+
+                                return new CatalogoPatio
+                                {
+                                    PatioID = patio.PatioID.ToString(),
+                                    Nombre = patio.Nombre,
+                                    Descripcion = patio.Descripcion,
+                                    Propietario = patio.Propietario,
+                                    RequierePermisoAduana = patio.RequierePermisoAduana == true ? "Si" : "No"
+                                };
+                            }                            
+                            else
+                            {
+                                throw new Exception("Patio existente");
+                            }
+                           
                             #endregion
                         case 2: //Chofer
                             #region
