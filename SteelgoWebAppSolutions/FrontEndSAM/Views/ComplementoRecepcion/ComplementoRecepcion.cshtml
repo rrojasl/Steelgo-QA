@@ -297,7 +297,13 @@
         });
 
 
-        $("#Mostrar").click(function () { ObtenerDatosDelFolioCuantificacion(); });
+        $("#Mostrar").click(function () {
+            if (validarRequeridosFormaComplementoRecepcion()) {
+                ObtenerDatosDelFolioCuantificacion();
+            } else {
+                displayMessage("notificationslabel0031", "", '1');
+            }
+        });
         
         $("#Cancelar").click(function () { Cancelar(); });
         $("#IrListado").click(function () {
@@ -315,10 +321,11 @@
             change: function (e) {
                 var value = this.value();
                 limpiarfiltrosProyecto();
-                if (value) {
-                    ObtenerDatosFolioCuantificacion();
-                } else {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
+                } else {
+                    ObtenerDatosFolioCuantificacion();
                 }
 
             },
@@ -337,8 +344,9 @@
             change: function (e) {
                 var value = this.value();
                 limpiarfiltrosFolioCuantificacion();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Cuantificacion = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -350,6 +358,9 @@
             dataValueField: "id",
             change: function (e) {
                 var value = this.value();
+                if (this.selectedIndex == -1) {
+                    this.value("");
+                }
                 changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
             },
             filter: "contains",
@@ -371,8 +382,12 @@
             dataValueField: "ColadaID",
             change: function (e) {
                 var value = this.value();
+
+                if (this.selectedIndex == -1) {
+                    this.value("");
+                };
                 changeValueColumnColada($("#Colada").data("kendoComboBox").text());
-                $("#Colada").data("kendoComboBox").value("");
+
             },
             filter: "contains",
         });
@@ -389,6 +404,11 @@
                 } 
             },
             change: function (e) {
+
+                if (this.selectedIndex == -1) {
+                    this.value("");
+                };
+
                 rowselected.Colada = $("#EdicionColada").data("kendoComboBox").text();
                 $('#grid').data('kendoGrid').refresh();
             },
@@ -496,6 +516,9 @@
             ],
             change: function (e) {
                 var value = this.value();
+                if (this.selectedIndex == -1) {
+                    this.value("");
+                };
                 changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
             },
             filter: "contains",
@@ -512,6 +535,9 @@
             ],
             change: function (e) {
                 var value = this.value();
+                if (this.selectedIndex == -1) {
+                    this.value("");
+                };
                 changeValueColumnEstatusDocumental($("#EstatusDocumental").data("kendoComboBox").text());
             },
             filter: "contains",

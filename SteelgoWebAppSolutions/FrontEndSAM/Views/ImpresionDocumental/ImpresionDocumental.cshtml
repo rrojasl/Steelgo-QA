@@ -220,7 +220,7 @@
     function ObtenerDatosGrid() {
         if (NumeroControl.NumeroControlID) {
             loadingStart();
-            $ImpresionDocumental.ImpresionDocumental.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
+            $ImpresionDocumental.ImpresionDocumental.read({ proyectoID: Proyecto.ProyectoID, NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     resultadoJson = result;
                     if ($("#grid").data("kendoGrid")) {

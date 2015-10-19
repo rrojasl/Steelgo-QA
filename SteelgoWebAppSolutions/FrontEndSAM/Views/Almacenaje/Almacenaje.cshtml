@@ -199,8 +199,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                 } else {
                     ObtenerOrdenesAlmacenaje();
                 };
@@ -220,8 +221,9 @@
                 var value = this.value();
                 LimpiarCamposOrdenAlmacenaje();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     OrdenAlmacenaje = {};
+                    this.value("");
                 } else {
                     ObtenerItemCodes();
                 };
@@ -240,8 +242,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposItemCode();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ItemCode = {};
+                    this.value("");
                 } else {
                     ObtenerDiametros();
                     ObtenerNumerosUnicos();
@@ -260,8 +263,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     NumeroUnico = {};
+                    this.value("");
                 }
                 FiltrarDatos();
             },

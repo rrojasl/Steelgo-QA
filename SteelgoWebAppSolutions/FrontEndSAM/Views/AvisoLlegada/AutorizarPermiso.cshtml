@@ -94,6 +94,11 @@
                     ChecarAutorizacion(dataItem.id);
                 },
                 change: function () {
+                    if (!value || this.selectedIndex == -1) {
+                        Folio = {};
+                        this.value("");
+                    };
+
                     $(".k-upload-files").remove();
                     $(".k-upload-status").remove();
                     $(".k-upload-selected").remove();
