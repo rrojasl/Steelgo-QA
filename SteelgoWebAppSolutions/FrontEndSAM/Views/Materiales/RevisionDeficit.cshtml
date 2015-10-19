@@ -221,6 +221,22 @@
             })
         }
     });
+
+    $("#solucionar").on("click",function(){
+        var datosDeficit=[];
+        var datosSpools=[];
+        $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(d){
+            datosDeficit.push({DeficitID:d.DeficitID,Deficit:d.Deficit});
+        });
+        $("[data-uid] input:checked").each(function(){
+            var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
+            datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:dataItem.ItemCodes});
+        })
+        $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:datosDeficit,datosSpools:datosSpools,token:Cookies.get("token")}).done(function(data){
+            console.log(data);
+            displayMessage("",data.ReturnMessage[0],"0");
+        })
+    })
 }
 
 @section JavascriptDocumentReadyHomeCookie {
