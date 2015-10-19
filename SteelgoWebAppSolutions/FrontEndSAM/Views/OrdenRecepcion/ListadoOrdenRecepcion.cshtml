@@ -69,6 +69,7 @@
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
     var _detalleOrdenUrl = "@Url.Action("DetalleOrdenRecepcion", "OrdenRecepcion")";
     var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
+    var _UrlReporte = $UrlReportingServices;
 
     var $ListadoOrdenRecepcionModel = {
         listContainer: {
@@ -281,12 +282,12 @@
     };
 
     function ImprimirEtiquetas(e) {
-        alert("Esta pendiente, se realizara por reporting services");
-        return;
-        //e.preventDefault();
-        //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        //var ordenRecepcionID = dataItem.OrdenRecepcion
-        //window.open(_formatoEtiquetasUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + ordenRecepcionID);
+        //alert("Esta pendiente ImprimirEtiquetas, se realizara por reporting services");
+        //return;
+        e.preventDefault();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var ordenRecepcionID = dataItem.OrdenRecepcion
+        window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID +"&rc:Toolbar=false&rs:Format=PDF", '_blank');
     };
         
     function ObtenerFechasporDefecto() {
@@ -498,7 +499,7 @@
         //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         //var OrdenRecepcion = dataItem.OrdenRecepcion;
         //window.open("http://www.asp.net");
-        alert("Esta pendiente, se realizara por reporting services");
+        alert("Esta pendiente ImprimirOrden, se realizara por reporting services");
         return;
     };
 
