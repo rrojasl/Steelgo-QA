@@ -110,10 +110,14 @@
         change:function(e){
             unaVez=true;
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
-                $("#gridIC").data("kendoGrid").dataSource.data(data);
-            })
-            $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
-                $("#gridSp").data("kendoGrid").dataSource.data(data);
+                if(data.length>0){
+                    $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
+                        $("#gridSp").data("kendoGrid").dataSource.data(data);
+                    })
+                    $("#gridIC").data("kendoGrid").dataSource.data(data);
+                }else{
+                    displayMessage("","No hay deficit en la orden de trabajo espeficicada","1");
+                }
             })
         }
     });
@@ -177,8 +181,21 @@
             deficitPrevio=e.model.Deficit;
         },
         save:function(e){
-            e.model.PorCubrir=parseFloat(e.model.PorCubrir)+(e.values.Deficit-parseFloat(deficitPrevio));
-            $("#gridIC").data("kendoGrid").refresh();
+            if(!(parseFloat(e.values.Deficit)>parseFloat(e.model.Cantidad))){
+                e.model.PorCubrir=parseFloat(e.model.PorCubrir)+(e.values.Deficit-parseFloat(deficitPrevio));
+                $("#gridSp").data("kendoGrid").dataSource.data().forEach(function(d){
+                    var tmp=$.grep(d.ItemCodes,function(n){
+                        return n.ItemCodeID===e.model.ItemCodeID;
+                    })
+                    tmp.forEach(function(t){
+                        e.model.PorCubrir=parseFloat(e.model.PorCubrir)-parseFloat(t.Cantidad);
+                    })
+                    0>parseFloat(e.PorCubrir) ? e.PorCubrir="0": false;
+                })
+                $("#gridIC").data("kendoGrid").refresh();
+            }else{
+                displayMessage("","El deficit no puede ser mayor que la cantidad","2");
+            }
         },
         remove:function(e){
             $("#gridIC").data("kendoGrid").options.dataSource.transport.delete.url=$RevisionsDeficit.RevisionDeficit.urlNoId+"?deficitID="+e.model.id+"&token="+Cookies.get("token");
@@ -249,8 +266,11 @@
                 datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:ItemCodes});
             })
             $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:JSON.stringify(datosDeficit),datosSpools:JSON.stringify(datosSpools),token:Cookies.get("token")}).done(function(data){
-                console.log(data);
-                displayMessage("",data.ReturnMessage[0],"0");
+                if(data.ReturnCode==200){
+                    displayMessage("","Se ha registrado exitosamente","0");
+                }else{
+                    displayMessage("",data.ReturnMessage[0],"2");
+                }
             })
         }else{
             displayMessage("","Necesitas cubrir todos los déficit listados","2");
