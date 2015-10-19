@@ -317,7 +317,9 @@
             })
         }
         $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
-            console.log(result);
+            if(result.ReturnCode==200){
+                displayMessage("","Se ha registrado exitosamente","0");
+            }
         });
     })
 };
