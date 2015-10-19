@@ -627,6 +627,10 @@
                     displayMessage("",e.response.ReturnMessage,"2")
                     ultimaInsercionFallida=true;
                 }
+                else if (e.type == "update" && e.response.ReturnCode == 500) {
+                    displayMessage("", e.response.ReturnMessage, "2")
+                    ultimaInsercionFallida = true;
+                }
             }
         });
     }
