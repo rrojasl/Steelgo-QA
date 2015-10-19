@@ -972,114 +972,259 @@ namespace BackEndSAM.DataAcces
                         case 2: //Chofer
                             #region
                             CatalogoChofer catalogoChofer = serializer.Deserialize<CatalogoChofer>(data);
-                            Sam3_Chofer chofer = new Sam3_Chofer();
-                            chofer.Nombre = catalogoChofer.Nombre;
-                            chofer.TransportistaID = Convert.ToInt32(catalogoChofer.TransportistaID);
-
-                            ChoferBd.Instance.InsertarChofer(chofer, usuario);
-                            return new CatalogoChofer
+                            if (!ctx.Sam3_Chofer.Where(x => x.Nombre == catalogoChofer.Nombre && x.Activo).AsParallel().Any())
                             {
-                                ChoferID = chofer.ChoferID.ToString(),
-                                Nombre = chofer.Nombre,
-                                TransportistaID = chofer.TransportistaID.ToString(),
-                                TransportistaNombre = catalogoChofer.TransportistaNombre
-                            };
+                                Sam3_Chofer chofer = new Sam3_Chofer();
+                                chofer.Nombre = catalogoChofer.Nombre;
+                                chofer.TransportistaID = Convert.ToInt32(catalogoChofer.TransportistaID);
+                                chofer.Activo = true;
+                                chofer.FechaModificacion = DateTime.Now;
+                                chofer.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Chofer.Add(chofer);
+                                ctx.SaveChanges();
+
+                                return new CatalogoChofer
+                                {
+                                    ChoferID = chofer.ChoferID.ToString(),
+                                    Nombre = chofer.Nombre,
+                                    TransportistaID = chofer.TransportistaID.ToString(),
+                                    TransportistaNombre = catalogoChofer.TransportistaNombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Chofer existente");
+                            }
                             #endregion
                         case 3: //Tipo Aviso
                             #region
 
                             Catalogos CatalogotipoAviso = serializer.Deserialize<Catalogos>(data);
-                            Sam3_TipoAviso tipoAviso = new Sam3_TipoAviso();
-
-                            tipoAviso.Nombre = CatalogotipoAviso.Nombre;
-                            tipoAviso.Activo = true;
-                            tipoAviso.UsuarioModificacion = usuario.UsuarioID;
-                            tipoAviso.FechaModificacion = DateTime.Now;
-
-                            ctx.Sam3_TipoAviso.Add(tipoAviso);
-                            ctx.SaveChanges();
-
-                            return new Catalogos
+                            if (!ctx.Sam3_TipoAviso.Where(t => t.Nombre == CatalogotipoAviso.Nombre && t.Activo).AsParallel().Any())
                             {
-                                Id = tipoAviso.TipoAvisoID.ToString(),
-                                Nombre = tipoAviso.Nombre
-                            };
+                                Sam3_TipoAviso tipoAviso = new Sam3_TipoAviso();
 
+                                tipoAviso.Nombre = CatalogotipoAviso.Nombre;
+                                tipoAviso.Activo = true;
+                                tipoAviso.UsuarioModificacion = usuario.UsuarioID;
+                                tipoAviso.FechaModificacion = DateTime.Now;
+
+                                ctx.Sam3_TipoAviso.Add(tipoAviso);
+                                ctx.SaveChanges();
+
+                                return new Catalogos
+                                {
+                                    Id = tipoAviso.TipoAvisoID.ToString(),
+                                    Nombre = tipoAviso.Nombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Tipo Aviso existente");
+                            }
                             #endregion
                         case 4: //Transportista 
                             #region
                             CatalogoTransportista catalogoTransportista = serializer.Deserialize<CatalogoTransportista>(data);
-                            Sam3_Transportista transportista = new Sam3_Transportista();
-
-                            transportista.ContactoID = Convert.ToInt32(catalogoTransportista.ContactoID);
-                            transportista.Nombre = catalogoTransportista.Nombre;
-                            transportista.Descripcion = catalogoTransportista.Descripcion;
-                            transportista.Direccion = catalogoTransportista.Direccion;
-                            transportista.Telefono = catalogoTransportista.Telefono;
-
-                            TransportistaBd.Instance.InsertarTransportista(transportista, usuario);
-
-                            return new CatalogoTransportista
+                            if (!ctx.Sam3_Transportista.Where(x => x.Nombre == catalogoTransportista.Nombre && x.Activo).AsParallel().Any())
                             {
-                                TransportistaID = transportista.TransportistaID.ToString(),
-                                ContactoID = transportista.ContactoID.ToString(),
-                                Contacto = catalogoTransportista.Contacto,
-                                Descripcion = transportista.Descripcion,
-                                Direccion = transportista.Direccion,
-                                Nombre = transportista.Nombre,
-                                Telefono = transportista.Telefono
-                            };
+                                Sam3_Transportista transportista = new Sam3_Transportista();
+
+                                transportista.ContactoID = Convert.ToInt32(catalogoTransportista.ContactoID);
+                                transportista.Nombre = catalogoTransportista.Nombre;
+                                transportista.Descripcion = catalogoTransportista.Descripcion;
+                                transportista.Direccion = catalogoTransportista.Direccion;
+                                transportista.Telefono = catalogoTransportista.Telefono;
+                                transportista.Activo = true;
+                                transportista.UsuarioModificacion = usuario.UsuarioID;
+                                transportista.FechaModificacion = DateTime.Now;
+
+                                ctx.Sam3_Transportista.Add(transportista);
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoTransportista
+                                {
+                                    TransportistaID = transportista.TransportistaID.ToString(),
+                                    ContactoID = transportista.ContactoID.ToString(),
+                                    Contacto = catalogoTransportista.Contacto,
+                                    Descripcion = transportista.Descripcion,
+                                    Direccion = transportista.Direccion,
+                                    Nombre = transportista.Nombre,
+                                    Telefono = transportista.Telefono
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Transportista existente");
+                            }
                             #endregion
                         case 5: //Tracto
                             #region
-
+                          
                             VehiculoJson tracto = serializer.Deserialize<VehiculoJson>(data);
-                            tracto.TipoVehiculoID = "1";
-                            res = TractoBd.Instance.InsertarTracto(tracto, usuario);
-                            return res;
+                            if (!ctx.Sam3_Vehiculo.Where(c => c.Placas == tracto.Placas && c.TipoVehiculoID == 1 && c.Activo).AsParallel().Any())
+                            {
+                                tracto.TipoVehiculoID = "1";
 
+                                Sam3_Vehiculo nuevoCamion = new Sam3_Vehiculo();
+                                nuevoCamion.Activo = true;
+                                nuevoCamion.FechaModificacion = DateTime.Now;
+                                nuevoCamion.Placas = tracto.Placas;
+                                nuevoCamion.PolizaSeguro = tracto.PolizaSeguro;
+                                nuevoCamion.TarjetaCirculacion = tracto.TarjetaCirculacion;
+                                nuevoCamion.UsuarioModificacion = usuario.UsuarioID;
+                                nuevoCamion.TipoVehiculoID = Convert.ToInt32(tracto.TipoVehiculoID);
+
+                                ctx.Sam3_Vehiculo.Add(nuevoCamion);
+                                ctx.SaveChanges();
+
+                                Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
+                                nuevoRegistroChofer.VehiculoID = nuevoCamion.VehiculoID;
+                                nuevoRegistroChofer.Activo = true;
+                                nuevoRegistroChofer.ChoferID = Convert.ToInt32(tracto.ChoferID);
+                                nuevoRegistroChofer.FechaModificacion = DateTime.Now;
+                                nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
+
+                                Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
+                                transportista.Activo = true;
+                                transportista.FechaModificacion = DateTime.Now;
+                                transportista.TransportistaID = Convert.ToInt32(tracto.TransportistaID);
+                                transportista.VehiculoID = nuevoCamion.VehiculoID;
+                                transportista.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoTracto
+                                {
+                                    VehiculoID = nuevoCamion.VehiculoID.ToString(),
+                                    Placas = nuevoCamion.Placas,
+                                    TarjetaCirculacion = nuevoCamion.TarjetaCirculacion,
+                                    PolizaSeguro = nuevoCamion.PolizaSeguro,
+                                    choferNombre = tracto.choferNombre,
+                                    choferID = tracto.ChoferID.ToString(),
+                                    transportistaNombre = tracto.transportistaNombre,
+                                    transportistaID = tracto.TransportistaID.ToString(),
+                                    relVehiculoChoferID = nuevoRegistroChofer.Rel_Vehiculo_Chofer_ID.ToString(),
+                                    relVehiculoTransportistaID = transportista.Rel_Vehiculo_Transportista_ID.ToString()
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Tracto existente");
+                            }
                             #endregion
                         case 6: //Plana
                             #region
-
                             VehiculoJson plana = serializer.Deserialize<VehiculoJson>(data);
                             plana.TipoVehiculoID = "2";
-                            res = PlanaBd.Instance.InsertarPlana(plana, usuario);
 
-                            return res;
+                            if (!ctx.Sam3_Vehiculo.Where(c => c.Placas == plana.Placas && c.TipoVehiculoID == 2 && c.Activo).AsParallel().Any())
+                            {
+                               Sam3_Vehiculo nuevaPlana = new Sam3_Vehiculo
+                                {
+                                    TipoVehiculoID = Convert.ToInt32(plana.TipoVehiculoID),
+                                    Activo = true,
+                                    TractoID = Convert.ToInt32(plana.TractoID),
+                                    Placas = plana.Placas,
+                                    Unidad = plana.Unidad,
+                                    Modelo = plana.Modelo,
+                                    FechaModificacion = DateTime.Now,
+                                    UsuarioModificacion = usuario.UsuarioID
+                                };
+                                ctx.Sam3_Vehiculo.Add(nuevaPlana);
+                                ctx.SaveChanges();
+
+                                Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
+                                nuevoRegistroChofer.VehiculoID = nuevaPlana.VehiculoID;
+                                nuevoRegistroChofer.Activo = true;
+                                nuevoRegistroChofer.ChoferID = Convert.ToInt32(plana.ChoferID);
+                                nuevoRegistroChofer.FechaModificacion = DateTime.Now;
+                                nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
+
+                                Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
+                                transportista.Activo = true;
+                                transportista.FechaModificacion = DateTime.Now;
+                                transportista.TransportistaID = Convert.ToInt32(plana.TransportistaID);
+                                transportista.VehiculoID = nuevaPlana.VehiculoID;
+                                transportista.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
+
+                                ctx.SaveChanges();
+
+                                return new CatalogoPlana
+                                {
+                                    VehiculoID = nuevaPlana.VehiculoID.ToString(),
+                                    Placas = nuevaPlana.Placas,
+                                    Unidad = nuevaPlana.Unidad,
+                                    Modelo = nuevaPlana.Modelo,
+                                    choferNombre = plana.choferNombre,
+                                    choferID = plana.ChoferID.ToString(),
+                                    transportistaNombre = plana.transportistaNombre,
+                                    transportistaID = plana.TransportistaID.ToString(),
+                                    relVehiculoChoferID = nuevoRegistroChofer.Rel_Vehiculo_Chofer_ID.ToString(),
+                                    relVehiculoTransportistaID = transportista.Rel_Vehiculo_Transportista_ID.ToString()
+                                };
+                                //return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.VehiculoID) };
+                            }
+                            else
+                            {
+                                throw new Exception("Plana existente");
+                            }
 
                             #endregion
                         case 7: //Proveedor
                             #region
 
                             CatalogoProveedor catalogoProveedor = serializer.Deserialize<CatalogoProveedor>(data);
-                            Sam3_Proveedor proveedor = new Sam3_Proveedor();
-
-                            proveedor.ContactoID = Convert.ToInt32(catalogoProveedor.ContactoID);
-                            proveedor.Nombre = catalogoProveedor.Nombre;
-                            proveedor.Descripcion = catalogoProveedor.Descripcion;
-                            proveedor.Direccion = catalogoProveedor.Direccion;
-                            proveedor.Telefono = catalogoProveedor.Telefono;
-
-                            ProveedorBd.Instance.InsertarProveedor(proveedor, usuario);
-                            return new CatalogoProveedor
+                            if (!ctx.Sam3_Proveedor.Where(p => p.Nombre == catalogoProveedor.Nombre && p.Activo).AsParallel().Any())
                             {
-                                Contacto = catalogoProveedor.Contacto,
-                                ContactoID = proveedor.ContactoID.ToString(),
-                                Nombre = proveedor.Nombre,
-                                Descripcion = proveedor.Descripcion,
-                                Direccion = proveedor.Direccion,
-                                Telefono = proveedor.Telefono,
-                                ProveedorID = proveedor.ProveedorID.ToString()
-                            };
+                                Sam3_Proveedor proveedor = new Sam3_Proveedor();
+
+                                proveedor.ContactoID = Convert.ToInt32(catalogoProveedor.ContactoID);
+                                proveedor.Nombre = catalogoProveedor.Nombre;
+                                proveedor.Descripcion = catalogoProveedor.Descripcion;
+                                proveedor.Direccion = catalogoProveedor.Direccion;
+                                proveedor.Telefono = catalogoProveedor.Telefono;
+
+                                proveedor.UsuarioModificacion = usuario.UsuarioID;
+                                proveedor.FechaModificacion = DateTime.Now;
+                                proveedor.Activo = true;
+                                ctx.Sam3_Proveedor.Add(proveedor);
+                                ctx.SaveChanges();
+
+                                return new CatalogoProveedor
+                                {
+                                    Contacto = catalogoProveedor.Contacto,
+                                    ContactoID = proveedor.ContactoID.ToString(),
+                                    Nombre = proveedor.Nombre,
+                                    Descripcion = proveedor.Descripcion,
+                                    Direccion = proveedor.Direccion,
+                                    Telefono = proveedor.Telefono,
+                                    ProveedorID = proveedor.ProveedorID.ToString()
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Proveedor existente");
+                            }
 
                             #endregion
                         case 8: //Tipo de uso
                             #region
                             Catalogos catalogoTipoUso = serializer.Deserialize<Catalogos>(data);
+                          
                             Sam3_TipoUso tipoUso = new Sam3_TipoUso();
 
-                            if (!ctx.Sam3_TipoUso.Where(x => x.Nombre == catalogoTipoUso.Nombre).Any())
+                            if (!ctx.Sam3_TipoUso.Where(x => x.Nombre == catalogoTipoUso.Nombre && x.Activo).Any())
                             {
                                 tipoUso.Activo = true;
                                 tipoUso.FechaModificacion = DateTime.Now;
@@ -1088,65 +1233,82 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.Sam3_TipoUso.Add(tipoUso);
                                 ctx.SaveChanges();
-                            }
 
-                            return new Catalogos
+                                return new Catalogos
+                                {
+                                    Id = tipoUso.TipoUsoID.ToString(),
+                                    Nombre = tipoUso.Nombre
+                                };
+                            }
+                            else
                             {
-                                Id = tipoUso.TipoUsoID.ToString(),
-                                Nombre = tipoUso.Nombre
-                            };
+                                throw new Exception("Tipo de Uso existente");
+                            }
 
                             #endregion
                         case 9: //Camion
                             #region
 
                             Catalogos catalogosVehiculo = serializer.Deserialize<Catalogos>(data);
-                            Sam3_TipoVehiculo vehiculo = new Sam3_TipoVehiculo();
-
-                            vehiculo.Nombre = catalogosVehiculo.Nombre;
-
-                            vehiculo.Activo = true;
-                            vehiculo.FechaModificacion = DateTime.Now;
-                            vehiculo.UsuarioModificacion = usuario.UsuarioID;
-
-                            ctx.Sam3_TipoVehiculo.Add(vehiculo);
-                            ctx.SaveChanges();
-
-                            return new Catalogos
+                            if (!ctx.Sam3_TipoVehiculo.Where(x => x.Nombre == catalogosVehiculo.Nombre && x.Activo).AsParallel().Any())
                             {
-                                Id = vehiculo.TipoVehiculoID.ToString(),
-                                Nombre = vehiculo.Nombre
-                            };
+                                Sam3_TipoVehiculo vehiculo = new Sam3_TipoVehiculo();
 
+                                vehiculo.Nombre = catalogosVehiculo.Nombre;
+
+                                vehiculo.Activo = true;
+                                vehiculo.FechaModificacion = DateTime.Now;
+                                vehiculo.UsuarioModificacion = usuario.UsuarioID;
+
+                                ctx.Sam3_TipoVehiculo.Add(vehiculo);
+                                ctx.SaveChanges();
+
+                                return new Catalogos
+                                {
+                                    Id = vehiculo.TipoVehiculoID.ToString(),
+                                    Nombre = vehiculo.Nombre
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Camion existente");
+                            }
                             #endregion
                         case 10:  //fabricante
                             #region
                             CatalogoFabricante catalogoFabricante = serializer.Deserialize<CatalogoFabricante>(data);
-                            Sam3_Fabricante fabricante = new Sam3_Fabricante();
-
-                            fabricante.ContactoID = Convert.ToInt32(catalogoFabricante.ContactoID);
-                            fabricante.Nombre = catalogoFabricante.Nombre;
-                            fabricante.Descripcion = catalogoFabricante.Descripcion;
-                            fabricante.Direccion = catalogoFabricante.Direccion;
-                            fabricante.Telefono = catalogoFabricante.Telefono;
-
-                            fabricante.Activo = true;
-                            fabricante.UsuarioModificacion = usuario.UsuarioID;
-                            fabricante.FechaModificacion = DateTime.Now;
-
-                            ctx.Sam3_Fabricante.Add(fabricante);
-                            ctx.SaveChanges();
-
-                            return new CatalogoFabricante
+                            if (!ctx.Sam3_Fabricante.Where(x => x.Nombre == catalogoFabricante.Nombre && x.Activo).AsParallel().Any())
                             {
-                                FabricanteID = fabricante.FabricanteID.ToString(),
-                                Contacto = catalogoFabricante.Contacto,
-                                ContactoID = catalogoFabricante.ContactoID,
-                                Nombre = fabricante.Nombre,
-                                Descripcion = fabricante.Descripcion,
-                                Direccion = fabricante.Direccion,
-                                Telefono = fabricante.Telefono
-                            };
+                                Sam3_Fabricante fabricante = new Sam3_Fabricante();
+
+                                fabricante.ContactoID = Convert.ToInt32(catalogoFabricante.ContactoID);
+                                fabricante.Nombre = catalogoFabricante.Nombre;
+                                fabricante.Descripcion = catalogoFabricante.Descripcion;
+                                fabricante.Direccion = catalogoFabricante.Direccion;
+                                fabricante.Telefono = catalogoFabricante.Telefono;
+
+                                fabricante.Activo = true;
+                                fabricante.UsuarioModificacion = usuario.UsuarioID;
+                                fabricante.FechaModificacion = DateTime.Now;
+
+                                ctx.Sam3_Fabricante.Add(fabricante);
+                                ctx.SaveChanges();
+
+                                return new CatalogoFabricante
+                                {
+                                    FabricanteID = fabricante.FabricanteID.ToString(),
+                                    Contacto = catalogoFabricante.Contacto,
+                                    ContactoID = catalogoFabricante.ContactoID,
+                                    Nombre = fabricante.Nombre,
+                                    Descripcion = fabricante.Descripcion,
+                                    Direccion = fabricante.Direccion,
+                                    Telefono = fabricante.Telefono
+                                };
+                            }
+                            else
+                            {
+                                throw new Exception("Fabricante existente");
+                            }
                             #endregion
 
                         default:
