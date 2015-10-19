@@ -91,6 +91,9 @@
     var _resultadoJson, Proyecto = {}, FolioAvisoEntrada = {}, ItemCode = {}, _esFiltros = false;
     var _ordenRecepcionID = getUrlParameter("OrdenRecepcionID", "-1");
     var _proyectoID = getUrlParameter("ProyectoID", "-1");
+    var _imprimirFormatos = getUrlParameter("ImprimirFormatos", "-1");
+
+    var _UrlReporte = $UrlReportingServices;
     var _generarOrdenUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
     var _listadoOrdenUrl = "@Url.Action("ListadoOrdenRecepcion", "OrdenRecepcion")";
     var _formatoEtiquetasUrl = "@Url.Action("FormatoEtiquetas", "OrdenRecepcion")";
@@ -203,6 +206,11 @@
         $("#FolioAvisoEntradaID").data("kendoComboBox").enable(false);
         $("#ItemCode").data("kendoComboBox").enable(false);
         CargarDatosGridInicial();
+
+        if (_imprimirFormatos != "-1") {
+            window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + _ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
+            alert("Pendiente formato de impresion de Orden Recepcion Reporting Services");
+        };
     };
 
     function ControlErroresObjetosComboBox(control, result) {

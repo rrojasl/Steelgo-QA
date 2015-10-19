@@ -517,8 +517,8 @@
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-            Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
-            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "-1";
+            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "-1";
             Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
             Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";
             Listado.TipoMaterialID = tipomaterial;
@@ -1245,8 +1245,8 @@
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-            Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
-            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "-1";
+            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "-1";
             Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
             Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";
             Listado.TipoMaterialID = 1;
@@ -1265,8 +1265,8 @@
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
-            Listado.ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
-            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "-1";
+            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "-1";
             Listado.FolioAvisoEntradaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
             Listado.PackingListID = PackingList.PackingListID ? PackingList.PackingListID : "";;
             Listado.TipoMaterialID = 2;

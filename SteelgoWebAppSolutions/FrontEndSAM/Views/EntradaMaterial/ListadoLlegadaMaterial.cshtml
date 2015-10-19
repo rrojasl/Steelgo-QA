@@ -241,18 +241,15 @@
     };
 
     function CargarPatio(id, value) {
-        Patio = [];
-        _patio = {};
-        _patio["PatioID"] = id;
-        _patio["Nombre"] = value;
-        Patio.push(_patio);
+        Patio = {};
+        Patio = { PatioID: id, Nombre: value };
     };
 
     function CargarCliente(id, value) {
         Cliente = {};
         Cliente = { ClienteID: id };
     };
-
+    
     function CargarPeriodoTiempo(id) {
         PeriodoTiempo = {};
         PeriodoTiempo = { PeriodoTiempo: id };
@@ -279,13 +276,13 @@
 
         Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
         Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-        Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
+        Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
         Listado.FechaInicial = obtenerFormatoFecha(d);
         Listado.FechaFinal = obtenerFormatoFecha(d1);
         Listado.PorLlegar = accion == 1 ? true : false;
         Listado.PorDescargar = accion == 2 ? true : false;
         Listado.PorSalir = accion == 3 ? true : false;
-        Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+        Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
         Listado.token = Cookies.get("token");
         console.log("listado");
         console.log(JSON.stringify(Listado));
@@ -411,13 +408,13 @@
 
         Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
         Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-        Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
+        Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
         Listado.FechaInicial = obtenerFormatoFecha(d);
         Listado.FechaFinal = obtenerFormatoFecha(d1);
         Listado.PorLlegar = accion == 1 ? true : false;
         Listado.PorDescargar = accion == 2 ? true : false;
         Listado.PorSalir = accion == 3 ? true : false;
-        Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+        Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
         Listado.token = Cookies.get("token");
         Listado.TipoListado = 5;
         console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
@@ -573,7 +570,7 @@
         change: function (e) {
             var value = this.value();
             if (!value) {
-                Patio = [];
+                Patio = {};
             }
             Filtros();
         },

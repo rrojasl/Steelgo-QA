@@ -32,7 +32,9 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" id="GuardarNuevo"><span id="GenerarOrdenRecepcion0017"></span></a></li>
+                                    <li><a href="#" id="GuardarImprimirOrden"><span id="GenerarOrdenRecepcion0018"></span></a></li>
                                     <li><a href="#" id="GuardarEtiquetas"><span id="GenerarOrdenRecepcion0019"></span></a></li>
+                                    
                                 </ul>
                             </div>
                            
@@ -122,6 +124,10 @@
 
         $("#GuardarNuevo").click(function () {
             GenerarOrdenRecepcionNuevo();
+        });
+
+        $("#GuardarImprimirOrden").click(function () {
+            GenerarOrdenRecepcionImprimirFormato();
         });
 
         $("#GuardarEtiquetas").click(function () {
@@ -493,6 +499,11 @@
         }
     };
 
+    function GenerarOrdenRecepcionImprimirFormato() {
+        alert("Pendiente formato de impresion de Orden Recepcion Reporting Services");
+        return;
+    };
+
     function GenerarOrdenRecepcion() {
         var itemCodes = [], x = 0, folios = [];
         OrdenRecepcion = { Folios: "", Items: "" };
@@ -527,7 +538,6 @@
         folios = ObtenerFoliosDeMemoria();
         itemCodes = ObtenerItemCodesDeMemoria();
         
-
         loadingStart();
         OrdenRecepcion.Folios = folios;
         OrdenRecepcion.Items = itemCodes;
@@ -537,9 +547,7 @@
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    //window.open("@Url.Action("FormatoEtiquetas", "OrdenRecepcion")" + "?leng=" + $("#language").data("kendoDropDownList").value() + + "&OrdenRecepcionID=" + result.ReturnMessage[1]);
-                    //window.open("http://www.asp.net");//Webservice
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID;
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID + "&ImprimirFormatos=1";
                 }
             });
         } else {

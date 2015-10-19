@@ -85,7 +85,7 @@ BEGIN
 			WHERE NumeroUnicoID = @sam2_numeroUnicoID) IS NULL
 		BEGIN
 			--insertar en sam2
-			INSERT INTO [dbo].[NumeroUnicoInventario]
+			INSERT INTO SAM2.SAM.DBO.NumeroUnicoInventario
 					   ([NumeroUnicoID]
 					   ,[ProyectoID]
 					   ,[CantidadRecibida]

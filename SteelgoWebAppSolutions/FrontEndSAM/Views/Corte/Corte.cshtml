@@ -432,12 +432,12 @@
             },
             change: function (e) {
                 var value = this.value();
+                LimpiarGrid();
                 if (!value) {
                     NumeroUnico = {};
                 } else {
-                    LimpiarGrid();
                     ObtenerDetalleNumeroUnico();
-                }
+                };
             },
             filter: "contains",
         });
@@ -550,17 +550,31 @@
     };
 
     function ObtenerDetalleNumeroUnico() {
-        if (NumeroUnico.NumeroUnicoID) {
-            loadingStart();
-            $NumerosUnicos.NumerosUnicos.read({ NumeroUnicoID: NumeroUnico.NumeroUnicoID, token: Cookies.get("token") }).done(function (result) {
+        loadingStart();
+        var numerounicoID = NumeroUnico.NumeroUnicoID ? NumeroUnico.NumeroUnicoID : "";
+        if(numerounicoID){
+            $NumerosUnicos.NumerosUnicos.read({ NumeroUnicoID: numerounicoID, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
-                    $("#Cantidad").val(result.Cantidad);
-                    $("#ItemCode").val(result.ItemCode);
-                    $("#Diametro1").val(result.D1);
-                    $("#hdnTolerancia").val(result.Tolerancia);
+                    if (result) {
+                        $("#Cantidad").val(result.Cantidad);
+                        $("#ItemCode").val(result.ItemCode);
+                        $("#Diametro1").val(result.D1);
+                        $("#hdnTolerancia").val(result.Tolerancia);
+                    } else {
+                        $("#Cantidad").val("");
+                        $("#ItemCode").val("");
+                        $("#Diametro1").val("");
+                        $("#hdnTolerancia").val("");
+                    };
                 }
                 loadingStop();
             });
+        } else {
+            $("#Cantidad").val("");
+            $("#ItemCode").val("");
+            $("#Diametro1").val("");
+            $("#hdnTolerancia").val("");
+            loadingStop();
         }
     };
 

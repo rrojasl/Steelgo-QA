@@ -118,6 +118,12 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarContacto(dataItem.ContactoID, dataItem.Nombre);
             },
+            change: function (e) {
+                var value = this.value();
+                if (!value) {
+                    Contacto = [];
+                };
+            },
             filter: "contains",
         });
         ObtenerContacto();
