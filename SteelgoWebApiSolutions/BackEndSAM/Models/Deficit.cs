@@ -73,4 +73,13 @@ namespace BackEndSAM.Models
         public int DeficitID { get; set; }
         public int Deficit { get; set; }
     }
+
+    public class DeficitTrabajoMaterial
+    {
+        public int OrdenTrabajoMaterialID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public int? NumeroUnicoID { get; set; }
+        public string Segmento { get; set; }
+        public int? CantidadCongelada { get; set; }
+    }
 }
