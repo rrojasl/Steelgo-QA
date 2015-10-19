@@ -420,6 +420,7 @@
 
             $("input").each(function () {
                 var cb = $(this).data("kendoComboBox");
+                var ka = $(this).data("kendoAutoComplete")
                 if (cb) {
                     $(this).focusout(function () {
                         if (!$(this).data("kendoComboBox").dataItem()) {
@@ -427,8 +428,18 @@
                             cb.trigger("change");
                         }
                     });
-                }
+                };
+
+                if (ka) {
+                    $(this).focusout(function () {
+                        if (!$(this).data("kendoAutoComplete").dataItem()) {
+                            ka.value("");
+                            ka.trigger("change");
+                        }
+                    });
+                };
             });
+
 
         });
        

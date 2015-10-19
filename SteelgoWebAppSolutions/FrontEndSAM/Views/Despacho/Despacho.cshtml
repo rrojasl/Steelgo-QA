@@ -304,26 +304,26 @@
         $("#grid").data("kendoGrid").dataSource.data([]);
     };
     function ObtenerDatosGrid() {
-        if(NumeroControl.NumeroControlID){
-            loadingStart();
-            $Despacho.Despacho.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
-                if (Error(result)) {
-                    resultadoJson = result;
-                    if ($("#grid").data("kendoGrid")) {
-                        if (resultadoJson.length > 0) {
-                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                            $("#grid").data("kendoGrid").dataSource.page(1);
-                        } else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                            $("#grid").data("kendoGrid").dataSource.page(0);
-                        };
+        loadingStart();
+        var numerocontrolID = NumeroControl.NumeroControlID ? NumeroControl.NumeroControlID : "";
+        
+        $Despacho.Despacho.read({ NumeroControl: numerocontrolID, token: Cookies.get("token") }).done(function (result) {
+            if (Error(result)) {
+                resultadoJson = result;
+                if ($("#grid").data("kendoGrid")) {
+                    if (resultadoJson.length > 0) {
+                        $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                        $("#grid").data("kendoGrid").dataSource.page(1);
+                    } else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#grid").data("kendoGrid").dataSource.page(0);
                     };
-                    applySecurityPolicy(false);
-                    FiltrarDatos();
-                }
-                loadingStop();
-            });
-        }
+                };
+                applySecurityPolicy(false);
+                FiltrarDatos();
+            }
+            loadingStop();
+        });
     };
 
     function FiltrarDatos() {

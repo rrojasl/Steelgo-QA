@@ -40,7 +40,8 @@ namespace BackEndSAM.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-            return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(Convert.ToInt32(NumeroUnicoID), usuario);
+            int numerounico = NumeroUnicoID != "" ? Convert.ToInt32(NumeroUnicoID) : 0;
+            return NumeroUnicoBd.Instance.DetalleNumeroUnicoCorte(numerounico, usuario);
 
         }
 
