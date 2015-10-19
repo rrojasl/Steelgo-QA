@@ -208,7 +208,7 @@
         //client.FolioAvisoEntrada.read({folio: 1010, token: ""}).done(function (data) {console.log(data)});
 
 
-        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
         //client.add("TipoUso");
         //client.TipoUso.read({ token: "" }).done(function (data) { console.log(data) });
@@ -228,7 +228,7 @@
         //client.add("CargarGridCuantificacion");
         //client.CargarGridCuantificacion.read({ token: "", avisoEntrada: 15, folioCuantificacion: 2/*, bultoID: 1*/ }).done(function (data) { console.log(data) });
 
-        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
 
         //var json = [{ "ID": 520 }, { "ID": 70 }, { "ID": 50 }, { "ID": 60 }, { "ID": 566 }];
         //var token = "22sd5fs1g5sd3f1sa5df3sd21f";
@@ -328,7 +328,7 @@
         //    token: ""
         //}).done(function (data) { console.log(data) });
 
-        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        //var client = new $.RestClient('http://localhost:60960/backendsam/api/');
         //client.add("ComplementarRecepcion");
         //client.ComplementarRecepcion.read({}, { "folio": 1010, "token": "" }).done(function (data) { console.log(data) });
      
@@ -403,8 +403,12 @@
         //client.add("NotificacionDeficit");
         //client.NotificacionDeficit.read({}, { ordenTrabajoID: 2291, itemCodeID: 21545, token: "" }).done(function (data) { console.log(data) });
 
-        client.add("RevisionDeficit");
-        client.RevisionDeficit.read({}, { ordenTrabajo: 4411, token: "" }).done(function (data) { console.log(data) });
+        //client.add("RevisionDeficit");
+        //client.RevisionDeficit.read({}, { ordenTrabajo: 4411, token: "" }).done(function (data) { console.log(data) });
+
+        var client = new $.RestClient('http://localhost:60960/backendsam/api/');
+        client.add("ImpresionDocumental");
+        client.ImpresionDocumental.read({}, { "proyectoID": 1, "NumeroControl": "77480", "token": "123456789" }).done(function (data) { console.log(data) });
 
     </script>
 </body>

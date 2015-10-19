@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControl(texto, Convert.ToInt32(id), usuario);
+                return OrdenTrabajoSpoolBd.Instance.ListadoNumerosDeControlImpresionDocumental(texto, Convert.ToInt32(id), usuario);
             }
             else
             {
@@ -42,24 +42,26 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/impresiondocumental/5
-        public IEnumerable<ListadoImpresionDocumental> Get(string NumeroControl, string token)
+        public object Get(int proyectoID, string NumeroControl, string token)
         {
-            List<ListadoImpresionDocumental> lstImpresionDoc = new List<ListadoImpresionDocumental>();
-            ListadoImpresionDocumental ImpresionDoc1 = new ListadoImpresionDocumental();
-            ListadoImpresionDocumental ImpresionDoc2 = new ListadoImpresionDocumental();
-            ListadoImpresionDocumental ImpresionDoc3 = new ListadoImpresionDocumental();
-
-            ImpresionDoc1.TipoMaterial = "Tubo";
-            ImpresionDoc1.ItemCodeSteelgo = "A123T01";
-            ImpresionDoc1.Cantidad = "400";
-            lstImpresionDoc.Add(ImpresionDoc1);
-
-            ImpresionDoc2.TipoMaterial = "Accesorio";
-            ImpresionDoc2.ItemCodeSteelgo = "A123A01";
-            ImpresionDoc2.Cantidad = "1";
-            lstImpresionDoc.Add(ImpresionDoc2);
-
-            return lstImpresionDoc.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ImpresionDocumentalBd.Instance.ObtenerFormatos(Convert.ToInt32(NumeroControl), proyectoID, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // POST api/impresiondocumental
