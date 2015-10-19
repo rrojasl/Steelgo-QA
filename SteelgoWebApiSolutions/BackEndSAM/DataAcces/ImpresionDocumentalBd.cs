@@ -44,7 +44,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerFormatos(int odtsID, int proyectoID, Sam3_Usuario usuario)
+        public object ObtenerFormatos(int odtsID, int proyectoID, int obtenerFormato, Sam3_Usuario usuario)
         {
             try
             {
@@ -59,42 +59,46 @@ namespace BackEndSAM.DataAcces
                         string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == proyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
                         string numeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == odtsID).Select(x => x.NumeroControl).SingleOrDefault();
 
-                        List<MaterialSpool> listaMateriales = (from ms in ctx2.MaterialSpool
-                                                               join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
-                                                               join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
-                                                               where odts.OrdenTrabajoSpoolID == OrdenTSpool.OrdenTrabajoSpoolID
-                                                               && odtm.TieneDespacho == false
-                                                               select ms).AsParallel().Distinct().ToList();
-
-                        
-
-                        if (listaMateriales != null && listaMateriales.Count > 0)
+                        if (obtenerFormato == 0)
                         {
-                            List<ListadoImpresionDocumental> listaFaltantes = (from r in listaMateriales
-                                                                               join it in ctx2.ItemCode on r.ItemCodeID equals it.ItemCodeID
-                                                                               join tp in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals tp.TipoMaterialID
-                                                                               select new ListadoImpresionDocumental
-                                                                               {
-                                                                                   Cantidad = r.Cantidad.ToString(),
-                                                                                   ItemCodeSteelgo = it.Codigo,
-                                                                                   TipoMaterial = tp.Nombre
-                                                                               }).AsParallel().Distinct().ToList();
+                            List<MaterialSpool> listaMateriales = (from ms in ctx2.MaterialSpool
+                                                                   join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                                                   join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                                                   where odts.OrdenTrabajoSpoolID == OrdenTSpool.OrdenTrabajoSpoolID
+                                                                   && odtm.TieneDespacho == false
+                                                                   select ms).AsParallel().Distinct().ToList();
 
-                            foreach (ListadoImpresionDocumental l in listaFaltantes)
+
+                            List<ListadoImpresionDocumental> listaFaltantes = new List<ListadoImpresionDocumental>();
+                            if (listaMateriales != null && listaMateriales.Count > 0)
                             {
-                                string temp = (from it in ctx.Sam3_ItemCode
-                                               join rits in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on it.ItemCodeID equals rits.ItemCodeID
-                                               join its in ctx.Sam3_ItemCodeSteelgo on rits.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
-                                               where it.Codigo == l.ItemCodeSteelgo
-                                               select its.Codigo).AsParallel().SingleOrDefault();
+                                listaFaltantes = (from r in listaMateriales
+                                                  join it in ctx2.ItemCode on r.ItemCodeID equals it.ItemCodeID
+                                                  join tp in ctx.Sam3_TipoMaterial on it.TipoMaterialID equals tp.TipoMaterialID
+                                                  select new ListadoImpresionDocumental
+                                                  {
+                                                      Cantidad = r.Cantidad.ToString(),
+                                                      ItemCodeSteelgo = it.Codigo,
+                                                      TipoMaterial = tp.Nombre
+                                                  }).AsParallel().Distinct().ToList();
 
-                                l.ItemCodeSteelgo = temp;
+                                foreach (ListadoImpresionDocumental l in listaFaltantes)
+                                {
+                                    string temp = (from it in ctx.Sam3_ItemCode
+                                                   join rits in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on it.ItemCodeID equals rits.ItemCodeID
+                                                   join its in ctx.Sam3_ItemCodeSteelgo on rits.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                   where it.Codigo == l.ItemCodeSteelgo
+                                                   select its.Codigo).AsParallel().SingleOrDefault();
+
+                                    l.ItemCodeSteelgo = temp;
+                                }
                             }
 
                             return listaFaltantes;
                         }
                         else
                         {
+
                             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
                             string rutaBase = ConfigurationManager.AppSettings["SamFiles"];
                             string ruta = rutaBase + nombreProyecto + "\\Traveler\\" + numeroControl + ".pdf";
@@ -108,7 +112,7 @@ namespace BackEndSAM.DataAcces
                             response.Content.Headers.ContentDisposition.FileName = fileName;
 
                             return response;
-                        }  
+                        }
 
                     }
                 }
