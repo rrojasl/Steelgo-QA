@@ -70,41 +70,42 @@ namespace BackEndSAM.DataAcces
                 Sam3_Vehiculo nuevaPlana;
                 using (SamContext ctx = new SamContext())
                 {
-
-                    nuevaPlana = new Sam3_Vehiculo
+                    if (!ctx.Sam3_Vehiculo.Where(c => c.Placas == plana.Placas && c.TipoVehiculoID == 2 && c.Activo).AsParallel().Any())
                     {
-                        TipoVehiculoID = Convert.ToInt32(plana.TipoVehiculoID),
-                        Activo = true,
-                        TractoID = Convert.ToInt32(plana.TractoID),
-                        Placas = plana.Placas,
-                        Unidad = plana.Unidad,
-                        Modelo = plana.Modelo,
-                        FechaModificacion = DateTime.Now,
-                        UsuarioModificacion = usuario.UsuarioID
-                    };
-                    ctx.Sam3_Vehiculo.Add(nuevaPlana);
-                    ctx.SaveChanges();
+                        nuevaPlana = new Sam3_Vehiculo
+                        {
+                            TipoVehiculoID = Convert.ToInt32(plana.TipoVehiculoID),
+                            Activo = true,
+                            TractoID = Convert.ToInt32(plana.TractoID),
+                            Placas = plana.Placas,
+                            Unidad = plana.Unidad,
+                            Modelo = plana.Modelo,
+                            FechaModificacion = DateTime.Now,
+                            UsuarioModificacion = usuario.UsuarioID
+                        };
+                        ctx.Sam3_Vehiculo.Add(nuevaPlana);
+                        ctx.SaveChanges();
 
 
-                    Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
-                    nuevoRegistroChofer.VehiculoID = nuevaPlana.VehiculoID;
-                    nuevoRegistroChofer.Activo = true;
-                    nuevoRegistroChofer.ChoferID = Convert.ToInt32(plana.ChoferID);
-                    nuevoRegistroChofer.FechaModificacion = DateTime.Now;
-                    nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
+                        Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
+                        nuevoRegistroChofer.VehiculoID = nuevaPlana.VehiculoID;
+                        nuevoRegistroChofer.Activo = true;
+                        nuevoRegistroChofer.ChoferID = Convert.ToInt32(plana.ChoferID);
+                        nuevoRegistroChofer.FechaModificacion = DateTime.Now;
+                        nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
+                        ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
 
-                    Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
-                    transportista.Activo = true;
-                    transportista.FechaModificacion = DateTime.Now;
-                    transportista.TransportistaID = Convert.ToInt32(plana.TransportistaID);
-                    transportista.VehiculoID = nuevaPlana.VehiculoID;
-                    transportista.UsuarioModificacion = usuario.UsuarioID;
+                        Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
+                        transportista.Activo = true;
+                        transportista.FechaModificacion = DateTime.Now;
+                        transportista.TransportistaID = Convert.ToInt32(plana.TransportistaID);
+                        transportista.VehiculoID = nuevaPlana.VehiculoID;
+                        transportista.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
+                        ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
                         return new CatalogoPlana
                         {
@@ -119,7 +120,12 @@ namespace BackEndSAM.DataAcces
                             relVehiculoChoferID = nuevoRegistroChofer.Rel_Vehiculo_Chofer_ID.ToString(),
                             relVehiculoTransportistaID = transportista.Rel_Vehiculo_Transportista_ID.ToString()
                         };
-                    //return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.VehiculoID) };
+                        //return new Plana { Nombre = nuevaPlana.Placas, PlanaID = Convert.ToString(nuevaPlana.VehiculoID) };
+                    }
+                    else
+                    {
+                        throw new Exception("Plana existente");
+                    }
                 }
             }
             catch (Exception ex)
@@ -144,25 +150,32 @@ namespace BackEndSAM.DataAcces
                 TransactionalInformation result;
                 using (SamContext ctx = new SamContext())
                 {
-                    int vehiculoID = Convert.ToInt32(cambios.VehiculoID);
-                    Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
-                    planaEnBd.Activo = true;
-                    planaEnBd.TractoID = Convert.ToInt32(cambios.TractoID);
-                    planaEnBd.Placas = cambios.Placas;
-                    planaEnBd.Unidad = cambios.Unidad;
-                    planaEnBd.Modelo = cambios.Modelo;
-                    planaEnBd.UsuarioModificacion = usuario.UsuarioID;
-                    planaEnBd.FechaModificacion = DateTime.Now;
+                    if (!ctx.Sam3_Vehiculo.Where(c => c.Placas == cambios.Placas && c.TipoVehiculoID == 2 && c.Activo).AsParallel().Any())
+                    {
+                        int vehiculoID = Convert.ToInt32(cambios.VehiculoID);
+                        Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
+                        planaEnBd.Activo = true;
+                        planaEnBd.TractoID = Convert.ToInt32(cambios.TractoID);
+                        planaEnBd.Placas = cambios.Placas;
+                        planaEnBd.Unidad = cambios.Unidad;
+                        planaEnBd.Modelo = cambios.Modelo;
+                        planaEnBd.UsuarioModificacion = usuario.UsuarioID;
+                        planaEnBd.FechaModificacion = DateTime.Now;
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
-                    result = new TransactionalInformation();
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.ReturnMessage.Add("OK");
-                    result.IsAuthenicated = true;
+                        result = new TransactionalInformation();
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.ReturnMessage.Add("OK");
+                        result.IsAuthenicated = true;
 
-                    return result;
+                        return result;
+                    }
+                    else
+                    {
+                        throw new Exception("Plana existente");
+                    }
                 }
             }
             catch (Exception ex)

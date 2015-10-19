@@ -88,37 +88,39 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Vehiculo nuevoCamion = new Sam3_Vehiculo();
-                    nuevoCamion.Activo = true;
-                    nuevoCamion.FechaModificacion = DateTime.Now;
-                    nuevoCamion.Placas = cambios.Placas;
-                    nuevoCamion.PolizaSeguro = cambios.PolizaSeguro;
-                    nuevoCamion.TarjetaCirculacion = cambios.TarjetaCirculacion;
-                    nuevoCamion.UsuarioModificacion = usuario.UsuarioID;
-                    nuevoCamion.TipoVehiculoID = Convert.ToInt32(cambios.TipoVehiculoID);
+                    if (!ctx.Sam3_Vehiculo.Where(c => c.Placas == cambios.Placas && c.TipoVehiculoID == 1 && c.Activo).AsParallel().Any())
+                    {
+                        Sam3_Vehiculo nuevoCamion = new Sam3_Vehiculo();
+                        nuevoCamion.Activo = true;
+                        nuevoCamion.FechaModificacion = DateTime.Now;
+                        nuevoCamion.Placas = cambios.Placas;
+                        nuevoCamion.PolizaSeguro = cambios.PolizaSeguro;
+                        nuevoCamion.TarjetaCirculacion = cambios.TarjetaCirculacion;
+                        nuevoCamion.UsuarioModificacion = usuario.UsuarioID;
+                        nuevoCamion.TipoVehiculoID = Convert.ToInt32(cambios.TipoVehiculoID);
 
-                    ctx.Sam3_Vehiculo.Add(nuevoCamion);
-                    ctx.SaveChanges();
+                        ctx.Sam3_Vehiculo.Add(nuevoCamion);
+                        ctx.SaveChanges();
 
-                    Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
-                    nuevoRegistroChofer.VehiculoID = nuevoCamion.VehiculoID;
-                    nuevoRegistroChofer.Activo = true;
-                    nuevoRegistroChofer.ChoferID = Convert.ToInt32(cambios.ChoferID);
-                    nuevoRegistroChofer.FechaModificacion = DateTime.Now;
-                    nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
+                        Sam3_Rel_Vehiculo_Chofer nuevoRegistroChofer = new Sam3_Rel_Vehiculo_Chofer();
+                        nuevoRegistroChofer.VehiculoID = nuevoCamion.VehiculoID;
+                        nuevoRegistroChofer.Activo = true;
+                        nuevoRegistroChofer.ChoferID = Convert.ToInt32(cambios.ChoferID);
+                        nuevoRegistroChofer.FechaModificacion = DateTime.Now;
+                        nuevoRegistroChofer.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
+                        ctx.Sam3_Rel_Vehiculo_Chofer.Add(nuevoRegistroChofer);
 
-                    Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
-                    transportista.Activo = true;
-                    transportista.FechaModificacion = DateTime.Now;
-                    transportista.TransportistaID = Convert.ToInt32(cambios.TransportistaID);
-                    transportista.VehiculoID = nuevoCamion.VehiculoID;
-                    transportista.UsuarioModificacion = usuario.UsuarioID;
+                        Sam3_Rel_Vehiculo_Transportista transportista = new Sam3_Rel_Vehiculo_Transportista();
+                        transportista.Activo = true;
+                        transportista.FechaModificacion = DateTime.Now;
+                        transportista.TransportistaID = Convert.ToInt32(cambios.TransportistaID);
+                        transportista.VehiculoID = nuevoCamion.VehiculoID;
+                        transportista.UsuarioModificacion = usuario.UsuarioID;
 
-                    ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
+                        ctx.Sam3_Rel_Vehiculo_Transportista.Add(transportista);
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
                         return new CatalogoTracto
                         {
@@ -133,7 +135,12 @@ namespace BackEndSAM.DataAcces
                             relVehiculoChoferID = nuevoRegistroChofer.Rel_Vehiculo_Chofer_ID.ToString(),
                             relVehiculoTransportistaID = transportista.Rel_Vehiculo_Transportista_ID.ToString()
                         };
-                    //return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.VehiculoID.ToString() };
+                        //return new Camion { Placas = nuevoCamion.Placas, CamionID = nuevoCamion.VehiculoID.ToString() };
+                    }
+                    else
+                    {
+                        throw new Exception("Tracto existente");
+                    }
                 }
             }
             catch (Exception ex)
