@@ -213,9 +213,12 @@
             });
 
             $("#ImprimirPaseSalida").click(function () {
-                alert(Folio.FolioAvisoLlegadaID);
                 window.open(_UrlReporte + "?%2fReportes%2fPase+de+Salida+de+Transportista&rs:Command=Render" + "&FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
             });
+
+            if ($('#ListaIncidencias > tbody  > tr').length == 0) {
+                $("#ImprimirIncidencias").attr("disabled", "disabled");
+            };
 
             $("#ImprimirIncidencias").click(function () {
                 var strIncidenciasChecked = "", strALLincidencias = "", strincidencias = "";
@@ -244,10 +247,7 @@
                     strincidencias = strALLincidencias;
                 }
 
-                
-                Cookies.set("Incidencias", strincidencias, { path: '/' });
-                var url = "@Url.Action("FormatoIncidencias", "EntradaMaterial")";
-                window.open(url);
+                window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Incidencias&rs:Command=Render" + "&FolioAvisoLlegadaID=" + Folio.FolioAvisoLlegadaID + "&cadena=" + strincidencias + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
             });
 
             $("#FolioAvisoLlegadaID").kendoComboBox({
@@ -259,7 +259,6 @@
                     var dataItem = this.dataItem(e.item.index());
                     CargarFolio(dataItem.id);
                     ObtenerIncidencias(dataItem.id);
-                    ChecarPaseSalidaEnviado();
                 },
                 change: function (e) {
                     var value = this.value();
@@ -357,9 +356,19 @@
         function ObtenerIncidencias(id) {
             $('#ListaIncidencias tbody').empty();
             $DummyIncidencias.DummyIncidencias.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
-                $.each(result, function (index, value) {
-                    $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.NumeroIncidencia + "' class='l' type='checkbox' /></td><td>"+ value.NumeroIncidencia +"</td><td>" + value.Descripcion + "</td></tr>");
-                });
+                if (Error(result)) {
+                    $.each(result, function (index, value) {
+                        $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.NumeroIncidencia + "' class='l' type='checkbox' /></td><td>" + value.NumeroIncidencia + "</td><td>" + value.Descripcion + "</td></tr>");
+                    });
+
+                    if ($('#ListaIncidencias > tbody  > tr').length == 0) {
+                        $("#ImprimirIncidencias").attr("disabled", "disabled");
+                    } else {
+                        $("#ImprimirIncidencias").removeAttr("disabled");
+                    }
+
+                    ChecarPaseSalidaEnviado();
+                };
             });
         }
 

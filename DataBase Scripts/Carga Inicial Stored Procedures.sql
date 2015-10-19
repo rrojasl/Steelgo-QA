@@ -60,40 +60,51 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[Sam3_ObtenerFormatoIncidencias]
-	@FolioAvisoLlegadaID int
+	@FolioAvisoLlegadaID int,
+	@cadena varchar(max)=null
 AS
 BEGIN
-	
 
-	Select  1 as [numRFI], 
-			0 as [numRFIRevNo], 
-			1 as [numNoOfAttachment],
-			FORMAT(convert(datetime,GETDATE()),'MM/dd/yy hh:mm:ss tt') as datDate,
-			'michael.mainvielle' as [txtAskedBy],
-			'Mitchel Richardson' as [ResponseBy],
-			 FORMAT(convert(datetime,GETDATE()),'MM/dd/yy') as [ResponseDate],
-			 0 as [TransNo],
-			'michael.minvielle' as [ActionBy],
-			 FORMAT(convert(datetime,GETDATE()),'MM/dd/yy hh:mm:ss tt') as [ActionDate],
-			 1 as [ynClosed],
-			 'Confirm Nominal Wall Thickness for 26 Pipe' as [Reference],
-			 'Please review the attached Material pre-Buy for line item 24' as [mmQuestion],
-			 'Confirmed, the wall thickness shown for the 26 nps is nominal wall thickness' as [mmResponse]
-	union all
-			Select  1 as [numRFI], 
-			0 as [numRFIRevNo], 
-			1 as [numNoOfAttachment],
-			FORMAT(convert(datetime,GETDATE()),'MM/dd/yy hh:mm:ss tt') as datDate,
-			'michael.mainvielle' as [txtAskedBy],
-			'Mitchel Richardson' as [ResponseBy],
-			 FORMAT(convert(datetime,GETDATE()),'MM/dd/yy') as [ResponseDate],
-			 0 as [TransNo],
-			'michael.minvielle' as [ActionBy],
-			 FORMAT(convert(datetime,GETDATE()),'MM/dd/yy hh:mm:ss tt') as [ActionDate],
-			 1 as [ynClosed],
-			 'Confirm Nominal Wall Thickness for 26 Pipe' as [Reference],
-			 'Please review the attached Material pre-Buy for line item 24' as [mmQuestion],
-			 'Confirmed, the wall thickness shown for the 26 nps is nominal wall thickness' as [mmResponse]
+	select 
+	i.IncidenciaID as [numRFI], -- Me parece que este es el Id de la Incidencia
+	i.[Version] as [numRFIRevNo], -- Puede ser la version
+	(
+		select Count(Rel_Incidencia_DocumentoID)
+		from Sam3_Rel_Incidencia_Documento id
+		where id.IncidenciaID = i.IncidenciaID
+	) as [numNoOfAttachment],  -- Numero de documentos relacionados con la incidencia
+	FORMAT(convert(datetime,i.FechaCreacion),'MM/dd/yy hh:mm:ss tt') as datDate, -- fecha de registro de la incidencia
+	(
+		select u.Nombre + ' ' + u.ApellidoPaterno
+		from Sam3_Usuario u
+		where u.UsuarioID = i.UsuarioID
+	) as [txtAskedBy], -- Nombre del usuario que registro la incidencia
+	(
+		select u.Nombre + ' ' + u.ApellidoPaterno
+		from Sam3_Usuario u
+		where u.UsuarioID =i.UsuarioIDRespuesta
+	) as [ResponseBy],  -- Nombre del usuario que responde a la incidencia
+	FORMAT(convert(datetime,i.FechaRespuesta),'MM/dd/yy') as [ResponseDate], -- Fecha de la respuesta
+	0 as [TransNo], -- este realmente no se de donde sale
+	(
+		select u.Nombre + ' ' + u.ApellidoPaterno
+		from Sam3_Usuario u
+		where u.UsuarioID = i.UsuarioResuelveID
+	) as [ActionBy], -- usuario que resuelve la incidencia,
+	FORMAT(convert(datetime,i.FechaSolucion),'MM/dd/yy hh:mm:ss tt') as [ActionDate],  -- fecha en que se soluciona una incidencia
+	(
+		select case 
+			when i.Estatus = 'Cerrado' then 'Yes'
+			when i.Estatus <> 'Cerrado' then 'No' 
+		end
+	) as [ynClosed], -- si la incidencia esta cerrada o no
+	i.Titulo as [Reference], -- este podria ser el titulo ??
+	i.Descripcion as [mmQuestion], -- descripcion,
+	i.Respuesta [mmResponse] -- la respuesta a la incidencia 
+from Sam3_Rel_Incidencia_FolioAvisoLlegada rif 
+inner join Sam3_Incidencia i on rif.IncidenciaID = i.IncidenciaID
+where  (@cadena is null and  rif.FolioAvisoLlegadaID in( @FolioAvisoLlegadaID)
+or @cadena is not null and rif.IncidenciaID in(select item from Sam3_SplitInts(@cadena,',')))
 
 END
 GO
