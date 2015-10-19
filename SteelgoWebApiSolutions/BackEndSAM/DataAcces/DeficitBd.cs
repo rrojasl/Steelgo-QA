@@ -834,63 +834,120 @@ namespace BackEndSAM.DataAcces
                                     ctx2.SpoolHoldHistorial.Add(historial);
                                     ctx2.SaveChanges();
 
-                                    //Eliminar congelados de orden de trabajo material
-                                    OrdenTrabajoMaterial otm = new OrdenTrabajoMaterial();
-                                    List<int> listaMaterialSpool = new List<int>();
-
-                                    foreach (int itemcodes in spool.ItemCodeID)
-                                    {
-                                        listaMaterialSpool = (from ms in ctx2.MaterialSpool
-                                                              where ms.SpoolID == spool.Spool && ms.ItemCodeID == itemcodes
-                                                              select ms.MaterialSpoolID).AsParallel().ToList();
-                                    }
-
                                     int ordenTrabajoSpool = (from ots in ctx2.OrdenTrabajoSpool
                                                              where ots.OrdenTrabajoID == ordenTrabajoID && ots.SpoolID == spool.Spool
                                                              select ots.OrdenTrabajoSpoolID).AsParallel().SingleOrDefault();
 
-                                    foreach (int matSpool in listaMaterialSpool)
-                                    {
-                                        //Obtengo datos para Orden trabajo Material
-                                        DeficitTrabajoMaterial ordenTrabajoMaterial = new DeficitTrabajoMaterial();
-                                        ordenTrabajoMaterial = (from orden in ctx2.OrdenTrabajoMaterial
-                                                                where orden.OrdenTrabajoSpoolID == ordenTrabajoSpool && orden.MaterialSpoolID == matSpool
-                                                                select new DeficitTrabajoMaterial
-                                                                {
-                                                                    OrdenTrabajoMaterialID = orden.OrdenTrabajoMaterialID,
-                                                                    OrdenTrabajoSpoolID = orden.OrdenTrabajoSpoolID,
-                                                                    NumeroUnicoID = orden.NumeroUnicoCongeladoID,
-                                                                    Segmento = orden.SegmentoCongelado,
-                                                                    CantidadCongelada = orden.CantidadCongelada
-                                                                }).AsParallel().SingleOrDefault();
+                                    //Obtengo datos para Orden trabajo Material
+                                    List<DeficitTrabajoMaterial> ordenTrabajoMaterial = new List<DeficitTrabajoMaterial>();
+                                    ordenTrabajoMaterial = (from orden in ctx2.OrdenTrabajoMaterial
+                                                            where orden.OrdenTrabajoSpoolID == ordenTrabajoSpool
+                                                            select new DeficitTrabajoMaterial
+                                                            {
+                                                                OrdenTrabajoMaterialID = orden.OrdenTrabajoMaterialID,
+                                                                OrdenTrabajoSpoolID = orden.OrdenTrabajoSpoolID,
+                                                                NumeroUnicoID = orden.NumeroUnicoCongeladoID,
+                                                                Segmento = orden.SegmentoCongelado,
+                                                                CantidadCongelada = orden.CantidadCongelada
+                                                            }).AsParallel().ToList();
 
+                                    foreach (DeficitTrabajoMaterial otm in ordenTrabajoMaterial)
+                                    {
                                         //Inventario numero unico inventario
-                                        NumeroUnicoInventario inventario = ctx2.NumeroUnicoInventario.Where(c => c.NumeroUnicoID == ordenTrabajoMaterial.NumeroUnicoID).AsParallel().SingleOrDefault();
+                                        NumeroUnicoInventario inventario = ctx2.NumeroUnicoInventario.Where(c => c.NumeroUnicoID == otm.NumeroUnicoID).AsParallel().SingleOrDefault();
                                         inventario.InventarioCongelado = 0;
-                                        inventario.InventarioDisponibleCruce = inventario.InventarioDisponibleCruce + ordenTrabajoMaterial.CantidadCongelada == null ? 0 : (int)ordenTrabajoMaterial.CantidadCongelada;
+                                        inventario.InventarioDisponibleCruce = inventario.InventarioDisponibleCruce + otm.CantidadCongelada == null ? 0 : (int)otm.CantidadCongelada;
 
                                         ctx2.SaveChanges();
 
-                                        if (!String.IsNullOrEmpty(ordenTrabajoMaterial.Segmento))
+                                        if (!String.IsNullOrEmpty(otm.Segmento))
                                         {
                                             //inventario de Numero unico Segmento
-                                            NumeroUnicoSegmento segmento = ctx2.NumeroUnicoSegmento.Where(x => x.NumeroUnicoID == ordenTrabajoMaterial.NumeroUnicoID && x.Segmento == ordenTrabajoMaterial.Segmento).AsParallel().SingleOrDefault();
+                                            NumeroUnicoSegmento segmento = ctx2.NumeroUnicoSegmento.Where(x => x.NumeroUnicoID == otm.NumeroUnicoID && x.Segmento == otm.Segmento).AsParallel().SingleOrDefault();
                                             segmento.InventarioCongelado = 0;
-                                            segmento.InventarioDisponibleCruce = inventario.InventarioDisponibleCruce + ordenTrabajoMaterial.CantidadCongelada == null ? 0 : (int)ordenTrabajoMaterial.CantidadCongelada;
+                                            segmento.InventarioDisponibleCruce = inventario.InventarioDisponibleCruce + otm.CantidadCongelada == null ? 0 : (int)otm.CantidadCongelada;
 
                                             ctx2.SaveChanges();
                                         }
 
                                         //Elimino orden trabajo material
-                                        OrdenTrabajoMaterial OrdenTrabajoAEliminar = ctx2.OrdenTrabajoMaterial.Where(x => x.OrdenTrabajoMaterialID == ordenTrabajoMaterial.OrdenTrabajoMaterialID).AsParallel().SingleOrDefault();
+                                        OrdenTrabajoMaterial OrdenTrabajoAEliminar = ctx2.OrdenTrabajoMaterial.Where(x => x.OrdenTrabajoMaterialID == otm.OrdenTrabajoMaterialID).AsParallel().SingleOrDefault();
                                         ctx2.OrdenTrabajoMaterial.Remove(OrdenTrabajoAEliminar);
                                         ctx2.SaveChanges();
 
+
                                         //Elimino orden trabajo spool
-                                        OrdenTrabajoSpool ordenSpoolAEliminar = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == ordenTrabajoMaterial.OrdenTrabajoSpoolID).AsParallel().SingleOrDefault();
+                                        OrdenTrabajoSpool ordenSpoolAEliminar = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == otm.OrdenTrabajoSpoolID).AsParallel().SingleOrDefault();
                                         ctx2.OrdenTrabajoSpool.Remove(ordenSpoolAEliminar);
                                         ctx2.SaveChanges();
                                     }
+
+
+                                    ////Eliminar congelados de orden de trabajo material
+                                    //List<int> listaMaterialSpool = new List<int>();
+                                    //List<int> listaItemCodesSam2 = new List<int>();
+
+                                    //foreach (int itemcodes in spool.ItemCodeID)
+                                    //{
+                                    //    listaItemCodesSam2.Add((from eq in ctx.Sam3_EquivalenciaItemCode
+                                    //                            where eq.Sam3_ItemCodeID == itemcodes && eq.Activo
+                                    //                            select eq.Sam2_ItemCodeID).AsParallel().SingleOrDefault());
+                                    //}
+
+                                    //foreach (int ic in listaItemCodesSam2)
+                                    //{
+                                    //    listaMaterialSpool = (from ms in ctx2.MaterialSpool
+                                    //                          where ms.SpoolID == spool.Spool && ms.ItemCodeID == ic
+                                    //                          select ms.MaterialSpoolID).AsParallel().ToList();
+                                    //}
+
+                                    //int ordenTrabajoSpool = (from ots in ctx2.OrdenTrabajoSpool
+                                    //                         where ots.OrdenTrabajoID == ordenTrabajoID && ots.SpoolID == spool.Spool
+                                    //                         select ots.OrdenTrabajoSpoolID).AsParallel().SingleOrDefault();
+
+                                    //foreach (int matSpool in listaMaterialSpool)
+                                    //{
+                                    //    //Obtengo datos para Orden trabajo Material
+                                    //    DeficitTrabajoMaterial ordenTrabajoMaterial = new DeficitTrabajoMaterial();
+                                    //    ordenTrabajoMaterial = (from orden in ctx2.OrdenTrabajoMaterial
+                                    //                            where orden.OrdenTrabajoSpoolID == ordenTrabajoSpool && orden.MaterialSpoolID == matSpool
+                                    //                            select new DeficitTrabajoMaterial
+                                    //                            {
+                                    //                                OrdenTrabajoMaterialID = orden.OrdenTrabajoMaterialID,
+                                    //                                OrdenTrabajoSpoolID = orden.OrdenTrabajoSpoolID,
+                                    //                                NumeroUnicoID = orden.NumeroUnicoCongeladoID,
+                                    //                                Segmento = orden.SegmentoCongelado,
+                                    //                                CantidadCongelada = orden.CantidadCongelada
+                                    //                            }).AsParallel().SingleOrDefault();
+
+                                    //    //Inventario numero unico inventario
+                                    //    NumeroUnicoInventario inventario = ctx2.NumeroUnicoInventario.Where(c => c.NumeroUnicoID == ordenTrabajoMaterial.NumeroUnicoID).AsParallel().SingleOrDefault();
+                                    //    inventario.InventarioCongelado = 0;
+                                    //    inventario.InventarioDisponibleCruce = inventario.InventarioDisponibleCruce + ordenTrabajoMaterial.CantidadCongelada == null ? 0 : (int)ordenTrabajoMaterial.CantidadCongelada;
+
+                                    //    ctx2.SaveChanges();
+
+                                    //    if (!String.IsNullOrEmpty(ordenTrabajoMaterial.Segmento))
+                                    //    {
+                                    //        //inventario de Numero unico Segmento
+                                    //        NumeroUnicoSegmento segmento = ctx2.NumeroUnicoSegmento.Where(x => x.NumeroUnicoID == ordenTrabajoMaterial.NumeroUnicoID && x.Segmento == ordenTrabajoMaterial.Segmento).AsParallel().SingleOrDefault();
+                                    //        segmento.InventarioCongelado = 0;
+                                    //        segmento.InventarioDisponibleCruce = inventario.InventarioDisponibleCruce + ordenTrabajoMaterial.CantidadCongelada == null ? 0 : (int)ordenTrabajoMaterial.CantidadCongelada;
+
+                                    //        ctx2.SaveChanges();
+                                    //    }
+
+                                    //    //Elimino orden trabajo material
+                                    //    OrdenTrabajoMaterial OrdenTrabajoAEliminar = ctx2.OrdenTrabajoMaterial.Where(x => x.OrdenTrabajoMaterialID == ordenTrabajoMaterial.OrdenTrabajoMaterialID).AsParallel().SingleOrDefault();
+                                    //    ctx2.OrdenTrabajoMaterial.Remove(OrdenTrabajoAEliminar);
+                                    //    ctx2.SaveChanges();
+
+                                        
+                                    //    //Elimino orden trabajo spool
+                                    //    //DatabaseManager.Sam2.OrdenTrabajoSpool ordenSpoolAEliminar = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == ordenTrabajoMaterial.OrdenTrabajoSpoolID).AsParallel().SingleOrDefault();
+                                    //    //ctx2.OrdenTrabajoSpool.Remove(ordenSpoolAEliminar);
+                                    //    //ctx2.SaveChanges();
+                                    //}
                                 }
                                 sam2_tran.Commit();
                             } // tran sam2
