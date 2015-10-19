@@ -574,7 +574,7 @@ namespace BackEndSAM.DataAcces
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
                         List<RevisionDeficitDatos> lista = (from dm in ctx.Sam3_DeficitMateriales
-                                                            where dm.Activo && dm.OrdenTrabajoID == ordenTrabajoID
+                                                            where dm.Activo && dm.OrdenTrabajoID == ordenTrabajoID && !dm.Solucionado
                                                             select new RevisionDeficitDatos
                                                             {
                                                                 //SpoolID = dm.SpoolID.ToString(),
@@ -648,7 +648,7 @@ namespace BackEndSAM.DataAcces
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
                         List<int> listaItemCodesSam3 = (from dm in ctx.Sam3_DeficitMateriales
-                                                        where dm.OrdenTrabajoID.ToString() == ordenTrabajoID && dm.Activo
+                                                        where dm.OrdenTrabajoID.ToString() == ordenTrabajoID && dm.Activo & !dm.Solucionado
                                                         select dm.ItemCodeID).AsParallel().ToList();
 
                         List<int> listaItemCodesSam2 = new List<int>();
