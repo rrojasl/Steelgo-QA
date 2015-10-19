@@ -228,7 +228,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value) {
-                    Patio = [];
+                    Patio = {};
                 }
                 Filtros();
             },
@@ -418,11 +418,8 @@
     //Parametros: id,value
     //Return:     N/A
         function CargarPatio(id, value) {
-            Patio = [];
-            _patio = {};
-            _patio["PatioID"] = id;
-            _patio["Nombre"] = value;
-            Patio.push(_patio);
+            Patio = {};
+            Patio = { PatioID: id, Nombre: value };
         };
     //Se carga el cliente
     //Funcion: CargarCliente
@@ -432,7 +429,7 @@
             Cliente = {};
             Cliente = { ClienteID: id };
         };
-
+       
     //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
     //Funcion: ObtenerPatio
     //Parametros: N/A
@@ -482,14 +479,14 @@
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
             Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
+            Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
             Listado.FechaInicial = obtenerFormatoFecha(d);
             Listado.FechaFinal = obtenerFormatoFecha(d1);
             Listado.Creados = accion == 1 ? true : false;
             Listado.SinPermiso = accion == 2 ? true : false;
             Listado.SinAutorizacion = accion == 3 ? true : false;
             Listado.Completos = accion == 4 ? true : false;
-            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
             Listado.token = Cookies.get("token");
             console.log(JSON.stringify(Listado));
             return Listado;
@@ -648,14 +645,14 @@
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
             Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
+            Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
             Listado.FechaInicial = obtenerFormatoFecha(d);
             Listado.FechaFinal = obtenerFormatoFecha(d1);
             Listado.Creados = accion == 1 ? true : false;
             Listado.SinPermiso = accion == 2 ? true : false;
             Listado.SinAutorizacion = accion == 3 ? true : false;
             Listado.Completos = accion == 4 ? true : false;
-            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
+            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 4;
             console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
