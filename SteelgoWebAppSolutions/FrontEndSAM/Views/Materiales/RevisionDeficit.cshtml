@@ -230,9 +230,13 @@
         });
         $("[data-uid] input:checked").each(function(){
             var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
-            datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:dataItem.ItemCodes});
+            var ItemCodes=[]
+            dataItem.ItemCodes.forEach(function(i){
+                ItemCodes.push(i.ItemCodeID);
+            })
+            datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:ItemCodes});
         })
-        $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:datosDeficit,datosSpools:datosSpools,token:Cookies.get("token")}).done(function(data){
+        $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:JSON.stringify(datosDeficit),datosSpools:JSON.stringify(datosSpools),token:Cookies.get("token")}).done(function(data){
             console.log(data);
             displayMessage("",data.ReturnMessage[0],"0");
         })
