@@ -43,7 +43,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerFormatos(int odtsID, Sam3_Usuario usuario)
+        public object ObtenerFormatos(int odtsID, int proyectoID, Sam3_Usuario usuario)
         {
             try
             {
@@ -51,12 +51,13 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        
+                        OrdenTrabajoSpool odts = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == odtsID).AsParallel().SingleOrDefault();
+                        //int faltantesDespacho = (from 
 
-                        string ruta = "";
-                        int longitud = 0;
-                        long datosALeer = 0;
-                        string nombreArchivo = "";
+                        string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == proyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
+                        string numeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == odtsID).Select(x => x.NumeroControl).SingleOrDefault();
+
+                        string ruta = "C\\SAM3files\\" + nombreProyecto + "\\Traveler\\" + numeroControl + ".pdf";
 
                         Stream iStream = new FileStream(ruta, FileMode.Open, FileAccess.Read, FileShare.Read);
 
