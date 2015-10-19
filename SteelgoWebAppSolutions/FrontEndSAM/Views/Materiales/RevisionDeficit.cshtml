@@ -109,15 +109,18 @@
         dataValueField:"id",
         change:function(e){
             unaVez=true;
+            loadingStart();
             $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajoID:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
                 if(data.length>0){
                     $RevisionDeficit.RevisionDeficit.read({},{ordenTrabajo:e.sender._selectedValue,token:Cookies.get("token")}).done(function(data){
                         $("#gridSp").data("kendoGrid").dataSource.data(data);
+                        loadingStop();
                     })
                     $("#gridIC").data("kendoGrid").dataSource.data(data);
                 }else{
-                    displayMessage("","No hay deficit en la orden de trabajo espeficicada","1");
+                    displayMessage("",_dictionary.RevisionDeficit0010[$("#language").data("kendoDropDownList").value()],"1");
                 }
+                loadingStop();
             })
         }
     });
@@ -247,6 +250,7 @@
 
     $("#solucionar").on("click",function(){
         var solucionado=true;
+        loadingStart();
         $("#gridIC tr[data-uid]").each(function(){
             var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
             dataItem.PorCubrir.toString()!="0" ? solucionado=false : 0;
@@ -271,9 +275,11 @@
                 }else{
                     displayMessage("",data.ReturnMessage[0],"2");
                 }
+                loadingStop();
             })
         }else{
             displayMessage("",_dictionary.RevisionDeficit0004[$("#language").data("kendoDropDownList").value()], '0');
+            loadingStop();
         }
     })
 }

@@ -37,6 +37,7 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    var ultimaInsercionFallida=false;
     var $ListadoCatalogosModel = {
         listContainer: {
             create: ".k-grid-add",
@@ -490,6 +491,10 @@
                     });
                     regenerarGrid();
                 }
+                if(ultimaInsercionFallida){
+                    ultimaInsercionFallida=false;
+                    $("#grid tr:eq(1)").remove();
+                }
             }
         });
         loadingStop();
@@ -617,6 +622,12 @@
                     }
                 }
             },
+            requestEnd:function(e){
+                if(e.type=="create" && e.response.ReturnCode==500){
+                    displayMessage("",e.response.ReturnMessage,"2")
+                    ultimaInsercionFallida=true;
+                }
+            }
         });
     }
 
@@ -802,10 +813,10 @@
                     },
                     editable:false,
                     save: function(e) {
-                        console.log(e);
+                        //console.log(e);
                     },
                     remove: function(e) {
-                        console.log(e);
+                        //console.log(e);
                     },
                     dataBound: function(e) {
                         $("#grid tr td:first-child").each(function(){
@@ -863,7 +874,7 @@
             if($.isNumeric(e)){
                 return e;
             }else{
-                console.log(e);
+                //console.log(e);
                 alert(e);
             }
         }

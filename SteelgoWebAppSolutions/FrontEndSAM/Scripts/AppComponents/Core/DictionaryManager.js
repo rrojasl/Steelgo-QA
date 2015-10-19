@@ -1067,6 +1067,10 @@ _dictionary = {
     "RevisionDeficit0009": {
         "es-MX": "Ir a listado",
         "en-US": "Go to list"
+    },//"No hay deficit en la orden de trabajo espeficicada"
+    "RevisionDeficit0010": {
+        "es-MX": "No hay deficit en la orden de trabajo espeficicada",
+        "en-US": "There is no deficit in the specified work order"
     },
     //Búsqueda
     "Busqueda0001": {

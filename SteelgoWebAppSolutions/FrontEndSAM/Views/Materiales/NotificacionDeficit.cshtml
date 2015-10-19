@@ -303,6 +303,7 @@
     });
 
     $("#notificar").on("click",function(){
+        loadingStart();
         var deficits=[];
         var spools=[];
         var orden=$("#ordtrabajo").data("kendoComboBox").value();
@@ -319,7 +320,10 @@
         $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
             if(result.ReturnCode==200){
                 displayMessage("",_dictionary.NotificacionDeficit0006[$("#language").data("kendoDropDownList").value()], '0');
+            }else{
+                displayMessage("",_dictionary.result.ReturnMessage, '0');
             }
+            loadingStop();
         });
     })
 };
