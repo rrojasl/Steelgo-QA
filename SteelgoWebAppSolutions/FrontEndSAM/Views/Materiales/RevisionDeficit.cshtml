@@ -223,23 +223,32 @@
     });
 
     $("#solucionar").on("click",function(){
-        var datosDeficit=[];
-        var datosSpools=[];
-        $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(d){
-            datosDeficit.push({DeficitID:d.DeficitID,Deficit:d.Deficit});
-        });
-        $("[data-uid] input:checked").each(function(){
-            var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
-            var ItemCodes=[]
-            dataItem.ItemCodes.forEach(function(i){
-                ItemCodes.push(i.ItemCodeID);
+        var solucionado=true;
+        $("#gridIC tr[data-uid]").each(function(){
+            var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
+            dataItem.PorCubrir.toString()!="0" ? solucionado=false : 0;
+        })
+        if(solucionado){
+            var datosDeficit=[];
+            var datosSpools=[];
+            $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(d){
+                datosDeficit.push({DeficitID:d.DeficitID,Deficit:d.Deficit});
+            });
+            $("[data-uid] input:checked").each(function(){
+                var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
+                var ItemCodes=[]
+                dataItem.ItemCodes.forEach(function(i){
+                    ItemCodes.push(i.ItemCodeID);
+                })
+                datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:ItemCodes});
             })
-            datosSpools.push({Spool:dataItem.SpoolID,ItemCodeID:ItemCodes});
-        })
-        $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:JSON.stringify(datosDeficit),datosSpools:JSON.stringify(datosSpools),token:Cookies.get("token")}).done(function(data){
-            console.log(data);
-            displayMessage("",data.ReturnMessage[0],"0");
-        })
+            $RevisionDeficit.RevisionDeficit.update({},{ordenTrabajoID:$("#ordtrabajo").data("kendoComboBox").value(),datosDeficit:JSON.stringify(datosDeficit),datosSpools:JSON.stringify(datosSpools),token:Cookies.get("token")}).done(function(data){
+                console.log(data);
+                displayMessage("",data.ReturnMessage[0],"0");
+            })
+        }else{
+            displayMessage("","Necesitas cubrir todos los déficit listados","2");
+        }
     })
 }
 
