@@ -781,6 +781,15 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para solucionar un deficit de material
+        /// pantalla revision de deficit
+        /// </summary>
+        /// <param name="ordenTrabajoID"></param>
+        /// <param name="datos"></param>
+        /// <param name="spoolsID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object SolucionarDeficit(int ordenTrabajoID, List<SolucionarRevision> datos, List<SpoolsSeleccionados> spoolsID, Sam3_Usuario usuario)
         {
             try
@@ -874,14 +883,12 @@ namespace BackEndSAM.DataAcces
                                         OrdenTrabajoMaterial OrdenTrabajoAEliminar = ctx2.OrdenTrabajoMaterial.Where(x => x.OrdenTrabajoMaterialID == otm.OrdenTrabajoMaterialID).AsParallel().SingleOrDefault();
                                         ctx2.OrdenTrabajoMaterial.Remove(OrdenTrabajoAEliminar);
                                         ctx2.SaveChanges();
-
-
-                                        //Elimino orden trabajo spool
-                                        OrdenTrabajoSpool ordenSpoolAEliminar = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == otm.OrdenTrabajoSpoolID).AsParallel().SingleOrDefault();
-                                        ctx2.OrdenTrabajoSpool.Remove(ordenSpoolAEliminar);
-                                        ctx2.SaveChanges();
                                     }
 
+                                    //Elimino orden trabajo spool
+                                    OrdenTrabajoSpool ordenSpoolAEliminar = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == ordenTrabajoSpool).AsParallel().SingleOrDefault();
+                                    ctx2.OrdenTrabajoSpool.Remove(ordenSpoolAEliminar);
+                                    ctx2.SaveChanges();
 
                                     ////Eliminar congelados de orden de trabajo material
                                     //List<int> listaMaterialSpool = new List<int>();
