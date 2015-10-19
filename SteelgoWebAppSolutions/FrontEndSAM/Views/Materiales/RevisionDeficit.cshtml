@@ -79,6 +79,18 @@
             ]
         });
     }
+
+    function checarPorCubrir(fila){
+        var dataItemCantidad=$("#gridSp").data("kendoGrid").dataItem(fila).ItemCodes;
+        var dataItemDeficit=$("#gridIC").data("kendoGrid").dataSource.data();
+        $.grep(dataItemCantidad,function(d){
+            $.grep(dataItemDeficit,function(e){
+                e.ItemCodeID==d.ItemCodeID ? e.PorCubrir=parseFloat(e.PorCubrir)-parseFloat(d.Cantidad) : false;
+                0>parseFloat(e.PorCubrir) ? e.PorCubrir="0": false;
+            })
+        })
+        $("#gridIC").data("kendoGrid").refresh();
+    }
 }
 
 @section JavascriptDocumentReadyFunctions {
@@ -203,20 +215,14 @@
         dataBound:function(e){
             $("#gridSp").data("kendoGrid").dataSource.data().forEach(function(d){
                 if(d.Seleccionado){
-                    $("[data-uid="+d.uid+"] input[type=checkbox]").attr("checked","true");
+                    var input=$("[data-uid="+d.uid+"] input[type=checkbox]");
+                    input.attr("checked","true");
+                    checarPorCubrir($(input).closest("tr"));
                 }
             })
             $(".sub").on("change",function(){
                 if(this.checked){
-                    var dataItemCantidad=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr")).ItemCodes;
-                    var dataItemDeficit=$("#gridIC").data("kendoGrid").dataSource.data();
-                    $.grep(dataItemCantidad,function(d){
-                        $.grep(dataItemDeficit,function(e){
-                            e.ItemCodeID==d.ItemCodeID ? e.PorCubrir=parseFloat(e.PorCubrir)-parseFloat(d.Cantidad) : false;
-                            0>parseFloat(e.PorCubrir) ? e.PorCubrir="0": false;
-                        })
-                    })
-                    $("#gridIC").data("kendoGrid").refresh();
+                    checarPorCubrir($(this).closest("tr"));
                 }
             })
         }
