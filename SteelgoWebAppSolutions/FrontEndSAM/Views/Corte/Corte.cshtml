@@ -895,9 +895,9 @@
     function MaterialPendienteEdicion() {
         var Listado = { SpoolID: "", ProyectoID: "", ItemCodeSteelgo: "", token: "" };
 
-        Listado.SpoolID = NumeroUnico.NumeroUnicoID;
-        Listado.ProyectoID = $("#OrdenTrabajo").val();
-        Listado.ItemCodeSteelgo = $("#Consecutivo").val();
+        Listado.SpoolID = _SpoolID;
+        Listado.ProyectoID = _ProyectoID;
+        Listado.ItemCodeSteelgo = _ItemCodeSteelgo;
         Listado.token = Cookies.get("token");
 
 
