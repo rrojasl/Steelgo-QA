@@ -302,11 +302,11 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<ListadoIncidencias> ListadoIncidenciasPorFolio(int folioAvisoLlegadaID, Sam3_Usuario usuario)
+        public List<Incidencia> ListadoIncidenciasPorFolio(int folioAvisoLlegadaID, Sam3_Usuario usuario)
         {
             try
             {
-                List<ListadoIncidencias> listado;
+                List<Incidencia> listado;
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_FolioAvisoLlegada> registros = new List<Sam3_FolioAvisoLlegada>();
@@ -319,14 +319,9 @@ namespace BackEndSAM.DataAcces
                                join us in ctx.Sam3_Usuario on inc.UsuarioID equals us.UsuarioID
                                where rif.Activo && inc.Activo && clas.Activo && ti.Activo
                                && r.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                               select new ListadoIncidencias
+                               select new Incidencia
                                {
-                                   Clasificacion = clas.Nombre,
-                                   Estatus = inc.Estatus,
-                                   FechaRegistro = inc.FechaCreacion.ToString(),
-                                   FolioIncidenciaID = inc.IncidenciaID.ToString(),
-                                   RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
-                                   TipoIncidencia = ti.Nombre
+                                   FolioIncidenciaID = inc.IncidenciaID, Descripcion = inc.Descripcion
                                }).AsParallel().Distinct().ToList();
 
                     listado.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
@@ -338,14 +333,10 @@ namespace BackEndSAM.DataAcces
                                       join us in ctx.Sam3_Usuario on inc.UsuarioID equals us.UsuarioID
                                       where rif.Activo && inc.Activo && clas.Activo && ti.Activo
                                       && r.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                      select new ListadoIncidencias
+                                      select new Incidencia
                                       {
-                                          Clasificacion = clas.Nombre,
-                                          Estatus = inc.Estatus,
-                                          FechaRegistro = inc.FechaCreacion.ToString(),
-                                          FolioIncidenciaID = inc.IncidenciaID.ToString(),
-                                          RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
-                                          TipoIncidencia = ti.Nombre
+                                          FolioIncidenciaID = inc.IncidenciaID,
+                                          Descripcion = inc.Descripcion
                                       }).AsParallel().Distinct().ToList());
 
 
