@@ -102,7 +102,7 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        throw new Exception("Tracto existente");
+                        throw new Exception("Transportista existente");
                     }
                 }
             }
@@ -162,7 +162,7 @@ namespace BackEndSAM.DataAcces
                     }
                     else
                     {
-                        throw new Exception("Tracto existente");
+                        throw new Exception("Transportista existente");
                     }
                 }
             }

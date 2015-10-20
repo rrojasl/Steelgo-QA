@@ -995,7 +995,10 @@
                             $("#hdPermisoAutorizado").val(1);
                             ocultarStatus();
                             $("#DetalleAvisoLlegada0085").show();
-                        };
+                        }
+                        if (!data.PermisoAduana[0].PermisoTramite && !data.PermisoAduana[0].PermisoAutorizado) {
+                            ObtenerPatioRequierePermiso();
+                        };;
                     };
                     loadingStop();
                 });
