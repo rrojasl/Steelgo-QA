@@ -9,5 +9,13 @@ namespace BackEndSAM.Controllers
 {
     public class ArmadoController : ApiController
     {
+
+        public void cosa()
+        {
+            string cosass = "";
+            if (cosass == "")
+                {
+            }
+        }
     }
 }
