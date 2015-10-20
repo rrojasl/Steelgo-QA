@@ -56,7 +56,7 @@ namespace BackEndSAM.DataAcces
                             nuevoRegistro.UsuarioEntregaID = Convert.ToInt32(entrega.NoEmpleadoEntrega);
                             nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
                             nuevoRegistro.UsuarioRecibeID = Convert.ToInt32(entrega.NoEmpleadoRecibe);
-
+                            nuevoRegistro.FolioPickingTicketID = Convert.ToInt32(entrega.NoPickingTicket);
                             ctx.Sam3_Entrega.Add(nuevoRegistro);
                             ctx.SaveChanges();
                         }

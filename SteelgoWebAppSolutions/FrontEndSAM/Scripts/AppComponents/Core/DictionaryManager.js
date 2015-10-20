@@ -5123,6 +5123,10 @@ _dictionary = {
         "es-MX": "No se puede levantar una incidencia de un bulto.",
         "en-US": "You can not fill an incidence of a lump"
     },
+    "notificationslabel0077": {
+        "es-MX": "No se puede realizar la siguiente accion 1 a 1.",
+        "en-US": "You can not perform the next action 1 a 1"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

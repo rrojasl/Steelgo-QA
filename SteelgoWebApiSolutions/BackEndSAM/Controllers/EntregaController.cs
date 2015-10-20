@@ -41,12 +41,6 @@ namespace BackEndSAM.Controllers
             return lstCombos.AsEnumerable();
         }
 
-        // GET api/entrega/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/entrega
         public object Post(ListadoEntrega entrega, string token)
         {
@@ -68,16 +62,6 @@ namespace BackEndSAM.Controllers
                 result.IsAuthenicated = false;
                 return result;
             }
-        }
-
-        // PUT api/entrega/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/entrega/5
-        public void Delete(int id)
-        {
         }
     }
 }

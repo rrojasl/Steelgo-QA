@@ -134,6 +134,7 @@
     };
 
     function CargaInicial() {
+        $("#1a1").click(function () { GuardarUnoAUno(); });
         $("#Guardar").click(function () { GuardarMasivo(); });
         $("#Cancelar").click(function () { Cancelar(); });
 
@@ -347,7 +348,13 @@
                 return;
             };
 
-            $Entrega.Entrega.create(Listado, {}).done(function (result) {
+            if (datasource.length > 1) {
+                displayMessage("notificationslabel0077", "", "2");
+                loadingStop();
+                return;
+            };
+
+            $Entrega.Entrega.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 if (Error(result))
                 {
                     $("#grid").data("kendoGrid").dataSource.data([]);
@@ -373,7 +380,7 @@
                 loadingStop();
                 return;
             }
-            $Entrega.Entrega.create(Listado, {}).done(function (result) {
+            $Entrega.Entrega.create(Listado, { token: $.cookie("token") }).done(function (result) {
                 if (Error(result))
                 {
                     $("#grid").data("kendoGrid").dataSource.data([]);
@@ -403,7 +410,7 @@
     };
 
     function AgregarRowGrid(container) {
-        var tdIndex = 2;
+        var tdIndex = $(container).closest('td').index();
         //get the next row's cell
         var nextRow = $(container.parent()).next();
         var nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
@@ -415,7 +422,7 @@
                 dataSource.insert(total, {});
             }
             //find index of the td element
-            tdIndex = 2;
+            tdIndex = tdIndex;
             //get the next row's cell
             nextRow = $(container.parent()).next();
             nextRowCell = $(nextRow).find('td:eq(' + tdIndex + ')');
