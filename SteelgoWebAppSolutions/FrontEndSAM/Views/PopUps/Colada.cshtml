@@ -113,8 +113,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     FabricanteColada = {};
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -130,8 +131,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     AceroColada = {};
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -147,8 +149,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ProyectoColada = {};
+                    this.value("");
                 }
             },
             filter: "contains",

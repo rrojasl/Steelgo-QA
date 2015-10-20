@@ -94,8 +94,9 @@
             filter: "contains",
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Contacto = {};
+                    this.value("");
                 };
             },
         });

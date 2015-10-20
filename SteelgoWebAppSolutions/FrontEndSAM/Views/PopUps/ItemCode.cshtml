@@ -104,8 +104,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ProyectoItemCode = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -121,8 +122,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     TipoPackingListItemCode = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -138,8 +140,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ColadaItemCode = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -155,8 +158,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     familiaItemCode = {};
+                    this.value("");
                 };
             },
             filter: "contains",
