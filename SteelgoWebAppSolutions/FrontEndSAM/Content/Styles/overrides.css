@@ -409,6 +409,14 @@
             border-top: none;
         }
 
+        .k-grid .k-grid-header tr th .k-grid-filter{
+            background-color: transparent;
+        }
+
+        .k-grid .k-grid-header tr th .k-grid-filter.k-state-active {
+            background-color: #F35800;
+        }
+
     .k-grid tbody tr td a.k-button {
         color: transparent !important;
         height: 27px;
