@@ -148,7 +148,7 @@
 
 </div>
 
-<div>
+@*<div>
     <ul id="menuAccesorios" >
         <li id="LevantarIncidenciaFolioAvisoEntradaAccesorios"><span id="DashboardRecepcionAlmacenaje0047"></span></li>
         <li id="LevantarIncidenciaPackingListAccesorios"><span id="DashboardRecepcionAlmacenaje0048"></span></li>
@@ -162,7 +162,7 @@
         <li id="LevantarIncidenciaOrdenRecepcionTubos"><span id="DashboardRecepcionAlmacenaje0057"></span></li>
         <li id="LevantarIncidenciaNumeroUnicoTubos"><span id="DashboardRecepcionAlmacenaje0058"></span></li>
     </ul>
-</div>
+</div>*@
 
 <input id="hdAccionFiltradoTubos" type="hidden" />
 <input id="hdAccionFiltradoAccesorios" type="hidden" />
@@ -226,8 +226,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Proyecto = {};
+                        this.value("");
                     }
                     Filtros();
                 },
@@ -244,8 +245,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Cliente = {};
+                        this.value("");
                     }
                     Filtros();
                 },
@@ -263,8 +265,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         FolioAvisoEntrada = {};
+                        this.value("");
                     }
                     Filtros();
                 },
@@ -282,8 +285,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         PackingList = {};
+                        this.value("");
                     }
                     Filtros();
                 },
@@ -401,8 +405,9 @@
             change: function (e) {
                 var value = this.value();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     PeriodoTiempo = {};
+                    this.value("");
                 }
                 ObtenerFechasporPeriodo(value);
                 Filtros();
@@ -1194,6 +1199,9 @@
                     break;
                 case 5: //Año
                     fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
+                    break;
+                default:
+                    fechaInicio.setDate(fechaInicio.getDate() - 7);
                     break;
             }
 

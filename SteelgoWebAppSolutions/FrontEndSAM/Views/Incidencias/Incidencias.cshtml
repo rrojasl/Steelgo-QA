@@ -331,12 +331,6 @@
             event.preventDefault();
         });
 
-        //ObtenerFechasporDefecto();
-
-        $("#Clasificacion").kendoComboBox({});
-        $("#TipoIncidencia").kendoComboBox({});
-
-
         $("#Clasificacion").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ClasificacionID",
@@ -346,8 +340,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Clasificacion = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -366,8 +361,9 @@
                 var value = this.value();
                 limpiarRegistro();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     TipoIncidencia = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -417,8 +413,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     RegistradoPor = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -436,8 +433,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ResueltoPor = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -454,8 +452,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     RespondidoPor = {};
+                    this.value("");
                 }
             },
             filter: "contains",

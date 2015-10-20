@@ -117,8 +117,9 @@
             change: function (e) {
                 var value = this.value();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     PeriodoTiempo = [];
+                    this.value("");
                 }
                 ObtenerFechasporPeriodo(value);
 
@@ -247,6 +248,9 @@
             case 5: //Año
                 fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
                 break;
+            default:
+                fechaInicio.setDate(fechaInicio.getDate() - 7);
+                break;
         }
 
         var curr_date0 = fechaInicio.getDate();
@@ -346,8 +350,9 @@
         },
         change: function (e) {
             var value = this.value();
-            if (!value) {
+            if (!value || this.selectedIndex == -1) {
                 Patio = [];
+                this.value("");
             }
             CantidadesDelMenuDashboard();
         },
@@ -367,8 +372,9 @@
         change: function (e) {
             var value = this.value();
 
-            if (!value) {
+            if (!value || this.selectedIndex == -1) {
                 Cliente = [];
+                this.value("");
             }
             CantidadesDelMenuDashboard();
         },

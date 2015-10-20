@@ -262,8 +262,12 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         limpiarUploadFiles();
+                        if ($('#ListaIncidencias > tbody  > tr').length == 0) {
+                            $("#ImprimirIncidencias").attr("disabled", "disabled");
+                        };
+                        this.value("");
                     };
                 },
             });
@@ -284,8 +288,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         TipoArchivo = {};
+                        this.value("");
                     };
                 },
             });
