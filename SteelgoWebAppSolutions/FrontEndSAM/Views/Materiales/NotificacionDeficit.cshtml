@@ -15,17 +15,17 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
-                            <button type="button" class="btn" id="notificar">Notificar</button>
-                            <button type="button" class="btn" id="cancelar">Cancelar</button>
+                            <button type="button" class="btn" id="notificar"><span id="NotificacionDeficit0008"></span></button>
+                            <button type="button" class="btn" id="cancelar"><span id="NotificacionDeficit0009"></span></button>
                         </div>
                         <div class="button-section"></div>
                         <div class="btn-group">
-                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn">Acciones</button>
+                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn"><span id="NotificacionDeficit0010"></span></button>
                             <button id="dropdown-toggle" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="caretWhite"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a id="revNot" href="@Url.Action("RevisionDeficit", "Materiales")">Revisar notificaciones</a></li>
+                                <li><a id="revNot" href="@Url.Action("RevisionDeficit", "Materiales")"><span id="NotificacionDeficit0011"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                 $("#gridSp").show();
             })
         }else if($("#gridIC").data("kendoGrid").dataSource.data().length==0){
-            displayMessage("", "El item code no tiene spools", '2');
+            displayMessage("",_dictionary.NotificacionDeficit0004[$("#language").data("kendoDropDownList").value()], '2');
         }else{
             $("#gridSp").hide();
         }
@@ -250,7 +250,7 @@
         edit:function(e){
             $("#gridIC tr[data-uid] input[name=Deficit]").on("blur",function(){
                 var dataItem = $("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-                if(this.value > parseFloat(dataItem.Cantidad)) displayMessage("", "El deficit no puede ser menor que la cantidad", '2');
+                if(this.value > parseFloat(dataItem.Cantidad)) displayMessage("",_dictionary.NotificacionDeficit0005[$("#language").data("kendoDropDownList").value()], '2');
             })
         }
     });
@@ -268,7 +268,7 @@
             data: [],
             schema: {
                 model: {
-                    id:"SpoolID",//SPOOLID	SPOOL	PRIORIDAD	PEQS	PESO	ITEMCODEID	ITEMCODES
+                    id:"SpoolID",
                     fields:{
                         SpoolID:{ editable: false, nullable: true },
                         Spool: { editable: false,type:"string",validation: { required: false } },
@@ -303,6 +303,7 @@
     });
 
     $("#notificar").on("click",function(){
+        loadingStart();
         var deficits=[];
         var spools=[];
         var orden=$("#ordtrabajo").data("kendoComboBox").value();
@@ -318,8 +319,11 @@
         }
         $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
             if(result.ReturnCode==200){
-                displayMessage("","Se ha registrado exitosamente","0");
+                displayMessage("",_dictionary.NotificacionDeficit0006[$("#language").data("kendoDropDownList").value()], '0');
+            }else{
+                displayMessage("",_dictionary.result.ReturnMessage, '0');
             }
+            loadingStop();
         });
     })
 };

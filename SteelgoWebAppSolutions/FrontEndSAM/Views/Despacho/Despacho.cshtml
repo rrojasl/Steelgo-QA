@@ -153,8 +153,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                 }
                 _DespachoID == "-1";
             },
@@ -189,7 +190,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value) {
-                    NumeroControl = {};
+                    NumeroControl = {};                 
                 }
                 _DespachoID == "-1";
                 ObtenerDatosGrid();

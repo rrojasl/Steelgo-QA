@@ -442,8 +442,9 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (!value) {
+                        if (!value || this.selectedIndex == -1) {
                             Cliente = [];
+                            this.value("");
                         } else {
                             ObtenerProyectos();
                         };
@@ -463,8 +464,9 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (!value) {
+                        if (!value || this.selectedIndex == -1) {
                             TipoAvisos = {};
+                            this.value("");
                         };
                     },
                     filter: "contains",
@@ -485,9 +487,10 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (!value) {
+                        if (!value || this.selectedIndex == -1) {
                             Transportista = [];
                             Chofer = [];
+                            this.value("");
                             $("#ChoferID").data("kendoComboBox").value("");
                             $("#ChoferID").data("kendoComboBox").enable(false);
                         };
@@ -523,8 +526,9 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (!value) {
+                        if (!value || this.selectedIndex == -1) {
                             Patio = [];
+                            this.value("");
                         };
                     },
                     filter: "contains",
@@ -547,8 +551,9 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (!value) {
+                        if (!value || this.selectedIndex == -1) {
                             Chofer = [];
+                            this.value("");
                         };
                     },
                     filter: "contains",
@@ -601,8 +606,9 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (!value) {
+                        if (!value || this.selectedIndex == -1) {
                             CamionEntradaMaterial = [];
+                            this.value("");
                         };
                     },
                     filter: "contains",

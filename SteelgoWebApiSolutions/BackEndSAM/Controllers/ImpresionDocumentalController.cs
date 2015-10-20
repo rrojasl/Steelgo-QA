@@ -42,7 +42,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/impresiondocumental/5
-        public object Get(int proyectoID, string NumeroControl, string token)
+        public object Get(int proyectoID, string NumeroControl,int obtenerFormato, string token)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ImpresionDocumentalBd.Instance.ObtenerFormatos(Convert.ToInt32(NumeroControl), proyectoID, usuario);
+                return ImpresionDocumentalBd.Instance.ObtenerFormatos(Convert.ToInt32(NumeroControl), proyectoID,obtenerFormato, usuario);
             }
             else
             {

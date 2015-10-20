@@ -37,6 +37,7 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    var ultimaInsercionFallida=false;
     var $ListadoCatalogosModel = {
         listContainer: {
             create: ".k-grid-add",
@@ -490,6 +491,10 @@
                     });
                     regenerarGrid();
                 }
+                if(ultimaInsercionFallida){
+                    ultimaInsercionFallida=false;
+                    $("#grid tr:eq(1)").remove();
+                }
             }
         });
         loadingStop();
@@ -617,6 +622,16 @@
                     }
                 }
             },
+            requestEnd:function(e){
+                if(e.type=="create" && e.response.ReturnCode==500){
+                    displayMessage("",e.response.ReturnMessage,"2")
+                    ultimaInsercionFallida=true;
+                }
+                else if (e.type == "update" && e.response.ReturnCode == 500) {
+                    displayMessage("", e.response.ReturnMessage, "2")
+                    ultimaInsercionFallida = true;
+                }
+            }
         });
     }
 
@@ -685,7 +700,6 @@
                                         if(modVal && cedVal==1){
                                             c["advertencia"]=true;
                                         }else{
-
                                             c["valido"]=false;
                                         }
                                         $("#grid").data("kendoGrid").dataSource.insert(c);
@@ -802,10 +816,10 @@
                     },
                     editable:false,
                     save: function(e) {
-                        console.log(e);
+                        //console.log(e);
                     },
                     remove: function(e) {
-                        console.log(e);
+                        //console.log(e);
                     },
                     dataBound: function(e) {
                         $("#grid tr td:first-child").each(function(){
@@ -846,15 +860,16 @@
     }
     
     function cedulaValida(c){
+        if(c.CedulaMM=="" && c.CedulaIn=="") return -1;
         if (!$.isNumeric(c.Diametro1) && c.Diametro1!="") return -1;
-        var valida=0;
         var datos=$.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data() , function(n){
             return n.id != null
         })
         try{
             datos.forEach(function(d){
-                d.Diametro1 == "" ? d.Diametro1 = c.Diametro1 : 0;
-                if((d.Espesor==c.Espesor) || ((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
+                d.Diametro1 == ""  || d.Diametro1 == null ? d.Diametro1 = c.Diametro1 : 0;
+                if(d.Espesor==c.Espesor) throw -1;
+                if(((d.Diametro1 == c.Diametro1) && (d.CedulaA == c.CedulaA)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaB == c.CedulaB)) || ((d.Diametro1 == c.Diametro1) && (d.CedulaC == c.CedulaC))){
                     throw 1;
                 }
             })
@@ -863,7 +878,7 @@
             if($.isNumeric(e)){
                 return e;
             }else{
-                console.log(e);
+                //console.log(e);
                 alert(e);
             }
         }

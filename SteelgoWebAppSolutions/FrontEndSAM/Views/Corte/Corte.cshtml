@@ -362,8 +362,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Maquina = {};
+                    this.value("");
                 }
                 ObtenerMerma();
             },
@@ -380,8 +381,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Operador = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -398,8 +400,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -892,9 +895,9 @@
     function MaterialPendienteEdicion() {
         var Listado = { SpoolID: "", ProyectoID: "", ItemCodeSteelgo: "", token: "" };
 
-        Listado.SpoolID = NumeroUnico.NumeroUnicoID;
-        Listado.ProyectoID = $("#OrdenTrabajo").val();
-        Listado.ItemCodeSteelgo = $("#Consecutivo").val();
+        Listado.SpoolID = _SpoolID;
+        Listado.ProyectoID = _ProyectoID;
+        Listado.ItemCodeSteelgo = _ItemCodeSteelgo;
         Listado.token = Cookies.get("token");
 
 

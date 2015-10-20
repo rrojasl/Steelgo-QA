@@ -999,10 +999,78 @@ _dictionary = {
         "es-MX": "Notificación de Déficit",
         "en-US": "Deficit notification"
     },
+    "NotificacionDeficit0004": {
+        "es-MX": "El item code no tiene spools",
+        "en-US": "The item code does not have spools"
+    },
+    "NotificacionDeficit0005": {
+        "es-MX": "El deficit no puede ser menor que la cantidad",
+        "en-US": "Deficit can not be less than quantity"
+    },
+    "NotificacionDeficit0006": {
+        "es-MX": "Se ha registrado exitosamente",
+        "en-US": "Succesfully registered"
+    },
+    "NotificacionDeficit0007": {
+        "es-MX": "Se ha registrado exitosamente",
+        "en-US": "Succesfully registered"
+    },
+    "NotificacionDeficit0008": {
+        "es-MX": "Notificar",
+        "en-US": "Notify"
+    },
+    "NotificacionDeficit0009": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "NotificacionDeficit0010": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "NotificacionDeficit0011": {
+        "es-MX": "Ir a revision",
+        "en-US": "Go to review"
+    },
     //Revisión de deficit
     "RevisionDeficit0001": {
         "es-MX": "Revisión de Déficit",
         "en-US": "Deficit review"
+    },
+    "RevisionDeficit0002": {
+        "es-MX": "El deficit no puede ser mayor que la cantidad",
+        "en-US": "Deficit can not be greater than quantity"
+    },
+    "RevisionDeficit0003": {
+        "es-MX": "Se ha registrado exitosamente",
+        "en-US": "Succesfully registered"
+    },
+    "RevisionDeficit0004": {
+        "es-MX": "Necesitas cubrir todos los déficit listados",
+        "en-US": "You need to cover all the listed deficit"
+    },
+    "RevisionDeficit0005": {
+        "es-MX": "Orden de trabajo",
+        "en-US": "Work order"
+    },
+    "RevisionDeficit0006": {
+        "es-MX": "Solucionar",
+        "en-US": "Solve"
+    },
+    "RevisionDeficit0007": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "RevisionDeficit0008": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "RevisionDeficit0009": {
+        "es-MX": "Ir a listado",
+        "en-US": "Go to list"
+    },//"No hay deficit en la orden de trabajo espeficicada"
+    "RevisionDeficit0010": {
+        "es-MX": "No hay deficit en la orden de trabajo espeficicada",
+        "en-US": "There is no deficit in the specified work order"
     },
     //Búsqueda
     "Busqueda0001": {

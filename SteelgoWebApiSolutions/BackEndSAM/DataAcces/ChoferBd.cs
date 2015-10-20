@@ -102,17 +102,24 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //Sam3_Chofer nuevoChofer = new Sam3_Chofer();
-                    chofer.Activo = true;
-                    chofer.FechaModificacion = DateTime.Now;
-                    //nuevoChofer.Nombre = chofer.Nombre;
-                    chofer.UsuarioModificacion = usuario.UsuarioID;
-                    //chofer.TransportistaID = chofer.TransportistaID;
+                    if (!ctx.Sam3_Chofer.Where(x => x.Nombre == chofer.Nombre && x.Activo).AsParallel().Any())
+                    {
+                        //Sam3_Chofer nuevoChofer = new Sam3_Chofer();
+                        chofer.Activo = true;
+                        chofer.FechaModificacion = DateTime.Now;
+                        //nuevoChofer.Nombre = chofer.Nombre;
+                        chofer.UsuarioModificacion = usuario.UsuarioID;
+                        //chofer.TransportistaID = chofer.TransportistaID;
 
-                    ctx.Sam3_Chofer.Add(chofer);
-                    ctx.SaveChanges();
+                        ctx.Sam3_Chofer.Add(chofer);
+                        ctx.SaveChanges();
 
-                    return new Chofer { Nombre = chofer.Nombre, ChoferID = chofer.ChoferID.ToString() };
+                        return new Chofer { Nombre = chofer.Nombre, ChoferID = chofer.ChoferID.ToString() };
+                    }
+                    else
+                    {
+                        throw new Exception("Chofer existente");
+                    }
                 }
             }
             catch (Exception ex)
@@ -142,29 +149,36 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
-                    choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
-                        chofer.Activo : choferEnBd.Activo;
+                    if (!ctx.Sam3_Chofer.Where(x => x.Nombre == chofer.Nombre && x.Activo).AsParallel().Any())
+                    {
+                        Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
+                        choferEnBd.Activo = chofer.Activo != null && chofer.Activo != choferEnBd.Activo ?
+                            chofer.Activo : choferEnBd.Activo;
 
-                    choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ? 
-                        chofer.Nombre : choferEnBd.Nombre;
+                        choferEnBd.Nombre = chofer.Nombre != null && chofer.Nombre != choferEnBd.Nombre ?
+                            chofer.Nombre : choferEnBd.Nombre;
 
-                    choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ? 
-                        chofer.TransportistaID : choferEnBd.TransportistaID;
+                        choferEnBd.TransportistaID = chofer.TransportistaID != null && chofer.TransportistaID != choferEnBd.TransportistaID ?
+                            chofer.TransportistaID : choferEnBd.TransportistaID;
 
-                    choferEnBd.UsuarioModificacion = usuario.UsuarioID;
+                        choferEnBd.UsuarioModificacion = usuario.UsuarioID;
 
-                    choferEnBd.FechaModificacion = DateTime.Now;
+                        choferEnBd.FechaModificacion = DateTime.Now;
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("OK");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
 
-                    return result;
+                        return result;
+                    }
+                    else
+                    {
+                        throw new Exception("Chofer existente");
+                    }
                 }
             }
             catch (Exception ex)

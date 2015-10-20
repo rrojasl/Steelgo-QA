@@ -220,21 +220,27 @@
     function ObtenerDatosGrid() {
         if (NumeroControl.NumeroControlID) {
             loadingStart();
-            $ImpresionDocumental.ImpresionDocumental.read({ NumeroControl: NumeroControl.NumeroControlID, token: Cookies.get("token") }).done(function (result) {
-                if (Error(result)) {
-                    resultadoJson = result;
-                    if ($("#grid").data("kendoGrid")) {
-                        if (resultadoJson.length > 0) {
-                            displayMessage("notificationslabel0074", "", '2');
-                            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-                            $("#grid").data("kendoGrid").dataSource.page(1);
-                        } else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                            $("#grid").data("kendoGrid").dataSource.page(0);
+
+            $ImpresionDocumental.ImpresionDocumental.read({ proyectoID: Proyecto.ProyectoID, NumeroControl: NumeroControl.NumeroControlID,obtenerFormato:0, token: Cookies.get("token") }).done(function (result) {
+
+                if (!result.length) {
+                    window.open("http://localhost:60960/backendsam/api/ImpresionDocumental/ImpresionDocumental?proyectoID=" + Proyecto.ProyectoID + "&NumeroControl=" + NumeroControl.NumeroControlID + "&obtenerFormato=1&token=" + Cookies.get("token"));
+                } else {
+                    if (Error(result)) {
+                        resultadoJson = result;
+                        if ($("#grid").data("kendoGrid")) {
+                            if (resultadoJson.length > 0) {
+                                displayMessage("notificationslabel0074", "", '2');
+                                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+                                $("#grid").data("kendoGrid").dataSource.page(1);
+                            } else {
+                                $("#grid").data("kendoGrid").dataSource.data([]);
+                                $("#grid").data("kendoGrid").dataSource.page(0);
+                            };
                         };
-                    };
-                    applySecurityPolicy(false);
-                }
+                        applySecurityPolicy(false);
+                    }
+                };
                 loadingStop();
             });
         }
