@@ -169,6 +169,7 @@
     <Compile Include="Controllers\DummyItemCodeSteelgoController.cs" />
     <Compile Include="Controllers\DummyMaquinaController.cs" />
     <Compile Include="Controllers\EntregaController.cs" />
+    <Compile Include="Controllers\IncidenciaPaseSalidaController.cs" />
     <Compile Include="Controllers\MaterialPendienteController.cs" />
     <Compile Include="Controllers\NotificacionDeficitController.cs" />
     <Compile Include="Controllers\NumerosUnicosController.cs" />
