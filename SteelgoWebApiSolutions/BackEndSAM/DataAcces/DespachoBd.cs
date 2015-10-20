@@ -270,6 +270,7 @@ namespace BackEndSAM.DataAcces
                                         nuevoRegistro.usuarioModificacion = usuario.UsuarioID;
 
                                         ctx.Sam3_FolioPickingTicket.Add(nuevoRegistro);
+                                        ctx.SaveChanges();
                                         #endregion
 
                                         //HAY QUE HACER EL MISMO PROCESO CON LOS INVENTARIOS DE SAM 2

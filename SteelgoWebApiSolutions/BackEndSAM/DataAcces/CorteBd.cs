@@ -376,7 +376,7 @@ namespace BackEndSAM.DataAcces
                                         nuevoPickingTicket.usuarioModificacion = usuario.UsuarioID;
 
                                         ctx.Sam3_FolioPickingTicket.Add(nuevoPickingTicket);
-
+                                        ctx.SaveChanges();
                                         #endregion
 
                                         odtsMaterial.TieneCorte = true;
