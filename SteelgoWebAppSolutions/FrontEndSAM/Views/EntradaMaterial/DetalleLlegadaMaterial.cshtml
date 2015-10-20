@@ -991,7 +991,7 @@
             console.log(JSON.stringify(FolioLlegada));
 
             loadingStart();
-            if (folioLlegada != -1)//Edición
+            if (folioLlegada != -1 && folioLlegada != 0)//Edición
             {
                 BotonEdicion();
                 $FolioAvisoEntrada.FolioAvisoEntrada.update(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
@@ -1374,7 +1374,7 @@
     CargaInicial();
         if (folioAvisoLlegada != -1)
         {
-            CargaInicialEdicion(folioLlegada);
+            CargaInicialEdicion(folioAvisoLlegada);
         }
 
        
