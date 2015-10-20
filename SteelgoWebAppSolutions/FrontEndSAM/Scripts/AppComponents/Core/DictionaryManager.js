@@ -4232,6 +4232,10 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
+    "Corte0042": {
+        "es-MX": "Imprimir Picking Ticket",
+        "en-US": "Print Picking Ticket"
+    },
     //DashboardDespachoCorte
     "DashboardDespachoCorte0001": {
         "es-MX": "Inicio",
