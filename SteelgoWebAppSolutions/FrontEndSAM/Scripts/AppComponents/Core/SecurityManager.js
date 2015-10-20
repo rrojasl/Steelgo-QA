@@ -360,7 +360,7 @@ function validateCredentials() {
         loadingStart();
         var request = $SecurityManager.authentication.read({ username: Cookies.get("user"), token: Cookies.get("token") });
         request.done(function (data) {
-            console.out(data);
+            //console.out(data);
             if (data.IsAuthenicated) {
                 Cookies.set("home", false, { path: '/' });
             } else {
