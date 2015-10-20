@@ -18,6 +18,7 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
+            this.Sam3_FolioPickingTicket = new HashSet<Sam3_FolioPickingTicket>();
         }
     
         public int TipoMaterialID { get; set; }
@@ -29,5 +30,6 @@ namespace DatabaseManager.Sam3
     
         public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        public virtual ICollection<Sam3_FolioPickingTicket> Sam3_FolioPickingTicket { get; set; }
     }
 }

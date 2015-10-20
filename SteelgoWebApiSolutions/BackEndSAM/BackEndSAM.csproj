@@ -46,6 +46,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\Dlls\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -285,6 +288,7 @@
     <Compile Include="DataAcces\DespachoBd.cs" />
     <Compile Include="DataAcces\DetalleNumeroUnicoBd.cs" />
     <Compile Include="DataAcces\DocumentosBd.cs" />
+    <Compile Include="DataAcces\EntregaBd.cs" />
     <Compile Include="DataAcces\EnviarAvisosBd.cs" />
     <Compile Include="DataAcces\EstatusCuantificacionBd.cs" />
     <Compile Include="DataAcces\FabricantesBd.cs" />
@@ -308,6 +312,7 @@
     <Compile Include="DataAcces\OrdenRecepcionBd.cs" />
     <Compile Include="DataAcces\OrdenTrabajoSpoolBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
+    <Compile Include="DataAcces\PickingTicketBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />

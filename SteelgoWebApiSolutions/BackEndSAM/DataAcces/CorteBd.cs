@@ -366,6 +366,19 @@ namespace BackEndSAM.DataAcces
                                         ctx.Sam3_Despacho.Add(nuevoDespacho);
                                         ctx.SaveChanges();
 
+                                        #region Generar Picking Ticket
+
+                                        Sam3_FolioPickingTicket nuevoPickingTicket = new Sam3_FolioPickingTicket();
+                                        nuevoPickingTicket.Activo = true;
+                                        nuevoPickingTicket.DespachoID = nuevoDespacho.DespachoID;
+                                        nuevoPickingTicket.FechaModificacion = DateTime.Now;
+                                        nuevoPickingTicket.TipoMaterialID = 1; // tubo
+                                        nuevoPickingTicket.usuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_FolioPickingTicket.Add(nuevoPickingTicket);
+
+                                        #endregion
+
                                         odtsMaterial.TieneCorte = true;
                                         odtsMaterial.TieneDespacho = true;
                                         odtsMaterial.CorteDetalleID = nuevoDetalle.CorteDetalleID;

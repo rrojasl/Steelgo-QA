@@ -10,7 +10,7 @@ namespace BackEndSAM.DataAcces
 {
     public class IncidenciaBd
     {
-         private static readonly object _mutex = new object();
+        private static readonly object _mutex = new object();
         private static IncidenciaBd _instance;
 
         /// <summary>

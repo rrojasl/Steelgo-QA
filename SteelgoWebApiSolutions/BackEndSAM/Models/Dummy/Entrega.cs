@@ -16,8 +16,6 @@ namespace BackEndSAM.Models
     public class ListadoEntrega
     {
         public List<Entrega> Entregas { get; set; }
-
-
         public ListadoEntrega()
         {
             Entregas = new List<Entrega>();

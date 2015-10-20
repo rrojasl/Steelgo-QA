@@ -260,6 +260,18 @@ namespace BackEndSAM.DataAcces
                                         ctx.Sam3_Despacho.Add(nuevoDespacho);
                                         ctx.SaveChanges();// guardamos el nuevo despacho
 
+                                        #region Generar Picking ticket
+
+                                        Sam3_FolioPickingTicket nuevoRegistro = new Sam3_FolioPickingTicket();
+                                        nuevoRegistro.Activo = true;
+                                        nuevoRegistro.DespachoID = nuevoDespacho.DespachoID;
+                                        nuevoRegistro.FechaModificacion = DateTime.Now;
+                                        nuevoRegistro.TipoMaterialID = 2; //Accesorio
+                                        nuevoRegistro.usuarioModificacion = usuario.UsuarioID;
+
+                                        ctx.Sam3_FolioPickingTicket.Add(nuevoRegistro);
+                                        #endregion
+
                                         //HAY QUE HACER EL MISMO PROCESO CON LOS INVENTARIOS DE SAM 2
                                         //buscamos su inventario
                                         NumeroUnicoInventario inventarioSam2 = ctx2.NumeroUnicoInventario
