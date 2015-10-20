@@ -5127,6 +5127,10 @@ _dictionary = {
         "es-MX": "No se puede realizar la siguiente accion 1 a 1.",
         "en-US": "You can not perform the next action 1 a 1"
     },
+    "notificationslabel0078": {
+        "es-MX": "Favor de guardar la incidencia antes de adjuntar archivos.",
+        "en-US": "Please keep the incidence before attaching files."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

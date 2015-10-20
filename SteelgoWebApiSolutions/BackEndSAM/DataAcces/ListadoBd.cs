@@ -2685,53 +2685,5 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
-
-        public object ListadoIncidenciaPaseSalida(int folioAvisoLlegadaID, Sam3_Usuario usuario)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Incidencia> listado = new List<Incidencia>();
-
-                    listado.AddRange((from rif in ctx.Sam3_Rel_Incidencia_FolioAvisoLlegada
-                                      join inc in ctx.Sam3_Incidencia on rif.IncidenciaID equals inc.IncidenciaID
-                                      where rif.Activo && inc.Activo
-                                      && rif.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                      select new Incidencia
-                                      {
-                                          FolioIncidenciaID = inc.IncidenciaID,
-                                          Descripcion = inc.Descripcion
-                                      }).AsParallel().Distinct().ToList());
-
-                    listado.AddRange((from fe in ctx.Sam3_FolioAvisoEntrada
-                                      join rif in ctx.Sam3_Rel_Incidencia_FolioAvisoEntrada on fe.FolioAvisoEntradaID equals rif.FolioAvisoEntradaID
-                                      join inc in ctx.Sam3_Incidencia on rif.IncidenciaID equals inc.IncidenciaID
-                                      where fe.Activo && rif.Activo && inc.Activo
-                                      && fe.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                      select new Incidencia
-                                      {
-                                          FolioIncidenciaID = inc.IncidenciaID,
-                                          Descripcion = inc.Descripcion
-                                      }).AsParallel().Distinct().ToList());
-
-                    return null;
-                }
- 
-            }
-            catch (Exception ex)
-            {
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                LoggerBd.Instance.EscribirLog(ex);
-                //-----------------Agregar mensaje al Log -----------------------------------------------
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
     }
 }
