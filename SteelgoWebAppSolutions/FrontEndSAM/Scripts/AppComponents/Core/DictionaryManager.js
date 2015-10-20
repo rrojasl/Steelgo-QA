@@ -4531,6 +4531,14 @@ _dictionary = {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
     },
+    "ImpresionDocumental0009": {
+        "es-MX": "Imprimir Picking Ticket",
+        "en-US": "Print Picking Ticket"
+    },
+    "ImpresionDocumental0010": {
+        "es-MX": "Imprimir Traveler",
+        "en-US": "Print Traveler"
+    },
     //Incidencias
     "Incidencias0001": {
         "es-MX": "Inicio",

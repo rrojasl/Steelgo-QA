@@ -29,9 +29,9 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Corte0004"></span></a>
                         </div>
-                        <div class="button-section">
+                        @*<div class="button-section">
                             <a id="GenerarPickingTicket" href="#" class="btn btn-primary"><span id="Corte0005"></span></a>
-                        </div>
+                        </div>*@
                         <div class="button-section">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -349,7 +349,7 @@
         $("#CorregirSobrante").click(function () { AplicarCambioSobrante(); });
         $("#CorregirMermaPrimerIntento").click(function () { AplicarCambioMermaCorregir(); });
         $("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
-        $("#GenerarPickingTicket").click(function () { GenerarPickingTicket(); });
+        //$("#GenerarPickingTicket").click(function () { GenerarPickingTicket(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
         $("#IrIncidencia").click(function () { Incidencias(); });
 
@@ -762,9 +762,9 @@
         window.data("kendoWindow").center().open();
     };
 
-    function GenerarPickingTicket() {
-        $("#GenerarPickingTicket").attr("disabled", "disabled");
-    };
+    //function GenerarPickingTicket() {
+    //    $("#GenerarPickingTicket").attr("disabled", "disabled");
+    //};
 
     function Cancelar() {
         window.location.href = _CorteUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
