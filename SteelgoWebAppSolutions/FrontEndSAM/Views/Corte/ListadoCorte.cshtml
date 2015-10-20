@@ -398,6 +398,9 @@
             case 5: //Año
                 fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
                 break;
+            default:
+                fechaInicio.setDate(fechaInicio.getDate() - 7);
+                break;
         }
 
         var curr_date0 = fechaInicio.getDate();
