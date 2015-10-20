@@ -360,10 +360,10 @@
 
         function ObtenerIncidencias(id) {
             $('#ListaIncidencias tbody').empty();
-            $DummyIncidencias.DummyIncidencias.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
+            $IncidenciaPaseSalida.IncidenciaPaseSalida.read({ folio: id, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     $.each(result, function (index, value) {
-                        $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.NumeroIncidencia + "' class='l' type='checkbox' /></td><td>" + value.NumeroIncidencia + "</td><td>" + value.Descripcion + "</td></tr>");
+                        $("#ListaIncidencias tbody").append("<tr><td><input id='" + value.FolioIncidenciaID + "' class='l' type='checkbox' /></td><td>" + value.FolioIncidenciaID + "</td><td>" + value.Descripcion + "</td></tr>");
                     });
 
                     if ($('#ListaIncidencias > tbody  > tr').length == 0) {

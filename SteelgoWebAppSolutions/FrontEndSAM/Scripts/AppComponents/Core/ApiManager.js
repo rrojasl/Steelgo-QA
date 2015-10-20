@@ -135,6 +135,7 @@ var $Entrega = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $NotificacionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Usuario = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RevisionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $IncidenciaPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -233,3 +234,4 @@ $Entrega.add("Entrega");
 $NotificacionDeficit.add("NotificacionDeficit");
 $Usuario.add("Usuario");
 $RevisionDeficit.add("RevisionDeficit");
+$IncidenciaPaseSalida.add("IncidenciaPaseSalida");

@@ -714,6 +714,11 @@
             }
         }
 
+        if (_FolioIncidencia=="-1") {
+            displayMessage("notificationslabel0078", "", '1');
+            e.preventDefault();
+        }
+
         $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token");
     };
 
