@@ -628,6 +628,34 @@
         HabilitarBotonesAgregar();
     };
 
+    function ValidarErroresEdicionImpresionDocumental(info) {
+
+        if (!info.NumerUnicoID) {
+            //Favor de seleccionar un numero unico
+            displayMessage("notificationslabel0058", "", '2');
+            return false;
+        };
+
+        if (!info.OrdenTrabajo) {
+            //Favor de proporcionar una orden de trabajo
+            displayMessage("notificationslabel0059", "", '2');
+            return false;
+        };
+
+        if (!info.Consecutivo) {
+            //Favor de proporcionar un consecutivo
+            displayMessage("notificationslabel0060", "", '2');
+            return false;
+        };
+
+        if (!info.Etiqueta) {
+            //Favor de proporcionar una Etiqueta
+            displayMessage("notificationslabel0061", "", '2');
+            return false;
+        };
+        return true;
+    };
+
     function ValidarErrores(info) {
 
         if (!info.EsTramoCompleto) {
@@ -662,6 +690,35 @@
             return false;
         };
         return true;
+    };
+    function ValidarInformacionEdicionImpresionDocumental() {
+        var Listado = { DatosODT: "" };
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        ValidarCantidadTramoRecto(datasource);
+        var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
+
+        info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
+        info.OrdenTrabajo = $("#OrdenTrabajo").val();
+        info.Consecutivo = $("#Consecutivo").val();
+        info.Etiqueta = $("#Etiqueta").val();
+        info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
+        info.token = Cookies.get("token");
+
+        Listado.DatosODT = info;
+        if (ValidarErroresEdicionImpresionDocumental(info)) {
+            $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
+                    ValidarCantidadTramoRecto();
+                    if ($("#TramoCompleto").is(":checked")) {
+                        LimpiarMaquina();
+                        DesahabilitarBotonesAgregar();
+                        LimpiarGrid();
+                    };
+                    AgregarRegistroGrid(result);
+                }
+            });
+        };
+
     };
 
     function ValidarInformacion() {
@@ -921,7 +978,7 @@
 
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
                     $("#NumeroUnico").data("kendoAutoComplete").value(result.NumeroControlID);
-                    ValidarInformacion();
+                    ValidarInformacionEdicionImpresionDocumental();
                 }
             }
         });
