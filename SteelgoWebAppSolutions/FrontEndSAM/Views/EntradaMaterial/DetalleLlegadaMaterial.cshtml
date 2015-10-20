@@ -463,7 +463,7 @@
                     if (dataItem.Nombre == _estatus) {//En Patio
                         $("#PatioIDDiv").show();
                         if ($("#hdnOrdenDescargada").val() == "false" || !$("#hdnOrdenDescargada").val()) {
-                            $("#GenerarOrdenDescarga").removeAttr("disabled");
+                            //$("#GenerarOrdenDescarga").removeAttr("disabled");
                         }
                     }
                     else
@@ -471,7 +471,7 @@
                         $("#PatioIDDiv").hide();
                         $("#PatioID").data("kendoComboBox").value("");
                         Patio = {};
-                        $("#GenerarOrdenDescarga").attr("disabled", "disabled");
+                        //$("#GenerarOrdenDescarga").attr("disabled", "disabled");
                     }
                 },
                 change: function (e) {
@@ -722,9 +722,11 @@
                             if (data.FolioDescarga > 0)
                             {
                                 $("#hdnOrdenDescargada").val(true);
+                                $("#GenerarOrdenDescarga").attr("disabled", "disabled");
                             } else
                             {
                                 $("#hdnOrdenDescargada").val(false);
+                                $("#GenerarOrdenDescarga").removeAttr("disabled");
                             }
                         
                         };
