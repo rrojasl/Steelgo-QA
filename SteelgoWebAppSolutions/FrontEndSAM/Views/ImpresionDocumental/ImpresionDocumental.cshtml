@@ -314,7 +314,7 @@
     };
     function ImprimirTraveler() {
         if ($("#hdnImprimirDocumentos").val() == 1){
-            window.open("http://localhost:60960/backendsam/api/ImpresionDocumental/ImpresionDocumental?proyectoID=" + Proyecto.ProyectoID + "&NumeroControl=" + NumeroControl.NumeroControlID + "&obtenerFormato=1&token=" + Cookies.get("token"));
+            window.open($BackEndSAMUri + "/backendsam/api/ImpresionDocumental/ImpresionDocumental?proyectoID=" + Proyecto.ProyectoID + "&NumeroControl=" + NumeroControl.NumeroControlID + "&obtenerFormato=1&token=" + Cookies.get("token"));
         }
     };
 
