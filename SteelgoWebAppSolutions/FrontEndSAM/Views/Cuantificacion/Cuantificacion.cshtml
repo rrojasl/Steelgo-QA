@@ -528,13 +528,14 @@
                     },
                     change: function (e) {
                         var value = this.value();
+
                         limpiarfiltrosFolioAvisoEntrada();
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
-                        if (value)
-                        {
-                            ObtenerDatosDelFolioAvisoLlegada();
-                        } else {
+                        if (!value || this.selectedIndex == -1) {
                             FolioAvisoEntrada = {};
+                            this.value("");
+                        } else {
+                            ObtenerDatosDelFolioAvisoLlegada();
                         }
                     
                     },
@@ -552,8 +553,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Proyecto = {};
+                        this.value("");
                     } 
                 },
                 filter: "contains",
@@ -569,11 +571,12 @@
                 change: function (e) {
                     var value = this.value();
                     limpiarfiltrosFolioCuantificacion();
-                    if(value){
-                        ObtenerDatosDelFolioAvisoLlegadaCuantificacion(FolioAvisoEntrada.FolioAvisoEntradaID, Cuantificacion.FolioCuantificacionID);// debe de ponerse el folio de llegada de material
-                    } else {
+                    if (!value || this.selectedIndex == -1) {
                         Cuantificacion = {};
+                        this.value("");
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
+                    } else {
+                        ObtenerDatosDelFolioAvisoLlegadaCuantificacion(FolioAvisoEntrada.FolioAvisoEntradaID, Cuantificacion.FolioCuantificacionID);// debe de ponerse el folio de llegada de material
                     }
             },
                 filter: "contains",
@@ -588,8 +591,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         TipoPackingList = {};
+                        this.value("");
                     } else {
                         if (value == "2") {
                             changeValueColumnMMNoAplica();
@@ -609,8 +613,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         TipoUso = {};
+                        this.value("");
                     };
                 },
                 filter: "contains",
@@ -624,6 +629,12 @@
                     var value = this.value();
                     changeValueColumnColada($("#Colada").data("kendoComboBox").text());
                     $("#Colada").data("kendoComboBox").value("");
+                },
+                change: function (e) {
+                    var value = this.value();
+                    if (!value || this.selectedIndex == -1) {
+                        this.value("");
+                    };
                 },
                 filter: "contains",
             });

@@ -136,6 +136,7 @@
                     ChecarAutorizacion(dataItem.id);
                 },
                 change: function () {
+                    var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         Folio = {};
                         this.value("");

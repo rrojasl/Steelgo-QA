@@ -373,8 +373,9 @@
             change: function (e) {
                 var value = this.value();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     PeriodoTiempo = [];
+                    this.value("");
                 }
                 ObtenerFechasporPeriodo(value);
                 Filtros();
