@@ -24,7 +24,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="GenerarOrdenRecepcion0001"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +40,7 @@
                            
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="GenerarOrdenRecepcion0002"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="GenerarOrdenRecepcion0003"></span>
@@ -48,7 +48,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectListado"><span id="GenerarOrdenRecepcion0004"></span></a></li>
-                                    <li><a id="IrIncidencia" href="#" ><span id="GenerarOrdenRecepcion0005"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#" ><span id="GenerarOrdenRecepcion0005"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                 <div id="grid" class="gridWithInputs"></div>
+                 <div id="grid" class="gridWithInputs listado"></div>
         </div>
     </div>
 </div>
@@ -95,10 +95,11 @@
 
     var $GenerarOrdenRecepcionModel = {
         listContainer: {
-            create: "#Guardar",
-            list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            create: ".save-group",
+            list: ".listado",
+            detail: ".editButtonSection",
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
         properties: {
             username: {

@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-xs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
             <div class="row">
                 <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <input id="FechaOrdenRecepcion" class="quickFilters general-input" />
@@ -81,10 +81,11 @@
 
     var $ListadoOrdenRecepcionModel = {
         listContainer: {
-            create: "#Nuevo",
-            list: "#grid",
+            create: ".button-section",
+            list: ".listado",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ""
         },
     };
     }

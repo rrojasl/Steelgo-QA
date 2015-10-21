@@ -28,7 +28,7 @@
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="Entrega0004"></span></a>
                         </div>
-                        <div class="button-section actionButtonSection">
+                        <div class="button-section actionButtonSection listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="Entrega0005"></span>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid"></div>
+            <div id="grid" class="listado"></div>
         </div>
     </div>
 
@@ -95,10 +95,10 @@
     var _UrlEntrega = "@Url.Action("Entrega", "Entrega")";
     var $EntregaModel = {
         listContainer: {
-            create: ".editButtonSection",
-            list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            create: ".save-group",
+            list: ".listado",
+            detail: ".editButtonSection",
+            destroy: ""
         },
         properties: {
             masivo: {
