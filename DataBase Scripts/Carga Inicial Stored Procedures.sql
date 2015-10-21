@@ -75,7 +75,8 @@ BEGIN
 		from Sam3_Rel_Incidencia_Documento id
 		where id.IncidenciaID = i.IncidenciaID
 	) as [numNoOfAttachment],  -- Numero de documentos relacionados con la incidencia
-	FORMAT(convert(datetime,i.FechaCreacion),'MM/dd/yy hh:mm:ss tt') as datDate, -- fecha de registro de la incidencia
+	CONVERT(VARCHAR(10), i.FechaCreacion, 101) + ' ' 
+       + LTRIM(RIGHT(CONVERT(CHAR(20), i.FechaCreacion, 22), 11)) as datDate,
 	(
 		select u.Nombre + ' ' + u.ApellidoPaterno
 		from Sam3_Usuario u
@@ -86,14 +87,15 @@ BEGIN
 		from Sam3_Usuario u
 		where u.UsuarioID =i.UsuarioIDRespuesta
 	) as [ResponseBy],  -- Nombre del usuario que responde a la incidencia
-	FORMAT(convert(datetime,i.FechaRespuesta),'MM/dd/yy') as [ResponseDate], -- Fecha de la respuesta
+	CONVERT(VARCHAR(10), i.FechaRespuesta, 101)as [ResponseDate],
 	0 as [TransNo], -- este realmente no se de donde sale
 	(
 		select u.Nombre + ' ' + u.ApellidoPaterno
 		from Sam3_Usuario u
 		where u.UsuarioID = i.UsuarioResuelveID
 	) as [ActionBy], -- usuario que resuelve la incidencia,
-	FORMAT(convert(datetime,i.FechaSolucion),'MM/dd/yy hh:mm:ss tt') as [ActionDate],  -- fecha en que se soluciona una incidencia
+	CONVERT(VARCHAR(10), i.FechaSolucion, 101) + ' ' 
+       + LTRIM(RIGHT(CONVERT(CHAR(20), i.FechaSolucion, 22), 11)) as [ActionDate],
 	(
 		select case 
 			when i.Estatus = 'Cerrado' then 'Yes'
@@ -116,7 +118,8 @@ select
 		from Sam3_Rel_Incidencia_Documento id
 		where id.IncidenciaID = i.IncidenciaID
 	) as [numNoOfAttachment],  -- Numero de documentos relacionados con la incidencia
-	FORMAT(convert(datetime,i.FechaCreacion),'MM/dd/yy hh:mm:ss tt') as datDate, -- fecha de registro de la incidencia
+	CONVERT(VARCHAR(10), i.FechaCreacion, 101) + ' ' 
+       + LTRIM(RIGHT(CONVERT(CHAR(20), i.FechaCreacion, 22), 11)) as datDate,
 	(
 		select u.Nombre + ' ' + u.ApellidoPaterno
 		from Sam3_Usuario u
@@ -127,14 +130,15 @@ select
 		from Sam3_Usuario u
 		where u.UsuarioID =i.UsuarioIDRespuesta
 	) as [ResponseBy],  -- Nombre del usuario que responde a la incidencia
-	FORMAT(convert(datetime,i.FechaRespuesta),'MM/dd/yy') as [ResponseDate], -- Fecha de la respuesta
+	CONVERT(VARCHAR(10), i.FechaRespuesta, 101)as [ResponseDate],
 	0 as [TransNo], -- este realmente no se de donde sale
 	(
 		select u.Nombre + ' ' + u.ApellidoPaterno
 		from Sam3_Usuario u
 		where u.UsuarioID = i.UsuarioResuelveID
 	) as [ActionBy], -- usuario que resuelve la incidencia,
-	FORMAT(convert(datetime,i.FechaSolucion),'MM/dd/yy hh:mm:ss tt') as [ActionDate],  -- fecha en que se soluciona una incidencia
+	CONVERT(VARCHAR(10), i.FechaSolucion, 101) + ' ' 
+       + LTRIM(RIGHT(CONVERT(CHAR(20), i.FechaSolucion, 22), 11)) as [ActionDate2],
 	(
 		select case 
 			when i.Estatus = 'Cerrado' then 'Yes'
@@ -158,7 +162,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[Sam3_ObtenerFormatoPaseSalida]
-	@FolioAvisoLlegadaID int	
+	 @FolioAvisoLlegadaID int
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -185,10 +189,9 @@ BEGIN
 	declare @FechaInicioDescarga varchar(12),@FechaFinDescarga varchar(12),
 			@cantidadPackingFirmado int,  @cantidadPlanas int
 
-	select @FechaInicioDescarga=isnull(FORMAT(convert(datetime,FechainicioDescarga),'hh:mm:ss tt'),''),
-		   @FechaFinDescarga=isnull(FORMAT(convert(datetime,FechaFinDescarga),'hh:mm:ss tt'),'')
+	select @FechaInicioDescarga=isnull(LTRIM(RIGHT(CONVERT(CHAR(20), FechainicioDescarga, 22), 11)),''),
+		   @FechaFinDescarga=isnull(LTRIM(RIGHT(CONVERT(CHAR(20), FechaFinDescarga, 22), 11)),'')
 	from Sam3_FolioAvisoEntrada where FolioAvisoLlegadaID=@FolioAvisoLlegadaID
-
 
 	set @cantidadPlanas=(select COUNT(*) from #Placas)
 
@@ -215,7 +218,7 @@ BEGIN
 	select  convert(varchar(10),getdate(),103) as Fecha,
 			@FechaInicioDescarga  as FechaInicioDescarga,
 			@FechaFinDescarga as FechaFinDescarga,
-			 FORMAT(convert(datetime,FechaRecepcion),'hh:mm:ss tt') as FechaLlegada,
+			 LTRIM(RIGHT(CONVERT(CHAR(20), FechaRecepcion, 22), 11)) AS [FechaLlegada],
 			(select Nombre from Sam3_Chofer where ChoferID= a.ChoferID) as [NombreOperador],
 			1 as IncidenciaFirmada,
 			15001 as NumeroIncidencia, 
