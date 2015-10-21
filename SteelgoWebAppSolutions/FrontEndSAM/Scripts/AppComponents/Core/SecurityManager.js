@@ -237,6 +237,12 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                 $(entityDefinition.listContainer["createIncidence"]).empty();
             }
         }
+
+        if (entityDefinition["listContainer"].hasOwnProperty("solutionincidence") && entityDefinition.listContainer["solutionincidence"] != null && entityDefinition.listContainer["solutionincidence"].length > 0) {
+            if (entitysolutionincidence == false) {
+                $(entityDefinition.listContainer["solutionincidence"]).css("display", "none");
+            }
+        }
     }
 }
 
