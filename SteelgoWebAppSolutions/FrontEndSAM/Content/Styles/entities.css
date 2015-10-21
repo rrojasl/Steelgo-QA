@@ -1469,8 +1469,7 @@ header .menu > div {
 
     .quick-filters > div {
         height: auto;
-        overflow: auto;
-        overflow-y: hidden;
+        overflow: hidden;
         max-height: 56px;
         white-space: nowrap;
         min-height: 39px;
