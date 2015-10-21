@@ -167,7 +167,7 @@ function generateSideMenuDOMElementsLevel0(elementOfMenu, appendingTarget) {
 //Create Level 1 DOM Elements for SideMenu
 function generateSideMenuDOMElementsLevel1(elementOfMenu, appendingTarget) {
     
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><span id='" + elementOfMenu.texto + "'></span></a></li>");
+    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + elementOfMenu.texto + "'></span></a></li>");
     var htmlSubMenu2 = $("<ul class='sub-menu2'></ul>");
     htmlToAppend.append(htmlSubMenu2);
     appendingTarget.append(htmlToAppend);
@@ -177,7 +177,7 @@ function generateSideMenuDOMElementsLevel1(elementOfMenu, appendingTarget) {
 //Create Level 2 DOM Elements for SideMenu
 function generateSideMenuDOMElementsLevel2(elementOfMenu, appendingTarget) {
     
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><span id='" + elementOfMenu.texto + "'></span></a></li>");
+    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + elementOfMenu.texto + "'></span></a></li>");
     var htmlSubMenu3 = $("<ul class='sub-menu3'></ul>");
     htmlToAppend.append(htmlSubMenu3);
     appendingTarget.append(htmlToAppend);
@@ -186,7 +186,7 @@ function generateSideMenuDOMElementsLevel2(elementOfMenu, appendingTarget) {
 
 //Create Level 3 DOM Elements for SideMenu
 function generateSideMenuDOMElementsLevel3(elementOfMenu, appendingTarget) {
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><span id='" + elementOfMenu.texto + "'></span></a></li>");
+    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + elementOfMenu.texto + "'></span></a></li>");
     appendingTarget.append(htmlToAppend);
     return htmlToAppend;
 }

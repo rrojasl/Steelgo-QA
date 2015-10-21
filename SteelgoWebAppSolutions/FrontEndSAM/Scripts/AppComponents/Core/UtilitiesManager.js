@@ -83,3 +83,9 @@ function toggleSideMenu() {
         $(".content-container").toggleClass("expanded");
     }
 }
+
+//Function to redirect properly with the specified language
+function redirectToLanguage(event,link) {
+    event.preventDefault();
+    window.location.href = link.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+}

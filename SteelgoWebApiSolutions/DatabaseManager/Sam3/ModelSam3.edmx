@@ -1844,6 +1844,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Sam2UserID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Sam3_UsuariosNotificaciones">
           <Key>
@@ -6023,6 +6024,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_UsuariosNotificaciones" Relationship="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" FromRole="Sam3_Usuario" ToRole="Sam3_UsuariosNotificaciones" />
           <NavigationProperty Name="Sam3_ColaCreacionNumerosUnicos" Relationship="ModelSam3.FK__Sam3_Cola__Usuar__7AA72534" FromRole="Sam3_Usuario" ToRole="Sam3_ColaCreacionNumerosUnicos" />
           <NavigationProperty Name="Sam3_Incidencia2" Relationship="ModelSam3.FK__Sam3_Inci__Usuar__43E1002F" FromRole="Sam3_Usuario" ToRole="Sam3_Incidencia" />
+          <Property Name="Sam2UserID" Type="Guid" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Perfil_Entidad_Pagina">
           <Key>
@@ -11016,6 +11018,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Usuario">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Usuario">
               <MappingFragment StoreEntitySet="Sam3_Usuario">
+                <ScalarProperty Name="Sam2UserID" ColumnName="Sam2UserID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />

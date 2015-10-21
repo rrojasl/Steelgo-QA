@@ -893,7 +893,7 @@
                 autoHeight: true,
                 sortable: true,
                 scrollable: false,
-                filterable: true,
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 pageable: false,
                 groupable: true,
                 selectable: true,

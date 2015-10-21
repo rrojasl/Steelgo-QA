@@ -123,6 +123,14 @@
     }
 
     @section JavascriptGlobalFunctions {
+        function changeLanguageCall() {
+            var options=$("#ArchivoAutorizar").data("kendoUpload").options;
+            $(".k-button.k-upload-button").remove();
+            options.localization=getKendoUploadLocalization();
+            $("#ArchivoAutorizarDiv").append("<input type='file' id='ArchivoAutorizar'>");
+            $("#ArchivoAutorizar").kendoUpload(options);
+        };
+        
         //Es la carga inicial de los controles
         //Parametros: N/A
         //Return:     N/A
@@ -163,7 +171,8 @@
                     $("#NumeroPermiso").attr("disabled", "disabled");
                 },
                 error: function (data) { },
-                upload: onUploadArchivoAutorizar
+                upload: onUploadArchivoAutorizar,
+                localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
             });
 
             ObtenerFolioEntradaMaterial();
@@ -344,6 +353,8 @@
     @section JavascriptDocumentReadyFunctions {
         CargaInicial();
         $authorizationModel["Autorización de Permiso"] = $AutorizarPermisoModel;
+        
+        
     }
 
 </script>

@@ -288,6 +288,18 @@
     }
 
     @section JavascriptGlobalFunctions {
+        function changeLanguageCall() {
+            var options=$("#AdjuntarArchivos").data("kendoUpload").options;
+            $("#AdjuntarArchivosDiv .k-button.k-upload-button").remove();
+            options.localization=getKendoUploadLocalization();
+            $("#AdjuntarArchivosDiv").append("<input type='file' id='AdjuntarArchivos'>");
+            $("#AdjuntarArchivos").kendoUpload(options);
+            var tmp={};
+            $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl.split("?")[1].split("&").forEach(function(n){tmp[n.split("=")[0]]=n.split("=")[1]});
+            if(tmp.incidenciaID<0){
+                $("#AdjuntarArchivos").data("kendoUpload").disable();
+            }
+        };
 
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaRegistro.setOptions(datePickerOptions);
@@ -324,7 +336,8 @@
                 HabilitarObtenerDocumentosIncidencias();
             },
             error: function (data) { },
-            upload: onUploadAdjuntarArchivos
+            upload: onUploadAdjuntarArchivos,
+            localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
         });
         $("#AdjuntarArchivos").data("kendoUpload").enable(false);
         $("#AdjuntarArchivos").on('drop', function (event) {

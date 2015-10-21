@@ -5136,4 +5136,58 @@ _dictionary = {
         "es-MX": "",
         "en-US": ""
     },
+    //KendoUploadLocalization
+    "KendoUploadTxt0001": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "KendoUploadTxt0002": {
+        "es-MX": "Arrastra tus archivos aquí",
+        "en-US": "Drop your files here"
+    },
+    "KendoUploadTxt0003": {
+        "es-MX": "Terminado",
+        "en-US": "Done"
+    },
+    "KendoUploadTxt0004": {
+        "es-MX": "Subiendo...",
+        "en-US": "Uploadind..."
+    },
+    "KendoUploadTxt0005": {
+        "es-MX": "Quitar",
+        "en-US": "Remove"
+    },
+    "KendoUploadTxt0006": {
+        "es-MX": "Reintentar",
+        "en-US": "Retry"
+    },
+    "KendoUploadTxt0007": {
+        "es-MX": "Selecciona archivo",
+        "en-US": "Select file"
+    },
+    "KendoUploadTxt0008": {
+        "es-MX": "Subida de archivo fallida",
+        "en-US": "File upload failed"
+    },
+    "KendoUploadTxt0009": {
+        "es-MX": "Archivo subido",
+        "en-US": "File uploaded"
+    },
+    "KendoUploadTxt0010": {
+        "es-MX": "Subiendo archivo",
+        "en-US": "Uploading file"
+    },
+    //KendoGridFilterableLocalization
+    "KendoGridFilterable0001": {
+        "es-MX": "Empieza con",
+        "en-US": "Starts with"
+    },
+    "KendoGridFilterable0002": {
+        "es-MX": "Es igual a",
+        "en-US": "Is equal to"
+    },
+    "KendoGridFilterable0003": {
+        "es-MX": "No es igual a",
+        "en-US": "Is not equal to"
+    },
 };
