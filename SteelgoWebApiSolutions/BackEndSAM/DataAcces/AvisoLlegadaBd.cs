@@ -381,10 +381,12 @@ namespace BackEndSAM.DataAcces
 
                             string fechaR = temp.FechaRecepcion.HasValue ? temp.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
 
+                            string fechag = temp.FechaModificacion.HasValue ? temp.FechaModificacion.Value.ToString("dd/MM/yyyy") : string.Empty;
+
                             elemento = new ElementoListadoFolioAvisoLlegada
                             {
                                 FolioAvisoLlegadaID = temp.FolioAvisoLlegadaID.ToString(),
-                                FechaGeneracion = string.Empty,
+                                FechaGeneracion = fechag,
                                 FechaRecepcion = fechaR
                             };
 
