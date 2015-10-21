@@ -64,6 +64,8 @@ namespace BackEndSAM.DataAcces
                 perfil.layout.destroy = perfil_entidad.PermisoEliminacion;
                 perfil.layout.detail = perfil_entidad.PermisoDetalle;
                 perfil.layout.list = perfil_entidad.PermisoListado;
+                perfil.layout.createIncidence = perfil_entidad.PermisoCapturaIncidencia;
+                perfil.layout.solutionincidence = perfil_entidad.PermisoSolucionIncidencia;
 
                 //obtenemos la lista de propiedades por perfil y entidad
                 List<Properties> lstProperties = (from p in ctx.Sam3_Rel_Perfil_Propiedad_Pagina
@@ -147,7 +149,9 @@ namespace BackEndSAM.DataAcces
                                                   create = lst.PermisoCreacion,
                                                   destroy = lst.PermisoEliminacion,
                                                   detail = lst.PermisoDetalle,
-                                                  list = lst.PermisoListado
+                                                  list = lst.PermisoListado,
+                                                  createIncidence = lst.PermisoCapturaIncidencia,
+                                                  solutionincidence = lst.PermisoSolucionIncidencia
                                               }).ToList();
 
                 lstEntidades = lstEntidades.GroupBy(x => x.entityName).Select(x => x.First()).ToList();

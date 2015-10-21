@@ -20,7 +20,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Corte0003"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,7 +32,7 @@
                         <div class="button-section">
                             <a id="ImprimirPickingTicket" href="#" class="btn btn-primary"><span id="Corte0042"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="Corte0006"></span>
@@ -40,7 +40,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     @*<li><a id="RedirectListado" href="#"><span id="Corte0007"></span></a></li>*@
-                                    <li><a id="IrIncidencia" href="#"><span id="Corte0008"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="Corte0008"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div id="grid" class="gridWithInputsStorage"></div>
+                    <div id="grid" class="gridWithInputsStorage listado"></div>
                 </div>
                 <div id="TotalDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <label id="Corte0023"></label>
@@ -194,10 +194,11 @@
 
     var $CorteModel = {
         listContainer: {
-            create: ".button-section",
-            list: "#grid",
-            detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            create: ".save-group",
+            list: ".listado",
+            detail: ".editButtonSection",
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
         properties: {
             maquina: {
@@ -280,6 +281,7 @@
     };
 
     function CargarGridCorte() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

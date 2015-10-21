@@ -364,6 +364,7 @@
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        contadorDataBound=0;
         if ($("#listaCatalogos").data("kendoDropDownList").value()) {
             cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
         }else{
@@ -410,25 +411,11 @@
         return $Catalogos.AdministracionCatalogos.urlNoId + "?catalogoID=" + $("#listaCatalogos").data("kendoDropDownList").value() + "&token=";
     }
 
-    function removeGrid(){
-        var contenedor = $("#grid").parent();
-        $("#grid").remove();
-        contenedor.append("<div id='grid'></div>");
-    }
-
-    //function validarRango(c){
-    //    var resultado={};
-    //    var datos=$.grep($("#grid").data("kendoGrid").dataSource.data() || $("#grid").data("kendoGrid").options.dataSource.data() , function(n){
-    //        return n.id != null
-    //    });
-    //}
-
     function cargarInicialGrid(val) {
         loadingStart();
-        removeGrid();
-        var dataSGrid = getDataSourceGrid(val);
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
-            dataSource: dataSGrid,
+            dataSource: getDataSourceGrid(val),
             autoHeight: true,
             sortable: true,
             scrollable: false,
@@ -653,7 +640,6 @@
                 nuevasCedulas=[];
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
-
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
                 $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a download="TemplateCed.csv" href="#" id="templateced">Descargar plantilla</a></div>');
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
@@ -744,7 +730,7 @@
                         }
                     }
                 });
-                removeGrid();
+                removeGrid($("#grid"));
                 $("#grid").kendoGrid({
                     columns: [
                         { field: "Diametro1", title:"Diametro" },

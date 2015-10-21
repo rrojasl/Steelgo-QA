@@ -62,9 +62,9 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard"><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                    <li><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                    <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>
+                                    <li class="listado"><a id="RedirectDashboard"><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    <li><a id="CancelarFolio" href="#" class="cancelar"><span id="DetalleAvisoLlegada0083"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -184,10 +184,11 @@
 
         var $AvisoLLegadaModel = {
             listContainer: {
-                create: ".nextStepButtonSection",
+                create: ".save-group",
                 list: ".actionButtonSection",
                 detail: ".editButtonSection",
-                destroy: ""
+                destroy: ".cancelar",
+                createIncidence: ".incidencia"
             },
             properties: {
                 tipoAviso: {

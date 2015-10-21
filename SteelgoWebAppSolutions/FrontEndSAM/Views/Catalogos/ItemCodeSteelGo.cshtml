@@ -76,6 +76,7 @@
     })
 
     function cargarInicialGrid() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             columns: [
                 { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], width: "150px" },

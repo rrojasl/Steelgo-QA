@@ -633,7 +633,8 @@
     };
 
 
-        function LoadGridQuantification() {
+    function LoadGridQuantification() {
+            removeGrid($("#grid"));
             $("#grid").kendoGrid({
                 dataSource: {
                     data: resultadoJson,

@@ -58,7 +58,7 @@
                             <button id="btnCompletos" class="btn btn-tabList"><span id="ListadoAvisoLlegada0025"></span><span id="spanCompletos"></span></button>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row listado">
                         <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <input id="FolioID" class="quickFilters general-input" />
                             <input id="FechaCreacion" class="quickFilters general-input" />
@@ -66,7 +66,7 @@
                             <input id="Cancel" class="quickFilters general-input" disabled />
                         </div>
                     </div>
-                    <div id="grid"></div>
+                    <div id="grid" class="listado"></div>
                     @*<div id="pager"></div>*@
                 </div>
             </div>
@@ -78,10 +78,11 @@
     </div>
 </div>
 
-<ul id="menu">
+<ul id="menu" class="incidencia">
     <li><span id="ListadoAvisoLlegada0030"></span>
     </li>
 </ul>
+
 <input id="hdAccionFiltrado" type="hidden" />
 
 <script>
@@ -109,9 +110,10 @@
     var $AvisoLLegadaModel = {
         listContainer: {
             create: "#Nuevo",
-            list: "#grid",
+            list: ".listado",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
         properties: {
             username: {
@@ -287,6 +289,7 @@
     //Parametros: N/A
     //Return:     N/A
     function CargarGridAvisoLlegada() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
