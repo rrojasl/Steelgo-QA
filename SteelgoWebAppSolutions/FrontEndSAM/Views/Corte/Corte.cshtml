@@ -437,8 +437,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarGrid();
-                if (!value) {
+                if (!value || !e.sender.current()) {
                     NumeroUnico = {};
+                    this.value("");
                 }
                 ObtenerDetalleNumeroUnico();
                 $("#ImprimirPickingTicket").attr("disabled", "disabled");
