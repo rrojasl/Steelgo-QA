@@ -3760,4 +3760,125 @@ _dictionary = {
         "es-MX": "",
         "en-US": ""
     },
+
+    //Armado
+
+    "LabelHeaderArmado": {
+        "es-MX": "Detalle Armado",
+        "en-US": "Armed detail"
+    },
+    "CapturaArmadoPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de armado?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of armed ?"
+    },
+    "CapturaArmadoDetalleVisible": {
+        "es-MX": "Mostrar",
+        "en-US": "Display"
+    },
+    "CapturaArmadoDetalleVisibleSinCaptura": {
+        "es-MX": "Sin captura",
+        "en-US": "without capture"
+    },
+    "CapturaArmadoDetalleVisibleTodos": {
+        "es-MX": "Todos",
+        "en-US": "all"
+    },
+    "CapturaArmadoArmadoSpool": {
+        "es-MX": "Armado de spool",
+        "en-US": "Armed spool"
+    },
+    "CapturaArmadoCapturaArmado": {
+        "es-MX": "Captura rapida",
+        "en-US": "Quick capture"
+    },
+    "CapturaArmadoGuardarArmado": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "CapturaArmadoCancelarArmado": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "CapturaArmadoAgregarArmado": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    "HeaderProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "CapturaArmadoHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "CapturaArmadoHeaderJunta": {
+        "es-MX": "Junta",
+        "en-US": "Board"
+    },
+    "CapturaArmadoHeaderFechaArmado": {
+        "es-MX": "Fecha de armado",
+        "en-US": "Reinforced date"
+    },
+    "CapturaArmadoHeaderTubero": {
+        "es-MX": "Tubero",
+        "en-US": "Tubero Key"
+    },
+    "CapturaArmadoHeaderTaller": {
+        "es-MX": "Taller",
+        "en-US": "key workshop"
+    },
+    ///Grid CapturaArmado
+    "CapturaArmadoHeaderNumeroControl": {
+        "es-MX": "Numero de Control",
+        "en-US": "Control Number"
+    },
+    "CapturaArmadoJunta": {
+        "es-MX": "Junta",
+        "en-US": "Board"
+    },
+    "CapturaArmadoHeaderTipoJunta": {
+        "es-MX": "Tipo Junta",
+        "en-US": "Board Type"
+    },
+    "CapturaArmadoHeaderDiametro": {
+        "es-MX": "Diametro",
+        "en-US": "Diameter"
+    },
+    "CapturaArmadoHeaderCedula": {
+        "es-MX": "Cedula",
+        "en-US": "Writ"
+    },
+    "CapturaArmadoHeaderFechaArmado": {
+        "es-MX": "Fecha Armado",
+        "en-US": "Reinforced Date"
+    },
+    "CapturaArmadoHeaderTubero": {
+        "es-MX": "Tubero",
+        "en-US": "Tubero"
+    },
+    "CapturaArmadoHeaderTaller": {
+        "es-MX": "Taller",
+        "en-US": "WorkShop"
+    },
+    "CapturaArmadoHeaderLocalizacion": {
+        "es-MX": "Localización",
+        "en-US": "Location"
+    },
+    "CapturaArmadoHeaderFamiliaAcero": {
+        "es-MX": "Familia Acero",
+        "en-US": "Family Steel"
+    },
+    "CapturaArmadoHeaderNumeroUnico1": {
+        "es-MX": "Número único 1",
+        "en-US": "Single Number 1"
+    },
+    "CapturaArmadoHeaderNumeroUnico2": {
+        "es-MX": "Número único 2",
+        "en-US": "Single Number 2"
+    },
+    "CapturaArmadoHeaderAdicionales": {
+        "es-MX": "Adicionales",
+        "en-US": "Additional"
+    },
+    //fin GridCapturaArmado
 };

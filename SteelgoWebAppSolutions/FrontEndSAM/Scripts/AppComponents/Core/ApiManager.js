@@ -34,6 +34,10 @@ var $URLItemCode = $BackEndSAMUri + '/backendsam/api/ItemCode?';
 var $URLColada = $BackEndSAMUri + '/backendsam/api/Colada?';
 var $URLItemCodeSteelgo = $BackEndSAMUri + '/backendsam/api/ObtenerRelacionItemCodeSteelgo?';
 var $UrlTipoUso = $BackEndSAMUri + '/backendsam/api/TipoUso?';
+
+//armado
+var $CapturaArmado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -112,6 +116,9 @@ function apiManagerToBeExecutedOnDocumentReady() {
 $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
 $SecurityManager.add('authentication');
+
+//captura armado
+$CapturaArmado.add('Armado');
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");
