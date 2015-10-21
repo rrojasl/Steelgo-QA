@@ -473,6 +473,7 @@
     };
 
     function CargarGridAlmacenaje() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
@@ -516,7 +517,6 @@
             }
         });
     };
-
        
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {

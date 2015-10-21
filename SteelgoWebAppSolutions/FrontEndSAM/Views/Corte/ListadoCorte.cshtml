@@ -150,6 +150,7 @@
     //Parametros: N/A
     //Return:     N/A
     function CargarGrid() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

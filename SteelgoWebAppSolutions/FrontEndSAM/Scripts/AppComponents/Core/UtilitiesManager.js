@@ -89,3 +89,10 @@ function redirectToLanguage(event,link) {
     event.preventDefault();
     window.location.href = link.href + "?leng=" + $("#language").data("kendoDropDownList").value();
 }
+
+//Function to remove any grid
+function removeGrid(grid) {
+    var contenedor = grid.parent();
+    grid.remove();
+    contenedor.append("<div id='"+grid.attr("id")+"'></div>");
+}
