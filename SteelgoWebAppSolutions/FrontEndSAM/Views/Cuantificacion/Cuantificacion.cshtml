@@ -594,9 +594,12 @@
                     if (!value || this.selectedIndex == -1) {
                         TipoPackingList = {};
                         this.value("");
+                        changeValueColumnMMPackingList("");
                     } else {
                         if (value == "2") {
                             changeValueColumnMMNoAplica();
+                        } else {
+                            changeValueColumnMMPackingList();
                         }
                     };
                 },
@@ -1256,6 +1259,17 @@
             });
         };
 
+        function changeValueColumnMMPackingList() {
+            var filters = $("#grid").data("kendoGrid").dataSource.filter();
+            var allData = $("#grid").data("kendoGrid").dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var result = query.filter(filters).data;
+            var datasource = result;
+
+            $(datasource).each(function () {
+                    this.set("MM", "");
+            });
+        };
         function changeValueColumnMM(value) {
             //var allData = $("#grid").data("kendoGrid").dataSource.data();
             //var query = new kendo.data.Query(allData);
@@ -1268,11 +1282,11 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if (TipoPackingList.TipoPackingListID == "1") {//TUBO
-                    this.set("MM", value);
-                } else {
-                    this.set("MM", "N/A");
-                }
+                    if (TipoPackingList.TipoPackingListID == "1") {//TUBO
+                        this.set("MM", value);
+                    } else {
+                        this.set("MM", "N/A");
+                    }
             });
         };
 
@@ -2247,26 +2261,42 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (_detalleBulto!="-1" &&  value == "Bulto") {
-                            lastEditedCellID.ItemCode = "Bulto";
+                        if (!e.sender.current()) {
+                            lastEditedCellID.ItemCode = "";
                             lastEditedCellID.Descripcion = "";
                             lastEditedCellID.D1 = 0;
                             lastEditedCellID.D2 = 0;
                             lastEditedCellID.ItemCodeSteelgo = "";
                             lastEditedCellID.Colada = "";
-                            lastEditedCellID.MM = "N/A";
-                            lastEditedCellID.Detallar = "Si";
-                            lastEditedCellID.Cantidad = 1;
+                            lastEditedCellID.MM = "";
+                            lastEditedCellID.Detallar = "No";
+                            lastEditedCellID.Cantidad = 0;
                             lastEditedCellID.TieneNU = "No";
                             lastEditedCellID.Familia = "";
                             lastEditedCellID.Cedula = "";
                             lastEditedCellID.TipoAcero = "";
-                            displayMessage("notificationslabel0043", "", '1');
-                        }
-                        else {
-                            cargarItemCodeAutocomplete(value);
-                        }
-                        
+                            $('#grid').data('kendoGrid').refresh();
+                        } else {
+                            if (_detalleBulto != "-1" && value == "Bulto") {
+                                lastEditedCellID.ItemCode = "Bulto";
+                                lastEditedCellID.Descripcion = "";
+                                lastEditedCellID.D1 = 0;
+                                lastEditedCellID.D2 = 0;
+                                lastEditedCellID.ItemCodeSteelgo = "";
+                                lastEditedCellID.Colada = "";
+                                lastEditedCellID.MM = "N/A";
+                                lastEditedCellID.Detallar = "Si";
+                                lastEditedCellID.Cantidad = 1;
+                                lastEditedCellID.TieneNU = "No";
+                                lastEditedCellID.Familia = "";
+                                lastEditedCellID.Cedula = "";
+                                lastEditedCellID.TipoAcero = "";
+                                displayMessage("notificationslabel0043", "", '1');
+                            }
+                            else {
+                                cargarItemCodeAutocomplete(value);
+                            }
+                        };
                     }
                 });
             lastEditedCellID = options.model;
@@ -2295,8 +2325,19 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        cargarItemCodeSteelgoAutocomplete(value);
-
+                        if (!e.sender.current()) {
+                            lastEditedCellIDSteelgo.ItemCodeSteelgo = "";
+                            lastEditedCellIDSteelgo.Descripcion = "";
+                            lastEditedCellIDSteelgo.D1 = "";
+                            lastEditedCellIDSteelgo.D2 = "";
+                            lastEditedCellIDSteelgo.Familia ="";
+                            lastEditedCellIDSteelgo.Cedula = "";
+                            lastEditedCellIDSteelgo.TipoAcero = "";
+                            lastEditedCellID.Detallar = "No";
+                            $('#grid').data('kendoGrid').refresh();
+                        } else {
+                            cargarItemCodeSteelgoAutocomplete(value);
+                        };
                       
                     }
                 });
@@ -2333,7 +2374,11 @@
                     },
                     change: function (e) {
                         var value = this.text();
-                        lastEditedCellIDSColada.Colada = value;
+                        if (this.selectedIndex == -1) {
+                            lastEditedCellIDSColada.Colada = "";
+                        } else {
+                            lastEditedCellIDSColada.Colada = value;
+                        }
                         $('#grid').data('kendoGrid').refresh();
                     },
                     filter: "contains",
