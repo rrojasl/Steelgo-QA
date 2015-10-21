@@ -10,5 +10,6 @@ namespace BackEndSAM.Models
         public string TipoMaterial { get; set; }
         public string ItemCodeSteelgo { get; set; }
         public string Cantidad { get; set; }
+        public string MaterialSpoolID { get; set; }
     }
 }

@@ -429,6 +429,7 @@ namespace BackEndSAM.DataAcces
                                join inc in ctx.Sam3_Incidencia on rid.IncidenciaID equals inc.IncidenciaID
                                join c in ctx.Sam3_ClasificacionIncidencia on inc.ClasificacionID equals c.ClasificacionIncidenciaID
                                join tpi in ctx.Sam3_TipoIncidencia on inc.TipoIncidenciaID equals tpi.TipoIncidenciaID
+                               join d in ctx.Sam3_Despacho on rid.DespachoID equals d.DespachoID
                                where rid.Activo && inc.Activo && c.Activo && tpi.Activo
                                select new ListadoIncidencias
                                {
@@ -451,6 +452,119 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
+            }
+        }
+
+        public object ListadoDespachoDesdeImpresion(int materialSpoolID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<object> resultado = new List<object>();
+                List<int> proyectos = new List<int>();
+                List<int> patios = new List<int>();
+                using (SamContext ctx = new SamContext())
+                {
+                    proyectos = (from p in ctx.Sam3_Rel_Usuario_Proyecto
+                                 join eqp in ctx.Sam3_EquivalenciaProyecto on p.ProyectoID equals eqp.Sam3_ProyectoID
+                                 where p.Activo && eqp.Activo
+                                 && p.UsuarioID == usuario.UsuarioID
+                                 select eqp.Sam2_ProyectoID).Distinct().AsParallel().ToList();
+
+                    proyectos = proyectos.Where(x => x > 0).ToList();
+
+
+                    patios = (from p in ctx.Sam3_Proyecto
+                              join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                              join eq in ctx.Sam3_EquivalenciaPatio on pa.PatioID equals eq.Sam2_PatioID
+                              where p.Activo && pa.Activo && eq.Activo
+                              && proyectos.Contains(p.ProyectoID)
+                              select eq.Sam2_PatioID).Distinct().AsParallel().ToList();
+
+                    patios = patios.Where(x => x > 0).ToList();
+
+
+
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+
+                        int sam2_proyectoID = (from ms in ctx2.MaterialSpool
+                                               join odts in ctx2.OrdenTrabajoSpool on ms.SpoolID equals odts.SpoolID
+                                               join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                               join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                               where ms.MaterialSpoolID == materialSpoolID
+                                               select p.ProyectoID).AsParallel().SingleOrDefault();
+
+                        int sam3_proyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                               where eq.Activo
+                                               && eq.Sam2_ProyectoID == sam2_proyectoID
+                                               select eq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
+
+                        resultado.Add((from p in ctx.Sam3_Proyecto
+                                       where p.Activo && p.ProyectoID == sam3_proyectoID
+                                       select new ListaCombos
+                                       {
+                                           id = p.ProyectoID.ToString(),
+                                           value = p.Nombre
+                                       }).AsParallel().Distinct().SingleOrDefault());
+
+                        resultado.Add((from ms in ctx2.MaterialSpool
+                                       join odts in ctx2.OrdenTrabajoSpool on ms.SpoolID equals odts.SpoolID
+                                       join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                       join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                       where ms.MaterialSpoolID == materialSpoolID
+                                       select new ListaCombos
+                                       {
+                                           id = odts.OrdenTrabajoSpoolID.ToString(),
+                                           value = odts.NumeroControl
+                                       }).AsParallel().Distinct().SingleOrDefault());
+
+                        LstGenerarDespacho listado = (from odts in ctx2.OrdenTrabajoSpool
+                                                            join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                            join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                                            join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                            join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                            join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
+                                                            where ms.MaterialSpoolID == materialSpoolID
+                                                            && proyectos.Contains(odt.ProyectoID)
+                                                            && it.TipoMaterialID == 2
+                                                            select new LstGenerarDespacho
+                                                            {
+                                                                Descripcion = it.DescripcionEspanol,
+                                                                ItemCode = it.Codigo,
+                                                                NumeroControl = odts.NumeroControl,
+                                                                NumeroUnico = nu.Codigo,
+                                                                Etiqueta = ms.Etiqueta,
+                                                                Hold = (from sh in ctx2.SpoolHold
+                                                                        where sh.SpoolID == odts.SpoolID
+                                                                        && (sh.TieneHoldCalidad || sh.TieneHoldIngenieria || sh.Confinado)
+                                                                        select sh).Any(),
+                                                                ProyectoID = odt.ProyectoID.ToString()
+                                                            }).Distinct().AsParallel().SingleOrDefault();
+
+                        resultado.Add(listado);
+
+
+#if DEBUG
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        string json = serializer.Serialize(resultado);
+#endif
+
+                        return resultado;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 
