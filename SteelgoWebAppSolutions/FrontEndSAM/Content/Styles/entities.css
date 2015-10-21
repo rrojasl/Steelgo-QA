@@ -23,6 +23,7 @@
     16  $_folioGraphs
     17  $_formatTag
     18  $_menuMobile
+    19  $_quick-filters
 
     Color Palette: Look at site.css
 
@@ -1456,6 +1457,24 @@ header .menu > div {
     width: 25.5px;
     height: 23px;      
 }
+/**********************************************************************************/
+
+
+/**********************************************************************************
+ Class name:    $_quick-filters
+ Description:   Customize mobile menu button.
+**********************************************************************************/
+.quick-filters {
+}
+
+    .quick-filters > div {
+        height: auto;
+        overflow: auto;
+        overflow-y: hidden;
+        max-height: 56px;
+        white-space: nowrap;
+        min-height: 39px;
+    }
 /**********************************************************************************/
 
 

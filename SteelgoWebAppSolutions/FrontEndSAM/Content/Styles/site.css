@@ -350,7 +350,7 @@ input.quickFilters {
         width: 6.2%;
     }
 
-        input.quickFilters:last-of-type[disabled] {
+        input.quickFilters[disabled] {
             background: #FFFFFF;
             opacity:1!important;
         }
