@@ -777,6 +777,43 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Obtener los folios de Aviso llegada que no tienen entrada de material
+        /// </summary>
+        /// <returns></returns>
+        public object ObtenerFoliosAvisoLlegadaSinEntrada()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
+                                                   where r.Activo && 
+                                                   !(from av in ctx.Sam3_FolioAvisoEntrada where av.Activo select av.FolioAvisoLlegadaID.ToString()).Contains(r.FolioAvisoLlegadaID.ToString())
+                                                   select new ListaCombos
+                                                   {
+                                                       id = r.FolioAvisoLlegadaID.ToString(),
+                                                       value = r.FolioAvisoLlegadaID.ToString()
+                                                   }).AsParallel().ToList();
+
+                    return lstFolios;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
 
         /// <summary>
         /// Devuelve un listado de tipo ID, Valor. Con los Folios de llegada que ya tienen folio de descarga.
@@ -790,7 +827,7 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join m in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoLlegadaID equals m.FolioAvisoLlegadaID
-                                                   where r.Activo && m.Activo && m.FolioDescarga > 0
+                                                   where r.Activo && m.Activo && m.FolioDescarga > 0 && !(bool)r.PaseSalidaEnviado
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
