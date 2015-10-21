@@ -50,6 +50,16 @@
             </div>
         </div>
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <input id="FolioID" class="quickFilters general-input" />
+                    <input id="Clasificacion" class="quickFilters general-input" />
+                    <input id="TipoIncidencia" class="quickFilters general-input" />
+                    <input id="Estatus" class="quickFilters general-input" />
+                    <input id="RegistradoPor" class="quickFilters general-input" />
+                    <input id="FechaRegistro" class="quickFilters general-input" />
+                </div>
+            </div>
             <div id="grid"></div>
         </div>
     </div>
@@ -84,6 +94,80 @@
     
 
     function CargaInicial() {
+
+        $("#FolioID").val("");
+        $("#Clasificacion").val("");
+        $("#TipoIncidencia").val("");
+        $("#Estatus").val("");
+        $("#RegistradoPor").val("");
+        $("#FechaRegistro").val("");
+
+        $("#FolioID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioIncidenciaID",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#Clasificacion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Clasificacion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#TipoIncidencia").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "TipoIncidencia",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#Estatus").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Estatus",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#RegistradoPor").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "RegistradoPor",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FechaRegistro").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaRegistro",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
         $("#Nuevo").click(function () {
             window.location.href = _IncidenciasUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
