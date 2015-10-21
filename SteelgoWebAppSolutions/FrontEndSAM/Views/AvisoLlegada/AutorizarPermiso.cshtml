@@ -21,6 +21,48 @@
 
 <div id="PermisoAduana" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="button-section editButtonSection">
+                            <div class="btn-group save-group">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="DetalleAvisoLlegada0082"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caretWhite"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" id="GuardarNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
+                                    @*<li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>*@
+                                </ul>
+                            </div>
+                            <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
+                        </div>
+                        <div id="TramitarPermisoDiv" class="button-section">
+                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
+                        </div>
+                        <div id="AutorizarPermisoDiv" class="button-section" style="display: none">
+                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
+                        </div>
+                        <div class="button-section actionButtonSection">
+                            <div class="dropdown action-group">
+                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                    <span id="DetalleAvisoLlegada0064"></span>
+                                    <span class="caretBlue"></span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a id="RedirectDashboard"><span id="DetalleAvisoLlegada0065"></span></a></li>
+                                    <li><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="formaAutorizarPermiso" class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
             <div class="row">
                 <div id="FolioAvisoLlegadaIDDiv" class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -102,6 +144,7 @@
                     ChecarAutorizacion(dataItem.id);
                 },
                 change: function () {
+                    var value = this.value();
                     if (!value || this.selectedIndex == -1) {
                         Folio = {};
                         this.value("");

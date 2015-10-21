@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -246,6 +246,19 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sam3_Entrega">
+          <Key>
+            <PropertyRef Name="EntregaID" />
+          </Key>
+          <Property Name="EntregaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioEntregaID" Type="int" Nullable="false" />
+          <Property Name="UsuarioRecibeID" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="FechaEntrega" Type="datetime" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FolioPickingTicketID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_EquivalenciaAcero">
           <Key>
@@ -518,6 +531,27 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="TipoMaterialID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sam3_FolioImpresionDocumental">
+          <Key>
+            <PropertyRef Name="FolioImpresionDocumentalID" />
+          </Key>
+          <Property Name="FolioImpresionDocumentalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpoolID" Type="int" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sam3_FolioPickingTicket">
+          <Key>
+            <PropertyRef Name="FolioPickingTicketID" />
+          </Key>
+          <Property Name="FolioPickingTicketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoMaterialID" Type="int" Nullable="false" />
+          <Property Name="DespachoID" Type="int" Nullable="false" />
+          <Property Name="usuarioModificacion" Type="int" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Grupo">
           <Key>
@@ -1810,6 +1844,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="Sam2UserID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Sam3_UsuariosNotificaciones">
           <Key>
@@ -1983,6 +2018,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Entr__Folio__16D94F8E">
+          <End Role="Sam3_FolioPickingTicket" Type="Self.Sam3_FolioPickingTicket" Multiplicity="1" />
+          <End Role="Sam3_Entrega" Type="Self.Sam3_Entrega" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FolioPickingTicket">
+              <PropertyRef Name="FolioPickingTicketID" />
+            </Principal>
+            <Dependent Role="Sam3_Entrega">
+              <PropertyRef Name="FolioPickingTicketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sam3_Foli__Chofe__24285DB4">
           <End Role="Sam3_Chofer" Type="Self.Sam3_Chofer" Multiplicity="1" />
           <End Role="Sam3_FolioAvisoLlegada" Type="Self.Sam3_FolioAvisoLlegada" Multiplicity="*" />
@@ -2076,6 +2123,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_FolioAvisoLlegada">
               <PropertyRef Name="TipoAvisoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Foli__TipoM__102C51FF">
+          <End Role="Sam3_TipoMaterial" Type="Self.Sam3_TipoMaterial" Multiplicity="1" />
+          <End Role="Sam3_FolioPickingTicket" Type="Self.Sam3_FolioPickingTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoMaterial">
+              <PropertyRef Name="TipoMaterialID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioPickingTicket">
+              <PropertyRef Name="TipoMaterialID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3896,6 +3955,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Despacho" EntityType="Self.Sam3_Despacho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Diametro" EntityType="Self.Sam3_Diametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Entidad" EntityType="Self.Sam3_Entidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Entrega" EntityType="Self.Sam3_Entrega" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaAcero" EntityType="Self.Sam3_EquivalenciaAcero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaColada" EntityType="Self.Sam3_EquivalenciaColada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaCorte" EntityType="Self.Sam3_EquivalenciaCorte" Schema="dbo" store:Type="Tables" />
@@ -3918,6 +3978,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_FolioAvisoEntrada" EntityType="Self.Sam3_FolioAvisoEntrada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_FolioAvisoLlegada" EntityType="Self.Sam3_FolioAvisoLlegada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_FolioCuantificacion" EntityType="Self.Sam3_FolioCuantificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_FolioImpresionDocumental" EntityType="Self.Sam3_FolioImpresionDocumental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_FolioPickingTicket" EntityType="Self.Sam3_FolioPickingTicket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Grupo" EntityType="Self.Sam3_Grupo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Incidencia" EntityType="Self.Sam3_Incidencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_ItemCode" EntityType="Self.Sam3_ItemCode" Schema="dbo" store:Type="Tables" />
@@ -4112,6 +4174,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_NumeroUnicoMovimiento" EntitySet="Sam3_NumeroUnicoMovimiento" />
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Entr__Folio__16D94F8E" Association="Self.FK__Sam3_Entr__Folio__16D94F8E">
+            <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
+            <End Role="Sam3_Entrega" EntitySet="Sam3_Entrega" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Foli__Chofe__24285DB4" Association="Self.FK__Sam3_Foli__Chofe__24285DB4">
             <End Role="Sam3_Chofer" EntitySet="Sam3_Chofer" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
@@ -4143,6 +4209,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Foli__TipoA__17AD7836" Association="Self.FK__Sam3_Foli__TipoA__17AD7836">
             <End Role="Sam3_TipoAviso" EntitySet="Sam3_TipoAviso" />
             <End Role="Sam3_FolioAvisoLlegada" EntitySet="Sam3_FolioAvisoLlegada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Foli__TipoM__102C51FF" Association="Self.FK__Sam3_Foli__TipoM__102C51FF">
+            <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
+            <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Foli__TipoM__7B9B496D" Association="Self.FK__Sam3_Foli__TipoM__7B9B496D">
             <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
@@ -5867,6 +5937,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_FolioCuantificacion" Relationship="ModelSam3.FK__Sam3_Foli__TipoM__7B9B496D" FromRole="Sam3_TipoMaterial" ToRole="Sam3_FolioCuantificacion" />
+          <NavigationProperty Name="Sam3_FolioPickingTicket" Relationship="ModelSam3.FK__Sam3_Foli__TipoM__05AEC38C" FromRole="Sam3_TipoMaterial" ToRole="Sam3_FolioPickingTicket" />
         </EntityType>
         <EntityType Name="Sam3_TipoMovimiento">
           <Key>
@@ -5953,6 +6024,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_UsuariosNotificaciones" Relationship="ModelSam3.FK__Sam3_Usua__Usuar__597B3B93" FromRole="Sam3_Usuario" ToRole="Sam3_UsuariosNotificaciones" />
           <NavigationProperty Name="Sam3_ColaCreacionNumerosUnicos" Relationship="ModelSam3.FK__Sam3_Cola__Usuar__7AA72534" FromRole="Sam3_Usuario" ToRole="Sam3_ColaCreacionNumerosUnicos" />
           <NavigationProperty Name="Sam3_Incidencia2" Relationship="ModelSam3.FK__Sam3_Inci__Usuar__43E1002F" FromRole="Sam3_Usuario" ToRole="Sam3_Incidencia" />
+          <Property Name="Sam2UserID" Type="Guid" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Perfil_Entidad_Pagina">
           <Key>
@@ -7879,6 +7951,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Rel_Catalogos_Documento" EntitySet="Sam3_Rel_Catalogos_Documento" />
           </AssociationSet>
           <EntitySet Name="Sam3_DeficitMateriales" EntityType="ModelSam3.Sam3_DeficitMateriales" />
+          <EntitySet Name="Sam3_Entrega" EntityType="ModelSam3.Sam3_Entrega" />
+          <EntitySet Name="Sam3_FolioImpresionDocumental" EntityType="ModelSam3.Sam3_FolioImpresionDocumental" />
+          <EntitySet Name="Sam3_FolioPickingTicket" EntityType="ModelSam3.Sam3_FolioPickingTicket" />
+          <AssociationSet Name="FK__Sam3_Entr__Folio__0C5BC11B" Association="ModelSam3.FK__Sam3_Entr__Folio__0C5BC11B">
+            <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
+            <End Role="Sam3_Entrega" EntitySet="Sam3_Entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Foli__TipoM__05AEC38C" Association="ModelSam3.FK__Sam3_Foli__TipoM__05AEC38C">
+            <End Role="Sam3_TipoMaterial" EntitySet="Sam3_TipoMaterial" />
+            <End Role="Sam3_FolioPickingTicket" EntitySet="Sam3_FolioPickingTicket" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -9856,6 +9939,67 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Solucionado" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Sam3_Entrega">
+          <Key>
+            <PropertyRef Name="EntregaID" />
+          </Key>
+          <Property Name="EntregaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioEntregaID" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioRecibeID" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FolioPickingTicketID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sam3_FolioPickingTicket" Relationship="ModelSam3.FK__Sam3_Entr__Folio__0C5BC11B" FromRole="Sam3_Entrega" ToRole="Sam3_FolioPickingTicket" />
+        </EntityType>
+        <EntityType Name="Sam3_FolioImpresionDocumental">
+          <Key>
+            <PropertyRef Name="FolioImpresionDocumentalID" />
+          </Key>
+          <Property Name="FolioImpresionDocumentalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpoolID" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sam3_FolioPickingTicket">
+          <Key>
+            <PropertyRef Name="FolioPickingTicketID" />
+          </Key>
+          <Property Name="FolioPickingTicketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoMaterialID" Type="Int32" Nullable="false" />
+          <Property Name="usuarioModificacion" Type="Int32" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Sam3_Entrega" Relationship="ModelSam3.FK__Sam3_Entr__Folio__0C5BC11B" FromRole="Sam3_FolioPickingTicket" ToRole="Sam3_Entrega" />
+          <NavigationProperty Name="Sam3_TipoMaterial" Relationship="ModelSam3.FK__Sam3_Foli__TipoM__05AEC38C" FromRole="Sam3_FolioPickingTicket" ToRole="Sam3_TipoMaterial" />
+          <Property Name="DespachoID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Sam3_Entr__Folio__0C5BC11B">
+          <End Type="ModelSam3.Sam3_FolioPickingTicket" Role="Sam3_FolioPickingTicket" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Entrega" Role="Sam3_Entrega" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_FolioPickingTicket">
+              <PropertyRef Name="FolioPickingTicketID" />
+            </Principal>
+            <Dependent Role="Sam3_Entrega">
+              <PropertyRef Name="FolioPickingTicketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Foli__TipoM__05AEC38C">
+          <End Type="ModelSam3.Sam3_TipoMaterial" Role="Sam3_TipoMaterial" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_FolioPickingTicket" Role="Sam3_FolioPickingTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoMaterial">
+              <PropertyRef Name="TipoMaterialID" />
+            </Principal>
+            <Dependent Role="Sam3_FolioPickingTicket">
+              <PropertyRef Name="TipoMaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10874,6 +11018,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Usuario">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Usuario">
               <MappingFragment StoreEntitySet="Sam3_Usuario">
+                <ScalarProperty Name="Sam2UserID" ColumnName="Sam2UserID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
@@ -11776,6 +11921,43 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
                 <ScalarProperty Name="OrdenTrabajoID" ColumnName="OrdenTrabajoID" />
                 <ScalarProperty Name="DeficitID" ColumnName="DeficitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Entrega">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Entrega">
+              <MappingFragment StoreEntitySet="Sam3_Entrega">
+                <ScalarProperty Name="FolioPickingTicketID" ColumnName="FolioPickingTicketID" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="UsuarioRecibeID" ColumnName="UsuarioRecibeID" />
+                <ScalarProperty Name="UsuarioEntregaID" ColumnName="UsuarioEntregaID" />
+                <ScalarProperty Name="EntregaID" ColumnName="EntregaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_FolioImpresionDocumental">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioImpresionDocumental">
+              <MappingFragment StoreEntitySet="Sam3_FolioImpresionDocumental">
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="SpoolID" ColumnName="SpoolID" />
+                <ScalarProperty Name="FolioImpresionDocumentalID" ColumnName="FolioImpresionDocumentalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_FolioPickingTicket">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_FolioPickingTicket">
+              <MappingFragment StoreEntitySet="Sam3_FolioPickingTicket">
+                <ScalarProperty Name="DespachoID" ColumnName="DespachoID" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="usuarioModificacion" ColumnName="usuarioModificacion" />
+                <ScalarProperty Name="TipoMaterialID" ColumnName="TipoMaterialID" />
+                <ScalarProperty Name="FolioPickingTicketID" ColumnName="FolioPickingTicketID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

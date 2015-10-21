@@ -129,8 +129,9 @@
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                 } else {
                     ObtenerFoliosCuantificacion();
                 }
@@ -153,8 +154,9 @@
                 var value = this.value();
                 limpiarFiltroCuantificacion();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     FolioCuantificacion = {};
+                    this.value("");
                 } else {
                     ObtenerItemCodes();
                 };
@@ -175,8 +177,9 @@
                 var value = this.value();
                 limpiarFiltroItemCode();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ItemCode = {};
+                    this.value("");
                 } else {
                     ObtenerNumerosUnicos();
                 };
@@ -194,8 +197,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     NumeroUnico = {};
+                    this.value("");
                 }
                 Filtros();
             },

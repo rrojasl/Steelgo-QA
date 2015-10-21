@@ -4232,6 +4232,10 @@ _dictionary = {
         "es-MX": "Proyecto",
         "en-US": "Project"
     },
+    "Corte0042": {
+        "es-MX": "Imprimir Picking Ticket",
+        "en-US": "Print Picking Ticket"
+    },
     //DashboardDespachoCorte
     "DashboardDespachoCorte0001": {
         "es-MX": "Inicio",
@@ -4530,6 +4534,14 @@ _dictionary = {
     "ImpresionDocumental0008": {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
+    },
+    "ImpresionDocumental0009": {
+        "es-MX": "Imprimir Picking Ticket",
+        "en-US": "Print Picking Ticket"
+    },
+    "ImpresionDocumental0010": {
+        "es-MX": "Imprimir Traveler",
+        "en-US": "Print Traveler"
     },
     //Incidencias
     "Incidencias0001": {
@@ -5110,6 +5122,14 @@ _dictionary = {
     "notificationslabel0076": {
         "es-MX": "No se puede levantar una incidencia de un bulto.",
         "en-US": "You can not fill an incidence of a lump"
+    },
+    "notificationslabel0077": {
+        "es-MX": "No se puede realizar la siguiente accion 1 a 1.",
+        "en-US": "You can not perform the next action 1 a 1"
+    },
+    "notificationslabel0078": {
+        "es-MX": "Favor de guardar la incidencia antes de adjuntar archivos.",
+        "en-US": "Please keep the incidence before attaching files."
     },
     //Default to copy
     "label9999": {

@@ -39,6 +39,7 @@
 </div>
 <script>
     @section JavascriptGlobalVariables {
+    var Contacto = {};
     var $TransportistaModel = {
         listContainer: {
             create: "",
@@ -120,28 +121,19 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
-                    Contacto = [];
+                if (!value || this.selectedIndex == -1) {
+                    Contacto = {};
+                    this.value("");
                 };
             },
             filter: "contains",
         });
         ObtenerContacto();
-
-        $("#ContactoID_Transportista").focusout(function () {
-            if (!$("#ContactoID_Transportista").data("kendoComboBox").dataItem()) {
-                Contacto = [];
-                $("#ContactoID_Transportista").data("kendoComboBox").value("");
-            }
-        });
     };
 
     function CargarContacto(id, value) {
-        Contacto = [];
-        _contacto = {};
-        _contacto["ContactoID"] = id;
-        _contacto["Nombre"] = value;
-        Contacto.push(_contacto);
+        Contacto = {};
+        Contacto = { ContactoID: id, Nombre: value };
     };
 
 

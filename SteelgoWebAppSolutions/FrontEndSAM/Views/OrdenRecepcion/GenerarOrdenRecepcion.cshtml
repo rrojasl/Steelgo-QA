@@ -155,8 +155,9 @@
                 var value = this.value();
                 LimpiarFiltrosProyecto();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                     CargarDatosGrid();
                 } else {
                     ObtenerFoliosAvisoEntrada();
@@ -179,8 +180,9 @@
                 var value = this.value();
                 limpiarFiltroItemCode();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     FolioAvisoEntrada = {};
+                    this.value("");
                     CargarDatosGrid();
                 } else {
                     ObtenerItemCodes();
@@ -200,8 +202,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ItemCode = {};
+                    this.value("");
                 }
                 CargarDatosGrid();
             },

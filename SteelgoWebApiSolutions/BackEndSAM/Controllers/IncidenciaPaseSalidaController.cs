@@ -16,33 +16,9 @@ using SecurityManager.TokenHandler;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class EntregaController : ApiController
+    public class IncidenciaPaseSalidaController : ApiController
     {
-        // GET api/entrega
-        public IEnumerable<ListaCombos> Get(string token)
-        {
-            List<ListaCombos> lstCombos = new List<ListaCombos>();
-            ListaCombos combo1 = new ListaCombos();
-            ListaCombos combo2 = new ListaCombos();
-            ListaCombos combo3 = new ListaCombos();
-
-            combo1.id = "123";
-            combo1.value = "123";
-            lstCombos.Add(combo1);
-
-            combo2.id = "124";
-            combo2.value = "124";
-            lstCombos.Add(combo2);
-
-            combo3.id = "125";
-            combo3.value = "125";
-            lstCombos.Add(combo3);
-            
-            return lstCombos.AsEnumerable();
-        }
-
-        // POST api/entrega
-        public object Post(ListadoEntrega entrega, string token)
+        public object Get(int folio, string token)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +27,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return EntregaBd.Instance.InsertarEntrega(entrega.Entregas, usuario);
+                return PaseSalidaBd.Instance.ListadoIncidenciasPorFolio(folio, usuario);
             }
             else
             {

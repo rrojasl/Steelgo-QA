@@ -273,6 +273,7 @@ namespace BackEndSAM.DataAcces
                                                             NumeroControlID = odts.OrdenTrabajoSpoolID.ToString()
                                                         }).Distinct().AsParallel().ToList();
 
+
                     listado = listado.OrderBy(x => x.NumeroControl).ToList();
 
 #if DEBUG

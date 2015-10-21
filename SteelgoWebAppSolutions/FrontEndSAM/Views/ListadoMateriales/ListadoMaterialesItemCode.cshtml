@@ -113,8 +113,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposPatio();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Patio = {};
+                    this.value("");
                 } else {
                     ObtenerLosProyectos();
                 }
@@ -133,8 +134,9 @@
             change: function (e) {
                 var value = this.value();
                 LimpiarCamposProyecto();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                 }
             },
             filter: "contains",

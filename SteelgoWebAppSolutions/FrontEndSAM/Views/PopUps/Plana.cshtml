@@ -111,8 +111,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
-                    TipoVehiculoPlana = [];
+                if (!value || this.selectedIndex == -1) {
+                    TipoVehiculoPlana = {};
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -126,6 +127,13 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarCamion(dataItem.VehiculoID, dataItem.Placas);
             },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    Camion = {};
+                    this.value("");
+                };
+            },
             filter: "contains",
         });
         ObtenerCamion();
@@ -136,6 +144,13 @@
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
                 CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    Transportista = {};
+                    this.value("");
+                };
             },
             filter: "contains",
         });
@@ -148,6 +163,13 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarChofer(dataItem.ChoferID, dataItem.Nombre);
 
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    Chofer = {};
+                    this.value("");
+                };
             },
             filter: "contains",
         });
@@ -176,7 +198,7 @@
     function CargarCamion(id, value) {
         Camion = {};
         Camion = { CamionID: id, Placas: value };
-    };
+    }; 
     function CargarTransportista(id, value) {
         Transportista = {};
         Transportista = { TransportistaID: id, Nombre: value };

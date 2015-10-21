@@ -57,7 +57,8 @@ namespace BackEndSAM.DataAcces
                         //int faltantesDespacho = (from 
 
                         string nombreProyecto = ctx.Sam3_Proyecto.Where(x => x.ProyectoID == proyectoID).Select(x => x.Nombre).AsParallel().SingleOrDefault();
-                        string numeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == odtsID).Select(x => x.NumeroControl).SingleOrDefault();
+                        string numeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == OrdenTSpool.OrdenTrabajoSpoolID)
+                            .Select(x => x.NumeroControl).SingleOrDefault();
 
                         if (obtenerFormato == 0)
                         {
@@ -98,6 +99,25 @@ namespace BackEndSAM.DataAcces
                         }
                         else
                         {
+                            //si el spool aun no tiene un folio de impresion documental se crea uno, si ya lo tiene solo se devuelve el documento
+                            if (!ctx.Sam3_FolioImpresionDocumental.Where(x => x.SpoolID == OrdenTSpool.OrdenTrabajoSpoolID).Any())
+                            {
+                                #region Generar Folio impresion Documental
+                                using (var ctx_tran = ctx.Database.BeginTransaction())
+                                {
+                                    Sam3_FolioImpresionDocumental nuevoRegistro = new Sam3_FolioImpresionDocumental();
+                                    nuevoRegistro.Activo = true;
+                                    nuevoRegistro.FechaModificacion = DateTime.Now;
+                                    nuevoRegistro.SpoolID = OrdenTSpool.OrdenTrabajoSpoolID;
+                                    nuevoRegistro.UsuarioModificacion = usuario.UsuarioID;
+
+                                    ctx.Sam3_FolioImpresionDocumental.Add(nuevoRegistro);
+                                    ctx.SaveChanges();
+                                    ctx_tran.Commit();
+                                }
+
+                                #endregion
+                            }
 
                             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
                             string rutaBase = ConfigurationManager.AppSettings["SamFiles"];

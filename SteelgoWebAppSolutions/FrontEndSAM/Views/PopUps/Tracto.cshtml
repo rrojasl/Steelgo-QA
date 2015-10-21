@@ -120,8 +120,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     TipoVehiculoTracto = [];
+                    this.value("");
                 };
             },
             filter: "contains",
@@ -135,6 +136,13 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarTransportistaCamion(dataItem.TransportistaID, dataItem.Nombre);
             },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    TransportistaCamion = {};
+                    this.value("");
+                };
+            },
             filter: "contains",
         });
         ObtenerTransportistaCamion();
@@ -146,6 +154,13 @@
                 var dataItem = this.dataItem(e.item.index());
                 CargarChoferCamion(dataItem.ChoferID, dataItem.Nombre);
 
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    ChoferCamion = {};
+                    this.value("");
+                };
             },
             filter: "contains",
         });

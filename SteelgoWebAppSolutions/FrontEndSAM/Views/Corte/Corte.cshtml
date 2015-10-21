@@ -30,7 +30,7 @@
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Corte0004"></span></a>
                         </div>
                         <div class="button-section">
-                            <a id="GenerarPickingTicket" href="#" class="btn btn-primary"><span id="Corte0005"></span></a>
+                            <a id="ImprimirPickingTicket" href="#" class="btn btn-primary"><span id="Corte0042"></span></a>
                         </div>
                         <div class="button-section">
                             <div class="dropdown action-group">
@@ -343,13 +343,14 @@
     }
 
     function CargaInicial() {
+        $("#ImprimirPickingTicket").attr("disabled", "disabled");
         $("#Guardar").click(function () { Guardar(); });
         $("#Cancelar").click(function () { Cancelar(); });
         $("#CorregirTolerancia").click(function () { AplicarCambioTolerancia(); });
         $("#CorregirSobrante").click(function () { AplicarCambioSobrante(); });
         $("#CorregirMermaPrimerIntento").click(function () { AplicarCambioMermaCorregir(); });
         $("#CorregirMermaSegundoIntento").click(function () { AplicarCambioAsumirIncongruencia(); });
-        $("#GenerarPickingTicket").click(function () { GenerarPickingTicket(); });
+        $("#ImprimirPickingTicket").click(function () { ImprimirPickingTicket(); });
         $("#RedirectListado").click(function () { RedirectListado(); });
         $("#IrIncidencia").click(function () { Incidencias(); });
 
@@ -438,9 +439,9 @@
                 LimpiarGrid();
                 if (!value) {
                     NumeroUnico = {};
-                } else {
-                    ObtenerDetalleNumeroUnico();
-                };
+                }
+                ObtenerDetalleNumeroUnico();
+                $("#ImprimirPickingTicket").attr("disabled", "disabled");
             },
             filter: "contains",
         });
@@ -550,6 +551,7 @@
         NumeroControl = {};
         $("#NumeroUnico").data("kendoAutoComplete").value("");
         $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#ImprimirPickingTicket").attr("disabled", "disabled");
     };
 
     function ObtenerDetalleNumeroUnico() {
@@ -595,6 +597,7 @@
         $("#Total").attr("disabled", "disabled");
         $("#Sobrante").attr("disabled", "disabled");
         $("#Merma").attr("disabled", "disabled");
+        $("#ImprimirPickingTicket").removeAttr("disabled", "disabled");
     };
 
     function DesahabilitarBotonesAgregar() {
@@ -623,6 +626,34 @@
         var tr = $(e.currentTarget).closest("tr");
         grid.removeRow(tr);
         HabilitarBotonesAgregar();
+    };
+
+    function ValidarErroresEdicionImpresionDocumental(info) {
+
+        if (!info.NumerUnicoID) {
+            //Favor de seleccionar un numero unico
+            displayMessage("notificationslabel0058", "", '2');
+            return false;
+        };
+
+        if (!info.OrdenTrabajo) {
+            //Favor de proporcionar una orden de trabajo
+            displayMessage("notificationslabel0059", "", '2');
+            return false;
+        };
+
+        if (!info.Consecutivo) {
+            //Favor de proporcionar un consecutivo
+            displayMessage("notificationslabel0060", "", '2');
+            return false;
+        };
+
+        if (!info.Etiqueta) {
+            //Favor de proporcionar una Etiqueta
+            displayMessage("notificationslabel0061", "", '2');
+            return false;
+        };
+        return true;
     };
 
     function ValidarErrores(info) {
@@ -659,6 +690,35 @@
             return false;
         };
         return true;
+    };
+    function ValidarInformacionEdicionImpresionDocumental() {
+        var Listado = { DatosODT: "" };
+        var datasource = $("#grid").data("kendoGrid").dataSource.data();
+        ValidarCantidadTramoRecto(datasource);
+        var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
+
+        info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
+        info.OrdenTrabajo = $("#OrdenTrabajo").val();
+        info.Consecutivo = $("#Consecutivo").val();
+        info.Etiqueta = $("#Etiqueta").val();
+        info.EsTramoCompleto = $("#TramoCompleto").is(":checked");
+        info.token = Cookies.get("token");
+
+        Listado.DatosODT = info;
+        if (ValidarErroresEdicionImpresionDocumental(info)) {
+            $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
+                    ValidarCantidadTramoRecto();
+                    if ($("#TramoCompleto").is(":checked")) {
+                        LimpiarMaquina();
+                        DesahabilitarBotonesAgregar();
+                        LimpiarGrid();
+                    };
+                    AgregarRegistroGrid(result);
+                }
+            });
+        };
+
     };
 
     function ValidarInformacion() {
@@ -762,8 +822,8 @@
         window.data("kendoWindow").center().open();
     };
 
-    function GenerarPickingTicket() {
-        $("#GenerarPickingTicket").attr("disabled", "disabled");
+    function ImprimirPickingTicket() {
+        alert("Pendiente Formato Picking Ticket");
     };
 
     function Cancelar() {
@@ -918,7 +978,7 @@
 
                     $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
                     $("#NumeroUnico").data("kendoAutoComplete").value(result.NumeroControlID);
-                    ValidarInformacion();
+                    ValidarInformacionEdicionImpresionDocumental();
                 }
             }
         });

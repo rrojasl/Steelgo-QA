@@ -20,26 +20,26 @@ namespace BackEndSAM.Controllers
     public class PickingTicketController : ApiController
     {
         // GET api/pickingticket
-        public IEnumerable<ListaCombos> Get(string token)
+        public object Get(string token)
         {
-            List<ListaCombos> lstCombos = new List<ListaCombos>();
-            ListaCombos combo1 = new ListaCombos();
-            ListaCombos combo2 = new ListaCombos();
-            ListaCombos combo3 = new ListaCombos();
-
-            combo1.id = "1";
-            combo1.value = "Picking ticket 1";
-            lstCombos.Add(combo1);
-
-            combo2.id = "2";
-            combo2.value = "Picking ticket 2";
-            lstCombos.Add(combo2);
-
-            combo3.id = "3";
-            combo3.value = "Picking ticket 3";
-            lstCombos.Add(combo3);
-
-            return lstCombos.AsEnumerable();
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return PickingTicketBd.Instance.ListadoFoliosParaCombo(usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
         }
 
         // GET api/pickingticket/5

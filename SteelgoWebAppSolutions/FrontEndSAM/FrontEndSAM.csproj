@@ -1168,6 +1168,7 @@
     <Content Include="Views\Prueba\Prueba.cshtml" />
     <Content Include="Views\PopUps\TipoUso.cshtml" />
     <Content Include="Views\Materiales\NotificacionDeficit.cshtml" />
+    <Content Include="Views\Materiales\RevisionDeficit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

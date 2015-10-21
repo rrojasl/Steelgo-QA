@@ -344,12 +344,6 @@
             event.preventDefault();
         });
 
-        //ObtenerFechasporDefecto();
-
-        $("#Clasificacion").kendoComboBox({});
-        $("#TipoIncidencia").kendoComboBox({});
-
-
         $("#Clasificacion").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "ClasificacionID",
@@ -359,8 +353,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Clasificacion = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -379,8 +374,9 @@
                 var value = this.value();
                 limpiarRegistro();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     TipoIncidencia = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -430,8 +426,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     RegistradoPor = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -449,8 +446,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     ResueltoPor = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -467,8 +465,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     RespondidoPor = {};
+                    this.value("");
                 }
             },
             filter: "contains",
@@ -726,6 +725,11 @@
                 displayMessage("notificationslabel0025", "", '1');
                 e.preventDefault();
             }
+        }
+
+        if (_FolioIncidencia=="-1") {
+            displayMessage("notificationslabel0078", "", '1');
+            e.preventDefault();
         }
 
         $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoIncidenciasUploadFiles + _FolioIncidencia + "&descripcion=" + $("#DescripcionArchivo").val() + "&token=" + Cookies.get("token");

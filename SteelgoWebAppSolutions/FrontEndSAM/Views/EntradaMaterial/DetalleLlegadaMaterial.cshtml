@@ -384,8 +384,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Folio = {};
+                        this.value("");
                     };
                 },
             });
@@ -406,8 +407,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Cliente = {};
+                        this.value("");
                     } else {
                         ObtenerProyectos();
                     };
@@ -429,8 +431,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Proveedor = {};
+                        this.value("");
                     };
                 },
                 filter: "contains",
@@ -450,8 +453,9 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
                         Patio = {};
+                        this.value("");
                     };
                 },
                 filter: "contains",
@@ -471,7 +475,7 @@
                     if (dataItem.Nombre == _estatus) {//En Patio
                         $("#PatioIDDiv").show();
                         if ($("#hdnOrdenDescargada").val() == "false" || !$("#hdnOrdenDescargada").val()) {
-                            $("#GenerarOrdenDescarga").removeAttr("disabled");
+                            //$("#GenerarOrdenDescarga").removeAttr("disabled");
                         }
                     }
                     else
@@ -479,12 +483,13 @@
                         $("#PatioIDDiv").hide();
                         $("#PatioID").data("kendoComboBox").value("");
                         Patio = {};
-                        $("#GenerarOrdenDescarga").attr("disabled", "disabled");
+                        //$("#GenerarOrdenDescarga").attr("disabled", "disabled");
                     }
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value) {
+                    if (!value || this.selectedIndex == -1) {
+                        this.value("");
                         $("#PatioIDDiv").hide();
                         $("#PatioID").data("kendoComboBox").value("");
                         Patio = {};
@@ -731,9 +736,11 @@
                             if (data.FolioDescarga > 0)
                             {
                                 $("#hdnOrdenDescargada").val(true);
+                                $("#GenerarOrdenDescarga").attr("disabled", "disabled");
                             } else
                             {
                                 $("#hdnOrdenDescargada").val(false);
+                                $("#GenerarOrdenDescarga").removeAttr("disabled");
                             }
                         
                         };
@@ -1000,7 +1007,7 @@
             console.log(JSON.stringify(FolioLlegada));
 
             loadingStart();
-            if (folioLlegada != -1)//Edición
+            if (folioLlegada != -1 && folioLlegada != 0)//Edición
             {
                 BotonEdicion();
                 $FolioAvisoEntrada.FolioAvisoEntrada.update(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
@@ -1383,7 +1390,7 @@
     CargaInicial();
         if (folioAvisoLlegada != -1)
         {
-            CargaInicialEdicion(folioLlegada);
+            CargaInicialEdicion(folioAvisoLlegada);
         }
 
        
