@@ -1,7 +1,7 @@
 ﻿using BackEndSAM.Models.Armado;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
-using SteelGoOp.App_Code;
+
 using System;
 using System.Collections.Generic;
 using System.Data;

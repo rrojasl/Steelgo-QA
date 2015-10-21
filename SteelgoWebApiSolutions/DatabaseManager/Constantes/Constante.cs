@@ -1,5 +1,5 @@
 ﻿
-namespace SteelGoOp.App_Code
+namespace DatabaseManager.Sam3
 {
 
     public static class GenericosString

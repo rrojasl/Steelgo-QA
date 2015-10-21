@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 
 
-namespace SteelGoOp.App_Code
+namespace DatabaseManager.Sam3
 {
     public class ObjetosSQL
     {
