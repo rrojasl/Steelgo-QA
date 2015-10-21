@@ -296,7 +296,7 @@
             $("#AdjuntarArchivos").kendoUpload(options);
             var tmp={};
             $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl.split("?")[1].split("&").forEach(function(n){tmp[n.split("=")[0]]=n.split("=")[1]});
-            if(tmp.incidenciaID<0){
+            if(0>tmp.incidenciaID){
                 $("#AdjuntarArchivos").data("kendoUpload").disable();
             }
         };
