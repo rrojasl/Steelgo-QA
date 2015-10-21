@@ -56,14 +56,25 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
+             <div class="row">
+                            <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <input id="FechaAvisoLlegada" class="quickFilters general-input" />
+                                <input id="AvisoEntradaID" class="quickFilters general-input" />
+                                <input id="PackingList" class="quickFilters general-input" />
+                                <input id="FolioLlegada" class="quickFilters general-input" />
+                                <input id="TipoPackingList" class="quickFilters general-input" />
+                                <input id="TipoUso" class="quickFilters general-input" />
+                                <input id="Estatus" class="quickFilters general-input" />
+                            </div>
+                        </div>
             <div id="grid"></div>
         </div>
     </div>
 </div>
 <input id="hdAccionFiltrado" type="hidden" />
 
-<ul id="menu">
+<ul id="menu" class="incidencia">
     <li id="Incidencia"><span id="ListadoPackingList0023"></span></li>
 </ul>
 <script>
@@ -72,14 +83,15 @@
     var Cliente = {}, Proyecto = {}, FolioAvisoEntrada = {}, FechaInic, FechaFinal, PeriodoTiempo, resultadoJson;
     var _cuantificacionUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
     var _complementoUrl = "@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")";
-    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")"; 
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
     var $ListadoPackingListModel = {
         listContainer: {
-            create: "#Nuevo",
-            list: "#grid",
+            create: ".button-section",
+            list: ".listado",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
     };
     }
@@ -95,9 +107,94 @@
         FechaFinal.setOptions(datePickerOptions);
     };
 
-    
+
 
     function CargaInicial() {
+        $("#FechaAvisoLlegada").val("");
+        $("#AvisoEntradaID").val("");
+        $("#PackingList").val("");
+        $("#FolioLlegada").val("");
+        $("#TipoPackingList").val("");
+        $("#TipoUso").val("");
+        $("#Estatus").val("");
+
+        $("#FechaAvisoLlegada").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaFolioAvisoEntrada",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#AvisoEntradaID").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioEntrada",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#PackingList").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "PackingList",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#FolioLlegada").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FolioCuantificacion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#TipoPackingList").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "TipoPackingList",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#TipoUso").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "TipoUso",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#Estatus").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "Estatus",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
         $("#Nuevo").click(function () {
             var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -249,10 +346,10 @@
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
-         });
+        });
     };
 
-   
+
 
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
@@ -412,7 +509,7 @@
     function mostrarDetalle(folioAvisoLlegadaID, foliocuantificacion) {
         window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
     };
-    
+
     function mostrarDetalleComplemento(foliocuantificacion) {
         window.location.href = _complementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&Edicion=1&FolioCuantificacionID=" + foliocuantificacion;
     };
@@ -428,7 +525,7 @@
         Listado = ArregloListado(accion);
 
         $("#hdAccionFiltrado").val(accion);
-        $folioEntradaMaterial.Listado.read({  data: JSON.stringify(Listado) }).done(function (data) {
+        $folioEntradaMaterial.Listado.read({ data: JSON.stringify(Listado) }).done(function (data) {
             if (Error(data)) {
                 resultadoJson = data;
                 if ($("#grid").data("kendoGrid")) {
@@ -460,7 +557,7 @@
         Listado.FechaFinal = obtenerFormatoFecha(d1);
         Listado.token = Cookies.get("token");
         Listado.TipoListado = 17;
-        
+
         return Listado;
     };
 

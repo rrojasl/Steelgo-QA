@@ -33,7 +33,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="LlegadaMaterial0044"></span></button>
@@ -50,7 +50,7 @@
                         <div class="button-section">
                             <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="LlegadaMaterial0039"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="LlegadaMaterial0040"></span>
@@ -58,8 +58,8 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="RedirectDashboard"><span id="LlegadaMaterial0041"></span></a></li>
-                                    <li><a  id="IrIncidencia" href="#"><span id="LlegadaMaterial0042"></span></a></li>
-                                    <li><a id="CancelarFolio" href="#"><span id="LlegadaMaterial0051"></span></a></li>
+                                    <li class="incidencia"><a  id="IrIncidencia" href="#"><span id="LlegadaMaterial0042"></span></a></li>
+                                    <li class="cancelar"><a id="CancelarFolio" href="#"><span id="LlegadaMaterial0051"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -166,10 +166,11 @@
 
         var $DetalleLlegadaMaterialModel = {
             listContainer: {
-                create: ".nextStepButtonSection",
+                create: ".save-group",
                 list: ".actionButtonSection",
                 detail: ".editButtonSection",
-                destroy: ""
+                destroy: ".cancelar",
+                createIncidence: ".incidencia"
             },
             properties: {
                 foloAvisoEntrada: {
@@ -773,7 +774,7 @@
         };
 
         function ObtenerFoliosAvisoLlegada() {// MODIFICAR EL TIPO DE LISTADA, necesito obtener los folios que no tengan pase de salida
-            $folioEntradaMaterial.Listado.read({ tipoListado: 1, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
+            $folioEntradaMaterial.Listado.read({ tipoListado: 5, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioEntradaID", result);
             });
         };

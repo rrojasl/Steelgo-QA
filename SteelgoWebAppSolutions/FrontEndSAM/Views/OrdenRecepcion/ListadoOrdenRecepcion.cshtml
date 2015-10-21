@@ -56,7 +56,15 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-xs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
+            <div class="row">
+                <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <input id="FechaOrdenRecepcion" class="quickFilters general-input" />
+                    <input id="OrdenRecepcion" class="quickFilters general-input" />
+                    <input id="ImprimirOrden" class="quickFilters general-input" disabled />
+                    <input id="ImprimirEtiquetas" class="quickFilters general-input" disabled />
+                </div>
+            </div>
             <div id="grid"></div>
         </div>
     </div>
@@ -73,10 +81,11 @@
 
     var $ListadoOrdenRecepcionModel = {
         listContainer: {
-            create: "#Nuevo",
-            list: "#grid",
+            create: ".button-section",
+            list: ".listado",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ""
         },
     };
     }
@@ -94,6 +103,33 @@
     };
 
     function CargaInicial() {
+        $("#FechaOrdenRecepcion").val("");
+        $("#OrdenRecepcion").val("");
+        $("#ImprimirOrden").val("");
+        $("#ImprimirEtiquetas").val("");
+
+        $("#FechaOrdenRecepcion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaOrdenRecepcion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#OrdenRecepcion").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "OrdenRecepcion",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
         $("#Nuevo").click(function () {
             window.location.href = _generarOrdenUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
         });
@@ -179,6 +215,12 @@
     };
 
     function cargarInicialGrid() {
+
+        $("#FechaOrdenRecepcion").val("");
+        $("#OrdenRecepcion").val("");
+        $("#ImprimirOrden").val("");
+        $("#ImprimirEtiquetas").val("");
+
         var grid = $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
@@ -212,7 +254,7 @@
             },
             detailInit: detailInit,
             columns: [
-                { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()]},
+                { field: "FechaOrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0019[$("#language").data("kendoDropDownList").value()] },
                 { field: "OrdenRecepcion", title: _dictionary.ListadoOrdenRecepcion0020[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick='mostrarDetalle(#:OrdenRecepcion#)'>#:OrdenRecepcion#</a>" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0023[$("#language").data("kendoDropDownList").value()], click: ImprimirOrden }, title: " ", width: "99px" },
                 { command: { text: _dictionary.ListadoOrdenRecepcion0029[$("#language").data("kendoDropDownList").value()], click: ImprimirEtiquetas }, title: " ", width: "99px" },
@@ -281,9 +323,9 @@
         e.preventDefault();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var ordenRecepcionID = dataItem.OrdenRecepcion
-        window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID +"&rc:Toolbar=false&rs:Format=PDF", '_blank');
+        window.open(_UrlReporte + "?%2fReportes%2fFormato+de+Etiquetas&rs:Command=Render" + "&OrdenRecepcionID=" + ordenRecepcionID + "&rc:Toolbar=false&rs:Format=PDF", '_blank');
     };
-        
+
     function ObtenerFechasporDefecto() {
         var fechaFinal = new Date();
         var fechainicio = new Date(fechaFinal.getTime() - (7 * 24 * 3600 * 1000));
@@ -313,7 +355,7 @@
         $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
         $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
     };
-    
+
     function createPeriodoTiempo() {
         $("#PeriodoTiempo").kendoComboBox({
             dataTextField: "Periodo",
@@ -399,7 +441,7 @@
         Cliente = {};
         Cliente = { ClienteID: id };
     };
-    
+
     function CargarProyecto(id, value) {
         Proyecto = {};
         Proyecto = { ProyectoID: id, Nombre: value };
@@ -414,7 +456,7 @@
         PeriodoTiempo = {};
         PeriodoTiempo = { PeriodoTiempo: id };
     };
-    
+
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
             $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -530,7 +572,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-   
+
     CargaInicial();
 
 

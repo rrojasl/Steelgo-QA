@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Listado Orden Almacenaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -58,16 +57,23 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="grid"></div>
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
+                    <div class="row">
+                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input id="FechaOrdenAlmacenaje" class="quickFilters general-input" />
+                            <input id="OrdenAlmacenaje" class="quickFilters general-input" />
+                            <input id="Imprimir" class="quickFilters general-input" disabled />
+                            <input id="Cancelar" class="quickFilters general-input" disabled />
+                        </div>
                     </div>
-
+                    <div id="grid"></div>
                 </div>
+            </div>
         </div>
     </div>
 </div>
-       
+
 @*<ul id="menu">
     <li><span id="ListadoOrdenAlmacenaje0023"></span>
     </li>
@@ -81,10 +87,11 @@
 
     var $ListadoOrdenAlmacenajeModel = {
         listContainer: {
-            create: "#Nuevo",
-            list: "#grid",
+            create: ".button-section",
+            list: ".listado",
             detail: ".detalleLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ""
         },
     };
     }
@@ -102,6 +109,33 @@
     };
 
     function CargaInicial() {
+        $("#FechaOrdenAlmacenaje").val("");
+        $("#OrdenAlmacenaje").val("");
+        $("#Imprimir").val("");
+        $("#Cancelar").val("");
+
+        $("#FechaOrdenAlmacenaje").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "FechaOrdenAlmacenaje",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
+        $("#OrdenAlmacenaje").keyup(function () {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            ds.filter([
+                {
+                    "field": "OrdenAlmacenaje",
+                    "operator": "Contains",
+                    "value": this.value
+                }
+            ]);
+        });
+
         $("#Nuevo").click(function () {
             var detalleIdeaUrl = "@Url.Action("GenerarOrdenAlmacenaje", "OrdenAlmacenaje")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -269,7 +303,7 @@
             autoBind: true,
             scrollable: false,
             sortable: false,
-            selectable:true,
+            selectable: true,
             columns: [
                 { field: "FolioCuantificacion", title: _dictionary.ListadoOrdenAlmacenaje0020[$("#language").data("kendoDropDownList").value()] },
                 { field: "OrdenAlmacenaje", title: _dictionary.ListadoOrdenAlmacenaje0017[$("#language").data("kendoDropDownList").value()], hidden: true },
@@ -298,18 +332,18 @@
             scrollable: false,
             sortable: false,
             columns: [
-                { field: "Codigo", title: _dictionary.ListadoOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()]},
-                { field: "NumeroUnico", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()]},
+                { field: "Codigo", title: _dictionary.ListadoOrdenAlmacenaje0021[$("#language").data("kendoDropDownList").value()] },
+                { field: "NumeroUnico", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()] },
                 { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
                 { field: "", title: "", width: "110px", template: "<a class='detalleLink' onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarItem }, title: " ", width: "99px" }
-                
+
             ]
         });
     }
-    
+
     function mostrarDetalle(ordenAlmacenajeID) {
         var detalleIdeaUrl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + ordenAlmacenajeID;
@@ -344,7 +378,7 @@
         $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
         $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
     };
-    
+
     function createPeriodoTiempo() {
         $("#PeriodoTiempo").kendoComboBox({
             dataTextField: "Periodo",
@@ -429,7 +463,7 @@
         Cliente = {};
         Cliente = { ClienteID: id };
     };
-    
+
     function CargarProyecto(id, value) {
         Proyecto = {};
         Proyecto = { ProyectoID: id, Nombre: value };
@@ -439,12 +473,12 @@
         FolioCuantificacion = {};
         FolioCuantificacion = { FolioCuantificacionID: id };
     };
-    
+
     function CargarPeriodoTiempo(id) {
         PeriodoTiempo = {};
         PeriodoTiempo = { PeriodoTiempo: id };
     };
-    
+
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
             $("#" + control).data("kendoComboBox").dataSource.data(result);
@@ -525,7 +559,7 @@
     };
 
     function CancelarOrden(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         var ordenAlmacenajeID = $(e.currentTarget).closest("tr").children()[2].innerText;
         if (confirm("Estas seguro de cancelar la orden de almacenaje?")) {
             $OrdenAlmacenaje.OrdenAlmacenaje.destroy({}, { ordenAlmacenajeID: ordenAlmacenajeID, token: Cookies.get("token") }).done(function (result) {
@@ -563,7 +597,7 @@
             loadingStop();
         }
     };
-    
+
     function obtenerFormatoFecha(d) {
         var curr_date = d.getDate();
         var curr_month = d.getMonth() + 1; //Months are zero based
@@ -593,7 +627,7 @@
     }
 
     @section JavascriptDocumentReadyFunctions {
-   
+
     CargaInicial();
 
 

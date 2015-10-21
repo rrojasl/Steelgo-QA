@@ -57,15 +57,24 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="form-group col-xs-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
+                       <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" arial-label="tabList">
                             <button id="btnPorLlegar" class="btn btn-tabList btn-listLlegada"><span id="ListadoLlegadaMaterial0012"></span> <span id="spanPorLlegar"> 0 </span></button>
                             <button id="btnPorDescargar" class="btn btn-tabList btn-listLlegada"><span id="ListadoLlegadaMaterial0013"></span> <span id="spanPorDescargar"> 0 </span></button>
                             <button id="btnPorSalir" class="btn btn-tabList btn-listLlegada"><span id="ListadoLlegadaMaterial0014"></span> <span id="spanPorSalir"> 0 </span></button>
 
+                        </div>
+                    </div>
+                      <div class="row">
+                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <input id="AvisoEntradaID" class="quickFilters general-input" />
+                            <input id="FechaCreacion" class="quickFilters general-input" />
+                            <input id="Patio" class="quickFilters general-input" />
+                            <input id="EstatusFolio" class="quickFilters general-input" />
+                            <input id="Cancel" class="quickFilters general-input" disabled />
                         </div>
                     </div>
                     <div id="grid" class="entradaMaterial"></div>
@@ -78,7 +87,7 @@
     </div>
 </div>
 <input id="hdAccionFiltrado" type="hidden" />
-<ul id="menu">
+<ul id="menu" class="incidencia">
     <li><span id="ListadoLlegadaMaterial0024"></span></li>
 </ul>
 <script>
@@ -108,7 +117,8 @@
             create: "#Nuevo",
             list: "#grid",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
     };
     }
@@ -507,6 +517,60 @@
     @section JavascriptDocumentReadyFunctions 
     {
     $authorizationModel["LLegada Material"] = $LlegadaMaterialModel;
+
+    $("#AvisoEntradaID").val("");
+    $("#FechaCreacion").val("");
+    $("#Patio").val("");
+    $("#EstatusFolio").val("");
+    $("#Cancel").val("");
+
+    $("#AvisoEntradaID").keyup(function () {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        ds.filter([
+            {
+                "field": "FolioAvisoLlegadaID",
+                "operator": "Contains",
+                "value": this.value
+            }
+        ]);
+    });
+
+    $("#FechaCreacion").keyup(function () {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        ds.filter([
+            {
+                "field": "FechaCreación",
+                "operator": "Contains",
+                "value": this.value
+            }
+        ]);
+    });
+
+    $("#Patio").keyup(function () {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        ds.filter([
+            {
+                "field": "Patio",
+                "operator": "Contains",
+                "value": this.value
+            }
+        ]);
+    });
+
+    $("#EstatusFolio").keyup(function () {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        ds.filter([
+            {
+                "field": "EstatusFolio",
+                "operator": "Contains",
+                "value": this.value
+            }
+        ]);
+    });
+
+
+
+
 
     $("#menu").kendoContextMenu({
         target: "#grid",

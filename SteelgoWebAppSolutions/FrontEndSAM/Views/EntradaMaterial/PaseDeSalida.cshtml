@@ -25,14 +25,14 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="GenerarPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="PaseDeSalida0005"></span></button>
                                 <button id="ImprimirPaseSalida" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="PaseDeSalida0018"></span></button>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="PaseDeSalida0006"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="PaseDeSalida0007"></span>
@@ -40,7 +40,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     @*<li><a><span id="DetalleAvisoLlegada0065"></span></a></li>*@
-                                    <li><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -149,10 +149,11 @@
         var _UrlReporte = $UrlReportingServices;
         var $PaseSalidaModel = {
             listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
+                create: ".save-group",
+                list: ".actionButtonSection",
+                detail: ".editButtonSection",
+                destroy: ".cancelar",
+                createIncidence: ".incidencia"
             },
             properties: {
                 listarArchivos: {
@@ -489,12 +490,8 @@
         }
 
         function Incidencias() {
-            if (Folio.FolioAvisoLlegadaID) {
-                displayMessage("notificationslabel0036", "", '1');
-                return;
-            };
-
-            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&ReferenciaID=" + Folio.FolioAvisoLlegadaID);
+            var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + folio + "&TipoIncidencia=1&Clasificacion=1");
         };
 
         function ControlErroresObjetosComboBox(control, result) {

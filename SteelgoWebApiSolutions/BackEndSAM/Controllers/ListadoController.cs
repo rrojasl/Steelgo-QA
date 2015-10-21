@@ -50,6 +50,8 @@ namespace BackEndSAM.Controllers
                         rest.ReturnStatus = false;
                         rest.IsAuthenicated = false;
                         return rest;
+                    case 5:
+                        return AvisoLlegadaBd.Instance.ObtenerFoliosAvisoLlegadaSinEntrada();
                     case 6: //Obtener listado de folios que ya tienen llegada de material
                         return AvisoLlegadaBd.Instance.ObtenerListadoSinPaseSalida();
                     case 18: // Listado para combo de packing list

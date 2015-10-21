@@ -33,7 +33,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
                                 <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Cuantificacion0003"></span></button>
                                 <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="Cuantificacion0004"></span></button>
@@ -53,7 +53,7 @@
                         <div class="button-section">
                             <a id="GenerarOrdenRecepcion" href="#" class="btn btn-primary"><span id="Cuantificacion0011"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section action">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="Cuantificacion0042"></span>
@@ -61,7 +61,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
                                     <li><a id="ImprimirOrdenRecepcion"><span id="Cuantificacion0082"></span></a></li>
-                                    <li><a id="IrIncidencia" href="#"><span id="Cuantificacion0083"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="Cuantificacion0083"></span></a></li>
                                     <li id="AccionRegresar"><a id="RegresarListadoPadre" href="#" ><span id="Cuantificacion0085"></span></a></li>
                                 </ul>
                             </div>
@@ -146,9 +146,9 @@
         </div>
 
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid"></div>
+            <div id="grid" class="action"></div>
         </div>        
-        <ul id="menu">
+        <ul id="menu" >
             <li id="Detallar"><span id="Cuantificacion0087"></span>
             </li>
             <li id="Incidencia"><span id="Cuantificacion0088"></span>
@@ -218,10 +218,11 @@
 
             var $CuantificacionModel = {
                 listContainer: {
-                    create: ".nextStepButtonSection",
-                    list: ".actionButtonSection",
+                    create: ".save-group",
+                    list: ".action",
                     detail: ".editButtonSection",
-                    destroy: ""
+                    destroy: ".k-grid-Cancelar",
+                    createIncidence: ".incidencia"
                 },
                 properties: {
                     folioAvisoEntradaID: {
@@ -594,9 +595,12 @@
                     if (!value || this.selectedIndex == -1) {
                         TipoPackingList = {};
                         this.value("");
+                        changeValueColumnMMPackingList("");
                     } else {
                         if (value == "2") {
                             changeValueColumnMMNoAplica();
+                        } else {
+                            changeValueColumnMMPackingList();
                         }
                     };
                 },
@@ -1257,6 +1261,17 @@
             });
         };
 
+        function changeValueColumnMMPackingList() {
+            var filters = $("#grid").data("kendoGrid").dataSource.filter();
+            var allData = $("#grid").data("kendoGrid").dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var result = query.filter(filters).data;
+            var datasource = result;
+
+            $(datasource).each(function () {
+                    this.set("MM", "");
+            });
+        };
         function changeValueColumnMM(value) {
             //var allData = $("#grid").data("kendoGrid").dataSource.data();
             //var query = new kendo.data.Query(allData);
@@ -1269,11 +1284,11 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                if (TipoPackingList.TipoPackingListID == "1") {//TUBO
-                    this.set("MM", value);
-                } else {
-                    this.set("MM", "N/A");
-                }
+                    if (TipoPackingList.TipoPackingListID == "1") {//TUBO
+                        this.set("MM", value);
+                    } else {
+                        this.set("MM", "N/A");
+                    }
             });
         };
 
@@ -2248,26 +2263,42 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        if (_detalleBulto!="-1" &&  value == "Bulto") {
-                            lastEditedCellID.ItemCode = "Bulto";
+                        if (!e.sender.current()) {
+                            lastEditedCellID.ItemCode = "";
                             lastEditedCellID.Descripcion = "";
                             lastEditedCellID.D1 = 0;
                             lastEditedCellID.D2 = 0;
                             lastEditedCellID.ItemCodeSteelgo = "";
                             lastEditedCellID.Colada = "";
-                            lastEditedCellID.MM = "N/A";
-                            lastEditedCellID.Detallar = "Si";
-                            lastEditedCellID.Cantidad = 1;
+                            lastEditedCellID.MM = "";
+                            lastEditedCellID.Detallar = "No";
+                            lastEditedCellID.Cantidad = 0;
                             lastEditedCellID.TieneNU = "No";
                             lastEditedCellID.Familia = "";
                             lastEditedCellID.Cedula = "";
                             lastEditedCellID.TipoAcero = "";
-                            displayMessage("notificationslabel0043", "", '1');
-                        }
-                        else {
-                            cargarItemCodeAutocomplete(value);
-                        }
-                        
+                            $('#grid').data('kendoGrid').refresh();
+                        } else {
+                            if (_detalleBulto != "-1" && value == "Bulto") {
+                                lastEditedCellID.ItemCode = "Bulto";
+                                lastEditedCellID.Descripcion = "";
+                                lastEditedCellID.D1 = 0;
+                                lastEditedCellID.D2 = 0;
+                                lastEditedCellID.ItemCodeSteelgo = "";
+                                lastEditedCellID.Colada = "";
+                                lastEditedCellID.MM = "N/A";
+                                lastEditedCellID.Detallar = "Si";
+                                lastEditedCellID.Cantidad = 1;
+                                lastEditedCellID.TieneNU = "No";
+                                lastEditedCellID.Familia = "";
+                                lastEditedCellID.Cedula = "";
+                                lastEditedCellID.TipoAcero = "";
+                                displayMessage("notificationslabel0043", "", '1');
+                            }
+                            else {
+                                cargarItemCodeAutocomplete(value);
+                            }
+                        };
                     }
                 });
             lastEditedCellID = options.model;
@@ -2296,8 +2327,19 @@
                     },
                     change: function (e) {
                         var value = this.value();
-                        cargarItemCodeSteelgoAutocomplete(value);
-
+                        if (!e.sender.current()) {
+                            lastEditedCellIDSteelgo.ItemCodeSteelgo = "";
+                            lastEditedCellIDSteelgo.Descripcion = "";
+                            lastEditedCellIDSteelgo.D1 = "";
+                            lastEditedCellIDSteelgo.D2 = "";
+                            lastEditedCellIDSteelgo.Familia ="";
+                            lastEditedCellIDSteelgo.Cedula = "";
+                            lastEditedCellIDSteelgo.TipoAcero = "";
+                            lastEditedCellID.Detallar = "No";
+                            $('#grid').data('kendoGrid').refresh();
+                        } else {
+                            cargarItemCodeSteelgoAutocomplete(value);
+                        };
                       
                     }
                 });
@@ -2334,7 +2376,11 @@
                     },
                     change: function (e) {
                         var value = this.text();
-                        lastEditedCellIDSColada.Colada = value;
+                        if (this.selectedIndex == -1) {
+                            lastEditedCellIDSColada.Colada = "";
+                        } else {
+                            lastEditedCellIDSColada.Colada = value;
+                        }
                         $('#grid').data('kendoGrid').refresh();
                     },
                     filter: "contains",
