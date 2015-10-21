@@ -301,6 +301,14 @@
     };
     
     @section JavascriptGlobalFunctions {
+        function changeLanguageCall() {
+            var options=$("#AdjuntarArchivos").data("kendoUpload").options;
+            $("#AdjuntarArchivosDiv .k-button.k-upload-button").remove();
+            options.localization=getKendoUploadLocalization();
+            $("#AdjuntarArchivosDiv").append("<input type='file' id='AdjuntarArchivos'>");
+            $("#AdjuntarArchivos").kendoUpload(options);
+        };
+
     function CargaInicial() {
             $("#IrIncidencia").click(function () { Incidencias(); });
             $("#GenerarOrdenDescarga").click(function (e) {
@@ -503,7 +511,8 @@
                     HabilitarObtenerDocumentosLlegadaMaterial();
                 },
                 error: function (data) { },
-                upload: onUploadAdjuntarArchivos
+                upload: onUploadAdjuntarArchivos,
+                localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
             });
 
            

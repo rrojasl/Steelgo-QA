@@ -52,6 +52,7 @@
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
         CargarGrid();
+        //$("#language").data("kendoDropDownList").value()
     }
 
     function CargaInicial() {
@@ -71,6 +72,7 @@
             success: function (data) {
                 regenerarGrid();
             },
+            localization: getKendoUploadLocalization(window.parent.$("#language").data("kendoDropDownList").value()),
             error: function (data) { },
         });
 
@@ -110,16 +112,7 @@
             autoHeight: true,
             sortable: false,
             scrollable: false,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],

@@ -20,7 +20,7 @@ var alertTimeOut = 15000;
 //Method to be called on the document ready and contains all the pertinent code for a partial view
 function alertsManagertoBeExecutedOnDocumentReady() {
     if (Cookies.get("messageBody") != null && Cookies.get("messageComplement") != null && Cookies.get("messageType") != null) {
-        displayMessage(Cookies.get("messageBody"), Cookies.get("messageComplement"), Cookies.get("messageType"))
+        //displayMessage(Cookies.get("messageBody"), Cookies.get("messageComplement"), Cookies.get("messageType"))
     }
 }
 
@@ -35,9 +35,9 @@ function cleanDisplayMessage() {
     $(".message").removeClass("success");
     $(".message").removeClass("warning");
     $(".message").removeClass("error");
-    Cookies.remove("messageBody", { path: '/' });
-    Cookies.remove("messageComplement", { path: '/' });
-    Cookies.remove("messageType", { path: '/' });
+    //Cookies.remove("messageBody", { path: '/' });
+    //Cookies.remove("messageComplement", { path: '/' });
+    //Cookies.remove("messageType", { path: '/' });
 }
 
 //Method to display a message on the proper area Types(o:success | 1:warning | 2:error)
@@ -56,9 +56,9 @@ function displayMessage(message, messageComplement, type) {
 
     $(".message").text(messageText);
     console.log(messageText);
-    Cookies.set("messageBody", message, { path: '/' });
-    Cookies.set("messageComplement", messageComplement, { path: '/' });
-    Cookies.set("messageType", type, { path: '/' });
+    //Cookies.set("messageBody", message, { path: '/' });
+    //Cookies.set("messageComplement", messageComplement, { path: '/' });
+    //Cookies.set("messageType", type, { path: '/' });
 
     switch (type) {
         case '0': $(".message").addClass("success"); break;

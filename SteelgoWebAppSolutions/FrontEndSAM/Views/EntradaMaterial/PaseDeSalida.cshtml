@@ -15,7 +15,7 @@
         <a href="@Url.Action("ListadoLlegadaMaterial", "EntradaMaterial")"><span id="PaseDeSalida0003"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("PaseDeSalida", "AvisoLlegada")"><span id="PaseDeSalida0004"></span></a>
+        <a href="@Url.Action("PaseDeSalida", "EntradaMaterial")"><span id="PaseDeSalida0004"></span></a>
     </li>
 }
 
@@ -185,6 +185,13 @@
     }
 
     @section JavascriptGlobalFunctions {
+        function changeLanguageCall() {
+            var options=$("#PackingList").data("kendoUpload").options;
+            $("#PackingListDiv .k-button.k-upload-button").remove();
+            options.localization=getKendoUploadLocalization();
+            $("#PackingListDiv").append("<input type='file' id='PackingList'>");
+            $("#PackingList").kendoUpload(options);
+        };
         
     function CargaInicial() {
             $("#IrIncidencia").click(function () { Incidencias(); });
@@ -307,7 +314,8 @@
                     ObtenerDocumentosPaseSalida();
                 },
                 error: function (data) { },
-                upload: onUploadArchivoPaseSalida
+                upload: onUploadArchivoPaseSalida,
+                localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
             });
         }
 

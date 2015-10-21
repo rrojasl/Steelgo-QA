@@ -189,8 +189,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
-                    NumeroControl = {};                 
+                if (!value || !e.sender.current()) {
+                    NumeroControl = {};
+                    this.value("");
                 }
                 _DespachoID == "-1";
                 ObtenerDatosGrid();

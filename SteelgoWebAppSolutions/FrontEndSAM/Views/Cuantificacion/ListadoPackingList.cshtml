@@ -209,8 +209,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Cliente = {};
+                    this.value("");
                 }
                 Filtros();
             },
@@ -227,9 +228,9 @@
             },
             change: function (e) {
                 var value = this.value();
-
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
+                    this.value("");
                 }
                 Filtros();
             },
@@ -249,9 +250,9 @@
             },
             change: function (e) {
                 var value = this.value();
-
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     FolioAvisoEntrada = {};
+                    this.value("");
                 }
                 Filtros();
             },
@@ -320,16 +321,7 @@
             sortable: true,
             scrollable: false,
             selectable: true,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -406,8 +398,9 @@
             change: function (e) {
                 var value = this.value();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
                     PeriodoTiempo = [];
+                    this.value("");
                 }
                 ObtenerFechasporPeriodo(value);
                 Filtros();

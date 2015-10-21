@@ -189,7 +189,8 @@
             },
             columns: [
                 { field: "TipoMaterial", title: _dictionary.ImpresionDocumental0006[$("#language").data("kendoDropDownList").value()] },
-                { field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"MostrarDetalle('#=TipoMaterial#','#=ItemCodeSteelgo#')\">#:ItemCodeSteelgo#</a>" },
+                { field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()]},
+                //{ field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"MostrarDetalle('#=TipoMaterial#','#=ItemCodeSteelgo#')\">#:ItemCodeSteelgo#</a>" },
                 { field: "Cantidad", title: _dictionary.ImpresionDocumental0008[$("#language").data("kendoDropDownList").value()] }
             ],
             dataBound: function (e) {

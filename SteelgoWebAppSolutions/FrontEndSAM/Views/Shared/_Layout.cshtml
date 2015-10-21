@@ -330,8 +330,7 @@
 
             //Add the language parameter to all url invoked by the <a> tag
             $("a").click(function (event) {
-                event.preventDefault();
-                window.location.href = this.href + "?leng=" + $("#language").data("kendoDropDownList").value();
+                redirectToLanguage(event,this);
             });
 
             //Language dropdownlist inicialization method

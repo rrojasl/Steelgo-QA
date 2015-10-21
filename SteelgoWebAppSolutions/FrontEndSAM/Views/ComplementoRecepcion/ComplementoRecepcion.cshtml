@@ -671,7 +671,7 @@
                 autoHeight: true,
                 sortable: true,
                 scrollable: false,
-                filterable: true,
+                filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 pageable: false,
                 groupable: true,
                 selectable: true,
@@ -1205,7 +1205,12 @@
                     },
                     change: function (e) {
                         var value = this.text();
-                        lastEditedFisicoCellIDS.EstatusFisico = value;
+                        if (this.selectedIndex == -1) {
+                            lastEditedFisicoCellIDS.EstatusFisico = "";
+                        } else {
+                            lastEditedFisicoCellIDS.EstatusFisico = value;
+                        };
+                       
                         $('#grid').data('kendoGrid').refresh();
                     }
                 });
@@ -1227,7 +1232,12 @@
                     },
                     change: function (e) {
                         var value = this.text();
-                        lastEditedDepartamentalCellID.EstatusDocumental = value;
+                        if (this.selectedIndex == -1) {
+                            lastEditedDepartamentalCellID.EstatusDocumental = "";
+                        } else {
+                            lastEditedDepartamentalCellID.EstatusDocumental = value;
+                        };
+                        
                         $('#grid').data('kendoGrid').refresh();
                     }
                 });
@@ -1259,6 +1269,12 @@
                     change: function (e) {
                         var value = this.text();
                         lastEditedCellIDSColada.Colada = value;
+
+                        if (this.selectedIndex == -1) {
+                            lastEditedCellIDSColada.Colada = "";
+                        } else {
+                            lastEditedCellIDSColada.Colada = value;
+                        }
                         $('#grid').data('kendoGrid').refresh();
                     },
                     filter: "contains",
@@ -1285,6 +1301,7 @@
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
+                       
                         if (dataItem.id == 0) {
                             VentanaModal(2);
                             e.preventDefault();
@@ -1292,7 +1309,11 @@
                     },
                     change: function (e) {
                         var value = this.text();
-                        lastEditedTipoUsoCellIDS.TipoUso = value;
+                        if (this.selectedIndex == -1) {
+                            lastEditedTipoUsoCellIDS.TipoUso = "";
+                        }else{
+                            lastEditedTipoUsoCellIDS.TipoUso = value;
+                        }
                         $('#grid').data('kendoGrid').refresh();
                     },
                     filter: "contains",
