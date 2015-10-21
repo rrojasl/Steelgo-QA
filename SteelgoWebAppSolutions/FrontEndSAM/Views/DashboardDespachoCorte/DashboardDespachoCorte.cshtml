@@ -316,17 +316,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            filterable: true,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             detailInit: detailInit,
             pageable: {
                 refresh: false,
@@ -354,17 +344,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            filterable: true,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             detailInit: detailInit,
             pageable: {
                 refresh: false,

@@ -225,16 +225,7 @@
             sortable: true,
             scrollable: false,
             selectable:true,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],

@@ -269,7 +269,7 @@
 				var grid = $("#grid").kendoGrid({
 					dataSource: gridDataSource,
 					cascadeFrom: "PackingLists_Consecutivo_001",
-					filterable: true,
+					filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
 					sortable: true,
 					pageable: false,
 					navigatable: true,

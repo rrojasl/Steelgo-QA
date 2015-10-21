@@ -209,9 +209,8 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
+                if (!value) {
                     Cliente = [];
-                    this.value("");
                 }
                 Filtros();
             },
@@ -228,9 +227,8 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    Patio = {};
-                    this.value("");
+                if (!value) {
+                    Patio = [];
                 }
                 Filtros();
             },
@@ -310,18 +308,8 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
-            //filterable: true,
             selectable: true,
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        startswith: "Starts with",
-                        eq: "Is equal to",
-                        neq: "Is not equal to"
-                    }
-                }
-            },
+            filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
             pageable: {
                 refresh: false,
                 pageSizes: [10, 15, 20],
@@ -420,8 +408,11 @@
     //Parametros: id,value
     //Return:     N/A
         function CargarPatio(id, value) {
-            Patio = {};
-            Patio = { PatioID: id, Nombre: value };
+            Patio = [];
+            _patio = {};
+            _patio["PatioID"] = id;
+            _patio["Nombre"] = value;
+            Patio.push(_patio);
         };
     //Se carga el cliente
     //Funcion: CargarCliente
@@ -431,7 +422,7 @@
             Cliente = {};
             Cliente = { ClienteID: id };
         };
-       
+
     //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
     //Funcion: ObtenerPatio
     //Parametros: N/A
@@ -481,14 +472,14 @@
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
             Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-            Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
+            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
             Listado.FechaInicial = obtenerFormatoFecha(d);
             Listado.FechaFinal = obtenerFormatoFecha(d1);
             Listado.Creados = accion == 1 ? true : false;
             Listado.SinPermiso = accion == 2 ? true : false;
             Listado.SinAutorizacion = accion == 3 ? true : false;
             Listado.Completos = accion == 4 ? true : false;
-            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
+            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
             console.log(JSON.stringify(Listado));
             return Listado;
@@ -647,14 +638,14 @@
 
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
             Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
-            Listado.PatioID = Patio.PatioID ? Patio.PatioID : -1;
+            Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
             Listado.FechaInicial = obtenerFormatoFecha(d);
             Listado.FechaFinal = obtenerFormatoFecha(d1);
             Listado.Creados = accion == 1 ? true : false;
             Listado.SinPermiso = accion == 2 ? true : false;
             Listado.SinAutorizacion = accion == 3 ? true : false;
             Listado.Completos = accion == 4 ? true : false;
-            Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
+            Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 4;
             console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
