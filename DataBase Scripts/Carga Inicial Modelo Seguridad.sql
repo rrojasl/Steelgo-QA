@@ -6,8 +6,8 @@ SELECT 'insert into Sam3_Rel_Perfil_Propiedad_Pagina values(' + CONVERT(VARCHAR(
 
 BEGIN TRANSACTION
 --Paginas
-insert into Sam3_Entidad values('Index','HomeController',1,NULL,NULL )
-insert into Sam3_Entidad values('Layout','MainController',1,NULL,NULL )
+insert into Sam3_Pagina values('Index','HomeController',1,NULL,NULL )
+insert into Sam3_Pagina values('Layout','MainController',1,NULL,NULL )
 insert into Sam3_Pagina values('ListadoAvisoLlegada','AvisoLlegadaController',NULL,NULL,NULL )
 insert into Sam3_Pagina values('DetalleAvisoLlegada','AvisoLlegadaController',NULL,NULL,NULL )
 insert into Sam3_Pagina values('FormatoPaseSalida','AvisoLlegadaController',NULL,NULL,NULL )
@@ -92,6 +92,7 @@ insert into Sam3_Entidad values('Entrega',1,NULL,NULL )
 insert into Sam3_Entidad values('ItemCodeSteelGo',1,NULL,NULL )
 insert into Sam3_Entidad values('AsociacionItemCodes',1,NULL,NULL )
 insert into Sam3_Entidad values('ListadoCatalogos',1,NULL,NULL )
+insert into Sam3_Entidad values('DashboardRecepcionAlmacenaje',1,null,null)
 
 insert into Sam3_Propiedad values(1,'username',1,NULL,NULL )
 insert into Sam3_Propiedad values(1,'password',1,NULL,NULL )
@@ -324,7 +325,7 @@ insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,41,44,1,1,1,1,1,1,1,NULL,NUL
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,32,45,1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,42,46,1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,43,47,1,1,1,1,1,1,1,NULL,NULL )
-
+insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,44,27,1,1,1,1,1,1,1,NULL,NULL )
 
 
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,1,1,1,1,1,1,NULL,NULL )
@@ -535,5 +536,6 @@ insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,167,42,1,1,0,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,111,45,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,168,46,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,169,46,1,1,1,1,NULL,NULL )
+
 
 commit tran

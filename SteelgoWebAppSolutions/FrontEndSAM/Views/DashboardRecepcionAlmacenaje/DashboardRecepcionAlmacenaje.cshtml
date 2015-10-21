@@ -96,7 +96,7 @@
             </div>
 
             <div id="divAccesorios" class="hidden">
-                <div id="gridAccesorios"></div>
+                <div id="gridAccesorios" class="grid"></div>
             </div>
         </div>
         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -138,20 +138,20 @@
                 </div>
             </div>
             <div id="divTubos" class="hidden">
-                <div id="gridTubos"></div>
+                <div id="gridTubos" class="grid"></div>
             </div>
         </div>
     </div>
 </div>
 <div>
-    <ul id="menuAccesorios" >
+    <ul id="menuAccesorios" class="incidencia">
         <li id="LevantarIncidenciaFolioAvisoEntradaAccesorios"><span id="DashboardRecepcionAlmacenaje0047"></span></li>
         <li id="LevantarIncidenciaPackingListAccesorios"><span id="DashboardRecepcionAlmacenaje0048"></span></li>
         <li id="LevantarIncidenciaOrdenRecepcionAccesorios"><span id="DashboardRecepcionAlmacenaje0051"></span></li>
         <li id="LevantarIncidenciaNumeroUnicoAccesorios"><span id="DashboardRecepcionAlmacenaje0054"></span></li>
     </ul>
 
-    <ul id="menuTubos" >
+    <ul id="menuTubos" class="incidencia" >
         <li id="LevantarIncidenciaFolioAvisoEntradaTubos"><span id="DashboardRecepcionAlmacenaje0055"></span></li>
         <li id="LevantarIncidenciaPackingListTubos"><span id="DashboardRecepcionAlmacenaje0056"></span></li>
         <li id="LevantarIncidenciaOrdenRecepcionTubos"><span id="DashboardRecepcionAlmacenaje0057"></span></li>
@@ -172,6 +172,18 @@
     var FechaInicial, FechaFinal, PeriodoTiempo = {}, resultadoJson;
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var menu = $("#menu");
+
+    var $DashBoardRecepcionAlmacenajeModel = {
+        listContainer: {
+            create: ".button-section",
+            list: ".grid",
+            detail: ".detailLink",
+            destroy: "",
+            createIncidence: ".incidencia"
+        },
+        properties: {
+        }
+    };
     }
 
     @section JavascriptGlobalFunctions {
@@ -1298,7 +1310,7 @@
 
     @section JavascriptDocumentReadyFunctions {
 
-    //$authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+    $authorizationModel["DashboardRecepcionAlmacenaje"] = $DashBoardRecepcionAlmacenajeModel;
     CargaInicial();
 
 

@@ -52,9 +52,7 @@
                                     <span class="caretBlue"></span>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="Acciones">
-                                    <li><a id="RedirectDashboard"><span id="DetalleAvisoLlegada0065"></span></a></li>
-                                    <li><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
-                                    <li><a id="CancelarFolio" href="#"><span id="DetalleAvisoLlegada0083"></span></a></li>
+                                    <li class="incidencia"><a id="IrIncidencia" href="#"><span id="DetalleAvisoLlegada0066"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -93,14 +91,17 @@
     }
 
     @section JavascriptGlobalVariables {
+
+    var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
     var folio = getUrlParameter("folio", "-1");
-    var Folio = {};
+    var FolioAvisoLlegada = {};
     var $AutorizarPermisoModel = {
         listContainer: {
             create: "",
-            list: "",
+            list: ".actionButtonSection",
             detail: "",
-            destroy: ""
+            destroy: "",
+            createIncidence: ".incidencia",
         },
         properties: {
             folioAvisoLlegada: {
@@ -135,6 +136,8 @@
         //Parametros: N/A
         //Return:     N/A
         function CargaInicial() {
+            $("#IrIncidencia").click(function () { Incidencias(); });
+
             $("#FolioAvisoLlegadaID").kendoComboBox({
                 dataTextField: "id",
                 dataValueField: "value",
@@ -180,10 +183,14 @@
             cargarFolioDeterminado();
         };
         function CargarFolio(id) {
-            Folio = {};
-            Folio = { FolioAvisoLlegadaID: id };
+            FolioAvisoLlegada = {};
+            FolioAvisoLlegada = { FolioAvisoLlegadaID: id };
         };
 
+        function Incidencias() {
+            var Folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
+            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + Folio + "&TipoIncidencia=1&Clasificacion=1");
+        };
         //Se hace la peticion al controlador del tipo listado 2 
         //para obtener los folios
         //Funcion: ObtenerFolioEntradaMaterial

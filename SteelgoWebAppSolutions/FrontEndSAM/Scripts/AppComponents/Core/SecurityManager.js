@@ -93,6 +93,8 @@ function generateReturnOFSecurityCheck(data) {
         returnOfSecurityCheck[keyRetreived.entityName].destroy = keyRetreived.destroy;
         returnOfSecurityCheck[keyRetreived.entityName].detail = keyRetreived.detail;
         returnOfSecurityCheck[keyRetreived.entityName].list = keyRetreived.list;
+        returnOfSecurityCheck[keyRetreived.entityName].createIncidence = keyRetreived.createIncidence;
+        returnOfSecurityCheck[keyRetreived.entityName].solutionincidence = keyRetreived.solutionincidence;
         returnOfSecurityCheck[keyRetreived.entityName].properties = {};
         for (property in keyRetreived.properties) {
             var propertyRetreived = keyRetreived.properties[property];
@@ -109,6 +111,8 @@ function generateReturnOFSecurityCheck(data) {
     returnOfSecurityCheck.Layout.destroy = data.layout.destroy;
     returnOfSecurityCheck.Layout.detail = data.layout.detail;
     returnOfSecurityCheck.Layout.list = data.layout.list;
+    returnOfSecurityCheck.Layout.createIncidence = data.layout.createIncidence;
+    returnOfSecurityCheck.Layout.solutionincidence = data.layout.solutionincidence;
 
     returnOfSecurityCheck.Layout.properties = {};
     returnOfSecurityCheck.Layout.properties.search = {};
@@ -182,8 +186,16 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
         if (entitySecurity.hasOwnProperty("destroy")) {
             entityDestroyPermission = entitySecurity["destroy"];
         }
-    }
 
+        if (entitySecurity.hasOwnProperty("createIncidence")) {
+            entitycreateIncidence = entitySecurity["createIncidence"];
+        }
+
+        if (entitySecurity.hasOwnProperty("solutionincidence")) {
+            entitysolutionincidence = entitySecurity["solutionincidence"];
+        }
+    }
+    
     if (entityDefinition.hasOwnProperty("listContainer")) {
         if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
             if (entityCreationPermission == false) {
@@ -217,6 +229,12 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
         if (entityDefinition["listContainer"].hasOwnProperty("destroy") && entityDefinition.listContainer["destroy"] != null && entityDefinition.listContainer["destroy"].length > 0) {
             if (entityDestroyPermission == false) {
                 $(entityDefinition.listContainer["destroy"]).css("display", "none");
+            }
+        }
+
+        if (entityDefinition["listContainer"].hasOwnProperty("createIncidence") && entityDefinition.listContainer["createIncidence"] != null && entityDefinition.listContainer["createIncidence"].length > 0) {
+            if (entitycreateIncidence == false) {
+                $(entityDefinition.listContainer["createIncidence"]).empty();
             }
         }
     }

@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
              <div class="row">
                             <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <input id="FechaAvisoLlegada" class="quickFilters general-input" />
@@ -74,7 +74,7 @@
 </div>
 <input id="hdAccionFiltrado" type="hidden" />
 
-<ul id="menu">
+<ul id="menu" class="incidencia">
     <li id="Incidencia"><span id="ListadoPackingList0023"></span></li>
 </ul>
 <script>
@@ -87,10 +87,11 @@
 
     var $ListadoPackingListModel = {
         listContainer: {
-            create: "#Nuevo",
-            list: "#grid",
+            create: ".button-section",
+            list: ".listado",
             detail: ".detailLink",
-            destroy: ".k-grid-Cancelar"
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
         },
     };
     }
