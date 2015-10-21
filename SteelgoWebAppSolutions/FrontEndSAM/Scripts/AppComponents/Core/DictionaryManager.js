@@ -5131,6 +5131,10 @@ _dictionary = {
         "es-MX": "Favor de guardar la incidencia antes de adjuntar archivos.",
         "en-US": "Please keep the incidence before attaching files."
     },
+    "notificationslabel0079": {
+        "es-MX": "Favor de validar los campos requeridos. Se debe guardar el folio antes de adjuntar archivos.",
+        "en-US": "Please validate required fields. You must save the folio before attaching files."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
