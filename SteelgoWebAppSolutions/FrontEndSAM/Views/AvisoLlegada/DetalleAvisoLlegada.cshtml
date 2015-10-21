@@ -182,93 +182,93 @@
         TipoArchivo = {}, Proyecto = {};
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
-        var $AvisoLLegadaModel = {
-            listContainer: {
-                create: ".save-group",
-                list: ".actionButtonSection",
-                detail: ".editButtonSection",
-                destroy: ".cancelar",
-                createIncidence: ".incidencia"
+    var $AvisoLLegadaModel = {
+        listContainer: {
+            create: ".save-group",
+            list: ".actionButtonSection",
+            detail: ".editButtonSection",
+            destroy: ".cancelar",
+            createIncidence: ".incidencia"
+        },
+        properties: {
+            tipoAviso: {
+                visible: "#TipoAvisoDiv",
+                editable: "#TipoAvisoID",
+                required: "#TipoAvisoID"
             },
-            properties: {
-                tipoAviso: {
-                    visible: "#TipoAvisoDiv",
-                    editable: "#TipoAvisoID",
-                    required: "#TipoAvisoID"
-                },
-                cliente: {
-                    visible: "#ClienteDiv",
-                    editable: "#ClienteID",
-                    required: "#ClienteID"
-                },
-                proyecto: {
-                    visible: "#ProyectoDiv",
-                    editable: "#ProyectoID",
-                    required: "#ProyectoID"
-                },
-                fecharecepcion: {
-                    visible: "#FechaRecepcionDiv",
-                    editable: "#FechaRecepcion",
-                    required: "#FechaRecepcion"
-                },
-                patio: {
-                    visible: "#PatioDiv",
-                    editable: "#PatioID",
-                    required: "#PatioID"
-                },
-                transportista: {
-                    visible: "#TransportistaDiv",
-                    editable: "#TransportistaID",
-                    required: "#TransportistaID"
-                },
-                tracto: {
-                    visible: "#TractoDiv",
-                    editable: "#Tracto",
-                    required: "#Tracto"
-                },
-                plana: {
-                    visible: "#PlanaDiv",
-                    editable: "#PlanaID",
-                    required: "#PlanaID"
-                },
-                chofer: {
-                    visible: "#ChoferDiv",
-                    editable: "#ChoferID",
-                    required: "#ChoferID"
-                },
-                tipoArchivo: {
-                    visible: "#TipoArchivoDiv",
-                    editable: "#TipoArchivo",
-                    required: "#TipoArchivo"
-                },
-                seleccionarArchivo: {
-                    visible: "#filesDiv",
-                    editable: "#files",
-                    required: "#files"
-                },
-                listarArchivos: {
-                    visible: "#listaArchivosDiv",
-                    editable: "#listaArchivos",
-                    required: "#listaArchivos"
-                }
+            cliente: {
+                visible: "#ClienteDiv",
+                editable: "#ClienteID",
+                required: "#ClienteID"
+            },
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
+            },
+            fecharecepcion: {
+                visible: "#FechaRecepcionDiv",
+                editable: "#FechaRecepcion",
+                required: "#FechaRecepcion"
+            },
+            patio: {
+                visible: "#PatioDiv",
+                editable: "#PatioID",
+                required: "#PatioID"
+            },
+            transportista: {
+                visible: "#TransportistaDiv",
+                editable: "#TransportistaID",
+                required: "#TransportistaID"
+            },
+            tracto: {
+                visible: "#TractoDiv",
+                editable: "#Tracto",
+                required: "#Tracto"
+            },
+            plana: {
+                visible: "#PlanaDiv",
+                editable: "#PlanaID",
+                required: "#PlanaID"
+            },
+            chofer: {
+                visible: "#ChoferDiv",
+                editable: "#ChoferID",
+                required: "#ChoferID"
+            },
+            tipoArchivo: {
+                visible: "#TipoArchivoDiv",
+                editable: "#TipoArchivo",
+                required: "#TipoArchivo"
+            },
+            seleccionarArchivo: {
+                visible: "#filesDiv",
+                editable: "#files",
+                required: "#files"
+            },
+            listarArchivos: {
+                visible: "#listaArchivosDiv",
+                editable: "#listaArchivos",
+                required: "#listaArchivos"
             }
-        };
+        }
+    };
 
-        var $PermisoAduanaModel = {
-            listContainer: {
-                create: "",
-                list: "",
-                detail: "",
-                destroy: ""
-            },
-            properties: {
-                generar: {
-                    visible: "#TramitarPermisoDiv",
-                    editable: "#TramitarPermiso",
-                    required: "#TramitarPermiso"
-                }
+    var $PermisoAduanaModel = {
+        listContainer: {
+            create: "",
+            list: "",
+            detail: "",
+            destroy: ""
+        },
+        properties: {
+            generar: {
+                visible: "#TramitarPermisoDiv",
+                editable: "#TramitarPermiso",
+                required: "#TramitarPermiso"
             }
-        };
+        }
+    };
     }
 
     @section JavascriptGlobalFunctions {
@@ -414,21 +414,21 @@
 
         $("#Cancelar").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                });
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
 
-                $("#CancelarFolio").click(function (e) {
-                    cancelarFolio();
-                });
+        $("#CancelarFolio").click(function (e) {
+            cancelarFolio();
+        });
 
-                $("#RedirectDashboard").click(function (e) {
-                    var detalleIdeaUrl = "@Url.Action("DashboardAvisoLlegada", "AvisoLLegada")";
+        $("#RedirectDashboard").click(function (e) {
+            var detalleIdeaUrl = "@Url.Action("DashboardAvisoLlegada", "AvisoLLegada")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                 });
 
                 $("#IrIncidencia").click(function () { Incidencias(); });
 
-                //Permiso Aduana
+        //Permiso Aduana
                 $("#TramitarPermiso").attr('disabled', 'disabled');
                 $("#TramitarPermiso").click(function () { GenerarPermiso(); });
                 $("#AutorizarPermiso").click(function () {
@@ -436,7 +436,7 @@
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folio;
                 });
 
-                //Pase Salida
+        //Pase Salida
                 $("#ImprimirPase").click(function () {
                     if ($('#listaArchivosPaseSalida > tbody  > tr').length <= 0) {
                         displayMessage("notificationslabel0010", "", '1');
@@ -583,7 +583,7 @@
                     filter: "contains",
                 });
                 ObtenerChofer(0);
-                //$("#ChoferID").data("kendoComboBox").enable(false);
+        //$("#ChoferID").data("kendoComboBox").enable(false);
 
                 $("#TipoArchivo").kendoComboBox({
                     dataTextField: "Nombre",
@@ -612,12 +612,12 @@
                     upload: onUpload,
                     localization: getKendoUploadLocalization()
                 });
-                //$("#files").data("kendoUpload").enable(false);
+        //$("#files").data("kendoUpload").enable(false);
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
 
-                //Camion
+        //Camion
                 $("#Tracto").kendoComboBox({
                     dataTextField: "Placas",
                     dataValueField: "VehiculoID",
@@ -1363,15 +1363,26 @@
                     return;
                 };
 
-                loadingStart();
-                $AvisoLlegada.AvisoLlegada.destroy({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
-                    Error(result);
-                    loadingStop();
-                    ocultarStatus();
-                    $("#DetalleAvisoLlegada0086").show();
-                    displayMessage("notificationslabel0032", "", '0');
-                    var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: folio, token: Cookies.get("token") }).done(function (result) {
+                    if (Error(result)) {
+                        if (result) {
+                            displayMessage("notificationslabel0080", "", '1');
+
+                        } else {
+                            if (confirm("Estas seguro de cancelar el folio de entrada?")) {
+                                loadingStart();
+                                $AvisoLlegada.AvisoLlegada.destroy({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
+                                    Error(result);
+                                    loadingStop();
+                                    ocultarStatus();
+                                    $("#DetalleAvisoLlegada0086").show();
+                                    displayMessage("notificationslabel0032", "", '0');
+                                    var detalleIdeaUrl = "@Url.Action("ListadoAvisoLLegada", "AvisoLLegada")";
+                                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                                });
+                            };
+                        }
+                    }
                 });
             };
 
