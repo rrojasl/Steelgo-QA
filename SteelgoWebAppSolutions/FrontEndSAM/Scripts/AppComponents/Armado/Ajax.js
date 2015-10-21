@@ -64,7 +64,7 @@ function AjaxGuardarCaptura(arregloCaptura) {
         Captura[0] = { Detalles: "" };
 
         ListaDetalles = [];
-
+         
         $.each(arregloCaptura, function (index, value) {
             ListaDetalles[index] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", TipoJunta: "", Diametro: "", Cedula: "", Localizacion: "", FamiliaAcero: "", NumeroUnico1: "", NumeroUnico2: "", SinCaptura: "" }
             ListaDetalles[index].IDProyecto = value.IDProyecto;
