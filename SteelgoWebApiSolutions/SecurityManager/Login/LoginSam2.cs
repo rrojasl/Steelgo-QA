@@ -123,7 +123,16 @@ namespace SecurityManager.Login
             }
             catch (Exception ex)
             {
-                return null;
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                //LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 
