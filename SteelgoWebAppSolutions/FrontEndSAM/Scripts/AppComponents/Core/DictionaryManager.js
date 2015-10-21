@@ -3755,6 +3755,234 @@ _dictionary = {
         "en-US": "End Date Work"
     },
 
+
+    //CampoPredeterminado
+    "lblIdCampoPredeterminadoID": {
+        "es-MX": "Id Campo Precdeterminado",
+        "en-US": "id Default Field"
+    },
+
+    "lblIdCampoPredeterminadoPagina": {
+        "es-MX": "Página",
+        "en-US": "Page"
+    },
+
+    "lblIdCampoPredeterminadoNombreCampo": {
+        "es-MX": "Nombre del Campo",
+        "en-US": "Field Name"
+    },
+
+    "lblIdCampoPredeterminadoTipoCampo": {
+        "es-MX": "Tipo de Campo",
+        "en-US": "Field Type"
+    },
+
+    "lblIdCampoPredeterminadoValorPorDefecto": {
+        "es-MX": "Valor por Defecto",
+        "en-US": "Default Value"
+    },
+
+    "lblCampoPredeterminadoCancelar": {
+        "es-MX": "",
+        "en-US": ""
+    },
+
+
+    //TIPO JUNTA
+    "lblTipoJuntaID": {
+        "es-MX": "Tipo Junta",
+        "en-US": "--"
+    },
+
+
+    "lblTipoJuntaCodigo": {
+        "es-MX": "Código",
+        "en-US": "Code"
+    },
+
+
+    "lblTipoJuntaNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+
+
+    "lblTipoJuntaCalidad": {
+        "es-MX": "Verificado Por Calidad",
+        "en-US": "Verified By Quality"
+    },
+
+
+    "lblTipoJuntaRelleno": {
+        "es-MX": "Permite Terminado Relleno",
+        "en-US": "----"
+    },
+
+
+
+
+
+
+
+    //PQR
+
+
+
+    "lblPQRNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+
+    "lblPQRID": {
+        "es-MX": "PQRID",
+        "en-US": "PQRID"
+    },
+
+    "lblPQRPREHEAT": {
+        "es-MX": "PREHEAT",
+        "en-US": "PREHEAT"
+    },
+
+    "lblPQRPWHT": {
+        "es-MX": "PWHT",
+        "en-US": "PWHT"
+    },
+
+
+    "lblPQREspesor": {
+        "es-MX": "Espesor",
+        "en-US": "Thickness"
+    },
+
+    "lblPQRProcesoSoldaduraID": {
+        "es-MX": "Proceso Soldadura",
+        "en-US": "Welding Process"
+    },
+
+    "lblPQRNumeroP": {
+        "es-MX": "NumeroP",
+        "en-US": "NumberP"
+    },
+
+    "lblPQRGrupoP": {
+        "es-MX": "GrupoP",
+        "en-US": "GroupP"
+    },
+
+
+    "lblPQRAporte": {
+        "es-MX": "Aporte",
+        "en-US": "Aporte"
+    },
+
+    "lblPQRMezcla": {
+        "es-MX": "Mezcla",
+        "en-US": "Mix"
+    },
+
+    "lblPQRRespaldo": {
+        "es-MX": "Respaldo",
+        "en-US": "Back"
+    },
+
+    "lblPQRGrupoF": {
+        "es-MX": "GrupoF",
+        "en-US": "GroupF"
+    },
+    //EditaPQR
+
+    "lblEditaNombrePQR": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+
+    "lblEditraPQRPreheat": {
+        "es-MX": "Preheat",
+        "en-US": "Preheat"
+    },
+
+    "lblEditarPQREspesor": {
+        "es-MX": "Espesor",
+        "en-US": "---"
+    },
+
+
+    "lblEditarPQRProcesoSolddura": {
+        "es-MX": "Proceso Soldadura",
+        "en-US": "....."
+    },
+
+    "lblEditarPQRNumeroP": {
+        "es-MX": "NumeroP",
+        "en-US": "NumberP"
+    },
+
+    "lblEditarPQRGrupoP": {
+        "es-MX": "GrupoP",
+        "en-US": "GroupP"
+    },
+
+    "lblEditraPQRPwht": {
+        "es-MX": "pwht",
+        "en-US": "pwht"
+    },
+
+
+    "lblEditarPQRAporte": {
+        "es-MX": "Aporte",
+        "en-US": "Input"
+    },
+
+    "lblEditarPQRMezcla": {
+        "es-MX": "Mezcla",
+        "en-US": "Mix"
+    },
+
+    "lblEditarPQRRespaldo": {
+        "es-MX": "Respaldo",
+        "en-US": "Back"
+    },
+
+    "lblEditarPQRGrupoF": {
+        "es-MX": "GrupoF",
+        "en-US": "GroupF"
+    },
+
+
+    "lblBotonEditarPQR": {
+        "es-MX": " Guardar",
+        "en-US": " Save"
+    },
+
+
+    "lblBotonCancelaEditarPQR": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+
+
+    "lblAccionEditaPQR": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+
+    "lblAccionCancelaPQR": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+
+
+
+
+
+    "lblConfirmaElimanarPQR": {
+        "es-MX": "¿Está seguro de eliminar este PQR?",
+        "en-US": "You Shure delete this PQR?"
+    },
+
+
+
+
     //Default to copy
     "label9999": {
         "es-MX": "",

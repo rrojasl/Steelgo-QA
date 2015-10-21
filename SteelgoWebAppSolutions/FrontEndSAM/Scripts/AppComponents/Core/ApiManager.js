@@ -96,6 +96,9 @@ var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backends
 var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -112,6 +115,10 @@ function apiManagerToBeExecutedOnDocumentReady() {
 $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
 $SecurityManager.add('authentication');
+$BackEndSAM.add('TipoJunta');
+$BackEndSAM.add('ListadoCamposPredeterminados');
+$BackEndSAM.add('PQR');
+
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");
@@ -170,3 +177,6 @@ $CambiarEstatusCuantificacion.add("CambiarEstatusCuantificacion");
 $ComplementarRecepcion.add("ComplementarRecepcion");
 $ListadoMateriales.add("ListadoMateriales")
 $DummyAlmacenajeRack.add("DummyAlmacenajeRack");
+$ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
+$TipoJunta.add("TipoJunta");
+$PQR.add("PQR");
