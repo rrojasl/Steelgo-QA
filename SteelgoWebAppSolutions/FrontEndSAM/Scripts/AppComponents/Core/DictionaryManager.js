@@ -3668,7 +3668,26 @@ _dictionary = {
         "es-MX": "No se encontraron datos.",
         "en-US": "No data found."
     },
-    //Trabajos Adicionales
+    //Default to copy
+    "label9999": {
+        "es-MX": "",
+        "en-US": ""
+    },
+    //#region Genericos
+    "botonCancelarPQR": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "botonGuardarPQR": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonAgregarPQR": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    //#endregion
+    //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
         "es-MX": "Trabajo Adicional",
         "en-US": "Aditional Work"
@@ -3709,7 +3728,8 @@ _dictionary = {
         "es-MX": "Nuevo Trabajo Adicional",
         "en-US": "New Aditional Work"
     },
-    // obreros
+    //#endregion
+    //#region Obrero
     "Obrero0002": {
         "es-MX": "Tipo Obrero",
         "en-US": "Obrero Type"
@@ -3754,9 +3774,8 @@ _dictionary = {
         "es-MX": "Fecha Fin Labor",
         "en-US": "End Date Work"
     },
-
-
-    //CampoPredeterminado
+    //#endregion
+    //#region Campos Predeterminado
     "lblIdCampoPredeterminadoID": {
         "es-MX": "Id Campo Precdeterminado",
         "en-US": "id Default Field"
@@ -3786,211 +3805,150 @@ _dictionary = {
         "es-MX": "",
         "en-US": ""
     },
-
-
-    //TIPO JUNTA
+    //#endregion
+    //#region Tipo Junta
     "lblTipoJuntaID": {
         "es-MX": "Tipo Junta",
         "en-US": "--"
     },
-
-
     "lblTipoJuntaCodigo": {
         "es-MX": "Código",
         "en-US": "Code"
     },
-
-
     "lblTipoJuntaNombre": {
         "es-MX": "Nombre",
         "en-US": "Name"
     },
-
-
     "lblTipoJuntaCalidad": {
         "es-MX": "Verificado Por Calidad",
         "en-US": "Verified By Quality"
     },
-
-
     "lblTipoJuntaRelleno": {
         "es-MX": "Permite Terminado Relleno",
         "en-US": "----"
     },
-
-
-
-
-
-
-
-    //PQR
-
-
-
+    //#endregion 
+    //#region PQR
+    //#region Grid
     "lblPQRNombre": {
         "es-MX": "Nombre",
         "en-US": "Name"
     },
-
     "lblPQRID": {
         "es-MX": "PQRID",
         "en-US": "PQRID"
     },
-
     "lblPQRPREHEAT": {
         "es-MX": "PREHEAT",
         "en-US": "PREHEAT"
     },
-
     "lblPQRPWHT": {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
-
-
     "lblPQREspesor": {
         "es-MX": "Espesor",
-        "en-US": "Thickness"
+        "en-US": "density"
     },
-
     "lblPQRProcesoSoldaduraID": {
         "es-MX": "Proceso Soldadura",
         "en-US": "Welding Process"
     },
-
     "lblPQRNumeroP": {
-        "es-MX": "NumeroP",
-        "en-US": "NumberP"
+        "es-MX": "Numero P",
+        "en-US": "Number P"
     },
-
     "lblPQRGrupoP": {
-        "es-MX": "GrupoP",
-        "en-US": "GroupP"
+        "es-MX": "Grupo P",
+        "en-US": "Group P"
     },
-
-
     "lblPQRAporte": {
         "es-MX": "Aporte",
         "en-US": "Aporte"
     },
-
     "lblPQRMezcla": {
         "es-MX": "Mezcla",
         "en-US": "Mix"
     },
-
     "lblPQRRespaldo": {
         "es-MX": "Respaldo",
         "en-US": "Back"
     },
-
     "lblPQRGrupoF": {
-        "es-MX": "GrupoF",
-        "en-US": "GroupF"
+        "es-MX": "Grupo F",
+        "en-US": "Group F"
     },
-    //EditaPQR
-
+    //#endregion
+    //#region PopUp
     "lblEditaNombrePQR": {
         "es-MX": "Nombre",
         "en-US": "Name"
     },
-
     "lblEditraPQRPreheat": {
         "es-MX": "Preheat",
         "en-US": "Preheat"
     },
-
     "lblEditarPQREspesor": {
         "es-MX": "Espesor",
-        "en-US": "---"
+        "en-US": "density"
     },
-
-
     "lblEditarPQRProcesoSolddura": {
         "es-MX": "Proceso Soldadura",
-        "en-US": "....."
+        "en-US": "Welding process"
     },
-
     "lblEditarPQRNumeroP": {
-        "es-MX": "NumeroP",
-        "en-US": "NumberP"
+        "es-MX": "Numero P",
+        "en-US": "P Number"
     },
-
     "lblEditarPQRGrupoP": {
-        "es-MX": "GrupoP",
-        "en-US": "GroupP"
+        "es-MX": "Grupo P",
+        "en-US": "P group"
     },
-
     "lblEditraPQRPwht": {
         "es-MX": "pwht",
         "en-US": "pwht"
     },
-
-
     "lblEditarPQRAporte": {
         "es-MX": "Aporte",
-        "en-US": "Input"
+        "en-US": "filler"
     },
-
     "lblEditarPQRMezcla": {
         "es-MX": "Mezcla",
         "en-US": "Mix"
     },
-
     "lblEditarPQRRespaldo": {
         "es-MX": "Respaldo",
         "en-US": "Back"
     },
-
     "lblEditarPQRGrupoF": {
         "es-MX": "GrupoF",
-        "en-US": "GroupF"
+        "en-US": "F group"
     },
-
-
     "lblBotonEditarPQR": {
         "es-MX": " Guardar",
         "en-US": " Save"
     },
-
-
     "lblBotonCancelaEditarPQR": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-
-
     "lblAccionEditaPQR": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-
     "lblAccionCancelaPQR": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
 
-
-
-
-
     "lblConfirmaElimanarPQR": {
         "es-MX": "¿Está seguro de eliminar este PQR?",
         "en-US": "You Shure delete this PQR?"
     },
-
-
-
-
-    //Default to copy
-    "label9999": {
-        "es-MX": "",
-        "en-US": ""
-    },
-
-    //Armado
-
+    //#endregion
+    //#endregion
+    //#region Armado   
+    //#region Captura
     "LabelHeaderArmado": {
         "es-MX": "Detalle Armado",
         "en-US": "Armed detail"
@@ -4055,7 +4013,8 @@ _dictionary = {
         "es-MX": "Taller",
         "en-US": "key workshop"
     },
-    ///Grid CapturaArmado
+    //#endregion
+    //#region Grid
     "CapturaArmadoHeaderNumeroControl": {
         "es-MX": "Numero de Control",
         "en-US": "Control Number"
@@ -4108,5 +4067,6 @@ _dictionary = {
         "es-MX": "Adicionales",
         "en-US": "Additional"
     },
-    //fin GridCapturaArmado
+    //#endregion
+    //#endregion
 };

@@ -187,3 +187,23 @@ $DummyAlmacenajeRack.add("DummyAlmacenajeRack");
 $ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
 $TipoJunta.add("TipoJunta");
 $PQR.add("PQR");
+
+//#region Declaracion
+//#region Catalogos
+var $TrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoTrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoObrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+//#endregion
+//#endregion
+
+//#region Asignacion
+//Catalogos
+$TrabajoAdicional.add("ListadoTrabajosAdicionales");
+$TipoTrabajoAdicional.add("TipoTrabajoAdicional");
+$TipoObrero.add("TipoObrero");
+$Obrero.add("Obrero");
+$ObreroUbicacion.add("ObreroUbicacion");
+//#endregion
+//#endregion
