@@ -3828,6 +3828,9 @@ _dictionary = {
         "en-US": "----"
     },
     //#endregion 
+
+
+
     //#region PQR
     //#region Grid
     "lblPQRNombre": {
@@ -3880,58 +3883,15 @@ _dictionary = {
     },
     //#endregion
     //#region PopUp
-    "lblEditaNombrePQR": {
-        "es-MX": "Nombre",
-        "en-US": "Name"
-    },
-    "lblEditraPQRPreheat": {
-        "es-MX": "Preheat",
-        "en-US": "Preheat"
-    },
-    "lblEditarPQREspesor": {
-        "es-MX": "Espesor",
-        "en-US": "density"
-    },
-    "lblEditarPQRProcesoSolddura": {
-        "es-MX": "Proceso Soldadura",
-        "en-US": "Welding process"
-    },
-    "lblEditarPQRNumeroP": {
-        "es-MX": "Numero P",
-        "en-US": "P Number"
-    },
-    "lblEditarPQRGrupoP": {
-        "es-MX": "Grupo P",
-        "en-US": "P group"
-    },
-    "lblEditraPQRPwht": {
-        "es-MX": "pwht",
-        "en-US": "pwht"
-    },
-    "lblEditarPQRAporte": {
-        "es-MX": "Aporte",
-        "en-US": "filler"
-    },
-    "lblEditarPQRMezcla": {
-        "es-MX": "Mezcla",
-        "en-US": "Mix"
-    },
-    "lblEditarPQRRespaldo": {
-        "es-MX": "Respaldo",
-        "en-US": "Back"
-    },
-    "lblEditarPQRGrupoF": {
-        "es-MX": "GrupoF",
-        "en-US": "F group"
-    },
-    "lblBotonEditarPQR": {
-        "es-MX": " Guardar",
-        "en-US": " Save"
-    },
     "lblBotonCancelaEditarPQR": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "lblBotonEditarPQR": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+   
     "lblAccionEditaPQR": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -3947,6 +3907,8 @@ _dictionary = {
     },
     //#endregion
     //#endregion
+
+
     //#region Armado   
     //#region Captura
     "LabelHeaderArmado": {
