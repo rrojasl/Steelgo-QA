@@ -329,10 +329,9 @@
                 };
             };
         });
-
-        if (folio == "-1") {
-            bool = false;
-        };
+        //if (folio == "-1") {
+        //    bool = false;
+        //};
         return bool;
     };
     //Se valida si hay requeridos y se agrega la clase de error en la forma aviso de llegada
@@ -655,6 +654,10 @@
                 if (!validarRequeridosFormaAvisoLlegadaSubirArchivos()) {
                     displayMessage("notificationslabel0079", "", '1');
                     e.preventDefault();
+                }
+                else
+                {
+                    GuardarAvisoLlegada(false)
                 };
 
                 $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
