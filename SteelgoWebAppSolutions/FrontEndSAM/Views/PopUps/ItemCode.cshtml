@@ -272,9 +272,9 @@
 
     function GuardarItemCode() {
         ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "" };
-        ItemCode.ProyectoID = ProyectoItemCode.ProyectoID;
-        ItemCode.TipoPackingList = TipoPackingListItemCode.TipoPackingListID;
-        ItemCode.ColadaID = ColadaItemCode.ColadaID;
+        ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
+        ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
+        ItemCode.ColadaID = 1;
         ItemCode.ItemCode = $("#ItemCode_ItemCode").val();
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
