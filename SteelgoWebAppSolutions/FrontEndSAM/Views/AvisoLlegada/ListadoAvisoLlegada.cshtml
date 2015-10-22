@@ -19,28 +19,32 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav filtersFields clearfix">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                         <div class="button-section">
                             <button id="Nuevo" type="button" class="btn btn-yellow"><span id="DashboardAvisoLlegada0003"></span></button>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-9 filter-section">
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 filter-section">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
                                 <label id="ListadoAvisoLlegada0003"></label>
                                 <input id="PatioID" class="" />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
                                 <label id="ListadoAvisoLlegada0026"></label>
                                 <input id="ClienteID" class="" />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
                                 <label id="ListadoAvisoLlegada0006"></label>
                                 <input id="FechaInic" class="" />
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
                                 <label id="ListadoAvisoLlegada0007"></label>
                                 <input id="FechaFinal" class="" />
+                            </div>
+                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                                <label id="ListadoLlegadaMaterial0006"></label>
+                                <input id="PeriodoTiempo" class="" />
                             </div>
                         </div>
                     </div>
@@ -59,11 +63,13 @@
                         </div>
                     </div>
                     <div class="row listado">
-                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <input id="FolioID" class="quickFilters general-input" />
-                            <input id="FechaCreacion" class="quickFilters general-input" />
-                            <input id="FechaEstimada" class="quickFilters general-input" />
-                            <input id="Cancel" class="quickFilters general-input" disabled />
+                        <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="clearfix">
+                                <input id="FolioID" class="quickFilters general-input" />
+                                <input id="FechaCreacion" class="quickFilters general-input" />
+                                <input id="FechaEstimada" class="quickFilters general-input" />
+                                <input id="Cancel" class="quickFilters general-input" disabled />
+                            </div>
                         </div>
                     </div>
                     <div id="grid" class="listado"></div>
@@ -95,7 +101,7 @@
     @section JavascriptGlobalVariables {
     //your partial views variables
     var Transportista = [], Proveedor = [], Patio = [], Folio = [], Cliente = {};
-    var FechaInic, FechaFinal, resultadoJson;
+    var FechaInic, FechaFinal, resultadoJson, PeriodoTiempo;
     var folioLlegadaID = getUrlParameter("folioLlegadaID", "-1");
     var folioEntradaID = getUrlParameter("folioEntradaID", "-1");
     //vars Dashboard
@@ -104,6 +110,7 @@
     var DashClienteID = getUrlParameter("DashClienteID", "-1");
     var DashFechaInicial = getUrlParameter("DashFechaInicial", "-1");
     var DashFechaFinal = getUrlParameter("DashFechaFinal", "-1");
+    var DashPeriodo = getUrlParameter("DashPeriodo", "-1");
 
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
 
@@ -126,6 +133,39 @@
     }
 
     @section JavascriptGlobalFunctions {
+
+    function createPeriodoTiempo() {
+
+        $("#PeriodoTiempo").kendoComboBox({
+            dataTextField: "Periodo",
+            dataValueField: "PeriodoID",
+            dataSource: [
+                { "PeriodoID": "1", "Periodo": _dictionary.ListadoLlegadaMaterial0007[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "2", "Periodo": _dictionary.ListadoLlegadaMaterial0008[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "3", "Periodo": _dictionary.ListadoLlegadaMaterial0009[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "4", "Periodo": _dictionary.ListadoLlegadaMaterial0010[$("#language").data("kendoDropDownList").value()] },
+                { "PeriodoID": "5", "Periodo": _dictionary.ListadoLlegadaMaterial0011[$("#language").data("kendoDropDownList").value()] }
+            ],
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+
+                CargarPeriodoTiempo(dataItem.PeriodoID);
+            },
+            change: function (e) {
+                var value = this.value();
+
+                if (!value || this.selectedIndex == -1) {
+                    PeriodoTiempo = [];
+                    this.value("");
+                }
+                ObtenerFechasporPeriodo(value);
+                Filtros();
+                CantidadesDelMenuDashboard();
+            },
+            filter: "contains",
+        });
+    }
+
     //Your partial views specific functions
     //Es la carga inicial de las fechas  para el multilenguaje
     //Funcion: changeDatePickerDateFormat
@@ -141,6 +181,7 @@
     //Return:     N/A
     function changeLanguageCall() {
         CargarGridAvisoLlegada();
+        createPeriodoTiempo();
     }
 
     //Es la carga inicial de los controles
@@ -237,6 +278,8 @@
             filter: "contains",
         });
         ObtenerPatio();
+
+        $("#PeriodoTiempo").kendoComboBox({});
 
         FechaInic = new kendo.ui.DatePicker($("#FechaInic"));
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
@@ -426,6 +469,11 @@
             Cliente = { ClienteID: id };
         };
 
+        function CargarPeriodoTiempo(id) {
+            PeriodoTiempo = {};
+            PeriodoTiempo = { PeriodoTiempo: id };
+        };
+
     //Se realiza una peticion para obtenr los patios y cargar el combo con los valores
     //Funcion: ObtenerPatio
     //Parametros: N/A
@@ -567,6 +615,7 @@
             $("#PatioID").data("kendoComboBox").value(DashPatioID);
             $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
             $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
+            $("#PeriodoTiempo").data("kendoComboBox").value(DashPeriodo);
             console.log("CargarControlesFiltrado fin");
         };
 
@@ -662,6 +711,56 @@
             } else {
                 $("#" + control).data("kendoComboBox").dataSource.data([]);
             };
+        };
+
+        function ObtenerFechasporPeriodo(id) {
+            var fechaInicio = FechaFinal.value();
+            var fechaFin = FechaFinal.value();
+
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            }
+
+            var curr_date = fechaFin.getDate();
+            var curr_month = fechaFin.getMonth() + 1;
+            var curr_year = fechaFin.getFullYear();
+
+            var fechaFinal = new Date(curr_year, curr_month - 1, curr_date);
+            var fechaFinalkendo = kendo.parseDate(fechaFinal, format);
+
+            switch (parseInt(id)) {
+                case 1: //Semana Actual
+                    fechaInicio.setDate(fechaInicio.getDate() - 7);
+                    break;
+                case 2: //Dos Semanas
+                    fechaInicio.setDate(fechaInicio.getDate() - 14);
+                    break;
+                case 3: //Mes
+                    fechaInicio.setMonth(fechaInicio.getMonth() - 1);
+                    break;
+                case 4: //Trimestre
+                    fechaInicio.setMonth(fechaInicio.getMonth() - 3);
+                    break;
+                case 5: //Año
+                    fechaInicio.setFullYear(fechaInicio.getFullYear() - 1);
+                    break;
+                default:
+                    fechaInicio.setDate(fechaInicio.getDate() - 7);
+                    break;
+            }
+
+            var curr_date0 = fechaInicio.getDate();
+            var curr_month0 = fechaInicio.getMonth() + 1;
+            var curr_year0 = fechaInicio.getFullYear();
+
+            var fechaInicial = new Date(curr_year0, curr_month0 - 1, curr_date0);
+
+            var fechaInicialkendo = kendo.parseDate(fechaInicial, format);
+
+            $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
+            $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
         };
     }
     //Se obtienen las fechas inicial y final de hace una semana y la actual

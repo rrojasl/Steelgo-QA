@@ -80,7 +80,8 @@ namespace BackEndSAM.DataAcces
                                                   {
                                                       Cantidad = r.Cantidad.ToString(),
                                                       ItemCodeSteelgo = it.Codigo,
-                                                      TipoMaterial = tp.Nombre
+                                                      TipoMaterial = tp.Nombre,
+                                                      MaterialSpoolID = r.MaterialSpoolID.ToString()
                                                   }).AsParallel().Distinct().ToList();
 
                                 foreach (ListadoImpresionDocumental l in listaFaltantes)

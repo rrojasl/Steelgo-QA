@@ -39,38 +39,40 @@
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
                     <div class="row">
-                        <div id="filterContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <input id="ItemCode" class="quickFilters general-input" />
-                            <input id="Descripcion" class="quickFilters general-input" />
-                            <input id="Diametro1" class="quickFilters general-input" />
-                            <input id="Diametro2" class="quickFilters general-input" />
-                            <input id="TipoMaterial" class="quickFilters general-input" />
-                            <input id="TotalIngenieria" class="quickFilters general-input" />
-                            <input id="TotalRecibido" class="quickFilters general-input" />
-                            <input id="OtrasEntradas" class="quickFilters general-input" />
-                            <input id="TotalCondicionado" class="quickFilters general-input" />
-                            <input id="TotalRechazado" class="quickFilters general-input" />
-                            <input id="TotalDanado" class="quickFilters general-input" />
-                            <input id="RecibidoNeto" class="quickFilters general-input" />
-                            <input id="EntradasDesdeICEquivalente" class="quickFilters general-input" />
-                            <input id="SalidasTemporales" class="quickFilters general-input" />
-                            <input id="TotalOtrasSalidas" class="quickFilters general-input" />
-                            <input id="TotalMermas" class="quickFilters general-input" />
-                            <input id="TotalOrdenTrabajo" class="quickFilters general-input" />
-                            <input id="DespachadoPorCortarICEquiv" class="quickFilters general-input" />
-                            <input id="CotadoParaICEquiv" class="quickFilters general-input" />
-                            <input id="TotalDespachadoPorCortar" class="quickFilters general-input" />
-                            <input id="TotalCortado" class="quickFilters general-input" />
-                            <input id="DespachadoDesdeICEquivalente" class="quickFilters general-input" />
-                            <input id="DespachadoAProduccion" class="quickFilters general-input" />
-                            <input id="SalidaParaICEquivalente" class="quickFilters general-input" />
-                            <input id="TotalPorDespachar" class="quickFilters general-input" />
-                            <input id="TotalFisicoEnAlmacen" class="quickFilters general-input" />
-                            <input id="AsignadoParaICEquivalente" class="quickFilters general-input" />
-                            <input id="TotalCongelado" class="quickFilters general-input" />
-                            <input id="InventarioDisponibleCruce" class="quickFilters general-input" />
-                            <input id="DisponibleICEquivalente" class="quickFilters general-input" />
-                            <input id="TotalDisponibleCruce" class="quickFilters general-input" />
+                        <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="clearfix" id="filtrorapidoscroll">
+                                <input id="ItemCode" class="quickFilters general-input" />
+                                <input id="Descripcion" class="quickFilters general-input" />
+                                <input id="Diametro1" class="quickFilters general-input" />
+                                <input id="Diametro2" class="quickFilters general-input" />
+                                <input id="TipoMaterial" class="quickFilters general-input" />
+                                <input id="TotalIngenieria" class="quickFilters general-input" />
+                                <input id="TotalRecibido" class="quickFilters general-input" />
+                                <input id="OtrasEntradas" class="quickFilters general-input" />
+                                <input id="TotalCondicionado" class="quickFilters general-input" />
+                                <input id="TotalRechazado" class="quickFilters general-input" />
+                                <input id="TotalDanado" class="quickFilters general-input" />
+                                <input id="RecibidoNeto" class="quickFilters general-input" />
+                                <input id="EntradasDesdeICEquivalente" class="quickFilters general-input" />
+                                <input id="SalidasTemporales" class="quickFilters general-input" />
+                                <input id="TotalOtrasSalidas" class="quickFilters general-input" />
+                                <input id="TotalMermas" class="quickFilters general-input" />
+                                <input id="TotalOrdenTrabajo" class="quickFilters general-input" />
+                                <input id="DespachadoPorCortarICEquiv" class="quickFilters general-input" />
+                                <input id="CotadoParaICEquiv" class="quickFilters general-input" />
+                                <input id="TotalDespachadoPorCortar" class="quickFilters general-input" />
+                                <input id="TotalCortado" class="quickFilters general-input" />
+                                <input id="DespachadoDesdeICEquivalente" class="quickFilters general-input" />
+                                <input id="DespachadoAProduccion" class="quickFilters general-input" />
+                                <input id="SalidaParaICEquivalente" class="quickFilters general-input" />
+                                <input id="TotalPorDespachar" class="quickFilters general-input" />
+                                <input id="TotalFisicoEnAlmacen" class="quickFilters general-input" />
+                                <input id="AsignadoParaICEquivalente" class="quickFilters general-input" />
+                                <input id="TotalCongelado" class="quickFilters general-input" />
+                                <input id="InventarioDisponibleCruce" class="quickFilters general-input" />
+                                <input id="DisponibleICEquivalente" class="quickFilters general-input" />
+                                <input id="TotalDisponibleCruce" class="quickFilters general-input" />
+                            </div>
                         </div>
                     </div>
                     <div id="grid"></div>
@@ -675,6 +677,13 @@
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
+        });
+
+        $(".k-grid-content").scroll(function () {
+            $("#filtrorapidoscroll").scrollLeft($(".k-grid-content").scrollLeft());
+        });
+        $("#filtrorapidoscroll").scroll(function () {
+            $(".k-grid-content").scrollLeft($("#filtrorapidoscroll").scrollLeft());
         });
     }
 

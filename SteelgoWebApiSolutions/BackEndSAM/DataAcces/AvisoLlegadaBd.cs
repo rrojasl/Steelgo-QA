@@ -310,8 +310,11 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
+                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where p.PermisoAutorizado == true
+                                          where r.Activo && pa.Activo 
+                                          && ((p.PermisoAutorizado  && pa.RequierePermisoAduana)
+                                            || (!p.PermisoAutorizado && !pa.RequierePermisoAduana))
                                           select r).AsParallel().ToList();
                             }
                         }
@@ -321,8 +324,9 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
+                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo == true && p.PermisoAutorizado == false
+                                          where r.Activo == true && p.PermisoAutorizado == false && pa.RequierePermisoAduana
                                           select r).AsParallel().ToList();
 
                             }
@@ -333,8 +337,10 @@ namespace BackEndSAM.DataAcces
                             if (result.Count > 0)
                             {
                                 result = (from r in result
+                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                           where r.Activo == true
                                           && !(from x in ctx.Sam3_PermisoAduana select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                          && pa.RequierePermisoAduana
                                           select r).AsParallel().ToList();
                             }
                         }

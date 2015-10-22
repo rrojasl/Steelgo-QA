@@ -5151,6 +5151,10 @@ _dictionary = {
         "es-MX": "Favor de validar los campos requeridos. Se debe guardar el folio antes de adjuntar archivos.",
         "en-US": "Please validate required fields. You must save the folio before attaching files."
     },
+    "notificationslabel0080": {
+        "es-MX": "El folio cuenta con pase de salida",
+        "en-US": "The folio has Pass Out"
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

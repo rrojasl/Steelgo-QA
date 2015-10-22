@@ -47,4 +47,11 @@ namespace BackEndSAM.Models
         public string D1 { get; set; }
         public string Tolerancia { get; set; }
     }
+
+    public class DetalleOdtsCorte
+    {
+        public string NumeroControl { get; set; }
+        public string Etiqueta { get; set; }
+        public string Consecutivo {get; set;}
+    }
 }

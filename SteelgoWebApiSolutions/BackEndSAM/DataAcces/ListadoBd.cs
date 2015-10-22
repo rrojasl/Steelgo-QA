@@ -169,22 +169,28 @@ namespace BackEndSAM.DataAcces
                     result.Creados = registrosBd.Select(x => x.FolioAvisoLlegadaID).Count();
 
                     result.Completos = (from r in registrosBd
+                                        join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                         join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                         where r.Activo && p.Activo
-                                        && p.PermisoAutorizado == true
+                                        && ((p.PermisoAutorizado == true && pa.RequierePermisoAduana)
+                                        || (!pa.RequierePermisoAduana && p.PermisoAutorizado == false))
                                         select r.FolioAvisoLlegadaID).AsParallel().Count();
 
                     result.SinAutorizacion = (from r in registrosBd
+                                              join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                               join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
                                               where r.Activo == true && p.Activo
                                               && p.PermisoAutorizado == false
+                                              && pa.RequierePermisoAduana
                                               select r.FolioAvisoLlegadaID).AsParallel().Count();
 
                     List<Sam3_FolioAvisoLlegada> temp = (from r in registrosBd
+                                                         join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                                          where r.Activo == true
                                                          && !(from x in ctx.Sam3_PermisoAduana
                                                               where x.Activo
                                                               select x.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                                         && pa.RequierePermisoAduana
                                                          select r).AsParallel().ToList();
 
                     temp = temp.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();

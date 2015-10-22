@@ -529,5 +529,129 @@ namespace BackEndSAM.DataAcces
                 return null;
             }
         }
+
+        public object ListadoCorteDesdeImpresion(int materialSpoolID, Sam3_Usuario usuario)
+        {
+            try
+            {
+                List<object> resultado = new List<object>();
+                DatosBusquedaODT listado = new DatosBusquedaODT();
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+
+                        //buscamos su equivalente en SAM 2
+                        int sam2_numeroUnicoID = (from ms in ctx2.MaterialSpool
+                                                  join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                                  join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                  where ms.MaterialSpoolID == materialSpoolID
+                                                  select nu.NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                        int sam3_numeroUnicoID = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                  where eq.Activo
+                                                  && eq.Sam2_NumeroUnicoID == sam2_numeroUnicoID
+                                                  select eq.Sam3_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                        resultado.Add((from nu in ctx.Sam3_NumeroUnico
+                                       join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                       where nu.Activo
+                                       && nu.NumeroUnicoID == sam3_numeroUnicoID
+                                       select new ListaCombos
+                                       {
+                                           id = p.ProyectoID.ToString(),
+                                           value = p.Nombre
+                                       }).AsParallel().SingleOrDefault());
+
+                        resultado.Add((from ms in ctx2.MaterialSpool
+                                       join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                       join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                       join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                       join p in ctx2.ProyectoConfiguracion on it.ProyectoID equals p.ProyectoID
+                                       where ms.MaterialSpoolID == materialSpoolID
+                                       select new DetalleNumeroUnicoCorte
+                                       {
+                                           Cantidad = odtm.CantidadCongelada.ToString(),
+                                           D1 = nu.Diametro1.ToString(),
+                                           ItemCode = it.Codigo,
+                                           Tolerancia = p.ToleranciaCortes.Value.ToString()
+                                       }).AsParallel().SingleOrDefault());
+
+                        resultado.Add((from ms in ctx2.MaterialSpool
+                                       join odtm in ctx2.OrdenTrabajoMaterial on ms.MaterialSpoolID equals odtm.MaterialSpoolID
+                                       join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                       where ms.MaterialSpoolID == materialSpoolID
+                                       select new DetalleOdtsCorte
+                                       {
+                                           Consecutivo = odts.NumeroControl,
+                                           Etiqueta = ms.Etiqueta,
+                                           NumeroControl = odts.NumeroControl
+                                       }).AsParallel().SingleOrDefault());
+
+                        string[] temp = (resultado[2] as DetalleOdtsCorte).Consecutivo.Split('-').ToArray();
+                        (resultado[2] as DetalleOdtsCorte).Consecutivo = temp[1];
+                        (resultado[2] as DetalleOdtsCorte).NumeroControl = temp[0];
+
+                        resultado.Add((from nu in ctx.Sam3_NumeroUnico
+                                       where nu.Activo
+                                       && nu.NumeroUnicoID == sam3_numeroUnicoID
+                                       select new ListaCombos
+                                       {
+                                           id = nu.NumeroUnicoID.ToString(),
+                                           value = nu.Prefijo + "-" + nu.Consecutivo
+                                       }).AsParallel().SingleOrDefault());
+
+                        int numeroDigitos = (from nu in ctx.Sam3_NumeroUnico
+                                             join p in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals p.ProyectoID
+                                             where nu.NumeroUnicoID == sam3_numeroUnicoID
+                                             select p.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                        string formato = "D" + numeroDigitos.ToString();
+
+                        temp = (resultado[3] as ListaCombos).value.Split('-').ToArray();
+                        int consecutivo = Convert.ToInt32(temp[1]);
+                        (resultado[3] as ListaCombos).value = temp[0] + "-" + consecutivo.ToString(formato);
+
+                        listado = (from odtm in ctx2.OrdenTrabajoMaterial
+                                   join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
+                                   join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
+                                   join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                   join it in ctx2.ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                   where ms.MaterialSpoolID == materialSpoolID
+                                   && it.TipoMaterialID == 1
+                                   select new DatosBusquedaODT
+                                   {
+                                       Cantidad = odtm.CantidadCongelada.Value,
+                                       CantidadIngenieria = odtm.CantidadCongelada.Value,
+                                       SpoolID = odts.NumeroControl,
+                                       Etiqueta = ms.Etiqueta
+                                   }).Distinct().AsParallel().SingleOrDefault();
+
+                        resultado.Add(listado);
+
+#if DEBUG
+                        JavaScriptSerializer serializer = new JavaScriptSerializer();
+                        string json = serializer.Serialize(resultado);
+#endif
+
+                    }// fin sam2
+                }
+                return listado;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }
