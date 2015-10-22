@@ -11,11 +11,9 @@ namespace DatabaseManager.Sam3
 {
     using System;
     
-    public partial class Sam3_Armado_Get_MaterialesSpool_Result
+    public partial class Sam3_Cat_PQR_ProcesoSoldadura_Result
     {
-        public string Etiqueta { get; set; }
-        public int NumeroUnicoID { get; set; }
-        public string Clave { get; set; }
-        public int EtiquetaMaterial { get; set; }
+        public int ProcesoSoldaduraID { get; set; }
+        public string Codigo { get; set; }
     }
 }

@@ -12,19 +12,21 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_JuntaArmadoTrabajoAdicional
+    public partial class Sam3_TipoSoldadura
     {
-        public int ArmadoTrabajoAdicionalID { get; set; }
-        public int JuntaArmadoID { get; set; }
-        public int TrabajoAdicionalID { get; set; }
-        public int ObreroID { get; set; }
-        public string Observacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sam3_TipoSoldadura()
+        {
+            this.Sam3_JuntaSoldaduraSoldado = new HashSet<Sam3_JuntaSoldaduraSoldado>();
+        }
+    
+        public int TipoSoldaduraID { get; set; }
+        public string TipoSoldadura { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual Sam3_JuntaArmado Sam3_JuntaArmado { get; set; }
-        public virtual Sam3_Obrero Sam3_Obrero { get; set; }
-        public virtual Sam3_TrabajoAdicional Sam3_TrabajoAdicional { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldaduraSoldado> Sam3_JuntaSoldaduraSoldado { get; set; }
     }
 }

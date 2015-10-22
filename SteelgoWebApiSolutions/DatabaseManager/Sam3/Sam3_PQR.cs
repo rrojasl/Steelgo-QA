@@ -30,6 +30,6 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual sam3_ProcesoSoldadura sam3_ProcesoSoldadura { get; set; }
+        public virtual Sam3_ProcesoSoldadura Sam3_ProcesoSoldadura { get; set; }
     }
 }
