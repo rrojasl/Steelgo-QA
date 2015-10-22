@@ -318,6 +318,7 @@
     };
 
     function validarRequeridosFormaAvisoLlegadaSubirArchivos() {
+        var bool = true;
         $("#formAvisoLlegada .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
                 if (!$(this).val()) {
@@ -1289,7 +1290,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-
+                applySecurityPolicy(false);
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
