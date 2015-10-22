@@ -1176,7 +1176,7 @@
             $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto==0?"-1":_detalleBulto, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     _folioCuantificacion = cuantificacion;
-                    $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
+                    $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID != 1 ? result.ProyectoID : "");//DEFAULT
                     $("#BultoID").val(_bultoID == -1 ? 0 : _bultoID);
                     $("#PackingList").val(result.PackingList);
                     $("#TipoPackingListID").data("kendoComboBox").value(result.TipoPackingList.id);

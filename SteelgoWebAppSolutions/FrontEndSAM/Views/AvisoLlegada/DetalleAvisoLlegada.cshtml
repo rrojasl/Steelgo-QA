@@ -49,12 +49,13 @@
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
-                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
-                        </div>
-                        <div id="AutorizarPermisoDiv" class="button-section" style="display: none">
-                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
-                        </div>
+                            <div id="TramitarPermisoDiv" class="button-section enviarpermiso">
+                                <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
+                            </div>
+                            <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display">
+                                <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
+                            </div>
+
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -256,17 +257,12 @@
 
         var $PermisoAduanaModel = {
             listContainer: {
-                create: "",
+                create: ".enviarpermiso",
                 list: "",
                 detail: "",
                 destroy: ""
             },
             properties: {
-                generar: {
-                    visible: "#TramitarPermisoDiv",
-                    editable: "#TramitarPermiso",
-                    required: "#TramitarPermiso"
-                }
             }
         };
     }
@@ -278,9 +274,6 @@
         options.localization = getKendoUploadLocalization();
         $("#filesDiv").append("<input type='file' id='files'>");
         $("#files").kendoUpload(options);
-        //if ($("#TipoArchivo").data("kendoComboBox").value() == "") {
-        //    $("#files").data("kendoUpload").disable();
-        //}
     };
 
     //Es la carga inicial de las fechas  para el multilenguaje
@@ -1451,6 +1444,7 @@
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
+    applySecurityPolicy(true);
 
     }
 

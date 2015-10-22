@@ -1525,8 +1525,8 @@ _dictionary = {
         "en-US": "MM"
     },
     "Cuantificacion0025": {
-        "es-MX": "Planchar",
-        "en-US": "Planchar"
+        "es-MX": "Llenado Masivo:",
+        "en-US": "filling Mass:"
     },
     "Cuantificacion0026": {
         "es-MX": "Todos",
@@ -4848,8 +4848,8 @@ _dictionary = {
         "en-US": "Please, select a folio"
     },
     "notificationslabel0008": {
-        "es-MX": "Mensaje de error: ",
-        "en-US": "Error messsage:"
+        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
+        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
     },
     "notificationslabel0009": {
         "es-MX": "Mensaje de error: ",
