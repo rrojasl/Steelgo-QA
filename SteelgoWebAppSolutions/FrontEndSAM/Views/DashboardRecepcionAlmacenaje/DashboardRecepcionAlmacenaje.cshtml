@@ -379,7 +379,7 @@
         function CargarGridAccesorios(datasource, columnas) {
             if ($("#gridAccesorios").data("kendoGrid"))
                 $("#gridAccesorios").empty(); // destroy the Grid
-            removeGrid($("#gridTubos"));
+            removeGrid($("#gridAccesorios"));
             $("#gridAccesorios").kendoGrid({
                 dataSource: datasource,
                 autoHeight: true,
@@ -531,7 +531,7 @@
                     $("#gridTubos").data("kendoGrid").dataSource.data([]);
                     $("#gridTubos").data("kendoGrid").dataSource.page(0);
                 };
-                applySecurityPolicy(false);
+                //applySecurityPolicy(false);
             };
         };
 
@@ -544,7 +544,7 @@
                     $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
                     $("#gridAccesorios").data("kendoGrid").dataSource.page(0);
                 };
-                applySecurityPolicy(false);
+                //applySecurityPolicy(false);
             };
         };
 
