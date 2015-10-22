@@ -127,7 +127,7 @@
         function changeLanguageCall() {
             var options=$("#ArchivoAutorizar").data("kendoUpload").options;
             $(".k-button.k-upload-button").remove();
-            options.localization=getKendoUploadLocalization();
+            options.localization=getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             $("#ArchivoAutorizarDiv").append("<input type='file' id='ArchivoAutorizar'>");
             $("#ArchivoAutorizar").kendoUpload(options);
         };

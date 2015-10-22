@@ -98,7 +98,9 @@
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        tmp=removeGrid($("#grid"));
         cargarInicialGrid();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
     $("#Cancelar").on("click",function(){
@@ -140,7 +142,6 @@
     });
 
     function cargarInicialGrid(){
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             columns: [
                 { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains",cell: { inputWidth: 116 } } }, width: "120px" },

@@ -99,13 +99,16 @@
     }
     @section JavascriptGlobalFunctions 
     {
-    function changeLanguageCall() {
-        CargarGridSegmentos();
-        CargarGridMovimientosInventario();
-    };
+        function changeLanguageCall() {
+            var tmpS = removeGrid($("#gridSegmentos"));
+            var tmpM = removeGrid($("#gridMovimientosInventario"));
+            CargarGridSegmentos();
+            CargarGridMovimientosInventario();
+            $("#gridSegmentos").data("kendoGrid").dataSource.data(tmpS);
+            $("#gridMovimientosInventario").data("kendoGrid").dataSource.data(tmpM);
+        };
 
     function CargarGridSegmentos() {
-        removeGrid($("#gridSegmentos"));
         $("#gridSegmentos").kendoGrid({
             dataSource: {
                 schema: {
@@ -165,7 +168,6 @@
         });
     }
     function CargarGridMovimientosInventario() {
-        removeGrid($("#gridMovimientosInventario"));
         $("#gridMovimientosInventario").kendoGrid({
             dataSource: {
                 schema: {

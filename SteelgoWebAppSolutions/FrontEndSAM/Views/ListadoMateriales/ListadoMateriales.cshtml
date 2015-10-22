@@ -129,9 +129,11 @@
     //Funcion: changeLanguageCall
     //Parametros: N/A
     //Return:     N/A
-    function changeLanguageCall() {
-        CargarGridNumeroUnico();
-    }
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargarGridNumeroUnico();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        }
 
     //Es la carga inicial de los controles
     //Funcion: cargaInicial
@@ -471,7 +473,6 @@
     //Parametros: N/A
     //Return:     N/A
     function CargarGridNumeroUnico() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 //data: resultadoJson,

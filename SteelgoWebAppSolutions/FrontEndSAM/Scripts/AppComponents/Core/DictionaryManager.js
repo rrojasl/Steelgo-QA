@@ -1047,6 +1047,14 @@ _dictionary = {
         "es-MX": "Déficit total",
         "en-US": "Total Deficit"
     },
+    "NotificacionDeficit0016": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "NotificacionDeficit0017": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
     //Revisión de deficit
     "RevisionDeficit0001": {
         "es-MX": "Revisión de Déficit",

@@ -292,7 +292,7 @@
         function changeLanguageCall() {
             var options=$("#AdjuntarArchivos").data("kendoUpload").options;
             $("#AdjuntarArchivosDiv .k-button.k-upload-button").remove();
-            options.localization=getKendoUploadLocalization();
+            options.localization=getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             $("#AdjuntarArchivosDiv").append("<input type='file' id='AdjuntarArchivos'>");
             $("#AdjuntarArchivos").kendoUpload(options);
             var tmp={};

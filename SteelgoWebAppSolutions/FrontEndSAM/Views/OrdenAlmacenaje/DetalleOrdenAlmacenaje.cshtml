@@ -110,9 +110,11 @@
     }
     @section JavascriptGlobalFunctions 
     {
-    function changeLanguageCall() {
-        CargaInicialGrid();
-    };
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargaInicialGrid();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        };
     
     function CargaInicial() {
         $("#spanOrdenAlmacenaje").html(_ordenAlmacenajeID);

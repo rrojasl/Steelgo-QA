@@ -180,7 +180,9 @@
     //Parametros: N/A
     //Return:     N/A
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         CargarGridAvisoLlegada();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
         createPeriodoTiempo();
     }
 
@@ -332,7 +334,6 @@
     //Parametros: N/A
     //Return:     N/A
     function CargarGridAvisoLlegada() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

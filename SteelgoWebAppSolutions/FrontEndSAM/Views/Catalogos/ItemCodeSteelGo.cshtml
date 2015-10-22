@@ -54,7 +54,9 @@
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         cargarInicialGrid();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
     function getDropData(e) {
@@ -76,7 +78,6 @@
     })
 
     function cargarInicialGrid() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             columns: [
                 { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], width: "150px" },
