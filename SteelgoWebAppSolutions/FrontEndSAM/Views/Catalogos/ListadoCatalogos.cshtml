@@ -159,218 +159,255 @@
             }
         },
     }
-    columnas = {
-        "1": {
-            "RequierePermisoAduana": { field: "RequierePermisoAduana", title: "Requiere permiso Aduana", editor: dropdownSiNo }
-        },
-        "2": {
-            "TransportistaNombre": {
-                field: "TransportistaNombre",
-                title: "Nombre Transportista",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].TransportistaNombre = data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "TransportistaID"
-                    });
-                }
-            }
-        },
-        "4": {
-            "Contacto": {
-                field: "Contacto",
-                title: "Contacto",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "ContactoID"
-                    });
-                }
-            }
-        },
-        "5": {
-            "choferNombre": {
-                field: "choferNombre",
-                title: "Nombre Chofer",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "ChoferID"
-                    });
-                }
-            },
-            "transportistaNombre": {
-                field: "transportistaNombre",
-                title: "Nombre Transportista",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "TransportistaID"
-                    });
-                }
-            },
-        },
-        "6": {
-            "choferNombre": {
-                field: "choferNombre",
-                title: "Nombre Chofer",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "ChoferID"
-                    });
-                }
-            },
-            "transportistaNombre": {
-                field: "transportistaNombre",
-                title: "Nombre Transportista",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function(e) {
-                            var data=getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "TransportistaID"
-                    });
-                }
-            }
-        },
-        "7": {
-            "Contacto": {
-                field: "Contacto",
-                title: "Contacto",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "ContactoID"
-                    });
-                }
-            }
-        },
-        "10": {
-            "Contacto": {
-                field: "Contacto",
-                title: "Contacto",
-                editor: function (container, options) {
-                    $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
-                        dataSource: {
-                            transport: {
-                                read: {
-                                    dataType: "json",
-                                    url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
-                                }
-                            }
-                        },
-                        close: function (e) {
-                            var data = getDropData(e);
-                            $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
-                            $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
-                        },
-                        dataTextField: "Nombre",
-                        dataValueField: "ContactoID"
-                    });
-                }
-            }
-        },
-    }
-    }
+};
 
 @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
         contadorDataBound=0;
-        if ($("#listaCatalogos").data("kendoDropDownList").value()) {
+        if ($("#listaCatalogos").data("kendoDropDownList").value() && $("#listaCatalogos").data("kendoDropDownList").value()!="11") {
+            columnas=getColumnas();
             cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
+        }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){
+            $("#listaCatalogos").data("kendoDropDownList").trigger("change");
         }else{
             $("#grid").kendoGrid({ columns: [] });
         }
     };
+    
+    function getColumnas(){
+        return {
+            "1": {
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                "Propietario":{field:"Propietario", title:_dictionary.ListadoCatalogos0021[$("#language").data("kendoDropDownList").value()]},
+                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                "RequierePermisoAduana": { field: "RequierePermisoAduana", title:_dictionary.ListadoCatalogos0023[$("#language").data("kendoDropDownList").value()], editor: dropdownSiNo }
+            },
+            "2": {
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                "TransportistaNombre": {
+                    field: "TransportistaNombre",
+                    title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].TransportistaID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].TransportistaNombre = data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "TransportistaID"
+                        });
+                    }
+                }
+            },
+            "3":{
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            },
+            "4": {
+                "Contacto": {
+                    field: "Contacto",
+                    title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "ContactoID"
+                        });
+                    }
+                },
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                "Direccion":{field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
+                "Telefono":{field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+            },
+            "5": {
+                "Placas":{field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
+                "TarjetaCirculacion":{field:"TarjetaCirculacion", title:_dictionary.ListadoCatalogos0029[$("#language").data("kendoDropDownList").value()]},
+                "PolizaSeguro":{field:"PolizaSeguro", title:_dictionary.ListadoCatalogos0030[$("#language").data("kendoDropDownList").value()]},
+                "choferNombre": {
+                    field: "choferNombre",
+                    title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function(e) {
+                                var data=getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "ChoferID"
+                        });
+                    }
+                },
+                "transportistaNombre": {
+                    field: "transportistaNombre",
+                    title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function(e) {
+                                var data=getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "TransportistaID"
+                        });
+                    }
+                },
+            },
+            "6": {//{"VehiculoID":"3041","TractoID":"1","Placas":"PL001-PLA-V1","Unidad":"PL001-PLA-V1","Modelo":"PL001-PLA-V1","choferID":"1003","choferNombre":"Chofer Default","transportistaID":"1","transportistaNombre":"Transportiste Default","relVehiculoChoferID":"3011","relVehiculoTransportistaID":"3005"}
+                "Placas":{field:"Placas", title:_dictionary.ListadoCatalogos0028[$("#language").data("kendoDropDownList").value()]},
+                "Unidad":{field:"Unidad", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
+                "Modelo":{field:"Modelo", title:_dictionary.ListadoCatalogos0032[$("#language").data("kendoDropDownList").value()]},
+                "choferNombre": {
+                    field: "choferNombre",
+                    title: _dictionary.ListadoCatalogos0031[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Chofer.Chofer.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function(e) {
+                                var data=getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferID=data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].choferNombre=data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "ChoferID"
+                        });
+                    }
+                },
+                "transportistaNombre": {
+                    field: "transportistaNombre",
+                    title: _dictionary.ListadoCatalogos0024[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Transportista.Transportista.urlNoId + "?esAvisoEntrada=0&token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function(e) {
+                                var data=getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaID=data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].transportistaNombre=data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "TransportistaID"
+                        });
+                    }
+                }
+            },
+            "7": {
+                "Contacto": {
+                    field: "Contacto",
+                    title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "ContactoID"
+                        });
+                    }
+                },
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                "Direccion":{field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
+                "Telefono":{field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+            },
+            "8":{
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            },
+            "9":{
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+            },
+            "10": {
+                "Contacto": {
+                    field: "Contacto",
+                    title: _dictionary.ListadoCatalogos0025[$("#language").data("kendoDropDownList").value()],
+                    editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $Contacto.Contacto.urlNoId + "?token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].ContactoID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Contacto = data.nombre;
+                            },
+                            dataTextField: "Nombre",
+                            dataValueField: "ContactoID"
+                        });
+                    }
+                },
+                "Nombre":{field:"Nombre", title:_dictionary.ListadoCatalogos0020[$("#language").data("kendoDropDownList").value()]},
+                "Descripcion":{field:"Descripcion", title:_dictionary.ListadoCatalogos0022[$("#language").data("kendoDropDownList").value()]},
+                "Direccion":{field:"Direccion", title:_dictionary.ListadoCatalogos0026[$("#language").data("kendoDropDownList").value()]},
+                "Telefono":{field:"Telefono", title:_dictionary.ListadoCatalogos0027[$("#language").data("kendoDropDownList").value()]},
+            },
+        }
+    }
 
     function getDropData(e){
         var id=e.sender._old;
@@ -641,7 +678,9 @@
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a download="TemplateCed.csv" href="#" id="templateced">Descargar plantilla</a></div>');
+                if(!$("#fconversion").val()){
+                    $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a download="TemplateCed.csv" href="#" id="templateced">Descargar plantilla</a></div>');
+                }
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
                     $("#fconversion").val(result);
                 });
@@ -908,7 +947,7 @@
         });
     }
 
-    function VentanaModal() {
+    function VentanaModal(){
         $("#window").kendoWindow({
             content: "@Url.Action("Archivos", "PopUps")",
             modal: true,
@@ -932,6 +971,7 @@
 
 @section JavascriptDocumentReadyFunctions {
     $authorizationModel["ListadoCatalogos"] = $ListadoCatalogosModel;
+    columnas = getColumnas();
 };
     
 @section JavascriptDocumentReadyHomeCookie {
