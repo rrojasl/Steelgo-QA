@@ -80,12 +80,12 @@
         $("#gridIC").kendoGrid({
             columns:[
                 {field:"ItemCode"},
-                {field:"Diametro1",title:"Diametro 1"},
-                {field:"Diametro2",title:"Diametro 2"},
-                {field:"Descripcion"},
-                {field:"Cantidad"},
-                {field:"Deficit"},
-                {field:"PorCubrir",title:"Por Cubrir"},
+                {field:"Diametro1",title:_dictionary.RevisionDeficit0011[$("#language").data("kendoDropDownList").value()]},
+                {field:"Diametro2",title:_dictionary.RevisionDeficit0012[$("#language").data("kendoDropDownList").value()]},
+                {field:"Descripcion",title:_dictionary.RevisionDeficit0013[$("#language").data("kendoDropDownList").value()]},
+                {field:"Cantidad",title:_dictionary.RevisionDeficit0014[$("#language").data("kendoDropDownList").value()]},
+                {field:"Deficit",title:_dictionary.RevisionDeficit0015[$("#language").data("kendoDropDownList").value()]},
+                {field:"PorCubrir",title:_dictionary.RevisionDeficit0016[$("#language").data("kendoDropDownList").value()]},
                 { command: "destroy", title: "Borrar", width: "91px" }
             ],
             dataSource:{
@@ -163,8 +163,8 @@
                 { template: '<input type="checkbox" class="sub" >', width: 45 },
                 {field:"SpoolID"},
                 {field:"Spool"},
-                {field:"Prioridad"},
-                {field:"Peso"},
+                {field:"Prioridad",title:_dictionary.RevisionDeficit0017[$("#language").data("kendoDropDownList").value()]},
+                {field:"Peso",title:_dictionary.RevisionDeficit0018[$("#language").data("kendoDropDownList").value()]},
                 {field:"Peqs"},
             ],
             dataSource:{
