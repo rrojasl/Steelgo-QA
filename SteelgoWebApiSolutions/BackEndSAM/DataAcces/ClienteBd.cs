@@ -50,7 +50,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerListadoClientes(Sam3_Usuario usuario)
+        public object ObtenerListadoClientes(Sam3_Usuario usuario, int patioID = 0)
         {
             try
             {
@@ -63,12 +63,35 @@ namespace BackEndSAM.DataAcces
 
                         UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
-                        List<Models.Cliente> cliente = (from r in ctx2.Cliente
-                                                        select new Models.Cliente
-                                                        {
-                                                            Nombre = r.Nombre,
-                                                            ClienteID = r.ClienteID.ToString()
-                                                        }).AsParallel().ToList();
+                        List<Models.Cliente> cliente = new List<Models.Cliente>();
+
+                        if (patioID > 0)
+                        {
+                            List<int> patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                                    where eq.Activo
+                                                    && patios.Contains(eq.Sam3_PatioID)
+                                                    select eq.Sam2_PatioID).AsParallel().ToList();
+
+                            cliente = (from r in ctx2.Cliente
+                                       join p in ctx2.Proyecto on r.ClienteID equals p.ClienteID
+                                       join pa in ctx2.Patio on p.PatioID equals pa.PatioID
+                                       where patiosSam2.Contains(pa.PatioID)
+                                       select new Models.Cliente
+                                       {
+                                           Nombre = r.Nombre,
+                                           ClienteID = r.ClienteID.ToString()
+                                       }).AsParallel().ToList();
+                        }
+                        else
+                        {
+                            cliente = (from r in ctx2.Cliente
+                                       select new Models.Cliente
+                                       {
+                                           Nombre = r.Nombre,
+                                           ClienteID = r.ClienteID.ToString()
+                                       }).AsParallel().ToList();
+                        }
+
                         return cliente;
                     }
                 }

@@ -106,7 +106,9 @@
     };
 
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         cargarInicialGrid();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
         createPeriodoTiempo();
     };
 

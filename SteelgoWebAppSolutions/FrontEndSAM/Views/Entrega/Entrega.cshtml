@@ -126,9 +126,11 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-        CargarGridEntrega();
-    };
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargarGridEntrega();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        };
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaEntrega.setOptions(datePickerOptions);
     };
@@ -179,7 +181,6 @@
     };
    
     function CargarGridEntrega() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

@@ -277,11 +277,12 @@
 
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         CargarGridCorte();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
     function CargarGridCorte() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

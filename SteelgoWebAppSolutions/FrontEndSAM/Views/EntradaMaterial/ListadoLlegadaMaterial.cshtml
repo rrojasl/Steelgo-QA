@@ -165,11 +165,12 @@
     };
 
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         CargarGridLlegadaMaterial();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
         createPeriodoTiempo();
     };
     function CargarGridLlegadaMaterial() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

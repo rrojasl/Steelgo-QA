@@ -1047,6 +1047,14 @@ _dictionary = {
         "es-MX": "Déficit total",
         "en-US": "Total Deficit"
     },
+    "NotificacionDeficit0016": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "NotificacionDeficit0017": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
+    },
     //Revisión de deficit
     "RevisionDeficit0001": {
         "es-MX": "Revisión de Déficit",
@@ -2917,7 +2925,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0029": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "DashboardRecepcionAlmacenaje0030": {
         "es-MX": "Fecha de descarga",
@@ -2937,7 +2945,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0034": {
         "es-MX": "Folio aviso entrada",
-        "en-US": "Folio aviso entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "DashboardRecepcionAlmacenaje0035": {
         "es-MX": "Fecha de descarga",
@@ -2945,7 +2953,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0036": {
         "es-MX": "Fecha creación Packing List",
-        "en-US": "Create Date Packing List"
+        "en-US": "Packing List Create Date"
     },
     "DashboardRecepcionAlmacenaje0037": {
         "es-MX": "Packing List",
