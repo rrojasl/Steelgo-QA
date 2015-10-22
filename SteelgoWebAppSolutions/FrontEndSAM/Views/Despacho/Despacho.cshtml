@@ -139,9 +139,11 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-        CargarGridDespacho();
-    };
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            CargarGridDespacho();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
+        };
 
     function CargaInicial() {
         $("#Guardar").click(function () { Guardar(); });
@@ -225,7 +227,6 @@
         ObtenerDatosGrid();
     };
     function CargarGridDespacho() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

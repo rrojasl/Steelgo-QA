@@ -12,7 +12,7 @@
         <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="ComplementoRecepcion0002"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Cuantificacion", "Cuantificacion")"><span id="ComplementoRecepcion0003"></span></a>
+        <a href="@Url.Action("ComplementoRecepcion", "ComplementoRecepcion")"><span id="ComplementoRecepcion0003"></span></a>
     </li>
 }
 
@@ -240,7 +240,9 @@
     @section JavascriptGlobalFunctions 
     {
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         LoadGridQuantification();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
         CargarEstatusFisico();
         CargarEstatusDocumental();
     }
@@ -612,7 +614,6 @@
 
 
     function LoadGridQuantification() {
-            removeGrid($("#grid"));
             $("#grid").kendoGrid({
                 dataSource: {
                     data: resultadoJson,

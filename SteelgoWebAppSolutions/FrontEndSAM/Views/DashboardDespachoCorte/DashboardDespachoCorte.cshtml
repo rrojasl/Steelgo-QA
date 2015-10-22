@@ -191,10 +191,14 @@
 
     @section JavascriptGlobalFunctions {
         function changeLanguageCall() {
+            var tmpT = removeGrid($("#gridTubos"));
+            var tmpA = removeGrid($("#gridAccesorios"));
             CargarGridTubos();
             CargarGridAccesorios();
             CrearPeriodoTiempo();
-            //CrearUnidadMedida();
+            $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
+            $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
+            Filtros();
         };
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
@@ -326,7 +330,6 @@
     function CargarGridTubos(dataSource, columnas, detailInit) {
         if($("#gridTubos").data("kendoGrid"))
             $("#gridTubos").empty(); // destroy the Grid
-        removeGrid($("#gridTubos"));
         $("#gridTubos").kendoGrid({
             dataSource: dataSource,
             autoHeight: true,
@@ -354,7 +357,6 @@
     function CargarGridAccesorios(datasource, columnas, detailInit) {
         if ($("#gridAccesorios").data("kendoGrid"))
             $("#gridAccesorios").empty(); // destroy the Grid
-        removeGrid($("#gridAccesorios"));
         $("#gridAccesorios").kendoGrid({
             dataSource: datasource,
             autoHeight: true,
@@ -990,8 +992,10 @@
                     loadingStop();
                     if (tipomaterial == 1) {
                         $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                        $("#gridTubos").data("kendoGrid").refresh();
                     } else {
                         $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                        $("#gridAccesorios").data("kendoGrid").refresh();
                     }
                     //PreDespachar(tipomaterial);
                     break;

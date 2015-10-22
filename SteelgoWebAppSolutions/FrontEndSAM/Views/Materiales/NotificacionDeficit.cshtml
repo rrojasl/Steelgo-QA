@@ -92,7 +92,7 @@
     function cargarGrids(){
         var tmpIC=removeGrid($("#gridIC"));
         var tmpSp=removeGrid($("#gridSp"));
-        if(tmpSp==[]){
+        if(tmpSp.length==0 || !document.getElementById("spoolCheck").checked){
             $("#gridSp").hide();
         }
         $("#gridIC").kendoGrid({

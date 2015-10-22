@@ -52,7 +52,7 @@
                             <div id="TramitarPermisoDiv" class="button-section enviarpermiso">
                                 <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                             </div>
-                            <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display">
+                            <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display:none">
                                 <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
                             </div>
 
@@ -269,11 +269,21 @@
 
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
-        var options = $("#files").data("kendoUpload").options;
+        var optionsf = $("#files").data("kendoUpload").options;
         $("#filesDiv .k-button.k-upload-button").remove();
-        options.localization = getKendoUploadLocalization();
+        optionsf.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
         $("#filesDiv").append("<input type='file' id='files'>");
-        $("#files").kendoUpload(options);
+        $("#files").kendoUpload(optionsf);
+        try{
+            var optionsp = $("#PackingList").data("kendoUpload").options;
+            var padre=$("#PackingList").parent();
+            optionsp.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
+            padre.append("<input type='file' id='PackingList'>");
+            $("#PackingList").kendoUpload(optionsf);
+        }catch(e){}
+        if (folio != -1) {
+            $("#files").data("kendoUpload").disable();
+        }
     };
 
     //Es la carga inicial de las fechas  para el multilenguaje
@@ -308,6 +318,7 @@
     };
 
     function validarRequeridosFormaAvisoLlegadaSubirArchivos() {
+        var bool = true;
         $("#formAvisoLlegada .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
                 if (!$(this).val()) {
@@ -402,7 +413,6 @@
         $("#Editar").click(function (e) {
             BotonEdicion();
             ObtenerPatioRequierePermiso();
-            $("#files").data("kendoUpload").enable();
         });
 
         $("#Cancelar").click(function (e) {
@@ -603,9 +613,9 @@
                     },
                     error: function (data) { },
                     upload: onUpload,
-                    localization: getKendoUploadLocalization()
+                    localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
                 });
-        //$("#files").data("kendoUpload").enable(false);
+        
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
@@ -913,8 +923,6 @@
 
                     $("#TramitarPermiso").attr('disabled', 'disabled');
                     $("#AutorizarPermiso").attr('disabled', 'disabled');
-
-
 
                     //Se carga el arreglo transportista
                     if (data.Transportista.length > 0) {
@@ -1282,7 +1290,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-
+                applySecurityPolicy(false);
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
@@ -1346,7 +1354,7 @@
                         $("#TramitarPermiso").attr('disabled', 'disabled');
                         $("#AutorizarPermiso").attr('disabled', 'disabled');
                     };
-
+                    applySecurityPolicy(false);
                 });
             };
 
@@ -1444,7 +1452,7 @@
             };
     }
 
-            @section JavascriptDocumentReadyFunctions {
+    @section JavascriptDocumentReadyFunctions {
     //Your partial view document ready function
     CargaInicial();
 
@@ -1455,7 +1463,7 @@
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-    applySecurityPolicy(true);
+    applySecurityPolicy(false);
 
     }
 

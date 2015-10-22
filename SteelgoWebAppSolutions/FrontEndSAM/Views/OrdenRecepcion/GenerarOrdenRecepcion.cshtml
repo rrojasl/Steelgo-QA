@@ -121,8 +121,10 @@
 
     @section JavascriptGlobalFunctions 
     {
-    function changeLanguageCall() {
-        cargarInicialGrid();
+        function changeLanguageCall() {
+            var tmp = removeGrid($("#grid"));
+            cargarInicialGrid();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
     }
     function CargaInicial() {
         $("#IrIncidencia").click(function () { Incidencias(); });

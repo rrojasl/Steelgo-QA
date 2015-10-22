@@ -99,6 +99,5 @@ function removeGrid(grid) {
     var contenedor = grid.parent();
     grid.remove();
     contenedor.append("<div id='" + grid.attr("id") + "'></div>");
-    console.log(tmp);
     return tmp;
 }

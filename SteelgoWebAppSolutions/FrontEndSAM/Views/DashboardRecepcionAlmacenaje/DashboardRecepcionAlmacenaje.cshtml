@@ -187,11 +187,16 @@
     }
 
     @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {
-        CargarGridTubos();
-        CargarGridAccesorios();
-        createPeriodoTiempo();
-    };
+        function changeLanguageCall() {
+            var tmpT = removeGrid($("#gridTubos"));
+            var tmpA = removeGrid($("#gridAccesorios"));
+            CargarGridTubos();
+            CargarGridAccesorios();
+            createPeriodoTiempo();
+            $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
+            $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
+            Filtros();
+        };
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaInicial.setOptions(datePickerOptions);
         FechaFinal.setOptions(datePickerOptions);
@@ -324,7 +329,6 @@
         function CargarGridTubos(dataSource, columnas) {
             if ($("#gridTubos").data("kendoGrid"))
                 $("#gridTubos").empty(); // destroy the Grid
-            removeGrid($("#gridTubos"));
             $("#gridTubos").kendoGrid({
                 dataSource: dataSource,
                 autoHeight: true,
@@ -379,7 +383,6 @@
         function CargarGridAccesorios(datasource, columnas) {
             if ($("#gridAccesorios").data("kendoGrid"))
                 $("#gridAccesorios").empty(); // destroy the Grid
-            removeGrid($("#gridAccesorios"));
             $("#gridAccesorios").kendoGrid({
                 dataSource: datasource,
                 autoHeight: true,

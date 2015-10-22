@@ -188,7 +188,9 @@
 
     @section JavascriptGlobalFunctions {
     function changeLanguageCall() {
+        var tmp = removeGrid($("#grid"));
         CargarGridAlmacenaje();
+        $("#grid").data("kendoGrid").dataSource.data(tmp);
     };
 
     function CargaInicial() {
@@ -462,7 +464,6 @@
     };
 
     function CargarGridAlmacenaje() {
-        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

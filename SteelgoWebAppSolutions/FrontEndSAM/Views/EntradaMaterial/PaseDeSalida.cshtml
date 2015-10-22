@@ -189,7 +189,7 @@
         function changeLanguageCall() {
             var options=$("#PackingList").data("kendoUpload").options;
             $("#PackingListDiv .k-button.k-upload-button").remove();
-            options.localization=getKendoUploadLocalization();
+            options.localization=getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             $("#PackingListDiv").append("<input type='file' id='PackingList'>");
             $("#PackingList").kendoUpload(options);
         };
