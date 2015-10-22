@@ -179,6 +179,7 @@
     };
    
     function CargarGridEntrega() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

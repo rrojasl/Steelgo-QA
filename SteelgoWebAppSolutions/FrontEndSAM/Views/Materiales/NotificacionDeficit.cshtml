@@ -69,6 +69,134 @@
 }
 
 @section JavascriptGlobalFunctions {
+    function changeLanguageCall(){
+        cargarGrids();
+    }
+
+    function cargarGrids(){
+        var tmpIC=removeGrid($("#gridIC"));
+        var tmpSp=removeGrid($("#gridSp"));
+        if(tmpSp==[]){
+            $("#gridSp").hide();
+        }
+        $("#gridIC").kendoGrid({
+            columns: [
+                {field:"ItemCode",title:"Item Code"},
+                {field:"Diametro1",title:_dictionary.NotificacionDeficit0012[$("#language").data("kendoDropDownList").value()]},
+                {field:"Diametro2",title:_dictionary.NotificacionDeficit0013[$("#language").data("kendoDropDownList").value()]},
+                {field:"Cantidad",title:_dictionary.NotificacionDeficit0014[$("#language").data("kendoDropDownList").value()]},
+                {field:"DeficitTotal",title:_dictionary.NotificacionDeficit0015[$("#language").data("kendoDropDownList").value()]},
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id:"ItemCodeID",
+                        fields:{
+                            ItemCodeID:{ editable: false, nullable: true },
+                            ItemCode: { editable: false,type:"string",validation: { required: false } },
+                            Diametro1: { editable: false,type:"number", validation: { required: false } },
+                            Diametro2: { editable: false,type:"number", validation: { required: false } },
+                            Cantidad:{editable: false,type:"number"},
+                            DeficitTotal:{editable: true,type:"number"}
+                        }
+                    },
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                pageSize: 20,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false,
+                transport:{
+                    read:{
+                        url:"",
+                        dataType:"json",
+                        type:"GET",
+                        cache: false
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {models: kendo.stringify(options.models)};
+                        }
+                    }
+                },
+            },
+            autoHeight: true,
+            sortable: false,
+            scrollable: false,
+            filterable: false,
+            editable:"inline",
+            pageable: false,
+            editable:false,
+            save: function(e) {
+                console.log(e);
+            },
+            remove: function(e) {
+                console.log(e);
+            },
+            dataBound: function(e) {
+                $("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
+            },
+            edit:function(e){
+                $("#gridIC tr[data-uid] input[name=Deficit]").on("blur",function(){
+                    var dataItem = $("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
+                    if(this.value > parseFloat(dataItem.Cantidad)) displayMessage("",_dictionary.NotificacionDeficit0005[$("#language").data("kendoDropDownList").value()], '2');
+                })
+            }
+        });
+        $("#gridIC").data("kendoGrid").dataSource.data(tmpIC);
+
+        $("#gridSp").kendoGrid({
+            columns: [
+                { template: '<input type="checkbox" class="sub" >', width: 45 },
+                {field:"SpoolID",title:"SpoolID"},
+                {field:"Spool",title:"Spool"},
+                {field:"Prioridad",title:"Prioridad"},
+                {field:"Peqs"},
+                {field:"Peso"},
+            ],
+            dataSource: {
+                data: [],
+                schema: {
+                    model: {
+                        id:"SpoolID",
+                        fields:{
+                            SpoolID:{ editable: false, nullable: true },
+                            Spool: { editable: false,type:"string",validation: { required: false } },
+                            Prioridad: { editable: false,type:"number", validation: { required: false } },
+                            Peqs: { editable: false,type:"string", validation: { required: false } },
+                            Peso:{editable: false,type:"number"},
+                            ItemCodeID:{editable: false,type:"number"}
+                        }
+                    },
+                },
+            },
+            detailInit: detailInit,
+            autoHeight: true,
+            sortable: false,
+            scrollable: false,
+            filterable: false,
+            editable:"inline",
+            pageable: false,
+            editable:false,
+            save: function(e) {
+                console.log(e);
+            },
+            remove: function(e) {
+                console.log(e);
+            },
+            dataBound: function(e) {
+                //console.log(e);
+            },
+            edit:function(e){
+                console.log(e);
+            }
+        });
+        $("#gridSp").data("kendoGrid").dataSource.data(tmpSp);
+    }
+
     function regenerarCombo(){
         var options = $("#itemcode").data("kendoComboBox").options;
         $("#itemcode").data("kendoComboBox").destroy();
@@ -125,8 +253,6 @@
 
 @section JavascriptDocumentReadyFunctions {
     //$authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
-
-    $("#gridSp").hide();
 
     $("#spoolCheck").on("change",function(){
         if(this.checked && $("#gridIC").data("kendoGrid").dataSource.data().length>0){
@@ -185,121 +311,6 @@
         },
         dataTextField: "value",
         dataValueField: "id"
-    });
-
-    $("#gridIC").kendoGrid({
-        columns: [
-            {field:"ItemCode",title:"Item Code"},
-            {field:"Diametro1",title:"Diametro 1"},
-            {field:"Diametro2",title:"Diametro 2"},
-            {field:"Cantidad"},
-            {field:"DeficitTotal"},
-        ],
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    id:"ItemCodeID",
-                    fields:{
-                        ItemCodeID:{ editable: false, nullable: true },
-                        ItemCode: { editable: false,type:"string",validation: { required: false } },
-                        Diametro1: { editable: false,type:"number", validation: { required: false } },
-                        Diametro2: { editable: false,type:"number", validation: { required: false } },
-                        Cantidad:{editable: false,type:"number"},
-                        DeficitTotal:{editable: true,type:"number"}
-                    }
-                },
-            },
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            pageSize: 20,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-            transport:{
-                read:{
-                    url:"",
-                    dataType:"json",
-                    type:"GET",
-                    cache: false
-                },
-                parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {models: kendo.stringify(options.models)};
-                    }
-                }
-            },
-        },
-        autoHeight: true,
-        sortable: false,
-        scrollable: false,
-        filterable: false,
-        editable:"inline",
-        pageable: false,
-        editable:false,
-        save: function(e) {
-            console.log(e);
-        },
-        remove: function(e) {
-            console.log(e);
-        },
-        dataBound: function(e) {
-            $("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
-        },
-        edit:function(e){
-            $("#gridIC tr[data-uid] input[name=Deficit]").on("blur",function(){
-                var dataItem = $("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-                if(this.value > parseFloat(dataItem.Cantidad)) displayMessage("",_dictionary.NotificacionDeficit0005[$("#language").data("kendoDropDownList").value()], '2');
-            })
-        }
-    });
-
-    $("#gridSp").kendoGrid({
-        columns: [
-            { template: '<input type="checkbox" class="sub" >', width: 45 },
-            {field:"SpoolID",title:"SpoolID"},
-            {field:"Spool",title:"Spool"},
-            {field:"Prioridad",title:"Prioridad"},
-            {field:"Peqs"},
-            {field:"Peso"},
-        ],
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    id:"SpoolID",
-                    fields:{
-                        SpoolID:{ editable: false, nullable: true },
-                        Spool: { editable: false,type:"string",validation: { required: false } },
-                        Prioridad: { editable: false,type:"number", validation: { required: false } },
-                        Peqs: { editable: false,type:"string", validation: { required: false } },
-                        Peso:{editable: false,type:"number"},
-                        ItemCodeID:{editable: false,type:"number"}
-                    }
-                },
-            },
-        },
-        detailInit: detailInit,
-        autoHeight: true,
-        sortable: false,
-        scrollable: false,
-        filterable: false,
-        editable:"inline",
-        pageable: false,
-        editable:false,
-        save: function(e) {
-            console.log(e);
-        },
-        remove: function(e) {
-            console.log(e);
-        },
-        dataBound: function(e) {
-            console.log(e);
-        },
-        edit:function(e){
-            console.log(e);
-        }
     });
 
     $("#notificar").on("click",function(){

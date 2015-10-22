@@ -169,6 +169,7 @@
         createPeriodoTiempo();
     };
     function CargarGridLlegadaMaterial() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

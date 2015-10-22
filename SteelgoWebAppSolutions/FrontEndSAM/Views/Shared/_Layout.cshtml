@@ -158,8 +158,8 @@
                         <img src="~/Content/images/SAMC_SteelLogo_Web_00.png" />
                         <ul>
                             <li><a href="http://www.steelgo.com"><span id="layoutLabel0015"></span></a></li>
-                            <li><a href="#"><span id="layoutLabel0016"></span></a></li>
-                            <li><a href="#"><span id="layoutLabel0017"></span></a></li>
+                            <li><a href="http://www.steelgo.com"><span id="layoutLabel0016"></span></a></li>
+                            <li><a href="http://www.steelgo.com"><span id="layoutLabel0017"></span></a></li>
                             <li><a href="http://www.steelgo.com"><span id="layoutLabel0018"></span></a></li>
                         </ul>
                     </div>
@@ -329,7 +329,7 @@
             });
 
             //Add the language parameter to all url invoked by the <a> tag
-            $("a").click(function (event) {
+            $("a:not([data-login='password'])").click(function (event) {
                 redirectToLanguage(event,this);
             });
 
