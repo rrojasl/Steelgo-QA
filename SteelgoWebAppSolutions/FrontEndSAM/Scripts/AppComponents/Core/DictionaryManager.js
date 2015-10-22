@@ -1549,8 +1549,8 @@ _dictionary = {
         "en-US": "MM"
     },
     "Cuantificacion0025": {
-        "es-MX": "Planchar",
-        "en-US": "Planchar"
+        "es-MX": "Llenado Masivo:",
+        "en-US": "filling Mass:"
     },
     "Cuantificacion0026": {
         "es-MX": "Todos",
@@ -2925,7 +2925,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0029": {
         "es-MX": "Folio Aviso Entrada",
-        "en-US": "Folio Aviso Entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "DashboardRecepcionAlmacenaje0030": {
         "es-MX": "Fecha de descarga",
@@ -2945,7 +2945,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0034": {
         "es-MX": "Folio aviso entrada",
-        "en-US": "Folio aviso entrada"
+        "en-US": "Arrival Notice Folio"
     },
     "DashboardRecepcionAlmacenaje0035": {
         "es-MX": "Fecha de descarga",
@@ -2953,7 +2953,7 @@ _dictionary = {
     },
     "DashboardRecepcionAlmacenaje0036": {
         "es-MX": "Fecha creación Packing List",
-        "en-US": "Create Date Packing List"
+        "en-US": "Packing List Create Date"
     },
     "DashboardRecepcionAlmacenaje0037": {
         "es-MX": "Packing List",
@@ -4872,8 +4872,8 @@ _dictionary = {
         "en-US": "Please, select a folio"
     },
     "notificationslabel0008": {
-        "es-MX": "Mensaje de error: ",
-        "en-US": "Error messsage:"
+        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
+        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
     },
     "notificationslabel0009": {
         "es-MX": "Mensaje de error: ",
