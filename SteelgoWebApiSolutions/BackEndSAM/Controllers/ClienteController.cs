@@ -20,10 +20,15 @@ namespace BackEndSAM.Controllers
     public class ClienteController : ApiController
     {
         
-        public object Get(string token)
+        public object Get(int patioID, string token)
         {
             try
             {
+                if (patioID == null || patioID <= 0)
+                {
+                    patioID = 0;
+                }
+
                 string newToken = "";
                 string payload = "";
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
@@ -32,7 +37,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return ClienteBd.Instance.ObtenerListadoClientes(usuario);
+                    return ClienteBd.Instance.ObtenerListadoClientes(usuario, patioID);
                 }
                 else
                 {
