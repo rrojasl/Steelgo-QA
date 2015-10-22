@@ -308,6 +308,11 @@
             options.localization=getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             $("#AdjuntarArchivosDiv").append("<input type='file' id='AdjuntarArchivos'>");
             $("#AdjuntarArchivos").kendoUpload(options);
+            if (folioLlegada != -1 && folioLlegada != 0 || (_esAlta=="-1" && folioAvisoLlegada!="-1")) {
+                BotonAlta();
+            } else {
+                BotonEdicion();
+            };
         };
 
     function CargaInicial() {
@@ -339,7 +344,6 @@
 
             $("#Editar").click(function (e) {
                 BotonEdicion();
-                $("#AdjuntarArchivos").data("kendoUpload").enable();
             });
 
             $("#Cancelar").click(function (e) {
@@ -515,10 +519,7 @@
                 upload: onUploadAdjuntarArchivos,
                 localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
             });
-
-           
-            $("#AdjuntarArchivos").data("kendoUpload").enable(false);
-            $("#Descripcion").attr('disabled', 'disabled');
+            //$("#Descripcion").attr('disabled', 'disabled');
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
     };
 
@@ -1134,6 +1135,7 @@
             }
 
             HabilitarObtenerDocumentosLlegadaMaterial();
+            applySecurityPolicy(false);
         };
         
         function deshabilitarControles() {

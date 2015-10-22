@@ -281,9 +281,9 @@
             padre.append("<input type='file' id='PackingList'>");
             $("#PackingList").kendoUpload(optionsf);
         }catch(e){}
-        //if ($("#TipoArchivo").data("kendoComboBox").value() == "") {
-        //    $("#files").data("kendoUpload").disable();
-        //}
+        if (folio != -1) {
+            $("#files").data("kendoUpload").disable();
+        }
     };
 
     //Es la carga inicial de las fechas  para el multilenguaje
@@ -614,7 +614,7 @@
                     upload: onUpload,
                     localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
                 });
-        //$("#files").data("kendoUpload").enable(false);
+        
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
@@ -922,8 +922,6 @@
 
                     $("#TramitarPermiso").attr('disabled', 'disabled');
                     $("#AutorizarPermiso").attr('disabled', 'disabled');
-
-
 
                     //Se carga el arreglo transportista
                     if (data.Transportista.length > 0) {
@@ -1453,7 +1451,7 @@
             };
     }
 
-            @section JavascriptDocumentReadyFunctions {
+    @section JavascriptDocumentReadyFunctions {
     //Your partial view document ready function
     CargaInicial();
 
