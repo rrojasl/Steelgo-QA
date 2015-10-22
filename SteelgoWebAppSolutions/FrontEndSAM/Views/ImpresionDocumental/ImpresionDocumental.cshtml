@@ -159,6 +159,7 @@
     };
 
     function CargarGridImpresionDocumental() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,

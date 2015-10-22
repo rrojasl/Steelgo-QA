@@ -105,6 +105,7 @@
     };
 
     function CargarGridSegmentos() {
+        removeGrid($("#gridSegmentos"));
         $("#gridSegmentos").kendoGrid({
             dataSource: {
                 schema: {
@@ -164,6 +165,7 @@
         });
     }
     function CargarGridMovimientosInventario() {
+        removeGrid($("#gridMovimientosInventario"));
         $("#gridMovimientosInventario").kendoGrid({
             dataSource: {
                 schema: {

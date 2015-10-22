@@ -329,7 +329,7 @@
             });
 
             //Add the language parameter to all url invoked by the <a> tag
-            $("a").click(function (event) {
+            $("a:not([data-login='password'])").click(function (event) {
                 redirectToLanguage(event,this);
             });
 

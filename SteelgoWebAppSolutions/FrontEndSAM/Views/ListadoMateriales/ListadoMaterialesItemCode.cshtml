@@ -578,6 +578,7 @@
     //Parametros: N/A
     //Return:     N/A
     function CargarGridItemCode() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 schema: {

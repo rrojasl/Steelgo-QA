@@ -326,7 +326,7 @@
     function CargarGridTubos(dataSource, columnas, detailInit) {
         if($("#gridTubos").data("kendoGrid"))
             $("#gridTubos").empty(); // destroy the Grid
-
+        removeGrid($("#gridTubos"));
         $("#gridTubos").kendoGrid({
             dataSource: dataSource,
             autoHeight: true,
@@ -354,7 +354,7 @@
     function CargarGridAccesorios(datasource, columnas, detailInit) {
         if ($("#gridAccesorios").data("kendoGrid"))
             $("#gridAccesorios").empty(); // destroy the Grid
-        
+        removeGrid($("#gridAccesorios"));
         $("#gridAccesorios").kendoGrid({
             dataSource: datasource,
             autoHeight: true,

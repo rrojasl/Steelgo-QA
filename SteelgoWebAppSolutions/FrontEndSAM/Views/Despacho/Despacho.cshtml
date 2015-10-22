@@ -220,6 +220,7 @@
         ObtenerDatosGrid();
     };
     function CargarGridDespacho() {
+        removeGrid($("#grid"));
         $("#grid").kendoGrid({
             dataSource: {
                 data: resultadoJson,
