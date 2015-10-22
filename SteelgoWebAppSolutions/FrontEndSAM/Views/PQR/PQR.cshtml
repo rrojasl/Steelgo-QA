@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "PQR";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/PQR/PQR.js"></script>
+
+<h2>PQR</h2>
+
+<div class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <div id="gridPQR">
+
+            </div>
+
+            <div>
+                <br />
+            </div>
+
+
+            <div id="windowPQR" style="display: none">
+
+                @Html.Partial("../EditaPQR/_EditaPQR")
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

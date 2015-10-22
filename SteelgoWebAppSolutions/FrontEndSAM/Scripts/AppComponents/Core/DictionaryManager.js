@@ -3889,65 +3889,8 @@ _dictionary = {
         "es-MX": "GrupoF",
         "en-US": "GroupF"
     },
+
     //EditaPQR
-
-    "lblEditaNombrePQR": {
-        "es-MX": "Nombre",
-        "en-US": "Name"
-    },
-
-    "lblEditraPQRPreheat": {
-        "es-MX": "Preheat",
-        "en-US": "Preheat"
-    },
-
-    "lblEditarPQREspesor": {
-        "es-MX": "Espesor",
-        "en-US": "---"
-    },
-
-
-    "lblEditarPQRProcesoSolddura": {
-        "es-MX": "Proceso Soldadura",
-        "en-US": "....."
-    },
-
-    "lblEditarPQRNumeroP": {
-        "es-MX": "NumeroP",
-        "en-US": "NumberP"
-    },
-
-    "lblEditarPQRGrupoP": {
-        "es-MX": "GrupoP",
-        "en-US": "GroupP"
-    },
-
-    "lblEditraPQRPwht": {
-        "es-MX": "pwht",
-        "en-US": "pwht"
-    },
-
-
-    "lblEditarPQRAporte": {
-        "es-MX": "Aporte",
-        "en-US": "Input"
-    },
-
-    "lblEditarPQRMezcla": {
-        "es-MX": "Mezcla",
-        "en-US": "Mix"
-    },
-
-    "lblEditarPQRRespaldo": {
-        "es-MX": "Respaldo",
-        "en-US": "Back"
-    },
-
-    "lblEditarPQRGrupoF": {
-        "es-MX": "GrupoF",
-        "en-US": "GroupF"
-    },
-
 
     "lblBotonEditarPQR": {
         "es-MX": " Guardar",
