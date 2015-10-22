@@ -22,8 +22,15 @@ namespace BackEndSAM.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
-        public object Get(string token, int id = 0, int mostrarOpcion = 0)
+        /// <summary>
+        /// Obtiene listado de coladas por proyecto
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="id"></param>
+        /// <param name="mostrarOpcion"></param>
+        /// <param name="proyectoID"></param>
+        /// <returns></returns>
+        public object Get(int proyectoID, string token, int id = 0, int mostrarOpcion = 0)
         {
             string payload = "";
             string newToken = "";
@@ -32,7 +39,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ColadaBd.Instance.ObtenerColadas(id, mostrarOpcion);
+                return ColadaBd.Instance.ObtenerColadasPorProyecto(id, mostrarOpcion, proyectoID);
             }
             else
             {
@@ -44,6 +51,68 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
+        /// <summary>
+        /// Listado de coladas por itemcode
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="id"></param>
+        /// <param name="mostrarOpcion"></param>
+        /// <param name="itemcodeID"></param>
+        /// <returns></returns>
+        public object Get(string itemcodeID, string token, int id = 0, int mostrarOpcion = 0)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                int temp = itemcodeID != null && itemcodeID != "" ? Convert.ToInt32(itemcodeID) : 0;
+                return ColadaBd.Instance.ObtenerColadasPorItemCode(id, mostrarOpcion, temp);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Listado de coladas por Familia de acero
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="id"></param>
+        /// <param name="mostrarOpcion"></param>
+        /// <param name="itemcodeID"></param>
+        /// <returns></returns>
+        public object Get(string token, int familiaAcerolID, int id = 0, int mostrarOpcion = 0)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return ColadaBd.Instance.ObtenerColadasPorFamiliAcero(id, mostrarOpcion, familiaAcerolID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
 
         // POST api/<controller>
         public object Post(string data, string token)

@@ -20,7 +20,7 @@ namespace BackEndSAM.Controllers
     public class ClienteController : ApiController
     {
         
-        public object Get(int patioID, string token)
+        public object Get(string token, int patioID = 0)
         {
             try
             {
