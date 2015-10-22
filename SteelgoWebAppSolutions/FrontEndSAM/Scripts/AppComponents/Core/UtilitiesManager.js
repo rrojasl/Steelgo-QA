@@ -92,7 +92,13 @@ function redirectToLanguage(event,link) {
 
 //Function to remove any grid
 function removeGrid(grid) {
+    var tmp = [];
+    try {
+        tmp = grid.data("kendoGrid").dataSource.data() || grid.data("kendoGrid").options.dataSource.data()
+    } catch (e) { }
     var contenedor = grid.parent();
     grid.remove();
-    contenedor.append("<div id='"+grid.attr("id")+"'></div>");
+    contenedor.append("<div id='" + grid.attr("id") + "'></div>");
+    console.log(tmp);
+    return tmp;
 }
