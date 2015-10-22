@@ -37,12 +37,12 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="DetalleAvisoLlegada0082"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow creacion"><span id="DetalleAvisoLlegada0017"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar" style="display: none"><span id="DetalleAvisoLlegada0082"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle creacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu creacion">
                                     <li><a href="#" id="GuardarNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
                                     @*<li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>*@
                                 </ul>
@@ -52,7 +52,7 @@
                             <div id="TramitarPermisoDiv" class="button-section enviarpermiso">
                                 <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                             </div>
-                            <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display">
+                            <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display:none">
                                 <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
                             </div>
 
@@ -185,9 +185,9 @@
 
     var $AvisoLLegadaModel = {
         listContainer: {
-            create: ".save-group",
+            create: ".creacion",
             list: ".actionButtonSection",
-            detail: ".editButtonSection",
+            detail: ".editar",
             destroy: ".cancelar",
             createIncidence: ".incidencia"
         },
@@ -281,9 +281,9 @@
             padre.append("<input type='file' id='PackingList'>");
             $("#PackingList").kendoUpload(optionsf);
         }catch(e){}
-        //if ($("#TipoArchivo").data("kendoComboBox").value() == "") {
-        //    $("#files").data("kendoUpload").disable();
-        //}
+        if (folio != -1) {
+            $("#files").data("kendoUpload").disable();
+        }
     };
 
     //Es la carga inicial de las fechas  para el multilenguaje
@@ -318,6 +318,7 @@
     };
 
     function validarRequeridosFormaAvisoLlegadaSubirArchivos() {
+        var bool = true;
         $("#formAvisoLlegada .security_required").each(function (i, elem) {
             if (elem.tagName.toLowerCase() != 'label') {
                 if (!$(this).val()) {
@@ -328,10 +329,9 @@
                 };
             };
         });
-
-        if (folio == "-1") {
-            bool = false;
-        };
+        //if (folio == "-1") {
+        //    bool = false;
+        //};
         return bool;
     };
     //Se valida si hay requeridos y se agrega la clase de error en la forma aviso de llegada
@@ -412,7 +412,6 @@
         $("#Editar").click(function (e) {
             BotonEdicion();
             ObtenerPatioRequierePermiso();
-            $("#files").data("kendoUpload").enable();
         });
 
         $("#Cancelar").click(function (e) {
@@ -615,7 +614,7 @@
                     upload: onUpload,
                     localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
                 });
-        //$("#files").data("kendoUpload").enable(false);
+        
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
@@ -655,6 +654,10 @@
                 if (!validarRequeridosFormaAvisoLlegadaSubirArchivos()) {
                     displayMessage("notificationslabel0079", "", '1');
                     e.preventDefault();
+                }
+                else
+                {
+                    GuardarAvisoLlegada(false)
                 };
 
                 $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
@@ -923,8 +926,6 @@
 
                     $("#TramitarPermiso").attr('disabled', 'disabled');
                     $("#AutorizarPermiso").attr('disabled', 'disabled');
-
-
 
                     //Se carga el arreglo transportista
                     if (data.Transportista.length > 0) {
@@ -1292,7 +1293,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-
+                applySecurityPolicy(false);
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
@@ -1356,7 +1357,7 @@
                         $("#TramitarPermiso").attr('disabled', 'disabled');
                         $("#AutorizarPermiso").attr('disabled', 'disabled');
                     };
-
+                    applySecurityPolicy(false);
                 });
             };
 
@@ -1454,7 +1455,7 @@
             };
     }
 
-            @section JavascriptDocumentReadyFunctions {
+    @section JavascriptDocumentReadyFunctions {
     //Your partial view document ready function
     CargaInicial();
 
@@ -1465,7 +1466,7 @@
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
-    applySecurityPolicy(true);
+    applySecurityPolicy(false);
 
     }
 

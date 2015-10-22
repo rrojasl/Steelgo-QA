@@ -516,6 +516,8 @@
                         Proyecto = {};
                         this.value("");
                     } 
+                    ObtenerColada("Colada", 0, 0);
+                    
                 },
                 filter: "contains",
             });
@@ -598,7 +600,7 @@
                 },
                 filter: "contains",
             });
-            ObtenerColada("Colada", 0,0);
+            //ObtenerColada("Colada", 0,0);
 
             $("#Cantidad").keydown(function (e) {
                 if (e.keyCode == 13) {
@@ -1097,51 +1099,61 @@
             var content = "";
             var window = $("#window");
             var height = "";
-
+            var mostrarVentana = false;
             switch (id) {
                 case 1:
                     modalTitle = "Item Code";
                     content = "@Url.Action("ItemCode", "PopUps")";
-                    height = "27%";
+                    height = "8%";
+                    if (validarRequeridosFormaCuantificacion()) {
+                        mostrarVentana = true;
+                    } else {
+                        displayMessage("notificationslabel0031", "", '1');
+                    }
                     break;
                 case 2:
                     modalTitle = "Item Code Steelgo";
                     content = "@Url.Action("ItemCodeSteelgo", "PopUps")";
                     height = "55%";
+                    mostrarVentana = true;
                     break;
                 case 3:
                     modalTitle = "Colada";
                     content = "@Url.Action("Colada", "PopUps")";
                     height = "30%";
+                    mostrarVentana = true;
                     break;
             };
 
-            window.kendoWindow({
-                actions: false,
-                content: content,
-                modal: true,
-                title: modalTitle,
-                resizable: true,
-                actions: ["Close"],
-                visible: false,
-                width: "32.6%",
-                minWidth: 660,
-                height: height,
-                iframe: true,
-                position: {
-                    top: "10%",
-                    left: "20%"
-                }
-            }).data("kendoWindow");
+            if (mostrarVentana)
+            {
+                window.kendoWindow({
+                    actions: false,
+                    content: content,
+                    modal: true,
+                    title: modalTitle,
+                    resizable: true,
+                    actions: ["Close"],
+                    visible: false,
+                    width: "32.6%",
+                    minWidth: 660,
+                    height: height,
+                    iframe: true,
+                    position: {
+                        top: "10%",
+                        left: "20%"
+                    }
+                }).data("kendoWindow");
 
-            //Se actualiza el tamaño
-            $("#window").data("kendoWindow").setOptions({
-                width: "32.6%",
-                height: height,
-            });
+                //Se actualiza el tamaño
+                $("#window").data("kendoWindow").setOptions({
+                    width: "32.6%",
+                    height: height,
+                });
 
-            window.data("kendoWindow").title(modalTitle);
-            window.data("kendoWindow").center().open();
+                window.data("kendoWindow").title(modalTitle);
+                window.data("kendoWindow").center().open();
+            }
         };
 
         function DeshabilitarControlesDetalleBulto() {
@@ -1222,9 +1234,13 @@
         };
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
-            $Colada.Colada.read({ token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
-                ControlErroresObjetosComboBox(id, result);
-            });
+            if (Proyecto.ProyectoID){
+                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
+                    ControlErroresObjetosComboBox(id, result);
+                });
+            } else {
+                $("#Colada").data("kendoComboBox").dataSource.data([]);
+            }
         };
 
         function ObtenerFamiliaItemCode() {
@@ -2380,12 +2396,13 @@
         function ColadaAutocomplete(container, options) {
             $('<input data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
-                .kendoComboBox({
+                .kendoAutoComplete({
                     autoBind: false,
+                    minLength: 3,
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLColada + "token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
+                            read: $URLColada + "itemcode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
                         },
                     },
                     select: function (e) {
@@ -2397,7 +2414,7 @@
                     },
                     change: function (e) {
                         var value = this.text();
-                        if (this.selectedIndex == -1) {
+                        if (!e.sender.current()) {
                             lastEditedCellIDSColada.Colada = "";
                         } else {
                             lastEditedCellIDSColada.Colada = value;

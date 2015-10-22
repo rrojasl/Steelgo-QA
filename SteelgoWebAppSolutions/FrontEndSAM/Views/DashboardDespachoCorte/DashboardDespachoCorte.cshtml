@@ -198,7 +198,7 @@
             CrearPeriodoTiempo();
             $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
             $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
-            //CrearUnidadMedida();
+            Filtros();
         };
         function changeDatePickerDateFormat(datePickerOptions) {
             FechaInicial.setOptions(datePickerOptions);
@@ -992,8 +992,10 @@
                     loadingStop();
                     if (tipomaterial == 1) {
                         $("#gridTubos").data("kendoGrid").dataSource.data([]);
+                        $("#gridTubos").data("kendoGrid").refresh();
                     } else {
                         $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
+                        $("#gridAccesorios").data("kendoGrid").refresh();
                     }
                     //PreDespachar(tipomaterial);
                     break;
