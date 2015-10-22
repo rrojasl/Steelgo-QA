@@ -318,61 +318,6 @@
             CantidadesDelMenuDashboardTubos();
             CantidadesDelMenuDashboardAccesorios();
 
-        
-            $("#menuAccesorios").kendoContextMenu({
-                target: "#gridAccesorios",
-                filter: "td",
-                select: function (e) {
-                    var grid = $("#gridAccesorios").data("kendoGrid");
-                    var select = grid.select();
-                    var data = grid.dataItem(select);
-
-                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaAccesorios") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
-                    };
-
-                    if (e.item.id == "LevantarIncidenciaPackingListAccesorios") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
-                    };
-
-                    if (e.item.id == "LevantarIncidenciaOrdenRecepcionAccesorios") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
-                    };
-
-                    if (e.item.id == "LevantarIncidenciaNumeroUnicoAccesorios") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
-                    };
-                    
-                }
-            });
-
-            
-            $("#menuTubos").kendoContextMenu({
-                target: "#gridTubos",
-                filter: "td",
-                select: function (e) {
-                    var grid = $("#gridTubos").data("kendoGrid");
-                    var select = grid.select();
-                    var data = grid.dataItem(select);
-
-                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaTubos") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
-                    };
-
-                    if (e.item.id == "LevantarIncidenciaPackingListTubos") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
-                    };
-
-                    if (e.item.id == "LevantarIncidenciaOrdenRecepcionTubos") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
-                    };
-
-                    if (e.item.id == "LevantarIncidenciaNumeroUnicoTubos") {
-                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
-                    };
-
-                }
-            });
         };
 
 
@@ -403,7 +348,32 @@
             });
 
             $("#gridTubos").data("kendoGrid").refresh();
+            $("#menuTubos").kendoContextMenu({
+                target: "#gridTubos",
+                filter: "td",
+                select: function (e) {
+                    var grid = $("#gridTubos").data("kendoGrid");
+                    var select = grid.select();
+                    var data = grid.dataItem(select);
 
+                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaPackingListTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaOrdenRecepcionTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaNumeroUnicoTubos") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+                    };
+
+                }
+            });
 
         };
         function CargarGridAccesorios(datasource, columnas) {
@@ -433,7 +403,32 @@
             });
             $("#gridAccesorios").data("kendoGrid").refresh();
 
-            
+            $("#menuAccesorios").kendoContextMenu({
+                target: "#gridAccesorios",
+                filter: "td",
+                select: function (e) {
+                    var grid = $("#gridAccesorios").data("kendoGrid");
+                    var select = grid.select();
+                    var data = grid.dataItem(select);
+
+                    if (e.item.id == "LevantarIncidenciaFolioAvisoEntradaAccesorios") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntrada + "&TipoIncidencia=1&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaPackingListAccesorios") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacionID + "&TipoIncidencia=4&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaOrdenRecepcionAccesorios") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.OrdenRecepcion + "&TipoIncidencia=5&Clasificacion=1");
+                    };
+
+                    if (e.item.id == "LevantarIncidenciaNumeroUnicoAccesorios") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+                    };
+
+                }
+            });
         };
         function cancelarFolio() {
 

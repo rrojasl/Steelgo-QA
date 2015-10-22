@@ -241,34 +241,7 @@
     }
 
     function cargaInicial() {
-        $("#menu").kendoContextMenu({
-            target: "#grid",
-            filter: "td",
-            select: function (e) {
-                var grid = $("#grid").data("kendoGrid");
-                var select = grid.select();
-                var data = grid.dataItem(select);
-                
-                if (e.item.id == "Incidencia") {
-                    window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
-                    return;
-                };
-
-                if (data.Colada != sinColadaPL) {
-                    rowselected = data;
-                    $("#EdicionColada").data("kendoComboBox").text(data.Colada);
-                    VentanaEdicionColada(3);
-                    e.preventDefault();
-                };
-            }
-        });
-
-        $("#grid").on("mousedown", "tr[role='row']", function (e) {
-            $('#grid').data("kendoGrid").select(e.target.parentElement);
-            $("#grid thead .k-state-selected> .k-link").css({
-                "color": "black"
-            });
-        });
+       
 
         //Botones
         $("#Editar").click(function (e) { BotonEdicion(); });
@@ -761,20 +734,34 @@
                 }
             });
 
-            //$("#grid tbody").on("mousedown", "td", function (e) {
-            //    var row = $(this).closest("tr");
-            //    var rowIdx = $("tr", $("#grid").data("kendoGrid").tbody).index(row);
-            //    var colIdx = $("td", row).index(this);
-            //    var valor = $("td", row)[10].innerHTML;
-               
-            //    if (colIdx == 10)
-            //    {
-            //        if (valor != "Sin Colada PL")
-            //        {
-            //            VentanaModal(1);
-            //        }
-            //    }
-            //});
+            $("#menu").kendoContextMenu({
+                target: "#grid",
+                filter: "td",
+                select: function (e) {
+                    var grid = $("#grid").data("kendoGrid");
+                    var select = grid.select();
+                    var data = grid.dataItem(select);
+
+                    if (e.item.id == "Incidencia") {
+                        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.NumeroUnicoID + "&TipoIncidencia=9&Clasificacion=1");
+                        return;
+                    };
+
+                    if (data.Colada != sinColadaPL) {
+                        rowselected = data;
+                        $("#EdicionColada").data("kendoComboBox").text(data.Colada);
+                        VentanaEdicionColada(3);
+                        e.preventDefault();
+                    };
+                }
+            });
+
+            $("#grid").on("mousedown", "tr[role='row']", function (e) {
+                $('#grid').data("kendoGrid").select(e.target.parentElement);
+                $("#grid thead .k-state-selected> .k-link").css({
+                    "color": "black"
+                });
+            });
         };
 
         function ObtenerProyecto(id) {

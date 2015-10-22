@@ -215,6 +215,25 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
+
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                var select = grid.select();
+                var data = grid.dataItem(select);
+
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntradaID + "&TipoIncidencia=2&Clasificacion=1");
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
+        });
     };
 
 
@@ -571,28 +590,6 @@
         ]);
     });
 
-
-
-
-
-    $("#menu").kendoContextMenu({
-        target: "#grid",
-        filter: "td",
-        select: function (e) {
-            var grid = $("#grid").data("kendoGrid");
-            var select = grid.select();
-            var data = grid.dataItem(select);
-
-            window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioAvisoEntradaID + "&TipoIncidencia=2&Clasificacion=1");
-        }
-    });
-
-    $("#grid").on("mousedown", "tr[role='row']", function (e) {
-        $('#grid').data("kendoGrid").select(e.target.parentElement);
-        $("#grid thead .k-state-selected> .k-link").css({
-            "color": "black"
-        });
-    });
 
     $("#btnPorLlegar").click(function () { tabActivo("1"); AccionesListado(1); });
     $("#btnPorDescargar").click(function () { tabActivo("2"); AccionesListado(2); });

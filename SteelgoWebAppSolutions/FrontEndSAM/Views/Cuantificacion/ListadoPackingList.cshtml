@@ -279,24 +279,6 @@
         ObtenerFechasporDefecto();
         Filtros();
 
-        $("#menu").kendoContextMenu({
-            target: "#grid",
-            filter: "td",
-            select: function (e) {
-                var grid = $("#grid").data("kendoGrid");
-                var select = grid.select();
-                var data = grid.dataItem(select);
-                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacion + "&TipoIncidencia=4&Clasificacion=1");
-
-            }
-        });
-
-        $("#grid").on("mousedown", "tr[role='row']", function (e) {
-            $('#grid').data("kendoGrid").select(e.target.parentElement);
-            $("#grid thead .k-state-selected> .k-link").css({
-                "color": "black"
-            });
-        });
 
     };
 
@@ -348,7 +330,26 @@
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
-        });
+         });
+
+         $("#menu").kendoContextMenu({
+             target: "#grid",
+             filter: "td",
+             select: function (e) {
+                 var grid = $("#grid").data("kendoGrid");
+                 var select = grid.select();
+                 var data = grid.dataItem(select);
+                 window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.FolioCuantificacion + "&TipoIncidencia=4&Clasificacion=1");
+
+             }
+         });
+
+         $("#grid").on("mousedown", "tr[role='row']", function (e) {
+             $('#grid').data("kendoGrid").select(e.target.parentElement);
+             $("#grid thead .k-state-selected> .k-link").css({
+                 "color": "black"
+             });
+         });
     };
 
 
