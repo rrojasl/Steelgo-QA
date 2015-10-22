@@ -217,7 +217,8 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     });
                 }
                 if ($(entityDefinition.listContainer["detail"]).is("button")) {
-                    $(entityDefinition.listContainer["detail"]).prop('disabled', true);
+                    //$(entityDefinition.listContainer["detail"]).prop('disabled', true);
+                    $(entityDefinition.listContainer["detail"]).css("display", "none");
                 }
                 else {
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
