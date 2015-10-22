@@ -69,8 +69,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                int temp = itemcodeID != null && itemcodeID != "" ? Convert.ToInt32(itemcodeID) : 0;
-                return ColadaBd.Instance.ObtenerColadasPorItemCode(id, mostrarOpcion, temp);
+                return ColadaBd.Instance.ObtenerColadasPorItemCode(id, mostrarOpcion, itemcodeID);
             }
             else
             {

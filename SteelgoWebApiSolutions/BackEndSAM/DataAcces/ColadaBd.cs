@@ -209,7 +209,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorItemCode(int id, int mostrarOpcion, int itemCodeID = 0)
+        public object ObtenerColadasPorItemCode(int id, int mostrarOpcion, string itemCodeID = "")
         {
             try
             {
@@ -223,7 +223,7 @@ namespace BackEndSAM.DataAcces
 
                     int familiaAceroId = (from it in ctx.Sam3_ItemCode
                                           where it.Activo
-                                          && it.ItemCodeID == itemCodeID
+                                          && it.Codigo == itemCodeID
                                           select it.FamiliaAceroID.Value).AsParallel().SingleOrDefault();
 
                     List<Coladas> coladas = new List<Coladas>();
