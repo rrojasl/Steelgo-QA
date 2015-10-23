@@ -678,9 +678,8 @@
                 $("#cedbtns").remove();
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
-                if(!$("#fconversion").val()){
-                    $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a download="TemplateCed.csv" href="#" id="templateced">Descargar plantilla</a></div>');
-                }
+                $("#cedbtns").remove();
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a download="TemplateCed.csv" href="#" id="templateced">Descargar plantilla</a></div>');
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
                     $("#fconversion").val(result);
                 });
@@ -769,16 +768,16 @@
                         }
                     }
                 });
-                removeGrid($("#grid"));
+                var tmp=removeGrid($("#grid"));
                 $("#grid").kendoGrid({
                     columns: [
-                        { field: "Diametro1", title:"Diametro" },
-                        { field: "CedulaA",title:"Cedula A" },
-                        { field: "CedulaB",title:"Cedula B" },
-                        { field: "CedulaC",title:"Cedula C" },
-                        { field: "CedulaIn",title:"Cedula In" },
-                        { field: "CedulaMM",title:"Cedula MM" },
-                        { field: "Espesor" },
+                        { field: "Diametro1", title:_dictionary.ListadoCatalogos0034[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaA",title:_dictionary.ListadoCatalogos0035[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaB",title:_dictionary.ListadoCatalogos0036[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaC",title:_dictionary.ListadoCatalogos0037[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaIn",title:_dictionary.ListadoCatalogos0038[$("#language").data("kendoDropDownList").value()] },
+                        { field: "CedulaMM",title:_dictionary.ListadoCatalogos0039[$("#language").data("kendoDropDownList").value()] },
+                        { field: "Espesor",title:_dictionary.ListadoCatalogos0040[$("#language").data("kendoDropDownList").value()]},
                     ],
                     dataSource: {
                         data: [],

@@ -926,6 +926,34 @@ _dictionary = {
         "es-MX": "Modelo",
         "en-US": "Model"
     },
+    "ListadoCatalogos0034": {
+        "es-MX": "Diametro",
+        "en-US": "Diameter"
+    },
+    "ListadoCatalogos0035": {
+        "es-MX": "Cedula A",
+        "en-US": "Chart A"
+    },
+    "ListadoCatalogos0036": {
+        "es-MX": "Cedula B",
+        "en-US": "Chart B"
+    },
+    "ListadoCatalogos0037": {
+        "es-MX": "Cedula C",
+        "en-US": "Chart C"
+    },
+    "ListadoCatalogos0038": {
+        "es-MX": "Cedula In",
+        "en-US": "Chart In"
+    },
+    "ListadoCatalogos0039": {
+        "es-MX": "Cedula MM",
+        "en-US": "Chart MM"
+    },
+    "ListadoCatalogos0040": {
+        "es-MX": "Espesor",
+        "en-US": "Thickness"
+    },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "IC Steelgo",
