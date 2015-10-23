@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 listado">
             <div class="row">
                 <div id="filterContainer" class="quick-filters col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="clearfix">
@@ -75,7 +75,7 @@
     var $ListadoIncidenciasModel = {
         listContainer: {
             create: ".button-section",
-            list: "#grid",
+            list: ".listado",
             detail: ".detailLink",
             destroy: ".k-grid-Cancelar"
         },
@@ -221,10 +221,16 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInicial").bind("change", function () {
+            if (!$("#FechaInicial").val()) {
+                $("#FechaInicial").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
+            if (!$("#FechaFinal").val()) {
+                $("#FechaFinal").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 

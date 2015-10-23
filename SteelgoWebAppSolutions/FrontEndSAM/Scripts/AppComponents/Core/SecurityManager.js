@@ -429,6 +429,8 @@ function validateCredentials() {
             Cookies.remove("LogOut", { path: '/' });
             //displayMessage("notificationslabel0005", "", '2');
             document.location.href = '/';
+        } else if (Cookies.get("navegacion") != null && Cookies.get("navegacion") != "1" && Cookies.get("token") == null) {
+            document.location.href = '/';
         }
     }
 }

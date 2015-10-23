@@ -458,6 +458,32 @@
                     filter: "contains",
                 });
 
+                $("#PatioID").kendoComboBox({
+                    dataTextField: "Nombre",
+                    dataValueField: "PatioID",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        if (dataItem.PatioID == 0) {
+                            VentanaModal(4);
+                            e.preventDefault();
+                        }
+                        CargarPatio(dataItem.PatioID, dataItem.Nombre);
+                    },
+                    change: function (e) {
+                        var value = this.value();
+                        if (!value || this.selectedIndex == -1) {
+                            Patio = [];
+                            Cliente = {};
+                            this.value("");
+                            $("#ClienteID").data("kendoComboBox").value("");
+                            $("#ClienteID").data("kendoComboBox").dataSource.data([]);
+                        } else {
+                            ObtenerCliente();
+                        }
+                    },
+                    filter: "contains",
+                });
+                ObtenerPatio();
 
                 $("#ClienteID").kendoComboBox({
                     dataTextField: "Nombre",
@@ -477,7 +503,7 @@
                     },
                     filter: "contains",
                 });
-                ObtenerCliente();
+                
 
 
 
@@ -539,27 +565,7 @@
                 });
                 ObtenerPlanas();
 
-                $("#PatioID").kendoComboBox({
-                    dataTextField: "Nombre",
-                    dataValueField: "PatioID",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        if (dataItem.PatioID == 0) {
-                            VentanaModal(4);
-                            e.preventDefault();
-                        }
-                        CargarPatio(dataItem.PatioID, dataItem.Nombre);
-                    },
-                    change: function (e) {
-                        var value = this.value();
-                        if (!value || this.selectedIndex == -1) {
-                            Patio = [];
-                            this.value("");
-                        };
-                    },
-                    filter: "contains",
-                });
-                ObtenerPatio();
+                
 
                 $("#ChoferID").kendoComboBox({
                     dataTextField: "Nombre",
@@ -1054,7 +1060,7 @@
                 _patio["Nombre"] = value;
                 Patio.push(_patio);
             };
-
+            
             function CargarProveedor(id, value) {
                 Proveedor = [];
                 _proveedor = {};
@@ -1319,8 +1325,7 @@
             };
 
             function ObtenerCliente() {
-                //ObtenerDatosControl("ClienteID");
-                $Cliente.Cliente.read({ token: Cookies.get("token") }).done(function (result) {
+                $Cliente.Cliente.read({ token: Cookies.get("token"), patioID: Patio[0].PatioID }).done(function (result) {
                     ControlErroresObjetosComboBox("ClienteID", result);
                 });
             };

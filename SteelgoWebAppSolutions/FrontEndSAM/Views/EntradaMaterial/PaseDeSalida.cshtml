@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div id="ListaIncidenciasDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div id="ListaIncidenciasDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3 actionButtonSection">
                             <table id="ListaIncidencias" class="filesTable">
                                 <thead>
                                     <tr>
@@ -312,7 +312,7 @@
                     batch: true
                 },
                 success: function (data) {
-                    ObtenerDocumentosPaseSalida();
+                    ChecarPaseSalidaEnviado();
                 },
                 error: function (data) { },
                 upload: onUploadArchivoPaseSalida,
@@ -326,7 +326,7 @@
                 console.log("$PaseSalida");
                 if (Error(result)) {
                     loadingStop();
-                    DesahabilitarControles();
+                    //DesahabilitarControles();
                     $("#GenerarPaseSalida").css("display", "none");
                     $("#ImprimirPaseSalida").css("display", "block");
                     DeshabilitarObtenerDocumentosPaseSalida();
@@ -465,7 +465,7 @@
             $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: Folio.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
                 if(Error(result)){
                     if (result) {
-                        DesahabilitarControles();
+                        //DesahabilitarControles();
                         $("#GenerarPaseSalida").css("display", "none");
                         $("#ImprimirPaseSalida").css("display", "block");
                         DeshabilitarObtenerDocumentosPaseSalida();

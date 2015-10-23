@@ -797,20 +797,33 @@
     .k-grid {
         overflow: hidden;
         overflow-x: auto;
-    }
+    }       
 
         .k-grid > table {
             table-layout: auto;
             margin-left: -1px;
         }
 
+        .k-grid .k-grid-footer {
+            border-top: none;
+        }
+
         .k-grid tbody tr td a.k-button {
             max-width: 100%;
         }
 
-        .k-grid tr:last-child td {
+        .k-grid tbody tr:last-child td {
             border-bottom: 1px solid #CCCCCC;
         }
+
+        .k-grid tbody tr.k-footer-template {
+            border: none;
+        }
+
+            .k-grid tbody tr.k-footer-template td {
+                border-bottom: none;
+                border-left: none;
+            }
 
     .k-grid-pager {
         border-top: none;
@@ -837,13 +850,19 @@
     }
 
         .k-grid .k-grouping-header + table .k-grid-header tr th.k-header,
+        .k-grid .k-grouping-header + .k-grid-header tr th.k-header,
+        .k-grid .k-grid-toolbar + .k-grouping-header,
         .k-grid .k-grid-toolbar + table .k-grid-header tr th.k-header,
         .k-grid .k-grid-toolbar + .k-grid-header {
             border-top: 1px solid #CCCCCC;
         }
 
-    .k-grid .k-grid-header > tr:first-child th {
+    /*.k-grid .k-grid-header > tr:first-child th {
         border-bottom: none;
+    }*/
+
+    .k-grid .k-grid-header > tr:last-child th {
+        border-bottom: 1px solid #CCCCCC;
     }
 
     .gridWithInputs.k-grid tbody tr.k-detail-row td.k-detail-cell table,
