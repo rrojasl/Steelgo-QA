@@ -213,6 +213,7 @@
     <Compile Include="Controllers\OrdenTrabajoSpoolController.cs" />
     <Compile Include="Controllers\PaseSalidaController.cs" />
     <Compile Include="Controllers\PickingTicketController.cs" />
+    <Compile Include="Controllers\PreDespachoController.cs" />
     <Compile Include="Controllers\ProyectosCuantificacionController.cs" />
     <Compile Include="Controllers\RevisionDeficitController.cs" />
     <Compile Include="Controllers\TipoAceroController.cs" />
@@ -314,6 +315,7 @@
     <Compile Include="DataAcces\OrdenTrabajoSpoolBd.cs" />
     <Compile Include="DataAcces\PaseSalidaBd.cs" />
     <Compile Include="DataAcces\PickingTicketBd.cs" />
+    <Compile Include="DataAcces\PreDespachoBd.cs" />
     <Compile Include="DataAcces\TipoAceroBd.cs" />
     <Compile Include="DataAcces\TipoArchivoBd.cs" />
     <Compile Include="DataAcces\TipoAvisoBd.cs" />
@@ -429,6 +431,7 @@
     <Compile Include="Models\LstDespacho.cs" />
     <Compile Include="Models\OrdenAlmacenaje.cs" />
     <Compile Include="Models\PaseSalidaJson.cs" />
+    <Compile Include="Models\PreDespacho.cs" />
     <Compile Include="Models\TipoArchivo.cs" />
     <Compile Include="Models\VehiculoJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
