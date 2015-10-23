@@ -169,7 +169,7 @@
 <input id="hdPermisoTramite" type="hidden" />
 <input id="hdPaseSalida" type="hidden" value="" />
 <input id="hdArchivoAutorizado" type="hidden" value="" />
-
+<input id="hdnNavegacion" type="hidden" value="" />
 <script>
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
@@ -532,7 +532,6 @@
                             VentanaModal(1);
                             e.preventDefault();
                         }
-                        ObtenerChofer(dataItem.TransportistaID);
                         CargarTransportista(dataItem.TransportistaID, dataItem.Nombre);
                     },
                     change: function (e) {
@@ -548,7 +547,8 @@
                             $("#Tracto").data("kendoComboBox").dataSource.data([]);
                             $("#PlanaID").data("kendoMultiSelect").value("");
                             $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
-                        }else{
+                        } else {
+                            ObtenerChofer($("#TransportistaID").data("kendoComboBox").value());
                             ObtenerCamionEntradaMaterial();
                             ObtenerPlanas();
                         };
@@ -1211,21 +1211,6 @@
                 });
             };
 
-            function esFecha(date) {
-                var ExpRegDate = "";
-                if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-                    ExpRegDate = "/^(3[01]|0?[1-9]|[12]d)/(0?[1-9]|1[012])/d{4}/";
-                } else {
-                    ExpRegDate = "/^(0?[1-9]|1[012])/(3[01]|0?[1-9]|[12]d)/d{4}*$/";
-                }
-
-                var res = true;
-                if (!ExpRegDate.test(date)) {
-                    res = false;
-                }
-                return res;
-            };
-
             function ObtenerFechaDefault() {
                 var today = new Date();
                 var curr_date = today.getDate();
@@ -1321,7 +1306,7 @@
                     };
                 });
             };
-
+            
             function ObtenerChofer(transportistaID) {
 
                 if (transportistaID == 0) {
@@ -1329,7 +1314,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-                applySecurityPolicy(false);
+               
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
@@ -1343,7 +1328,7 @@
                         Chofer = [];
                         $("#ChoferID").data("kendoComboBox").dataSource.data([]);
                     };
-
+                    applySecurityPolicy(false);
                 });
             };
 
@@ -1471,6 +1456,10 @@
                 window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + folio + "&TipoIncidencia=1&Clasificacion=1");
             };
 
+            function ActualizarCookie() {
+                Cookies.set("navegacion", $("#hdnNavegacion").val(), { path: '/' });
+            };
+
             function Error(data) {
                 if (data.ReturnCode) {
                     if (data.ReturnCode != 200) {
@@ -1497,7 +1486,7 @@
     if (folio != -1) {
         CargaInicialEdicion(folio);
     }
-
+    $("#hdnNavegacion").val(Cookies.get("navegacion"));
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
