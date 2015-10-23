@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<Plana> ObtenerListadoPlanas(Sam3_Usuario usuario)
+        public List<Plana> ObtenerListadoPlanas(Sam3_Usuario usuario, int transportistaID)
         {
             List<Plana> results = new List<Plana>();
             using (SamContext ctx = new SamContext())
@@ -50,7 +50,9 @@ namespace BackEndSAM.DataAcces
 
                 List<Plana> encontrados = (from p in ctx.Sam3_Vehiculo
                                            join t in ctx.Sam3_TipoVehiculo on p.TipoVehiculoID equals t.TipoVehiculoID
+                                           join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on p.VehiculoID equals rvt.VehiculoID
                                            where p.Activo && t.Nombre == "Plana"
+                                           && rvt.TransportistaID == transportistaID
                                            select new Plana
                                            {
                                                PlanaID = p.VehiculoID.ToString(),

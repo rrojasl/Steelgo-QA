@@ -19,14 +19,14 @@ namespace BackEndSAM.Controllers
     public class TractoController : ApiController
     {
 
-        public object Get(string esAvisoEntrada, string token)
+        public object Get(int transportistaID, string esAvisoEntrada, string token)
         {
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return TractoBd.Instance.ObtenerListadoTractos(esAvisoEntrada);
+                return TractoBd.Instance.ObtenerListadoTractos(esAvisoEntrada, transportistaID);
             }
             else
             {

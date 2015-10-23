@@ -314,6 +314,9 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_FolioPickingTicket" Width="1.5" PointX="11.25" PointY="18" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Entr__Folio__0C5BC11B" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoM__05AEC38C" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_PreDespacho" Width="1.5" PointX="22.5" PointY="24.125" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_PreD__Numer__19B5BC39" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_PreD__Proye__1AA9E072" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

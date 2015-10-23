@@ -11,7 +11,7 @@ namespace BackEndSAM.DataAcces
 {
     public class PreDespachoBd
     {
-         private static readonly object _mutex = new object();
+        private static readonly object _mutex = new object();
         private static PreDespachoBd _instance;
 
         /// <summary>
@@ -39,6 +39,12 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        /// <summary>
+        /// Funcion para obtener los datos del grid de pre despacho
+        /// </summary>
+        /// <param name="spoolID"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
         public object ObtenerGridPreDespacho(int spoolID, Sam3_Usuario usuario)
         {
             try
@@ -80,19 +86,18 @@ namespace BackEndSAM.DataAcces
                                                          SpoolID = ots.OrdenTrabajoSpoolID,
                                                          Spool = ots.NumeroControl,
                                                          Descripcion = ic.DescripcionEspanol,
-                                                         NumeroUnico = nu.Codigo, //Aplicar formato
+                                                         //NumeroUnico = nu.Codigo,
                                                          NumerosUnicos = (from numu in ctx2.NumeroUnico
                                                                           join nui in ctx2.NumeroUnicoInventario on numu.NumeroUnicoID equals nui.NumeroUnicoID
                                                                           where numu.ItemCodeID == ic.ItemCodeID
-                                                                          //&& nu.Diametro1 == ic.Diametro1 
+                                                                              //&& nu.Diametro1 == ic.Diametro1 
                                                                           && nui.InventarioDisponibleCruce > 0
-                                                                          select new NumerosUnicos 
+                                                                          select new NumerosUnicos
                                                                           {
                                                                               NumeroUnicoID = numu.NumeroUnicoID.ToString(),
-                                                                              NumeroUnico = numu.Codigo //Aplicar Formato
+                                                                              NumeroUnico = numu.Codigo 
                                                                           }).ToList()
-                                                     }).AsParallel().GroupBy(x=> x.SpoolID).Select(x=> x.First()).ToList();
-
+                                                     }).AsParallel().GroupBy(x => x.SpoolID).Select(x => x.First()).ToList();
 
                         //foreach (var nu in listado)
                         //{
@@ -127,6 +132,67 @@ namespace BackEndSAM.DataAcces
                         }
 
                         return listado.OrderBy(x => x.Spool).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para el boton Predespachar 
+        /// Pantalla pre despacho
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object Predespachar(List<DatosPredespacho> lista, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        Sam3_PreDespacho preDespacho = new Sam3_PreDespacho();
+
+                        foreach (DatosPredespacho item in lista)
+                        {
+                           
+                            preDespacho.Activo = true;
+                            preDespacho.FechaModificacion = DateTime.Now;
+                            preDespacho.FechaPreDespacho = DateTime.Now;
+                            preDespacho.UsuarioModificacion = usuario.UsuarioID;
+                            preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
+                            preDespacho.OrdenTrabajoSpoolID = Convert.ToInt32(item.NumeroControl);
+                            preDespacho.NumeroUnicoID = Convert.ToInt32(item.NumeroUnico);
+                            preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
+                                                           join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
+                                                           where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
+                                                           select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
+
+                            ctx.Sam3_PreDespacho.Add(preDespacho);
+                            ctx.SaveChanges();
+                        }
+
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add(preDespacho.PreDespachoID.ToString());
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+
+                        return result;
                     }
                 }
             }

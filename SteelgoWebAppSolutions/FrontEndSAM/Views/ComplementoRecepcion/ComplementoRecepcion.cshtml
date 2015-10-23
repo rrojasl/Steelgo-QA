@@ -147,7 +147,7 @@
 <div id="window">
 
 </div>
-
+<input id="hdnNavegacion" type="hidden" value="" />
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -1374,6 +1374,10 @@
             window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value());
         };
 
+        function ActualizarCookie() {
+            Cookies.set("navegacion", $("#hdnNavegacion").val(), { path: '/' });
+        };
+
         function ErrorBool(data) {
             if (data.ReturnCode) {
                 if (data.ReturnCode != 200) {
@@ -1598,7 +1602,7 @@
     if (_edicion != "-1") {
         cargaInicialEdicion();
     };
-
+    $("#hdnNavegacion").val(Cookies.get("navegacion"));
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
     }
 
