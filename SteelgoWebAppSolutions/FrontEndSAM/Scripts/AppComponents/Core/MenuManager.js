@@ -97,6 +97,8 @@ function menuManagerToBeExecutedOnDocumentReady() {
 
         if ($(this).children("ul.sub-menu2").is(':empty')) {
             $("li.shortcut").removeClass("open");
+            $(this).removeClass("expand");
+
         }
     });
 
