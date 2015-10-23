@@ -16,13 +16,13 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section">
                             <button type="button" class="btn btn-primary" id="solucionar"><span id="RevisionDeficit0006"></span></button>
-                            <button type="button" class="btn" id="cancelar"><span id="RevisionDeficit0007"></span></button>
+                            <button type="button" class="btn btn-black" id="cancelar"><span id="RevisionDeficit0007"></span></button>
                         </div>
                         <div class="button-section"></div>
                         <div class="btn-group">
-                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn"><span id="RevisionDeficit0008"></span></button>
-                            <button id="dropdown-toggle" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="caretWhite"></span>
+                            <button id="acciones" onclick="javascript:void(0);" type="button" class="btn btn-default"><span id="RevisionDeficit0008"></span></button>
+                            <button id="dropdown-toggle" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caretBlue"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a id="revNot" href="@Url.Action("NotificacionDeficit", "Materiales")"><span id="RevisionDeficit0009"></span></a></li>
@@ -31,18 +31,32 @@
                     </div>
                 </div>
             </div>
-            <div class="form clearfix">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
-                            <label for="ordtrabajo" id="RevisionDeficit0005"></label>
-                            <input id="ordtrabajo" type="text" />
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-11">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                                    <label for="ordtrabajo" id="RevisionDeficit0005"></label>
+                                    <input id="ordtrabajo" type="text" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="gridIC"></div>
-            <div id="gridSp" style="margin-top:20px"></div>
+            <div class="row">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="gridIC"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="gridSp"></div>
+                </div>
+            </div>            
         </div>
     </div>
 </div>
@@ -64,12 +78,12 @@
         $("#gridIC").kendoGrid({
             columns:[
                 {field:"ItemCode"},
-                {field:"Diametro1",title:"Diametro 1"},
-                {field:"Diametro2",title:"Diametro 2"},
-                {field:"Descripcion"},
-                {field:"Cantidad"},
-                {field:"Deficit"},
-                {field:"PorCubrir",title:"Por Cubrir"},
+                {field:"Diametro1",title:_dictionary.RevisionDeficit0011[$("#language").data("kendoDropDownList").value()]},
+                {field:"Diametro2",title:_dictionary.RevisionDeficit0012[$("#language").data("kendoDropDownList").value()]},
+                {field:"Descripcion",title:_dictionary.RevisionDeficit0013[$("#language").data("kendoDropDownList").value()]},
+                {field:"Cantidad",title:_dictionary.RevisionDeficit0014[$("#language").data("kendoDropDownList").value()]},
+                {field:"Deficit",title:_dictionary.RevisionDeficit0015[$("#language").data("kendoDropDownList").value()]},
+                {field:"PorCubrir",title:_dictionary.RevisionDeficit0016[$("#language").data("kendoDropDownList").value()]},
                 { command: "destroy", title: "Borrar", width: "91px" }
             ],
             dataSource:{
@@ -147,8 +161,8 @@
                 { template: '<input type="checkbox" class="sub" >', width: 45 },
                 {field:"SpoolID"},
                 {field:"Spool"},
-                {field:"Prioridad"},
-                {field:"Peso"},
+                {field:"Prioridad",title:_dictionary.RevisionDeficit0017[$("#language").data("kendoDropDownList").value()]},
+                {field:"Peso",title:_dictionary.RevisionDeficit0018[$("#language").data("kendoDropDownList").value()]},
                 {field:"Peqs"},
             ],
             dataSource:{

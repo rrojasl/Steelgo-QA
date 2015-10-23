@@ -143,11 +143,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="addedSection clearfix">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div id="grid" class="action"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid" class="action"></div>
-        </div>        
+                
         <ul id="menu" >
             <li id="NuevoItemCode"><span id="Cuantificacion0089"></span></li>
             <li id="Detallar"><span id="Cuantificacion0087"></span></li>
@@ -853,7 +859,7 @@
                 },
                 autoHeight: true,
                 sortable: true,
-                scrollable: false,
+                scrollable: true,
                 filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
                 pageable: false,
                 groupable: true,
@@ -874,21 +880,21 @@
                 ],
                 navigatable: true,
                 columns: [
-                    { field: "ItemCode", title: _dictionary.Cuantificacion0028[$("#language").data("kendoDropDownList").value()], editor: itemCodeAutocomplete, filterable: true, width: 120 },
-                    { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "Descripcion", title: _dictionary.Cuantificacion0029[$("#language").data("kendoDropDownList").value()], filterable: true, aggregates: ["count"], footerTemplate: "Total Count: #=count#", groupFooterTemplate: "Count: #=count#" },
-                    { field: "D1", title: _dictionary.Cuantificacion0030[$("#language").data("kendoDropDownList").value()], filterable: true, width: 80 },
-                    { field: "D2", title: _dictionary.Cuantificacion0031[$("#language").data("kendoDropDownList").value()], filterable: true, width: 80 },
-                    { field: "ItemCodeSteelgo", title: _dictionary.Cuantificacion0032[$("#language").data("kendoDropDownList").value()], editor: itemCodeSteelgoAutocomplete, filterable: true },
-                    { field: "Familia", title: _dictionary.Cuantificacion0033[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Cedula", title: _dictionary.Cuantificacion0034[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "TipoAcero", title: _dictionary.Cuantificacion0035[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Colada", title: _dictionary.Cuantificacion0036[$("#language").data("kendoDropDownList").value()], editor: ColadaAutocomplete, filterable: true },
-                    { field: "Cantidad", title: _dictionary.Cuantificacion0037[$("#language").data("kendoDropDownList").value()], filterable: true, aggregates: ["sum"], footerTemplate: "Total SUM: #=sum#", groupFooterTemplate: "SUM: #=sum#" },
-                    { field: "MM", title: _dictionary.Cuantificacion0038[$("#language").data("kendoDropDownList").value()], filterable: true, width:80},
-                    { field: "Detallar", title: _dictionary.Cuantificacion0039[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "TieneNU", title: _dictionary.Cuantificacion0040[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "ItemCode", title: _dictionary.Cuantificacion0028[$("#language").data("kendoDropDownList").value()], editor: itemCodeAutocomplete, filterable: true, width: "120px" },
+                    { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true, width: "120px" },
+                    { field: "Descripcion", title: _dictionary.Cuantificacion0029[$("#language").data("kendoDropDownList").value()], filterable: true, aggregates: ["count"], footerTemplate: "Total Count: #=count#", groupFooterTemplate: "Count: #=count#", width: "150px" },
+                    { field: "D1", title: _dictionary.Cuantificacion0030[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
+                    { field: "D2", title: _dictionary.Cuantificacion0031[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
+                    { field: "ItemCodeSteelgo", title: _dictionary.Cuantificacion0032[$("#language").data("kendoDropDownList").value()], editor: itemCodeSteelgoAutocomplete, filterable: true, width: "180px" },
+                    { field: "Familia", title: _dictionary.Cuantificacion0033[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "Cedula", title: _dictionary.Cuantificacion0034[$("#language").data("kendoDropDownList").value()], filterable: true, width: "110px" },
+                    { field: "TipoAcero", title: _dictionary.Cuantificacion0035[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
+                    { field: "Colada", title: _dictionary.Cuantificacion0036[$("#language").data("kendoDropDownList").value()], editor: ColadaAutocomplete, filterable: true, width: "110px" },
+                    { field: "Cantidad", title: _dictionary.Cuantificacion0037[$("#language").data("kendoDropDownList").value()], filterable: true, aggregates: ["sum"], footerTemplate: "Total SUM: #=sum#", groupFooterTemplate: "SUM: #=sum#", width: "120px" },
+                    { field: "MM", title: _dictionary.Cuantificacion0038[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px"},
+                    { field: "Detallar", title: _dictionary.Cuantificacion0039[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
+                    { field: "TieneNU", title: _dictionary.Cuantificacion0040[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
+                    { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true, width: "120px" },
                     { command: { text: _dictionary.Cuantificacion0043[$("#language").data("kendoDropDownList").value()], click: CancelarInformacionItem }, title: " ", width: "99px" }
                 ]
             });

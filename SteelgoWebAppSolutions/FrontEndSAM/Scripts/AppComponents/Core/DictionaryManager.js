@@ -870,6 +870,63 @@ _dictionary = {
         "es-MX": "Las filas en color amarillo muestran conflictos con las filas color rojo, corrige el archivo CSV e inténtalo nuevamente",
         "en-US": "The yellow  rows shows conflicts with the red rows, correct the CSV file and try it again"
     },
+    "ListadoCatalogos0020": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "ListadoCatalogos0021": {
+        "es-MX": "Propietario",
+        "en-US": "Owner"
+    },
+    "ListadoCatalogos0022": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "ListadoCatalogos0023": {
+        "es-MX": "Requiere permiso aduana",
+        "en-US": "Require customs permission"
+    },
+    "ListadoCatalogos0024": {
+        "es-MX": "Nombre Transportista",
+        "en-US": "Carrier Name"
+    },
+    "ListadoCatalogos0025": {
+        "es-MX": "Contacto",
+        "en-US": "Contact"
+    },
+    "ListadoCatalogos0026": {
+        "es-MX": "Dirección",
+        "en-US": "Address"
+    },
+    "ListadoCatalogos0027": {
+        "es-MX": "Teléfono",
+        "en-US": "Phone"
+    },
+    "ListadoCatalogos0028": {
+        "es-MX": "Placas",
+        "en-US": "Plates"
+    },
+    "ListadoCatalogos0029": {
+        "es-MX": "Tarjeta de circulación",
+        "en-US": "Circulation card"
+    },
+    "ListadoCatalogos0030": {
+        "es-MX": "Póliza de seguro",
+        "en-US": "Insurance Policy"
+    },
+    "ListadoCatalogos0031": {
+        "es-MX": "Nombre Chofer",
+        "en-US": "Driver Name"
+    },
+    "ListadoCatalogos0032": {
+        "es-MX": "Unidad",
+        "en-US": "Unit"
+    },
+    "ListadoCatalogos0033":{
+        "es-MX": "Modelo",
+        "en-US": "Model"
+    },
+    //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "IC Steelgo",
         "en-US": "IC Steelgo"
@@ -1091,10 +1148,42 @@ _dictionary = {
     "RevisionDeficit0009": {
         "es-MX": "Ir a listado",
         "en-US": "Go to list"
-    },//"No hay deficit en la orden de trabajo espeficicada"
+    },
     "RevisionDeficit0010": {
         "es-MX": "No hay deficit en la orden de trabajo espeficicada",
         "en-US": "There is no deficit in the specified work order"
+    },
+    "RevisionDeficit0011": {
+        "es-MX": "Diametro 1",
+        "en-US": "Diameter 1"
+    },
+    "RevisionDeficit0012": {
+        "es-MX": "Diametro 2",
+        "en-US": "Diameter 2"
+    },
+    "RevisionDeficit0013": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "RevisionDeficit0014": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "RevisionDeficit0015": {
+        "es-MX": "Déficit",
+        "en-US": "Deficit"
+    },
+    "RevisionDeficit0016": {
+        "es-MX": "Por Cubrir",
+        "en-US": "To Cover"
+    },
+    "RevisionDeficit0017": {
+        "es-MX": "Prioridad",
+        "en-US": "Priority"
+    },
+    "RevisionDeficit0018": {
+        "es-MX": "Peso",
+        "en-US": "Weight"
     },
     //Búsqueda
     "Busqueda0001": {
