@@ -670,6 +670,7 @@
                 $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
             };
 
+
             function GuardarAvisoLlegada(bool) {
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
@@ -1350,7 +1351,7 @@
             };
 
             function ObtenerCliente() {
-                $Cliente.Cliente.read({ token: Cookies.get("token"), patioID:0 /*Patio[0].PatioID*/ }).done(function (result) {
+                $Cliente.Cliente.read({ token: Cookies.get("token"), patioID:Patio[0].PatioID }).done(function (result) {
                     ControlErroresObjetosComboBox("ClienteID", result);
                 });
             };
