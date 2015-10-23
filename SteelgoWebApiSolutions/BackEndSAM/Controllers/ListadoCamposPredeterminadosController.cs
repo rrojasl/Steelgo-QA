@@ -89,6 +89,35 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+        /// <summary>
+        /// Retorna el valor del campo predeterminado tomando en consideración el identificador del mismo y el lenguaje
+        /// </summary>
+        /// <param name="token">token</param>
+        /// <param name="lenguaje">lenguaje</param>
+        /// <param name="id">identificador del campo predeterminado</param>
+        /// <returns></returns>
+        public object ObtieneFecha(string token, string lenguaje, int id)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
+                return ListadoCamposPredeterminadosBd.Instance.ObtenerValorCampoPredeterminado(lenguaje, id);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }

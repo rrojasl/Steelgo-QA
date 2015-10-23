@@ -3,9 +3,7 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.DataAcces
 {
@@ -42,9 +40,9 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<SSP_sam3_Obrero_Result> result = ctx.SSP_sam3_Obrero(1, 0, 0,0,"","").ToList();
+                    List<Sam3_Cat_Obrero_Result> result = ctx.Sam3_Cat_Obrero(1, 0, 0,0,"","").ToList();
 
-                    foreach (SSP_sam3_Obrero_Result elem in result)
+                    foreach (Sam3_Cat_Obrero_Result elem in result)
                     {
                         obrero.Add(new Obrero
                         {
@@ -79,9 +77,9 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<SSP_sam3_Obrero_Result> result = ctx.SSP_sam3_Obrero(5, 0, 0,int.Parse( TipoObreroID), "", "").ToList();
+                    List<Sam3_Cat_Obrero_Result> result = ctx.Sam3_Cat_Obrero(5, 0, 0,int.Parse( TipoObreroID), "", "").ToList();
 
-                    foreach (SSP_sam3_Obrero_Result elem in result)
+                    foreach (Sam3_Cat_Obrero_Result elem in result)
                     {
                         obrero.Add(new Obrero
                         {
@@ -112,7 +110,36 @@ namespace BackEndSAM.DataAcces
             }
 
         }
-
+        /// <summary>
+        /// Obtiene Obrero por proyecto y tipo de obrero
+        /// </summary>
+        /// <param name="idProyecto">identficador del proyecto</param>
+        /// <param name="tipo">1: Retorna todos los obreros activos en todos los Patios, 
+        ///                    2: Retorna todos los obreros de un tipo en particular,
+        ///                    3: Retorna todos los obreros de un patio en particular por el proyecto y por fecha,
+        ///                    4: Retorna todos los obreros de un tipo y un patio en particular por el proyecto y por fechas</param>
+        /// <param name="TipoObrero">Tipo de obrero en base al campo TipoObrero de la tabla Sam3_TipoObrero</param>
+        /// <returns>listado de obreros</returns>
+        public object ObtenerObrero(int idProyecto, int tipo, string TipoObrero)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_Obrero_Result> lista = ctx.Sam3_Steelgo_Get_Obrero(tipo, TipoObrero, idProyecto).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
         public object InsertarObrero(Sam3_Obrero Obrero, Sam3_Usuario usuario)
         {
             try
@@ -120,7 +147,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.SSP_sam3_Obrero(2, 0, usuario.UsuarioID, Obrero.TipoObreroID, Obrero.Codigo, Obrero.NumeroEmpleado);
+                    ctx.Sam3_Cat_Obrero(2, 0, usuario.UsuarioID, Obrero.TipoObreroID, Obrero.Codigo, Obrero.NumeroEmpleado);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -149,7 +176,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_Obrero(4, ObreroID, usuario.UsuarioID,null,null,null);
+                    ctx.Sam3_Cat_Obrero(4, ObreroID, usuario.UsuarioID,null,null,null);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -178,7 +205,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_Obrero(3, Obrero.ObreroID, usuario.UsuarioID, Obrero.TipoObreroID, Obrero.Codigo, Obrero.NumeroEmpleado);
+                    ctx.Sam3_Cat_Obrero(3, Obrero.ObreroID, usuario.UsuarioID, Obrero.TipoObreroID, Obrero.Codigo, Obrero.NumeroEmpleado);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -200,6 +227,7 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+        
 
     }
 }
