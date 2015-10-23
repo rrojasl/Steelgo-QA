@@ -82,8 +82,6 @@ namespace BackEndSAM.DataAcces
 
                     int patioID = filtros.PatioID != "" ? Convert.ToInt32(filtros.PatioID) : 0;
                     int clienteID = filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
-                    int folioLlegadaID = filtros.FolioAvisoEntradaID != null ? Convert.ToInt32(filtros.FolioAvisoEntradaID) : 0;
-                    int folioAvisoLlegadaID = filtros.FolioAvisoLlegadaID != null ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
 
                     List<Sam3_Rel_Usuario_Proyecto> lst = ctx.Sam3_Rel_Usuario_Proyecto.AsParallel().ToList();
 
@@ -101,57 +99,24 @@ namespace BackEndSAM.DataAcces
                     //----------------------------------------------------------------------------------------------------------------------
                     //Creados
                     // Filtrado por fechas, patios y proyectos del usuario
-                    if (folioLlegadaID <= 0 && folioAvisoLlegadaID <= 0)
-                    {
-                        registrosBd = (from r in ctx.Sam3_FolioAvisoLlegada
-                                       join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                       where r.Activo == true && p.Activo
-                                       && patios.Contains(r.PatioID)
-                                       && proyectos.Contains(p.ProyectoID)
-                                       && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
-                                       select r).AsParallel().ToList();
-                    }
 
-                    if (folioLlegadaID > 0 && folioAvisoLlegadaID <= 0)
-                    {
-                        registrosBd = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                       join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                       join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                       where fe.Activo && fa.Activo && p.Activo
-                                       && fe.FolioAvisoEntradaID == folioLlegadaID
-                                       && patios.Contains(fa.PatioID)
-                                       && proyectos.Contains(p.ProyectoID)
-                                       && (fa.FechaRecepcion >= fechaInicial && fa.FechaRecepcion <= fechaFinal)
-                                       select fa).AsParallel().ToList();
-                    }
+                    registrosBd = (from r in ctx.Sam3_FolioAvisoLlegada
+                                   join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                   where r.Activo == true && p.Activo
+                                   && patios.Contains(r.PatioID)
+                                   && proyectos.Contains(p.ProyectoID)
+                                   && r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal
+                                   select r).AsParallel().ToList();
 
-                    if (folioAvisoLlegadaID > 0 && folioLlegadaID <= 0)
-                    {
-                        registrosBd = (from r in ctx.Sam3_FolioAvisoLlegada
-                                       join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                       where r.Activo == true && p.Activo
-                                       && r.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                       && patios.Contains(r.PatioID)
-                                       && proyectos.Contains(p.ProyectoID)
-                                       && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
-                                       select r).AsParallel().ToList();
-                    }
+                    registrosBd.AddRange((from r in ctx.Sam3_FolioAvisoLlegada
+                                          where r.Activo
+                                          && !(from rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
+                                               where rfp.Activo
+                                               select rfp.FolioAvisoLlegadaID).Contains(r.FolioAvisoLlegadaID)
+                                               && (r.FechaRecepcion >= fechaInicial && r.FechaRecepcion <= fechaFinal)
+                                          select r).AsParallel().Distinct().ToList());
 
-                    if (folioLlegadaID > 0 && folioAvisoLlegadaID > 0)
-                    {
-                        registrosBd = (from fe in ctx.Sam3_FolioAvisoEntrada
-                                       join fa in ctx.Sam3_FolioAvisoLlegada on fe.FolioAvisoLlegadaID equals fa.FolioAvisoLlegadaID
-                                       join p in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on fa.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                       where fe.Activo && fa.Activo && p.Activo
-                                       && fe.FolioAvisoEntradaID == folioLlegadaID
-                                       && fa.FolioAvisoLlegadaID == folioAvisoLlegadaID
-                                       && patios.Contains(fa.PatioID)
-                                       && proyectos.Contains(p.ProyectoID)
-                                       && (fa.FechaRecepcion >= fechaInicial && fa.FechaRecepcion <= fechaFinal)
-                                       select fa).AsParallel().ToList();
-                    }
-
-
+                    
                     if (patioID > 0)
                     {
                         registrosBd = registrosBd.Where(x => x.PatioID == patioID).ToList();
