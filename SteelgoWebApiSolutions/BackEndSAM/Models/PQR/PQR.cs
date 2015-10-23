@@ -15,9 +15,8 @@ namespace BackEndSAM.Models
         public string Nombre { get; set; }
         public bool PREHEAT { get; set; }
         public bool PWHT { get; set; }
-        public string Espesor { get; set; }
-        public string ProcesoSoldaduraID { get; set; }
-        public string ProcesoSoldadura { get; set; }
+        public string Espesor { get; set; }      
+        public string Codigo { get; set; }
         public string NumeroP { get; set; }
         public string GrupoP { get; set; }
         public string Aporte { get; set; }
@@ -33,7 +32,7 @@ namespace BackEndSAM.Models
 
         //ProcesoSoldadura
 
-        public string Codigo { get; set; }
+        public int ProcesoSoldaduraID { get; set; }
 
         //Grupop
 
@@ -51,5 +50,9 @@ namespace BackEndSAM.Models
         //GrupoF
 
         public int GrupoFID { get; set; }
+
+
+
+
     }
 }

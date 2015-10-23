@@ -340,7 +340,7 @@ namespace BackEndSAM.Controllers
 
 
         //Edita PQR Seleccionado
-        public object Put(int PQRID, string Nombre, bool PREHEAT, bool PWHT, decimal Espesor, int ProcesoSoldadura, int NumeroP, int GrupoP, int Aporte, int Mezcla, int Respaldo, int GrupoF, string token)
+        public object Put(Sam3_PQR PQRModal, string token)
         {
             try
             {
@@ -353,7 +353,7 @@ namespace BackEndSAM.Controllers
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                     int IdUsuario = Usuario.UsuarioID;
                     int TipoDeDato = 3;
-                    return PQRBd.Instance.ActualizaPQR(TipoDeDato, PQRID, Nombre, PREHEAT, PWHT, Espesor, ProcesoSoldadura, NumeroP, GrupoP, Aporte, Mezcla, Respaldo, GrupoF, IdUsuario);
+                    return PQRBd.Instance.ActualizaPQR(TipoDeDato, PQRModal, IdUsuario);
                     // return new object();
                 }
                 else
