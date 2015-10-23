@@ -20,4 +20,12 @@ namespace BackEndSAM.Models
             NumerosUnicos = new List<NumerosUnicos>();
         }
     }
+
+    public class DatosPredespacho
+    {
+        public string NumeroControl { get; set; }
+        public string ItemCode { get; set; }
+        public string NumeroUnico { get; set; }
+        public string ProyectoID { get; set; }
+    }
 }

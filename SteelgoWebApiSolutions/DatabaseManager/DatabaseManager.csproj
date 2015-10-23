@@ -1118,6 +1118,9 @@
     <Compile Include="Sam3\Sam3_PinturaNumeroUnico.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_PreDespacho.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Preferencia.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>

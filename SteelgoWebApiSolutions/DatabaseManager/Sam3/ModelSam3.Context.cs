@@ -155,5 +155,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_Entrega> Sam3_Entrega { get; set; }
         public virtual DbSet<Sam3_FolioImpresionDocumental> Sam3_FolioImpresionDocumental { get; set; }
         public virtual DbSet<Sam3_FolioPickingTicket> Sam3_FolioPickingTicket { get; set; }
+        public virtual DbSet<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
     }
 }
