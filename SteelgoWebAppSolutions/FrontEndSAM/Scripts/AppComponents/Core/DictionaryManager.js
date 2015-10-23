@@ -5317,6 +5317,10 @@ _dictionary = {
         "es-MX": "Los siguientes item codes no se pueden guardar, favor de validar los campos requeridos: ",
         "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
     },
+    "notificationslabel0082": {
+        "es-MX": "Favor de ingresar una fecha valida.",
+        "en-US": "Please enter a valid date."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
