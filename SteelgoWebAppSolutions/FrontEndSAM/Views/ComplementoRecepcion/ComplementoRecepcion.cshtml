@@ -30,14 +30,14 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section ">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="ComplementoRecepcion0004"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="ComplementoRecepcion0033"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow creacion"><span id="ComplementoRecepcion0004"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar" style="display: none"><span id="ComplementoRecepcion0033"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle creacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu creacion">
                                     <li><a id="TerminaryNuevo" href="#"><span id="ComplementoRecepcion0005"></span></a></li>
                                 </ul>
                             </div>
@@ -195,10 +195,10 @@
 
     var $ComplementoRecepcionModel = {
         listContainer: {
-            create: ".nextStepButtonSection",
-            list: ".actionButtonSection",
-            detail: ".editButtonSection",
-            destroy: ""
+            create: ".creacion",
+            list: "#grid",
+            detail: ".editar",
+            destroy: ".k-grid-Cancelar"
         },
         properties: {
             proyecto: {

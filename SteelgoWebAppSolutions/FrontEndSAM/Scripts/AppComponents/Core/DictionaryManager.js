@@ -926,6 +926,34 @@ _dictionary = {
         "es-MX": "Modelo",
         "en-US": "Model"
     },
+    "ListadoCatalogos0034": {
+        "es-MX": "Diametro",
+        "en-US": "Diameter"
+    },
+    "ListadoCatalogos0035": {
+        "es-MX": "Cedula A",
+        "en-US": "Chart A"
+    },
+    "ListadoCatalogos0036": {
+        "es-MX": "Cedula B",
+        "en-US": "Chart B"
+    },
+    "ListadoCatalogos0037": {
+        "es-MX": "Cedula C",
+        "en-US": "Chart C"
+    },
+    "ListadoCatalogos0038": {
+        "es-MX": "Cedula In",
+        "en-US": "Chart In"
+    },
+    "ListadoCatalogos0039": {
+        "es-MX": "Cedula MM",
+        "en-US": "Chart MM"
+    },
+    "ListadoCatalogos0040": {
+        "es-MX": "Espesor",
+        "en-US": "Thickness"
+    },
     //CatálogosICS
     "ItemCodeSteelGo0001": {
         "es-MX": "IC Steelgo",
@@ -4965,8 +4993,8 @@ _dictionary = {
         "en-US": "Please, select a folio"
     },
     "notificationslabel0008": {
-        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
-        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
+        "es-MX": "Mensaje de error: ",
+        "en-US": "Error messsage:"
     },
     "notificationslabel0009": {
         "es-MX": "Mensaje de error: ",
@@ -5255,6 +5283,10 @@ _dictionary = {
     "notificationslabel0080": {
         "es-MX": "El folio cuenta con pase de salida",
         "en-US": "The folio has Pass Out"
+    },
+    "notificationslabel0081": {
+        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
+        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
     },
     //Default to copy
     "label9999": {
