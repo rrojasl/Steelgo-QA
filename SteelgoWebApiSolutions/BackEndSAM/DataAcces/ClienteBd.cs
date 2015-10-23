@@ -80,7 +80,7 @@ namespace BackEndSAM.DataAcces
                                        {
                                            Nombre = r.Nombre,
                                            ClienteID = r.ClienteID.ToString()
-                                       }).AsParallel().ToList();
+                                       }).AsParallel().Distinct().ToList();
                         }
                         else
                         {
@@ -89,8 +89,10 @@ namespace BackEndSAM.DataAcces
                                        {
                                            Nombre = r.Nombre,
                                            ClienteID = r.ClienteID.ToString()
-                                       }).AsParallel().ToList();
+                                       }).AsParallel().Distinct().ToList();
                         }
+
+                        cliente = cliente.GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
 
                         return cliente;
                     }
