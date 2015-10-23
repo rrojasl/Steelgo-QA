@@ -5257,7 +5257,7 @@ _dictionary = {
         "en-US": "The folio has Pass Out"
     },
     "notificationslabel0081": {
-        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
+        "es-MX": "Los siguientes item codes no se pueden guardar, favor de validar los campos requeridos: ",
         "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
     },
     //Default to copy

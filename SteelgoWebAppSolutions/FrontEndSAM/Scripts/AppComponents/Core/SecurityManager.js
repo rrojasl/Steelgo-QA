@@ -200,6 +200,7 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
         if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
             if (entityCreationPermission == false) {
                 $(entityDefinition.listContainer["create"]).css("display", "none");
+                $(".k-grid-add").addClass("k-state-disabled").removeClass("k-grid-add");
             }
         }
 
