@@ -4241,6 +4241,97 @@ _dictionary = {
         "es-MX": "ProyectoID",
         "en-US": "ProyectoID"
     },
+    //PreDespacho
+    "Predespacho0001": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    "Predespacho0002": {
+        "es-MX": "Pre-Despacho",
+        "en-US": "Pre-Dispatch"
+    },
+    "Predespacho0003": {
+        "es-MX": "Pre-Despachar",
+        "en-US": "Pre-Dispatch"
+    },
+    "Predespacho0004": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "Predespacho0005": {
+        "es-MX": "Acciones",
+        "en-US": "Actions"
+    },
+    "Predespacho0006": {
+        "es-MX": "Ir a Listado",
+        "en-US": "Go to List Input"
+    },
+    "Predespacho0007": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0008": {
+        "es-MX": "Proyecto",
+        "en-US": "Proyect"
+    },
+    "Predespacho0009": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "Predespacho0010": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "Predespacho0011": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "Predespacho0012": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
+    "Predespacho0013": {
+        "es-MX": "Número de control",
+        "en-US": "Control number"
+    },
+    "Predespacho0014": {
+        "es-MX": "Item Code",
+        "en-US": "Item Code"
+    },
+    "Predespacho0015": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "Predespacho0016": {
+        "es-MX": "Número único",
+        "en-US": "Unique number"
+    },
+    "Predespacho0017": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0018": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0019": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0020": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0021": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+    "Predespacho0022": {
+        "es-MX": "Levantar Incidencia",
+        "en-US": "Fill Incidence"
+    },
+
+
     //Corte
     "Corte0001": {
         "es-MX": "Inicio",
