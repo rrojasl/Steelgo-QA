@@ -12,11 +12,13 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class sam3_ProcesoSoldadura
+    public partial class Sam3_ProcesoSoldadura
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public sam3_ProcesoSoldadura()
+        public Sam3_ProcesoSoldadura()
         {
+            this.Sam3_JuntaSoldadura = new HashSet<Sam3_JuntaSoldadura>();
+            this.Sam3_JuntaSoldadura1 = new HashSet<Sam3_JuntaSoldadura>();
             this.Sam3_PQR = new HashSet<Sam3_PQR>();
         }
     
@@ -28,6 +30,10 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldadura> Sam3_JuntaSoldadura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldadura> Sam3_JuntaSoldadura1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_PQR> Sam3_PQR { get; set; }
     }

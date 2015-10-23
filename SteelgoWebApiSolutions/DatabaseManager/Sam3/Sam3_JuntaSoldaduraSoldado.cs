@@ -12,19 +12,19 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_JuntaArmadoTrabajoAdicional
+    public partial class Sam3_JuntaSoldaduraSoldado
     {
-        public int ArmadoTrabajoAdicionalID { get; set; }
-        public int JuntaArmadoID { get; set; }
-        public int TrabajoAdicionalID { get; set; }
+        public int JuntaSoldaduraSoldadoID { get; set; }
+        public int JuntaSoldaduraID { get; set; }
         public int ObreroID { get; set; }
-        public string Observacion { get; set; }
+        public int ColadaSoldaduraID { get; set; }
+        public int TipoSoldaduraID { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public System.DateTime FechaModificacion { get; set; }
     
-        public virtual Sam3_JuntaArmado Sam3_JuntaArmado { get; set; }
+        public virtual Sam3_JuntaSoldadura Sam3_JuntaSoldadura { get; set; }
         public virtual Sam3_Obrero Sam3_Obrero { get; set; }
-        public virtual Sam3_TrabajoAdicional Sam3_TrabajoAdicional { get; set; }
+        public virtual Sam3_TipoSoldadura Sam3_TipoSoldadura { get; set; }
     }
 }

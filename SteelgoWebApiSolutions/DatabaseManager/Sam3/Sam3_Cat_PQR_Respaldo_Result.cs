@@ -11,14 +11,9 @@ namespace DatabaseManager.Sam3
 {
     using System;
     
-    public partial class Sam3_Armado_Get_DetallaTrabajoAdicional_Result
+    public partial class Sam3_Cat_PQR_Respaldo_Result
     {
-        public int ArmadoTrabajoAdicionalID { get; set; }
-        public int JuntaArmadoID { get; set; }
-        public int TrabajoAdicionalID { get; set; }
-        public string TrabajoAdicional { get; set; }
-        public int ObreroID { get; set; }
-        public string Tubero { get; set; }
-        public string Observacion { get; set; }
+        public int RespaldoID { get; set; }
+        public string Respaldo { get; set; }
     }
 }

@@ -12,29 +12,32 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_TrabajoAdicional
+    public partial class Sam3_JuntaSoldadura
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sam3_TrabajoAdicional()
+        public Sam3_JuntaSoldadura()
         {
-            this.Sam3_JuntaArmadoTrabajoAdicional = new HashSet<Sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaSoldaduraSoldado = new HashSet<Sam3_JuntaSoldaduraSoldado>();
             this.Sam3_JuntaSoldaduraTrabajoAdicional = new HashSet<Sam3_JuntaSoldaduraTrabajoAdicional>();
         }
     
-        public int TrabajoAdicionalID { get; set; }
-        public int TipoTrabajoAdicionalID { get; set; }
-        public string NombreCorto { get; set; }
-        public string NombreExtendido { get; set; }
-        public string CuentaContable { get; set; }
-        public string SignoInformativo { get; set; }
-        public Nullable<bool> Activo { get; set; }
-        public Nullable<int> UsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int JuntaSoldaduraID { get; set; }
+        public int JuntaTrabajoID { get; set; }
+        public int ProcesoSoldaduraRaizID { get; set; }
+        public int ProcesoSoldaduraRellenoID { get; set; }
+        public int TallerID { get; set; }
+        public bool Activo { get; set; }
+        public Nullable<System.DateTime> FechaSoldadura { get; set; }
+        public Nullable<System.DateTime> FechaReporte { get; set; }
+        public int UsuarioModificacion { get; set; }
+        public System.DateTime FechaModificacion { get; set; }
     
+        public virtual Sam3_JuntaTrabajo Sam3_JuntaTrabajo { get; set; }
+        public virtual Sam3_ProcesoSoldadura Sam3_ProcesoSoldadura { get; set; }
+        public virtual Sam3_ProcesoSoldadura Sam3_ProcesoSoldadura1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual ICollection<Sam3_JuntaSoldaduraSoldado> Sam3_JuntaSoldaduraSoldado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_JuntaSoldaduraTrabajoAdicional> Sam3_JuntaSoldaduraTrabajoAdicional { get; set; }
-        public virtual Sam3_TipoTrabajoAdicional Sam3_TipoTrabajoAdicional { get; set; }
     }
 }

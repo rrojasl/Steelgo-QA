@@ -11,20 +11,17 @@ namespace DatabaseManager.Sam3
 {
     using System;
     
-    public partial class Sam3_Armado_ObtieneDetalleCaptura_Result
+    public partial class Sam3_Soldadura_Get_DetalleJunta_Result
     {
-        public string SpoolID { get; set; }
-        public string Junta { get; set; }
+        public int JuntaSpoolID { get; set; }
+        public string Etiqueta { get; set; }
         public string TipoJunta { get; set; }
-        public string Diametro { get; set; }
         public string Cedula { get; set; }
-        public string FechaArmado { get; set; }
-        public string Tubero { get; set; }
-        public string Taller { get; set; }
         public string Localizacion { get; set; }
-        public string FamiliaAcero { get; set; }
-        public string NumeroUnico1 { get; set; }
-        public string NumeroUnico2 { get; set; }
-        public string Adicionales { get; set; }
+        public Nullable<System.DateTime> FechaSoldadura { get; set; }
+        public Nullable<int> JuntaSoldaduraID { get; set; }
+        public string SoldadoresRaiz { get; set; }
+        public string SoldadoresRelleno { get; set; }
+        public string TabajosAdicionales { get; set; }
     }
 }

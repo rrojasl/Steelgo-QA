@@ -12,27 +12,26 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_JuntaArmado
+    public partial class Sam3_JuntaTrabajo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sam3_JuntaArmado()
+        public Sam3_JuntaTrabajo()
         {
-            this.Sam3_JuntaArmadoTrabajoAdicional = new HashSet<Sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaSoldadura = new HashSet<Sam3_JuntaSoldadura>();
         }
     
-        public int JuntaArmadoID { get; set; }
         public int JuntaTrabajoID { get; set; }
-        public int NumeroUnico1ID { get; set; }
-        public int NumeroUnico2ID { get; set; }
-        public int TallerID { get; set; }
-        public int ObreroID { get; set; }
-        public System.DateTime FechaArmado { get; set; }
-        public System.DateTime FechaReporte { get; set; }
-        public int Activo { get; set; }
-        public int UsuarioModificacion { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public int JuntaTrabajoAnteriorID { get; set; }
+        public int TipoJuntaID { get; set; }
+        public string EtiquetaJunta { get; set; }
+        public int EtiquetaMaterial1 { get; set; }
+        public int EtiquetaMaterial2 { get; set; }
+        public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
         public System.DateTime FechaModificacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual ICollection<Sam3_JuntaSoldadura> Sam3_JuntaSoldadura { get; set; }
     }
 }

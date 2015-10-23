@@ -11,7 +11,7 @@ namespace DatabaseManager.Sam3
 {
     using System;
     
-    public partial class Sam3_Armado_Get_DetalleJuntaArmado_Result
+    public partial class Sam3_Armado_Get_DetalleJunta_Result
     {
         public int JuntaSpoolID { get; set; }
         public string Etiqueta { get; set; }
