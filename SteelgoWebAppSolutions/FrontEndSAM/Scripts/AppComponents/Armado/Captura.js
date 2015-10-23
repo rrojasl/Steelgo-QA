@@ -3,7 +3,7 @@ var endRangeDate;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
-
+var ItemSeleccionado;
 IniciarCapturaArmado();
 
 function IniciarCapturaArmado() {
@@ -185,7 +185,6 @@ function ArregloListadoCaptura() {
 function CargarGridArmado() {
     $("#grid").kendoGrid({
         autoBind: true,
-        autoSync: true,
         edit: function (e) {
             var input = e.container.find(".k-input");
             var value = input.val();
@@ -208,9 +207,15 @@ function CargarGridArmado() {
 
 
         },
-        change: function () {
-            var dataItem = this.dataSource.view()[this.select().index()];
-            alert('ok');
+        //change: function (e) {
+        //    var dataItem = this.dataSource.view()[this.select().index()];
+        //    alert('ok');
+        //},
+        change: function() {
+           
+             ItemSeleccionado = this.dataSource.view()[this.select().index()];
+            
+           
         },
         dataSource: {
             // batch: true,
@@ -253,6 +258,7 @@ function CargarGridArmado() {
         autoHeight: true,
         sortable: true,
         scrollable: false,
+        selectable: true,
         pageable: {
             refresh: false,
             pageSizes: [10, 15, 20],

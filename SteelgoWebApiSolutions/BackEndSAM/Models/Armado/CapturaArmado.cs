@@ -73,11 +73,15 @@ namespace BackEndSAM.Models.Armado
         public string NumeroUnico1 { get; set; }
         public string NumeroUnico2 { get; set; }
         public string TemplateMensajeTrabajosAdicionales { get; set; }
-        public List<DetalleTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
         public List<NumeroUnico> ListaNumerosUnicos1 { get; set; }
         public List<NumeroUnico> ListaNumerosUnicos2 { get; set; }
         public string SinCaptura { get; set; }
+        public List<DetalleTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
+
+        public List<TrabajosAdicionalesXJunta> listadoTrabajosAdicionalesXJunta { get; set; }
     }
+
+   
 
     public class Taller
     {
@@ -110,8 +114,13 @@ namespace BackEndSAM.Models.Armado
         public int ObreroID { get; set; }
         public string Tubero { get; set; }
         public string Observacion { get; set; }
+    }
 
-        public List<DetalleTrabajoAdicional> ListaOpcionesTrabajoAdicional { get; set; }
+    public class TrabajosAdicionalesXJunta
+    {
+        public int TrabajoAdicionalID { get; set; }
+        public string NombreCorto { get; set; }
+        public string SignoInformativo { get; set; } //para saber si 
     }
 
     public class Captura
@@ -142,5 +151,6 @@ namespace BackEndSAM.Models.Armado
         public string NumeroUnico1 { get; set; }
         public string NumeroUnico2 { get; set; }
         public string SinCaptura { get; set; }
+        public List<DetalleTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
     }
 }

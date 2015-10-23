@@ -302,7 +302,30 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             }
         }
 
+        public object listaTrabajosAdicionalesXJunta(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_TrabajoAdicional_Result> lista = ctx.Sam3_Steelgo_Get_TrabajoAdicional("Armado").ToList();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
+
+
+        
 
     }
 }

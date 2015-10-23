@@ -963,3 +963,11 @@ body.loading {
     body.loading .modal {
         display: block;
     }
+
+.MTrabajoAdicionalMas {
+    color:#FF0000;
+}
+
+.MTrabajoAdicionalMenos {
+    color:#0000FF;
+}

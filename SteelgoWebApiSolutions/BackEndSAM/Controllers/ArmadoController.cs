@@ -130,6 +130,10 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
+
+       
+
         public object Get(string JsonCaptura, string token)
         {
             string payload = "";
@@ -152,12 +156,16 @@ namespace BackEndSAM.Controllers
 
                 List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)CapturaArmadoBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario);
 
-                List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional);
+               
+                List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
 
                 List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
 
                 List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2);
 
+                List<Sam3_Steelgo_Get_TrabajoAdicional_Result> listaTrabajoAdicionalXJunta = (List<Sam3_Steelgo_Get_TrabajoAdicional_Result>)CapturaArmadoBD.Instance.listaTrabajosAdicionalesXJunta(usuario);
+
+                List<TrabajosAdicionalesXJunta> listaDetalleAdicionalXJuntaConvertida = listaTrabajoAdicionalXJunta.ConvertAll(new Converter<Sam3_Steelgo_Get_TrabajoAdicional_Result, TrabajosAdicionalesXJunta>(DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta));
 
 
                 foreach (Sam3_Armado_Get_DetalleJunta_Result item in detalle)
@@ -186,11 +194,13 @@ namespace BackEndSAM.Controllers
                         NumeroUnico1 = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].Clave : "") : item.NumeroUnico1ID.ToString(),
                         NumeroUnico2 = item.NumeroUnico2ID == null ? (listNumeroUnico2.Count == 1 ? listNumeroUnico2[0].Clave : "") : item.NumeroUnico2ID.ToString(),
                         TemplateMensajeTrabajosAdicionales = item.TabajosAdicionales,
-                        ListaDetalleTrabajoAdicional = listDetalleTrabajoAdicional,
                         ListaNumerosUnicos1 = listNumeroUnico1,
                         ListaNumerosUnicos2 = listNumeroUnico2,
                         ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)CapturaArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
-                        ListaTubero = ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)CapturaArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, capturaDatosJson.IDProyecto, 4))
+                        ListaTubero = ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)CapturaArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, capturaDatosJson.IDProyecto, 4)),
+                        ListaDetalleTrabajoAdicional = listDetalleTrabajoAdicional,
+                        listadoTrabajosAdicionalesXJunta = listaDetalleAdicionalXJuntaConvertida
+
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }
@@ -261,33 +271,42 @@ namespace BackEndSAM.Controllers
             return numerosUnicos;
         }
 
-        public static DetalleTrabajoAdicional DetalleTrabajoAdicionalResultToDetalleTrabajoAdicional(Sam3_Armado_Get_DetalleTrabajoAdicional_Result trabajoAdicional)
+        public static TrabajosAdicionalesXJunta DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta(Sam3_Steelgo_Get_TrabajoAdicional_Result trabajoAdicionalXjunta)
         {
-            return new DetalleTrabajoAdicional { ArmadoTrabajoAdicionalID = trabajoAdicional.ArmadoTrabajoAdicionalID, JuntaArmadoID = trabajoAdicional.JuntaArmadoID, ObreroID = trabajoAdicional.ObreroID, Observacion = trabajoAdicional.Observacion, TrabajoAdicional = trabajoAdicional.TrabajoAdicional, TrabajoAdicionalID = trabajoAdicional.TrabajoAdicionalID, Tubero = trabajoAdicional.Tubero };
+            return new TrabajosAdicionalesXJunta
+            {
+                NombreCorto = trabajoAdicionalXjunta.NombreCorto,
+                SignoInformativo = trabajoAdicionalXjunta.SignoInformativo,
+                TrabajoAdicionalID = trabajoAdicionalXjunta.TrabajoAdicionalID
+            };
         }
 
-        public List<DetalleTrabajoAdicional> GenerarDetalleAdicionalJson(List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaTrabajoAdicional)
+
+        public List<DetalleTrabajoAdicional> GenerarDetalleAdicionalJson(List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaTrabajoAdicional, Sam3_Usuario usuario)
         {
 
-            List<DetalleTrabajoAdicional> listaDetalleAdicionalConvertida = listaTrabajoAdicional.ConvertAll(new Converter<Sam3_Armado_Get_DetalleTrabajoAdicional_Result, DetalleTrabajoAdicional>(DetalleTrabajoAdicionalResultToDetalleTrabajoAdicional));
+          
 
             List<DetalleTrabajoAdicional> listaDetalleAdicional = new List<DetalleTrabajoAdicional>();
 
-            foreach (Sam3_Armado_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
-            {
-                DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
+            //se agrega una plantilla en caso de no tener nada.
+            
+                //
+                foreach (Sam3_Armado_Get_DetalleTrabajoAdicional_Result item in listaTrabajoAdicional)
                 {
-                    Observacion = item.Observacion,
-                    ArmadoTrabajoAdicionalID = item.ArmadoTrabajoAdicionalID,
-                    JuntaArmadoID = item.JuntaArmadoID,
-                    ObreroID = item.ObreroID,
-                    TrabajoAdicional = item.TrabajoAdicional,
-                    TrabajoAdicionalID = item.TrabajoAdicionalID,
-                    Tubero = item.Tubero,
-                    ListaOpcionesTrabajoAdicional = listaDetalleAdicionalConvertida
-                };
-                listaDetalleAdicional.Add(detalleAdicional);
-            }
+                    DetalleTrabajoAdicional detalleAdicional = new DetalleTrabajoAdicional
+                    {
+                        Observacion = item.Observacion,
+                        ArmadoTrabajoAdicionalID = item.ArmadoTrabajoAdicionalID,
+                        JuntaArmadoID = item.JuntaArmadoID,
+                        ObreroID = item.ObreroID,
+                        TrabajoAdicional = item.TrabajoAdicional,
+                        TrabajoAdicionalID = item.TrabajoAdicionalID,
+                        Tubero = item.Tubero
+                    };
+                    listaDetalleAdicional.Add(detalleAdicional);
+                }
+            
             return listaDetalleAdicional;
         }
         public object Get(string ordenTrabajo, string id, string sinCaptura, string token)

@@ -143,54 +143,32 @@ function RenderGridDetalle(container, options) {
     $('<div id=' + options.model.SpoolID + '' + options.model.Junta + '/>')
   .appendTo(container)
   .kendoGrid({
-      autoSync: true,
+     
       dataSource: {
           // batch: true,
           data: options.model.ListaDetalleTrabajoAdicional,
           schema: {
               model: {
                   fields: {
-
-                      ArmadoTrabajoAdicionalID: { type: "string", editable: true },
-                      JuntaArmadoID: { type: "string", editable: true },
-                      TrabajoAdicionalID: { type: "string", editable: true },
-                      TrabajoAdicional: { type: "string", editable: true },
-                      ObreroID: { type: "string", editable: true },
-                      Tubero: { type: "string", editable: true },
-                      Observacion: { type: "string", editable: true }
+                       TrabajoAdicional: { type: "string", editable: true },
+                       Observacion: { type: "string", editable: true }
                   }
               }
           }
       },
+      selectable: true,
       edit: function (e) {
           var input = e.container.find(".k-input");
           var value = input.val();
-          // alert("entra grid adicional" + options.model.DetalleAdicional.length);
           actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
-
-          // if(anteriorlongitudTrabajosAdicionales<actuallongitudTrabajosAdicionales)
-          options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
-
-
-          //input.keyup(function () {
-          //    value = input.val();
-          //});
-          //input.blur(function () {
-          //    //$("#log").html(input.attr('name') + " blurred : " + value);
-          //    //var a = new Date();
-          //    //a = value;
-          //    //var day = a.getDay();
-          //    //alert(day);
-          //    // alert(value);
-          //    alert("blur");
-          //    alert("sale" + e.model.DetalleAdicional.length);
-          //    actuallongitudTrabajosAdicionales = e.model.DetalleAdicional.length;
-          //});
-
-
+          options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
+          
+          input.blur(function (e) {
+           //   alert("blur");
+          });
       },
       columns: [
-          { field: "TrabajoAdicional", title: 'Trabajo', editor: RenderComboBoxTrabajoAdicional, filterable: true, width: "100px" },
+        { field: "TrabajoAdicional", title: 'Trabajo', editor: RenderComboBoxTrabajoAdicional, filterable: true, width: "100px" },
         { field: "Observacion", title: 'Observacion', filterable: true, width: "100px" },
        {
            command: [{
@@ -211,9 +189,11 @@ function RenderGridDetalle(container, options) {
                    }
                }
            }], width: "60px"
-       }],
+       }
+      ],
       editable: true,
-      toolbar: ["create"]
+      navigatable: true,
+      toolbar: [{ text: "add", name: "create", iconClass: "k-icon k-add" }]
   });
 
     $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource.sync();
@@ -223,35 +203,48 @@ function RenderGridDetalle(container, options) {
 
 function RenderComboBoxTrabajoAdicional(container, options) {
     //container  contiene las propiedades de la celda
-    //options contiene el modelo del datasource ejemplo options.model.Junta
-    var dataItem;
-    var textAnterior;
-    $('<input required data-text-field="TrabajoAdicional" data-value-field="ArmadoTrabajoAdicionalID" data-bind="value:' + options.field + '"/>')
+    //options contiene el modelo del datasource ejemplo options.model.Junta 
+
+    $('<input required data-text-field="NombreCorto" id=' + options.model.uid + ' data-value-field="NombreCorto" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.ListaOpcionesTrabajoAdicional,
-            template: "<i class=\"fa fa-#=data.TrabajoAdicional#\"></i> #=data.TrabajoAdicional#",
+            dataSource: ItemSeleccionado.listadoTrabajosAdicionalesXJunta,
+            template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
             select: function (e) {
-                //dataItem = this.dataItem(e.item.index());
-                //options.model.NumeroUnico1 = String(dataItem.Clave);
-                //textAnterior = e.sender._prev;
-            }
-            ,
-            change: function (e) {
-                //options.model.NumeroUnico1 = String(dataItem.Clave)
-
-                //AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
-                //$("#grid").data("kendoGrid").dataSource.sync();
-                // alert(e);
-                //e.select = true;
-                //var value = this.value();
-                //$("#InputID").val(e.)
-                ////if (!value) {
-                ////    Proveedor = {};
-                ////};
-                //alert('evento change ID con el status' + value);
-                // $("#InputID").data("kendoComboBox").select(1)
-            }
+                dataItem = this.dataItem(e.item.index());
+                options.model.TrabajoAdicional = dataItem.NombreCorto;
+            },
+            change: onChange    
         });
+
 };
+
+
+function onChange(e) {
+    var value = $("#color").val();
+    $("#cap")
+        .toggleClass("black-cap", value == 1)
+        .toggleClass("orange-cap", value == 2)
+        .toggleClass("grey-cap", value == 3);
+};
+//function RenderComboBoxTrabajoAdicional(container, options, data) {
+ 
+  
+//    var dataAsignado = data == undefined ? ItemSeleccionado.listadoTrabajosAdicionalesXJunta : data;
+//    var input = $('<input/>')
+//    input.appendTo(container)
+//    input.kendoComboBox({
+//        autoBind: true,
+//        placeholder: "select...",
+//        suggest: true,
+//        dataTextField: "NombreCorto",
+//        dataValueField: "TrabajoAdicionalID",
+//        dataSource: dataAsignado,
+//        change: function (e) {
+//            var dataItem = this.dataItem();
+//           // options.model[fieldName]['rego'] = dataItem.rego;
+//           // options.model.set(fieldName + '.display', dataItem.display);
+//        }
+//    });
+//}
