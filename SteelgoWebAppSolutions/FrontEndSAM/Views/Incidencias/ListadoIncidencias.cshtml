@@ -221,10 +221,16 @@
         FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
         $("#FechaInicial").bind("change", function () {
+            if (!$("#FechaInicial").val()) {
+                $("#FechaInicial").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
+            if (!$("#FechaFinal").val()) {
+                $("#FechaFinal").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 

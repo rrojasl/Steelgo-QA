@@ -1804,6 +1804,10 @@ _dictionary = {
         "es-MX": "Levantar Incidencia",
         "en-US": "Fill Incidence"
     },
+    "Cuantificacion0089": {
+        "es-MX": "Agregar Nuevo Item Code",
+        "en-US": "Add New Item Code"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

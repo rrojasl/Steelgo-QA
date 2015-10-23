@@ -299,10 +299,16 @@
                 if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
                     this.value("");
+                    Colada
+                    $("#Colada").data("kendoComboBox").value("");
+                    $("#EdicionColada").data("kendoComboBox").value("");
+                    $("#Colada").data("kendoComboBox").dataSource.data([]);
+                    $("#EdicionColada").data("kendoComboBox").dataSource.data([]);
                 } else {
                     ObtenerDatosFolioCuantificacion();
+                    ObtenerColada("Colada", 1, 0);
+                    ObtenerColada("EdicionColada", 0, 1);
                 }
-
             },
             filter: "contains",
         });
@@ -366,7 +372,7 @@
             },
             filter: "contains",
         });
-        ObtenerColada("Colada", 1, 0);
+        
 
         $("#EdicionColada").kendoComboBox({
             dataTextField: "Nombre",
@@ -389,7 +395,7 @@
             },
             filter: "contains",
         });
-        ObtenerColada("EdicionColada", 0, 1);
+        
 
         $("#CerrarEdicionColada").click(function () { LimpiarModalEdicionColada();});
         
@@ -474,7 +480,7 @@
         Proyecto = {};
         Proyecto = { ProyectoID: id, Nombre: value };
     };
-
+    
     function CargarFolioCuantificacion(id) {
         Cuantificacion = {};
         Cuantificacion = { FolioCuantificacionID: id };
@@ -588,7 +594,7 @@
     };
 
     function ObtenerColada(id, opciones, mostrarOpcionNuevo) {
-        $Colada.Colada.read({ token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcionNuevo }).done(function (result) {
+        $Colada.Colada.read({proyectoID:Proyecto.ProyectoID, token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcionNuevo }).done(function (result) {
             ControlErroresObjetosComboBox(id, result);
         });
     };

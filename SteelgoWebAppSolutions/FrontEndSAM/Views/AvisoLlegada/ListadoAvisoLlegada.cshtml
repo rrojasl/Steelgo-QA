@@ -289,10 +289,16 @@
 
 
         $("#FechaInic").bind("change", function () {
+            if (!$("#FechaInic").val()) {
+                $("#FechaInic").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 
         $("#FechaFinal").bind("change", function () {
+            if (!$("#FechaFinal").val()) {
+                $("#FechaFinal").data("kendoDatePicker").value("");
+            }
             Filtros();
         });
 
@@ -650,7 +656,11 @@
             var curr_year = d.getFullYear();
             var horaActual = new Date();
 
-            return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+            if (curr_year == "1969") {
+                return null;
+            } else {
+                return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+            }
         };
 
         //Le indicamos cual tab esta activo

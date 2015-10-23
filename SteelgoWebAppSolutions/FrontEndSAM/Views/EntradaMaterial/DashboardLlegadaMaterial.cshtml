@@ -389,10 +389,16 @@
     FechaFinal = new kendo.ui.DatePicker($("#FechaFinal"));
 
     $("#FechaInicial").bind("change", function () {
+        if (!$("#FechaInicial").val()) {
+            $("#FechaInicial").data("kendoDatePicker").value("");
+        }
         CantidadesDelMenuDashboard();
     });
 
     $("#FechaFinal").bind("change", function () {
+        if (!$("#FechaFinal").val()) {
+            $("#FechaFinal").data("kendoDatePicker").value("");
+        }
         CantidadesDelMenuDashboard();
     });
 

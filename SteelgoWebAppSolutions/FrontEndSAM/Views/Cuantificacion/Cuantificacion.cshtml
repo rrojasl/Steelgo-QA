@@ -149,10 +149,9 @@
             <div id="grid" class="action"></div>
         </div>        
         <ul id="menu" >
-            <li id="Detallar"><span id="Cuantificacion0087"></span>
-            </li>
-            <li id="Incidencia"><span id="Cuantificacion0088"></span>
-            </li>
+            <li id="NuevoItemCode"><span id="Cuantificacion0089"></span></li>
+            <li id="Detallar"><span id="Cuantificacion0087"></span></li>
+            <li id="Incidencia"><span id="Cuantificacion0088"></span></li>
         </ul>
     </div>
 </div>
@@ -961,6 +960,11 @@
                     var valor = filaseleccionada.BultoID;
                     var ItemCode = filaseleccionada.ItemCode;
 
+                    if (e.item.id == "NuevoItemCode") {
+                        VentanaModal(1);
+                        return;
+                    }
+
                     if (e.item.id == "Incidencia") {
                         if (!(ItemCode.indexOf("Bulto") != -1)) {
                             window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + (ItemCode?ItemCode:"-1") + "&TipoIncidencia=7&Clasificacion=1");
@@ -991,12 +995,12 @@
                 }
              });
 
-    $("#grid").on("mousedown", "tr[role='row']", function (e) {
-        $('#grid').data("kendoGrid").select(e.target.parentElement);
-        $("#grid thead .k-state-selected> .k-link").css({
-            "color": "black"
-        });
-    });
+            $("#grid").on("mousedown", "tr[role='row']", function (e) {
+                $('#grid').data("kendoGrid").select(e.target.parentElement);
+                $("#grid thead .k-state-selected> .k-link").css({
+                    "color": "black"
+                });
+            });
         };
 
         function CancelarInformacionItem(e) {
@@ -1239,6 +1243,7 @@
                     ControlErroresObjetosComboBox(id, result);
                 });
             } else {
+                $("#Colada").data("kendoComboBox").value("");
                 $("#Colada").data("kendoComboBox").dataSource.data([]);
             }
         };

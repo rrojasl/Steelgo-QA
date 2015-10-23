@@ -649,10 +649,16 @@
 
 
     $("#FechaInic").bind("change", function () {
+        if (!$("#FechaInic").val()) {
+            $("#FechaInic").data("kendoDatePicker").value("");
+        }
         Filtros();
     });
 
     $("#FechaFinal").bind("change", function () {
+        if (!$("#FechaFinal").val()) {
+            $("#FechaFinal").data("kendoDatePicker").value("");
+        }
         Filtros();
     });
 
