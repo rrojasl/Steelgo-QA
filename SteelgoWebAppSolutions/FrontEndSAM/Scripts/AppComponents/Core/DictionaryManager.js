@@ -152,40 +152,40 @@ _dictionary = {
         "en-US": "Materials"
     },
     "menuLabel0007": {
-        "es-MX": "Dashboard de Avisos de Entrada",
-        "en-US": "Entry Notices Dashboard"
+        "es-MX": "Dashboard de Aviso de Entrada",
+        "en-US": "Dashboard Notice of Entry"
     },
     "menuLabel0008": {
-        "es-MX": "Avisos de Entrada",
-        "en-US": "Entry Notices"
+        "es-MX": "Listado de Aviso de Entrada",
+        "en-US": "Listing Entry Notices"
     },
     "menuLabel0010": {
-        "es-MX": "Generación de Aviso de Entrada",
-        "en-US": "Entry Notice generation"
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Entry Notice"
     },
     "menuLabel0011": {
         "es-MX": "Autorización de Aviso de Entrada",
-        "en-US": "Entry Notice Authorization"
+        "en-US": "Authorization Notice of Entry"
     },
     "menuLabel0013": {
-        "es-MX": "Dashboard de Llegada de Material",
-        "en-US": "Material Arrival Dashboard"
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Dashboard Arrival of Material"
     },
     "menuLabel0014": {
-        "es-MX": "Llegadas de Material",
-        "en-US": "Material Arrivals"
+        "es-MX": "Listado Folio Llegadas de Materiales",
+        "en-US": "Listing Material Arrivals"
     },
     "menuLabel0016": {
-        "es-MX": "Generación de Llegada de Material",
-        "en-US": "Material Arrival Generation"
+        "es-MX": "Llegada de Materiales",
+        "en-US": "Arrival of Materials"
     },
     "menuLabel0017": {
-        "es-MX": "Generación de Pase de Salida",
-        "en-US": "Departure Pass Generation"
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
     },
     "menuLabel0018": {
         "es-MX": "Dashboard de Despacho de Material",
-        "en-US": "Material Dispatch Dashboard"
+        "en-US": "Dashboard Material Dispatch"
     },
     "menuLabel0019": {
         "es-MX": "Despachos de Materiales",
@@ -200,16 +200,16 @@ _dictionary = {
         "en-US": "Reception Complement"
     },
     "menuLabel0022": {
-        "es-MX": "Dashboard Recepción y Almacenaje",
-        "en-US": "Reception & Storage Dashboard"
+        "es-MX": "Dashboard recepción y almacenaje",
+        "en-US": "Dashboard of receiving and warehousing"
     },
     "menuLabel0023": {
         "es-MX": "Listado Recepción y Almacenaje",
-        "en-US": "Reception & Storage List"
+        "en-US": "Listing Receiving and Warehousing"
     },
     "menuLabel0025": {
-        "es-MX": "Listado Packing List",
-        "en-US": "Packing List Roster"
+        "es-MX": "Listado de Packing List",
+        "en-US": "Listing of Packing List"
     },
     "menuLabel0026": {
         "es-MX": "Cuantificación",
@@ -217,43 +217,43 @@ _dictionary = {
     },
     "menuLabel0027": {
         "es-MX": "Consulta y Edición de Cuantificacion",
-        "en-US": "Quantification Consult and Edit"
+        "en-US": "Consult and Edit Quantification"
     },
     "menuLabel0028": {
-        "es-MX": "Listado Orden de Recepción",
-        "en-US": "Order Reception List"
+        "es-MX": "Listado de Orden de Recepción",
+        "en-US": "Listing Receiving Order"
     },
     "menuLabel0029": {
         "es-MX": "Generar Orden de Recepción",
-        "en-US": "Order Reception Generation"
+        "en-US": "Generation Receiving Order"
     },
     "menuLabel0030": {
         "es-MX": "Detalle de Orden de Recepción",
-        "en-US": "Receiving Order Detail"
+        "en-US": "Detail Receiving Order"
     },
     "menuLabel0031": {
-        "es-MX": "Complementar Recepción",
-        "en-US": "Reception Complement"
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Complement of Reception"
     },
     "menuLabel0032": {
-        "es-MX": "Listado Orden Almacenaje",
-        "en-US": "Storage Order List"
+        "es-MX": "Listado de Orden Almacenaje",
+        "en-US": "Listing Storage Order"
     },
     "menuLabel0033": {
-        "es-MX": "Generar Orden Almacenaje",
-        "en-US": "Generate Storage Order"
+        "es-MX": "Orden Almacenaje",
+        "en-US": "Storage Order"
     },
     "menuLabel0034": {
         "es-MX": "Detalle de Orden de Almacenaje",
-        "en-US": "Storage Order Detail"
+        "en-US": "Detail Storage Order"
     },
     "menuLabel0040": {
-        "es-MX": "Dashboard de Despacho y Corte",
-        "en-US": "Dispatch & Cut Dashboard"
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
     },
     "menuLabel0041": {
         "es-MX": "Listado de Despacho y Corte",
-        "en-US": "Dispatch & Cut List"
+        "en-US": "Listing Dispatch and Cut"
     },
     "menuLabel0042": {
         "es-MX": "Despacho",
@@ -268,16 +268,16 @@ _dictionary = {
         "en-US": "Storage"
     },
     "menuLabel0045": {
-        "es-MX": "Administración de Catálogos",
-        "en-US": "Catalog Management"
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
     },
     "menuLabel0046": {
         "es-MX": "Listado de Materiales",
-        "en-US": "Materials List"
+        "en-US": "List Materials"
     },
     "menuLabel0047": {
         "es-MX": "Listado de Materiales por ItemCode",
-        "en-US": "Materials List by Item Code"
+        "en-US": "List Materials by Item Code"
     },
     "menuLabel1040": {
         "es-MX": "Complemento de la Recepción",
@@ -292,7 +292,7 @@ _dictionary = {
         "en-US": "Printing Documentary"
     },
     "menuLabel1044": {
-        "es-MX": "Incidencia",
+        "es-MX": "Incidencias",
         "en-US": "Incidences"
     },
     "menuLabel1045": {
@@ -300,17 +300,46 @@ _dictionary = {
         "en-US": "Generate Incidences"
     },
     "menuLabel1046": {
-        "es-MX": "Listado Incidencia",
+        "es-MX": "Listado de Incidencias",
         "en-US": "List of Incidences"
     },
     "menuLabel1047": {
         "es-MX": "Catálogos",
         "en-US": "Catalogs"
     },
-    "menuLabel1048": {
-        "es-MX": "Catálogo Item Code Steelgo",
-        "en-US": "Item Code Steelgo Catalog "
+    "menuLabel1053": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
     },
+    "menuLabel1054": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "menuLabel1056": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
+    "menuLabel1057": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "menuLabel1058": {
+        "es-MX": "Configuraciones",
+        "en-US": "Configurations"
+    },
+    "menuLabel1059": {
+        "es-MX": "Soporte",
+        "en-US": "Catalog Item Code Steelgo"
+    },
+    "menuLabel1060": {
+        "es-MX": "Kpi's",
+        "en-US": "Kpi's"
+    },
+    "menuLabel1061": {
+        "es-MX": "Comunicación",
+        "en-US": "Communication"
+    },
+
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",
