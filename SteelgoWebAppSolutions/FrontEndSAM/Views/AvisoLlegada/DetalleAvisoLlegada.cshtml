@@ -745,9 +745,9 @@
                 AvisoLlegada[0].Cliente = Cliente;
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
 
-                //loadingStart();
+                loadingStart();
 
-               @* if (folio != -1)//Edición
+                if (folio != -1)//Edición
                 {
                     BotonEdicion();
                     $AvisoLlegada.AvisoLlegada.update(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
@@ -780,7 +780,7 @@
 
                         loadingStop();
                     });
-                }*@
+                }
             };
 
             function CargarDefaults() {
