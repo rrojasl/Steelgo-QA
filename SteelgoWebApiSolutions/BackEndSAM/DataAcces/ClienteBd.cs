@@ -50,7 +50,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerListadoClientes(Sam3_Usuario usuario, int patioID = 0)
+        public object ObtenerListadoClientes(Sam3_Usuario usuario, int patioID)
         {
             try
             {
