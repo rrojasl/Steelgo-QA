@@ -339,7 +339,19 @@ _dictionary = {
         "es-MX": "Comunicación",
         "en-US": "Communication"
     },
-
+    //QuickLinks Defaults
+    "quickLabel0001": {
+        "es-MX": "Início",
+        "en-US": "Home"
+    },
+    "quickLabel0002": {
+        "es-MX": "Búsqueda",
+        "en-US": "Search"
+    },
+    "quickLabel0003": {
+        "es-MX": "Cerrar Sesión",
+        "en-US": "Logout"
+    },
     //Listado Aviso Llegada- Partial view Labels
     "ListadoAvisoLlegada0001": {
         "es-MX": "Agregar Folio",

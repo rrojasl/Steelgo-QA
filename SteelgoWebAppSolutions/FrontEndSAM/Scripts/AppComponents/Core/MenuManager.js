@@ -158,7 +158,37 @@ function menuManagerToBeExecutedOnDocumentReady() {
 
 //Create the QuickLinks
 function generateQuickLinks() {
-    var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>    <li>        <a href='#'>            <span>Llegada de Material</span>        </a>    </li>    <li>        <a href='#'><span>Generación Pase Salida</span></a></li><li><a href='#'><span>Despacho de Tubos</span></a></li></ul></li>";
+
+    //Basic Structure for QuickLinks
+    var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>";
+
+    //Validate the first quick link if not able create cookies and assign the logout element
+    if (Cookies.get("QL1route") != null && Cookies.get("QL1route") == "" && Cookies.get("QL1label") != null && Cookies.get("QL1label") != null) {
+        htmlToAppend = htmlToAppend + "<li><a href='" + Cookies.get("QL1route") + "' onclick='redirectToLanguage(event,this)'><span id='" + Cookies.get("QL1label") + "'>QuickLink1</span></a></li>";
+    } else {
+        htmlToAppend = htmlToAppend + "<li><a href='/Home/Landing' onclick='redirectToLanguage(event,this)'><span id='quickLabel0001'>QuickLink1</span></a></li>";
+    }
+
+    //Validate the first quick link if not able create cookies and assign the logout element
+    if (Cookies.get("QL2route") != null && Cookies.get("QL2route") == "" && Cookies.get("QL2label") != null && Cookies.get("QL2label") != null) {
+        htmlToAppend = htmlToAppend + "<li><a href='" + Cookies.get("QL2route") + "' onclick='redirectToLanguage(event,this)'><span id='" + Cookies.get("QL2label") + "'>QuickLink1</span></a></li>";
+    } else {
+        htmlToAppend = htmlToAppend + "<li><a href='/Busqueda/Busqueda' onclick='redirectToLanguage(event,this)'><span id='quickLabel0002'>QuickLink1</span></a></li>";
+    }
+
+    //Validate the first quick link if not able create cookies and assign the logout element
+    if (Cookies.get("QL3route") != null && Cookies.get("QL3route") == "" && Cookies.get("QL3label") != null && Cookies.get("QL3label") != null) {
+        htmlToAppend = htmlToAppend + "<li><a href='" + Cookies.get("QL3route") + "' onclick='redirectToLanguage(event,this)'><span id='" + Cookies.get("QL3label") + "'>QuickLink1</span></a></li>";
+    } else {
+        htmlToAppend = htmlToAppend + "<li><a href='#' onclick='removeUserSession()'><span id='quickLabel0003'>QuickLink1</span></a></li>";
+    }
+
+    //Add closure elements of the basic structure
+    htmlToAppend = htmlToAppend + "</ul></li>";
+
+
+
+    //var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>    <li>        <a href='#'>            <span>Llegada de Material</span>        </a>    </li>    <li>        <a href='#'><span>Generación Pase Salida</span></a></li><li><a href='#'><span>Despacho de Tubos</span></a></li></ul></li>";
     $(".main-menu").append(htmlToAppend);
 }
 
