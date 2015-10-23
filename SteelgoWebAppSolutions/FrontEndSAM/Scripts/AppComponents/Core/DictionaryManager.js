@@ -1894,8 +1894,8 @@ _dictionary = {
         "en-US": "Fill Incidence"
     },
     "Cuantificacion0089": {
-        "es-MX": "Agregar Nuevo Item Code",
-        "en-US": "Add New Item Code"
+        "es-MX": "Nuevo Item Code",
+        "en-US": "New Item Code"
     },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
