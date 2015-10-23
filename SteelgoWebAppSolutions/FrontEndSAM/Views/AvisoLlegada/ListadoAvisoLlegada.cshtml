@@ -180,9 +180,44 @@
     //Return:     N/A
     function changeLanguageCall() {
         var tmp = removeGrid($("#grid"));
-        CargarGridAvisoLlegada();
+        CargarGridAvisoLlegada();        
         $("#grid").data("kendoGrid").dataSource.data(tmp);
         createPeriodoTiempo();
+        resizeFilters();        
+    }
+
+    //Ajusta el tamaño de los filtros rápidos a las columnas del grid
+    //Funcion: resizeFilters
+    //Parametros: N/A
+    //Return:     N/A
+    function resizeFilters(){
+        $("#grid .k-grid-header tr th").each(function (i, obj) {
+            var wd = 0
+            wd = $(this).outerWidth(true);            
+            //console.log("th: "+i+" width: "+$(this).outerWidth(true));
+            $("#filterContainer > div").find("input").each(function (index, event) {
+                if(i==index){                    
+                    $(this).outerWidth(wd+1.4);                                        
+                    //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+                }                
+            });                          
+        });
+        $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth()+0.6);        
+
+        $(window).resize(function() {
+            $("#grid .k-grid-header tr th").each(function (i, obj) {
+                var wd = 0
+                wd = $(this).outerWidth(true);            
+                //console.log("th: "+i+" width: "+$(this).outerWidth(true));
+                $("#filterContainer > div").find("input").each(function (index, event) {
+                    if(i==index){                    
+                        $(this).outerWidth(wd+1.4);                                        
+                        //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+                    }                
+                });                          
+            });
+            $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth()+0.6);            
+        });
     }
 
     //Es la carga inicial de los controles
@@ -362,7 +397,7 @@
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');                            
             }
         });
 
@@ -383,7 +418,7 @@
             $("#grid thead .k-state-selected> .k-link").css({
                 "color": "black"
             });
-        });
+        });               
     }
     //Redirecciona a la pagina de detalle de un folio aviso llegada
     //Funcion: CargarGridAvisoLlegada
@@ -812,7 +847,7 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
         cargaInicial();
-        //applySecurity();
+        //applySecurity();        
     }
 
 </script>
