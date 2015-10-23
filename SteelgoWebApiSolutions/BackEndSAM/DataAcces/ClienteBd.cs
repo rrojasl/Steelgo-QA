@@ -58,24 +58,20 @@ namespace BackEndSAM.DataAcces
                 {
                     using (SamContext ctx = new SamContext())
                     {
-                        List<int> proyectos = new List<int>();
-                        List<int> patios = new List<int>();
-
-                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
 
                         List<Models.Cliente> cliente = new List<Models.Cliente>();
 
                         if (patioID > 0)
                         {
-                            List<int> patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
-                                                    where eq.Activo
-                                                    && patios.Contains(eq.Sam3_PatioID)
-                                                    select eq.Sam2_PatioID).AsParallel().ToList();
+                            int patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                              where eq.Activo
+                                              && eq.Sam3_PatioID == patioID
+                                              select eq.Sam2_PatioID).AsParallel().SingleOrDefault();
 
                             cliente = (from r in ctx2.Cliente
                                        join p in ctx2.Proyecto on r.ClienteID equals p.ClienteID
                                        join pa in ctx2.Patio on p.PatioID equals pa.PatioID
-                                       where patiosSam2.Contains(pa.PatioID)
+                                       where pa.PatioID == patiosSam2
                                        select new Models.Cliente
                                        {
                                            Nombre = r.Nombre,
