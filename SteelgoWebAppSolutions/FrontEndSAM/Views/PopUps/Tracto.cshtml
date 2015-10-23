@@ -14,10 +14,10 @@
                     <label id="DetalleAvisoLlegada0056"></label>
                     <input id="TransportistaID_Camion" class="" />
                 </div>
-                <div id="ChoferID_CamionDiv" class="form-group">
+                @*<div id="ChoferID_CamionDiv" class="form-group">
                     <label id="DetalleAvisoLlegada0057"></label>
                     <input id="ChoferID_Camion" class="" />
-                </div>
+                </div>*@
                 <div id="Placas_CamionDiv" class="form-group">
                     <label id="DetalleAvisoLlegada0058"></label>
                     <input id="Placas_Camion" class="general-input" />
@@ -147,24 +147,24 @@
         });
         ObtenerTransportistaCamion();
 
-        $("#ChoferID_Camion").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ChoferID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarChoferCamion(dataItem.ChoferID, dataItem.Nombre);
+        //$("#ChoferID_Camion").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ChoferID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarChoferCamion(dataItem.ChoferID, dataItem.Nombre);
 
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    ChoferCamion = {};
-                    this.value("");
-                };
-            },
-            filter: "contains",
-        });
-        ObtenerChoferCamion();
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            ChoferCamion = {};
+        //            this.value("");
+        //        };
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerChoferCamion();
 
         $("#GuardarCamion").click(function (e) {
             if (validarRequeridosModalCamion()) {
@@ -237,7 +237,7 @@
 
     function LimpiarModalCamion() {
         $("#TransportistaID_Camion").data("kendoComboBox").value("");
-        $("#ChoferID_Camion").data("kendoComboBox").value("");
+        //$("#ChoferID_Camion").data("kendoComboBox").value("");
         $("#Placas_Camion").val("");
         $("#TarjetaCirculacion_Camion").val("");
         $("#PolizaSeguro").val("");
@@ -288,7 +288,7 @@
         CamionModal[0].Unidad = $("#Unidad_Camion").val();
         CamionModal[0].Modelo = $("#Modelo_Camion").val();
         CamionModal[0].VehiculoID = "";
-        CamionModal[0].ChoferID = choferid;
+        CamionModal[0].ChoferID = 1;//choferid;
         CamionModal[0].TransportistaID = transportistaID;
         CamionModal[0].TractoID = "";
 
