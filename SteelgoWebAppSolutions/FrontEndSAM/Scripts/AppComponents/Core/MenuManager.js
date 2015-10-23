@@ -76,7 +76,16 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $("li.shortcut").removeClass("open");
             $(this).closest("li").addClass('active');
         }
-    });    
+    });
+
+    /*Open sidebar when clicking the icons when minified*/
+    $(document).on("click", "#sidebar ul.main-menu > li", function () {
+        if( $("#sidebar").hasClass("minified")) {
+            $("#sidebar").removeClass("minified");
+            $(".content-container").toggleClass("expanded");
+            $(this).children("ul").addClass("open");
+        }
+    });
 
     //Toggle for second submenu
     /*Open menus on hover*/
