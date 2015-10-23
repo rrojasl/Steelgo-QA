@@ -341,14 +341,218 @@ _dictionary = {
     },
     //QuickLinks Defaults
     "quickLabel0001": {
-        "es-MX": "Início",
+        "es-MX": "Inicio",
         "en-US": "Home"
     },
     "quickLabel0002": {
+        "es-MX": "Transacciones",
+        "en-US": "Transactions"
+    },
+    "quickLabel0005": {
+        "es-MX": "Administración",
+        "en-US": "Administration"
+    },
+    "quickLabel0006": {
+        "es-MX": "Materiales",
+        "en-US": "Materials"
+    },
+    "quickLabel0007": {
+        "es-MX": "Dashboard de Aviso de Entrada",
+        "en-US": "Dashboard Notice of Entry"
+    },
+    "quickLabel0008": {
+        "es-MX": "Listado de Aviso de Entrada",
+        "en-US": "Listing Entry Notices"
+    },
+    "quickLabel0010": {
+        "es-MX": "Aviso de Entrada",
+        "en-US": "Entry Notice"
+    },
+    "quickLabel0011": {
+        "es-MX": "Autorización de Aviso de Entrada",
+        "en-US": "Authorization Notice of Entry"
+    },
+    "quickLabel0013": {
+        "es-MX": "Dashboard Llegada de Material",
+        "en-US": "Dashboard Arrival of Material"
+    },
+    "quickLabel0014": {
+        "es-MX": "Listado Folio Llegadas de Materiales",
+        "en-US": "Listing Material Arrivals"
+    },
+    "quickLabel0016": {
+        "es-MX": "Llegada de Materiales",
+        "en-US": "Arrival of Materials"
+    },
+    "quickLabel0017": {
+        "es-MX": "Pase de Salida",
+        "en-US": "Pass Out"
+    },
+    "quickLabel0018": {
+        "es-MX": "Dashboard de Despacho de Material",
+        "en-US": "Dashboard Material Dispatch"
+    },
+    "quickLabel0019": {
+        "es-MX": "Despachos de Materiales",
+        "en-US": "Dispatches of Material"
+    },
+    "quickLabel0020": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "quickLabel0021": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
+    "quickLabel0022": {
+        "es-MX": "Dashboard recepción y almacenaje",
+        "en-US": "Dashboard of receiving and warehousing"
+    },
+    "quickLabel0023": {
+        "es-MX": "Listado Recepción y Almacenaje",
+        "en-US": "Listing Receiving and Warehousing"
+    },
+    "quickLabel0025": {
+        "es-MX": "Listado de Packing List",
+        "en-US": "Listing of Packing List"
+    },
+    "quickLabel0026": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "quickLabel0027": {
+        "es-MX": "Consulta y Edición de Cuantificacion",
+        "en-US": "Consult and Edit Quantification"
+    },
+    "quickLabel0028": {
+        "es-MX": "Listado de Orden de Recepción",
+        "en-US": "Listing Receiving Order"
+    },
+    "quickLabel0029": {
+        "es-MX": "Generar Orden de Recepción",
+        "en-US": "Generation Receiving Order"
+    },
+    "quickLabel0030": {
+        "es-MX": "Detalle de Orden de Recepción",
+        "en-US": "Detail Receiving Order"
+    },
+    "quickLabel0031": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Complement of Reception"
+    },
+    "quickLabel0032": {
+        "es-MX": "Listado de Orden Almacenaje",
+        "en-US": "Listing Storage Order"
+    },
+    "quickLabel0033": {
+        "es-MX": "Orden Almacenaje",
+        "en-US": "Storage Order"
+    },
+    "quickLabel0034": {
+        "es-MX": "Detalle de Orden de Almacenaje",
+        "en-US": "Detail Storage Order"
+    },
+    "quickLabel0040": {
+        "es-MX": "Dashboard despacho y corte",
+        "en-US": "Dashboard dispatch and cut"
+    },
+    "quickLabel0041": {
+        "es-MX": "Listado de Despacho y Corte",
+        "en-US": "Listing Dispatch and Cut"
+    },
+    "quickLabel0042": {
+        "es-MX": "Despacho",
+        "en-US": "Dispatch"
+    },
+    "quickLabel0043": {
+        "es-MX": "Corte",
+        "en-US": "Cut"
+    },
+    "quickLabel0044": {
+        "es-MX": "Almacenaje",
+        "en-US": "Storage"
+    },
+    "quickLabel0045": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "quickLabel0046": {
+        "es-MX": "Listado de Materiales",
+        "en-US": "List Materials"
+    },
+    "quickLabel0047": {
+        "es-MX": "Listado de Materiales por ItemCode",
+        "en-US": "List Materials by Item Code"
+    },
+    "quickLabel1040": {
+        "es-MX": "Complemento de la Recepción",
+        "en-US": "Reception Complement"
+    },
+    "quickLabel1041": {
+        "es-MX": "Entrega",
+        "en-US": "Delivery"
+    },
+    "quickLabel1042": {
+        "es-MX": "Impresión Documental",
+        "en-US": "Printing Documentary"
+    },
+    "quickLabel1044": {
+        "es-MX": "Incidencias",
+        "en-US": "Incidences"
+    },
+    "quickLabel1045": {
+        "es-MX": "Generar Incidencia",
+        "en-US": "Generate Incidences"
+    },
+    "quickLabel1046": {
+        "es-MX": "Listado de Incidencias",
+        "en-US": "List of Incidences"
+    },
+    "quickLabel1047": {
+        "es-MX": "Catálogos",
+        "en-US": "Catalogs"
+    },
+    "quickLabel1053": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "quickLabel1054": {
+        "es-MX": "Listados",
+        "en-US": "Listings"
+    },
+    "quickLabel1056": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
+    "quickLabel1057": {
+        "es-MX": "Documentos",
+        "en-US": "Documents"
+    },
+    "quickLabel1058": {
+        "es-MX": "Configuraciones",
+        "en-US": "Configurations"
+    },
+    "quickLabel1059": {
+        "es-MX": "Soporte",
+        "en-US": "Catalog Item Code Steelgo"
+    },
+    "quickLabel1060": {
+        "es-MX": "Kpi's",
+        "en-US": "Kpi's"
+    },
+    "quickLabel1061": {
+        "es-MX": "Comunicación",
+        "en-US": "Communication"
+    },
+    "quickLabel9001": {
+        "es-MX": "Início",
+        "en-US": "Home"
+    },
+    "quickLabel9002": {
         "es-MX": "Búsqueda",
         "en-US": "Search"
     },
-    "quickLabel0003": {
+    "quickLabel9003": {
         "es-MX": "Cerrar Sesión",
         "en-US": "Logout"
     },
