@@ -505,9 +505,6 @@
                     filter: "contains",
                 });
                 
-
-
-
                 $("#TipoAvisoID").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "TipoAvisoID",
@@ -543,9 +540,17 @@
                         if (!value || this.selectedIndex == -1) {
                             Transportista = [];
                             Chofer = [];
+                            CamionEntradaMaterial = {};
                             this.value("");
                             $("#ChoferID").data("kendoComboBox").value("");
                             $("#ChoferID").data("kendoComboBox").enable(false);
+                            $("#Tracto").data("kendoComboBox").value("");
+                            $("#Tracto").data("kendoComboBox").dataSource.data([]);
+                            $("#PlanaID").data("kendoMultiSelect").value("");
+                            $("#PlanaID").data("kendoMultiSelect").dataSource.data([]);
+                        }else{
+                            ObtenerCamionEntradaMaterial();
+                            ObtenerPlanas();
                         };
                     },
                     filter: "contains",
@@ -564,7 +569,7 @@
                         }
                     }
                 });
-                ObtenerPlanas();
+               
 
                 
 
@@ -647,8 +652,7 @@
                     },
                     filter: "contains",
                 });
-                ObtenerCamionEntradaMaterial();
-
+               
                 ObtenerFechaDefault();
             };
 
@@ -1272,7 +1276,7 @@
             };
 
             function ObtenerPlanas() {
-                $Plana.Plana.read({ token: Cookies.get("token") }).done(function (result) {
+                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("PlanaID", result);
                 });
             };
@@ -1345,7 +1349,7 @@
 
 
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Tracto.read({ esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
+                $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosComboBox("Tracto", result);
                 });
             };
