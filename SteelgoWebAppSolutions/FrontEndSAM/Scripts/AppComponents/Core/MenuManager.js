@@ -76,7 +76,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $("li.shortcut").removeClass("open");
             $(this).closest("li").addClass('active');
         }
-    });
+    });    
 
     //Toggle for second submenu
     /*Open menus on hover*/
@@ -85,7 +85,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $(this).removeClass("active expand");
             $(this).children("ul.sub-menu2").removeClass("open");
             $("li.shortcut").removeClass("open");
-        }
+        }        
         else {
             $("ul.sub-menu2").removeClass("open");
             $("ul.sub-menu > li").removeClass("active expand");
@@ -94,6 +94,10 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $(this).children("ul.sub-menu2").addClass("open");
             $("li.shortcut").addClass("open");
         }
+
+        if ($(this).children("ul.sub-menu2").is(':empty')) {
+            $("li.shortcut").removeClass("open");
+        }
     });
 
     /*Open menus on click*/
@@ -101,6 +105,9 @@ function menuManagerToBeExecutedOnDocumentReady() {
         if ($(this).parent().children("ul.sub-menu2").hasClass('open')) {
             $(this).parent("li").removeClass("active expand");
             $(this).parent().children("ul.sub-menu2").removeClass("open");
+            $("li.shortcut").removeClass("open");
+        }
+        else if ($(this).parent().children("ul.sub-menu2").is(':empty')) {
             $("li.shortcut").removeClass("open");
         }
         else {
