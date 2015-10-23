@@ -42,13 +42,14 @@ namespace BackEndSAM.DataAcces
                                       PREHEAT = pqr.PREHEAT,
                                       PWHT = pqr.PWHT,
                                       Espesor = Convert.ToString(pqr.Espesor),
-                                      ProcesoSoldaduraID = pqr.ProcesoSoldadura,
+                                      Codigo = pqr.Codigo,
                                       NumeroP = pqr.NumeroP,
                                       GrupoP = pqr.GrupoP,
                                       Aporte = pqr.Aporte,
                                       Mezcla = pqr.Mezcla,
                                       Respaldo = pqr.Respaldo,
-                                      GrupoF = pqr.GrupoF,
+                                      GrupoF = pqr.GrupoF
+                                      
                                   }).AsParallel().ToList();
                 return data;
             }
@@ -89,7 +90,7 @@ namespace BackEndSAM.DataAcces
                 List<PQR> data = (from pqr in ctx.Sam3_Cat_PQR_ProcesoSoldadura(TipoDato)
                                   select new PQR
                                   {
-                                      ProcesoSoldaduraID = Convert.ToString(pqr.ProcesoSoldaduraID),
+                                      ProcesoSoldaduraID = pqr.ProcesoSoldaduraID,
                                       Codigo = pqr.Codigo,
 
                                   }).AsParallel().ToList();
@@ -227,13 +228,13 @@ namespace BackEndSAM.DataAcces
         }
 
 
-        public object ActualizaPQR(int TipoDeDato, int PQRID, string Nombre, bool PREHEAT, bool PWHT, decimal Espesor, int ProcesoSoldadura, int NumeroP, int GrupoP, int Aporte, int Mezcla, int Respaldo, int GrupoF, int IdUsuario)
+        public object ActualizaPQR(int TipoDeDato, Sam3_PQR PQR,int IdUsuario)
         {
 
             using (SamContext ctx = new SamContext())
             {
 
-                var lista = ctx.Sam3_Soldadura_PQR(TipoDeDato, PQRID, Nombre, PREHEAT, PWHT, Espesor, ProcesoSoldadura, NumeroP, GrupoP, Aporte, Mezcla, Respaldo, GrupoF, IdUsuario);
+                var lista = ctx.Sam3_Soldadura_PQR(TipoDeDato, PQR.PQRID, PQR.Nombre, PQR.PREHEAT, PQR.PWHT, PQR.Espesor, PQR.ProcesoSoldaduraID, PQR.NumeroP, PQR.GrupoP, PQR.Aporte, PQR.Mezcla, PQR.Respaldo, PQR.GrupoF, IdUsuario);
                 return lista;
 
             }
