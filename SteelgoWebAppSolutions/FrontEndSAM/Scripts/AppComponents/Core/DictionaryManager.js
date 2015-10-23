@@ -4965,8 +4965,8 @@ _dictionary = {
         "en-US": "Please, select a folio"
     },
     "notificationslabel0008": {
-        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
-        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
+        "es-MX": "Mensaje de error: ",
+        "en-US": "Error messsage:"
     },
     "notificationslabel0009": {
         "es-MX": "Mensaje de error: ",
@@ -5255,6 +5255,10 @@ _dictionary = {
     "notificationslabel0080": {
         "es-MX": "El folio cuenta con pase de salida",
         "en-US": "The folio has Pass Out"
+    },
+    "notificationslabel0081": {
+        "es-MX": "Los siguientes item codes no se pueden guardar por que no tienen seleccionado un item code steelgo: ",
+        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
     },
     //Default to copy
     "label9999": {

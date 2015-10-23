@@ -5,7 +5,7 @@
  <div id="modalItemCode" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
      <div class="col-sm-12 col-md-12 col-lg-12">
           <div class="row">
-                <div id="Proyecto_ItemCodeDiv" class="form-group">
+               @* <div id="Proyecto_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0055"></label>
                     <input id="Proyecto_ItemCode" class="" />
                 </div>
@@ -16,7 +16,7 @@
                 <div id="Colada_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0057"></label>
                     <input id="Colada_ItemCode" />
-                </div>
+                </div>*@
                 <div id="ItemCode_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0045"></label>
                     <input id="ItemCode_ItemCode" class="general-input"  />
@@ -95,59 +95,59 @@
             CancelarModalItemCode()
         });
 
-        $("#Proyecto_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ProyectoID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyectoItemCode(dataItem.ProyectoID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    ProyectoItemCode = {};
-                    this.value("");
-                }
-            },
-            filter: "contains",
-        });
-        ObtenerProyecto("Proyecto_ItemCode");
+        //$("#Proyecto_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ProyectoID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarProyectoItemCode(dataItem.ProyectoID, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            ProyectoItemCode = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerProyecto("Proyecto_ItemCode");
 
-        $("#TipoMaterial_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "id",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    TipoPackingListItemCode = {};
-                    this.value("");
-                }
-            },
-            filter: "contains",
-        });
-        obtenerTipoPackingList("TipoMaterial_ItemCode");
+        //$("#TipoMaterial_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "id",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarTipoPackingListItemCode(dataItem.id, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            TipoPackingListItemCode = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //obtenerTipoPackingList("TipoMaterial_ItemCode");
 
-        $("#Colada_ItemCode").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ColadaID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarColadaItemCode(dataItem.ColadaID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    ColadaItemCode = {};
-                    this.value("");
-                }
-            },
-            filter: "contains",
-        });
-        ObtenerColada("Colada_ItemCode", 0, 0);
+        //$("#Colada_ItemCode").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ColadaID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarColadaItemCode(dataItem.ColadaID, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            ColadaItemCode = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerColada("Colada_ItemCode", 0, 0);
 
         $("#Familia_ItemCode").kendoComboBox({
             dataTextField: "Nombre",
@@ -260,9 +260,9 @@
         $("#ItemCode_ItemCode").val("");
         $("#Descripcion_ItemCode").val("");
         $("#Familia_ItemCode").data("kendoComboBox").value("");
-        $("#Proyecto_ItemCode").data("kendoComboBox").value("");
-        $("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
-        $("#Colada_ItemCode").data("kendoComboBox").value("");
+        //$("#Proyecto_ItemCode").data("kendoComboBox").value("");
+        //$("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
+        //$("#Colada_ItemCode").data("kendoComboBox").value("");
 
         familiaItemCode = {};
         ProyectoItemCode = {};
