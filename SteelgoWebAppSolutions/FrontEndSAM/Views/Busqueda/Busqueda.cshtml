@@ -110,7 +110,7 @@
                         window.open(window.location.origin+"/Cuantificacion/Cuantificacion?leng="+$("#language").data("kendoDropDownList").value()+"&EdicionPackingList=1&FolioAvisoEntradaID="+dataItem.Cuantificacion,"_blank");
                         break;
                     case "IC":
-                        window.open(window.location.origin+"/ListadoMateriales/ListadoMaterialesItemCode?leng="+$("#language").data("kendoDropDownList").value()+"&PatioID="+dataItem.PatioID+"&ProyectoID="+encodeURI(dataItem.Proyecto)+"&IC="+dataItem.ItemCodeID,"_blank");
+                        window.open(window.location.origin+"/ListadoMateriales/ListadoMaterialesItemCode?leng="+$("#language").data("kendoDropDownList").value()+"&PatioID="+dataItem.Patio+"&ProyectoID="+dataItem.Proyecto.split(" ").join("+")+"&IC="+dataItem.ItemCodeID,"_blank");
                         break;
                     case "NU":
                         window.open(window.location.origin+"/ListadoMateriales/DetalleNumeroUnico?leng="+$("#language").data("kendoDropDownList").value()+"&NumeroUnico="+dataItem.NumeroUnicoID,"_blank");
