@@ -223,7 +223,7 @@
         });
     };
     function ObtenerTransportista() {
-        $Transportista.Transportista.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+        $Transportista.Transportista.read({ esAvisoEntrada: 0, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("Transportista", result);
         });
     };
