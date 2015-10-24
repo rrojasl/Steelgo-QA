@@ -3686,6 +3686,10 @@ _dictionary = {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
+    "FormatoFecha": {
+        "es-MX": "dd/mm/yyyy",
+        "en-US": "mm/dd/yyyy"
+    },
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {

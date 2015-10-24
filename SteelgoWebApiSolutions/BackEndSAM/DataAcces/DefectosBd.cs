@@ -1,28 +1,27 @@
-﻿using DatabaseManager.Sam3;
-using SecurityManager.Api.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
-    public class TallerBD
+    public class DefectosBd
     {
         private static readonly object _mutex = new object();
-        private static TallerBD _instance;
+        private static DefectosBd _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        public TallerBD()
+        private DefectosBd()
         {
-
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static TallerBD Instance
+        public static DefectosBd Instance
         {
             get
             {
@@ -30,24 +29,25 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new TallerBD();
+                        _instance = new DefectosBd();
                     }
                 }
                 return _instance;
             }
         }
         /// <summary>
-        /// obtiene el listado de talleres por proyecto
+        /// Retorna la lista de los defectos dependiendo el tipo de prueba
         /// </summary>
-        /// <param name="idProyecto">Identificador del Proyecto</param>
-        /// <returns>Lista de proyectos</returns>
-        public object ObtenerTallerXPoryecto(int idProyecto)
+        /// <param name="lenguaje">lenguaje de defectos a retornar</param>
+        /// <param name="TipoPrueba">descripcion del tipo de prueba a filtrar</param>
+        /// <returns> objeto del tipo Sam3_Steelgo_Get_Defectos_Result</returns>
+        public object listadoDefectos(string lenguaje, string TipoPrueba)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_SteelGo_Get_Taller_Result> lista = ctx.Sam3_SteelGo_Get_Taller(idProyecto).ToList();
+                    List<Sam3_Steelgo_Get_Defectos_Result> lista = ctx.Sam3_Steelgo_Get_Defectos(lenguaje, TipoPrueba).ToList();
                     return lista;
                 }
             }
@@ -61,6 +61,5 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
-
     }
 }

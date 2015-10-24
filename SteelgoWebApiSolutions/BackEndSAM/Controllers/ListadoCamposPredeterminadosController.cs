@@ -89,6 +89,7 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
         /// <summary>
         /// Retorna el valor del campo predeterminado tomando en consideración el identificador del mismo y el lenguaje
         /// </summary>
@@ -96,7 +97,7 @@ namespace BackEndSAM.Controllers
         /// <param name="lenguaje">lenguaje</param>
         /// <param name="id">identificador del campo predeterminado</param>
         /// <returns></returns>
-        public object ObtieneFecha(string token, string lenguaje, int id)
+        public object Get(string token, string lenguaje, int id)
         {
             string payload = "";
             string newToken = "";
