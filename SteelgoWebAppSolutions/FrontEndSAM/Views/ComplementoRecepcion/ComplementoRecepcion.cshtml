@@ -606,7 +606,7 @@
     };
 
     function ObtenerColada(id, opciones, mostrarOpcionNuevo) {
-        $Colada.Colada.read({proyectoID:Proyecto.ProyectoID, token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcionNuevo }).done(function (result) {
+        $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"), paginaID: Cookies.get("navegacion"), id: opciones, mostrarOpcion: mostrarOpcionNuevo }).done(function (result) {
             ControlErroresObjetosComboBox(id, result);
         });
     };

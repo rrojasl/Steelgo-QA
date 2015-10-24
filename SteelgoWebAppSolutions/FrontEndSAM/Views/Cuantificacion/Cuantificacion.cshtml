@@ -1310,7 +1310,7 @@
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
             if (Proyecto.ProyectoID){
-                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
+                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"),paginaID: Cookies.get("navegacion"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
                     ControlErroresObjetosComboBox(id, result);
                 });
             } else {
@@ -2464,7 +2464,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLColada + "proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:-1 ) + "&token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
+                            read: $URLColada + "proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:-1 ) + "&token=" + Cookies.get("token") + "&paginaID=" +Cookies.get("navegacion") + "&id=0&mostrarOpcion=1"
                         },
                     },
                     select: function (e) {
