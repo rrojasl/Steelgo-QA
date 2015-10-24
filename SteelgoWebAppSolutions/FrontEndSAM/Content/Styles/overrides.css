@@ -417,6 +417,10 @@
             background-color: #F35800;
         }
 
+        .k-grid .k-grid-header tr th > input {
+            width: 95%;            
+        }
+
     .k-grid tbody tr td a.k-button {
         color: transparent !important;
         height: 27px;
