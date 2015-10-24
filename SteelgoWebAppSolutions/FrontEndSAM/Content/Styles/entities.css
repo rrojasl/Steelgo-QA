@@ -1466,14 +1466,14 @@ header .menu > div {
  Description:   Customize mobile menu button.
 **********************************************************************************/
 .quick-filters {
+    display: none;
 }
 
     .quick-filters > div {
         height: auto;
         overflow: hidden;
         max-height: 56px;
-        white-space: nowrap;
-        min-height: 39px;
+        white-space: nowrap;        
     }
 /**********************************************************************************/
 

@@ -418,7 +418,8 @@
         }
 
         .k-grid .k-grid-header tr th > input {
-            width: 95%;            
+            width: 95%;
+            box-shadow: none!important;                      
         }
 
     .k-grid tbody tr td a.k-button {
