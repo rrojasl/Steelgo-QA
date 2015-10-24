@@ -41,14 +41,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerlistadoPatios(string esAvisoEntrada, Sam3_Usuario usuario)
+        public object ObtenerlistadoPatios(string esAvisoEntrada, Sam3_Usuario usuario, int paginaID)
         {
             try
             {
                 List<Patio> lstPatios = new List<Patio>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (int.Parse(esAvisoEntrada) == 1)
+                    if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Patio", paginaID))
                     {
                         lstPatios.Add(new Patio { Nombre = "Agregar nuevo", PatioID = "0" });
                     }

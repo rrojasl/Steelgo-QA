@@ -89,7 +89,7 @@
 
     @section JavascriptDocumentReadyHomeCookie {
     Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "25", { path: '/' });
+    Cookies.set("navegacion", "49", { path: '/' });
     }
 
      @section JavascriptGlobalVariables {
@@ -102,7 +102,39 @@
 
     var _DashboardDespacho = "@Url.Action("DashboardDespachoCorte", "DashboardDespachoCorte")";
     var _incidenciasURL = "@Url.Action("Incidencias", "Incidencias")";
-    var _DespachoURL = "@Url.Action("Despacho", "Despacho")";
+    var _PreDespachoURL = "@Url.Action("PreDespacho", "PreDespacho")";
+
+    var $PreDespachoModel = {
+        listContainer: {
+            create: ".save-group",
+            list: ".listado",
+            detail: ".editButtonSection",
+            destroy: ".k-grid-Cancelar",
+            createIncidence: ".incidencia"
+        },
+        properties: {
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
+            },
+            spool: {
+                visible: "#SpoolDiv",
+                editable: "#SpoolID",
+                required: "#SpoolID"
+            },
+            todos: {
+                visible: "#todosDiv",
+                editable: "#todos",
+                required: "#todos"
+            },
+            vacios: {
+                visible: "#vaciosDiv",
+                editable: "#vacios",
+                required: "#vacios"
+            }
+        }
+    };
     }
 
     @section JavascriptGlobalFunctions {
@@ -310,7 +342,6 @@
             var new_filter = { field: "NumeroUnico", operator: "eq", value: "" };
             filters.push(new_filter);
         }
-
         if (NumeroControl.NumeroControlID) {
             var new_filter = { field: "NumeroControl", operator: "Contains", value: NumeroControl.NumeroControl ? NumeroControl.NumeroControl : "" };
             filters.push(new_filter);
@@ -328,7 +359,7 @@
                            dataSource: {
                                type: "json",
                                transport: {
-                                   read: $UrlNumerosUnicosPreDespacho + "&numeroControl=" + container.parent().children()[0].innerText + "&etiqueta=" + container.parent().children()[1].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&proyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&token=" + Cookies.get("token")
+                                   read: $UrlNumerosUnicosPreDespacho + "&numeroControl=" + container.parent().children()[0].innerText + "&itemcode=" + container.parent().children()[2].innerText + "&proyectoID=" + $("#ProyectoID").data("kendoComboBox").value() + "&token=" + Cookies.get("token")
                                }
                            },
                            select: function (e) {
@@ -360,11 +391,11 @@
 
     function Incidencias() {
         var PreDespachoID = _PreDespachoID ? _PreDespachoID : "-1";
-        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + PreDespachoID + "&TipoIncidencia=11&Clasificacion=1");
+        window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + PreDespachoID + "&TipoIncidencia=12&Clasificacion=1");
     };
 
     function Cancelar() {
-        window.location.href = _DespachoURL + "?leng=" + $("#language").data("kendoDropDownList").value();
+        window.location.href = _PreDespachoURL + "?leng=" + $("#language").data("kendoDropDownList").value();
     };
 
     function Guardar() {
@@ -435,8 +466,10 @@
         return Listado;
     };
  @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["Despacho"] = $DespachoModel;
+    $authorizationModel["PreDespacho"] = $PreDespachoModel;
+
     CargaInicial();
+
     if (_spoolID != "-1" && _proyectoID != "-1") {
         CargaInicialEdicion();
     }

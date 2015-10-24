@@ -190,5 +190,31 @@ namespace BackEndSAM.DataAcces
             //string json = serializer.Serialize(perfil);
             return perfil;
         }
+
+        public object VerificarPermisoCreacion(int perfilID, string entidad, int paginaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    bool tienePermiso = (from rep in ctx.Sam3_Rel_Perfil_Entidad_Pagina
+                                         join ent in ctx.Sam3_Entidad on rep.EntidadID equals ent.EntidadID
+                                         where rep.Activo
+                                         && rep.PerfilID == perfilID
+                                         && ent.Nombre == entidad
+                                         && rep.PaginaID == paginaID
+                                         select rep.PermisoCreacion).AsParallel().SingleOrDefault();
+
+                    return tienePermiso;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                return false;
+            }
+        }
     }
 }

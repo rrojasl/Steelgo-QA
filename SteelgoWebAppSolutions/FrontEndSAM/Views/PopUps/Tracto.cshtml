@@ -121,6 +121,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     TipoVehiculoTracto = [];
                     this.value("");
                 };
@@ -139,6 +140,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     TransportistaCamion = {};
                     this.value("");
                 };

@@ -149,6 +149,7 @@
                 change: function () {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Folio = {};
                         this.value("");
                     };
@@ -224,7 +225,7 @@
         //Parametros: N/A
         //Return:     N/A
         function ChecarAutorizacion() {
-                var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
                 removerValidacionRequeridos();
 
@@ -260,7 +261,7 @@
         //Parametros: N/A
         //Return:     N/A
         function onUploadArchivoAutorizar(e) {
-            var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
             var bool = false;
 
             $("#formaAutorizarPermiso .security_required").each(function (i, elem) {

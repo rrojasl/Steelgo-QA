@@ -1206,17 +1206,23 @@ namespace BackEndSAM.DataAcces
                 {
                     //Update ICS
                     ICS = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == item.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
-                    string[] splitCedulas = item.Cedula.Split('-');
-                    var diametro = splitCedulas[0];
-                    var cedulaA = splitCedulas[1];
-                    var cedulaB = splitCedulas[2];
-                    var cedulaC = splitCedulas[3];
+                    string[] splitCedulas;
+                    int cedulaID = 0;
 
-                    int cedulaID = ctx.Sam3_Cedula.Where(x => x.Diametro.ToString() == diametro &&
+                    if (item.Cedula != null && item.Cedula != "")
+                    {
+                        splitCedulas = item.Cedula.Split('-');
+                        var diametro = splitCedulas[0];
+                        var cedulaA = splitCedulas[1];
+                        var cedulaB = splitCedulas[2];
+                        var cedulaC = splitCedulas[3];
+
+                        cedulaID = ctx.Sam3_Cedula.Where(x => x.Diametro.ToString() == diametro &&
                                                         x.CedulaA == cedulaA &&
                                                         x.CedulaB == cedulaB &&
                                                         x.CedulaC == cedulaC &&
                                                         x.Activo).Select(x => x.CedulaID).AsParallel().SingleOrDefault();
+                    }
 
                     ICS.DescripcionEspanol = item.Descripcion;
                     ICS.DescripcionIngles = item.Descripcion;
@@ -1224,7 +1230,10 @@ namespace BackEndSAM.DataAcces
                     //ICS.Diametro1 = item.D1;
                     //ICS.Diametro2 = item.D2;
                     ICS.FamiliaAceroID = Int32.Parse(item.FamiliaMaterial);
-                    ICS.CedulaID = cedulaID;
+                    if (cedulaID > 0)
+                    {
+                        ICS.CedulaID = cedulaID;
+                    }
                     ICS.Codigo = item.ItemCodeSteelgo;
                     ICS.Activo = true;
                     ICS.UsuarioModificacion = usuario.UsuarioID;

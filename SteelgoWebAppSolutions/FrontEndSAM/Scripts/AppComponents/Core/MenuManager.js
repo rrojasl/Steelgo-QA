@@ -168,70 +168,71 @@ function menuManagerToBeExecutedOnDocumentReady() {
 function updateCookiesQuickLinks() {
     var url = window.location.href.toString().split(window.location.host)[1].toString().split('?')[0];
     console.log(url);
-    var label = "quickLabel9002";
-    if (url != "/Busqueda/Busqueda") {
-        label = $('a[href="' + url + '"]').children("span").attr("id").toString().replace("menu", "quick");
-    }
+    if ($('a[href="' + url + '"]').children("span").attr("id") != undefined) {
+        var label = "quickLabel9002";
+        if (url != "/Busqueda/Busqueda") {
+            label = $('a[href="' + url + '"]').children("span").attr("id").toString().replace("menu", "quick");
+        }
 
-    //Validate if the page it's already on the quicklinks
-    if (Cookies.get("QL1route") == url) {
-        console.log("Remover las cookies 1");
-        //Remover las cookies 1
-        Cookies.remove("QL1route", { path: '/' });
-        Cookies.remove("QL1label", { path: '/' });
-    }
-    if (Cookies.get("QL1route") == Cookies.get("QL2route")) {
-        console.log("Remover las cookies 2");
-        //Remover las cookies 2
-        Cookies.remove("QL2route", { path: '/' });
-        Cookies.remove("QL2label", { path: '/' });
-    }
-    if (Cookies.get("QL1route") == Cookies.get("QL3route")) {
-        console.log("Remover las cookies 3");
-        //Remover las cookies 3
-        Cookies.remove("QL3route", { path: '/' });
-        Cookies.remove("QL3label", { path: '/' });
-    }
+        //Validate if the page it's already on the quicklinks
+        if (Cookies.get("QL1route") == url) {
+            console.log("Remover las cookies 1");
+            //Remover las cookies 1
+            Cookies.remove("QL1route", { path: '/' });
+            Cookies.remove("QL1label", { path: '/' });
+        }
+        if (Cookies.get("QL1route") == Cookies.get("QL2route")) {
+            console.log("Remover las cookies 2");
+            //Remover las cookies 2
+            Cookies.remove("QL2route", { path: '/' });
+            Cookies.remove("QL2label", { path: '/' });
+        }
+        if (Cookies.get("QL1route") == Cookies.get("QL3route")) {
+            console.log("Remover las cookies 3");
+            //Remover las cookies 3
+            Cookies.remove("QL3route", { path: '/' });
+            Cookies.remove("QL3label", { path: '/' });
+        }
 
-    //Check if Cookies 1 not exist
-    if (Cookies.get("QL1route") == null || Cookies.get("QL1route") == "" || Cookies.get("QL1label") == null || Cookies.get("QL1label") == "") {
-        console.log("Check if Cookies 1 not exist");
-        //Generar las cookies 1 con mis datos
-        Cookies.set("QL1route", url, { path: '/' });
-        Cookies.set("QL1label", label, { path: '/' });
-        //Remover las cookies 2
-        Cookies.remove("QL2route", { path: '/' });
-        Cookies.remove("QL2label", { path: '/' });
-        //Remover las cookies 3
-        Cookies.remove("QL3route", { path: '/' });
-        Cookies.remove("QL3label", { path: '/' });
-    } else {
-        //Check if Cookies 1 exist and 2 not exist
-        if (Cookies.get("QL2route") == null || Cookies.get("QL2route") == "" || Cookies.get("QL2label") == null || Cookies.get("QL2label") == "") {
-            console.log("Check if Cookies 1 exist and 2 not exist");
-            //Creo las cookies 2 con los datos de las cookies 1
-            Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
-            Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
-            //Guardo mis datos en las cookies 1
+        //Check if Cookies 1 not exist
+        if (Cookies.get("QL1route") == null || Cookies.get("QL1route") == "" || Cookies.get("QL1label") == null || Cookies.get("QL1label") == "") {
+            console.log("Check if Cookies 1 not exist");
+            //Generar las cookies 1 con mis datos
             Cookies.set("QL1route", url, { path: '/' });
             Cookies.set("QL1label", label, { path: '/' });
+            //Remover las cookies 2
+            Cookies.remove("QL2route", { path: '/' });
+            Cookies.remove("QL2label", { path: '/' });
             //Remover las cookies 3
             Cookies.remove("QL3route", { path: '/' });
             Cookies.remove("QL3label", { path: '/' });
         } else {
-            console.log("else");
-            //Creo las cookies 3 con los datos de las cookies 2
-            Cookies.set("QL3route", Cookies.get("QL2route"), { path: '/' });
-            Cookies.set("QL3label", Cookies.get("QL2label"), { path: '/' });
-            //Guardo los datos de las cookies 1 en las cookies 2
-            Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
-            Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
-            //Guardo mis datos en las cookies 1
-            Cookies.set("QL1route", url, { path: '/' });
-            Cookies.set("QL1label", label, { path: '/' });
+            //Check if Cookies 1 exist and 2 not exist
+            if (Cookies.get("QL2route") == null || Cookies.get("QL2route") == "" || Cookies.get("QL2label") == null || Cookies.get("QL2label") == "") {
+                console.log("Check if Cookies 1 exist and 2 not exist");
+                //Creo las cookies 2 con los datos de las cookies 1
+                Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
+                Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
+                //Guardo mis datos en las cookies 1
+                Cookies.set("QL1route", url, { path: '/' });
+                Cookies.set("QL1label", label, { path: '/' });
+                //Remover las cookies 3
+                Cookies.remove("QL3route", { path: '/' });
+                Cookies.remove("QL3label", { path: '/' });
+            } else {
+                console.log("else");
+                //Creo las cookies 3 con los datos de las cookies 2
+                Cookies.set("QL3route", Cookies.get("QL2route"), { path: '/' });
+                Cookies.set("QL3label", Cookies.get("QL2label"), { path: '/' });
+                //Guardo los datos de las cookies 1 en las cookies 2
+                Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
+                Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
+                //Guardo mis datos en las cookies 1
+                Cookies.set("QL1route", url, { path: '/' });
+                Cookies.set("QL1label", label, { path: '/' });
+            }
         }
     }
-
 }
 
 //Create the QuickLinks

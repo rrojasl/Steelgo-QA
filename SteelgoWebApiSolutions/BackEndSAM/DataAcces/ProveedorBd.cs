@@ -41,14 +41,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoProveedores(string esAvisoEntrada)
+        public object ObtenerListadoProveedores(string esAvisoEntrada, Sam3_Usuario usuario, int paginaID)
         {
             try
             {
                 List<Proveedor> lstProveedores = new List<Proveedor>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (int.Parse(esAvisoEntrada) == 1)
+                    if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Proveedor", paginaID))
                     {
                         lstProveedores.Add(new Proveedor { Nombre = "Agregar nuevo", ProveedorID = "0" });
                     }

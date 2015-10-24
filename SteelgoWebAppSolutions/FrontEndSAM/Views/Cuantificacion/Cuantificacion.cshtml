@@ -551,6 +551,7 @@
                         limpiarfiltrosFolioAvisoEntrada();
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             FolioAvisoEntrada = {};
                             this.value("");
                         } else {
@@ -573,9 +574,11 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Proyecto = {};
                         this.value("");
-                    } 
+                    }
+                    ObtenerColada("Colada", 0, 0);
                 },
                 filter: "contains",
             });
@@ -591,6 +594,7 @@
                     var value = this.value();
                     limpiarfiltrosFolioCuantificacion();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Cuantificacion = {};
                         this.value("");
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
@@ -611,6 +615,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         TipoPackingList = {};
                         this.value("");
                         changeValueColumnMMPackingList("");
@@ -636,6 +641,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         TipoUso = {};
                         this.value("");
                     };
@@ -655,12 +661,13 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         this.value("");
                     };
                 },
                 filter: "contains",
             });
-            ObtenerColada("Colada", 0,0);
+            
 
             $("#Cantidad").keydown(function (e) {
                 if (e.keyCode == 13) {
@@ -1145,7 +1152,7 @@
         };
 
         function ObtenerTipoUso() {
-            $TipoUso.TipoUso.read({ agregarOpcion: 0, token: Cookies.get("token") }).done(function (result) {
+            $TipoUso.TipoUso.read({ agregarOpcion: 0, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("TipoUsoID", result);
             });
         };
@@ -1303,7 +1310,7 @@
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
             if (Proyecto.ProyectoID){
-                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
+                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"),paginaID: Cookies.get("navegacion"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
                     ControlErroresObjetosComboBox(id, result);
                 });
             } else {
@@ -2039,7 +2046,7 @@
 
                 if (ItemCode.indexOf("Bulto") == -1) {
                     //if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !Colada || !Familia || !Descripcion || !Cedula || !Cantidad) { // informacion incompleta
-                    if (!ItemCode || !Cantidad) {
+                    if (!ItemCode) {
                         datasource[i].TieneError = true;
                         ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
                         z++;
@@ -2292,6 +2299,12 @@
                             lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
                             lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
                             lastEditedCellID.Detallar = "No";
+                        } else {
+                            //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
+                            lastEditedCellID.Colada = "";
+                            lastEditedCellID.Cantidad = 0;
+                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
+                            lastEditedCellID.Detallar = "No";
                         };
                     }
                     $('#grid').data('kendoGrid').refresh();
@@ -2342,7 +2355,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
+                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") +"&paginaID="+ Cookies.get("navegacion")
                         }
                     },
                     select: function (e) {
@@ -2457,7 +2470,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLColada + "proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:-1 ) + "&token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
+                            read: $URLColada + "proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:-1 ) + "&token=" + Cookies.get("token") + "&paginaID=" +Cookies.get("navegacion") + "&id=0&mostrarOpcion=1"
                         },
                     },
                     select: function (e) {

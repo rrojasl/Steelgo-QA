@@ -972,6 +972,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Preferencia">
           <Key>
@@ -10075,6 +10076,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_NumeroUnico" Relationship="ModelSam3.FK__Sam3_PreD__Numer__19B5BC39" FromRole="Sam3_PreDespacho" ToRole="Sam3_NumeroUnico" />
           <NavigationProperty Name="Sam3_Proyecto" Relationship="ModelSam3.FK__Sam3_PreD__Proye__1AA9E072" FromRole="Sam3_PreDespacho" ToRole="Sam3_Proyecto" />
+          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK__Sam3_PreD__Numer__19B5BC39">
           <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
@@ -12064,6 +12066,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_PreDespacho">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_PreDespacho">
               <MappingFragment StoreEntitySet="Sam3_PreDespacho">
+                <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />

@@ -53,7 +53,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="tipoPackingListID">tipo Packing List: 1 Tubo, 2 Accesorio</param>
         /// <returns>lista de item codes</returns>
-        public object ObtenerItemCode(int tipoPackingListID)
+        public object ObtenerItemCode(int tipoPackingListID, Sam3_Usuario usuario, int paginaID)
         {
             try
             {
@@ -62,7 +62,11 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                    if ((bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Item Code", paginaID))
+                    {
+                        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                    }
+
                     IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto" });
 
                     //List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode

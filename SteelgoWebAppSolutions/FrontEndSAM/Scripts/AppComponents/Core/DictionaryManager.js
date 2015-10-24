@@ -5621,12 +5621,20 @@ _dictionary = {
         "en-US": "The folio has Pass Out"
     },
     "notificationslabel0081": {
-        "es-MX": "Los siguientes item codes no se pueden guardar, favor de validar los campos requeridos: ",
-        "en-US": "The following item codes can not be saved because they do not have selected an item code steelgo: "
+        "es-MX": "Los siguientes item codes no se pueden guardar: ",
+        "en-US": "The following item codes can not be saved: "
     },
     "notificationslabel0082": {
         "es-MX": "Favor de ingresar una fecha valida.",
         "en-US": "Please enter a valid date."
+    },
+    "notificationslabel0083": {
+        "es-MX": "El valor seleccionado no es válido.",
+        "en-US": "The value selected is invalid."
+    },
+    "notificationslabel0084": {
+        "es-MX": "Ocurrio un error al cargar el archivo.",
+        "en-US": "An error occurred loading file."
     },
     //Default to copy
     "label9999": {

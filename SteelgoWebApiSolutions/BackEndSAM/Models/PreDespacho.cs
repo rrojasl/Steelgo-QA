@@ -22,8 +22,6 @@ namespace BackEndSAM.Models
         }
     }
 
-
-
     public class DatosPredespacho
     {
         public List<PreDespachoItems> lista { get; set; }
