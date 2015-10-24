@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PlanaController : ApiController
     {
-        public object Get(int transportistaID, string token)
+        public object Get(int transportistaID,int paginaID, string token)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace BackEndSAM.Controllers
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return PlanaBd.Instance.ObtenerListadoPlanas(usuario, transportistaID);
+                    return PlanaBd.Instance.ObtenerListadoPlanas(usuario, transportistaID, paginaID);
                 }
                 else
                 {

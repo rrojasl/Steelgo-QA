@@ -43,7 +43,7 @@ namespace BackEndSAM.DataAcces
         /// Obtener los tipos de uso para Cuantificacion
         /// </summary>
         /// <returns>lista de tipos de uso</returns>
-        public object ObtenerTipoUso(int agregarOpcion)
+        public object ObtenerTipoUso(int agregarOpcion, Sam3_Usuario usuario, int paginaID)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    if (agregarOpcion==1)
+                    if (agregarOpcion == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Tipo Uso", paginaID))
                     {
                         listTU.Add(new TipoUso { Nombre = "Agregar Nuevo", id = "0" });
                     }
