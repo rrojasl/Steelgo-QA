@@ -104,7 +104,7 @@
             var tmp = removeGrid($("#grid"));
             cargarInicialGrid();
             $("#grid").data("kendoGrid").dataSource.data(tmp);
-            createPeriodoTiempo();
+            createPeriodoTiempo();            
     };
     function changeDatePickerDateFormat(datePickerOptions) {
         FechaInic.setOptions(datePickerOptions);
@@ -131,6 +131,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#FechaAvisoLlegada").val().length){ $("#FechaAvisoLlegada").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#FechaAvisoLlegada").focus();
         });
 
         $("#AvisoEntradaID").keyup(function () {
@@ -142,6 +144,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#AvisoEntradaID").val().length){ $("#AvisoEntradaID").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#AvisoEntradaID").focus();
         });
 
         $("#PackingList").keyup(function () {
@@ -153,6 +157,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#PackingList").val().length){ $("#PackingList").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#PackingList").focus();
         });
 
         $("#FolioLlegada").keyup(function () {
@@ -164,6 +170,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#FolioLlegada").val().length){ $("#FolioLlegada").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#FolioLlegada").focus();
         });
 
         $("#TipoPackingList").keyup(function () {
@@ -175,6 +183,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#TipoPackingList").val().length){ $("#TipoPackingList").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#TipoPackingList").focus();
         });
 
         $("#TipoUso").keyup(function () {
@@ -186,6 +196,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#TipoUso").val().length){ $("#TipoUso").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#TipoUso").focus();
         });
 
         $("#Estatus").keyup(function () {
@@ -197,6 +209,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#Estatus").val().length){ $("#Estatus").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Estatus").focus();
         });
 
         $("#Nuevo").click(function () {
@@ -336,6 +350,22 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+                
+                $("th[data-field='FechaFolioAvisoEntrada']").append($("#FechaAvisoLlegada"));
+                $("th[data-field='FolioEntrada']").append($("#AvisoEntradaID"));
+                $("th[data-field='PackingList']").append($("#PackingList"));
+                $("th[data-field='FolioCuantificacion']").append($("#FolioLlegada"));
+                $("th[data-field='TipoPackingList']").append($("#TipoPackingList"));
+                $("th[data-field='TipoUso']").append($("#TipoUso"));
+                $("th[data-field='Estatus']").append($("#Estatus"));
+
+                $("#FechaAvisoLlegada").click(function( event ) {event.stopPropagation();});
+                $("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
+                $("#PackingList").click(function( event ) {event.stopPropagation();});
+                $("#FolioLlegada").click(function( event ) {event.stopPropagation();});
+                $("#TipoPackingList").click(function( event ) {event.stopPropagation();});
+                $("#TipoUso").click(function( event ) {event.stopPropagation();});
+                $("#Estatus").click(function( event ) {event.stopPropagation();});
             }
          });
 

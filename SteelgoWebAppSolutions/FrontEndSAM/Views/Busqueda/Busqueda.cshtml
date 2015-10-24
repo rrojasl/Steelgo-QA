@@ -21,11 +21,11 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requireFolio" />
-                            <label for="requireFolio" class="checkLabel">Folio entrada</label>
+                            <label for="requireFolio" class="checkLabel">Aviso entrada</label>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requirePacking" />
-                            <label for="requirePacking" class="checkLabel">Packing List</label>
+                            <label for="requirePacking" class="checkLabel">Cuantificación</label>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requireIC" />
@@ -46,85 +46,69 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div id="pager">
+                        <a id="anterior" href="#"><span id="">Anteriores</span></a>
+                        <span id="actuales"></span> <span id="conjuncion">de</span> <span id="totales"></span>
+                        <a id="siguiente" href="#"><span id="">Siguientes</span></a>
+                        <select id="elementos">
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20" selected>20</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-
 <script>
 @section JavascriptGlobalVariables {
-    filtros=[{ field: "Proyecto", operator: "eq", value: "" },{ field: "FolioEntrada", operator: "neq", value: null||"" },{ field: "PackingList", operator: "neq", value: null||"" },{ field: "ItemCode", operator: "neq", value: null||"" },{ field: "NumUnico", operator: "neq", value: null||"" }]
-    dataGrid=[
-        {
-            NumUnico:"al008",
-            Proyecto:"Altamira XX",
-            Cliente:"Construcción y Clientes Relacionados, SA de CV",
-            FechaCreacion:"09/09/2014",
-            FolioEntrada:"001",
-            ItemCode:null,
-            PackingList:null
-        },
-        {
-            NumUnico:"al008",
-            Proyecto:"Altamira 2",
-            Cliente:"COMDISTRAL",
-            FechaCreacion:"09/10/2013",
-            FolioEntrada:"034",
-            ItemCode:null,
-            PackingList:null
-        },
-        {
-            NumUnico:null,
-            Proyecto:"Altamira XX",
-            Cliente:"Construcción y Clientes Relacionados, SA de CV",
-            FechaCreacion:"09/09/2014",
-            FolioEntrada:"001",
-            ItemCode:"alc08GR098",
-            PackingList:null
-        },
-        {
-            NumUnico:null,
-            Proyecto:"Altamira XX",
-            Cliente:"Construcción y Clientes Relacionados, SA de CV",
-            FechaCreacion:"09/02/2015",
-            FolioEntrada:"001",
-            ItemCode:"alc08GR098-C",
-            PackingList:null
-        },
-        {
-            NumUnico:null,
-            Proyecto:"Altamira 2",
-            Cliente:"COMDISTRAL",
-            FechaCreacion:"09/11/2013",
-            FolioEntrada:"al008abc",
-            PackingList:null
-        },
-        {
-            NumUnico:"al008",
-            Proyecto:"Altamira XX",
-            Cliente:"Construcción y Clientes Relacionados, SA de CV",
-            FechaCreacion:"09/09/2014",
-            FolioEntrada:"001",
-            PackingList:"al008abcDE"
-        },
-    ]
+    loaded=true;
+    queryString=getUrlParameter("q","");
+    queryRes=null;
+    filtros=[{ field: "Proyecto", operator: "", value: "Todos"||"All" },{ field: "TipoRegistro", operator: "eq", value: "AE" },{ field: "TipoRegistro", operator: "eq", value: "CU" },{ field: "TipoRegistro", operator: "eq", value: "IC" },{ field: "TipoRegistro", operator: "eq", value: "NU" }]
+    dataGrid=[];
+    parametros={ q: queryString, start: "0", rows: "20", wt: "json", indent: "true", defType: "edismax", qf: "AvisoLlegada Proyecto Cliente AvisoEntrada ItemCodeSteelgo ItemCode TipoRegistro Cuantificacion NumeroUnicoID", stopwords: "true", lowercaseOperators: "true" };
 }
 
 @section JavascriptGlobalFunctions {
-    function changeLanguageCall() {};
+    function getDataGrid(){
+        $Busqueda.select.read({},parametros).done(function(data){
+            dataGrid=data.response.docs;
+            parametros=data.responseHeader.params;
+            queryRes=data.response.numFound;
+            $("#grid").data("kendoGrid").dataSource.data(dataGrid);
+            $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());
+        })
+    }
+
+    function changeLanguageCall() {
+        getDataGrid();
+    };
     removeGrid($("#grid"));
     $("#grid").kendoGrid({
-        dataSource: dataGrid,
-        rowTemplate: kendo.template('<tr data-uid="#= uid #" style="border-bottom:1px solid black"><td colspan="15"> # if (NumUnico !== null && NumUnico !== "") { # <h4 style="display:inline">Número único:</h4> <span>#= NumUnico #</span><br/> # } if (Proyecto !== null && Proyecto !== "") { #<h4 style="display:inline">Proyecto:</h4> <span>#= Proyecto #</span><br/># } if (Cliente !== null && Cliente !== "") { #<h4 style="display:inline">Cliente:</h4> <span>#= Cliente #</span><br/># } if (FechaCreacion !== null && FechaCreacion !== "") { #<h4 style="display:inline">Fecha de Creacion:</h4> <span>#= FechaCreacion #</span><br/># } if (FolioEntrada !== null && FolioEntrada !== "") { #<h4 style="display:inline">Folio de Entrada:</h4> <span>#= FolioEntrada #</span><br/># } if (PackingList !== null && PackingList !== "") { #<h4 style="display:inline">PackingList:</h4> <span>#= PackingList #</span><br/># }# </td></tr>'),
+        dataSource: {
+            data:[],
+            total:"0",
+        },
+        rowTemplate: kendo.template('<tr data-uid="#= uid #" style="border-bottom:1px solid black"><td colspan="15"> # if (NumeroUnicoID !== null && NumeroUnicoID !== "") { # <h4 style="display:inline">Número único:</h4> <span>#= NumeroUnico #</span><br/> # } if (Proyecto !== null && Proyecto !== "") { #<h4 style="display:inline">Proyecto:</h4> <span>#= Proyecto #</span><br/># } if (Cliente !== null && Cliente !== "") { #<h4 style="display:inline">Cliente:</h4> <span>#= Cliente #</span><br/># } if (AvisoEntrada !== null && AvisoEntrada !== "") { #<h4 style="display:inline">Folio de Entrada:</h4> <span>#= AvisoEntrada #</span><br/># } { #<h4 style="display:inline">Cuantificación:</h4> <span>#= Cuantificacion #</span><br/># } # </td></tr>'),
         dataBound:function(e){
             $(".k-grid .k-grid-header").hide();
+            document.getElementById("actuales").innerHTML=parametros.start+" - "+ (parseInt(parametros.start)+parseInt(parametros.rows)-1);
+            document.getElementById("totales").innerHTML=queryRes;
         },
         scrollable: true
     });
+    
     $("#dropProyecto").kendoComboBox({
-        dataSource: getProyectos(),
+        dataSource: [],
         change:function(e){
-            $("#grid").data("kendoGrid").dataSource.filter(getFiltros());
-        }
+            $("#grid").data("kendoGrid").dataSource.filter(getFiltros());  
+        },
     });
 
     $("#requireFolio,#requirePacking,#requireIC,#requireNumUnico").on("change",function(){
@@ -138,7 +122,7 @@
     }
 
     function getProyectos(){
-        data=[];
+        data=["Todos"];
         dataGrid.forEach(function(d){
             data.indexOf(d.Proyecto)==-1 ? data.push(d.Proyecto) : 0;
         })
@@ -146,9 +130,9 @@
     }
 
     function getFiltros(){
-        $("#dropProyecto").data("kendoComboBox").value() ? filtros[0]["value"]=$("#dropProyecto").data("kendoComboBox").value() : filtros[0]["value"]="";
+        $("#dropProyecto").data("kendoComboBox").value() && $("#dropProyecto").data("kendoComboBox").value()!=="Todos" ? filtros[0]["value"]=$("#dropProyecto").data("kendoComboBox").value() : filtros[0]["value"]="";
         var tmp=[];
-        $("#dropProyecto").data("kendoComboBox").value() ? tmp.push(filtros[0]) : 0;
+        $("#dropProyecto").data("kendoComboBox").value() && $("#dropProyecto").data("kendoComboBox").value()!=="Todos" ? tmp.push(filtros[0]) : 0;
         document.getElementById("requireFolio").checked ? tmp.push(filtros[1]) : 0;
         document.getElementById("requirePacking").checked ? tmp.push(filtros[2]) : 0;
         document.getElementById("requireIC").checked ? tmp.push(filtros[3]) : 0;
@@ -158,6 +142,19 @@
 };
 
 @section JavascriptDocumentReadyFunctions {
+    $("#siguiente").on("click",function(){
+        queryRes > parseInt(parametros.start)+parseInt($("#elementos").val()) ? parametros.start=parseInt(parametros.start)+parseInt($("#elementos").val()) : 0;
+        getDataGrid();
+    })
+
+    $("#anterior").on("click",function(){
+        parseInt(parametros.start)-parseInt($("#elementos").val()) > -1 ? parametros.start=parseInt(parametros.start)-parseInt($("#elementos").val()) : 0;
+        getDataGrid();
+    })
+
+    $("#elementos").on("change",function(){
+        parametros.rows=this.value;
+    })
 };
     
 @section JavascriptDocumentReadyHomeCookie {

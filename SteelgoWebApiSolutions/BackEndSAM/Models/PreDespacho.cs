@@ -7,11 +7,12 @@ namespace BackEndSAM.Models
 {
     public class PreDespacho
     {
-        public int SpoolID { get; set; }
-        public string Spool { get; set; }
-        public int ItemCodeID { get; set; }
+        public string NumeroControlID { get; set; }
+        public string NumeroControl { get; set; }
+        public string ItemCodeID { get; set; }
         public string ItemCode { get; set; }
         public string Descripcion { get; set; }
+        public string NumeroUnicoID { get; set; }
         public string NumeroUnico { get; set; }
         public List<NumerosUnicos> NumerosUnicos { get; set; }
 
@@ -21,7 +22,19 @@ namespace BackEndSAM.Models
         }
     }
 
+
+
     public class DatosPredespacho
+    {
+        public List<PreDespachoItems> lista { get; set; }
+
+        public DatosPredespacho()
+        {
+            lista = new List<PreDespachoItems>();
+        }
+    }
+
+    public class PreDespachoItems
     {
         public string NumeroControl { get; set; }
         public string ItemCode { get; set; }

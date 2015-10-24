@@ -182,43 +182,8 @@
         var tmp = removeGrid($("#grid"));
         CargarGridAvisoLlegada();        
         $("#grid").data("kendoGrid").dataSource.data(tmp);
-        createPeriodoTiempo();
-        resizeFilters();        
-    }
-
-    //Ajusta el tamaño de los filtros rápidos a las columnas del grid
-    //Funcion: resizeFilters
-    //Parametros: N/A
-    //Return:     N/A
-    function resizeFilters(){
-        $("#grid .k-grid-header tr th").each(function (i, obj) {
-            var wd = 0
-            wd = $(this).outerWidth(true);            
-            //console.log("th: "+i+" width: "+$(this).outerWidth(true));
-            $("#filterContainer > div").find("input").each(function (index, event) {
-                if(i==index){                    
-                    $(this).outerWidth(wd+1.4);                                        
-                    //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
-                }                
-            });                          
-        });
-        $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth()+0.6);        
-
-        $(window).resize(function() {
-            $("#grid .k-grid-header tr th").each(function (i, obj) {
-                var wd = 0
-                wd = $(this).outerWidth(true);            
-                //console.log("th: "+i+" width: "+$(this).outerWidth(true));
-                $("#filterContainer > div").find("input").each(function (index, event) {
-                    if(i==index){                    
-                        $(this).outerWidth(wd+1.4);                                        
-                        //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
-                    }                
-                });                          
-            });
-            $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth()+0.6);            
-        });
-    }
+        createPeriodoTiempo();        
+    }    
 
     //Es la carga inicial de los controles
     //Funcion: cargaInicial
@@ -254,6 +219,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#FolioID").val().length){ $("#FolioID").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#FolioID").focus();
         });
 
         $("#FechaCreacion").keyup(function () {
@@ -265,6 +232,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#FechaCreacion").val().length){ $("#FechaCreacion").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#FechaCreacion").focus();
         });
 
         $("#FechaEstimada").keyup(function () {
@@ -276,6 +245,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#FechaEstimada").val().length){ $("#FechaEstimada").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#FechaEstimada").focus();
         });
 
         $("#ClienteID").kendoComboBox({
@@ -397,8 +368,17 @@
             dataBound: function (e) {
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
-                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');                            
-            }
+                $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+
+                $("th[data-field='FolioAvisoLlegadaID']").append($("#FolioID"));
+                $("th[data-field='FechaRecepcion']").append($("#FechaEstimada"));
+                $("th[data-field='FechaGeneracion']").append($("#FechaCreacion"));               
+
+                $("#FolioID").click(function( event ) {event.stopPropagation();});
+                $("#FechaCreacion").click(function( event ) {event.stopPropagation();});
+                $("#FechaEstimada").click(function( event ) {event.stopPropagation();}); 
+
+            }            
         });
 
         $("#menu").kendoContextMenu({

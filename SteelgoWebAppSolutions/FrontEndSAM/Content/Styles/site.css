@@ -346,10 +346,15 @@ input.quickFilters {
     input.quickFilters[disabled] {
         background: #FFFFFF;
         opacity: 1!important;
-        max-width: 100px!important;
-        min-width: 100px!important;
+        max-width: 100px;
+        //min-width: 100px;
         width: 100px;
     }
+
+        input.quickFilters[disabled]:last-of-type.scroll {
+            max-width: 17px;
+            min-width: 17px;
+        }
 
 /*.expanded input.quickFilters {
     width: 31.54%;

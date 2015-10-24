@@ -29,7 +29,8 @@
 var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
-var $SearchSAMUri = 'http://localhost:60921';
+//var $SearchSAMUri = 'http://localhost:60921';
+var $SearchSAMUri = 'http://10.15.2.12:8089';
 var $FilesSAMUri = 'http://localhost:60921';
 
 //Combos Base URL
@@ -50,7 +51,7 @@ var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
 var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
 var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
 var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
-var $UrlOrdenTrabajoSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?');
+var $UrlOrdenTrabajoSpool = $BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?';
 var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -138,6 +139,7 @@ var $NotificacionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $Usuario = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RevisionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $IncidenciaPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Busqueda = new $.RestClient($SearchSAMUri + '/solr/Steelgo_Search/');
 var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
@@ -238,4 +240,5 @@ $NotificacionDeficit.add("NotificacionDeficit");
 $Usuario.add("Usuario");
 $RevisionDeficit.add("RevisionDeficit");
 $IncidenciaPaseSalida.add("IncidenciaPaseSalida");
+$Busqueda.add("select");
 $PreDespacho.add("PreDespacho");
