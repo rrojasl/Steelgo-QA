@@ -149,6 +149,7 @@
 
 </div>
 <input id="hdnOrdenDescargada" type="hidden" />
+<input id="hdnNavegacion" type="hidden" value="" />
 <script type="text/javascript">
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
@@ -701,7 +702,7 @@
                     $.each(data.Documentos, function (index, value) {
                         $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
-                
+                    applySecurityPolicy(false);
             });
         };
 
@@ -1299,6 +1300,10 @@
             return bool;
         };
 
+        function ActualizarCookie() {
+            Cookies.set("navegacion", $("#hdnNavegacion").val(), { path: '/' });
+        };
+
         function Error(data) {
             if (data.ReturnCode) {
                 if (data.ReturnCode != 200) {
@@ -1326,7 +1331,7 @@
         {
             CargaInicialEdicion(folioAvisoLlegada);
         }
-
+        $("#hdnNavegacion").val(Cookies.get("navegacion"));
        
         
     };

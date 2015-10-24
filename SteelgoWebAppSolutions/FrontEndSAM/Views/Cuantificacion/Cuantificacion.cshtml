@@ -35,12 +35,12 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="Cuantificacion0003"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="Cuantificacion0004"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow creacion"><span id="Cuantificacion0003"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar" style="display:none"><span id="Cuantificacion0004"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle creacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu creacion">
                                     <li id="MenuTerminar"><a id="TerminaryNuevo" href="#"><span id="Cuantificacion0005"></span></a></li>
                                     <li id="MenuGuardarParcial"><a id="GuardarParcialyNuevo" href="#"><span id="Cuantificacion0008"></span></a></li>
                                     <li id="MenuCerrar"><a id="GuardaryCerrar" href="#"><span id="Cuantificacion0009"></span></a></li>
@@ -50,10 +50,10 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="Cuantificacion0010"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section ordenrecepcion">
                             <a id="GenerarOrdenRecepcion" href="#" class="btn btn-primary"><span id="Cuantificacion0011"></span></a>
                         </div>
-                        <div class="button-section action">
+                        <div class="button-section listado">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="Cuantificacion0042"></span>
@@ -143,7 +143,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row action">
+            <div class="row listado">
                 <div class="addedSection clearfix">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -164,7 +164,7 @@
 
 <div id="window">
 </div>
-
+<input id="hdnNavegacion" type="hidden" value="" />
 <script>
     @section JavascriptGlobalVariables 
     {
@@ -223,9 +223,9 @@
 
             var $CuantificacionModel = {
                 listContainer: {
-                    create: ".save-group",
-                    list: ".action",
-                    detail: ".editButtonSection",
+                    create: ".creacion",
+                    list: ".listado",
+                    detail: ".editar",
                     destroy: ".k-grid-Cancelar",
                     createIncidence: ".incidencia"
                 },
@@ -285,6 +285,19 @@
                         editable: "#MM",
                         required: "#MM"
                     }
+                }
+            };
+
+
+            var $OrdenRecepcionModel = {
+                listContainer: {
+                    create: ".ordenrecepcion",
+                    list: "",
+                    detail: "",
+                    destroy: "",
+                    createIncidence: ""
+                },
+                properties: {
                 }
             };
 
@@ -1158,12 +1171,16 @@
             var content = "";
             var window = $("#window");
             var height = "";
-
+            var mostrarpopup = true;
             switch (id) {
                 case 1:
                     modalTitle = "Item Code";
                     content = "@Url.Action("ItemCode", "PopUps")";
-                    height = "27%";
+                    height = "10%";
+                    if (!validarRequeridosFormaCuantificacion()) {
+                        mostrarpopup = false;
+                        displayMessage("notificationslabel0031", "", '1');
+                    } 
                     break;
                 case 2:
                     modalTitle = "Item Code Steelgo";
@@ -1177,32 +1194,34 @@
                     break;
             };
 
-            window.kendoWindow({
-                actions: false,
-                content: content,
-                modal: true,
-                title: modalTitle,
-                resizable: true,
-                actions: ["Close"],
-                visible: false,
-                width: "32.6%",
-                minWidth: 660,
-                height: height,
-                iframe: true,
-                position: {
-                    top: "10%",
-                    left: "20%"
-                }
-            }).data("kendoWindow");
+            if(mostrarpopup){
+                window.kendoWindow({
+                    actions: false,
+                    content: content,
+                    modal: true,
+                    title: modalTitle,
+                    resizable: true,
+                    actions: ["Close"],
+                    visible: false,
+                    width: "32.6%",
+                    minWidth: 660,
+                    height: height,
+                    iframe: true,
+                    position: {
+                        top: "10%",
+                        left: "20%"
+                    }
+                }).data("kendoWindow");
 
-            //Se actualiza el tamaño
-            $("#window").data("kendoWindow").setOptions({
-                width: "32.6%",
-                height: height,
-            });
+                //Se actualiza el tamaño
+                $("#window").data("kendoWindow").setOptions({
+                    width: "32.6%",
+                    height: height,
+                });
 
-            window.data("kendoWindow").title(modalTitle);
-            window.data("kendoWindow").center().open();
+                window.data("kendoWindow").title(modalTitle);
+                window.data("kendoWindow").center().open();
+            }
         };
 
         function DeshabilitarControlesDetalleBulto() {
@@ -1615,7 +1634,7 @@
                 ocultarStatus();
                 cargarTituloFolio();
                 $("#Cuantificacion0077").show();
-                
+                applySecurityPolicy(false);
             };
         };
 
@@ -1773,6 +1792,7 @@
                 displayMessage("notificationslabel0081", error, '2');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                applySecurityPolicy(false);
                 return;
             }
 
@@ -1780,6 +1800,7 @@
                 displayMessage("notificationslabel0037", "", '1');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                applySecurityPolicy(false);
                 return;
             }
            
@@ -1787,6 +1808,7 @@
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
             
             AccionesTerminaryNuevo(null);
+            applySecurityPolicy(false);
         }
     };
 
@@ -1938,23 +1960,26 @@
         } else {
             loadingStop();
             ordenamientoGrid();
+           
             if (error) {
                 displayMessage("notificationslabel0081", error, '2');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                applySecurityPolicy(false);
                 return;
             }
             if (incompletos) {
                 displayMessage("notificationslabel0037", "", '1');
                 BotonAlta();
                 CambiarEstatusNoCompleto();
+                applySecurityPolicy(false);
                 return;
             }
             AccionesGuardarGuardaryCerrar(null);
             ocultarStatus();
             cargarTituloFolio();
             $("#Cuantificacion0078").show();
-
+            applySecurityPolicy(false);
         }
     };
     function CambiarEstatusNoCompleto() {
@@ -2140,7 +2165,7 @@
                     return;
                 }
                 AccionesAltaGuardadoParcial(null);
-               
+                applySecurityPolicy(false);
                 if (guardarynuevo) {
                     var detalleIdeaUrl = "@Url.Action("Cuantificacion", "Cuantificacion")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
@@ -2427,12 +2452,12 @@
         function ColadaAutocomplete(container, options) {
             $('<input data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
-                .kendoComboBox({
+                .kendoAutoComplete({
                     autoBind: false,
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLColada + "token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
+                            read: $URLColada + "proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:-1 ) + "&token=" + Cookies.get("token") + "&id=0&mostrarOpcion=1"
                         },
                     },
                     select: function (e) {
@@ -2614,6 +2639,9 @@
             //if (e.keyCode == ctrlKey) ctrlDown = true;
         }
 
+        function ActualizarCookie() {
+            Cookies.set("navegacion", $("#hdnNavegacion").val(), { path: '/' });
+        };
         
         function ErrorBool(data) {
             if (data.ReturnCode) {
@@ -2749,6 +2777,8 @@
                 $("#txtFileUpload").click();
             });
 
+            $("#hdnNavegacion").val(Cookies.get("navegacion"));
+            $authorizationModel["Orden Recepcion"] = $OrdenRecepcionModel
             $authorizationModel["Cuantificacion"] = $CuantificacionModel;
     }
 

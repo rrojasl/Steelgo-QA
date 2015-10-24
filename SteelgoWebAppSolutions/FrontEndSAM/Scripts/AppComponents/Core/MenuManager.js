@@ -78,6 +78,15 @@ function menuManagerToBeExecutedOnDocumentReady() {
         }
     });
 
+    /*Open sidebar when clicking the icons when minified*/
+    $(document).on("click", "#sidebar ul.main-menu > li", function () {
+        if( $("#sidebar").hasClass("minified")) {
+            $("#sidebar").removeClass("minified");
+            $(".content-container").toggleClass("expanded");
+            $(this).children("ul").addClass("open");
+        }
+    });
+
     //Toggle for second submenu
     /*Open menus on hover*/
     $(document).on("mouseenter", "ul.sub-menu > li", function () {
@@ -85,7 +94,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $(this).removeClass("active expand");
             $(this).children("ul.sub-menu2").removeClass("open");
             $("li.shortcut").removeClass("open");
-        }
+        }        
         else {
             $("ul.sub-menu2").removeClass("open");
             $("ul.sub-menu > li").removeClass("active expand");
@@ -94,6 +103,12 @@ function menuManagerToBeExecutedOnDocumentReady() {
             $(this).children("ul.sub-menu2").addClass("open");
             $("li.shortcut").addClass("open");
         }
+
+        if ($(this).children("ul.sub-menu2").is(':empty')) {
+            $("li.shortcut").removeClass("open");
+            $(this).removeClass("expand");
+
+        }
     });
 
     /*Open menus on click*/
@@ -101,6 +116,9 @@ function menuManagerToBeExecutedOnDocumentReady() {
         if ($(this).parent().children("ul.sub-menu2").hasClass('open')) {
             $(this).parent("li").removeClass("active expand");
             $(this).parent().children("ul.sub-menu2").removeClass("open");
+            $("li.shortcut").removeClass("open");
+        }
+        else if ($(this).parent().children("ul.sub-menu2").is(':empty')) {
             $("li.shortcut").removeClass("open");
         }
         else {
@@ -146,10 +164,107 @@ function menuManagerToBeExecutedOnDocumentReady() {
 /****************************/
 /*    Global Functions      */
 /****************************/
+//Update cookies for QuickLinks
+function updateCookiesQuickLinks() {
+    var url = window.location.href.toString().split(window.location.host)[1].toString().split('?')[0];
+    console.log(url);
+    var label = $('a[href="' + url + '"]').children("span").attr("id").toString().replace("menu", "quick");
+    console.log(label);
+
+    //Validate if the page it's already on the quicklinks
+    if (Cookies.get("QL1route") == url) {
+        console.log("Remover las cookies 1");
+        //Remover las cookies 1
+        Cookies.remove("QL1route", { path: '/' });
+        Cookies.remove("QL1label", { path: '/' });
+    }
+    if (Cookies.get("QL1route") == Cookies.get("QL2route")) {
+        console.log("Remover las cookies 2");
+        //Remover las cookies 2
+        Cookies.remove("QL2route", { path: '/' });
+        Cookies.remove("QL2label", { path: '/' });
+    }
+    if (Cookies.get("QL1route") == Cookies.get("QL3route")) {
+        console.log("Remover las cookies 3");
+        //Remover las cookies 3
+        Cookies.remove("QL3route", { path: '/' });
+        Cookies.remove("QL3label", { path: '/' });
+    }
+
+    //Check if Cookies 1 not exist
+    if (Cookies.get("QL1route") == null || Cookies.get("QL1route") == "" || Cookies.get("QL1label") == null || Cookies.get("QL1label") == "") {
+        console.log("Check if Cookies 1 not exist");
+        //Generar las cookies 1 con mis datos
+        Cookies.set("QL1route", url, { path: '/' });
+        Cookies.set("QL1label", label, { path: '/' });
+        //Remover las cookies 2
+        Cookies.remove("QL2route", { path: '/' });
+        Cookies.remove("QL2label", { path: '/' });
+        //Remover las cookies 3
+        Cookies.remove("QL3route", { path: '/' });
+        Cookies.remove("QL3label", { path: '/' });
+    } else {
+        //Check if Cookies 1 exist and 2 not exist
+        if (Cookies.get("QL2route") == null || Cookies.get("QL2route") == "" || Cookies.get("QL2label") == null || Cookies.get("QL2label") == "") {
+            console.log("Check if Cookies 1 exist and 2 not exist");
+            //Creo las cookies 2 con los datos de las cookies 1
+            Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
+            Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
+            //Guardo mis datos en las cookies 1
+            Cookies.set("QL1route", url, { path: '/' });
+            Cookies.set("QL1label", label, { path: '/' });
+            //Remover las cookies 3
+            Cookies.remove("QL3route", { path: '/' });
+            Cookies.remove("QL3label", { path: '/' });
+        } else {
+            console.log("else");
+            //Creo las cookies 3 con los datos de las cookies 2
+            Cookies.set("QL3route", Cookies.get("QL2route"), { path: '/' });
+            Cookies.set("QL3label", Cookies.get("QL2label"), { path: '/' });
+            //Guardo los datos de las cookies 1 en las cookies 2
+            Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
+            Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
+            //Guardo mis datos en las cookies 1
+            Cookies.set("QL1route", url, { path: '/' });
+            Cookies.set("QL1label", label, { path: '/' });
+        }
+    }
+
+}
 
 //Create the QuickLinks
 function generateQuickLinks() {
-    var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>    <li>        <a href='#'>            <span>Llegada de Material</span>        </a>    </li>    <li>        <a href='#'><span>Generación Pase Salida</span></a></li><li><a href='#'><span>Despacho de Tubos</span></a></li></ul></li>";
+    //Update cookies for QuickLinks
+    updateCookiesQuickLinks();
+
+    //Basic Structure for QuickLinks
+    var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>";
+
+    //Validate the first quick link if not able create cookies and assign the logout element
+    if (Cookies.get("QL1route") != null && Cookies.get("QL1route") != "" && Cookies.get("QL1label") != null && Cookies.get("QL1label") != "") {
+        htmlToAppend = htmlToAppend + "<li><a href='" + Cookies.get("QL1route") + "' onclick='redirectToLanguage(event,this)'><span id='" + Cookies.get("QL1label") + "'>QuickLink1</span></a></li>";
+    } else {
+        htmlToAppend = htmlToAppend + "<li><a href='/Home/Landing' onclick='redirectToLanguage(event,this)'><span id='quickLabel9001'>QuickLink1</span></a></li>";
+    }
+
+    //Validate the first quick link if not able create cookies and assign the logout element
+    if (Cookies.get("QL2route") != null && Cookies.get("QL2route") != "" && Cookies.get("QL2label") != null && Cookies.get("QL2label") != "") {
+        htmlToAppend = htmlToAppend + "<li><a href='" + Cookies.get("QL2route") + "' onclick='redirectToLanguage(event,this)'><span id='" + Cookies.get("QL2label") + "'>QuickLink1</span></a></li>";
+    } else {
+        htmlToAppend = htmlToAppend + "<li><a href='/Busqueda/Busqueda' onclick='redirectToLanguage(event,this)'><span id='quickLabel9002'>QuickLink1</span></a></li>";
+    }
+
+    //Validate the first quick link if not able create cookies and assign the logout element
+    if (Cookies.get("QL3route") != null && Cookies.get("QL3route") != "" && Cookies.get("QL3label") != null && Cookies.get("QL3label") != "") {
+        htmlToAppend = htmlToAppend + "<li><a href='" + Cookies.get("QL3route") + "' onclick='redirectToLanguage(event,this)'><span id='" + Cookies.get("QL3label") + "'>QuickLink1</span></a></li>";
+    } else {
+        htmlToAppend = htmlToAppend + "<li><a href='#' onclick='removeUserSession()'><span id='quickLabel9003'>QuickLink1</span></a></li>";
+    }
+
+    //Add closure elements of the basic structure
+    htmlToAppend = htmlToAppend + "</ul></li>";
+
+    //var htmlToAppend = "<li class='shortcut'><div class='quicklinks'><i class='icn links'></i><span id='layoutLabel0014'></span><i class='icn right gear'></i></div><ul class='sub-menu'>    <li>        <a href='#'>            <span>Llegada de Material</span>        </a>    </li>    <li>        <a href='#'><span>Generación Pase Salida</span></a></li><li><a href='#'><span>Despacho de Tubos</span></a></li></ul></li>";
     $(".main-menu").append(htmlToAppend);
 }
 
@@ -157,7 +272,7 @@ function generateQuickLinks() {
 function generateSideMenuDOMElementsLevel0(elementOfMenu, appendingTarget) {
     
     //var htmlToAppend = "<li class='active'><a href='" + elementOfMenu.liga + "'>";
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><i class='" + elementOfMenu.icono + "'></i><span id='" + elementOfMenu.texto + "'></span><i class='icn right arrow'></i></a></li>");
+    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "' onclick='redirectToLanguage(event,this)'><i class='" + elementOfMenu.icono + "'></i><span id='" + elementOfMenu.texto + "'></span><i class='icn right arrow'></i></a></li>");
     var htmlSubMenu = $("<ul class='sub-menu'></ul>");
     htmlToAppend.append(htmlSubMenu);
     appendingTarget.append(htmlToAppend);

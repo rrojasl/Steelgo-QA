@@ -498,8 +498,9 @@ header .menu > div {
         padding: 0;
     }
 
-        .sidebar .main-nav ul.main-menu li ul.sub-menu:empty {
-            display: none!important;
+        .sidebar .main-nav ul.main-menu li ul.sub-menu:empty,
+        .sidebar .main-nav ul.main-menu li ul.sub-menu li ul.sub-menu2:empty {
+            display: none!important;            
         }
 
         .sidebar .main-nav ul.main-menu li ul.sub-menu > li {
@@ -602,7 +603,7 @@ header .menu > div {
 
         .sidebar .main-nav ul.main-menu li.shortcut.open {
             margin-right: 0;
-        }
+        }        
 
         .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu {
             background: #FFFFFF;
@@ -1465,14 +1466,14 @@ header .menu > div {
  Description:   Customize mobile menu button.
 **********************************************************************************/
 .quick-filters {
+    display: none;
 }
 
     .quick-filters > div {
         height: auto;
         overflow: hidden;
         max-height: 56px;
-        white-space: nowrap;
-        min-height: 39px;
+        white-space: nowrap;        
     }
 /**********************************************************************************/
 

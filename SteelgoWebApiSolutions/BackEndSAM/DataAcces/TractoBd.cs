@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoTractos(string esAvisoEntrada)
+        public object ObtenerListadoTractos(string esAvisoEntrada, int transportistaID)
         {
             try
             {
@@ -55,12 +55,14 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<TractoAV> result = (from r in ctx.Sam3_Vehiculo
-                                           where r.Activo && r.TipoVehiculoID == 1
+                                             join rvt in ctx.Sam3_Rel_Vehiculo_Transportista on r.VehiculoID equals rvt.VehiculoID
+                                             where r.Activo && r.TipoVehiculoID == 1
+                                             && rvt.TransportistaID == transportistaID
                                              select new TractoAV
-                                           {
-                                               VehiculoID = r.VehiculoID.ToString(),
-                                               Placas = r.Placas
-                                           }).AsParallel().ToList();
+                                             {
+                                                VehiculoID = r.VehiculoID.ToString(),
+                                                Placas = r.Placas
+                                             }).AsParallel().ToList();
 
                     lstCamiones.AddRange(result);
 

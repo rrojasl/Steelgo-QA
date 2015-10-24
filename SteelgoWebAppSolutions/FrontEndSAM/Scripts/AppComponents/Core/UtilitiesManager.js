@@ -101,3 +101,37 @@ function removeGrid(grid) {
     contenedor.append("<div id='" + grid.attr("id") + "'></div>");
     return tmp;
 }
+
+//Ajusta el tamaño de los filtros rápidos a las columnas del grid
+//Funcion: resizeFilters
+//Parametros: N/A
+//Return:     N/A
+/*function resizeFilters() {   
+    $("#grid .k-grid-header tr th:visible").each(function (i, obj) {
+        var wd = 0;
+        wd = $(this).outerWidth(true);
+        console.log("th: "+i+" width: "+$(this).outerWidth(true));
+        $("#filterContainer > div").find("input").each(function (index, event) {
+            if (i == index) {
+                $(this).outerWidth(wd + 1.4);
+                console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+            }
+        });
+    });
+    $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth() + 0.6);
+
+    $(window).resize(function () {
+        $("#grid .k-grid-header tr th").each(function (i, obj) {
+            var wd = 0
+            wd = $(this).outerWidth(true);
+            console.log("th: "+i+" width: "+$(this).outerWidth(true));
+            $("#filterContainer > div").find("input").each(function (index, event) {
+                if (i == index) {
+                    $(this).outerWidth(wd + 1.4);
+                    console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+                }
+            });
+        });
+        $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth() + 0.6);
+    });
+}*/

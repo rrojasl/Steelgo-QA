@@ -304,8 +304,11 @@
         var curr_date = d.getDate();
         var curr_month = d.getMonth() + 1;
         var curr_year = d.getFullYear();
-
-        return curr_year + "-" + curr_month + "-" + curr_date;
+        if (curr_year == "1969") {
+            return "";
+        } else {
+            return curr_year + "-" + curr_month + "-" + curr_date;
+        }
     };
 
     function obtenerFormatoFechaConHora(d) {
@@ -314,8 +317,12 @@
         var curr_year = d.getFullYear();
             
         var horaActual = new Date();
-            
-        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+
+        if (curr_year == "1969") {
+            return null;
+        } else {
+            return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        }
     };
 
     function ControlErroresObjetosComboBox(control, result) {
