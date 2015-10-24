@@ -2046,7 +2046,7 @@
 
                 if (ItemCode.indexOf("Bulto") == -1) {
                     //if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !Colada || !Familia || !Descripcion || !Cedula || !Cantidad) { // informacion incompleta
-                    if (!ItemCode || !Cantidad) {
+                    if (!ItemCode) {
                         datasource[i].TieneError = true;
                         ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
                         z++;
@@ -2297,6 +2297,12 @@
                             lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                             lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
                             lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
+                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
+                            lastEditedCellID.Detallar = "No";
+                        } else {
+                            //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
+                            lastEditedCellID.Colada = "";
+                            lastEditedCellID.Cantidad = 0;
                             lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
                             lastEditedCellID.Detallar = "No";
                         };
