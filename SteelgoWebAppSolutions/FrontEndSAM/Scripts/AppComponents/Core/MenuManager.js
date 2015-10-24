@@ -272,7 +272,7 @@ function generateQuickLinks() {
 function generateSideMenuDOMElementsLevel0(elementOfMenu, appendingTarget) {
     
     //var htmlToAppend = "<li class='active'><a href='" + elementOfMenu.liga + "'>";
-    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "'><i class='" + elementOfMenu.icono + "'></i><span id='" + elementOfMenu.texto + "'></span><i class='icn right arrow'></i></a></li>");
+    var htmlToAppend = $("<li><a href='" + elementOfMenu.liga + "' onclick='redirectToLanguage(event,this)'><i class='" + elementOfMenu.icono + "'></i><span id='" + elementOfMenu.texto + "'></span><i class='icn right arrow'></i></a></li>");
     var htmlSubMenu = $("<ul class='sub-menu'></ul>");
     htmlToAppend.append(htmlSubMenu);
     appendingTarget.append(htmlToAppend);
