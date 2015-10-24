@@ -551,6 +551,7 @@
                         limpiarfiltrosFolioAvisoEntrada();
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             FolioAvisoEntrada = {};
                             this.value("");
                         } else {
@@ -573,6 +574,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Proyecto = {};
                         this.value("");
                     } 
@@ -591,6 +593,7 @@
                     var value = this.value();
                     limpiarfiltrosFolioCuantificacion();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Cuantificacion = {};
                         this.value("");
                         $("#TipoPackingListID").data("kendoComboBox").enable(true);
@@ -611,6 +614,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         TipoPackingList = {};
                         this.value("");
                         changeValueColumnMMPackingList("");
@@ -636,6 +640,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         TipoUso = {};
                         this.value("");
                     };
@@ -655,6 +660,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         this.value("");
                     };
                 },

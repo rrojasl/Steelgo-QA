@@ -302,6 +302,7 @@
                 var value = this.value();
                 limpiarfiltrosProyecto();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                     Colada
@@ -331,6 +332,7 @@
                 var value = this.value();
                 limpiarfiltrosFolioCuantificacion();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Cuantificacion = {};
                     this.value("");
                 }
@@ -345,6 +347,7 @@
             change: function (e) {
                 var value = this.value();
                 if (this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     this.value("");
                 }
                 changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
@@ -370,6 +373,7 @@
                 var value = this.value();
 
                 if (this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     this.value("");
                 };
                 changeValueColumnColada($("#Colada").data("kendoComboBox").text());
@@ -392,6 +396,7 @@
             change: function (e) {
 
                 if (this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     this.value("");
                 };
 
@@ -503,6 +508,7 @@
             change: function (e) {
                 var value = this.value();
                 if (this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     this.value("");
                 };
                 changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
@@ -522,6 +528,7 @@
             change: function (e) {
                 var value = this.value();
                 if (this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     this.value("");
                 };
                 changeValueColumnEstatusDocumental($("#EstatusDocumental").data("kendoComboBox").text());
@@ -1206,6 +1213,7 @@
                     change: function (e) {
                         var value = this.text();
                         if (this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             lastEditedFisicoCellIDS.EstatusFisico = "";
                         } else {
                             lastEditedFisicoCellIDS.EstatusFisico = value;
@@ -1233,6 +1241,7 @@
                     change: function (e) {
                         var value = this.text();
                         if (this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             lastEditedDepartamentalCellID.EstatusDocumental = "";
                         } else {
                             lastEditedDepartamentalCellID.EstatusDocumental = value;
@@ -1271,6 +1280,7 @@
                         lastEditedCellIDSColada.Colada = value;
 
                         if (this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             lastEditedCellIDSColada.Colada = "";
                         } else {
                             lastEditedCellIDSColada.Colada = value;
@@ -1310,6 +1320,7 @@
                     change: function (e) {
                         var value = this.text();
                         if (this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             lastEditedTipoUsoCellIDS.TipoUso = "";
                         }else{
                             lastEditedTipoUsoCellIDS.TipoUso = value;

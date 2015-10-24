@@ -166,6 +166,7 @@
                 LimpiarFiltrosProyecto();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                     CargarDatosGrid();
@@ -191,6 +192,7 @@
                 limpiarFiltroItemCode();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioAvisoEntrada = {};
                     this.value("");
                     CargarDatosGrid();
@@ -213,6 +215,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     ItemCode = {};
                     this.value("");
                 }

@@ -199,6 +199,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Cliente = {};
                     this.value("");
                 }
@@ -219,6 +220,7 @@
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                 }
@@ -338,6 +340,7 @@
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     PeriodoTiempo = [];
                     this.value("");
                 }
