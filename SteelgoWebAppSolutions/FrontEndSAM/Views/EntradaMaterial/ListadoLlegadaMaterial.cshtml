@@ -214,6 +214,16 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+
+                $("th[data-field='FolioAvisoLlegadaID']").append($("#AvisoEntradaID"));
+                $("th[data-field='FechaCreación']").append($("#FechaCreacion"));
+                $("th[data-field='Patio']").append($("#Patio"));
+                $("th[data-field='EstatusFolio']").append($("#EstatusFolio"));
+
+                $("#AvisoEntradaID").click(function( event ) {event.stopPropagation();});
+                $("#FechaCreacion").click(function( event ) {event.stopPropagation();});
+                $("#Patio").click(function( event ) {event.stopPropagation();});
+                $("#EstatusFolio").click(function( event ) {event.stopPropagation();});              
             }
         });
 
@@ -556,6 +566,8 @@
                 "value": this.value
             }
         ]);
+        if(!$("#AvisoEntradaID").val().length){ $("#AvisoEntradaID").parent().children("a.k-state-active").removeClass("k-state-active");}
+        $("#AvisoEntradaID").focus();
     });
 
     $("#FechaCreacion").keyup(function () {
@@ -567,6 +579,8 @@
                 "value": this.value
             }
         ]);
+        if(!$("#FechaCreacion").val().length){ $("#FechaCreacion").parent().children("a.k-state-active").removeClass("k-state-active");}
+        $("#FechaCreacion").focus();
     });
 
     $("#Patio").keyup(function () {
@@ -578,6 +592,8 @@
                 "value": this.value
             }
         ]);
+        if(!$("#Patio").val().length){ $("#Patio").parent().children("a.k-state-active").removeClass("k-state-active");}
+        $("#Patio").focus();
     });
 
     $("#EstatusFolio").keyup(function () {
@@ -589,6 +605,8 @@
                 "value": this.value
             }
         ]);
+        if(!$("#FechaAvisoLlegada").val().length){ $("#FechaAvisoLlegada").parent().children("a.k-state-active").removeClass("k-state-active");}
+        $("#FechaAvisoLlegada").focus();
     });
 
 
