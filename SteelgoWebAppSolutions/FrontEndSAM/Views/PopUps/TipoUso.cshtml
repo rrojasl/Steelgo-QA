@@ -25,7 +25,7 @@
     var Contacto = {};
     var $TipoUsoModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarTipoUso",
             list: "",
             detail: "",
             destroy: ""
@@ -105,7 +105,6 @@
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
         cleanDisplayMessage();
-        window.parent.ActualizarCookie();
     };
 
    
@@ -154,9 +153,10 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Tipo Uso"] = $TipoUsoModel
     CargaInicial();
+    applySecurityPolicy(false);
     }
      @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "45", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "45", { path: '/' });
     }
 </script>

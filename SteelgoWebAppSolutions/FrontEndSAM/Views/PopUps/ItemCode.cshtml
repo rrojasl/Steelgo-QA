@@ -47,7 +47,7 @@
 
     var $ItemCodeModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarItemCode",
             list: "",
             detail: "",
             destroy: ""
@@ -254,7 +254,6 @@
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
         cleanDisplayMessage();
-        window.parent.ActualizarCookie();
     };
 
     function LimpiarModalItemCode() {
@@ -334,9 +333,10 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Item Code"] = $ItemCodeModel;
     CargaInicial();
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "35", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "35", { path: '/' });
     }
 </script>

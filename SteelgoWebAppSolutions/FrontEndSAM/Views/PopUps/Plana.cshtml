@@ -50,7 +50,7 @@
     var TipoVehiculoPlana = {}, Camion = {}, Transportista = {}, Chofer = {};
     var $PlanaModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarPlana",
             list: "",
             detail: "",
             destroy: ""
@@ -235,7 +235,6 @@
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
         cleanDisplayMessage();
-        window.parent.ActualizarCookie();
     };
 
    
@@ -350,9 +349,10 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Plana"] = $PlanaModel;
     CargaInicial();
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "37", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "37", { path: '/' });
     }
 </script>

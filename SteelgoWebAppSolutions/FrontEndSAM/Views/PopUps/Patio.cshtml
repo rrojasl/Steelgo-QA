@@ -37,7 +37,7 @@
     @section JavascriptGlobalVariables {
     var $PatioModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarPatio",
             list: "",
             detail: "",
             destroy: ""
@@ -159,7 +159,6 @@
             if (Error(data)) {
                 cerrarVentanaModal();
                 window.parent.ObtenerPatio();
-                window.parent.ActualizarCookie();
             };
         });
     };
@@ -194,9 +193,10 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Patio"] = $PatioModel;
     CargarIncial();
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "31", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "31", { path: '/' });
     }
 </script>
