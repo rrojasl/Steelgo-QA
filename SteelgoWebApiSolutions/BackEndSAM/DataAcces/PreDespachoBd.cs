@@ -76,28 +76,28 @@ namespace BackEndSAM.DataAcces
                                                      join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
                                                      join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
                                                      join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
-                                                     join nu in ctx2.NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
+                                                     //join nu in ctx2.NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                                                      where ots.OrdenTrabajoSpoolID == spoolID
                                                      && proyectos.Contains(ot.ProyectoID)
                                                      select new PreDespacho
                                                      {
-                                                         ItemCodeID = ic.ItemCodeID,
+                                                         ItemCodeID = ic.ItemCodeID.ToString(),
                                                          ItemCode = ic.Codigo,
-                                                         SpoolID = ots.OrdenTrabajoSpoolID,
-                                                         Spool = ots.NumeroControl,
+                                                         NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
+                                                         NumeroControl = ots.NumeroControl,
                                                          Descripcion = ic.DescripcionEspanol,
                                                          //NumeroUnico = nu.Codigo,
-                                                         NumerosUnicos = (from numu in ctx2.NumeroUnico
-                                                                          join nui in ctx2.NumeroUnicoInventario on numu.NumeroUnicoID equals nui.NumeroUnicoID
-                                                                          where numu.ItemCodeID == ic.ItemCodeID
-                                                                              //&& nu.Diametro1 == ic.Diametro1 
-                                                                          && nui.InventarioDisponibleCruce > 0
-                                                                          select new NumerosUnicos
-                                                                          {
-                                                                              NumeroUnicoID = numu.NumeroUnicoID.ToString(),
-                                                                              NumeroUnico = numu.Codigo 
-                                                                          }).ToList()
-                                                     }).AsParallel().GroupBy(x => x.SpoolID).Select(x => x.First()).ToList();
+                                                         //NumerosUnicos = (from numu in ctx2.NumeroUnico
+                                                         //                 join nui in ctx2.NumeroUnicoInventario on numu.NumeroUnicoID equals nui.NumeroUnicoID
+                                                         //                 where numu.ItemCodeID == ic.ItemCodeID
+                                                         //                     //&& nu.Diametro1 == ic.Diametro1 
+                                                         //                 && nui.InventarioDisponibleCruce > 0
+                                                         //                 select new NumerosUnicos
+                                                         //                 {
+                                                         //                     NumeroUnicoID = numu.NumeroUnicoID.ToString(),
+                                                         //                     NumeroUnico = numu.Codigo 
+                                                         //                 }).ToList()
+                                                     }).AsParallel().GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
 
                         //foreach (var nu in listado)
                         //{
@@ -113,25 +113,25 @@ namespace BackEndSAM.DataAcces
                         //    nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
                         //}
 
-                        foreach (var nu in listado)
-                        {
-                            foreach (var li in nu.NumerosUnicos)
-                            {
-                                int numeroDigitos = (from it in ctx.Sam3_ItemCode
-                                                     join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
-                                                     where it.ItemCodeID == nu.ItemCodeID
-                                                     select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+                        //foreach (var nu in listado)
+                        //{
+                        //    foreach (var li in nu.NumerosUnicos)
+                        //    {
+                        //        int numeroDigitos = (from it in ctx.Sam3_ItemCode
+                        //                             join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
+                        //                             where it.ItemCodeID == nu.ItemCodeID
+                        //                             select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
 
-                                string formato = "D" + numeroDigitos.ToString();
+                        //        string formato = "D" + numeroDigitos.ToString();
 
-                                string[] codigo = nu.NumeroUnico.Split('-').ToArray();
-                                int consecutivo = Convert.ToInt32(codigo[1]);
-                                li.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
+                        //        string[] codigo = li.NumeroUnico.Split('-').ToArray();
+                        //        int consecutivo = Convert.ToInt32(codigo[1]);
+                        //        li.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
 
-                            }
-                        }
+                        //    }
+                        //}
 
-                        return listado.OrderBy(x => x.Spool).ToList();
+                        return listado.OrderBy(x => x.NumeroControlID).ToList();
                     }
                 }
             }
@@ -157,7 +157,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="lista"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object Predespachar(List<DatosPredespacho> lista, Sam3_Usuario usuario)
+        public object Predespachar(List<PreDespachoItems> lista, Sam3_Usuario usuario)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace BackEndSAM.DataAcces
                     {
                         Sam3_PreDespacho preDespacho = new Sam3_PreDespacho();
 
-                        foreach (DatosPredespacho item in lista)
+                        foreach (PreDespachoItems item in lista)
                         {
                            
                             preDespacho.Activo = true;

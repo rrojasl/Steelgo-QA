@@ -169,7 +169,7 @@
 <input id="hdPermisoTramite" type="hidden" />
 <input id="hdPaseSalida" type="hidden" value="" />
 <input id="hdArchivoAutorizado" type="hidden" value="" />
-<input id="hdnNavegacion" type="hidden" value="" />
+@*<input id="hdnNavegacion" type="hidden" value="" />*@
 <script>
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
@@ -1456,10 +1456,6 @@
                 window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + folio + "&TipoIncidencia=1&Clasificacion=1");
             };
 
-            function ActualizarCookie() {
-                Cookies.set("navegacion", $("#hdnNavegacion").val(), { path: '/' });
-            };
-
             function Error(data) {
                 if (data.ReturnCode) {
                     if (data.ReturnCode != 200) {
@@ -1486,7 +1482,7 @@
     if (folio != -1) {
         CargaInicialEdicion(folio);
     }
-    $("#hdnNavegacion").val(Cookies.get("navegacion"));
+   // $("#hdnNavegacion").val(Cookies.get("navegacion"));
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
