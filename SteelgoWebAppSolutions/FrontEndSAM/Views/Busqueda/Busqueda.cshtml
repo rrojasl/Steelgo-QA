@@ -70,7 +70,7 @@
     loaded=true;
     queryString=getUrlParameter("q","");
     queryRes=null;
-    filtros=[{ field: "Proyecto", operator: "", value: "Todos"||"All" },{ field: "TipoRegistro", operator: "eq", value: "AE" },{ field: "TipoRegistro", operator: "eq", value: "CU" },{ field: "TipoRegistro", operator: "eq", value: "IC" },{ field: "TipoRegistro", operator: "eq", value: "NU" }]
+    filtros=[{ field: "Proyecto", operator: "", value: "Todos"||"All" },{ field: "TipoRegistro", operator: "eq", value: "AE" },{ field: "TipoRegistro", operator: "eq", value: "Cu" },{ field: "TipoRegistro", operator: "eq", value: "IC" },{ field: "TipoRegistro", operator: "eq", value: "NU" }]
     dataGrid=[];
     parametros={ q: queryString, start: "0", rows: "20", wt: "json", indent: "true", defType: "edismax", qf: "AvisoLlegada Proyecto Cliente AvisoEntrada ItemCodeSteelgo ItemCode TipoRegistro Cuantificacion NumeroUnicoID", stopwords: "true", lowercaseOperators: "true" };
 }
@@ -95,11 +95,12 @@
             data:[],
             total:"0",
         },
-        rowTemplate: kendo.template('<tr data-uid="#= uid #" style="border-bottom:1px solid black"><td colspan="15"> # if (NumeroUnicoID !== null && NumeroUnicoID !== "") { # <h4 style="display:inline">Número único:</h4> <span>#= NumeroUnico #</span><br/> # } if (Proyecto !== null && Proyecto !== "") { #<h4 style="display:inline">Proyecto:</h4> <span>#= Proyecto #</span><br/># } if (Cliente !== null && Cliente !== "") { #<h4 style="display:inline">Cliente:</h4> <span>#= Cliente #</span><br/># } if (AvisoEntrada !== null && AvisoEntrada !== "") { #<h4 style="display:inline">Folio de Entrada:</h4> <span>#= AvisoEntrada #</span><br/># } { #<h4 style="display:inline">Cuantificación:</h4> <span>#= Cuantificacion #</span><br/># } # </td></tr>'),
+        rowTemplate: kendo.template('<tr data-uid="#= uid #" style="border-bottom:1px solid black"><td colspan="15"> # if (typeof NumeroUnicoID !== "undefined" && NumeroUnicoID !== null && NumeroUnicoID !== "") { # <h4 style="display:inline">Número único:</h4> <span>#= NumeroUnico #</span><br/> # } if (typeof Proyecto !== "undefined" && Proyecto !== null && Proyecto !== "") { # <h4 style="display:inline">Proyecto:</h4> <span>#= Proyecto #</span><br/> # } if (typeof Cliente !== "undefined" && Cliente !== null && Cliente !== "") { # <h4 style="display:inline">Cliente:</h4> <span>#= Cliente #</span><br/> # } if (typeof AvisoEntrada !== "undefined" && AvisoEntrada !== null && AvisoEntrada !== "") { # <h4 style="display:inline">Folio de Entrada:</h4> <span>#= AvisoEntrada #</span><br/> # } if (typeof Cuantificacion !== "undefined" && Cuantificacion !== null && Cuantificacion !== "") { # <h4 style="display:inline">Cuantificación:</h4> <span>#= Cuantificacion #</span><br/> # } # </td></tr>'),
         dataBound:function(e){
             $(".k-grid .k-grid-header").hide();
             document.getElementById("actuales").innerHTML=parametros.start+" - "+ (parseInt(parametros.start)+parseInt(parametros.rows)-1);
             document.getElementById("totales").innerHTML=queryRes;
+            $("#")
         },
         scrollable: true
     });
