@@ -90,6 +90,9 @@
     }
 
     @section JavascriptGlobalVariables {
+        paramPatioID=getUrlParameter("PatioID","");
+        paramProyectoID=getUrlParameter("ProyectoID","").split("+").join(" ");
+        paramICID="";
     var Patio = {}, Proyecto = {}, resultadoJson;
 
     var $ListadoMaterialesItemCodeModel = {
@@ -512,7 +515,10 @@
         });
 
 
-        $("#Mostrar").click(function () { Filtros(); });
+        $("#Mostrar").click(function () { 
+            $("#grid").data("kendoGrid").dataSource.filter([]);
+            Filtros();
+        });
 
         $("#PatioID").kendoComboBox({
             dataTextField: "Nombre",
@@ -523,11 +529,26 @@
             },
             change: function (e) {
                 var value = this.value();
-                LimpiarCamposPatio();
+                try{
+                    LimpiarCamposPatio();
+                }catch(e){}
                 if (!value || this.selectedIndex == -1) {
                     Patio = {};
                     this.value("");
                 } else {
+                    ObtenerLosProyectos();
+                }
+            },
+            dataBound:function(e){
+                if(paramPatioID!==""){
+                    $("#PatioID").data("kendoComboBox").select(function(dataItem) {
+                        if(dataItem.PatioID === paramPatioID){
+                            paramPatioID="";
+                            $("#PatioID").val(dataItem.PatioID);
+                            CargarPatio(dataItem.PatioID,dataItem.Nombre);
+                            return dataItem;
+                        }
+                    });
                     ObtenerLosProyectos();
                 }
             },
@@ -548,6 +569,19 @@
                 if (!value || this.selectedIndex == -1) {
                     Proyecto = {};
                     this.value("");
+                }
+            },
+            dataBound:function(e){
+                if(paramProyectoID!==""){
+                    $("#ProyectoID").data("kendoComboBox").select(function(dataItem) {
+                        if(dataItem.Nombre === paramProyectoID){
+                            paramProyectoID="";
+                            $("#ProyectoID").val(dataItem.ProyectoID);
+                            CargarProyecto(dataItem.ProyectoID,dataItem.Nombre);
+                            Filtros();
+                            return dataItem;
+                        }
+                    });
                 }
             },
             filter: "contains",
@@ -769,6 +803,10 @@
                 };
             };
             loadingStop();
+            if(paramICID==""){
+                paramICID=getUrlParameter("IC","");
+                $("#grid").data("kendoGrid").dataSource.filter({ field: "ItemCodeID", operator: "eq", value: parseInt(paramICID) })
+            }
         });
     };
 
