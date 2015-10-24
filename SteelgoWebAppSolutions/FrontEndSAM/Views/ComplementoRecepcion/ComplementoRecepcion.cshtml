@@ -790,7 +790,7 @@
         };
 
         function ObtenerTipoUso() {
-            $TipoUso.TipoUso.read({ agregarOpcion:0, token: Cookies.get("token") }).done(function (result) {
+            $TipoUso.TipoUso.read({ agregarOpcion: 0, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("TipoUso", result);
             });
         };
@@ -1304,7 +1304,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $UrlTipoUso +"agregarOpcion=1" +  "&token=" + Cookies.get("token")
+                            read: $UrlTipoUso +"agregarOpcion=1" + "&paginaID=" + Cookies.get("navegacion")+ "&token=" + Cookies.get("token")
                         },
                         serverPaging: true,
                         serverFiltering: true
