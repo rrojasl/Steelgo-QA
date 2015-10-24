@@ -96,6 +96,37 @@ namespace BackEndSAM.DataAcces
                     {
                         int ordenSpoolID = Convert.ToInt32(numeroControl);
 
+                        List<lstPredespachos> predespachos = (from pre in ctx.Sam3_PreDespacho
+                                                              where pre.Activo && pre.OrdenTrabajoSpoolID == ordenSpoolID
+                                                              select new lstPredespachos
+                                                              {
+                                                                  OdtSpoolID = pre.OrdenTrabajoSpoolID,
+                                                                  MaterialSpoolID = pre.MaterialSpoolID,
+                                                                  NumeroUnicoID = pre.NumeroUnicoID, 
+                                                                  ProyectoID = pre.ProyectoID
+                                                              }).AsParallel().Distinct().ToList();
+
+                        if (predespachos != null && predespachos.Count > 0)
+                        {
+                            foreach (lstPredespachos lst in predespachos)
+                            {
+                                lst.NumeroControl = ctx2.OrdenTrabajoSpool.Where(x => x.OrdenTrabajoSpoolID == lst.OdtSpoolID)
+                                    .Select(x => x.NumeroControl).AsParallel().SingleOrDefault();
+
+                                lst.ItemCode = (from ms in ctx2.MaterialSpool
+                                                join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
+                                                where ms.MaterialSpoolID == lst.MaterialSpoolID
+                                                select it.Codigo).AsParallel().SingleOrDefault();
+
+                                lst.NumeroUnico = ctx2.NumeroUnico.Where(x => x.NumeroUnicoID == lst.NumeroUnicoID)
+                                    .Select(x => x.Codigo).AsParallel().SingleOrDefault();
+
+                                lst.Etiqueta = ctx2.MaterialSpool.Where(x => x.MaterialSpoolID == lst.MaterialSpoolID)
+                                    .Select(x => x.Etiqueta).AsParallel().SingleOrDefault();
+                            }
+                        }
+
+
                         List<LstGenerarDespacho> listado = (from odts in ctx2.OrdenTrabajoSpool
                                                             join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
                                                             join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
@@ -121,6 +152,20 @@ namespace BackEndSAM.DataAcces
                                                                         select sh).Any(),
                                                                 ProyectoID = odt.ProyectoID.ToString()
                                                             }).Distinct().AsParallel().ToList();
+
+                        if (predespachos != null && predespachos.Count > 0)
+                        {
+                            foreach (LstGenerarDespacho ls in listado)
+                            {
+                                if (predespachos.Where(x => x.NumeroControl == ls.NumeroControl
+                                    && x.Etiqueta == ls.Etiqueta && x.ProyectoID.ToString() == ls.ProyectoID).Any())
+                                {
+                                    ls.NumeroUnico = predespachos.Where(x => x.NumeroControl == ls.NumeroControl && x.Etiqueta == ls.Etiqueta
+                                        && x.ProyectoID.ToString() == ls.ProyectoID)
+                                        .Select(x => x.NumeroUnico).SingleOrDefault();
+                                }
+                            }
+                        }
 
                         //eliminar numeros unicos que no se encuentren en sam3
 
@@ -259,6 +304,24 @@ namespace BackEndSAM.DataAcces
 
                                         ctx.Sam3_Despacho.Add(nuevoDespacho);
                                         ctx.SaveChanges();// guardamos el nuevo despacho
+
+                                        #region eliminar pre despacho
+                                        Sam3_PreDespacho preDespacho = (from pre in ctx.Sam3_PreDespacho
+                                                                        where pre.Activo
+                                                                        && pre.OrdenTrabajoSpoolID == nuevoDespacho.OrdenTrabajoSpoolID
+                                                                        && pre.MaterialSpoolID == nuevoDespacho.MaterialSpoolID
+                                                                        && pre.ProyectoID == nuevoDespacho.ProyectoID
+                                                                        select pre).AsParallel().SingleOrDefault();
+
+                                        if (preDespacho != null)
+                                        {
+                                            preDespacho.Activo = false;
+                                            preDespacho.FechaModificacion = DateTime.Now;
+                                            preDespacho.UsuarioModificacion = usuario.UsuarioID;
+
+                                            ctx.SaveChanges();
+                                        }
+                                        #endregion
 
                                         #region Generar Picking ticket
 
