@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
         /// <param name="token">credenciales del usuario</param>
         /// <param name="parametroBusqueda">cadena de busqueda</param>
         /// <returns>Devuelve el listado aporpiado de acuerdo al tipo solicitado</returns>
-        public object Get(int tipoListado, string token, string parametroBusqueda = "")
+        public object Get(int tipoListado, string token, int paginaID = 0, string parametroBusqueda = "")
         {
             string payload = "";
             string newToken = "";
@@ -42,7 +42,7 @@ namespace BackEndSAM.Controllers
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
                     case 3: // listado de choferes por transportista
-                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), usuario);
+                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), paginaID, usuario);
                     case 4: //Obtener cantidades para dashboard
                         TransactionalInformation rest = new TransactionalInformation();
                         rest.ReturnMessage.Add("El listado de cantidades de Dashboard requiere de parametros de filtrado");
@@ -102,7 +102,8 @@ namespace BackEndSAM.Controllers
                     case 2: // Folios de aviso de llegada con permiso de aduana autorizados
                         return AvisoLlegadaBd.Instance.ObtenerListadoFoliosRequierePermiso();
                     case 3: // listado de choferes por transportista
-                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), usuario);
+                        int temp = filtros.PaginaID != null && filtros.PaginaID != "" ? Convert.ToInt32(filtros.PaginaID) : 0;
+                        return ChoferBd.Instance.ObtenerChoferesProTransportista(Convert.ToInt32(parametroBusqueda), temp, usuario);
                     case 4: //Obtener cantidades para dashboard
                         return ListadoBd.Instance.ObtenerCantidadesDashboard(filtros, usuario);
                     case 5: //Obtener cantidades de Dashboard para aviso de entrada

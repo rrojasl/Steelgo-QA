@@ -122,6 +122,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Contacto = {};
                     this.value("");
                 };

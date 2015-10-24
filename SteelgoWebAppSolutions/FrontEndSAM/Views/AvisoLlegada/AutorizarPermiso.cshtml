@@ -39,7 +39,7 @@
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
-                        <div id="TramitarPermisoDiv" class="button-section">
+                        <div id="TramitarPermisoDiv" class="button-section hidden">
                             <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
                         </div>
                         <div id="AutorizarPermisoDiv" class="button-section" style="display: none">
@@ -149,6 +149,7 @@
                 change: function () {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Folio = {};
                         this.value("");
                     };
@@ -224,7 +225,7 @@
         //Parametros: N/A
         //Return:     N/A
         function ChecarAutorizacion() {
-                var folio = Folio.FolioAvisoLlegadaID ? Folio.FolioAvisoLlegadaID : "-1";
+            var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
                 removerValidacionRequeridos();
 

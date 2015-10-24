@@ -49,14 +49,14 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="esAvisoEntrada"></param>
         /// <returns>JSON {"Nombre" : "xxxx", "ChoferID": "000"}</returns>
-        public object ObtenerListadoChoferes(string esAvisoEntrada)
+        public object ObtenerListadoChoferes(string esAvisoEntrada, int paginaID, Sam3_Usuario usuario)
         {
             try
             {
                 List<Chofer> lstChoferes = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (int.Parse(esAvisoEntrada) == 1)
+                    if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Chofer", paginaID))
                     {
                         lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
                     }
@@ -246,14 +246,17 @@ namespace BackEndSAM.DataAcces
         /// <param name="transportistaID"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerChoferesProTransportista(int transportistaID, Sam3_Usuario usuario)
+        public object ObtenerChoferesProTransportista(int transportistaID, int paginaID, Sam3_Usuario usuario)
         {
             try
             {
                 List<Chofer> lstChofTrans = new List<Chofer>();
                 using (SamContext ctx = new SamContext())
                 {
-                    lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                    if (paginaID > 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Chofer", paginaID))
+                    {
+                        lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                    }
 
                     List<Chofer> lstChoferes = (from r in ctx.Sam3_Chofer
                                                 where r.Activo && r.TransportistaID == transportistaID

@@ -41,13 +41,13 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoTransportistas(string esAvisoEntrada)
+        public object ObtenerListadoTransportistas(string esAvisoEntrada, Sam3_Usuario usuario, int paginaID)
         {
             try
             {
                 List<Transportista> lstTransportista = new List<Transportista>();
 
-                if (int.Parse(esAvisoEntrada) == 1)
+                if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Transportista", paginaID))
                 {
                     lstTransportista.Add(new Transportista { Nombre = "Agregar nuevo", TransportistaID = "0" });
                 }

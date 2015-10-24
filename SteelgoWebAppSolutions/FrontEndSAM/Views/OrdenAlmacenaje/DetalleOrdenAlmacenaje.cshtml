@@ -139,6 +139,7 @@
                 LimpiarFiltrosProyecto();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                 } else {
@@ -164,6 +165,7 @@
                 limpiarFiltroCuantificacion();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioCuantificacion = {};
                     this.value("");
                 } else {
@@ -187,6 +189,7 @@
                 limpiarFiltroItemCode();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     ItemCode = {};
                     this.value("");
                 } else {
@@ -207,6 +210,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     NumeroUnico = {};
                     this.value("");
                 }

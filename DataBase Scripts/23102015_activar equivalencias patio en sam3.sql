@@ -26,4 +26,7 @@ begin catch
 	rollback tran
 end catch
 
-select * from Sam3_EquivalenciaPatio
+select * from Sam3_EquivalenciaPatio where Sam3_PatioID = 6
+select * from Sam3_Patio
+
+select * from sam2.sam.dbo.Proyecto where PatioID = 4

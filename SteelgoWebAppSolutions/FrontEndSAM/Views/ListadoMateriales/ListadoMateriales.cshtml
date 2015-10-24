@@ -166,6 +166,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#NumeroUnico").val().length){ $("#NumeroUnico").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#NumeroUnico").focus();
         });
 
         $("#ItemCode").keyup(function () {
@@ -177,6 +179,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#ItemCode").val().length){ $("#ItemCode").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#ItemCode").focus();
         });
 
         $("#ItemCodeSteelgo").keyup(function () {
@@ -188,6 +192,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#ItemCodeSteelgo").val().length){ $("#ItemCodeSteelgo").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#ItemCodeSteelgo").focus();
         });
 
         $("#Descripcion").keyup(function () {
@@ -199,6 +205,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#Descripcion").val().length){ $("#Descripcion").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Descripcion").focus();
         });
 
         $("#Cedula").keyup(function () {
@@ -210,6 +218,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#Cedula").val().length){ $("#Cedula").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Cedula").focus();
         });
 
         $("#TipoAcero").keyup(function () {
@@ -221,6 +231,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#TipoAcero").val().length){ $("#TipoAcero").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#TipoAcero").focus();
         });
 
         $("#Diametro1").keyup(function () {
@@ -232,6 +244,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#Diametro1").val().length){ $("#Diametro1").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Diametro1").focus();
         });
 
         $("#Diametro2").keyup(function () {
@@ -243,6 +257,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#Diametro2").val().length){ $("#Diametro2").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Diametro2").focus();
         });
 
         $("#RangoInf").keyup(function () {
@@ -254,6 +270,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#RangoInf").val().length){ $("#RangoInf").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#RangoInf").focus();
         });
 
         $("#RangoSup").keyup(function () {
@@ -265,6 +283,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#RangoSup").val().length){ $("#RangoSup").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#RangoSup").focus();
         });
 
         $("#Cantidad").keyup(function () {
@@ -276,6 +296,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#Cantidad").val().length){ $("#Cantidad").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Cantidad").focus();
         });
 
         $("#Colada").keyup(function () {
@@ -287,6 +309,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#Colada").val().length){ $("#Colada").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#Colada").focus();
         });
 
         $("#EstatusF").keyup(function () {
@@ -298,6 +322,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#EstatusF").val().length){ $("#EstatusF").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#EstatusF").focus();
         });
 
         $("#EstatusD").keyup(function () {
@@ -309,6 +335,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#EstatusD").val().length){ $("#EstatusD").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#EstatusD").focus();
         });
 
         $("#AlmacenVirtual").keyup(function () {
@@ -320,6 +348,8 @@
                     "value": this.value
                 }
             ]);
+			if(!$("#AlmacenVirtual").val().length){ $("#AlmacenVirtual").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#AlmacenVirtual").focus();
         });
 
 
@@ -336,6 +366,7 @@
                 var value = this.value();
                 LimpiarCamposPatio();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Patio = {};
                     this.value("");
                 } else {
@@ -357,6 +388,7 @@
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                 } else {
@@ -377,6 +409,7 @@
                 var value = this.value();
                 LimpiarCamposFolioLlegada();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioAvisoLlegada = {};
                     this.value("");
                 } else {
@@ -397,6 +430,7 @@
                 var value = this.value();
                 LimpiarCamposFolioPackingList();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioPackingList = {};
                     this.value("");
                 }
@@ -537,6 +571,38 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+				
+				 $("th[data-field='NumeroUnico']").append($("#NumeroUnico"));
+				 $("th[data-field='ItemCode']").append($("#ItemCode"));
+				 $("th[data-field='ItemCodeSteelgo']").append($("#ItemCodeSteelgo"));
+				 $("th[data-field='Descripcion']").append($("#Descripcion"));
+				 $("th[data-field='Cedula']").append($("#Cedula"));
+				 $("th[data-field='TipoAcero']").append($("#TipoAcero"));
+				 $("th[data-field='D1']").append($("#Diametro1"));
+				 $("th[data-field='D2']").append($("#Diametro2"));
+				 $("th[data-field='RangoInferior']").append($("#RangoInf"));
+				 $("th[data-field='RangoSuperior']").append($("#RangoSup"));
+				 $("th[data-field='Cantidad']").append($("#Cantidad"));
+				 $("th[data-field='Colada']").append($("#Colada"));
+				 $("th[data-field='EstatusFisico']").append($("#EstatusF"));
+				 $("th[data-field='EstatusDocumental']").append($("#EstatusD"));
+				 $("th[data-field='AlmacenVirtual']").append($("#AlmacenVirtual"));
+
+                $("#NumeroUnico").click(function( event ) {event.stopPropagation();});
+				$("#ItemCode").click(function( event ) {event.stopPropagation();});
+				$("#ItemCodeSteelgo").click(function( event ) {event.stopPropagation();});
+				$("#Descripcion").click(function( event ) {event.stopPropagation();});
+				$("#Cedula").click(function( event ) {event.stopPropagation();});
+				$("#TipoAcero").click(function( event ) {event.stopPropagation();});
+				$("#Diametro1").click(function( event ) {event.stopPropagation();});
+				$("#Diametro2").click(function( event ) {event.stopPropagation();});
+				$("#RangoInf").click(function( event ) {event.stopPropagation();});
+				$("#RangoSup").click(function( event ) {event.stopPropagation();});
+				$("#Cantidad").click(function( event ) {event.stopPropagation();});
+				$("#Colada").click(function( event ) {event.stopPropagation();});
+				$("#EstatusF").click(function( event ) {event.stopPropagation();});
+				$("#EstatusD").click(function( event ) {event.stopPropagation();});
+				$("#AlmacenVirtual").click(function( event ) {event.stopPropagation();});
             }
         });
 

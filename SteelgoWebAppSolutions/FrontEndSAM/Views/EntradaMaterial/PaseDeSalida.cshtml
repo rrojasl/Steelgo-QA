@@ -271,6 +271,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         limpiarUploadFiles();
                         if ($('#ListaIncidencias > tbody  > tr').length == 0) {
                             $("#ImprimirIncidencias").attr("disabled", "disabled");
@@ -297,6 +298,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         TipoArchivo = {};
                         this.value("");
                     };

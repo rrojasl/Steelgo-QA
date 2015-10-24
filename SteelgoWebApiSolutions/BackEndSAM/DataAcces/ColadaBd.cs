@@ -141,14 +141,14 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion, int proyectoID = 0)
+        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, int proyectoID = 0 )
         {
             try
             {
                 List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (mostrarOpcion != 0)
+                    if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                     {
                         listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
                     }
@@ -209,14 +209,14 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorItemCode(int id, int mostrarOpcion, string itemCodeID = "")
+        public object ObtenerColadasPorItemCode(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, string itemCodeID = "")
         {
             try
             {
                 List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (mostrarOpcion != 0)
+                    if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                     {
                         listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
                     }
@@ -282,14 +282,14 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorFamiliAcero(int id, int mostrarOpcion, int familiaAceroID = 0)
+        public object ObtenerColadasPorFamiliAcero(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, int familiaAceroID = 0)
         {
             try
             {
                 List<Coladas> listColada = new List<Coladas>();
                 using (SamContext ctx = new SamContext())
                 {
-                    if (mostrarOpcion != 0)
+                    if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                     {
                         listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
                     }
