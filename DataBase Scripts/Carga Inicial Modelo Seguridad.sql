@@ -53,6 +53,7 @@ insert into Sam3_Pagina values('ItemCodeSteelGo','CatalogosController',NULL,NULL
 insert into Sam3_Pagina values('TipoUso','PopUpsController',NULL,NULL,NULL )
 insert into Sam3_Pagina values('AsociacionItemCodes','CatalogosController',NULL,NULL,NULL )
 insert into Sam3_Pagina values('ListadoCatalogos','CatalogosController',NULL,NULL,NULL )
+INSERT INTO Sam3_Pagina VALUES ('PreDespacho', 'PreDespachoController',NULL, NULL,NULL);
 
 
 insert into Sam3_Entidad values('Login',1,NULL,NULL )
@@ -93,6 +94,7 @@ insert into Sam3_Entidad values('ItemCodeSteelGo',1,NULL,NULL )
 insert into Sam3_Entidad values('AsociacionItemCodes',1,NULL,NULL )
 insert into Sam3_Entidad values('ListadoCatalogos',1,NULL,NULL )
 insert into Sam3_Entidad values('DashboardRecepcionAlmacenaje',1,null,null)
+INSERT INTO Sam3_Entidad VALUES ('PreDespacho', 1, NULL, NULL)
 
 insert into Sam3_Propiedad values(1,'username',1,NULL,NULL )
 insert into Sam3_Propiedad values(1,'password',1,NULL,NULL )
@@ -264,6 +266,10 @@ insert into Sam3_Propiedad values(40,'empleadoentrega',1,NULL,NULL )
 insert into Sam3_Propiedad values(42,'icinput',1,NULL,NULL )
 insert into Sam3_Propiedad values(42,'guardarics',1,NULL,NULL )
 insert into Sam3_Propiedad values(42,'registro',1,NULL,NULL )
+INSERT INTO Sam3_Propiedad VALUES ( 46, 'proyecto', 1, NULL, NULL)
+INSERT INTO Sam3_Propiedad VALUES ( 46, 'spool', 1, NULL, NULL)
+INSERT INTO Sam3_Propiedad VALUES (46 , 'todos', 1, NULL, NULL)
+INSERT INTO Sam3_Propiedad VALUES (46 , 'vacios', 1, NULL, NULL)
 
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,1,1,0,0,0,0,0,0,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,2,1,0,0,0,0,0,0,1,NULL,NULL )
@@ -326,7 +332,7 @@ insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,32,45,1,1,1,1,1,1,1,NULL,NUL
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,42,46,1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,43,47,1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,44,27,1,1,1,1,1,1,1,NULL,NULL )
-
+INSERT INTO Sam3_Rel_Perfil_Entidad_Pagina VALUES (1, 46, 49, 1,1,1,1,1,1,1,NULL,NULL)
 
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,2,1,1,1,1,1,NULL,NULL )
@@ -536,6 +542,11 @@ insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,167,42,1,1,0,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,111,45,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,168,46,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,169,46,1,1,1,1,NULL,NULL )
+INSERT INTO Sam3_Rel_Perfil_Propiedad_Pagina VALUES (1, 171, 49, 1,1,1,1,NULL,NULL)
+INSERT INTO Sam3_Rel_Perfil_Propiedad_Pagina VALUES (1, 172, 49, 1,1,1,1,NULL,NULL)
+INSERT INTO Sam3_Rel_Perfil_Propiedad_Pagina VALUES (1, 173, 49, 1,1,0,1,NULL,NULL)
+INSERT INTO Sam3_Rel_Perfil_Propiedad_Pagina VALUES (1, 174, 49, 1,1,0,1,NULL,NULL)
+
 
 
 commit tran

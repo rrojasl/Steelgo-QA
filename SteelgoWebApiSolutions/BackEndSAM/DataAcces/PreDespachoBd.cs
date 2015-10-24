@@ -76,60 +76,28 @@ namespace BackEndSAM.DataAcces
                                                      join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
                                                      join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
                                                      join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
-                                                     //join nu in ctx2.NumeroUnico on ic.ItemCodeID equals nu.ItemCodeID
                                                      where ots.OrdenTrabajoSpoolID == spoolID
                                                      && proyectos.Contains(ot.ProyectoID)
+                                                     && ic.TipoMaterialID == 2
                                                      select new PreDespacho
                                                      {
                                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                                          ItemCode = ic.Codigo,
                                                          NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
                                                          NumeroControl = ots.NumeroControl,
-                                                         Descripcion = ic.DescripcionEspanol,
-                                                         //NumeroUnico = nu.Codigo,
-                                                         //NumerosUnicos = (from numu in ctx2.NumeroUnico
-                                                         //                 join nui in ctx2.NumeroUnicoInventario on numu.NumeroUnicoID equals nui.NumeroUnicoID
-                                                         //                 where numu.ItemCodeID == ic.ItemCodeID
-                                                         //                     //&& nu.Diametro1 == ic.Diametro1 
-                                                         //                 && nui.InventarioDisponibleCruce > 0
-                                                         //                 select new NumerosUnicos
-                                                         //                 {
-                                                         //                     NumeroUnicoID = numu.NumeroUnicoID.ToString(),
-                                                         //                     NumeroUnico = numu.Codigo 
-                                                         //                 }).ToList()
+                                                         Descripcion = ic.DescripcionEspanol
                                                      }).AsParallel().GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
 
-                        //foreach (var nu in listado)
-                        //{
-                        //    int numeroDigitos = (from it in ctx.Sam3_ItemCode
-                        //                         join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
-                        //                         where it.ItemCodeID == nu.ItemCodeID
-                        //                         select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
-
-                        //    string formato = "D" + numeroDigitos.ToString();
-
-                        //    string[] codigo = nu.NumeroUnico.Split('-').ToArray();
-                        //    int consecutivo = Convert.ToInt32(codigo[1]);
-                        //    nu.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
-                        //}
-
-                        //foreach (var nu in listado)
-                        //{
-                        //    foreach (var li in nu.NumerosUnicos)
-                        //    {
-                        //        int numeroDigitos = (from it in ctx.Sam3_ItemCode
-                        //                             join pc in ctx.Sam3_ProyectoConfiguracion on it.ProyectoID equals pc.ProyectoID
-                        //                             where it.ItemCodeID == nu.ItemCodeID
-                        //                             select pc.DigitosNumeroUnico).AsParallel().SingleOrDefault();
-
-                        //        string formato = "D" + numeroDigitos.ToString();
-
-                        //        string[] codigo = li.NumeroUnico.Split('-').ToArray();
-                        //        int consecutivo = Convert.ToInt32(codigo[1]);
-                        //        li.NumeroUnico = codigo[0] + "-" + consecutivo.ToString(formato);
-
-                        //    }
-                        //}
+                        foreach (PreDespacho item in listado)
+                        {
+                            if (ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControlID && x.ItemCodeID.ToString() == item.ItemCodeID).Any())
+                            {
+                                item.NumeroUnicoID = (from pd in ctx.Sam3_PreDespacho
+                                                      where pd.OrdenTrabajoSpoolID.ToString() == item.NumeroControlID
+                                                      && pd.ItemCodeID.ToString() == item.ItemCodeID && pd.Activo
+                                                      select pd.NumeroUnicoID.ToString()).AsParallel().SingleOrDefault();
+                            }
+                        }
 
                         return listado.OrderBy(x => x.NumeroControlID).ToList();
                     }
@@ -165,29 +133,61 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        Sam3_PreDespacho preDespacho = new Sam3_PreDespacho();
-
                         foreach (PreDespachoItems item in lista)
                         {
-                           
-                            preDespacho.Activo = true;
-                            preDespacho.FechaModificacion = DateTime.Now;
-                            preDespacho.FechaPreDespacho = DateTime.Now;
-                            preDespacho.UsuarioModificacion = usuario.UsuarioID;
-                            preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
-                            preDespacho.OrdenTrabajoSpoolID = Convert.ToInt32(item.NumeroControl);
-                            preDespacho.NumeroUnicoID = Convert.ToInt32(item.NumeroUnico);
-                            preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
-                                                           join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
-                                                           where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
-                                                           select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
+                            bool tieneHold = (from ots in ctx2.OrdenTrabajoSpool
+                                              where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
+                                              && !(from sh in ctx2.SpoolHold
+                                                   where sh.SpoolID == ots.SpoolID
+                                                   && (sh.Confinado || sh.TieneHoldCalidad || sh.TieneHoldIngenieria)
+                                                   select sh).Any()
+                                              select ots.OrdenTrabajoSpoolID).AsParallel().Any();
 
-                            ctx.Sam3_PreDespacho.Add(preDespacho);
-                            ctx.SaveChanges();
+                            if (!tieneHold)
+                            {
+                                int numeroUnicoSam3 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                       where eq.Activo && eq.Sam2_NumeroUnicoID.ToString() == item.NumeroUnico
+                                                       select eq.Sam3_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                if (ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControl && x.ItemCodeID.ToString() == item.ItemCode).Any())
+                                {
+                                    Sam3_PreDespacho preDespacho = ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControl && x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
+                                    preDespacho.Activo = true;
+                                    preDespacho.FechaModificacion = DateTime.Now;
+                                    preDespacho.FechaPreDespacho = DateTime.Now;
+                                    preDespacho.UsuarioModificacion = usuario.UsuarioID;
+                                    preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
+                                    preDespacho.NumeroUnicoID = numeroUnicoSam3;
+
+                                    ctx.SaveChanges();
+                                }
+                                else
+                                {
+                                    Sam3_PreDespacho preDespacho = new Sam3_PreDespacho();
+                                    preDespacho.Activo = true;
+                                    preDespacho.FechaModificacion = DateTime.Now;
+                                    preDespacho.FechaPreDespacho = DateTime.Now;
+                                    preDespacho.UsuarioModificacion = usuario.UsuarioID;
+                                    preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
+                                    preDespacho.OrdenTrabajoSpoolID = Convert.ToInt32(item.NumeroControl);
+                                    preDespacho.NumeroUnicoID = numeroUnicoSam3;
+                                    preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
+                                                                   join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
+                                                                   where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
+                                                                   select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
+
+                                    ctx.Sam3_PreDespacho.Add(preDespacho);
+                                    ctx.SaveChanges();
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("El Spool cuenta con Hold, no se puede Pre-Despachar");
+                            }
                         }
 
                         TransactionalInformation result = new TransactionalInformation();
-                        result.ReturnMessage.Add(preDespacho.PreDespachoID.ToString());
+                        //result.ReturnMessage.Add(preDespacho.PreDespachoID.ToString());
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
                         result.IsAuthenicated = true;
@@ -211,7 +211,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ListadoNumeroUnicoComboGridDespacho(string numeroControl, string etiqueta, string itemcode, int proyectoID, Sam3_Usuario usuario)
+        public object ListadoNumerosUnicos(string numeroControl, string itemcode, int proyectoID, Sam3_Usuario usuario)
         {
             try
             {
@@ -220,17 +220,20 @@ namespace BackEndSAM.DataAcces
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
+                        int proyectoSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                            where eq.Sam3_ProyectoID == proyectoID
+                                            select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
                         List<int> sam2_NumerosUnicosIDs = (from odts in ctx2.OrdenTrabajoSpool
                                                            join odt in ctx2.OrdenTrabajo on odts.OrdenTrabajoID equals odt.OrdenTrabajoID
                                                            join ms in ctx2.MaterialSpool on odts.SpoolID equals ms.SpoolID
                                                            join it in ctx2.ItemCode on ms.ItemCodeID equals it.ItemCodeID
                                                            join nu in ctx2.NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
                                                            join nui in ctx2.NumeroUnicoInventario on nu.NumeroUnicoID equals nui.NumeroUnicoID
-                                                           where ms.Etiqueta == etiqueta
-                                                           && odts.NumeroControl == numeroControl
+                                                           where odts.OrdenTrabajoSpoolID.ToString() == numeroControl
                                                            && it.TipoMaterialID == 2
-                                                           && it.Codigo == itemcode
-                                                           && odt.ProyectoID == proyectoID
+                                                           && it.ItemCodeID.ToString() == itemcode
+                                                           && odt.ProyectoID == proyectoSam2
                                                            && ms.Diametro1 == nu.Diametro1
                                                            && ms.Diametro2 == nu.Diametro2
                                                            select nu.NumeroUnicoID).Distinct().AsParallel().ToList();
