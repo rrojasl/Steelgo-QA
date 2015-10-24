@@ -577,7 +577,8 @@
                         messageindexKendoCombobox(this);
                         Proyecto = {};
                         this.value("");
-                    } 
+                    }
+                    ObtenerColada("Colada", 0, 0);
                 },
                 filter: "contains",
             });
@@ -666,7 +667,7 @@
                 },
                 filter: "contains",
             });
-            ObtenerColada("Colada", 0,0);
+            
 
             $("#Cantidad").keydown(function (e) {
                 if (e.keyCode == 13) {
@@ -1151,7 +1152,7 @@
         };
 
         function ObtenerTipoUso() {
-            $TipoUso.TipoUso.read({ agregarOpcion: 0, token: Cookies.get("token") }).done(function (result) {
+            $TipoUso.TipoUso.read({ agregarOpcion: 0, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("TipoUsoID", result);
             });
         };
@@ -2348,7 +2349,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token")
+                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") +"&paginaID="+ Cookies.get("navegacion")
                         }
                     },
                     select: function (e) {
