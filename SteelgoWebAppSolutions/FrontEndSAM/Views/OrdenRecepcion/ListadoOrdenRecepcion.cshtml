@@ -121,6 +121,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#FechaOrdenRecepcion").val().length){ $("#FechaOrdenRecepcion").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#FechaOrdenRecepcion").focus();
         });
 
         $("#OrdenRecepcion").keyup(function () {
@@ -132,6 +134,8 @@
                     "value": this.value
                 }
             ]);
+            if(!$("#OrdenRecepcion").val().length){ $("#OrdenRecepcion").parent().children("a.k-state-active").removeClass("k-state-active");}
+            $("#OrdenRecepcion").focus();
         });
 
         $("#Nuevo").click(function () {
@@ -274,6 +278,12 @@
                 $(".k-grid input.k-textbox").prop('readonly', true);
                 $(".k-grid td .k-button").text('');
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+
+                $("th[data-field='FechaOrdenRecepcion']").append($("#FechaOrdenRecepcion"));
+                $("th[data-field='OrdenRecepcion']").append($("#OrdenRecepcion"));
+
+                $("#FechaOrdenRecepcion").click(function( event ) {event.stopPropagation();});
+                $("#OrdenRecepcion").click(function( event ) {event.stopPropagation();});               
             }
         }).getKendoGrid();
     };
