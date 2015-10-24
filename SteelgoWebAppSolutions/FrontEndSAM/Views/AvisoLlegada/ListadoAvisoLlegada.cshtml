@@ -154,6 +154,7 @@
                 var value = this.value();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     PeriodoTiempo = [];
                     this.value("");
                 }
@@ -259,7 +260,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    this.value("");
                     Cliente = [];
                 }
                 Filtros();
@@ -277,7 +280,9 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    this.value("");
                     Patio = [];
                 }
                 Filtros();

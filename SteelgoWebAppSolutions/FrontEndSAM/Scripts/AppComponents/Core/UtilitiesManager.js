@@ -102,6 +102,12 @@ function removeGrid(grid) {
     return tmp;
 }
 
+function messageindexKendoCombobox(obj) {
+    if (obj.selectedIndex == -1) {
+        displayMessage("notificationslabel0083", "", '1');
+    };
+};
+
 //Ajusta el tamaño de los filtros rápidos a las columnas del grid
 //Funcion: resizeFilters
 //Parametros: N/A

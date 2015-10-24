@@ -336,6 +336,7 @@
                 var value = this.value();
                 LimpiarCamposPatio();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Patio = {};
                     this.value("");
                 } else {
@@ -357,6 +358,7 @@
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                 } else {
@@ -377,6 +379,7 @@
                 var value = this.value();
                 LimpiarCamposFolioLlegada();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioAvisoLlegada = {};
                     this.value("");
                 } else {
@@ -397,6 +400,7 @@
                 var value = this.value();
                 LimpiarCamposFolioPackingList();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     FolioPackingList = {};
                     this.value("");
                 }

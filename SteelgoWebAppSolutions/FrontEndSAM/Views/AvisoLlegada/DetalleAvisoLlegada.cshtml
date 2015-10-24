@@ -473,6 +473,7 @@
                     change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             Patio = [];
                             Cliente = {};
                             this.value("");
@@ -496,6 +497,7 @@
                     change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             Cliente = [];
                             this.value("");
                         } else {
@@ -515,6 +517,7 @@
                     change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             TipoAvisos = {};
                             this.value("");
                         };
@@ -537,6 +540,7 @@
                     change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             Transportista = [];
                             Chofer = [];
                             CamionEntradaMaterial = {};
@@ -590,6 +594,7 @@
                     change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             Chofer = [];
                             this.value("");
                         };
@@ -597,7 +602,6 @@
                     filter: "contains",
                 });
                 ObtenerChofer(0);
-        //$("#ChoferID").data("kendoComboBox").enable(false);
 
                 $("#TipoArchivo").kendoComboBox({
                     dataTextField: "Nombre",
@@ -606,6 +610,12 @@
                         var dataItem = this.dataItem(e.item.index());
                         _tipoArchivo = dataItem.TipoArchivoID;
                         CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
+                    },
+                    change: function (e) {
+                        if (this.selectedIndex == -1) {
+                            this.value("");
+                            messageindexKendoCombobox(this);
+                        }
                     },
                     filter: "contains",
                 });
@@ -646,6 +656,7 @@
                     change: function (e) {
                         var value = this.value();
                         if (!value || this.selectedIndex == -1) {
+                            messageindexKendoCombobox(this);
                             CamionEntradaMaterial = [];
                             this.value("");
                         };

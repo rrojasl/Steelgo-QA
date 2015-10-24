@@ -525,6 +525,7 @@
                 var value = this.value();
                 LimpiarCamposPatio();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Patio = {};
                     this.value("");
                 } else {
@@ -546,6 +547,7 @@
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                 }

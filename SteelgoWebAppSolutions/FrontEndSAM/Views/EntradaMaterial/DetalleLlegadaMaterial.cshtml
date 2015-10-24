@@ -322,6 +322,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Folio = {};
                         this.value("");
                     };
@@ -345,6 +346,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Cliente = {};
                         this.value("");
                     } else {
@@ -369,6 +371,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Proveedor = {};
                         this.value("");
                     };
@@ -391,6 +394,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         Patio = {};
                         this.value("");
                     };
@@ -426,6 +430,7 @@
                 change: function (e) {
                     var value = this.value();
                     if (!value || this.selectedIndex == -1) {
+                        messageindexKendoCombobox(this);
                         this.value("");
                         $("#PatioIDDiv").hide();
                         $("#PatioID").data("kendoComboBox").value("");

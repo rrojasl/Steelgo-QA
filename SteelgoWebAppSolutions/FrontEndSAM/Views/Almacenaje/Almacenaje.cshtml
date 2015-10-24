@@ -209,6 +209,7 @@
                 var value = this.value();
                 LimpiarCamposProyecto();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
                 } else {
@@ -231,6 +232,7 @@
                 LimpiarCamposOrdenAlmacenaje();
 
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     OrdenAlmacenaje = {};
                     this.value("");
                 } else {
@@ -252,6 +254,7 @@
                 var value = this.value();
                 LimpiarCamposItemCode();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     ItemCode = {};
                     this.value("");
                 } else {
@@ -273,6 +276,7 @@
             change: function (e) {
                 var value = this.value();
                 if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     NumeroUnico = {};
                     this.value("");
                 }

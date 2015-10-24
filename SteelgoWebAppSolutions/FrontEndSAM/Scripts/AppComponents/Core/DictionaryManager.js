@@ -5628,6 +5628,10 @@ _dictionary = {
         "es-MX": "Favor de ingresar una fecha valida.",
         "en-US": "Please enter a valid date."
     },
+    "notificationslabel0083": {
+        "es-MX": "El valor seleccionado no es válido.",
+        "en-US": "The value selected is invalid."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",
