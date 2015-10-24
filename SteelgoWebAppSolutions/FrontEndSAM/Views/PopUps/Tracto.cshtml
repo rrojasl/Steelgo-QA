@@ -55,7 +55,7 @@
     var TipoVehiculoTracto = {}, TransportistaCamion = {}, ChoferCamion = {};
     var $TractoModel = {
         listContainer: {
-            create: "",
+            create: "#GuardarCamion",
             list: "",
             detail: "",
             destroy: ""
@@ -217,7 +217,6 @@
     function cerrarVentanaModal() {
         window.parent.$("#window").data("kendoWindow").close();
         cleanDisplayMessage();
-        window.parent.ActualizarCookie();
     };
 
    
@@ -339,9 +338,10 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Tracto"] = $TractoModel;
     CargaInicial();
+    applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
-    Cookies.set("home", true, { path: '/' });
-    Cookies.set("navegacion", "36", { path: '/' });
+    //Cookies.set("home", true, { path: '/' });
+    //Cookies.set("navegacion", "36", { path: '/' });
     }
 </script>

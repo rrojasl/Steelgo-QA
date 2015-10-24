@@ -51,7 +51,7 @@ var $UrlNoPickingTicket = $BackEndSAMUri + '/backendsam/api/PickingTicket?';
 var $UrlNoEmpleado= $BackEndSAMUri + '/backendsam/api/Entrega?';
 var $UrlReportingServices = "http://mtysqldev-v01:8082/Reports_Sam3/";
 var $UrlTipoIncidencia = $BackEndSAMUri + '/backendsam/api/TipoIncidencia?';
-var $UrlOrdenTrabajoSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?');
+var $UrlOrdenTrabajoSpool = $BackEndSAMUri + '/backendsam/api/OrdenTrabajoSpool?';
 var $UrlNumerosUnicosPreDespacho = $BackEndSAMUri + '/backendsam/api/PreDespacho?';
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');

@@ -168,8 +168,10 @@ function menuManagerToBeExecutedOnDocumentReady() {
 function updateCookiesQuickLinks() {
     var url = window.location.href.toString().split(window.location.host)[1].toString().split('?')[0];
     console.log(url);
-    var label = $('a[href="' + url + '"]').children("span").attr("id").toString().replace("menu", "quick");
-    console.log(label);
+    var label = "quickLabel9002";
+    if (url != "/Busqueda/Busqueda") {
+        label = $('a[href="' + url + '"]').children("span").attr("id").toString().replace("menu", "quick");
+    }
 
     //Validate if the page it's already on the quicklinks
     if (Cookies.get("QL1route") == url) {
