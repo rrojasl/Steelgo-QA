@@ -28,6 +28,18 @@ namespace BackEndSAM.Models
         public bool Hold { get; set; }
     }
 
+    public class lstPredespachos
+    {
+        public string NumeroControl { get; set; }
+        public int MaterialSpoolID { get; set; }
+        public int NumeroUnicoID { get; set; }
+        public string ItemCode { get; set; }
+        public int OdtSpoolID { get; set; }
+        public string NumeroUnico { get; set; }
+        public string Etiqueta { get; set; }
+        public int ProyectoID { get; set; }
+    }
+
     public class GuardarCorte
     {
         public string CorteID { get; set; }
