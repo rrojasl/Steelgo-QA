@@ -61,7 +61,7 @@
                             <div class="input-group">
                                 <input id="layoutLabel0001" type="text" class="form-control" placeholder="Buscar en todo el sitio...">
                                 <span class="input-group-btn">
-                                    <button class="btn spyglass btn-blue" type="button"></button>
+                                    <button class="btn spyglass btn-blue" type="button" id="globalSearch"></button>
                                 </span>
                             </div>
                         </div>
@@ -566,6 +566,11 @@
                     return true;
                 }
         };
+
+        //Search
+        $("#globalSearch[type=button].btn.spyglass.btn-blue").on("click",function(){
+            window.location.href=window.location.origin+"/Busqueda/Busqueda?q="+document.getElementById("layoutLabel0001").value.split(" ").join("+");
+        });
     </script>
 </body>
 </html>
