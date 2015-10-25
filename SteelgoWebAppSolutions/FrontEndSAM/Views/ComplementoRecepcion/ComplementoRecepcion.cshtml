@@ -400,13 +400,13 @@
         ObtenerTipoUso();
 
 
-        $('input:radio').click(function () {
-            if ($(this).val() === '1') {
-                changeValueColumnsAll();
-            } else if ($(this).val() === '2') {
-                changeValueColumnsClear();
-            }
-        });
+        //$('input:radio').click(function () {
+        //    if ($(this).val() === '1') {
+        //        changeValueColumnsAll();
+        //    } else if ($(this).val() === '2') {
+        //        changeValueColumnsClear();
+        //    }
+        //});
 
 
         //$("#Colada").kendoComboBox({
@@ -1016,7 +1016,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.Colada = value;
+                if ($('input:checked').val() == "2") {
+                    if (!this.Colada) {
+                        this.Colada = value;
+                    }
+                } else {
+                    this.Colada = value
+                }
             });
             $('#grid').data('kendoGrid').refresh();
         };
@@ -1029,7 +1035,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("EstatusFisico", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("EstatusFisico")) {
+                        this.set("EstatusFisico", value);
+                    }
+                } else {
+                    this.set("EstatusFisico", value);
+                }
             });
         };
 
@@ -1041,7 +1053,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("EstatusDocumental", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("EstatusDocumental")) {
+                        this.set("EstatusDocumental", value);
+                    }
+                } else {
+                    this.set("EstatusDocumental", value);
+                }
             });
         };
 
@@ -1053,7 +1071,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("TipoUso", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("TipoUso")) {
+                        this.set("TipoUso", value);
+                    }
+                } else {
+                    this.set("TipoUso", value);
+                }
             });
         };
 
