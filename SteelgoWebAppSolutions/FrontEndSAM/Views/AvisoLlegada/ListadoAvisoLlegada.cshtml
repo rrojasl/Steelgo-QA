@@ -515,7 +515,7 @@
     //Parametros: N/A
     //Return:     N/A
         function ObtenerPatio() {
-            $Patio.Patio.read({ esAvisoEntrada: 0, token: Cookies.get("token") }).done(function (result) {
+            $Patio.Patio.read({ esAvisoEntrada: 0,paginaID:Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("PatioID", result);
             });
         };
