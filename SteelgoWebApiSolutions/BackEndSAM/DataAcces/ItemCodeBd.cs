@@ -280,7 +280,7 @@ namespace BackEndSAM.DataAcces
                                      join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                      where it.Activo && p.Activo && pa.Activo
                                      && proyectos.Contains(p.ProyectoID)
-                                     && patios.Contains(+pa.PatioID)
+                                     && patios.Contains(pa.PatioID)
                                      && p.ProyectoID == proyectoID
                                      && Ids.Contains(it.ItemCodeID)
                                      select it).AsParallel().Distinct().ToList();
@@ -292,7 +292,7 @@ namespace BackEndSAM.DataAcces
                                      join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
                                      where it.Activo && p.Activo && pa.Activo
                                      && proyectos.Contains(p.ProyectoID)
-                                     && patios.Contains(+pa.PatioID)
+                                     && patios.Contains(pa.PatioID)
                                      && Ids.Contains(it.ItemCodeID)
                                      select it).AsParallel().Distinct().ToList();
                     }
