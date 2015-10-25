@@ -141,7 +141,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, int proyectoID = 0 )
+        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, int proyectoID = 0 )
         {
             try
             {
@@ -160,6 +160,7 @@ namespace BackEndSAM.DataAcces
                                    join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
                                    where c.Activo && p.Activo
                                    && p.ProyectoID == proyectoID
+                                   && c.NumeroColada.Contains(texto)
                                    select new Coladas
                                    {
                                        ColadaID = c.ColadaID,
