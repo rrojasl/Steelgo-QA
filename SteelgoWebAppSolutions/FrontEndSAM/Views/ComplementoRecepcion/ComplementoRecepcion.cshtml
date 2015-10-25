@@ -1017,7 +1017,7 @@
 
             $(datasource).each(function () {
                 if ($('input:checked').val() == "2") {
-                    if (!this.Colada) {
+                    if (!this.Colada || this.Colada == "Sin Colada PL") {
                         this.Colada = value;
                     }
                 } else {
