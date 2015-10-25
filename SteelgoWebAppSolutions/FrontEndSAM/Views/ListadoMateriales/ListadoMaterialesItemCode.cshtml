@@ -931,7 +931,9 @@
                 };
             };
             loadingStop();
-            if(paramICID==""){
+            var tmp={};
+            window.location.href.split("?")[1].split("&").forEach(function(n){tmp[n.split("=")[0]]=n.split("=")[1]});
+            if(tmp.IC!==undefined && tmp.IC!=="" && tmp.IC!==null){
                 paramICID=getUrlParameter("IC","");
                 $("#grid").data("kendoGrid").dataSource.filter({ field: "ItemCodeID", operator: "eq", value: parseInt(paramICID) })
             }
