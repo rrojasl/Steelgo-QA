@@ -624,26 +624,18 @@
 
                 $('#files').kendoUpload({
                     async: {
-                        ////VAlida que este tomando todos los parametros por favor
                         saveUrl: $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
                         autoUpload: false,
                         withCredentials: false,
-                        batch: true
                     },
                     success: function (data) {
-                        ////if(folio=="-1"){
-                        //    $(".k-upload-selected").attr("disabled", "disabled");
-                        ////} else {
-                        ////    $(".k-upload-selected").removeAttr("disabled", "disabled");
-                        ////}
-                        HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
+                       HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
                     },
                     select: function (e) {
-                        if(folio=="-1"){
-                            $("#photos").data("kendoUpload").toggle();
-                        } 
+                        //this.disable();
+                        //$("#files").data("kendoUpload").toggle();
+                        //$("#files").data("kendoUpload").disable();
                     },
-                    error: function (data) { },
                     upload: onUpload,
                     localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
                 });
@@ -678,122 +670,35 @@
                 ObtenerFechaDefault();
             };
 
-            function onUpload(e) {
+    function onUpload(e) {
+        //this.disable();
+        //alert("onUpload");
+                if (folio == "-1") {
+                    displayMessage("notificationslabel0015", "", '1');
+                    e.preventDefault();
+                };
+
                 if (!$("#TipoArchivo").data("kendoComboBox").value()) {
                     displayMessage("notificationslabel0012", "", '1');
                     e.preventDefault();
                 };
 
-                if (!validarRequeridosFormaAvisoLlegadaSubirArchivos()) {
-                    displayMessage("notificationslabel0079", "", '1');
-                    e.preventDefault();
-                }
-                else
-                {
+                //if (!validarRequeridosFormaAvisoLlegadaSubirArchivos()) {
+                //    displayMessage("notificationslabel0079", "", '1');
+                //    e.preventDefault();
+                //}
+                //else
+                //{
                     //e.preventDefault();
-                    if (folio == "-1")//Alta
-                    {
+                    //if (folio == "-1")//Alta
+                    //{
                        // e.preventDefault();
                         // GuardarDocumentoYAviso();
-                        //$("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                    } else {
-                        //$("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                    };
-                };
-            };
-
-
-            function GuardarDocumentoYAviso() {
-                //Arreglo Aviso de llegada
-                AvisoLlegada = [];
-                AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", Cliente: "", TipoAviso: "", PaseSalidaEnviado: "" };
-
-                _permisoAduana = [];
-                _permisoAduana[0] = { PermisoAutorizado: "", PermisoTramite: "", NumeroPermiso: "", ArchivoAutorizado: "" };
-
-                _archivosPackingList = [];
-                _archivosPackingList[0] = { PaseSalidaEnviado: "", Archivos: "" };
-
-                //objeto para los proyectos y documentos.
-                ProyectoIDs = [];
-                PlanaIDs = [];
-                Documentos = [];
-                //permiso = [];
-                //DocumentosPackingList = [];
-
-
-                _permisoAduana[0].NumeroPermiso = "";
-                _permisoAduana[0].PermisoAutorizado = false;
-                _permisoAduana[0].PermisoTramite = $("#hdPermisoTramite").val();
-
-                CargarDefaults();
-
-                var proyectos = $("#ProyectoID").data("kendoMultiSelect").value();
-                $.each(proyectos, function (index, value) {
-                    ProyectoIDs[index] = { ProyectoID: value };
-                });
-
-                if (!proyectos.length) {
-                    ProyectoIDs[0] = { ProyectoID: Proyecto.ProyectoID };
-                };
-
-                var planas = $("#PlanaID").data("kendoMultiSelect").value();
-                $.each(planas, function (index, value) {
-                    PlanaIDs[index] = { PlanaID: value };
-                });
-
-                $('#listaArchivos > tbody  > tr').each(function (index, value) {
-                    if ($(this).find("td:first").length > 0) {
-                        var id = $(this).attr("id").split(",")[0];
-                        var archivo = $(this).find("td a").eq(0).html();
-                        var tipoArchivo = $(this).find("td").eq(1).html();
-                        var extencion = $(this).attr("id").split(",")[1];
-
-                        Documentos[index] = { ArchivoID: id, Nombre: archivo, Extension: extencion, TipoArchivo: tipoArchivo };
-                    };
-                });
-
-                if (!$("#FechaRecepcion").data("kendoDatePicker").value()) {
-                    displayMessage("notificationslabel0082", "", '1');
-                    $("#FechaRecepcionDiv label").addClass("error");
-                    return;
-                };
-
-                var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
-                var curr_date = d.getDate();
-                var curr_month = d.getMonth() + 1; //Months are zero based
-                var curr_year = d.getFullYear();
-                var horaActual = new Date();
-
-
-                AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
-                AvisoLlegada[0].Proyectos = ProyectoIDs;
-                AvisoLlegada[0].Transportista = Transportista;
-                AvisoLlegada[0].FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();;
-                AvisoLlegada[0].Plana = PlanaIDs;
-                AvisoLlegada[0].Patio = Patio;
-                AvisoLlegada[0].Chofer = Chofer;
-                AvisoLlegada[0].Archivos = Documentos;
-                AvisoLlegada[0].Tracto = CamionEntradaMaterial;
-                AvisoLlegada[0].Cliente = Cliente;
-                AvisoLlegada[0].TipoAviso = TipoAvisos;
-
-                loadingStart();
-
-
-                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-                        if (Error(data)) {
-                            folio = data.ReturnMessage[1];
-                            $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                            cargarTituloFolio();
-                            BotonAlta();
-                            ocultarStatus();
-                            displayMessage("notificationslabel0013", folio, '0');
-                            $("#DetalleAvisoLlegada0090").show();
-                            CargaInicialEdicion(folio);
-                        };
-                        loadingStop();
-                    });
+                        $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
+                    //} else {
+                    //    $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
+                    //};
+                //};
             };
 
 
@@ -874,7 +779,7 @@
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
 
                 loadingStart();
-                $("#files").data("kendoUpload").toggle();
+                
                
                 if (folio != -1)//Edición
                 {
@@ -895,13 +800,13 @@
                     $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                         if (Error(data)) {
                             folio = data.ReturnMessage[1];
-                            $(".k-upload-selected").trigger('click');
                             cargarTituloFolio();
                             BotonAlta();
                             ocultarStatus();
                             displayMessage("notificationslabel0013", folio, '0');
                             $("#DetalleAvisoLlegada0090").show();
                             CargaInicialEdicion(folio);
+                            
                             if (bool) {//guardar y nuevo
                                 var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
