@@ -651,13 +651,14 @@
                     $("#MM").val("");
                 }
             });
-            $('input:radio').click(function () {
-                if ($(this).val() === '1') {
-                    changeValueColumnsAll();
-                } else if ($(this).val() === '2') {
-                    changeValueColumnsClear();
-                }
-            });
+
+            //$('input:radio').click(function () {
+            //    if ($(this).val() === '1') {
+            //        changeValueColumnsAll();
+            //    } else if ($(this).val() === '2') {
+            //        changeValueColumnsClear();
+            //    }
+            //});
 
             //Por default tubos
             CargarTipoPackingList(1, "");
@@ -1308,7 +1309,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("Colada", value);
+                if ($('input:checked').val() == "2") {
+                    if(!this.get("Colada")){
+                        this.set("Colada", value);
+                    }
+                }else{
+                    this.set("Colada", value);
+                }
             });
         };
 
@@ -1320,7 +1327,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("Cantidad", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("Cantidad")) {
+                        this.set("Cantidad", value);
+                    }
+                }else{
+                    this.set("Cantidad", value);
+                }
             });
         };
 
@@ -1347,11 +1360,21 @@
             var datasource = result;
 
             $(datasource).each(function () {
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("MM")) {
+                        if (TipoPackingList.TipoPackingListID == "1") {//TUBO
+                            this.set("MM", value);
+                        } else {
+                            this.set("MM", "N/A");
+                        }
+                    }
+                }else{
                     if (TipoPackingList.TipoPackingListID == "1") {//TUBO
                         this.set("MM", value);
                     } else {
                         this.set("MM", "N/A");
                     }
+                }
             });
         };
 
