@@ -414,7 +414,7 @@
             //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             //var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
              //REDIRECT
-             if (DashBoardAccionListado == 3)
+             if ($("#hdAccionFiltrado").val() == 3)
              {
                  var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
                  window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
