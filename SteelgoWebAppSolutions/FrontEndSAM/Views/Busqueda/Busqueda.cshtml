@@ -78,11 +78,22 @@
 @section JavascriptGlobalFunctions {
     function getDataGrid(){
         $Busqueda.select.read({},parametros).done(function(data){
-            dataGrid=data.response.docs;
-            parametros=data.responseHeader.params;
-            queryRes=data.response.numFound;
-            $("#grid").data("kendoGrid").dataSource.data(dataGrid);
-            $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());
+            $Patio.Patio.read({},{token:Cookies.get("token"),esAvisoEntrada:0,PaginaID:0}).done(function(result){
+                var idPatios=[];
+                result.forEach(function(r){
+                    idPatios.push(r.PatioID);
+                });
+                dataGrid=[];
+                $.grep(data.response.docs,function(d){
+                    if(idPatios.indexOf(d.Patio)!=-1){
+                        dataGrid.push(d);
+                    }
+                });
+                parametros=data.responseHeader.params;
+                queryRes=data.response.numFound;
+                $("#grid").data("kendoGrid").dataSource.data(dataGrid);
+                $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());  
+            })
         })
     }
 
