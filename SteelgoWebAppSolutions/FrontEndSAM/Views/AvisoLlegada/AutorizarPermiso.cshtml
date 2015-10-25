@@ -32,10 +32,6 @@
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="GuardarNuevo"><span id="DetalleAvisoLlegada0062"></span></a></li>
-                                    @*<li><a href="#"><span id="DetalleAvisoLlegada0063"></span></a></li>*@
-                                </ul>
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
@@ -176,13 +172,75 @@
                 },
                 error: function (data) { },
                 upload: onUploadArchivoAutorizar,
+                select: singleFile,
                 localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
+            });
+
+            $("#Guardar").click(function () {
+                if (!ValidarRequeridos()) {
+                    Guardar();
+                } else {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+            });
+            $("#Editar").click(function (e) {
+                BotonEdicion();
             });
 
             ObtenerFolioEntradaMaterial();
 
             cargarFolioDeterminado();
         };
+
+        function Guardar() {
+            var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
+            var Folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
+
+            var Listado = {};
+            Listado.FolioAvisoLlegada = Folio;
+            Listado.NumeroPermiso = numeropermiso;
+
+            $GuardarPermisoAduana.DocumentoPermisoAduana.create({}, { datos: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (data) {
+                loadingStart();
+                if (Error(data)) {
+                    displayMessage("notificationslabel0085", "", '0');
+                    BotonAlta();
+                }
+                loadingStop();
+            });
+        };
+
+        function BotonEdicion() {
+            $("#dropdown-toggle").show();
+            $("#Editar").css("display", "none");
+            $("#Guardar").css("display", "block");
+            habilitarControles();
+        };
+
+        function BotonAlta() {
+            $("#dropdown-toggle").hide();
+            $("#Editar").css("display", "block");
+            $("#Guardar").css("display", "none");
+            deshabilitarControles();
+        };
+
+        function habilitarControles() {
+            $("#NumeroPermiso").removeAttr("disabled");
+            $("#ArchivoAutorizar").data("kendoUpload").enable();
+        };
+
+        function deshabilitarControles() {
+            $("#NumeroPermiso").attr('disabled', 'disabled');
+            $("#ArchivoAutorizar").data("kendoUpload").enable(false);
+        };
+
+        function BotonEdicion() {
+            $("#dropdown-toggle").show();
+            $("#Editar").css("display", "none");
+            $("#Guardar").css("display", "block");
+            habilitarControles();
+        };
+
         function CargarFolio(id) {
             FolioAvisoLlegada = {};
             FolioAvisoLlegada = { FolioAvisoLlegadaID: id };
@@ -218,6 +276,37 @@
             });
         };
 
+        function ValidarRequeridos() {
+            var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
+            var bool = false;
+
+            $("#formaAutorizarPermiso .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "NumeroPermiso") {
+                        if (!$(this).val()) {
+                            bool = true;
+                            $(this).closest("div").find("label").addClass("error");
+                            $(this).closest("div").addClass("clearfix");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                            $(this).closest("div").removeClass("clearfix");
+                        };
+                    }
+                };
+            });
+
+            if (bool) {
+                if (!$("#NumeroPermiso").val()) {
+                    displayMessage("notificationslabel0006", "", '1');
+                };
+            }
+            if (folio == -1) {
+                displayMessage("notificationslabel0007", "", '1');
+            };
+
+            return bool;
+        }
+
         //Se checa si el folio seleccionado tiene permiso aduana
         //Si tiene permiso se muestra la liga del archivo
         //Si no tiene se muestra el control para subir archivos
@@ -238,8 +327,8 @@
                         $("#NumeroPermiso").removeAttr("disabled");
                         limpiarUploadFiles();
                         $("#NumeroPermiso").val("");
+                        
                     }else{
-
                         if (result.PermisoAutorizado)
                         {
                             $("#ArchivoAutorizar").data("kendoUpload").disable();
@@ -249,6 +338,7 @@
                             $("#divLinkAutorizar").show();
                             $("#divLinkAutorizar").append("<a target='_blank' href='" + result.Url + "'>" + result.Url + "</a>");
                             $("#NumeroPermiso").val(result.NumeroPermiso);
+                            BotonAlta();
                         }
                     }
                 });
@@ -295,6 +385,18 @@
             $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = $DocumentoPermisoAduana + "?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + numeropermiso + "&token=" + Cookies.get("token");
         };
 
+        function singleFile(e)
+        {
+
+            if (e.files.length == 1)
+            {
+                // disables the upload after upload
+                //$("#ArchivoAutorizar").data("kendoUpload").disable();
+                $("#divLinkAutorizar").empty();
+                this.element.prop("disabled", true);
+                this.element.closest(".k-button").addClass("k-state-disabled");
+            }
+        }
 
         //Si viene de otra pagina se carga el folio y
         //se checa si dicho folio esta autorizado

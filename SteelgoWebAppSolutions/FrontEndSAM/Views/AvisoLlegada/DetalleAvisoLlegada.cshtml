@@ -177,6 +177,7 @@
     //your partial views variables
     var FechaRecepcion;
     var folio = getUrlParameter("folio", "-1");
+    
     var _tipoArchivo = 0;
     var Transportista = [], Proveedor = [], Patio = [],
         Plana = [], Chofer = [], Contacto = [],
@@ -269,6 +270,7 @@
     };
 
     @section JavascriptGlobalFunctions {
+
     function changeLanguageCall() {
         var optionsf = $("#files").data("kendoUpload").options;
         $("#filesDiv .k-button.k-upload-button").remove();
@@ -330,10 +332,6 @@
                 };
             };
         });
-
-        //if (folio == "-1") {
-        //    bool = false;
-        //};
         return bool;
     };
     //Se valida si hay requeridos y se agrega la clase de error en la forma aviso de llegada
@@ -629,10 +627,21 @@
                         withCredentials: false,
                     },
                     success: function (data) {
-                       HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
+                        //HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
+                        HabilitarObtenerDocumentosAvisoLlegada();
                     },
                     select: function (e) {
+                        if (folio == "-1") {
+                            $("<style>")
+                                .prop("type", "text/css")
+                                .html("\
+                                .k-upload-selected {\
+                                    display: none;\
+                                }")
+                                .appendTo("head");
+                        }
                         //this.disable();
+
                         //$("#files").data("kendoUpload").toggle();
                         //$("#files").data("kendoUpload").disable();
                     },
@@ -797,24 +806,38 @@
                     });
                 } else //Alta
                 {
-                    $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
-                        if (Error(data)) {
-                            folio = data.ReturnMessage[1];
-                            cargarTituloFolio();
-                            BotonAlta();
-                            ocultarStatus();
-                            displayMessage("notificationslabel0013", folio, '0');
-                            $("#DetalleAvisoLlegada0090").show();
-                            CargaInicialEdicion(folio);
-                            
-                            if (bool) {//guardar y nuevo
-                                var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
-                                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                            }
-                        }
+                    var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
+                    var upload = $("#files").data("kendoUpload");
+                    var len = upload.wrapper.find(".k-file").length;
+                    if (uploadtype == 1007 && len > 0) {
+                        $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
+                            if (Error(data)) {
 
+                                folio = data.ReturnMessage[1];
+
+                                $(".k-upload-selected").click();
+
+                                cargarTituloFolio();
+                                BotonAlta();
+                                ocultarStatus();
+                                displayMessage("notificationslabel0013", folio, '0');
+                                $("#DetalleAvisoLlegada0090").show();
+                                CargaInicialEdicion(folio);
+
+                                
+
+                                if (bool) {//guardar y nuevo
+                                    var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
+                                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+                                }
+                            }
+
+                            loadingStop();
+                        });
+                    } else {
+                        displayMessage("notificationslabel0031", "", 1);
                         loadingStop();
-                    });
+                    }
                 }
             };
 
@@ -1505,6 +1528,13 @@
                             });
                         }
                     };
+                    $("<style>")
+                                .prop("type", "text/css")
+                                .html("\
+                                .k-upload-selected {\
+                                    display: block;\
+                                }")
+                                .appendTo("head");
                     loadingStop();
                 });
             };
