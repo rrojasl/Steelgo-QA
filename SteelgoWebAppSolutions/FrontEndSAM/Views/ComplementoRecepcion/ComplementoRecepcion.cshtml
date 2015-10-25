@@ -43,7 +43,7 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="ComplementoRecepcion0008"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section ordenAlmacenaje">
                             <a id="GenerarOrdenAlmacenaje" href="#" class="btn btn-primary"><span id="ComplementoRecepcion0009"></span></a>
                         </div>
                         <div class="button-section">
@@ -233,7 +233,17 @@
             }
         }
     };
+    var $OrdenAlmacenajeModel = {
+        listContainer: {
+            create: ".ordenAlmacenaje",
+            list: "",
+            detail: "",
+            destroy: ""
+        },
+        properties: {
 
+        }
+    };
     };
 
 
@@ -390,13 +400,13 @@
         ObtenerTipoUso();
 
 
-        $('input:radio').click(function () {
-            if ($(this).val() === '1') {
-                changeValueColumnsAll();
-            } else if ($(this).val() === '2') {
-                changeValueColumnsClear();
-            }
-        });
+        //$('input:radio').click(function () {
+        //    if ($(this).val() === '1') {
+        //        changeValueColumnsAll();
+        //    } else if ($(this).val() === '2') {
+        //        changeValueColumnsClear();
+        //    }
+        //});
 
 
         //$("#Colada").kendoComboBox({
@@ -1006,7 +1016,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.Colada = value;
+                if ($('input:checked').val() == "2") {
+                    if (!this.Colada || this.Colada == "Sin Colada PL") {
+                        this.Colada = value;
+                    }
+                } else {
+                    this.Colada = value
+                }
             });
             $('#grid').data('kendoGrid').refresh();
         };
@@ -1019,7 +1035,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("EstatusFisico", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("EstatusFisico")) {
+                        this.set("EstatusFisico", value);
+                    }
+                } else {
+                    this.set("EstatusFisico", value);
+                }
             });
         };
 
@@ -1031,7 +1053,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("EstatusDocumental", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("EstatusDocumental")) {
+                        this.set("EstatusDocumental", value);
+                    }
+                } else {
+                    this.set("EstatusDocumental", value);
+                }
             });
         };
 
@@ -1043,7 +1071,13 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("TipoUso", value);
+                if ($('input:checked').val() == "2") {
+                    if (!this.get("TipoUso")) {
+                        this.set("TipoUso", value);
+                    }
+                } else {
+                    this.set("TipoUso", value);
+                }
             });
         };
 
@@ -1209,6 +1243,7 @@
                 }
                 AccionesAltaGuardadoParcial(null);
                 CambiarEstatus("En Proceso de Recepción");
+                applySecurityPolicy(false);
             };
         };
 
@@ -1690,6 +1725,8 @@
         cargaInicialEdicion();
     };
     $("#hdnNavegacion").val(Cookies.get("navegacion"));
+
+    $authorizationModel["Orden Almacenaje"] = $OrdenAlmacenajeModel;
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
     }
 

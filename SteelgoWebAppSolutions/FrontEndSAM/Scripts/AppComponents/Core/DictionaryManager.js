@@ -5636,6 +5636,10 @@ _dictionary = {
         "es-MX": "Ocurrio un error al cargar el archivo.",
         "en-US": "An error occurred loading file."
     },
+    "notificationslabel0085": {
+        "es-MX": "Permiso Autorizado correctamente",
+        "en-US": "Permit Authorized successfully."
+    },
     //Default to copy
     "label9999": {
         "es-MX": "",

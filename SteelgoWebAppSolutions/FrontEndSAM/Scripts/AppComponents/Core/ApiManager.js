@@ -141,6 +141,7 @@ var $RevisionDeficit = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $IncidenciaPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Busqueda = new $.RestClient($SearchSAMUri + '/solr/Steelgo_Search/');
 var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 /****************************/
 /*    Document Ready        */
@@ -242,3 +243,4 @@ $RevisionDeficit.add("RevisionDeficit");
 $IncidenciaPaseSalida.add("IncidenciaPaseSalida");
 $Busqueda.add("select");
 $PreDespacho.add("PreDespacho");
+$GuardarPermisoAduana.add("DocumentoPermisoAduana");

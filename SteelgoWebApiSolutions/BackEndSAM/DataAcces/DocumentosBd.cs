@@ -402,7 +402,7 @@ namespace BackEndSAM.DataAcces
                     Sam3_PermisoAduana permisoBd;
                     int folioAviso = documentos[0].FolioAvisoLlegadaID.Value;
                     //Actualizamos el permiso de aduana
-                    if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folioAviso).Any())
+                    if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folioAviso && x.Activo).Any())
                     {
                         permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folioAviso && x.Activo)
                             .AsParallel().SingleOrDefault();
@@ -414,6 +414,7 @@ namespace BackEndSAM.DataAcces
                         permisoBd.FechaAutorización = DateTime.Now;
                         permisoBd.FechaModificacion = DateTime.Now;
                         permisoBd.UsuarioModificacion = documentos[0].UserId;
+                        ctx.SaveChanges();
                     }
                     else 
                     {
@@ -433,31 +434,57 @@ namespace BackEndSAM.DataAcces
                     }
 
                     //Actualizar estatus de FolioAvisoLlegada
-                    Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAviso)
-                        .AsParallel().SingleOrDefault();
-                    aviso.Estatus = "Autorizado";
-                    aviso.FechaModificacion = DateTime.Now;
-                    aviso.UsuarioModificacion = documentos[0].UserId;
+                    //Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folioAviso)
+                    //    .AsParallel().SingleOrDefault();
+                    //aviso.Estatus = "Autorizado";
+                    //aviso.FechaModificacion = DateTime.Now;
+                    //aviso.UsuarioModificacion = documentos[0].UserId;
 
-
-                    //Guardamos la informacion de los documentos
-                    foreach (DocumentoPosteado d in documentos)
+                    if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoBd.PermisoAduanaID && x.Activo).Any())
                     {
-                        Sam3_Rel_PermisoAduana_Documento nuevoDoc = new Sam3_Rel_PermisoAduana_Documento();
-                        nuevoDoc.Activo = true;
-                        nuevoDoc.ContentType = d.ContentType;
-                        nuevoDoc.DocGuid = d.DocGuid;
-                        nuevoDoc.DocumentoID = 0;
-                        nuevoDoc.Extencion = d.Extencion;
-                        nuevoDoc.FechaModificacion = DateTime.Now;
-                        nuevoDoc.Nombre = d.FileName;
-                        nuevoDoc.PermisoAduanaID = permisoBd.PermisoAduanaID;
-                        nuevoDoc.TipoArchivoID = tipoArchivoID;
-                        nuevoDoc.Url = d.Path;
-                        nuevoDoc.UsuarioModificacion = d.UserId;
+                        foreach (DocumentoPosteado d in documentos)
+                        {
+                            //Actualizar la informacion de los documentos
+                            Sam3_Rel_PermisoAduana_Documento nuevoDoc = ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoBd.PermisoAduanaID && x.Activo).AsParallel().SingleOrDefault();
+                            nuevoDoc.Activo = true;
+                            nuevoDoc.ContentType = d.ContentType;
+                            nuevoDoc.DocGuid = d.DocGuid;
+                            nuevoDoc.DocumentoID = 0;
+                            nuevoDoc.Extencion = d.Extencion;
+                            nuevoDoc.FechaModificacion = DateTime.Now;
+                            nuevoDoc.Nombre = d.FileName;
+                            nuevoDoc.PermisoAduanaID = permisoBd.PermisoAduanaID;
+                            nuevoDoc.TipoArchivoID = tipoArchivoID;
+                            nuevoDoc.Url = d.Path;
+                            nuevoDoc.UsuarioModificacion = d.UserId;
 
-                        ctx.Sam3_Rel_PermisoAduana_Documento.Add(nuevoDoc);
+                            //ctx.Sam3_Rel_PermisoAduana_Documento.Add(nuevoDoc);
+                        }
                     }
+                    else
+                    {
+                        foreach (DocumentoPosteado d in documentos)
+                        {
+                            //Guardamos la informacion de los documentos
+                            Sam3_Rel_PermisoAduana_Documento nuevoDoc = new Sam3_Rel_PermisoAduana_Documento();
+                            nuevoDoc.Activo = true;
+                            nuevoDoc.ContentType = d.ContentType;
+                            nuevoDoc.DocGuid = d.DocGuid;
+                            nuevoDoc.DocumentoID = 0;
+                            nuevoDoc.Extencion = d.Extencion;
+                            nuevoDoc.FechaModificacion = DateTime.Now;
+                            nuevoDoc.Nombre = d.FileName;
+                            nuevoDoc.PermisoAduanaID = permisoBd.PermisoAduanaID;
+                            nuevoDoc.TipoArchivoID = tipoArchivoID;
+                            nuevoDoc.Url = d.Path;
+                            nuevoDoc.UsuarioModificacion = d.UserId;
+
+                            ctx.Sam3_Rel_PermisoAduana_Documento.Add(nuevoDoc);
+                        }
+                    }
+
+                    
+                    
 
                     ctx.SaveChanges();
 
@@ -470,6 +497,65 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 return false;
+            }
+        }
+
+        public object CambiarEstatusFolio(int FolioAviso, int NumeroPermiso, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    int permisoID = (from per in ctx.Sam3_PermisoAduana
+                                     where per.FolioAvisoLlegadaID == FolioAviso && per.Activo && per.Estatus == "Autorizado"
+                                     select per.PermisoAduanaID).AsParallel().SingleOrDefault();
+
+                    if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == FolioAviso && x.Activo).Any())
+                    {
+                        Sam3_PermisoAduana permisoBd = ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == FolioAviso && x.Activo)
+                            .AsParallel().SingleOrDefault();
+
+                        permisoBd.PermisoAutorizado = true;
+                        permisoBd.PermisoTramite = false;
+                        permisoBd.NumeroPermiso = NumeroPermiso;
+                        permisoBd.Estatus = "Autorizado";
+                        permisoBd.FechaAutorización = DateTime.Now;
+                        permisoBd.FechaModificacion = DateTime.Now;
+                        permisoBd.UsuarioModificacion = usuario.UsuarioID;
+                        ctx.SaveChanges();
+                    }
+
+                    if (ctx.Sam3_Rel_PermisoAduana_Documento.Where(x => x.PermisoAduanaID == permisoID && x.Activo).Any())
+                    {
+                        //Actualizar estatus de FolioAvisoLlegada
+                        Sam3_FolioAvisoLlegada aviso = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == FolioAviso)
+                            .AsParallel().SingleOrDefault();
+                        aviso.Estatus = "Autorizado";
+                        aviso.FechaModificacion = DateTime.Now;
+                        aviso.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("El folio no cuenta con un permiso Autorizado");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 

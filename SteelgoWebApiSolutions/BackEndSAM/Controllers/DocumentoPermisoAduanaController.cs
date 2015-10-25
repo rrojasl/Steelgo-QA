@@ -21,7 +21,7 @@ using System.Configuration;
 namespace BackEndSAM.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class DocumentoPermisoAduanaController :ApiController
+    public class DocumentoPermisoAduanaController : ApiController
     {
 
         public object Get(int folio, string token)
@@ -145,6 +145,29 @@ namespace BackEndSAM.Controllers
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.ReturnMessage.Add(ex.Message);
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Post(string datos, string token)
+        {
+            string newToken = "";
+            string payload = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                EstatusFolio estatus = serializer.Deserialize<EstatusFolio>(datos);
+                return DocumentosBd.Instance.CambiarEstatusFolio(estatus.FolioAvisoLlegada, estatus.NumeroPermiso, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.ReturnMessage.Add(payload);
                 result.IsAuthenicated = false;
                 return result;
             }
