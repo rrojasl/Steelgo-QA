@@ -366,7 +366,9 @@
                     messageindexKendoCombobox(this);
                     this.value("");
                 };
+               
                 changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
+                $('#grid').data('kendoGrid').refresh();
             },
 
             filter: "contains",
@@ -450,7 +452,7 @@
 
                 rowselected.Colada = $("#EdicionColada").data("kendoAutoComplete").value();
                 $('#grid').data('kendoGrid').refresh();
-                changeValueColumnColada($("#EdicionColada").data("kendoAutoComplete").value());
+                //changeValueColumnColada($("#EdicionColada").data("kendoAutoComplete").value());
             },
 
             filter: "contains",
@@ -1004,8 +1006,9 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("Colada", value);
+                this.Colada = value;
             });
+            $('#grid').data('kendoGrid').refresh();
         };
 
         function changeValueColumnEstatusFisico(value) {

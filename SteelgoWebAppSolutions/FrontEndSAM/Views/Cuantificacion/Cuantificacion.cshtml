@@ -714,7 +714,7 @@
                 $("#PackingList").removeAttr("disabled");
                 $("#TipoUsoID").data("kendoComboBox").enable(true);
                 $("#massiveUpload").removeAttr("disabled");
-                $("#Colada").data("kendoComboBox").enable(true);
+                $("#Colada").data("kendoAutoComplete").enable(true);
                 $("#Cantidad").removeAttr("disabled");
                 $("#MM").removeAttr("disabled");
                 $(".k-button.k-button-icontext.k-grid-add").removeClass("k-state-disabled");
@@ -748,7 +748,7 @@
             $("#TipoPackingListID").data("kendoComboBox").enable(false);
             $("#TipoUsoID").data("kendoComboBox").enable(false);
             $("#massiveUpload").attr("disabled", "disabled");
-            $("#Colada").data("kendoComboBox").enable(false);
+            $("#Colada").data("kendoAutoComplete").enable(false);
             $("#Cantidad").attr("disabled", "disabled");
             $("#MM").attr("disabled", "disabled");
             $(".k-button.k-button-icontext.k-grid-add").addClass("k-state-disabled");
@@ -1376,7 +1376,7 @@
             var datasource = result;
 
             $(datasource).each(function () {
-                this.set("Colada", $("#Colada").data("kendoComboBox").text());
+                this.set("Colada", $("#Colada").data("kendoAutoComplete").value());
                 this.set("Cantidad", $("#Cantidad").val());
                 if (TipoPackingList.TipoPackingListID == "1") {//TUBO
                     this.set("MM", $("#MM").val());
@@ -1503,9 +1503,11 @@
                 if (ItemCode.indexOf("Bulto") == -1) {
                     //if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula || !Cantidad) { // informacion incompleta
                     if (!ItemCode || !Cantidad) {
-                        datasource[i].TieneError = true;
-                        ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
-                        z++;
+                        if (ItemCode) {
+                            datasource[i].TieneError = true;
+                            ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
+                            z++;
+                        }
                     } else { // informacion completa
                         ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError, TipoUsoID: TipoUsoID };
                         j++;
@@ -1671,9 +1673,11 @@
                 if (ItemCode.indexOf("Bulto") == -1) {
                     //if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula || !Cantidad) { // informacion incompleta
                     if (!ItemCode || !Cantidad) {
-                        datasource[i].TieneError = true;
-                        ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
-                        z++;
+                        if (ItemCode) {
+                            datasource[i].TieneError = true;
+                            ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
+                            z++;
+                        }
                     } else { // informacion completa
                         ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError, TipoUsoID: TipoUsoID };
                         j++;
@@ -1842,9 +1846,11 @@
             if (ItemCode.indexOf("Bulto") == -1) {
                 //if (!ItemCode || (!D1 && D1 != 0) || (!D2 && D2 != 0) || !ItemCodeSteelgo || !Colada || !Familia || !Descripcion || !Cedula || !Cantidad) { // informacion incompleta
                 if (!ItemCode || !Cantidad) {
-                    datasource[i].TieneError = true;
-                    ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
-                    z++;
+                    if (ItemCode) {
+                        datasource[i].TieneError = true;
+                        ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
+                        z++;
+                    }
                 } else { // informacion completa
                     ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError, TipoUsoID: TipoUsoID };
                     j++;
@@ -2016,9 +2022,9 @@
                 if (ItemCode.indexOf("Bulto") == -1) {
                     //if (!ItemCode || (!D1 && D1 < 0) || (!D2 && D2 < 0) || !Colada || !Familia || !Descripcion || !Cedula || !Cantidad) { // informacion incompleta
                     if (!ItemCode) {
-                        datasource[i].TieneError = true;
-                        ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
-                        z++;
+                        //datasource[i].TieneError = true;
+                        //ListadoCuantificacionIncompletos[z] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: true, TipoUsoID: TipoUsoID };
+                        //z++;
                     } else { // informacion completa
                         ListadoCuantificacion[j] = { ItemCode: ItemCode, BultoID: BultoID, Descripcion: Descripcion, D1: D1, D2: D2, ItemCodeSteelgo: ItemCodeSteelgo, Familia: Familia, Cedula: Cedula, TipoAcero: TipoAcero, Colada: Colada, Cantidad: Cantidad, MM: MM, Detallar: Detallar, TieneNU: TieneNU, TieneError: TieneError, TipoUsoID: TipoUsoID };
                         j++;
