@@ -43,7 +43,7 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="ComplementoRecepcion0008"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section ordenAlmacenaje">
                             <a id="GenerarOrdenAlmacenaje" href="#" class="btn btn-primary"><span id="ComplementoRecepcion0009"></span></a>
                         </div>
                         <div class="button-section">
@@ -233,7 +233,17 @@
             }
         }
     };
+    var $OrdenAlmacenajeModel = {
+        listContainer: {
+            create: ".ordenAlmacenaje",
+            list: "",
+            detail: "",
+            destroy: ""
+        },
+        properties: {
 
+        }
+    };
     };
 
 
@@ -1209,6 +1219,7 @@
                 }
                 AccionesAltaGuardadoParcial(null);
                 CambiarEstatus("En Proceso de Recepción");
+                applySecurityPolicy(false);
             };
         };
 
@@ -1690,6 +1701,8 @@
         cargaInicialEdicion();
     };
     $("#hdnNavegacion").val(Cookies.get("navegacion"));
+
+    $authorizationModel["Orden Almacenaje"] = $OrdenAlmacenajeModel;
     $authorizationModel["Complemento Recepcion"] = $ComplementoRecepcionModel;
     }
 
