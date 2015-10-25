@@ -531,7 +531,7 @@
                         Proyecto = {};
                         this.value("");
                     }
-                    ObtenerColada("Colada", 0, 0);
+                    //ObtenerColada("Colada", 0, 0);
                 },
                 filter: "contains",
             });
@@ -603,13 +603,26 @@
             });
             ObtenerTipoUso();
 
-            $("#Colada").kendoComboBox({
+
+            $("#Colada").kendoAutoComplete({
                 dataTextField: "Nombre",
-                dataValueField: "TransportistaID",
-                change: function (e) {
-                    var value = this.value();
-                    changeValueColumnColada($("#Colada").data("kendoComboBox").text());
-                    $("#Colada").data("kendoComboBox").value("");
+                dataValueField: "ColadaID",
+                autoBind: false,
+                minLength: 3,
+                dataSource: {
+                    type: "json",
+                    serverFiltering: true,
+                    transport: {
+                        read: {
+                            url: function (op) {
+                                var val="";
+                                if(op.filter){
+                                    val = op.filter.filters[0].value;
+                                }
+                                return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=1"
+                            }
+                        }
+                    },
                 },
                 change: function (e) {
                     var value = this.value();
@@ -617,7 +630,10 @@
                         messageindexKendoCombobox(this);
                         this.value("");
                     };
+                    changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
+                    $("#Colada").data("kendoAutoComplete").value("");
                 },
+               
                 filter: "contains",
             });
             
@@ -2420,10 +2436,20 @@
                 .appendTo(container)
                 .kendoAutoComplete({
                     autoBind: false,
+                    minLength: 3,
                     dataSource: {
                         type: "json",
+                        serverFiltering: true,
                         transport: {
-                            read: $URLColada + "proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:-1 ) + "&token=" + Cookies.get("token") + "&paginaID=" +Cookies.get("navegacion") + "&id=0&mostrarOpcion=1"
+                            read: {
+                                url: function (op) {
+                                    var val = "";
+                                    if (op.filter) {
+                                        val = op.filter.filters[0].value;
+                                    }
+                                    return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=1"
+                                }
+                            }
                         },
                     },
                     select: function (e) {
