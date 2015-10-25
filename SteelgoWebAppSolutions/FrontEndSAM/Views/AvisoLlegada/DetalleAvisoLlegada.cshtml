@@ -638,12 +638,11 @@
                         ////}
                         HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
                     },
-                    //complete: function (e) {
-                    //    $(".k-upload-selected").attr("disabled", "disabled");
-                    //},
-                    //select: function (e) {
-                        
-                    //},
+                    select: function (e) {
+                        if(folio=="-1"){
+                            $("#photos").data("kendoUpload").toggle();
+                        } 
+                    },
                     error: function (data) { },
                     upload: onUpload,
                     localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
@@ -799,6 +798,7 @@
 
 
             function GuardarAvisoLlegada(bool) {
+
                 //Arreglo Aviso de llegada
                 AvisoLlegada = [];
                 AvisoLlegada[0] = { FolioAvisoLlegadaID: "", Proyectos: "", Transportista: "", FechaRecepcion: "", Plana: "", Patio: "", Chofer: "", Archivos: "", PermisoAduana: "", Tracto: "", Cliente: "", TipoAviso: "", PaseSalidaEnviado: "" };
@@ -874,7 +874,8 @@
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
 
                 loadingStart();
-
+                $("#files").data("kendoUpload").toggle();
+               
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
@@ -894,6 +895,7 @@
                     $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                         if (Error(data)) {
                             folio = data.ReturnMessage[1];
+                            $(".k-upload-selected").trigger('click');
                             cargarTituloFolio();
                             BotonAlta();
                             ocultarStatus();

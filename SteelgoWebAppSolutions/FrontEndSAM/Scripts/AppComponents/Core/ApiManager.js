@@ -29,8 +29,8 @@
 var $BackEndSAMUri = 'http://localhost:60960';
 var $SecuritySAMUri = 'http://localhost:60921';
 var $MessagesSAMUri = 'http://localhost:60966';
-//var $SearchSAMUri = 'http://localhost:60921';
-var $SearchSAMUri = 'http://10.15.2.12:8089';
+var $SearchSAMUri = 'http://localhost:60921';
+//var $SearchSAMUri = 'http://10.15.2.12:8089';
 var $FilesSAMUri = 'http://localhost:60921';
 
 //Combos Base URL
