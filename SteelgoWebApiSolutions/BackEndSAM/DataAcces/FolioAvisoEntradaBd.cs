@@ -120,7 +120,7 @@ namespace BackEndSAM.DataAcces
                     {
                         if (filtros.PorLlegar)
                         {
-                            elementos = (from fa in ctx.Sam3_FolioAvisoLlegada
+                            elementos = (from fa in ctx.Sam3_FolioAvisoLlegada.ToList()
                                          where fa.Activo
                                          && !(from fe in ctx.Sam3_FolioAvisoEntrada
                                               where fe.Activo
@@ -128,7 +128,7 @@ namespace BackEndSAM.DataAcces
                                          select new ElementoListadoFolioEntradaMaterial
                                          {
                                              EstatusFolio = fa.Estatus,
-                                             FechaCreación = fa.FechaModificacion.Value.ToString(),
+                                             FechaCreación = fa.FechaModificacion.Value.ToString("dd/MM/yyyy"),
                                              FolioAvisoEntradaID = fa.FolioAvisoLlegadaID.ToString(),
                                              FolioAvisoLlegadaID = fa.FolioAvisoLlegadaID.ToString(),
                                              Patio = fa.Sam3_Patio.Nombre
