@@ -410,20 +410,17 @@
     //Parametros: folioAvisoLlegadaID
     //Return:     N/A
          function mostrarDetalle(folioAvisoLlegadaID) {
-            //e.preventDefault();
-            //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            //var folioAvisoLlegadaID = dataItem.FolioAvisoLlegadaID
-             //REDIRECT
-             if ($("#hdAccionFiltrado").val() == 3)
-             {
-                 var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
-                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
-             }
-             else
-             {
-                 var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
-                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
-             }
+             if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Aviso Entrada"] != 'undefined') && (typeof returnOfSecurityCheck["Aviso Entrada"]["detail"] != 'undefined') && returnOfSecurityCheck["Aviso Entrada"]["detail"]) {
+                //REDIRECT
+                if ($("#hdAccionFiltrado").val() == 3) {
+                    var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
+                }
+                else {
+                    var detalleIdeaUrl = "@Url.Action("DetalleAvisoLLegada", "AvisoLLegada")";
+                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folioAvisoLlegadaID;
+                }
+            }
         }
 
     //Se cancelar un folio del grid
