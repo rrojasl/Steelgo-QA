@@ -156,7 +156,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        private ItemCodeComplemento ObtenerPropiedadesJson(int itemCodeID)
+        private ItemCodeComplemento ObtenerPropiedadesJson(int itemCodeID, int numeroUnicoID)
         {
             try
             {
@@ -165,42 +165,43 @@ namespace BackEndSAM.DataAcces
                     ItemCodeComplemento item = new ItemCodeComplemento();
                     //Agregamos items con relacion con Folio Cuantificacion
                     item = (from it in ctx.Sam3_ItemCode
-                                      join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
-                                      where it.Activo && nu.Activo
-                                      && it.ItemCodeID == itemCodeID
-                                      select new ItemCodeComplemento
-                                      {
-                                          NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
-                                          ItemCode = it.Codigo,
-                                          NumeroUnicoCliente = nu.NumeroUnicoCliente,
-                                          Descripcion = it.DescripcionEspanol,
-                                          Cedula = nu.Cedula,
-                                          TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
-                                                       where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
-                                                       select fa.Nombre).FirstOrDefault(),
-                                          D1 = it.Diametro1.ToString(),
-                                          D2 = it.Diametro2.ToString(),
-                                          ItemCodeID = it.ItemCodeID,
-                                          ProyectoID = it.ProyectoID,
-                                          Cantidad = it.Cantidad,
-                                          MM = it.MM.ToString(),
-                                          Colada = nu.Sam3_Colada.NumeroColada,
-                                          EstatusDocumental = it.EstatusDocumental,
-                                          EstatusFisico = it.EstatusFisico,
-                                          TipoUso = it.Sam3_TipoUso.Nombre
-                                      }).AsParallel().SingleOrDefault();
+                            join nu in ctx.Sam3_NumeroUnico on it.ItemCodeID equals nu.ItemCodeID
+                            where it.Activo && nu.Activo
+                            && it.ItemCodeID == itemCodeID
+                            && nu.NumeroUnicoID == numeroUnicoID
+                            select new ItemCodeComplemento
+                            {
+                                NumeroUnico = nu.Prefijo + "-" + nu.Consecutivo,
+                                ItemCode = it.Codigo,
+                                NumeroUnicoCliente = nu.NumeroUnicoCliente,
+                                Descripcion = it.DescripcionEspanol,
+                                Cedula = nu.Cedula,
+                                TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
+                                             where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
+                                             select fa.Nombre).FirstOrDefault(),
+                                D1 = it.Diametro1.ToString(),
+                                D2 = it.Diametro2.ToString(),
+                                ItemCodeID = it.ItemCodeID,
+                                ProyectoID = it.ProyectoID,
+                                Cantidad = it.Cantidad,
+                                MM = it.MM.ToString(),
+                                Colada = it.Sam3_Colada.NumeroColada,
+                                EstatusDocumental = it.EstatusDocumental,
+                                EstatusFisico = it.EstatusFisico,
+                                TipoUso = it.Sam3_TipoUso.Nombre
+                            }).AsParallel().SingleOrDefault();
 
 
-                        int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
-                            .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+                    int numeroDigitos = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
+                        .Select(x => x.DigitosNumeroUnico).AsParallel().SingleOrDefault();
 
-                        string formato = "D" + numeroDigitos.ToString();
+                    string formato = "D" + numeroDigitos.ToString();
 
-                        string[] elementos = item.NumeroUnico.Split('-').ToArray();
+                    string[] elementos = item.NumeroUnico.Split('-').ToArray();
 
-                        int temp = Convert.ToInt32(elementos[1]);
+                    int temp = Convert.ToInt32(elementos[1]);
 
-                        item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
+                    item.NumeroUnico = elementos[0] + "-" + temp.ToString(formato);
 
 #if DEBUG
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -237,7 +238,10 @@ namespace BackEndSAM.DataAcces
 
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
                             .Where(x => x.ItemCodeID == actualizaItem.ItemCodeID
-                                && x.Prefijo == prefijo && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID && x.Activo).SingleOrDefault();
+                                && x.Prefijo == prefijo 
+                                && x.Consecutivo == temp 
+                                && x.ProyectoID == actualizaItem.ProyectoID 
+                                && x.Activo).SingleOrDefault();
 
                         switch (tipoGuardadoID)
                         {
@@ -262,7 +266,7 @@ namespace BackEndSAM.DataAcces
                                         (from co in ctx.Sam3_Colada
                                          where co.Activo && co.NumeroColada == itemCodeJson.Colada
                                          select co.ColadaID
-                                        ).SingleOrDefault()
+                                        ).FirstOrDefault()
                                         : 1;
                                     actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
                                     actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
@@ -281,7 +285,7 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.SaveChanges();
 
-                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID);
+                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID, actualizaNU.NumeroUnicoID);
                                 itemCodeJson.TieneError = false;
 
                                 break;
@@ -312,7 +316,7 @@ namespace BackEndSAM.DataAcces
                                         (from co in ctx.Sam3_Colada
                                          where co.Activo && co.NumeroColada == itemCodeJson.Colada
                                          select co.ColadaID
-                                        ).SingleOrDefault()
+                                        ).FirstOrDefault()
                                         : 1;
                                     actualizaItem.EstatusFisico = itemCodeJson.EstatusFisico;
                                     actualizaItem.EstatusDocumental = itemCodeJson.EstatusDocumental;
@@ -331,7 +335,7 @@ namespace BackEndSAM.DataAcces
 
                                 ctx.SaveChanges();
 
-                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID);
+                                itemCodeJson = ObtenerPropiedadesJson(actualizaItem.ItemCodeID, actualizaNU.NumeroUnicoID);
                                 itemCodeJson.TieneError = false;
 
                                 break;
