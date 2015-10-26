@@ -309,19 +309,22 @@ namespace BackEndSAM.DataAcces
                         {
                             if (result.Count > 0)
                             {
-                                result = (from r in result
-                                          join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                          join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo && pa.Activo && p.Activo
-                                          && pa.RequierePermisoAduana == true
-                                          && p.PermisoAutorizado == true
-                                          select r).AsParallel().ToList();
+                                List<Sam3_FolioAvisoLlegada> cuentas = (from r in result
+                                                                        join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                                        where r.Activo && p.Activo
+                                                                        && p.PermisoAutorizado == true
+                                                                        && pa.RequierePermisoAduana
+                                                                        select r).AsParallel().ToList();
+                                cuentas.AddRange((from r in result
+                                                  join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                  where r.Activo && pa.Activo
+                                                  && !pa.RequierePermisoAduana
+                                                  select r).AsParallel().ToList());
 
-                                result.AddRange((from r in result
-                                                 join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                                 where r.Activo && pa.Activo
-                                                 && pa.RequierePermisoAduana == false
-                                                 select r).AsParallel().ToList());
+                                cuentas = cuentas.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
+                                result = cuentas;
                             }
                         }
 

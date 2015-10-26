@@ -793,11 +793,11 @@
                     });
                 } else //Alta
                 {
-                    //var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
+                    var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
                     var upload = $("#files").data("kendoUpload");
                     var len = $(".k-upload-files li").length;
                     
-                    //if (uploadtype == 1 && len > 0) {
+                    if (uploadtype == 1 && len > 0) {
                         $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                             if (Error(data)) {
                                 folio = data.ReturnMessage[1];
@@ -820,10 +820,11 @@
                             }
                             loadingStop();
                         });
-                    //} else {
-                    //    displayMessage("notificationslabel0031", "", 1);
-                    //    loadingStop();
-                    //}
+                    } else {
+                        $("#DetalleAvisoLlegada0010").addClass("security_required error");
+                        displayMessage("notificationslabel0031", "", '1');
+                        loadingStop();
+                    }
                 }
             };
 
