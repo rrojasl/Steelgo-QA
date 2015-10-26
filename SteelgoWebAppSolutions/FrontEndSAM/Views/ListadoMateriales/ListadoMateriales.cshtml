@@ -618,7 +618,9 @@
     //Parametros: numerounico
     //Return:     N/A
     function mostrarDetalle(numerounico) {
-        window.location.href = _detalleNumeroUnico + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroUnico=" + numerounico;
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Listado Materiales"] != 'undefined') && (typeof returnOfSecurityCheck["Listado Materiales"]["detail"] != 'undefined') && returnOfSecurityCheck["Listado Materiales"]["detail"]) {
+            window.location.href = _detalleNumeroUnico + "?leng=" + $("#language").data("kendoDropDownList").value() + "&NumeroUnico=" + numerounico;
+        }
     }
 
     //Se carga el Patio

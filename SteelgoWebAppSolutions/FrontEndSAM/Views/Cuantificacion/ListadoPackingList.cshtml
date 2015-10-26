@@ -551,11 +551,16 @@
     };
 
     function mostrarDetalle(folioAvisoLlegadaID, foliocuantificacion) {
-        window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Cuantificacion"] != 'undefined') && (typeof returnOfSecurityCheck["Cuantificacion"]["detail"] != 'undefined') && returnOfSecurityCheck["Cuantificacion"]["detail"]) {
+            window.location.href = _cuantificacionUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&EdicionPackingList=1" + "&FolioAvisoEntradaID=" + folioAvisoLlegadaID + "&FolioCuantificacionID=" + foliocuantificacion;
+        }
     };
 
     function mostrarDetalleComplemento(foliocuantificacion) {
-        window.location.href = _complementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&Edicion=1&FolioCuantificacionID=" + foliocuantificacion;
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Cuantificacion"] != 'undefined') && (typeof returnOfSecurityCheck["Cuantificacion"]["detail"] != 'undefined') && returnOfSecurityCheck["Cuantificacion"]["detail"]) {
+            window.location.href = _complementoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&Edicion=1&FolioCuantificacionID=" + foliocuantificacion;
+        }
+        
     };
     function Filtros() {
         var Listado;

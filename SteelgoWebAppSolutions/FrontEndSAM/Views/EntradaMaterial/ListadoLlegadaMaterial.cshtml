@@ -252,11 +252,13 @@
     function mostrarDetalle(folio) {
         var esAlta = $("#hdAccionFiltrado").val() == "1" ? "1" : "-1";
         var detalleIdeaUrl = "@Url.Action("DetalleLlegadaMaterial", "EntradaMaterial")";
-        if ($("#btnPorSalir").hasClass("active")) {
-            detalleIdeaUrl = "@Url.Action("PaseDeSalida", "EntradaMaterial")";
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
-        } else {
-            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["LLegada Material"] != 'undefined') && (typeof returnOfSecurityCheck["LLegada Material"]["detail"] != 'undefined') && returnOfSecurityCheck["LLegada Material"]["detail"]) {
+            if ($("#btnPorSalir").hasClass("active")) {
+                detalleIdeaUrl = "@Url.Action("PaseDeSalida", "EntradaMaterial")";
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&esAlta=" + esAlta + "&folioAvisoLlegadaID=" + folio;
+            } else {
+                window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folioAvisoLlegadaID=" + folio;
+            }
         }
     }
 
