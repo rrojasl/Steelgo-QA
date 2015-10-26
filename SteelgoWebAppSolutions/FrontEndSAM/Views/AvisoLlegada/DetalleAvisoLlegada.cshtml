@@ -640,6 +640,14 @@
                                     display: none;\
                                 }")
                                 .appendTo("head");
+                        } else {
+                            $("<style>")
+                                .prop("type", "text/css")
+                                .html("\
+                                .k-upload-selected {\
+                                    display: block;\
+                                }")
+                                .appendTo("head");
                         }
                     },
                     upload: onUpload,
@@ -893,6 +901,38 @@
                     $("#AutorizarPermiso").attr('disabled', 'disabled');
                 };
             };
+            
+            function HabilitarControlesSubirDocumentos() {
+                $("#dropdown-toggle").show();
+                $("#Editar").css("display", "none");
+                $("#Guardar").css("display", "block");
+
+                $("#TipoAvisoID").data("kendoComboBox").enable();
+                $("#ClienteID").data("kendoComboBox").enable();
+                $("#PatioID").data("kendoComboBox").enable();
+                $("#TransportistaID").data("kendoComboBox").enable();
+                $("#ChoferID").data("kendoComboBox").enable();
+                $("#Tracto").data("kendoComboBox").enable();
+                $("#TipoArchivo").data("kendoComboBox").enable();
+
+                $("#ProyectoID").data("kendoMultiSelect").enable();
+                $("#PlanaID").data("kendoMultiSelect").enable();
+
+                $("#FechaRecepcion").data("kendoDatePicker").enable();
+                $("#files").data("kendoUpload").enable();
+
+                if ($("#hdPermisoTramite").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#TramitarPermisoDiv").hide();
+                    $("#AutorizarPermisoDiv").show();
+                    $("#AutorizarPermiso").removeAttr('disabled');
+                };
+
+                if ($("#hdPermisoAutorizado").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#AutorizarPermiso").attr('disabled', 'disabled');
+                };
+            };
 
             function habilitarControles() {
                 $("#TipoAvisoID").data("kendoComboBox").enable();
@@ -965,7 +1005,7 @@
             function CargaInicialEdicion(id) {
                 cargarTituloFolio();
                 BotonAlta();
-
+                
                 $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
                     console.log(data);
                     var concat = "";
@@ -1061,9 +1101,12 @@
                         if ($("#hdnCantidadArchivos").val() == contador) {
                             limpiarUploadFiles();
                             displayMessage("notificationslabel0084", '', '2');
+                            HabilitarControlesSubirDocumentos();
+                            $("#divFolio").addClass("hidden");
                         } else {
                             $("#hdnCantidadArchivos").val(contador);
                         };
+                       
                     } else {
                        
                         $("#listaArchivos tbody").empty();
