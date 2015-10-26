@@ -82,9 +82,12 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="ChecksAlmacenaje" value="1" />@*1 todos 2 sin localizacion*@
     </div>
+    <ul id="menu" class="incidencia">
+    <li><span id="ListadoLlegadaMaterial0024"></span></li>
+</ul>
 </div>
-<input type="hidden" id="ChecksAlmacenaje" value="1" />@*1 todos 2 sin localizacion*@
 <script>
 
     @section JavascriptDocumentReadyHomeCookie {
@@ -239,8 +242,8 @@
                             ItemCodeID: { type: "string", editable: false },
                             ItemCode: { type: "string", editable: false },
                             Descripcion: { type: "string", editable: false },
-                            NumeroUnicoID: {type: "string", editable: false},
-                            NumeroUnico: { type: "string", editable: true, defaultValue: { id: "0", value: " " } },
+                            //NumeroUnicoID: { type: "string", editable: false },
+                            NumeroUnico: { type: "string", editable: true},
                         }
                     }
                 },
@@ -252,6 +255,7 @@
             autoHeight: true,
             sortable: true,
             scrollable: false,
+            selectable: true,
             editable: {
                 mode: "incell",
                 confirmation: false
@@ -270,7 +274,7 @@
                 { field: "ItemCodeID", title: _dictionary.Predespacho0014[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "ItemCode", title: _dictionary.Predespacho0014[$("#language").data("kendoDropDownList").value()] },
                 { field: "Descripcion", title: _dictionary.Predespacho0015[$("#language").data("kendoDropDownList").value()] },
-                { field: "NumeroUnicoID", title: _dictionary.Predespacho0016[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete, hidden: true },
+                //{ field: "NumeroUnicoID", title: _dictionary.Predespacho0016[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
                 { field: "NumeroUnico", title: _dictionary.Predespacho0016[$("#language").data("kendoDropDownList").value()], editor: NumeroUnicoAutocomplete },
             ],
             dataBound: function (e) {
@@ -279,7 +283,28 @@
                 $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
             }
         });
-    }
+
+        $("#menu").kendoContextMenu({
+            target: "#grid",
+            filter: "td",
+            select: function (e) {
+                var grid = $("#grid").data("kendoGrid");
+                console.log(grid.select());
+                var select = grid.select();
+                var data = grid.dataItem(select);
+
+                window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + data.ItemCodeID + "&TipoIncidencia=12&Clasificacion=1");
+            }
+        });
+
+        $("#grid").on("mousedown", "tr[role='row']", function (e) {
+            $('#grid').data("kendoGrid").select(e.target.parentElement);
+            $("#grid thead .k-state-selected> .k-link").css({
+                "color": "black"
+            });
+        });
+
+    };
 
     function CargarProyecto(id, value) {
         Proyecto = {};
@@ -413,6 +438,7 @@
                 displayMessage("notificationslabel0067", "", '2');
                 return;
             };
+            console.log(Listado.lista);
             $PreDespacho.PreDespacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if (Error(result)) {
                     _PreDespachoID = result.ReturnMessage[1];
@@ -442,26 +468,14 @@
         for (var i = 0; i < datasource.length; i++) {
             var NumeroControl = datasource[i].NumeroControlID;
             var ItemCode = datasource[i].ItemCodeID;
-            var NumeroUnico = datasource[i].NumeroUnicoID;
-            //var TieneDespacho = datasource[i].TieneDespacho;
-            //var TieneHold = datasource[i].Hold;
-            //var Etiqueta = datasource[i].Etiqueta;
-            //var Baston = datasource[i].Baston;
+            var NumeroUnico = datasource[i].NumeroUnico;
+
             var ProyectoID = $("#ProyectoID").data("kendoComboBox").value();
 
+            if (NumeroUnico) {
                 Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, ProyectoID: ProyectoID };
                 z++;
-
-            //if (TieneHold == "true") {
-            //    displayMessage("notificationslabel0057", "", '2');
-            //    return;
-            //}
-
-            //if (TieneDespacho != "true" && NumeroUnico) {//los que no tengan despacho y tengan numero unico asignado
-            //    Listado[z] = { NumeroControl: NumeroControl, ItemCode: ItemCode, NumeroUnico: NumeroUnico, Etiqueta: Etiqueta, Baston: Baston, ProyectoID: ProyectoID };
-            //    z++;
-            //}
-
+            }
         };
         return Listado;
     };
