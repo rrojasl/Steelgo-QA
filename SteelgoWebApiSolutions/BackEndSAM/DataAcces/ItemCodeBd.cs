@@ -163,7 +163,10 @@ namespace BackEndSAM.DataAcces
 
                                 //Inserta en Sam 3
                                 Sam3_ItemCode itemS3 = new Sam3_ItemCode();
-                                itemS3.ProyectoID = DatosItemCode.ProyectoID;//
+                                itemS3.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                     where eq.Activo
+                                                     && eq.Sam2_ProyectoID == DatosItemCode.ProyectoID
+                                                     select eq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
                                 itemS3.TipoMaterialID = DatosItemCode.TipoPackingList;//
                                 itemS3.Codigo = DatosItemCode.ItemCode;//
                                 itemS3.ItemCodeCliente = DatosItemCode.ItemCodeCliente;

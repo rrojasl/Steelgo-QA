@@ -312,10 +312,16 @@ namespace BackEndSAM.DataAcces
                                 result = (from r in result
                                           join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                          where r.Activo && pa.Activo 
-                                          && ((p.PermisoAutorizado  && pa.RequierePermisoAduana)
-                                            || (!p.PermisoAutorizado && !pa.RequierePermisoAduana))
+                                          where r.Activo && pa.Activo && p.Activo
+                                          && pa.RequierePermisoAduana == true
+                                          && p.PermisoAutorizado == true
                                           select r).AsParallel().ToList();
+
+                                result.AddRange((from r in result
+                                                 join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                 where r.Activo && pa.Activo
+                                                 && pa.RequierePermisoAduana == false
+                                                 select r).AsParallel().ToList());
                             }
                         }
 

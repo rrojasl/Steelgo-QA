@@ -229,7 +229,7 @@ namespace BackEndSAM.DataAcces
                     using (SamContext ctx = new SamContext())
                     {
                         Sam3_ItemCode actualizaItem = ctx.Sam3_ItemCode
-                                    .Where(x => x.Codigo == itemCodeJson.ItemCode).SingleOrDefault();
+                                    .Where(x => x.Codigo == itemCodeJson.ItemCode && x.Activo).SingleOrDefault();
 
                         string[] elementos = itemCodeJson.NumeroUnico.Split('-').ToArray();
                         int temp = Convert.ToInt32(elementos[1]);
@@ -237,7 +237,7 @@ namespace BackEndSAM.DataAcces
 
                         Sam3_NumeroUnico actualizaNU = ctx.Sam3_NumeroUnico
                             .Where(x => x.ItemCodeID == actualizaItem.ItemCodeID
-                                && x.Prefijo == prefijo && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID).SingleOrDefault();
+                                && x.Prefijo == prefijo && x.Consecutivo == temp && x.ProyectoID == actualizaItem.ProyectoID && x.Activo).SingleOrDefault();
 
                         switch (tipoGuardadoID)
                         {
