@@ -573,9 +573,6 @@
                     }
                 });
                
-
-                
-
                 $("#ChoferID").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "ChoferID",
@@ -619,7 +616,8 @@
                     filter: "contains",
                 });
                 ObtenerTipoArchivo();
-
+                $("#TipoArchivo").data("kendoComboBox").text("Packing List Firmado");
+                
                 $('#files').kendoUpload({
                     async: {
                         saveUrl: $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
@@ -627,13 +625,11 @@
                         withCredentials: false,
                     },
                     success: function (data) {
-                        //HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
-                        //HabilitarObtenerDocumentosAvisoLlegada();
-                        if(creacionArchivos){
+                        if (creacionArchivos) {
                             CargaInicialEdicion(folio);
                         } else {
                             HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
-                        }
+                        };
                     },
                     select: function (e) {
                         if (folio == "-1") {
@@ -645,10 +641,6 @@
                                 }")
                                 .appendTo("head");
                         }
-                        //this.disable();
-
-                        //$("#files").data("kendoUpload").toggle();
-                        //$("#files").data("kendoUpload").disable();
                     },
                     upload: onUpload,
                     localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
@@ -684,9 +676,7 @@
                 ObtenerFechaDefault();
             };
 
-    function onUpload(e) {
-        //this.disable();
-        //alert("onUpload");
+            function onUpload(e) {
                 if (folio == "-1") {
                     displayMessage("notificationslabel0015", "", '1');
                     e.preventDefault();
@@ -697,22 +687,7 @@
                     e.preventDefault();
                 };
 
-                //if (!validarRequeridosFormaAvisoLlegadaSubirArchivos()) {
-                //    displayMessage("notificationslabel0079", "", '1');
-                //    e.preventDefault();
-                //}
-                //else
-                //{
-                    //e.preventDefault();
-                    //if (folio == "-1")//Alta
-                    //{
-                       // e.preventDefault();
-                        // GuardarDocumentoYAviso();
-                        $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                    //} else {
-                    //    $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                    //};
-                //};
+                $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
             };
 
 
@@ -836,7 +811,6 @@
                                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                                 }
                             }
-
                             loadingStop();
                         });
                     //} else {
@@ -1586,6 +1560,7 @@
     if (folio != -1) {
         CargaInicialEdicion(folio);
     }
+    
    // $("#hdnNavegacion").val(Cookies.get("navegacion"));
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
