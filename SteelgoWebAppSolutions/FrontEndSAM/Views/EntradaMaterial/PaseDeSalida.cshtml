@@ -366,6 +366,11 @@
         function ObtenerFoliosAvisoLlegada() {
             $folioEntradaMaterial.Listado.read({ tipoListado: 6, token: Cookies.get("token"), parametroBusqueda: "" }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoLlegadaID", result);
+                var folio = getUrlParameter("folioAvisoLlegadaID", "-1");
+                if (folio != -1) {
+                    $("#FolioAvisoLlegadaID").data("kendoComboBox").value(folio);
+                }
+                
             });
         };
 
