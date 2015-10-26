@@ -535,7 +535,7 @@ namespace BackEndSAM.DataAcces
             try
             {
                 List<object> resultado = new List<object>();
-                DatosBusquedaODT listado = new DatosBusquedaODT();
+               
                 using (SamContext ctx = new SamContext())
                 {
                     using (Sam2Context ctx2 = new Sam2Context())
@@ -612,7 +612,7 @@ namespace BackEndSAM.DataAcces
                         int consecutivo = Convert.ToInt32(temp[1]);
                         (resultado[3] as ListaCombos).value = temp[0] + "-" + consecutivo.ToString(formato);
 
-                        listado = (from odtm in ctx2.OrdenTrabajoMaterial
+                        resultado.Add((from odtm in ctx2.OrdenTrabajoMaterial
                                    join odts in ctx2.OrdenTrabajoSpool on odtm.OrdenTrabajoSpoolID equals odts.OrdenTrabajoSpoolID
                                    join ms in ctx2.MaterialSpool on odtm.MaterialSpoolID equals ms.MaterialSpoolID
                                    join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
@@ -625,9 +625,7 @@ namespace BackEndSAM.DataAcces
                                        CantidadIngenieria = odtm.CantidadCongelada.Value,
                                        SpoolID = odts.NumeroControl,
                                        Etiqueta = ms.Etiqueta
-                                   }).Distinct().AsParallel().SingleOrDefault();
-
-                        resultado.Add(listado);
+                                   }).Distinct().AsParallel().SingleOrDefault());
 
 #if DEBUG
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -636,7 +634,7 @@ namespace BackEndSAM.DataAcces
 
                     }// fin sam2
                 }
-                return listado;
+                return resultado;
             }
             catch (Exception ex)
             {

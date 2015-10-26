@@ -5024,6 +5024,10 @@ _dictionary = {
         "es-MX": "Imprimir Traveler",
         "en-US": "Print Traveler"
     },
+    "ImpresionDocumental0011": {
+        "es-MX": "MaterialSpoolID",
+        "en-US": "MaterialSpoolID"
+    },
     //Incidencias
     "Incidencias0001": {
         "es-MX": "Inicio",
