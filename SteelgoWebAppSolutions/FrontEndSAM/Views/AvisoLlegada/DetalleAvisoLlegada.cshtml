@@ -808,13 +808,11 @@
                 {
                     var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
                     var upload = $("#files").data("kendoUpload");
-                    var len = upload.wrapper.find(".k-file").length;
-                    if (uploadtype == 1007 && len > 0) {
+                    var len = $(".k-upload-files li").length;
+                    if (uploadtype == 1 && len > 0) {
                         $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                             if (Error(data)) {
-
                                 folio = data.ReturnMessage[1];
-
                                 $(".k-upload-selected").click();
 
                                 cargarTituloFolio();
@@ -823,8 +821,6 @@
                                 displayMessage("notificationslabel0013", folio, '0');
                                 $("#DetalleAvisoLlegada0090").show();
                                 CargaInicialEdicion(folio);
-
-                                
 
                                 if (bool) {//guardar y nuevo
                                     var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
