@@ -133,20 +133,22 @@ namespace BackEndSAM.DataAcces
 
                     result.Creados = registrosBd.Select(x => x.FolioAvisoLlegadaID).Count();
 
-                    int cuentaTemp = (from r in registrosBd
+                    List<Sam3_FolioAvisoLlegada> cuentas = (from r in registrosBd
+                                                            join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
+                                                            join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                            where r.Activo && p.Activo
+                                                            && p.PermisoAutorizado == true
+                                                            && pa.RequierePermisoAduana
+                                                            select r).AsParallel().ToList();
+                    cuentas.AddRange((from r in registrosBd
                                       join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                      join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                      where r.Activo && p.Activo
-                                      && p.PermisoAutorizado == true
-                                      && pa.RequierePermisoAduana
-                                      select r.FolioAvisoLlegadaID).AsParallel().Count() +
-                                        (from r in registrosBd
-                                         join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
-                                         where r.Activo
-                                         && !pa.RequierePermisoAduana
-                                         select r.FolioAvisoLlegadaID).AsParallel().Count();
+                                      where r.Activo && pa.Activo
+                                      && !pa.RequierePermisoAduana
+                                      select r).AsParallel().ToList());
 
-                    result.Completos = cuentaTemp;
+                    cuentas = cuentas.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
+
+                    result.Completos = cuentas.Count;
 
                     result.SinAutorizacion = (from r in registrosBd
                                               join pa in ctx.Sam3_Patio on r.PatioID equals pa.PatioID
