@@ -365,7 +365,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=0"
+                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                         }
                     }
                 },
@@ -441,7 +441,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=1"
+                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value()+"&id=0&mostrarOpcion=1"
                         }
                     }
                 },
@@ -1415,7 +1415,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $UrlTipoUso +"agregarOpcion=1" + "&paginaID=" + Cookies.get("navegacion")+ "&token=" + Cookies.get("token")
+                            read: $UrlTipoUso + "agregarOpcion=1" + "&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token") + "&idioma=" + $("#language").data("kendoDropDownList").value()
                         },
                         serverPaging: true,
                         serverFiltering: true
