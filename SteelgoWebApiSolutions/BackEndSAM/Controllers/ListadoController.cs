@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers
         /// <param name="token">credenciales del usuario</param>
         /// <param name="parametroBusqueda">cadena de busqueda</param>
         /// <returns>Devuelve el listado aporpiado de acuerdo al tipo solicitado</returns>
-        public object Get(int tipoListado, string token, string idioma, int paginaID = 0, string parametroBusqueda = "")
+        public object Get(int tipoListado, string token, string idioma = "", int paginaID = 0, string parametroBusqueda = "")
         {
             string payload = "";
             string newToken = "";
