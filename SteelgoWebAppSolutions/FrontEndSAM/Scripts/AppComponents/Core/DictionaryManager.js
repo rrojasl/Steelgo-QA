@@ -2170,6 +2170,10 @@ _dictionary = {
         "es-MX": "Nuevo Item Code",
         "en-US": "New Item Code"
     },
+    "Cuantificacion0090": {
+        "es-MX": "Nueva Colada",
+        "en-US": "New Wash"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

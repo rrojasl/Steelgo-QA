@@ -158,6 +158,7 @@
             <li id="NuevoItemCode"><span id="Cuantificacion0089"></span></li>
             <li id="Detallar"><span id="Cuantificacion0087"></span></li>
             <li id="Incidencia"><span id="Cuantificacion0088"></span></li>
+            <li id="NuevaColada"><span id="Cuantificacion0090"></span></li>
         </ul>
     </div>
 </div>
@@ -631,7 +632,7 @@
                                 if(op.filter){
                                     val = op.filter.filters[0].value;
                                 }
-                                return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=1"
+                                return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                             }
                         }
                     },
@@ -1014,6 +1015,10 @@
                             VentanaModal(1);
                             return;
                         }
+                        if (e.item.id == "NuevaColada") {
+                            VentanaModal(3);
+                            return;
+                        };
 
                         if (typeof (filaseleccionada) != undefined) {
                             var valor = filaseleccionada.BultoID;
@@ -2485,23 +2490,14 @@
         function ColadaAutocomplete(container, options) {
             $('<input data-text-field="Nombre" data-value-field="ColadaID" data-bind="value:' + options.field + '"/>')
                 .appendTo(container)
-                .kendoAutoComplete({
+                .kendoComboBox({
                     autoBind: false,
-                    minLength: 3,
                     dataSource: {
                         type: "json",
                         serverFiltering: true,
                         transport: {
-                            read: {
-                                url: function (op) {
-                                    var val = "";
-                                    if (op.filter) {
-                                        val = op.filter.filters[0].value;
-                                    }
-                                    return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val +  "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=1"
-                                }
+                            read: $URLColada + "itemcode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                             }
-                        },
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
