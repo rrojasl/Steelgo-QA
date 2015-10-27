@@ -240,12 +240,12 @@
             options.localization=getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             $("#AdjuntarArchivosDiv").append("<input type='file' id='AdjuntarArchivos'>");
             $("#AdjuntarArchivos").kendoUpload(options);
-            if (folioLlegada != -1 && folioLlegada != 0 || (_esAlta=="-1" && folioAvisoLlegada!="-1")) {
-                BotonAlta();
-            } else {
-                BotonEdicion();
-            };
-
+           
+            //if (folioLlegada != -1 && folioLlegada != 0 || (_esAlta == "-1" && folioAvisoLlegada != "-1")) {
+            //    BotonAlta();
+            //} else {
+            //    BotonEdicion();
+            //};
             var arr = arregloKendoCombobox();
             modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
         };
@@ -1098,6 +1098,7 @@
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
             
             DesahabilitarObtenerDocumentosLlegadaMaterial();
+            applySecurityPolicy(false);
         };
         
         function validarRequeridosModalPatio() {
@@ -1341,13 +1342,14 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
     CargaInicial();
-        if (folioAvisoLlegada != -1)
-        {
-            CargaInicialEdicion(folioAvisoLlegada);
-        }
-        $("#hdnNavegacion").val(Cookies.get("navegacion"));
-       
-        
+
+
+    if (folioAvisoLlegada != -1)
+    {
+        CargaInicialEdicion(folioAvisoLlegada);
+    }
+    $("#hdnNavegacion").val(Cookies.get("navegacion"));
+
     };
 
     @section JavascriptDocumentReadyHomeCookie {

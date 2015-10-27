@@ -112,28 +112,34 @@ function modificartextoKendoCombobox(controls, lng) {
     $(controls).each(function (i, obj) {
         switch ($(obj).attr("id")) {
             case "Tracto":
-                if (lng == "es-MX") {
-                    $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Agregar nuevo";
-                } else {
-                    $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Add new";
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if (lng == "es-MX") {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Agregar nuevo";
+                    } else {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Add new";
+                    }
+                    $(obj).data("kendoComboBox").refresh();
                 }
-                $(obj).data("kendoComboBox").refresh();
                 break;
             case "PlanaID":
-                if (lng == "es-MX") {
-                    $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Agregar nuevo";
-                } else {
-                    $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Add new";
+                if ($(obj).data("kendoMultiSelect").dataSource.data().length) {
+                    if (lng == "es-MX") {
+                        $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Agregar nuevo";
+                    } else {
+                        $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Add new";
+                    }
+                    $(obj).data("kendoMultiSelect").refresh();
                 }
-                $(obj).data("kendoMultiSelect").refresh();
                 break;
             default:
-                if (lng == "es-MX") {
-                    $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Agregar nuevo";
-                } else {
-                    $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Add new";
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if (lng == "es-MX") {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Agregar nuevo";
+                    } else {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Add new";
+                    }
+                    $(obj).data("kendoComboBox").refresh();
                 }
-                $(obj).data("kendoComboBox").refresh();
                 break;
 
         };
