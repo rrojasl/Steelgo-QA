@@ -287,7 +287,16 @@
         if (folio != -1) {
             $("#files").data("kendoUpload").disable();
         }
+
+        var arr = arregloKendoCombobox();
+        modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
     };
+
+    function arregloKendoCombobox() {
+        var arr = new Array($("#PatioID"), $("#TransportistaID"), $("#ChoferID"), $("#Tracto"), $("#PlanaID"));
+        return arr;
+    };
+
 
     //Es la carga inicial de las fechas  para el multilenguaje
     //Funcion: changeDatePickerDateFormat
@@ -657,7 +666,7 @@
                     event.preventDefault();
                 });
 
-        //Camion
+                //Camion
                 $("#Tracto").kendoComboBox({
                     dataTextField: "Placas",
                     dataValueField: "VehiculoID",
@@ -681,6 +690,8 @@
                 });
                
                 ObtenerFechaDefault();
+
+               
             };
 
             function onUpload(e) {
@@ -1352,7 +1363,7 @@
             };
 
             function ObtenerPlanas() {
-                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("PlanaID", result);
                 });
             };
@@ -1381,7 +1392,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), idioma: $("#language").data("kendoDropDownList").value(), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
                     if (Error(result)) {
                         if (result.length > 0) {
                             $("#ChoferID").data("kendoComboBox").dataSource.data(result);
@@ -1406,7 +1417,7 @@
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
                
-                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), idioma:$("#language").data("kendoDropDownList").value(), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
                         if (result.length > 0) {
@@ -1425,7 +1436,7 @@
 
 
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosComboBox("Tracto", result);
                 });
             };
