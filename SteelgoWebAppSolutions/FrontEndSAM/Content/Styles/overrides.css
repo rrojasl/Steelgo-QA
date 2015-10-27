@@ -452,6 +452,10 @@
             color: #1B3F70;
     }
 
+    .k-grid tbody tr td.k-state-selected {
+        background-color: transparent;
+    }
+
     .k-grid.entradaMaterial tbody tr td a.k-button {
         margin: 0 -25px;
     }
