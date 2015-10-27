@@ -11,6 +11,7 @@
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Taller = dataItem.Nombre
+                options.model.TallerID = dataItem.TallerID
             },
             change: function (e) {
                 options.model.Taller = dataItem.Nombre
@@ -45,6 +46,7 @@ function RenderComboBoxTubero(container, options) {
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.Tubero = dataItem.Codigo;
+                options.model.TuberoID = dataItem.ObreroID;
             },
             change: function (e) {
                 options.model.Tubero = dataItem.Codigo;
@@ -79,6 +81,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.NumeroUnico1 = String(dataItem.Clave);
+                options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
                 textAnterior = e.sender._prev;
             }
             ,
@@ -114,6 +117,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
              select: function (e) {
                  dataItem = this.dataItem(e.item.index());
                  options.model.NumeroUnico2 = String(dataItem.Clave);
+                 options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
                  textAnterior = e.sender._prev;
              },
              change: function (e) {
@@ -139,19 +143,27 @@ function RenderGridDetalle(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
     //alert("registros actuales" + options.model.DetalleAdicional.length);
+   
 
     $('<div id=' + options.model.SpoolID + '' + options.model.Junta + '/>')
   .appendTo(container)
   .kendoGrid({
-     
+
       dataSource: {
           // batch: true,
           data: options.model.ListaDetalleTrabajoAdicional,
           schema: {
               model: {
                   fields: {
-                       TrabajoAdicional: { type: "string", editable: true },
-                       Observacion: { type: "string", editable: true }
+                      IdTrabajoAdicional: { type: "int", editable: false },
+                      Accion: { type: "int", editable: false },
+                      ArmadoTrabajoAdicionalID: { type: "string", editable: false },
+                      JuntaArmadoID: { type: "int", editable: false },
+                      TrabajoAdicionalID: { type: "int", editable: false },
+                      TrabajoAdicional: { type: "string", editable: true },
+                      ObreroID: { type: "int", editable: false },
+                      Tubero: { type: "int", editable: false },
+                      Observacion: { type: "string", editable: true }
                   }
               }
           }
@@ -162,13 +174,19 @@ function RenderGridDetalle(container, options) {
           var value = input.val();
           actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
           options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
-          
+
           input.blur(function (e) {
-           //   alert("blur");
+              //   alert("blur");
+          });
+          input.focus(function () {
+              console.log(ItemSeleccionado.Accion);
+              if (ItemSeleccionado.JuntaArmadoID != 0)
+                ItemSeleccionado.Accion = 2;
+              console.log(ItemSeleccionado.Accion);
           });
       },
       columns: [
-        { field: "TrabajoAdicional", title: 'Trabajo', editor: RenderComboBoxTrabajoAdicional, filterable: true, width: "100px" },
+        { field: "TrabajoAdicional", title: 'Trabajo', filterable: true, width: "100px" },
         { field: "Observacion", title: 'Observacion', filterable: true, width: "100px" },
        {
            command: [{
@@ -178,14 +196,32 @@ function RenderGridDetalle(container, options) {
                    e.preventDefault();
                    var dataItem = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+
                        var dataSource = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource;
-                       dataSource.remove(dataItem);
+
+                       if (dataItem.JuntaArmadoID == "1")
+                           dataSource.remove(dataItem);
+
+                       dataItem.Accion = 3;
+                       
+                       //var filter
+
+                       //filter= {
+                           
+                       //    logic: "or",
+                       //    filters: [
+                       //      { field: "Accion", operator: "eq", value: 1 },
+                       //      { field: "Accion", operator: "eq", value: 2 }
+                       //    ]
+                       //}
+
+                       //dataSource.filter(filter);
 
                        actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
 
                        // if (anteriorlongitudTrabajosAdicionales < actuallongitudTrabajosAdicionales)
                        options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
-
+                      // dataSource.sync();
                    }
                }
            }], width: "60px"
@@ -193,12 +229,10 @@ function RenderGridDetalle(container, options) {
       ],
       editable: true,
       navigatable: true,
-      toolbar: [{ text: "add", name: "create", iconClass: "k-icon k-add" }]
+      toolbar: [{name: "create"}]
   });
 
     $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource.sync();
-
-
 };
 
 function RenderComboBoxTrabajoAdicional(container, options) {
@@ -213,9 +247,12 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
+                options.model.Accion = 1;
                 options.model.TrabajoAdicional = dataItem.NombreCorto;
+                options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
+                options.model.Observacion = dataItem.Observacion;
             },
-            change: onChange    
+            change: onChange
         });
 
 };
@@ -229,8 +266,8 @@ function onChange(e) {
         .toggleClass("grey-cap", value == 3);
 };
 //function RenderComboBoxTrabajoAdicional(container, options, data) {
- 
-  
+
+
 //    var dataAsignado = data == undefined ? ItemSeleccionado.listadoTrabajosAdicionalesXJunta : data;
 //    var input = $('<input/>')
 //    input.appendTo(container)

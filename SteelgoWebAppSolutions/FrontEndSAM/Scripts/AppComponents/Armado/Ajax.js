@@ -33,7 +33,7 @@ function ObtenerJSonGridArmado() {
     if (ExisteJunta()) {
         try {
 
-            $CapturaArmado.Armado.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token") }).done(function (data) {
+            $CapturaArmado.Armado.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 var array = JSON.parse(data);
@@ -62,43 +62,77 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
         Captura = [];
         Captura[0] = { Detalles: "" };
-
         ListaDetalles = [];
-         
-        $.each(arregloCaptura, function (index, value) {
-            ListaDetalles[index] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", TipoJunta: "", Diametro: "", Cedula: "", Localizacion: "", FamiliaAcero: "", NumeroUnico1: "", NumeroUnico2: "", SinCaptura: "" }
-            ListaDetalles[index].IDProyecto = value.IDProyecto;
-            ListaDetalles[index].Proyecto = value.Proyecto;
-            ListaDetalles[index].IdOrdenTrabajo = value.IdOrdenTrabajo;
-            ListaDetalles[index].OrdenTrabajo = value.OrdenTrabajo;
-            ListaDetalles[index].IdVal = value.IdVal;
-            ListaDetalles[index].IdText = value.IdText;
-            ListaDetalles[index].SpoolID = value.SpoolID;
-            ListaDetalles[index].JuntaID = value.JuntaID;
-            ListaDetalles[index].Junta = value.Junta;
-            ListaDetalles[index].FechaArmado = value.FechaArmado;
-            ListaDetalles[index].TuberoID = value.tuberoID;
-            ListaDetalles[index].Tubero = value.Tubero;
-            ListaDetalles[index].TallerID = value.TallerID;
-            ListaDetalles[index].Taller = value.Taller;
-            ListaDetalles[index].TipoJunta = value.TipoJunta;
-            ListaDetalles[index].Diametro = value.Diametro;
-            ListaDetalles[index].Cedula = value.Cedula;
-            ListaDetalles[index].Localizacion = value.Localizacion;
-            ListaDetalles[index].FamiliaAcero = value.FamiliaAcero;
-            ListaDetalles[index].NumeroUnico1 = value.NumeroUnico1;
-            ListaDetalles[index].NumeroUnico2 = value.NumeroUnico2;
-            ListaDetalles[index].SinCaptura = value.SinCaptura;
-        });
+      
+
+        for (index = 0; index < arregloCaptura.length; index++) {
+
+            ListaDetalles[index] = { Accion: "", IdVal: "", JuntaID: "", TipoJuntaID: "", Junta: "", Localizacion1: "", Localizacion2: "", JuntaArmadoID: "", JuntaTrabajoID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "" };
+            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+            ListaDetalles[index].IdVal = arregloCaptura[index].IdVal;
+            ListaDetalles[index].JuntaID = arregloCaptura[index].JuntaID;
+            ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
+            ListaDetalles[index].Junta = arregloCaptura[index].Junta;
+            ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split('-')[0];
+            ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split('-')[1];
+            ListaDetalles[index].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
+            ListaDetalles[index].JuntaTrabajoID = arregloCaptura[index].JuntaTrabajoID;
+            ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
+            ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
+            ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
+            ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
+            ListaDetalles[index].FechaArmado = kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+
+            ListaTrabajosAdicionalesEditados = [];
+            for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
+                
+                ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" }
+                ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
+                ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
+                ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
+                ListaTrabajosAdicionalesEditados[j].JuntaArmadoID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaArmadoID;
+                ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
+                ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
+                ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+            }
+
+            ListaDetalles[index].ListaDetalleTrabajoAdicional = ListaTrabajosAdicionalesEditados;
+        }
+
         Captura[0].Detalles = ListaDetalles;
 
-
-        $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), xd: "" }).done(function (data) {
-            console.log("se guardo correctamente la informacion");
-        });
+        //$CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        //    console.log("se guardo correctamente la informacion");
+        //});
         alert('finalizo el guardado de datos');
     } catch (e) {
         alert('error al guardar datos ' + e.message);
     }
 
+};
+
+function AjaxCargarFechaArmado() {
+
+  
+    
+
+    $CapturaArmado.Armado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        loadingStart();
+        console.log("fecha nueva" + data.FechaArmado);
+
+        var NewDate = kendo.toString(data.FechaArmado,  _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+        
+        endRangeDate.val(NewDate);
+        
+        if (data.Muestra == "Sincaptura") {
+            $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
+            $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
+        }
+        else if (data.Muestra == "Todos") {
+            $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
+            $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
+        }
+        loadingStop();
+    });
+    
 };

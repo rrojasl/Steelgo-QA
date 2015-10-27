@@ -107,7 +107,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             }
         }
 
-        public object ObtenerValorFecha(Sam3_Usuario usuario, string lenguaje)
+        public object ObtenerValorFecha(Sam3_Usuario usuario, string lenguaje,int idCampoPredeterminado)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 {
 
                     var oMyString = new ObjectParameter("Retorna", typeof(string));
-                    var result = ctx.Sam3_Steelgo_Get_CampoPredeterminado(4, lenguaje, oMyString);
+                    var result = ctx.Sam3_Steelgo_Get_CampoPredeterminado(idCampoPredeterminado, lenguaje, oMyString);
                     var data = oMyString.Value.ToString();
 
                     //ObjectParameter objectParameter = new ObjectParameter("Retorna", typeof(String));
@@ -135,6 +135,8 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 return result;
             }
         }
+
+        
 
         public object listaNumeroUnicos(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario)
         {
@@ -180,14 +182,14 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             }
         }
 
-        public object ObtenerDetalleArmado(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario)
+        public object ObtenerDetalleArmado(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario,string lenguaje)
         {
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Armado_Get_DetalleJunta(int.Parse(JsonCaptura.JuntaID)).ToList();
+                    List<Sam3_Armado_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Armado_Get_DetalleJunta(int.Parse(JsonCaptura.JuntaID), lenguaje).ToList();
                     return listaDetalleDatosJson;
                 }
             }
@@ -267,7 +269,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
         }
 
 
-        public object InsertarCapturaArmado(DataTable dtCaptura, Sam3_Usuario usuario)
+        public object InsertarCapturaArmado(DataTable dtDetalleCaptura, DataTable dtTrabajosAdicionales, Sam3_Usuario usuario,string lenguaje)
         {
             try
             {
@@ -276,8 +278,8 @@ namespace BackEndSAM.DataAcces.ArmadoBD
 
                     // ctx.Sam3_Armado_JuntaArmado()
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = {/* { "@UsuarioID", Session["UsuarioID"].ToString() }, { "@TIPO", "0" } */};
-                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARSUBEINGENIERIA, dtCaptura, "@TrabajosAdicionales", parametro);
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() } , { "@Lenguaje", lenguaje } };
+                    DataTable dtspooleado = _SQL.Tabla(Stords.GUARDARCAPTURAARMADO, dtTrabajosAdicionales, "@TrabajosAdicionales", dtDetalleCaptura, "@Armado", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

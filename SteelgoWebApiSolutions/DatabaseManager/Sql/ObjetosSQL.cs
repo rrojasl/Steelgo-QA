@@ -14,7 +14,7 @@ namespace DatabaseManager.Sam3
         /// <returns></returns>
         protected SqlConnection Coneccion()
         {
-            return new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings[GenericosString.DEFAULTCONNECTION].ConnectionString);
+            return new SqlConnection("Data Source=MAFTEC_05\\SQLEXPRESS;Initial Catalog=steelgo-sam3;User ID=sa;Password=maftec05;password=maftec05;");
         }
         /// <summary>
         /// Retorna un DatatTable con la información de BD
@@ -68,6 +68,45 @@ namespace DatabaseManager.Sam3
                 if (Parametros != null)
                     for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
                         cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
+                cmd.Parameters.Add(new SqlParameter(NombreTabla, TablaSube));
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.Connection.Open();
+                        da.Fill(dt);
+                        cmd.Connection.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    cmd.Connection.Close();
+                    throw new Exception(e.Message);
+                }
+                return dt;
+            }
+        }
+
+        /// <summary>
+        /// Retorna un DatatTable con la información de BD
+        /// </summary>
+        /// <param name="Stord">Nombre del Stord a ejecutar</param>
+        /// <param name="TablaSube">objeto DataTable que envía al stord</param>
+        /// <param name="NombreTabla">nombre del parametro de tabla</param>
+        /// <param name="Parametros">Parametros que requiere el stord</param>
+        /// <returns>Objeto DatatTable con la coleccion de datos</returns>
+        public DataTable Tabla(string Stord, DataTable TablaSube, String NombreTabla, DataTable TablaSube1, String NombreTabla1, string[,] Parametros = null)
+        {
+
+            DataTable dt = new DataTable();
+            using (SqlCommand cmd = new SqlCommand(Stord, Coneccion()))
+            {
+                if (Parametros != null)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
+                        cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
+                cmd.Parameters.Add(new SqlParameter(NombreTabla1, TablaSube1));
                 cmd.Parameters.Add(new SqlParameter(NombreTabla, TablaSube));
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

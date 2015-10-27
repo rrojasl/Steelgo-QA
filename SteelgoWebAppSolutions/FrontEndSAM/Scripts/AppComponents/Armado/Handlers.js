@@ -1,5 +1,4 @@
 ﻿function SuscribirEventos() {
-
     SuscribirEventoSpoolID();
     SuscribirEventosJunta();
     suscribirEventoAgregar();
@@ -40,8 +39,6 @@ function SuscribirEventoTubero() {
         filter: "contains",
         index: 3
     });
-
-
 }
 
 function SuscribirEventoTaller() {

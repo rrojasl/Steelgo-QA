@@ -7,7 +7,7 @@ var ItemSeleccionado;
 IniciarCapturaArmado();
 
 function IniciarCapturaArmado() {
-    CargarFechaArmado();
+    AltaFecha();
     asignarProyecto();
     SuscribirEventos();
 };
@@ -17,46 +17,16 @@ function asignarProyecto() {
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 
-function CargarFechaArmado() {
+function AltaFecha() {
 
     endRangeDate = $("#FechaArmado").kendoDatePicker({
-        format: "dd-MM-yyyy"
-        //change: deshabilitarFechasFuturo
-    }).data("kendoDatePicker");
+        max: new Date()
+    })
 
-    //if ($("#language").val() == 'es-MX')
-    //    endRangeDate.format = "dd-MM-yyyy";
-    //else {
-    //    endRangeDate.format = "MM-dd-yyyy";
-    //}
 
-    $CapturaArmado.Armado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        loadingStart();
-        console.log("fecha nueva" + data.FechaArmado);
+}
 
-        var from = data.FechaArmado.split("-");
 
-        if (new Date(data.FechaArmado) <= new Date())
-            $("#FechaArmado").data("kendoDatePicker").value(data.FechaArmado);
-        else
-            $("#FechaArmado").data("kendoDatePicker").value(new Date());
-
-        if (data.Muestra) {
-            $('input:radio[name=Muestra]:nth(0)').attr('checked', true);
-            $('input:radio[name=Muestra]:nth(1)').attr('checked', false);
-        }
-        else {
-            $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
-            $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
-        }
-        loadingStop();
-    });
-};
-
-function deshabilitarFechasFuturo() {
-    alert('entra')
-    return endRangeDate.max(new Date())
-};
 
 function obtenerFormatoFecha(d) {
     var curr_date = d.getDate();
@@ -66,8 +36,6 @@ function obtenerFormatoFecha(d) {
     return curr_date + "-" + curr_month + "-" + curr_year;
 
 };
-
-
 
 function DatoDefaultNumeroUnico1() {
     //var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
@@ -153,6 +121,8 @@ function ExisteJunta() {
 
     for (var i = 0; i < jsonGridArmado.length; i++) {
         if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == ($("#InputOrdenTrabajo").val() + '-' + $("#InputID").val()) && jsonGridArmado[i].JuntaID == $("#Junta").val()) {
+            jsonGridArmado.Accion=2
+            $("#grid").data("kendoGrid").dataSource.sync();
             return false;
         }
     }
@@ -173,12 +143,13 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
     JsonCaptura[0].JuntaID = $("#Junta").val();
     JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
-    JsonCaptura[0].FechaArmado = obtenerFormatoFecha(fechaArmado);
+    JsonCaptura[0].FechaArmado = $("#FechaArmado").val(); //obtenerFormatoFecha(fechaArmado);
     JsonCaptura[0].TuberoID = $("#inputTubero").val();
     JsonCaptura[0].Tubero = $("#inputTubero").data("kendoComboBox").text();
     JsonCaptura[0].TallerID = $("#inputTaller").val();
     JsonCaptura[0].Taller = $("#inputTaller").data("kendoComboBox").text();
     JsonCaptura[0].SinCaptura = $('input:radio[name=Muestra]:checked').val();
+
     return JsonCaptura[0];
 };
 
@@ -204,18 +175,26 @@ function CargarGridArmado() {
             //    alert("sale" + e.model.DetalleAdicional.length);
             //    actuallongitudTrabajosAdicionales = e.model.DetalleAdicional.length;
             //});
-
+            input.focus(function () {
+                console.log(ItemSeleccionado.Accion);
+                if (ItemSeleccionado.JuntaArmadoID != 0)
+                    ItemSeleccionado.Accion = 2;
+                console.log(ItemSeleccionado.Accion);
+            })
 
         },
         //change: function (e) {
         //    var dataItem = this.dataSource.view()[this.select().index()];
         //    alert('ok');
         //},
-        change: function() {
-           
-             ItemSeleccionado = this.dataSource.view()[this.select().index()];
-            
-           
+        change: function () {
+
+            ItemSeleccionado = this.dataSource.view()[this.select().index()];
+            //console.log(ItemSeleccionado.Accion);
+            //ItemSeleccionado.Accion = 2;
+            //console.log(ItemSeleccionado.Accion);
+            //alert("XD");
+
         },
         dataSource: {
             // batch: true,
@@ -223,6 +202,11 @@ function CargarGridArmado() {
             schema: {
                 model: {
                     fields: {
+                        Accion: { type: "int", editable: false },
+                        JuntaTrabajoID: { type: "int", editable: false },
+                        JuntaArmadoID: { type: "int", editable: false },
+                        IDProyecto: { type: "int", editable: false },
+                        SinCaptura: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
                         IdOrdenTrabajo: { type: "string", editable: false },
                         OrdenTrabajo: { type: "string", editable: false },
@@ -231,28 +215,40 @@ function CargarGridArmado() {
                         SpoolID: { type: "string", editable: false },
                         JuntaID: { type: "string", editable: false },
                         Junta: { type: "string", editable: false },
+                        TipoJuntaID: { type: "int", editable: false },
                         TipoJunta: { type: "string", editable: false },
                         Diametro: { type: "string", editable: false },
                         Cedula: { type: "string", editable: false },
-                        FechaArmado: { type: "date", editable: true },
+                        FechaArmado: { type: "date", editable: true},
                         TuberoID: { type: "string", editable: true },
                         Tubero: { type: "string", editable: true },
                         TallerID: { type: "string", editable: true },
                         Taller: { type: "string", editable: true },
                         Localizacion: { type: "string", editable: false },
                         FamiliaAcero: { type: "string", editable: false },
+                        NumeroUnico1ID: { type: "string", editable: true },
                         NumeroUnico1: { type: "string", editable: true },
+                        NumeroUnico2ID: { type: "string", editable: true },
                         NumeroUnico2: { type: "string", editable: true },
                         TemplateMensajeTrabajosAdicionales: { type: "string", editable: true },
                         InformacionDetalle: { type: "string", editable: true }
                     }
                 }
             },
+            filter: {
+                // leave data items which are "Food" or "Tea"
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
+            },
             pageSize: 20,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
         },
+       
         navigatable: true,
         editable: true,
         autoHeight: true,
@@ -272,7 +268,7 @@ function CargarGridArmado() {
             { field: "TipoJunta", title: _dictionary.CapturaArmadoHeaderTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
             { field: "Diametro", title: _dictionary.CapturaArmadoHeaderDiametro[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
             { field: "Cedula", title: _dictionary.CapturaArmadoHeaderCedula[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "160px", format: "{0:dd-MM-yyyy}" },
+            { field: "FechaArmado", title: _dictionary.CapturaArmadoHeaderFechaArmado[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, width: "160px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Tubero", title: _dictionary.CapturaArmadoHeaderTubero[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTubero, width: "130px" },
             { field: "Taller", title: _dictionary.CapturaArmadoHeaderTaller[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxTaller, width: "130px" },
             { field: "Localizacion", title: _dictionary.CapturaArmadoHeaderLocalizacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
@@ -280,7 +276,7 @@ function CargarGridArmado() {
             { field: "NumeroUnico1", title: _dictionary.CapturaArmadoHeaderNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico1, width: "170px" },
             { field: "NumeroUnico2", title: _dictionary.CapturaArmadoHeaderNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxNumeroUnico2, width: "170px" },
             { field: "InformacionDetalle", title: _dictionary.CapturaArmadoHeaderAdicionales[$("#language").data("kendoDropDownList").value()], filterable: true, width: "300px", editor: RenderGridDetalle, template: "#:TemplateMensajeTrabajosAdicionales#" },
-            { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
+            { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "", width: "99px" }
         ],
         dataBound: function (e) {
             $(".k-grid input.k-textbox").prop('readonly', true);
@@ -313,12 +309,16 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
         if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
 
             for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos1.length; j++) {
-                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos1[j].EtiquetaMaterial)
+                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos1[j].EtiquetaMaterial) {
                     jsonGridArmado[i].NumeroUnico1 = combobox.Clave;
+                    jsonGridArmado[i].NumeroUnico1ID = combobox.NumeroUnicoID;
+                }
             }
             for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos2.length; j++) {
-                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial)
+                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial) {
                     jsonGridArmado[i].NumeroUnico2 = combobox.Clave;
+                    jsonGridArmado[i].NumeroUnico2ID = combobox.NumeroUnicoID;
+                }
             }
 
         }
@@ -395,18 +395,36 @@ function agregarFila(idGrid) {
     alert('se agrego fila');
 }
 
-function cancelarCaptura(e) {
+function eliminarCaptura(e) {
     e.preventDefault();
+    var filterValue = $(e.currentTarget).val();
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     var spoolIDRegistro = dataItem.SpoolID;
+
+
+
     if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
         var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataSource.remove(dataItem);
+        dataItem.Accion = 3;
+
+        if (dataItem.JuntaArmadoID == 0)
+            dataSource.remove(dataItem);
+
+        $("#grid").data("kendoGrid").dataSource.sync();
+        //filter.value = dataItem.Accion;
+        //dataSource.filter(filter);
+
+        //dataSource.remove(dataItem);
 
     }
 };
 
 function changeLanguageCall() {
+
+
+
+    AjaxCargarFechaArmado();
     CargarGridArmado();
+
 };
 
