@@ -794,10 +794,12 @@
                 } else //Alta
                 {
                     var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
+                    var uploadtext = $("#TipoArchivo").data('kendoComboBox').text();
+                    //console.log(uploadtext);
                     var upload = $("#files").data("kendoUpload");
                     var len = $(".k-upload-files li").length;
-                    
-                    if (uploadtype == 1 && len > 0) {
+
+                    if ((uploadtype == 1007 || uploadtext == "Packing List Firmado") && len > 0) {
                         $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                             if (Error(data)) {
                                 folio = data.ReturnMessage[1];
