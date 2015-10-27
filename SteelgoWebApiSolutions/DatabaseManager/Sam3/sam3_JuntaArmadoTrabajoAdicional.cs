@@ -12,7 +12,7 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class sam3_JuntaArmadoTrabajoAdicional
+    public partial class Sam3_JuntaArmadoTrabajoAdicional
     {
         public int ArmadoTrabajoAdicionalID { get; set; }
         public int JuntaArmadoID { get; set; }

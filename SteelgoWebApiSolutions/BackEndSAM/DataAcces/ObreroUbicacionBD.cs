@@ -41,9 +41,9 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<SSP_sam3_ObreroUbicacion_Result> result = ctx.SSP_sam3_ObreroUbicacion(1, null,null,null,null,null,null).ToList();
+                    List<Sam3_Cat_ObreroUbicacion_Result> result = ctx.Sam3_Cat_ObreroUbicacion(1, null,null,null,null,null,null).ToList();
 
-                    foreach (SSP_sam3_ObreroUbicacion_Result elem in result)
+                    foreach (Sam3_Cat_ObreroUbicacion_Result elem in result)
                     {
                         
                         obrero.Add(new ObreroUbicacion
@@ -84,7 +84,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.SSP_sam3_ObreroUbicacion(2, TipoObrero.ObreroUbicacionID, usuario.UsuarioID,
+                    ctx.Sam3_Cat_ObreroUbicacion(2, TipoObrero.ObreroUbicacionID, usuario.UsuarioID,
                         TipoObrero.ObreroID, TipoObrero.PatioID, TipoObrero.FechaInicioLabor,
                         TipoObrero.FechaFinLabor);
 
@@ -115,7 +115,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_ObreroUbicacion(4,ObreroUbicacionID,null,null,null,null,null);
+                    ctx.Sam3_Cat_ObreroUbicacion(4,ObreroUbicacionID,null,null,null,null,null);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -144,7 +144,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_ObreroUbicacion(3, CambiosTipoObrero.ObreroUbicacionID,usuario.UsuarioID,
+                    ctx.Sam3_Cat_ObreroUbicacion(3, CambiosTipoObrero.ObreroUbicacionID,usuario.UsuarioID,
                         CambiosTipoObrero.ObreroID,CambiosTipoObrero.PatioID,CambiosTipoObrero.FechaInicioLabor,
                         CambiosTipoObrero.FechaFinLabor);
 

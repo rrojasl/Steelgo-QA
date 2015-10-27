@@ -100,7 +100,7 @@ var $CambiarEstatusCuantificacion = new $.RestClient($BackEndSAMUri + '/backends
 var $ComplementarRecepcion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoMateriales = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DummyAlmacenajeRack = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
@@ -184,6 +184,40 @@ $CambiarEstatusCuantificacion.add("CambiarEstatusCuantificacion");
 $ComplementarRecepcion.add("ComplementarRecepcion");
 $ListadoMateriales.add("ListadoMateriales")
 $DummyAlmacenajeRack.add("DummyAlmacenajeRack");
-$ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
+
 $TipoJunta.add("TipoJunta");
 $PQR.add("PQR");
+
+//#region Declaracion
+//#region Catalogos
+var $TrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoTrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoObrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+//#endregion
+//#region Capturas rapidas
+var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+//#endregion
+
+//#endregion
+
+
+//#region Asignacion
+//Catalogos
+$TrabajoAdicional.add("ListadoTrabajosAdicionales");
+$TipoTrabajoAdicional.add("TipoTrabajoAdicional");
+$TipoObrero.add("TipoObrero");
+$Obrero.add("Obrero");
+$ObreroUbicacion.add("ObreroUbicacion");
+$Defectos.add("Defectos");
+$ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
+//#endregion
+//#region Capturas rapidas
+$CapturasRapidas.add("CapturasRapidas");
+$Inspeccion.add("InspeccionVisualDimensional");
+//#endregion
+//#endregion

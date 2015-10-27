@@ -17,7 +17,9 @@ namespace DatabaseManager.Sam3
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Obrero()
         {
-            this.sam3_JuntaArmadoTrabajoAdicional = new HashSet<sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaArmadoTrabajoAdicional = new HashSet<Sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaSoldaduraSoldado = new HashSet<Sam3_JuntaSoldaduraSoldado>();
+            this.Sam3_JuntaSoldaduraTrabajoAdicional = new HashSet<Sam3_JuntaSoldaduraTrabajoAdicional>();
             this.Sam3_ObreroUbicacion = new HashSet<Sam3_ObreroUbicacion>();
         }
     
@@ -31,7 +33,11 @@ namespace DatabaseManager.Sam3
         public Nullable<int> IdentificadorMigra { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sam3_JuntaArmadoTrabajoAdicional> sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual ICollection<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldaduraSoldado> Sam3_JuntaSoldaduraSoldado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldaduraTrabajoAdicional> Sam3_JuntaSoldaduraTrabajoAdicional { get; set; }
         public virtual Sam3_TipoObrero Sam3_TipoObrero { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_ObreroUbicacion> Sam3_ObreroUbicacion { get; set; }

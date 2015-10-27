@@ -17,7 +17,8 @@ namespace DatabaseManager.Sam3
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_TrabajoAdicional()
         {
-            this.sam3_JuntaArmadoTrabajoAdicional = new HashSet<sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaArmadoTrabajoAdicional = new HashSet<Sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaSoldaduraTrabajoAdicional = new HashSet<Sam3_JuntaSoldaduraTrabajoAdicional>();
         }
     
         public int TrabajoAdicionalID { get; set; }
@@ -31,7 +32,9 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sam3_JuntaArmadoTrabajoAdicional> sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual ICollection<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldaduraTrabajoAdicional> Sam3_JuntaSoldaduraTrabajoAdicional { get; set; }
         public virtual Sam3_TipoTrabajoAdicional Sam3_TipoTrabajoAdicional { get; set; }
     }
 }

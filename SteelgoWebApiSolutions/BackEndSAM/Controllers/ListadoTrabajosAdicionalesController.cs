@@ -38,7 +38,25 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
+        public object Get(string token, string TipoTrabajoAdicional)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return TrabajosAdicionalesBD.Instance.ObtenerListadoTrabajosAdicionales(TipoTrabajoAdicional);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
         public object Post(Sam3_TrabajoAdicional TrabajoAdicional, string token)
         {

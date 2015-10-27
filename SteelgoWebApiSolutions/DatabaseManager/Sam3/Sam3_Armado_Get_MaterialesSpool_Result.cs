@@ -16,5 +16,6 @@ namespace DatabaseManager.Sam3
         public string Etiqueta { get; set; }
         public int NumeroUnicoID { get; set; }
         public string Clave { get; set; }
+        public int EtiquetaMaterial { get; set; }
     }
 }

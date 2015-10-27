@@ -17,22 +17,22 @@ namespace DatabaseManager.Sam3
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_JuntaArmado()
         {
-            this.sam3_JuntaArmadoTrabajoAdicional = new HashSet<sam3_JuntaArmadoTrabajoAdicional>();
+            this.Sam3_JuntaArmadoTrabajoAdicional = new HashSet<Sam3_JuntaArmadoTrabajoAdicional>();
         }
     
         public int JuntaArmadoID { get; set; }
-        public Nullable<int> JuntaWorkStatusID { get; set; }
-        public Nullable<int> NumeroUnico1ID { get; set; }
-        public Nullable<int> NumeroUnico2ID { get; set; }
-        public Nullable<int> TallerID { get; set; }
-        public Nullable<int> ObreroID { get; set; }
-        public Nullable<System.DateTime> FechaArmado { get; set; }
-        public Nullable<System.DateTime> FechaReporte { get; set; }
-        public Nullable<int> Activo { get; set; }
-        public int ActivoUsuarioModificacion { get; set; }
-        public Nullable<System.DateTime> FechaModificacion { get; set; }
+        public int JuntaTrabajoID { get; set; }
+        public int NumeroUnico1ID { get; set; }
+        public int NumeroUnico2ID { get; set; }
+        public int TallerID { get; set; }
+        public int ObreroID { get; set; }
+        public System.DateTime FechaArmado { get; set; }
+        public System.DateTime FechaReporte { get; set; }
+        public int Activo { get; set; }
+        public int UsuarioModificacion { get; set; }
+        public System.DateTime FechaModificacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sam3_JuntaArmadoTrabajoAdicional> sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual ICollection<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
     }
 }

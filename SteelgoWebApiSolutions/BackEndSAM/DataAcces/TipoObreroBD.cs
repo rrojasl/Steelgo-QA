@@ -41,9 +41,9 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<SSP_sam3_TipoObrero_Result> result = ctx.SSP_sam3_TipoObrero(1, 0, 0, "", 0).ToList();
+                    List<Sam3_Cat_TipoObrero_Result> result = ctx.Sam3_Cat_TipoObrero(1, 0, 0, "", 0).ToList();
 
-                    foreach (SSP_sam3_TipoObrero_Result elem in result)
+                    foreach (Sam3_Cat_TipoObrero_Result elem in result)
                     {
                         obrero.Add(new TipoObreroModel
                         {
@@ -83,7 +83,7 @@ namespace BackEndSAM.DataAcces
                     {
                         TipoObrero.TipoObreroJefe = 0;
                     }
-                      ctx.SSP_sam3_TipoObrero(2, 0, usuario.UsuarioID, TipoObrero.TipoObrero, TipoObrero.TipoObreroJefe);
+                      ctx.Sam3_Cat_TipoObrero(2, 0, usuario.UsuarioID, TipoObrero.TipoObrero, TipoObrero.TipoObreroJefe);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -112,7 +112,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_TipoObrero(4, TipoObreroID, usuario.UsuarioID,null,null);
+                    ctx.Sam3_Cat_TipoObrero(4, TipoObreroID, usuario.UsuarioID,null,null);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -141,7 +141,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_TipoObrero(3, CambiosTipoObrero.TipoObreroID, usuario.UsuarioID
+                    ctx.Sam3_Cat_TipoObrero(3, CambiosTipoObrero.TipoObreroID, usuario.UsuarioID
                         , CambiosTipoObrero.TipoObrero, CambiosTipoObrero.TipoObreroJefe);
 
                     TransactionalInformation result = new TransactionalInformation();

@@ -67,7 +67,11 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_ItemCode> Sam3_ItemCode { get; set; }
         public virtual DbSet<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
         public virtual DbSet<Sam3_JuntaArmado> Sam3_JuntaArmado { get; set; }
-        public virtual DbSet<sam3_JuntaArmadoTrabajoAdicional> sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_JuntaSoldadura> Sam3_JuntaSoldadura { get; set; }
+        public virtual DbSet<Sam3_JuntaSoldaduraSoldado> Sam3_JuntaSoldaduraSoldado { get; set; }
+        public virtual DbSet<Sam3_JuntaSoldaduraTrabajoAdicional> Sam3_JuntaSoldaduraTrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_JuntaTrabajo> Sam3_JuntaTrabajo { get; set; }
         public virtual DbSet<Sam3_Maquina> Sam3_Maquina { get; set; }
         public virtual DbSet<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
         public virtual DbSet<Sam3_MenuContextual> Sam3_MenuContextual { get; set; }
@@ -96,7 +100,7 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_PQR_NumeroP> Sam3_PQR_NumeroP { get; set; }
         public virtual DbSet<Sam3_PQR_Respaldo> Sam3_PQR_Respaldo { get; set; }
         public virtual DbSet<Sam3_Preferencia> Sam3_Preferencia { get; set; }
-        public virtual DbSet<sam3_ProcesoSoldadura> sam3_ProcesoSoldadura { get; set; }
+        public virtual DbSet<Sam3_ProcesoSoldadura> Sam3_ProcesoSoldadura { get; set; }
         public virtual DbSet<Sam3_Propiedad> Sam3_Propiedad { get; set; }
         public virtual DbSet<Sam3_Proveedor> Sam3_Proveedor { get; set; }
         public virtual DbSet<Sam3_Proyecto> Sam3_Proyecto { get; set; }
@@ -153,6 +157,7 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_TipoMovimiento> Sam3_TipoMovimiento { get; set; }
         public virtual DbSet<Sam3_TipoNotificacion> Sam3_TipoNotificacion { get; set; }
         public virtual DbSet<Sam3_TipoObrero> Sam3_TipoObrero { get; set; }
+        public virtual DbSet<Sam3_TipoSoldadura> Sam3_TipoSoldadura { get; set; }
         public virtual DbSet<Sam3_TipoTrabajoAdicional> Sam3_TipoTrabajoAdicional { get; set; }
         public virtual DbSet<Sam3_TipoUso> Sam3_TipoUso { get; set; }
         public virtual DbSet<Sam3_TipoVehiculo> Sam3_TipoVehiculo { get; set; }
@@ -203,56 +208,53 @@ namespace DatabaseManager.Sam3
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SplitInts_Result>("[SamContext].[SplitInts](@List, @Delimiter)", listParameter, delimiterParameter);
         }
     
-        public virtual ObjectResult<Sam3_Armado_Get_DetallaTrabajoAdicional_Result> Sam3_Armado_Get_DetallaTrabajoAdicional(Nullable<int> juntaSpoolID)
+        public virtual ObjectResult<Sam3_Armado_Get_DetalleJunta_Result> Sam3_Armado_Get_DetalleJunta(Nullable<int> juntaSpoolID)
         {
             var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
                 new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
                 new ObjectParameter("JuntaSpoolID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_DetallaTrabajoAdicional_Result>("Sam3_Armado_Get_DetallaTrabajoAdicional", juntaSpoolIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_DetalleJunta_Result>("Sam3_Armado_Get_DetalleJunta", juntaSpoolIDParameter);
         }
     
-        public virtual ObjectResult<Sam3_Armado_Get_DetalleJuntaArmado_Result> Sam3_Armado_Get_DetalleJuntaArmado(Nullable<int> juntaSpoolID)
+        public virtual ObjectResult<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> Sam3_Armado_Get_DetalleTrabajoAdicional(Nullable<int> juntaSpoolID)
         {
             var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
                 new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
                 new ObjectParameter("JuntaSpoolID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_DetalleJuntaArmado_Result>("Sam3_Armado_Get_DetalleJuntaArmado", juntaSpoolIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>("Sam3_Armado_Get_DetalleTrabajoAdicional", juntaSpoolIDParameter);
         }
     
-        public virtual ObjectResult<Sam3_Armado_Get_MaterialesSpool_Result> Sam3_Armado_Get_MaterialesSpool(Nullable<int> juntaSpoolID)
+        public virtual ObjectResult<Sam3_Armado_Get_MaterialesSpool_Result> Sam3_Armado_Get_MaterialesSpool(Nullable<int> juntaSpoolID, Nullable<int> todos)
         {
             var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
                 new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
                 new ObjectParameter("JuntaSpoolID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_MaterialesSpool_Result>("Sam3_Armado_Get_MaterialesSpool", juntaSpoolIDParameter);
+            var todosParameter = todos.HasValue ?
+                new ObjectParameter("Todos", todos) :
+                new ObjectParameter("Todos", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_MaterialesSpool_Result>("Sam3_Armado_Get_MaterialesSpool", juntaSpoolIDParameter, todosParameter);
         }
     
-        public virtual ObjectResult<Sam3_Armado_ObtieneDetalleCaptura_Result> Sam3_Armado_ObtieneDetalleCaptura(string junta, string spoolID, string taller, string tubero, string fechaArmado)
+        public virtual int Sam3_Armado_JuntaArmado(Nullable<int> usuario)
         {
-            var juntaParameter = junta != null ?
-                new ObjectParameter("Junta", junta) :
-                new ObjectParameter("Junta", typeof(string));
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
     
-            var spoolIDParameter = spoolID != null ?
-                new ObjectParameter("SpoolID", spoolID) :
-                new ObjectParameter("SpoolID", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Armado_JuntaArmado", usuarioParameter);
+        }
     
-            var tallerParameter = taller != null ?
-                new ObjectParameter("taller", taller) :
-                new ObjectParameter("taller", typeof(string));
+        public virtual int Sam3_Armado_TrabajoAdicional(Nullable<int> usuario)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
     
-            var tuberoParameter = tubero != null ?
-                new ObjectParameter("tubero", tubero) :
-                new ObjectParameter("tubero", typeof(string));
-    
-            var fechaArmadoParameter = fechaArmado != null ?
-                new ObjectParameter("fechaArmado", fechaArmado) :
-                new ObjectParameter("fechaArmado", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_ObtieneDetalleCaptura_Result>("Sam3_Armado_ObtieneDetalleCaptura", juntaParameter, spoolIDParameter, tallerParameter, tuberoParameter, fechaArmadoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Armado_TrabajoAdicional", usuarioParameter);
         }
     
         public virtual ObjectResult<Sam3_Cat_CamposPredeterminados_Result> Sam3_Cat_CamposPredeterminados(Nullable<int> tIPO, string valorPorDefecto, Nullable<int> usuario, Nullable<int> iD)
@@ -385,7 +387,16 @@ namespace DatabaseManager.Sam3
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_PQR_NumeroP_Result>("Sam3_Cat_PQR_NumeroP", tIPOParameter, iDParameter, usuarioParameter, numeroPParameter, grupoPIDParameter);
         }
     
-        public virtual int Sam3_Cat_Respaldo(Nullable<int> tIPO, Nullable<int> iD, Nullable<int> usuario, string respaldo)
+        public virtual ObjectResult<Sam3_Cat_PQR_ProcesoSoldadura_Result> Sam3_Cat_PQR_ProcesoSoldadura(Nullable<int> tIPO)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_PQR_ProcesoSoldadura_Result>("Sam3_Cat_PQR_ProcesoSoldadura", tIPOParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Cat_PQR_Respaldo_Result> Sam3_Cat_PQR_Respaldo(Nullable<int> tIPO, Nullable<int> iD, Nullable<int> usuario, string respaldo)
         {
             var tIPOParameter = tIPO.HasValue ?
                 new ObjectParameter("TIPO", tIPO) :
@@ -403,7 +414,7 @@ namespace DatabaseManager.Sam3
                 new ObjectParameter("Respaldo", respaldo) :
                 new ObjectParameter("Respaldo", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Cat_Respaldo", tIPOParameter, iDParameter, usuarioParameter, respaldoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_PQR_Respaldo_Result>("Sam3_Cat_PQR_Respaldo", tIPOParameter, iDParameter, usuarioParameter, respaldoParameter);
         }
     
         public virtual ObjectResult<Sam3_Cat_TipoJunta_Result> Sam3_Cat_TipoJunta(Nullable<int> tIPO, Nullable<int> tIPOJUNTAID, string cODIGO, string nOMBRE, Nullable<bool> vERIFICADO, Nullable<bool> rELLENO, Nullable<int> iDUSUARIO)
@@ -439,17 +450,83 @@ namespace DatabaseManager.Sam3
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_TipoJunta_Result>("Sam3_Cat_TipoJunta", tIPOParameter, tIPOJUNTAIDParameter, cODIGOParameter, nOMBREParameter, vERIFICADOParameter, rELLENOParameter, iDUSUARIOParameter);
         }
     
-        public virtual ObjectResult<Sam3_Soldadura_PQR_Result> Sam3_Soldadura_PQR(Nullable<int> tIPO, Nullable<int> iDUSUARIO)
+        public virtual ObjectResult<Sam3_Soldadura_Get_DetallaTrabajoAdicional_Result> Sam3_Soldadura_Get_DetallaTrabajoAdicional(Nullable<int> juntaSpoolID)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_DetallaTrabajoAdicional_Result>("Sam3_Soldadura_Get_DetallaTrabajoAdicional", juntaSpoolIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_DetalleJunta_Result> Sam3_Soldadura_Get_DetalleJunta(Nullable<int> juntaSpoolID)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_DetalleJunta_Result>("Sam3_Soldadura_Get_DetalleJunta", juntaSpoolIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_PQR_Result> Sam3_Soldadura_PQR(Nullable<int> tIPO, Nullable<int> pQRID, string nOMBRE, Nullable<bool> pREHEAT, Nullable<bool> pWHT, Nullable<decimal> eSPESOR, Nullable<int> pROCESOSOLDADURA, Nullable<int> nUMEROP, Nullable<int> gRUPOP, Nullable<int> aPORTE, Nullable<int> mEZCLA, Nullable<int> rESPALDO, Nullable<int> gRUPOF, Nullable<int> iDUSUARIO)
         {
             var tIPOParameter = tIPO.HasValue ?
                 new ObjectParameter("TIPO", tIPO) :
                 new ObjectParameter("TIPO", typeof(int));
     
+            var pQRIDParameter = pQRID.HasValue ?
+                new ObjectParameter("PQRID", pQRID) :
+                new ObjectParameter("PQRID", typeof(int));
+    
+            var nOMBREParameter = nOMBRE != null ?
+                new ObjectParameter("NOMBRE", nOMBRE) :
+                new ObjectParameter("NOMBRE", typeof(string));
+    
+            var pREHEATParameter = pREHEAT.HasValue ?
+                new ObjectParameter("PREHEAT", pREHEAT) :
+                new ObjectParameter("PREHEAT", typeof(bool));
+    
+            var pWHTParameter = pWHT.HasValue ?
+                new ObjectParameter("PWHT", pWHT) :
+                new ObjectParameter("PWHT", typeof(bool));
+    
+            var eSPESORParameter = eSPESOR.HasValue ?
+                new ObjectParameter("ESPESOR", eSPESOR) :
+                new ObjectParameter("ESPESOR", typeof(decimal));
+    
+            var pROCESOSOLDADURAParameter = pROCESOSOLDADURA.HasValue ?
+                new ObjectParameter("PROCESOSOLDADURA", pROCESOSOLDADURA) :
+                new ObjectParameter("PROCESOSOLDADURA", typeof(int));
+    
+            var nUMEROPParameter = nUMEROP.HasValue ?
+                new ObjectParameter("NUMEROP", nUMEROP) :
+                new ObjectParameter("NUMEROP", typeof(int));
+    
+            var gRUPOPParameter = gRUPOP.HasValue ?
+                new ObjectParameter("GRUPOP", gRUPOP) :
+                new ObjectParameter("GRUPOP", typeof(int));
+    
+            var aPORTEParameter = aPORTE.HasValue ?
+                new ObjectParameter("APORTE", aPORTE) :
+                new ObjectParameter("APORTE", typeof(int));
+    
+            var mEZCLAParameter = mEZCLA.HasValue ?
+                new ObjectParameter("MEZCLA", mEZCLA) :
+                new ObjectParameter("MEZCLA", typeof(int));
+    
+            var rESPALDOParameter = rESPALDO.HasValue ?
+                new ObjectParameter("RESPALDO", rESPALDO) :
+                new ObjectParameter("RESPALDO", typeof(int));
+    
+            var gRUPOFParameter = gRUPOF.HasValue ?
+                new ObjectParameter("GRUPOF", gRUPOF) :
+                new ObjectParameter("GRUPOF", typeof(int));
+    
             var iDUSUARIOParameter = iDUSUARIO.HasValue ?
                 new ObjectParameter("IDUSUARIO", iDUSUARIO) :
                 new ObjectParameter("IDUSUARIO", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_PQR_Result>("Sam3_Soldadura_PQR", tIPOParameter, iDUSUARIOParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_PQR_Result>("Sam3_Soldadura_PQR", tIPOParameter, pQRIDParameter, nOMBREParameter, pREHEATParameter, pWHTParameter, eSPESORParameter, pROCESOSOLDADURAParameter, nUMEROPParameter, gRUPOPParameter, aPORTEParameter, mEZCLAParameter, rESPALDOParameter, gRUPOFParameter, iDUSUARIOParameter);
         }
     
         public virtual int Sam3_Steelgo_Get_CampoPredeterminado(Nullable<int> iD, string lenguaje, ObjectParameter retorna)

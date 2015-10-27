@@ -49,9 +49,9 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<SSP_sam3_TrabajoAdicional_Result> result = ctx.SSP_sam3_TrabajoAdicional(1, 1, 1, 1, "", "", "", "").ToList();
+                    List<Sam3_Cat_TrabajoAdicional_Result> result = ctx.Sam3_Cat_TrabajoAdicional(1, 1, 1, 1, "", "", "", "").ToList();
 
-                    foreach(SSP_sam3_TrabajoAdicional_Result item in result)
+                    foreach(Sam3_Cat_TrabajoAdicional_Result item in result)
                     {
                         trabaoAdicional.Add(new TrabajosAdicionales
                         {
@@ -80,14 +80,38 @@ namespace BackEndSAM.DataAcces
             }
 
         }
-
+        /// <summary>
+        /// Obtiene el listado de trabajos adicionales en base al tipo
+        /// </summary>
+        /// <param name="TipoTrabajoAdicional">nombre del tipo de trabajo adicional</param>
+        /// <returns></returns>
+        public object ObtenerListadoTrabajosAdicionales(string TipoTrabajoAdicional)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_TrabajoAdicional_Result> lista = ctx.Sam3_Steelgo_Get_TrabajoAdicional(TipoTrabajoAdicional).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
         public object EliminarTrabajoAdicional(int TrabajoAdicionalID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_TrabajoAdicional(4, TrabajoAdicionalID,usuario.UsuarioID, 0, "", "", "", "");
+                    ctx.Sam3_Cat_TrabajoAdicional(4, TrabajoAdicionalID,usuario.UsuarioID, 0, "", "", "", "");
                     
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
@@ -117,7 +141,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.SSP_sam3_TrabajoAdicional(2, 0, 0, trabajoAdicional.TipoTrabajoAdicionalID, trabajoAdicional.NombreCorto,
+                    ctx.Sam3_Cat_TrabajoAdicional(2, 0, 0, trabajoAdicional.TipoTrabajoAdicionalID, trabajoAdicional.NombreCorto,
                         trabajoAdicional.NombreExtendido, trabajoAdicional.CuentaContable, trabajoAdicional.SignoInformativo);
 
                     TransactionalInformation result = new TransactionalInformation();
@@ -147,7 +171,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_TrabajoAdicional(3, CambiostrabajoAdicional.TrabajoAdicionalID, usuario.UsuarioID,
+                    ctx.Sam3_Cat_TrabajoAdicional(3, CambiostrabajoAdicional.TrabajoAdicionalID, usuario.UsuarioID,
                         CambiostrabajoAdicional.TipoTrabajoAdicionalID, CambiostrabajoAdicional.NombreCorto,
                         CambiostrabajoAdicional.NombreExtendido, CambiostrabajoAdicional.CuentaContable, CambiostrabajoAdicional.SignoInformativo);
                     

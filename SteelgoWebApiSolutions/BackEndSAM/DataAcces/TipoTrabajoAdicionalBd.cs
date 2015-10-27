@@ -51,9 +51,9 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<SSP_sam3_TipoTrabajoAdicional_Result> result = ctx.SSP_sam3_TipoTrabajoAdicional(1,0,0,"").ToList();
+                    List<Sam3_Cat_TipoTrabajoAdicional_Result> result = ctx.Sam3_Cat_TipoTrabajoAdicional(1,0,0,"").ToList();
                         
-                    foreach(SSP_sam3_TipoTrabajoAdicional_Result elem in result)
+                    foreach(Sam3_Cat_TipoTrabajoAdicional_Result elem in result)
                     {
                         trabaoAdicional.Add( new TipoTrabajoAdicionalModel
                                       {
@@ -84,7 +84,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.SSP_sam3_TipoTrabajoAdicional(2,trabajoAdicional.TipoTrabajoAdicionalID,
+                    ctx.Sam3_Cat_TipoTrabajoAdicional(2,trabajoAdicional.TipoTrabajoAdicionalID,
                         usuario.UsuarioID,trabajoAdicional.TipoTrabajoAdicional);
 
                     TransactionalInformation result = new TransactionalInformation();
@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces
                     TransactionalInformation result = new TransactionalInformation();
                     if (data.Equals("ok"))
                     {
-                        ctx.SSP_sam3_TipoTrabajoAdicional(4, TrabajoAdicionalID, usuario.UsuarioID, "");
+                        ctx.Sam3_Cat_TipoTrabajoAdicional(4, TrabajoAdicionalID, usuario.UsuarioID, "");
 
                         result.ReturnMessage.Add("OK");
                     }
@@ -156,7 +156,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.SSP_sam3_TipoTrabajoAdicional(3,CambiostrabajoAdicional.TipoTrabajoAdicionalID,usuario.UsuarioID,
+                    ctx.Sam3_Cat_TipoTrabajoAdicional(3,CambiostrabajoAdicional.TipoTrabajoAdicionalID,usuario.UsuarioID,
                         CambiostrabajoAdicional.TipoTrabajoAdicional);
 
                     TransactionalInformation result = new TransactionalInformation();
