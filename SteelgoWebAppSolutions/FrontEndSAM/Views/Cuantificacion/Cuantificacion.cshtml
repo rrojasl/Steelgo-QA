@@ -631,7 +631,7 @@
                                 if(op.filter){
                                     val = op.filter.filters[0].value;
                                 }
-                                return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=1"
+                                return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=1"
                             }
                         }
                     },
@@ -1302,7 +1302,7 @@
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
             if (Proyecto.ProyectoID){
-                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"),paginaID: Cookies.get("navegacion"), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
+                $Colada.Colada.read({ proyectoID: Proyecto.ProyectoID, token: Cookies.get("token"),paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), id: opciones, mostrarOpcion: mostrarOpcion }).done(function (result) {
                     ControlErroresObjetosComboBox(id, result);
                 });
             } else {
@@ -2375,7 +2375,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") +"&paginaID="+ Cookies.get("navegacion")
+                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") +"&paginaID="+ Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value()
                         }
                     },
                     select: function (e) {
@@ -2498,7 +2498,7 @@
                                     if (op.filter) {
                                         val = op.filter.filters[0].value;
                                     }
-                                    return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=1"
+                                    return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val +  "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=1"
                                 }
                             }
                         },
