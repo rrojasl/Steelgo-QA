@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers
     public class TractoController : ApiController
     {
 
-        public object Get(int transportistaID, string esAvisoEntrada, int paginaID, string token)
+        public object Get(int transportistaID, string esAvisoEntrada, int paginaID, string idioma, string token)
         {
             string payload = "";
             string newToken = "";
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return TractoBd.Instance.ObtenerListadoTractos(esAvisoEntrada, transportistaID, usuario, paginaID);
+                return TractoBd.Instance.ObtenerListadoTractos(esAvisoEntrada, transportistaID, usuario, paginaID, idioma);
             }
             else
             {
