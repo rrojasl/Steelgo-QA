@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ChoferController : ApiController
     {
-        public object Get(string esAvisoEntrada, int paginaID, string token)
+        public object Get(string esAvisoEntrada, int paginaID, string idioma, string token)
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +27,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ChoferBd.Instance.ObtenerListadoChoferes(esAvisoEntrada, paginaID, usuario);
+                return ChoferBd.Instance.ObtenerListadoChoferes(esAvisoEntrada, paginaID, idioma, usuario);
             }
             else
             {

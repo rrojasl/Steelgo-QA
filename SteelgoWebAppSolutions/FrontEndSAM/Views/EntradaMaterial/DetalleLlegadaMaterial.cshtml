@@ -245,9 +245,18 @@
             } else {
                 BotonEdicion();
             };
+
+            var arr = arregloKendoCombobox();
+            modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
         };
 
-    function CargaInicial() {
+        function arregloKendoCombobox() {
+            var arr = new Array($("#ProveedorID"), $("#PatioID"));
+            return arr;
+        };
+
+        
+        function CargaInicial() {
             $("#IrIncidencia").click(function () { Incidencias(); });
             $("#GenerarOrdenDescarga").click(function (e) {
                if (folioLlegada == -1) {

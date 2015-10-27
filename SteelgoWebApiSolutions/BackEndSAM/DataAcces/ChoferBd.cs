@@ -49,7 +49,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="esAvisoEntrada"></param>
         /// <returns>JSON {"Nombre" : "xxxx", "ChoferID": "000"}</returns>
-        public object ObtenerListadoChoferes(string esAvisoEntrada, int paginaID, Sam3_Usuario usuario)
+        public object ObtenerListadoChoferes(string esAvisoEntrada, int paginaID, string idioma, Sam3_Usuario usuario)
         {
             try
             {
@@ -58,7 +58,14 @@ namespace BackEndSAM.DataAcces
                 {
                     if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Chofer", paginaID))
                     {
-                        lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        if (idioma == "en-US")
+                        {
+                            lstChoferes.Add(new Chofer { Nombre = "Add new", ChoferID = "0" });
+                        }
+                        else
+                        {
+                            lstChoferes.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        }
                     }
 
                     List<Chofer> result = (from r in ctx.Sam3_Chofer
@@ -246,7 +253,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="transportistaID"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerChoferesProTransportista(int transportistaID, int paginaID, Sam3_Usuario usuario)
+        public object ObtenerChoferesProTransportista(int transportistaID, int paginaID, string idioma, Sam3_Usuario usuario)
         {
             try
             {
@@ -255,7 +262,14 @@ namespace BackEndSAM.DataAcces
                 {
                     if (paginaID > 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Chofer", paginaID))
                     {
-                        lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        if (idioma == "en-US")
+                        {
+                            lstChofTrans.Add(new Chofer { Nombre = "Add new", ChoferID = "0" });
+                        }
+                        else
+                        {
+                            lstChofTrans.Add(new Chofer { Nombre = "Agregar nuevo", ChoferID = "0" });
+                        }
                     }
 
                     List<Chofer> lstChoferes = (from r in ctx.Sam3_Chofer
