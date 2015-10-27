@@ -224,11 +224,6 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     //$(entityDefinition.listContainer["detail"]).prop('disabled', true);
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
                 }
-                else {
-                    if(!$(entityDefinition.listContainer["detail"]).is(grid)) {
-                        $(entityDefinition.listContainer["detail"]).css("display", "none");
-                    }
-                }
                 
             }
         }

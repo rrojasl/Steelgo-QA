@@ -141,7 +141,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, int proyectoID = 0 )
+        public object ObtenerColadasPorProyecto(int id, int mostrarOpcion,string texto, Sam3_Usuario usuario, int paginaID, string idioma, int proyectoID = 0 )
         {
             try
             {
@@ -150,7 +150,14 @@ namespace BackEndSAM.DataAcces
                 {
                     if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                     {
-                        listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        if (idioma == "en-US")
+                        {
+                            listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                        }
+                        else
+                        {
+                            listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        }
                     }
                     List<Coladas> coladas = new List<Coladas>();
 
@@ -210,7 +217,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorItemCode(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, string itemCodeID = "")
+        public object ObtenerColadasPorItemCode(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, string idioma, string itemCodeID = "")
         {
             try
             {
@@ -219,7 +226,14 @@ namespace BackEndSAM.DataAcces
                 {
                     if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                     {
-                        listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        if (idioma == "en-US")
+                        {
+                            listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                        }
+                        else
+                        {
+                            listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        }
                     }
 
                     int familiaAceroId = (from it in ctx.Sam3_ItemCode
@@ -283,7 +297,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="id">id para determinar si se elimina la opcion Sin colada</param>
         /// <returns>lista de ccoladas</returns>
-        public object ObtenerColadasPorFamiliAcero(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, int familiaAceroID = 0)
+        public object ObtenerColadasPorFamiliAcero(int id, int mostrarOpcion, Sam3_Usuario usuario, int paginaID, string idioma, int familiaAceroID = 0)
         {
             try
             {
@@ -292,7 +306,14 @@ namespace BackEndSAM.DataAcces
                 {
                     if (mostrarOpcion != 0 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Colada", paginaID))
                     {
-                        listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        if (idioma == "en-US")
+                        {
+                            listColada.Add(new Coladas { Nombre = "Add new", ColadaID = 0 });
+                        }
+                        else
+                        {
+                            listColada.Add(new Coladas { Nombre = "Agregar Nuevo", ColadaID = 0 });
+                        }
                     }
 
                     List<Coladas> coladas = new List<Coladas>();
