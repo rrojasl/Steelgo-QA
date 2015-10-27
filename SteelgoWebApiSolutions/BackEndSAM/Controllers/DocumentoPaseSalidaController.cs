@@ -62,7 +62,7 @@ namespace BackEndSAM.Controllers
                     //Verificamos que venga un valor en el tipo de archivo
                     if (tipoArchivo == string.Empty || tipoArchivo != "Incidencias firmadas" || tipoArchivo != "Packing List Firmado")
                     {
-                        result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                        //result = Request.CreateResponse(HttpStatusCode.BadRequest);
                     }
 
                     var httpRequest = HttpContext.Current.Request;
