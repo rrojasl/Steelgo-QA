@@ -72,23 +72,22 @@ namespace BackEndSAM.DataAcces
 
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-
-
-                        List<PreDespacho> listado = (from ot in ctx2.OrdenTrabajo
-                                                     join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
-                                                     join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
+                        List<PreDespacho> listado = (from ots in ctx2.OrdenTrabajoSpool
+                                                     join ot in ctx2.OrdenTrabajo on ots.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                     join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                     join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
                                                      join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
                                                      where ots.OrdenTrabajoSpoolID == spoolID
-                                                     && proyectos.Contains(ot.ProyectoID)
-                                                     && ic.TipoMaterialID == 2
+                                                                             && proyectos.Contains(ot.ProyectoID)
+                                                                             && ic.TipoMaterialID == 2
                                                      select new PreDespacho
-                                                     {
-                                                         ItemCodeID = ic.ItemCodeID.ToString(),
-                                                         ItemCode = ic.Codigo,
-                                                         NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
-                                                         NumeroControl = ots.NumeroControl,
-                                                         Descripcion = ic.DescripcionEspanol
-                                                     }).AsParallel().ToList();
+                                                                             {
+                                                                                 ItemCodeID = ic.ItemCodeID.ToString(),
+                                                                                 ItemCode = ic.Codigo,
+                                                                                 NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
+                                                                                 NumeroControl = ots.NumeroControl,
+                                                                                 Descripcion = ic.DescripcionEspanol
+                                                                             }).AsParallel().ToList();
 
                         foreach (PreDespacho item in listado)
                         {
