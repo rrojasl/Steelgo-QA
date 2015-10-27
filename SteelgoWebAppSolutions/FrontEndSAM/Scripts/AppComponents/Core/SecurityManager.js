@@ -221,9 +221,6 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     //$(entityDefinition.listContainer["detail"]).prop('disabled', true);
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
                 }
-                else {
-                    $(entityDefinition.listContainer["detail"]).css("display", "none");
-                }
                 
             }
         }
