@@ -161,6 +161,8 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Chofer"] = $ChoferModel;
     CargaInicial();
+    $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
+    $("#language").data("kendoDropDownList").trigger("change");
     applySecurityPolicy(false);
     }
 

@@ -340,6 +340,8 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Tracto"] = $TractoModel;
     CargaInicial();
+    $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
+    $("#language").data("kendoDropDownList").trigger("change");
     applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {
