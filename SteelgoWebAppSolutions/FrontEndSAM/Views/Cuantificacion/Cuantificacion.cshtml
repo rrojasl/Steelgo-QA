@@ -2380,7 +2380,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") +"&paginaID="+ Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value()
+                            read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"-1")
                         }
                     },
                     select: function (e) {

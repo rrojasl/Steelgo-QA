@@ -17,12 +17,6 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ItemCodeController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/<controller>/5
         public object Get(int TipoPackingListID, string token, int paginaID, string idioma, int proyectoID)
         {
