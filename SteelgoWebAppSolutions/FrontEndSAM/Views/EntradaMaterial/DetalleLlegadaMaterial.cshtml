@@ -150,6 +150,7 @@
 </div>
 <input id="hdnOrdenDescargada" type="hidden" />
 <input id="hdnNavegacion" type="hidden" value="" />
+<input id="hdnCantidadArchivos" type="hidden" value="0" />
 <script type="text/javascript">
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
@@ -453,13 +454,13 @@
             $('#AdjuntarArchivos').kendoUpload({
                 async: {
                     ////VAlida que este tomando todos los parametros por favor
-                    saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioLlegada + + "&token=" + Cookies.get("token"),
+                    saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioAvisoLlegada  + "&token=" + Cookies.get("token"),
                     autoUpload: false,
                     withCredentials: false,
                     batch: true
                 },
                 success: function (data) {
-                    HabilitarObtenerDocumentosLlegadaMaterial();
+                    HabilitarObtenerDocumentosLlegadaMaterialUploadFiles();
                 },
                 error: function (data) { },
                 upload: onUploadAdjuntarArchivos,
@@ -872,7 +873,7 @@
                 }
             }
 
-            $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoLlegadaMaterialUploadFiles + folioLlegada + "&tipoArchivoID=-1" + "&descripcion=" + $("#Descripcion").val() + "&token=" + Cookies.get("token");
+            $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoLlegadaMaterialUploadFiles + folioAvisoLlegada + "&tipoArchivoID=-1" + "&descripcion=" + $("#Descripcion").val() + "&token=" + Cookies.get("token");
         };
 
         function borrarArchivo(id, fila) {
@@ -880,6 +881,14 @@
                 fila.closest("tr").remove();
                 console.log("$DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy");
             });
+        };
+
+        function limpiarUploadFiles() {
+            $(".k-upload-files").remove();
+            $(".k-upload-status").remove();
+            $(".k-upload-selected").remove();
+            $(".k-upload.k-header").addClass("k-upload-empty");
+            $(".k-upload-button").removeClass("k-state-focused");
         };
 
         function Incidencias() {
@@ -915,6 +924,43 @@
                 loadingStop();
             });
         };
+
+        function HabilitarObtenerDocumentosLlegadaMaterialUploadFiles() {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    var contador = 0;
+                    if (result.length > 0) {
+                        $("#listaArchivos tbody").empty();
+                        $.each(result, function (index, value) {
+                            contador += 1;
+                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+
+                        console.log("hidden");
+                        console.log($("#hdnCantidadArchivos").val());
+                        console.log("contador");
+                        console.log(contador);
+
+                        if ($("#hdnCantidadArchivos").val() == contador) {
+                            limpiarUploadFiles();
+                            displayMessage("notificationslabel0084", '', '2');
+                        } else {
+                            $("#hdnCantidadArchivos").val(contador);
+                        }
+                    } else {
+                        if ($("#hdnCantidadArchivos").val() == contador) {
+                            limpiarUploadFiles();
+                            displayMessage("notificationslabel0084", '', '2');
+                        } else {
+                            $("#hdnCantidadArchivos").val(contador);
+                        }
+                    }
+                };
+                loadingStop();
+            });
+        };
+
 
         function GuardarLlegadaMaterial(bool) {
             //Arreglo Llegada Material

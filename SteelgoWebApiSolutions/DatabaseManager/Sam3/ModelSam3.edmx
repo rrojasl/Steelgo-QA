@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -1174,7 +1174,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
@@ -1203,7 +1203,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
           <Key>
@@ -8120,7 +8120,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoArchivo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__2042BE37" FromRole="Sam3_Rel_FolioAvisoLlegada_Documento" ToRole="Sam3_TipoArchivo" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Folio__4865BE2A">
           <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
@@ -8531,7 +8531,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DocGuid" Type="Guid" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sam3_FolioAvisoEntrada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__54B68676" FromRole="Sam3_Rel_FolioAvisoEntrada_Documento" ToRole="Sam3_FolioAvisoEntrada" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
