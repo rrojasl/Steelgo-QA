@@ -24,7 +24,7 @@ namespace BackEndSAM.Controllers
         }
 
         // GET api/<controller>/5
-        public object Get(int TipoPackingListID, string token, int paginaID, string idioma)
+        public object Get(int TipoPackingListID, string token, int paginaID, string idioma, int proyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -33,7 +33,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID, usuario, paginaID, idioma);
+                return ItemCodeBd.Instance.ObtenerItemCode(TipoPackingListID, usuario, paginaID, idioma, proyectoID);
             }
             else
             {
