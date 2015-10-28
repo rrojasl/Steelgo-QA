@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
@@ -28,6 +29,14 @@ namespace BackEndSAM.DataAcces
             }
         }
 
+        public int ProcesoSoldaduraID { get; private set; }
+        public int NumeroPID { get; private set; }
+        public int GrupoPID { get; private set; }
+        public int AporteID { get; private set; }
+        public int MezclaID { get; private set; }
+        public int RespaldoID { get; private set; }
+        public int GrupoFID { get; private set; }
+
         public object ObtenerPQR(int TipoDato)
         {
 
@@ -48,8 +57,15 @@ namespace BackEndSAM.DataAcces
                                       Aporte = pqr.Aporte,
                                       Mezcla = pqr.Mezcla,
                                       Respaldo = pqr.Respaldo,
-                                      GrupoF = pqr.GrupoF
-                                      
+                                      GrupoF = pqr.GrupoF,
+                                      ProcesoSoldaduraID = pqr.ProcesoSoldaduraID,
+                                      NumeroPID = Convert.ToInt32(pqr.NumeroPID),
+                                      GrupoPID  = Convert.ToInt32(pqr.GrupoPID), 
+                                      AporteID = Convert.ToInt32(pqr.AporteID),
+                                      MezclaID = Convert.ToInt32(pqr.MezclaID), 
+                                      RespaldoID = Convert.ToInt32(pqr.RespaldoID),
+                                      GrupoFID = Convert.ToInt32(pqr.GrupoFID),
+
                                   }).AsParallel().ToList();
                 return data;
             }
@@ -228,20 +244,96 @@ namespace BackEndSAM.DataAcces
         }
 
 
-        public object ActualizaPQR(int TipoDeDato, Sam3_PQR PQR,int IdUsuario)
+        public object ActualizaPQR(Sam3_PQR pqr, Sam3_Usuario usuario)
         {
 
-            using (SamContext ctx = new SamContext())
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ctx.Sam3_Soldadura_PQR(3, pqr.PQRID, pqr.Nombre, pqr.PREHEAT, pqr.PWHT, pqr.Espesor, pqr.ProcesoSoldaduraID, pqr.NumeroP, pqr.GrupoP, pqr.Aporte, pqr.Mezcla, pqr.Respaldo, pqr.GrupoF, usuario.UsuarioID);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
             {
 
-                var lista = ctx.Sam3_Soldadura_PQR(TipoDeDato, PQR.PQRID, PQR.Nombre, PQR.PREHEAT, PQR.PWHT, PQR.Espesor, PQR.ProcesoSoldaduraID, PQR.NumeroP, PQR.GrupoP, PQR.Aporte, PQR.Mezcla, PQR.Respaldo, PQR.GrupoF, IdUsuario);
-                return lista;
+                TransactionalInformation lista = new TransactionalInformation();
+                lista.ReturnMessage.Add(ex.Message);
+                lista.ReturnCode = 500;
+                lista.ReturnStatus = false;
+                lista.IsAuthenicated = true;
 
+                return lista;
+            }
+
+        }
+
+        public object AgregarPQR(Sam3_PQR Addpqr, Sam3_Usuario usuario)
+        {
+
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ctx.Sam3_Soldadura_PQR(2, null, Addpqr.Nombre, Addpqr.PREHEAT, Addpqr.PWHT, Addpqr.Espesor, Addpqr.ProcesoSoldaduraID, Addpqr.NumeroP, Addpqr.GrupoP, Addpqr.Aporte, Addpqr.Mezcla, Addpqr.Respaldo, Addpqr.GrupoF, usuario.UsuarioID);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TransactionalInformation lista = new TransactionalInformation();
+                lista.ReturnMessage.Add(ex.Message);
+                lista.ReturnCode = 500;
+                lista.ReturnStatus = false;
+                lista.IsAuthenicated = true;
+
+                return lista;
             }
 
 
 
 
         }
+
+
+
+        public object ValidarExistePQR(string nombre) {
+
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    int data = Convert.ToInt32(ctx.Sam3_Soldadura_PQR_Existe(nombre));
+                                      
+                    return data;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
     }
 }

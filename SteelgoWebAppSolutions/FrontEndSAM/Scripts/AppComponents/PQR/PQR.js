@@ -1,7 +1,98 @@
-﻿//MANDA CARGAR EL GRID 
+﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; }
+Cookies.set("home", true, { path: '/' });
+Cookies.set("navegacion", "35", { path: '/' });
+
+var resultadoJson, EjecutaAccion, ResultadoEspesor
+
+
+var $PqrSaveModel = {
+    listContainer: {
+        create: "",
+        list: "",
+        detail: "",
+        destroy: ""
+    },
+    properties: {
+        PQRID: {
+            visible: "#PQRidDiv",
+            editable: "#PQRID",
+            required: "#PQRID",
+        },
+        Nombre: {
+            visible: "#PQRNombreDiv",
+            editable: "#NombreId",
+            required: "#NombreId",
+        },
+        PREHEAT: {
+            visible: "#PQRPreheatDiv",
+            editable: "#PREHEAT",
+            required: "#PREHEAT",
+        },
+        PWHT: {
+            visible: "#PQRPWHTDiv",
+            editable: "#PWHT",
+            required: "#PWHT",
+        },
+        Espesor: {
+            visible: "#PQREspesorDiV",
+            editable: "#Espesor",
+            required: "#Espesor",
+        },
+        Codigo: {
+            visible: "#PQRProcesoSoldaduraDiv",
+            editable: "#Codigo",
+            required: "#Codigo",
+        },
+        NumeroP: {
+            visible: "#PQRNumeroPDiv",
+            editable: "#NumeroP",
+            required: "#NumeroP",
+        },
+        GrupoP: {
+            visible: "#PQRGrupoPDiv",
+            editable: "#GrupoP",
+            required: "#GrupoP",
+        },
+        Aporte: {
+            visible: "#PQRAporteDiv",
+            editable: "#Aporte",
+            required: "#Aporte",
+        },
+        Mezcla: {
+            visible: "#PQRMezclaDiv",
+            editable: "#Mezcla",
+            required: "#Mezcla",
+        },
+        Respaldo: {
+            visible: "#PQRRespaldoDiv",
+            editable: "#Respaldo",
+            required: "#Respaldo",
+        },
+        GrupoF: {
+            visible: "#PQRGrupoFDiv",
+            editable: "#GrupoF",
+            required: "#GrupoF",
+        },
+
+
+    }
+
+};
+
+//Funciones que se inician al cargar la página
 function changeLanguageCall() {
     loadingStart();
+    cargarcombos();
+    LlenarGridPQR();
     CargarGridPQR();
+    loadingStop();
+};
+
+
+//#region CargaCombos
+
+
+function cargarcombos() {
     ObtenerNumeroP();
     ObtenerProcesoSoldadura();
     ObtenerGrupoP();
@@ -9,233 +100,7 @@ function changeLanguageCall() {
     ObtenerMezcla();
     ObtenerRespaldo();
     ObtenerGrupoF();
-    loadingStop();
-};
-
-//llENA EL DATASOURCE Y PINTA LE GRID
-function CargarGridPQR() {
-    loadingStart();
-
-    var ResultadoJason = "";
-    var TipoDato = 1;
-
-    $PQR.PQR.read({ TipoDato, token: Cookies.get("token") }).done(function (data) {
-
-        if (Error(data)) {
-
-            ResultadoJason = data;
-            if (ResultadoJason.length > 0) {
-
-                $("#gridPQR").data("kendoGrid").dataSource.data(ResultadoJason);
-                loadingStop();
-            } else {
-
-                $("#gridPQR").data("kendoGrid").dataSource.data([]);
-                loadingStop();
-            };
-        }
-    });
-
-    //PINTA EL GRID
-    $("#gridPQR").kendoGrid({
-        dataSource: {
-            data: ResultadoJason,
-            schema: {
-                model: {
-                    fields: {
-                        PQRID: { type: "string", editable: true },
-                        Nombre: { type: "string", editable: true },
-                        PREHEAT: { type: "string", editable: true },
-                        PWHT: { type: "string", editable: true },
-                        Espesor: { type: "string", editable: true },
-                        ProcesoSoldaduraID: { type: "string", editable: true },
-                        NumeroP: { type: "string", editable: true },
-                        GrupoP: { type: "string", editable: true },
-                        Aporte: { type: "string", editable: true },
-                        Mezcla: { type: "string", editable: true },
-                        Respaldo: { type: "string", editable: true },
-                        GrupoF: { type: "string", editable: true },
-                    }
-                }
-            },
-            pageSize: 5,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false,
-        },
-        navigatable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: false,
-        pageable: {
-            refresh: false,
-            pageSizes: [5, 10, 15, 20],
-            info: false,
-            input: false,
-            numeric: true,
-
-        },
-
-        columns: [
-                  { field: "PQRID", title: _dictionary.lblPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
-                    { field: "Nombre", title: _dictionary.lblPQRNombre[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "PREHEAT", title: _dictionary.lblPQRPREHEAT[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: " PWHT", title: _dictionary.lblPQRPWHT[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Espesor", title: _dictionary.lblPQREspesor[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "ProcesoSoldaduraID", title: _dictionary.lblPQRProcesoSoldaduraID[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "NumeroP", title: _dictionary.lblPQRNumeroP[$("#language").data("kendoDropDownList").value()], filterable: true },
-                     { field: "GrupoP", title: _dictionary.lblPQRGrupoP[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Aporte", title: _dictionary.lblPQRAporte[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Mezcla", title: _dictionary.lblPQRMezcla[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "Respaldo", title: _dictionary.lblPQRRespaldo[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { field: "GrupoF", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true },
-                    { command: { text: _dictionary.lblAccionEditaPQR[$("#language").data("kendoDropDownList").value()], click: editarPQR }, title: " ", width: "40px" },
-                    { command: { text: _dictionary.lblAccionCancelaPQR[$("#language").data("kendoDropDownList").value()], click: EliminaPQR }, title: " ", width: "40px" }
-
-
-        ],
-    });
-};
-
-
-
-
-
-function editarPQR(e) {
-    e.preventDefault();
-    var dataItem = $("#gridPQR").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-    $("#IdPQR").val(dataItem.PQRID)
-
-    $("#NombreId").val(dataItem.Nombre)
-
-    var ChkPreheat = dataItem.PREHEAT;
-
-
-    if (ChkPreheat == true) {
-
-        var data = kendo.observable({
-            optionCheck: true
-        });
-        kendo.bind($("#chkPreheat"), data);
-    }
-    else {
-
-        var data = kendo.observable({
-            optionCheck: false
-        });
-        kendo.bind($("#chkPreheat"), data);
-    }
-
-
-    $("#Espesor").val(dataItem.Espesor);
-
-    var CMBProcesoSoldadura = $("#ProcesoSoldaduraID").data("kendoComboBox");
-    CMBProcesoSoldadura.value(dataItem.ProcesoSoldaduraID);
-
-
-    var ChkPWHT = dataItem.PWHT;
-
-    if (ChkPWHT == true) {
-
-        var data = kendo.observable({
-            optionCheckPWHT: true
-        });
-        kendo.bind($("#chkPwht"), data);
-    }
-    else {
-
-        var data = kendo.observable({
-            optionCheckPWHT: false
-        });
-        kendo.bind($("#chkPwht"), data);
-    }
-
-
-    var CMBNumeroP = $("#NumeroPID").data("kendoComboBox");
-    CMBNumeroP.value(dataItem.NumeroP);
-
-    var CMBGrupoP = $("#GrupoPID").data("kendoComboBox");
-    CMBGrupoP.value(dataItem.GrupoP);
-
-    var CMBAporte = $("#AporteID").data("kendoComboBox");
-    CMBAporte.value(dataItem.Aporte);
-
-    var CMBMezcla = $("#MezclaID").data("kendoComboBox");
-    CMBMezcla.value(dataItem.Mezcla);
-
-    var CMBRespaldo = $("#RespaldoID").data("kendoComboBox");
-    CMBRespaldo.value(dataItem.Respaldo);
-
-    var CMBGrupoF = $("#GrupoFID").data("kendoComboBox");
-    CMBGrupoF.value(dataItem.GrupoF);
-
-
-    VentanaModal();
-    $("#windowPQR").show();
-
-
 }
-
-
-
-function EliminaPQR(e) {
-    e.preventDefault();
-    loadingStart();
-
-    if (confirm(_dictionary.lblConfirmaElimanarPQR[$("#language").data("kendoDropDownList").value()])) {
-
-        var dataItem = $("#gridPQR").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        $PQR.PQR.update({}, { TipoDeDato: 4, PQRID: dataItem.PQRID, token: Cookies.get("token") }).done(function (data) {
-            loadingStart();
-            CargarGridPQR();
-            loadingStop();
-
-        });
-
-
-
-    }
-    else {
-        loadingStop();
-
-    }
-
-
-};
-
-function VentanaModal() {
-
-    var modalTitle = "";
-    modalTitle = "Editar PQR";
-    var window = $("#windowPQR");
-    var win = window.kendoWindow({
-        actions: "",
-        modal: true,
-        title: modalTitle,
-        resizable: false,
-        visible: false,
-        width: "50%%",
-        minWidth: 660,
-        position: {
-            top: "10%",
-            left: "20%"
-        }
-    }).data("kendoWindow");
-    $("#Modo").val();
-    window.data("kendoWindow").title(modalTitle);
-    window.data("kendoWindow").center().open();
-
-};
-
-
-
-
-
-
-
-
-
 
 function ObtenerNumeroP() {
     var TipoDato = 1
@@ -257,7 +122,7 @@ function ObtenerNumeroP() {
             if (!value) {
                 NumeroP = [];
             }
-            Filtros();
+            // Filtros();
         },
         filter: "contains",
     });
@@ -287,6 +152,7 @@ function ObtenerProcesoSoldadura() {
         dataValueField: "ProcesoSoldaduraID",
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
+
             CargarProcesoSoldadura(dataItem.ProcesoSoldaduraID, dataItem.Codigo);
 
 
@@ -296,7 +162,7 @@ function ObtenerProcesoSoldadura() {
             if (!value) {
                 ProcesoSoldadura = [];
             }
-            Filtros();
+            // Filtros();
         },
         filter: "contains",
     });
@@ -309,6 +175,7 @@ function ObtenerProcesoSoldadura() {
 
 };
 function CargarProcesoSoldadura(id, value) {
+
     Codigo = [];
     _codigo = {};
     _codigo["ProcesoSoldaduraID"] = id;
@@ -328,15 +195,13 @@ function ObtenerGrupoP() {
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
             CargarGrupoP(dataItem.GrupoPID, dataItem.GrupoP);
-
-
         },
         change: function (e) {
             var value = this.value();
             if (!value) {
                 GrupoP = [];
             }
-            Filtros();
+            // Filtros();
         },
         filter: "contains",
     });
@@ -356,8 +221,6 @@ function CargarGrupoP(id, value) {
     GrupoP.push(_grupoP);
 };
 
-
-
 function ObtenerAporte() {
     var TipoDato = 1
     var ConsultaAporte = 'AporteID';
@@ -368,6 +231,7 @@ function ObtenerAporte() {
         dataValueField: "AporteID",
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
+
             CargarAporte(dataItem.AporteID, dataItem.Aporte);
 
 
@@ -377,7 +241,7 @@ function ObtenerAporte() {
             if (!value) {
                 Aporte = [];
             }
-            Filtros();
+            // Filtros();
         },
         filter: "contains",
     });
@@ -396,7 +260,6 @@ function CargarAporte(id, value) {
     _aporte["GrupoP"] = value;
     Aporte.push(_aporte);
 };
-
 
 function ObtenerMezcla() {
     var TipoDato = 1
@@ -417,7 +280,7 @@ function ObtenerMezcla() {
             if (!value) {
                 Mezcla = [];
             }
-            Filtros();
+            // Filtros();
         },
         filter: "contains",
     });
@@ -436,7 +299,6 @@ function CargarMezcla(id, value) {
     _mezcla["Mezcla"] = value;
     Mezcla.push(_mezcla);
 };
-
 
 function ObtenerRespaldo() {
     var TipoDato = 1
@@ -457,7 +319,7 @@ function ObtenerRespaldo() {
             if (!value) {
                 Respaldo = [];
             }
-            Filtros();
+            // Filtros();
         },
         filter: "contains",
     });
@@ -490,7 +352,7 @@ function ObtenerGrupoF() {
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
 
-
+            alert(dataItem.GrupoFID);
             CargarGrupoF(dataItem.GrupoFID, dataItem.GrupoF);
 
 
@@ -500,7 +362,7 @@ function ObtenerGrupoF() {
             if (!value) {
                 GrupoF = [];
             }
-            Filtros();
+            //Filtros();
         },
         filter: "contains",
     });
@@ -523,6 +385,7 @@ function CargarGrupoF(id, value) {
 function ControlErroresObjetosComboBox(control, data) {
     if (Error(data)) {
         $("#" + control).data("kendoComboBox").dataSource.data(data);
+        $("#" + control).data("kendoComboBox").select(0);
     } else {
         $("#" + control).data("kendoComboBox").dataSource.data([]);
     };
@@ -530,49 +393,408 @@ function ControlErroresObjetosComboBox(control, data) {
 
 
 
+//#endregion
+
+
+
+
+//#region CargarGrid
+
+function LlenarGridPQR() {
+    var TipoDato = 1;
+
+    $PQR.PQR.read({ TipoDato, token: Cookies.get("token") }).done(function (data) {
+        console.log(data);
+        if (Error(data)) {
+            resultadoJson = data;
+            if (resultadoJson.length > 0) {
+                $("#gridPQR").data("kendoGrid").dataSource.data(resultadoJson);
+            } else {
+                $("#gridPQR").data("kendoGrid").dataSource.data([]);
+            };
+        }
+
+    });
+}
+
+
+function CargarGridPQR() {
+
+    $("#gridPQR").kendoGrid({
+        dataSource: {
+            data: resultadoJson,
+            schema: {
+                model: {
+                    fields: {
+                        PQRID: { type: "string" },
+                        Nombre: { type: "string" },
+                        PREHEAT: { type: "string" },
+                        PWHT: { type: "string" },
+                        Espesor: { type: "string" },
+                        Codigo: { type: "string" },
+                        NumeroP: { type: "string" },
+                        GrupoP: { type: "string" },
+                        Aporte: { type: "string" },
+                        Mezcla: { type: "string" },
+                        Respaldo: { type: "string" },
+                        GrupoF: { type: "string" },
+
+                        ProcesoSoldaduraID: { type: "int" },
+                        NumeroPID: { type: "int" },
+                        GrupoPID: { type: "int" },
+                        AporteID: { type: "int" },
+                        MezclaID: { type: "int" },
+                        RespaldoID: { type: "int" },
+                        GrupoFID: { type: "int" },
+                    }
+                }
+            },
+            pageSize: 20,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
+        },
+        autoHeight: true,
+        sortable: true,
+        scrollable: false,
+        editable: "inline",
+        filterable: {
+            extra: false,
+            operators: {
+                string: {
+                    startswith: "Starts with",
+                    eq: "Is equal to",
+                    neq: "Is not equal to"
+                }
+            }
+        },
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 15, 20],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        columns: [
+           { field: "PQRID", title: _dictionary.lblPQRID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "Nombre", title: _dictionary.lblPQRNombre[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "PREHEAT", title: _dictionary.lblPQRPREHEAT[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: " PWHT", title: _dictionary.lblPQRPWHT[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Espesor", title: _dictionary.lblPQREspesor[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Codigo", title: _dictionary.lblPQRProcesoSoldaduraID[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "NumeroP", title: _dictionary.lblPQRNumeroP[$("#language").data("kendoDropDownList").value()], filterable: true },
+                     { field: "GrupoP", title: _dictionary.lblPQRGrupoP[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Aporte", title: _dictionary.lblPQRAporte[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Mezcla", title: _dictionary.lblPQRMezcla[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "Respaldo", title: _dictionary.lblPQRRespaldo[$("#language").data("kendoDropDownList").value()], filterable: true },
+                    { field: "GrupoF", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true },
+
+                    { field: "ProcesoSoldaduraID", title: _dictionary.lblPQRProcesoSoldaduraID[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "NumeroPID", title: _dictionary.lblPQRNumeroP[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                     { field: "GrupoPID", title: _dictionary.lblPQRGrupoP[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "AporteID", title: _dictionary.lblPQRAporte[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "MezclaID", title: _dictionary.lblPQRMezcla[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "RespaldoID", title: _dictionary.lblPQRRespaldo[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+                    { field: "GrupoFID", title: _dictionary.lblPQRGrupoF[$("#language").data("kendoDropDownList").value()], filterable: true, hidden: true },
+
+            { command: { text: _dictionary.Cuantificacion0004[$("#language").data("kendoDropDownList").value()], click: editarPQR }, title: " ", width: "40px" },
+            { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: EliminarPQR }, title: " ", width: "40px" }
+        ],
+        dataBound: function (e) {
+            $(".k-grid input.k-textbox").prop('readonly', true);
+            $(".k-grid td .k-button").text('');
+            $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+        }
+    });
+};
+//#endregion
+
+//#region EditarPQR
+
+function editarPQR(e) {
+
+    LLenaControles(e);
+
+    EjecutaAccion = 0;
+    VentanaModal();
+    $("#windowPQR").show();
+
+}
+
+
+
+function VentanaModal() {
+    var modalTitle = "";
+    modalTitle = "PQR";
+    var window = $("#windowPQR");
+    var win = window.kendoWindow({
+        actions: "",
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: false,
+        width: "50%%",
+        minWidth: 660,
+        position: {
+            top: "10%",
+            left: "20%"
+        }
+    }).data("kendoWindow");
+    window.data("kendoWindow").title(modalTitle);
+    window.data("kendoWindow").center().open();
+
+};
+
+
+function LLenaControles(e) {
+
+    var dataItem = $("#gridPQR").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+    $("#IdPQR").val(dataItem.PQRID)
+
+    $("#NombreId").val(dataItem.Nombre)
+
+    var ChkPreheat = dataItem.PREHEAT;
+    if (ChkPreheat == true) {
+
+        var data = kendo.observable({
+            optionCheck: true
+        });
+        kendo.bind($("#chkPreheat"), data);
+    }
+    else {
+
+        var data = kendo.observable({
+            optionCheck: false
+        });
+        kendo.bind($("#chkPreheat"), data);
+    }
+
+    $("#Espesor").val(dataItem.Espesor);
+
+    var ChkPWHT = dataItem.PWHT;
+    if (ChkPWHT == true) {
+
+        var data = kendo.observable({
+            optionCheckPWHT: true
+        });
+        kendo.bind($("#chkPwht"), data);
+    }
+    else {
+
+        var data = kendo.observable({
+            optionCheckPWHT: false
+        });
+        kendo.bind($("#chkPwht"), data);
+    }
+
+    var CMBProcesoSoldadura = $("#ProcesoSoldaduraID").data("kendoComboBox");
+    CMBProcesoSoldadura.value(dataItem.ProcesoSoldaduraID);
+
+
+    var CMBNumeroP = $("#NumeroPID").data("kendoComboBox");
+    CMBNumeroP.value(dataItem.NumeroPID);
+
+    var CMBGrupoP = $("#GrupoPID").data("kendoComboBox");
+    CMBGrupoP.value(dataItem.GrupoPID);
+
+    var CMBAporte = $("#AporteID").data("kendoComboBox");
+    CMBAporte.value(dataItem.AporteID);
+
+    var CMBMezcla = $("#MezclaID").data("kendoComboBox");
+    CMBMezcla.value(dataItem.MezclaID);
+
+    var CMBRespaldo = $("#RespaldoID").data("kendoComboBox");
+    CMBRespaldo.value(dataItem.RespaldoID);
+
+    var CMBGrupoFID = $("#GrupoFID").data("kendoComboBox");
+    CMBGrupoFID.value(dataItem.GrupoFID)
+
+
+
+}
+
 $("#CancelaEditarPQR").click(function (e) {
     $("#windowPQR").data("kendoWindow").close();
+    cargarcombos();
 });
-
-
 
 
 
 $("#EditaPQR").click(function (e) {
 
+    PQRModal = {
+        PQRID: "",
+        Nombre: "",
+        PREHEAT: "",
+        PWHT: "",
+        Espesor: "",
+        ProcesoSoldaduraID: "",
+        NumeroP: "",
+        GrupoP: "",
+        Aporte: "",
+        Mezcla: "",
+        Respaldo: "",
+        GrupoF: "",
+    };
 
-    var PQRID = $("#IdPQR").val();
-    var Nombre = $("#NombreId").val();
-    var PREHEAT = $("#chkPreheat").is(':checked');
-    var PWHT = $("#chkPwht").is(':checked');
-    var Espesor = $("#Espesor").val();
-    var ProcesoSoldadura = $("#ProcesoSoldaduraID").val();
-    var NumeroP = $("#NumeroPID").val();
-    var GrupoP = $("#GrupoPID").val();
-    var Aporte = $("#AporteID").val();
-    var Mezcla = $("#MezclaID").val();
-    var Respaldo = $("#RespaldoID").val();
-    var GrupoF = $("#GrupoFID").val();
+    PQRModal.PQRID = $("#IdPQR").val();
+    PQRModal.Nombre = $("#NombreId").val();
+    PQRModal.PREHEAT = $("#chkPreheat").is(':checked');
+    PQRModal.PWHT = $("#chkPwht").is(':checked');
+    PQRModal.Espesor = $("#Espesor").val();
+    PQRModal.ProcesoSoldaduraID = $("#ProcesoSoldaduraID").val();
+    PQRModal.NumeroP = $("#NumeroPID").val();
+    PQRModal.GrupoP = $("#GrupoPID").val();
+    PQRModal.Aporte = $("#AporteID").val();
+    PQRModal.Mezcla = $("#MezclaID").val();
+    PQRModal.Respaldo = $("#RespaldoID").val();
+    PQRModal.GrupoF = $("#GrupoFID").val();
 
-    if (isNaN(Espesor)) {
-        alert('En campo "Espesor" solo acepta números decimales');
+
+
+    if (EjecutaAccion == 0) {
+
+        if (validarCamposRequeridosPQR()) {
+            $PQR.PQR.update(PQRModal, { token: Cookies.get("token") }).done(function (data) {
+                loadingStart();
+                LlenarGridPQR();
+                $("#windowPQR").data("kendoWindow").close();
+                loadingStop();
+            });
+
+        } else {
+
+            if (ResultadoEspesor == 1) {
+                displayMessage("notificationslabel0031", "", '1');
+            }
+            else if (ResultadoEspesor == 0) {
+                displayMessage("lblValidaEspesorPQR", "", '1');
+            }
+
+
+        }
+
     }
-    else {
+
+    else if (EjecutaAccion == 1) {
 
 
-        $PQR.PQR.update({}, { PQRID, Nombre, PREHEAT, PWHT, Espesor, ProcesoSoldadura, NumeroP, GrupoP, Aporte, Mezcla, Respaldo, GrupoF, token: Cookies.get("token") }).done(function (data) {
+            if (validarCamposRequeridosPQR()) {
+                $PQR.PQR.create(PQRModal, { token: Cookies.get("token") }).done(function (data) {
+                    loadingStart();
+                    LlenarGridPQR();
+                    $("#windowPQR").data("kendoWindow").close();
+                    loadingStop();
+                });
 
-            CargarGridPQR();
-            $("#windowPQR").data("kendoWindow").close();
+            } else {
 
-        });
+                if (ResultadoEspesor == 1) {
+                    displayMessage("notificationslabel0031", "", '1');
+                }
+                else if (ResultadoEspesor == 0) {
+                    displayMessage("lblValidaEspesorPQR", "", '1');
+                }
+
+
+            }
+
+
+   
 
     }
-
-
-
 
 });
+
+
+function ValidaNombre() {
+    loadingStart();
+    var nombre = $("#NombreId").val();
+    $PQR.PQR.read({nombre, token: Cookies.get("token") }).done(function (data) {
+        
+        loadingStop();
+
+    });
+}
+
+
+
+function validarCamposRequeridosPQR() {
+    var bool = true;
+    $("#CamposRequeridosPQR .security_required").each(function (i, elem) {
+
+        if (elem.tagName.toLowerCase() != 'label') {
+            if (!$(this).val()) {
+                bool = false;
+                $(this).closest("div").find("label").addClass("error");
+                $(this).closest("div").addClass("clearfix");
+                ResultadoEspesor = 1;
+            }
+            else if (isNaN($("#Espesor").val())) {
+                ResultadoEspesor = 0;
+                bool = false;
+                $(this).closest("div").find("label").addClass("error");
+                $(this).closest("div").addClass("clearfix");
+            }
+            else {
+                $(this).closest("div").find("label").removeClass("error");
+                $(this).closest("div").removeClass("clearfix");
+            };
+        };
+    });
+
+    return bool;
+
+}
+
+
+//#endregion
+
+//#region Elimina
+
+function EliminarPQR(e) {
+    e.preventDefault();
+    loadingStart();
+    var dataItem = $("#gridPQR").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    if (confirm(_dictionary.lblConfirmaElimanarPQR[$("#language").data("kendoDropDownList").value()])) {
+
+        $PQR.PQR.update({}, { TipoDeDato: 4, PQRID: dataItem.PQRID, token: Cookies.get("token") }).done(function (data) {
+            LlenarGridPQR();
+            loadingStop();
+
+        });
+    }
+    else {
+        loadingStop();
+    }
+
+
+};
+//#endregion
+
+
+$("#AAgregarPQR").click(function (e) {
+
+    $('#NombreId').val('');
+    $('#Espesor').val('');
+    $('#chkPreheat').prop('checked', false);
+    $('#chkPwht').prop('checked', false);
+    EjecutaAccion = 1;
+    VentanaModal();
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
