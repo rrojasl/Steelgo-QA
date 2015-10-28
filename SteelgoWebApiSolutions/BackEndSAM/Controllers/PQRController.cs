@@ -340,7 +340,7 @@ namespace BackEndSAM.Controllers
 
 
         //Edita PQR Seleccionado
-        public object Put(Sam3_PQR PQRModal, string token)
+        public object Put(Sam3_PQR pqr, string token)
         {
             try
             {
@@ -351,9 +351,8 @@ namespace BackEndSAM.Controllers
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    int IdUsuario = Usuario.UsuarioID;
-                    int TipoDeDato = 3;
-                    return PQRBd.Instance.ActualizaPQR(TipoDeDato, PQRModal, IdUsuario);
+                   
+                    return PQRBd.Instance.ActualizaPQR(pqr, Usuario);
                     // return new object();
                 }
                 else
@@ -381,6 +380,86 @@ namespace BackEndSAM.Controllers
                 result.IsAuthenicated = true;
                 return result;
             }
+        }
+
+        //Agrega PQR 
+        public object Post(Sam3_PQR Addpqr, string token) {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return PQRBd.Instance.AgregarPQR(Addpqr, Usuario);
+                    // return new object();
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+
+        }
+
+
+        public object Get(string nombre, string token)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    return PQRBd.Instance.ValidarExistePQR(nombre);
+                    
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+
+
         }
 
     }

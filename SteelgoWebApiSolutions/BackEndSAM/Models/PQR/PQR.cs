@@ -51,8 +51,7 @@ namespace BackEndSAM.Models
 
         public int GrupoFID { get; set; }
 
-
-
+       
 
     }
 }
