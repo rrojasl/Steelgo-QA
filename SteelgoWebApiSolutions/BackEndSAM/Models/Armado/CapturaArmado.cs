@@ -165,8 +165,7 @@ namespace BackEndSAM.Models.Armado
 
     public class DetalleGuardarTrabajoAdicional
     {
-        [Key]
-        public  int IdTrabajoAdicional { get; set; }
+        
         public int Accion { get; set; }
         public string JuntaID { get; set; }
         public int ArmadoTrabajoAdicionalID { get; set; }

@@ -1,5 +1,5 @@
 ﻿function AjaxJunta(spoolID) {
-
+    $('input:radio[name=Muestra]:checked').val()
     $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
         loadingStart();
         console.log("fecha nueva" + data.FechaArmado);
@@ -101,9 +101,9 @@ function AjaxGuardarCaptura(arregloCaptura) {
 
         Captura[0].Detalles = ListaDetalles;
 
-        //$CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        //    console.log("se guardo correctamente la informacion");
-        //});
+        $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            console.log("se guardo correctamente la informacion");
+        });
         alert('finalizo el guardado de datos');
     } catch (e) {
         alert('error al guardar datos ' + e.message);

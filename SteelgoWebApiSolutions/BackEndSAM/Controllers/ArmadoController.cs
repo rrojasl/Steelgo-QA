@@ -205,8 +205,8 @@ namespace BackEndSAM.Controllers
                         ListaDetalleTrabajoAdicional = listDetalleTrabajoAdicional,
                         listadoTrabajosAdicionalesXJunta = listaDetalleAdicionalXJuntaConvertida,
                         SinCaptura = capturaDatosJson.SinCaptura,
-                        NumeroUnico1ID = item.NumeroUnico1ID.ToString(),
-                        NumeroUnico2ID=item.NumeroUnico2ID.ToString()
+                        NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
+                        NumeroUnico2ID= item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString()
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }
@@ -335,7 +335,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, ordenTrabajo, id, sinCaptura == "todos" ? 1 : 0);
+                return CapturaArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, ordenTrabajo, id, sinCaptura == "Todos" ? 1 : 0);
             }
             else
             {
