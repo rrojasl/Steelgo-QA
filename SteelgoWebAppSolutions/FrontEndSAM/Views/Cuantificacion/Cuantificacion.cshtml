@@ -639,12 +639,13 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    if (!value || this.selectedIndex == -1) {
+                    if (!value || !e.sender.current()) {
                         messageindexKendoCombobox(this);
                         this.value("");
-                    };
-                    changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
-                    $("#Colada").data("kendoAutoComplete").value("");
+                    }else{
+                        changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
+                        $("#Colada").data("kendoAutoComplete").value("");
+                    }
                 },
                
                 filter: "contains",
@@ -653,14 +654,18 @@
 
             $("#Cantidad").keydown(function (e) {
                 if (e.keyCode == 13) {
-                    changeValueColumnCantidad(this.value);
+                    if (esNumero(this.value)) {
+                        changeValueColumnCantidad(this.value);
+                    }
                     $("#Cantidad").val("");
                 }
             });
 
             $("#MM").keydown(function (e) {
                 if (e.keyCode == 13) {
-                    changeValueColumnMM(this.value);
+                    if (esNumero(this.value)) {
+                        changeValueColumnMM(this.value);
+                    }
                     $("#MM").val("");
                 }
             });
@@ -679,7 +684,7 @@
 
             
         };
-
+       
         function Cancelar() {
             var detalleIdeaUrl = "@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")";
             window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();

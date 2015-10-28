@@ -146,6 +146,11 @@ function modificartextoKendoCombobox(controls, lng) {
 
     });
 };
+
+function esNumero(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 //Ajusta el tamaño de los filtros rápidos a las columnas del grid
 //Funcion: resizeFilters
 //Parametros: N/A
