@@ -166,7 +166,7 @@ namespace BackEndSAM.DataAcces
                         coladas = (from c in ctx.Sam3_Colada
                                    join p in ctx.Sam3_Proyecto on c.ProyectoID equals p.ProyectoID
                                    where c.Activo && p.Activo
-                                   && p.ProyectoID == proyectoID
+                                   && c.ProyectoID == proyectoID
                                    && c.NumeroColada.Contains(texto)
                                    select new Coladas
                                    {
@@ -178,6 +178,7 @@ namespace BackEndSAM.DataAcces
                     {
                         coladas = (from c in ctx.Sam3_Colada
                                    where c.Activo
+                                   && c.NumeroColada.Contains(texto)
                                    select new Coladas
                                    {
                                        ColadaID = c.ColadaID,
