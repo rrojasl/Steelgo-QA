@@ -926,8 +926,6 @@
                 ],
                 navigatable: true,
                 columns: [
-                    { field: "TieneError",      title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
-                    { field: "BultoID",         title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", },
                     { field: "ItemCode",        title: _dictionary.Cuantificacion0028[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", editor: itemCodeAutocomplete },
                     { field: "Descripcion",     title: _dictionary.Cuantificacion0029[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px", aggregates: ["count"], footerTemplate: "Total Count: #=count#", groupFooterTemplate: "Count: #=count#" },
                     { field: "D1",              title: _dictionary.Cuantificacion0030[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px" },
@@ -941,14 +939,16 @@
                     { field: "MM",              title: _dictionary.Cuantificacion0038[$("#language").data("kendoDropDownList").value()], filterable: true, width: "80px"},
                     { field: "Detallar",        title: _dictionary.Cuantificacion0039[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px" },
                     { field: "TieneNU",         title: _dictionary.Cuantificacion0040[$("#language").data("kendoDropDownList").value()], filterable: true, width: "150px" },
-                    { command: { text: _dictionary.Cuantificacion0043[$("#language").data("kendoDropDownList").value()], click: CancelarInformacionItem }, title: " ", width: "99px" }
+                    { command: { text: _dictionary.Cuantificacion0043[$("#language").data("kendoDropDownList").value()], click: CancelarInformacionItem }, title: " ", width: "99px" },
+                    { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
+                    { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true }
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
             var dispositivo = navigator.userAgent.toLowerCase();
             if (!dispositivo.match(/(iphone|ipod|ipad|android)/)) {
                 grid.table.bind("keypress", function (e) {
-                    keydown(e);
+                    //keydown(e);
                     if (e.which !== 0 && e.charCode !== 0 && !e.ctrlKey && !e.metaKey && !e.altKey) {
                         //get currently navigated cell, this id follows user's navigation
                         var activeCell = $("#grid_active_cell");
@@ -967,6 +967,7 @@
                         }
                     }
                 });
+                
             };
             //Kendo "Enter" key input is captured through this binding
             $("#grid table").on("keydown", "tr", function (e) {
@@ -2388,6 +2389,11 @@
                             read: $URLItemCode + "TipoPackingListID=" + TipoPackingList.TipoPackingListID + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&proyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"-1")
                         }
                     },
+                    dataBound: function dataBound(e) {
+                        var widget = e.sender;
+                        $('body *').removeAttr('unselectable');
+                        widget.ul.find("li").removeAttr("unselectable");
+                    },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         if (dataItem.ItemCodeID == -1) {
@@ -2643,7 +2649,7 @@
         //39 right arrow
         //40 down arrow
         function keydown(e) {
-
+            /*
             if (e.keyCode == 13 || e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
                 var elementFocused = $(':focus');
                 var focused = $(':focus').attr("id");
@@ -2681,6 +2687,7 @@
                     break;
             }
             //if (e.keyCode == ctrlKey) ctrlDown = true;
+            */
         }
 
         function ActualizarCookie() {
@@ -2797,6 +2804,7 @@
         @section JavascriptDocumentReadyFunctions 
         {
             var dispositivo = navigator.userAgent.toLowerCase();
+            /*
             if (!dispositivo.match(/(iphone|ipod|ipad|android)/)) {
                 $(document).keydown(function (e) {
                     keydown(e);
@@ -2804,7 +2812,7 @@
                     if (e.keyCode == ctrlKey) ctrlDown = false;
                 });
             };
-
+            */
             cargaInicial();
 
             //detallar un bulto

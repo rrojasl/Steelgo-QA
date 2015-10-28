@@ -310,6 +310,13 @@
             background-color: white;
         }
 
+        .k-list-container .k-list .k-item.k-state-focused {
+            font-weight: 600;
+            color: #000000;
+            background: none;
+            background-color: #FCEED9;
+        }
+
 .k-state-hover, .k-state-focused.k-state-border-down {
     background: red;
 }
