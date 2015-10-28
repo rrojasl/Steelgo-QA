@@ -454,7 +454,7 @@
             $('#AdjuntarArchivos').kendoUpload({
                 async: {
                     ////VAlida que este tomando todos los parametros por favor
-                    saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioAvisoLlegada  + "&token=" + Cookies.get("token"),
+                    saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioLlegada + "&token=" + Cookies.get("token"),
                     autoUpload: false,
                     withCredentials: false,
                     batch: true
@@ -747,12 +747,14 @@
 
         function ObtenerProveedor() {
             $Proveedor.Proveedor.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                result = modificarResultTextoKendoCombobox("ProveedorID", result, $("#language").data("kendoDropDownList").value());
                 ControlErroresObjetosComboBox("ProveedorID", result);
             });
         };
 
         function ObtenerPatio() {
             $Patio.Patio.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                result = modificarResultTextoKendoCombobox("PatioID", result, $("#language").data("kendoDropDownList").value());
                 ControlErroresObjetosComboBox("PatioID", result);
             });
         };
@@ -873,7 +875,7 @@
                 }
             }
 
-            $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoLlegadaMaterialUploadFiles + folioAvisoLlegada + "&tipoArchivoID=-1" + "&descripcion=" + $("#Descripcion").val() + "&token=" + Cookies.get("token");
+            $("#AdjuntarArchivos").data("kendoUpload").options.async.saveUrl = $DocumentoLlegadaMaterialUploadFiles + folioLlegada + "&tipoArchivoID=-1" + "&descripcion=" + $("#Descripcion").val() + "&token=" + Cookies.get("token");
         };
 
         function borrarArchivo(id, fila) {
@@ -926,9 +928,12 @@
         };
 
         function HabilitarObtenerDocumentosLlegadaMaterialUploadFiles() {
-            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (result) {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
                 loadingStart();
+                console.log("res");
+                console.log(result);
                 if (Error(result)) {
+                    console.log("si");
                     var contador = 0;
                     if (result.length > 0) {
                         $("#listaArchivos tbody").empty();

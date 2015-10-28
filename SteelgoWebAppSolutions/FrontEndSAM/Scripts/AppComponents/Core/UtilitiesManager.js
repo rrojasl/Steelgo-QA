@@ -108,6 +108,27 @@ function messageindexKendoCombobox(obj) {
     };
 };
 
+function modificarResultTextoKendoCombobox(id, result, lng) {
+    if (result.length > 0) {
+        switch (id) {
+            case "Tracto":
+                if (lng == "es-MX") {
+                    result[0].Placas = "Agregar nuevo";
+                } else {
+                    result[0].Placas = "Add new";
+                }
+                break;
+           default:
+                if (lng == "es-MX") {
+                    result[0].Nombre = "Agregar nuevo";
+                } else {
+                    result[0].Nombre = "Add new";
+                }
+                break;
+        }
+    };
+    return result;
+};
 function modificartextoKendoCombobox(controls, lng) {
     $(controls).each(function (i, obj) {
         switch ($(obj).attr("id")) {
@@ -146,6 +167,11 @@ function modificartextoKendoCombobox(controls, lng) {
 
     });
 };
+
+function esNumero(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 //Ajusta el tamaño de los filtros rápidos a las columnas del grid
 //Funcion: resizeFilters
 //Parametros: N/A
