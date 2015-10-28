@@ -270,6 +270,7 @@ INSERT INTO Sam3_Propiedad VALUES ( 46, 'proyecto', 1, NULL, NULL)
 INSERT INTO Sam3_Propiedad VALUES ( 46, 'spool', 1, NULL, NULL)
 INSERT INTO Sam3_Propiedad VALUES (46 , 'todos', 1, NULL, NULL)
 INSERT INTO Sam3_Propiedad VALUES (46 , 'vacios', 1, NULL, NULL)
+INSERT INTO Sam3_Propiedad VALUES ( 11, 'listarArchivos', 1, NULL, NULL)
 
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,1,1,0,0,0,0,0,0,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,2,1,0,0,0,0,0,0,1,NULL,NULL )
@@ -333,6 +334,7 @@ insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,42,46,1,1,1,1,1,1,1,NULL,NUL
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,43,47,1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Entidad_Pagina values(1,44,27,1,1,1,1,1,1,1,NULL,NULL )
 INSERT INTO Sam3_Rel_Perfil_Entidad_Pagina VALUES (1, 46, 49, 1,1,1,1,1,1,1,NULL,NULL)
+INSERT INTO Sam3_Rel_Perfil_Propiedad_Pagina VALUES (1, 175, 8, 1,1,1,1,NULL, NULL)
 
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,1,1,1,1,1,1,NULL,NULL )
 insert into Sam3_Rel_Perfil_Propiedad_Pagina values(1,2,1,1,1,1,1,NULL,NULL )

@@ -2325,6 +2325,22 @@ _dictionary = {
         "es-MX": "Listado de Avisos de Entrada",
         "en-US": "Entry Notices List"
     },
+    "AutorizarPermiso0009": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Add Files"
+    },
+    "AutorizarPermiso0010": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "AutorizarPermiso0011": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File type"
+    },
+    "AutorizarPermiso0012": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
+    },
     //Dashboard Aviso Legada
     "DashboardAvisoLlegada0001": {
         "es-MX": "Inicio",
