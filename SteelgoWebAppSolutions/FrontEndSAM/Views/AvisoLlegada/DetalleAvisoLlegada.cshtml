@@ -1022,6 +1022,8 @@
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                         ObtenerChoferEdicion(data.Transportista[0].TransportistaID);
                         $("#ChoferID").data("kendoComboBox").enable(false);
+                        ObtenerCamionEntradaMaterial();
+                        ObtenerPlanasEdicon(data);
                     }
 
                     if (data.Cliente) {
@@ -1351,20 +1353,33 @@
                 });
             };
 
-            function ObtenerPlanas() {
-                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+            function ObtenerPlanasEdicon(data) {
+                var concatPlanas = "";
+                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("PlanaID", result);
+                    $.each(data.Plana, function (index, value) {
+                        concatPlanas += "," + value.PlanaID;
+                    });
+                    $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
                 });
             };
-
+            function ObtenerPlanas() {
+                if (typeof (Transportista[0]) != undefined && typeof (Transportista[0].TransportistaID) != undefined) {
+                    $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+                        ControlErroresObjetosMultiselect("PlanaID", result);
+                    });
+                }
+            };
             function ObtenerTransportista() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                    result = modificarResultTextoKendoCombobox("TransportistaID", result, $("#language").data("kendoDropDownList").value());
                     ControlErroresObjetosComboBox("TransportistaID", result);
                 });
             };
 
             function ObtenerPatio() {
-                $Patio.Patio.read({ esAvisoEntrada: 1,paginaID:Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                $Patio.Patio.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                    result = modificarResultTextoKendoCombobox("PatioID", result, $("#language").data("kendoDropDownList").value());
                     ControlErroresObjetosComboBox("PatioID", result);
                 });
             };
@@ -1425,15 +1440,19 @@
 
 
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
-                    ControlErroresObjetosComboBox("Tracto", result);
-                });
+                if (typeof (Transportista[0]) != undefined && typeof (Transportista[0].TransportistaID) != undefined) {
+                    $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+                        ControlErroresObjetosComboBox("Tracto", result);
+                    });
+                }
             };
 
             function ObtenerCliente() {
-                $Cliente.Cliente.read({ token: Cookies.get("token"), patioID:Patio[0].PatioID }).done(function (result) {
-                    ControlErroresObjetosComboBox("ClienteID", result);
-                });
+                if (typeof (Patio[0]) != undefined && typeof (Patio[0].PatioID) != undefined) {
+                    $Cliente.Cliente.read({ token: Cookies.get("token"), patioID: Patio[0].PatioID }).done(function (result) {
+                        ControlErroresObjetosComboBox("ClienteID", result);
+                    });
+                }
             };
 
             function ObtenerTipoAviso() {

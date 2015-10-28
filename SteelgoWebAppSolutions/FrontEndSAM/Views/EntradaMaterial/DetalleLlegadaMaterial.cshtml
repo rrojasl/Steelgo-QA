@@ -747,12 +747,14 @@
 
         function ObtenerProveedor() {
             $Proveedor.Proveedor.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                result = modificarResultTextoKendoCombobox("ProveedorID", result, $("#language").data("kendoDropDownList").value());
                 ControlErroresObjetosComboBox("ProveedorID", result);
             });
         };
 
         function ObtenerPatio() {
             $Patio.Patio.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                result = modificarResultTextoKendoCombobox("PatioID", result, $("#language").data("kendoDropDownList").value());
                 ControlErroresObjetosComboBox("PatioID", result);
             });
         };

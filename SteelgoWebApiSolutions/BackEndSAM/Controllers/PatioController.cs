@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PatioController : ApiController
     {
-        public object Get(string esAvisoEntrada, int paginaID, string token)
+        public object Get(string esAvisoEntrada, int paginaID, string token,string idioma="")
         {
             string payload = "";
             string newToken = "";
