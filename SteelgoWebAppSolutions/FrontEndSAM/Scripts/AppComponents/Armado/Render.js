@@ -139,13 +139,24 @@ function RenderComboBoxNumeroUnico2(container, options) {
          });
 };
 
+
+function grid_saveChanges(e) {
+    if (!confirm("Are you sure you want to save all changes?")) {
+        e.preventDefault();
+    }
+}
+
+
 function RenderGridDetalle(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
     //alert("registros actuales" + options.model.DetalleAdicional.length);
-   
 
-    $('<div id=' + options.model.SpoolID + '' + options.model.Junta + '/>')
+    console.log("modelo de la fila seleccionada");
+    console.log(options.model.ListaDetalleTrabajoAdicional);
+
+
+    $('<div name=' + options.model.SpoolID + '' + options.model.Junta + '/>')
   .appendTo(container)
   .kendoGrid({
 
@@ -155,7 +166,7 @@ function RenderGridDetalle(container, options) {
           schema: {
               model: {
                   fields: {
-                      IdTrabajoAdicional: { type: "int", editable: false },
+                     
                       Accion: { type: "int", editable: false },
                       ArmadoTrabajoAdicionalID: { type: "string", editable: false },
                       JuntaArmadoID: { type: "int", editable: false },
@@ -169,70 +180,71 @@ function RenderGridDetalle(container, options) {
           }
       },
       selectable: true,
-      edit: function (e) {
-          var input = e.container.find(".k-input");
-          var value = input.val();
+      dataBinding: function(e) {
+              console.log("dataBinding");
+          },
+      change: function (e) {
+
           actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
           options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
+          if (ItemSeleccionado.JuntaArmadoID != 0)
+              ItemSeleccionado.Accion = 2;
 
-          input.blur(function (e) {
-              //   alert("blur");
-          });
-          input.focus(function () {
-              console.log(ItemSeleccionado.Accion);
-              if (ItemSeleccionado.JuntaArmadoID != 0)
-                ItemSeleccionado.Accion = 2;
-              console.log(ItemSeleccionado.Accion);
-          });
       },
       columns: [
-        { field: "TrabajoAdicional", title: 'Trabajo', filterable: true, width: "100px" },
+        { field: "TrabajoAdicional", title: 'Trabajo', editor: RenderComboBoxTrabajoAdicional, filterable: true, width: "100px" },
         { field: "Observacion", title: 'Observacion', filterable: true, width: "100px" },
-       {
-           command: [{
-               name: "Eliminar",
-               text: "-",
-               click: function (e) {
-                   e.preventDefault();
-                   var dataItem = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-                   if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+        {
+            command: [{
+                name: "Eliminar",
+                text: "-",
+                click: function (e) {
+                    e.preventDefault();
+                    var dataItem = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
 
-                       var dataSource = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource;
+                        var dataSource = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource;
 
-                       if (dataItem.JuntaArmadoID == "1")
-                           dataSource.remove(dataItem);
+                        if (dataItem.JuntaArmadoID == "1")
+                            dataSource.remove(dataItem);
 
-                       dataItem.Accion = 3;
-                       
-                       //var filter
+                        dataItem.Accion = 3;
 
-                       //filter= {
-                           
-                       //    logic: "or",
-                       //    filters: [
-                       //      { field: "Accion", operator: "eq", value: 1 },
-                       //      { field: "Accion", operator: "eq", value: 2 }
-                       //    ]
-                       //}
+                        //var filter
 
-                       //dataSource.filter(filter);
+                        //filter= {
 
-                       actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
+                        //    logic: "or",
+                        //    filters: [
+                        //      { field: "Accion", operator: "eq", value: 1 },
+                        //      { field: "Accion", operator: "eq", value: 2 }
+                        //    ]
+                        //}
 
-                       // if (anteriorlongitudTrabajosAdicionales < actuallongitudTrabajosAdicionales)
-                       options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
-                      // dataSource.sync();
-                   }
-               }
-           }], width: "60px"
-       }
-      ],
-      editable: true,
+                        //dataSource.filter(filter);
+
+                        actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
+
+                        // if (anteriorlongitudTrabajosAdicionales < actuallongitudTrabajosAdicionales)
+                        options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+                        // dataSource.sync();
+                    }
+                }
+            }], width: "60px"
+        }
+      ], saveChanges: function (e) {
+          if (!confirm("Are you sure you want to save all changes?")) {
+              e.preventDefault();
+          }
+      },
+      editable: "incell",
       navigatable: true,
-      toolbar: [{name: "create"}]
+      toolbar: [{ name: "create" }]
   });
 
-    $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource.sync();
+
+
+
 };
 
 function RenderComboBoxTrabajoAdicional(container, options) {
@@ -247,41 +259,33 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
-                options.model.Accion = 1;
-                options.model.TrabajoAdicional = dataItem.NombreCorto;
                 options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
+                options.model.Accion =dataItem.JuntaArmadoID==undefined  ?1: dataItem.Accion;
+                options.model.TrabajoAdicional = dataItem.NombreCorto;
                 options.model.Observacion = dataItem.Observacion;
-            },
-            change: onChange
+            }
+            ,
+            change: function (e)
+            {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                options.model.TrabajoAdicionalID = options.model.TrabajoAdicionalID;
+                options.model.Accion = options.model.Accion;
+                options.model.TrabajoAdicional = dataItem.NombreCorto;
+                options.model.Observacion = dataItem.Observacion;
+            }
         });
-
+   
 };
 
 
 function onChange(e) {
-    var value = $("#color").val();
-    $("#cap")
-        .toggleClass("black-cap", value == 1)
-        .toggleClass("orange-cap", value == 2)
-        .toggleClass("grey-cap", value == 3);
+    //var value = $("#color").val();
+    //$("#cap")
+    //    .toggleClass("black-cap", value == 1)
+    //    .toggleClass("orange-cap", value == 2)
+    //    .toggleClass("grey-cap", value == 3);
+
+    // $("#grid").data("kendoGrid").dataSource.sync();
 };
-//function RenderComboBoxTrabajoAdicional(container, options, data) {
 
 
-//    var dataAsignado = data == undefined ? ItemSeleccionado.listadoTrabajosAdicionalesXJunta : data;
-//    var input = $('<input/>')
-//    input.appendTo(container)
-//    input.kendoComboBox({
-//        autoBind: true,
-//        placeholder: "select...",
-//        suggest: true,
-//        dataTextField: "NombreCorto",
-//        dataValueField: "TrabajoAdicionalID",
-//        dataSource: dataAsignado,
-//        change: function (e) {
-//            var dataItem = this.dataItem();
-//           // options.model[fieldName]['rego'] = dataItem.rego;
-//           // options.model.set(fieldName + '.display', dataItem.display);
-//        }
-//    });
-//}

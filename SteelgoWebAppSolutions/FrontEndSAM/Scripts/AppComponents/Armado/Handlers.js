@@ -6,7 +6,20 @@
     suscribirEventoCancelar();
     SuscribirEventoTubero();
     SuscribirEventoTaller();
+    suscribirEventoChangeRadio();
 };
+
+
+function suscribirEventoChangeRadio()
+{
+    $('input:radio[name=Muestra]:nth(0)').change(function () {
+        AjaxJunta($("#InputID").val())
+    });
+    $('input:radio[name=Muestra]:nth(1)').change(function () {
+        AjaxJunta($("#InputID").val())
+    });
+  
+}
 
 function suscribirEventoGuardar() {
     $('#btnGuardar').click(function (e) {

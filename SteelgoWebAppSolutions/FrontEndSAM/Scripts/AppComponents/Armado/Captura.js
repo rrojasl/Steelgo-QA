@@ -420,11 +420,8 @@ function eliminarCaptura(e) {
 };
 
 function changeLanguageCall() {
-
-
-
     AjaxCargarFechaArmado();
     CargarGridArmado();
-
+    $('#grid').data('kendoGrid').dataSource.read();
 };
 
