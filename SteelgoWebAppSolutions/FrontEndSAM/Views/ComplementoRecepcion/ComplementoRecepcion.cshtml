@@ -372,13 +372,13 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
+                if (!value || !e.sender.current()) {
                     messageindexKendoCombobox(this);
                     this.value("");
-                };
-               
-                changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
-                $('#grid').data('kendoGrid').refresh();
+                }else{
+                    changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
+                    $('#grid').data('kendoGrid').refresh();
+                }
             },
 
             filter: "contains",
@@ -392,8 +392,9 @@
                 if (this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     this.value("");
+                }else{
+                    changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
                 }
-                changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
             },
             filter: "contains",
         });
@@ -455,7 +456,7 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
+                if (!value || !e.sender.current()) {
                     messageindexKendoCombobox(this);
                     this.value("");
                 };
@@ -595,8 +596,9 @@
                 if (this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     this.value("");
+                } else {
+                    changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
                 };
-                changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
             },
             filter: "contains",
         });
@@ -615,8 +617,10 @@
                 if (this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     this.value("");
+                } else {
+                    changeValueColumnEstatusDocumental($("#EstatusDocumental").data("kendoComboBox").text());
                 };
-                changeValueColumnEstatusDocumental($("#EstatusDocumental").data("kendoComboBox").text());
+                
             },
             filter: "contains",
         });
