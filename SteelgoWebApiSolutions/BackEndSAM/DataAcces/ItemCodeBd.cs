@@ -64,17 +64,17 @@ namespace BackEndSAM.DataAcces
                 {
                     using (DatabaseManager.Sam2.Sam2Context ctx2 = new DatabaseManager.Sam2.Sam2Context())
                     {
-                        if ((bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Item Code", paginaID))
-                        {
-                            if (idioma == "en-US")
-                            {
-                                IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Add new" });
-                            }
-                            else
-                            {
-                                IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
-                            }
-                        }
+                        //if ((bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Item Code", paginaID))
+                        //{
+                        //    if (idioma == "en-US")
+                        //    {
+                        //        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Add new" });
+                        //    }
+                        //    else
+                        //    {
+                        //        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                        //    }
+                        //}
 
                         IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto" });
 
