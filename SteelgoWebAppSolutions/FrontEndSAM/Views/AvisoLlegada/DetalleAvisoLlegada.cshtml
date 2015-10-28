@@ -690,8 +690,6 @@
                 });
                
                 ObtenerFechaDefault();
-
-               
             };
 
             function onUpload(e) {
@@ -1035,6 +1033,8 @@
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                         ObtenerChoferEdicion(data.Transportista[0].TransportistaID);
                         $("#ChoferID").data("kendoComboBox").enable(false);
+                        ObtenerCamionEntradaMaterial();
+                        ObtenerPlanasEdicon(data);
                     }
 
                     if (data.Cliente) {
@@ -1364,20 +1364,32 @@
                 });
             };
 
+            
+            function ObtenerPlanasEdicon(data) {
+                var concatPlanas = "";
+                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+                    ControlErroresObjetosMultiselect("PlanaID", result);
+                    $.each(data.Plana, function (index, value) {
+                        concatPlanas += "," + value.PlanaID;
+                    });
+                    $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
+                });
+            };
             function ObtenerPlanas() {
                 $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("PlanaID", result);
                 });
             };
-
             function ObtenerTransportista() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                    result = modificarResultTextoKendoCombobox("TransportistaID", result, $("#language").data("kendoDropDownList").value());
                     ControlErroresObjetosComboBox("TransportistaID", result);
                 });
             };
 
             function ObtenerPatio() {
-                $Patio.Patio.read({ esAvisoEntrada: 1,paginaID:Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                $Patio.Patio.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                    result = modificarResultTextoKendoCombobox("PatioID", result, $("#language").data("kendoDropDownList").value());
                     ControlErroresObjetosComboBox("PatioID", result);
                 });
             };
