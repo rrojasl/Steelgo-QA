@@ -314,6 +314,19 @@
 
                 }
             };
+
+            var $ColadaModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: "",
+                    createIncidence: ""
+                },
+                properties: {
+
+                }
+            };
     };
 
     function ItemsSumarDuplicados(){
@@ -1071,6 +1084,12 @@
                 if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["detail"]) {
                     $("#menu").empty();
                     e.preventDefault();
+                }
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["create"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["create"]) {
+                    $("#NuevoItemCode").empty();
+                }
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Colada"] != 'undefined') && (typeof returnOfSecurityCheck["Colada"]["create"] != 'undefined') && !returnOfSecurityCheck["Colada"]["create"]) {
+                    $("#NuevaColada").empty();
                 }
             });
 
@@ -2825,6 +2844,8 @@
             $authorizationModel["Orden Recepcion"] = $OrdenRecepcionModel
             $authorizationModel["Cuantificacion"] = $CuantificacionModel;
             $authorizationModel["Item Code"] = $ItemCodeModel;
+            $authorizationModel["Colada"] = $ColadaModel;
+            
     }
 
     @section JavascriptDocumentReadyHomeCookie {
