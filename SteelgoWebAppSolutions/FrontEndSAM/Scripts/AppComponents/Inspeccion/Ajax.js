@@ -1,9 +1,10 @@
-﻿var TipoObrero = 3;
+﻿var TipoObrero = "Inspector Visual Dimensional";
+var TipoConsultaObrero = 2;
 var TipoPrueba = "Inspección dimensional";
 var CampoFechaPredeterminada = 4;
 
 function AjaxObtenerListaInspector() {
-    $Obrero.Obrero.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], tipo: TipoObrero, token: Cookies.get("token") }).done(function (data) {
+    $Obrero.Obrero.read({ idProyecto: 0, tipo: TipoConsultaObrero, token: Cookies.get("token"), TipoObrero: TipoObrero }).done(function (data) {
         loadingStart();
         $("#inputInspector").data("kendoComboBox").value("");
         $("#inputInspector").data("kendoComboBox").dataSource.data(data)
@@ -11,6 +12,7 @@ function AjaxObtenerListaInspector() {
     });
 }
 function AjaxObtenerListaDefectos() {
+
     $Defectos.Defectos.read({ lenguaje: $("#language").val(), TipoPrueba: TipoPrueba, token: Cookies.get("token") }).done(function (data) {
         loadingStart();
         $("#inputDefecto").data("kendoComboBox").value("");
@@ -19,14 +21,10 @@ function AjaxObtenerListaDefectos() {
     });
 }
 function AjaxCargarFechaInspeccionDimencional() {
-        var valor = $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaPredeterminada }).done(function (data) {
+    $ListadoCamposPredeterminados.ListadoCamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaPredeterminada }).done(function (data) {
         loadingStart();
-       
-        var NewDate = kendo.toString(valor, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
-
+        var NewDate = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         endRangeDate.val(NewDate);
-
-      
         loadingStop();
     });
 };
@@ -45,25 +43,20 @@ function AjaxObtenerSpoolID() {
     }
 }
 function AjaxJunta(spoolID) {
-    $CapturasRapidas.CapturasRapidas.read({ id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
+    $CapturasRapidas.CapturasRapidas.read({ id: spoolID, sinCaptura: 'todos', token: Cookies.get("token") }).done(function (data) {
         loadingStart();
         $("#Junta").data("kendoComboBox").value("");
         $("#Junta").data("kendoComboBox").dataSource.data(data)
         loadingStop();
     });
 }
-
-
-
-
-
 function ObtenerJSonGrid() {
 
     loadingStart();
     if (ExisteJunta()) {
         try {
 
-            $CapturaArmado.Armado.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token") }).done(function (data) {
+            $Inspeccion.Inspeccion.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
 
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 var array = JSON.parse(data);
@@ -72,7 +65,7 @@ function ObtenerJSonGrid() {
                     array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
                     array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
                     ds.add(array[i]);
-                    // AplicarAsignacionAutomaticaNumeroUnico(array[i], "" , dataItem, 0);
+                  
                 }
             });
 
@@ -86,5 +79,10 @@ function ObtenerJSonGrid() {
     loadingStop();
 
 }
+
+
+
+
+
 function AjaxGuardar()
 { }

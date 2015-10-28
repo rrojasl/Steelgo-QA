@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackEndSAM.Models.Inspeccion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DatabaseManager.Sam3;
@@ -6,22 +7,25 @@ using SecurityManager.Api.Models;
 
 namespace BackEndSAM.DataAcces
 {
-    public class CapturasRapidasBd
+    /// <summary>
+    /// Clase que contiene funciones relacionadas con los avisos de Llegada 
+    /// </summary>
+    public class InspeccionBD
     {
         private static readonly object _mutex = new object();
-        private static CapturasRapidasBd _instance;
+        private static InspeccionBD _instance;
 
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
-        private CapturasRapidasBd()
+        private InspeccionBD()
         {
         }
 
         /// <summary>
         /// crea una instancia de la clase
         /// </summary>
-        public static CapturasRapidasBd Instance
+        public static InspeccionBD Instance
         {
             get
             {
@@ -29,27 +33,28 @@ namespace BackEndSAM.DataAcces
                 {
                     if (_instance == null)
                     {
-                        _instance = new CapturasRapidasBd();
+                        _instance = new InspeccionBD();
                     }
                 }
                 return _instance;
             }
         }
         /// <summary>
-        /// obtiene la orden de trabajo con formato bueno y los spools que le corresponden
+        /// Obtiene el detalle de la junta con respecto  la inspeccion
         /// </summary>
-        /// <param name="ordentrabajo">Orden de trabajo</param>
-        /// <param name="tipo">Tipo de ejecucion en el stord</param>
+        /// <param name="JsonCaptura"></param>
+        /// <param name="usuario"></param>
+        /// <param name="Lenguaje"></param>
         /// <returns></returns>
-        public object ObtenerIDOrdenTrabajo(string ordentrabajo, int tipo)
+        public object ObtenerDetalleJunta(CapturaVisualDimensional.DetalleDatosJson JsonCaptura, Sam3_Usuario usuario, string Lenguaje)
         {
+
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SpoolID_Result> lista = ctx.Sam3_Steelgo_Get_SpoolID(tipo, ordentrabajo).ToList();
-                    return lista;
-
+                    List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Inspeccion_Get_DetalleJunta(int.Parse(JsonCaptura.JuntaID),Lenguaje).ToList();
+                    return listaDetalleDatosJson;
                 }
             }
             catch (Exception ex)
@@ -64,20 +69,20 @@ namespace BackEndSAM.DataAcces
             }
         }
         /// <summary>
-        /// obtiene las juntas que tiene la orden de trabajo
+        /// Retorna el listado de numeros unicos ¿
         /// </summary>
-        /// <param name="usuario">usuario</param>
-        /// <param name="id">identificador de la Orden de trabajo Spool</param>
-        /// <param name="sinCaptura">indica si retorna todas las juntas o solo las pendientes de capturar</param>
+        /// <param name="JsonCaptura"></param>
+        /// <param name="usuario"></param>
         /// <returns></returns>
-        public object ObtenerJuntasXSpoolID(string id, int sinCaptura)
+        public object listaNumeroUnicos(CapturaVisualDimensional.DetalleDatosJson JsonCaptura, Sam3_Usuario usuario)
         {
+
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_JuntaSpool_Result> lista = ctx.Sam3_Steelgo_Get_JuntaSpool(sinCaptura, int.Parse(id)).ToList();
-                    return lista;
+                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(int.Parse(JsonCaptura.JuntaID), 1).ToList();
+                    return listaDetallaTrabajoAdicionalJson;
                 }
             }
             catch (Exception ex)
@@ -87,6 +92,7 @@ namespace BackEndSAM.DataAcces
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
+
                 return result;
             }
         }

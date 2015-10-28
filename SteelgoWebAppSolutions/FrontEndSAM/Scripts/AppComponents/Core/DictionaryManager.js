@@ -3,7 +3,7 @@
     "en-US": 1
 }
 
-_dictionary = {    
+_dictionary = {
     //Login Page Labels
     "loginLabel0001": {
         "es-MX": "Inicio de Sesión",
@@ -2038,8 +2038,8 @@ _dictionary = {
         "es-MX": "Imprimir Etiquetas",
         "en-US": "Print Labels"
     },
-   
-//Detalle Orden Recepcion
+
+    //Detalle Orden Recepcion
     "DetalleOrdenRecepcion0001": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -2132,7 +2132,7 @@ _dictionary = {
         "es-MX": "Generar Orden Almacenaje",
         "en-US": "Generate Storage Order"
     },
-//Orden de Alamacenaje
+    //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
         "es-MX": "Folio Orden de Almacenaje: ",
         "en-US": "Order storage: "
@@ -2217,7 +2217,7 @@ _dictionary = {
         "es-MX": "Detalle Orden de Almacenaje",
         "en-US": "Detail Order Storage"
     },
-//Listado de Orden de Almacenaje
+    //Listado de Orden de Almacenaje
     "ListadoOrdenAlmacenaje0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -2306,7 +2306,7 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
-//Generar Orden Almacenaje
+    //Generar Orden Almacenaje
     "GenerarOrdenAlmacenaje0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -2415,7 +2415,7 @@ _dictionary = {
         "es-MX": "Numero Unico",
         "en-US": "Unique Number"
     },
-//Dashboard Recepcion y Almacenaje
+    //Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -2600,7 +2600,7 @@ _dictionary = {
         "es-MX": "Cantidad de incidencias",
         "en-US": "Number of incidents"
     },
-//Listados Recepcion y Almacenaje
+    //Listados Recepcion y Almacenaje
     "ListadoRecepcionAlmacenajeTuberia0001": {
         "es-MX": "Cliente",
         "en-US": "Client"
@@ -3659,7 +3659,7 @@ _dictionary = {
     "notificationslabel0053": {
         "es-MX": "El folio cuantificacion no tiene registros para realizar la acción.",
         "en-US": "Folio quantification has no records to perform the action."
-    }, 
+    },
     "notificationslabel0054": {
         "es-MX": "Favor de seleccionar un Folio de llegada.",
         "en-US": ""
@@ -3674,21 +3674,21 @@ _dictionary = {
         "en-US": ""
     },
     //#region Genericos
-    "botonCancelarPQR": {
+    "botonCancelar": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-    "botonGuardarPQR": {
+    "botonGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
-    "botonAgregarPQR": {
+    "botonAgregar": {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
     "FormatoFecha": {
-        "es-MX": "dd/mm/yyyy",
-        "en-US": "mm/dd/yyyy"
+        "es-MX": "{0: dd/MM/yyyy}",
+        "en-US": "{0: MM/dd/yyyy}"
     },
     //#endregion
     //#region Trabajos adicionales
@@ -3832,9 +3832,6 @@ _dictionary = {
         "en-US": "----"
     },
     //#endregion 
-
-
-
     //#region PQR
     //#region Grid
     "lblPQRNombre": {
@@ -3895,7 +3892,7 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
-   
+
     "lblAccionEditaPQR": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -3911,8 +3908,6 @@ _dictionary = {
     },
     //#endregion
     //#endregion
-
-
     //#region Armado   
     //#region Captura
     "LabelHeaderArmado": {
@@ -4023,16 +4018,78 @@ _dictionary = {
     },
     "CapturaArmadoHeaderNumeroUnico1": {
         "es-MX": "Número único 1",
-        "en-US": "Single Number 1"
+        "en-US": "Unique Number 1"
     },
     "CapturaArmadoHeaderNumeroUnico2": {
         "es-MX": "Número único 2",
-        "en-US": "Single Number 2"
+        "en-US": "Unique Number 2"
     },
     "CapturaArmadoHeaderAdicionales": {
         "es-MX": "Adicionales",
         "en-US": "Additional"
     },
     //#endregion
+    //#endregion
+    //#region Inspeccion
+    "DimensionalVisualHeaderSpoolID": {
+        "es-MX": "SpoolID",
+        "en-US": "SpoolID"
+    },
+    "DimensionalVisualHeaderJunta": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "DimensionalVisualHeaderResultadoDimesional": {
+        "es-MX": "Resultado dimensional",
+        "en-US": "Dimensional result"
+    },
+    "VisualDimensionalAporbado": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "VisualDimensionalRechazado": {
+        "es-MX": "Rechazado",
+        "en-US": "Rejected"
+    },
+    "DimensionalVisualHeaderDefectoDimesional": {
+        "es-MX": "Defecto Dimensional",
+        "en-US": "Dimensional defect"
+    },
+    "DimensionalVisualHeaderInspectorDimesional": {
+        "es-MX": "Inspector",
+        "en-US": "Checker"
+    },
+    "DimensionalVisualHeaderFechaDimesional": {
+        "es-MX": "Fecha de Inspepcción",
+        "en-US": "Inspection date"
+    },
+    "DimensionalVisualHeaderTipoJunta": {
+        "es-MX": "Tipo junta",
+        "en-US": "Joint type"
+    },
+    "DimensionalVisualHeaderDiametro": {
+        "es-MX": "Diametro",
+        "en-US": "diameter"
+    },
+    "DimensionalVisualHeadeResultado": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "DimensionalVisualHeadeTaller": {
+        "es-MX": "Taller",
+        "en-US": "workshop"
+    },
+    "DimensionalVisualHeaderDefecto": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
+    "DimensionalVisualNumeroUnico1": {
+        "es-MX": "Único 1",
+        "en-US": "Unique 1"
+    },
+    "DimensionalVisualNumeroUnico2": {
+        "es-MX": "Único 2",
+        "en-US": "Unique 2"
+    },
     //#endregion
 };

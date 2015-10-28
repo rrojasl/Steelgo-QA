@@ -218,6 +218,6 @@ $ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
 //#endregion
 //#region Capturas rapidas
 $CapturasRapidas.add("CapturasRapidas");
-$Inspeccion.add("InspeccionVisualDimensional");
+$Inspeccion.add("Inspeccion");
 //#endregion
 //#endregion
