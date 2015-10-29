@@ -930,10 +930,7 @@
         function HabilitarObtenerDocumentosLlegadaMaterialUploadFiles() {
             $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
                 loadingStart();
-                console.log("res");
-                console.log(result);
                 if (Error(result)) {
-                    console.log("si");
                     var contador = 0;
                     if (result.length > 0) {
                         $("#listaArchivos tbody").empty();
@@ -941,12 +938,6 @@
                             contador += 1;
                             $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                         });
-
-                        console.log("hidden");
-                        console.log($("#hdnCantidadArchivos").val());
-                        console.log("contador");
-                        console.log(contador);
-
                         if ($("#hdnCantidadArchivos").val() == contador) {
                             limpiarUploadFiles();
                             displayMessage("notificationslabel0084", '', '2');
