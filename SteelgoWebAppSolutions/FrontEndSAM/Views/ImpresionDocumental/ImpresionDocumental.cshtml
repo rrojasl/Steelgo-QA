@@ -197,8 +197,8 @@
             },
             columns: [
                 { field: "TipoMaterial", title: _dictionary.ImpresionDocumental0006[$("#language").data("kendoDropDownList").value()] },
-                { field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()]},
-                //{ field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"MostrarDetalle('#=TipoMaterial#','#=ItemCodeSteelgo#')\">#:ItemCodeSteelgo#</a>" },
+                { field: "MaterialSpoolID", title: _dictionary.ImpresionDocumental0011[$("#language").data("kendoDropDownList").value()], hidden: true },
+                { field: "ItemCodeSteelgo", title: _dictionary.ImpresionDocumental0007[$("#language").data("kendoDropDownList").value()], template: "<a class='detailLink' onclick=\"MostrarDetalle('#=MaterialSpoolID#','#=TipoMaterial#')\">#:ItemCodeSteelgo#</a>" },
                 { field: "Cantidad", title: _dictionary.ImpresionDocumental0008[$("#language").data("kendoDropDownList").value()] }
             ],
             dataBound: function (e) {
@@ -281,11 +281,10 @@
         return bool;
     };
 
-    function MostrarDetalle(tipomaterial, itemcodesteelgo) {
-
+    function MostrarDetalle(materialSpoolID, tipomaterial) {
         switch (tipomaterial) {
             case "Tubo":
-                window.location.href = _UrlCorte + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + NumeroControl.NumeroControlID + "&ProyectoID=" + Proyecto.ProyectoID + "&ItemCodeSteelgo=" + itemcodesteelgo + "&MaterialPendiente=1";
+                window.location.href = _UrlCorte + "?leng=" + $("#language").data("kendoDropDownList").value() + "&MaterialSpoolID=" + materialSpoolID + "&MaterialPendiente=1";
                 break;
             case "Accesorio":
                 window.location.href = _UrlDespacho + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + NumeroControl.NumeroControlID + "&NumeroControl=" + NumeroControl.NumeroControl + "&ProyectoID=" + Proyecto.ProyectoID;

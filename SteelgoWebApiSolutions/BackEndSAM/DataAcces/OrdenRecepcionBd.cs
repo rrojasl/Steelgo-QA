@@ -635,11 +635,12 @@ namespace BackEndSAM.DataAcces
                         foreach (Sam3_ItemCode item in lstItems)
                         {
                             //traemos la confiduracion del proyecto registrado en el ItemCode
-                            configuracion = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
-                               .AsParallel().FirstOrDefault();
+                           
+                                configuracion = ctx.Sam3_ProyectoConfiguracion.Where(x => x.ProyectoID == item.ProyectoID)
+                                   .AsParallel().FirstOrDefault();
 
-                            consecutivos = ctx.Sam3_ProyectoConsecutivo.Where(x => x.ProyectoID == item.ProyectoID)
-                               .AsParallel().FirstOrDefault();
+                                consecutivos = ctx.Sam3_ProyectoConsecutivo.Where(x => x.ProyectoID == item.ProyectoID)
+                                   .AsParallel().FirstOrDefault();
 
                             folio = consecutivos.ConsecutivoNumerounico;
 

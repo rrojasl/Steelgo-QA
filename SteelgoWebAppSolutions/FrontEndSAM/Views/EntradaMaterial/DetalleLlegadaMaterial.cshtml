@@ -150,6 +150,7 @@
 </div>
 <input id="hdnOrdenDescargada" type="hidden" />
 <input id="hdnNavegacion" type="hidden" value="" />
+<input id="hdnCantidadArchivos" type="hidden" value="0" />
 <script type="text/javascript">
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptGlobalVariables {
@@ -240,14 +241,23 @@
             options.localization=getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             $("#AdjuntarArchivosDiv").append("<input type='file' id='AdjuntarArchivos'>");
             $("#AdjuntarArchivos").kendoUpload(options);
-            if (folioLlegada != -1 && folioLlegada != 0 || (_esAlta=="-1" && folioAvisoLlegada!="-1")) {
-                BotonAlta();
-            } else {
-                BotonEdicion();
-            };
+           
+            //if (folioLlegada != -1 && folioLlegada != 0 || (_esAlta == "-1" && folioAvisoLlegada != "-1")) {
+            //    BotonAlta();
+            //} else {
+            //    BotonEdicion();
+            //};
+            var arr = arregloKendoCombobox();
+            modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
         };
 
-    function CargaInicial() {
+        function arregloKendoCombobox() {
+            var arr = new Array($("#ProveedorID"), $("#PatioID"));
+            return arr;
+        };
+
+        
+        function CargaInicial() {
             $("#IrIncidencia").click(function () { Incidencias(); });
             $("#GenerarOrdenDescarga").click(function (e) {
                if (folioLlegada == -1) {
@@ -444,13 +454,13 @@
             $('#AdjuntarArchivos').kendoUpload({
                 async: {
                     ////VAlida que este tomando todos los parametros por favor
-                    saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioLlegada + + "&token=" + Cookies.get("token"),
+                    saveUrl: $DocumentoLlegadaMaterialUploadFiles + folioLlegada + "&token=" + Cookies.get("token"),
                     autoUpload: false,
                     withCredentials: false,
                     batch: true
                 },
                 success: function (data) {
-                    HabilitarObtenerDocumentosLlegadaMaterial();
+                    HabilitarObtenerDocumentosLlegadaMaterialUploadFiles();
                 },
                 error: function (data) { },
                 upload: onUploadAdjuntarArchivos,
@@ -737,12 +747,14 @@
 
         function ObtenerProveedor() {
             $Proveedor.Proveedor.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                result = modificarResultTextoKendoCombobox("ProveedorID", result, $("#language").data("kendoDropDownList").value());
                 ControlErroresObjetosComboBox("ProveedorID", result);
             });
         };
 
         function ObtenerPatio() {
             $Patio.Patio.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                result = modificarResultTextoKendoCombobox("PatioID", result, $("#language").data("kendoDropDownList").value());
                 ControlErroresObjetosComboBox("PatioID", result);
             });
         };
@@ -873,6 +885,14 @@
             });
         };
 
+        function limpiarUploadFiles() {
+            $(".k-upload-files").remove();
+            $(".k-upload-status").remove();
+            $(".k-upload-selected").remove();
+            $(".k-upload.k-header").addClass("k-upload-empty");
+            $(".k-upload-button").removeClass("k-state-focused");
+        };
+
         function Incidencias() {
             window.open(_incidenciasURL + "?leng=" + $("#language").data("kendoDropDownList").value() + "&LevantarIncidencia=1&ReferenciaID=" + folioLlegada + "&TipoIncidencia=2&Clasificacion=1");
         };
@@ -906,6 +926,37 @@
                 loadingStop();
             });
         };
+
+        function HabilitarObtenerDocumentosLlegadaMaterialUploadFiles() {
+            $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.read({ folio: folioLlegada, token: Cookies.get("token") }).done(function (result) {
+                loadingStart();
+                if (Error(result)) {
+                    var contador = 0;
+                    if (result.length > 0) {
+                        $("#listaArchivos tbody").empty();
+                        $.each(result, function (index, value) {
+                            contador += 1;
+                            $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        });
+                        if ($("#hdnCantidadArchivos").val() == contador) {
+                            limpiarUploadFiles();
+                            displayMessage("notificationslabel0084", '', '2');
+                        } else {
+                            $("#hdnCantidadArchivos").val(contador);
+                        }
+                    } else {
+                        if ($("#hdnCantidadArchivos").val() == contador) {
+                            limpiarUploadFiles();
+                            displayMessage("notificationslabel0084", '', '2');
+                        } else {
+                            $("#hdnCantidadArchivos").val(contador);
+                        }
+                    }
+                };
+                loadingStop();
+            });
+        };
+
 
         function GuardarLlegadaMaterial(bool) {
             //Arreglo Llegada Material
@@ -1089,6 +1140,7 @@
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
             
             DesahabilitarObtenerDocumentosLlegadaMaterial();
+            applySecurityPolicy(false);
         };
         
         function validarRequeridosModalPatio() {
@@ -1332,13 +1384,14 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
     CargaInicial();
-        if (folioAvisoLlegada != -1)
-        {
-            CargaInicialEdicion(folioAvisoLlegada);
-        }
-        $("#hdnNavegacion").val(Cookies.get("navegacion"));
-       
-        
+
+
+    if (folioAvisoLlegada != -1)
+    {
+        CargaInicialEdicion(folioAvisoLlegada);
+    }
+    $("#hdnNavegacion").val(Cookies.get("navegacion"));
+
     };
 
     @section JavascriptDocumentReadyHomeCookie {

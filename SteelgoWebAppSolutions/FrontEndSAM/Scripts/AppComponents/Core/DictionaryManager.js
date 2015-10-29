@@ -224,8 +224,8 @@ _dictionary = {
         "en-US": "Listing Receiving Order"
     },
     "menuLabel0029": {
-        "es-MX": "Generar Orden de Recepción",
-        "en-US": "Generation Receiving Order"
+        "es-MX": "Orden de Recepción",
+        "en-US": "Receiving Order"
     },
     "menuLabel0030": {
         "es-MX": "Detalle de Orden de Recepción",
@@ -338,6 +338,10 @@ _dictionary = {
     "menuLabel1061": {
         "es-MX": "Comunicación",
         "en-US": "Communication"
+    },
+    "menuLabel1067": {
+        "es-MX": "Pre Despacho",
+        "en-US": "Pre Dispatch"
     },
     //QuickLinks Defaults
     "quickLabel0001": {
@@ -2210,6 +2214,10 @@ _dictionary = {
         "es-MX": "Nuevo Item Code",
         "en-US": "New Item Code"
     },
+    "Cuantificacion0090": {
+        "es-MX": "Nueva Colada",
+        "en-US": "New Wash"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
@@ -2360,6 +2368,22 @@ _dictionary = {
     "AutorizarPermiso0008": {
         "es-MX": "Listado de Avisos de Entrada",
         "en-US": "Entry Notices List"
+    },
+    "AutorizarPermiso0009": {
+        "es-MX": "Adjuntar Archivos",
+        "en-US": "Add Files"
+    },
+    "AutorizarPermiso0010": {
+        "es-MX": "Archivo",
+        "en-US": "File"
+    },
+    "AutorizarPermiso0011": {
+        "es-MX": "Tipo de Archivo",
+        "en-US": "File type"
+    },
+    "AutorizarPermiso0012": {
+        "es-MX": "Eliminar",
+        "en-US": "Remove"
     },
     //Dashboard Aviso Legada
     "DashboardAvisoLlegada0001": {
@@ -4974,6 +4998,150 @@ _dictionary = {
         "es-MX": "Cantidad",
         "en-US": "Quantity"
     },
+    "DashboardDespachoCorte0055": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "DashboardDespachoCorte0056": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0057": {
+        "es-MX": "Cantidad Pre-despachada",
+        "en-US": "Pre-dispatched amount"
+    },
+    "DashboardDespachoCorte0058": {
+        "es-MX": "Cantidad por Pre-despachar",
+        "en-US": "Amount per Pre-dispatching"
+    },
+    "DashboardDespachoCorte0059": {
+        "es-MX": "IC",
+        "en-US": "IC"
+    },
+    "DashboardDespachoCorte0060": {
+        "es-MX": "Descripcion IC",
+        "en-US": "Description IC"
+    },
+    "DashboardDespachoCorte0061": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DashboardDespachoCorte0062": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DashboardDespachoCorte0063": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "DashboardDespachoCorte0064": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0065": {
+        "es-MX": "Cantidad Pre-despachada",
+        "en-US": "Pre-dispatched amount"
+    },
+    "DashboardDespachoCorte0066": {
+        "es-MX": "Cantidad por Pre-despachar",
+        "en-US": "Amount per Pre-dispatching"
+    },
+    "DashboardDespachoCorte0067": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "DashboardDespachoCorte0068": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0069": {
+        "es-MX": "Cantidad Despachada",
+        "en-US": "Dispatched amount"
+    },
+    "DashboardDespachoCorte0070": {
+        "es-MX": "Cantidad Por Despachar",
+        "en-US": "Amount Per Dispatch"
+    },
+    "DashboardDespachoCorte0071": {
+        "es-MX": "IC",
+        "en-US": "IC"
+    },
+    "DashboardDespachoCorte0072": {
+        "es-MX": "Descripcion IC",
+        "en-US": "Description IC"
+    },
+    "DashboardDespachoCorte0073": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DashboardDespachoCorte0074": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DashboardDespachoCorte0075": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "DashboardDespachoCorte0076": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0077": {
+        "es-MX": "Cantidad Despachada",
+        "en-US": "Dispatched amount"
+    },
+    "DashboardDespachoCorte0078": {
+        "es-MX": "Cantidad por despachar",
+        "en-US": "Amount per dispatch"
+    },
+    "DashboardDespachoCorte0079": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "DashboardDespachoCorte0080": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0081": {
+        "es-MX": "Cantidad Entregada",
+        "en-US": "Quantity delivered"
+    },
+    "DashboardDespachoCorte0082": {
+        "es-MX": "Cantidad Por Entregar",
+        "en-US": "Amount Per Deliver"
+    },
+    "DashboardDespachoCorte0083": {
+        "es-MX": "IC",
+        "en-US": "IC"
+    },
+    "DashboardDespachoCorte0084": {
+        "es-MX": "Descripcion IC",
+        "en-US": "Description IC"
+    },
+    "DashboardDespachoCorte0085": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "DashboardDespachoCorte0086": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "DashboardDespachoCorte0087": {
+        "es-MX": "Cédula",
+        "en-US": "Cédula"
+    },
+    "DashboardDespachoCorte0088": {
+        "es-MX": "Cantidad Total",
+        "en-US": "Total Quantity"
+    },
+    "DashboardDespachoCorte0089": {
+        "es-MX": "Cantidad Entregada",
+        "en-US": "Quantity delivered"
+    },
+    "DashboardDespachoCorte0090": {
+        "es-MX": "Cantidad Por Entregar",
+        "en-US": "Amount Per Deliver"
+    },
     //Listado Corte
     "ListadoCorte0001": {
         "es-MX": "Inicio",
@@ -5063,6 +5231,10 @@ _dictionary = {
     "ImpresionDocumental0010": {
         "es-MX": "Imprimir Traveler",
         "en-US": "Print Traveler"
+    },
+    "ImpresionDocumental0011": {
+        "es-MX": "MaterialSpoolID",
+        "en-US": "MaterialSpoolID"
     },
     //Incidencias
     "Incidencias0001": {
@@ -5669,8 +5841,8 @@ _dictionary = {
         "en-US": "Please enter a valid date."
     },
     "notificationslabel0083": {
-        "es-MX": "El valor seleccionado no es válido.",
-        "en-US": "The value selected is invalid."
+        "es-MX": "El valor seleccionado no es válido en el campo ",
+        "en-US": "The value selected is invalid in the field "
     },
     "notificationslabel0084": {
         "es-MX": "Ocurrio un error al cargar el archivo.",

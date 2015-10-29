@@ -310,6 +310,13 @@
             background-color: white;
         }
 
+        .k-list-container .k-list .k-item.k-state-focused {
+            font-weight: 600;
+            color: #000000;
+            background: none;
+            background-color: #FCEED9;
+        }
+
 .k-state-hover, .k-state-focused.k-state-border-down {
     background: red;
 }
@@ -450,6 +457,10 @@
         height: 40px;
         font-size: 14px;
             color: #1B3F70;
+    }
+
+    .k-grid tbody tr td.k-state-selected {
+        background-color: transparent;
     }
 
     .k-grid.entradaMaterial tbody tr td a.k-button {

@@ -360,7 +360,7 @@
                 { field: "NumeroUnicoID", title: _dictionary.ListadoOrdenAlmacenaje0022[$("#language").data("kendoDropDownList").value()], hidden: true },
                 { field: "OrdenAlmacenaje", title: "OrdenAlmacenaje", width: "110px", hidden: true },
                 { field: "ItemCodeID", title: "ItemCodeID", width: "110px", hidden: true },
-                { field: "", title: "", width: "110px", template: "<a class='detalleLink' onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
+                { field: "", title: "", width: "110px", template: "<a class='k-grid-Cancelar' onclick='Cancelarnumerounico(this)'>Cancelar</a>" },
                 //{ command: { text: _dictionary.ListadoOrdenRecepcion0028[$("#language").data("kendoDropDownList").value()], click: CancelarItem }, title: " ", width: "99px" }
 
             ]
@@ -368,8 +368,10 @@
     }
 
     function mostrarDetalle(ordenAlmacenajeID) {
-        var detalleIdeaUrl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
-        window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + ordenAlmacenajeID;
+        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Orden Almacenaje"] != 'undefined') && (typeof returnOfSecurityCheck["Orden Almacenaje"]["detail"] != 'undefined') && returnOfSecurityCheck["Orden Almacenaje"]["detail"]) {
+            var detalleIdeaUrl = "@Url.Action("DetalleOrdenAlmacenaje", "OrdenAlmacenaje")";
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenAlmacenajeID=" + ordenAlmacenajeID;
+        }
     };
 
     function ObtenerFechasporDefecto() {
@@ -436,6 +438,26 @@
     function ObtenerFechasporPeriodo(id) {
         var fechaInicio = FechaFinal.value();
         var fechaFin = FechaFinal.value();
+
+        if (!fechaInicio) {
+            var todayInicio = new Date();
+            var curr_dateInicio = todayInicio.getDate();
+            var curr_monthInicio = todayInicio.getMonth() + 1;
+            var curr_yearInicio = todayInicio.getFullYear();
+
+            var todayInicial = new Date(curr_yearInicio, curr_monthInicio - 1, curr_dateInicio);
+            fechaInicio = kendo.parseDate(todayInicial, format);
+        }
+
+        if (!fechaFin) {
+            var todayFinal = new Date();
+            var curr_dateFinal = todayFinal.getDate();
+            var curr_monthFinal = todayFinal.getMonth() + 1;
+            var curr_yearFinal = todayFinal.getFullYear();
+
+            var todayFinal = new Date(curr_yearFinal, curr_monthFinal - 1, curr_dateFinal);
+            fechaFin = kendo.parseDate(todayFinal, format);
+        }
 
         if ($("#language").data("kendoDropDownList").value() == "es-MX") {
             format = "dd/MM/yyyy";

@@ -41,14 +41,21 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public List<Plana> ObtenerListadoPlanas(Sam3_Usuario usuario, int transportistaID, int paginaID)
+        public List<Plana> ObtenerListadoPlanas(Sam3_Usuario usuario, int transportistaID, int paginaID, string idioma)
         {
             List<Plana> results = new List<Plana>();
             using (SamContext ctx = new SamContext())
             {
                 if ((bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Plana", paginaID))
                 {
-                    results.Add(new Plana { Nombre = "Agregar nuevo", PlanaID = "0" });
+                    if (idioma == "en-US")
+                    {
+                        results.Add(new Plana { Nombre = "Add new", PlanaID = "0" });
+                    }
+                    else
+                    {
+                        results.Add(new Plana { Nombre = "Agregar nuevo", PlanaID = "0" });
+                    }
                 }
 
                 List<Plana> encontrados = (from p in ctx.Sam3_Vehiculo

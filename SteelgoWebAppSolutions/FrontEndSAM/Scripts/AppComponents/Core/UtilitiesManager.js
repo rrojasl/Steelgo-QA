@@ -104,9 +104,77 @@ function removeGrid(grid) {
 
 function messageindexKendoCombobox(obj) {
     if (obj.selectedIndex == -1) {
-        displayMessage("notificationslabel0083", "", '1');
+        var elemento = obj.list.attr("id");
+        var index = elemento.indexOf("-");
+        var valor = elemento.substring(0, index);
+
+        displayMessage("notificationslabel0083", $("#" + valor).closest("div").find("label").text(), '1');
     };
 };
+
+function modificarResultTextoKendoCombobox(id, result, lng) {
+    if (result.length > 0) {
+        switch (id) {
+            case "Tracto":
+                if (lng == "es-MX") {
+                    result[0].Placas = "Agregar nuevo";
+                } else {
+                    result[0].Placas = "Add new";
+                }
+                break;
+           default:
+                if (lng == "es-MX") {
+                    result[0].Nombre = "Agregar nuevo";
+                } else {
+                    result[0].Nombre = "Add new";
+                }
+                break;
+        }
+    };
+    return result;
+};
+function modificartextoKendoCombobox(controls, lng) {
+    $(controls).each(function (i, obj) {
+        switch ($(obj).attr("id")) {
+            case "Tracto":
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if (lng == "es-MX") {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Agregar nuevo";
+                    } else {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Placas = "Add new";
+                    }
+                    $(obj).data("kendoComboBox").refresh();
+                }
+                break;
+            case "PlanaID":
+                if ($(obj).data("kendoMultiSelect").dataSource.data().length) {
+                    if (lng == "es-MX") {
+                        $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Agregar nuevo";
+                    } else {
+                        $(obj).data("kendoMultiSelect").dataSource.data()[0].Nombre = "Add new";
+                    }
+                    $(obj).data("kendoMultiSelect").refresh();
+                }
+                break;
+            default:
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if (lng == "es-MX") {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Agregar nuevo";
+                    } else {
+                        $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Add new";
+                    }
+                    $(obj).data("kendoComboBox").refresh();
+                }
+                break;
+
+        };
+
+    });
+};
+
+function esNumero(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
 //Ajusta el tamaño de los filtros rápidos a las columnas del grid
 //Funcion: resizeFilters

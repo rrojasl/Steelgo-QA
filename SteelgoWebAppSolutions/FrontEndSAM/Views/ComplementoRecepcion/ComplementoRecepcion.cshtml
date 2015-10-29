@@ -365,20 +365,20 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=0"
+                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                         }
                     }
                 },
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
+                if (!value || !e.sender.current()) {
                     messageindexKendoCombobox(this);
                     this.value("");
-                };
-               
-                changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
-                $('#grid').data('kendoGrid').refresh();
+                }else{
+                    changeValueColumnColada($("#Colada").data("kendoAutoComplete").value());
+                    $('#grid').data('kendoGrid').refresh();
+                }
             },
 
             filter: "contains",
@@ -392,8 +392,9 @@
                 if (this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     this.value("");
+                }else{
+                    changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
                 }
-                changeValueColumnTipoUso($("#TipoUso").data("kendoComboBox").text());
             },
             filter: "contains",
         });
@@ -441,7 +442,7 @@
                             if (op.filter) {
                                 val = op.filter.filters[0].value;
                             }
-                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&id=0&mostrarOpcion=1"
+                            return $URLColada + "proyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : -1) + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&texto=" + val + "&idioma=" + $("#language").data("kendoDropDownList").value()+"&id=0&mostrarOpcion=1"
                         }
                     }
                 },
@@ -455,7 +456,7 @@
             },
             change: function (e) {
                 var value = this.value();
-                if (!value || this.selectedIndex == -1) {
+                if (!value || !e.sender.current()) {
                     messageindexKendoCombobox(this);
                     this.value("");
                 };
@@ -567,7 +568,7 @@
         $("input:radio").attr('disabled', "disabled");
         $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
         $("#Mostrar").attr("disabled", "disabled");
-        $("#Colada").data("kendoComboBox").enable(false);
+        //$("#Colada").data("kendoComboBox").enable(false);
     };
 
 
@@ -595,8 +596,9 @@
                 if (this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     this.value("");
+                } else {
+                    changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
                 };
-                changeValueColumnEstatusFisico($("#EstatusFisico").data("kendoComboBox").text());
             },
             filter: "contains",
         });
@@ -615,8 +617,10 @@
                 if (this.selectedIndex == -1) {
                     messageindexKendoCombobox(this);
                     this.value("");
+                } else {
+                    changeValueColumnEstatusDocumental($("#EstatusDocumental").data("kendoComboBox").text());
                 };
-                changeValueColumnEstatusDocumental($("#EstatusDocumental").data("kendoComboBox").text());
+                
             },
             filter: "contains",
         });
@@ -1415,7 +1419,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $UrlTipoUso +"agregarOpcion=1" + "&paginaID=" + Cookies.get("navegacion")+ "&token=" + Cookies.get("token")
+                            read: $UrlTipoUso + "agregarOpcion=1" + "&paginaID=" + Cookies.get("navegacion") + "&token=" + Cookies.get("token") + "&idioma=" + $("#language").data("kendoDropDownList").value()
                         },
                         serverPaging: true,
                         serverFiltering: true

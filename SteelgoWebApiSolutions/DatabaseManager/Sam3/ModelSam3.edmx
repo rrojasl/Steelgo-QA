@@ -1174,7 +1174,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion">
@@ -1203,7 +1203,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo">
           <Key>
@@ -1219,7 +1219,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioAvisoLlegada_Proyecto">
@@ -1304,7 +1304,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Incidencia_Entidad">
@@ -1519,7 +1519,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="DocGuid" Type="uniqueidentifier" />
           <Property Name="Url" Type="varchar(max)" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar(max)" />
           <Property Name="TipoArchivoID" Type="int" Nullable="false" />
           <Property Name="Rel_Permiso_Documento_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -8050,7 +8050,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_PermisoAduana" Relationship="ModelSam3.FK__Sam3_Rel___Permi__36470DEF" FromRole="Sam3_Rel_PermisoAduana_Documento" ToRole="Sam3_PermisoAduana" />
           <Property Name="DocGuid" Type="Guid" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoArchivo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__2136E270" FromRole="Sam3_Rel_PermisoAduana_Documento" ToRole="Sam3_TipoArchivo" />
           <Property Name="Rel_Permiso_Documento_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -8120,7 +8120,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoArchivo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__2042BE37" FromRole="Sam3_Rel_FolioAvisoLlegada_Documento" ToRole="Sam3_TipoArchivo" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Folio__4865BE2A">
           <End Type="ModelSam3.Sam3_FolioAvisoLlegada" Role="Sam3_FolioAvisoLlegada" Multiplicity="1" />
@@ -8149,7 +8149,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_FolioAvisoLlegada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__4B422AD5" FromRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" ToRole="Sam3_FolioAvisoLlegada" />
           <Property Name="DocGuid" Type="Guid" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoArchivo" Relationship="ModelSam3.FK__Sam3_Rel___TipoA__222B06A9" FromRole="Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo" ToRole="Sam3_TipoArchivo" />
         </EntityType>
@@ -8531,7 +8531,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DocGuid" Type="Guid" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sam3_FolioAvisoEntrada" Relationship="ModelSam3.FK__Sam3_Rel___Folio__54B68676" FromRole="Sam3_Rel_FolioAvisoEntrada_Documento" ToRole="Sam3_FolioAvisoEntrada" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -9612,7 +9612,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DocGuid" Type="Guid" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoArchivoID" Type="Int32" Nullable="false" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Sam3_Incidencia" Relationship="ModelSam3.FK__Sam3_Rel___Incid__45C948A1" FromRole="Sam3_Rel_Incidencia_Documento" ToRole="Sam3_Incidencia" />
         </EntityType>

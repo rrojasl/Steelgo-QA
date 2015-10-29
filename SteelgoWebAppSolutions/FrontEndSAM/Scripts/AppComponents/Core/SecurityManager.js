@@ -199,8 +199,11 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
     if (entityDefinition.hasOwnProperty("listContainer")) {
         if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
             if (entityCreationPermission == false) {
-                $(entityDefinition.listContainer["create"]).css("display", "none");
-                $(".k-grid-add").addClass("k-state-disabled").removeClass("k-grid-add");
+                if ($(entityDefinition.listContainer["create"]).is("#grid")) {
+                    $(".k-grid-add").addClass("k-state-disabled").removeClass("k-grid-add");
+                } else {
+                    $(entityDefinition.listContainer["create"]).css("display", "none");
+                }
             }
         }
 
@@ -221,16 +224,14 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
                     //$(entityDefinition.listContainer["detail"]).prop('disabled', true);
                     $(entityDefinition.listContainer["detail"]).css("display", "none");
                 }
-                else {
-                    $(entityDefinition.listContainer["detail"]).css("display", "none");
-                }
                 
             }
         }
 
         if (entityDefinition["listContainer"].hasOwnProperty("destroy") && entityDefinition.listContainer["destroy"] != null && entityDefinition.listContainer["destroy"].length > 0) {
             if (entityDestroyPermission == false) {
-                $(entityDefinition.listContainer["destroy"]).css("display", "none");
+               //$(entityDefinition.listContainer["destroy"]).addClass("hidden");
+               $(entityDefinition.listContainer["destroy"]).css("display", "none");
             }
         }
 

@@ -1147,7 +1147,9 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     Sam3_ItemCode nuevoItem = new Sam3_ItemCode();
-                    nuevoItem.ProyectoID = itemS2.ProyectoID;
+                    nuevoItem.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                            where eq.Activo && eq.Sam2_ProyectoID == itemS2.ProyectoID
+                                            select eq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
                     nuevoItem.TipoMaterialID = itemS2.TipoMaterialID;
                     nuevoItem.Codigo = itemS2.Codigo;
                     nuevoItem.ItemCodeCliente = itemS2.ItemCodeCliente;

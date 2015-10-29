@@ -58,6 +58,10 @@ namespace BackEndSAM.DataAcces
 
                     foreach (DocumentoPosteado f in files)
                     {
+                        int tipoArchivoId = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == f.TipoArchivoPaseSalida && x.Activo).Select(x => x.TipoArchivoID)
+                      .AsParallel().SingleOrDefault();
+
+
                         Sam3_Rel_FolioAvisoLlegada_Documento nuevoDoc = new Sam3_Rel_FolioAvisoLlegada_Documento();
                         nuevoDoc.Activo = true;
                         nuevoDoc.DocumentoID = 0;
@@ -68,7 +72,7 @@ namespace BackEndSAM.DataAcces
                         nuevoDoc.Nombre = f.FileName;
                         nuevoDoc.Url = f.Path;
                         nuevoDoc.UsuarioModificacion = f.UserId;
-                        nuevoDoc.TipoArchivoID = f.TipoArchivoID;
+                        nuevoDoc.TipoArchivoID = tipoArchivoId;
                         nuevoDoc.ContentType = f.ContentType;
 
                         ctx.Sam3_Rel_FolioAvisoLlegada_Documento.Add(nuevoDoc);
@@ -572,12 +576,12 @@ namespace BackEndSAM.DataAcces
                 {
                     int Folio = documentos[0].FolioAvisoLlegadaID.GetValueOrDefault();
                     //Actualizamos el dato de Pase Salida Enviado del Folio aviso Llegada
-                    Sam3_FolioAvisoLlegada folioBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == Folio)
+                    Sam3_FolioAvisoLlegada folioBd = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == Folio && x.Activo)
                         .AsParallel().SingleOrDefault();
 
                     foreach (DocumentoPosteado d in documentos)
                     {
-                        int tipoArchivoId = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == d.TipoArchivoPaseSalida).Select(x => x.TipoArchivoID)
+                        int tipoArchivoId = ctx.Sam3_TipoArchivo.Where(x => x.Nombre == d.TipoArchivoPaseSalida && x.Activo).Select(x => x.TipoArchivoID)
                         .AsParallel().SingleOrDefault();
 
                         Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo nuevoDoc = new Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo();

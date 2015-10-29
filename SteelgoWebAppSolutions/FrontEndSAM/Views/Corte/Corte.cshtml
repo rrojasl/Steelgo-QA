@@ -193,7 +193,8 @@
         _SpoolID = getUrlParameter("SpoolID", "-1"),
         _NumeroControl = getUrlParameter("NumeroControl", "-1"),
         _ProyectoID = getUrlParameter("ProyectoID", "-1"),
-        _ItemCodeSteelgo = getUrlParameter("ItemCodeSteelgo", "-1");
+        _ItemCodeSteelgo = getUrlParameter("ItemCodeSteelgo", "-1"),
+        _MaterialSpoolID = getUrlParameter("MaterialSpoolID", "-1") ;
 
 
     var $CorteModel = {
@@ -705,7 +706,7 @@
     function ValidarInformacionEdicionImpresionDocumental() {
         var Listado = { DatosODT: "" };
         var datasource = $("#grid").data("kendoGrid").dataSource.data();
-        ValidarCantidadTramoRecto(datasource);
+        //ValidarCantidadTramoRecto(datasource);
         var info = { NumerUnicoID: "", OrdenTrabajo: "", Consecutivo: "", Etiqueta: "", EsTramoCompleto: "", token: "" };
 
         info.NumerUnicoID = NumeroUnico.NumeroUnicoID;
@@ -719,13 +720,16 @@
         if (ValidarErroresEdicionImpresionDocumental(info)) {
             $Corte.Corte.read({ data: JSON.stringify(Listado) }).done(function (result) {
                 if (Error(result)) {
-                    ValidarCantidadTramoRecto();
+                    
                     if ($("#TramoCompleto").is(":checked")) {
                         LimpiarMaquina();
                         DesahabilitarBotonesAgregar();
                         LimpiarGrid();
                     };
+                    
                     AgregarRegistroGrid(result);
+                    var datasource = $("#grid").data("kendoGrid").dataSource.data();
+                    ValidarCantidadTramoRecto(datasource);
                 }
             });
         };
@@ -964,33 +968,24 @@
 
 
     function MaterialPendienteEdicion() {
-        var Listado = { SpoolID: "", ProyectoID: "", ItemCodeSteelgo: "", token: "" };
 
-        Listado.SpoolID = _SpoolID;
-        Listado.ProyectoID = _ProyectoID;
-        Listado.ItemCodeSteelgo = _ItemCodeSteelgo;
-        Listado.token = Cookies.get("token");
-
-
-        $MaterialPendiente.MaterialPendiente.read({ data: JSON.stringify(Listado) }).done(function (result) {
+        $Corte.Corte.read({ materialSpoolID: _MaterialSpoolID, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                if (ValidarErrores(result)) {
-                    $("#hdnMermaTeorica").val(result.MermaTeorica ? result.MermaTeorica : 0);
-                    $("#Cantidad").val(result.Cantidad);
-                    $("#ItemCode").val(result.ItemCode);
-                    $("#Diametro1").val(result.D1);
-                    $("#hdnTolerancia").val(result.Tolerancia);
-                    $("#OrdenTrabajo").val(result.OrdenTrabajo);
-                    $("#Consecutivo").val(result.Consecutivo);
-                    $("#Etiqueta").val(result.Etiqueta);
+                    $("#hdnMermaTeorica").val(0);
+                    $("#Cantidad").val(result[4].Cantidad);
+                    $("#ItemCode").val(result[1].ItemCode);
+                    $("#Diametro1").val(result[1].D1);
+                    $("#hdnTolerancia").val(result[1].Tolerancia?result[1].Tolerancia:0);
+                    $("#OrdenTrabajo").val(result[2].NumeroControl);
+                    $("#Consecutivo").val(result[2].Consecutivo);
+                    $("#Etiqueta").val(result[2].Etiqueta);
 
-                    CargarNumeroUnico(result.NumeroControlID, result.NumeroControl);
-                    CargarProyecto(result.ProyectoID);
+                    CargarNumeroUnico(result[3].id, result[3].value);
+                    CargarProyecto(result[0].id);
 
-                    $("#ProyectoID").data("kendoComboBox").value(result.ProyectoID);
-                    $("#NumeroUnico").data("kendoAutoComplete").value(result.NumeroControlID);
-                    ValidarInformacionEdicionImpresionDocumental();
-                }
+                    $("#ProyectoID").data("kendoComboBox").value(result[0].id);
+                    $("#NumeroUnico").data("kendoAutoComplete").value(result[3].value);
+                   ValidarInformacionEdicionImpresionDocumental();
             }
         });
     };
@@ -1155,7 +1150,6 @@
     $authorizationModel["Corte"] = $CorteModel;
     CargaInicial();
     if (_MaterialPendiente != "-1") {
-        alert("edicion=" + _MaterialPendiente);
         CargaInicialEdicionMaterialPendiente();
     }
     }

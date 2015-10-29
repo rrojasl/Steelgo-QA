@@ -87,7 +87,8 @@
     };
     }
     @section JavascriptGlobalFunctions {
-
+    function changeLanguageCall() {
+    }
     function CargaInicial() {
         hideElementsItemCode();
 
@@ -334,6 +335,9 @@
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["Item Code"] = $ItemCodeModel;
     CargaInicial();
+
+    $("#language").data("kendoDropDownList").select(_languageOrder[window.parent.$("#language").data("kendoDropDownList").value()]);
+    $("#language").data("kendoDropDownList").trigger("change");
     applySecurityPolicy(false);
     }
     @section JavascriptDocumentReadyHomeCookie {

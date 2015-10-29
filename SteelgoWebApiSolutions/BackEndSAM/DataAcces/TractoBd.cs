@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces
             }
         }
 
-        public object ObtenerListadoTractos(string esAvisoEntrada, int transportistaID, Sam3_Usuario usuario, int paginaID)
+        public object ObtenerListadoTractos(string esAvisoEntrada, int transportistaID, Sam3_Usuario usuario, int paginaID, string idioma)
         {
             try
             {
@@ -49,7 +49,14 @@ namespace BackEndSAM.DataAcces
 
                 if (int.Parse(esAvisoEntrada) == 1 && (bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Tracto", paginaID))
                 {
-                    lstCamiones.Add(new TractoAV { VehiculoID = "0", Placas = "Agregar nuevo" });
+                    if (idioma == "en-US")
+                    {
+                        lstCamiones.Add(new TractoAV { VehiculoID = "0", Placas = "Add new" });
+                    }
+                    else
+                    {
+                        lstCamiones.Add(new TractoAV { VehiculoID = "0", Placas = "Agregar nuevo" });
+                    }
                 }
 
                 using (SamContext ctx = new SamContext())

@@ -72,21 +72,22 @@ namespace BackEndSAM.DataAcces
 
                     using (Sam2Context ctx2 = new Sam2Context())
                     {
-                        List<PreDespacho> listado = (from ot in ctx2.OrdenTrabajo
-                                                     join ots in ctx2.OrdenTrabajoSpool on ot.OrdenTrabajoID equals ots.OrdenTrabajoID
-                                                     join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
+                        List<PreDespacho> listado = (from ots in ctx2.OrdenTrabajoSpool
+                                                     join ot in ctx2.OrdenTrabajo on ots.OrdenTrabajoID equals ot.OrdenTrabajoID
+                                                     join otm in ctx2.OrdenTrabajoMaterial on ots.OrdenTrabajoSpoolID equals otm.OrdenTrabajoSpoolID
+                                                     join ms in ctx2.MaterialSpool on otm.MaterialSpoolID equals ms.MaterialSpoolID
                                                      join ic in ctx2.ItemCode on ms.ItemCodeID equals ic.ItemCodeID
                                                      where ots.OrdenTrabajoSpoolID == spoolID
-                                                     && proyectos.Contains(ot.ProyectoID)
-                                                     && ic.TipoMaterialID == 2
+                                                                             && proyectos.Contains(ot.ProyectoID)
+                                                                             && ic.TipoMaterialID == 2
                                                      select new PreDespacho
-                                                     {
-                                                         ItemCodeID = ic.ItemCodeID.ToString(),
-                                                         ItemCode = ic.Codigo,
-                                                         NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
-                                                         NumeroControl = ots.NumeroControl,
-                                                         Descripcion = ic.DescripcionEspanol
-                                                     }).AsParallel().GroupBy(x => x.NumeroControlID).Select(x => x.First()).ToList();
+                                                                             {
+                                                                                 ItemCodeID = ic.ItemCodeID.ToString(),
+                                                                                 ItemCode = ic.Codigo,
+                                                                                 NumeroControlID = ots.OrdenTrabajoSpoolID.ToString(),
+                                                                                 NumeroControl = ots.NumeroControl,
+                                                                                 Descripcion = ic.DescripcionEspanol
+                                                                             }).AsParallel().ToList();
 
                         foreach (PreDespacho item in listado)
                         {
@@ -96,6 +97,30 @@ namespace BackEndSAM.DataAcces
                                                       where pd.OrdenTrabajoSpoolID.ToString() == item.NumeroControlID
                                                       && pd.ItemCodeID.ToString() == item.ItemCodeID && pd.Activo
                                                       select pd.NumeroUnicoID.ToString()).AsParallel().SingleOrDefault();
+
+                                int equivalenteNU = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                       where eq.Sam3_NumeroUnicoID.ToString() == item.NumeroUnicoID
+                                                       select eq.Sam2_NumeroUnicoID).AsParallel().SingleOrDefault();
+
+                                item.NumeroUnico = (from nu in ctx2.NumeroUnico
+                                                    where nu.NumeroUnicoID == equivalenteNU
+                                                    select nu.Codigo).AsParallel().SingleOrDefault();
+
+                                    string[] elementos = item.NumeroUnico.Split('-');
+
+                                    int temp = Convert.ToInt32(item.NumeroUnicoID);
+
+                                    int digitos = (from nu in ctx.Sam3_NumeroUnico
+                                                   join p in ctx.Sam3_ProyectoConfiguracion on nu.ProyectoID equals p.ProyectoID
+                                                   where nu.Activo && p.Activo
+                                                   && nu.NumeroUnicoID == temp
+                                                   select p.DigitosNumeroUnico).AsParallel().SingleOrDefault();
+
+                                    string formato = "D" + digitos.ToString();
+                                    int consecutivo = Convert.ToInt32(elementos[1]);
+
+                                    item.NumeroUnico = elementos[0] + "-" + consecutivo.ToString(formato);
+
                             }
                         }
 
@@ -143,47 +168,65 @@ namespace BackEndSAM.DataAcces
                                                    select sh).Any()
                                               select ots.OrdenTrabajoSpoolID).AsParallel().Any();
 
-                            if (!tieneHold)
+                            if (tieneHold)
                             {
-                                int numeroUnicoSam3 = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
-                                                       where eq.Activo && eq.Sam2_NumeroUnicoID.ToString() == item.NumeroUnico
-                                                       select eq.Sam3_NumeroUnicoID).AsParallel().SingleOrDefault();
+                                int proyectoID = item.ProyectoID != "" ? Convert.ToInt32(item.ProyectoID) : 0;
+                                //Dividimos el codigo del numero para buscarlo en sam3
+                                string[] elementosCodigo = item.NumeroUnico.Split('-').ToArray();
+                                int consecutivoNumeroUnico = Convert.ToInt32(elementosCodigo[1]);
+                                string prefijoNumeroUnico = elementosCodigo[0];
 
-                                if (ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControl && x.ItemCodeID.ToString() == item.ItemCode).Any())
+                                //int sam3_ProyectoID = (from nueq in ctx.Sam3_EquivalenciaProyecto
+                                //                       where nueq.Activo && nueq.Sam2_ProyectoID == proyectoID
+                                //                       select nueq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
+
+                                //buscamos el numero unico en SAM 3
+                                if (ctx.Sam3_NumeroUnico.Where(x => x.Prefijo == prefijoNumeroUnico
+                                    && x.Consecutivo == consecutivoNumeroUnico && x.ProyectoID == proyectoID).AsParallel().Any())
                                 {
-                                    Sam3_PreDespacho preDespacho = ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControl && x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
-                                    preDespacho.Activo = true;
-                                    preDespacho.FechaModificacion = DateTime.Now;
-                                    preDespacho.FechaPreDespacho = DateTime.Now;
-                                    preDespacho.UsuarioModificacion = usuario.UsuarioID;
-                                    preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
-                                    preDespacho.NumeroUnicoID = numeroUnicoSam3;
+                                    //int sam2_numeroUnicoID = 0;
 
-                                    ctx.SaveChanges();
-                                }
-                                else
-                                {
-                                    Sam3_PreDespacho preDespacho = new Sam3_PreDespacho();
-                                    preDespacho.Activo = true;
-                                    preDespacho.FechaModificacion = DateTime.Now;
-                                    preDespacho.FechaPreDespacho = DateTime.Now;
-                                    preDespacho.UsuarioModificacion = usuario.UsuarioID;
-                                    preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
-                                    preDespacho.OrdenTrabajoSpoolID = Convert.ToInt32(item.NumeroControl);
-                                    preDespacho.NumeroUnicoID = numeroUnicoSam3;
-                                    preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
-                                                                   join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
-                                                                   where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
-                                                                   select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
+                                    Sam3_NumeroUnico numeroUnico = ctx.Sam3_NumeroUnico.Where(x => x.Prefijo == prefijoNumeroUnico
+                                    && x.Consecutivo == consecutivoNumeroUnico && x.ProyectoID == proyectoID).AsParallel().SingleOrDefault();
 
-                                    ctx.Sam3_PreDespacho.Add(preDespacho);
-                                    ctx.SaveChanges();
+                                    if (ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControl && x.ItemCodeID.ToString() == item.ItemCode).Any())
+                                    {
+                                        Sam3_PreDespacho preDespacho = ctx.Sam3_PreDespacho.Where(x => x.OrdenTrabajoSpoolID.ToString() == item.NumeroControl && x.ItemCodeID.ToString() == item.ItemCode).AsParallel().SingleOrDefault();
+                                        preDespacho.Activo = true;
+                                        preDespacho.FechaModificacion = DateTime.Now;
+                                        preDespacho.FechaPreDespacho = DateTime.Now;
+                                        preDespacho.UsuarioModificacion = usuario.UsuarioID;
+                                        preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
+                                        preDespacho.NumeroUnicoID = numeroUnico.NumeroUnicoID;
+
+                                        ctx.SaveChanges();
+                                    }
+                                    else
+                                    {
+                                        Sam3_PreDespacho preDespacho = new Sam3_PreDespacho();
+                                        preDespacho.Activo = true;
+                                        preDespacho.FechaModificacion = DateTime.Now;
+                                        preDespacho.FechaPreDespacho = DateTime.Now;
+                                        preDespacho.UsuarioModificacion = usuario.UsuarioID;
+                                        preDespacho.ProyectoID = Convert.ToInt32(item.ProyectoID);
+                                        preDespacho.OrdenTrabajoSpoolID = Convert.ToInt32(item.NumeroControl);
+                                        preDespacho.NumeroUnicoID = numeroUnico.NumeroUnicoID;
+                                        preDespacho.MaterialSpoolID = (from ots in ctx2.OrdenTrabajoSpool
+                                                                       join ms in ctx2.MaterialSpool on ots.SpoolID equals ms.SpoolID
+                                                                       where ots.OrdenTrabajoSpoolID.ToString() == item.NumeroControl
+                                                                       && ms.ItemCodeID.ToString() == item.ItemCode
+                                                                       select ms.MaterialSpoolID).AsParallel().SingleOrDefault();
+                                        preDespacho.ItemCodeID = Convert.ToInt32(item.ItemCode);
+                                        ctx.Sam3_PreDespacho.Add(preDespacho);
+                                        ctx.SaveChanges();
+                                    }
                                 }
                             }
                             else
                             {
                                 throw new Exception("El Spool cuenta con Hold, no se puede Pre-Despachar");
                             }
+
                         }
 
                         TransactionalInformation result = new TransactionalInformation();

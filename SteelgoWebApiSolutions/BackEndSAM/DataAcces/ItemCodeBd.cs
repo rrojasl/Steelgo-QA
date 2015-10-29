@@ -53,7 +53,7 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="tipoPackingListID">tipo Packing List: 1 Tubo, 2 Accesorio</param>
         /// <returns>lista de item codes</returns>
-        public object ObtenerItemCode(int tipoPackingListID, Sam3_Usuario usuario, int paginaID)
+        public object ObtenerItemCode(int tipoPackingListID, Sam3_Usuario usuario, int paginaID, string idioma, int proyectoID)
         {
             try
             {
@@ -62,50 +62,47 @@ namespace BackEndSAM.DataAcces
 
                 using (SamContext ctx = new SamContext())
                 {
-                    if ((bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Item Code", paginaID))
+                    using (DatabaseManager.Sam2.Sam2Context ctx2 = new DatabaseManager.Sam2.Sam2Context())
                     {
-                        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                        //if ((bool)PerfilBd.Instance.VerificarPermisoCreacion(usuario.PerfilID, "Item Code", paginaID))
+                        //{
+                        //    if (idioma == "en-US")
+                        //    {
+                        //        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Add new" });
+                        //    }
+                        //    else
+                        //    {
+                        //        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "-1", Codigo = "Agregar Nuevo" });
+                        //    }
+                        //}
+
+                        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto" });
+
+                        int sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                               where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                               select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+
+                        itemCodeS2 = (from ic in ctx2.ItemCode
+                                      where ic.TipoMaterialID == tipoPackingListID
+                                      && ic.ProyectoID == sam2_ProyectoID
+                                      select new BackEndSAM.Models.ItemCode
+                                      {
+                                          ItemCodeID = ic.ItemCodeID.ToString(),
+                                          Codigo = ic.Codigo
+                                      }).AsParallel().ToList();
+
+                        //si tienen orden de recepcion
+                        List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
+                                              join or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on eq.Sam3_ItemCodeID equals or.ItemCodeID
+                                              join nu in ctx.Sam3_NumeroUnico on eq.Sam3_ItemCodeID equals nu.ItemCodeID
+                                              where eq.Activo && or.Activo && nu.Activo
+                                              select eq.Sam2_ItemCodeID.ToString()).AsParallel().Distinct().ToList();
+
+                        itemCodeS2 = itemCodeS2.Where(x => !conOR.Contains(x.ItemCodeID)).AsParallel().Distinct().ToList();
                     }
-
-                    IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto" });
-
-                    //List<ItemCode> itemCode = (from ic in ctx.Sam3_ItemCode
-                    //                           where ic.Activo && ic.TipoMaterialID == tipoPackingListID
-                    //                           && !ctx.Sam3_NumeroUnico.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any()
-                    //                           && !ctx.Sam3_Rel_OrdenRecepcion_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any()
-                    //                           select new ItemCode
-                    //                           {
-                    //                               ItemCodeID = ic.ItemCodeID.ToString(),
-                    //                               Codigo = ic.Codigo
-                    //                           }).AsParallel().ToList();
-
-                    //IC.AddRange(itemCode);
                 }
 
-                using (DatabaseManager.Sam2.Sam2Context ctx2 = new DatabaseManager.Sam2.Sam2Context())
-                {
-                    itemCodeS2 = (from ic in ctx2.ItemCode
-                                  where ic.TipoMaterialID == tipoPackingListID
-                                  select new BackEndSAM.Models.ItemCode
-                                  {
-                                      ItemCodeID = ic.ItemCodeID.ToString(),
-                                      Codigo = ic.Codigo
-                                  }).AsParallel().ToList();
-                }
-
-                using (SamContext ctx = new SamContext())
-                {
-                    //si tienen orden de recepcion
-                    List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                          join or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on eq.Sam3_ItemCodeID equals or.ItemCodeID
-                                          join nu in ctx.Sam3_NumeroUnico on eq.Sam3_ItemCodeID equals nu.ItemCodeID
-                                          where eq.Activo && or.Activo && nu.Activo
-                                          select eq.Sam2_ItemCodeID.ToString()).AsParallel().Distinct().ToList();
-
-                    itemCodeS2 = itemCodeS2.Where(x => !conOR.Contains(x.ItemCodeID)).AsParallel().Distinct().ToList();
-                }
                 IC.AddRange(itemCodeS2);
-
                 return IC;
             }
             catch (Exception ex)
@@ -114,7 +111,7 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
+                result.ReturnMessage.Add(string.Format("Error al obtener los ItemCodes del Proyecto SAM2. {0}", proyectoID));
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
@@ -163,7 +160,10 @@ namespace BackEndSAM.DataAcces
 
                                 //Inserta en Sam 3
                                 Sam3_ItemCode itemS3 = new Sam3_ItemCode();
-                                itemS3.ProyectoID = DatosItemCode.ProyectoID;//
+                                itemS3.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                     where eq.Activo
+                                                     && eq.Sam2_ProyectoID == DatosItemCode.ProyectoID
+                                                     select eq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
                                 itemS3.TipoMaterialID = DatosItemCode.TipoPackingList;//
                                 itemS3.Codigo = DatosItemCode.ItemCode;//
                                 itemS3.ItemCodeCliente = DatosItemCode.ItemCodeCliente;

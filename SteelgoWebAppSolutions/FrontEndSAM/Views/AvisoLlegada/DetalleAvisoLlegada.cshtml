@@ -49,12 +49,12 @@
                             </div>
                             <a id="Cancelar" class="btn btn-black"><span id="DetalleAvisoLlegada0018"></span></a>
                         </div>
-                            <div id="TramitarPermisoDiv" class="button-section enviarpermiso">
-                                <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
-                            </div>
-                            <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display:none">
-                                <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
-                            </div>
+                        <div id="TramitarPermisoDiv" class="button-section enviarpermiso">
+                            <a id="TramitarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0036"></span></a>
+                        </div>
+                        <div id="AutorizarPermisoDiv" class="button-section enviarpermiso" style="display: none">
+                            <a id="AutorizarPermiso" href="#" class="btn btn-primary"><span id="DetalleAvisoLlegada0089"></span></a>
+                        </div>
 
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -177,7 +177,7 @@
     //your partial views variables
     var FechaRecepcion;
     var folio = getUrlParameter("folio", "-1");
-    
+    var creacionArchivos = 0;
     var _tipoArchivo = 0;
     var Transportista = [], Proveedor = [], Patio = [],
         Plana = [], Chofer = [], Contacto = [],
@@ -277,13 +277,13 @@
         optionsf.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
         $("#filesDiv").append("<input type='file' id='files'>");
         $("#files").kendoUpload(optionsf);
-        try{
+        try {
             var optionsp = $("#PackingList").data("kendoUpload").options;
-            var padre=$("#PackingList").parent();
+            var padre = $("#PackingList").parent();
             optionsp.localization = getKendoUploadLocalization($("#language").data("kendoDropDownList").value());
             padre.append("<input type='file' id='PackingList'>");
             $("#PackingList").kendoUpload(optionsf);
-        }catch(e){}
+        } catch (e) { }
         if (folio != -1) {
             $("#files").data("kendoUpload").disable();
         }
@@ -425,16 +425,16 @@
 
         $("#RedirectDashboard").click(function (e) {
             var detalleIdeaUrl = "@Url.Action("DashboardAvisoLlegada", "AvisoLLegada")";
-                    window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
-                });
+            window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
+        });
 
-                $("#IrIncidencia").click(function () { Incidencias(); });
+        $("#IrIncidencia").click(function () { Incidencias(); });
 
         //Permiso Aduana
-                $("#TramitarPermiso").attr('disabled', 'disabled');
-                $("#TramitarPermiso").click(function () { GenerarPermiso(); });
-                $("#AutorizarPermiso").click(function () {
-                    var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
+        $("#TramitarPermiso").attr('disabled', 'disabled');
+        $("#TramitarPermiso").click(function () { GenerarPermiso(); });
+        $("#AutorizarPermiso").click(function () {
+            var detalleIdeaUrl = "@Url.Action("AutorizarPermiso", "AvisoLLegada")";
                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&folio=" + folio;
                 });
 
@@ -478,7 +478,7 @@
                             messageindexKendoCombobox(this);
                             Patio = [];
                             this.value("");
-                        } 
+                        }
                         ObtenerCliente();
 
                     },
@@ -505,7 +505,7 @@
                     },
                     filter: "contains",
                 });
-                
+
                 $("#TipoAvisoID").kendoComboBox({
                     dataTextField: "Nombre",
                     dataValueField: "TipoAvisoID",
@@ -572,9 +572,6 @@
                         }
                     }
                 });
-               
-
-                
 
                 $("#ChoferID").kendoComboBox({
                     dataTextField: "Nombre",
@@ -603,22 +600,34 @@
                 ObtenerChofer(0);
 
                 $("#TipoArchivo").kendoComboBox({
+                    dataSource: [
+                { Nombre: "Tarjeta de circulación", id: 1 },
+                { Nombre: "Seguro", id: 2 },
+                { Nombre: "Licencia", id: 3 },
+                { Nombre: "Packing List", id: 4 },
+                { Nombre: "Orden de Compra", id: 5 },
+                { Nombre: "Certificados", id: 6 },
+                { Nombre: "Factura o Pedimento", id: 7 },
+                    ],
                     dataTextField: "Nombre",
                     dataValueField: "TipoArchivoID",
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
-                        _tipoArchivo = dataItem.TipoArchivoID;
+                        _tipoArchivo = dataItem.Nombre;
                         CargarTipoArchivo(dataItem.TipoArchivoID, dataItem.Nombre);
+
+
                     },
                     change: function (e) {
                         if (this.selectedIndex == -1) {
                             this.value("");
+                            _tipoArchivo = {};
                             messageindexKendoCombobox(this);
                         }
-                    },
+                    }, index: 8,
                     filter: "contains",
                 });
-                ObtenerTipoArchivo();
+        //ObtenerTipoArchivo();
 
                 $('#files').kendoUpload({
                     async: {
@@ -627,8 +636,11 @@
                         withCredentials: false,
                     },
                     success: function (data) {
-                        //HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
-                        HabilitarObtenerDocumentosAvisoLlegada();
+                        if (creacionArchivos) {
+                            CargaInicialEdicion(folio);
+                        } else {
+                            HabilitarObtenerDocumentosAvisoLlegadaUploadFile(data);
+                        };
                     },
                     select: function (e) {
                         if (folio == "-1") {
@@ -639,16 +651,20 @@
                                     display: none;\
                                 }")
                                 .appendTo("head");
+                        } else {
+                            $("<style>")
+                                .prop("type", "text/css")
+                                .html("\
+                                .k-upload-selected {\
+                                    display: block;\
+                                }")
+                                .appendTo("head");
                         }
-                        //this.disable();
-
-                        //$("#files").data("kendoUpload").toggle();
-                        //$("#files").data("kendoUpload").disable();
                     },
                     upload: onUpload,
                     localization: getKendoUploadLocalization($("#language").data("kendoDropDownList").value())
                 });
-        
+
                 $("#files").on('drop', function (event) {
                     event.preventDefault();
                 });
@@ -675,13 +691,11 @@
                     },
                     filter: "contains",
                 });
-               
+
                 ObtenerFechaDefault();
             };
 
-    function onUpload(e) {
-        //this.disable();
-        //alert("onUpload");
+            function onUpload(e) {
                 if (folio == "-1") {
                     displayMessage("notificationslabel0015", "", '1');
                     e.preventDefault();
@@ -692,22 +706,7 @@
                     e.preventDefault();
                 };
 
-                //if (!validarRequeridosFormaAvisoLlegadaSubirArchivos()) {
-                //    displayMessage("notificationslabel0079", "", '1');
-                //    e.preventDefault();
-                //}
-                //else
-                //{
-                    //e.preventDefault();
-                    //if (folio == "-1")//Alta
-                    //{
-                       // e.preventDefault();
-                        // GuardarDocumentoYAviso();
-                        $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                    //} else {
-                    //    $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token");
-                    //};
-                //};
+                $("#files").data("kendoUpload").options.async.saveUrl = $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + TipoArchivo.Nombre + "&token=" + Cookies.get("token");
             };
 
 
@@ -767,7 +766,7 @@
                     $("#FechaRecepcionDiv label").addClass("error");
                     return;
                 };
-                
+
                 var d = new Date($("#FechaRecepcion").data("kendoDatePicker").value());
                 var curr_date = d.getDate();
                 var curr_month = d.getMonth() + 1; //Months are zero based
@@ -788,8 +787,8 @@
                 AvisoLlegada[0].TipoAviso = TipoAvisos;
 
                 loadingStart();
-                
-               
+                creacionArchivos = 0;
+
                 if (folio != -1)//Edición
                 {
                     BotonEdicion();
@@ -808,34 +807,34 @@
                 {
                     var uploadtype = $("#TipoArchivo").data('kendoComboBox').value();
                     var upload = $("#files").data("kendoUpload");
-                    var len = upload.wrapper.find(".k-file").length;
-                    if (uploadtype == 1007 && len > 0) {
+                    var len = $(".k-upload-files li").length;
+
+                    if (uploadtype == 1 && len > 0) {
                         $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                             if (Error(data)) {
-
                                 folio = data.ReturnMessage[1];
-
-                                $(".k-upload-selected").click();
-
+                                if (len > 0) {
+                                    $(".k-upload-selected").click();
+                                    creacionArchivos = 1;
+                                };
                                 cargarTituloFolio();
                                 BotonAlta();
                                 ocultarStatus();
                                 displayMessage("notificationslabel0013", folio, '0');
                                 $("#DetalleAvisoLlegada0090").show();
-                                CargaInicialEdicion(folio);
-
-                                
-
+                                if (!creacionArchivos) {
+                                    CargaInicialEdicion(folio);
+                                }
                                 if (bool) {//guardar y nuevo
                                     var detalleIdeaUrl = "@Url.Action("DetalleAvisoLlegada", "AvisoLLegada")";
                                     window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
                                 }
                             }
-
                             loadingStop();
                         });
                     } else {
-                        displayMessage("notificationslabel0031", "", 1);
+                        $("#DetalleAvisoLlegada0010").addClass("security_required error");
+                        displayMessage("notificationslabel0031", "", '1');
                         loadingStop();
                     }
                 }
@@ -902,6 +901,38 @@
             };
 
             function habilitarControlesPermisoAduana() {
+                if ($("#hdPermisoTramite").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#TramitarPermisoDiv").hide();
+                    $("#AutorizarPermisoDiv").show();
+                    $("#AutorizarPermiso").removeAttr('disabled');
+                };
+
+                if ($("#hdPermisoAutorizado").val() == "1") {
+                    $("#TramitarPermiso").attr('disabled', 'disabled');
+                    $("#AutorizarPermiso").attr('disabled', 'disabled');
+                };
+            };
+
+            function HabilitarControlesSubirDocumentos() {
+                $("#dropdown-toggle").show();
+                $("#Editar").css("display", "none");
+                $("#Guardar").css("display", "block");
+
+                $("#TipoAvisoID").data("kendoComboBox").enable();
+                $("#ClienteID").data("kendoComboBox").enable();
+                $("#PatioID").data("kendoComboBox").enable();
+                $("#TransportistaID").data("kendoComboBox").enable();
+                $("#ChoferID").data("kendoComboBox").enable();
+                $("#Tracto").data("kendoComboBox").enable();
+                $("#TipoArchivo").data("kendoComboBox").enable();
+
+                $("#ProyectoID").data("kendoMultiSelect").enable();
+                $("#PlanaID").data("kendoMultiSelect").enable();
+
+                $("#FechaRecepcion").data("kendoDatePicker").enable();
+                $("#files").data("kendoUpload").enable();
+
                 if ($("#hdPermisoTramite").val() == "1") {
                     $("#TramitarPermiso").attr('disabled', 'disabled');
                     $("#TramitarPermisoDiv").hide();
@@ -1003,6 +1034,8 @@
                         $("#TransportistaID").data("kendoComboBox").value(data.Transportista[0].Nombre);
                         ObtenerChoferEdicion(data.Transportista[0].TransportistaID);
                         $("#ChoferID").data("kendoComboBox").enable(false);
+                        ObtenerCamionEntradaMaterial();
+                        ObtenerPlanasEdicon(data);
                     }
 
                     if (data.Cliente) {
@@ -1072,12 +1105,31 @@
                         CargarCamionEntradaMaterial(data.Tracto.VehiculoID, data.Tracto.Placas);
                         $("#Tracto").data("kendoComboBox").value(data.Tracto.Placas);
                     }
+                    var contador = 0;
+                    if (creacionArchivos) {
+                        $("#listaArchivos tbody").empty();
+                        $.each(data.Archivos, function (index, value) {
+                            contador += 1;
+                            $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
+                        if ($("#hdnCantidadArchivos").val() == contador) {
+                            limpiarUploadFiles();
+                            displayMessage("notificationslabel0084", '', '2');
+                            HabilitarControlesSubirDocumentos();
+                            $("#divFolio").addClass("hidden");
+                        } else {
+                            $("#hdnCantidadArchivos").val(contador);
+                        };
 
-                    $("#listaArchivos tbody").empty();
-                    $.each(data.Archivos, function (index, value) {
-                        $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                    });
+                    } else {
 
+                        $("#listaArchivos tbody").empty();
+                        $.each(data.Archivos, function (index, value) {
+                            contador += 1;
+                            $("#listaArchivos tbody").append("<tr id='" + value.ArchivoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        });
+                        $("#hdnCantidadArchivos").val(contador);
+                    }
                     //Permiso Aduana
                     if (data.PermisoAduana.length > 0) {
                         if (data.PermisoAduana[0].PermisoTramite) {
@@ -1128,7 +1180,7 @@
                 _patio["Nombre"] = value;
                 Patio.push(_patio);
             };
-            
+
             function CargarProveedor(id, value) {
                 Proveedor = [];
                 _proveedor = {};
@@ -1313,20 +1365,33 @@
                 });
             };
 
-            function ObtenerPlanas() {
-                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+            function ObtenerPlanasEdicon(data) {
+                var concatPlanas = "";
+                $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosMultiselect("PlanaID", result);
+                    $.each(data.Plana, function (index, value) {
+                        concatPlanas += "," + value.PlanaID;
+                    });
+                    $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
                 });
             };
-
+            function ObtenerPlanas() {
+                if (typeof (Transportista[0]) != undefined && typeof (Transportista[0].TransportistaID) != undefined) {
+                    $Plana.Plana.read({ transportistaID: Transportista[0].TransportistaID, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+                        ControlErroresObjetosMultiselect("PlanaID", result);
+                    });
+                }
+            };
             function ObtenerTransportista() {
                 $Transportista.Transportista.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                    result = modificarResultTextoKendoCombobox("TransportistaID", result, $("#language").data("kendoDropDownList").value());
                     ControlErroresObjetosComboBox("TransportistaID", result);
                 });
             };
 
             function ObtenerPatio() {
-                $Patio.Patio.read({ esAvisoEntrada: 1,paginaID:Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                $Patio.Patio.read({ esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
+                    result = modificarResultTextoKendoCombobox("PatioID", result, $("#language").data("kendoDropDownList").value());
                     ControlErroresObjetosComboBox("PatioID", result);
                 });
             };
@@ -1359,7 +1424,7 @@
                     };
                 });
             };
-            
+
             function ObtenerChofer(transportistaID) {
 
                 if (transportistaID == 0) {
@@ -1367,7 +1432,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-               
+
                 $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
@@ -1387,15 +1452,19 @@
 
 
             function ObtenerCamionEntradaMaterial() {
-                $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), token: Cookies.get("token") }).done(function (result) {
-                    ControlErroresObjetosComboBox("Tracto", result);
-                });
+                if (typeof (Transportista[0]) != undefined && typeof (Transportista[0].TransportistaID) != undefined) {
+                    $Camion.Tracto.read({ transportistaID: Transportista[0].TransportistaID, esAvisoEntrada: 1, paginaID: Cookies.get("navegacion"), idioma: $("#language").data("kendoDropDownList").value(), token: Cookies.get("token") }).done(function (result) {
+                        ControlErroresObjetosComboBox("Tracto", result);
+                    });
+                }
             };
 
             function ObtenerCliente() {
-                $Cliente.Cliente.read({ token: Cookies.get("token"), patioID:Patio[0].PatioID }).done(function (result) {
-                    ControlErroresObjetosComboBox("ClienteID", result);
-                });
+                if (typeof (Patio[0]) != undefined && typeof (Patio[0].PatioID) != undefined) {
+                    $Cliente.Cliente.read({ token: Cookies.get("token"), patioID: Patio[0].PatioID }).done(function (result) {
+                        ControlErroresObjetosComboBox("ClienteID", result);
+                    });
+                }
             };
 
             function ObtenerTipoAviso() {
@@ -1408,6 +1477,9 @@
             function ObtenerTipoArchivo() {
                 $TipoArchivo.TipoArchivo.read({ token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosComboBox("TipoArchivo", result);
+                    $("#TipoArchivo").data("kendoComboBox").select(8);
+                    CargarTipoArchivo($("#TipoArchivo").data("kendoComboBox").value());
+                    _tipoArchivo = $("#TipoArchivo").data("kendoComboBox").value();
                 });
             };
 
@@ -1485,8 +1557,8 @@
                     loadingStop();
                 });
             };
-            
-            
+
+
             function HabilitarObtenerDocumentosAvisoLlegadaUploadFile(uploadfile) {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.read({ folio: folio, token: Cookies.get("token") }).done(function (result) {
                     loadingStart();
@@ -1498,9 +1570,9 @@
                                 contador += 1;
                                 $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a target='_blank' href='" + value.Url + "' >" + value.Nombre + "</a></td><td>" + value.TipoArchivo + "</td><td><a href='#' onclick='borrarArchivo(" + value.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                             });
-                            if ($("#hdnCantidadArchivos").val() ==contador) {
+                            if ($("#hdnCantidadArchivos").val() == contador) {
                                 limpiarUploadFiles();
-                                displayMessage("notificationslabel0084",'', '2');
+                                displayMessage("notificationslabel0084", '', '2');
                             } else {
                                 $("#hdnCantidadArchivos").val(contador);
                             }
@@ -1581,7 +1653,8 @@
     if (folio != -1) {
         CargaInicialEdicion(folio);
     }
-   // $("#hdnNavegacion").val(Cookies.get("navegacion"));
+
+    // $("#hdnNavegacion").val(Cookies.get("navegacion"));
 
     $authorizationModel["Permiso Aduana"] = $PermisoAduanaModel;
     $authorizationModel["Aviso Entrada"] = $AvisoLLegadaModel;
