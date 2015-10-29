@@ -13,19 +13,19 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-3">
-                    <label for="dropProyecto">Proyecto</label>
+                    <label for="dropProyecto" id="Busqueda0002"></label>
                     <input type="text" name="name" class="" id="dropProyecto" />
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                    <label>Tipo</label>
+                    <label id="Busqueda0003"></label>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requireFolio" />
-                            <label for="requireFolio" class="checkLabel">Aviso entrada</label>
+                            <label for="requireFolio" class="checkLabel" id="Busqueda0004"></label>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requirePacking" />
-                            <label for="requirePacking" class="checkLabel">Cuantificación</label>
+                            <label for="requirePacking" class="checkLabel" id="Busqueda0005"></label>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requireIC" />
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
                             <input type="checkbox" id="requireNumUnico" />
-                            <label for="requireNumUnico" class="checkLabel">Número único</label>
+                            <label for="requireNumUnico" class="checkLabel" id="Busqueda0006"></label>
                         </div>
                     </div>
                 </div>
@@ -50,9 +50,9 @@
             <div class="row">
                 <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="pager">
-                        <a id="anterior" href="#"><span id="">Anteriores</span></a>
-                        <span id="actuales"></span> <span id="conjuncion">de</span> <span id="totales"></span>
-                        <a id="siguiente" href="#"><span id="">Siguientes</span></a>
+                        <a id="anterior" href="#"><span id="Busqueda0007"></span></a>
+                        <span id="actuales"></span> <span id="Busqueda0009">de</span> <span id="totales"></span>
+                        <a id="siguiente" href="#"><span id="Busqueda0008"></span></a>
                         <select id="elementos">
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -78,22 +78,23 @@
 @section JavascriptGlobalFunctions {
     function getDataGrid(){
         $Busqueda.select.read({},parametros).done(function(data){
-            $Patio.Patio.read({},{token:Cookies.get("token"),esAvisoEntrada:0,PaginaID:0}).done(function(result){
-                var idPatios=[];
-                result.forEach(function(r){
-                    idPatios.push(r.PatioID);
-                });
-                dataGrid=[];
-                $.grep(data.response.docs,function(d){
-                    if(idPatios.indexOf(d.Patio)!=-1){
-                        dataGrid.push(d);
-                    }
-                });
+            //$Patio.Patio.read({},{token:Cookies.get("token"),esAvisoEntrada:0,PaginaID:0}).done(function(result){
+            //    var idPatios=[];
+            //    result.forEach(function(r){
+            //        idPatios.push(r.PatioID);
+            //    });
+            //    dataGrid=[];
+            //    $.grep(data.response.docs,function(d){
+            //        if(idPatios.indexOf(d.Patio)!=-1){
+            //            dataGrid.push(d);
+            //        }
+            //    });
                 parametros=data.responseHeader.params;
                 queryRes=data.response.numFound;
-                $("#grid").data("kendoGrid").dataSource.data(dataGrid);
+                //$("#grid").data("kendoGrid").dataSource.data(dataGrid);
+                $("#grid").data("kendoGrid").dataSource.data(data.response.docs);
                 $("#dropProyecto").data("kendoComboBox").dataSource.data(getProyectos());  
-            })
+            //})
         })
     }
 

@@ -14,7 +14,7 @@
             <div class="formNav clearfix">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="button-section">
+                        <div class="button-section" id="notificarDiv">
                             <button type="button" class="btn btn-primary" id="notificar"><span id="NotificacionDeficit0008"></span></button>
                             <button type="button" class="btn btn-black" id="cancelar"><span id="NotificacionDeficit0009"></span></button>
                         </div>
@@ -36,11 +36,11 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2" id="ordtrabajoDiv">
                                     <label for="ordtrabajo" id="NotificacionDeficit0001"></label>
                                     <input id="ordtrabajo" type="text" />
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2" id="itemcodeDiv">
                                     <label for="itemcode">Item Code</label>
                                     <input id="itemcode" type="text" />
                                 </div>
@@ -52,7 +52,7 @@
                                     <label for="D2">D2</label>
                                     <input id="D2" class="general-input" type="text" disabled />
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3" id="spoolCheckDiv">
                                     <label for="spoolCheck" id="NotificacionDeficit0002">D2</label>
                                     <input id="spoolCheck" type="checkbox" />
                                 </div>
@@ -79,7 +79,26 @@
 
 <script>
 @section JavascriptGlobalVariables {
-    
+    var $NotificacionDeficitModel = {
+        listContainer: {
+            create: "#notificar",
+            list: ["gridIC","gridSp"],
+            detail: "",
+            destroy: ""
+        },
+        properties:{
+            ordentrabajo:{
+                visible: "#ordtrabajoDiv",
+                editable: "#ordtrabajo",
+                required: "#ordtrabajo"
+            },
+            itemcode:{
+                visible: "#itemcodeDiv",
+                editable: "#itemcode",
+                required: "#itemcode"
+            },
+        }
+    };
 }
 
 @section JavascriptGlobalFunctions {
@@ -145,10 +164,10 @@
             pageable: false,
             editable:false,
             save: function(e) {
-                console.log(e);
+                //console.log(e);
             },
             remove: function(e) {
-                console.log(e);
+                //console.log(e);
             },
             dataBound: function(e) {
                 $("#gridIC").data("kendoGrid").editRow($("#gridIC tr:eq(1)"));
@@ -196,16 +215,16 @@
             pageable: false,
             editable:false,
             save: function(e) {
-                console.log(e);
+                //console.log(e);
             },
             remove: function(e) {
-                console.log(e);
+                //console.log(e);
             },
             dataBound: function(e) {
                 //console.log(e);
             },
             edit:function(e){
-                console.log(e);
+                //console.log(e);
             }
         });
         $("#gridSp").data("kendoGrid").dataSource.data(tmpSp);
@@ -261,6 +280,38 @@
         if(document.getElementById("spoolCheck").checked){
             document.getElementById("spoolCheck").checked=false;
             $("#gridSp").hide();
+        }
+    }
+
+    function validarRequeridos() {
+        var bool = true;
+        for(tmp in $NotificacionDeficitModel.properties){
+            objtmp=$NotificacionDeficitModel.properties[tmp];
+            $(objtmp.visible+" .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label' && elem.tagName.toLowerCase() != 'span' && elem.tagName.toLowerCase() != 'button') {
+                    if (!$(this).val()) {
+                        bool = false;
+                        $(this).closest("div").find("label").addClass("error");
+                        $(this).closest("div").addClass("clearfix");
+                    } else {
+                        $(this).closest("div").find("label").removeClass("error");
+                        $(this).closest("div").removeClass("clearfix");
+                    };
+                };
+            });
+        }
+        return bool;
+    }
+
+    function hayDeficit(){
+        var total=0;
+        $("#gridIC").data("kendoGrid").dataSource.data().forEach(function(tmp){
+            tmp.DeficitTotal!=0 ? total++ : 0;
+        });
+        if (total>0){
+            return true;
+        }else{
+            return false;
         }
     }
 };
@@ -329,32 +380,42 @@
 
     $("#notificar").on("click",function(){
         loadingStart();
-        var deficits=[];
-        var spools=[];
-        var orden=$("#ordtrabajo").data("kendoComboBox").value();
-        $("#gridIC tr[data-uid]").each(function(){
-            var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-            deficits.push({ItemCodeID:dataItem.ItemCodeID,DeficitTotal:dataItem.DeficitTotal});
-        })
-        if(document.getElementById("spoolCheck").checked){
-            $("#gridSp input.sub:checked").each(function(){
-                var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
-                spools.push(dataItem.SpoolID);
-            })
-        }
-        $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
-            if(result.ReturnCode==200){
-                displayMessage("",_dictionary.NotificacionDeficit0006[$("#language").data("kendoDropDownList").value()], '0');
+        if(validarRequeridos()){
+            if(hayDeficit()){
+                var deficits=[];
+                var spools=[];
+                var orden=$("#ordtrabajo").data("kendoComboBox").value();
+                $("#gridIC tr[data-uid]").each(function(){
+                    var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
+                    deficits.push({ItemCodeID:dataItem.ItemCodeID,DeficitTotal:dataItem.DeficitTotal});
+                })
+                if(document.getElementById("spoolCheck").checked){
+                    $("#gridSp input.sub:checked").each(function(){
+                        var dataItem=$("#gridSp").data("kendoGrid").dataItem($(this).closest("tr"));
+                        spools.push(dataItem.SpoolID);
+                    })
+                }
+                $NotificacionDeficit.NotificacionDeficit.create({},{ordenTrabajoID:orden,spoolID:JSON.stringify(spools),deficit:JSON.stringify(deficits),token:Cookies.get("token")}).done(function(result){
+                    if(result.ReturnCode==200){
+                        displayMessage("",_dictionary.NotificacionDeficit0006[$("#language").data("kendoDropDownList").value()], '0');
+                    }else{
+                        displayMessage("",_dictionary.result.ReturnMessage, '0');
+                    }
+                    loadingStop();
+                });
             }else{
-                displayMessage("",_dictionary.result.ReturnMessage, '0');
+                displayMessage("NotificacionDeficit0019","","2");
             }
-            loadingStop();
-        });
+        }else{
+            displayMessage("NotificacionDeficit0018","","2");
+        }
+        loadingStop();
     })
+    $authorizationModel["Materiales"] = $NotificacionDeficitModel;
 };
     
 @section JavascriptDocumentReadyHomeCookie {
-    //Cookies.set("home", true, { path: '/' });
-    //Cookies.set("navegacion", "46", { path: '/' });
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "54", { path: '/' });
 };
 </script>
