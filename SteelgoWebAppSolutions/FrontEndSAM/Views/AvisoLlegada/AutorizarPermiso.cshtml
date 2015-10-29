@@ -91,9 +91,6 @@
                                     <label id="AutorizarPermiso0010"></label>
                                 </td>
                                 <td>
-                                    <label id="AutorizarPermiso0011"></label>
-                                </td>
-                                <td>
                                     <label id="AutorizarPermiso0012"></label>
                                 </td>
                             </tr>
@@ -392,6 +389,7 @@
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
+
             if(result){
                 if (Error(result)) {
                     if (result.DocumentoID) {
@@ -401,6 +399,7 @@
                         } else {
                             $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#'  >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                         };
+
                     }
                 };
             }
@@ -420,7 +419,7 @@
                 if (Error(result)) {
                     if (result.DocumentoID) {
                         $("#listaArchivos tbody").empty();
-                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     }
                 };
             }
@@ -443,13 +442,11 @@
             if (Error(result)) {
                 if (result) {
                     $("#listaArchivos tbody").empty();
-
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"] != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"]["destroy"] != 'undefined') && returnOfSecurityCheck["Autorización de Permiso"]["destroy"]) {
-                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ");' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ");' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     } else {
-                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     }
-                    
                     var files = data.files;
                     if (files[0].name !== result.Nombre) {
                         limpiarUploadFiles();
