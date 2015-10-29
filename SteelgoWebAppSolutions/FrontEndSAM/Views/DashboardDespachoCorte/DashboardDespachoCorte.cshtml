@@ -51,10 +51,10 @@
                                 <label id="DashboardDespachoCorte0009"></label>
                                 <input id="PeriodoTiempo" class="" />
                             </div>
-                           @* <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <label id="DashboardDespachoCorte0047"></label>
                                 <input id="UnidadMedida" class="" />
-                            </div>*@
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,6 +196,7 @@
             CargarGridTubos();
             CargarGridAccesorios();
             CrearPeriodoTiempo();
+            CrearUnidadMedida();
             $("#gridTubos").data("kendoGrid").dataSource.data(tmpT);
             $("#gridAccesorios").data("kendoGrid").dataSource.data(tmpA);
             Filtros();
@@ -437,15 +438,17 @@
             change: function (e) {
                 var value = this.value();
 
-                if (!value) {
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
                     UnidadMedida = {};
+                    this.value("");
                 }
                 Filtros();
             },
             filter: "contains",
         });
         //default
-        $("#UnidadMedida").data("kendoComboBox").value(1);
+        //$("#UnidadMedida").data("kendoComboBox").value(1);
     };
         function ObtenerAccionesListadoTubos(Listado) {
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -654,14 +657,16 @@
         };
 
         
-        function DefinicionModeloPreDespachar() {
+        function DefinicionModeloPreDespacharSpool() {
             var dataSource = new kendo.data.DataSource({
                 data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
-                            SpoolID: { type: "string" },
-                            Spool: { type: "string" },
+                            ID: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadPredespachada: { type: "string" },
+                            CantidadPorPredespachar  : { type: "string" },
                         }
                     }
                 },
@@ -672,27 +677,174 @@
             });
             return dataSource;
         };
-        function DefinicionColumnasPreDespachar() {
+
+        function DefinicionColumnasPreDespacharSpool() {
             var columnas =
            [
-               { field: "SpoolID", title: _dictionary.DashboardRecepcionAlmacenaje0033[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetallePreDespachar(#:SpoolID#)'>#:SpoolID#</a>" },
-               { field: "Spool", title: _dictionary.DashboardRecepcionAlmacenaje0036[$("#language").data("kendoDropDownList").value()], filterable: true }
+               { field: "ID", title: _dictionary.DashboardDespachoCorte0055[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0056[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPredespachada", title: _dictionary.DashboardDespachoCorte0057[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorPredespachar", title: _dictionary.DashboardDespachoCorte0058[$("#language").data("kendoDropDownList").value()], filterable: true }
+
            ];
             return columnas;
         };
 
-        function MostrarDetallePreDespachar(spoolID) {
-            alert("Por definir pantalla pre-despacho");
+        function DefinicionModeloPreDespacharNumerosUnicos() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadPredespachada: { type: "string" },
+                            CantidadPorPredespachar : { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasPreDespacharNumerosUnicos() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0059[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0060[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0061[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0062[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0063[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0064[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPredespachada", title: _dictionary.DashboardDespachoCorte0065[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorPredespachar", title: _dictionary.DashboardDespachoCorte0066[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+
+
+        function DefinicionModeloPreDespacharToneladas() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadPredespachada: { type: "string" },
+                            CantidadPorPredespachar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasPreDespacharToneladas() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0059[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0060[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0061[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0062[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0063[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0064[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPredespachada", title: _dictionary.DashboardDespachoCorte0065[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorPredespachar", title: _dictionary.DashboardDespachoCorte0066[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+        function DefinicionModeloPreDespacharMilimetros() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadPredespachada: { type: "string" },
+                            CantidadPorPredespachar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasPreDespacharMilimetros() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0059[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0060[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0061[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0062[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0063[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0064[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPredespachada", title: _dictionary.DashboardDespachoCorte0065[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorPredespachar", title: _dictionary.DashboardDespachoCorte0066[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
         };
 
         function PreDespachar(tipomaterial) {
             var Listado = ArregloListado("13", tipomaterial);
 
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
-                    resultadoJson = result;
-                    var dataSource = DefinicionModeloPreDespachar();
-                    var columnas = DefinicionColumnasPreDespachar();
+            //$folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            //    if (Error(result)) {
+                     resultadoJson = result;
+                    var dataSource = "";
+                    var columnas = "";
+
+                    switch ($("#UnidadMedida").data("kendoComboBox").text()) {
+                        case "Spool":
+                            dataSource = DefinicionModeloPreDespacharSpool();
+                            columnas = DefinicionColumnasPreDespacharSpool();
+                            break;
+                        case "Pieza":
+                            dataSource = DefinicionModeloPreDespacharNumerosUnicos();
+                            columnas = DefinicionColumnasPreDespacharNumerosUnicos();
+                            break;
+                        case "Toneladas":
+                            dataSource = DefinicionModeloPreDespacharToneladas();
+                            columnas = DefinicionColumnasPreDespacharToneladas();
+                            break;
+                        case "Milimetros":
+                            dataSource = DefinicionModeloPreDespacharMilimetros();
+                            columnas = DefinicionColumnasPreDespacharMilimetros();
+                            break;
+                        default:
+                            dataSource = DefinicionModeloPreDespacharSpool();
+                            columnas = DefinicionColumnasPreDespacharSpool();
+                            break;
+                    };
+                   
 
                     if (tipomaterial == 1) {
                         CargarGridTubos(dataSource, columnas,"");
@@ -705,22 +857,22 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("3");
                     };
-                };
-                loadingStop();
-            });
+            //    };
+            //    loadingStop();
+            //});
 
         };
 
-        function DefinicionModeloEntregar() {
+        function DefinicionModeloEntregarSpool() {
             var dataSource = new kendo.data.DataSource({
                 data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
-                            PickingTicket: { type: "string" },
-                            EmpleadoEntrega: { type: "string" },
-                            EmpleadoRecibe: { type: "string" },
-                            FechaEntrega: { type: "string" },
+                            ID: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadEntregada: { type: "string" },
+                            CantidadPorEntregar: { type: "string" },
                         }
                     }
                 },
@@ -731,25 +883,174 @@
             });
             return dataSource;
         };
-        function DefinicionColumnasEntregar() {
+
+        function DefinicionColumnasEntregarSpool() {
             var columnas =
            [
-               { field: "PickingTicket", title: _dictionary.DashboardDespachoCorte0043[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "EmpleadoEntrega", title: _dictionary.DashboardDespachoCorte0044[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "EmpleadoRecibe", title: _dictionary.DashboardDespachoCorte0045[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "FechaEntrega", title: _dictionary.DashboardDespachoCorte0046[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "ID", title: _dictionary.DashboardDespachoCorte0079[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0080[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadEntregada", title: _dictionary.DashboardDespachoCorte0081[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorEntregar", title: _dictionary.DashboardDespachoCorte0082[$("#language").data("kendoDropDownList").value()], filterable: true }
+
            ];
             return columnas;
         };
 
+        function DefinicionModeloEntregarNumerosUnicos() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadEntregada: { type: "string" },
+                            CantidadPorEntregar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasEntregarNumerosUnicos() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0083[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0084[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0085[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0086[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0087[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0088[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadEntregada", title: _dictionary.DashboardDespachoCorte0089[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorEntregar", title: _dictionary.DashboardDespachoCorte0090[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+
+
+        function DefinicionModeloEntregarToneladas() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadEntregada: { type: "string" },
+                            CantidadPorEntregar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasEntregarToneladas() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0083[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0084[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0085[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0086[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0087[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0088[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadEntregada", title: _dictionary.DashboardDespachoCorte0089[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorEntregar", title: _dictionary.DashboardDespachoCorte0090[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+        function DefinicionModeloEntregarMilimetros() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadEntregada: { type: "string" },
+                            CantidadPorEntregar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasEntregarMilimetros() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0083[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0084[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0085[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0086[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0087[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0088[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadEntregada", title: _dictionary.DashboardDespachoCorte0089[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorEntregar", title: _dictionary.DashboardDespachoCorte0090[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+
+
         function Entregar(tipomaterial) {
             var Listado = ArregloListado("14", tipomaterial);
 
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+            //$folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            //    if (Error(result)) {
                     resultadoJson = result;
-                    var dataSource = DefinicionModeloEntregar();
-                    var columnas = DefinicionColumnasEntregar();
+                    var dataSource = "";
+                    var columnas = "";
+
+                    switch ($("#UnidadMedida").data("kendoComboBox").text()) {
+                        case "Spool":
+                            dataSource = DefinicionModeloEntregarSpool();
+                            columnas = DefinicionColumnasEntregarSpool();
+                            break;
+                        case "Pieza":
+                            dataSource = DefinicionModeloEntregarNumerosUnicos();
+                            columnas = DefinicionColumnasEntregarNumerosUnicos();
+                            break;
+                        case "Toneladas":
+                            dataSource = DefinicionModeloEntregarToneladas();
+                            columnas = DefinicionColumnasEntregarToneladas();
+                            break;
+                        case "Milimetros":
+                            dataSource = DefinicionModeloEntregarMilimetros();
+                            columnas = DefinicionColumnasEntregarMilimetros();
+                            break;
+                        default:
+                            dataSource = DefinicionModeloEntregarSpool();
+                            columnas = DefinicionColumnasEntregarSpool();
+                            break;
+                    };
 
                     if (tipomaterial == 1) {
                         CargarGridTubos(dataSource, columnas,"");
@@ -762,9 +1063,9 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("5");
                     };
-                };
-                loadingStop();
-            });
+            //    };
+            //    loadingStop();
+            //});
         };
 
         function DefinicionModeloDespacho() {
@@ -915,15 +1216,16 @@
             });
         };
 
-        function DefinicionModeloDespachar() {
+        function DefinicionModeloPorDespacharSpool() {
             var dataSource = new kendo.data.DataSource({
                 data: resultadoJson,
                 schema: {
                     model: {
                         fields: {
-                            ProyectoID: { type: "string" },
-                            SpoolID: { type: "string" },
-                            Spool: { type: "string" },
+                            ID: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadDespachada: { type: "string" },
+                            CantidadPorDespachar : { type: "string" },
                         }
                     }
                 },
@@ -935,28 +1237,172 @@
             return dataSource;
         };
 
-        function DefinicionColumnasDespachar() {
+        function DefinicionColumnasPorDespacharSpool() {
             var columnas =
            [
-               { field: "ProyectoID", title: _dictionary.DashboardDespachoCorte0032[$("#language").data("kendoDropDownList").value()], filterable: true },
-               { field: "SpoolID", title: _dictionary.DashboardDespachoCorte0030[$("#language").data("kendoDropDownList").value()], filterable: true, template: "<a class='detailLink' onclick='MostrarDetalleDespachar(#:SpoolID#,#:ProyectoID#)'>#:SpoolID#</a>" },
-               { field: "Spool", title: _dictionary.DashboardDespachoCorte0031[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "ID", title: _dictionary.DashboardDespachoCorte0067[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0068[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadDespachada", title: _dictionary.DashboardDespachoCorte0069[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorDespachar", title: _dictionary.DashboardDespachoCorte0070[$("#language").data("kendoDropDownList").value()], filterable: true }
+
            ];
             return columnas;
         };
 
-        function MostrarDetalleDespachar(SpoolID, ProyectoID) {
-            window.location.href = _despachoUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&SpoolID=" + SpoolID + "&ProyectoID=" + ProyectoID;
+        function DefinicionModeloPorDespacharNumerosUnicos() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadDespachada: { type: "string" },
+                            CantidadPorDespachar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasPorDespacharNumerosUnicos() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0071[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0072[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0073[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0074[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0075[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0076[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadDespachada ", title: _dictionary.DashboardDespachoCorte0077[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorDespachar", title: _dictionary.DashboardDespachoCorte0078[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+
+
+        function DefinicionModeloPorDespacharToneladas() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadPredespachada: { type: "string" },
+                            CantidadPorPredespachar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasPorDespacharToneladas() {
+            var columnas =
+           [
+               { field: "IC", title: _dictionary.DashboardDespachoCorte0071[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0072[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0073[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0074[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0075[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0076[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadDespachada ", title: _dictionary.DashboardDespachoCorte0077[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorDespachar", title: _dictionary.DashboardDespachoCorte0078[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
+        };
+        function DefinicionModeloPorDespacharMilimetros() {
+            var dataSource = new kendo.data.DataSource({
+                data: resultadoJson,
+                schema: {
+                    model: {
+                        fields: {
+                            IC: { type: "string" },
+                            DescripcionIC: { type: "string" },
+                            D1: { type: "string" },
+                            D2: { type: "string" },
+                            Cedula: { type: "string" },
+                            CantidadTotal: { type: "string" },
+                            CantidadPredespachada: { type: "string" },
+                            CantidadPorPredespachar: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 10,
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            });
+            return dataSource;
+        };
+
+        function DefinicionColumnasPorDespacharMilimetros() {
+            var columnas =
+           [
+              { field: "IC", title: _dictionary.DashboardDespachoCorte0071[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "DescripcionIC", title: _dictionary.DashboardDespachoCorte0072[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D1", title: _dictionary.DashboardDespachoCorte0073[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "D2", title: _dictionary.DashboardDespachoCorte0074[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "Cedula", title: _dictionary.DashboardDespachoCorte0075[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadTotal", title: _dictionary.DashboardDespachoCorte0076[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadDespachada ", title: _dictionary.DashboardDespachoCorte0077[$("#language").data("kendoDropDownList").value()], filterable: true },
+               { field: "CantidadPorDespachar", title: _dictionary.DashboardDespachoCorte0078[$("#language").data("kendoDropDownList").value()], filterable: true }
+
+           ];
+            return columnas;
         };
 
         function PorDespachar() {
             var Listado = ArregloListado("13", tipomaterial);
 
-            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-                if (Error(result)) {
+            //$folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+            //    if (Error(result)) {
                     resultadoJson = result;
-                    var dataSource = DefinicionModeloDespachar();
-                    var columnas = DefinicionColumnasDespachar();
+                    var dataSource = "";
+                    var columnas = "";
+
+                    switch ($("#UnidadMedida").data("kendoComboBox").text()) {
+                        case "Spool":
+                            dataSource = DefinicionModeloPorDespacharSpool();
+                            columnas = DefinicionColumnasPorDespacharSpool();
+                            break;
+                        case "Pieza":
+                            dataSource = DefinicionModeloPorDespacharNumerosUnicos();
+                            columnas = DefinicionColumnasPorDespacharNumerosUnicos();
+                            break;
+                        case "Toneladas":
+                            dataSource = DefinicionModeloPorDespacharToneladas();
+                            columnas = DefinicionColumnasPorDespacharToneladas();
+                            break;
+                        case "Milimetros":
+                            dataSource = DefinicionModeloPorDespacharMilimetros();
+                            columnas = DefinicionColumnasPorDespacharMilimetros();
+                            break;
+                        default:
+                            dataSource = DefinicionModeloPorDespacharSpool();
+                            columnas = DefinicionColumnasPorDespacharSpool();
+                            break;
+                    };
 
                     if (tipomaterial == 1) {
                         CargarGridTubos(dataSource, columnas,"");
@@ -969,9 +1415,9 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("4");
                     };
-                };
-                loadingStop();
-            });
+            //    };
+            //    loadingStop();
+            //});
         };
 
         function TravelerPendiente() {
@@ -1000,14 +1446,6 @@
                     break;
                 case "3":
                     alert("pendiente");
-                    loadingStop();
-                    if (tipomaterial == 1) {
-                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
-                        $("#gridTubos").data("kendoGrid").refresh();
-                    } else {
-                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
-                        $("#gridAccesorios").data("kendoGrid").refresh();
-                    }
                     //PreDespachar(tipomaterial);
                     break;
                 case "4":
