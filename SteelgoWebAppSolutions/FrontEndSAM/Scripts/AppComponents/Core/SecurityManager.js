@@ -230,7 +230,7 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
 
         if (entityDefinition["listContainer"].hasOwnProperty("destroy") && entityDefinition.listContainer["destroy"] != null && entityDefinition.listContainer["destroy"].length > 0) {
             if (entityDestroyPermission == false) {
-               // $(entityDefinition.listContainer["destroy"]).css("display", "none");
+               $(entityDefinition.listContainer["destroy"]).css("display", "none");
             }
         }
 
