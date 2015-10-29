@@ -78,6 +78,7 @@
                         <div id="filesDiv" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <input name="ArchivoAutorizar" id="ArchivoAutorizar" type="file" class="" />
                         </div>
+                        <div id="divLinkAutorizar" style="display: none"></div>
                     </div>
                 </div>
             </div>
@@ -105,7 +106,6 @@
         </div>
     </div>
 </div>
-<input id="hdnCantidadArchivos" type="hidden" value="0" />
 <script>
     kendo.ui.Upload.fn._supportsDrop = function () { return false; }
     @section JavascriptDocumentReadyHomeCookie {
@@ -433,8 +433,13 @@
                     if (files[0].name !== result.Nombre) {
                         limpiarUploadFiles();
                         displayMessage("notificationslabel0084", '', '2');
+                        $("#listaArchivos tbody").empty();
+                        
+                        $("#ArchivoAutorizar").show();
+                        $("#ArchivoAutorizar").data("kendoUpload").enable();
                     }
                 } else {
+                    $("#listaArchivos tbody").empty();
                     displayMessage("notificationslabel0084", '', '2');
                 }
             };
@@ -449,6 +454,8 @@
     function borrarArchivo(id) {
         $GuardarPermisoAduana.DocumentoPermisoAduana.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
             $("#listaArchivos tbody").empty();
+            $("#ArchivoAutorizar").show();
+            $("#ArchivoAutorizar").data("kendoUpload").enable();
         });
     };
 
@@ -487,19 +494,17 @@
             displayMessage("notificationslabel0007", "", '1');
             e.preventDefault();
         };
-
         var numeropermiso = $("#NumeroPermiso").val() ? $("#NumeroPermiso").val() : 0;
         $("#ArchivoAutorizar").data("kendoUpload").options.async.saveUrl = $DocumentoPermisoAduana + "?folioAvisoLlegada=" + folio + "&NumeroPermiso=" + numeropermiso + "&token=" + Cookies.get("token");
+
+       
     };
 
     function singleFile(e) {
-
+        console.log(e);
         if (e.files.length == 1) {
-            // disables the upload after upload
-            //$("#ArchivoAutorizar").data("kendoUpload").disable();
-            $("#divLinkAutorizar").empty();
-            this.element.prop("disabled", true);
-            this.element.closest(".k-button").addClass("k-state-disabled");
+                $("#divLinkAutorizar").empty();
+                this.element.hide();
         }
     }
 
