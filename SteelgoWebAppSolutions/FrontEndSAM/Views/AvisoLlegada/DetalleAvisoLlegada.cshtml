@@ -773,6 +773,7 @@
 
                 AvisoLlegada[0].FolioAvisoLlegadaID = folio != -1 ? folio : -1;
                 AvisoLlegada[0].Proyectos = ProyectoIDs;
+                if (!Transportista.length) CargarTransportista(1, "");
                 AvisoLlegada[0].Transportista = Transportista;
                 AvisoLlegada[0].FechaRecepcion = curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();;
                 AvisoLlegada[0].Plana = PlanaIDs;
