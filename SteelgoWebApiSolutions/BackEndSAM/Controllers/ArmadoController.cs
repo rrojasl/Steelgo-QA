@@ -96,7 +96,7 @@ namespace BackEndSAM.Controllers
 
         }
         [HttpGet]
-        public object ObtieneFecha(string token, string lenguaje)
+        public object ObtieneCamposPredeterminados(string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -111,6 +111,7 @@ namespace BackEndSAM.Controllers
 
                 string muestra = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 6);
 
+                string llena = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 12);
 
                 CamposPredeterminados armadoCamposPredeterminados = new CamposPredeterminados();
 
@@ -118,6 +119,7 @@ namespace BackEndSAM.Controllers
                 {
                     FechaArmado = fecha,
                     Muestra = muestra,
+                    Llena = llena,
                     FormatoFecha = lenguaje == "es-MX" ? "dd/MM/yyyy" : "MM-dd-yyyy"
                 };
 
@@ -206,7 +208,8 @@ namespace BackEndSAM.Controllers
                         listadoTrabajosAdicionalesXJunta = listaDetalleAdicionalXJuntaConvertida,
                         SinCaptura = capturaDatosJson.SinCaptura,
                         NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
-                        NumeroUnico2ID= item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString()
+                        NumeroUnico2ID= item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
+                        DetalleJunta = "Tipo Junta: " + item.TipoJunta + " - " + "Diametro: " + item.Diametro + " - " + "Cedula: " + item.Cedula + " - " + "Localización: " + item.Localizacion + " - " + "Familia Acero: " + item.FamiliaAcero + ""
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }

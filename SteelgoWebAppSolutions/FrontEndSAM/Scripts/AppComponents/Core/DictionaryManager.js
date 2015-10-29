@@ -3690,6 +3690,24 @@ _dictionary = {
         "es-MX": "{0: dd/MM/yyyy}",
         "en-US": "{0: MM/dd/yyyy}"
     },
+    "FormatoFecha2": {
+        "es-MX": "dd/MM/yyyy",
+        "en-US": "MM/dd/yyyy"
+    },
+    "lblInicio": {
+        "es-MX": "Inicio",
+        "en-US": "Home"
+    },
+    //#region Mensajes
+    "Mensajes_error": {
+        "es-MX": "Mensaje de error: ",
+        "en-US": "Error message: "
+    },
+    "CampoRequerido": {
+        "es-MX": "Favor de validar los campos requeridos ",
+        "en-US": "Please validate required fields "
+    },
+    //#endregion
     //#endregion
     //#region Trabajos adicionales
     "TrabajosAdicionales0002": {
@@ -3908,93 +3926,46 @@ _dictionary = {
     },
     //#endregion
     //#endregion
-    //#region Armado   
-    //#region Captura
+    //#region Armado  
+    "CapturaArmadoArmadoSpool": {
+        "es-MX": "Armado de Spool",
+        "en-US": "spool assembly"
+    },
     "LabelHeaderArmado": {
         "es-MX": "Detalle Armado",
         "en-US": "Armed detail"
     },
-    "CapturaArmadoPreguntaBorradoCaptura": {
-        "es-MX": "¿Está seguro de cancelar el detalle de la captura de armado?",
-        "en-US": "Are you sure you want to cancel the detail of the capture of armed ?"
-    },
-    "CapturaArmadoDetalleVisible": {
-        "es-MX": "Mostrar",
-        "en-US": "Display"
-    },
-    "CapturaArmadoDetalleVisibleSinCaptura": {
-        "es-MX": "Sin captura",
-        "en-US": "without capture"
-    },
-    "CapturaArmadoDetalleVisibleTodos": {
-        "es-MX": "Todos",
-        "en-US": "all"
-    },
-    "CapturaArmadoArmadoSpool": {
-        "es-MX": "Armado de spool",
-        "en-US": "Armed spool"
-    },
-    "CapturaArmadoCapturaArmado": {
-        "es-MX": "Captura rapida",
-        "en-US": "Quick capture"
-    },
-    "CapturaArmadoGuardarArmado": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
-    },
-    "CapturaArmadoCancelarArmado": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-    "CapturaArmadoAgregarArmado": {
-        "es-MX": "Agregar",
-        "en-US": "Add"
-    },
-    "HeaderProyecto": {
-        "es-MX": "Proyecto",
-        "en-US": "Project"
-    },
     "CapturaArmadoHeaderSpoolID": {
         "es-MX": "Spool ID",
-        "en-US": "Spool ID"
+        "en-US": "ID spool"
+    },
+    "CapturaArmadoHeaderSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
     },
     "CapturaArmadoHeaderJunta": {
         "es-MX": "Junta",
-        "en-US": "Board"
+        "en-US": "Joint"
     },
-    "CapturaArmadoHeaderFechaArmado": {
-        "es-MX": "Fecha de armado",
-        "en-US": "Reinforced date"
+    "CapturaArmadoHeaderMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
     },
-    "CapturaArmadoHeaderTubero": {
-        "es-MX": "Tubero",
-        "en-US": "Tubero Key"
+    "CapturaArmadSinCaptura": {
+        "es-MX": "Sin captura",
+        "en-US": "Empty capture"
     },
-    "CapturaArmadoHeaderTaller": {
-        "es-MX": "Taller",
-        "en-US": "key workshop"
+    "CapturaArmadoTodos": {
+        "es-MX": "Todos",
+        "en-US": "All"
     },
-    //#endregion
-    //#region Grid
-    "CapturaArmadoHeaderNumeroControl": {
-        "es-MX": "Numero de Control",
-        "en-US": "Control Number"
+    "CapturaArmadoTodos2": {
+        "es-MX": "Todos",
+        "en-US": "All"
     },
-    "CapturaArmadoJunta": {
-        "es-MX": "Junta",
-        "en-US": "Board"
-    },
-    "CapturaArmadoHeaderTipoJunta": {
-        "es-MX": "Tipo Junta",
-        "en-US": "Board Type"
-    },
-    "CapturaArmadoHeaderDiametro": {
-        "es-MX": "Diametro",
-        "en-US": "Diameter"
-    },
-    "CapturaArmadoHeaderCedula": {
-        "es-MX": "Cedula",
-        "en-US": "Writ"
+    "CapturaArmadoVacios": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
     },
     "CapturaArmadoHeaderFechaArmado": {
         "es-MX": "Fecha Armado",
@@ -4002,19 +3973,15 @@ _dictionary = {
     },
     "CapturaArmadoHeaderTubero": {
         "es-MX": "Tubero",
-        "en-US": "Tubero"
+        "en-US": "Assembler"
     },
     "CapturaArmadoHeaderTaller": {
         "es-MX": "Taller",
         "en-US": "WorkShop"
     },
-    "CapturaArmadoHeaderLocalizacion": {
-        "es-MX": "Localización",
-        "en-US": "Location"
-    },
-    "CapturaArmadoHeaderFamiliaAcero": {
-        "es-MX": "Familia Acero",
-        "en-US": "Family Steel"
+    "CapturaArmadoHeaderLlenadoMasivo": {
+        "es-MX": "Llenado masivo",
+        "en-US": "filling mass"
     },
     "CapturaArmadoHeaderNumeroUnico1": {
         "es-MX": "Número único 1",
@@ -4028,7 +3995,27 @@ _dictionary = {
         "es-MX": "Adicionales",
         "en-US": "Additional"
     },
-    //#endregion
+    "CapturaArmadoHeaderDetalle": {
+        "es-MX": "Detalle",
+        "en-US": "Detail"
+    },
+    "CapturaArmadoPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de armado?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of armed ?"
+    },
+    "CapturaArmadoMensajeJuntaExistente": {
+        "es-MX": "La junta ya existe",
+        "en-US": "The Joint already exists"
+    },
+    "CapturaArmadoMensajeOrdenTrabajo": {
+        "es-MX": "La Orden de trabajo no es valida.",
+        "en-US": "The work order is not valid."
+    },
+    "CapturaArmadoMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+   
     //#endregion
     //#region Inspeccion
     "DimensionalVisualHeaderSpoolID": {
