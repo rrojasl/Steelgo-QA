@@ -224,8 +224,8 @@ _dictionary = {
         "en-US": "Listing Receiving Order"
     },
     "menuLabel0029": {
-        "es-MX": "Generar Orden de Recepción",
-        "en-US": "Generation Receiving Order"
+        "es-MX": "Orden de Recepción",
+        "en-US": "Receiving Order"
     },
     "menuLabel0030": {
         "es-MX": "Detalle de Orden de Recepción",
@@ -338,6 +338,10 @@ _dictionary = {
     "menuLabel1061": {
         "es-MX": "Comunicación",
         "en-US": "Communication"
+    },
+    "menuLabel1067": {
+        "es-MX": "Pre Despacho",
+        "en-US": "Pre Dispatch"
     },
     //QuickLinks Defaults
     "quickLabel0001": {
