@@ -331,6 +331,19 @@
 
                 }
             };
+
+            var $BultoModel = {
+                listContainer: {
+                    create: "",
+                    list: "",
+                    detail: "",
+                    destroy: "",
+                    createIncidence: ""
+                },
+                properties: {
+
+                }
+            };
     };
 
     function ItemsSumarDuplicados(){
@@ -1095,6 +1108,9 @@
                 }
                 if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Colada"] != 'undefined') && (typeof returnOfSecurityCheck["Colada"]["create"] != 'undefined') && !returnOfSecurityCheck["Colada"]["create"]) {
                     $("#NuevaColada").empty();
+                }
+                if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Bulto"] != 'undefined') && (typeof returnOfSecurityCheck["Bulto"]["create"] != 'undefined') && !returnOfSecurityCheck["Bulto"]["create"]) {
+                    $("#Detallar").empty();
                 }
             });
 
@@ -2857,6 +2873,7 @@
             $authorizationModel["Cuantificacion"] = $CuantificacionModel;
             $authorizationModel["Item Code"] = $ItemCodeModel;
             $authorizationModel["Colada"] = $ColadaModel;
+            $authorizationModel["Bulto"] = $BultoModel;
             
     }
 

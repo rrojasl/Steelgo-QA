@@ -26,9 +26,9 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
-                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display: none"><span id="DetalleAvisoLlegada0082"></span></button>
-                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow guardar"><span id="DetalleAvisoLlegada0017"></span></button>
+                                <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow editar" style="display: none"><span id="DetalleAvisoLlegada0082"></span></button>
+                                <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle guardar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>
                             </div>
@@ -91,9 +91,6 @@
                                     <label id="AutorizarPermiso0010"></label>
                                 </td>
                                 <td>
-                                    <label id="AutorizarPermiso0011"></label>
-                                </td>
-                                <td>
                                     <label id="AutorizarPermiso0012"></label>
                                 </td>
                             </tr>
@@ -120,9 +117,9 @@
     var FolioAvisoLlegada = {};
     var $AutorizarPermisoModel = {
         listContainer: {
-            create: "",
-            list: ".actionButtonSection",
-            detail: "",
+            create: ".guardar",
+            list: "",
+            detail: ".editar",
             destroy: "",
             createIncidence: ".incidencia",
         },
@@ -355,14 +352,7 @@
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
             if (!result) {
-                $("#divArchivoAutorizar").show();
-                $("#divLinkAutorizar").empty();
-                $("#divLinkAutorizar").hide();
-                $("#ArchivoAutorizar").data("kendoUpload").enable();
-                $("#NumeroPermiso").removeAttr("disabled");
-                limpiarUploadFiles();
-                $("#NumeroPermiso").val("");
-                $("#listaArchivos tbody").empty();
+                limpiarFolio();
             } else {
                 if (result.PermisoAutorizado) {
                     $("#ArchivoAutorizar").data("kendoUpload").disable();
@@ -374,11 +364,24 @@
                     $("#listaArchivos tbody").empty();
 
                     BotonAlta();
+                } else {
+                    limpiarFolio();
                 }
             }
         });
     };
 
+    function limpiarFolio() {
+        $("#divArchivoAutorizar").show();
+        $("#divLinkAutorizar").empty();
+        $("#divLinkAutorizar").hide();
+        $("#ArchivoAutorizar").data("kendoUpload").enable();
+        $("#NumeroPermiso").removeAttr("disabled");
+        limpiarUploadFiles();
+        $("#NumeroPermiso").val("");
+        $("#listaArchivos tbody").empty();
+        BotonEdicion();
+    };
     function HabilitarObtenerDocumentosPermisoAduana() {
         var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
@@ -386,13 +389,22 @@
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
-            if (Error(result)) {
-                if (result.DocumentoID) {
-                    $("#listaArchivos tbody").empty();
-                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
-                }
-            };
+
+            if(result){
+                if (Error(result)) {
+                    if (result.DocumentoID) {
+                        $("#listaArchivos tbody").empty();
+                        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"] != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"]["destroy"] != 'undefined') && returnOfSecurityCheck["Autorización de Permiso"]["destroy"]) {
+                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        } else {
+                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#'  >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        };
+
+                    }
+                };
+            }
             loadingStop();
+            applySecurityPolicy(false);
         });
     };
 
@@ -403,13 +415,16 @@
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
             loadingStart();
-            if (Error(result)) {
-                if (result.DocumentoID) {
-                    $("#listaArchivos tbody").empty();
-                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
-                }
-            };
+            if(result){
+                if (Error(result)) {
+                    if (result.DocumentoID) {
+                        $("#listaArchivos tbody").empty();
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    }
+                };
+            }
             loadingStop();
+            applySecurityPolicy(false);
         });
     };
 
@@ -427,8 +442,11 @@
             if (Error(result)) {
                 if (result) {
                     $("#listaArchivos tbody").empty();
-
-                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ");' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"] != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"]["destroy"] != 'undefined') && returnOfSecurityCheck["Autorización de Permiso"]["destroy"]) {
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ");' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    } else {
+                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    }
                     var files = data.files;
                     if (files[0].name !== result.Nombre) {
                         limpiarUploadFiles();
