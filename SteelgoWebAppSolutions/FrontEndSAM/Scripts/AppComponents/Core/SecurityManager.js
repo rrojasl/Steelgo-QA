@@ -199,7 +199,7 @@ function applySecurityPolicyForEntity(entityDefinition, entitySecurity, security
     if (entityDefinition.hasOwnProperty("listContainer")) {
         if (entityDefinition["listContainer"].hasOwnProperty("create") && entityDefinition.listContainer["create"] != null && entityDefinition.listContainer["create"].length > 0) {
             if (entityCreationPermission == false) {
-                if ($(entityDefinition.listContainer["create"]).is(grid)) {
+                if ($(entityDefinition.listContainer["create"]).is("#grid")) {
                     $(".k-grid-add").addClass("k-state-disabled").removeClass("k-grid-add");
                 } else {
                     $(entityDefinition.listContainer["create"]).css("display", "none");
