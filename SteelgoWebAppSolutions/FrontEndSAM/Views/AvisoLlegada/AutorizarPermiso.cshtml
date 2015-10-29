@@ -395,9 +395,9 @@
                     if (result.DocumentoID) {
                         $("#listaArchivos tbody").empty();
                         if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"] != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"]["destroy"] != 'undefined') && returnOfSecurityCheck["Autorización de Permiso"]["destroy"]) {
-                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                         } else {
-                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#'  >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#'  >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                         };
 
                     }
