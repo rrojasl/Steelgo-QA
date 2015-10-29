@@ -91,9 +91,6 @@
                                     <label id="AutorizarPermiso0010"></label>
                                 </td>
                                 <td>
-                                    <label id="AutorizarPermiso0011"></label>
-                                </td>
-                                <td>
                                     <label id="AutorizarPermiso0012"></label>
                                 </td>
                             </tr>
@@ -389,7 +386,7 @@
             if (Error(result)) {
                 if (result.DocumentoID) {
                     $("#listaArchivos tbody").empty();
-                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
                 }
             };
             loadingStop();
@@ -406,7 +403,7 @@
             if (Error(result)) {
                 if (result.DocumentoID) {
                     $("#listaArchivos tbody").empty();
-                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                 }
             };
             loadingStop();
@@ -428,7 +425,7 @@
                 if (result) {
                     $("#listaArchivos tbody").empty();
 
-                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ");' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                    $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ");' >" + "<span class='delete'></span>" + "</a></td></tr>");
                     var files = data.files;
                     if (files[0].name !== result.Nombre) {
                         limpiarUploadFiles();
