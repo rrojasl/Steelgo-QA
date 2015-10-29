@@ -17,10 +17,14 @@ namespace BackEndSAM.Models
 
     public class DocumentoPermisoAduana
     {
+        public string PermisoID { get; set; }
         public string DocumentoID { get; set; }
         public string NumeroPermiso { get; set; }
         public bool PermisoAutorizado { get; set; }
         public string Url { get; set; }
+        public string Nombre { get; set; }
+        public string Extencion { get; set; }
+        public string TipoArchivo { get; set; }
     }
 
     public class ListaDocumentosLlegadaMaterial

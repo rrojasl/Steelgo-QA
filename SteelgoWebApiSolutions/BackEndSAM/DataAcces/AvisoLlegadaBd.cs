@@ -354,7 +354,7 @@ namespace BackEndSAM.DataAcces
                             }
                         }
 
-                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList(); 
+                        result = result.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
 
                         lstFoliosAvisoLlegada = result.Select(x => x.FolioAvisoLlegadaID).ToList();
 
@@ -370,10 +370,10 @@ namespace BackEndSAM.DataAcces
                         if (ctx.Sam3_PermisoAduana.Where(x => x.FolioAvisoLlegadaID == folio).Any())
                         {
                             Sam3_FolioAvisoLlegada temp = (from r in ctx.Sam3_FolioAvisoLlegada
-                                        join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
-                                        where r.Activo == true
-                                        && r.FolioAvisoLlegadaID == folio
-                                        select r).AsParallel().SingleOrDefault();
+                                                           join p in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals p.FolioAvisoLlegadaID
+                                                           where r.Activo == true
+                                                           && r.FolioAvisoLlegadaID == folio
+                                                           select r).AsParallel().SingleOrDefault();
 
                             string fechaR = temp.FechaRecepcion.HasValue ? temp.FechaRecepcion.Value.ToString("dd/MM/yyyy") : string.Empty;
                             //string fechag = temp.Sam3_PermisoAduana.Select(x => x.FechaGeneracion).SingleOrDefault().HasValue ?
@@ -691,7 +691,7 @@ namespace BackEndSAM.DataAcces
                         {
                             //verificamos si ya existe el archivo actual
                             if (!ctx.Sam3_Rel_FolioAvisoLlegada_Documento
-                                .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID 
+                                .Where(x => x.Rel_FolioAvisoLlegada_DocumentoID == archivo.ArchivoID
                                     && x.FolioAvisoLlegadaID == avisoBd.FolioAvisoLlegadaID).Any())
                             {
                                 //si el archivo no existe, agregamos uno nuevo
@@ -804,7 +804,7 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
-                                                   where r.Activo && 
+                                                   where r.Activo &&
                                                    !(from av in ctx.Sam3_FolioAvisoEntrada where av.Activo select av.FolioAvisoLlegadaID.ToString()).Contains(r.FolioAvisoLlegadaID.ToString())
                                                    select new ListaCombos
                                                    {
@@ -880,8 +880,8 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    join p in ctx.Sam3_Patio on r.PatioID equals p.PatioID
-                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID  
-                                                   where r.Activo && p.RequierePermisoAduana && pe.Activo 
+                                                   join pe in ctx.Sam3_PermisoAduana on r.FolioAvisoLlegadaID equals pe.FolioAvisoLlegadaID
+                                                   where r.Activo && p.RequierePermisoAduana && pe.Activo
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -955,19 +955,48 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     DocumentoPermisoAduana permiso = (from r in ctx.Sam3_PermisoAduana
-                                                      join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
-                                                      join p in ctx.Sam3_PermisoAduana on d.PermisoAduanaID equals p.PermisoAduanaID
-                                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo && d.Activo
+                                                      //join d in ctx.Sam3_Rel_PermisoAduana_Documento on r.PermisoAduanaID equals d.PermisoAduanaID
+                                                      //join p in ctx.Sam3_PermisoAduana on d.PermisoAduanaID equals p.PermisoAduanaID
+                                                      //join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
+                                                      where r.FolioAvisoLlegadaID == folioAvisoLlegadaID && r.Activo
                                                       select new DocumentoPermisoAduana
                                                       {
-                                                          DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
-                                                          NumeroPermiso = p.NumeroPermiso.ToString(),
-                                                          PermisoAutorizado = p.PermisoAutorizado,
-                                                          Url = d.Url
-                                  
+                                                          PermisoID = r.PermisoAduanaID.ToString(),
+                                                          //DocumentoID = d.Rel_Permiso_Documento_ID.ToString(),
+                                                          NumeroPermiso = r.NumeroPermiso.ToString(),
+                                                          PermisoAutorizado = r.PermisoAutorizado,
+                                                          //Url = d.Url,
+                                                          //Nombre = d.Nombre,
+                                                          //TipoArchivo = t.Nombre,
+                                                          //Extencion = d.Extencion,
                                                       }).AsParallel().SingleOrDefault();
 
-                   
+                    permiso.DocumentoID = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                           where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                           select d.Rel_Permiso_Documento_ID.ToString()).AsParallel().SingleOrDefault();
+
+                    permiso.Url = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                   where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                   select d.Url).AsParallel().SingleOrDefault();
+
+                    permiso.Nombre = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                      where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                      select d.Nombre).AsParallel().SingleOrDefault();
+
+                    permiso.TipoArchivo = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                           join t in ctx.Sam3_TipoArchivo on d.TipoArchivoID equals t.TipoArchivoID
+                                           where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo && t.Activo
+                                           select t.Nombre).AsParallel().SingleOrDefault();
+
+                    permiso.Extencion = (from d in ctx.Sam3_Rel_PermisoAduana_Documento
+                                         where d.PermisoAduanaID.ToString() == permiso.PermisoID
+                                           && d.Activo
+                                         select d.Extencion).AsParallel().SingleOrDefault();
+
                     return permiso;
                 }
             }
@@ -1035,7 +1064,7 @@ namespace BackEndSAM.DataAcces
                                    RegistradoPor = us.Nombre + " " + us.ApellidoPaterno,
                                    TipoIncidencia = ti.Nombre
                                }).Distinct().AsParallel().ToList();
-                    
+
                 }
                 return listado;
             }
