@@ -355,15 +355,7 @@
 
         $ValidacionFolioConPermisoAduana.ValidacionFolioConPermisoAduana.read({ Folio: folio, token: Cookies.get("token") }).done(function (result) {
             if (!result) {
-                $("#divArchivoAutorizar").show();
-                $("#divLinkAutorizar").empty();
-                $("#divLinkAutorizar").hide();
-                $("#ArchivoAutorizar").data("kendoUpload").enable();
-                $("#NumeroPermiso").removeAttr("disabled");
-                limpiarUploadFiles();
-                $("#NumeroPermiso").val("");
-                $("#listaArchivos tbody").empty();
-                BotonEdicion();
+                limpiarFolio();
             } else {
                 if (result.PermisoAutorizado) {
                     $("#ArchivoAutorizar").data("kendoUpload").disable();
@@ -375,11 +367,24 @@
                     $("#listaArchivos tbody").empty();
 
                     BotonAlta();
+                } else {
+                    limpiarFolio();
                 }
             }
         });
     };
 
+    function limpiarFolio() {
+        $("#divArchivoAutorizar").show();
+        $("#divLinkAutorizar").empty();
+        $("#divLinkAutorizar").hide();
+        $("#ArchivoAutorizar").data("kendoUpload").enable();
+        $("#NumeroPermiso").removeAttr("disabled");
+        limpiarUploadFiles();
+        $("#NumeroPermiso").val("");
+        $("#listaArchivos tbody").empty();
+        BotonEdicion();
+    };
     function HabilitarObtenerDocumentosPermisoAduana() {
         var folio = FolioAvisoLlegada.FolioAvisoLlegadaID ? FolioAvisoLlegada.FolioAvisoLlegadaID : "-1";
 
@@ -391,7 +396,11 @@
                 if (Error(result)) {
                     if (result.DocumentoID) {
                         $("#listaArchivos tbody").empty();
-                        $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"] != 'undefined') && (typeof returnOfSecurityCheck["Autorización de Permiso"]["destroy"] != 'undefined') && returnOfSecurityCheck["Autorización de Permiso"]["destroy"]) {
+                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#' onclick='borrarArchivo(" + result.DocumentoID + ",$(this));' >" + "<span class='delete'></span>" + "</a></td></tr>");
+                        } else {
+                            $("#listaArchivos tbody").append("<tr id='" + result.DocumentoID + "," + result.Extencion + "'><td><a target='_blank' href='" + result.Url + "' >" + result.Nombre + "</a></td><td><a target='_blank' href='" + result.Url + "' >" + result.TipoArchivo + "</a></td><td><a href='#'  >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        };
                     }
                 };
             }
