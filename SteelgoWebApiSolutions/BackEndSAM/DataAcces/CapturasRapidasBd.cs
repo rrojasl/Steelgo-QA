@@ -90,5 +90,27 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ObtenerDetalleDimensional(int id, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Inspeccion_Get_DetalleDimensional_Result> lista = ctx.Sam3_Inspeccion_Get_DetalleDimensional(id,lenguaje).ToList();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
     }
 }
