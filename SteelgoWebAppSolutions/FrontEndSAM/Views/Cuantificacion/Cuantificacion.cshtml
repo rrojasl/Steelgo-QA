@@ -173,6 +173,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+            var fromButton=false;
             var Proyecto = {}, Cuantificacion = {}, FolioAvisoEntrada = {}, TipoPackingList = {}, TipoUso = {}, resultadoJson,
             itemCodesJson, itemCodesJsonSteelgo, lastEditedCellID = "", lastEditedCellIDSteelgo = "", lastEditedCellIDSColada,
             familiaItemCode = {}, familiaItemCodeSteelgo = {}, ProyectoItemCode = {},
@@ -456,7 +457,9 @@
     @section JavascriptGlobalFunctions 
     {
         function changeLanguageCall() {
+            var tmp=removeGrid($("#grid"));
             LoadGridQuantification();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
         }
 
         function cargaInicial() {
@@ -904,7 +907,6 @@
         };
 
         function LoadGridQuantification() {
-            removeGrid($("#grid"));
             $("#grid").kendoGrid({
                 dataSource: {
                     data: resultadoJson,
@@ -938,6 +940,11 @@
                                  { field: "Cantidad", aggregate: "sum" }
                     ]
                 },
+                dataBound:function(e){
+                    $(".k-button.k-button-icontext.k-grid-add").on("click",function(){
+                        fromButton=true;
+                    })
+                },
                 autoHeight: true,
                 sortable: true,
                 scrollable: true,
@@ -949,6 +956,10 @@
                 edit: function(e) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["detail"]) {
                         this.closeCell();
+                    }
+                    if(fromButton){
+                        fromButton=false;
+                        $("#grid").data("kendoGrid").current($("#grid tr[data-uid] td:first"));
                     }
                 },
                 toolbar: [
