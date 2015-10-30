@@ -1389,6 +1389,14 @@ _dictionary = {
         "es-MX": "Peso",
         "en-US": "Weight"
     },
+    "NotificacionDeficit0018": {
+        "es-MX": "Debes seleccionar Orden de Trabajo y Item Code",
+        "en-US": "You must select a Work Order and an Item Code"
+    },
+    "NotificacionDeficit0019": {
+        "es-MX": "Debes ingresar un deficit para algun elemento del listado",
+        "en-US": "You must type a deficit for one of the listed elements"
+    },
     //Revisión de deficit
     "RevisionDeficit0001": {
         "es-MX": "Revisión de Déficit",
@@ -1466,6 +1474,38 @@ _dictionary = {
     "Busqueda0001": {
         "es-MX": "Resultados de Búsqueda",
         "en-US": "Search results"
+    },
+    "Busqueda0002": {
+        "es-MX": "Proyectos",
+        "en-US": "Projects"
+    },
+    "Busqueda0003": {
+        "es-MX": "Tipo",
+        "en-US": "Type"
+    },
+    "Busqueda0004": {
+        "es-MX": "Aviso entrada",
+        "en-US": "Arrival notice"
+    },
+    "Busqueda0005": {
+        "es-MX": "Cuantificación",
+        "en-US": "Quantification"
+    },
+    "Busqueda0006": {
+        "es-MX": "Número único",
+        "en-US": "Unique Number"
+    },
+    "Busqueda0007": {
+        "es-MX": "Anteriores",
+        "en-US": "Previous"
+    },
+    "Busqueda0008": {
+        "es-MX": "Siguientes",
+        "en-US": "Next"
+    },
+    "Busqueda0009": {
+        "es-MX": "de",
+        "en-US": "of"
     },
     //Entrada Material Partial view Labels
     "LlegadaMaterial0001": {
@@ -5801,8 +5841,8 @@ _dictionary = {
         "en-US": "Please enter a valid date."
     },
     "notificationslabel0083": {
-        "es-MX": "El valor seleccionado no es válido.",
-        "en-US": "The value selected is invalid."
+        "es-MX": "El valor seleccionado no es válido en el campo ",
+        "en-US": "The value selected is invalid in the field "
     },
     "notificationslabel0084": {
         "es-MX": "Ocurrio un error al cargar el archivo.",

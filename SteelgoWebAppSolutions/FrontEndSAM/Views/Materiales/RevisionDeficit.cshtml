@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row">
-                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2" id="ordtrabajoDiv">
                                     <label for="ordtrabajo" id="RevisionDeficit0005"></label>
                                     <input id="ordtrabajo" type="text" />
                                 </div>
@@ -64,6 +64,21 @@
 @section JavascriptGlobalVariables {
     unaVez=null;
     deficitPrevio=0;
+    var $RevisionDeficitModel = {
+        listContainer: {
+            create: "#solucionar",
+            list: ["gridIC","gridSp"],
+            detail: "k-detail-row",
+            destroy: "k-grid-delete"
+        },
+        properties:{
+            ordentrabajo:{
+                visible: "#ordtrabajoDiv",
+                editable: "#ordtrabajo",
+                required: "#ordtrabajo"
+            },
+        }
+    };
 }
 
 @section JavascriptGlobalFunctions {
@@ -278,7 +293,7 @@
         loadingStart();
         $("#gridIC tr[data-uid]").each(function(){
             var dataItem=$("#gridIC").data("kendoGrid").dataItem($(this).closest("tr"));
-            dataItem.PorCubrir.toString()!="0" ? solucionado=false : 0;
+            dataItem.PorCubrir.toString()=="0" ? solucionado=false : 0;
         })
         if(solucionado){
             var datosDeficit=[];
@@ -303,13 +318,15 @@
                 loadingStop();
             })
         }else{
-            displayMessage("",_dictionary.RevisionDeficit0004[$("#language").data("kendoDropDownList").value()], '0');
+            displayMessage("",_dictionary.RevisionDeficit0004[$("#language").data("kendoDropDownList").value()], '2');
             loadingStop();
         }
     })
+    $authorizationModel["Materiales"] = $RevisionDeficitModel;
 }
 
 @section JavascriptDocumentReadyHomeCookie {
-
+    Cookies.set("home", true, { path: '/' });
+    Cookies.set("navegacion", "55", { path: '/' });
 }
 </script>

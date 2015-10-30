@@ -47,7 +47,7 @@
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
                         </div>
-                        <div class="button-section">
+                        <div class="button-section ordendescarga">
                             <a id="GenerarOrdenDescarga" href="#" class="btn btn-primary"><span id="LlegadaMaterial0039"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
@@ -230,6 +230,20 @@
                     editable: "#PatioID",
                     required: "#PatioID"
                 }
+            }
+        };
+
+
+        var $OrdenDescargaModel = {
+            listContainer: {
+                create: ".ordendescarga",
+                list: "",
+                detail: "",
+                destroy: "",
+                createIncidence: ""
+            },
+            properties: {
+              
             }
         };
     };
@@ -1383,6 +1397,8 @@
    
     @section JavascriptDocumentReadyFunctions {
     $authorizationModel["LLegada Material"] = $DetalleLlegadaMaterialModel;
+    $authorizationModel["Orden Descarga"] = $OrdenDescargaModel;
+
     CargaInicial();
 
 

@@ -173,6 +173,7 @@
 <script>
     @section JavascriptGlobalVariables 
     {
+            var fromButton=false;
             var Proyecto = {}, Cuantificacion = {}, FolioAvisoEntrada = {}, TipoPackingList = {}, TipoUso = {}, resultadoJson,
             itemCodesJson, itemCodesJsonSteelgo, lastEditedCellID = "", lastEditedCellIDSteelgo = "", lastEditedCellIDSColada,
             familiaItemCode = {}, familiaItemCodeSteelgo = {}, ProyectoItemCode = {},
@@ -456,7 +457,9 @@
     @section JavascriptGlobalFunctions 
     {
         function changeLanguageCall() {
+            var tmp=removeGrid($("#grid"));
             LoadGridQuantification();
+            $("#grid").data("kendoGrid").dataSource.data(tmp);
         }
 
         function cargaInicial() {
@@ -870,7 +873,22 @@
             familiaItemCodeSteelgo = { FamiliaID: id };
         };
 
-
+        function validarRequeridosFormaColadaCuantificacion() {
+            var bool = true;
+            $("#formCuantificacion .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "ProyectoID") {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
+                    };
+                };
+            });
+            return bool;
+        };
 
         function validarRequeridosFormaCuantificacion() {
             var bool = true;
@@ -904,7 +922,6 @@
         };
 
         function LoadGridQuantification() {
-            removeGrid($("#grid"));
             $("#grid").kendoGrid({
                 dataSource: {
                     data: resultadoJson,
@@ -938,6 +955,11 @@
                                  { field: "Cantidad", aggregate: "sum" }
                     ]
                 },
+                dataBound:function(e){
+                    $(".k-button.k-button-icontext.k-grid-add").on("click",function(){
+                        fromButton=true;
+                    })
+                },
                 autoHeight: true,
                 sortable: true,
                 scrollable: true,
@@ -949,6 +971,10 @@
                 edit: function(e) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["detail"]) {
                         this.closeCell();
+                    }
+                    if(fromButton){
+                        fromButton=false;
+                        $("#grid").data("kendoGrid").current($("#grid tr[data-uid] td:first"));
                     }
                 },
                 toolbar: [
@@ -1237,9 +1263,13 @@
                     height = "55%";
                     break;
                 case 3:
-                    modalTitle = "Colada";
-                    content = "@Url.Action("Colada", "PopUps")";
-                    height = "30%";
+                        modalTitle = "Colada";
+                        content = "@Url.Action("Colada", "PopUps")";
+                        height = "30%";
+                    if (!validarRequeridosFormaColadaCuantificacion()) {
+                        mostrarpopup = false;
+                        displayMessage("notificationslabel0031", "", '1');
+                    };
                     break;
             };
 
@@ -1347,7 +1377,7 @@
         };
 
         function ActualizarPaginaPadre() {
-            ObtenerColada("Colada", 0, 0);
+            //ObtenerColada("Colada", 0, 0);
         };
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
@@ -2546,7 +2576,7 @@
                         type: "json",
                         serverFiltering: true,
                         transport: {
-                            read: $URLColada + "itemcode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
+                            read: $URLColada + "itemcode=" + (container.parent().children()[0].firstChild?container.parent().children()[0].firstChild.data:"") + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                             }
                     },
                     select: function (e) {

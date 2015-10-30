@@ -104,7 +104,11 @@ function removeGrid(grid) {
 
 function messageindexKendoCombobox(obj) {
     if (obj.selectedIndex == -1) {
-        displayMessage("notificationslabel0083", "", '1');
+        var elemento = obj.list.attr("id");
+        var index = elemento.indexOf("-");
+        var valor = elemento.substring(0, index);
+
+        displayMessage("notificationslabel0083", $("#" + valor).closest("div").find("label").text(), '1');
     };
 };
 

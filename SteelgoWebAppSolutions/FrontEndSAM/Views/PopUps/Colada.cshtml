@@ -14,10 +14,10 @@
                 <label id="Cuantificacion0062"></label>
                 <input id="Acero_Colada" class="" />
             </div>
-            <div id="Proyecto_ColadaDiv" class="form-group">
+            @*<div id="Proyecto_ColadaDiv" class="form-group hidden">
                 <label id="Cuantificacion0063"></label>
                 <input id="Proyecto_Colada" class="" />
-            </div>
+            </div>*@
             <div id="NumeroColada_ColadaDiv" class="form-group">
                 <label id="Cuantificacion0066"></label>
                 <input id="NumeroColada_Colada" class="general-input" />
@@ -142,24 +142,24 @@
         });
         ObtenerAceroColada();
 
-        $("#Proyecto_Colada").kendoComboBox({
-            dataTextField: "Nombre",
-            dataValueField: "ProyectoID",
-            select: function (e) {
-                var dataItem = this.dataItem(e.item.index());
-                CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
-            },
-            change: function (e) {
-                var value = this.value();
-                if (!value || this.selectedIndex == -1) {
-                    messageindexKendoCombobox(this);
-                    ProyectoColada = {};
-                    this.value("");
-                }
-            },
-            filter: "contains",
-        });
-        ObtenerProyecto();
+        //$("#Proyecto_Colada").kendoComboBox({
+        //    dataTextField: "Nombre",
+        //    dataValueField: "ProyectoID",
+        //    select: function (e) {
+        //        var dataItem = this.dataItem(e.item.index());
+        //        CargarProyectoColada(dataItem.ProyectoID, dataItem.Nombre);
+        //    },
+        //    change: function (e) {
+        //        var value = this.value();
+        //        if (!value || this.selectedIndex == -1) {
+        //            messageindexKendoCombobox(this);
+        //            ProyectoColada = {};
+        //            this.value("");
+        //        }
+        //    },
+        //    filter: "contains",
+        //});
+        //ObtenerProyecto();
     };
     function hideElementsColada() {
         $(".sidebar").hide();
@@ -186,10 +186,10 @@
         AceroColada = { AceroID: id, Nombre: value };
     };
 
-    function CargarProyectoColada(id, value) {
-        ProyectoColada = {};
-        ProyectoColada = { ProyectoID: id, Nombre: value };
-    };
+    //function CargarProyectoColada(id, value) {
+    //    ProyectoColada = {};
+    //    ProyectoColada = { ProyectoID: id, Nombre: value };
+    //};
 
     function ObtenerFabricanteColada() {
         $Fabricantes.Fabricantes.read({ token: Cookies.get("token") }).done(function (result) {
@@ -203,23 +203,23 @@
         });
     };
 
-    function ObtenerProyecto() {
-        $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
-            ControlErroresObjetosComboBox("Proyecto_Colada", result);
-        });
-    };
+    //function ObtenerProyecto() {
+    //    $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+    //        ControlErroresObjetosComboBox("Proyecto_Colada", result);
+    //    });
+    //};
 
     function LimpiarModalColada() {
         $("#Fabricante_Colada").data("kendoComboBox").value("");
         $("#Acero_Colada").data("kendoComboBox").value("");
-        $("#Proyecto_Colada").data("kendoComboBox").value("");
+        //$("#Proyecto_Colada").data("kendoComboBox").value("");
         $("#NumeroColada_Colada").val("");
         $("#NumeroCertificado_Colada").val("");
         $("#HoldCalidad_Colada").attr("checked", false);
 
         FabricanteColada = {};
         AceroColada = {};
-        ProyectoColada = {};
+        //ProyectoColada = {};
 
     };
 
@@ -264,11 +264,12 @@
         ColadaModal = { FabricanteID: "", AceroID: "", ProyectoID: "", NumeroColada: "", NumeroCertificado: "", HoldCalidad: "" };
         ColadaModal.FabricanteID = FabricanteColada.FabricanteID;
         ColadaModal.AceroID = AceroColada.AceroID;
-        ColadaModal.ProyectoID = ProyectoColada.ProyectoID;
+        ColadaModal.ProyectoID = window.parent.Proyecto.ProyectoID;
         ColadaModal.NumeroColada = $("#NumeroColada_Colada").val();
         ColadaModal.NumeroCertificado = $("#NumeroCertificado_Colada").val();
         ColadaModal.HoldCalidad = $("#HoldCalidad_Colada").is(":checked");
 
+        console.log(JSON.stringify(ColadaModal));
         $Colada.Colada.create({}, { data: JSON.stringify(ColadaModal), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalColada();
             if (Error(data)) {
