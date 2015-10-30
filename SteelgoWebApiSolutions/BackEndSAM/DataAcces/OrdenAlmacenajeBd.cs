@@ -686,11 +686,14 @@ namespace BackEndSAM.DataAcces
 
                         if (clienteID > 0)
                         {
+                            int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                               where c.Activo && c.Sam2ClienteID == clienteID
+                                               select c.ClienteID).AsParallel().SingleOrDefault();
                             elemento.FolioCuantificacion = (from tfc in elemento.FolioCuantificacion
                                                             join fc in ctx.Sam3_FolioCuantificacion on tfc.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                             join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                                             where fc.Activo && fe.Activo
-                                                            && fe.ClienteID == clienteID
+                                                            && fe.ClienteID == sam3Cliente
                                                             select tfc).AsParallel().ToList();
                         }
 
@@ -1137,12 +1140,15 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
                         registros = (from r in registros
                                      join ron in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on r.OrdenAlmacenajeID equals ron.OrdenAlmacenajeID
                                      join nu in ctx.Sam3_NumeroUnico on ron.NumeroUnicoID equals nu.NumeroUnicoID
                                      join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
                                      where ron.Activo && nu.Activo && p.Activo
-                                     && p.ClienteID == clienteID
+                                     && p.ClienteID == sam3Cliente
                                      select r).AsParallel().Distinct().ToList();
                     }
 

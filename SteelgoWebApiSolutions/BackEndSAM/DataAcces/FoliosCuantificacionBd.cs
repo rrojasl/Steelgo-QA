@@ -548,9 +548,12 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
                         registros = (from r in registros
                                      join fe in ctx.Sam3_FolioAvisoEntrada on r.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                     where fe.Activo && fe.ClienteID == clienteID
+                                     where fe.Activo && fe.ClienteID == sam3Cliente
                                      select r).AsParallel().Distinct().ToList();
                     }
 

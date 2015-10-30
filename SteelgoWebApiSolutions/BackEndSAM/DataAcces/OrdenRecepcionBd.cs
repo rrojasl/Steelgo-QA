@@ -319,11 +319,14 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
                         ordenes = (from o in ctx.Sam3_OrdenRecepcion
                                    join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on o.OrdenRecepcionID equals rfo.OrdenRecepcionID
                                    join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                    where o.Activo && rfo.Activo && fe.Activo
-                                   && fe.ClienteID == clienteID
+                                   && fe.ClienteID == sam3Cliente
                                    select o).ToList();
                     }
 
@@ -1094,11 +1097,14 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
                         registros = (from r in registros
                                      join rfo in ctx.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion on r.OrdenRecepcionID equals rfo.OrdenRecepcionID
                                      join fe in ctx.Sam3_FolioAvisoEntrada on rfo.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                      where rfo.Activo && fe.Activo
-                                     && fe.ClienteID == clienteID
+                                     && fe.ClienteID == sam3Cliente
                                      select r).AsParallel().Distinct().ToList();
                     }
 

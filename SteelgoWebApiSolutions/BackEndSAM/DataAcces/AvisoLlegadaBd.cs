@@ -100,8 +100,13 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     nuevoAvisoLlegada.VehiculoID = avisoJson.Tracto.VehiculoID != null ? Convert.ToInt32(avisoJson.Tracto.VehiculoID) : 0;
-                    nuevoAvisoLlegada.ClienteID = avisoJson.Cliente.ClienteID != string.Empty || avisoJson.Cliente.ClienteID != "-1"
+                    //los datos de entrada traen el id del cliente en sam2
+                    int sam2ClienteID = avisoJson.Cliente.ClienteID != string.Empty || avisoJson.Cliente.ClienteID != "-1"
                         ? Convert.ToInt32(avisoJson.Cliente.ClienteID) : 0;
+                    //insertamos en el id del cliente en sam3
+                    nuevoAvisoLlegada.ClienteID = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == sam2ClienteID
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
                     nuevoAvisoLlegada.TipoAvisoID = avisoJson.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(avisoJson.TipoAviso.TipoAvisoID) : 0;
                     //Guardamos los cambios
                     ctx.Sam3_FolioAvisoLlegada.Add(nuevoAvisoLlegada);
@@ -272,7 +277,10 @@ namespace BackEndSAM.DataAcces
                             if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
                             {
                                 temp = Convert.ToInt32(filtros.ClienteID);
-                                result = result.Where(x => x.ClienteID == temp).ToList();
+                                int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == temp
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
+                                result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
                             }
                         }
                         else
@@ -295,10 +303,13 @@ namespace BackEndSAM.DataAcces
                             if (filtros.ClienteID != "" && Convert.ToInt32(filtros.ClienteID) > 0)
                             {
                                 temp = Convert.ToInt32(filtros.ClienteID);
+                                int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == temp
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
 
                                 if (result.Count > 0)
                                 {
-                                    result = result.Where(x => x.ClienteID == temp).ToList();
+                                    result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
                                 }
                             }
                         }
@@ -493,7 +504,10 @@ namespace BackEndSAM.DataAcces
 
                     aviso.TipoAviso = tipoAvisoBD != null ? tipoAvisoBD : new TipoAvisoAV { Nombre = string.Empty, TipoAvisoID = "0" };
 
-                    int clienteId = registroBd.ClienteID.Value;
+                    //en el registro se encuentra el id del cliente en sam3, pero el detalle requiere del id del cliente en sam2
+                    int clienteId = (from c in ctx.Sam3_Cliente
+                                     where c.Activo && c.ClienteID == registroBd.ClienteID.Value
+                                     select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault(); //registroBd.ClienteID.Value;
 
                     aviso.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(clienteId);
 
@@ -663,8 +677,13 @@ namespace BackEndSAM.DataAcces
                         avisoBd.TransportistaID = cambios.Transportista.Count > 0 ? cambios.Transportista[0].TransportistaID : 1;
                         avisoBd.UsuarioModificacion = usuario.UsuarioID;
                         avisoBd.VehiculoID = cambios.Tracto.VehiculoID != null ? Convert.ToInt32(cambios.Tracto.VehiculoID) : 1;
-                        avisoBd.ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
-                            ? Convert.ToInt32(cambios.Cliente.ClienteID) : 1;
+                        //los datos de entrada traen el id del cliente en sam2
+                        int sam2ClienteID = cambios.Cliente.ClienteID != string.Empty || cambios.Cliente.ClienteID != "-1"
+                            ? Convert.ToInt32(cambios.Cliente.ClienteID) : 0;
+                        //insertamos en el id del cliente en sam3
+                        avisoBd.ClienteID = (from c in ctx.Sam3_Cliente
+                                             where c.Activo && c.Sam2ClienteID == sam2ClienteID
+                                             select c.ClienteID).AsParallel().SingleOrDefault();
                         avisoBd.TipoAvisoID = cambios.TipoAviso.TipoAvisoID != null ? Convert.ToInt32(cambios.TipoAviso.TipoAvisoID) : 1;
                         avisoBd.PaseSalidaEnviado = cambios.PaseSalidaEnviado;
 
@@ -805,7 +824,9 @@ namespace BackEndSAM.DataAcces
                 {
                     List<ListaCombos> lstFolios = (from r in ctx.Sam3_FolioAvisoLlegada
                                                    where r.Activo &&
-                                                   !(from av in ctx.Sam3_FolioAvisoEntrada where av.Activo select av.FolioAvisoLlegadaID.ToString()).Contains(r.FolioAvisoLlegadaID.ToString())
+                                                   !(from av in ctx.Sam3_FolioAvisoEntrada 
+                                                     where av.Activo 
+                                                     select av.FolioAvisoLlegadaID.ToString()).Contains(r.FolioAvisoLlegadaID.ToString())
                                                    select new ListaCombos
                                                    {
                                                        id = r.FolioAvisoLlegadaID.ToString(),
@@ -1035,7 +1056,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (proyectoID > 0)

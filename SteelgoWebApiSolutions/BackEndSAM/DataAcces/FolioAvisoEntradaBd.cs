@@ -102,8 +102,12 @@ namespace BackEndSAM.DataAcces
 
                             if (clienteID > 0)
                             {
+
                                 int temp = Convert.ToInt32(filtros.ClienteID);
-                                result = result.Where(x => x.ClienteID == temp).ToList();
+                                int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                                   where c.Activo && c.Sam2ClienteID == temp
+                                                   select c.ClienteID).AsParallel().SingleOrDefault();
+                                result = result.Where(x => x.ClienteID == sam3Cliente).ToList();
                             }
 
                             if (patioID > 0)
@@ -201,8 +205,14 @@ namespace BackEndSAM.DataAcces
                     Sam3_FolioAvisoEntrada registro =  ctx.Sam3_FolioAvisoEntrada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
                     Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == folio).AsParallel().SingleOrDefault();
 
+                    //el registro de folio de llegada tiene registrado el id del cliente en sam3
                     int ClienteFolioAvisoLlegada = FolioAvisoLlegada.ClienteID.GetValueOrDefault();
-                    detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
+                    //obtenemos el id del cliente en sam2
+                    int sam2Cliente = (from c in ctx.Sam3_Cliente
+                                       where c.Activo && c.ClienteID == ClienteFolioAvisoLlegada
+                                       select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault();
+                    //Ahora si traemos la informacion del cliente
+                    detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(sam2Cliente);
 
                     //devuelvo la lista de proyectos registrados en la relacion de aviso de llegada
                     detalle.Proyectos = (from r in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto
@@ -424,55 +434,61 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_FolioAvisoEntrada registroBd = ctx.Sam3_FolioAvisoEntrada
-                        .Where(x => x.FolioAvisoEntradaID == json.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
-                    registroBd.ClienteID = json.ClienteId;
-                    registroBd.Estatus = json.Estatus;
-                    registroBd.Factura = json.Factura;
-                    registroBd.FechaModificacion = DateTime.Now;
-                    registroBd.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
-                    registroBd.OrdenCompra = json.OrdenCompra;
-                    registroBd.PatioID = json.PatioID;
-                    registroBd.ProveedorID = json.ProveedorID;
-                    registroBd.UsuarioModificacion = usuario.UsuarioID;
-                    registroBd.ComboEstatus = json.ComboEstatus;
-
-                    //verificar y registrar los proyectos
-                    if (json.Proyectos.Count > 0)
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
                     {
-                        foreach (int i in json.Proyectos)
+                        Sam3_FolioAvisoEntrada registroBd = ctx.Sam3_FolioAvisoEntrada
+                            .Where(x => x.FolioAvisoEntradaID == json.FolioAvisoEntradaID).AsParallel().SingleOrDefault();
+                        registroBd.ClienteID = (from c in ctx.Sam3_Cliente
+                                                where c.Activo && c.Sam2ClienteID == json.ClienteId
+                                                select c.ClienteID).AsParallel().SingleOrDefault();
+                        registroBd.Estatus = json.Estatus;
+                        registroBd.Factura = json.Factura;
+                        registroBd.FechaModificacion = DateTime.Now;
+                        registroBd.FolioAvisoLlegadaID = json.FolioAvisollegadaId;
+                        registroBd.OrdenCompra = json.OrdenCompra;
+                        registroBd.PatioID = json.PatioID;
+                        registroBd.ProveedorID = json.ProveedorID;
+                        registroBd.UsuarioModificacion = usuario.UsuarioID;
+                        registroBd.ComboEstatus = json.ComboEstatus;
+
+                        //verificar y registrar los proyectos
+                        if (json.Proyectos.Count > 0)
                         {
-                            //si no existe registro del proyecto, se crea uno nuevo, de existir el proyecto se deja tal cual esta
-                            if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID 
-                                && x.ProyectoID == i).AsParallel().Any())
+                            foreach (int i in json.Proyectos)
                             {
-                                Sam3_Rel_FolioAvisoLlegada_Proyecto nuevaRelProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
-                                nuevaRelProyecto.Activo = true;
-                                nuevaRelProyecto.FechaModificacion = DateTime.Now;
-                                nuevaRelProyecto.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID.Value;
-                                nuevaRelProyecto.ProyectoID = i;
-                                nuevaRelProyecto.UsuarioModificacion = usuario.UsuarioID;
-                                ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevaRelProyecto);
+                                //si no existe registro del proyecto, se crea uno nuevo, de existir el proyecto se deja tal cual esta
+                                if (!ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Where(x => x.FolioAvisoLlegadaID == registroBd.FolioAvisoLlegadaID
+                                    && x.ProyectoID == i).AsParallel().Any())
+                                {
+                                    Sam3_Rel_FolioAvisoLlegada_Proyecto nuevaRelProyecto = new Sam3_Rel_FolioAvisoLlegada_Proyecto();
+                                    nuevaRelProyecto.Activo = true;
+                                    nuevaRelProyecto.FechaModificacion = DateTime.Now;
+                                    nuevaRelProyecto.FolioAvisoLlegadaID = registroBd.FolioAvisoLlegadaID.Value;
+                                    nuevaRelProyecto.ProyectoID = i;
+                                    nuevaRelProyecto.UsuarioModificacion = usuario.UsuarioID;
+                                    ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto.Add(nuevaRelProyecto);
+                                }
                             }
                         }
+
+                        Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada
+                            .Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                        FolioAvisoLlegada.ClienteID = json.ClienteId;
+                        FolioAvisoLlegada.FechaModificacion = DateTime.Now;
+                        FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
+
+
+                        ctx.SaveChanges();
+                        ctx_tran.Commit();
+
+                        TransactionalInformation result = new TransactionalInformation();
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+
+                        return result;
                     }
-
-                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada
-                        .Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
-                    FolioAvisoLlegada.ClienteID = json.ClienteId;
-                    FolioAvisoLlegada.FechaModificacion = DateTime.Now;
-                    FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
-                    
-
-                    ctx.SaveChanges();
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
                 }
             }
             catch (Exception ex)
@@ -661,7 +677,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3ClienteID = (from c in ctx.Sam3_Cliente
+                                             where c.Activo && c.Sam2ClienteID == clienteID
+                                             select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3ClienteID).ToList();
                     }
 
                     listado = (from r in registros

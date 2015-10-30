@@ -124,7 +124,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registrosBd = registrosBd.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registrosBd = registrosBd.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     registrosBd = registrosBd.GroupBy(x => x.FolioAvisoLlegadaID).Select(x => x.First()).ToList();
@@ -382,7 +385,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -570,7 +576,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).AsParallel().ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -681,7 +690,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).AsParallel().ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).AsParallel().ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -873,7 +885,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registos = registos.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registos = registos.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -1034,7 +1049,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -1209,7 +1227,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -1649,7 +1670,10 @@ namespace BackEndSAM.DataAcces
 
                     if (clienteID > 0)
                     {
-                        registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                        int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                           where c.Activo && c.Sam2ClienteID == clienteID
+                                           select c.ClienteID).AsParallel().SingleOrDefault();
+                        registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                     }
 
                     if (folioAvisoLlegadaID > 0)
@@ -1668,7 +1692,7 @@ namespace BackEndSAM.DataAcces
                         folioc = (from fc in ctx.Sam3_FolioCuantificacion
                                   join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
                                   where fc.Activo
-                                  && fc.FolioAvisoEntradaID == fc.FolioAvisoEntradaID
+                                  && fc.FolioAvisoEntradaID == r.FolioAvisoEntradaID
                                   && fe.FolioDescarga > 0
                                   select fc).AsParallel().ToList();
 
@@ -1883,7 +1907,10 @@ namespace BackEndSAM.DataAcces
 
                         if (clienteID > 0)
                         {
-                            registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                            int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                               where c.Activo && c.Sam2ClienteID == clienteID
+                                               select c.ClienteID).AsParallel().SingleOrDefault();
+                            registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                         }
 
                         if (folioAvisoLlegadaID > 0)
@@ -2062,7 +2089,10 @@ namespace BackEndSAM.DataAcces
 
                         if (clienteID > 0)
                         {
-                            registros = registros.Where(x => x.ClienteID == clienteID).ToList();
+                            int sam3Cliente = (from c in ctx.Sam3_Cliente
+                                               where c.Activo && c.Sam2ClienteID == clienteID
+                                               select c.ClienteID).AsParallel().SingleOrDefault();
+                            registros = registros.Where(x => x.ClienteID == sam3Cliente).ToList();
                         }
 
                         if (folioAvisoLlegadaID > 0)
