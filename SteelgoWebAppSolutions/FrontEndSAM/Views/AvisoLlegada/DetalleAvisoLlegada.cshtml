@@ -629,8 +629,8 @@
                 });
         
                 $("#TipoArchivo").data("kendoComboBox").select(3);
-                CargarTipoArchivo($("#TipoArchivo").data("kendoComboBox").dataItem().id);
-                _tipoArchivo = $("#TipoArchivo").data("kendoComboBox").dataItem().id;
+                CargarTipoArchivo($("#TipoArchivo").data("kendoComboBox").dataItem().id, $("#TipoArchivo").data("kendoComboBox").value());
+                _tipoArchivo = $("#TipoArchivo").data("kendoComboBox").value();
 
         //ObtenerTipoArchivo();
 
