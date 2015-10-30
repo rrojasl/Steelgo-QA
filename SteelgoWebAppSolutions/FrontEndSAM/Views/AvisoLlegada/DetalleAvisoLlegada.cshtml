@@ -810,7 +810,7 @@
                     var upload = $("#files").data("kendoUpload");
                     var len = $(".k-upload-files li").length;
 
-                   if (uploadtype == 1 && len > 0) {
+                    if (uploadtype == "Packing List" && len > 0) {
                         $AvisoLlegada.AvisoLlegada.create(AvisoLlegada[0], { token: $.cookie("token") }).done(function (data) {
                             if (Error(data)) {
                                 folio = data.ReturnMessage[1];
