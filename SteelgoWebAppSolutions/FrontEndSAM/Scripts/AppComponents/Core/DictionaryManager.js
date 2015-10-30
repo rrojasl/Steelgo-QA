@@ -3682,6 +3682,10 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "botonGuardarYNuevo": {
+        "es-MX": "Guardar y Nuevo",
+        "en-US": "Save and New"
+    },
     "botonAgregar": {
         "es-MX": "Agregar",
         "en-US": "Add"
@@ -3697,6 +3701,18 @@ _dictionary = {
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
+    },
+    "TipoAgregado": {
+        "es-MX": "Tipo Captura",
+        "en-US": "Capture Type"
+    },
+    "Reporte": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
+    "Listado": {
+        "es-MX": "Lista",
+        "en-US": "List"
     },
     //#region Mensajes
     "Mensajes_error": {
@@ -3870,23 +3886,23 @@ _dictionary = {
     },
     "lblPQREspesor": {
         "es-MX": "Espesor",
-        "en-US": "density"
+        "en-US": "Density"
     },
     "lblPQRProcesoSoldaduraID": {
-        "es-MX": "Proceso Soldadura",
-        "en-US": "Welding Process"
+        "es-MX": "Proceso soldadura",
+        "en-US": "Welding process"
     },
     "lblPQRNumeroP": {
         "es-MX": "Numero P",
-        "en-US": "Number P"
+        "en-US": "P number"
     },
     "lblPQRGrupoP": {
         "es-MX": "Grupo P",
-        "en-US": "Group P"
+        "en-US": "P group"
     },
     "lblPQRAporte": {
         "es-MX": "Aporte",
-        "en-US": "Aporte"
+        "en-US": "filler"
     },
     "lblPQRMezcla": {
         "es-MX": "Mezcla",
@@ -3898,32 +3914,28 @@ _dictionary = {
     },
     "lblPQRGrupoF": {
         "es-MX": "Grupo F",
-        "en-US": "Group F"
+        "en-US": "F group"
     },
     //#endregion
     //#region PopUp
-    "lblBotonCancelaEditarPQR": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-    "lblBotonEditarPQR": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
-    },
-
-    "lblAccionEditaPQR": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-    "lblAccionCancelaPQR": {
-        "es-MX": "Cancelar",
-        "en-US": "Cancel"
-    },
-
     "lblConfirmaElimanarPQR": {
         "es-MX": "¿Está seguro de eliminar este PQR?",
         "en-US": "You Shure delete this PQR?"
     },
+    "lblValidaEspesorPQR": {
+        "es-MX": "El Campo 'Espesor' Solo acepta números decimales",
+        "en-US": "The Field ' thickness ' only accepts decimal numbers"
+    },
+
+    "lblExisteNombrePQR": {
+        "es-MX": "Este PQR ya existe",
+        "en-US": "this PQR is exist"
+    },
+
+    "lblValidaNombre": {
+        "es-MX": "El nombre del PQR ya existe. No se puede agregar",
+        "en-US": "PQR name already exists. You can not add"
+    },  
     //#endregion
     //#endregion
     //#region Armado  
@@ -4047,7 +4059,7 @@ _dictionary = {
         "en-US": "Checker"
     },
     "DimensionalVisualHeaderFechaDimesional": {
-        "es-MX": "Fecha de Inspepcción",
+        "es-MX": "Fecha de Inspección",
         "en-US": "Inspection date"
     },
     "DimensionalVisualHeaderTipoJunta": {
