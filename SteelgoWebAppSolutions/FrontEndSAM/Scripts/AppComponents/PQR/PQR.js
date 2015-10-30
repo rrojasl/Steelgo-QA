@@ -1,9 +1,8 @@
-﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; }
+﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; };
 Cookies.set("home", true, { path: '/' });
 Cookies.set("navegacion", "35", { path: '/' });
 
-var resultadoJson, EjecutaAccion, ResultadoEspesor
-
+var resultadoJson, EjecutaAccion, ResultadoMensaje;
 
 var $PqrSaveModel = {
     listContainer: {
@@ -13,11 +12,6 @@ var $PqrSaveModel = {
         destroy: ""
     },
     properties: {
-        PQRID: {
-            visible: "#PQRidDiv",
-            editable: "#PQRID",
-            required: "#PQRID",
-        },
         Nombre: {
             visible: "#PQRNombreDiv",
             editable: "#NombreId",
@@ -40,43 +34,40 @@ var $PqrSaveModel = {
         },
         Codigo: {
             visible: "#PQRProcesoSoldaduraDiv",
-            editable: "#Codigo",
-            required: "#Codigo",
+            editable: "#ProcesoSoldaduraID",
+            required: "#ProcesoSoldaduraID",
         },
         NumeroP: {
             visible: "#PQRNumeroPDiv",
-            editable: "#NumeroP",
-            required: "#NumeroP",
+            editable: "#NumeroPID",
+            required: "#NumeroPID",
         },
         GrupoP: {
             visible: "#PQRGrupoPDiv",
-            editable: "#GrupoP",
-            required: "#GrupoP",
+            editable: "#GrupoPID",
+            required: "#GrupoPID",
         },
         Aporte: {
             visible: "#PQRAporteDiv",
-            editable: "#Aporte",
-            required: "#Aporte",
+            editable: "#AporteID",
+            required: "#AporteID",
         },
         Mezcla: {
             visible: "#PQRMezclaDiv",
-            editable: "#Mezcla",
-            required: "#Mezcla",
+            editable: "#MezclaID",
+            required: "#MezclaID",
         },
         Respaldo: {
             visible: "#PQRRespaldoDiv",
-            editable: "#Respaldo",
-            required: "#Respaldo",
+            editable: "#RespaldoID",
+            required: "#RespaldoID",
         },
         GrupoF: {
             visible: "#PQRGrupoFDiv",
-            editable: "#GrupoF",
-            required: "#GrupoF",
+            editable: "#GrupoFID",
+            required: "#GrupoFID",
         },
-
-
     }
-
 };
 
 //Funciones que se inician al cargar la página
@@ -351,8 +342,6 @@ function ObtenerGrupoF() {
         dataValueField: "GrupoFID",
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
-
-            alert(dataItem.GrupoFID);
             CargarGrupoF(dataItem.GrupoFID, dataItem.GrupoF);
 
 
@@ -396,15 +385,12 @@ function ControlErroresObjetosComboBox(control, data) {
 //#endregion
 
 
-
-
 //#region CargarGrid
 
 function LlenarGridPQR() {
     var TipoDato = 1;
 
     $PQR.PQR.read({ TipoDato, token: Cookies.get("token") }).done(function (data) {
-        console.log(data);
         if (Error(data)) {
             resultadoJson = data;
             if (resultadoJson.length > 0) {
@@ -462,9 +448,9 @@ function CargarGridPQR() {
             extra: false,
             operators: {
                 string: {
-                    startswith: "Starts with",
-                    eq: "Is equal to",
-                    neq: "Is not equal to"
+                    startswith: "Empieza con",
+                    eq: "Es igual a",
+                    neq: "No es igual a"
                 }
             }
         },
@@ -509,7 +495,7 @@ function CargarGridPQR() {
 };
 //#endregion
 
-//#region EditarPQR
+//#region EditarPQR/AgregarPQR
 
 function editarPQR(e) {
 
@@ -521,7 +507,16 @@ function editarPQR(e) {
 
 }
 
+$("#AAgregarPQR").click(function (e) {
 
+    $('#NombreId').val('');
+    $('#Espesor').val('');
+    $('#chkPreheat').prop('checked', false);
+    $('#chkPwht').prop('checked', false);
+    EjecutaAccion = 1;
+    VentanaModal();
+
+});
 
 function VentanaModal() {
     var modalTitle = "";
@@ -622,7 +617,6 @@ $("#CancelaEditarPQR").click(function (e) {
 
 
 $("#EditaPQR").click(function (e) {
-
     PQRModal = {
         PQRID: "",
         Nombre: "",
@@ -652,35 +646,30 @@ $("#EditaPQR").click(function (e) {
     PQRModal.GrupoF = $("#GrupoFID").val();
 
 
+    if (validarRequeridosPQR()) {
 
-    if (EjecutaAccion == 0) {
+    var PQRID = PQRModal.PQRID = $("#IdPQR").val();
+    var nombrePQR = PQRModal.Nombre = $("#NombreId").val();
+    var Accion = 6;
+    $PQR.PQR.read({ nombrePQR, token: Cookies.get("token"), PQRID, Accion}).done(function (data) {
 
-        if (validarCamposRequeridosPQR()) {
-            $PQR.PQR.update(PQRModal, { token: Cookies.get("token") }).done(function (data) {
-                loadingStart();
-                LlenarGridPQR();
-                $("#windowPQR").data("kendoWindow").close();
-                loadingStop();
-            });
+        if (data.ReturnMessage == "Error") {
 
-        } else {
-
-            if (ResultadoEspesor == 1) {
-                displayMessage("notificationslabel0031", "", '1');
-            }
-            else if (ResultadoEspesor == 0) {
-                displayMessage("lblValidaEspesorPQR", "", '1');
-            }
-
-
+            $(this).closest("div").find("label").addClass("error");
+            $(this).closest("div").addClass("clearfix");
+            displayMessage("lblExisteNombrePQR", "", '1');
+        }
+        else if (isNaN($("#Espesor").val())) {
+            $(this).closest("div").find("label").addClass("error");
+            $(this).closest("div").addClass("clearfix");
+            displayMessage("lblValidaEspesorPQR", "", '1');
         }
 
-    }
+        else {
+            $(this).closest("div").find("label").removeClass("error");
+            $(this).closest("div").removeClass("clearfix");
 
-    else if (EjecutaAccion == 1) {
-
-
-            if (validarCamposRequeridosPQR()) {
+            if (PQRModal.PQRID == 0) {
                 $PQR.PQR.create(PQRModal, { token: Cookies.get("token") }).done(function (data) {
                     loadingStart();
                     LlenarGridPQR();
@@ -688,65 +677,45 @@ $("#EditaPQR").click(function (e) {
                     loadingStop();
                 });
 
-            } else {
-
-                if (ResultadoEspesor == 1) {
-                    displayMessage("notificationslabel0031", "", '1');
-                }
-                else if (ResultadoEspesor == 0) {
-                    displayMessage("lblValidaEspesorPQR", "", '1');
-                }
-
-
             }
+            else {
+                $PQR.PQR.update(PQRModal, { token: Cookies.get("token") }).done(function (data) {
+                    loadingStart();
+                    LlenarGridPQR();
+                    $("#windowPQR").data("kendoWindow").close();
+                    loadingStop();
+                });
+            }
+        }
+    });
 
-
-   
-
+    } else {
+        displayMessage("notificationslabel0031", "", '1');
     }
+
+
+
+
 
 });
 
 
-function ValidaNombre() {
-    loadingStart();
-    var nombre = $("#NombreId").val();
-    $PQR.PQR.read({nombre, token: Cookies.get("token") }).done(function (data) {
-        
-        loadingStop();
-
-    });
-}
-
-
-
-function validarCamposRequeridosPQR() {
+function validarRequeridosPQR(){
     var bool = true;
     $("#CamposRequeridosPQR .security_required").each(function (i, elem) {
-
         if (elem.tagName.toLowerCase() != 'label') {
             if (!$(this).val()) {
                 bool = false;
                 $(this).closest("div").find("label").addClass("error");
                 $(this).closest("div").addClass("clearfix");
-                ResultadoEspesor = 1;
-            }
-            else if (isNaN($("#Espesor").val())) {
-                ResultadoEspesor = 0;
-                bool = false;
-                $(this).closest("div").find("label").addClass("error");
-                $(this).closest("div").addClass("clearfix");
-            }
-            else {
+            } else {
                 $(this).closest("div").find("label").removeClass("error");
                 $(this).closest("div").removeClass("clearfix");
             };
         };
     });
-
     return bool;
-
-}
+};
 
 
 //#endregion
@@ -774,16 +743,7 @@ function EliminarPQR(e) {
 //#endregion
 
 
-$("#AAgregarPQR").click(function (e) {
 
-    $('#NombreId').val('');
-    $('#Espesor').val('');
-    $('#chkPreheat').prop('checked', false);
-    $('#chkPwht').prop('checked', false);
-    EjecutaAccion = 1;
-    VentanaModal();
-
-});
 
 
 

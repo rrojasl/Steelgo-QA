@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-2 col-lg-2">
                                 <div class="button-section">
-                                    <button id="AAgregarPQR" type="button" class="btn btn-newArrival btn-yellow"><span id="botonAgregarPQR"></span></button>
+                                    <button id="AAgregarPQR" type="button" class="btn btn-newArrival btn-yellow"><span id="botonAgregar"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -28,16 +28,17 @@
         </div>
 
     </div>
+    <div id="windowPQR" style="display: none; z-index:inherit;">
+        @Html.Partial("~/Views/EditaPQR/_EditaPQR.cshtml")
+    </div>
 </div>
 
 
 
 
-<div id="windowPQR" style="display: none">
-    @Html.Partial("~/Views/EditaPQR/_EditaPQR.cshtml")
-</div>
 
-<script type="text/javascript" src="~/Scripts/AppComponents/PQR/PQR.js"></script>
+
+
 
 <script>
     @section JavascriptDocumentReadyFunctions {
@@ -45,4 +46,4 @@
     }
 </script>
 
-
+<script type="text/javascript" src="~/Scripts/AppComponents/PQR/PQR.js"></script>

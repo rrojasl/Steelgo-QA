@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SecurityManager.Api.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace BackEndSAM.DataAcces
 {
@@ -60,9 +61,9 @@ namespace BackEndSAM.DataAcces
                                       GrupoF = pqr.GrupoF,
                                       ProcesoSoldaduraID = pqr.ProcesoSoldaduraID,
                                       NumeroPID = Convert.ToInt32(pqr.NumeroPID),
-                                      GrupoPID  = Convert.ToInt32(pqr.GrupoPID), 
+                                      GrupoPID = Convert.ToInt32(pqr.GrupoPID),
                                       AporteID = Convert.ToInt32(pqr.AporteID),
-                                      MezclaID = Convert.ToInt32(pqr.MezclaID), 
+                                      MezclaID = Convert.ToInt32(pqr.MezclaID),
                                       RespaldoID = Convert.ToInt32(pqr.RespaldoID),
                                       GrupoFID = Convert.ToInt32(pqr.GrupoFID),
 
@@ -314,23 +315,44 @@ namespace BackEndSAM.DataAcces
 
 
 
-        public object ValidarExistePQR(string nombre) {
+        public object ValidarExistePQR(int PQRID,  string nombre)
+        {
 
             try
             {
                 using (SamContext ctx = new SamContext())
-                {
+                    {
+                        ObjectParameter op = new ObjectParameter("Retorna", typeof(string));
+                        op.Value = null;
+                        var oMyString = new ObjectParameter("Retorna", typeof(string));
+                        var res = ctx.Sam3_Soldadura_PQR_Existe(nombre, oMyString, PQRID);
+                        var data = oMyString.Value.ToString();
+                        TransactionalInformation result = new TransactionalInformation();
+                        if (data.Equals("ok"))
+                        {
+                            result.ReturnMessage.Add("OK");
+                        }
+                        else
+                        {
+                            result.ReturnMessage.Add("Error");
+                        }
 
-                    int data = Convert.ToInt32(ctx.Sam3_Soldadura_PQR_Existe(nombre));
-                                      
-                    return data;
-                }
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
 
+                        return result;
+                    }
             }
             catch (Exception ex)
             {
+                TransactionalInformation lista = new TransactionalInformation();
+                lista.ReturnMessage.Add(ex.Message);
+                lista.ReturnCode = 500;
+                lista.ReturnStatus = false;
+                lista.IsAuthenicated = true;
 
-                throw;
+                return lista;
             }
 
         }

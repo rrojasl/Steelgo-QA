@@ -51,7 +51,8 @@ namespace BackEndSAM.Models
 
         public int GrupoFID { get; set; }
 
-       
+       //ValidaNombre
+       public string Existe { get; set; }
 
     }
 }
