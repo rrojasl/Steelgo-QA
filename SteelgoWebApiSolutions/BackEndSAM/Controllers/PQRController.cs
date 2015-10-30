@@ -422,8 +422,8 @@ namespace BackEndSAM.Controllers
 
         }
 
-
-        public object Get(string nombre, string token)
+        //ValidaExistencia PQR
+        public object Get(string nombrePQR, string token, int PQRID, int Accion)
         {
             try
             {
@@ -432,8 +432,10 @@ namespace BackEndSAM.Controllers
                 bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
                 if (totokenValido)
                 {
-                    return PQRBd.Instance.ValidarExistePQR(nombre);
-                    
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return PQRBd.Instance.ValidarExistePQR(PQRID, nombrePQR);
                 }
                 else
                 {

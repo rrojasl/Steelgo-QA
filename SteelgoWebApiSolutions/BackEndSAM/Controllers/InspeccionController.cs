@@ -31,24 +31,32 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
                 CapturaVisualDimensional.DetalleDatosJson capturaDatosJson = serializer.Deserialize<CapturaVisualDimensional.DetalleDatosJson>(JsonCaptura);
 
                 List<CapturaVisualDimensional.DetalleDatosJson> listaDetalleDatos = new List<CapturaVisualDimensional.DetalleDatosJson>();
 
                 List<Sam3_Inspeccion_Get_DetalleJunta_Result> detalle = (List<Sam3_Inspeccion_Get_DetalleJunta_Result>)InspeccionBD.Instance.ObtenerDetalleJunta(capturaDatosJson, usuario, Lenguaje);
-
-                List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)InspeccionBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario);
-
-                List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
-
-                List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2);
+                string fecha = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, Lenguaje, 16);
+                
 
                 foreach (Sam3_Inspeccion_Get_DetalleJunta_Result item in detalle)
                 {
+
+                   
+
+                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)InspeccionBD.Instance.listaNumeroUnicos(item.JuntaSpoolID, usuario);
+
+                    List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
+
+                    List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2);
+
+
                     CapturaVisualDimensional.DetalleDatosJson detalleDatos = new CapturaVisualDimensional.DetalleDatosJson
                     {
+                        
                         Accion = item.InspeccionVisualID == null ? 1 : 2,
-                        JuntaTrabajoID = 0,
+                        JuntaTrabajoID = item.JuntaTrabajoID.GetValueOrDefault(),
                         JuntaArmadoID = item.JuntaArmadoID == null ? 0 : int.Parse(item.JuntaArmadoID.ToString()),
                         InspeccionVisualID = item.InspeccionVisualID == null ? 0 : int.Parse(item.InspeccionVisualID.ToString()),
                         Proyecto = capturaDatosJson.Proyecto,
@@ -57,20 +65,22 @@ namespace BackEndSAM.Controllers
                         OrdenTrabajoSpoolID = capturaDatosJson.OrdenTrabajoSpoolID,
                         OrdenTrabajoSpool = capturaDatosJson.OrdenTrabajoSpool,
                         SpoolID = capturaDatosJson.OrdenTrabajo + "-" + capturaDatosJson.OrdenTrabajoSpool,
-                        JuntaID = capturaDatosJson.JuntaID,
-                        Junta = capturaDatosJson.Junta,
+                        JuntaID = item.JuntaSpoolID,
+                        Junta = item.Etiqueta,
                         TipoJunta = item.TipoJunta,
                         TipoJuntaID = item.TipoJuntaID.ToString(),
                         Diametro = item.Diametro.ToString(),
-                        FechaInspeccion = item.FechaInspeccion == null ? capturaDatosJson.FechaInspeccion : item.FechaInspeccion.ToString(),
+                        FechaInspeccion = item.FechaInspeccion == null ? fecha : item.FechaInspeccion.ToString(),
                         Defectos = item.Defecto == null ? capturaDatosJson.Defectos : item.Defecto.ToString(),
                         DefectosID = item.DefectoID == null ? capturaDatosJson.DefectosID : item.DefectoID.ToString(),
                         TallerID = item.TallerID == null ? capturaDatosJson.TallerID : item.TallerID.ToString(),
                         Taller = item.Taller == null ? capturaDatosJson.Taller : item.Taller,
-                        Inspector = item.Inspector == null ? capturaDatosJson.Inspector : item.Inspector.ToString(),
-                        InspectorID = item.ObreroID == null ? capturaDatosJson.InspectorID : item.ObreroID.ToString(),
+                        Inspector = item.Inspector == null ? usuario.NombreUsuario : item.Inspector.ToString(),
+                        InspectorID = item.ObreroID == null ? usuario.UsuarioID.ToString() : item.ObreroID.ToString(),
                         NumeroUnico1 = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].Clave : "") : item.NumeroUnico1ID.ToString(),
                         NumeroUnico2 = item.NumeroUnico2ID == null ? (listNumeroUnico2.Count == 1 ? listNumeroUnico2[0].Clave : "") : item.NumeroUnico2ID.ToString(),
+                        NumeroUnico1ID= item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 1 ? listNumeroUnico1[0].NumeroUnicoID : 0) : item.NumeroUnico1ID.GetValueOrDefault(),
+                        NumeroUnico2ID = item.NumeroUnico2ID == null ? (listNumeroUnico2.Count == 1 ? listNumeroUnico2[0].NumeroUnicoID : 0) : item.NumeroUnico2ID.GetValueOrDefault(),
                         ListaNumerosUnicos1 = listNumeroUnico1,
                         ListaNumerosUnicos2 = listNumeroUnico2,
                         ProyectoID = capturaDatosJson.ProyectoID,
@@ -79,10 +89,14 @@ namespace BackEndSAM.Controllers
                         ListaInspector = ObtenerListaInspector((List<Sam3_Steelgo_Get_Obrero_Result>)ObreroBD.Instance.ObtenerObrero(capturaDatosJson.ProyectoID, 2, "Inspector Visual Dimensional")),
                         ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)TallerBD.Instance.ObtenerTallerXPoryecto(capturaDatosJson.ProyectoID)),
                         ListaDefectos = ObtenerListaDefectos((List<Sam3_Steelgo_Get_Defectos_Result>)DefectosBd.Instance.listadoDefectos(Lenguaje, "Inspección Visual")),
-                        ListaResultados = ObtenerListaResultado((List<Sam3_Steelgo_Get_TipoResultado_Result>)TipoResultadoBd.Instance.ObtenerListadoResultados(Lenguaje))
-                        
+                        ListaResultados = ObtenerListaResultado((List<Sam3_Steelgo_Get_TipoResultado_Result>)TipoResultadoBd.Instance.ObtenerListadoResultados(Lenguaje)),
+                        EtiquetaMaterial1=item.EtiquetaMaterial1,
+                        EtiquetaMaterial2=item.EtiquetaMaterial2
+
                     };
                     listaDetalleDatos.Add(detalleDatos);
+
+
                 }
 
                 return serializer.Serialize(listaDetalleDatos);
@@ -178,7 +192,36 @@ namespace BackEndSAM.Controllers
             }
             return listaResultados;
         }
-      
-      
+
+        public object Post(Captura listaCapturaInspeccion, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            // DetalleDatosJson[] ejemplo = serializer.Deserialize<DetalleDatosJson[]>(capturaArmado);
+
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+               
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual);
+               
+                return InspeccionBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, usuario.UsuarioID,lenguaje, listaCapturaInspeccion.Detalles[0].InspeccionDimensionalID, listaCapturaInspeccion.Detalles[0].OrdenTrabajoSpoolID, listaCapturaInspeccion.Detalles[0].FechaInspeccion, listaCapturaInspeccion.Detalles[0].ResultadoID, listaCapturaInspeccion.Detalles[0].ObreroID, listaCapturaInspeccion.Detalles[0].DefectoID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
     }
 }

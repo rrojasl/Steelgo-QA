@@ -82,6 +82,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.NumeroUnico1 = String(dataItem.Clave);
+                options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
                 textAnterior = e.sender._prev;
             }
             ,
@@ -106,6 +107,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
              select: function (e) {
                  dataItem = this.dataItem(e.item.index());
                  options.model.NumeroUnico2 = String(dataItem.Clave);
+                 options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
                  textAnterior = e.sender._prev;
              },
              change: function (e) {
@@ -135,7 +137,8 @@ function RenderOptionResultado(container, options) {
             change: function (e) {
                 options.model.Resultado = dataItem._Resultado;
                 options.model.ResultadoID = dataItem._ResultadoID;
-                $("#grid").data("kendoGrid").dataSource.sync();
+
+             
             }
         }
         );

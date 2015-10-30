@@ -37,7 +37,43 @@ function ExisteJunta() {
     }
     return true;
 }
+
+function DatoDefaultNumeroUnico1() {
+
+}
+
+function DatoDefaultNumeroUnico2() {
+
+    return "";
+}
+
 function CargarGrid() {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+
+                // don't edit if prevented in beforeEdit
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
+
     $("#grid").kendoGrid({
         autoBind: true,
         autoSync: true,
@@ -76,8 +112,11 @@ function CargarGrid() {
                         FechaInspeccion: { type: "date", editable: true },
                         NumeroUnico1: { type: "string", editable: true },
                         NumeroUnico2: { type: "string", editable: true },
+                        NumeroUnicoIID: { type: "int", editable: false },
+                        NumeroUnico2ID: { type: "int", editable: false },
                         Clave1: { type: "string", editable: true },
                         Clave2: { type: "string", editable: true }
+
                     }
                 }
             },
@@ -110,6 +149,17 @@ function CargarGrid() {
 
             { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
+        filterable: {
+            extra: false
+        },
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
         dataBound: function (e) {
             $(".k-grid input.k-textbox").prop('readonly', true);
             $(".k-grid td .k-button").text('');
@@ -117,10 +167,21 @@ function CargarGrid() {
         }
     });
 };
+
+function isEditable(fieldName, model) {
+    if (fieldName === "Defectos") {
+        // condition for the field "ProductName"
+        return  model.Resultado !== "Aprobado";
+    }
+
+    return true; // default to editable
+}
+
+
 function ArregloListadoCaptura() {
 
     JsonCaptura = [];
-    JsonCaptura[0] = { ProyectoID: "", Proyecto: "", OrdenTrabajoID: "", OrdenTrabajo: "", OrdenTrabajoSpoolID: "", OrdenTrabajoSpool: "", SpoolID: "", JuntaID: "", Junta: "", FechaInspeccion: "", InspectorID: "", Inspector: ""};
+    JsonCaptura[0] = { ProyectoID: "", Proyecto: "", OrdenTrabajoID: "", OrdenTrabajo: "", OrdenTrabajoSpoolID: "", OrdenTrabajoSpool: "", SpoolID: "", FechaInspeccion: "", InspectorID: "", Inspector: "" };
 
     //combobox.text()
     var fechaInspeccion = new Date($("#FechaInspeccion").data("kendoDatePicker").value());
@@ -132,8 +193,8 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].OrdenTrabajoSpoolID = $("#InputID").val();
     JsonCaptura[0].OrdenTrabajoSpool = $("#InputID").data("kendoComboBox").text()
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
-    JsonCaptura[0].JuntaID = $("#Junta").val();
-    JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
+    //JsonCaptura[0].JuntaID = $("#Junta").val();
+    //JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
     JsonCaptura[0].FechaInspeccion = $("#FechaInspeccion").val();
     JsonCaptura[0].InspectorID = $("#inputInspector").val();
     JsonCaptura[0].Inspector = $("#inputInspector").data("kendoComboBox").text();
@@ -149,12 +210,16 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
         if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
 
             for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos1.length; j++) {
-                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos1[j].EtiquetaMaterial)
+                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos1[j].EtiquetaMaterial) {
                     jsonGridArmado[i].NumeroUnico1 = combobox.Clave;
+                    jsonGridArmado[i].NumeroUnico1ID = combobox.NumeroUnicoID;
+                }
             }
             for (var j = 0; j < jsonGridArmado[i].ListaNumerosUnicos2.length; j++) {
-                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial)
+                if (combobox.EtiquetaMaterial == jsonGridArmado[i].ListaNumerosUnicos2[j].EtiquetaMaterial) {
                     jsonGridArmado[i].NumeroUnico2 = combobox.Clave;
+                    jsonGridArmado[i].NumeroUnico2ID = combobox.NumeroUnicoID;
+                }
             }
 
         }
