@@ -48,6 +48,8 @@ namespace BackEndSAM.Models.Armado
 
         public string FormatoFecha { get; set; }
 
+        public string TipoCaptura { get; set; }
+
     }
 
 

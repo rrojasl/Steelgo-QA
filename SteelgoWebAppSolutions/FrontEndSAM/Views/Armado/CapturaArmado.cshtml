@@ -20,59 +20,68 @@
 
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="row">
-                <div class="button-section editButtonSection">
-                    <div class="btn-group save-group">
-                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
-                        <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
-                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caretWhite"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
-                        </ul>
-                    </div>
-                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
+                    <button id="Editar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="display:none"><span id="DetalleAvisoLlegada0082"></span></button>
+                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caretWhite"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
+                        <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                    </ul>
                 </div>
-            </div>
-            <hr />
-            <div class="row">
-               
-                <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="TipoAgregado"></label>
-                    <input type="radio" class="k-input" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
-                    <input type="radio" class="k-input" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
-                </div>
-               
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
-                    <label id="CapturaArmadoHeaderSpoolID" ></label>
-                    <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
-                </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <label id="CapturaArmadoHeaderJunta"></label>
-                    <input id="Junta" class="" />
-                </div>
-                <div class="col-sm-3 col-md-3 col-lg-3">
-                    <label id="CapturaArmadoHeaderMostrar"></label>
-                    <input type="radio" class="k-input" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
-                    <input type="radio" class="k-input" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
-                </div>
-                <div class="col-sm-1 col-md-1 col-lg-1">
-                    <label id="">&nbsp;</label>
-                    <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
-
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <label id="LabelProyecto" style="display:none;"> </label>
-                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
             </div>
             <hr />
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <fieldset>
+                <div class="btn-group " data-toggle="buttons" role="group">
+                    <label class="btn btn-info" id="styleReporte">
+                        <input type="radio" name="TipoAgregado" style=" width:auto;" value="Reporte" /><span id="Reporte"></span>
+                    </label>
+                    <label class="btn btn-info" id="styleListado">
+                        <input type="radio" name="TipoAgregado" style=" width:auto;" value="Listado" /><span id="Listado"> </span>
+                    </label>
+                </div>
+                </fieldset>
+</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+            <label id="CapturaArmadoHeaderSpoolID"></label>
+            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="CapturaArmadoHeaderJunta"></label>
+            <input id="Junta" class="" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <label id="CapturaArmadoHeaderMostrar"></label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default" id="styleSinCaptura">
+                    <input type="radio" name="Muestra" style=" width:auto;" value="Sin Capturar" /><span id="CapturaArmadSinCaptura"></span>
+                </label>
+                <label class="btn btn-default" id="styleTodos">
+                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos"> </span>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <label id="">&nbsp;</label>
+            <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
+
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <label id="LabelProyecto" style="display:none;"> </label>
+        </div>
+    </div>
+    <hr />
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
@@ -90,8 +99,17 @@
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3">
                     <label id="CapturaArmadoHeaderLlenadoMasivo"></label>
-                    <input type="radio" class="k-input" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
-                    <input type="radio" class="k-input" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" id="StylePlanchaTodos">
+                            <input type="radio" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+                        </label>
+                        <label class="btn btn-default" id="StylePlanchaVacios">
+                            <input type="radio" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                        </label>
+
+                    </div>
+
+
                 </div>
             </div>
             <div class="row">
