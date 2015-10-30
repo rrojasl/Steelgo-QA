@@ -52,7 +52,8 @@ namespace DatabaseManager.Sam3
     
     public static class Stords
     {
-        public static string GUARDARCAPTURAARMADO = "Sam3_Armado_JuntaArmado";   
+        public static string GUARDARCAPTURAARMADO = "Sam3_Armado_JuntaArmado";
+        public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_Inspeccion_VisualDimensional";
     }
 
 }
