@@ -66,9 +66,18 @@ namespace BackEndSAM.DataAcces
                                 if (!ctx.Sam3_Colada.Where(c => c.NumeroColada == DatosColada.NumeroColada && c.Activo).AsParallel().Any())
                                 {
                                     Colada Sam2Colada = new Colada();
-                                    Sam2Colada.FabricanteID = DatosColada.FabricanteID;
-                                    Sam2Colada.AceroID = DatosColada.AceroID;
-                                    Sam2Colada.ProyectoID = DatosColada.ProyectoID;
+                                    Sam2Colada.FabricanteID = (from eq in ctx.Sam3_EquivalenciaFabricante
+                                                               where eq.Activo
+                                                               && eq.Sam3_FabricanteID == DatosColada.FabricanteID
+                                                               select eq.Sam2_FabricanteID).AsParallel().SingleOrDefault(); 
+                                    Sam2Colada.AceroID = (from eq in ctx.Sam3_EquivalenciaAcero
+                                                          where eq.Activo
+                                                          && eq.Sam3_AceroID ==  DatosColada.AceroID
+                                                          select eq.Sam2_AceroID).AsParallel().SingleOrDefault();
+                                    Sam2Colada.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                             where eq.Activo
+                                                             && eq.Sam3_ProyectoID == DatosColada.ProyectoID
+                                                             select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault(); 
                                     Sam2Colada.NumeroColada = DatosColada.NumeroColada;
                                     Sam2Colada.NumeroCertificado = DatosColada.NumeroCertificado;
                                     Sam2Colada.HoldCalidad = DatosColada.HoldCalidad;
@@ -77,6 +86,8 @@ namespace BackEndSAM.DataAcces
                                     ctx2.Colada.Add(Sam2Colada);
                                     ctx2.SaveChanges();
 
+                                    
+                                        
                                     Sam3_Colada colada = new Sam3_Colada();
                                     colada.FabricanteID = DatosColada.FabricanteID;
                                     colada.AceroID = DatosColada.AceroID;
