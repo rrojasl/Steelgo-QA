@@ -140,7 +140,10 @@ namespace BackEndSAM.DataAcces
                             {
                                 //Inserta en Sam 2
                                 DatabaseManager.Sam2.ItemCode itemS2 = new DatabaseManager.Sam2.ItemCode();
-                                itemS2.ProyectoID = DatosItemCode.ProyectoID;
+                                itemS2.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                                     where eq.Activo
+                                                     && eq.Sam3_ProyectoID == DatosItemCode.ProyectoID
+                                                     select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault(); 
                                 itemS2.TipoMaterialID = DatosItemCode.TipoPackingList;
                                 itemS2.Codigo = DatosItemCode.ItemCode;
                                 itemS2.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
@@ -160,10 +163,7 @@ namespace BackEndSAM.DataAcces
 
                                 //Inserta en Sam 3
                                 Sam3_ItemCode itemS3 = new Sam3_ItemCode();
-                                itemS3.ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
-                                                     where eq.Activo
-                                                     && eq.Sam2_ProyectoID == DatosItemCode.ProyectoID
-                                                     select eq.Sam3_ProyectoID).AsParallel().SingleOrDefault();
+                                itemS3.ProyectoID = DatosItemCode.ProyectoID;
                                 itemS3.TipoMaterialID = DatosItemCode.TipoPackingList;//
                                 itemS3.Codigo = DatosItemCode.ItemCode;//
                                 itemS3.ItemCodeCliente = DatosItemCode.ItemCodeCliente;
