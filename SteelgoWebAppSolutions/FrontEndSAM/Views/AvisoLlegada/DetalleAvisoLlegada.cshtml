@@ -627,6 +627,11 @@
                     }, index: 8,
                     filter: "contains",
                 });
+        
+                $("#TipoArchivo").data("kendoComboBox").select(3);
+                CargarTipoArchivo($("#TipoArchivo").data("kendoComboBox").dataItem().id);
+                _tipoArchivo = $("#TipoArchivo").data("kendoComboBox").dataItem().id;
+
         //ObtenerTipoArchivo();
 
                 $('#files').kendoUpload({
@@ -1477,7 +1482,7 @@
             function ObtenerTipoArchivo() {
                 $TipoArchivo.TipoArchivo.read({ token: Cookies.get("token") }).done(function (result) {
                     ControlErroresObjetosComboBox("TipoArchivo", result);
-                    $("#TipoArchivo").data("kendoComboBox").select(8);
+                    $("#TipoArchivo").data("kendoComboBox").select(4);
                     CargarTipoArchivo($("#TipoArchivo").data("kendoComboBox").value());
                     _tipoArchivo = $("#TipoArchivo").data("kendoComboBox").value();
                 });
