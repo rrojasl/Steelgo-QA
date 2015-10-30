@@ -457,7 +457,8 @@ namespace BackEndSAM.DataAcces
                         }
                     }
 
-                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
+                    Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada
+                        .Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
                     FolioAvisoLlegada.ClienteID = json.ClienteId;
                     FolioAvisoLlegada.FechaModificacion = DateTime.Now;
                     FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
