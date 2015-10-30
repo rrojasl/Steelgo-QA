@@ -1208,7 +1208,7 @@
         };
 
         function ObtenerProyecto(id) {
-            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox(id, result);
             });
         };
