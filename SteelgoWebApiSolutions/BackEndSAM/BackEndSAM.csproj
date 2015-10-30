@@ -424,6 +424,7 @@
     <Compile Include="Models\ListadoMaterialesSinCuantificar.cs" />
     <Compile Include="Models\GridGeneracionOrdenAlmacenaje.cs" />
     <Compile Include="Models\ListadoOrdeRecepcion.cs" />
+    <Compile Include="Models\ListadosPreDespacho.cs" />
     <Compile Include="Models\ListObject.cs" />
     <Compile Include="DataAcces\PerfilBd.cs" />
     <Compile Include="Models\ListadoMaterialesPorItemCode.cs" />
