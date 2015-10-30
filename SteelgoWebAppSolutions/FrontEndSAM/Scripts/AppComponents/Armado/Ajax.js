@@ -1,35 +1,29 @@
 ﻿function AjaxJunta(spoolID) {
-    $('input:radio[name=Muestra]:checked').val()
+    $('input:radio[name=Muestra]:checked').val();
     $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
-        console.log("fecha nueva" + data.FechaArmado);
         $("#Junta").data("kendoComboBox").value("");
-        $("#Junta").data("kendoComboBox").dataSource.data(data)
-        loadingStop();
+        $("#Junta").data("kendoComboBox").dataSource.data(data);
     });
 }
 
 function AjaxObtenerListaTubero() {
+    loadingStart();
     $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], tipo: 4, token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
+        
         $("#inputTubero").data("kendoComboBox").value("");
-        $("#inputTubero").data("kendoComboBox").dataSource.data(data)
+        $("#inputTubero").data("kendoComboBox").dataSource.data(data);
         loadingStop();
     });
 }
 
 function AjaxObtenerListaTaller() {
     $CapturaArmado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
-        loadingStart();
         $("#inputTaller").data("kendoComboBox").value("");
-        $("#inputTaller").data("kendoComboBox").dataSource.data(data)
-        loadingStop();
+        $("#inputTaller").data("kendoComboBox").dataSource.data(data);
     });
 }
 
 function ObtenerJSonGridArmado() {
-
-    loadingStart();
     if (ExisteJunta()) {
         try {
 
@@ -42,19 +36,16 @@ function ObtenerJSonGridArmado() {
                     array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
                     array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
                     ds.add(array[i]);
-                    // AplicarAsignacionAutomaticaNumeroUnico(array[i], "" , dataItem, 0);
                 }
             });
 
         } catch (e) {
-            alert("error:" + e.message);
+            displayMessage("Mensajes_error", e.message, '1');
         }
     }
-    else
-        alert('La junta ya existe')
-
-    loadingStop();
-
+    else {
+        displayMessage("CapturaArmadoMensajeJuntaExistente", "", '1');
+    }
 }
 
 function AjaxGuardarCaptura(arregloCaptura) {
@@ -104,23 +95,21 @@ function AjaxGuardarCaptura(arregloCaptura) {
         $CapturaArmado.Armado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             console.log("se guardo correctamente la informacion");
         });
-        alert('finalizo el guardado de datos');
+        displayMessage("CapturaArmadoMensajeGuardadoExitoso", "", '1');
+       
     } catch (e) {
-        alert('error al guardar datos ' + e.message);
+        displayMessage("Mensajes_error", e.message, '0');
+      
     }
 
 };
 
-function AjaxCargarFechaArmado() {
+function AjaxCargarCamposPredeterminados() {
 
-  
-    
 
     $CapturaArmado.Armado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        loadingStart();
-        console.log("fecha nueva" + data.FechaArmado);
-
-        var NewDate = kendo.toString(data.FechaArmado,  _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+        
+        var NewDate = kendo.toString(data.FechaArmado, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         
         endRangeDate.val(NewDate);
         
@@ -132,7 +121,15 @@ function AjaxCargarFechaArmado() {
             $('input:radio[name=Muestra]:nth(0)').attr('checked', false);
             $('input:radio[name=Muestra]:nth(1)').attr('checked', true);
         }
-        loadingStop();
+
+        if (data.Llena == "Todos") {
+            $('input:radio[name=LLena]:nth(0)').attr('checked', true);
+            $('input:radio[name=LLena]:nth(1)').attr('checked', false);
+        }
+        else if (data.Llena == "Vacios") {
+            $('input:radio[name=LLena]:nth(0)').attr('checked', false);
+            $('input:radio[name=LLena]:nth(1)').attr('checked', true);
+        }
     });
     
 };

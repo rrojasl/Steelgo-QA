@@ -44,6 +44,8 @@ namespace BackEndSAM.Models.Armado
 
         public string Muestra { get; set; }
 
+        public string Llena { get; set; }
+
         public string FormatoFecha { get; set; }
 
     }
@@ -87,7 +89,8 @@ namespace BackEndSAM.Models.Armado
         public string SinCaptura { get; set; }
         public List<DetalleTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
         public List<TrabajosAdicionalesXJunta> listadoTrabajosAdicionalesXJunta { get; set; }
-        
+        public string DetalleJunta { get; set; }
+
     }
 
    
