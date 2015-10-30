@@ -337,7 +337,7 @@
         Listado = ArregloListado(accion);
 
         $("#hdAccionFiltrado").val(accion);
-
+        
         $FiltrosListadoLlegadaMaterial.FolioAvisoEntrada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
             if (Error(data)) {
                 resultadoJson = data;
@@ -417,7 +417,11 @@
         var curr_year = d.getFullYear();
         var horaActual = new Date();
 
-        return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        if (curr_year == "1969") {
+            return null;
+        } else {
+            return curr_year + "-" + curr_month + "-" + curr_date + " " + horaActual.getHours() + ":" + horaActual.getMinutes() + ":" + horaActual.getSeconds();
+        }
     };
 
     function tabActivo(dashBoardAccionListado) {
