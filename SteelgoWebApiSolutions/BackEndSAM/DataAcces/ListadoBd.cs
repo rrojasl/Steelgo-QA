@@ -2665,5 +2665,350 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ListadoPreDespacho(FiltrosJson filtros, Sam3_Usuario usuario, bool conteo = false )
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        #region filtros
+                        int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        int folioCuantificacionID = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int unidadDeMedida = 0;
+                        List<int> patiosUsuario;
+                        List<int> proyectosUsuario;
+                        List<int> proyectosSam2;
+                        List<int> patiosSam2;
+                        int proyectoIDSam2 = 0;
+
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime(); 
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+
+                        proyectosSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                         where eq.Activo
+                                         && proyectosUsuario.Contains(eq.Sam3_ProyectoID)
+                                         select eq.Sam2_ProyectoID).AsParallel().Distinct().ToList();
+
+                        patiosSam2 = (from eq in ctx.Sam3_EquivalenciaPatio
+                                      where eq.Activo
+                                      && patiosUsuario.Contains(eq.Sam3_PatioID)
+                                      select eq.Sam2_PatioID).AsParallel().Distinct().ToList();
+
+                        if (proyectoID > 0)
+                        {
+                            proyectoIDSam2 = (from eq in ctx.Sam3_EquivalenciaProyecto
+                                              where eq.Activo && eq.Sam3_ProyectoID == proyectoID
+                                              select eq.Sam2_ProyectoID).AsParallel().SingleOrDefault();
+                        }
+                        
+
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
+
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        }
+
+                        if (filtros.UnidadDeMedida != null && filtros.UnidadDeMedida != "")
+                        {
+                            unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
+                        }
+                        else
+                        {
+                            throw new Exception("La unida de Medida es requerida");
+                        }
+
+                        #endregion
+
+                        switch (unidadDeMedida)
+                        {
+                            case 1: // pieza. Numeros Unicos
+
+                                //Obtenemos la lista de los numeros unicos que estan congelados y que aun no tienen despacho ni corte
+                                List<int> sam2NumerosUnicos = new List<int>();
+                                if (proyectoID > 0)
+                                {
+                                    sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where !odtm.TieneDespacho && !odtm.TieneCorte.Value
+                                                         && proyectosSam2.Contains(p.ProyectoID)
+                                                         && patiosSam2.Contains(p.PatioID)
+                                                         && p.ProyectoID == proyectoIDSam2
+                                                         select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                }
+                                else
+                                {
+                                    sam2NumerosUnicos = (from odt in ctx2.OrdenTrabajo
+                                                         join odts in ctx2.OrdenTrabajoSpool on odt.OrdenTrabajoID equals odts.OrdenTrabajoID
+                                                         join odtm in ctx2.OrdenTrabajoMaterial on odts.OrdenTrabajoSpoolID equals odtm.OrdenTrabajoSpoolID
+                                                         join nu in ctx2.NumeroUnico on odtm.NumeroUnicoCongeladoID equals nu.NumeroUnicoID
+                                                         join p in ctx2.Proyecto on odt.ProyectoID equals p.ProyectoID
+                                                         where !odtm.TieneDespacho && !odtm.TieneCorte.Value
+                                                         && proyectosSam2.Contains(p.ProyectoID)
+                                                         && patiosSam2.Contains(p.PatioID)
+                                                         select nu.NumeroUnicoID).AsParallel().Distinct().ToList();
+                                }
+
+                                //Obtenermos las equivalencias en sam3
+                                List<int> sam3NumerosUnicos = (from eq in ctx.Sam3_EquivalenciaNumeroUnico
+                                                               where eq.Activo
+                                                               && sam2NumerosUnicos.Contains(eq.Sam2_NumeroUnicoID)
+                                                               select eq.Sam3_NumeroUnicoID).AsParallel().Distinct().ToList();
+
+                                #region Numeros Unicos
+                                //obtengo los numeros unicos que no
+                                List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                       join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                       join p in ctx.Sam3_Proyecto on nu.ProveedorID equals p.ProyectoID
+                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                       where nu.Activo && pred.Activo
+                                                                       && proyectosUsuario.Contains(p.ProyectoID)
+                                                                       && patiosUsuario.Contains(pa.PatioID)
+                                                                       && (pred.FechaPreDespacho >= fechaInicial && pred.FechaPreDespacho <= fechaFinal)
+                                                                       && sam3NumerosUnicos.Contains(nu.NumeroUnicoID)
+                                                                       select nu).AsParallel().Distinct().ToList();
+
+                                if (clienteID > 0)
+                                {
+                                    lstNumUnicos = (from nu in lstNumUnicos
+                                                    join p in ctx.Sam3_Proyecto on nu.ProyectoID equals p.ProyectoID
+                                                    join c in ctx.Sam3_Cliente on p.ClienteID equals c.ClienteID
+                                                    where p.Activo && c.Sam2ClienteID == clienteID
+                                                    select nu).AsParallel().Distinct().ToList();
+                                }
+
+                                if (folioCuantificacionID > 0)
+                                {
+                                    lstNumUnicos = (from nu in lstNumUnicos
+                                                    join it in ctx.Sam3_ItemCode on nu.ItemCodeID equals it.ItemCodeID
+                                                    where it.Activo
+                                                    && ((from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                                         where rfi.Activo && rfi.FolioCuantificacionID == folioCuantificacionID
+                                                         select rfi.ItemCodeID).Contains(it.ItemCodeID)
+                                                    || (from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                        join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                        where rbi.Activo && b.Activo
+                                                        && b.FolioCuantificacionID == folioCuantificacionID
+                                                        select rbi.ItemCodeID).Contains(it.ItemCodeID))
+                                                    select nu).AsParallel().Distinct().ToList();
+                                }
+
+                                #endregion
+                                break;
+                            case 2: // Spool
+                                break;
+                            case 3: // Toneladas
+                                break;
+                            case 4: // MM
+                                break;
+                            default:
+                                throw new Exception("Unidad de medida invalida");
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ListadoPorDespachar(FiltrosJson filtros, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        #region filtros
+                        int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        int folioPackingList = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int unidadDeMedida = 0;
+                        List<int> patiosUsuario;
+                        List<int> proyectosUsuario;
+
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime();
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
+
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        }
+
+                        if (filtros.UnidadDeMedida != null && filtros.UnidadDeMedida != "")
+                        {
+                            unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
+                        }
+                        else
+                        {
+                            throw new Exception("La unida de Medida es requerida");
+                        }
+
+                        #endregion
+
+                        switch (unidadDeMedida)
+                        {
+                            case 1: // pieza. Numeros Unicos
+                                List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                       join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                       join p in ctx.Sam3_Proyecto on nu.ProveedorID equals p.ProyectoID
+                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                       where nu.Activo && pred.Activo
+                                                                       && proyectosUsuario.Contains(p.ProyectoID)
+                                                                       && patiosUsuario.Contains(pa.PatioID)
+                                                                       select nu).AsParallel().Distinct().ToList();
+                                break;
+                            case 2: // Spool
+                                break;
+                            case 3: // Toneladas
+                                break;
+                            case 4: // MM
+                                break;
+                            default:
+                                throw new Exception("Unidad de medida invalida");
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ListadoPorEntregar(FiltrosJson filtros, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        #region filtros
+                        int clienteID = filtros.ClienteID != null && filtros.ClienteID != "" ? Convert.ToInt32(filtros.ClienteID) : 0;
+                        int proyectoID = filtros.ProyectoID != null && filtros.ProyectoID != "" ? Convert.ToInt32(filtros.ProyectoID) : 0;
+                        int folioPackingList = filtros.PackingListID != null && filtros.PackingListID != "" ? Convert.ToInt32(filtros.PackingListID) : 0;
+                        int folioAvisoEntrada = filtros.FolioAvisoLlegadaID != null && filtros.FolioAvisoLlegadaID != "" ? Convert.ToInt32(filtros.FolioAvisoLlegadaID) : 0;
+                        int unidadDeMedida = 0;
+                        List<int> patiosUsuario;
+                        List<int> proyectosUsuario;
+
+                        DateTime fechaInicial = new DateTime();
+                        DateTime fechaFinal = new DateTime();
+                        DateTime.TryParse(filtros.FechaInicial, out fechaInicial);
+                        DateTime.TryParse(filtros.FechaFinal, out fechaFinal);
+                        UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectosUsuario, out patiosUsuario);
+
+                        if (fechaFinal.ToShortDateString() == "1/1/0001")
+                        {
+                            fechaFinal = DateTime.Now;
+                        }
+
+                        if (fechaInicial.ToShortDateString() == "1/1/0001")
+                        {
+                            int mes = DateTime.Now.Month != 1 ? DateTime.Now.Month - 1 : 12;
+                            int year = DateTime.Now.Month == 1 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                            fechaInicial = new DateTime(year, mes, DateTime.Now.Day);
+                        }
+
+                        if (filtros.UnidadDeMedida != null && filtros.UnidadDeMedida != "")
+                        {
+                            unidadDeMedida = Convert.ToInt32(filtros.UnidadDeMedida);
+                        }
+                        else
+                        {
+                            throw new Exception("La unida de Medida es requerida");
+                        }
+
+                        #endregion
+
+                        switch (unidadDeMedida)
+                        {
+                            case 1: // pieza. Numeros Unicos
+                                List<Sam3_NumeroUnico> lstNumUnicos = (from nu in ctx.Sam3_NumeroUnico
+                                                                       join pred in ctx.Sam3_PreDespacho on nu.NumeroUnicoID equals pred.NumeroUnicoID
+                                                                       join p in ctx.Sam3_Proyecto on nu.ProveedorID equals p.ProyectoID
+                                                                       join pa in ctx.Sam3_Patio on p.PatioID equals pa.PatioID
+                                                                       where nu.Activo && pred.Activo
+                                                                       && proyectosUsuario.Contains(p.ProyectoID)
+                                                                       && patiosUsuario.Contains(pa.PatioID)
+                                                                       select nu).AsParallel().Distinct().ToList();
+                                break;
+                            case 2: // Spool
+                                break;
+                            case 3: // Toneladas
+                                break;
+                            case 4: // MM
+                                break;
+                            default:
+                                throw new Exception("Unidad de medida invalida");
+                        }
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
