@@ -383,7 +383,7 @@ namespace BackEndSAM.DataAcces
                     ctx.SaveChanges();
 
                     Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada.Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
-                    FolioAvisoLlegada.ClienteID = json.ClienteId;
+                    FolioAvisoLlegada.ClienteID = cliente.ClienteID;
                     FolioAvisoLlegada.FechaModificacion = DateTime.Now;
                     FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     ctx.SaveChanges();
@@ -473,7 +473,9 @@ namespace BackEndSAM.DataAcces
 
                         Sam3_FolioAvisoLlegada FolioAvisoLlegada = ctx.Sam3_FolioAvisoLlegada
                             .Where(x => x.FolioAvisoLlegadaID == json.FolioAvisollegadaId).AsParallel().SingleOrDefault();
-                        FolioAvisoLlegada.ClienteID = json.ClienteId;
+                        FolioAvisoLlegada.ClienteID = (from c in ctx.Sam3_Cliente
+                                                       where c.Activo && c.Sam2ClienteID == json.ClienteId
+                                                       select c.ClienteID).AsParallel().SingleOrDefault();
                         FolioAvisoLlegada.FechaModificacion = DateTime.Now;
                         FolioAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
 
