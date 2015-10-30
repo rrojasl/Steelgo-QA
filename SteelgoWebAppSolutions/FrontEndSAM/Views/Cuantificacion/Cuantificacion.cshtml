@@ -873,7 +873,22 @@
             familiaItemCodeSteelgo = { FamiliaID: id };
         };
 
-
+        function validarRequeridosFormaColadaCuantificacion() {
+            var bool = true;
+            $("#formCuantificacion .security_required").each(function (i, elem) {
+                if (elem.tagName.toLowerCase() != 'label') {
+                    if ($(elem).attr("id") == "ProyectoID") {
+                        if (!$(this).val()) {
+                            bool = false;
+                            $(this).closest("div").find("label").addClass("error");
+                        } else {
+                            $(this).closest("div").find("label").removeClass("error");
+                        };
+                    };
+                };
+            });
+            return bool;
+        };
 
         function validarRequeridosFormaCuantificacion() {
             var bool = true;
@@ -1248,9 +1263,13 @@
                     height = "55%";
                     break;
                 case 3:
-                    modalTitle = "Colada";
-                    content = "@Url.Action("Colada", "PopUps")";
-                    height = "30%";
+                        modalTitle = "Colada";
+                        content = "@Url.Action("Colada", "PopUps")";
+                        height = "30%";
+                    if (!validarRequeridosFormaColadaCuantificacion()) {
+                        mostrarpopup = false;
+                        displayMessage("notificationslabel0031", "", '1');
+                    };
                     break;
             };
 
@@ -1358,7 +1377,7 @@
         };
 
         function ActualizarPaginaPadre() {
-            ObtenerColada("Colada", 0, 0);
+            //ObtenerColada("Colada", 0, 0);
         };
 
         function ObtenerColada(id, opciones, mostrarOpcion) {
@@ -2557,7 +2576,7 @@
                         type: "json",
                         serverFiltering: true,
                         transport: {
-                            read: $URLColada + "itemcode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
+                            read: $URLColada + "itemcode=" + (container.parent().children()[0].firstChild?container.parent().children()[0].firstChild.data:"") + "&token=" + Cookies.get("token") + "&paginaID=" + Cookies.get("navegacion") + "&idioma=" + $("#language").data("kendoDropDownList").value() + "&id=0&mostrarOpcion=0"
                             }
                     },
                     select: function (e) {
