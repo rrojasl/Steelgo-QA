@@ -2,10 +2,10 @@
     ViewBag.Title = "Item Code";
 }
 
- <div id="modalItemCode" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
-     <div class="col-sm-12 col-md-12 col-lg-12">
-          <div class="row">
-               @* <div id="Proyecto_ItemCodeDiv" class="form-group">
+<div id="modalItemCode" class="form clearfix popup col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            @* <div id="Proyecto_ItemCodeDiv" class="form-group">
                     <label id="Cuantificacion0055"></label>
                     <input id="Proyecto_ItemCode" class="" />
                 </div>
@@ -17,26 +17,41 @@
                     <label id="Cuantificacion0057"></label>
                     <input id="Colada_ItemCode" />
                 </div>*@
-                <div id="ItemCode_ItemCodeDiv" class="form-group">
-                    <label id="Cuantificacion0045"></label>
-                    <input id="ItemCode_ItemCode" class="general-input"  />
-                </div>
-                <div id="Descripcion_ItemCodeDiv" class="form-group">
-                    <label id="Cuantificacion0046"></label>
-                    <input id="Descripcion_ItemCode" class="general-input"  />
-                </div>
-                <div id="Familia_ItemCodeDiv" class="form-group">
-                    <label id="Cuantificacion0047"></label>
-                    <input id="Familia_ItemCode" class="" />
-                </div>
-                <div class="buttonSave">
-                    <a id="GuardarItemCode" href="#" class="btn btn-primary">
-                        <span id="Cuantificacion0048"></span>
-                    </a>
-                    <a id="CancelarItemCode" href="#" class="btn btn-primary">
-                        <span id="Cuantificacion0049"></span>
-                    </a>
-                </div>
+            <div id="ItemCode_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0045"></label>
+                <input id="ItemCode_ItemCode" class="general-input" />
+            </div>
+            <div id="Descripcion_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0046"></label>
+                <input id="Descripcion_ItemCode" class="general-input" />
+            </div>
+            <div id="Familia_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0047"></label>
+                <input id="Familia_ItemCode" class="" />
+            </div>
+
+
+
+            <div id="D1_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0030"></label>
+                <input id="D1_ItemCode" class="general-input" />
+            </div>
+            <div id="D2_ItemCodeDiv" class="form-group">
+                <label id="Cuantificacion0031"></label>
+                <input id="D2_ItemCode" class="general-input" />
+            </div>
+
+
+
+
+            <div class="buttonSave">
+                <a id="GuardarItemCode" href="#" class="btn btn-primary">
+                    <span id="Cuantificacion0048"></span>
+                </a>
+                <a id="CancelarItemCode" href="#" class="btn btn-primary">
+                    <span id="Cuantificacion0049"></span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -82,7 +97,17 @@
                 visible: "#Familia_ItemCodeDiv",
                 editable: "#Familia_ItemCode",
                 required: "#Familia_ItemCode"
-            }
+            },
+            diametro1: {
+                visible: "#D1_ItemCodeDiv",
+                editable: "#D1_ItemCode",
+                required: "#D1_ItemCode"
+            },
+            diametro2:{
+                visible: "#D2_ItemCodeDiv",
+                editable: "#D2_ItemCode",
+                required: "#D2_ItemCode"
+            },
         }
     };
     }
@@ -262,6 +287,8 @@
         $("#ItemCode_ItemCode").val("");
         $("#Descripcion_ItemCode").val("");
         $("#Familia_ItemCode").data("kendoComboBox").value("");
+        $("#D1_ItemCode").val("");
+        $("#D2_ItemCode").val("");
         //$("#Proyecto_ItemCode").data("kendoComboBox").value("");
         //$("#TipoMaterial_ItemCode").data("kendoComboBox").value("");
         //$("#Colada_ItemCode").data("kendoComboBox").value("");
@@ -273,7 +300,7 @@
     };
 
     function GuardarItemCode() {
-        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "" };
+        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
         ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
         ItemCode.ColadaID = 1;
@@ -281,6 +308,8 @@
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
+        ItemCode.Diametro1 = $("#D1_ItemCode").val();
+        ItemCode.Diametro2 = $("#D2_ItemCode").val();
 
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();
