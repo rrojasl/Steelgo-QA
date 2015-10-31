@@ -214,22 +214,22 @@
 
             //Botones Dashboard
             //Accesorios
-            $("#btnOrdenesTrabajoAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("1"); AccionesListado("1", 2); });
-            $("#btnOrdenesTrabajoActivasAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("2"); AccionesListado("2", 2); });
-            $("#btnPreDespacharAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("3"); AccionesListado("3", 2); });
-            $("#btnDespacharAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("4"); AccionesListado("4", 2); });
-            $("#btnEntregarAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("5"); AccionesListado("5", 2); });
-            $("#btnTravelerPendienteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("6"); AccionesListado("6", 2); });
+            $("#btnOrdenesTrabajoAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("1"); AccionesListado("1", 2,1); });
+            $("#btnOrdenesTrabajoActivasAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("2"); AccionesListado("2", 2,1); });
+            $("#btnPreDespacharAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("3"); AccionesListado("3", 2,1); });
+            $("#btnDespacharAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("4"); AccionesListado("4", 2,1); });
+            $("#btnEntregarAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("5"); AccionesListado("5", 2,1); });
+            $("#btnTravelerPendienteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("6"); AccionesListado("6", 2,1); });
             //$("#btnDespachoAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("7"); AccionesListado("7", 2); });
             //$("#btnCorteAccesorios").click(function () { MostrarGrid(2); tabActivoAccesorios("8"); AccionesListado("8", 2); });
 
             //Tubos
-            $("#btnOrdenesTrabajoTubos").click(function () { MostrarGrid(1); tabActivoTubos("1"); AccionesListado("1", 1); });
-            $("#btnOrdenesTrabajoActivasTubos").click(function () { MostrarGrid(1); tabActivoTubos("2"); AccionesListado("2", 1); });
-            $("#btnPreDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("3"); AccionesListado("3", 1); });
-            $("#btnDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("4"); AccionesListado("4", 1); });
-            $("#btnEntregarTubos").click(function () { MostrarGrid(1); tabActivoTubos("5"); AccionesListado("5", 1); });
-            $("#btnTravelerPendienteTubos").click(function () { MostrarGrid(1); tabActivoTubos("6"); AccionesListado("6", 1); });
+            $("#btnOrdenesTrabajoTubos").click(function () { MostrarGrid(1); tabActivoTubos("1"); AccionesListado("1", 1,1); });
+            $("#btnOrdenesTrabajoActivasTubos").click(function () { MostrarGrid(1); tabActivoTubos("2"); AccionesListado("2", 1,1); });
+            $("#btnPreDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("3"); AccionesListado("3", 1,1); });
+            $("#btnDespacharTubos").click(function () { MostrarGrid(1); tabActivoTubos("4"); AccionesListado("4", 1,1); });
+            $("#btnEntregarTubos").click(function () { MostrarGrid(1); tabActivoTubos("5"); AccionesListado("5", 1,1); });
+            $("#btnTravelerPendienteTubos").click(function () { MostrarGrid(1); tabActivoTubos("6"); AccionesListado("6", 1,1); });
             //$("#btnDespachoTubos").click(function () { MostrarGrid(1); tabActivoTubos("7"); AccionesListado("7", 1); });
             //$("#btnCorteTubos").click(function () { MostrarGrid(1); tabActivoTubos("8"); AccionesListado("8", 1); });
             
@@ -487,8 +487,8 @@
             var accionTubos = $("#hdAccionFiltradoTubos").val() ? $("#hdAccionFiltradoTubos").val() : "1";
             var accionAccesorios = $("#hdAccionFiltradoAccesorios").val() ? $("#hdAccionFiltradoAccesorios").val() : "1";
 
-            AccionesListado(accionTubos,1);
-            AccionesListado(accionAccesorios,2);
+            AccionesListado(accionTubos,1,0);
+            AccionesListado(accionAccesorios,2,0);
         };
 
         function ArregloListado(tipolistado, tipomaterial) {
@@ -570,7 +570,7 @@
             alert("Por definir pantalla pre-despacho");
         };
 
-        function OrdenesTrabajo(tipomaterial) {
+        function OrdenesTrabajo(tipomaterial, esBoton) {
             var Listado = ArregloListado("25", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -581,12 +581,16 @@
 
                     if (tipomaterial == 1) {
                         CargarGridTubos(dataSource, columnas, "");
-                        CantidadesDelMenuDashboardTubos();
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardTubos();
+                        }
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("1");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardAccesorios();
+                        CargarGridAccesorios(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardAccesorios();
+                        }
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("1");
                     };
@@ -628,7 +632,7 @@
             alert("Por definir pantalla pre-despacho");
         };
 
-        function OrdenesTrabajoActivas(tipomaterial) {
+        function OrdenesTrabajoActivas(tipomaterial, esBoton) {
             var Listado = ArregloListado("25", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -638,13 +642,17 @@
                     var columnas = DefinicionColumnasOrdenesTrabajoActivas();
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardTubos();
+                        CargarGridTubos(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardTubos();
+                        }
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("2");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardAccesorios();
+                        CargarGridAccesorios(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardAccesorios();
+                        }
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("2");
                     };
@@ -813,7 +821,7 @@
             return columnas;
         };
 
-        function PreDespachar(tipomaterial) {
+        function PreDespachar(tipomaterial, esBoton) {
             var Listado = ArregloListado("28", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -846,13 +854,17 @@
                     };
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardTubos();
+                        CargarGridTubos(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardTubos();
+                        }
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("3");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardAccesorios();
+                        CargarGridAccesorios(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardAccesorios();
+                        }
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("3");
                     };
@@ -1019,7 +1031,7 @@
         };
 
 
-        function Entregar(tipomaterial) {
+        function Entregar(tipomaterial, esBoton) {
             var Listado = ArregloListado("30", tipomaterial);
 
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -1052,13 +1064,17 @@
                     };
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardTubos();
+                        CargarGridTubos(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardTubos();
+                        }
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("5");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardAccesorios();
+                        CargarGridAccesorios(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardAccesorios();
+                        }
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("5");
                     };
@@ -1371,7 +1387,7 @@
             return columnas;
         };
 
-        function PorDespachar(tipomaterial) {
+        function PorDespachar(tipomaterial, esBoton) {
             var Listado = ArregloListado("29", tipomaterial);
           
             $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
@@ -1404,13 +1420,17 @@
                     };
 
                     if (tipomaterial == 1) {
-                        CargarGridTubos(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardTubos();
+                        CargarGridTubos(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardTubos();
+                        }
                         CargaDatosGridTubos();
                         $("#hdAccionFiltradoTubos").val("4");
                     } else {
-                        CargarGridAccesorios(dataSource, columnas,"");
-                        CantidadesDelMenuDashboardAccesorios();
+                        CargarGridAccesorios(dataSource, columnas, "");
+                        if(!esBoton){
+                            CantidadesDelMenuDashboardAccesorios();
+                        }
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("4");
                     };
@@ -1433,30 +1453,30 @@
             };
         };
         
-        function AccionesListado(accion,tipomaterial) {
+        function AccionesListado(accion,tipomaterial,esBoton) {
             loadingStart();
 
             switch (accion) {
                 case "1":
-                    OrdenesTrabajo(tipomaterial);
+                    OrdenesTrabajo(tipomaterial, esBoton);
                     break;
                 case "2":
-                    OrdenesTrabajoActivas(tipomaterial);
+                    OrdenesTrabajoActivas(tipomaterial, esBoton);
                     break;
                 case "3":
                     //alert("pendiente");
                     loadingStop();
-                    PreDespachar(tipomaterial);
+                    PreDespachar(tipomaterial, esBoton);
                     break;
                 case "4":
                     //alert("pendiente");
                     loadingStop();
-                    PorDespachar(tipomaterial);
+                    PorDespachar(tipomaterial, esBoton);
                     break;
                 case "5":
                     //alert("pendiente");
                     loadingStop();
-                    Entregar(tipomaterial);
+                    Entregar(tipomaterial, esBoton);
                     break;
                 case "6":
                     alert("pendiente");
