@@ -27,6 +27,11 @@ namespace BackEndSAM.Models
         public int ColadaID { get; set; }
         public string ColadaNombre { get; set; }
         public string TipoUsoID { get; set; }
+        public string ItemCodeSteelgo { get; set; }
+        public string ItemCodeSteelgoID { get; set; }
+        public string Cedula { get; set; }
+        public string TipoAcero { get; set; }
+        public string FamiliaAcero { get; set; }
     }
 
     public class ItemCodeComplemento
