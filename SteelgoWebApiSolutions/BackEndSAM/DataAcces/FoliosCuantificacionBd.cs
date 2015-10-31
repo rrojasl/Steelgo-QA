@@ -642,7 +642,7 @@ namespace BackEndSAM.DataAcces
                 {
                     TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
                                        join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
-                                       where pc.ProyectoID == proyectoID
+                                       where pc.ProyectoID == proyectoID && pc.Activo && tu.Activo
                                        select new TipoUso
                                        {
                                            id = tu.TipoUsoID.ToString(),
