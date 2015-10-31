@@ -424,13 +424,13 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Patio existente");
+                                throw new Exception("Patio no existente");
                             }
                             #endregion
                         case 2: //chofer
                             #region
                             CatalogoChofer chofer = serializer.Deserialize<CatalogoChofer>(data);
-                            if (!ctx.Sam3_Chofer.Where(c => c.Nombre == chofer.Nombre && c.Activo).AsParallel().Any())
+                            if (ctx.Sam3_Chofer.Where(c => c.Nombre == chofer.Nombre && c.Activo).AsParallel().Any())
                             {
                                 Sam3_Chofer choferEnBd = ctx.Sam3_Chofer.Where(x => x.ChoferID.ToString() == chofer.ChoferID && x.Activo).AsParallel().SingleOrDefault();
 
@@ -456,14 +456,14 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Chofer existente");
+                                throw new Exception("Chofer no existente");
                             }
                             #endregion
                         case 3: //Tipo Aviso
                             #region
                             Catalogos tipoAviso = serializer.Deserialize<Catalogos>(data);
 
-                            if (!ctx.Sam3_TipoAviso.Where(x => x.Activo && x.Nombre == tipoAviso.Nombre).AsParallel().Any())
+                            if (ctx.Sam3_TipoAviso.Where(x => x.Activo && x.Nombre == tipoAviso.Nombre).AsParallel().Any())
                             {
                                 Sam3_TipoAviso avisoEnBd = ctx.Sam3_TipoAviso.Where(x => x.TipoAvisoID.ToString() == tipoAviso.Id && x.Activo).AsParallel().SingleOrDefault();
 
@@ -484,13 +484,13 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Tipo Aviso existente");
+                                throw new Exception("Tipo Aviso no existente");
                             }
                             #endregion
                         case 4: //Transportista
                             #region
                             CatalogoTransportista transportista = serializer.Deserialize<CatalogoTransportista>(data);
-                            if (!ctx.Sam3_Transportista.Where(x => x.Nombre == transportista.Nombre && x.Activo).AsParallel().Any())
+                            if (ctx.Sam3_Transportista.Where(x => x.Nombre == transportista.Nombre && x.Activo).AsParallel().Any())
                             {
                                 Sam3_Transportista transEnBd = ctx.Sam3_Transportista.Where(x => x.TransportistaID.ToString() == transportista.TransportistaID && x.Activo).AsParallel().SingleOrDefault();
                                 transEnBd.ContactoID = transportista.ContactoID != null && transportista.ContactoID != transEnBd.ContactoID.ToString() ?
@@ -527,13 +527,13 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Transportista existente");
+                                throw new Exception("Transportista no existente");
                             }
                             #endregion
                         case 5: //Tracto
                             #region
                             CatalogoTracto vehiculo = serializer.Deserialize<CatalogoTracto>(data);
-                            if (!ctx.Sam3_Vehiculo.Where(x => x.Placas == vehiculo.Placas && x.Activo && x.TipoVehiculoID == 1).AsParallel().Any())
+                            if (ctx.Sam3_Vehiculo.Where(x => x.Placas == vehiculo.Placas && x.Activo && x.TipoVehiculoID == 1).AsParallel().Any())
                             {
                                 Sam3_Vehiculo vehiculoEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID.ToString() == vehiculo.VehiculoID && x.Activo).AsParallel().SingleOrDefault();
 
@@ -587,14 +587,14 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Tracto existente");
+                                throw new Exception("Tracto no existente");
                             }
                            
                             #endregion
                         case 6: //Plana
                             #region
                             CatalogoPlana plana = serializer.Deserialize<CatalogoPlana>(data);
-                            if (!ctx.Sam3_Vehiculo.Where(x => x.TipoVehiculoID == 2 && x.Activo && x.Placas == plana.Placas).AsParallel().Any())
+                            if (ctx.Sam3_Vehiculo.Where(x => x.TipoVehiculoID == 2 && x.Activo && x.Placas == plana.Placas).AsParallel().Any())
                             {
                                 int vehiculoID = Convert.ToInt32(plana.VehiculoID);
                                 Sam3_Vehiculo planaEnBd = ctx.Sam3_Vehiculo.Where(x => x.VehiculoID == vehiculoID).AsParallel().SingleOrDefault();
@@ -643,13 +643,13 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Plana existente");
+                                throw new Exception("Plana no existente");
                             }
                             #endregion
                         case 7: //Proveedor
                             #region
                             CatalogoProveedor proveedor = serializer.Deserialize<CatalogoProveedor>(data);
-                            if (!ctx.Sam3_Proveedor.Where(x => x.Nombre == proveedor.Nombre && x.Activo).AsParallel().Any())
+                            if (ctx.Sam3_Proveedor.Where(x => x.Nombre == proveedor.Nombre && x.Activo).AsParallel().Any())
                             {
                                 Sam3_Proveedor provEnBd = ctx.Sam3_Proveedor.Where(x => x.ProveedorID.ToString() == proveedor.ProveedorID && x.Activo).AsParallel().SingleOrDefault();
 
@@ -686,7 +686,7 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Proveedor existente");
+                                throw new Exception("Proveedor no existente");
                             }
                             #endregion
                         case 8: //Tipo de uso
@@ -713,13 +713,13 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Tipo de uso existente");
+                                throw new Exception("Tipo de uso no existente");
                             }
                             #endregion
                         case 9: //Camion
                             #region
                             Catalogos camion = serializer.Deserialize<Catalogos>(data);
-                            if (!ctx.Sam3_TipoVehiculo.Where(x => x.Activo && x.Nombre == camion.Nombre).AsParallel().Any())
+                            if (ctx.Sam3_TipoVehiculo.Where(x => x.Activo && x.Nombre == camion.Nombre).AsParallel().Any())
                             {
                                 Sam3_TipoVehiculo camionEnBd = ctx.Sam3_TipoVehiculo.Where(x => x.TipoVehiculoID.ToString() == camion.Id && x.Activo).AsParallel().SingleOrDefault();
                                 camionEnBd.Nombre = camion.Nombre != null && camion.Nombre != camionEnBd.Nombre ?
@@ -739,13 +739,13 @@ namespace BackEndSAM.DataAcces
                             }
                             else
                             {
-                                throw new Exception("Camion existente");
+                                throw new Exception("Camion no existente");
                             }
                             #endregion
                         case 10: //fabricante
                             #region
                             CatalogoFabricante fabricante = serializer.Deserialize<CatalogoFabricante>(data);
-                            if (!ctx.Sam3_Fabricante.Where(x => x.Nombre == fabricante.Nombre && x.Activo).AsParallel().Any())
+                            if (ctx.Sam3_Fabricante.Where(x => x.Nombre == fabricante.Nombre && x.Activo).AsParallel().Any())
                             {
                                 Sam3_Fabricante fabricanteEnBd = ctx.Sam3_Fabricante.Where(x => x.FabricanteID.ToString() == fabricante.FabricanteID && x.Activo).AsParallel().SingleOrDefault();
 
@@ -781,7 +781,7 @@ namespace BackEndSAM.DataAcces
                                 };
                             }
                             {
-                                throw new Exception("Fabricante existente");
+                                throw new Exception("Fabricante no existente");
                             }
                             #endregion
                         default:
