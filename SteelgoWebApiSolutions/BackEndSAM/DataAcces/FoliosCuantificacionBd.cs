@@ -158,6 +158,7 @@ namespace BackEndSAM.DataAcces
                                  join p in ctx.Sam3_Proyecto on t.ProyectoID equals p.ProyectoID
                                  join e in ctx.Sam3_FolioAvisoEntrada on t.FolioAvisoLlegadaID equals e.FolioAvisoLlegadaID
                                  where t.FolioAvisoLlegadaID == folioAvisoLlegadaID && t.Activo && p.Activo && e.Activo
+                                 && p.ProyectoID != 1
                                  select new Proyecto
                                  {
                                      ProyectoID = p.ProyectoID.ToString(),
@@ -585,6 +586,84 @@ namespace BackEndSAM.DataAcces
                 LoggerBd.Instance.EscribirLog(ex);
                 //-----------------Agregar mensaje al Log -----------------------------------------------
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Funcion para obtener los proyectos para el combo Proyecto de cuantificacion
+        /// sin incluir el Proyecto Default
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public object ObtenerListadoProyectosCuantificacion(Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<int> patios;
+                    List<int> proyectos;
+                    UsuarioBd.Instance.ObtenerPatiosYProyectosDeUsuario(usuario.UsuarioID, out proyectos, out patios);
+
+                    List<Proyecto> lstProyectos = (from r in ctx.Sam3_Proyecto
+                                                   join c in ctx.Sam3_Cliente on r.ClienteID equals c.ClienteID
+                                                   where r.Activo && proyectos.Contains(r.ProyectoID) && r.ProyectoID != 1
+                                                   select new Proyecto
+                                                   {
+                                                       Nombre = r.Nombre,
+                                                       ProyectoID = r.ProyectoID.ToString(),
+                                                       ClienteID = c.Sam2ClienteID.ToString()
+                                                   }).AsParallel().ToList();
+
+                    lstProyectos = lstProyectos.GroupBy(x => x.ProyectoID).Select(x => x.First()).ToList();
+                    return lstProyectos;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerTipoUsoPorProyecto(int proyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
+                                       join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
+                                       where pc.ProyectoID == proyectoID && pc.Activo && tu.Activo
+                                       select new TipoUso
+                                       {
+                                           id = tu.TipoUsoID.ToString(),
+                                           Nombre = tu.Nombre
+                                       }).AsParallel().SingleOrDefault();
+
+                    return tipoUso;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 

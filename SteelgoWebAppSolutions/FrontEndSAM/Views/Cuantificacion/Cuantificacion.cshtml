@@ -576,6 +576,8 @@
                         messageindexKendoCombobox(this);
                         Proyecto = {};
                         this.value("");
+                    } else {
+                        ObtenerTipoUsoPorProyecto(FolioAvisoEntrada.FolioAvisoEntradaID, Proyecto.ProyectoID);
                     }
                     //ObtenerColada("Colada", 0, 0);
                 },
@@ -591,7 +593,7 @@
                 },
                 change: function (e) {
                     var value = this.value();
-                    limpiarfiltrosFolioCuantificacion();
+                    limpiarfiltrosFolioLlegada();
                     if (!value || this.selectedIndex == -1) {
                         messageindexKendoCombobox(this);
                         Cuantificacion = {};
@@ -1199,8 +1201,6 @@
             
         };
 
-        
-
         function ObtenerFoliosAvisoLlegada() {
             $FoliosCuantificacion.FoliosCuantificacion.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
@@ -1208,7 +1208,7 @@
         };
 
         function ObtenerProyecto(id) {
-            $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
+            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ token: Cookies.get("token") }).done(function (result) {
                 ControlErroresObjetosComboBox(id, result);
             });
         };
@@ -1332,6 +1332,18 @@
 
         };
 
+        function ObtenerTipoUsoPorProyecto(folio, proyecto)
+        {
+            $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ folioAvisoLlegadaID: folio, proyectoID: proyecto, token: Cookies.get("token") }).done(function (result) {
+                if (Error(result)) {
+                    $("#TipoUsoID").data("kendoComboBox").value(result.id);
+                    CargarTipoUso(result.id, $("#TipoUsoID").data("kendoComboBox").text());
+                } else {
+                    limpiarfiltrosFolioAvisoEntrada();
+                };
+            });
+        }
+
         function ObtenerDatosDelFolioAvisoLlegadaCuantificacion(folio, cuantificacion) {
             loadingStart();
             $ObtenerDatosFolioLlegadaMaterial.ObtenerDatosFolioLlegadaMaterial.read({ folioAvisoLlegadaID: FolioAvisoEntrada.FolioAvisoEntradaID, FolioCuantificacion: cuantificacion, detalleBulto: _detalleBulto==0?"-1":_detalleBulto, token: Cookies.get("token") }).done(function (result) {
@@ -1346,7 +1358,7 @@
                     CargarLabelEstatus(result.Estatus);
                     CargarProyecto(result.ProyectoID, $("#ProyectoID").data("kendoComboBox").text());
                     CargarTipoPackingList(result.TipoPackingList.id, $("#TipoPackingListID").data("kendoComboBox").text());
-                    CargarTipoUso(result.TipoUso.id, $("#TipoUsoID").data("kendoComboBox").text());
+                    CargarTipoUso($("#TipoUsoID").data("kendoComboBox").value(), $("#TipoUsoID").data("kendoComboBox").text());
                     cargarGridPackingList();
 
                 } else {
@@ -1569,6 +1581,20 @@
             $("#PackingList").val("");
             //$("#TipoPackingListID").data("kendoComboBox").value("");
             $("#TipoUsoID").data("kendoComboBox").value("");
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            limpiarTituloFolio();
+        }
+
+        function limpiarfiltrosFolioLlegada() {
+            Proyecto = {};
+            //TipoPackingList = {};
+            TipoUso = {};
+            _folioCuantificacion = "-1";
+            $("#ProyectoID").data("kendoComboBox").value("");
+            $("#BultoID").val("");
+            $("#PackingList").val("");
+            //$("#TipoPackingListID").data("kendoComboBox").value("");
+            //$("#TipoUsoID").data("kendoComboBox").value("");
             $("#grid").data("kendoGrid").dataSource.data([]);
             limpiarTituloFolio();
         }

@@ -283,6 +283,10 @@
     background-repeat: no-repeat;
 }
 
+.k-icon.k-i-close.k-delete {
+    background-image:url("/Content/images/SAMC_Delete.png") !important;
+}
+
 .k-list-container {
     color: #000000;
     background-color: white;

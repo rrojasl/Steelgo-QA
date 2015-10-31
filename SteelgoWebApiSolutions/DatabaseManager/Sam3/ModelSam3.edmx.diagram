@@ -317,6 +317,7 @@
         <EntityTypeShape EntityType="ModelSam3.Sam3_PreDespacho" Width="1.5" PointX="22.5" PointY="24.125" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_PreD__Numer__19B5BC39" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_PreD__Proye__1AA9E072" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

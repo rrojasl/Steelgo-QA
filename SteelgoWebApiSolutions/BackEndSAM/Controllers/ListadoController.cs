@@ -156,6 +156,12 @@ namespace BackEndSAM.Controllers
                          return ListadoBd.Instance.ConteoDashBoardDespachos(filtros, usuario);
                     case 27: // listado Incidencias
                          return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);
+                    case 28://Pre-Despachar por unidad de medina
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);//solo lo puse para ver las columnas, reemplazarlo con el servicio que debe ser. 
+                    case 29://Por Despachar por unidad de medina
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);//solo lo puse para ver las columnas, reemplazarlo con el servicio que debe ser. 
+                    case 30://Entregar por unidad de medina
+                         return ListadoBd.Instance.ListadoIncidencias(filtros, usuario);//solo lo puse para ver las columnas, reemplazarlo con el servicio que debe ser. 
                     default:
                         TransactionalInformation result = new TransactionalInformation();
                         result.ReturnMessage.Add("Listado no encontrado");
