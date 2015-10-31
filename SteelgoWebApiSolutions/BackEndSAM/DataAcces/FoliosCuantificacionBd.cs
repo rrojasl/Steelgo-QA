@@ -633,5 +633,39 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
+        public object ObtenerTipoUsoPorProyecto(int proyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    TipoUso tipoUso = (from pc in ctx.Sam3_ProyectoConfiguracion
+                                       join tu in ctx.Sam3_TipoUso on pc.TipoUsoID equals tu.TipoUsoID
+                                       where pc.ProyectoID == proyectoID
+                                       select new TipoUso
+                                       {
+                                           id = tu.TipoUsoID.ToString(),
+                                           Nombre = tu.Nombre
+                                       }).AsParallel().SingleOrDefault();
+
+                    return tipoUso;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

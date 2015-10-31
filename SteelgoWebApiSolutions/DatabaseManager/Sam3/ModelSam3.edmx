@@ -1076,6 +1076,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DigitosFolioCuantifiacion" Type="int" Nullable="false" />
           <Property Name="DigitosFolioOrdenAlmacenaje" Type="int" Nullable="false" />
           <Property Name="DigitosFolioPermisoAduana" Type="int" Nullable="false" />
+          <Property Name="TipoUsoID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_ProyectoConsecutivo">
           <Key>
@@ -2307,6 +2308,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_ProyectoConsecutivo">
               <PropertyRef Name="ProyectoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Proy__TipoU__1C9228E4">
+          <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="0..1" />
+          <End Role="Sam3_ProyectoConfiguracion" Type="Self.Sam3_ProyectoConfiguracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoUso">
+              <PropertyRef Name="TipoUsoID" />
+            </Principal>
+            <Dependent Role="Sam3_ProyectoConfiguracion">
+              <PropertyRef Name="TipoUsoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4148,7 +4161,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
     [Sam3_ProyectoConfiguracion].[DigitosFolioOrdenRecepcion] AS [DigitosFolioOrdenRecepcion], 
     [Sam3_ProyectoConfiguracion].[DigitosFolioCuantifiacion] AS [DigitosFolioCuantifiacion], 
     [Sam3_ProyectoConfiguracion].[DigitosFolioOrdenAlmacenaje] AS [DigitosFolioOrdenAlmacenaje], 
-    [Sam3_ProyectoConfiguracion].[DigitosFolioPermisoAduana] AS [DigitosFolioPermisoAduana]
+    [Sam3_ProyectoConfiguracion].[DigitosFolioPermisoAduana] AS [DigitosFolioPermisoAduana], 
+    [Sam3_ProyectoConfiguracion].[TipoUsoID] AS [TipoUsoID]
     FROM [dbo].[Sam3_ProyectoConfiguracion] AS [Sam3_ProyectoConfiguracion]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Sam3_Rel_Perfil_Entidad_Pagina" EntityType="Self.Sam3_Rel_Perfil_Entidad_Pagina" store:Type="Tables" store:Schema="dbo">
@@ -4306,6 +4320,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Proy__Proye__51DA19CB" Association="Self.FK__Sam3_Proy__Proye__51DA19CB">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_ProyectoConsecutivo" EntitySet="Sam3_ProyectoConsecutivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Proy__TipoU__1C9228E4" Association="Self.FK__Sam3_Proy__TipoU__1C9228E4">
+            <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
+            <End Role="Sam3_ProyectoConfiguracion" EntitySet="Sam3_ProyectoConfiguracion" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Catal__5F891AA4" Association="Self.FK__Sam3_Rel___Catal__5F891AA4">
             <End Role="Sam3_Catalogos" EntitySet="Sam3_Catalogos" />
@@ -8022,6 +8040,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_PreDespacho" EntitySet="Sam3_PreDespacho" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Proy__TipoU__1C9228E4" Association="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4">
+            <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
+            <End Role="Sam3_ProyectoConfiguracion" EntitySet="Sam3_ProyectoConfiguracion" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
           <Key>
@@ -8673,6 +8695,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" />
           <NavigationProperty Name="Sam3_FolioCuantificacion" Relationship="ModelSam3.FK__Sam3_Foli__TipoU__66D536B1" FromRole="Sam3_TipoUso" ToRole="Sam3_FolioCuantificacion" />
           <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Item__TipoU__7D8391DF" FromRole="Sam3_TipoUso" ToRole="Sam3_ItemCode" />
+          <NavigationProperty Name="Sam3_ProyectoConfiguracion" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_TipoUso" ToRole="Sam3_ProyectoConfiguracion" />
         </EntityType>
         <Association Name="FK__Rel_Bulto__Bulto__77FFC2B3">
           <End Type="ModelSam3.Sam3_Bulto" Role="Sam3_Bulto" Multiplicity="1" />
@@ -8993,6 +9016,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DigitosFolioCuantifiacion" Type="Int32" Nullable="false" />
           <Property Name="DigitosFolioOrdenAlmacenaje" Type="Int32" Nullable="false" />
           <Property Name="DigitosFolioPermisoAduana" Type="Int32" Nullable="false" />
+          <Property Name="TipoUsoID" Type="Int32" />
+          <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_ProyectoConfiguracion" ToRole="Sam3_TipoUso" />
         </EntityType>
         <Association Name="FK_Sam3_NumeroUnico_Sam3_NumeroUnico">
           <End Type="ModelSam3.Sam3_NumeroUnico" Role="Sam3_NumeroUnico" Multiplicity="1" />
@@ -10099,6 +10124,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_PreDespacho">
               <PropertyRef Name="ProyectoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Proy__TipoU__1C9228E4">
+          <End Type="ModelSam3.Sam3_TipoUso" Role="Sam3_TipoUso" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_ProyectoConfiguracion" Role="Sam3_ProyectoConfiguracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_TipoUso">
+              <PropertyRef Name="TipoUsoID" />
+            </Principal>
+            <Dependent Role="Sam3_ProyectoConfiguracion">
+              <PropertyRef Name="TipoUsoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11521,6 +11558,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_ProyectoConfiguracion">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_ProyectoConfiguracion">
               <MappingFragment StoreEntitySet="Sam3_ProyectoConfiguracion">
+                <ScalarProperty Name="TipoUsoID" ColumnName="TipoUsoID" />
                 <ScalarProperty Name="DigitosFolioPermisoAduana" ColumnName="DigitosFolioPermisoAduana" />
                 <ScalarProperty Name="DigitosFolioOrdenAlmacenaje" ColumnName="DigitosFolioOrdenAlmacenaje" />
                 <ScalarProperty Name="DigitosFolioCuantifiacion" ColumnName="DigitosFolioCuantifiacion" />
