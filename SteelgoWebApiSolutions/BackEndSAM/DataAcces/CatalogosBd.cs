@@ -396,7 +396,7 @@ namespace BackEndSAM.DataAcces
                         case 1: //Patios
                             #region
                             Sam3_Patio patio = serializer.Deserialize<Sam3_Patio>(data);
-                            if (!ctx.Sam3_Patio.Where(x => x.Nombre == patio.Nombre && x.Activo).AsParallel().Any())
+                            if (ctx.Sam3_Patio.Where(x => x.Nombre == patio.Nombre && x.Activo).AsParallel().Any())
                             {
                                 Sam3_Patio patioEnBd = ctx.Sam3_Patio.Where(x => x.PatioID == patio.PatioID && x.Activo).AsParallel().SingleOrDefault();
 
