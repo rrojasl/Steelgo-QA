@@ -637,6 +637,7 @@
                 $('#files').kendoUpload({
                     async: {
                         saveUrl: $DocumentoAvisoLlegadaUploadFiles + folio + "&tipoArchivoID=" + _tipoArchivo + "&token=" + Cookies.get("token"),
+                        removeUrl:"aqui",
                         autoUpload: false,
                         withCredentials: false,
                     },
