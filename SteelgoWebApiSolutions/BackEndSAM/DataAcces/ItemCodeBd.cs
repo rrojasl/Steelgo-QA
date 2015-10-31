@@ -234,9 +234,9 @@ namespace BackEndSAM.DataAcces
                                             {
                                                 ItemCodeID = r.ItemCodeID,
                                                 ItemCode = r.Codigo,
-                                                ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
-                                                Cantidad = r.Cantidad,
-                                                MM = r.MM
+                                                //ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
+                                                //Cantidad = r.Cantidad,
+                                                //MM = r.MM
                                             }).AsParallel().SingleOrDefault();
                     return detalle;
                 }

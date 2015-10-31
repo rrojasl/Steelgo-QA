@@ -1354,7 +1354,7 @@
                     $("#PackingList").val(result.PackingList);
                     $("#TipoPackingListID").data("kendoComboBox").value(result.TipoPackingList.id);
                     $("#TipoPackingListID").data("kendoComboBox").enable(false);
-                    //$("#TipoUsoID").data("kendoComboBox").value(result.TipoUso.id);
+                    $("#TipoUsoID").data("kendoComboBox").value(result.TipoUso.id);
                     CargarLabelEstatus(result.Estatus);
                     CargarProyecto(result.ProyectoID, $("#ProyectoID").data("kendoComboBox").text());
                     CargarTipoPackingList(result.TipoPackingList.id, $("#TipoPackingListID").data("kendoComboBox").text());
