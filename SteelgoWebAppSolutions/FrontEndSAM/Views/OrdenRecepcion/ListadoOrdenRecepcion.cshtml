@@ -414,6 +414,12 @@
     function ObtenerFechasporPeriodo(id) {
         var fechaInicio = FechaFinal.value();
         var fechaFin = FechaFinal.value();
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                    format = "dd/MM/yyyy";
+                } else {
+                    format = "MM/dd/yyyy";
+        }
+
 
         if (!fechaInicio) {
             var todayInicio = new Date();
@@ -435,11 +441,7 @@
             fechaFin = kendo.parseDate(todayFinal, format);
         }
 
-        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-            format = "dd/MM/yyyy";
-        } else {
-            format = "MM/dd/yyyy";
-        }
+        
 
         var curr_date = fechaFin.getDate();
         var curr_month = fechaFin.getMonth() + 1;
@@ -564,6 +566,14 @@
 
         var d = new Date($("#FechaInic").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+        if (d.getFullYear() == "1969") {
+            d = new Date();
+            d.setDate(d.getDate() - 30);
+        }
+        if (d1.getFullYear() == "1969") {
+            d1 = new Date();
+        }
 
         Listado.FolioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID ? FolioAvisoEntrada.FolioAvisoEntradaID : "";
         Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";

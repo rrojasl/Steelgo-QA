@@ -554,6 +554,14 @@
             var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
+            if (d.getFullYear() == "1969") {
+                d = new Date();
+                d.setDate(d.getDate() - 30);
+            }
+            if (d1.getFullYear() == "1969") {
+                d1 = new Date();
+            }
+
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
             Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
             Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
@@ -725,6 +733,14 @@
             var d = new Date($("#FechaInic").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
+            if (d.getFullYear() == "1969") {
+                d = new Date();
+                d.setDate(d.getDate() - 30);
+            }
+            if (d1.getFullYear() == "1969") {
+                d1 = new Date();
+            }
+
             Listado.FolioLlegadaID = folioLlegadaID ? folioLlegadaID : -1;
             Listado.FolioAvisoLlegadaID = folioEntradaID ? folioEntradaID : -1;
             Listado.PatioID = $("#PatioID").data("kendoComboBox").value();
@@ -751,6 +767,12 @@
         };
 
         function ObtenerFechasporPeriodo(id) {
+            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+                format = "dd/MM/yyyy";
+            } else {
+                format = "MM/dd/yyyy";
+            }
+
             var fechaInicio = FechaFinal.value();
             var fechaFin = FechaFinal.value();
 
@@ -774,11 +796,7 @@
                 fechaFin = kendo.parseDate(todayFinal, format);
             }
 
-            if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-                format = "dd/MM/yyyy";
-            } else {
-                format = "MM/dd/yyyy";
-            }
+            
 
             var curr_date = fechaFin.getDate();
             var curr_month = fechaFin.getMonth() + 1;

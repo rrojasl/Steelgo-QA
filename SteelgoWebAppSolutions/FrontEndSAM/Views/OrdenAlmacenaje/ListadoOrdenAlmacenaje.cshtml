@@ -588,6 +588,14 @@
         var d = new Date($("#FechaInic").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
 
+        if (d.getFullYear() == "1969") {
+            d = new Date();
+            d.setDate(d.getDate() - 30);
+        }
+        if (d1.getFullYear() == "1969") {
+            d1 = new Date();
+        }
+
         Listado.PackingListID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
         Listado.ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : "";
