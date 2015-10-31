@@ -90,3 +90,9 @@
         </div>
     </div>
 </footer>
+<script>
+    if ( window.location !== window.parent.location ) {
+        alert("Sesión expirada");
+        window.parent.location.href=window.parent.location.origin;
+    }
+</script>
