@@ -1337,7 +1337,7 @@
             $ObtenerDatosFolioAvisoEntrada.ObtenerDatosFolioAvisoEntrada.read({ folioAvisoLlegadaID: folio, proyectoID: proyecto, token: Cookies.get("token") }).done(function (result) {
                 if (Error(result)) {
                     $("#TipoUsoID").data("kendoComboBox").value(result.id);
-                    //CargarTipoUso(result.id, $("#TipoUsoID").data("kendoComboBox").text());
+                    CargarTipoUso(result.id, $("#TipoUsoID").data("kendoComboBox").text());
                 } else {
                     limpiarfiltrosFolioAvisoEntrada();
                 };
