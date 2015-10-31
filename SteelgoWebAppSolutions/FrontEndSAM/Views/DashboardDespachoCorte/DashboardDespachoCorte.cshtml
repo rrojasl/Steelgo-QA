@@ -426,8 +426,8 @@
             dataTextField: "UnidadMedida",
             dataValueField: "UnidadMedidaID",
             dataSource: [
-                { "UnidadMedidaID": "1", "UnidadMedida": _dictionary.DashboardDespachoCorte0048[$("#language").data("kendoDropDownList").value()] },
-                { "UnidadMedidaID": "2", "UnidadMedida": _dictionary.DashboardDespachoCorte0049[$("#language").data("kendoDropDownList").value()] },
+                { "UnidadMedidaID": "1", "UnidadMedida": _dictionary.DashboardDespachoCorte0049[$("#language").data("kendoDropDownList").value()] },
+                { "UnidadMedidaID": "2", "UnidadMedida": _dictionary.DashboardDespachoCorte0048[$("#language").data("kendoDropDownList").value()] },
                 { "UnidadMedidaID": "3", "UnidadMedida": _dictionary.DashboardDespachoCorte0050[$("#language").data("kendoDropDownList").value()] },
                 { "UnidadMedidaID": "4", "UnidadMedida": _dictionary.DashboardDespachoCorte0051[$("#language").data("kendoDropDownList").value()] },
             ],
@@ -493,7 +493,7 @@
 
         function ArregloListado(tipolistado, tipomaterial) {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadDeMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -505,7 +505,7 @@
             Listado.TipoMaterialID = tipomaterial;
             Listado.FechaInicial = obtenerFormatoFechaConHora(d);
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
-            //Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            Listado.UnidadDeMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
             Listado.token = Cookies.get("token");
             Listado.TipoListado = tipolistado;
 
@@ -814,10 +814,10 @@
         };
 
         function PreDespachar(tipomaterial) {
-            var Listado = ArregloListado("13", tipomaterial);
+            var Listado = ArregloListado("28", tipomaterial);
 
-            //$folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-            //    if (Error(result)) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
                      resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
@@ -844,7 +844,6 @@
                             columnas = DefinicionColumnasPreDespacharSpool();
                             break;
                     };
-                   
 
                     if (tipomaterial == 1) {
                         CargarGridTubos(dataSource, columnas,"");
@@ -857,9 +856,9 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("3");
                     };
-            //    };
-            //    loadingStop();
-            //});
+                };
+                loadingStop();
+            });
 
         };
 
@@ -1021,10 +1020,10 @@
 
 
         function Entregar(tipomaterial) {
-            var Listado = ArregloListado("14", tipomaterial);
+            var Listado = ArregloListado("30", tipomaterial);
 
-            //$folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-            //    if (Error(result)) {
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
@@ -1063,9 +1062,9 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("5");
                     };
-            //    };
-            //    loadingStop();
-            //});
+                };
+                loadingStop();
+            });
         };
 
         function DefinicionModeloDespacho() {
@@ -1372,11 +1371,11 @@
             return columnas;
         };
 
-        function PorDespachar() {
-            var Listado = ArregloListado("13", tipomaterial);
-
-            //$folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
-            //    if (Error(result)) {
+        function PorDespachar(tipomaterial) {
+            var Listado = ArregloListado("29", tipomaterial);
+          
+            $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
+                if (Error(result)) {
                     resultadoJson = result;
                     var dataSource = "";
                     var columnas = "";
@@ -1415,9 +1414,9 @@
                         CargaDatosGridAccesorios();
                         $("#hdAccionFiltradoAccesorios").val("4");
                     };
-            //    };
-            //    loadingStop();
-            //});
+                };
+                loadingStop();
+            });
         };
 
         function TravelerPendiente() {
@@ -1445,29 +1444,19 @@
                     OrdenesTrabajoActivas(tipomaterial);
                     break;
                 case "3":
-                    alert("pendiente");
+                    //alert("pendiente");
                     loadingStop();
-                    //PreDespachar(tipomaterial);
+                    PreDespachar(tipomaterial);
                     break;
                 case "4":
-                    alert("pendiente");
+                    //alert("pendiente");
                     loadingStop();
-                    if (tipomaterial == 1) {
-                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
-                    } else {
-                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
-                    }
-                    //PorDespachar(tipomaterial);
+                    PorDespachar(tipomaterial);
                     break;
                 case "5":
-                    alert("pendiente");
+                    //alert("pendiente");
                     loadingStop();
-                    if (tipomaterial == 1) {
-                        $("#gridTubos").data("kendoGrid").dataSource.data([]);
-                    } else {
-                        $("#gridAccesorios").data("kendoGrid").dataSource.data([]);
-                    }
-                    //Entregar(tipomaterial);
+                    Entregar(tipomaterial);
                     break;
                 case "6":
                     alert("pendiente");
@@ -1594,7 +1583,7 @@
 
         function CargarUnidadMedida(id) {
             UnidadMedida = {};
-            UnidadMedida = { UnidadMedida: id };
+            UnidadMedida = { UnidadMedidaID: id };
         };
         function ObtenerProyecto() {
             $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
@@ -1731,7 +1720,7 @@
         };
         function CantidadesDelMenuDashboardTubos() {
             var Listado;
-            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadMedida: "" };
+            Listado = { ProyectoID: "", ClienteID: "", FolioAvisoLlegadaID: "", PackingListID: "", TipoMaterialID: "", FechaInicial: "", FechaFinal: "", token: "", TipoListado: "", UnidadDeMedida: "" };
 
             var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
             var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
@@ -1745,7 +1734,7 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 26;
-            //Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            Listado.UnidadDeMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
 
             ObtenerAccionesListadoTubos(Listado);
         };
@@ -1765,7 +1754,7 @@
             Listado.FechaFinal = obtenerFormatoFechaConHora(d1);
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 26;
-            //Listado.UnidadMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
+            Listado.UnidadDeMedida = UnidadMedida.UnidadMedidaID ? UnidadMedida.UnidadMedidaID : "";
 
             ObtenerAccionesListadoAccesorios(Listado);
         };
