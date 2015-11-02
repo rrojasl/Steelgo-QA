@@ -947,7 +947,8 @@
                                 TieneNU: { type: "string", defaultValue: "No", editable: false },
                                 TieneError: { type: "boolean", defaultValue: false, editable: false },
                                 RelFCId: { type: "string",defaultValue:"", editable: false },
-                                RelBID: { type: "string", defaultValue: "", editable: false }
+                                RelBID: { type: "string", defaultValue: "", editable: false },
+                                ItemCodeID: { type: "string", defaultValue: "", editable: false }
                             }
                         }
                     },
@@ -1003,7 +1004,8 @@
                     { field: "TieneError", title: _dictionary.Cuantificacion0041[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
                     { field: "BultoID", title: _dictionary.Cuantificacion0044[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
                     { field: "RelFCId", title: _dictionary.Cuantificacion0091[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
-                    { field: "RelBID", title: _dictionary.Cuantificacion0092[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true }
+                    { field: "RelBID", title: _dictionary.Cuantificacion0092[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true },
+                    { field: "ItemCodeID", title: _dictionary.Cuantificacion0093[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px", hidden: true }//Solo se utiliza para obtener el detalle
                 ]
             });
             var grid = $("#grid").data("kendoGrid");
@@ -2426,9 +2428,9 @@
             });
         };
 
-        function cargarItemCodeAutocomplete(value, D1, D2) {
+        function cargarItemCodeAutocomplete(value) {
             if (value != "Bulto") {
-                $ItemCode.ItemCode.read({}, { itemCodeID: value, D1: D1, D2: D2, token: Cookies.get("token") }).done(function (data) {
+                $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
                     if (itemCodesJson) {
                         if (itemCodesJson.ItemCode == value) {
@@ -2455,6 +2457,7 @@
                     $('#grid').data('kendoGrid').refresh();
                 });
             } else {
+                lastEditedCellID.ItemCodeID = "";
                 lastEditedCellID.ItemCode = "Bulto";
                 lastEditedCellID.Descripcion = "";
                 lastEditedCellID.D1 = 0;
@@ -2510,23 +2513,26 @@
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
+                        lastEditedCellID.ItemCodeID = dataItem.ItemCodeID;
                         lastEditedCellID.ItemCode = dataItem.Codigo;
-                        lastEditedCellID.D1 = dataItem.D1;
-                        lastEditedCellID.D2 = dataItem.D2;
+                        //lastEditedCellID.D1 = dataItem.D1;
+                        //lastEditedCellID.D2 = dataItem.D2;
                         if (dataItem.ItemCodeID == -1) {
                             VentanaModal(1);
                             e.preventDefault();
+                            lastEditedCellID.ItemCodeID = "";
                             lastEditedCellID.ItemCode = "";
-                            lastEditedCellID.D1 = 0;
-                            lastEditedCellID.D2 = 0;
+                            //lastEditedCellID.D1 = 0;
+                            //lastEditedCellID.D2 = 0;
                             $('#grid').data('kendoGrid').refresh();
                         }
                     },
                     change: function (e) {
                         var value = this.value();
-                        console.log("cel");
+
                         console.log(e.sender.current());
                         if (!e.sender.current()) {
+                            lastEditedCellID.ItemCodeID = "";
                             lastEditedCellID.ItemCode = "";
                             lastEditedCellID.Descripcion = "";
                             lastEditedCellID.D1 = 0;
@@ -2543,6 +2549,7 @@
                             $('#grid').data('kendoGrid').refresh();
                         } else {
                             if (_detalleBulto != "-1" && value == "Bulto") {
+                                lastEditedCellID.ItemCodeID = "";
                                 lastEditedCellID.ItemCode = "Bulto";
                                 lastEditedCellID.Descripcion = "";
                                 lastEditedCellID.D1 = 0;
@@ -2559,7 +2566,7 @@
                                 displayMessage("notificationslabel0043", "", '1');
                             }
                             else {
-                                cargarItemCodeAutocomplete(value, lastEditedCellID.D1, lastEditedCellID.D2);
+                                cargarItemCodeAutocomplete(lastEditedCellID.ItemCodeID);
                             }
                         };
                     }

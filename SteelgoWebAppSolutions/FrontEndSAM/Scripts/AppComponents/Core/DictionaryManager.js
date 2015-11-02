@@ -2226,6 +2226,10 @@ _dictionary = {
         "es-MX": "RelBID",
         "en-US": "RelBID"
     },
+    "Cuantificacion0093": {
+        "es-MX": "ItemCodeID",
+        "en-US": "ItemCodeID"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",
