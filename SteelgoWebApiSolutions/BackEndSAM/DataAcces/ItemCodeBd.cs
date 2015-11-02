@@ -157,14 +157,15 @@ namespace BackEndSAM.DataAcces
                                 ctx2.ItemCode.Add(itemS2);
                                 ctx2.SaveChanges();
 
-
+                                int diam1 = Convert.ToInt32(DatosItemCode.Diametro1);
+                                int diam2 = Convert.ToInt32(DatosItemCode.Diametro2);
                                 bool existeItemCode = ctx.Sam3_ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.Activo).Any();
                                 if (existeItemCode)
                                 {
                                     int itemID = ctx.Sam3_ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.Activo).Select(x => x.ItemCodeID).FirstOrDefault();
                                     if (ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.ItemCodeID ==itemID
-                                                        && x.Diametro1ID == Convert.ToInt32(DatosItemCode.Diametro1)
-                                                        && x.Diametro2ID == Convert.ToInt32(DatosItemCode.Diametro2)
+                                                        && x.Diametro1ID == diam1
+                                                        && x.Diametro2ID == diam2
                                                         && x.Activo).AsParallel().Any())
                                     {
 
@@ -198,8 +199,8 @@ namespace BackEndSAM.DataAcces
 
                                 Sam3_Rel_ItemCode_Diametro relItemCodeDiametro = new Sam3_Rel_ItemCode_Diametro();
                                 relItemCodeDiametro.ItemCodeID = itemS3.ItemCodeID;
-                                relItemCodeDiametro.Diametro1ID = Convert.ToInt32(DatosItemCode.Diametro1);
-                                relItemCodeDiametro.Diametro2ID = Convert.ToInt32(DatosItemCode.Diametro2);
+                                relItemCodeDiametro.Diametro1ID = diam1;
+                                relItemCodeDiametro.Diametro2ID = diam2;
                                 relItemCodeDiametro.UsuarioModificacion = usuario.UsuarioID;
                                 relItemCodeDiametro.FechaModificacion = DateTime.Now;
                                 relItemCodeDiametro.Activo = true;
@@ -258,10 +259,12 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int RelItemID = Convert.ToInt32(itemCode);
                     bool tieneICS = (from it in ctx.Sam3_ItemCode
                                      join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on it.ItemCodeID equals riit.ItemCodeID
-                                     where it.Activo && riit.Activo
-                                     && it.Codigo == itemCode
+                                     join rid in ctx.Sam3_Rel_ItemCode_Diametro on it.ItemCodeID equals rid.ItemCodeID
+                                     where it.Activo && riit.Activo && rid.Activo
+                                     && rid.Rel_ItemCode_Diametro_ID == RelItemID
                                      select riit).AsParallel().Any();
 
                     ItemCodeJson detalle = new ItemCodeJson();
@@ -271,8 +274,9 @@ namespace BackEndSAM.DataAcces
                         detalle = (from r in ctx.Sam3_ItemCode
                                    join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeID equals riit.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on riit.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                   where r.Activo && riit.Activo && ics.Activo
-                                   && r.Codigo == itemCode
+                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
+                                   where r.Activo && riit.Activo && ics.Activo && rid.Activo
+                                   && rid.Rel_ItemCode_Diametro_ID == RelItemID
                                    select new ItemCodeJson
                                    {
                                        ItemCodeID = r.ItemCodeID,
@@ -281,8 +285,8 @@ namespace BackEndSAM.DataAcces
                                        Cantidad = r.Cantidad,
                                        MM = r.MM, 
                                        Descripcion = ics.DescripcionEspanol,
-                                       //Diametro1 = ics.Diametro1, 
-                                       //Diametro2 = ics.Diametro2, 
+                                       Diametro1 = rid.Diametro1ID,
+                                       Diametro2 = rid.Diametro2ID, 
                                        FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(), 
                                        Cedula = (from c in ctx.Sam3_Cedula 
                                                  where c.Activo && c.CedulaID == ics.CedulaID
@@ -303,7 +307,9 @@ namespace BackEndSAM.DataAcces
                     else
                     {
                         detalle = (from r in ctx.Sam3_ItemCode
-                                   where r.Activo && r.Codigo == itemCode
+                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
+                                   where r.Activo && rid.Activo
+                                    && rid.Rel_ItemCode_Diametro_ID == RelItemID
                                    select new ItemCodeJson
                                    {
                                        ItemCodeID = r.ItemCodeID,
