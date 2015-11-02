@@ -12,18 +12,13 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Rel_ItemCode_ItemCodeSteelgo
+    public partial class Sam3_EquivalenciaDiametro
     {
-        public int Rel_ItemCode_ItemCodeSteelgo { get; set; }
-        public Nullable<int> ItemCodeID { get; set; }
-        public Nullable<int> ItemCodeSteelgoID { get; set; }
+        public int EquivalenciaDiametroID { get; set; }
+        public Nullable<int> Sam2_DiametroID { get; set; }
+        public Nullable<int> Sam3_DiametroID { get; set; }
         public bool Activo { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
-        public Nullable<int> Rel_ItemCode_Diametro_ID { get; set; }
-        public Nullable<int> Rel_ItemCodeSteelgo_Diametro_ID { get; set; }
-    
-        public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
-        public virtual Sam3_Rel_ItemCodeSteelgo_Diametro Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
     }
 }

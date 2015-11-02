@@ -78,19 +78,19 @@ namespace BackEndSAM.DataAcces
                                                   && rics.ItemCodeID == fc.ItemCodeID
                                                   select ics.DescripcionEspanol).FirstOrDefault(),
 
-                                   D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                         join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                         join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
-                                         where rics.Activo && ics.Activo && it.Activo
-                                         && rics.ItemCodeID == fc.ItemCodeID
-                                         select ics.Diametro1).FirstOrDefault(),
+                                   //D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                   //      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                   //      join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
+                                   //      where rics.Activo && ics.Activo && it.Activo
+                                   //      && rics.ItemCodeID == fc.ItemCodeID
+                                   //      select ics.Diametro1).FirstOrDefault(),
 
-                                   D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                         join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                         join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
-                                         where rics.Activo && ics.Activo && it.Activo
-                                         && rics.ItemCodeID == fc.ItemCodeID
-                                         select ics.Diametro2).FirstOrDefault(),
+                                   //D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                   //      join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                   //      join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
+                                   //      where rics.Activo && ics.Activo && it.Activo
+                                   //      && rics.ItemCodeID == fc.ItemCodeID
+                                   //      select ics.Diametro2).FirstOrDefault(),
                                    Cantidad = fc.Cantidad,
                                    MM = ic.MM,
 
@@ -164,8 +164,8 @@ namespace BackEndSAM.DataAcces
                                        Detallar = "No",
                                        BultoID = rbic.BultoID.ToString(),
                                        Descripcion = ics.DescripcionEspanol,
-                                       D1 = ics.Diametro1,
-                                       D2 = ics.Diametro2,
+                                       //D1 = ics.Diametro1,
+                                       //D2 = ics.Diametro2,
                                        Cantidad = rbic.Cantidad,
                                        MM = ic.MM,
                                        ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),

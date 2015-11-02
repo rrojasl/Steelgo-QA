@@ -16,15 +16,13 @@ namespace DatabaseManager.Sam3
     {
         public Sam3_ItemCodeSteelgo()
         {
-            this.Sam3_Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
+            this.Sam3_Rel_ItemCodeSteelgo_Diametro = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
         }
     
         public int ItemCodeSteelgoID { get; set; }
         public string DescripcionEspanol { get; set; }
         public string DescripcionIngles { get; set; }
         public decimal Peso { get; set; }
-        public decimal Diametro1 { get; set; }
-        public decimal Diametro2 { get; set; }
         public int FamiliaAceroID { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
@@ -36,8 +34,8 @@ namespace DatabaseManager.Sam3
         public string DescripcionLargaEspanol { get; set; }
         public string DescripcionLargaIngles { get; set; }
     
-        public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
         public virtual Sam3_Cedula Sam3_Cedula { get; set; }
         public virtual Sam3_Grupo Sam3_Grupo { get; set; }
+        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
     }
 }

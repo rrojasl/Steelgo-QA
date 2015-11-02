@@ -65,8 +65,8 @@ namespace BackEndSAM.DataAcces
                                           TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
                                                        where fa.Activo && fa.FamiliaAceroID == it.FamiliaAceroID
                                                        select fa.Nombre).FirstOrDefault(),
-                                          D1 = it.Diametro1.ToString(),
-                                          D2 = it.Diametro2.ToString(),
+                                          //D1 = it.Diametro1.ToString(),
+                                          //D2 = it.Diametro2.ToString(),
                                           ItemCodeID = it.ItemCodeID,
                                           ProyectoID = it.ProyectoID,
                                           Cantidad = it.Cantidad,

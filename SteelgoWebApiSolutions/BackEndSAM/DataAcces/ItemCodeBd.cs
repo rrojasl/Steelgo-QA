@@ -167,8 +167,8 @@ namespace BackEndSAM.DataAcces
                                 //itemS3.DescripcionIngles = DatosItemCode.Descripcion;
                                 //itemS3.DescripcionInterna = DatosItemCode.Descripcion;
                                 //itemS3.Peso = DatosItemCode.Peso;
-                                itemS3.Diametro1 = DatosItemCode.Diametro1;
-                                itemS3.Diametro2 = DatosItemCode.Diametro2;
+                                //itemS3.Diametro1 = DatosItemCode.Diametro1;
+                                //itemS3.Diametro2 = DatosItemCode.Diametro2;
                                 itemS3.FamiliaAceroID = DatosItemCode.FamiliaID;//
                                 itemS3.Activo = true;
                                 itemS3.UsuarioModificacion = usuario.UsuarioID;
@@ -255,8 +255,8 @@ namespace BackEndSAM.DataAcces
                                        Cantidad = r.Cantidad,
                                        MM = r.MM, 
                                        Descripcion = ics.DescripcionEspanol,
-                                       Diametro1 = ics.Diametro1, 
-                                       Diametro2 = ics.Diametro2, 
+                                       //Diametro1 = ics.Diametro1, 
+                                       //Diametro2 = ics.Diametro2, 
                                        FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(), 
                                        Cedula = (from c in ctx.Sam3_Cedula 
                                                  where c.Activo && c.CedulaID == ics.CedulaID

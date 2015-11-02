@@ -14,11 +14,24 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Diametro
     {
+        public Sam3_Diametro()
+        {
+            this.Sam3_Rel_ItemCode_Diametro = new HashSet<Sam3_Rel_ItemCode_Diametro>();
+            this.Sam3_Rel_ItemCode_Diametro1 = new HashSet<Sam3_Rel_ItemCode_Diametro>();
+            this.Sam3_Rel_ItemCodeSteelgo_Diametro = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
+            this.Sam3_Rel_ItemCodeSteelgo_Diametro1 = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
+        }
+    
         public int DiametroID { get; set; }
         public decimal Valor { get; set; }
         public bool VerificadoPorCalidad { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+    
+        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
+        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro1 { get; set; }
+        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
+        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro1 { get; set; }
     }
 }

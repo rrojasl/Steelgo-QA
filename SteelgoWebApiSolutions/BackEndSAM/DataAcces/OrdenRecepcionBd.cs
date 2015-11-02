@@ -117,8 +117,8 @@ namespace BackEndSAM.DataAcces
                                               ItemCodeID = i.ItemCodeID.ToString(),
                                               Cantidad = i.Cantidad.ToString(),
                                               Codigo = i.Codigo,
-                                              D1 = i.Diametro1.ToString(),
-                                              D2 = i.Diametro2.ToString(),
+                                              //D1 = i.Diametro1.ToString(),
+                                              //D2 = i.Diametro2.ToString(),
                                               Descripcion = i.DescripcionEspanol,
                                               TipoMaterial = t.Nombre,
                                               FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
