@@ -142,7 +142,7 @@ var $IncidenciaPaseSalida = new $.RestClient($BackEndSAMUri + '/backendsam/api/'
 var $Busqueda = new $.RestClient($SearchSAMUri2 + '/solr/Steelgo_Search/');
 var $PreDespacho = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $GuardarPermisoAduana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $Diametros = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -244,3 +244,4 @@ $IncidenciaPaseSalida.add("IncidenciaPaseSalida");
 $Busqueda.add("select");
 $PreDespacho.add("PreDespacho");
 $GuardarPermisoAduana.add("DocumentoPermisoAduana");
+$Diametros.add("Diametros");
