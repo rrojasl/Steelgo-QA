@@ -157,6 +157,22 @@ namespace BackEndSAM.DataAcces
                                 ctx2.ItemCode.Add(itemS2);
                                 ctx2.SaveChanges();
 
+
+                                bool existeItemCode = ctx.Sam3_ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.Activo).Any();
+                                if (existeItemCode)
+                                {
+                                    int itemID = ctx.Sam3_ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.Activo).Select(x => x.ItemCodeID).FirstOrDefault();
+                                    if (ctx.Sam3_Rel_ItemCode_Diametro.Where(x => x.ItemCodeID ==itemID
+                                                        && x.Diametro1ID == Convert.ToInt32(DatosItemCode.Diametro1)
+                                                        && x.Diametro2ID == Convert.ToInt32(DatosItemCode.Diametro2)
+                                                        && x.Activo).AsParallel().Any())
+                                    {
+                                        sam2_tran.Rollback();
+                                        sam3_tran.Rollback();
+                                        throw new Exception("El item code ya existe con esos diametros.");
+                                    }
+                                }
+
                                 //Inserta en Sam 3
                                 Sam3_ItemCode itemS3 = new Sam3_ItemCode();
                                 itemS3.ProyectoID = DatosItemCode.ProyectoID;
@@ -178,6 +194,18 @@ namespace BackEndSAM.DataAcces
                                 itemS3.ColadaID = DatosItemCode.ColadaID;//
                                 itemS3.TipoUsoID = Convert.ToInt32(DatosItemCode.TipoUsoID) == -1 ? 1 : Convert.ToInt32(DatosItemCode.TipoUsoID);
                                 ctx.Sam3_ItemCode.Add(itemS3);
+                                ctx.SaveChanges();
+
+                                
+
+                                Sam3_Rel_ItemCode_Diametro relItemCodeDiametro = new Sam3_Rel_ItemCode_Diametro();
+                                relItemCodeDiametro.ItemCodeID = itemS3.ItemCodeID;
+                                relItemCodeDiametro.Diametro1ID = Convert.ToInt32(DatosItemCode.Diametro1);
+                                relItemCodeDiametro.Diametro2ID = Convert.ToInt32(DatosItemCode.Diametro2);
+                                relItemCodeDiametro.UsuarioModificacion = usuario.UsuarioID;
+                                relItemCodeDiametro.FechaModificacion = DateTime.Now;
+                                relItemCodeDiametro.Activo = true;
+                                ctx.Sam3_Rel_ItemCode_Diametro.Add(relItemCodeDiametro);
                                 ctx.SaveChanges();
 
                                 //Inserta en equivalencia
