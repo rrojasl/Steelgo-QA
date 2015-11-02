@@ -3718,6 +3718,10 @@ _dictionary = {
         "es-MX": "Lista",
         "en-US": "List"
     },
+    "CapturaLlenadoMasivo": {
+        "es-MX": "Llenado masivo",
+        "en-US": "filling mass"
+    },
     //#region Mensajes
     "Mensajes_error": {
         "es-MX": "Mensaje de error: ",

@@ -53,9 +53,14 @@
                     <div class="row">
                         <div class="col-sm-3 col-md-3 col-lg-3">
                             <label id="DimensionalVisualHeaderResultadoDimesional"></label>
-                            <input type="radio" class="k-radio" name="ResultadoDimensional" id="ResultadoDimensional" style=" width:auto;" value="Aprobado" /><span id="VisualDimensionalAporbado"> </span>
-                            <input type="radio" class="k-radio" name="ResultadoDimensional" style=" width:auto;" value="Rechazado" /><span id="VisualDimensionalRechazado"> </span>
-
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" id="StyleResultadoDimensionalA">
+                                    <input type="radio" class="k-radio" name="ResultadoDimensional" id="ResultadoDimensional" style=" width:auto;" value="Aprobado" /><span id="DimensionalVisualAporbadoDimensional"></span>
+                                </label>
+                                <label class="btn btn-default" id="StyleResultadoDimensionalR">
+                                    <input type="radio" class="k-radio" name="ResultadoDimensional" style=" width:auto;" value="Rechazado" /><span id="DimensionalVisualRechazadoDimensional"> </span>
+                                </label>
+                            </div>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <label id="DimensionalVisualHeaderDefectoDimesional"></label>
@@ -70,9 +75,15 @@
                             <input id="FechaInspeccion" />
                         </div>
                         <div class="col-sm-3 col-md-3 col-lg-3">
-                            <labe id="CapturaArmadoHeaderLlenadoMasivo"></labe>
-                            <input type="radio" class="k-input" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
-                            <input type="radio" class="k-input" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                            <label id="CapturaLlenadoMasivo"></label>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" id="StylePlanchaTodos">
+                                    <input type="radio" name="LLena" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+                                </label>
+                                <label class="btn btn-default" id="StylePlanchaVacios">
+                                    <input type="radio" name="LLena" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
