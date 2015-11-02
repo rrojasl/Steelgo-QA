@@ -16,14 +16,15 @@ namespace DatabaseManager.Sam3
     {
         public int Rel_Bulto_ItemCode_ID { get; set; }
         public int BultoID { get; set; }
-        public int ItemCodeID { get; set; }
+        public Nullable<int> ItemCodeID { get; set; }
         public bool TieneNumerosUnicos { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> Cantidad { get; set; }
+        public Nullable<int> Rel_ItemCode_Diametro_ID { get; set; }
     
         public virtual Sam3_Bulto Sam3_Bulto { get; set; }
-        public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
+        public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
     }
 }

@@ -272,8 +272,8 @@ namespace BackEndSAM.DataAcces
                                                                 select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
                                                            && nu.Activo
                                                            select nu.NumeroUnicoID).Count().ToString(),
-                                               //D1 = ics.Diametro1.ToString(),
-                                               //D2 = ics.Diametro2.ToString(),
+                                               D1 = ics.Diametro1.ToString(),
+                                               D2 = ics.Diametro2.ToString(),
                                                FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                NumerosUnicos = (from nu in ctx.Sam3_NumeroUnico
                                                                 where nu.ItemCodeID == ic.ItemCodeID
@@ -325,8 +325,8 @@ namespace BackEndSAM.DataAcces
                                                                  select roa.NumeroUnicoID).Contains(nu.NumeroUnicoID)
                                                             && nu.Activo
                                                             select nu.NumeroUnicoID).Count().ToString(),
-                                                //D1 = ics.Diametro1.ToString(),
-                                                //D2 = ics.Diametro2.ToString(),
+                                                D1 = ics.Diametro1.ToString(),
+                                                D2 = ics.Diametro2.ToString(),
                                                 FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                 NumerosUnicos = (from nu in ctx.Sam3_NumeroUnico
                                                                  where nu.ItemCodeID == relbu.ItemCodeID
@@ -993,8 +993,8 @@ namespace BackEndSAM.DataAcces
                                                                                 //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
                                                                             && itc.ItemCodeID == ic.ItemCodeID
                                                                             select oar.NumeroUnicoID).Count().ToString(),
-                                                                //D1 = ics.Diametro1.ToString(),
-                                                                //D2 = ics.Diametro2.ToString(),
+                                                                D1 = ics.Diametro1.ToString(),
+                                                                D2 = ics.Diametro2.ToString(),
                                                                 FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                                 Proyecto = p.Nombre,
                                                                 ProyectoID = item.ProyectoID.ToString(),
@@ -1038,8 +1038,8 @@ namespace BackEndSAM.DataAcces
                                                                                        //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
                                                                                    && itc.ItemCodeID == ic.ItemCodeID
                                                                                    select oar.NumeroUnicoID).Count().ToString(),
-                                                                       //D1 = ics.Diametro1.ToString(),
-                                                                       //D2 = ics.Diametro2.ToString(),
+                                                                       D1 = ics.Diametro1.ToString(),
+                                                                       D2 = ics.Diametro2.ToString(),
                                                                        FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                                        Proyecto = p.Nombre,
                                                                        ProyectoID = item.ProyectoID.ToString(),
