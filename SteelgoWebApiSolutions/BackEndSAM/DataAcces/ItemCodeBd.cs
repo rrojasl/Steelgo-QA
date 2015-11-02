@@ -314,6 +314,8 @@ namespace BackEndSAM.DataAcces
                                    {
                                        ItemCodeID = r.ItemCodeID,
                                        ItemCode = r.Codigo,
+                                       Diametro1 = rid.Diametro1ID,
+                                       Diametro2 = rid.Diametro2ID, 
                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
                                        MM = r.MM
