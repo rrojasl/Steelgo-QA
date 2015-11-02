@@ -41,7 +41,7 @@ namespace DatabaseManager.Sam3
         public int DigitosFolioCuantifiacion { get; set; }
         public int DigitosFolioOrdenAlmacenaje { get; set; }
         public int DigitosFolioPermisoAduana { get; set; }
-        public Nullable<int> TipoUsoID { get; set; }
+        public int TipoUsoID { get; set; }
     
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
     }

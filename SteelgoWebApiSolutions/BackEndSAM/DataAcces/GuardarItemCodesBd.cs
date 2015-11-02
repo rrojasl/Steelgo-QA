@@ -172,9 +172,6 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
-
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Si existen ic y ics en la relacion
                                     bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
@@ -191,20 +188,40 @@ namespace BackEndSAM.DataAcces
                                     {
                                         InsertarRelacionIC_ICS(datosItemCode, usuario);
                                     }
-                                    //else if (ICexisteEnRel && !existeRelICS)
-                                    //{
-                                    //    TieneErrores = true;
-                                    //}
 
                                     //Update IC y ICS
                                     IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-                                    if (!existeSINnumerosunicos)
+                                    #region rel itemcode o bulto
+                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    //    .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                    //bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    //    .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+
+                                    //if (!existeSINnumerosunicos)
+                                    //{
+                                    //    //Insertar la Relacion Folio Cuantificacion IC
+                                    //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
+                                    //}
+
+                                    //se pueden tener mas de un registro de itemcode en una cuantificacion, de modo que aqui verifico si ya existe la relacion
+                                    // si ya existe actualizo los datos con los que vienen de entrada y si no existe genero un nuevo registro
+                                    int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
+                                    if(relFolioCItemCodeID > 0)
                                     {
-                                        //Insertar la Relacion Folio Cuantificacion IC
+                                        //Actualiza la relacion del ItemCOde
+                                        ActualizarRelacionFolioCItemCode(relFolioCItemCodeID, datosItemCode,usuario);
+                                    }
+                                    else
+                                    {
+                                        //Inserta un nuevo registro
                                         InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                     }
+
+
+                                    #endregion
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -374,10 +391,7 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
-
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
-
+                                    
                                     //Si existen ic y ics en la relacion
                                     bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
@@ -388,20 +402,35 @@ namespace BackEndSAM.DataAcces
                                     bool ICexisteEnRel = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-                                    //Que no exista el IC en la relacion
+                                    //Que no exista el IC en la relacion con itemcode steelgo
                                     if (!existeRelICS && !ICexisteEnRel)
                                     {
                                         InsertarRelacionIC_ICS(datosItemCode, usuario);
                                     }
+
                                     //Update IC y ICS
                                     IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-                                    if (!existeSINnumerosunicos)
+#region rel folio itemcode
+                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    //    .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                    //bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    //    .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+
+                                    int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
+                                    if(relFolioCItemCodeID > 0)
                                     {
-                                        //Insertar la Relacion Folio Cuantificacion IC
+                                        //Actualiza la relacion del ItemCOde
+                                        ActualizarRelacionFolioCItemCode(relFolioCItemCodeID, datosItemCode,usuario);
+                                    }
+                                    else
+                                    {
+                                        //Inserta un nuevo registro
                                         InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                     }
+#endregion
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -568,10 +597,7 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
-
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
-
+                                    
                                     //Si existen ic y ics en la relacion
                                     bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                             .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
@@ -596,11 +622,33 @@ namespace BackEndSAM.DataAcces
                                     IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
-                                    if (!existeSINnumerosunicos)
+                                    #region rel folioc itemcode
+                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                    //    .Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == true).Any();
+
+                                    //bool existeSINnumerosunicos = ctx.Sam3_Rel_FolioCuantificacion_ItemCode.
+                                    //    Where(x => x.ItemCodeID == itemCodeID && x.FolioCuantificacionID == FolioCuantificacion && x.Activo && x.TieneNumerosUnicos == false).Any();
+
+                                    //if (!existeSINnumerosunicos)
+                                    //{
+                                    //    //Insertar la Relacion Folio Cuantificacion IC
+                                    //    InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
+                                    //}
+
+                                    int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
+                                    if (relFolioCItemCodeID > 0)
                                     {
-                                        //Insertar la Relacion Folio Cuantificacion IC
+                                        //Actualiza la relacion del ItemCOde
+                                        ActualizarRelacionFolioCItemCode(relFolioCItemCodeID, datosItemCode, usuario);
+                                    }
+                                    else
+                                    {
+                                        //Inserta un nuevo registro
                                         InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, IC, usuario);
                                     }
+
+
+                                    #endregion
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -720,12 +768,12 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
-                                        .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                            && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
+                                    //    .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //        && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
 
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                        && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    //bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //    && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Existen el ics y el ic en la relacion
                                     bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
@@ -749,14 +797,30 @@ namespace BackEndSAM.DataAcces
                                     IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
+                                    #region rel bulto itemcode
                                     //Creo relacion bulto item code
-                                    bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID
-                                        && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+                                    //bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID
+                                    //    && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-                                    if (!existeRelBultoIC)
+                                    //if (!existeRelBultoIC)
+                                    //{
+                                    //    CrearRelacionBulto_IC(datosItemCode, usuario);
+                                    //}
+
+                                    int relBultoItemCodeID = datosItemCode.RelBID != null && datosItemCode.RelBID != "" ? Convert.ToInt32(datosItemCode.RelBID) : 0;
+
+                                    if (relBultoItemCodeID > 0)
                                     {
+                                        //Actualizamos
+                                        ActualizaRelacionBultoItemCode(relBultoItemCodeID, datosItemCode, usuario);
+                                    }
+                                    else
+                                    {
+                                        //Insertamos nueva relacion
                                         CrearRelacionBulto_IC(datosItemCode, usuario);
                                     }
+
+                                    #endregion
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -912,12 +976,12 @@ namespace BackEndSAM.DataAcces
                                                         && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
                                                         select itcs.Diametro2).AsParallel().SingleOrDefault();
 
-                                    bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
-                                        .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                            && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
+                                    //bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
+                                    //    .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //        && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == true).Any();
 
-                                    bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                        && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
+                                    //bool existeSINnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //    && x.BultoID.ToString() == datosItemCode.BultoID && x.Activo && x.TieneNumerosUnicos == false).Any();
 
                                     //Existen el ics y el ic en la relacion
                                     bool existeRelICS = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
@@ -943,14 +1007,28 @@ namespace BackEndSAM.DataAcces
                                     IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
 
+                                    #region rel bulto itemcode
                                     //Creo relacion bulto item code
-                                    bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID
-                                        && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
+                                    //bool existeRelBultoIC = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == datosItemCode.BultoID
+                                    //    && x.ItemCodeID.ToString() == datosItemCode.ItemCodeID && x.Activo).Any();
 
-                                    if (!existeRelBultoIC)
+                                    //if (!existeRelBultoIC)
+                                    //{
+                                    //    CrearRelacionBulto_IC(datosItemCode, usuario);
+                                    //}
+                                    int relBultoItemCodeID = datosItemCode.RelBID != null && datosItemCode.RelBID != "" ? Convert.ToInt32(datosItemCode.RelBID) : 0;
+
+                                    if (relBultoItemCodeID > 0)
                                     {
+                                        //Actualizamos
+                                        ActualizaRelacionBultoItemCode(relBultoItemCodeID, datosItemCode, usuario);
+                                    }
+                                    else
+                                    {
+                                        //Insertamos nueva relacion
                                         CrearRelacionBulto_IC(datosItemCode, usuario);
                                     }
+                                    #endregion
 
                                     listaNuevosIC.Add(new CuantificacionListado
                                     {
@@ -1276,9 +1354,38 @@ namespace BackEndSAM.DataAcces
                     relIC.FechaModificacion = DateTime.Now;
                     relIC.UsuarioModificacion = usuario.UsuarioID;
                     relIC.Activo = true;
-
+                    relIC.Cantidad = IC.Cantidad;
                     ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
                     ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+            }
+        }
+
+        public void ActualizarRelacionFolioCItemCode(int relFolioCItemCodeId, CuantificacionListado IC, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+                        Sam3_Rel_FolioCuantificacion_ItemCode registroBd = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                            .Where(x => x.Rel_FolioCuantificacion_ItemCode_ID == relFolioCItemCodeId).AsParallel().SingleOrDefault();
+
+                        registroBd.Cantidad = IC.Cantidad;
+                        registroBd.FechaModificacion = DateTime.Now;
+                        registroBd.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.SaveChanges();
+
+                        ctx_tran.Commit();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1338,6 +1445,7 @@ namespace BackEndSAM.DataAcces
                     bic.FechaModificacion = DateTime.Now;
                     bic.UsuarioModificacion = usuario.UsuarioID;
                     bic.Activo = true;
+                    bic.Cantidad = item.Cantidad;
                     ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
                     ctx.SaveChanges();
                 }
@@ -1349,6 +1457,36 @@ namespace BackEndSAM.DataAcces
                 //-----------------Agregar mensaje al Log -----------------------------------------------
             }
         }
+
+        public void ActualizaRelacionBultoItemCode(int relBultoItemCodeID, CuantificacionListado item, Sam3_Usuario usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    using (var ctx_tran = ctx.Database.BeginTransaction())
+                    {
+                        Sam3_Rel_Bulto_ItemCode registroBd = ctx.Sam3_Rel_Bulto_ItemCode
+                            .Where(x => x.Rel_Bulto_ItemCode_ID == relBultoItemCodeID).AsParallel().SingleOrDefault();
+
+                        registroBd.Cantidad = item.Cantidad;
+                        registroBd.FechaModificacion = DateTime.Now;
+                        registroBd.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.SaveChanges();
+
+                        ctx_tran.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+            }
+        }
+
 
     }
 }

@@ -91,7 +91,7 @@ namespace BackEndSAM.DataAcces
                                          where rics.Activo && ics.Activo && it.Activo
                                          && rics.ItemCodeID == fc.ItemCodeID
                                          select ics.Diametro2).FirstOrDefault(),
-                                   Cantidad = ic.Cantidad,
+                                   Cantidad = fc.Cantidad,
                                    MM = ic.MM,
 
                                    ItemCodeSteelgo = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
@@ -131,7 +131,8 @@ namespace BackEndSAM.DataAcces
                                                 select fm.Nombre).FirstOrDefault(),
 
                                    TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
-                                    ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial"
+                                    ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial", 
+                                    RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString()
 
                                }).AsParallel().ToList();
 
@@ -165,7 +166,7 @@ namespace BackEndSAM.DataAcces
                                        Descripcion = ics.DescripcionEspanol,
                                        D1 = ics.Diametro1,
                                        D2 = ics.Diametro2,
-                                       Cantidad = ic.Cantidad,
+                                       Cantidad = rbic.Cantidad,
                                        MM = ic.MM,
                                        ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
 
@@ -184,7 +185,9 @@ namespace BackEndSAM.DataAcces
                                                     where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial"
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : 
+                                            ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
+                                        RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString()
                                    }).AsParallel().ToList();
                     }
                 }
@@ -193,7 +196,7 @@ namespace BackEndSAM.DataAcces
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string json = serializer.Serialize(listado);
 #endif
-                listado = listado.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
+                //listado = listado.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
 
                 return listado;
             }

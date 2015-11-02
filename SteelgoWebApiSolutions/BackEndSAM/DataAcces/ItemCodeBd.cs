@@ -83,13 +83,15 @@ namespace BackEndSAM.DataAcces
                                       }).AsParallel().ToList();
 
                         //si tienen orden de recepcion
-                        List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
-                                              join or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on eq.Sam3_ItemCodeID equals or.ItemCodeID
-                                              join nu in ctx.Sam3_NumeroUnico on eq.Sam3_ItemCodeID equals nu.ItemCodeID
-                                              where eq.Activo && or.Activo && nu.Activo
-                                              select eq.Sam2_ItemCodeID.ToString()).AsParallel().Distinct().ToList();
+                        //List<string> conOR = (from eq in ctx.Sam3_EquivalenciaItemCode
+                        //                      join or in ctx.Sam3_Rel_OrdenRecepcion_ItemCode on eq.Sam3_ItemCodeID equals or.ItemCodeID
+                        //                      join nu in ctx.Sam3_NumeroUnico on eq.Sam3_ItemCodeID equals nu.ItemCodeID
+                        //                      where eq.Activo && or.Activo && nu.Activo
+                        //                      select eq.Sam2_ItemCodeID.ToString()).AsParallel().Distinct().ToList();
 
-                        itemCodeS2 = itemCodeS2.Where(x => !conOR.Contains(x.ItemCodeID)).AsParallel().Distinct().ToList();
+                        //itemCodeS2 = itemCodeS2.Where(x => !conOR.Contains(x.ItemCodeID)).AsParallel().Distinct().ToList();
+
+                        itemCodeS2 = itemCodeS2.GroupBy(x => x.ItemCodeID).Select(x => x.First()).ToList();
                     }
                 }
 

@@ -21,6 +21,7 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public bool Activo { get; set; }
+        public Nullable<int> Cantidad { get; set; }
     
         public virtual Sam3_FolioCuantificacion Sam3_FolioCuantificacion { get; set; }
         public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
