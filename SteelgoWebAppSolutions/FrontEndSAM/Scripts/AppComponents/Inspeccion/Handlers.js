@@ -1,15 +1,20 @@
 ﻿function SuscribirEventos() {
+    
     SuscribirEventoSpoolID();
-  //  SuscribirEventosJunta();
     SuscribirEventoInspector();
     SuscribirEventoDefecto();
     SuscribirEventoResultadoDimensional();
     suscribirEventoAgregar();
     suscribirEventoGuardar();
     suscribirEventoCancelar();
+    SuscribirEventoResultadoVisual();
+    SuscribirEventoDefectoVisual();
+    SuscribirEventoInspectorVisual();
+    SuscribirEventoTaller();
+   
 };
 function SuscribirEventoSpoolID() {
-
+ 
     $("#InputID").kendoComboBox({
         dataTextField: "IDValido",
         dataValueField: "Valor",
@@ -18,17 +23,17 @@ function SuscribirEventoSpoolID() {
         index: 3,
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
-
             if (dataItem.Status != "1") {
                 e.preventDefault();
                 $("#InputID").val("");
                 console.log("borrar datos");
-                alert(dataItem.Status);
+                displayMessage("Mensajes_error", dataItem.Status, '1');
             }
             else {
                 $("#InputID").val(dataItem.IDValido);
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                 $("#LabelProyecto").text(dataItem.Proyecto);
+                AjaxObtenerListaTaller();
             }
         }
         ,
@@ -36,8 +41,8 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val().length == 1) {
                 $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
             }
-            //if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '')
-            //    AjaxJunta($("#InputID").val())
+            AjaxObtenerListaTaller();
+
         }
     });
 
@@ -47,10 +52,10 @@ function SuscribirEventoSpoolID() {
             try {
                 AjaxObtenerSpoolID();
             } catch (e) {
-                alert(e.message);
+                displayMessage("Mensajes_error", e.message, '0');
             }
         } else {
-            alert('La Orden de trabajo no es valido.');
+            displayMessage("DimensionalVisualMensajeOrdenTrabajo", "", '1');
             $("#InputOrdenTrabajo").focus();
         }
     });
@@ -113,7 +118,21 @@ function SuscribirEventosJunta() {
 
    
 }
-
+function SuscribirEventoTaller() {
+    $('#inputTaller').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "TallerID",
+        suggest: true,
+        filter: "contains",
+        index: 3
+    });
+    $('#inputTaller').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            PlanchaTaller();
+        }
+    });
+    AjaxObtenerListaTaller();
+}
 function SuscribirEventoInspector() {
     $('#inputInspector').kendoComboBox({
         dataTextField: "Codigo",
@@ -124,6 +143,22 @@ function SuscribirEventoInspector() {
     });
     AjaxObtenerListaInspector();
 }
+function SuscribirEventoInspectorVisual() {
+    $('#inputInspectorVisual').kendoComboBox({
+        dataTextField: "Codigo",
+        dataValueField: "ObreroID",
+        suggest: true,
+        filter: "contains",
+        index: 3
+    });
+    AjaxObtenerListaInspectorVisual();
+
+    $('#inputInspectorVisual').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            PlanchaInspector();
+        }
+    });
+}
 function SuscribirEventoDefecto() {
     $('#inputDefecto').kendoComboBox({
         dataTextField: "Nombre",
@@ -132,7 +167,22 @@ function SuscribirEventoDefecto() {
         filter: "contains",
         index: 3
     });
-    AjaxObtenerListaDefectos();
+    AjaxObtenerListaDefectosDimensionales();
+}
+function SuscribirEventoDefectoVisual() {
+    $('#inputDefectosVisual').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "DefectoID",
+        suggest: true,
+        filter: "contains",
+        index: 3
+    });
+    $('#inputDefectosVisual').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            PlanchaInspector();
+        }
+    });
+    AjaxObtenerListaDefectosVisuales();
 }
 function SuscribirEventoResultadoDimensional() {
 
@@ -146,6 +196,19 @@ function SuscribirEventoResultadoDimensional() {
     });
 
    
+};
+function SuscribirEventoResultadoVisual() {
+
+    $('input:radio[name=ResultadoVisual]:nth(0)').change(function () {
+        $("#inputDefectosVisual").data("kendoComboBox").enable(false);
+        $("#inputDefectosVisual").data("kendoComboBox").value("");
+    });
+    $('input:radio[name=ResultadoVisual]:nth(1)').change(function () {
+        $("#inputDefectosVisual").data("kendoComboBox").enable(true);
+        $("#inputDefectosVisual").data("kendoComboBox").value("");
+    });
+
+
 };
 function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {

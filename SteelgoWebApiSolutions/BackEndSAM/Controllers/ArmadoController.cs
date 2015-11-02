@@ -107,20 +107,15 @@ namespace BackEndSAM.Controllers
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 IdOrdenTrabajo idOrdenTrabajo = new IdOrdenTrabajo();
 
-                string fecha = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje,4);
-
-                string muestra = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 6);
-
-                string llena = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 12);
-
                 CamposPredeterminados armadoCamposPredeterminados = new CamposPredeterminados();
 
                 armadoCamposPredeterminados = new CamposPredeterminados
                 {
-                    FechaArmado = fecha,
-                    Muestra = muestra,
-                    Llena = llena,
-                    FormatoFecha = lenguaje == "es-MX" ? "dd/MM/yyyy" : "MM-dd-yyyy"
+                    FechaArmado = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 4),
+                    Muestra = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 6),
+                    Llena = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 12),
+                    TipoCaptura = (string)CapturaArmadoBD.Instance.ObtenerValorFecha(usuario, lenguaje, 17),
+                    FormatoFecha = lenguaje == "es-MX" ? "dd/MM/yyyy" : "MM/dd/yyyy"
                 };
 
                 return armadoCamposPredeterminados;

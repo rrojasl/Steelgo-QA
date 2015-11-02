@@ -1,18 +1,11 @@
 ﻿using BackEndSAM.DataAcces;
 using BackEndSAM.DataAcces.ArmadoBD;
 using BackEndSAM.Models.Inspeccion;
-
 using DatabaseManager.Sam3;
-using Newtonsoft.Json;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
@@ -192,7 +185,6 @@ namespace BackEndSAM.Controllers
             }
             return listaResultados;
         }
-
         public object Post(Captura listaCapturaInspeccion, string token, string lenguaje)
         {
             string payload = "";
@@ -222,6 +214,78 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+        /// </summary>
+        /// <param name="id">Spool ID</param>
+        /// <param name="sinCaptura">muestra lso datos con o sin capturas</param>
+        /// <param name="token">token</param>
+        /// <returns></returns>
+        public object Get(string id, string sinCaptura, string token, string lenguaje)
+        {
+
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                //return 
+
+                DetalleJuntaDimension detalleJuntaDimension = new DetalleJuntaDimension();
+
+                // List<Sam3_Steelgo_Get_JuntaSpool_Result> lista = (List < Sam3_Steelgo_Get_JuntaSpool_Result >) CapturasRapidasBd.Instance.ObtenerJuntasXSpoolID(id, sinCaptura == "todos" ? 1 : 0);
+
+                List<Sam3_Inspeccion_Get_DetalleDimensional_Result> listaObtenerDetalleDimensional = (List<Sam3_Inspeccion_Get_DetalleDimensional_Result>)CapturasRapidasBd.Instance.ObtenerDetalleDimensional(int.Parse(id), lenguaje);
+
+                //List<JuntaXSpoolID> listaJuntaXSpoolID = new List<JuntaXSpoolID>();
+                List<DetalleDimensional> listaDetalleDimensional = new List<DetalleDimensional>();
+
+                //foreach (Sam3_Steelgo_Get_JuntaSpool_Result item in lista)
+                //{
+                //    JuntaXSpoolID juntaXSpoolID = new JuntaXSpoolID
+                //    {
+                //        Etiqueta = item.Etiqueta,
+                //        JuntaSpoolID = item.JuntaSpoolID
+                //    };
+                //}
+
+                foreach (Sam3_Inspeccion_Get_DetalleDimensional_Result item in listaObtenerDetalleDimensional)
+                {
+                    DetalleDimensional detalleDimensional = new DetalleDimensional
+                    {
+                        Defecto = item.Defecto,
+                        DefectoID = item.DefectoID.GetValueOrDefault(),
+                        FechaInspeccion = item.FechaInspeccion,
+                        InspeccionDimensionalID = item.InspeccionDimensionalID,
+                        Inspector = item.Inspector,
+                        ObreroID = item.ObreroID,
+                        OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID.GetValueOrDefault(),
+                        Resultado = item.Resultado,
+                        ResultadoID = item.ResultadoID
+
+                    };
+
+                    listaDetalleDimensional.Add(detalleDimensional);
+                }
+
+
+                //detalleJuntaDimension.ListaJuntaXSpoolID = listaJuntaXSpoolID;
+
+                detalleJuntaDimension.ListaDetalleDimensional = listaDetalleDimensional;
+
+                return detalleJuntaDimension;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
 
     }
 }

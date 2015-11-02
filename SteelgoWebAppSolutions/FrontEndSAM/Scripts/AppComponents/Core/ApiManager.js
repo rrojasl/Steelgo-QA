@@ -197,10 +197,12 @@ var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 //#region Capturas rapidas
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CapturaSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 
 //#endregion
@@ -215,9 +217,11 @@ $Obrero.add("Obrero");
 $ObreroUbicacion.add("ObreroUbicacion");
 $Defectos.add("Defectos");
 $ListadoCamposPredeterminados.add("ListadoCamposPredeterminados");
+$Taller.add("Taller");
 //#endregion
 //#region Capturas rapidas
 $CapturasRapidas.add("CapturasRapidas");
 $Inspeccion.add("Inspeccion");
+$CapturaSoldadura.add("Soldadura");
 //#endregion
 //#endregion

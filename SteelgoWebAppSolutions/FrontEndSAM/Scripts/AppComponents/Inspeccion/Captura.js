@@ -1,4 +1,5 @@
 ﻿var endRangeDate;
+var endRangeDateV;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
@@ -6,17 +7,18 @@ var actuallongitudTrabajosAdicionales;
 IniciarCapturaInspecion();
 //Cambia lenguaje
 function changeLanguageCall() {
-    AjaxCargarFechaInspeccionDimencional();
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
-    AjaxObtenerListaDefectos();
+    AjaxObtenerListaDefectosDimensionales();
+    AjaxObtenerListaDefectosVisuales();
     CargarGrid();
 };
 function IniciarCapturaInspecion() {
     CargarFecha();
     asignarProyecto();
     SuscribirEventos();
+    AjaxCargaCamposPredeterminados();
 };
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('Proyecto') == undefined ? '' : 'R');
@@ -26,7 +28,9 @@ function CargarFecha() {
     endRangeDate = $("#FechaInspeccion").kendoDatePicker({
         max: new Date()
     })
-    AjaxCargarFechaInspeccionDimencional();
+    endRangeDateV = $("#inputFechaVisual").kendoDatePicker({
+        max: new Date()
+    })
 };
 function ExisteJunta() {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
@@ -296,4 +300,86 @@ function cancelarCaptura(e) {
         dataSource.remove(dataItem);
 
     }
+};
+function PlanchaTaller() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].TallerID = $("#inputTaller").val();
+            data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
+        }
+        else {
+            if (data[i].Taller == "") {
+                data[i].TallerID = $("#inputTaller").val();
+                data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
+function PlanchaInspector() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].TallerID = $("#inputInspectorVisual").val();
+            data[i].Taller = $("#inputInspectorVisual").data("kendoComboBox").text();
+        }
+        else {
+            if (data[i].Taller == "") {
+                data[i].TallerID = $("#inputInspectorVisual").val();
+                data[i].Taller = $("#inputInspectorVisual").data("kendoComboBox").text();
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
+function PlanchaDefecto() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].TallerID = $("#inputDefectosVisual").val();
+            data[i].Taller = $("#inputDefectosVisual").data("kendoComboBox").text();
+        }
+        else {
+            if (data[i].Taller == "") {
+                data[i].TallerID = $("#inputDefectosVisual").val();
+                data[i].Taller = $("#inputDefectosVisual").data("kendoComboBox").text();
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
+function PlanchaFecha() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].FechaArmado = endRangeDate2.val();
+        }
+        else {
+            if (data[i].fechaArmado == "") {
+                data[i].fechaArmado = endRangeDate2.val();
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 };

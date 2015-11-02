@@ -6,13 +6,24 @@
     suscribirEventoCancelar();
     SuscribirEventoTubero();
     SuscribirEventoTaller();
+    SuscribeEventosTipoCaptura();
     suscribirEventoChangeRadio();
 
 };
 
+function SuscribeEventosTipoCaptura() {
+    $("#presentationReporte").addClass("active");
 
-function suscribirEventoChangeRadio()
-{
+    $('#aReporte').click(function () {
+        $("#presentationReporte").addClass("active");
+        $("#presentationReporteListado").removeClass("active");
+    });
+    $('#aListado').click(function () {
+        $("#presentationReporteListado").addClass("active");
+        $("#presentationReporte").removeClass("active");
+    });
+}
+function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         AjaxJunta($("#InputID").val());
     });
@@ -24,11 +35,8 @@ function suscribirEventoChangeRadio()
 
 function suscribirEventoGuardar() {
     $('#btnGuardar').click(function (e) {
-
         var ds = $("#grid").data("kendoGrid").dataSource;
-
         AjaxGuardarCaptura(ds._data);
-
     });
 
     $('#btnGuardarYNuevo').click(function (e) {
@@ -40,27 +48,24 @@ function suscribirEventoGuardar() {
     });
 }
 
-function opcionHabilitarRadioTipoCaptura(valor)
-{
-    var radioButtons = document.getElementsByName('TipoAgregado');
-
-    for (var x = 0; x < radioButtons.length; x++) {
-      //  if (radioButtons[x].checked) {
-            radioButtons[x].disabled = valor;
-
-      //  }
+function opcionHabilitarRadioTipoCaptura(valor) {
+    if (valor) {
+        document.getElementsByTagName("fieldset")[0].removeAttribute("disabled");
+    }
+    else {
+        document.getElementsByTagName("fieldset")[0].setAttribute("disabled", "");
+        $('tipoCapturaCamp').attr('disabled', '');
     }
 }
 
 
-function Limpiar()
-{
-    
+function Limpiar() {
+
     $("#InputOrdenTrabajo").val("");
-    
+
 
     $("#InputID").data("kendoComboBox").value("");
-    
+
     $("#Junta").data("kendoComboBox").value("");
 
     var radioButtons = document.getElementsByName('Muestra');
@@ -87,7 +92,7 @@ function Limpiar()
 
         }
     }
-    
+
 
 
     $("#grid").data('kendoGrid').dataSource.data([]);
@@ -95,8 +100,6 @@ function Limpiar()
 
 function suscribirEventoCancelar() {
     $('#btnCancelar').click(function (e) {
-        // alert('se cancela todo y que pagina tiene que abrir');
-        Limpiar();
     });
 }
 
@@ -117,7 +120,7 @@ function SuscribirEventoTubero() {
     });
     $('#inputTubero').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-          PlanchaTubero();
+            PlanchaTubero();
         }
     });
 }
@@ -156,17 +159,16 @@ function SuscribirEventosJunta() {
             $("#ButtonAgregar").focus();
         }
         else if (e.keyCode == 13) {
-            
 
-            if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte")
-            {
+
+            if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
                 deshabilitaSpool();
                 ObtenerJSonGridArmado();
-                opcionHabilitarRadioTipoCaptura(true);
+                opcionHabilitarRadioTipoCaptura(false);
             }
             else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
                 habilitaSpool();
-                opcionHabilitarRadioTipoCaptura(true);
+                opcionHabilitarRadioTipoCaptura(false);
                 ObtenerJSonGridArmado();
 
             }
@@ -200,7 +202,7 @@ function SuscribirEventoSpoolID() {
         filter: "contains",
         index: 3,
         select: function (e) {
-           
+
             var dataItem = this.dataItem(e.item.index());
 
             if (dataItem.Status != "1") {
@@ -218,11 +220,11 @@ function SuscribirEventoSpoolID() {
                 AjaxObtenerListaTubero();
                 AjaxObtenerListaTaller();
             }
-          
+
         }
         ,
         change: function (e) {
-           
+
             if ($("#InputID").val().length == 1) {
                 $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
             }
