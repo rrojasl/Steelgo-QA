@@ -252,11 +252,13 @@ namespace BackEndSAM.DataAcces
                                        MM = r.MM, 
                                        Descripcion = ics.DescripcionEspanol,
                                        Diametro1 = ics.Diametro1, 
-                                       Diametro2 = ics.Diametro2, FamiliaID = ics.FamiliaAceroID, 
+                                       Diametro2 = ics.Diametro2, 
+                                       FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(), 
                                        Cedula = (from c in ctx.Sam3_Cedula 
                                                  where c.Activo && c.CedulaID == ics.CedulaID
-                                                 select c.CedulaA).FirstOrDefault(),
+                                                 select c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
                                        ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                       ItemCodeSteelgo = ics.Codigo,
                                        TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                     join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                     join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID

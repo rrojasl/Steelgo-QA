@@ -153,6 +153,15 @@
 
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+        if (d.getFullYear() == "1969") {
+            d = new Date();
+            d.setDate(d.getDate() - 30);
+        }
+        if (d1.getFullYear() == "1969") {
+            d1 = new Date();
+        }
+
         var fechainicial = obtenerFormatoFecha(d);
         var fechafinal = obtenerFormatoFecha(d1);
 
@@ -219,6 +228,12 @@
         var fechaInicio = FechaFinal.value();
         var fechaFin = FechaFinal.value();
 
+        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
+            format = "dd/MM/yyyy";
+        } else {
+            format = "MM/dd/yyyy";
+        }
+
         if (!fechaInicio) {
             var todayInicio = new Date();
             var curr_dateInicio = todayInicio.getDate();
@@ -239,11 +254,7 @@
             fechaFin = kendo.parseDate(todayFinal, format);
         }
 
-        if ($("#language").data("kendoDropDownList").value() == "es-MX") {
-            format = "dd/MM/yyyy";
-        } else {
-            format = "MM/dd/yyyy";
-        }
+        
 
         var curr_date = fechaFin.getDate();
         var curr_month = fechaFin.getMonth() + 1;
@@ -309,6 +320,14 @@
 
         var d = new Date($("#FechaInicial").data("kendoDatePicker").value());
         var d1 = new Date($("#FechaFinal").data("kendoDatePicker").value());
+
+        if (d.getFullYear() == "1969") {
+            d = new Date();
+            d.setDate(d.getDate() - 30);
+        }
+        if (d1.getFullYear() == "1969") {
+            d1 = new Date();
+        }
 
         Listado.PatioId = $("#PatioID").data("kendoComboBox").value();
         Listado.FechaInicial = obtenerFormatoFechaConHora(d);

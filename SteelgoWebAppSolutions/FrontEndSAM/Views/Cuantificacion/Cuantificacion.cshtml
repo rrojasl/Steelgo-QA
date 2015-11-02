@@ -1627,7 +1627,7 @@
             ListadoCuantificacion = [];
 
             CargarDefaults();
-            ItemsSumarDuplicados();
+            //ItemsSumarDuplicados();
 
             for (var i = 0; i < datasource.length; i++) {
                 var ItemCode = datasource[i].ItemCode;
@@ -1796,7 +1796,7 @@
             ListadoCuantificacion = [];
 
             CargarDefaults();
-            ItemsSumarDuplicados();
+            //ItemsSumarDuplicados();
 
             for (var i = 0; i < datasource.length; i++) {
                 var ItemCode = datasource[i].ItemCode;
@@ -1966,7 +1966,7 @@
         //var result = query.filter(filters).data;
         //var datasource = result;
         CargarDefaults();
-        ItemsSumarDuplicados();
+        //ItemsSumarDuplicados();
 
         ListadoCuantificacionIncompletos = [];
         ListadoCuantificacion = [];
@@ -2145,7 +2145,7 @@
             ListadoCuantificacion = [];
 
             CargarDefaults();
-            ItemsSumarDuplicados();
+            //ItemsSumarDuplicados();
 
             for (var i = 0; i < datasource.length; i++) {
                 var ItemCode = datasource[i].ItemCode;
@@ -2422,14 +2422,21 @@
                         if (itemCodesJson.ItemCode == value) {
                             lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                             lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
-                            lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
-                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
+                            //lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
+                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : 0; //itemCodesJson.MM;
                             lastEditedCellID.Detallar = "No";
+                            lastEditedCellID.Descripcion = itemCodesJson.Descripcion;
+                            lastEditedCellID.D1 = itemCodesJson.Diametro1;
+                            lastEditedCellID.D2 = itemCodesJson.Diametro2;
+                            lastEditedCellID.ItemCodeSteelgo = itemCodesJson.ItemCodeSteelgo;
+                            lastEditedCellID.Familia = itemCodesJson.FamiliaAcero;
+                            lastEditedCellID.Cedula = itemCodesJson.Cedula;
+                            lastEditedCellID.TipoAcero = itemCodesJson.TipoAcero;
                         } else {
                             //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                             lastEditedCellID.Colada = "";
                             lastEditedCellID.Cantidad = 0;
-                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : itemCodesJson.MM;
+                            lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : 0;//itemCodesJson.MM;
                             lastEditedCellID.Detallar = "No";
                         };
                     }
@@ -2500,6 +2507,8 @@
                     },
                     change: function (e) {
                         var value = this.value();
+                        console.log("cel");
+                        console.log(e.sender.current());
                         if (!e.sender.current()) {
                             lastEditedCellID.ItemCode = "";
                             lastEditedCellID.Descripcion = "";
