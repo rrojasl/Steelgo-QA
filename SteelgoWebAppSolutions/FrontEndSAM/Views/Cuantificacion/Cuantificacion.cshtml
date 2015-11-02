@@ -2414,9 +2414,9 @@
             });
         };
 
-        function cargarItemCodeAutocomplete(value) {
+        function cargarItemCodeAutocomplete(value, D1, D2) {
             if (value != "Bulto") {
-                $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
+                $ItemCode.ItemCode.read({}, { itemCodeID: value, D1: D1, D2: D2, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
                     if (itemCodesJson) {
                         if (itemCodesJson.ItemCode == value) {
@@ -2498,10 +2498,15 @@
                     },
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
+                        lastEditedCellID.ItemCode = dataItem.Codigo;
+                        lastEditedCellID.D1 = dataItem.D1;
+                        lastEditedCellID.D2 = dataItem.D2;
                         if (dataItem.ItemCodeID == -1) {
                             VentanaModal(1);
                             e.preventDefault();
                             lastEditedCellID.ItemCode = "";
+                            lastEditedCellID.D1 = 0;
+                            lastEditedCellID.D2 = 0;
                             $('#grid').data('kendoGrid').refresh();
                         }
                     },
@@ -2542,7 +2547,7 @@
                                 displayMessage("notificationslabel0043", "", '1');
                             }
                             else {
-                                cargarItemCodeAutocomplete(value);
+                                cargarItemCodeAutocomplete(value, lastEditedCellID.D1, lastEditedCellID.D2);
                             }
                         };
                     }

@@ -13,8 +13,8 @@ namespace BackEndSAM.Models
         public string Familia { get; set; }
         public string Cedula { get; set; }
         public string TipoAcero { get; set; }
-        public decimal D1 { get; set; }
-        public decimal D2 { get; set; }
+        public decimal? D1 { get; set; }
+        public decimal? D2 { get; set; }
         public decimal Cantidad { get; set; }
         public string Colada { get; set; }
         public string Certificado { get; set; }

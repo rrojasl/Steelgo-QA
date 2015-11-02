@@ -65,7 +65,7 @@ namespace BackEndSAM.DataAcces
                     using (DatabaseManager.Sam2.Sam2Context ctx2 = new DatabaseManager.Sam2.Sam2Context())
                     {
 
-                        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto" });
+                        IC.Add(new BackEndSAM.Models.ItemCode { ItemCodeID = "0", Codigo = "Bulto", D1 = 0, D2 = 0 });
 
                         int sam2_ProyectoID = (from eq in ctx.Sam3_EquivalenciaProyecto
                                                where eq.Activo && eq.Sam3_ProyectoID == proyectoID
@@ -77,7 +77,9 @@ namespace BackEndSAM.DataAcces
                                       select new BackEndSAM.Models.ItemCode
                                       {
                                           ItemCodeID = ic.ItemCodeID.ToString(),
-                                          Codigo = ic.Codigo
+                                          Codigo = ic.Codigo,
+                                          D1=ic.Diametro1,
+                                          D2 = ic.Diametro2
                                       }).AsParallel().ToList();
 
                         //si tienen orden de recepcion
