@@ -24,35 +24,40 @@ function menuManagerToBeExecutedOnDocumentReady() {
         function () { $(this).addClass("minified"); $(".content-container").addClass("expanded"); }
     );*/
 
+    var mobile_devices = navigator.userAgent.match(/(iPhone|iPod|iPad|Kindle)/);
+    console.log(mobile_devices);
+
     //Toggle for main menu's submenus           
     /*Open menus on hover*/
-    $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {
-        if ($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
-            $("ul.sub-menu2").removeClass("open");
-            $("li.shortcut").removeClass("open");
-            $("ul.sub-menu > li").removeClass("active expand");
-            $(this).children("ul").toggleClass("open");
-            $("i.arrow").toggleClass("down");
-        }
-        else if (!$("#sidebar").hasClass("minified")) {
+    if (!mobile_devices) {
+        $(document).on("mouseenter", "ul.main-menu > li:not('.shortcut')", function () {
+            if ($(this).hasClass('active') && !$("#sidebar").hasClass("minified")) {
+                $("ul.sub-menu2").removeClass("open");
+                $("li.shortcut").removeClass("open");
+                $("ul.sub-menu > li").removeClass("active expand");
+                $(this).children("ul").toggleClass("open");
+                $("i.arrow").toggleClass("down");
+            }
+            else if (!$("#sidebar").hasClass("minified")) {
+                $("#sidebar li").removeClass('active');
+                $("#sidebar ul").removeClass('open');
+                $("li.shortcut").removeClass("open");
+                $(this).closest("li").has("ul").addClass('active').children("ul").addClass("open");
+                $("i.arrow").addClass("down");
+            }
+            else {
+                $("#sidebar li").removeClass('active');
+                $("#sidebar ul").removeClass('open');
+                $("li.shortcut").removeClass("open");
+                $(this).addClass('active');
+            }
+        }).on("mouseleave", "ul.main-menu > li:not('.shortcut')", function () {
             $("#sidebar li").removeClass('active');
             $("#sidebar ul").removeClass('open');
             $("li.shortcut").removeClass("open");
-            $(this).closest("li").has("ul").addClass('active').children("ul").addClass("open");
-            $("i.arrow").addClass("down");
-        }
-        else {
-            $("#sidebar li").removeClass('active');
-            $("#sidebar ul").removeClass('open');
-            $("li.shortcut").removeClass("open");
-            $(this).addClass('active');
-        }
-    }).on("mouseleave", "ul.main-menu > li:not('.shortcut')", function () {
-        $("#sidebar li").removeClass('active');
-        $("#sidebar ul").removeClass('open');
-        $("li.shortcut").removeClass("open");
-        $(this).removeClass('active');
-    });
+            $(this).removeClass('active');
+        });
+    }
 
     /*Open menus on click*/
     $(document).on("click", "ul.main-menu > li:not('.shortcut') > a", function () {
@@ -89,27 +94,29 @@ function menuManagerToBeExecutedOnDocumentReady() {
 
     //Toggle for second submenu
     /*Open menus on hover*/
-    $(document).on("mouseenter", "ul.sub-menu > li", function () {
-        if ($(this).children("ul.sub-menu2").hasClass('open')) {
-            $(this).removeClass("active expand");
-            $(this).children("ul.sub-menu2").removeClass("open");
-            $("li.shortcut").removeClass("open");
-        }        
-        else {
-            $("ul.sub-menu2").removeClass("open");
-            $("ul.sub-menu > li").removeClass("active expand");
-            $(this).addClass("active");
-            $(this).has("ul").addClass("expand");
-            $(this).children("ul.sub-menu2").addClass("open");
-            $("li.shortcut").addClass("open");
-        }
+    if (!mobile_devices) {
+        $(document).on("mouseenter", "ul.sub-menu > li", function () {
+            if ($(this).children("ul.sub-menu2").hasClass('open')) {
+                $(this).removeClass("active expand");
+                $(this).children("ul.sub-menu2").removeClass("open");
+                $("li.shortcut").removeClass("open");
+            }
+            else {
+                $("ul.sub-menu2").removeClass("open");
+                $("ul.sub-menu > li").removeClass("active expand");
+                $(this).addClass("active");
+                $(this).has("ul").addClass("expand");
+                $(this).children("ul.sub-menu2").addClass("open");
+                $("li.shortcut").addClass("open");
+            }
 
-        if ($(this).children("ul.sub-menu2").is(':empty')) {
-            $("li.shortcut").removeClass("open");
-            $(this).removeClass("expand");
+            if ($(this).children("ul.sub-menu2").is(':empty')) {
+                $("li.shortcut").removeClass("open");
+                $(this).removeClass("expand");
 
-        }
-    });
+            }
+        });
+    }
 
     /*Open menus on click*/
     $(document).on("click", "ul.sub-menu > li > a", function () {
