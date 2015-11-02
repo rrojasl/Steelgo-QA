@@ -5911,4 +5911,13 @@ _dictionary = {
         "es-MX": "No es igual a",
         "en-US": "Is not equal to"
     },
+    //KendoDelete
+    "KendoDeleteTxt0001": {
+        "es-MX": "¿Estás seguro que quieres eliminar este elemento?",
+        "en-US": "Are you sure you want to delete this item?"
+    },
+    "KendoDeleteTxt0002": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
 };
