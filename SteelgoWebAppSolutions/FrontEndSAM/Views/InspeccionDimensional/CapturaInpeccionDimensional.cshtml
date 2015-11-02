@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "CapturaInpeccionDimensional";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section breadcrumb {
+    <li>
+        <a href="@Url.Action("landing", "Home")"><span id="ListadoLlegadaMaterial0020"></span></a>
+    </li>
+
+    <li class="active">
+        <a href="@Url.Action("", "")"><span id="">Inspeccion dimensional</span></a>
+    </li>
+}
+<div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="DetalleAvisoLlegada0017"></span></button>
+                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caretWhite"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="btnGuardar"><span id="botonGuardar"></span></a></li>
+                        <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                    </ul>
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="DimensionalVisualHeaderSpoolID"></label>
+            <input style="width:40%" id="InputOrdenTrabajo" class="item-select" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+        </div>
+        <div>
+            <input type="hidden" id="InspeccionDimensionalID" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label id="">&nbsp;</label>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <label id="DimensionalVisualHeaderResultadoDimesional"></label>
+                            <input type="radio" class="k-radio" name="ResultadoDimensional" id="ResultadoDimensional" style=" width:auto;" value="Aprobado" /><span id="VisualDimensionalAporbado"> </span>
+                            <input type="radio" class="k-radio" name="ResultadoDimensional" style=" width:auto;" value="Rechazado" /><span id="VisualDimensionalRechazado"> </span>
+
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label id="DimensionalVisualHeaderDefectoDimesional"></label>
+                            <input id="inputDefecto" class="" />
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label id="DimensionalVisualHeaderInspectorDimesional"></label>
+                            <input id="inputInspector" class="" />
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <label id="DimensionalVisualHeaderFechaDimesional"></label>
+                            <input id="FechaInspeccion" />
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3">
+                            <labe id="CapturaArmadoHeaderLlenadoMasivo"></labe>
+                            <input type="radio" class="k-input" name="LLena" style=" width:auto;" value="Todos" /><span id="CapturaArmadoTodos2"></span>
+                            <input type="radio" class="k-input" name="LLena" style=" width:auto;" value="Vacios" /><span id="CapturaArmadoVacios"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="ContenedorGrid" class="row">
+                    <div id="grid" data-role="grid" class="k-grid k-widget">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="hdAccionFiltrado" type="hidden" />
+</div>
+   
+<script type="text/javascript" src="~/Scripts/AppComponents/InspeccionDimensional/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/InspeccionDimensional/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/InspeccionDimensional/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/InspeccionDimensional/Captura.js"></script>
+
