@@ -9,7 +9,7 @@ namespace BackEndSAM.Models.Inspeccion
     {
         public class DetalleDatosJson
         {
-            
+
             public string EtiquetaMaterial1 { get; set; }
             public string EtiquetaMaterial2 { get; set; }
             public int Accion { get; set; }
@@ -103,7 +103,7 @@ namespace BackEndSAM.Models.Inspeccion
 
     public class DetalleDimensional
     {
-        public int  InspeccionDimensionalID { get; set; }
+        public int InspeccionDimensionalID { get; set; }
 
         public int OrdenTrabajoSpoolID { get; set; }
 
@@ -161,10 +161,19 @@ namespace BackEndSAM.Models.Inspeccion
 
         public string ResultadoID { get; set; }
         public string TallerID { get; set; }
-       
+
         public string NumeroUnico1ID { get; set; }
         public string NumeroUnico2ID { get; set; }
 
         public int InspeccionVisualID { get; set; }
+    }
+    public class InspeccionCamposPredeterminados
+    {
+        public string FechaDimensional { get; set; }
+        public string FechaVisual { get; set; }
+        public string ResultadoDimensional { get; set; }
+        public string ResultadoVisual { get; set; }
+        public string FormatoFecha { get; set; }
+
     }
 }

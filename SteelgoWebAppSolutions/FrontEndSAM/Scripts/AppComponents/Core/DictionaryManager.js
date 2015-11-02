@@ -3682,6 +3682,10 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "botonGuardar2": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "botonGuardarYNuevo": {
         "es-MX": "Guardar y Nuevo",
         "en-US": "Save and New"
@@ -4042,11 +4046,23 @@ _dictionary = {
         "es-MX": "Resultado dimensional",
         "en-US": "Dimensional result"
     },
-    "VisualDimensionalAporbado": {
+    "DimensionalVisualHeaderResultadoVisual": {
+        "es-MX": "Resultado Visual",
+        "en-US": "Visual result"
+    },
+    "DimensionalVisualAporbadoDimensional": {
         "es-MX": "Aprobado",
         "en-US": "Approved"
     },
-    "VisualDimensionalRechazado": {
+    "DimensionalVisualRechazadoDimensional": {
+        "es-MX": "Rechazado",
+        "en-US": "Rejected"
+    },
+    "DimensionalVisualAporbadoVisual": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "DimensionalVisualRechazadoVisual": {
         "es-MX": "Rechazado",
         "en-US": "Rejected"
     },
@@ -4054,11 +4070,23 @@ _dictionary = {
         "es-MX": "Defecto Dimensional",
         "en-US": "Dimensional defect"
     },
+    "DimensionalVisualHeaderDefectoVisual": {
+        "es-MX": "Defecto visual",
+        "en-US": "Visual defect"
+    },
     "DimensionalVisualHeaderInspectorDimesional": {
         "es-MX": "Inspector",
         "en-US": "Checker"
     },
+    "DimensionalVisualHeaderInspectorVisual": {
+        "es-MX": "Inspector",
+        "en-US": "Checker"
+    },
     "DimensionalVisualHeaderFechaDimesional": {
+        "es-MX": "Fecha de Inspección",
+        "en-US": "Inspection date"
+    },
+    "DimensionalVisualHeaderFechaVisual": {
         "es-MX": "Fecha de Inspección",
         "en-US": "Inspection date"
     },
