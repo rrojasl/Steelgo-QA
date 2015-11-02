@@ -167,8 +167,7 @@ namespace BackEndSAM.DataAcces
                                                         && x.Diametro2ID == Convert.ToInt32(DatosItemCode.Diametro2)
                                                         && x.Activo).AsParallel().Any())
                                     {
-                                        sam2_tran.Rollback();
-                                        sam3_tran.Rollback();
+
                                         throw new Exception("El item code ya existe con esos diametros.");
                                     }
                                 }
@@ -196,7 +195,6 @@ namespace BackEndSAM.DataAcces
                                 ctx.Sam3_ItemCode.Add(itemS3);
                                 ctx.SaveChanges();
 
-                                
 
                                 Sam3_Rel_ItemCode_Diametro relItemCodeDiametro = new Sam3_Rel_ItemCode_Diametro();
                                 relItemCodeDiametro.ItemCodeID = itemS3.ItemCodeID;
