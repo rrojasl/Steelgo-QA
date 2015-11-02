@@ -97,8 +97,8 @@ namespace BackEndSAM.DataAcces
                                                          {
                                                              ItemCodeID = ic.ItemCodeID.ToString(),
                                                              Codigo = ic.Codigo,
-                                                             D1 = ics.Diametro1.ToString(),
-                                                             D2 = ics.Diametro2.ToString(),
+                                                             //D1 = ics.Diametro1.ToString(),
+                                                             //D2 = ics.Diametro2.ToString(),
                                                              Descripcion = ics.DescripcionEspanol,
                                                              ItemCodeSteelgo = ics.Codigo,
                                                              ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString()
@@ -141,14 +141,14 @@ namespace BackEndSAM.DataAcces
                              join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
                              join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                              where ics.Activo && g.Activo && c.Activo
-                              && ics.Diametro1.ToString() == diametro1
+                              //&& ics.Diametro1.ToString() == diametro1
                              select new ICSDatosAsociacion
                              {
                                  ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                  Codigo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
-                                 Diametro1 = ics.Diametro1.ToString(),
-                                 Diametro2 = ics.Diametro2.ToString(),
+                                 //Diametro1 = ics.Diametro1.ToString(),
+                                 //Diametro2 = ics.Diametro2.ToString(),
                                  Grupo = g.Nombre,
                                  AceroID = ics.FamiliaAceroID.ToString(),
                                  CedulaA = c.CedulaA,

@@ -158,8 +158,8 @@ namespace BackEndSAM.DataAcces
                                                        Cedula = c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC,
                                                        DescripcionEspanol = r.DescripcionEspanol,
                                                        DescripcionIngles = r.DescripcionIngles,
-                                                       Diametro1 = r.Diametro1,
-                                                       Diametro2 = r.Diametro2,
+                                                       //Diametro1 = r.Diametro1,
+                                                       //Diametro2 = r.Diametro2,
                                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                                   where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && r.Activo
                                                                   select fa.Nombre).FirstOrDefault(),
@@ -216,8 +216,8 @@ namespace BackEndSAM.DataAcces
                                                        Cedula = c.CedulaA,
                                                        DescripcionEspanol = r.DescripcionEspanol,
                                                        DescripcionIngles = r.DescripcionIngles,
-                                                       Diametro1 = r.Diametro1,
-                                                       Diametro2 = r.Diametro2,
+                                                       //Diametro1 = r.Diametro1,
+                                                       //Diametro2 = r.Diametro2,
                                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                                   where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && r.Activo
                                                                   select fa.Nombre).FirstOrDefault(),
@@ -325,8 +325,8 @@ namespace BackEndSAM.DataAcces
                     nuevoItem.CedulaID = json.CedulaID;
                     nuevoItem.DescripcionEspanol = json.DescripcionEspanol;
                     nuevoItem.DescripcionIngles = json.DescripcionIngles;
-                    nuevoItem.Diametro1 = json.Diametro1;
-                    nuevoItem.Diametro2 = json.Diametro2;
+                    //nuevoItem.Diametro1 = json.Diametro1;
+                    //nuevoItem.Diametro2 = json.Diametro2;
                     nuevoItem.FamiliaAceroID = json.FamiliaAceroID;
                     nuevoItem.FechaModificacion = DateTime.Now;
                     nuevoItem.Peso = json.Peso;
@@ -374,8 +374,8 @@ namespace BackEndSAM.DataAcces
                     itemBd.CedulaID = json.CedulaID;
                     itemBd.DescripcionEspanol = json.DescripcionEspanol;
                     itemBd.DescripcionIngles = json.DescripcionIngles;
-                    itemBd.Diametro1 = json.Diametro1;
-                    itemBd.Diametro2 = json.Diametro2;
+                    //itemBd.Diametro1 = json.Diametro1;
+                    //itemBd.Diametro2 = json.Diametro2;
                     itemBd.FamiliaAceroID = json.FamiliaAceroID;
                     itemBd.FechaModificacion = DateTime.Now;
                     itemBd.Peso = json.Peso;

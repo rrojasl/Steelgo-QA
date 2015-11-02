@@ -160,17 +160,17 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro1).AsParallel().SingleOrDefault();
 
-                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro2).AsParallel().SingleOrDefault();
 
 
                                     //Si existen ic y ics en la relacion
@@ -233,8 +233,8 @@ namespace BackEndSAM.DataAcces
                                         Descripcion = ICS.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
+                                        //D1 = ICS.Diametro1,
+                                        //D2 = ICS.Diametro2,
                                         Familia = datosItemCode.Familia,
                                         TipoAcero = datosItemCode.TipoAcero,
                                         Cantidad = IC.Cantidad,
@@ -288,8 +288,8 @@ namespace BackEndSAM.DataAcces
                                             Descripcion = ICS.DescripcionEspanol,
                                             Peso = ICS.Peso,
                                             Cedula = datosItemCode.Cedula,
-                                            D1 = ICS.Diametro1,
-                                            D2 = ICS.Diametro2,
+                                            //D1 = ICS.Diametro1,
+                                            //D2 = ICS.Diametro2,
                                             Familia = datosItemCode.Familia,
                                             TipoAcero = datosItemCode.TipoAcero,
                                             Cantidad = IC.Cantidad,
@@ -379,17 +379,17 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro1).AsParallel().SingleOrDefault();
 
-                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     
                                     //Si existen ic y ics en la relacion
@@ -442,8 +442,8 @@ namespace BackEndSAM.DataAcces
                                         Descripcion = ICS.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
+                                        //D1 = ICS.Diametro1,
+                                        //D2 = ICS.Diametro2,
                                         Familia = datosItemCode.Familia,
                                         TipoAcero = datosItemCode.TipoAcero,
                                         Cantidad = IC.Cantidad,
@@ -495,8 +495,8 @@ namespace BackEndSAM.DataAcces
                                             Descripcion = ICS.DescripcionEspanol,
                                             Peso = ICS.Peso,
                                             Cedula = datosItemCode.Cedula,
-                                            D1 = ICS.Diametro1,
-                                            D2 = ICS.Diametro2,
+                                            //D1 = ICS.Diametro1,
+                                            //D2 = ICS.Diametro2,
                                             Familia = datosItemCode.Familia,
                                             TipoAcero = datosItemCode.TipoAcero,
                                             Cantidad = IC.Cantidad,
@@ -585,17 +585,17 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro1).AsParallel().SingleOrDefault();
 
-                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     
                                     //Si existen ic y ics en la relacion
@@ -660,8 +660,8 @@ namespace BackEndSAM.DataAcces
                                         Descripcion = ICS.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
+                                        //D1 = ICS.Diametro1,
+                                        //D2 = ICS.Diametro2,
                                         Familia = datosItemCode.Familia,
                                         TipoAcero = datosItemCode.TipoAcero,
                                         Cantidad = IC.Cantidad,
@@ -756,17 +756,17 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro1).AsParallel().SingleOrDefault();
 
-                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     //bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
                                     //    .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
@@ -832,8 +832,8 @@ namespace BackEndSAM.DataAcces
                                         Descripcion = ICS.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
+                                        //D1 = ICS.Diametro1,
+                                        //D2 = ICS.Diametro2,
                                         Familia = datosItemCode.Familia,
                                         TipoAcero = datosItemCode.TipoAcero,
                                         Cantidad = IC.Cantidad,
@@ -868,8 +868,8 @@ namespace BackEndSAM.DataAcces
                                         Descripcion = ICS.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
+                                        //D1 = ICS.Diametro1,
+                                        //D2 = ICS.Diametro2,
                                         Familia = datosItemCode.Familia,
                                         TipoAcero = datosItemCode.TipoAcero,
                                         Cantidad = IC.Cantidad,
@@ -964,17 +964,17 @@ namespace BackEndSAM.DataAcces
                                                                   where tm.ItemCodeID == itemCodeID && tm.Activo
                                                                   select tm.TipoMaterialID).AsParallel().FirstOrDefault();
 
-                                    datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro1).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro1).AsParallel().SingleOrDefault();
 
-                                    datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
-                                                        where rics.Activo && itcs.Activo
-                                                        && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
-                                                        select itcs.Diametro2).AsParallel().SingleOrDefault();
+                                    //datosItemCode.D2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                    //                    join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals itcs.ItemCodeSteelgoID
+                                    //                    where rics.Activo && itcs.Activo
+                                    //                    && rics.ItemCodeID.ToString() == datosItemCode.ItemCodeID
+                                    //                    select itcs.Diametro2).AsParallel().SingleOrDefault();
 
                                     //bool existeYnumerosunicos = ctx.Sam3_Rel_Bulto_ItemCode
                                     //    .Where(x => x.ItemCodeID.ToString() == datosItemCode.ItemCodeID
@@ -1040,8 +1040,8 @@ namespace BackEndSAM.DataAcces
                                         Descripcion = ICS.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
-                                        D1 = ICS.Diametro1,
-                                        D2 = ICS.Diametro2,
+                                        //D1 = ICS.Diametro1,
+                                        //D2 = ICS.Diametro2,
                                         Familia = datosItemCode.Familia,
                                         TipoAcero = datosItemCode.TipoAcero,
                                         Cantidad = IC.Cantidad,
@@ -1190,8 +1190,8 @@ namespace BackEndSAM.DataAcces
                     IC.Cantidad = item.Cantidad;
                     IC.MM = item.MM.ToString() == "N/A" ? null : item.MM;
                     IC.ColadaID = item.ColadaID;
-                    IC.Diametro1 = item.D1;
-                    IC.Diametro2 = item.D2;
+                    //IC.Diametro1 = item.D1;
+                    //IC.Diametro2 = item.D2;
                     //IC.DescripcionEspanol = item.Descripcion;
                     //IC.DescripcionIngles = item.Descripcion;
                     IC.FamiliaAceroID = Convert.ToInt32(item.FamiliaMaterial);
@@ -1234,8 +1234,8 @@ namespace BackEndSAM.DataAcces
                     nuevoItem.DescripcionEspanol = itemS2.DescripcionEspanol;
                     nuevoItem.DescripcionIngles = itemS2.DescripcionIngles;
                     nuevoItem.DescripcionInterna = itemS2.DescripcionInterna;
-                    nuevoItem.Diametro1 = itemS2.Diametro1;
-                    nuevoItem.Diametro2 = itemS2.Diametro2;
+                    //nuevoItem.Diametro1 = itemS2.Diametro1;
+                    //nuevoItem.Diametro2 = itemS2.Diametro2;
                     nuevoItem.FamiliaAceroID = itemS2.FamiliaAceroID;
                     nuevoItem.Peso = itemS2.Peso;
                     nuevoItem.ColadaID = datosItemCode.ColadaID;

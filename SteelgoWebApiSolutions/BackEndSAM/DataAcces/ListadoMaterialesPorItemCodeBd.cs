@@ -61,8 +61,8 @@ namespace BackEndSAM.DataAcces
                                    ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    Descripcion = ics.DescripcionEspanol,
-                                   D1 = ics.Diametro1.ToString(),
-                                   D2 = ics.Diametro2.ToString(),
+                                   //D1 = ics.Diametro1.ToString(),
+                                   //D2 = ics.Diametro2.ToString(),
                                    TipoMaterial = tm.Nombre,
 
                                    TotalRecibido = (from nui in ctx.Sam3_NumeroUnicoInventario

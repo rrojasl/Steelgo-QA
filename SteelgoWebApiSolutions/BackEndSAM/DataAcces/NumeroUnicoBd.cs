@@ -280,8 +280,8 @@ namespace BackEndSAM.DataAcces
                                 Sam3_NumeroUnico nuevoNU = new Sam3_NumeroUnico();
                                 nuevoNU.Activo = true;
                                 nuevoNU.ColadaID = item.ColadaID != null && item.ColadaID > 0 ? item.ColadaID : 1;
-                                nuevoNU.Diametro1 = item.Diametro1 != null ? item.Diametro1.Value : 0;
-                                nuevoNU.Diametro2 = item.Diametro2 != null ? item.Diametro2.Value : 0;
+                                //nuevoNU.Diametro1 = item.Diametro1 != null ? item.Diametro1.Value : 0;
+                                //nuevoNU.Diametro2 = item.Diametro2 != null ? item.Diametro2.Value : 0;
                                 nuevoNU.Estatus = "D";
                                 nuevoNU.EsVirtual = false;
                                 nuevoNU.FechaModificacion = DateTime.Now;

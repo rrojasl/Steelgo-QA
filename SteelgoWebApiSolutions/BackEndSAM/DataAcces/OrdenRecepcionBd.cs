@@ -138,8 +138,8 @@ namespace BackEndSAM.DataAcces
                                                      ItemCodeID = i.ItemCodeID.ToString(),
                                                      Cantidad = i.Cantidad.ToString(),
                                                      Codigo = i.Codigo,
-                                                     D1 = i.Diametro1.ToString(),
-                                                     D2 = i.Diametro2.ToString(),
+                                                     //D1 = i.Diametro1.ToString(),
+                                                     //D2 = i.Diametro2.ToString(),
                                                      Descripcion = i.DescripcionEspanol,
                                                      TipoMaterial = t.Nombre,
                                                      FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
@@ -167,8 +167,8 @@ namespace BackEndSAM.DataAcces
                                                    ItemCodeID = i.ItemCodeID.ToString(),
                                                    Cantidad = i.Cantidad.ToString(),
                                                    Codigo = i.Codigo,
-                                                   D1 = i.Diametro1.ToString(),
-                                                   D2 = i.Diametro2.ToString(),
+                                                   //D1 = i.Diametro1.ToString(),
+                                                   //D2 = i.Diametro2.ToString(),
                                                    Descripcion = i.DescripcionEspanol,
                                                    TipoMaterial = t.Nombre,
                                                    FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
@@ -188,8 +188,8 @@ namespace BackEndSAM.DataAcces
                                                           ItemCodeID = i.ItemCodeID.ToString(),
                                                           Cantidad = i.Cantidad.ToString(),
                                                           Codigo = i.Codigo,
-                                                          D1 = i.Diametro1.ToString(),
-                                                          D2 = i.Diametro2.ToString(),
+                                                          //D1 = i.Diametro1.ToString(),
+                                                          //D2 = i.Diametro2.ToString(),
                                                           Descripcion = i.DescripcionEspanol,
                                                           TipoMaterial = t.Nombre,
                                                           FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString()
@@ -426,19 +426,19 @@ namespace BackEndSAM.DataAcces
                                               ItemCodeID = it.ItemCodeID.ToString(),
                                               Cantidad = it.Cantidad != null && it.Cantidad.Value > 0 ? it.Cantidad.Value.ToString() : "",
                                               Codigo = it.Codigo,
-                                              D1 = it.Diametro1 != null || it.Diametro1 > 0 ? it.Diametro1.ToString()
-                                                : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                   join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
-                                                   where rics.Activo && its.Activo
-                                                   && rics.ItemCodeID == it.ItemCodeID
-                                                   select its.Diametro1).FirstOrDefault().ToString(),
+                                              //D1 = it.Diametro1 != null || it.Diametro1 > 0 ? it.Diametro1.ToString()
+                                              //  : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                              //     join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                              //     where rics.Activo && its.Activo
+                                              //     && rics.ItemCodeID == it.ItemCodeID
+                                              //     select its.Diametro1).FirstOrDefault().ToString(),
 
-                                              D2 = it.Diametro2 != null || it.Diametro2 > 0 ? it.Diametro2.ToString()
-                                                : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                   join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
-                                                   where rics.Activo && its.Activo
-                                                   && rics.ItemCodeID == it.ItemCodeID
-                                                   select its.Diametro2).FirstOrDefault().ToString(),
+                                              //D2 = it.Diametro2 != null || it.Diametro2 > 0 ? it.Diametro2.ToString()
+                                              //  : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                              //     join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                              //     where rics.Activo && its.Activo
+                                              //     && rics.ItemCodeID == it.ItemCodeID
+                                              //     select its.Diametro2).FirstOrDefault().ToString(),
 
                                               Descripcion = it.DescripcionEspanol,
                                               TipoMaterial = t.Nombre
@@ -459,19 +459,19 @@ namespace BackEndSAM.DataAcces
                                                    ItemCodeID = it.ItemCodeID.ToString(),
                                                    Cantidad = it.Cantidad != null && it.Cantidad.Value > 0 ? it.Cantidad.Value.ToString() : "",
                                                    Codigo = it.Codigo,
-                                                   D1 = it.Diametro1 != null || it.Diametro1 > 0 ? it.Diametro1.ToString()
-                                                    : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                       join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
-                                                       where rics.Activo && its.Activo
-                                                       && rics.ItemCodeID == it.ItemCodeID
-                                                       select its.Diametro1).FirstOrDefault().ToString(),
+                                                   //D1 = it.Diametro1 != null || it.Diametro1 > 0 ? it.Diametro1.ToString()
+                                                   // : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                   //    join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                   //    where rics.Activo && its.Activo
+                                                   //    && rics.ItemCodeID == it.ItemCodeID
+                                                   //    select its.Diametro1).FirstOrDefault().ToString(),
 
-                                                   D2 = it.Diametro2 != null || it.Diametro2 > 0 ? it.Diametro2.ToString()
-                                                     : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                        join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
-                                                        where rics.Activo && its.Activo
-                                                        && rics.ItemCodeID == it.ItemCodeID
-                                                        select its.Diametro2).FirstOrDefault().ToString(),
+                                                   //D2 = it.Diametro2 != null || it.Diametro2 > 0 ? it.Diametro2.ToString()
+                                                   //  : (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                   //     join its in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals its.ItemCodeSteelgoID
+                                                   //     where rics.Activo && its.Activo
+                                                   //     && rics.ItemCodeID == it.ItemCodeID
+                                                   //     select its.Diametro2).FirstOrDefault().ToString(),
 
                                                    Descripcion = it.DescripcionEspanol,
                                                    TipoMaterial = t.Nombre
@@ -662,8 +662,8 @@ namespace BackEndSAM.DataAcces
                                 Sam3_NumeroUnico nuevoNU = new Sam3_NumeroUnico();
                                 nuevoNU.Activo = true;
                                 nuevoNU.ColadaID = item.ColadaID > 0 ? item.ColadaID : 1;
-                                nuevoNU.Diametro1 = item.Diametro1 != null ? item.Diametro1.Value : 0;
-                                nuevoNU.Diametro2 = item.Diametro1 != null ? item.Diametro2.Value : 0;
+                                //nuevoNU.Diametro1 = item.Diametro1 != null ? item.Diametro1.Value : 0;
+                                //nuevoNU.Diametro2 = item.Diametro1 != null ? item.Diametro2.Value : 0;
                                 nuevoNU.Estatus = "D"; //
                                 nuevoNU.EsVirtual = false;
                                 nuevoNU.FechaModificacion = DateTime.Now;
@@ -768,8 +768,8 @@ namespace BackEndSAM.DataAcces
                                     Sam3_NumeroUnico nuevoNU = new Sam3_NumeroUnico();
                                     nuevoNU.Activo = true;
                                     nuevoNU.ColadaID = item.ColadaID != null && item.ColadaID > 0 ? item.ColadaID : 1;
-                                    nuevoNU.Diametro1 = item.Diametro1 != null ? item.Diametro1.Value : 0;
-                                    nuevoNU.Diametro2 = item.Diametro2 != null ? item.Diametro2.Value : 0;
+                                    //nuevoNU.Diametro1 = item.Diametro1 != null ? item.Diametro1.Value : 0;
+                                    //nuevoNU.Diametro2 = item.Diametro2 != null ? item.Diametro2.Value : 0;
                                     nuevoNU.Estatus = "D";
                                     nuevoNU.EsVirtual = false;
                                     nuevoNU.FechaModificacion = DateTime.Now;
