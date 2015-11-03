@@ -98,7 +98,7 @@ function removeGrid(grid) {
     } catch (e) { }
     var contenedor = grid.parent();
     grid.remove();
-    contenedor.append("<div id='" + grid.attr("id") + "'></div>");
+    contenedor.append("<div id='" + grid.attr("id") + "' class='" + grid.attr("class") + "'></div>");
     return tmp;
 }
 
