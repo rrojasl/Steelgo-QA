@@ -97,28 +97,33 @@ namespace BackEndSAM.DataAcces
                 {
                     //ics.Add(new ListaCombos { id = "0", value = "Agregar Nuevo" });
                     List<ListaCombos> listado = (from r in ctx.Sam3_ItemCodeSteelgo
-                                                 join rel in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeSteelgoID equals rel.ItemCodeSteelgoID
-                                                 join item in ctx.Sam3_ItemCode on rel.ItemCodeID equals item.ItemCodeID
-                                                 where r.Activo && rel.Activo && item.Activo && item.Codigo==itemcode
+                                                 join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on r.ItemCodeSteelgoID equals rids.ItemCodeSteelgoID
+                                                 join rel in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rids.Rel_ItemCodeSteelgo_Diametro_ID equals rel.Rel_ItemCodeSteelgo_Diametro_ID
+                                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on rel.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                 join item in ctx.Sam3_ItemCode on rid.ItemCodeID equals item.ItemCodeID
+                                                 join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                                 join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
+                                                 where r.Activo && rel.Activo && item.Activo 
+                                                 && rid.ItemCodeID.ToString() == itemcode
                                                  select new ListaCombos
                                                  {
-                                                     id = r.ItemCodeSteelgoID.ToString(),
-                                                     value = r.Codigo
+                                                     id = rids.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
+                                                     value = r.Codigo + " (" + d1.Valor.ToString() + ", " + d2.Valor.ToString() + ")"
                                                  }).AsParallel().ToList();
 
 
 
-                    if (listado.Count <= 0)
-                    {
+                    //if (listado.Count <= 0)
+                    //{
 
-                        listado = (from r in ctx.Sam3_ItemCodeSteelgo
-                                   where r.Activo
-                                   select new ListaCombos
-                                   {
-                                       id = r.ItemCodeSteelgoID.ToString(),
-                                       value = r.Codigo
-                                   }).AsParallel().ToList();
-                    }
+                    //    listado = (from r in ctx.Sam3_ItemCodeSteelgo
+                    //               where r.Activo
+                    //               select new ListaCombos
+                    //               {
+                    //                   id = r.ItemCodeSteelgoID.ToString(),
+                    //                   value = r.Codigo
+                    //               }).AsParallel().ToList();
+                    //}
 
                     //ics.AddRange(listado);
                     return listado;

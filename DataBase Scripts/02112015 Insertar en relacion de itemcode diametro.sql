@@ -100,7 +100,7 @@ begin try
 commit tran
 end try
 begin catch
-EXECUTE Sam3_GetErrorInfo;
+	EXECUTE Sam3_GetErrorInfo;
 	rollback tran
 end catch
 go
