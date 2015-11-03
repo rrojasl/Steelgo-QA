@@ -138,17 +138,20 @@ namespace BackEndSAM.DataAcces
                 using (SamContext ctx = new SamContext())
                 {
                     lista = (from ics in ctx.Sam3_ItemCodeSteelgo
+                             join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals rids.ItemCodeSteelgoID
                              join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
                              join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                             join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                             join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
                              where ics.Activo && g.Activo && c.Activo
-                              //&& ics.Diametro1.ToString() == diametro1
+                             && d1.Valor.ToString() == diametro1
                              select new ICSDatosAsociacion
                              {
                                  ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                  Codigo = ics.Codigo,
                                  Descripcion = ics.DescripcionEspanol,
-                                 //Diametro1 = ics.Diametro1.ToString(),
-                                 //Diametro2 = ics.Diametro2.ToString(),
+                                 Diametro1 = d1.Valor.ToString(),
+                                 Diametro2 = d2.Valor.ToString(),
                                  Grupo = g.Nombre,
                                  AceroID = ics.FamiliaAceroID.ToString(),
                                  CedulaA = c.CedulaA,
