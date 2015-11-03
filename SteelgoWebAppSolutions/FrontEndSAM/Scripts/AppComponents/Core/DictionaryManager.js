@@ -5397,6 +5397,10 @@ _dictionary = {
         "es-MX": "Registro",
         "en-US": "Record"
     },
+    "Incidencias0037": {
+        "es-MX": "Responder",
+        "en-US": "Answer"
+    },
     //Listado Incidencias
     "ListadoIncidencias0001": {
         "es-MX": "Inicio",
