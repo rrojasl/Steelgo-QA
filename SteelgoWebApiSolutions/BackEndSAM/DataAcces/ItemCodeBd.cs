@@ -172,7 +172,6 @@ namespace BackEndSAM.DataAcces
                                                         && x.Diametro2ID == diam2
                                                         && x.Activo).AsParallel().Any())
                                     {
-
                                         throw new Exception("El item code ya existe con esos diametros.");
                                     }
                                 }

@@ -220,7 +220,6 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenRecepcion" Width="1.5" PointX="21.25" PointY="50.5" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" Width="1.5" PointX="23.5" PointY="42.375" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0B129727" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__0A1E72EE" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Width="1.5" PointX="23.5" PointY="64.375" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__0EE3280B" />
@@ -329,6 +328,8 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6324A15E" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cedu__Diame__6F8A7843" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

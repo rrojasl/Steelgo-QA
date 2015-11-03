@@ -18,7 +18,6 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
-            this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
             this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
             this.Sam3_Rel_Incidencia_ItemCode = new HashSet<Sam3_Rel_Incidencia_ItemCode>();
             this.Sam3_Rel_ItemCode_Diametro = new HashSet<Sam3_Rel_ItemCode_Diametro>();
@@ -50,7 +49,6 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
         public virtual ICollection<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
         public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
