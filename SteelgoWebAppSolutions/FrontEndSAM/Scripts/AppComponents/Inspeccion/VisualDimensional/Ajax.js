@@ -120,7 +120,7 @@ function AjaxObtenerSpoolID() {
             loadingStart();
             $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
             $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus)
-
+            Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
             loadingStop();
 
         });

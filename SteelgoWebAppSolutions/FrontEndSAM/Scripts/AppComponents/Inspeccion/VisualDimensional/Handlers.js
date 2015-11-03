@@ -32,7 +32,7 @@ function SuscribirEventoSpoolID() {
             else {
                 $("#InputID").val(dataItem.IDValido);
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
+                
                 $("#LabelProyecto").text(dataItem.Proyecto);
                 AjaxObtenerListaTaller();
             }
@@ -52,6 +52,7 @@ function SuscribirEventoSpoolID() {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
                 AjaxObtenerSpoolID();
+                
             } catch (e) {
                 displayMessage("Mensajes_error", e.message, '0');
             }
@@ -131,7 +132,7 @@ function SuscribirEventoTaller() {
             PlanchaTaller();
         }
     });
-    AjaxObtenerListaTaller();
+  //  AjaxObtenerListaTaller();
 }
 function SuscribirEventoInspector() {
     $('#inputInspector').kendoComboBox({
