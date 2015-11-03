@@ -2443,8 +2443,8 @@
                 $ItemCode.ItemCode.read({}, { itemCodeID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJson = data;
                     if (itemCodesJson) {
-                        if (itemCodesJson.ItemCode == value) {
-                            lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
+                        if (itemCodesJson.ItemCodeID == value) {
+                            //lastEditedCellID.ItemCode = itemCodesJson.ItemCode;
                             lastEditedCellID.Colada = itemCodesJson.ColadaNombre;
                             //lastEditedCellID.Cantidad = itemCodesJson.Cantidad;
                             lastEditedCellID.MM = TipoPackingList.TipoPackingListID == "2" ? "N/A" : 0; //itemCodesJson.MM;
@@ -2453,6 +2453,7 @@
                             lastEditedCellID.D1 = itemCodesJson.Diametro1;
                             lastEditedCellID.D2 = itemCodesJson.Diametro2;
                             lastEditedCellID.ItemCodeSteelgo = itemCodesJson.ItemCodeSteelgo;
+                            lastEditedCellID.ItemCodeSteelgoID = itemCodesJson.ItemCodeSteelgoID;
                             lastEditedCellID.Familia = itemCodesJson.FamiliaAcero;
                             lastEditedCellID.Cedula = itemCodesJson.Cedula;
                             lastEditedCellID.TipoAcero = itemCodesJson.TipoAcero;
@@ -2492,8 +2493,8 @@
                         if (itemCodesJsonSteelgo.Codigo == value) {
                             lastEditedCellIDSteelgo.ItemCodeSteelgo = itemCodesJsonSteelgo.Codigo;
                             lastEditedCellIDSteelgo.Descripcion = itemCodesJsonSteelgo.DescripcionEspanol
-                            lastEditedCellIDSteelgo.D1 = itemCodesJsonSteelgo.Diametro1
-                            lastEditedCellIDSteelgo.D2 = itemCodesJsonSteelgo.Diametro2
+                            //lastEditedCellIDSteelgo.D1 = itemCodesJsonSteelgo.Diametro1
+                            //lastEditedCellIDSteelgo.D2 = itemCodesJsonSteelgo.Diametro2
                             lastEditedCellIDSteelgo.Familia = itemCodesJsonSteelgo.Familia;
                             lastEditedCellIDSteelgo.Cedula = itemCodesJsonSteelgo.Cedula;
                             lastEditedCellIDSteelgo.TipoAcero = itemCodesJsonSteelgo.TipoAcero;
@@ -2593,7 +2594,7 @@
                     dataSource: {
                         type: "json",
                         transport: {
-                            read: $URLItemCodeSteelgo + "&ItemCode=" + container.parent().children()[0].firstChild.data + "&token=" + Cookies.get("token")
+                            read: $URLItemCodeSteelgo + "&ItemCode=" + container.parent().children()[18].firstChild.data + "&token=" + Cookies.get("token")
                         },
                     },
                     select: function (e) {
