@@ -159,12 +159,13 @@ namespace BackEndSAM.DataAcces
                                                    join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                                    join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                                    join c in ctx.Sam3_Cedula on r.CedulaID equals c.CedulaID
-                                                   where r.Activo && c.Activo
+                                                   join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                   where r.Activo && c.Activo && rid.Activo && d1.Activo && d2.Activo && d.Activo
                                                    && rid.Rel_ItemCodeSteelgo_Diametro_ID == idSteelgo
                                                    select new ItemCodeSteelgoJson
                                                    {
                                                        Area = r.Area,
-                                                       Cedula = c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC,
+                                                       Cedula = d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC,
                                                        DescripcionEspanol = r.DescripcionEspanol,
                                                        DescripcionIngles = r.DescripcionIngles,
                                                        Diametro1 = d1.Valor,
@@ -223,7 +224,7 @@ namespace BackEndSAM.DataAcces
                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
                                join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
-                               where r.Activo && riit.Activo && ics.Activo && rid.Activo
+                               where r.Activo && riit.Activo && ics.Activo && rid.Activo && d1.Activo && d2.Activo
                                && r.ItemCodeID == item.ItemCodeID && d1.Valor == diametro1 && d2.Valor == diametro2
                                select new ItemCodeJson
                                {
@@ -237,8 +238,9 @@ namespace BackEndSAM.DataAcces
                                    Diametro2 = d2.Valor,
                                    FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(),
                                    Cedula = (from c in ctx.Sam3_Cedula
-                                             where c.Activo && c.CedulaID == ics.CedulaID
-                                             select c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
+                                             join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                             where c.Activo && d.Activo && c.CedulaID == ics.CedulaID
+                                             select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
                                    ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo

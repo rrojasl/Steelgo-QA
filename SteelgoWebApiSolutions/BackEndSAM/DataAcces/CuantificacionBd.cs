@@ -113,9 +113,10 @@ namespace BackEndSAM.DataAcces
                                              join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                              join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
                                              join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
-                                             where rics.Activo && ics.Activo && it.Activo && c.Activo
+                                             join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                             where rics.Activo && ics.Activo && it.Activo && c.Activo && d.Activo
                                              && rics.ItemCodeID == fc.ItemCodeID
-                                             select c.Diametro + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
+                                             select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
 
                                    Colada = (from c in ctx.Sam3_Colada
                                              where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo

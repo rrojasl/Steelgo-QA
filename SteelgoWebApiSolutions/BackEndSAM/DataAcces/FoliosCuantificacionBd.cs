@@ -327,17 +327,27 @@ namespace BackEndSAM.DataAcces
 
                     List<int> idItemCodeBulto = null;
 
-                    //Obtengo los item codes que tienen los bultos
+                    //Obtengo los id de las relaciones con Itemcode
                     foreach (int bulto in idBulto)
                     {
-                        idItemCodeBulto.AddRange(ctx.Sam3_Rel_Bulto_ItemCode
-                        .Where(x => x.BultoID == bulto && x.Activo)
-                        .Select(b => b.ItemCodeID).AsParallel().ToList());
+                        idItemCodeBulto.AddRange((from rbi in ctx.Sam3_Rel_Bulto_ItemCode
+                                                  join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                  where rbi.BultoID == bulto
+                                                  select rid.Rel_ItemCode_Diametro_ID).AsParallel().ToList());
+                            
+                         //ctx.Sam3_Rel_Bulto_ItemCode
+                        //.Where(x => x.BultoID == bulto && x.Activo)
+                        //.Select(b => b.ItemCodeID).AsParallel().ToList());
                     }
 
-                    List<int> idItemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                        .Where(x => x.FolioCuantificacionID == folioCuant)
-                        .Select(i => i.ItemCodeID).AsParallel().ToList();
+                    //obtengo los id de las relaciones con itemcode
+                    List<int> idItemCode = (from rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                            where rfi.FolioCuantificacionID == folioCuant
+                                            select rid.Rel_ItemCode_Diametro_ID).AsParallel().ToList();
+                        //ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                        //.Where(x => x.FolioCuantificacionID == folioCuant)
+                        //.Select(i => i.ItemCodeID).AsParallel().ToList();
 
                     List<bool> tieneNU = null;
 
@@ -371,7 +381,7 @@ namespace BackEndSAM.DataAcces
                             foreach (int icid in idItemCodeBulto)
                             {
                                 Sam3_Rel_Bulto_ItemCode relBulto = ctx.Sam3_Rel_Bulto_ItemCode
-                               .Where(x => x.BultoID == id && x.ItemCodeID == icid && x.Activo).AsParallel().SingleOrDefault();
+                               .Where(x => x.BultoID == id && x.Rel_ItemCode_Diametro_ID == icid && x.Activo).AsParallel().SingleOrDefault();
                                 relBulto.Activo = false;
                                 relBulto.UsuarioModificacion = usuario.UsuarioID;
                                 relBulto.FechaModificacion = DateTime.Now;
@@ -383,13 +393,13 @@ namespace BackEndSAM.DataAcces
                         {
                             //
                             Sam3_Rel_FolioCuantificacion_ItemCode folio = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                .Where(x => x.ItemCodeID == id && x.FolioCuantificacionID == folioCuant && x.Activo).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_ItemCode_Diametro_ID == id && x.FolioCuantificacionID == folioCuant && x.Activo).AsParallel().SingleOrDefault();
                             folio.Activo = false;
                             folio.UsuarioModificacion = usuario.UsuarioID;
                             folio.FechaModificacion = DateTime.Now;
 
                             Sam3_Rel_ItemCode_ItemCodeSteelgo rics = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                               .Where(x => x.ItemCodeID == id).AsParallel().SingleOrDefault();
+                               .Where(x => x.Rel_ItemCode_Diametro_ID == id).AsParallel().SingleOrDefault();
 
                             rics.Activo = false;
                             rics.UsuarioModificacion = usuario.UsuarioID;
@@ -401,7 +411,7 @@ namespace BackEndSAM.DataAcces
                         foreach (int item in idItemCodeBulto)
                         {
                             Sam3_Rel_ItemCode_ItemCodeSteelgo rics = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                .Where(x => x.ItemCodeID == item).AsParallel().SingleOrDefault();
+                                .Where(x => x.Rel_ItemCode_Diametro_ID == item).AsParallel().SingleOrDefault();
 
                             rics.Activo = false;
                             rics.UsuarioModificacion = usuario.UsuarioID;

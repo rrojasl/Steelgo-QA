@@ -434,8 +434,9 @@ namespace BackEndSAM.DataAcces
                     foreach (int i in folioscuantificacion)
                     {
                         itemcodes.AddRange(from rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfc.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
                                            where rfc.Activo && rfc.FolioCuantificacionID == i
-                                           select rfc.ItemCodeID);
+                                           select rid.ItemCodeID);
                     }
 
                     return itemcodes;
@@ -617,7 +618,8 @@ namespace BackEndSAM.DataAcces
                         {
                             elemento.FolioCuantificacion = (from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                             join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-                                                            join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals rfci.ItemCodeID
+                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on nu.ItemCodeID equals rid.ItemCodeID
+                                                            join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfci.Rel_ItemCode_Diametro_ID
                                                             join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                             where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
                                                             && fc.FolioCuantificacionID == packingListID
@@ -631,7 +633,8 @@ namespace BackEndSAM.DataAcces
 
                             elemento.FolioCuantificacion.AddRange((from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                    join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on nu.ItemCodeID equals rbi.ItemCodeID
+                                                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on nu.ItemCodeID equals rid.ItemCodeID
+                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                                    join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                                    join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                                    where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
@@ -648,7 +651,8 @@ namespace BackEndSAM.DataAcces
                         {
                             elemento.FolioCuantificacion = (from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                             join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-                                                            join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals rfci.ItemCodeID
+                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on nu.ItemCodeID equals rid.ItemCodeID
+                                                            join rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfci.Rel_ItemCode_Diametro_ID
                                                             join fc in ctx.Sam3_FolioCuantificacion on rfci.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                             where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
                                                             && ronu.Activo && nu.Activo && rfci.Activo && fc.Activo
@@ -661,7 +665,8 @@ namespace BackEndSAM.DataAcces
 
                             elemento.FolioCuantificacion.AddRange((from ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                    join nu in ctx.Sam3_NumeroUnico on ronu.NumeroUnicoID equals nu.NumeroUnicoID
-                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on nu.ItemCodeID equals rbi.ItemCodeID
+                                                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on nu.ItemCodeID equals rid.ItemCodeID
+                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                                    join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                                                    join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                                    where ronu.OrdenAlmacenajeID == orden.OrdenAlmacenajeID
@@ -703,9 +708,10 @@ namespace BackEndSAM.DataAcces
                         foreach (PackingListCuantificacion folio in elemento.FolioCuantificacion)
                         {
                             folio.ItemCodes = (from rfci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                                               join nu in ctx.Sam3_NumeroUnico on rfci.ItemCodeID equals nu.ItemCodeID
+                                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfci.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                               join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
                                                join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ronu.NumeroUnicoID
-                                               join it in ctx.Sam3_ItemCode on rfci.ItemCodeID equals it.ItemCodeID
+                                               join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
                                                where rfci.FolioCuantificacionID == folio.FolioCuantificacionID
                                                && rfci.Activo && nu.Activo && ronu.Activo && it.Activo
                                                select new ElementoItemCodeGenerarOrdenAlmacenaje
@@ -719,9 +725,10 @@ namespace BackEndSAM.DataAcces
 
                             folio.ItemCodes.AddRange((from rbi in ctx.Sam3_Rel_Bulto_ItemCode
                                                       join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                                                      join nu in ctx.Sam3_NumeroUnico on rbi.ItemCodeID equals nu.ItemCodeID
+                                                      join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                      join nu in ctx.Sam3_NumeroUnico on rid.ItemCodeID equals nu.ItemCodeID
                                                       join ronu in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico on nu.NumeroUnicoID equals ronu.NumeroUnicoID
-                                                      join it in ctx.Sam3_ItemCode on rbi.ItemCodeID equals it.ItemCodeID
+                                                      join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
                                                       where b.FolioCuantificacionID == folio.FolioCuantificacionID
                                                       && rbi.Activo && nu.Activo && ronu.Activo && it.Activo && b.Activo
                                                       select new ElementoItemCodeGenerarOrdenAlmacenaje
@@ -931,7 +938,8 @@ namespace BackEndSAM.DataAcces
                     int ordenAlmacenajeID = ordenAlmacenaje.OrdenAlmacenajeID;
                     List<Sam3_FolioCuantificacion> folios = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                              join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
-                                                             join ric in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on nu.ItemCodeID equals ric.ItemCodeID
+                                                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on nu.ItemCodeID equals rid.ItemCodeID
+                                                             join ric in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals ric.Rel_ItemCode_Diametro_ID
                                                              join fc in ctx.Sam3_FolioCuantificacion on ric.FolioCuantificacionID equals fc.FolioCuantificacionID
                                                              where roa.Activo && nu.Activo && ric.Activo && fc.Activo
                                                              && roa.OrdenAlmacenajeID == ordenAlmacenajeID
@@ -941,7 +949,8 @@ namespace BackEndSAM.DataAcces
                     {
                         folios = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                   join nu in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals nu.NumeroUnicoID
-                                  join rbi in ctx.Sam3_Rel_Bulto_ItemCode on nu.ItemCodeID equals rbi.ItemCodeID
+                                  join rid in ctx.Sam3_Rel_ItemCode_Diametro on nu.ItemCodeID equals rid.ItemCodeID
+                                  join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                   join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
                                   join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
                                   where roa.Activo && nu.Activo && rbi.Activo && fc.Activo && b.Activo
@@ -973,10 +982,14 @@ namespace BackEndSAM.DataAcces
                         listadoOrdenAlmacenaje.ItemCodes = (from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                             join num in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals num.NumeroUnicoID
                                                             join ic in ctx.Sam3_ItemCode on num.ItemCodeID equals ic.ItemCodeID
-                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on ic.ItemCodeID equals rfc.ItemCodeID
-                                                            join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rfc.ItemCodeID equals ric.ItemCodeID
-                                                            join ics in ctx.Sam3_ItemCodeSteelgo on ric.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                            join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                                            join rfc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rfc.Rel_ItemCode_Diametro_ID
+                                                            join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals ric.Rel_ItemCode_Diametro_ID
+                                                            join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ric.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                            join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                             join p in ctx.Sam3_Proyecto on item.ProyectoID equals p.ProyectoID
+                                                            join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                                            join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
                                                             where roa.Activo && num.Activo && ic.Activo && rfc.Activo && ric.Activo && ics.Activo && p.Activo
                                                             && roa.OrdenAlmacenajeID == ordenAlmacenajeID
                                                             && rfc.FolioCuantificacionID == item.FolioCuantificacionID
@@ -994,8 +1007,8 @@ namespace BackEndSAM.DataAcces
                                                                                 //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
                                                                             && itc.ItemCodeID == ic.ItemCodeID
                                                                             select oar.NumeroUnicoID).Count().ToString(),
-                                                                D1 = ics.Diametro1.ToString(),
-                                                                D2 = ics.Diametro2.ToString(),
+                                                                D1 = d1.Valor.ToString(),
+                                                                D2 = d2.Valor.ToString(),
                                                                 FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                                 Proyecto = p.Nombre,
                                                                 ProyectoID = item.ProyectoID.ToString(),
@@ -1017,11 +1030,15 @@ namespace BackEndSAM.DataAcces
                         listadoOrdenAlmacenaje.ItemCodes.AddRange((from roa in ctx.Sam3_Rel_OrdenAlmacenaje_NumeroUnico
                                                                    join num in ctx.Sam3_NumeroUnico on roa.NumeroUnicoID equals num.NumeroUnicoID
                                                                    join ic in ctx.Sam3_ItemCode on num.ItemCodeID equals ic.ItemCodeID
-                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on ic.ItemCodeID equals rbi.ItemCodeID
+                                                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                                                   join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_ItemCode_Diametro_ID
                                                                    join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                                                                   join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rbi.ItemCodeID equals ric.ItemCodeID
-                                                                   join ics in ctx.Sam3_ItemCodeSteelgo on ric.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                   join ric in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals ric.Rel_ItemCode_Diametro_ID
+                                                                   join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ric.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                                   join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                                    join p in ctx.Sam3_Proyecto on item.ProyectoID equals p.ProyectoID
+                                                                   join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                                                   join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
                                                                    where roa.Activo && num.Activo && ic.Activo && rbi.Activo && ric.Activo && ics.Activo && p.Activo
                                                                    && roa.OrdenAlmacenajeID == ordenAlmacenajeID
                                                                    && b.FolioCuantificacionID == item.FolioCuantificacionID
@@ -1039,8 +1056,8 @@ namespace BackEndSAM.DataAcces
                                                                                        //&& rfcic.FolioCuantificacionID == item.FolioCuantificacionID
                                                                                    && itc.ItemCodeID == ic.ItemCodeID
                                                                                    select oar.NumeroUnicoID).Count().ToString(),
-                                                                       D1 = ics.Diametro1.ToString(),
-                                                                       D2 = ics.Diametro2.ToString(),
+                                                                       D1 = d1.Valor.ToString(),
+                                                                       D2 = d2.Valor.ToString(),
                                                                        FolioCuantificacion = item.FolioCuantificacionID.ToString(),
                                                                        Proyecto = p.Nombre,
                                                                        ProyectoID = item.ProyectoID.ToString(),

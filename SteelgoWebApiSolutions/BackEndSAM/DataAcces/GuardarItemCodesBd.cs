@@ -1402,8 +1402,9 @@ namespace BackEndSAM.DataAcces
                         var cedulaA = splitCedulas[1];
                         var cedulaB = splitCedulas[2];
                         var cedulaC = splitCedulas[3];
+                        int diametroID = ctx.Sam3_Diametro.Where(x => x.Valor.ToString() == diametro).Select(x=> x.DiametroID).AsParallel().SingleOrDefault();
 
-                        cedulaID = ctx.Sam3_Cedula.Where(x => x.Diametro.ToString() == diametro &&
+                        cedulaID = ctx.Sam3_Cedula.Where(x => x.DiametroID == diametroID &&
                                                         x.CedulaA == cedulaA &&
                                                         x.CedulaB == cedulaB &&
                                                         x.CedulaC == cedulaC &&
