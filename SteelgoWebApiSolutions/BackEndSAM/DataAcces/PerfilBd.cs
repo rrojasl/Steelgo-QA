@@ -40,7 +40,7 @@ namespace BackEndSAM.DataAcces
         }
 
 
-        public PerfilJson ObtenerPerfilJsonPorID(int perfilID, int paginaID)
+        public PerfilJson ObtenerPerfilJsonPorID(int perfilID, int paginaID, Sam3_Usuario usuario)
         {
             PerfilJson perfil;
             using (SamContext ctx = new SamContext())
@@ -128,9 +128,16 @@ namespace BackEndSAM.DataAcces
                 quickLinks.editable = false;
                 quickLinks.visible = true;
                 quickLinks.type = "quicklinks";
-                quickLinks.elements.Add(new QuickLinksElement{ liga = "Home/Index.cshtml", texto = "Link rapido 1"});
-                quickLinks.elements.Add(new QuickLinksElement{ liga = "Home/Index.cshtml", texto = "Link rapido 2"});
 
+                quickLinks.elements.AddRange(from relup in ctx.Sam3_Rel_Usuario_Preferencia
+                                             join pref in ctx.Sam3_Preferencia on relup.PreferenciaID equals pref.PreferenciaId
+                                             where relup.Activo && pref.Activo 
+                                             && relup.UsuarioID == usuario.UsuarioID
+                                             select new QuickLinksElement
+                                             {
+                                                 liga = relup.ValorPreferencia,
+                                                 texto = pref.Nombre
+                                             });
 
                 //agregamos los elementos de menu
                 perfil.layout.navigation.Add(objsidemenu);
