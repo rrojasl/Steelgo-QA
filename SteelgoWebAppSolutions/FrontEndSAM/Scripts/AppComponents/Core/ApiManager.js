@@ -201,8 +201,8 @@ var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 //#region Capturas rapidas
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Inspeccion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 
@@ -222,8 +222,8 @@ $Taller.add("Taller");
 //#endregion
 //#region Capturas rapidas
 $CapturasRapidas.add("CapturasRapidas");
-$Inspeccion.add("Inspeccion");
 $CapturaSoldadura.add("Soldadura");
+$Inspeccion.add("Inspeccion");
 $InspeccionDimensional.add("InspeccionDimensional");
 //#endregion
 //#endregion

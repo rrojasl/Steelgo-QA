@@ -216,6 +216,7 @@ function SuscribirEventoSpoolID() {
             else {
                 $("#InputID").val(dataItem.IDValido);
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
                 $("#LabelProyecto").text(dataItem.Proyecto);
                 AjaxObtenerListaTubero();
                 AjaxObtenerListaTaller();
@@ -244,6 +245,7 @@ function SuscribirEventoSpoolID() {
                 $CapturaArmado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token") }).done(function (data) {
                     $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                     $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
+                   
                 });
             } catch (e) {
                 displayMessage("Mensajes_error", e.message, '0');

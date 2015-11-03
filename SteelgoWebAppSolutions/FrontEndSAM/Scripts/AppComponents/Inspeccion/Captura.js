@@ -21,7 +21,7 @@ function IniciarCapturaInspecion() {
     AjaxCargaCamposPredeterminados();
 };
 function asignarProyecto() {
-    $("#InputOrdenTrabajo").val(Cookies.get('Proyecto') == undefined ? '' : 'R');
+    $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 function CargarFecha() {

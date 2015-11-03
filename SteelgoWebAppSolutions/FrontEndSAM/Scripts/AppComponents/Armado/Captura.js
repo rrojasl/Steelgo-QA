@@ -1,5 +1,4 @@
-﻿
-var endRangeDate;
+﻿var endRangeDate;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
@@ -13,12 +12,10 @@ function IniciarCapturaArmado() {
     SuscribirEventos();
    
 };
-
 function asignarProyecto() {
-    $("#InputOrdenTrabajo").val(Cookies.get('Proyecto') == undefined ? '' : 'R');
+    $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
-
 function AltaFecha() {
     
     endRangeDate = $("#FechaArmado").kendoDatePicker({
@@ -32,7 +29,6 @@ function AltaFecha() {
     });
 
 }
-
 function ExisteJunta() {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
 
@@ -45,7 +41,6 @@ function ExisteJunta() {
     }
     return true;
 }
-
 function ArregloListadoCaptura() {
     JsonCaptura = [];
     JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", SinCaptura: "" };
@@ -69,8 +64,7 @@ function ArregloListadoCaptura() {
 
     return JsonCaptura[0];
 };
-
-function CargarGridArmado() {
+function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         edit: function (e) {
@@ -181,7 +175,6 @@ function CargarGridArmado() {
         }
     });
 };
-
 function AddRow(idTable) {
     var row = '';
     row += ' <tr>';
@@ -194,7 +187,6 @@ function AddRow(idTable) {
 
     SuscribirEventoEliminar(idTable);
 }
-
 function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox, posicionSiguiente) {
 
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
@@ -253,7 +245,6 @@ function DatoDefaultNumeroUnico1()
 { }
 function DatoDefaultNumeroUnico2()
 { }
-
 function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
 
@@ -287,12 +278,10 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
     //en caso de no encontrar nada
     return undefined;
 }
-
 function agregarFila(idGrid) {
     var grid = $("#" + idGrid).data("kendoGrid");
 
 }
-
 function eliminarCaptura(e) {
     e.preventDefault();
     var filterValue = $(e.currentTarget).val();
@@ -310,13 +299,11 @@ function eliminarCaptura(e) {
 
     }
 };
-
 function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
-    CargarGridArmado();
+    CargarGrid();
     $('#grid').data('kendoGrid').dataSource.read();
 };
-
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();

@@ -1,25 +1,29 @@
-﻿var endRangeDate;
+﻿kendo.ui.Upload.fn._supportsDrop = function () { return false; }
+Cookies.set("home", true, { path: '/' });
+Cookies.set("navegacion", "36", { path: '/' });
+
+var endRangeDate;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
 
 IniciarCapturaInspecion();
 //Cambia lenguaje
-function changeLanguageCall() {
-    AjaxCargarFechaInspeccionDimencional();
-    endRangeDate.data("kendoDatePicker").setOptions({
-        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
-    });
-    AjaxObtenerListaDefectos();
-    CargarGrid();
-};
 function IniciarCapturaInspecion() {
     CargarFecha();
     asignarProyecto();
     SuscribirEventos();
+    AjaxCargaCamposPredetrminados();
+};
+function changeLanguageCall() {
+    CargarGrid();
+    endRangeDate.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
+    AjaxObtenerListaDefectos();
 };
 function asignarProyecto() {
-    $("#InputOrdenTrabajo").val(Cookies.get('Proyecto') == undefined ? '' : 'R');
+    $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 function CargarFecha() {
@@ -33,9 +37,8 @@ function CargarFecha() {
         }
     });
 
-    AjaxCargarFechaInspeccionDimencional();
+  
 };
-
 
 function CargarGrid() {
     kendo.ui.Grid.fn.editCell = (function (editCell) {
@@ -55,27 +58,25 @@ function CargarGrid() {
 
             if (model && typeof this.options.beforeEdit === "function") {
                 this.options.beforeEdit.call(this, event);
-
-                // don't edit if prevented in beforeEdit
                 if (event.isDefaultPrevented) return;
             }
 
             editCell.call(this, cell);
         };
     })(kendo.ui.Grid.fn.editCell);
-
     $("#grid").kendoGrid({
         autoBind: true,
         autoSync: true,
         edit: function (e) {
             var input = e.container.find(".k-input");
             var value = input.val();
+            anteriorlongitudTrabajosAdicionales = e.model.InspeccionDimensionalID.length;
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
+            alert('ok');
         },
         dataSource: {
-
             data: '',
             schema: {
                 model: {
@@ -90,7 +91,7 @@ function CargarGrid() {
                         Defectos: { type: "string", editable: true },
                         InspectorID: { type: "string", editable: true },
                         Inspector: { type: "string", editable: true },
-                        FechaInspeccion: { type: "date", editable: true },
+                        FechaInspeccion: { type: "date", editable: true }
                     }
                 }
             },
@@ -111,6 +112,7 @@ function CargarGrid() {
         autoHeight: true,
         sortable: true,
         scrollable: false,
+        selectable: true,
         pageable: {
             refresh: false,
             pageSizes: [10, 15, 20],
@@ -119,12 +121,12 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "OrdenTrabajoSpool", title: _dictionary.CapturaArmadoHeaderSpool[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderOptionResultado },
+            { field: "OrdenTrabajoSpool", title: _dictionary.DimensionalVisualHeaderSpoolID[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderOptionResultado },
              { field: "Resultado", title: _dictionary.DimensionalVisualHeadeResultado[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderOptionResultado },
              { field: "Defectos", title: _dictionary.DimensionalVisualHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxDefectos },
              { field: "Inspector", title: _dictionary.DimensionalVisualHeaderInspectorDimesional[$("#language").data("kendoDropDownList").value()], filterable: true, editor: RenderComboBoxInspector },
              { field: "FechaInspeccion", title: _dictionary.DimensionalVisualHeaderFechaDimesional[$("#language").data("kendoDropDownList").value()], type: "date", filterable: true, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { command: { text: _dictionary.ListadoLlegadaMaterial0017[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: "", width: "99px" }
         ],
         filterable: {
             extra: false
@@ -132,7 +134,6 @@ function CargarGrid() {
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-
             if (!isEditable(fieldName, e.model)) {
                 e.preventDefault();
             }
@@ -143,6 +144,7 @@ function CargarGrid() {
             $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
         }
     });
+
 };
 
 function isEditable(fieldName, model) {
@@ -153,7 +155,6 @@ function isEditable(fieldName, model) {
 
     return true; // default to editable
 }
-
 
 function ArregloListadoCaptura() {
 
@@ -176,14 +177,13 @@ function ArregloListadoCaptura() {
     return JsonCaptura[0];
 };
 
-
 function cancelarCaptura(e) {
     e.preventDefault();
     var filterValue = $(e.currentTarget).val();
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
 
-    if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+    if (confirm(_dictionary.CapturaInspeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
         var dataSource = $("#grid").data("kendoGrid").dataSource;
 
         if (dataItem.Accion == 1)
@@ -220,7 +220,6 @@ function PlanchaDefecto() {
     $("#grid").data("kendoGrid").dataSource.sync();
 };
 
-
 function PlanchaInspector() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
@@ -244,24 +243,15 @@ function PlanchaInspector() {
 };
 
 function PlanchadoResultadoDimensional() {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
+    try{
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        var filters = dataSource.filter();
+        var allData = dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var data = query.filter(filters).data;
 
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
-            data[i].Resultado = $('input:radio[name=ResultadoDimensional]:checked').val();
-
-            if (data[i].Resultado == "Aprobado") {
-                data[i].DefectosID = "";
-                data[i].Defectos = "";
-            }
-        }
-        else {
-            if (data[i].Resultado == "" || data[i].Resultado == null) {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
                 data[i].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
                 data[i].Resultado = $('input:radio[name=ResultadoDimensional]:checked').val();
 
@@ -269,11 +259,23 @@ function PlanchadoResultadoDimensional() {
                     data[i].DefectosID = "";
                     data[i].Defectos = "";
                 }
+            }
+            else {
+                if (data[i].Resultado == "" || data[i].Resultado == null) {
+                    data[i].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
+                    data[i].Resultado = $('input:radio[name=ResultadoDimensional]:checked').val();
 
+                    if (data[i].Resultado == "Aprobado") {
+                        data[i].DefectosID = "";
+                        data[i].Defectos = "";
+                    }
+
+                }
             }
         }
+        $("#grid").data("kendoGrid").dataSource.sync();
     }
-    $("#grid").data("kendoGrid").dataSource.sync();
+    catch (e){}
 };
 
 function PlanchaFecha() {

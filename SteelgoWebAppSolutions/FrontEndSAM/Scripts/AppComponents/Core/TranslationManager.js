@@ -72,6 +72,7 @@ function changeLanguage() {
     changeLayoutLabels(langValue);
     changeLayoutSpans(langValue);
     changeLayoutInputs(langValue);
+    changeheaderInputs(langValue);
     $.getScript("../Scripts/kendo/2014.2.716/messages/kendo.messages." + this.value() + ".js", function () {
 
         //if ($("#gridTubos"))
@@ -97,3 +98,18 @@ function addElementToDictionary(sParam) {
         _dictionary[partsOfElement[0]]["en-US"] = partsOfElement[2];
     }
 }
+function changeheaderInputs(language) {
+    //var capas = document.getElementById('grid');
+    // alert('se recorre el grid');
+    var entityGrid = $("#grid").data("kendoGrid");
+
+    if (entityGrid != undefined) {
+
+        $('#ContenedorGrid').find('div').remove();
+        $('#ContenedorGrid').append($('<div id="grid" data-role="grid" class="k-grid k-widget">'));
+
+        function changeLanguageCall() {
+            CargarGrid();//tiene que ser el mismo nombre del metodo que manda a llamar el llenado del grid.
+        };
+    }
+};

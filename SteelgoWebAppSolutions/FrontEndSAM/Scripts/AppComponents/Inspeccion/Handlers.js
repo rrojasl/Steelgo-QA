@@ -32,6 +32,7 @@ function SuscribirEventoSpoolID() {
             else {
                 $("#InputID").val(dataItem.IDValido);
                 Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
                 $("#LabelProyecto").text(dataItem.Proyecto);
                 AjaxObtenerListaTaller();
             }
@@ -106,7 +107,6 @@ function SuscribirEventosJunta() {
             $("#ButtonAgregar").focus();
         }
         else if (e.keyCode == 13) {
-      
 
             AjaxobtenerDetalleDimensional($("#InputID").val());
             AjaxObtenerJSonGrid();

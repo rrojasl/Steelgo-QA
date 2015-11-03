@@ -1,6 +1,5 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoSpoolID();
-    //  SuscribirEventosJunta();
     SuscribirEventoInspector();
     SuscribirEventoDefecto();
     SuscribirEventoResultadoDimensional();
@@ -23,7 +22,7 @@ function SuscribirEventoSpoolID() {
                 e.preventDefault();
                 $("#InputID").val("");
                 console.log("borrar datos");
-                alert(dataItem.Status);
+                displayMessage("Mensajes_error", dataItem.Status, '1');
             }
             else {
                 $("#InputID").val(dataItem.IDValido);
@@ -47,10 +46,10 @@ function SuscribirEventoSpoolID() {
             try {
                 AjaxObtenerSpoolID();
             } catch (e) {
-                alert(e.message);
+                displayMessage("Mensajes_error", e.message, '2');
             }
         } else {
-            alert('La Orden de trabajo no es valido.');
+            displayMessage("OrdenTrabajoNoValida", "", '1');
             $("#InputOrdenTrabajo").focus();
         }
     });
@@ -82,8 +81,6 @@ function SuscribirEventoSpoolID() {
         }
     });
 };
-
-
 function SuscribirEventoInspector() {
     $('#inputInspector').kendoComboBox({
         dataTextField: "Codigo",
@@ -141,7 +138,6 @@ function suscribirEventoAgregar() {
         AjaxObtenerJSonGrid();
     });
 }
-
 function suscribirEventoGuardar() {
     $('#btnGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -184,7 +180,6 @@ function limpiar() {
     $("#grid").data('kendoGrid').dataSource.data([]);
 
 }
-
 function deshabilitaSpool() {
     $("#InputOrdenTrabajo").prop("disabled", true);
     $("#InputID").data("kendoComboBox").enable(false);

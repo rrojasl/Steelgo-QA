@@ -131,6 +131,9 @@ function AjaxObtenerSpoolID() {
 
 function AjaxobtenerDetalleDimensional(spoolID) {
     loadingStart();
+    alert(spoolID);
+    alert($("#language").val());
+    alert(Cookies.get("token"));
     $Inspeccion.$Inspeccion.read({ id: spoolID, sinCaptura: 'todos', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
 

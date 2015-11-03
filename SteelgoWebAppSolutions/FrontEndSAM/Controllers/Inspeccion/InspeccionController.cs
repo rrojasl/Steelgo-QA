@@ -8,6 +8,10 @@ namespace FrontEndSAM.Controllers.Inspeccion
         {
             return View();
         }
+        public ActionResult Dimensional()
+        {
+            return View();
+        }
 
     }
 }

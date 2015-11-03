@@ -3722,6 +3722,14 @@ _dictionary = {
         "es-MX": "Llenado masivo",
         "en-US": "filling mass"
     },
+    "CapturaLlenadoMasivoTodos": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
+    "CapturaLlenadoMasivoVacios": {
+        "es-MX": "Vacios",
+        "en-US": "Empty"
+    },
     //#region Mensajes
     "Mensajes_error": {
         "es-MX": "Mensaje de error: ",
@@ -3730,6 +3738,10 @@ _dictionary = {
     "CampoRequerido": {
         "es-MX": "Favor de validar los campos requeridos ",
         "en-US": "Please validate required fields "
+    },
+    "OrdenTrabajoNoValida": {
+        "es-MX": "La Orden de trabajo no es valida. ",
+        "en-US": "The work order is not valid."
     },
     //#endregion
     //#endregion
@@ -4078,6 +4090,10 @@ _dictionary = {
         "es-MX": "Defecto visual",
         "en-US": "Visual defect"
     },
+    "DimensionalVisualHeaderDefecto": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
     "DimensionalVisualHeaderInspectorDimesional": {
         "es-MX": "Inspector",
         "en-US": "Checker"
@@ -4122,5 +4138,14 @@ _dictionary = {
         "es-MX": "Único 2",
         "en-US": "Unique 2"
     },
+    "CapturaInspeccionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de Inspeccion?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of Inspection?"
+    },
+    "DimensionalVisualInspeccionDimensional": {
+        "es-MX": "Inspeccion Dimensional",
+        "en-US": "Dimensional inspection"
+    },
+    
     //#endregion
 };
