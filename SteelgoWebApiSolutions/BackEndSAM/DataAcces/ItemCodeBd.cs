@@ -161,8 +161,9 @@ namespace BackEndSAM.DataAcces
                                 ctx2.ItemCode.Add(itemS2);
                                 ctx2.SaveChanges();
 
-                                int diam1 = Convert.ToInt32(DatosItemCode.Diametro1);
-                                int diam2 = Convert.ToInt32(DatosItemCode.Diametro2);
+
+                                int diam1 = Convert.ToInt32(DatosItemCode.Diametro1ID);
+                                int diam2 = Convert.ToInt32(DatosItemCode.Diametro2ID);
                                 bool existeItemCode = ctx.Sam3_ItemCode.Where(x => x.Codigo == DatosItemCode.ItemCode && x.Activo).Any();
                                 if (existeItemCode)
                                 {

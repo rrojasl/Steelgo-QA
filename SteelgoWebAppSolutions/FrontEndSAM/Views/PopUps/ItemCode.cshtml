@@ -180,7 +180,7 @@
             dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro1(dataItem.value);
+                CargarDiametro1(dataItem.id);
             },
             change: function (e) {
                 var value = this.value();
@@ -199,7 +199,7 @@
             dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro2(dataItem.value);
+                CargarDiametro2(dataItem.id);
             },
             change: function (e) {
                 var value = this.value();
@@ -270,14 +270,14 @@
         ColadaItemCode = { ColadaID: id, Nombre: value };
     };
 
-    function CargarDiametro1(value) {
+    function CargarDiametro1(id, value) {
         D1_ItemCode = {};
-        D1_ItemCode = { Diametro1: value };
+        D1_ItemCode = { Diametro1ID: id, Valor: value };
     };
 
     function CargarDiametro2(value) {
         D2_ItemCode = {};
-        D2_ItemCode = { Diametro2: value };
+        D2_ItemCode = { Diametro2ID: id, Valor: value };
     };
 
     function CargarFamiliaItemCode(id) {
@@ -362,6 +362,8 @@
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
+        ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID;
+        ItemCode.Diametro2ID = D1_ItemCode.Diametro2ID;
         ItemCode.Diametro1 = D1_ItemCode.Diametro1;
         ItemCode.Diametro2 = D2_ItemCode.Diametro2;
 
