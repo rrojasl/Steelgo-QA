@@ -180,7 +180,7 @@
             dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro1(dataItem.id);
+                CargarDiametro1(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -199,7 +199,7 @@
             dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro2(dataItem.id);
+                CargarDiametro2(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -275,7 +275,7 @@
         D1_ItemCode = { Diametro1ID: id, Valor: value };
     };
 
-    function CargarDiametro2(value) {
+    function CargarDiametro2(id,value) {
         D2_ItemCode = {};
         D2_ItemCode = { Diametro2ID: id, Valor: value };
     };
@@ -354,7 +354,7 @@
     };
 
     function GuardarItemCode() {
-        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "" };
+        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
         ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
         ItemCode.ColadaID = 1;
@@ -363,10 +363,11 @@
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
         ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID;
-        ItemCode.Diametro2ID = D1_ItemCode.Diametro2ID;
-        ItemCode.Diametro1 = D1_ItemCode.Diametro1;
-        ItemCode.Diametro2 = D2_ItemCode.Diametro2;
+        ItemCode.Diametro2ID = D2_ItemCode.Diametro2ID;
+        ItemCode.Diametro1 = D1_ItemCode.Valor;
+        ItemCode.Diametro2 = D2_ItemCode.Valor;
 
+        console.log(JSON.stringify(ItemCode))
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();
             if (Error(data)) {
