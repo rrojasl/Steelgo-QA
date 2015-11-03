@@ -422,12 +422,17 @@ namespace BackEndSAM.DataAcces
                     int itemCodeID = itemCode != "" ? Convert.ToInt32(itemCode) : 0;
 
                     ItemCodeSteelgoJson itemCodeSteelgo = (from ic in ctx.Sam3_ItemCode
-                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                           where rics.ItemCodeID == itemCodeID
-                                                           select new ItemCodeSteelgoJson { 
-                                                           //Diametro1= ics.Diametro1,
-                                                           //Diametro2=ics.Diametro2
+                                                           join rid in ctx.Sam3_Rel_ItemCode_Diametro on ic.ItemCodeID equals rid.ItemCodeID
+                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                           join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                           join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                           join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                                           join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
+                                                           where ic.ItemCodeID == itemCodeID
+                                                           select new ItemCodeSteelgoJson 
+                                                           { 
+                                                                Diametro1 = d1.Valor,
+                                                                Diametro2 = d2.Valor
                                                            }).AsParallel().FirstOrDefault();
 
                     return itemCodeSteelgo;

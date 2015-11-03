@@ -131,7 +131,8 @@ namespace BackEndSAM.DataAcces
 
                 quickLinks.elements.AddRange(from relup in ctx.Sam3_Rel_Usuario_Preferencia
                                              join pref in ctx.Sam3_Preferencia on relup.PreferenciaID equals pref.PreferenciaId
-                                             where relup.Activo && relup.UsuarioID == usuario.UsuarioID
+                                             where relup.Activo && pref.Activo 
+                                             && relup.UsuarioID == usuario.UsuarioID
                                              select new QuickLinksElement
                                              {
                                                  liga = relup.ValorPreferencia,

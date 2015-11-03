@@ -320,7 +320,9 @@
                         data['CedulaB'] = e.model.CedulaB;
                         data['Libra'] = e.model.Libra;
                         data["Diametro1"] = e.model.Diametro1;
-                        data["Diametro2"] = e.model.Diametro2;
+                        data["Diametro1ID"] = e.model.Diametro1ID;
+                        //data["Diametro2"] = e.model.Diametro2;
+                        data
                         $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
                             if (data === null) {
                                 displayMessage("ItemCodeSteelGo0021", "", '2');

@@ -1422,7 +1422,7 @@
                 } else {
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
-                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), idioma: $("#language").data("kendoDropDownList").value(), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
                     if (Error(result)) {
                         if (result.length > 0) {
                             $("#ChoferID").data("kendoComboBox").dataSource.data(result);
@@ -1447,7 +1447,7 @@
                     $("#ChoferID").data("kendoComboBox").enable(true);
                 };
 
-                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
+                $folioEntradaMaterial.Listado.read({ tipoListado: 3, token: Cookies.get("token"), idioma: $("#language").data("kendoDropDownList").value(), paginaID: Cookies.get("navegacion"), parametroBusqueda: transportistaID }).done(function (result) {
                     $("#ChoferID").data("kendoComboBox").value("");
                     if (Error(result)) {
                         if (result.length > 0) {

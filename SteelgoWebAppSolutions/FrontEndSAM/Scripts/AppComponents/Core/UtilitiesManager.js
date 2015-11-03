@@ -167,9 +167,9 @@ function modificartextoKendoCombobox(controls, lng) {
                 }
                 break;
             default:
-                if ($(obj).data("kendoComboBox").dataSource.data()[0].Placas == "Agregar nuevo"
-                        || $(obj).data("kendoComboBox").dataSource.data()[0].Placas == "Add new") {
-                    if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                if ($(obj).data("kendoComboBox").dataSource.data().length) {
+                    if ($(obj).data("kendoComboBox").dataSource.data()[0].Nombre == "Agregar nuevo"
+                            || $(obj).data("kendoComboBox").dataSource.data()[0].Nombre == "Add new") {
                         if (lng == "es-MX") {
                             $(obj).data("kendoComboBox").dataSource.data()[0].Nombre = "Agregar nuevo";
                         } else {
@@ -177,7 +177,7 @@ function modificartextoKendoCombobox(controls, lng) {
                         }
                         $(obj).data("kendoComboBox").refresh();
                     }
-                }
+                };
                 break;
 
         };

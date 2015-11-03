@@ -4,6 +4,9 @@ begin try
 	ALTER TABLE [dbo].[Sam3_Rel_OrdenRecepcion_ItemCode] add
 		Rel_ItemCode_Diametro_ID int null
 
+	ALTER TABLE [dbo].[Sam3_Rel_OrdenRecepcion_ItemCode] add
+	Cantidad int null
+
 commit tran
 end try
 begin catch

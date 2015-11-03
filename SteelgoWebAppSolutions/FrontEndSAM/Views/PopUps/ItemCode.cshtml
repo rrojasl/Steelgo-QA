@@ -34,11 +34,11 @@
 
             <div id="D1_ItemCodeDiv" class="form-group">
                 <label id="Cuantificacion0030"></label>
-                <input id="D1_ItemCode" class="general-input" />
+                <input id="D1_ItemCode" class="" />
             </div>
             <div id="D2_ItemCodeDiv" class="form-group">
                 <label id="Cuantificacion0031"></label>
-                <input id="D2_ItemCode" class="general-input" />
+                <input id="D2_ItemCode" class="" />
             </div>
 
 
@@ -176,11 +176,11 @@
         //ObtenerColada("Colada_ItemCode", 0, 0);
 
         $("#D1_ItemCode").kendoComboBox({
-            dataTextField: "Valor",
-            dataValueField: "DiametroID",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro1(dataItem.Valor);
+                CargarDiametro1(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -195,11 +195,11 @@
         ObtenerDiametros("D1_ItemCode");
 
         $("#D2_ItemCode").kendoComboBox({
-            dataTextField: "Valor",
-            dataValueField: "DiametroID",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro2(dataItem.Valor);
+                CargarDiametro2(dataItem.id, dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -270,14 +270,14 @@
         ColadaItemCode = { ColadaID: id, Nombre: value };
     };
 
-    function CargarDiametro1(value) {
+    function CargarDiametro1(id, value) {
         D1_ItemCode = {};
-        D1_ItemCode = { Diametro1: value };
+        D1_ItemCode = { Diametro1ID: id, Valor: value };
     };
 
-    function CargarDiametro2(value) {
+    function CargarDiametro2(id,value) {
         D2_ItemCode = {};
-        D2_ItemCode = { Diametro2: value };
+        D2_ItemCode = { Diametro2ID: id, Valor: value };
     };
 
     function CargarFamiliaItemCode(id) {
@@ -354,7 +354,7 @@
     };
 
     function GuardarItemCode() {
-        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "" };
+        ItemCode = { ProyectoID: "", TipoPackingList: "", ColadaID: "", ItemCode: "", Descripcion: "", FamiliaID: "", Diametro1: "", Diametro2: "",Diametro1ID:"",Diametro2ID:"" };
         ItemCode.ProyectoID = window.parent.Proyecto.ProyectoID;
         ItemCode.TipoPackingList = window.parent.TipoPackingList.TipoPackingListID;
         ItemCode.ColadaID = 1;
@@ -362,9 +362,12 @@
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
-        ItemCode.Diametro1 = D1_ItemCode.Diametro1;
-        ItemCode.Diametro2 = D2_ItemCode.Diametro2;
+        ItemCode.Diametro1ID = D1_ItemCode.Diametro1ID;
+        ItemCode.Diametro2ID = D2_ItemCode.Diametro2ID;
+        ItemCode.Diametro1 = D1_ItemCode.Valor;
+        ItemCode.Diametro2 = D2_ItemCode.Valor;
 
+        console.log(JSON.stringify(ItemCode))
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();
             if (Error(data)) {

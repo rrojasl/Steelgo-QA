@@ -2755,6 +2755,14 @@ _dictionary = {
         "es-MX": "Aviso Llegada ID",
         "en-US": "Notice Entry ID"
     },
+    "GenerarOrdenRecepcion0025": {
+        "es-MX": "RelFCId",
+        "en-US": "RelFCId"
+    },
+    "GenerarOrdenRecepcion0026": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
     //Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {
         "es-MX": "Generar Orden de Recepcion",
@@ -5396,6 +5404,10 @@ _dictionary = {
     "Incidencias0036": {
         "es-MX": "Registro",
         "en-US": "Record"
+    },
+    "Incidencias0037": {
+        "es-MX": "Responder",
+        "en-US": "Answer"
     },
     //Listado Incidencias
     "ListadoIncidencias0001": {
