@@ -64,7 +64,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string itemID, string itemsteelgo, string token)
+        public object Get(string itemID, string itemsteelgo, string d1, string d2, string token)
         {
             string payload = "";
             string newToken = "";
@@ -74,7 +74,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 Sam3_Usuario usuario = ser.Deserialize<Sam3_Usuario>(payload);
-                return ItemCodeSteelgoBd.Instance.ObtenerDetalleRelacionitemCodeSteelgo(itemID, usuario);
+                return ItemCodeSteelgoBd.Instance.ObtenerDetalleRelacionitemCodeSteelgo(itemID, d1, d2, usuario);
             }
             else
             {

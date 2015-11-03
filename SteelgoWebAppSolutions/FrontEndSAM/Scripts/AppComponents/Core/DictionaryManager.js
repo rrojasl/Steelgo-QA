@@ -2218,6 +2218,22 @@ _dictionary = {
         "es-MX": "Nueva Colada",
         "en-US": "New Wash"
     },
+    "Cuantificacion0091": {
+        "es-MX": "RelFCId",
+        "en-US": "RelFCId"
+    },
+    "Cuantificacion0092": {
+        "es-MX": "RelBID",
+        "en-US": "RelBID"
+    },
+    "Cuantificacion0093": {
+        "es-MX": "ItemCodeID",
+        "en-US": "ItemCodeID"
+    },
+    "Cuantificacion0094": {
+        "es-MX": "ItemCodeSteelgoID",
+        "en-US": "ItemCodeSteelgoID"
+    },
     //Formato Etiquetas
     "FormatoEtiquetas0001": {
         "es-MX": "Número Único: ",

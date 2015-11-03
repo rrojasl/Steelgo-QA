@@ -211,6 +211,7 @@ namespace BackEndSAM.DataAcces
                     int sam2Cliente = (from c in ctx.Sam3_Cliente
                                        where c.Activo && c.ClienteID == ClienteFolioAvisoLlegada
                                        select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault();
+
                     //Ahora si traemos la informacion del cliente
                     detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(sam2Cliente);
 

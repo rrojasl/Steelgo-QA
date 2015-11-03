@@ -426,8 +426,8 @@ namespace BackEndSAM.DataAcces
                                                            join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                            where rics.ItemCodeID == itemCodeID
                                                            select new ItemCodeSteelgoJson { 
-                                                           Diametro1= ics.Diametro1,
-                                                           Diametro2=ics.Diametro2
+                                                           //Diametro1= ics.Diametro1,
+                                                           //Diametro2=ics.Diametro2
                                                            }).AsParallel().FirstOrDefault();
 
                     return itemCodeSteelgo;

@@ -287,8 +287,15 @@
         if (folio != -1) {
             $("#files").data("kendoUpload").disable();
         }
+
+        var arr = arregloKendoCombobox();
+        modificartextoKendoCombobox(arr, $("#language").data("kendoDropDownList").value());
     };
 
+    function arregloKendoCombobox() {
+        var arr = new Array($("#PatioID"), $("#ClienteID"), $("#TransportistaID"), $("#ChoferID"), $("#Tracto"), $("#PlanaID"));
+        return arr;
+    };
     //Es la carga inicial de las fechas  para el multilenguaje
     //Funcion: changeDatePickerDateFormat
     //Parametros: datePickerOptions

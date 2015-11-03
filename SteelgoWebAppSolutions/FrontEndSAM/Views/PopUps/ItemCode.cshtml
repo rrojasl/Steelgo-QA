@@ -58,7 +58,7 @@
 <script>
     @section JavascriptGlobalVariables {
     var ProyectoItemCode = {}, TipoPackingListItemCode = {}, ColadaItemCode = {},
-        familiaItemCode = {};
+        familiaItemCode = {}, D1_ItemCode = {}, D2_ItemCode = {};
 
     var $ItemCodeModel = {
         listContainer: {
@@ -175,6 +175,44 @@
         //});
         //ObtenerColada("Colada_ItemCode", 0, 0);
 
+        $("#D1_ItemCode").kendoComboBox({
+            dataTextField: "Valor",
+            dataValueField: "DiametroID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarDiametro1(dataItem.Valor);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    D1_ItemCode = {};
+                    this.value("");
+                };
+            },
+            filter: "contains",
+        });
+        ObtenerDiametros("D1_ItemCode");
+
+        $("#D2_ItemCode").kendoComboBox({
+            dataTextField: "Valor",
+            dataValueField: "DiametroID",
+            select: function (e) {
+                var dataItem = this.dataItem(e.item.index());
+                CargarDiametro2(dataItem.Valor);
+            },
+            change: function (e) {
+                var value = this.value();
+                if (!value || this.selectedIndex == -1) {
+                    messageindexKendoCombobox(this);
+                    D2_ItemCode = {};
+                    this.value("");
+                };
+            },
+            filter: "contains",
+        });
+        ObtenerDiametros("D2_ItemCode");
+
         $("#Familia_ItemCode").kendoComboBox({
             dataTextField: "Nombre",
             dataValueField: "FamiliaAceroID",
@@ -232,6 +270,16 @@
         ColadaItemCode = { ColadaID: id, Nombre: value };
     };
 
+    function CargarDiametro1(value) {
+        D1_ItemCode = {};
+        D1_ItemCode = { Diametro1: value };
+    };
+
+    function CargarDiametro2(value) {
+        D2_ItemCode = {};
+        D2_ItemCode = { Diametro2: value };
+    };
+
     function CargarFamiliaItemCode(id) {
         familiaItemCode = {};
         familiaItemCode = { FamiliaID: id };
@@ -260,7 +308,11 @@
             ControlErroresObjetosComboBox("Familia_ItemCode", result);
         });
     };
-
+    function ObtenerDiametros(id) {
+        $Diametros.Diametros.read({ token: Cookies.get("token") }).done(function (result) {
+            ControlErroresObjetosComboBox(id, result);
+        });
+    };
     function validarRequeridosModalItemCode() {
         var bool = true;
         $("#modalItemCode .security_required").each(function (i, elem) {
@@ -297,6 +349,8 @@
         ProyectoItemCode = {};
         TipoPackingListItemCode = {};
         ColadaItemCode = {};
+        D1_ItemCode = {};
+        D2_ItemCode = {};
     };
 
     function GuardarItemCode() {
@@ -308,8 +362,8 @@
         ItemCode.Descripcion = $("#Descripcion_ItemCode").val();
         ItemCode.FamiliaID = !familiaItemCode.FamiliaID ? "-1" : familiaItemCode.FamiliaID;
         ItemCode.TipoUsoID = window.parent.TipoUso.TipoUsoID;
-        ItemCode.Diametro1 = $("#D1_ItemCode").val();
-        ItemCode.Diametro2 = $("#D2_ItemCode").val();
+        ItemCode.Diametro1 = D1_ItemCode.Diametro1;
+        ItemCode.Diametro2 = D2_ItemCode.Diametro2;
 
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();

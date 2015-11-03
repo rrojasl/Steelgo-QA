@@ -196,8 +196,8 @@ namespace BackEndSAM.DataAcces
                                  Descripcion = ics.DescripcionEspanol,
                                  Cedula = c.CedulaA,
                                  TipoAcero = fm.Nombre,
-                                 D1 = ics.Diametro1.ToString(),
-                                 D2 = ics.Diametro2.ToString(),
+                                 //D1 = ics.Diametro1.ToString(),
+                                 //D2 = ics.Diametro2.ToString(),
                                  RangoInferior = (from pc in ctx.Sam3_ProyectoConfiguracion
                                                       where pc.Activo &&
                                                       pc.ProyectoID == ic.ProyectoID

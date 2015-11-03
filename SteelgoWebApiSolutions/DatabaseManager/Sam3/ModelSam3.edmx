@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelSam3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Sam3_Acero">
           <Key>
             <PropertyRef Name="AceroID" />
@@ -43,7 +43,7 @@
             <PropertyRef Name="CedulaID" />
           </Key>
           <Property Name="CedulaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Diametro" Type="decimal" Precision="7" Scale="4" />
+          <Property Name="DiametroID" Type="int" Nullable="false" />
           <Property Name="CedulaA" Type="varchar" MaxLength="50" />
           <Property Name="CedulaB" Type="varchar" MaxLength="50" />
           <Property Name="CedulaC" Type="varchar" MaxLength="50" />
@@ -300,6 +300,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="EquivalenciaDespachoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sam2_DespachoID" Type="int" Nullable="false" />
           <Property Name="Sam3_DespachoID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_EquivalenciaDiametro">
+          <Key>
+            <PropertyRef Name="EquivalenciaDiametroID" />
+          </Key>
+          <Property Name="EquivalenciaDiametroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sam2_DiametroID" Type="int" />
+          <Property Name="Sam3_DiametroID" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -605,8 +616,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="DescripcionIngles" Type="nvarchar(max)" />
           <Property Name="Peso" Type="decimal" Precision="7" Scale="2" />
           <Property Name="DescripcionInterna" Type="nvarchar(max)" />
-          <Property Name="Diametro1" Type="decimal" Precision="7" Scale="4" />
-          <Property Name="Diametro2" Type="decimal" Precision="7" Scale="4" />
           <Property Name="FamiliaAceroID" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -627,8 +636,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ColaCreacionNumerosUnicos' d
           <Property Name="DescripcionEspanol" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DescripcionIngles" Type="nvarchar(max)" />
           <Property Name="Peso" Type="decimal" Precision="7" Scale="3" Nullable="false" />
-          <Property Name="Diametro1" Type="decimal" Precision="7" Scale="4" Nullable="false" />
-          <Property Name="Diametro2" Type="decimal" Precision="7" Scale="4" Nullable="false" />
           <Property Name="FamiliaAceroID" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -1030,24 +1037,25 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
         <EntityType Name="Sam3_ProyectoConfiguracion">
           <Key>
             <PropertyRef Name="ProyectoID" />
-            <PropertyRef Name="PrefijoNumeroUnico" />
-            <PropertyRef Name="PrefijoOrdenTrabajo" />
-            <PropertyRef Name="DigitosNumeroUnico" />
-            <PropertyRef Name="DigitosOrdenTrabajo" />
-            <PropertyRef Name="CuadroTubero" />
-            <PropertyRef Name="CuadroRaiz" />
-            <PropertyRef Name="CuadroRelleno" />
-            <PropertyRef Name="VersionRegistro" />
-            <PropertyRef Name="ActualizaLocalizacion" />
-            <PropertyRef Name="Activo" />
-            <PropertyRef Name="DigitosOrdeAlmacenaje" />
-            <PropertyRef Name="DigitosFolioDescarga" />
-            <PropertyRef Name="DigitosFolioAvisollegada" />
-            <PropertyRef Name="GigitosFolioPaseSalida" />
-            <PropertyRef Name="DigitosFolioOrdenRecepcion" />
-            <PropertyRef Name="DigitosFolioCuantifiacion" />
-            <PropertyRef Name="DigitosFolioOrdenAlmacenaje" />
-            <PropertyRef Name="DigitosFolioPermisoAduana" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="ProyectoID" Type="int" Nullable="false" />
           <Property Name="PrefijoNumeroUnico" Type="nvarchar" MaxLength="10" Nullable="false" />
@@ -1076,7 +1084,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="DigitosFolioCuantifiacion" Type="int" Nullable="false" />
           <Property Name="DigitosFolioOrdenAlmacenaje" Type="int" Nullable="false" />
           <Property Name="DigitosFolioPermisoAduana" Type="int" Nullable="false" />
-          <Property Name="TipoUsoID" Type="int" />
+          <Property Name="TipoUsoID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sam3_ProyectoConsecutivo">
           <Key>
@@ -1122,11 +1130,13 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           </Key>
           <Property Name="Rel_Bulto_ItemCode_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BultoID" Type="int" Nullable="false" />
-          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" />
           <Property Name="TieneNumerosUnicos" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Catalogos_Documento">
           <Key>
@@ -1251,11 +1261,13 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           </Key>
           <Property Name="Rel_FolioCuantificacion_ItemCode_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FolioCuantificacionID" Type="int" Nullable="false" />
-          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" />
           <Property Name="TieneNumerosUnicos" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Incidencia_ComplementoRecepcion">
           <Key>
@@ -1407,13 +1419,39 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
         </EntityType>
+        <EntityType Name="Sam3_Rel_ItemCode_Diametro">
+          <Key>
+            <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+          </Key>
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="Diametro1ID" Type="int" Nullable="false" />
+          <Property Name="Diametro2ID" Type="int" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+        </EntityType>
         <EntityType Name="Sam3_Rel_ItemCode_ItemCodeSteelgo">
           <Key>
             <PropertyRef Name="Rel_ItemCode_ItemCodeSteelgo" />
           </Key>
           <Property Name="Rel_ItemCode_ItemCodeSteelgo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" />
+          <Property Name="ItemCodeSteelgoID" Type="int" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
+          <Property Name="Rel_ItemCodeSteelgo_Diametro_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Sam3_Rel_ItemCodeSteelgo_Diametro">
+          <Key>
+            <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+          </Key>
+          <Property Name="Rel_ItemCodeSteelgo_Diametro_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ItemCodeSteelgoID" Type="int" Nullable="false" />
+          <Property Name="Diametro1ID" Type="int" Nullable="false" />
+          <Property Name="Diametro2ID" Type="int" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
@@ -1436,10 +1474,11 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           </Key>
           <Property Name="Rel_OrdenRecepcion_ItemCode_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrdenRecepcionID" Type="int" Nullable="false" />
-          <Property Name="ItemCodeID" Type="int" Nullable="false" />
+          <Property Name="ItemCodeID" Type="int" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1539,11 +1578,12 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         </EntityType>
         <EntityType Name="Sam3_Rel_Usuario_Preferencia">
           <Key>
-            <PropertyRef Name="UsuarioID" />
+            <PropertyRef Name="Rel_Usuario_PreferenciaID" />
           </Key>
-          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rel_Usuario_PreferenciaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="PreferenciaID" Type="int" Nullable="false" />
-          <Property Name="ValorPreferencia" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ValorPreferencia" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Activo" Type="bit" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="FechaModificacion" Type="datetime" />
@@ -1903,18 +1943,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Rel_Bulto__ItemC__78F3E6EC">
-          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
-          <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Rel_Folio__Folio__733B0D96">
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
@@ -1927,18 +1955,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Rel_Folio__ItemC__742F31CF">
-          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
-          <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Sam3_Bult__Folio__6F6A7CB2">
           <End Role="Sam3_FolioCuantificacion" Type="Self.Sam3_FolioCuantificacion" Multiplicity="1" />
           <End Role="Sam3_Bulto" Type="Self.Sam3_Bulto" Multiplicity="*" />
@@ -1948,6 +1964,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Bulto">
               <PropertyRef Name="FolioCuantificacionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cedu__Diame__6F8A7843">
+          <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
+          <End Role="Sam3_Cedula" Type="Self.Sam3_Cedula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Cedula">
+              <PropertyRef Name="DiametroID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2239,7 +2267,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Item__Cedul__7F36D027">
+        <Association Name="FK__Sam3_Item__Cedul__7266E4EE">
           <End Role="Sam3_Cedula" Type="Self.Sam3_Cedula" Multiplicity="0..1" />
           <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2312,7 +2340,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Sam3_Proy__TipoU__1C9228E4">
-          <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="0..1" />
+          <End Role="Sam3_TipoUso" Type="Self.Sam3_TipoUso" Multiplicity="1" />
           <End Role="Sam3_ProyectoConfiguracion" Type="Self.Sam3_ProyectoConfiguracion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_TipoUso">
@@ -2368,6 +2396,54 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_Incidencia_Despacho">
               <PropertyRef Name="DespachoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__45943E77">
+          <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Diametro1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__468862B0">
+          <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Diametro2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__4B4D17CD">
+          <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
+          <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Diametro1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__4C413C06">
+          <End Role="Sam3_Diametro" Type="Self.Sam3_Diametro" Multiplicity="1" />
+          <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Diametro2ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2659,42 +2735,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__027D5126">
-          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
-          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__0371755F">
-          <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="1" />
-          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCodeSteelgo">
-              <PropertyRef Name="ItemCodeSteelgoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
-              <PropertyRef Name="ItemCodeSteelgoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__0B129727">
-          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
-          <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" Type="Self.Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_OrdenRecepcion_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Sam3_Rel___ItemC__33AA9866">
           <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
           <End Role="Sam3_Rel_Incidencia_ItemCode" Type="Self.Sam3_Rel_Incidencia_ItemCode" Multiplicity="*" />
@@ -2704,6 +2744,30 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_Incidencia_ItemCode">
               <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___ItemC__477C86E9">
+          <End Role="Sam3_ItemCode" Type="Self.Sam3_ItemCode" Multiplicity="1" />
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___ItemC__4D35603F">
+          <End Role="Sam3_ItemCodeSteelgo" Type="Self.Sam3_ItemCodeSteelgo" Multiplicity="1" />
+          <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="ItemCodeSteelgoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="ItemCodeSteelgoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2875,6 +2939,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sam3_Rel___Prefe__66F53242">
+          <End Role="Sam3_Preferencia" Type="Self.Sam3_Preferencia" Multiplicity="1" />
+          <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Preferencia">
+              <PropertyRef Name="PreferenciaId" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Usuario_Preferencia">
+              <PropertyRef Name="PreferenciaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Sam3_Rel___Proye__41B8C09B">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" Type="Self.Sam3_Rel_FolioAvisoLlegada_Proyecto" Multiplicity="*" />
@@ -2884,6 +2960,66 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_FolioAvisoLlegada_Proyecto">
               <PropertyRef Name="ProyectoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__613C58EC">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__6324A15E">
+          <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Type="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Type="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__69D19EED">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" Type="Self.Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__6AC5C326">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_Bulto_ItemCode" Type="Self.Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__6CAE0B98">
+          <End Role="Sam3_Rel_ItemCode_Diametro" Type="Self.Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" Type="Self.Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_OrdenRecepcion_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2944,6 +3080,18 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_Rel_Vehiculo_Transportista">
               <PropertyRef Name="TransportistaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Usuar__66010E09">
+          <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="1" />
+          <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Usuario_Preferencia">
+              <PropertyRef Name="UsuarioID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3775,30 +3923,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Rel_Usuario_Preferencia_Preferencia">
-          <End Role="Sam3_Preferencia" Type="Self.Sam3_Preferencia" Multiplicity="1" />
-          <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Preferencia">
-              <PropertyRef Name="PreferenciaId" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Usuario_Preferencia">
-              <PropertyRef Name="PreferenciaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Rel_Usuario_Preferencia_UsuaRIO">
-          <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="1" />
-          <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_Usuario">
-              <PropertyRef Name="UsuarioID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Usuario_Preferencia">
-              <PropertyRef Name="UsuarioID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Rel_UsuarioProyecto_Proyecto">
           <End Role="Sam3_Proyecto" Type="Self.Sam3_Proyecto" Multiplicity="1" />
           <End Role="Sam3_Rel_Usuario_Proyecto" Type="Self.Sam3_Rel_Usuario_Proyecto" Multiplicity="*" />
@@ -4013,6 +4137,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_EquivalenciaColada" EntityType="Self.Sam3_EquivalenciaColada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaCorte" EntityType="Self.Sam3_EquivalenciaCorte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaDespacho" EntityType="Self.Sam3_EquivalenciaDespacho" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_EquivalenciaDiametro" EntityType="Self.Sam3_EquivalenciaDiametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaFabricante" EntityType="Self.Sam3_EquivalenciaFabricante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaFamiliaAcero" EntityType="Self.Sam3_EquivalenciaFamiliaAcero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_EquivalenciaFamiliaMaterial" EntityType="Self.Sam3_EquivalenciaFamiliaMaterial" Schema="dbo" store:Type="Tables" />
@@ -4086,7 +4211,9 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySet Name="Sam3_Rel_Incidencia_OrdenAlmacenaje" EntityType="Self.Sam3_Rel_Incidencia_OrdenAlmacenaje" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_OrdenRecepcion" EntityType="Self.Sam3_Rel_Incidencia_OrdenRecepcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Incidencia_PaseSalida" EntityType="Self.Sam3_Rel_Incidencia_PaseSalida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_ItemCode_Diametro" EntityType="Self.Sam3_Rel_ItemCode_Diametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntityType="Self.Sam3_Rel_ItemCode_ItemCodeSteelgo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sam3_Rel_ItemCodeSteelgo_Diametro" EntityType="Self.Sam3_Rel_ItemCodeSteelgo_Diametro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_OrdenAlmacenaje_NumeroUnico" EntityType="Self.Sam3_Rel_OrdenAlmacenaje_NumeroUnico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_OrdenRecepcion_ItemCode" EntityType="Self.Sam3_Rel_OrdenRecepcion_ItemCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sam3_Rel_Perfil_MenuContextual" EntityType="Self.Sam3_Rel_Perfil_MenuContextual" Schema="dbo" store:Type="Tables" />
@@ -4185,21 +4312,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Bulto" EntitySet="Sam3_Bulto" />
             <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
           </AssociationSet>
-          <AssociationSet Name="FK__Rel_Bulto__ItemC__78F3E6EC" Association="Self.FK__Rel_Bulto__ItemC__78F3E6EC">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
-          </AssociationSet>
           <AssociationSet Name="FK__Rel_Folio__Folio__733B0D96" Association="Self.FK__Rel_Folio__Folio__733B0D96">
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
-            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rel_Folio__ItemC__742F31CF" Association="Self.FK__Rel_Folio__ItemC__742F31CF">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Bult__Folio__6F6A7CB2" Association="Self.FK__Sam3_Bult__Folio__6F6A7CB2">
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
             <End Role="Sam3_Bulto" EntitySet="Sam3_Bulto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cedu__Diame__6F8A7843" Association="Self.FK__Sam3_Cedu__Diame__6F8A7843">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Chof__Trans__3726238F" Association="Self.FK__Sam3_Chof__Trans__3726238F">
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
@@ -4297,7 +4420,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Item__Cedul__7F36D027" Association="Self.FK__Sam3_Item__Cedul__7F36D027">
+          <AssociationSet Name="FK__Sam3_Item__Cedul__7266E4EE" Association="Self.FK__Sam3_Item__Cedul__7266E4EE">
             <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
             <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
           </AssociationSet>
@@ -4340,6 +4463,22 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___Despa__3D3402A0" Association="Self.FK__Sam3_Rel___Despa__3D3402A0">
             <End Role="Sam3_Despacho" EntitySet="Sam3_Despacho" />
             <End Role="Sam3_Rel_Incidencia_Despacho" EntitySet="Sam3_Rel_Incidencia_Despacho" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__45943E77" Association="Self.FK__Sam3_Rel___Diame__45943E77">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__468862B0" Association="Self.FK__Sam3_Rel___Diame__468862B0">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__4B4D17CD" Association="Self.FK__Sam3_Rel___Diame__4B4D17CD">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__4C413C06" Association="Self.FK__Sam3_Rel___Diame__4C413C06">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Entid__14E61A24" Association="Self.FK__Sam3_Rel___Entid__14E61A24">
             <End Role="Sam3_Entidad" EntitySet="Sam3_Entidad" />
@@ -4437,21 +4576,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Incidencia" EntitySet="Sam3_Incidencia" />
             <End Role="Sam3_Rel_Incidencia_NumeroUnico" EntitySet="Sam3_Rel_Incidencia_NumeroUnico" />
           </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__027D5126" Association="Self.FK__Sam3_Rel___ItemC__027D5126">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__0371755F" Association="Self.FK__Sam3_Rel___ItemC__0371755F">
-            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
-            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__0B129727" Association="Self.FK__Sam3_Rel___ItemC__0B129727">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
-          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___ItemC__33AA9866" Association="Self.FK__Sam3_Rel___ItemC__33AA9866">
             <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
             <End Role="Sam3_Rel_Incidencia_ItemCode" EntitySet="Sam3_Rel_Incidencia_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__477C86E9" Association="Self.FK__Sam3_Rel___ItemC__477C86E9">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__4D35603F" Association="Self.FK__Sam3_Rel___ItemC__4D35603F">
+            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___MenuC__73852659" Association="Self.FK__Sam3_Rel___MenuC__73852659">
             <End Role="Sam3_MenuContextual" EntitySet="Sam3_MenuContextual" />
@@ -4509,9 +4644,33 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_PermisoAduana" EntitySet="Sam3_PermisoAduana" />
             <End Role="Sam3_Rel_PermisoAduana_Documento" EntitySet="Sam3_Rel_PermisoAduana_Documento" />
           </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Prefe__66F53242" Association="Self.FK__Sam3_Rel___Prefe__66F53242">
+            <End Role="Sam3_Preferencia" EntitySet="Sam3_Preferencia" />
+            <End Role="Sam3_Rel_Usuario_Preferencia" EntitySet="Sam3_Rel_Usuario_Preferencia" />
+          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Proye__41B8C09B" Association="Self.FK__Sam3_Rel___Proye__41B8C09B">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Rel_FolioAvisoLlegada_Proyecto" EntitySet="Sam3_Rel_FolioAvisoLlegada_Proyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__613C58EC" Association="Self.FK__Sam3_Rel___Rel_I__613C58EC">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6324A15E" Association="Self.FK__Sam3_Rel___Rel_I__6324A15E">
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__69D19EED" Association="Self.FK__Sam3_Rel___Rel_I__69D19EED">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6AC5C326" Association="Self.FK__Sam3_Rel___Rel_I__6AC5C326">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6CAE0B98" Association="Self.FK__Sam3_Rel___Rel_I__6CAE0B98">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___TipoA__2042BE37" Association="Self.FK__Sam3_Rel___TipoA__2042BE37">
             <End Role="Sam3_TipoArchivo" EntitySet="Sam3_TipoArchivo" />
@@ -4532,6 +4691,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Rel___Trans__03A67F89" Association="Self.FK__Sam3_Rel___Trans__03A67F89">
             <End Role="Sam3_Transportista" EntitySet="Sam3_Transportista" />
             <End Role="Sam3_Rel_Vehiculo_Transportista" EntitySet="Sam3_Rel_Vehiculo_Transportista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Usuar__66010E09" Association="Self.FK__Sam3_Rel___Usuar__66010E09">
+            <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
+            <End Role="Sam3_Rel_Usuario_Preferencia" EntitySet="Sam3_Rel_Usuario_Preferencia" />
           </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Vehic__02B25B50" Association="Self.FK__Sam3_Rel___Vehic__02B25B50">
             <End Role="Sam3_Vehiculo" EntitySet="Sam3_Vehiculo" />
@@ -4809,14 +4972,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_Propiedad" EntitySet="Sam3_Propiedad" />
             <End Role="Sam3_Rel_Perfil_Propiedad_Pagina" EntitySet="Sam3_Rel_Perfil_Propiedad_Pagina" />
           </AssociationSet>
-          <AssociationSet Name="FK_Rel_Usuario_Preferencia_Preferencia" Association="Self.FK_Rel_Usuario_Preferencia_Preferencia">
-            <End Role="Sam3_Preferencia" EntitySet="Sam3_Preferencia" />
-            <End Role="Sam3_Rel_Usuario_Preferencia" EntitySet="Sam3_Rel_Usuario_Preferencia" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rel_Usuario_Preferencia_UsuaRIO" Association="Self.FK_Rel_Usuario_Preferencia_UsuaRIO">
-            <End Role="Sam3_Usuario" EntitySet="Sam3_Usuario" />
-            <End Role="Sam3_Rel_Usuario_Preferencia" EntitySet="Sam3_Rel_Usuario_Preferencia" />
-          </AssociationSet>
           <AssociationSet Name="FK_Rel_UsuarioProyecto_Proyecto" Association="Self.FK_Rel_UsuarioProyecto_Proyecto">
             <End Role="Sam3_Proyecto" EntitySet="Sam3_Proyecto" />
             <End Role="Sam3_Rel_Usuario_Proyecto" EntitySet="Sam3_Rel_Usuario_Proyecto" />
@@ -5040,6 +5195,11 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Diame__45943E77" FromRole="Sam3_Diametro" ToRole="Sam3_Rel_ItemCode_Diametro" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro1" Relationship="ModelSam3.FK__Sam3_Rel___Diame__468862B0" FromRole="Sam3_Diametro" ToRole="Sam3_Rel_ItemCode_Diametro" />
+          <NavigationProperty Name="Sam3_Rel_ItemCodeSteelgo_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Diame__4B4D17CD" FromRole="Sam3_Diametro" ToRole="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          <NavigationProperty Name="Sam3_Rel_ItemCodeSteelgo_Diametro1" Relationship="ModelSam3.FK__Sam3_Rel___Diame__4C413C06" FromRole="Sam3_Diametro" ToRole="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          <NavigationProperty Name="Sam3_Cedula" Relationship="ModelSam3.FK__Sam3_Cedu__Diame__6F8A7843" FromRole="Sam3_Diametro" ToRole="Sam3_Cedula" />
         </EntityType>
         <EntityType Name="Sam3_Entidad">
           <Key>
@@ -5230,8 +5390,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DescripcionIngles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Peso" Type="Decimal" Precision="7" Scale="2" />
           <Property Name="DescripcionInterna" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Diametro1" Type="Decimal" Precision="7" Scale="4" />
-          <Property Name="Diametro2" Type="Decimal" Precision="7" Scale="4" />
           <Property Name="FamiliaAceroID" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_FamiliaAcero" Relationship="Self.FK_ItemCode_FamiliaAcero" FromRole="Sam3_ItemCode" ToRole="Sam3_FamiliaAcero" />
@@ -5243,10 +5401,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Cantidad" Type="Int32" />
           <Property Name="MM" Type="Int32" />
-          <NavigationProperty Name="Sam3_Rel_Bulto_ItemCode" Relationship="ModelSam3.FK__Rel_Bulto__ItemC__78F3E6EC" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_Bulto_ItemCode" />
-          <NavigationProperty Name="Sam3_Rel_FolioCuantificacion_ItemCode" Relationship="ModelSam3.FK__Rel_Folio__ItemC__742F31CF" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_FolioCuantificacion_ItemCode" />
-          <NavigationProperty Name="Sam3_Rel_ItemCode_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__027D5126" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          <NavigationProperty Name="Sam3_Rel_OrdenRecepcion_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__0B129727" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_OrdenRecepcion_ItemCode" />
           <Property Name="ColadaID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_Colada" Relationship="ModelSam3.FK_Sam3_ItemCode_Sam3_Colada" FromRole="Sam3_ItemCode" ToRole="Sam3_Colada" />
           <Property Name="TieneComplementoRecepcion" Type="Boolean" Nullable="false" />
@@ -5256,6 +5410,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Item__TipoU__7D8391DF" FromRole="Sam3_ItemCode" ToRole="Sam3_TipoUso" />
           <NavigationProperty Name="Sam3_ColaCreacionNumerosUnicos" Relationship="ModelSam3.FK__Sam3_Cola__ItemC__78BEDCC2" FromRole="Sam3_ItemCode" ToRole="Sam3_ColaCreacionNumerosUnicos" />
           <NavigationProperty Name="Sam3_Rel_Incidencia_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__33AA9866" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_Incidencia_ItemCode" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__477C86E9" FromRole="Sam3_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
         </EntityType>
         <EntityType Name="Sam3_Maquina">
           <Key>
@@ -5812,16 +5967,17 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         </EntityType>
         <EntityType Name="Sam3_Rel_Usuario_Preferencia">
           <Key>
-            <PropertyRef Name="UsuarioID" />
+            <PropertyRef Name="Rel_Usuario_PreferenciaID" />
           </Key>
           <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PreferenciaID" Type="Int32" Nullable="false" />
-          <Property Name="ValorPreferencia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValorPreferencia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Sam3_Preferencia" Relationship="Self.FK_Rel_Usuario_Preferencia_Preferencia" FromRole="Sam3_Rel_Usuario_Preferencia" ToRole="Sam3_Preferencia" />
-          <NavigationProperty Name="Sam3_Usuario" Relationship="Self.FK_Rel_Usuario_Preferencia_UsuaRIO" FromRole="Sam3_Rel_Usuario_Preferencia" ToRole="Sam3_Usuario" />
+          <NavigationProperty Name="Sam3_Preferencia" Relationship="ModelSam3.FK_Rel_Usuario_Preferencia_Preferencia" FromRole="Sam3_Rel_Usuario_Preferencia" ToRole="Sam3_Preferencia" />
+          <NavigationProperty Name="Sam3_Usuario" Relationship="ModelSam3.FK_Rel_Usuario_Preferencia_UsuaRIO" FromRole="Sam3_Rel_Usuario_Preferencia" ToRole="Sam3_Usuario" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="Rel_Usuario_PreferenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Sam3_Rel_Usuario_Proyecto">
           <Key>
@@ -7146,7 +7302,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         </Association>
         <Association Name="FK_Rel_Usuario_Preferencia_UsuaRIO">
           <End Role="Sam3_Usuario" Type="Self.Sam3_Usuario" Multiplicity="1" />
-          <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="0..1" />
+          <End Role="Sam3_Rel_Usuario_Preferencia" Type="Self.Sam3_Rel_Usuario_Preferencia" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_Usuario">
               <PropertyRef Name="UsuarioID" />
@@ -7769,30 +7925,10 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <End Role="Sam3_FolioCuantificacion" EntitySet="Sam3_FolioCuantificacion" />
             <End Role="Sam3_Recepcion" EntitySet="Sam3_Recepcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Rel_Bulto__ItemC__78F3E6EC" Association="ModelSam3.FK__Rel_Bulto__ItemC__78F3E6EC">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Rel_Folio__ItemC__742F31CF" Association="ModelSam3.FK__Rel_Folio__ItemC__742F31CF">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
-          </AssociationSet>
           <EntitySet Name="Sam3_ItemCodeSteelgo" EntityType="ModelSam3.Sam3_ItemCodeSteelgo" />
           <EntitySet Name="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntityType="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__027D5126" Association="ModelSam3.FK__Sam3_Rel___ItemC__027D5126">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__0371755F" Association="ModelSam3.FK__Sam3_Rel___ItemC__0371755F">
-            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
-            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
-          </AssociationSet>
           <EntitySet Name="Sam3_OrdenRecepcion" EntityType="ModelSam3.Sam3_OrdenRecepcion" />
           <EntitySet Name="Sam3_Rel_OrdenRecepcion_ItemCode" EntityType="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" />
-          <AssociationSet Name="FK__Sam3_Rel___ItemC__0B129727" Association="ModelSam3.FK__Sam3_Rel___ItemC__0B129727">
-            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
-            <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
-          </AssociationSet>
           <AssociationSet Name="FK__Sam3_Rel___Orden__0A1E72EE" Association="ModelSam3.FK__Sam3_Rel___Orden__0A1E72EE">
             <End Role="Sam3_OrdenRecepcion" EntitySet="Sam3_OrdenRecepcion" />
             <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
@@ -8043,6 +8179,57 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <AssociationSet Name="FK__Sam3_Proy__TipoU__1C9228E4" Association="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4">
             <End Role="Sam3_TipoUso" EntitySet="Sam3_TipoUso" />
             <End Role="Sam3_ProyectoConfiguracion" EntitySet="Sam3_ProyectoConfiguracion" />
+          </AssociationSet>
+          <EntitySet Name="Sam3_EquivalenciaDiametro" EntityType="ModelSam3.Sam3_EquivalenciaDiametro" />
+          <EntitySet Name="Sam3_Rel_ItemCode_Diametro" EntityType="ModelSam3.Sam3_Rel_ItemCode_Diametro" />
+          <EntitySet Name="Sam3_Rel_ItemCodeSteelgo_Diametro" EntityType="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          <AssociationSet Name="FK__Sam3_Rel___Diame__45943E77" Association="ModelSam3.FK__Sam3_Rel___Diame__45943E77">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__468862B0" Association="ModelSam3.FK__Sam3_Rel___Diame__468862B0">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__4B4D17CD" Association="ModelSam3.FK__Sam3_Rel___Diame__4B4D17CD">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Diame__4C413C06" Association="ModelSam3.FK__Sam3_Rel___Diame__4C413C06">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__477C86E9" Association="ModelSam3.FK__Sam3_Rel___ItemC__477C86E9">
+            <End Role="Sam3_ItemCode" EntitySet="Sam3_ItemCode" />
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___ItemC__4D35603F" Association="ModelSam3.FK__Sam3_Rel___ItemC__4D35603F">
+            <End Role="Sam3_ItemCodeSteelgo" EntitySet="Sam3_ItemCodeSteelgo" />
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__613C58EC" Association="ModelSam3.FK__Sam3_Rel___Rel_I__613C58EC">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6324A15E" Association="ModelSam3.FK__Sam3_Rel___Rel_I__6324A15E">
+            <End Role="Sam3_Rel_ItemCodeSteelgo_Diametro" EntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro" />
+            <End Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" EntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6AC5C326" Association="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_Bulto_ItemCode" EntitySet="Sam3_Rel_Bulto_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__69D19EED" Association="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_FolioCuantificacion_ItemCode" EntitySet="Sam3_Rel_FolioCuantificacion_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Rel___Rel_I__6CAE0B98" Association="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98">
+            <End Role="Sam3_Rel_ItemCode_Diametro" EntitySet="Sam3_Rel_ItemCode_Diametro" />
+            <End Role="Sam3_Rel_OrdenRecepcion_ItemCode" EntitySet="Sam3_Rel_OrdenRecepcion_ItemCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sam3_Cedu__Diame__6F8A7843" Association="ModelSam3.FK__Sam3_Cedu__Diame__6F8A7843">
+            <End Role="Sam3_Diametro" EntitySet="Sam3_Diametro" />
+            <End Role="Sam3_Cedula" EntitySet="Sam3_Cedula" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Sam3_Rel_TiposDocumentos_ExtencionesDocumentos">
@@ -8662,13 +8849,15 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="Rel_Bulto_ItemCode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BultoID" Type="Int32" Nullable="false" />
-          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCodeID" Type="Int32" />
           <Property Name="TieneNumerosUnicos" Type="Boolean" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_Bulto" Relationship="ModelSam3.FK__Rel_Bulto__Bulto__77FFC2B3" FromRole="Sam3_Rel_Bulto_ItemCode" ToRole="Sam3_Bulto" />
-          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Rel_Bulto__ItemC__78F3E6EC" FromRole="Sam3_Rel_Bulto_ItemCode" ToRole="Sam3_ItemCode" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326" FromRole="Sam3_Rel_Bulto_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
         </EntityType>
         <EntityType Name="Sam3_Rel_FolioCuantificacion_ItemCode">
           <Key>
@@ -8676,13 +8865,15 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="Rel_FolioCuantificacion_ItemCode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FolioCuantificacionID" Type="Int32" Nullable="false" />
-          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCodeID" Type="Int32" />
           <Property Name="TieneNumerosUnicos" Type="Boolean" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sam3_FolioCuantificacion" Relationship="ModelSam3.FK__Rel_Folio__Folio__733B0D96" FromRole="Sam3_Rel_FolioCuantificacion_ItemCode" ToRole="Sam3_FolioCuantificacion" />
-          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Rel_Folio__ItemC__742F31CF" FromRole="Sam3_Rel_FolioCuantificacion_ItemCode" ToRole="Sam3_ItemCode" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED" FromRole="Sam3_Rel_FolioCuantificacion_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
         </EntityType>
         <EntityType Name="Sam3_TipoUso">
           <Key>
@@ -8781,30 +8972,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Rel_Bulto__ItemC__78F3E6EC">
-          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_Bulto_ItemCode" Role="Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Rel_Folio__ItemC__742F31CF">
-          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_FolioCuantificacion_ItemCode" Role="Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Sam3_ItemCodeSteelgo">
           <Key>
             <PropertyRef Name="ItemCodeSteelgoID" />
@@ -8813,14 +8980,11 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DescripcionEspanol" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DescripcionIngles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Peso" Type="Decimal" Nullable="false" Precision="7" Scale="3" />
-          <Property Name="Diametro1" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
-          <Property Name="Diametro2" Type="Decimal" Nullable="false" Precision="7" Scale="4" />
           <Property Name="FamiliaAceroID" Type="Int32" Nullable="false" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="UsuarioModificacion" Type="Int32" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Area" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Sam3_Rel_ItemCode_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
           <Property Name="Codigo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CedulaID" Type="Int32" />
           <Property Name="GrupoID" Type="Int32" />
@@ -8828,44 +8992,23 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_Grupo" Relationship="ModelSam3.FK__Sam3_Item__Grupo__6E0C4425" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Grupo" />
           <Property Name="DescripcionLargaEspanol" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="DescripcionLargaIngles" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sam3_Rel_ItemCodeSteelgo_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__4D35603F" FromRole="Sam3_ItemCodeSteelgo" ToRole="Sam3_Rel_ItemCodeSteelgo_Diametro" />
         </EntityType>
         <EntityType Name="Sam3_Rel_ItemCode_ItemCodeSteelgo">
           <Key>
             <PropertyRef Name="Rel_ItemCode_ItemCodeSteelgo" />
           </Key>
           <Property Name="Rel_ItemCode_ItemCodeSteelgo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
-          <Property Name="ItemCodeSteelgoID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCodeID" Type="Int32" />
+          <Property Name="ItemCodeSteelgoID" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />
-          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__027D5126" FromRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" ToRole="Sam3_ItemCode" />
-          <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" FromRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" ToRole="Sam3_ItemCodeSteelgo" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
+          <Property Name="Rel_ItemCodeSteelgo_Diametro_ID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__613C58EC" FromRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" ToRole="Sam3_Rel_ItemCode_Diametro" />
+          <NavigationProperty Name="Sam3_Rel_ItemCodeSteelgo_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6324A15E" FromRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" ToRole="Sam3_Rel_ItemCodeSteelgo_Diametro" />
         </EntityType>
-        <Association Name="FK__Sam3_Rel___ItemC__027D5126">
-          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Sam3_Rel___ItemC__0371755F">
-          <End Type="ModelSam3.Sam3_ItemCodeSteelgo" Role="Sam3_ItemCodeSteelgo" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCodeSteelgo">
-              <PropertyRef Name="ItemCodeSteelgoID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
-              <PropertyRef Name="ItemCodeSteelgoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Sam3_OrdenRecepcion">
           <Key>
             <PropertyRef Name="OrdenRecepcionID" />
@@ -8887,25 +9030,14 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </Key>
           <Property Name="Rel_OrdenRecepcion_ItemCode_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrdenRecepcionID" Type="Int32" Nullable="false" />
-          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="ItemCodeID" Type="Int32" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="UsuarioModificacion" Type="Int32" />
-          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__0B129727" FromRole="Sam3_Rel_OrdenRecepcion_ItemCode" ToRole="Sam3_ItemCode" />
           <NavigationProperty Name="Sam3_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Rel___Orden__0A1E72EE" FromRole="Sam3_Rel_OrdenRecepcion_ItemCode" ToRole="Sam3_OrdenRecepcion" />
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98" FromRole="Sam3_Rel_OrdenRecepcion_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
         </EntityType>
-        <Association Name="FK__Sam3_Rel___ItemC__0B129727">
-          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
-          <End Type="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" Role="Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sam3_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Principal>
-            <Dependent Role="Sam3_Rel_OrdenRecepcion_ItemCode">
-              <PropertyRef Name="ItemCodeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Sam3_Rel___Orden__0A1E72EE">
           <End Type="ModelSam3.Sam3_OrdenRecepcion" Role="Sam3_OrdenRecepcion" Multiplicity="1" />
           <End Type="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" Role="Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
@@ -8970,24 +9102,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
         <EntityType Name="Sam3_ProyectoConfiguracion">
           <Key>
             <PropertyRef Name="ProyectoID" />
-            <PropertyRef Name="PrefijoNumeroUnico" />
-            <PropertyRef Name="PrefijoOrdenTrabajo" />
-            <PropertyRef Name="DigitosNumeroUnico" />
-            <PropertyRef Name="DigitosOrdenTrabajo" />
-            <PropertyRef Name="CuadroTubero" />
-            <PropertyRef Name="CuadroRaiz" />
-            <PropertyRef Name="CuadroRelleno" />
-            <PropertyRef Name="VersionRegistro" />
-            <PropertyRef Name="ActualizaLocalizacion" />
-            <PropertyRef Name="Activo" />
-            <PropertyRef Name="DigitosOrdeAlmacenaje" />
-            <PropertyRef Name="DigitosFolioDescarga" />
-            <PropertyRef Name="DigitosFolioAvisollegada" />
-            <PropertyRef Name="GigitosFolioPaseSalida" />
-            <PropertyRef Name="DigitosFolioOrdenRecepcion" />
-            <PropertyRef Name="DigitosFolioCuantifiacion" />
-            <PropertyRef Name="DigitosFolioOrdenAlmacenaje" />
-            <PropertyRef Name="DigitosFolioPermisoAduana" />
           </Key>
           <Property Name="ProyectoID" Type="Int32" Nullable="false" />
           <Property Name="PrefijoNumeroUnico" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -9016,7 +9130,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="DigitosFolioCuantifiacion" Type="Int32" Nullable="false" />
           <Property Name="DigitosFolioOrdenAlmacenaje" Type="Int32" Nullable="false" />
           <Property Name="DigitosFolioPermisoAduana" Type="Int32" Nullable="false" />
-          <Property Name="TipoUsoID" Type="Int32" />
+          <Property Name="TipoUsoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sam3_TipoUso" Relationship="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" FromRole="Sam3_ProyectoConfiguracion" ToRole="Sam3_TipoUso" />
         </EntityType>
         <Association Name="FK_Sam3_NumeroUnico_Sam3_NumeroUnico">
@@ -9423,7 +9537,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             <PropertyRef Name="CedulaID" />
           </Key>
           <Property Name="CedulaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Diametro" Type="Int32" />
           <Property Name="CedulaA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CedulaB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CedulaC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -9434,6 +9547,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <Property Name="UsuarioModificacion" Type="Int32" Nullable="false" />
           <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Item__Cedul__70E8B0D0" FromRole="Sam3_Cedula" ToRole="Sam3_ItemCodeSteelgo" />
+          <Property Name="DiametroID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sam3_Diametro" Relationship="ModelSam3.FK__Sam3_Cedu__Diame__6F8A7843" FromRole="Sam3_Cedula" ToRole="Sam3_Diametro" />
         </EntityType>
         <EntityType Name="Sam3_Grupo">
           <Key>
@@ -10128,7 +10243,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Sam3_Proy__TipoU__1C9228E4">
-          <End Type="ModelSam3.Sam3_TipoUso" Role="Sam3_TipoUso" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_TipoUso" Role="Sam3_TipoUso" Multiplicity="1" />
           <End Type="ModelSam3.Sam3_ProyectoConfiguracion" Role="Sam3_ProyectoConfiguracion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sam3_TipoUso">
@@ -10136,6 +10251,196 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
             </Principal>
             <Dependent Role="Sam3_ProyectoConfiguracion">
               <PropertyRef Name="TipoUsoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sam3_EquivalenciaDiametro">
+          <Key>
+            <PropertyRef Name="EquivalenciaDiametroID" />
+          </Key>
+          <Property Name="EquivalenciaDiametroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sam2_DiametroID" Type="Int32" />
+          <Property Name="Sam3_DiametroID" Type="Int32" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Sam3_Rel_ItemCode_Diametro">
+          <Key>
+            <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+          </Key>
+          <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemCodeID" Type="Int32" Nullable="false" />
+          <Property Name="Diametro1ID" Type="Int32" Nullable="false" />
+          <Property Name="Diametro2ID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Diame__45943E77" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_Diametro" />
+          <NavigationProperty Name="Sam3_Diametro1" Relationship="ModelSam3.FK__Sam3_Rel___Diame__468862B0" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_Diametro" />
+          <NavigationProperty Name="Sam3_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__477C86E9" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_ItemCode" />
+          <NavigationProperty Name="Sam3_Rel_ItemCode_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__613C58EC" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+          <NavigationProperty Name="Sam3_Rel_Bulto_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_Rel_Bulto_ItemCode" />
+          <NavigationProperty Name="Sam3_Rel_FolioCuantificacion_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_Rel_FolioCuantificacion_ItemCode" />
+          <NavigationProperty Name="Sam3_Rel_OrdenRecepcion_ItemCode" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98" FromRole="Sam3_Rel_ItemCode_Diametro" ToRole="Sam3_Rel_OrdenRecepcion_ItemCode" />
+        </EntityType>
+        <EntityType Name="Sam3_Rel_ItemCodeSteelgo_Diametro">
+          <Key>
+            <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+          </Key>
+          <Property Name="ItemCodeSteelgoID" Type="Int32" Nullable="false" />
+          <Property Name="Diametro1ID" Type="Int32" Nullable="false" />
+          <Property Name="Diametro2ID" Type="Int32" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="Int32" />
+          <NavigationProperty Name="Sam3_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Diame__4B4D17CD" FromRole="Sam3_Rel_ItemCodeSteelgo_Diametro" ToRole="Sam3_Diametro" />
+          <NavigationProperty Name="Sam3_Diametro1" Relationship="ModelSam3.FK__Sam3_Rel___Diame__4C413C06" FromRole="Sam3_Rel_ItemCodeSteelgo_Diametro" ToRole="Sam3_Diametro" />
+          <NavigationProperty Name="Sam3_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___ItemC__4D35603F" FromRole="Sam3_Rel_ItemCodeSteelgo_Diametro" ToRole="Sam3_ItemCodeSteelgo" />
+          <Property Name="Rel_ItemCodeSteelgo_Diametro_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Rel_ItemCode_ItemCodeSteelgo" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6324A15E" FromRole="Sam3_Rel_ItemCodeSteelgo_Diametro" ToRole="Sam3_Rel_ItemCode_ItemCodeSteelgo" />
+        </EntityType>
+        <Association Name="FK__Sam3_Rel___Diame__45943E77">
+          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Diametro1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__468862B0">
+          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Diametro2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__4B4D17CD">
+          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro" Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Diametro1ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Diame__4C413C06">
+          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro" Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Diametro2ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___ItemC__477C86E9">
+          <End Type="ModelSam3.Sam3_ItemCode" Role="Sam3_ItemCode" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCode">
+              <PropertyRef Name="ItemCodeID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="ItemCodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___ItemC__4D35603F">
+          <End Type="ModelSam3.Sam3_ItemCodeSteelgo" Role="Sam3_ItemCodeSteelgo" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro" Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_ItemCodeSteelgo">
+              <PropertyRef Name="ItemCodeSteelgoID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="ItemCodeSteelgoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__613C58EC">
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__6324A15E">
+          <End Type="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro" Role="Sam3_Rel_ItemCodeSteelgo_Diametro" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Role="Sam3_Rel_ItemCode_ItemCodeSteelgo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+              <PropertyRef Name="Rel_ItemCodeSteelgo_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__6AC5C326">
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_Bulto_ItemCode" Role="Sam3_Rel_Bulto_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_Bulto_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__69D19EED">
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_FolioCuantificacion_ItemCode" Role="Sam3_Rel_FolioCuantificacion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_FolioCuantificacion_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Rel___Rel_I__6CAE0B98">
+          <End Type="ModelSam3.Sam3_Rel_ItemCode_Diametro" Role="Sam3_Rel_ItemCode_Diametro" Multiplicity="0..1" />
+          <End Type="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" Role="Sam3_Rel_OrdenRecepcion_ItemCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Rel_ItemCode_Diametro">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Principal>
+            <Dependent Role="Sam3_Rel_OrdenRecepcion_ItemCode">
+              <PropertyRef Name="Rel_ItemCode_Diametro_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sam3_Cedu__Diame__6F8A7843">
+          <End Type="ModelSam3.Sam3_Diametro" Role="Sam3_Diametro" Multiplicity="1" />
+          <End Type="ModelSam3.Sam3_Cedula" Role="Sam3_Cedula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sam3_Diametro">
+              <PropertyRef Name="DiametroID" />
+            </Principal>
+            <Dependent Role="Sam3_Cedula">
+              <PropertyRef Name="DiametroID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -10441,8 +10746,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="DescripcionIngles" ColumnName="DescripcionIngles" />
                 <ScalarProperty Name="Peso" ColumnName="Peso" />
                 <ScalarProperty Name="DescripcionInterna" ColumnName="DescripcionInterna" />
-                <ScalarProperty Name="Diametro1" ColumnName="Diametro1" />
-                <ScalarProperty Name="Diametro2" ColumnName="Diametro2" />
                 <ScalarProperty Name="FamiliaAceroID" ColumnName="FamiliaAceroID" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
               </MappingFragment>
@@ -10917,6 +11220,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_Usuario_Preferencia">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_Usuario_Preferencia">
               <MappingFragment StoreEntitySet="Sam3_Rel_Usuario_Preferencia">
+                <ScalarProperty Name="Rel_Usuario_PreferenciaID" ColumnName="Rel_Usuario_PreferenciaID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
@@ -11451,6 +11755,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_Bulto_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_Bulto_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_Bulto_ItemCode">
+                <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
@@ -11464,6 +11770,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_FolioCuantificacion_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_FolioCuantificacion_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_FolioCuantificacion_ItemCode">
+                <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
@@ -11498,8 +11806,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
                 <ScalarProperty Name="FamiliaAceroID" ColumnName="FamiliaAceroID" />
-                <ScalarProperty Name="Diametro2" ColumnName="Diametro2" />
-                <ScalarProperty Name="Diametro1" ColumnName="Diametro1" />
                 <ScalarProperty Name="Peso" ColumnName="Peso" />
                 <ScalarProperty Name="DescripcionIngles" ColumnName="DescripcionIngles" />
                 <ScalarProperty Name="DescripcionEspanol" ColumnName="DescripcionEspanol" />
@@ -11510,6 +11816,8 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_ItemCode_ItemCodeSteelgo">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo">
               <MappingFragment StoreEntitySet="Sam3_Rel_ItemCode_ItemCodeSteelgo">
+                <ScalarProperty Name="Rel_ItemCodeSteelgo_Diametro_ID" ColumnName="Rel_ItemCodeSteelgo_Diametro_ID" />
+                <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
@@ -11534,6 +11842,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_OrdenRecepcion_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_OrdenRecepcion_ItemCode">
+                <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
@@ -11821,6 +12130,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Cedula">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Cedula">
               <MappingFragment StoreEntitySet="Sam3_Cedula">
+                <ScalarProperty Name="DiametroID" ColumnName="DiametroID" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="Activo" ColumnName="Activo" />
@@ -11830,7 +12140,6 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="CedulaC" ColumnName="CedulaC" />
                 <ScalarProperty Name="CedulaB" ColumnName="CedulaB" />
                 <ScalarProperty Name="CedulaA" ColumnName="CedulaA" />
-                <ScalarProperty Name="Diametro" ColumnName="Diametro" />
                 <ScalarProperty Name="CedulaID" ColumnName="CedulaID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -12115,6 +12424,44 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
                 <ScalarProperty Name="OrdenTrabajoSpoolID" ColumnName="OrdenTrabajoSpoolID" />
                 <ScalarProperty Name="ProyectoID" ColumnName="ProyectoID" />
                 <ScalarProperty Name="PreDespachoID" ColumnName="PreDespachoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_EquivalenciaDiametro">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_EquivalenciaDiametro">
+              <MappingFragment StoreEntitySet="Sam3_EquivalenciaDiametro">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Sam3_DiametroID" ColumnName="Sam3_DiametroID" />
+                <ScalarProperty Name="Sam2_DiametroID" ColumnName="Sam2_DiametroID" />
+                <ScalarProperty Name="EquivalenciaDiametroID" ColumnName="EquivalenciaDiametroID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Rel_ItemCode_Diametro">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_ItemCode_Diametro">
+              <MappingFragment StoreEntitySet="Sam3_Rel_ItemCode_Diametro">
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Diametro2ID" ColumnName="Diametro2ID" />
+                <ScalarProperty Name="Diametro1ID" ColumnName="Diametro1ID" />
+                <ScalarProperty Name="ItemCodeID" ColumnName="ItemCodeID" />
+                <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sam3_Rel_ItemCodeSteelgo_Diametro">
+            <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro">
+              <MappingFragment StoreEntitySet="Sam3_Rel_ItemCodeSteelgo_Diametro">
+                <ScalarProperty Name="Rel_ItemCodeSteelgo_Diametro_ID" ColumnName="Rel_ItemCodeSteelgo_Diametro_ID" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Diametro2ID" ColumnName="Diametro2ID" />
+                <ScalarProperty Name="Diametro1ID" ColumnName="Diametro1ID" />
+                <ScalarProperty Name="ItemCodeSteelgoID" ColumnName="ItemCodeSteelgoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

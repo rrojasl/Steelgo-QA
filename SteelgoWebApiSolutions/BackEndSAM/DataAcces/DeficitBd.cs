@@ -174,8 +174,8 @@ namespace BackEndSAM.DataAcces
                                                         && rics.Activo && ics.Activo
                                                         select new DiametrosItemCode
                                                         {
-                                                            Diametro1 = ics.Diametro1.ToString(),
-                                                            Diametro2 = ics.Diametro2.ToString()
+                                                            //Diametro1 = ics.Diametro1.ToString(),
+                                                            //Diametro2 = ics.Diametro2.ToString()
                                                         }).AsParallel().ToList();
 
                     //List<DiametrosItemCode> diametro = (from eq in ctx.Sam3_EquivalenciaItemCode
@@ -232,8 +232,8 @@ namespace BackEndSAM.DataAcces
                                      {
                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                          ItemCode = ic.Codigo,
-                                         Diametro1 = ics.Diametro1.ToString(),
-                                         Diametro2 = ics.Diametro2.ToString(),
+                                         //Diametro1 = ics.Diametro1.ToString(),
+                                         //Diametro2 = ics.Diametro2.ToString(),
                                          Descripcion = ics.DescripcionEspanol,
                                          DeficitTotal = (from dm in ctx.Sam3_DeficitMateriales
                                                          where dm.Activo
@@ -273,8 +273,8 @@ namespace BackEndSAM.DataAcces
                                      {
                                          ItemCodeID = ic.ItemCodeID.ToString(),
                                          ItemCode = ic.Codigo,
-                                         Diametro1 = ics.Diametro1.ToString(),
-                                         Diametro2 = ics.Diametro2.ToString(),
+                                         //Diametro1 = ics.Diametro1.ToString(),
+                                         //Diametro2 = ics.Diametro2.ToString(),
                                          Descripcion = ics.DescripcionEspanol,
                                          DeficitTotal = "0"
                                      }).AsParallel().ToList();
@@ -373,8 +373,8 @@ namespace BackEndSAM.DataAcces
                                            {
                                                ItemCode = ic.Codigo,
                                                ItemCodeID = ic.ItemCodeID.ToString(),
-                                               Diametro1 = ics.Diametro1.ToString(),
-                                               Diametro2 = ics.Diametro2.ToString(),
+                                               //Diametro1 = ics.Diametro1.ToString(),
+                                               //Diametro2 = ics.Diametro2.ToString(),
                                                Descripcion = ics.DescripcionEspanol
                                            }).AsParallel().ToList();
                         });
@@ -582,14 +582,14 @@ namespace BackEndSAM.DataAcces
                                                                 ItemCode = (from ic in ctx.Sam3_ItemCode
                                                                             where ic.ItemCodeID == dm.ItemCodeID && ic.Activo
                                                                             select ic.Codigo).FirstOrDefault(),
-                                                                Diametro1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                                             join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                                             where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
-                                                                             select ics.Diametro1).FirstOrDefault().ToString(),
-                                                                Diametro2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                                             join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                                             where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
-                                                                             select ics.Diametro2).FirstOrDefault().ToString(),
+                                                                //Diametro1 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                                //             join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                //             where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
+                                                                //             select ics.Diametro1).FirstOrDefault().ToString(),
+                                                                //Diametro2 = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                                                                //             join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                                //             where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
+                                                                //             select ics.Diametro2).FirstOrDefault().ToString(),
                                                                 Descripcion = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
                                                                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                                                where rics.Activo && ics.Activo && rics.ItemCodeID == dm.ItemCodeID
@@ -700,8 +700,8 @@ namespace BackEndSAM.DataAcces
                                                {
                                                    ItemCode = ic.Codigo,
                                                    ItemCodeID = ic.ItemCodeID.ToString(),
-                                                   Diametro1 = ics.Diametro1.ToString(),
-                                                   Diametro2 = ics.Diametro2.ToString(),
+                                                   //Diametro1 = ics.Diametro1.ToString(),
+                                                   //Diametro2 = ics.Diametro2.ToString(),
                                                    Descripcion = ics.DescripcionEspanol
                                                }).AsParallel().ToList();
                             });

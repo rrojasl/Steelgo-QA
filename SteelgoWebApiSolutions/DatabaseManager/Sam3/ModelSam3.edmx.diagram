@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="101">
+      <Diagram DiagramId="1c274ecca0a047e79318b49884820233" Name="Diagram1" ZoomLevel="91">
         <EntityTypeShape EntityType="ModelSam3.Sam3_Acero" Width="1.5" PointX="3" PointY="29.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Chofer" Width="1.5" PointX="3" PointY="43.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Cliente" Width="1.5" PointX="3.75" PointY="40.75" IsExpanded="true" />
@@ -214,15 +214,12 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__Proye__65E11278" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Foli__TipoU__66D536B1" />
         <AssociationConnector Association="ModelSam3.FK_Sam3_Recepcion_Sam3_FolioCuantificacion" />
-        <AssociationConnector Association="ModelSam3.FK__Rel_Bulto__ItemC__78F3E6EC" />
-        <AssociationConnector Association="ModelSam3.FK__Rel_Folio__ItemC__742F31CF" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_ItemCodeSteelgo" Width="1.5" PointX="20.25" PointY="26.875" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_ItemCode_ItemCodeSteelgo" Width="1.5" PointX="22.5" PointY="31.25" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__027D5126" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0371755F" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_OrdenRecepcion" Width="1.5" PointX="21.25" PointY="50.5" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode" Width="1.5" PointX="23.5" PointY="42.375" />
-        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__0B129727" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Orden__0A1E72EE" />
         <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion" Width="1.5" PointX="23.5" PointY="64.375" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Folio__0EE3280B" />
@@ -318,6 +315,21 @@
         <AssociationConnector Association="ModelSam3.FK__Sam3_PreD__Numer__19B5BC39" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_PreD__Proye__1AA9E072" />
         <AssociationConnector Association="ModelSam3.FK__Sam3_Proy__TipoU__1C9228E4" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_EquivalenciaDiametro" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_ItemCode_Diametro" Width="1.5" PointX="13.5" PointY="18.5" />
+        <EntityTypeShape EntityType="ModelSam3.Sam3_Rel_ItemCodeSteelgo_Diametro" Width="1.5" PointX="22.5" PointY="16.625" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Diame__45943E77" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Diame__468862B0" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Diame__4B4D17CD" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Diame__4C413C06" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__477C86E9" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___ItemC__4D35603F" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__613C58EC" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6324A15E" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6AC5C326" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__69D19EED" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98" />
+        <AssociationConnector Association="ModelSam3.FK__Sam3_Cedu__Diame__6F8A7843" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

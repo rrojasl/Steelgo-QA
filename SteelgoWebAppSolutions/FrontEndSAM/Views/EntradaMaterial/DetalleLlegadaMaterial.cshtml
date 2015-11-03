@@ -1127,7 +1127,7 @@
             $("#PatioID").data("kendoComboBox").enable();
             $("#Descripcion").removeAttr('disabled');
             $("#AdjuntarArchivos").data("kendoUpload").enable();
-
+            $(".k-upload-selected").removeAttr("disabled", "disabled");
             if (Estatus.Nombre == _estatus) {
                 if ($("#hdnOrdenDescargada").val() == "true") {
                     $("#GenerarOrdenDescarga").attr("disabled", "disabled");
@@ -1152,7 +1152,7 @@
             $("#Descripcion").attr('disabled', 'disabled');
             $("#AdjuntarArchivos").data("kendoUpload").enable(false);
             $("#GenerarOrdenDescarga").attr('disabled', 'disabled');
-            
+            $(".k-upload-selected").attr("disabled", "disabled")
             DesahabilitarObtenerDocumentosLlegadaMaterial();
             applySecurityPolicy(false);
         };

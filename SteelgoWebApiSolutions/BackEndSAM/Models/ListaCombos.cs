@@ -14,11 +14,8 @@ namespace BackEndSAM.Models
     public class ListaEnteros
     {
         public int ID { get; set; }
-    }
-
-    public class Entero
-    {
-        public List<ListaEnteros> ID { get; set; }
+        public int RelFCID { get; set; }
+        public int RelBID { get; set; }
     }
 
     public class FoliosItems

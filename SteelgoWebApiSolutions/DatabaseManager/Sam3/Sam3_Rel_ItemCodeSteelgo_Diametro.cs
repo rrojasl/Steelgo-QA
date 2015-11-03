@@ -12,26 +12,24 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Collections.Generic;
     
-    public partial class Sam3_Cedula
+    public partial class Sam3_Rel_ItemCodeSteelgo_Diametro
     {
-        public Sam3_Cedula()
+        public Sam3_Rel_ItemCodeSteelgo_Diametro()
         {
-            this.Sam3_ItemCodeSteelgo = new HashSet<Sam3_ItemCodeSteelgo>();
+            this.Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
         }
     
-        public int CedulaID { get; set; }
-        public string CedulaA { get; set; }
-        public string CedulaB { get; set; }
-        public string CedulaC { get; set; }
-        public decimal CedulaIn { get; set; }
-        public decimal CedulaMM { get; set; }
-        public decimal Espesor { get; set; }
+        public int ItemCodeSteelgoID { get; set; }
+        public int Diametro1ID { get; set; }
+        public int Diametro2ID { get; set; }
         public bool Activo { get; set; }
-        public int UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-        public int DiametroID { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public int Rel_ItemCodeSteelgo_Diametro_ID { get; set; }
     
-        public virtual ICollection<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
         public virtual Sam3_Diametro Sam3_Diametro { get; set; }
+        public virtual Sam3_Diametro Sam3_Diametro1 { get; set; }
+        public virtual Sam3_ItemCodeSteelgo Sam3_ItemCodeSteelgo { get; set; }
+        public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Rel_ItemCode_ItemCodeSteelgo { get; set; }
     }
 }

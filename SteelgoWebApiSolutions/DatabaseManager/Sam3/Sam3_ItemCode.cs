@@ -18,12 +18,9 @@ namespace DatabaseManager.Sam3
         {
             this.Sam3_MaterialSpool = new HashSet<Sam3_MaterialSpool>();
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
-            this.Sam3_Rel_Bulto_ItemCode = new HashSet<Sam3_Rel_Bulto_ItemCode>();
-            this.Sam3_Rel_FolioCuantificacion_ItemCode = new HashSet<Sam3_Rel_FolioCuantificacion_ItemCode>();
-            this.Sam3_Rel_ItemCode_ItemCodeSteelgo = new HashSet<Sam3_Rel_ItemCode_ItemCodeSteelgo>();
-            this.Sam3_Rel_OrdenRecepcion_ItemCode = new HashSet<Sam3_Rel_OrdenRecepcion_ItemCode>();
             this.Sam3_ColaCreacionNumerosUnicos = new HashSet<Sam3_ColaCreacionNumerosUnicos>();
             this.Sam3_Rel_Incidencia_ItemCode = new HashSet<Sam3_Rel_Incidencia_ItemCode>();
+            this.Sam3_Rel_ItemCode_Diametro = new HashSet<Sam3_Rel_ItemCode_Diametro>();
         }
     
         public int ItemCodeID { get; set; }
@@ -35,8 +32,6 @@ namespace DatabaseManager.Sam3
         public string DescripcionIngles { get; set; }
         public Nullable<decimal> Peso { get; set; }
         public string DescripcionInterna { get; set; }
-        public Nullable<decimal> Diametro1 { get; set; }
-        public Nullable<decimal> Diametro2 { get; set; }
         public Nullable<int> FamiliaAceroID { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
@@ -54,13 +49,10 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
         public virtual ICollection<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
-        public virtual ICollection<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
-        public virtual ICollection<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
-        public virtual ICollection<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
         public virtual ICollection<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
+        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
     }
 }

@@ -1726,6 +1726,11 @@ header .menu > div {
     .breadcrumb {
         padding: 19px 30px;
     }
+
+    /*$_sidebar*/
+    .sidebar .main-nav ul.main-menu li.shortcut ul.sub-menu > li a {
+        text-indent: -8px;
+    }
 }
 
 /* tablet viewport*/
