@@ -334,7 +334,10 @@ namespace BackEndSAM.DataAcces
                                           select new CatalogoCedulas
                                           {
                                               CedulaID = c.CedulaID.ToString(),
-                                              Diametro1 = c.Diametro.ToString() != "" ? c.Diametro.ToString() : "0-9999",
+                                              Diametro1 = (from ced in ctx.Sam3_Cedula 
+                                                           join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                                               where ced.Activo && d.Activo
+                                                               select d.Valor).ToString() ?? "0-9999",
                                               CedulaA = c.CedulaA,
                                               CedulaB = c.CedulaB,
                                               CedulaC = c.CedulaC,
@@ -1440,29 +1443,29 @@ namespace BackEndSAM.DataAcces
                                       where ced.Activo && ((ced.CedulaA == item.CedulaA ||
                                       ced.CedulaB == item.CedulaB ||
                                       ced.CedulaC == item.CedulaC) &&
-                                      ced.Diametro.ToString() == item.Diametro1) ||
+                                      ced.DiametroID.ToString() == item.Diametro1ID) ||
                                       ((ced.CedulaA == item.CedulaA ||
                                       ced.CedulaB == item.CedulaB ||
                                       ced.CedulaC == item.CedulaC) &&
-                                      String.IsNullOrEmpty(ced.Diametro.ToString()))
+                                      String.IsNullOrEmpty(ced.DiametroID.ToString()))
                                       select ced.CedulaID).Any();
 
                             int id = (from ced in ctx.Sam3_Cedula
                                       where ced.Activo && ((ced.CedulaA == item.CedulaA ||
                                       ced.CedulaB == item.CedulaB ||
                                       ced.CedulaC == item.CedulaC) &&
-                                      ced.Diametro.ToString() == item.Diametro1) ||
+                                      ced.DiametroID.ToString() == item.Diametro1ID) ||
                                       ((ced.CedulaA == item.CedulaA ||
                                       ced.CedulaB == item.CedulaB ||
                                       ced.CedulaC == item.CedulaC) &&
-                                      String.IsNullOrEmpty(ced.Diametro.ToString()))
+                                      String.IsNullOrEmpty(ced.DiametroID.ToString()))
                                       select ced.CedulaID).AsParallel().SingleOrDefault();
                         }
                         if (!existe) //Insert
                         {
                             Sam3_Cedula cedulas = new Sam3_Cedula();
 
-                            cedulas.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
+                            cedulas.DiametroID = String.IsNullOrEmpty(item.Diametro1ID.ToString()) ? (int?)null : Convert.ToInt32(item.Diametro1);
                             cedulas.CedulaA = item.CedulaA;
                             cedulas.CedulaB = item.CedulaB;
                             cedulas.CedulaC = item.CedulaC;
@@ -1479,7 +1482,7 @@ namespace BackEndSAM.DataAcces
                             cedulasCorrectas.Add(new CatalogoCedulas
                             {
                                 EstatusCorrecto = true,
-                                Diametro1 = cedulas.Diametro.ToString(),
+                                Diametro1 = cedulas.DiametroID.ToString(),
                                 CedulaID = cedulas.CedulaID.ToString(),
                                 CedulaA = cedulas.CedulaA,
                                 CedulaB = cedulas.CedulaB,
@@ -1497,11 +1500,11 @@ namespace BackEndSAM.DataAcces
                             ((x.CedulaA == item.CedulaA ||
                                       x.CedulaB == item.CedulaB ||
                                       x.CedulaC == item.CedulaC) &&
-                                      x.Diametro.ToString() == item.Diametro1) ||
+                                      x.DiametroID.ToString() == item.Diametro1ID) ||
                                       ((x.CedulaA == item.CedulaA ||
                                       x.CedulaB == item.CedulaB ||
                                       x.CedulaC == item.CedulaC) &&
-                                      String.IsNullOrEmpty(x.Diametro.ToString()))).AsParallel().SingleOrDefault();
+                                      String.IsNullOrEmpty(x.DiametroID.ToString()))).AsParallel().SingleOrDefault();
 
 
                             //(x.Diametro.ToString() == item.Diametro1 && (x.CedulaA == item.CedulaA ||
@@ -1512,7 +1515,7 @@ namespace BackEndSAM.DataAcces
                             //x.CedulaB == item.CedulaB ||
                             //x.CedulaC == item.CedulaC))).AsParallel().FirstOrDefault();
 
-                            cedula.Diametro = String.IsNullOrEmpty(item.Diametro1) ? (int?)null : Convert.ToInt32(item.Diametro1);
+                            cedula.DiametroID = String.IsNullOrEmpty(item.Diametro1ID) ? (int?)null : Convert.ToInt32(item.Diametro1);
                             cedula.CedulaA = item.CedulaA;
                             cedula.CedulaB = item.CedulaB;
                             cedula.CedulaC = item.CedulaC;
@@ -1529,7 +1532,7 @@ namespace BackEndSAM.DataAcces
                             cedulasCorrectas.Add(new CatalogoCedulas
                             {
                                 EstatusCorrecto = false,
-                                Diametro1 = cedula.Diametro.ToString(),
+                                Diametro1 = cedula.DiametroID.ToString(),
                                 CedulaID = cedula.CedulaID.ToString(),
                                 CedulaA = cedula.CedulaA,
                                 CedulaB = cedula.CedulaB,
@@ -1585,15 +1588,15 @@ namespace BackEndSAM.DataAcces
                                        where c.Activo && ((c.CedulaA == item.CedulaA ||
                                   c.CedulaB == item.CedulaB ||
                                   c.CedulaC == item.CedulaC) &&
-                                  c.Diametro.ToString() == item.Diametro1) ||
+                                  c.DiametroID.ToString() == item.Diametro1) ||
                                   ((c.CedulaA == item.CedulaA ||
                                   c.CedulaB == item.CedulaB ||
                                   c.CedulaC == item.CedulaC) &&
-                                  String.IsNullOrEmpty(c.Diametro.ToString()))
+                                  String.IsNullOrEmpty(c.DiametroID.ToString()))
                                        select new CatalogoCedulas
                                        {
                                            CedulaID = c.CedulaID.ToString(),
-                                           Diametro1 = c.Diametro.ToString(),
+                                           Diametro1ID = c.DiametroID.ToString(),
                                            CedulaA = c.CedulaA,
                                            CedulaB = c.CedulaB,
                                            CedulaC = c.CedulaC,
@@ -1978,15 +1981,16 @@ namespace BackEndSAM.DataAcces
                     CatalogoCedulas cedula = new CatalogoCedulas();
 
                     List<CatalogoCedulas> lista = (from c in ctx.Sam3_Cedula
-                                                   where c.Activo
-                                                       //&& c.Diametro.ToString() == datosCedulas.Diametro
+                                                   join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
+                                                   where d.Activo && c.Activo 
                                                    && (!String.IsNullOrEmpty(datosCedulas.CedulaA) ? c.CedulaA == datosCedulas.CedulaA :
                                                    !String.IsNullOrEmpty(datosCedulas.CedulaB) ? c.CedulaB == datosCedulas.CedulaB :
-                                                   !String.IsNullOrEmpty(datosCedulas.CedulaC) ? c.CedulaC == datosCedulas.CedulaC : c.Diametro.ToString() == datosCedulas.Diametro1)
+                                                   !String.IsNullOrEmpty(datosCedulas.CedulaC) ? c.CedulaC == datosCedulas.CedulaC : c.DiametroID.ToString() == datosCedulas.Diametro1ID)
                                                    select new CatalogoCedulas
                                                    {
                                                        CedulaID = c.CedulaID.ToString(),
-                                                       Diametro1 = c.Diametro.ToString(),
+                                                       Diametro1ID = c.DiametroID.ToString(),
+                                                       Diametro1 = d.Valor.ToString(),
                                                        CedulaA = c.CedulaA,
                                                        CedulaB = c.CedulaB,
                                                        CedulaC = c.CedulaC,
@@ -1995,9 +1999,9 @@ namespace BackEndSAM.DataAcces
                                                        Espesor = c.Espesor.ToString()
                                                    }).AsParallel().ToList();
 
-                    cedula = lista.Where(x => x.Diametro1 == datosCedulas.Diametro1).Count() == 0 ?
-                        lista.Where(x => x.Diametro1 == "").AsParallel().SingleOrDefault() :
-                        lista.Where(x => x.Diametro1 == datosCedulas.Diametro1).AsParallel().SingleOrDefault();
+                    cedula = lista.Where(x => x.Diametro1ID == datosCedulas.Diametro1ID).Count() == 0 ?
+                        lista.Where(x => x.Diametro1ID == "").AsParallel().SingleOrDefault() :
+                        lista.Where(x => x.Diametro1ID == datosCedulas.Diametro1ID).AsParallel().SingleOrDefault();
 
                     return cedula;
                 }
