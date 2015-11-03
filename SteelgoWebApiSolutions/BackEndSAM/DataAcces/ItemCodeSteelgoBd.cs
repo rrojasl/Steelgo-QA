@@ -104,7 +104,7 @@ namespace BackEndSAM.DataAcces
                                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                                  join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
                                                  where r.Activo && rel.Activo && item.Activo 
-                                                 && rid.ItemCodeID.ToString() == itemcode
+                                                 && rid.Rel_ItemCode_Diametro_ID.ToString() == itemcode
                                                  select new ListaCombos
                                                  {
                                                      id = rids.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
