@@ -1479,6 +1479,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_ProyectoConfiguracion' does 
           <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="UsuarioModificacion" Type="int" />
           <Property Name="Rel_ItemCode_Diametro_ID" Type="int" />
+          <Property Name="Cantidad" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -9037,6 +9038,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <NavigationProperty Name="Sam3_OrdenRecepcion" Relationship="ModelSam3.FK__Sam3_Rel___Orden__0A1E72EE" FromRole="Sam3_Rel_OrdenRecepcion_ItemCode" ToRole="Sam3_OrdenRecepcion" />
           <Property Name="Rel_ItemCode_Diametro_ID" Type="Int32" />
           <NavigationProperty Name="Sam3_Rel_ItemCode_Diametro" Relationship="ModelSam3.FK__Sam3_Rel___Rel_I__6CAE0B98" FromRole="Sam3_Rel_OrdenRecepcion_ItemCode" ToRole="Sam3_Rel_ItemCode_Diametro" />
+          <Property Name="Cantidad" Type="Int32" />
         </EntityType>
         <Association Name="FK__Sam3_Rel___Orden__0A1E72EE">
           <End Type="ModelSam3.Sam3_OrdenRecepcion" Role="Sam3_OrdenRecepcion" Multiplicity="1" />
@@ -11842,6 +11844,7 @@ warning 6002: The table/view 'steelgo-sam3.dbo.Sam3_Rel_Perfil_Entidad_Pagina' d
           <EntitySetMapping Name="Sam3_Rel_OrdenRecepcion_ItemCode">
             <EntityTypeMapping TypeName="ModelSam3.Sam3_Rel_OrdenRecepcion_ItemCode">
               <MappingFragment StoreEntitySet="Sam3_Rel_OrdenRecepcion_ItemCode">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Rel_ItemCode_Diametro_ID" ColumnName="Rel_ItemCode_Diametro_ID" />
                 <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
                 <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
