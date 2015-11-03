@@ -34,11 +34,11 @@
 
             <div id="D1_ItemCodeDiv" class="form-group">
                 <label id="Cuantificacion0030"></label>
-                <input id="D1_ItemCode" class="general-input" />
+                <input id="D1_ItemCode" class="" />
             </div>
             <div id="D2_ItemCodeDiv" class="form-group">
                 <label id="Cuantificacion0031"></label>
-                <input id="D2_ItemCode" class="general-input" />
+                <input id="D2_ItemCode" class="" />
             </div>
 
 
@@ -176,11 +176,11 @@
         //ObtenerColada("Colada_ItemCode", 0, 0);
 
         $("#D1_ItemCode").kendoComboBox({
-            dataTextField: "Valor",
-            dataValueField: "DiametroID",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro1(dataItem.Valor);
+                CargarDiametro1(dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
@@ -195,11 +195,11 @@
         ObtenerDiametros("D1_ItemCode");
 
         $("#D2_ItemCode").kendoComboBox({
-            dataTextField: "Valor",
-            dataValueField: "DiametroID",
+            dataTextField: "value",
+            dataValueField: "id",
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                CargarDiametro2(dataItem.Valor);
+                CargarDiametro2(dataItem.value);
             },
             change: function (e) {
                 var value = this.value();
