@@ -173,7 +173,8 @@ function modificartextoKendoCombobox(controls, lng) {
 };
 
 function esNumero(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
+    var patron = /^\d*$/;
+    return patron.test(n);
 }
 
 //Ajusta el tamaño de los filtros rápidos a las columnas del grid
