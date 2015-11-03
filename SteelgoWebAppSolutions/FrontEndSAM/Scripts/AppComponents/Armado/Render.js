@@ -130,7 +130,18 @@ function RenderGridDetalle(container, options) {
                       Observacion: { type: "string", editable: true }
                   }
               }
-          }
+          },
+          filter: {
+              logic: "or",
+              filters: [
+                { field: "Accion", operator: "eq", value: 1 },
+                { field: "Accion", operator: "eq", value: 2 }
+              ]
+          },
+          pageSize: 20,
+          serverPaging: false,
+          serverFiltering: false,
+          serverSorting: false
       },
       selectable: true,
       dataBinding: function (e) {
@@ -154,10 +165,13 @@ function RenderGridDetalle(container, options) {
                 text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                 click: function (e) {
                     e.preventDefault();
-                    var dataItem = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+
                     if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
 
-                        var dataSource = $("#" + options.model.SpoolID + '' + options.model.Junta).data("kendoGrid").dataSource;
+                        var dataSource = this.dataSource;
 
                         if (dataItem.JuntaArmadoID == "1")
                             dataSource.remove(dataItem);
@@ -165,9 +179,18 @@ function RenderGridDetalle(container, options) {
                         dataItem.Accion = 3;
 
 
-                        actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
+                        
+                        var filters = dataSource.filter();
+                        var allData = dataSource.data();
+                        var query = new kendo.data.Query(allData);
+                        var data = query.filter(filters).data;
+
+                        actuallongitudTrabajosAdicionales = data.length;
 
                         options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+
+
+                        this.dataSource.sync();
 
                     }
                 }
