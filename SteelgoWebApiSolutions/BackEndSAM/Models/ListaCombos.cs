@@ -16,6 +16,7 @@ namespace BackEndSAM.Models
         public int ID { get; set; }
         public int RelFCID { get; set; }
         public int RelBID { get; set; }
+        public int Cantidad { get; set; }
     }
 
     public class FoliosItems
