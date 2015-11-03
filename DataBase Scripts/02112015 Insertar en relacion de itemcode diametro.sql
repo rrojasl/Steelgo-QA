@@ -104,3 +104,48 @@ begin catch
 	rollback tran
 end catch
 go
+
+begin try
+begin tran
+
+	DECLARE @relItemCodeSteelgoID int, @relItemCodeID int, @id int,
+	@id1 int, @id2 int
+
+	DECLARE RecorrerRegistros CURSOR FOR
+	SELECT ItemCodeSteelgoID, ItemCodeID, Rel_ItemCode_ItemCodeSteelgo 
+		FROM Sam3_Rel_ItemCode_ItemCodeSteelgo where Activo = 1
+	OPEN RecorrerRegistros
+	FETCH NEXT FROM RecorrerRegistros INTO @relItemCodeSteelgoID, @relItemCodeID, @id
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		
+		set @id1 = (
+			select Rel_ItemCode_Diametro_ID from sam3_Rel_ItemCode_Diametro
+			where ItemCodeID = @relItemCodeID
+		)
+
+		set @id2 = (
+			select Rel_ItemCodeSteelgo_Diametro_ID 
+			from Sam3_Rel_ItemCodeSteelgo_Diametro
+			where ItemCodeSteelgoID = @relItemCodeSteelgoID
+		)
+
+		update Sam3_Rel_ItemCode_ItemCodeSteelgo set 
+			Rel_ItemCode_Diametro_ID = @id1,
+			Rel_ItemCodeSteelgo_Diametro_ID = @id2
+		Where Rel_ItemCode_ItemCodeSteelgo = @id
+		and ItemCodeID = @relItemCodeID and ItemCodeSteelgoID = @relItemCodeSteelgoID
+		
+
+		FETCH NEXT FROM RecorrerRegistros INTO @relItemCodeSteelgoID, @relItemCodeID, @id
+	END
+	CLOSE RecorrerRegistros;
+	DEALLOCATE RecorrerRegistros;
+
+commit tran
+end try
+begin catch
+	EXECUTE Sam3_GetErrorInfo;
+	rollback tran
+end catch
+go

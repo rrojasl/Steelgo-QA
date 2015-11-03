@@ -58,56 +58,21 @@ namespace BackEndSAM.DataAcces
                     //Para cuando no es la pantalla de Bulto
                     if (bultoID == 0)
                     {
-                    listado = (from fc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                               join rid in ctx.Sam3_Rel_ItemCode_Diametro on fc.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
-                               join ic in ctx.Sam3_ItemCode on rid.ItemCodeID equals ic.ItemCodeID
-                               where fc.FolioCuantificacionID == folioCuantificacion && ic.Activo && fc.Activo
-                               select new CuantificacionListado
-                               {
-                                   ItemCode = ic.Codigo,
-                                   ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),//ic.ItemCodeID.ToString(),
+                        listado = (from fc in ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on fc.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                   join ic in ctx.Sam3_ItemCode on rid.ItemCodeID equals ic.ItemCodeID
+                                   where fc.FolioCuantificacionID == folioCuantificacion && ic.Activo && fc.Activo
+                                   select new CuantificacionListado
+                                   {
+                                       ItemCode = ic.Codigo,
+                                       ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),//ic.ItemCodeID.ToString(),
 
-                                   Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ? "Si" : "No",
+                                       Detallar = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ? "Si" : "No",
 
-                                   BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ?
-                                    ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
+                                       BultoID = ctx.Sam3_Rel_Bulto_ItemCode.Where(c => c.ItemCodeID == ic.ItemCodeID && c.Activo && ic.Activo).Any() ?
+                                        ctx.Sam3_Rel_Bulto_ItemCode.Select(b => b.BultoID.ToString()).FirstOrDefault() : "",
 
-                                   Descripcion = (from fcu in ctx.Sam3_FolioCuantificacion
-                                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                  join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
-                                                  join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
-                                                  join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                                  join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                  where fcu.FolioCuantificacionID == folioCuantificacion
-                                                  && rdi.ItemCodeID == ic.ItemCodeID
-                                                  select ics.DescripcionEspanol).FirstOrDefault(),
-
-                                   D1 = (from fcu in ctx.Sam3_FolioCuantificacion
-                                         join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                         join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
-                                         join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
-                                         join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                         join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                         join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
-                                         where fcu.FolioCuantificacionID == folioCuantificacion
-                                         && rdi.ItemCodeID == ic.ItemCodeID
-                                         select d1.Valor).FirstOrDefault(),
-
-                                   D2 = (from fcu in ctx.Sam3_FolioCuantificacion
-                                         join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                         join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
-                                         join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
-                                         join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                         join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                         join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                                         where fcu.FolioCuantificacionID == folioCuantificacion
-                                         && rdi.ItemCodeID == ic.ItemCodeID
-                                         select d2.Valor).FirstOrDefault(),
-
-                                   Cantidad = fc.Cantidad,
-                                   MM = ic.MM,
-
-                                   ItemCodeSteelgo = (from fcu in ctx.Sam3_FolioCuantificacion
+                                       Descripcion = (from fcu in ctx.Sam3_FolioCuantificacion
                                                       join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
                                                       join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
                                                       join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
@@ -115,92 +80,139 @@ namespace BackEndSAM.DataAcces
                                                       join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                       where fcu.FolioCuantificacionID == folioCuantificacion
                                                       && rdi.ItemCodeID == ic.ItemCodeID
-                                                      select ics.Codigo).FirstOrDefault(),
+                                                      select ics.DescripcionEspanol).FirstOrDefault(),
 
-                                   ItemCodeSteelgoID = (from fcu in ctx.Sam3_FolioCuantificacion
-                                                        join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                        join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
-                                                        join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
-                                                        join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                                        join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                        where fcu.FolioCuantificacionID == folioCuantificacion
-                                                        && rdi.ItemCodeID == ic.ItemCodeID
-                                                        select rids.Rel_ItemCodeSteelgo_Diametro_ID).FirstOrDefault().ToString(),
+                                       D1 = (from fcu in ctx.Sam3_FolioCuantificacion
+                                             join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                             join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                             join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                             join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                             join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                             join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                             where fcu.FolioCuantificacionID == folioCuantificacion
+                                             && rdi.ItemCodeID == ic.ItemCodeID
+                                             select d1.Valor).FirstOrDefault(),
 
-                                   Familia = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                              join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
-                                              join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                              join rid2 in ctx.Sam3_Rel_ItemCode_Diametro on rics.Rel_ItemCode_Diametro_ID equals rid2.Rel_ItemCode_Diametro_ID
-                                              join it in ctx.Sam3_ItemCode on rid2.ItemCodeID equals it.ItemCodeID
-                                              join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
-                                              where rics.Activo && ics.Activo && it.Activo
-                                              && rid2.ItemCodeID == rid.ItemCodeID
-                                              select fa.Nombre).FirstOrDefault(),
+                                       D2 = (from fcu in ctx.Sam3_FolioCuantificacion
+                                             join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                             join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                             join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                             join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                             join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                             join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
+                                             where fcu.FolioCuantificacionID == folioCuantificacion
+                                             && rdi.ItemCodeID == ic.ItemCodeID
+                                             select d2.Valor).FirstOrDefault(),
 
-                                   Cedula = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                             join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                             join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
-                                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
-                                             join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
-                                             where rics.Activo && ics.Activo && it.Activo && c.Activo && d.Activo
-                                             && rics.ItemCodeID == fc.ItemCodeID
-                                             select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
+                                       Cantidad = fc.Cantidad,
+                                       MM = ic.MM,
 
-                                   Colada = (from c in ctx.Sam3_Colada
-                                             where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
-                                             select c.NumeroColada).FirstOrDefault(),
+                                       ItemCodeSteelgo = (from fcu in ctx.Sam3_FolioCuantificacion
+                                                          join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                          join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                                          join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                          join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                          join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                          where fcu.FolioCuantificacionID == folioCuantificacion
+                                                          && rdi.ItemCodeID == ic.ItemCodeID
+                                                          select ics.Codigo).FirstOrDefault(),
 
-                                   TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
-                                                join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
-                                                join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                                                where rics.Activo && ics.Activo && it.Activo
-                                                && rics.ItemCodeID == fc.ItemCodeID
-                                                select fm.Nombre).FirstOrDefault(),
+                                       ItemCodeSteelgoID = (from fcu in ctx.Sam3_FolioCuantificacion
+                                                            join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                            join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                                            join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                            join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                            join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                            where fcu.FolioCuantificacionID == folioCuantificacion
+                                                            && rdi.ItemCodeID == ic.ItemCodeID
+                                                            select rids.Rel_ItemCodeSteelgo_Diametro_ID).FirstOrDefault().ToString(),
 
-                                   TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
-                                    ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial", 
-                                    RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString()
+                                       Familia = (from fcu in ctx.Sam3_FolioCuantificacion
+                                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                  join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                                  join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                  join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                  join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                  join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                                  where fcu.FolioCuantificacionID == folioCuantificacion
+                                                  && rdi.ItemCodeID == ic.ItemCodeID
+                                                  select fa.Nombre).FirstOrDefault().ToString(),
 
-                               }).AsParallel().ToList();
+                                       Cedula = (from fcu in ctx.Sam3_FolioCuantificacion
+                                                 join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                 join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                                 join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                 join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                 join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                 join ced in ctx.Sam3_Cedula on ics.CedulaID equals ced.CedulaID
+                                                 join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                                 where fcu.FolioCuantificacionID == folioCuantificacion
+                                                 && rdi.ItemCodeID == ic.ItemCodeID
+                                                 select d1.Valor.ToString() + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault().ToString(),
+                                       //select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
 
-                    listadoBultos = (from b in ctx.Sam3_Bulto
-                                     where b.FolioCuantificacionID == folioCuantificacion && b.Activo
-                                     select new CuantificacionListado
-                                     {
-                                         ItemCode = "Bulto No. " + b.BultoID.ToString(),
-                                         Detallar = "Si",
-                                         Cantidad = 1,
-                                         BultoID = b.BultoID.ToString()
-                                     }).AsParallel().ToList();
+                                       Colada = (from c in ctx.Sam3_Colada
+                                                 where c.ColadaID == ic.ColadaID && c.Activo && ic.Activo
+                                                 select c.NumeroColada).FirstOrDefault(),
 
-                    listado.AddRange(listadoBultos);
+                                       TipoAcero = (from fcu in ctx.Sam3_FolioCuantificacion
+                                                    join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fcu.FolioCuantificacionID equals rfi.FolioCuantificacionID
+                                                    join rdi in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rdi.Rel_ItemCode_Diametro_ID
+                                                    join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                                    join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                    join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                                    join fa in ctx.Sam3_FamiliaAcero on ics.FamiliaAceroID equals fa.FamiliaAceroID
+                                                    join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
+                                                    where fcu.FolioCuantificacionID == folioCuantificacion
+                                                    && rdi.ItemCodeID == ic.ItemCodeID
+                                                    select fm.Nombre).FirstOrDefault().ToString(),
 
-                    
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
+                                            ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == fc.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
+                                            RelFCId = fc.Rel_FolioCuantificacion_ItemCode_ID.ToString()
+
+                                   }).AsParallel().ToList();
+
+                        listadoBultos = (from b in ctx.Sam3_Bulto
+                                         where b.FolioCuantificacionID == folioCuantificacion && b.Activo
+                                         select new CuantificacionListado
+                                         {
+                                             ItemCode = "Bulto No. " + b.BultoID.ToString(),
+                                             Detallar = "Si",
+                                             Cantidad = 1,
+                                             BultoID = b.BultoID.ToString()
+                                         }).AsParallel().ToList();
+
+                        listado.AddRange(listadoBultos);
+
+
 
                     }
                     else //Cuando es la pantalla de Bulto
                     {
                         listado = (from rbic in ctx.Sam3_Rel_Bulto_ItemCode
-                                   join ic in ctx.Sam3_ItemCode on rbic.ItemCodeID equals ic.ItemCodeID
-                                   join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
-                                   join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
+                                   join rid in ctx.Sam3_Rel_ItemCode_Diametro on rbic.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                   join ic in ctx.Sam3_ItemCode on rid.ItemCodeID equals ic.ItemCodeID
+                                   join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
+                                   join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                   join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                    join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                   join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
+                                   join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
                                    where rbic.BultoID == bultoID && ic.Activo && rics.Activo && ics.Activo && rbic.Activo && c.Activo
                                    select new CuantificacionListado
                                    {
                                        ItemCode = ic.Codigo,
-                                       ItemCodeID = ic.ItemCodeID.ToString(),
+                                       ItemCodeID = rid.Rel_ItemCode_Diametro_ID.ToString(),
                                        Detallar = "No",
                                        BultoID = rbic.BultoID.ToString(),
                                        Descripcion = ics.DescripcionEspanol,
-                                       //D1 = ics.Diametro1,
-                                       //D2 = ics.Diametro2,
+                                       D1 = d1.Valor,
+                                       D2 = d2.Valor,
                                        Cantidad = rbic.Cantidad,
                                        MM = ic.MM,
-                                       ItemCodeSteelgo = ics.Codigo,//ric.ItemCodeSteelgoID.ToString(),
-
+                                       ItemCodeSteelgo = ics.Codigo,
+                                       ItemCodeSteelgoID =  rids.ItemCodeSteelgoID.ToString(),
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
                                                   select fa.Nombre).FirstOrDefault(),
@@ -216,9 +228,9 @@ namespace BackEndSAM.DataAcces
                                                     where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && fm.Activo
                                                     select fm.Nombre).FirstOrDefault(),
 
-                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" : 
+                                       TieneNU = ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == rbic.ItemCodeID && n.Activo && ic.Activo) == ic.Cantidad ? "Si" :
                                             ctx.Sam3_NumeroUnico.Count(n => n.ItemCodeID == ic.ItemCodeID && n.Activo && ic.Activo) == 0 ? "No" : "Parcial",
-                                        RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString()
+                                       RelBID = rbic.Rel_Bulto_ItemCode_ID.ToString()
                                    }).AsParallel().ToList();
                     }
                 }
