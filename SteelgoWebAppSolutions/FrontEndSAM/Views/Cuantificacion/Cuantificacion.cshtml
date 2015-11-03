@@ -948,7 +948,8 @@
                                 TieneError: { type: "boolean", defaultValue: false, editable: false },
                                 RelFCId: { type: "string",defaultValue:"", editable: false },
                                 RelBID: { type: "string", defaultValue: "", editable: false },
-                                ItemCodeID: { type: "string", defaultValue: "", editable: false }
+                                ItemCodeID: { type: "string", defaultValue: "", editable: false },
+                                ItemCodeSteelgoID: { type: "string", defaultValue: "", editable: false }
                             }
                         }
                     },
@@ -2675,13 +2676,13 @@
         
         function ObtenerItemCodeSteelgo(dataJson, key, error) {
             if (dataJson[key]) {
-                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", token: Cookies.get("token") }).done(function (data) {
+                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", d1: dataJson[key].D1, d2: dataJson[key].D2, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
                     if (data) {
                         error = ErrorInsertandoItems(data, error, dataJson[key]);
                         if (ErrorBool(data)) {
                             var item =
-                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
+                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.Descripcion, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.ItemCodeSteelgo, Familia: itemCodesJsonSteelgo.FamiliaAcero, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: itemCodesJsonSteelgo.MM, Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: itemCodesJsonSteelgo.ItemCodeID, ItemCodeSteelgoID: itemCodesJsonSteelgo.ItemCodeSteelgoID };
                             $("#grid").data("kendoGrid").dataSource.insert(item);
                         } else {
                             cargarGridErrores(dataJson[key]);
@@ -2704,38 +2705,7 @@
             };
         };
 
-        function ObtenerItemCodeSteelgoDuplicados(dataJson, key, error,guardarynuevo, idGuardado) {
-            if (dataJson[key]) {
-                $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: dataJson[key].ItemCode, itemsteelgo: "", token: Cookies.get("token") }).done(function (data) {
-                    itemCodesJsonSteelgo = data;
-                    if (data) {
-                        error = ErrorInsertandoItems(data, error, dataJson[key]);
-                        if (ErrorBool(data)) {
-                            var item =
-                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.DescripcionEspanol, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.Codigo, Familia: itemCodesJsonSteelgo.Familia, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: "", Detallar: "No", TieneNU: "No", TieneError: false };
-                            $("#grid").data("kendoGrid").dataSource.insert(item);
-                        } else {
-                            cargarGridErrores(dataJson[key]);
-                        }
-                    } else {
-                        error += "," + dataJson[key].ItemCode;
-                        cargarGridErrores(dataJson[key]);
-                    };
-
-                    key++;
-                    ObtenerItemCodeSteelgoDuplicados(dataJson, key, error, guardarynuevo, idGuardado);
-                });
-            } else {
-                loadingStop();
-                ordenamientoGrid();
-                GuardarParcial(guardarynuevo, idGuardado);
-
-                if (error) {
-                    displayMessage("notificationslabel0047", error, '2');
-                    return;
-                }
-            };
-        };
+      
         function CancelarPadre() { };
         function browserSupportFileUpload() {
             var isCompatible = false;
@@ -2916,7 +2886,7 @@
             var z = 0;
             for (var i = 1; i < lines.length; i++) {
                 if (lines[i]) {
-                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", MM: "", D1: 0, D2: 0, ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[1]), Detallar: "No", TieneNU: "No", TieneError: false };
+                    records[z] = { ItemCode: lines[i].split(",")[0], Descripcion: "", D1: Number(lines[i].split(",")[1]), D2: Number(lines[i].split(",")[2]), ItemCodeSteelgo: "", Familia: "", Cedula: "", TipoAcero: "", Colada: "", Cantidad: Number(lines[i].split(",")[3]), MM: "", Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: "", ItemCodeSteelgoID: "" };
                     z++;
                 }
             }

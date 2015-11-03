@@ -279,18 +279,20 @@ namespace BackEndSAM.DataAcces
                                    join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeID equals riit.ItemCodeID
                                    join ics in ctx.Sam3_ItemCodeSteelgo on riit.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
+                                   join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                   join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                    where r.Activo && riit.Activo && ics.Activo && rid.Activo
                                    && rid.Rel_ItemCode_Diametro_ID == RelItemID
                                    select new ItemCodeJson
                                    {
-                                       ItemCodeID = r.ItemCodeID,
+                                       ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
                                        ItemCode = r.Codigo,
                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
                                        MM = r.MM, 
                                        Descripcion = ics.DescripcionEspanol,
-                                       Diametro1 = rid.Diametro1ID,
-                                       Diametro2 = rid.Diametro2ID, 
+                                       Diametro1 = d1.Valor,
+                                       Diametro2 = d2.Valor, 
                                        FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(), 
                                        Cedula = (from c in ctx.Sam3_Cedula 
                                                  where c.Activo && c.CedulaID == ics.CedulaID
@@ -312,14 +314,16 @@ namespace BackEndSAM.DataAcces
                     {
                         detalle = (from r in ctx.Sam3_ItemCode
                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
+                                   join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
+                                   join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                    where r.Activo && rid.Activo
                                     && rid.Rel_ItemCode_Diametro_ID == RelItemID
                                    select new ItemCodeJson
                                    {
-                                       ItemCodeID = r.ItemCodeID,
+                                       ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
                                        ItemCode = r.Codigo,
-                                       Diametro1 = rid.Diametro1ID,
-                                       Diametro2 = rid.Diametro2ID, 
+                                       Diametro1 = d1.Valor,
+                                       Diametro2 = d2.Valor, 
                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                        Cantidad = r.Cantidad,
                                        MM = r.MM
