@@ -32,6 +32,7 @@ namespace BackEndSAM.Models
         public string DescripcionLarga { get; set; }
         public string DescripcionIngles { get; set; }
         public string DescripcionLargaIngles { get; set; }
+        public string Rel_ICS_DiametroID { get; set; }
         public string Diametro1ID { get; set; }
         public string Diametro1 { get; set; }
         public string Diametro2ID { get; set; }
