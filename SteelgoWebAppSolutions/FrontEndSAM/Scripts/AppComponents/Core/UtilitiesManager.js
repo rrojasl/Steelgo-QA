@@ -209,3 +209,32 @@ function esNumero(n) {
         $(".quickFilters:first-of-type").outerWidth($(".quickFilters:first-of-type").outerWidth() + 0.6);
     });
 }*/
+
+//function niceDeleteTemplate() {
+//    return { command: [
+//            {
+//                name: _dictionary["KendoDeleteTxt0003"][$("#language").data("kendoDropDownList").value()],
+//                click: function(e){
+//                    var window = $("#window").kendoWindow({
+//                        title: _dictionary["KendoDeleteTxt0003"][$("#language").data("kendoDropDownList").value()],
+//                        visible: false, //the window will not appear before its .open method is called
+//                        width: "400px",
+//                        height: "200px",
+//                    }).data("kendoWindow");
+//                    var tr = $(e.target).closest("tr");
+//                    var data = this.dataItem(tr);
+//                    window.content('<div id="windowTemplate"><p>' + _dictionary.KendoDeleteTxt0001[$("#language").data("kendoDropDownList").value()] + '</p><button class="k-button" id="yesButton">' + _dictionary.KendoDeleteTxt0002[$("#language").data("kendoDropDownList").value()] + '</button> <button class="k-button" id="noButton">No</button></div>');
+//                    window.open().center();  
+
+//                    $("#KendoDeleteTxt0002").click(function(){
+//                        grid.dataSource.remove(data)
+//                        grid.dataSource.sync()
+//                        window.close();
+//                    })
+//                    $("#noButton").click(function(){
+//                        window.close();
+//                    })
+//                }                              
+//            }
+//    ]}
+//}

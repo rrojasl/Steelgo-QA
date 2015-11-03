@@ -506,6 +506,7 @@
                     if(($("#listaCatalogos").data("kendoDropDownList").value()!="3" && $("#listaCatalogos").data("kendoDropDownList").value()!= 8)) grid.columns.push({ command: { text: "Archivos", click: showFiles}, title: "Archivos", width: "95px" });
                     grid.columns.push({ command: "edit", title: "Editar", width: "91px" });
                     grid.columns.push({ command: "destroy", title: "Borrar", width: "91px" });
+                    //grid.columns.push(niceDeleteTemplate());
                     for (c in columnas[$("#listaCatalogos").data("kendoDropDownList").value()]) {
                         var columna = $.grep(grid.columns, function (e) { return e.field == c; });
                         grid.columns[grid.columns.indexOf(columna[0])] = columnas[$("#listaCatalogos").data("kendoDropDownList").value()][c];

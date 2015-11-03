@@ -51,7 +51,7 @@ function applySecurityPolicy(loadMenu) {
                 $quickLinks = {};
 
                 //Generate QuickLinks**
-                generateQuickLinks();
+                generateQuickLinks(data.layout.navigation[2].elements);
             }
 
             //Retrieve the obtained data

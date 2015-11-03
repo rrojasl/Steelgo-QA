@@ -5920,4 +5920,8 @@ _dictionary = {
         "es-MX": "Si",
         "en-US": "Yes"
     },
+    "KendoDeleteTxt0003": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    },
 };
