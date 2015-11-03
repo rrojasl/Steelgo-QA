@@ -35,8 +35,6 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val().length == 1) {
                 $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
             }
-            //if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '')
-       
         }
     });
 
