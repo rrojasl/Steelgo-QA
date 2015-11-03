@@ -107,7 +107,7 @@ namespace BackEndSAM.Controllers
         }
 
         // DELETE api/<controller>/5
-        public object Delete(int id, string token)
+        public object Delete(int id, int diametrosICS, string token)
         {
 
             string payload = "";
@@ -118,7 +118,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CatalogosBd.Instance.EliminarItemCodeSteelgo(id, usuario);
+                return CatalogosBd.Instance.EliminarItemCodeSteelgo(id,diametrosICS, usuario);
             }
             else
             {
