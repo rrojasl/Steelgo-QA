@@ -878,7 +878,8 @@ h2 {
     margin-top: 0;
 }
 
-    .standalone > .btn {
+    .standalone > .btn,
+    #selectFiles, #fcarga {
         width: 100%;
     }
 
