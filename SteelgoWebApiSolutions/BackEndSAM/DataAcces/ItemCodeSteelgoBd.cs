@@ -263,7 +263,6 @@ namespace BackEndSAM.DataAcces
                     if (detalle != null)
                     {
                         return detalle;
-
                     }
                     else {
                         detalle = (from r in ctx.Sam3_ItemCode
@@ -275,7 +274,7 @@ namespace BackEndSAM.DataAcces
                                    select new ItemCodeJson
                                    {
                                        ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
-                                       ItemCode = r.Codigo,
+                                       ItemCode = r.Codigo + "(" + d1.Valor + ", " + d2.Valor + ")",
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor,
                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),

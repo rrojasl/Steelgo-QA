@@ -771,7 +771,7 @@
                 $("#Colada").data("kendoAutoComplete").enable(true);
                 $("#Cantidad").removeAttr("disabled");
                 $("#MM").removeAttr("disabled");
-                $(".k-button.k-button-icontext.k-grid-add").removeClass("k-state-disabled");
+                $(".k-button.k-button-icontext.k-grid-add").removeClass("hidden");
                 $("input:radio").removeAttr("disabled");
                 $(".k-button.k-button-icontext.k-grid-Cancelar").removeClass("hidden");
                 if (_detalleBulto != "-1") {
@@ -805,7 +805,7 @@
             $("#Colada").data("kendoAutoComplete").enable(false);
             $("#Cantidad").attr("disabled", "disabled");
             $("#MM").attr("disabled", "disabled");
-            $(".k-button.k-button-icontext.k-grid-add").addClass("k-state-disabled");
+            $(".k-button.k-button-icontext.k-grid-add").addClass("hidden");
             $("input:radio").attr('disabled', "disabled");
             $(".k-button.k-button-icontext.k-grid-Cancelar").addClass("hidden");
         };
@@ -2683,7 +2683,7 @@
                         error = ErrorInsertandoItems(data, error, dataJson[key]);
                         if (ErrorBool(data)) {
                             var item =
-                                                   { ItemCode: dataJson[key].ItemCode, Descripcion: itemCodesJsonSteelgo.Descripcion, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.ItemCodeSteelgo, Familia: itemCodesJsonSteelgo.FamiliaAcero, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: itemCodesJsonSteelgo.MM, Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: itemCodesJsonSteelgo.ItemCodeID, ItemCodeSteelgoID: itemCodesJsonSteelgo.ItemCodeSteelgoID };
+                                                   { ItemCode: data.ItemCode, Descripcion: itemCodesJsonSteelgo.Descripcion, D1: itemCodesJsonSteelgo.Diametro1, D2: itemCodesJsonSteelgo.Diametro2, ItemCodeSteelgo: itemCodesJsonSteelgo.ItemCodeSteelgo, Familia: itemCodesJsonSteelgo.FamiliaAcero, Cedula: itemCodesJsonSteelgo.Cedula, TipoAcero: itemCodesJsonSteelgo.TipoAcero, Colada: itemCodesJsonSteelgo.ColadaNombre, Cantidad: dataJson[key].Cantidad, MM: itemCodesJsonSteelgo.MM, Detallar: "No", TieneNU: "No", TieneError: false, BultoID: "", RelFCId: "", RelBID: "", ItemCodeID: itemCodesJsonSteelgo.ItemCodeID, ItemCodeSteelgoID: itemCodesJsonSteelgo.ItemCodeSteelgoID };
                             $("#grid").data("kendoGrid").dataSource.insert(item);
                         } else {
                             cargarGridErrores(dataJson[key]);
