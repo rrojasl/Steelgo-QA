@@ -334,10 +334,13 @@ namespace BackEndSAM.DataAcces
                                           select new CatalogoCedulas
                                           {
                                               CedulaID = c.CedulaID.ToString(),
-                                              Diametro1 = (from ced in ctx.Sam3_Cedula 
-                                                           join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
-                                                               where ced.Activo && d.Activo
-                                                               select d.Valor).ToString() ?? "0-9999",
+                                              Diametro1 = String.IsNullOrEmpty((from ced in ctx.Sam3_Cedula
+                                                                                join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                                                                where ced.Activo && d.Activo
+                                                                                select d.Valor.ToString()).FirstOrDefault()) ? null : (from ced in ctx.Sam3_Cedula
+                                                                                                                                       join d in ctx.Sam3_Diametro on ced.DiametroID equals d.DiametroID
+                                                                                                                                       where ced.Activo && d.Activo
+                                                                                                                                       select d.Valor.ToString()).FirstOrDefault(),
                                               CedulaA = c.CedulaA,
                                               CedulaB = c.CedulaB,
                                               CedulaC = c.CedulaC,
@@ -1672,46 +1675,51 @@ namespace BackEndSAM.DataAcces
                 List<ICSDatosAsociacion> lista = new List<ICSDatosAsociacion>();
                 using (SamContext ctx = new SamContext())
                 {
+                    using (Sam2Context ctx2 = new Sam2Context())
+                    {
+                        lista = (from ics in ctx.Sam3_ItemCodeSteelgo
+                                 join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
+                                 join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
+                                 join diam in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals diam.ItemCodeSteelgoID
+                                 where ics.Activo && g.Activo && c.Activo && diam.Activo
+                                 select new ICSDatosAsociacion
+                                 {
+                                     ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                     Codigo = ics.Codigo,
+                                     Descripcion = ics.DescripcionEspanol,
+                                     DescripcionIngles = ics.DescripcionIngles,
+                                     DescripcionLarga = ics.DescripcionLargaEspanol,
+                                     DescripcionLargaIngles = ics.DescripcionLargaIngles,
+                                     Rel_ICS_DiametroID = diam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
+                                     Diametro1ID = diam.Diametro1ID.ToString(),
+                                     Diametro1 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro1ID select d.Valor.ToString()).FirstOrDefault(),
+                                     Diametro2ID = diam.Diametro2ID.ToString(),
+                                     Diametro2 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
+                                     Grupo = g.Nombre,
+                                     GrupoID = ics.GrupoID.ToString(),
+                                     AceroID = ics.FamiliaAceroID.ToString(),
+                                     CedulaID = ics.CedulaID.ToString(),
+                                     CedulaA = c.CedulaA,
+                                     CedulaB = c.CedulaB,
+                                     Libra = c.CedulaC,
+                                     Inch = c.CedulaIn.ToString(),
+                                     MM = c.CedulaMM.ToString(),
+                                     Espesor = c.Espesor.ToString(),
+                                     Peso = ics.Peso.ToString(),
+                                     Area = ics.Area.ToString()
+                                 }).AsParallel().ToList();
 
-                    lista = (from ics in ctx.Sam3_ItemCodeSteelgo
-                             join g in ctx.Sam3_Grupo on ics.GrupoID equals g.GrupoID
-                             join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
-                             join diam in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on ics.ItemCodeSteelgoID equals diam.ItemCodeSteelgoID
-                             where ics.Activo && g.Activo && c.Activo && diam.Activo
-                             select new ICSDatosAsociacion
-                             {
-                                 ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
-                                 Codigo = ics.Codigo,
-                                 Descripcion = ics.DescripcionEspanol,
-                                 DescripcionIngles = ics.DescripcionIngles,
-                                 DescripcionLarga = ics.DescripcionLargaEspanol,
-                                 DescripcionLargaIngles = ics.DescripcionLargaIngles,
-                                 Rel_ICS_DiametroID = diam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
-                                 Diametro1ID = diam.Diametro1ID.ToString(),
-                                 Diametro1 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro1ID select d.Valor.ToString()).FirstOrDefault(),
-                                 Diametro2ID = diam.Diametro2ID.ToString(),
-                                 Diametro2 = (from d in ctx.Sam3_Diametro where d.Activo && d.DiametroID == diam.Diametro2ID select d.Valor.ToString()).FirstOrDefault(),
-                                 Grupo = g.Nombre,
-                                 GrupoID = ics.GrupoID.ToString(),
-                                 AceroID = ics.FamiliaAceroID.ToString(),
-                                 CedulaID = ics.CedulaID.ToString(),
-                                 CedulaA = c.CedulaA,
-                                 CedulaB = c.CedulaB,
-                                 Libra = c.CedulaC,
-                                 Inch = c.CedulaIn.ToString(),
-                                 MM = c.CedulaMM.ToString(),
-                                 Espesor = c.Espesor.ToString(),
-                                 Peso = ics.Peso.ToString(),
-                                 Area = ics.Area.ToString()
-                             }).AsParallel().ToList();
-                }
+                        lista.ForEach(x =>
+                            {
+                                int equiv = (from eq in ctx.Sam3_EquivalenciaFamiliaAcero
+                                             where eq.Activo && eq.Sam3_FamiliaAceroID.ToString() == x.AceroID
+                                             select eq.Sam2_FamiliaAceroID).AsParallel().SingleOrDefault();
 
-                using (Sam2Context ctx2 = new Sam2Context())
-                {
-                    lista.ForEach(x =>
-                        x.Acero = (from fa in ctx2.FamiliaAcero
-                                   where fa.FamiliaAceroID.ToString() == x.AceroID
-                                   select fa.Nombre).AsParallel().SingleOrDefault());
+                                x.Acero = (from fa in ctx2.FamiliaAcero
+                                           where fa.FamiliaAceroID == equiv
+                                           select fa.Nombre).AsParallel().SingleOrDefault();
+                            });
+                    }
                 }
 
                 return lista;
@@ -1741,51 +1749,62 @@ namespace BackEndSAM.DataAcces
         {
             try
             {
+                Sam3_Rel_ItemCodeSteelgo_Diametro nuevo = new Sam3_Rel_ItemCodeSteelgo_Diametro();
+                //Sam3_Diametro diametro1 = new Sam3_Diametro();
+                //Sam3_Diametro diametro2 = new Sam3_Diametro();
+                Sam3_ItemCodeSteelgo ICSteelgo = new Sam3_ItemCodeSteelgo();
+
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Rel_ItemCodeSteelgo_Diametro nuevo = new Sam3_Rel_ItemCodeSteelgo_Diametro();
-                    Sam3_ItemCodeSteelgo ICSteelgo = new Sam3_ItemCodeSteelgo();
-                    ICSteelgo.Codigo = datos.Codigo;
-                    ICSteelgo.DescripcionEspanol = datos.Descripcion;
-                    ICSteelgo.DescripcionLargaEspanol = datos.DescripcionLarga;
-                    ICSteelgo.DescripcionLargaIngles = datos.DescripcionLargaIngles;
-                    ICSteelgo.DescripcionIngles = datos.DescripcionIngles;
-                    ICSteelgo.GrupoID = Convert.ToInt32(datos.GrupoID);
-                    ICSteelgo.CedulaID = Convert.ToInt32(datos.CedulaID);
-                    ICSteelgo.Peso = Convert.ToDecimal(datos.Peso);
-                    ICSteelgo.Area = Convert.ToInt32(datos.Area);
-                    ICSteelgo.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
-                    ICSteelgo.Activo = true;
-                    ICSteelgo.UsuarioModificacion = usuario.UsuarioID;
-                    ICSteelgo.FechaModificacion = DateTime.Now;
-
-                    ctx.Sam3_ItemCodeSteelgo.Add(ICSteelgo);
-
-                    ctx.SaveChanges();
-
-                    if (!ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
-                        x.Diametro1ID.ToString() == datos.Diametro1ID &&
-                        x.Diametro2ID.ToString() == datos.Diametro2ID &&
-                        x.ItemCodeSteelgoID == ICSteelgo.ItemCodeSteelgoID).Any())
+                    using (var sam3_tran = ctx.Database.BeginTransaction())
                     {
-                        nuevo.ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID;
-                        nuevo.Diametro1ID = Int32.Parse(datos.Diametro1ID);
-                        nuevo.Diametro2ID = Int32.Parse(datos.Diametro2ID);
-                        nuevo.Activo = true;
-                        nuevo.FechaModificacion = DateTime.Now;
-                        nuevo.UsuarioModificacion = usuario.UsuarioID;
 
-                        ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Add(nuevo);
+                        ICSteelgo.Codigo = datos.Codigo;
+                        ICSteelgo.DescripcionEspanol = datos.Descripcion;
+                        ICSteelgo.DescripcionLargaEspanol = datos.DescripcionLarga;
+                        ICSteelgo.DescripcionLargaIngles = datos.DescripcionLargaIngles;
+                        ICSteelgo.DescripcionIngles = datos.DescripcionIngles;
+                        ICSteelgo.GrupoID = Convert.ToInt32(datos.GrupoID);
+                        ICSteelgo.CedulaID = Convert.ToInt32(datos.CedulaID);
+                        ICSteelgo.Peso = Convert.ToDecimal(datos.Peso);
+                        ICSteelgo.Area = Convert.ToInt32(datos.Area);
+                        ICSteelgo.FamiliaAceroID = Convert.ToInt32(datos.AceroID);
+                        ICSteelgo.Activo = true;
+                        ICSteelgo.UsuarioModificacion = usuario.UsuarioID;
+                        ICSteelgo.FechaModificacion = DateTime.Now;
+
+                        ctx.Sam3_ItemCodeSteelgo.Add(ICSteelgo);
+
                         ctx.SaveChanges();
-                    }
-                    else
-                    {
-                        nuevo = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
-                         x.Diametro1ID.ToString() == datos.Diametro1ID &&
-                         x.Diametro2ID.ToString() == datos.Diametro2ID &&
-                         x.ItemCodeSteelgoID == ICSteelgo.ItemCodeSteelgoID).AsParallel().SingleOrDefault();   
-                    }
 
+                        if (!ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
+                            x.Diametro1ID.ToString() == datos.Diametro1ID &&
+                            x.Diametro2ID.ToString() == datos.Diametro2ID &&
+                            x.ItemCodeSteelgoID == ICSteelgo.ItemCodeSteelgoID).Any())
+                        {
+                            nuevo.ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID;
+                            nuevo.Diametro1ID = Int32.Parse(datos.Diametro1ID);
+                            nuevo.Diametro2ID = Int32.Parse(datos.Diametro2ID);
+                            nuevo.Activo = true;
+                            nuevo.FechaModificacion = DateTime.Now;
+                            nuevo.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Add(nuevo);
+                            ctx.SaveChanges();
+                        }
+                        else
+                        {
+                            nuevo = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Activo &&
+                             x.Diametro1ID.ToString() == datos.Diametro1ID &&
+                             x.Diametro2ID.ToString() == datos.Diametro2ID &&
+                             x.ItemCodeSteelgoID == ICSteelgo.ItemCodeSteelgoID).AsParallel().SingleOrDefault();
+                        }
+
+                        //diametro1.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                        //diametro2.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro2).Select(x => x.Valor).AsParallel().SingleOrDefault();
+
+                        sam3_tran.Commit();
+                    }
                     return new ICSDatosAsociacion
                     {
                         ItemCodeSteelgoID = ICSteelgo.ItemCodeSteelgoID.ToString(),
@@ -1795,8 +1814,8 @@ namespace BackEndSAM.DataAcces
                         DescripcionIngles = ICSteelgo.DescripcionIngles,
                         DescripcionLargaIngles = ICSteelgo.DescripcionLargaIngles,
                         Rel_ICS_DiametroID = nuevo.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
-                        Diametro1ID = datos.Diametro1ID,
-                        Diametro2ID = datos.Diametro2ID,
+                        Diametro1ID = nuevo.Diametro1ID.ToString(),
+                        Diametro2ID = nuevo.Diametro2ID.ToString(),
                         Diametro1 = datos.Diametro1,
                         Diametro2 = datos.Diametro2,
                         Grupo = datos.Grupo,
@@ -1840,9 +1859,14 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    //Sam3_Diametro diametro1 = new Sam3_Diametro();
+                    //Sam3_Diametro diametro2 = new Sam3_Diametro();
+                    Sam3_ItemCodeSteelgo ics = new Sam3_ItemCodeSteelgo();
+                    Sam3_Rel_ItemCodeSteelgo_Diametro icsDiam = new Sam3_Rel_ItemCodeSteelgo_Diametro();
+
                     using (var sam3_tran = ctx.Database.BeginTransaction())
                     {
-                        Sam3_ItemCodeSteelgo ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == datos.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
+                        ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID.ToString() == datos.ItemCodeSteelgoID && x.Activo).AsParallel().SingleOrDefault();
                         ics.Codigo = datos.Codigo;
                         ics.DescripcionEspanol = datos.Descripcion;
                         ics.DescripcionIngles = datos.DescripcionIngles;
@@ -1859,7 +1883,7 @@ namespace BackEndSAM.DataAcces
 
                         ctx.SaveChanges();
 
-                        Sam3_Rel_ItemCodeSteelgo_Diametro icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == datos.Rel_ICS_DiametroID).AsParallel().SingleOrDefault();
+                        icsDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID.ToString() == datos.Rel_ICS_DiametroID).AsParallel().SingleOrDefault();
                         icsDiam.Diametro1ID = Int32.Parse(datos.Diametro1ID);
                         icsDiam.Diametro2ID = Int32.Parse(datos.Diametro2ID);
                         icsDiam.Activo = true;
@@ -1868,36 +1892,40 @@ namespace BackEndSAM.DataAcces
 
                         ctx.SaveChanges();
 
-                        sam3_tran.Commit();
+                        //diametro1.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro1).Select(x => x.Valor).AsParallel().SingleOrDefault();
+                        //diametro2.Valor = ctx.Sam3_Diametro.Where(x => x.DiametroID.ToString() == datos.Diametro2).Select(x => x.Valor).AsParallel().SingleOrDefault();
 
-                        return new ICSDatosAsociacion
-                        {
-                            ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
-                            Codigo = ics.Codigo,
-                            Descripcion = ics.DescripcionEspanol,
-                            DescripcionIngles = ics.DescripcionIngles,
-                            DescripcionLarga = ics.DescripcionLargaEspanol,
-                            DescripcionLargaIngles = ics.DescripcionLargaIngles,
-                            Diametro1ID = icsDiam.Diametro1ID.ToString(),
-                            Diametro2ID = icsDiam.Diametro2ID.ToString(),
-                            Diametro1 = datos.Diametro1,
-                            Diametro2 = datos.Diametro2,
-                            Rel_ICS_DiametroID = icsDiam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
-                            GrupoID = ics.GrupoID.ToString(),
-                            Grupo = datos.Grupo,
-                            Acero = datos.Acero,
-                            AceroID = ics.FamiliaAceroID.ToString(),
-                            CedulaA = datos.CedulaA,
-                            CedulaB = datos.CedulaB,
-                            CedulaID = ics.CedulaID.ToString(),
-                            Libra = datos.Libra,
-                            Inch = datos.Inch,
-                            MM = datos.MM,
-                            Espesor = datos.Espesor,
-                            Peso = ics.Peso.ToString(),
-                            Area = ics.Area.ToString()
-                        };
-                    } //tran sam3
+                        sam3_tran.Commit();
+                    }
+
+                    return new ICSDatosAsociacion
+                    {
+                        ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                        Codigo = ics.Codigo,
+                        Descripcion = ics.DescripcionEspanol,
+                        DescripcionIngles = ics.DescripcionIngles,
+                        DescripcionLarga = ics.DescripcionLargaEspanol,
+                        DescripcionLargaIngles = ics.DescripcionLargaIngles,
+                        Diametro1ID = icsDiam.Diametro1ID.ToString(),
+                        Diametro2ID = icsDiam.Diametro2ID.ToString(),
+                        Diametro1 = datos.Diametro1,
+                        Diametro2 = datos.Diametro2,
+                        Rel_ICS_DiametroID = icsDiam.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
+                        GrupoID = ics.GrupoID.ToString(),
+                        Grupo = datos.Grupo,
+                        Acero = datos.Acero,
+                        AceroID = ics.FamiliaAceroID.ToString(),
+                        CedulaA = datos.CedulaA,
+                        CedulaB = datos.CedulaB,
+                        CedulaID = ics.CedulaID.ToString(),
+                        Libra = datos.Libra,
+                        Inch = datos.Inch,
+                        MM = datos.MM,
+                        Espesor = datos.Espesor,
+                        Peso = ics.Peso.ToString(),
+                        Area = ics.Area.ToString()
+                    };
+
                 }
             }
             catch (Exception ex)
@@ -1928,19 +1956,38 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_ItemCodeSteelgo ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID == idICS && x.Activo).AsParallel().SingleOrDefault();
-                    ics.Activo = false;
-                    ics.UsuarioModificacion = usuario.UsuarioID;
-                    ics.FechaModificacion = DateTime.Now;
+                    using (var sam3_tran = ctx.Database.BeginTransaction())
+                    {
+                        //Se elimina la relacion con diametro
+                        Sam3_Rel_ItemCodeSteelgo_Diametro relDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x => x.Rel_ItemCodeSteelgo_Diametro_ID == diametrosID && x.Activo).AsParallel().SingleOrDefault();
+                        relDiam.Activo = false;
+                        relDiam.UsuarioModificacion = usuario.UsuarioID;
+                        relDiam.FechaModificacion = DateTime.Now;
 
-                    ctx.SaveChanges();
+                        ctx.SaveChanges();
 
-                    Sam3_Rel_ItemCodeSteelgo_Diametro relDiam = ctx.Sam3_Rel_ItemCodeSteelgo_Diametro.Where(x=> x.Rel_ItemCodeSteelgo_Diametro_ID == diametrosID && x.Activo).AsParallel().SingleOrDefault();
-                    relDiam.Activo = false;
-                    relDiam.UsuarioModificacion = usuario.UsuarioID;
-                    relDiam.FechaModificacion = DateTime.Now;
+                        //Se eliminan las relaciones con item codes
+                        List<Sam3_Rel_ItemCode_ItemCodeSteelgo> lista = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID == idICS && x.Activo).AsParallel().ToList();
 
-                    ctx.SaveChanges();
+                        foreach (Sam3_Rel_ItemCode_ItemCodeSteelgo item in lista)
+                        {
+                            item.Activo = false;
+                            item.FechaModificacion = DateTime.Now;
+                            item.UsuarioModificacion = usuario.UsuarioID;
+
+                            ctx.SaveChanges();
+                        }
+
+                        //se elimina item code steelgo
+                        Sam3_ItemCodeSteelgo ics = ctx.Sam3_ItemCodeSteelgo.Where(x => x.ItemCodeSteelgoID == idICS && x.Activo).AsParallel().SingleOrDefault();
+                        ics.Activo = false;
+                        ics.UsuarioModificacion = usuario.UsuarioID;
+                        ics.FechaModificacion = DateTime.Now;
+
+                        ctx.SaveChanges();
+
+                        sam3_tran.Commit();
+                    }
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnCode = 200;
@@ -1982,7 +2029,7 @@ namespace BackEndSAM.DataAcces
 
                     List<CatalogoCedulas> lista = (from c in ctx.Sam3_Cedula
                                                    join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
-                                                   where d.Activo && c.Activo 
+                                                   where d.Activo && c.Activo
                                                    && (!String.IsNullOrEmpty(datosCedulas.CedulaA) ? c.CedulaA == datosCedulas.CedulaA :
                                                    !String.IsNullOrEmpty(datosCedulas.CedulaB) ? c.CedulaB == datosCedulas.CedulaB :
                                                    !String.IsNullOrEmpty(datosCedulas.CedulaC) ? c.CedulaC == datosCedulas.CedulaC : c.DiametroID.ToString() == datosCedulas.Diametro1ID)

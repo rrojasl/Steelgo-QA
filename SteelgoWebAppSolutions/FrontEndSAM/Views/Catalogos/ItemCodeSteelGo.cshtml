@@ -41,6 +41,10 @@
 <script>
 @section JavascriptGlobalVariables {
     editado = false;
+    var idDiam1 = 0;
+    var valDiam1 = "";
+    var valDiam2 = "";
+    var idDiam2 = 0;
     var $ItemCodeSteelGoModel = {
         listContainer: {
             create: ".k-grid-add",
@@ -98,7 +102,7 @@
                            messageindexKendoCombobox(this);
                            this.value("");
                        }
-                       $('#grid').data('kendoGrid').refresh();
+                       //$('#grid').data('kendoGrid').refresh();
                    },
                    filter: "contains",
                });
@@ -112,11 +116,73 @@
                 { field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], width: "150px" },
                 { field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], width: "150px" },
-                { field: "Rel_ICS_DiametroID", title: "rel", width: "150px" },
-                { field: "Diametro1ID", title: "d1 id", width: "150px" },
-                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: ObtenerDiametros },
-                { field: "Diametro2ID", title: "d2id", width: "150px"},
-                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], width: "150px", editor: ObtenerDiametros },
+                { field: "Rel_ICS_DiametroID", title: "rel", width: "150px", hidden: true },
+                { field: "Diametro1ID", title: "d1 id", width: "150px", hidden: true },
+                {
+                    field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $DiametrosCatalogos + "token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            change: function (e) {
+                                var value = this.text();
+                                if (this.selectedIndex == -1) {
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
+                                //$('#grid').data('kendoGrid').refresh();
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro1ID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro1 = data.nombre;
+                            },
+                            filter: "contains",
+                            dataTextField: "value",
+                            dataValueField: "id"
+                        });
+                 
+                        //$('#grid').data('kendoGrid').refresh();
+                    }
+                },
+                { field: "Diametro2ID", title: "d2id", width: "150px", hidden: true },
+                {
+                    field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
+                        $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: $DiametrosCatalogos + "token=" + Cookies.get("token")
+                                    }
+                                }
+                            },
+                            change: function (e) {
+                                var value = this.text();
+                                if (this.selectedIndex == -1) {
+                                    messageindexKendoCombobox(this);
+                                    this.value("");
+                                }
+                                //$('#grid').data('kendoGrid').refresh();
+                            },
+                            close: function (e) {
+                                var data = getDropData(e);
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2ID = data.id;
+                                $("#grid").data("kendoGrid")._data[data.posicion].Diametro2 = data.nombre;
+                            },
+                            filter: "contains",
+                            dataTextField: "value",
+                            dataValueField: "id"
+                        });
+
+                        //$('#grid').data('kendoGrid').refresh();
+                    }
+                },
                 {
                     field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], width: "150px", editor: function (container, options) {
                         $("<input/>").attr("name", options.field).appendTo(container).kendoComboBox({
@@ -183,10 +249,10 @@
                             DescripcionLarga: { type: "string", validation: { required: false } },
                             DescripcionIngles: { type: "string", validation: { required: false } },
                             DescripcionLargaIngles: { type: "string", validation: { required: false } },
-                            Rel_ICS_DiametroID: {type: "string", validation: {required: false}},
-                            Diametro1ID: {type: "string", validation: {required: false}},
+                            Rel_ICS_DiametroID: { editable: false, nullable: true },
+                            Diametro1ID: { editable: false, nullable: true },
                             Diametro1: { type: "string", validation: { required: true } },
-                            Diametro2ID: {type: "string", validation: {required: false}},
+                            Diametro2ID: { editable: false, nullable: true },
                             Diametro2: { type: "string", validation: { required: true } },
                             Grupo: { type: "string", validation: { required: false } },
                             GrupoID: { editable: false, nullable: true },
@@ -321,8 +387,9 @@
                         data['Libra'] = e.model.Libra;
                         data["Diametro1"] = e.model.Diametro1;
                         data["Diametro1ID"] = e.model.Diametro1ID;
-                        //data["Diametro2"] = e.model.Diametro2;
-                        data
+                        data["Diametro2ID"] = e.model.Diametro2ID;
+                        data["Diametro2"] = e.model.Diametro2;
+                       
                         $CatalogoICSteelgo.CatalogoICSteelgo.read({}, { data: JSON.stringify(data), token: Cookies.get("token") }).done(function (data) {
                             if (data === null) {
                                 displayMessage("ItemCodeSteelGo0021", "", '2');
@@ -350,7 +417,7 @@
             },
             remove: function (e) {
                 if (e.model.id !== null && e.model.id !== "") {
-                    $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&id=" + e.model.id;
+                    $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = $CatalogoICSteelgo.CatalogoICSteelgo.urlNoId + "?token=" + Cookies.get("token") + "&id=" + e.model.id + "&diametrosICS=" + e.model.Rel_ICS_DiametroID;
                 } else {
                     $("#grid").data("kendoGrid").options.dataSource.transport.destroy.url = "delete";
                     displayMessage("ItemCodeSteelGo0023", "", '2');
