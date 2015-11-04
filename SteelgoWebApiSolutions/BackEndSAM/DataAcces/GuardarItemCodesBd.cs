@@ -250,7 +250,9 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
-                                        Detallar = "No"
+                                        Detallar = "No",
+                                        RelBID = datosItemCode.RelBID,
+                                        RelFCId = datosItemCode.RelFCId
                                     });
                                     //}
                                 }
@@ -312,7 +314,9 @@ namespace BackEndSAM.DataAcces
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU,
-                                            Detallar = "No"
+                                            Detallar = "No",
+                                            RelBID = datosItemCode.RelBID,
+                                            RelFCId = datosItemCode.RelFCId
                                         });
                                     }
                                 }
@@ -480,7 +484,9 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
-                                        Detallar = "No"
+                                        Detallar = "No",
+                                        RelBID = datosItemCode.RelBID,
+                                        RelFCId = datosItemCode.RelFCId
                                     });
                                     //}
                                 }
@@ -534,7 +540,9 @@ namespace BackEndSAM.DataAcces
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
                                             TieneNU = datosItemCode.TieneNU,
-                                            Detallar = "No"
+                                            Detallar = "No",
+                                            RelBID = datosItemCode.RelBID,
+                                            RelFCId = datosItemCode.RelFCId
                                         });
                                     }
                                 }
@@ -715,7 +723,9 @@ namespace BackEndSAM.DataAcces
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
                                         TieneNU = datosItemCode.TieneNU,
-                                        Detallar="No"
+                                        Detallar="No",
+                                        RelBID = datosItemCode.RelBID,
+                                        RelFCId = datosItemCode.RelFCId
                                     });
                                     //}
                                 }
@@ -890,7 +900,9 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        RelBID = datosItemCode.RelBID,
+                                        RelFCId = datosItemCode.RelFCId
                                     });
                                     //}
                                 }
@@ -926,7 +938,9 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        RelBID = datosItemCode.RelBID,
+                                        RelFCId = datosItemCode.RelFCId
                                     });
 
                                 }
@@ -1106,7 +1120,9 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        RelBID = datosItemCode.RelBID,
+                                        RelFCId = datosItemCode.RelFCId
                                     });
                                     //}
                                    
