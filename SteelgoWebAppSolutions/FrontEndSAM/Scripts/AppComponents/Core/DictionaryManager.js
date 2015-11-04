@@ -307,6 +307,10 @@ _dictionary = {
         "es-MX": "Catálogos",
         "en-US": "Catalogs"
     },
+    "menuLabel1049": {
+        "es-MX": "Catálogo ItemCode Steelgo",
+        "en-US": "ItemCode Steelgo Catalog"
+    },
     "menuLabel1053": {
         "es-MX": "Listados",
         "en-US": "Listings"
