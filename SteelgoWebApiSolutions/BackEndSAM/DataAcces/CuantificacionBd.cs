@@ -185,7 +185,7 @@ namespace BackEndSAM.DataAcces
                                        Cantidad = rbic.Cantidad,
                                        MM = ic.MM,
                                        ItemCodeSteelgo = ics.Codigo,
-                                       ItemCodeSteelgoID =  rids.ItemCodeSteelgoID.ToString(),
+                                       ItemCodeSteelgoID =  rids.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                   where fa.FamiliaAceroID == ics.FamiliaAceroID && fa.Activo && ics.Activo
                                                   select fa.Nombre).FirstOrDefault(),
