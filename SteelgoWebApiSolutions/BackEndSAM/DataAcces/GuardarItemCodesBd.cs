@@ -83,8 +83,9 @@ namespace BackEndSAM.DataAcces
                                                                         && fc.FolioCuantificacionID == FolioCuantificacion
                                                                         select fc).AsParallel().SingleOrDefault();
 
-                        datosItemCode.ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo == "" ? datosItemCode.ItemCodeSteelgo = "ICS-Default" : datosItemCode.ItemCodeSteelgo;
-                        datosItemCode.Familia = datosItemCode.Familia == "" ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
+                        datosItemCode.ItemCodeSteelgo = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgo) ? "ICS-Default" : datosItemCode.ItemCodeSteelgo;
+                        datosItemCode.ItemCodeSteelgoID = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgoID) ? "1" : datosItemCode.ItemCodeSteelgoID;
+                        datosItemCode.Familia = string.IsNullOrEmpty(datosItemCode.Familia) ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
 
                         switch (tipoGuardado)
                         {
