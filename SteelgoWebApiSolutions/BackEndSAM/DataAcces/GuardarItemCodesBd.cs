@@ -84,7 +84,7 @@ namespace BackEndSAM.DataAcces
                                                                         select fc).AsParallel().SingleOrDefault();
 
                         datosItemCode.ItemCodeSteelgo = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgo) ? "ICS-Default" : datosItemCode.ItemCodeSteelgo;
-                        datosItemCode.ItemCodeSteelgoID = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgoID) ? "1" : datosItemCode.ItemCodeSteelgoID;
+                        datosItemCode.ItemCodeSteelgoID = string.IsNullOrEmpty(datosItemCode.ItemCodeSteelgoID) || datosItemCode.ItemCodeSteelgoID == "0" ? "1" : datosItemCode.ItemCodeSteelgoID;
                         datosItemCode.Familia = string.IsNullOrEmpty(datosItemCode.Familia) ? datosItemCode.Familia = "Familia Default" : datosItemCode.Familia;
                         datosItemCode.TipoAcero = string.IsNullOrEmpty(datosItemCode.TipoAcero) ? datosItemCode.TipoAcero = "Familia Material Default" : datosItemCode.TipoAcero;
 
