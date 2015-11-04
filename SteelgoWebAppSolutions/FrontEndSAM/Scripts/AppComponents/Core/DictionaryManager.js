@@ -2767,6 +2767,10 @@ _dictionary = {
         "es-MX": "RelBID",
         "en-US": "RelBID"
     },
+    "GenerarOrdenRecepcion0027": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
     //Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {
         "es-MX": "Generar Orden de Recepcion",

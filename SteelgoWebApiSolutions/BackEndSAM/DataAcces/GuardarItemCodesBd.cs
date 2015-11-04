@@ -1524,7 +1524,7 @@ namespace BackEndSAM.DataAcces
                     int bultoID = Int32.Parse(item.BultoID);
                     int relItemDiametroID = Int32.Parse(item.ItemCodeID);
 
-                    if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == bultoID && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
+                    if (!ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == bultoID && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
                     {
                         Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
                         bic.BultoID = bultoID;
