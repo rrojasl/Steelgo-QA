@@ -314,8 +314,8 @@ namespace BackEndSAM.DataAcces
                                        ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
                                        ItemCode = r.Codigo,
                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
-                                       Cantidad = r.Cantidad,
-                                       MM = r.MM, 
+                                       //Cantidad = r.Cantidad,
+                                       //MM = r.MM, 
                                        Descripcion = r.DescripcionEspanol,
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor, 
@@ -353,8 +353,8 @@ namespace BackEndSAM.DataAcces
                                        Diametro1 = d1.Valor,
                                        Diametro2 = d2.Valor, 
                                        ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
-                                       Cantidad = r.Cantidad,
-                                       MM = r.MM
+                                       //Cantidad = r.Cantidad,
+                                       //MM = r.MM
                                    }).AsParallel().SingleOrDefault();
                     }
                     return detalle;
