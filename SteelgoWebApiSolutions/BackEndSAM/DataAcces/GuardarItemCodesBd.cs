@@ -489,16 +489,10 @@ namespace BackEndSAM.DataAcces
                                 {
                                     listaNuevosIC.Clear();
 
-                                    Sam3_FolioCuantificacion folioC = (from fc in ctx.Sam3_FolioCuantificacion
-                                                                       join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                                       where fc.Activo && fe.Activo
-                                                                       && fe.FolioAvisoLlegadaID == FolioAvisollegadaId
-                                                                       && fc.FolioCuantificacionID == FolioCuantificacion
-                                                                       select fc).AsParallel().SingleOrDefault();
                                     //Cambiar estatus a folio cuantificacion
-                                    folioC.Estatus = "Cerrado";
-                                    folioC.UsuarioModificacion = usuario.UsuarioID;
-                                    folioC.FechaModificacion = DateTime.Now;
+                                    folioCuantificacion.Estatus = "Cerrado";
+                                    folioCuantificacion.UsuarioModificacion = usuario.UsuarioID;
+                                    folioCuantificacion.FechaModificacion = DateTime.Now;
                                     ctx.SaveChanges();
 
                                     if (datosItemCode.ItemCode.Contains("Bulto"))
@@ -1115,6 +1109,7 @@ namespace BackEndSAM.DataAcces
                                         TieneNU = datosItemCode.TieneNU
                                     });
                                     //}
+                                   
                                 }
                                 //}
                                 //scope.Complete();
@@ -1122,7 +1117,7 @@ namespace BackEndSAM.DataAcces
                                 #endregion
                                 break;
                         }
-
+                        sam3_tran.Commit();
 #if DEBUG
                         JavaScriptSerializer serializer = new JavaScriptSerializer();
                         string json = serializer.Serialize(listaNuevosIC);
@@ -1131,9 +1126,7 @@ namespace BackEndSAM.DataAcces
                         return listaNuevosIC;
                     } //tran sam3
                 }
-                //}
             }
-
             catch (Exception ex)
             {
                 //-----------------Agregar mensaje al Log -----------------------------------------------

@@ -258,12 +258,12 @@ namespace BackEndSAM.DataAcces
                                    ItemCodeSteelgoID = rids.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
+                                                join rdis in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                join itcs in ctx.Sam3_ItemCodeSteelgo on rdis.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                 join fa in ctx.Sam3_FamiliaAcero on itcs.FamiliaAceroID equals fa.FamiliaAceroID
                                                 join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                                                where rics.Activo && itcs.Activo && it.Activo
-                                                && rics.ItemCodeID == r.ItemCodeID
+                                                where rics.Activo && itcs.Activo
+                                                && rics.Rel_ItemCode_ItemCodeSteelgo == riit.Rel_ItemCode_ItemCodeSteelgo
                                                 select fm.Nombre).FirstOrDefault(),
                                    ColadaID = r.ColadaID
                                }).AsParallel().SingleOrDefault();
