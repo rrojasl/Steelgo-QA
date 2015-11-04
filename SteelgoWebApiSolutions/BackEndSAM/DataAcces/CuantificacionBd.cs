@@ -148,7 +148,7 @@ namespace BackEndSAM.DataAcces
                                                  join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                                                  where fcu.FolioCuantificacionID == folioCuantificacion
                                                  && rdi.ItemCodeID == ic.ItemCodeID
-                                                 select d1.Valor.ToString() + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault().ToString(),
+                                                 select d1.Valor.ToString() + "-" + ced.CedulaA + "-" + ced.CedulaB + "-" + ced.CedulaC).FirstOrDefault().ToString(),
                                        //select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
 
                                        Colada = (from c in ctx.Sam3_Colada

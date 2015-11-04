@@ -200,10 +200,10 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
 
-                                    if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
-                                    {
-                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-                                    }
+                                    //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
+                                    //{
+                                    //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+                                    //}
 
                                     #region rel itemcode o bulto
 
@@ -449,10 +449,10 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
 
-                                    if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
-                                    {
-                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-                                    }
+                                    //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
+                                    //{
+                                    //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+                                    //}
 
                                     #region rel folio itemcode
                                     int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
@@ -686,10 +686,10 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
 
-                                    if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
-                                    {
-                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-                                    }
+                                    //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
+                                    //{
+                                    //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+                                    //}
 
                                     #region rel folioc itemcode
                                     int relFolioCItemCodeID = datosItemCode.RelFCId != "" && datosItemCode.RelFCId != null ? Convert.ToInt32(datosItemCode.RelFCId) : 0;
@@ -876,10 +876,10 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
 
-                                    if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
-                                    {
-                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-                                    }
+                                    //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
+                                    //{
+                                    //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+                                    //}
 
                                     #region rel bulto itemcode
 
@@ -1110,10 +1110,10 @@ namespace BackEndSAM.DataAcces
                                         IC = ActualizarItemCode(datosItemCode, IC, usuario);
                                     }
 
-                                    if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
-                                    {
-                                        ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
-                                    }
+                                    //if (datosItemCode.ItemCodeSteelgoID != "" && datosItemCode.ItemCodeSteelgoID != null)
+                                    //{
+                                    //    ICS = ActualizarItemCodeSteelgo(datosItemCode, ICS, usuario);
+                                    //}
 
                                     #region rel bulto itemcode
                                     int relBultoItemCodeID = datosItemCode.RelBID != null && datosItemCode.RelBID != "" ? Convert.ToInt32(datosItemCode.RelBID) : 0;
