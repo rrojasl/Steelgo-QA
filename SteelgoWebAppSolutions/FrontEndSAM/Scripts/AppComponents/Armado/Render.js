@@ -130,26 +130,35 @@ function RenderGridDetalle(container, options) {
                       Observacion: { type: "string", editable: true }
                   }
               }
-          },
-          filter: {
-              logic: "or",
-              filters: [
-                { field: "Accion", operator: "eq", value: 1 },
-                { field: "Accion", operator: "eq", value: 2 }
-              ]
-          },
-          pageSize: 20,
-          serverPaging: false,
-          serverFiltering: false,
-          serverSorting: false
+          }, filter:{
+        logic: "or",
+        filters: [
+          { field: "Accion", operator: "eq", value: 1 },
+          { field: "Accion", operator: "eq", value: 2 },
+            { field: "Accion", operator: "eq", value: 0 },
+            { field: "Accion", operator: "eq", value: undefined }
+        ]
+    }
+          
+         
       },
+     
       selectable: true,
       dataBinding: function (e) {
           console.log("dataBinding");
       },
       change: function (e) {
 
-          actuallongitudTrabajosAdicionales = options.model.ListaDetalleTrabajoAdicional.length;
+          ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+
+          var dataSource = this.dataSource;
+          var filters = dataSource.filter();
+          var allData = dataSource.data();
+          var query = new kendo.data.Query(allData);
+          var data = query.filter(filters).data;
+
+          
+          actuallongitudTrabajosAdicionales = data.length;;
           options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
           if (ItemSeleccionado.JuntaArmadoID != 0)
               ItemSeleccionado.Accion = 2;
@@ -169,6 +178,7 @@ function RenderGridDetalle(container, options) {
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
 
+
                     if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
 
                         var dataSource = this.dataSource;
@@ -178,7 +188,7 @@ function RenderGridDetalle(container, options) {
 
                         dataItem.Accion = 3;
 
-
+                       
                         
                         var filters = dataSource.filter();
                         var allData = dataSource.data();
@@ -188,7 +198,6 @@ function RenderGridDetalle(container, options) {
                         actuallongitudTrabajosAdicionales = data.length;
 
                         options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
-
 
                         this.dataSource.sync();
 
@@ -214,6 +223,10 @@ function RenderGridDetalle(container, options) {
 function RenderComboBoxTrabajoAdicional(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta 
+    
+    console.log("RenderComboBoxTrabajoAdicional la propiedad accion tiene el valor de:");
+    console.log(options.model.Accion);
+    console.log(options.model);
 
     $('<input required data-text-field="NombreCorto" id=' + options.model.uid + ' data-value-field="NombreCorto" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
@@ -224,17 +237,14 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
                 options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                options.model.Accion = dataItem.JuntaArmadoID == undefined ? 1 : dataItem.Accion;
                 options.model.TrabajoAdicional = dataItem.NombreCorto;
-                options.model.Observacion = dataItem.Observacion;
             }
             ,
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 options.model.TrabajoAdicionalID = options.model.TrabajoAdicionalID;
-                options.model.Accion = options.model.Accion;
                 options.model.TrabajoAdicional = dataItem.NombreCorto;
-                options.model.Observacion = dataItem.Observacion;
+               // options.model.Observacion = dataItem.Observacion;
             }
         });
 
