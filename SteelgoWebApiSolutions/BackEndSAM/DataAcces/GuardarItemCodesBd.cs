@@ -1415,17 +1415,22 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //Insertar la Relacion Folio Cuantificacion IC
-                    Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
-                    relIC.FolioCuantificacionID = FolioCuantificacion;
-                    relIC.Rel_ItemCode_Diametro_ID = Convert.ToInt32(IC.ItemCodeID);
-                    relIC.TieneNumerosUnicos = false;
-                    relIC.FechaModificacion = DateTime.Now;
-                    relIC.UsuarioModificacion = usuario.UsuarioID;
-                    relIC.Activo = true;
-                    relIC.Cantidad = IC.Cantidad;
-                    ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
-                    ctx.SaveChanges();
+                    int relItemDiametroID = Convert.ToInt32(IC.ItemCodeID);
+                    if (!ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                        .Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
+                    {
+                        //Insertar la Relacion Folio Cuantificacion IC
+                        Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
+                        relIC.FolioCuantificacionID = FolioCuantificacion;
+                        relIC.Rel_ItemCode_Diametro_ID = relItemDiametroID;
+                        relIC.TieneNumerosUnicos = false;
+                        relIC.FechaModificacion = DateTime.Now;
+                        relIC.UsuarioModificacion = usuario.UsuarioID;
+                        relIC.Activo = true;
+                        relIC.Cantidad = IC.Cantidad;
+                        ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
+                        ctx.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1478,15 +1483,22 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Rel_ItemCode_ItemCodeSteelgo ics = new Sam3_Rel_ItemCode_ItemCodeSteelgo();
-                    ics.Rel_ItemCode_Diametro_ID = Int32.Parse(item.ItemCodeID);
-                    ics.Rel_ItemCodeSteelgo_Diametro_ID = Int32.Parse(item.ItemCodeSteelgoID);
-                    ics.Activo = true;
-                    ics.FechaModificacion = DateTime.Now;
-                    ics.UsuarioModificacion = usuario.UsuarioID;
+                    int relItemDiametroID = Int32.Parse(item.ItemCodeID);
+                    int relItemSteelgoDiametroID = Int32.Parse(item.ItemCodeSteelgoID);
 
-                    ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Add(ics);
-                    ctx.SaveChanges();
+                    if (!ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
+                        .Where(x => x.Rel_ItemCode_Diametro_ID == relItemDiametroID && x.Rel_ItemCodeSteelgo_Diametro_ID == relItemSteelgoDiametroID).Any())
+                    {
+                        Sam3_Rel_ItemCode_ItemCodeSteelgo ics = new Sam3_Rel_ItemCode_ItemCodeSteelgo();
+                        ics.Rel_ItemCode_Diametro_ID = relItemDiametroID;
+                        ics.Rel_ItemCodeSteelgo_Diametro_ID = relItemSteelgoDiametroID;
+                        ics.Activo = true;
+                        ics.FechaModificacion = DateTime.Now;
+                        ics.UsuarioModificacion = usuario.UsuarioID;
+
+                        ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Add(ics);
+                        ctx.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -1509,16 +1521,22 @@ namespace BackEndSAM.DataAcces
                 //creo la relacion bulto IC
                 using (SamContext ctx = new SamContext())
                 {
-                    Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
-                    bic.BultoID = Int32.Parse(item.BultoID);
-                    bic.Rel_ItemCode_Diametro_ID = Int32.Parse(item.ItemCodeID);
-                    bic.TieneNumerosUnicos = false;
-                    bic.FechaModificacion = DateTime.Now;
-                    bic.UsuarioModificacion = usuario.UsuarioID;
-                    bic.Activo = true;
-                    bic.Cantidad = item.Cantidad;
-                    ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
-                    ctx.SaveChanges();
+                    int bultoID = Int32.Parse(item.BultoID);
+                    int relItemDiametroID = Int32.Parse(item.ItemCodeID);
+
+                    if (ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == bultoID && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
+                    {
+                        Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
+                        bic.BultoID = bultoID;
+                        bic.Rel_ItemCode_Diametro_ID = relItemDiametroID;
+                        bic.TieneNumerosUnicos = false;
+                        bic.FechaModificacion = DateTime.Now;
+                        bic.UsuarioModificacion = usuario.UsuarioID;
+                        bic.Activo = true;
+                        bic.Cantidad = item.Cantidad;
+                        ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
+                        ctx.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
