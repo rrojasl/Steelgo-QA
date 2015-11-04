@@ -689,7 +689,7 @@
                 scrollable: false,
                 sortable: false,
                 columns: [
-                    { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + 'class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
+                    { template: '<input type="checkbox" ' + checked + ' class="materiales" onclick="NodoHijo(this,' + e.data.AvisoEntradaID + ');"/>', headerTemplate: '<label><input type="checkbox" ' + checked + ' class="materiales" id="checkAll" onclick="NodoPadre(this,' + e.data.AvisoEntradaID + ');"></label>', width: '30px' },
                     { field: "ItemCodeID", title: _dictionary.GenerarOrdenRecepcion0010[$("#language").data("kendoDropDownList").value()], width: "110px",  hidden:true },
                     { field: "Codigo", title: _dictionary.GenerarOrdenRecepcion0011[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "Descripcion", title: _dictionary.GenerarOrdenRecepcion0012[$("#language").data("kendoDropDownList").value()], width: "200px" },
@@ -698,9 +698,9 @@
                     { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-                    { field: "RelFCId", title: _dictionary.GenerarOrdenRecepcion0025[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-                    { field: "RelBID", title: _dictionary.GenerarOrdenRecepcion0026[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0026[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true }
+                    { field: "RelFCId", title: _dictionary.GenerarOrdenRecepcion0025[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: false },
+                    { field: "RelBID", title: _dictionary.GenerarOrdenRecepcion0026[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: false },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0027[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: false }
                 ]
             });
         }
@@ -740,9 +740,9 @@
                     { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0015[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     { field: "TipoMaterial", title: _dictionary.GenerarOrdenRecepcion0016[$("#language").data("kendoDropDownList").value()], width: "70px" },
                     { field: "FolioAvisoLlegadaId", title: _dictionary.GenerarOrdenRecepcion0024[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-                    { field: "RelFCId", title: _dictionary.GenerarOrdenRecepcion0025[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-                    { field: "RelBID", title: _dictionary.GenerarOrdenRecepcion0026[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true },
-                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0026[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: true }
+                    { field: "RelFCId", title: _dictionary.GenerarOrdenRecepcion0025[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: false },
+                    { field: "RelBID", title: _dictionary.GenerarOrdenRecepcion0026[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: false },
+                    { field: "Cantidad", title: _dictionary.GenerarOrdenRecepcion0027[$("#language").data("kendoDropDownList").value()], width: "70px", hidden: false }
                 ]
             });
         }
