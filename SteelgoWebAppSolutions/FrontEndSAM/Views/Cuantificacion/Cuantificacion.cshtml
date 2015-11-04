@@ -1160,7 +1160,7 @@
             if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && returnOfSecurityCheck["Item Code"]["destroy"]) {
                 loadingStart();
                 var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-                var ItemCode = dataItem.ItemCode ? dataItem.ItemCode : "";
+                var ItemCode = dataItem.ItemCodeID ? dataItem.ItemCodeID : "";
                 var bultoID = dataItem.BultoID ? dataItem.BultoID : "-1";
                 var folioAvisoLlegadaID = FolioAvisoEntrada.FolioAvisoEntradaID;
                 var folioCuantificacionID = Cuantificacion.FolioCuantificacionID ? Cuantificacion.FolioCuantificacionID : "-1";
