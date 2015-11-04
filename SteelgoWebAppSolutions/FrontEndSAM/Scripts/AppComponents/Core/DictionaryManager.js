@@ -1764,6 +1764,10 @@ _dictionary = {
         "es-MX": "Orden de Descarga Generada",
         "en-US": "Generated Download Order"
     },
+    "LlegadaMaterial0064": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
