@@ -178,9 +178,9 @@
             limpiarDatos();
             itemActual["D2"]=e.sender._old;
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
-                $("#descripcionIC").val(data[0].Descripcion);
-                if(data[0].ItemCodeSteelgo!==null && data[0].ItemCodeSteelgo!==""){
-                    $("#icsasociado").val(data[0].ItemCodeSteelgo);
+                $("#descripcionIC").val(data.Descripcion);
+                if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
+                    $("#icsasociado").val(data.ItemCodeSteelgo);
                     $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
                     $("#grid").data("kendoGrid").dataSource.read();
                     $("#grid").data("kendoGrid").refresh();
