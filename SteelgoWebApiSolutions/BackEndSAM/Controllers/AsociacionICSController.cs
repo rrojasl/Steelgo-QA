@@ -85,7 +85,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return AsociacionICSBd.Instance.obtenerInformacionItemCode(itemCode);
+                return AsociacionICSBd.Instance.obtenerInformacionItemCode(itemCode, diametro1, diametro2);
             }
             else
             {
