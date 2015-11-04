@@ -231,7 +231,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS != null ? ICS.DescripcionEspanol : "",
+                                        Descripcion = IC != null ? IC.DescripcionEspanol : "",
                                         Peso = ICS != null ? ICS.Peso : 0,
                                         Cedula = datosItemCode.Cedula,
                                         D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
@@ -292,7 +292,7 @@ namespace BackEndSAM.DataAcces
                                             ItemCode = datosItemCode.ItemCode,//IC.Codigo,
                                             ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,//ICS.Codigo,
                                             ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,//ICS.ItemCodeSteelgoID.ToString(),
-                                            Descripcion = ICS.DescripcionEspanol,
+                                            Descripcion = IC.DescripcionEspanol,
                                             Peso = ICS.Peso,
                                             Cedula = datosItemCode.Cedula,
                                             D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
@@ -459,7 +459,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
+                                        Descripcion = IC.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
                                         D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
@@ -518,7 +518,7 @@ namespace BackEndSAM.DataAcces
                                             ItemCode = datosItemCode.ItemCode,//IC.Codigo,
                                             ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo,//ICS.Codigo,
                                             ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID,//ICS.ItemCodeSteelgoID.ToString(),
-                                            Descripcion = ICS.DescripcionEspanol,
+                                            Descripcion = IC.DescripcionEspanol,
                                             Peso = ICS.Peso,
                                             Cedula = datosItemCode.Cedula,
                                             D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
@@ -698,7 +698,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
+                                        Descripcion = IC.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
                                         D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
@@ -873,7 +873,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
+                                        Descripcion = IC.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
                                         D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
@@ -1089,7 +1089,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = datosItemCode.Descripcion,
+                                        Descripcion = IC.DescripcionEspanol,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
                                         D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
