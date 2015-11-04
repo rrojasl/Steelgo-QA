@@ -69,4 +69,14 @@ namespace BackEndSAM.Models
         public string ItemCodeSteelgo { get; set; }
         public string ItemCodeSteelgoID { get; set; }
     }
+
+    public class DiametrosAsociacion
+    {
+        public List<ListaCombos> diametro { get; set; }
+
+        public DiametrosAsociacion()
+        {
+            diametro = new List<ListaCombos>();
+        }
+    }
 }
