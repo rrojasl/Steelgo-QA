@@ -64,6 +64,7 @@ namespace BackEndSAM.DataAcces
                 return result;
             }
         }
+
         public object CambiarEstatus(int folioCuantificacionID, Sam3_Usuario usuario)
         {
             try

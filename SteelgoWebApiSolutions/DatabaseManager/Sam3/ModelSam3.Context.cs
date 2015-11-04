@@ -159,5 +159,6 @@ namespace DatabaseManager.Sam3
         public virtual DbSet<Sam3_EquivalenciaDiametro> Sam3_EquivalenciaDiametro { get; set; }
         public virtual DbSet<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
         public virtual DbSet<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
+        public virtual DbSet<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
     }
 }

@@ -45,6 +45,46 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
+                return AsociacionICSBd.Instance.ObtenerDiametros1(itemCode);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(int itemCode, int diametro1ID, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                return AsociacionICSBd.Instance.ObtenerDiametros2(itemCode, diametro1ID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        public object Get(int itemCode, int diametro1, int diametro2, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
                 return AsociacionICSBd.Instance.obtenerInformacionItemCode(itemCode);
             }
             else
@@ -58,7 +98,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string data, string diametro1, string token)
+        public object Get(string data, string diametro1,string diametro2, string token)
         {
             string payload = "";
             string newToken = "";
@@ -68,7 +108,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 ICSDatosAsociacion informacion = serializer.Deserialize<ICSDatosAsociacion>(data);
 
-                return AsociacionICSBd.Instance.obtenerInformacionICS(informacion, diametro1);
+                return AsociacionICSBd.Instance.obtenerInformacionICS(informacion, diametro1, diametro2);
             }
             else
             {
@@ -82,7 +122,7 @@ namespace BackEndSAM.Controllers
         }
 
         // POST api/<controller>
-        public object Post(string itemCode, string itemCodeSteelgo, string token)
+        public object Post(string itemCode, string itemCodeSteelgo, string diametro1ID, string diametro2ID, string token)
         {
             string payload = "";
             string newToken = "";
@@ -92,7 +132,7 @@ namespace BackEndSAM.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return AsociacionICSBd.Instance.crearRelacion(itemCode, itemCodeSteelgo, usuario);
+                return AsociacionICSBd.Instance.crearRelacion(itemCode, itemCodeSteelgo, diametro1ID, diametro2ID, usuario);
             }
             else
             {

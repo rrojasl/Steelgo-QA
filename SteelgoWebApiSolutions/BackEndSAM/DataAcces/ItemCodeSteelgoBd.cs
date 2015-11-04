@@ -178,7 +178,7 @@ namespace BackEndSAM.DataAcces
                                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                                   where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && r.Activo
                                                                   select fa.Nombre).FirstOrDefault(),
-                                                       ItemCodeSteelgoID = r.ItemCodeSteelgoID,
+                                                       ItemCodeSteelgoID = rid.Rel_ItemCodeSteelgo_Diametro_ID,
                                                        Peso = r.Peso,
                                                        Codigo = r.Codigo,
                                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
@@ -221,16 +221,25 @@ namespace BackEndSAM.DataAcces
                      int diametro1 = diam1 != "" ? Convert.ToInt32(diam1) : 0;
                      int diametro2 = diam2 != "" ? Convert.ToInt32(diam2) : 0;
 
+                     int diametro1IID = (from d in ctx.Sam3_Diametro
+                                         where d.Activo && d.Valor == diametro1
+                                         select d.DiametroID).AsParallel().SingleOrDefault();
+
+                     int diametro2ID = (from d in ctx.Sam3_Diametro
+                                        where d.Activo && d.Valor == diametro2
+                                        select d.DiametroID).AsParallel().SingleOrDefault();
+
                     ItemCodeJson detalle = new ItemCodeJson();
 
                     detalle = (from r in ctx.Sam3_ItemCode
-                               join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on r.ItemCodeID equals riit.ItemCodeID
-                               join ics in ctx.Sam3_ItemCodeSteelgo on riit.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on r.ItemCodeID equals rid.ItemCodeID
+                               join riit in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rid.Rel_ItemCode_Diametro_ID equals riit.Rel_ItemCode_Diametro_ID
+                               join rids in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on riit.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                               join ics in ctx.Sam3_ItemCodeSteelgo on rids.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                where r.Activo && riit.Activo && ics.Activo && rid.Activo && d1.Activo && d2.Activo
-                               && r.ItemCodeID == item.ItemCodeID && d1.Valor == diametro1 && d2.Valor == diametro2
+                               && r.ItemCodeID == item.ItemCodeID && d1.DiametroID == diametro1IID && d2.DiametroID == diametro2ID
                                select new ItemCodeJson
                                {
                                    ItemCodeID = rid.Rel_ItemCode_Diametro_ID,
@@ -246,15 +255,15 @@ namespace BackEndSAM.DataAcces
                                              join d in ctx.Sam3_Diametro on c.DiametroID equals d.DiametroID
                                              where c.Activo && d.Activo && c.CedulaID == ics.CedulaID
                                              select d.Valor + "-" + c.CedulaA + "-" + c.CedulaB + "-" + c.CedulaC).FirstOrDefault(),
-                                   ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
+                                   ItemCodeSteelgoID = rids.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                    ItemCodeSteelgo = ics.Codigo,
                                    TipoAcero = (from rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo
-                                                join itcs in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                join it in ctx.Sam3_ItemCode on rics.ItemCodeID equals it.ItemCodeID
+                                                join rdis in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals rids.Rel_ItemCodeSteelgo_Diametro_ID
+                                                join itcs in ctx.Sam3_ItemCodeSteelgo on rdis.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
                                                 join fa in ctx.Sam3_FamiliaAcero on itcs.FamiliaAceroID equals fa.FamiliaAceroID
                                                 join fm in ctx.Sam3_FamiliaMaterial on fa.FamiliaMaterialID equals fm.FamiliaMaterialID
-                                                where rics.Activo && itcs.Activo && it.Activo
-                                                && rics.ItemCodeID == r.ItemCodeID
+                                                where rics.Activo && itcs.Activo
+                                                && rics.Rel_ItemCode_ItemCodeSteelgo == riit.Rel_ItemCode_ItemCodeSteelgo
                                                 select fm.Nombre).FirstOrDefault(),
                                    ColadaID = r.ColadaID
                                }).AsParallel().SingleOrDefault();
@@ -270,7 +279,9 @@ namespace BackEndSAM.DataAcces
                                    join d1 in ctx.Sam3_Diametro on rid.Diametro1ID equals d1.DiametroID
                                    join d2 in ctx.Sam3_Diametro on rid.Diametro2ID equals d2.DiametroID
                                    where r.Activo && rid.Activo
-                                     && r.ItemCodeID == item.ItemCodeID && d1.Valor == diametro1 && d2.Valor == diametro2
+                                     && r.ItemCodeID == item.ItemCodeID 
+                                     && d1.DiametroID == diametro1IID 
+                                     && d2.DiametroID == diametro2ID
                                    select new ItemCodeJson
                                    {
                                        ItemCodeID = rid.Rel_ItemCode_Diametro_ID,

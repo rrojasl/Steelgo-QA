@@ -30,5 +30,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_Rel_Perfil_Entidad_Pagina> Sam3_Rel_Perfil_Entidad_Pagina { get; set; }
         public virtual ICollection<Sam3_Rel_Documento_Entidad> Sam3_Rel_Documento_Entidad { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_Entidad> Sam3_Rel_Incidencia_Entidad { get; set; }
+        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
     }
 }

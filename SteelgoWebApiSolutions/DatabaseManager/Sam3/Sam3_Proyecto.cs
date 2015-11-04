@@ -69,5 +69,6 @@ namespace DatabaseManager.Sam3
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
         public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
         public virtual ICollection<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
+        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
     }
 }

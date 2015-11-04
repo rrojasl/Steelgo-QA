@@ -50,15 +50,86 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<ListaCombos> itemCodes = (from ic in ctx.Sam3_ItemCode
-                                                   where ic.Activo
+                    List<ListaCombos> itemCodes = (from icd in ctx.Sam3_Rel_ItemCode_Diametro
+                                                   join ic in ctx.Sam3_ItemCode on icd.ItemCodeID equals ic.ItemCodeID
+                                                   where icd.Activo && ic.Activo
                                                    select new ListaCombos
                                                    {
-                                                       id = ic.ItemCodeID.ToString(),
+                                                       id = icd.ItemCodeID.ToString(),
                                                        value = ic.Codigo
+                                                   }).AsParallel().GroupBy(x => x.value).Select(x => x.First()).ToList();
+                    return itemCodes;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Obtener los diametros para el combo
+        /// diametro 1 en asociar Item code steelgo vs item code
+        /// </summary>
+        /// <param name="itemCode"></param>
+        /// <returns></returns>
+        public object ObtenerDiametros1(int itemCode)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> diametros = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                                   join d in ctx.Sam3_Diametro on ricd.Diametro1ID equals d.DiametroID
+                                                   where ricd.Activo && d.Activo && ricd.ItemCodeID == itemCode
+                                                   select new ListaCombos
+                                                   {
+                                                       id = d.DiametroID.ToString(),
+                                                       value = d.Valor.ToString()
                                                    }).AsParallel().ToList();
 
-                    return itemCodes;
+                    return diametros;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerDiametros2(int itemCode, int diametro1ID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ListaCombos> diametros = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                     join d in ctx.Sam3_Diametro on ricd.Diametro2ID equals d.DiametroID
+                                     where ricd.Activo && d.Activo && ricd.ItemCodeID == itemCode && ricd.Diametro1ID == diametro1ID
+                                     select new ListaCombos
+                                     {
+                                         id = d.DiametroID.ToString(),
+                                         value = d.Valor.ToString()
+                                     }).AsParallel().ToList();
+                    return diametros;
                 }
             }
             catch (Exception ex)
@@ -91,15 +162,16 @@ namespace BackEndSAM.DataAcces
                     List<DatosItemCode> datosItemCode = (from ic in ctx.Sam3_ItemCode
                                                          join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                                          join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                         where ic.Activo && rics.Activo && ics.Activo
+                                                         where ic.Activo
+                                                         && rics.Activo && ics.Activo
                                                          && ic.ItemCodeID == itemCodeID
                                                          select new DatosItemCode
                                                          {
-                                                             ItemCodeID = ic.ItemCodeID.ToString(),
-                                                             Codigo = ic.Codigo,
+                                                             //ItemCodeID = ic.ItemCodeID.ToString(),
+                                                             //Codigo = ic.Codigo,
                                                              //D1 = ics.Diametro1.ToString(),
                                                              //D2 = ics.Diametro2.ToString(),
-                                                             Descripcion = ics.DescripcionEspanol,
+                                                             Descripcion = ic.DescripcionEspanol,
                                                              ItemCodeSteelgo = ics.Codigo,
                                                              ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString()
                                                          }).AsParallel().ToList();
@@ -130,7 +202,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="datos"></param>
         /// <param name="diametro1"></param>
         /// <returns></returns>
-        public object obtenerInformacionICS(ICSDatosAsociacion datos, string diametro1)
+        public object obtenerInformacionICS(ICSDatosAsociacion datos, string diametro1, string diametro2)
         {
             try
             {
@@ -143,8 +215,8 @@ namespace BackEndSAM.DataAcces
                              join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                              join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                              join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                             where ics.Activo && g.Activo && c.Activo
-                             && d1.Valor.ToString() == diametro1
+                             where ics.Activo && g.Activo && c.Activo && d1.Activo && d2.Activo
+                             && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
                              select new ICSDatosAsociacion
                              {
                                  ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
@@ -184,8 +256,8 @@ namespace BackEndSAM.DataAcces
                 {
                     lista.ForEach(x =>
                         x.Acero = (from fa in ctx2.FamiliaAcero
-                                       where fa.FamiliaAceroID.ToString() == x.AceroID
-                                       select fa.Nombre).AsParallel().SingleOrDefault());
+                                   where fa.FamiliaAceroID.ToString() == x.AceroID
+                                   select fa.Nombre).AsParallel().SingleOrDefault());
                 }
 
                 return lista;
@@ -212,7 +284,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="itemCodeSteelgoID"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object crearRelacion(string itemCodeID, string itemCodeSteelgoID, Sam3_Usuario usuario)
+        public object crearRelacion(string itemCodeID, string itemCodeSteelgoID, string diametro1, string diametro2, Sam3_Usuario usuario)
         {
             try
             {
@@ -225,10 +297,26 @@ namespace BackEndSAM.DataAcces
                                    where rics.Activo && rics.ItemCodeID.ToString() == itemCodeID
                                    select rics.ItemCodeID).Any();
 
+                    int relIC_Diam = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                      where ricd.Activo && ricd.Diametro1ID.ToString() == diametro1 &&
+                                      ricd.Diametro2ID.ToString() == diametro2 &&
+                                      ricd.ItemCodeID.ToString() == itemCodeID
+                                      select ricd.Rel_ItemCode_Diametro_ID).AsParallel().SingleOrDefault();
+
+                    int relICS_Diam = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                       where ricsd.Activo && ricsd.Diametro1ID.ToString() == diametro1 &&
+                                       ricsd.Diametro2ID.ToString() == diametro2 &&
+                                       ricsd.ItemCodeSteelgoID.ToString() == itemCodeSteelgoID
+                                       select ricsd.Rel_ItemCodeSteelgo_Diametro_ID).AsParallel().SingleOrDefault();
+
                     if (existe) //update
                     {
-                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCode_Diametro_ID == relIC_Diam &&
+                            x.Activo).AsParallel().SingleOrDefault();
+
+                        relacion.Rel_ItemCodeSteelgo_Diametro_ID = relICS_Diam;
                         relacion.ItemCodeSteelgoID = ics;
+                        relacion.ItemCodeID = ic;
                         relacion.Activo = true;
                         relacion.UsuarioModificacion = usuario.UsuarioID;
                         relacion.FechaModificacion = DateTime.Now;
@@ -239,6 +327,8 @@ namespace BackEndSAM.DataAcces
                     {
                         Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = new Sam3_Rel_ItemCode_ItemCodeSteelgo();
 
+                        relacion.Rel_ItemCode_Diametro_ID = relIC_Diam;
+                        relacion.Rel_ItemCodeSteelgo_Diametro_ID = relICS_Diam;
                         relacion.ItemCodeID = ic;
                         relacion.ItemCodeSteelgoID = ics;
                         relacion.Activo = true;
