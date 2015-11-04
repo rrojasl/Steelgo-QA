@@ -56,6 +56,7 @@ namespace BackEndSAM.Controllers
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                    int contador = 0;
 
                     HttpResponseMessage result = null;
 
@@ -69,14 +70,14 @@ namespace BackEndSAM.Controllers
 
                     if (httpRequest.Files.Count > 0)
                     {
-
                         var docfiles = new List<string>();
                         HttpPostedFile postedFile;
                         List<DocumentoPosteado> lstArchivos = new List<DocumentoPosteado>();
+
                         foreach (string file in httpRequest.Files)
                         {
                             Guid docguID = Guid.NewGuid();
-                            postedFile = httpRequest.Files[file];
+                            postedFile = httpRequest.Files[contador];
                             string nombreArchivo = "";
                             //verificar si el nombre del archivo es una ruta completa
                             if (postedFile.FileName.Contains("\\"))
@@ -108,6 +109,7 @@ namespace BackEndSAM.Controllers
 
                             postedFile.SaveAs(path);
                             docfiles.Add(ruta);
+                            contador++;
                         }
 
                         if ((bool)DocumentosBd.Instance.GuardarDocumentoPaseSalida(lstArchivos))
