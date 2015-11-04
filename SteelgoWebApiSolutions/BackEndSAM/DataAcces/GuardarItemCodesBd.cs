@@ -249,7 +249,8 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        Detallar = "No"
                                     });
                                     //}
                                 }
@@ -310,7 +311,8 @@ namespace BackEndSAM.DataAcces
                                             Colada = datosItemCode.Colada,
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
-                                            TieneNU = datosItemCode.TieneNU
+                                            TieneNU = datosItemCode.TieneNU,
+                                            Detallar = "No"
                                         });
                                     }
                                 }
@@ -477,7 +479,8 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        Detallar = "No"
                                     });
                                     //}
                                 }
@@ -536,7 +539,8 @@ namespace BackEndSAM.DataAcces
                                             Colada = datosItemCode.Colada,
                                             TieneError = TieneErrores,
                                             Estatus = folioCuantificacion.Estatus,
-                                            TieneNU = datosItemCode.TieneNU
+                                            TieneNU = datosItemCode.TieneNU,
+                                            Detallar = "No"
                                         });
                                     }
                                 }
@@ -716,7 +720,8 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
+                                        Detallar="No"
                                     });
                                     //}
                                 }
@@ -755,7 +760,7 @@ namespace BackEndSAM.DataAcces
                                         Colada = datosItemCode.Colada,
                                         TieneError = TieneErrores,
                                         Estatus = folioCuantificacion.Estatus,
-                                        TieneNU = datosItemCode.TieneNU
+                                        TieneNU = datosItemCode.TieneNU,
                                     });
                                 }
                                 else
