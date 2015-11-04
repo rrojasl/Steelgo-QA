@@ -55,6 +55,10 @@ namespace DatabaseManager.Sam3
         public static string GUARDARCAPTURAARMADO = "Sam3_Armado_JuntaArmado";
         public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_Inspeccion_VisualDimensional";
         public static string GUARDARINSPECCIONDIMENSIONAL= "Sam3_Inspeccion_Dimensional";
+        public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
+
+
+
     }
 
 }
