@@ -226,16 +226,13 @@ namespace BackEndSAM.DataAcces
                     if (registro != null)
                     {
 
-                        int ClienteID = registro.ClienteID != null ? registro.ClienteID : ClienteFolioAvisoLlegada;
-                        detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(ClienteFolioAvisoLlegada);
+                        //int ClienteID = registro.ClienteID != null ? registro.ClienteID : ClienteFolioAvisoLlegada;
 
-                        //detalle.Cliente = (from c in ctx.Sam3_Cliente
-                        //                   where c.ClienteID == ClienteID
-                        //                   select new Models.Cliente
-                        //                   {
-                        //                       ClienteID = c.ClienteID.ToString(),
-                        //                       Nombre = c.Nombre
-                        //                   }).AsParallel().SingleOrDefault();
+                        //sam2Cliente = (from c in ctx.Sam3_Cliente
+                        //                   where c.Activo && c.ClienteID == ClienteID
+                        //                   select c.Sam2ClienteID.Value).AsParallel().SingleOrDefault();
+                        //detalle.Cliente = (Models.Cliente)ClienteBd.Instance.ObtnerElementoClientePorID(sam2Cliente);
+
 
                         detalle.Documentos = (from d in ctx.Sam3_Rel_FolioAvisoEntrada_Documento
                                               where d.FolioAvisoEntradaID == registro.FolioAvisoEntradaID && d.Activo

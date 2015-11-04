@@ -671,13 +671,13 @@
                     var concat = "";
                     CargarFolio(folioAvisoLlegada);
                     folioLlegada = data.FolioAvisoEntradaID;
-                    if (_esAlta != "-1") {
-                        BotonEdicion();
-                        limpiarTituloFolio();
-                    }else{
+                    //if (_esAlta != "-1") {
+                    //    BotonEdicion();
+                    //    limpiarTituloFolio();
+                    //}else{
                         cargarTituloFolio();
                         ActualizarTitulosEdicion(data);
-                    }
+                    //}
 
                     $("#FolioEntradaID").data("kendoComboBox").text(folioAvisoLlegada);
 
@@ -729,7 +729,7 @@
 
                     $("#listaArchivos tbody").empty();
                     $.each(data.Documentos, function (index, value) {
-                        $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extension + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
+                        $("#listaArchivos tbody").append("<tr id='" + value.DocumentoID + "," + value.Extencion + "'><td><a href='" + value.Url + "'>" + value.Nombre + "</a></td><td>" + value.Descripcion + "</td><td><a href='#' >" + "<span class='delete disable'></span>" + "</a></td></tr>");
                     });
                     applySecurityPolicy(false);
             });
