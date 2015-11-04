@@ -2490,7 +2490,7 @@
                 $ItemCodeSteelgo.ItemCodeSteelgo.read({}, { itemID: value, token: Cookies.get("token") }).done(function (data) {
                     itemCodesJsonSteelgo = data;
                     if (itemCodesJsonSteelgo) {
-                        if (itemCodesJsonSteelgo.Codigo == value) {
+                        if (itemCodesJsonSteelgo.ItemCodeSteelgoID == value) {
                             lastEditedCellIDSteelgo.ItemCodeSteelgo = itemCodesJsonSteelgo.Codigo;
                             //lastEditedCellIDSteelgo.Descripcion = itemCodesJsonSteelgo.DescripcionEspanol
                             //lastEditedCellIDSteelgo.D1 = itemCodesJsonSteelgo.Diametro1
