@@ -222,7 +222,7 @@
                 CargarDatosGrid();
             },
         });
-
+       
     }
     function cargarInicialGrid() {
         var grid = $("#grid").kendoGrid({
@@ -296,7 +296,6 @@
         ObtenerFoliosAvisoEntrada();
         CargarFolio(_folioAvisoEntradaID);
         ObtenerItemCodes();
-        CargarDatosGrid();
     };
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
@@ -756,7 +755,7 @@
     if (_folioAvisoEntradaID != "-1" && _proyectoID != "-1") {
         CargaInicialEdicion();
     }
-    
+    CargarDatosGrid();
     }
 
     @section JavascriptDocumentReadyHomeCookie {
