@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-2">
                     <label id="ListadoCatalogos0003"></label>
                     <input id="listaCatalogos" class="fullWidth" />
                 </div>
@@ -682,7 +682,7 @@
                 cargarInicialGrid($("#listaCatalogos").data("kendoDropDownList").value());
             }else if($("#listaCatalogos").data("kendoDropDownList").value()=="11"){//Catálogo 11= Cédulas
                 $("#cedbtns").remove();
-                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns"><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"> <label id="" for="fconversion">Factor de conversión</label> <input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="files">Carga masiva</label> <input type="file" name="File Upload" id="files" accept=".csv"/></div><div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-2"><label id="" for="fcarga">&nbsp;</label><button id="fcarga" class="btn" type="button">Cargar</button></div><a download="TemplateCed.csv" href="#" id="templateced">Descargar plantilla</a></div>');
+                $("#listaCatalogos").parent().parent().parent().append('<div id="cedbtns" class="col-xs-12 col-sm-12 col-md-8 col-lg-9"><div class="row"><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" for="fconversion">Factor de conversión</label><input id="fconversion" type="number" class="general-input"/></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3"><label id="" >Carga masiva</label><input type="file" name="File Upload" id="files" class="hidden" accept=".csv"/><button id="selectFiles" class="btn btn-primary" type="button">Seleccionar archivos</button></div><div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4"><label id="" for="fcarga" class="hidden-xs">&nbsp;</label><div class="row"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-4"><button id="fcarga" class="btn btn-primary" type="button"><span id="">Cargar</span></button></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-8"><a download="TemplateCed.csv" href="#" id="templateced"><label id="" class="download">Descargar plantilla</label></a></div></div></div></div></div>');
                 $Cedulas.Cedulas.read({}, { catalogoID:"11",token:Cookies.get("token") }).done(function (result){
                     $("#fconversion").val(result);
                 });
@@ -690,6 +690,9 @@
                     var encodedUri = encodeURI(obtenerCSV());
                     $(this).attr("href", encodedUri);
                 })
+                $("#selectFiles").on('click', function () {
+                    $("#files").click();
+                });
                 $("#fcarga").on("click",function(){
                     if(nuevasCedulas.length!=0){
                         var data=[];
