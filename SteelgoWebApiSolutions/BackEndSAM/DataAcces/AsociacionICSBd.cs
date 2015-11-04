@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces
                                                    {
                                                        id = icd.ItemCodeID.ToString(),
                                                        value = ic.Codigo
-                                                   }).AsParallel().GroupBy(x=> x.value).Select(x=> x.First()).ToList();
+                                                   }).AsParallel().GroupBy(x => x.value).Select(x => x.First()).ToList();
                     return itemCodes;
                 }
             }
@@ -88,16 +88,16 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    DiametrosAsociacion diam = new DiametrosAsociacion();
-                    diam.diametro = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
-                                      join d in ctx.Sam3_Diametro on ricd.Diametro1ID equals d.DiametroID
-                                      where ricd.Activo && d.Activo && ricd.ItemCodeID == itemCode
-                                      select new ListaCombos
-                                      {
-                                          id = d.DiametroID.ToString(),
-                                          value = d.Valor.ToString()
-                                      }).AsParallel().ToList();
-                    return diam;
+                    List<ListaCombos> diametros = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                                   join d in ctx.Sam3_Diametro on ricd.Diametro1ID equals d.DiametroID
+                                                   where ricd.Activo && d.Activo && ricd.ItemCodeID == itemCode
+                                                   select new ListaCombos
+                                                   {
+                                                       id = d.DiametroID.ToString(),
+                                                       value = d.Valor.ToString()
+                                                   }).AsParallel().ToList();
+
+                    return diametros;
                 }
             }
             catch (Exception ex)
@@ -121,8 +121,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    DiametrosAsociacion diam = new DiametrosAsociacion();
-                    diam.diametro = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                    List<ListaCombos> diametros = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
                                      join d in ctx.Sam3_Diametro on ricd.Diametro2ID equals d.DiametroID
                                      where ricd.Activo && d.Activo && ricd.ItemCodeID == itemCode && ricd.Diametro1ID == diametro1ID
                                      select new ListaCombos
@@ -130,7 +129,7 @@ namespace BackEndSAM.DataAcces
                                          id = d.DiametroID.ToString(),
                                          value = d.Valor.ToString()
                                      }).AsParallel().ToList();
-                    return diam;
+                    return diametros;
                 }
             }
             catch (Exception ex)
@@ -203,7 +202,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="datos"></param>
         /// <param name="diametro1"></param>
         /// <returns></returns>
-        public object obtenerInformacionICS(ICSDatosAsociacion datos, string diametro1)
+        public object obtenerInformacionICS(ICSDatosAsociacion datos, string diametro1, string diametro2)
         {
             try
             {
@@ -216,8 +215,8 @@ namespace BackEndSAM.DataAcces
                              join c in ctx.Sam3_Cedula on ics.CedulaID equals c.CedulaID
                              join d1 in ctx.Sam3_Diametro on rids.Diametro1ID equals d1.DiametroID
                              join d2 in ctx.Sam3_Diametro on rids.Diametro2ID equals d2.DiametroID
-                             where ics.Activo && g.Activo && c.Activo
-                             && d1.Valor.ToString() == diametro1
+                             where ics.Activo && g.Activo && c.Activo && d1.Activo && d2.Activo
+                             && d1.DiametroID.ToString() == diametro1 && d2.DiametroID.ToString() == diametro2
                              select new ICSDatosAsociacion
                              {
                                  ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString(),
@@ -257,8 +256,8 @@ namespace BackEndSAM.DataAcces
                 {
                     lista.ForEach(x =>
                         x.Acero = (from fa in ctx2.FamiliaAcero
-                                       where fa.FamiliaAceroID.ToString() == x.AceroID
-                                       select fa.Nombre).AsParallel().SingleOrDefault());
+                                   where fa.FamiliaAceroID.ToString() == x.AceroID
+                                   select fa.Nombre).AsParallel().SingleOrDefault());
                 }
 
                 return lista;
@@ -285,7 +284,7 @@ namespace BackEndSAM.DataAcces
         /// <param name="itemCodeSteelgoID"></param>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public object crearRelacion(string itemCodeID, string itemCodeSteelgoID, Sam3_Usuario usuario)
+        public object crearRelacion(string itemCodeID, string itemCodeSteelgoID, string diametro1, string diametro2, Sam3_Usuario usuario)
         {
             try
             {
@@ -298,10 +297,26 @@ namespace BackEndSAM.DataAcces
                                    where rics.Activo && rics.ItemCodeID.ToString() == itemCodeID
                                    select rics.ItemCodeID).Any();
 
+                    int relIC_Diam = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                      where ricd.Activo && ricd.Diametro1ID.ToString() == diametro1 &&
+                                      ricd.Diametro2ID.ToString() == diametro2 &&
+                                      ricd.ItemCodeID.ToString() == itemCodeID
+                                      select ricd.Rel_ItemCode_Diametro_ID).AsParallel().SingleOrDefault();
+
+                    int relICS_Diam = (from ricsd in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro
+                                       where ricsd.Activo && ricsd.Diametro1ID.ToString() == diametro1 &&
+                                       ricsd.Diametro2ID.ToString() == diametro2 &&
+                                       ricsd.ItemCodeSteelgoID.ToString() == itemCodeSteelgoID
+                                       select ricsd.Rel_ItemCodeSteelgo_Diametro_ID).AsParallel().SingleOrDefault();
+
                     if (existe) //update
                     {
-                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.ItemCodeID.ToString() == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo.Where(x => x.Rel_ItemCode_Diametro_ID == relIC_Diam &&
+                            x.Activo).AsParallel().SingleOrDefault();
+
+                        relacion.Rel_ItemCodeSteelgo_Diametro_ID = relICS_Diam;
                         relacion.ItemCodeSteelgoID = ics;
+                        relacion.ItemCodeID = ic;
                         relacion.Activo = true;
                         relacion.UsuarioModificacion = usuario.UsuarioID;
                         relacion.FechaModificacion = DateTime.Now;
@@ -312,6 +327,8 @@ namespace BackEndSAM.DataAcces
                     {
                         Sam3_Rel_ItemCode_ItemCodeSteelgo relacion = new Sam3_Rel_ItemCode_ItemCodeSteelgo();
 
+                        relacion.Rel_ItemCode_Diametro_ID = relIC_Diam;
+                        relacion.Rel_ItemCodeSteelgo_Diametro_ID = relICS_Diam;
                         relacion.ItemCodeID = ic;
                         relacion.ItemCodeSteelgoID = ics;
                         relacion.Activo = true;
