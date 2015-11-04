@@ -30,5 +30,6 @@ namespace BackEndSAM.Models
         public string FolioAvisoLlegadaId { get; set; }
         public string RelFCId { get; set; }
         public string RelBID { get; set; }
+        public int ItemCodeIDOriginal { get; set; } 
     }
 }
