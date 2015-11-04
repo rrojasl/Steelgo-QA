@@ -238,7 +238,7 @@ namespace BackEndSAM.DataAcces
                                    ColadaNombre = (from c in ctx.Sam3_Colada where c.ColadaID == r.ColadaID && c.Activo select c.NumeroColada).FirstOrDefault(),
                                    Cantidad = r.Cantidad,
                                    MM = r.MM,
-                                   Descripcion = ics.DescripcionEspanol,
+                                   Descripcion = r.DescripcionEspanol,
                                    Diametro1 = d1.Valor,
                                    Diametro2 = d2.Valor,
                                    FamiliaAcero = (from f in ctx.Sam3_FamiliaAcero where f.FamiliaAceroID == ics.FamiliaAceroID && f.Activo select f.Nombre).FirstOrDefault(),
