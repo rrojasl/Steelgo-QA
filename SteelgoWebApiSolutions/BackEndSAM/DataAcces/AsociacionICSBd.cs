@@ -153,24 +153,26 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="itemCodeID"></param>
         /// <returns></returns>
-        public object obtenerInformacionItemCode(int itemCodeID)
+        public object obtenerInformacionItemCode(int itemCodeID, int diametro1, int diametro2)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    int relIC_Diam = (from ricd in ctx.Sam3_Rel_ItemCode_Diametro
+                                      where ricd.Activo && ricd.Diametro1ID == diametro1 &&
+                                      ricd.Diametro2ID == diametro2 &&
+                                      ricd.ItemCodeID == itemCodeID
+                                      select ricd.Rel_ItemCode_Diametro_ID).AsParallel().SingleOrDefault();
+
                     List<DatosItemCode> datosItemCode = (from ic in ctx.Sam3_ItemCode
                                                          join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on ic.ItemCodeID equals rics.ItemCodeID
                                                          join ics in ctx.Sam3_ItemCodeSteelgo on rics.ItemCodeSteelgoID equals ics.ItemCodeSteelgoID
-                                                         where ic.Activo
-                                                         && rics.Activo && ics.Activo
-                                                         && ic.ItemCodeID == itemCodeID
+                                                         join icsdiam in ctx.Sam3_Rel_ItemCodeSteelgo_Diametro on rics.Rel_ItemCodeSteelgo_Diametro_ID equals icsdiam.Rel_ItemCodeSteelgo_Diametro_ID
+                                                         where rics.Activo && ics.Activo && icsdiam.Activo
+                                                         && rics.Rel_ItemCode_Diametro_ID == relIC_Diam
                                                          select new DatosItemCode
                                                          {
-                                                             //ItemCodeID = ic.ItemCodeID.ToString(),
-                                                             //Codigo = ic.Codigo,
-                                                             //D1 = ics.Diametro1.ToString(),
-                                                             //D2 = ics.Diametro2.ToString(),
                                                              Descripcion = ic.DescripcionEspanol,
                                                              ItemCodeSteelgo = ics.Codigo,
                                                              ItemCodeSteelgoID = ics.ItemCodeSteelgoID.ToString()

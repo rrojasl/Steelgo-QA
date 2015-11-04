@@ -169,9 +169,9 @@
                     messageindexKendoCombobox(this);
                     Proyecto = {};
                     this.value("");
-                    CargarDatosGrid();
                 } else {
                     ObtenerFoliosAvisoEntrada();
+                    CargarDatosGrid();
                 }
             },
             filter: "contains",
@@ -195,9 +195,9 @@
                     messageindexKendoCombobox(this);
                     FolioAvisoEntrada = {};
                     this.value("");
-                    CargarDatosGrid();
                 } else {
                     ObtenerItemCodes();
+                    CargarDatosGrid();
                 };
 
                 
@@ -222,7 +222,7 @@
                 CargarDatosGrid();
             },
         });
-
+       
     }
     function cargarInicialGrid() {
         var grid = $("#grid").kendoGrid({
@@ -296,7 +296,6 @@
         ObtenerFoliosAvisoEntrada();
         CargarFolio(_folioAvisoEntradaID);
         ObtenerItemCodes();
-        CargarDatosGrid();
     };
     function ControlErroresObjetosComboBox(control, result) {
         if (Error(result)) {
@@ -350,7 +349,7 @@
     function ObtenerProyecto() {
         $Proyecto.Proyecto.read({ token: Cookies.get("token") }).done(function (result) {
             ControlErroresObjetosComboBox("ProyectoID", result);
-            CargarDatosGrid();
+            //CargarDatosGrid();
         });
     };
 
@@ -360,7 +359,6 @@
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("FolioAvisoEntradaID", result);
-            CargarDatosGrid();
         });
     };
 
@@ -370,7 +368,7 @@
 
         $folioEntradaMaterial.Listado.read({}, { data: JSON.stringify(Listado) }).done(function (result) {
             ControlErroresObjetosComboBox("ItemCode", result);
-            CargarDatosGrid();
+            //CargarDatosGrid();
         });
     };
 
@@ -757,7 +755,7 @@
     if (_folioAvisoEntradaID != "-1" && _proyectoID != "-1") {
         CargaInicialEdicion();
     }
-    
+    CargarDatosGrid();
     }
 
     @section JavascriptDocumentReadyHomeCookie {
