@@ -178,7 +178,7 @@ namespace BackEndSAM.DataAcces
                                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
                                                                   where fa.FamiliaAceroID == r.FamiliaAceroID && fa.Activo && r.Activo
                                                                   select fa.Nombre).FirstOrDefault(),
-                                                       ItemCodeSteelgoID = r.ItemCodeSteelgoID,
+                                                       ItemCodeSteelgoID = rid.Rel_ItemCodeSteelgo_Diametro_ID,
                                                        Peso = r.Peso,
                                                        Codigo = r.Codigo,
                                                        TipoAcero = (from fa in ctx.Sam3_FamiliaAcero
