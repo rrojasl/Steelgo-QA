@@ -482,7 +482,7 @@ namespace BackEndSAM.DataAcces
                                     //}
                                 }
 
-                                if (cerrar && !incompletos && !TieneErrores)
+                                if (cerrar)
                                 {
                                     listaNuevosIC.Clear();
 
@@ -896,7 +896,7 @@ namespace BackEndSAM.DataAcces
                                     //}
                                 }
 
-                                if (cerrar && !incompletos && !TieneErrores)
+                                if (cerrar)
                                 {
                                     listaNuevosIC.Clear();
 

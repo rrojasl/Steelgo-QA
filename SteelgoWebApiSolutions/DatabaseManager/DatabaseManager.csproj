@@ -1244,6 +1244,9 @@
     <Compile Include="Sam3\Sam3_Rel_PermisoAduana_Documento.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sam3\Sam3_Rel_Proyecto_Entidad_Configuracion.cs">
+      <DependentUpon>ModelSam3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sam3\Sam3_Rel_TiposDocumentos_ExtencionesDocumentos.cs">
       <DependentUpon>ModelSam3.tt</DependentUpon>
     </Compile>

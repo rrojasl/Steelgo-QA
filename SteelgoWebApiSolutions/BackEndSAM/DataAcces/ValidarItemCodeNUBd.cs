@@ -113,7 +113,7 @@ namespace BackEndSAM.DataAcces
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    int itemCodeID = (from ic in ctx.Sam3_ItemCode where ic.Codigo == ItemCode && ic.Activo select ic.ItemCodeID).AsParallel().SingleOrDefault();
+                    int itemCodeID = Convert.ToInt32(ItemCode);
 
                     if (ItemCode.Contains("Bulto"))
                     {
@@ -140,7 +140,8 @@ namespace BackEndSAM.DataAcces
                     else if(detalleBulto == "1") //esta en el detalle bulto
                     {
                         //Elimino de Rel Bulto
-                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID.ToString() == BultoID && x.ItemCodeID == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
+                        Sam3_Rel_Bulto_ItemCode bulto = ctx.Sam3_Rel_Bulto_ItemCode
+                            .Where(x => x.BultoID.ToString() == BultoID && x.Rel_ItemCode_Diametro_ID == itemCodeID && x.Activo).AsParallel().SingleOrDefault();
                         bulto.Activo = false;
                         bulto.UsuarioModificacion = usuario.UsuarioID;
                         bulto.FechaModificacion = DateTime.Now;
@@ -151,7 +152,7 @@ namespace BackEndSAM.DataAcces
                     {
                         //Elimino de Rel FolioCuantificacion_ItemCode
                         Sam3_Rel_FolioCuantificacion_ItemCode itemCode = ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                            .Where(x => x.ItemCodeID == itemCodeID 
+                            .Where(x => x.Rel_ItemCode_Diametro_ID == itemCodeID 
                                 && x.FolioCuantificacionID.ToString() == folioCuantificacionID 
                                 && x.Activo).AsParallel().SingleOrDefault();
 

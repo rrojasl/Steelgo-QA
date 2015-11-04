@@ -27,7 +27,7 @@ namespace DatabaseManager.Sam3
         public decimal CedulaMM { get; set; }
         public decimal Espesor { get; set; }
         public bool Activo { get; set; }
-        public int UsuarioModificacion { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> DiametroID { get; set; }
     
