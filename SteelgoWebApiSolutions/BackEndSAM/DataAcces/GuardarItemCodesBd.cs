@@ -1089,7 +1089,7 @@ namespace BackEndSAM.DataAcces
                                         ItemCode = datosItemCode.ItemCode, //IC.Codigo,
                                         ItemCodeSteelgo = datosItemCode.ItemCodeSteelgo, //ICS.Codigo,
                                         ItemCodeSteelgoID = datosItemCode.ItemCodeSteelgoID, //ICS.ItemCodeSteelgoID.ToString(),
-                                        Descripcion = ICS.DescripcionEspanol,
+                                        Descripcion = datosItemCode.Descripcion,
                                         Peso = ICS.Peso,
                                         Cedula = datosItemCode.Cedula,
                                         D1 = (from rid in ctx.Sam3_Rel_ItemCode_Diametro
