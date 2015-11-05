@@ -3022,8 +3022,8 @@ _dictionary = {
         "en-US": "Labels"
     },
     "DetalleOrdenRecepcion0023": {
-        "es-MX": "Generar Orden Almacenaje",
-        "en-US": "Generate Storage Order"
+        "es-MX": "Complemento Recepción",
+        "en-US": "Reception Complement"
     },
 //Orden de Alamacenaje
     "DetalleOrdenAlmacenaje0001": {
@@ -3313,9 +3313,13 @@ _dictionary = {
         "en-US": "Unique Number"
     },
     "GenerarOrdenAlmacenaje0028": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "GenerarOrdenAlmacenaje0029":{
         "es-MX": "Materiales",
         "en-US": "Materials"
-    },
+    }
 //Dashboard Recepcion y Almacenaje
     "DashboardRecepcionAlmacenaje0001": {
         "es-MX":"Transacciones",

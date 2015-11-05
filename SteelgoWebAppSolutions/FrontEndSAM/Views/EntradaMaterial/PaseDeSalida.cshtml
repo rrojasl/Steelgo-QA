@@ -248,7 +248,7 @@
             $("#ListaIncidencias input[type=checkbox]:checked").each(function () {
                 strIncidenciasChecked += $(this).attr("id") + ",";
             });
-            console.log("incidencias: " + strIncidenciasChecked + ", all: " + strALLincidencias);
+            //console.log("incidencias: " + strIncidenciasChecked + ", all: " + strALLincidencias);
 
             if (strIncidenciasChecked) {
                 strincidencias = strIncidenciasChecked;
@@ -261,7 +261,7 @@
 
         $("#FolioAvisoLlegadaID").kendoComboBox({
             dataTextField: "id",
-            dataValueField: "value",
+            dataValueField: "id",
             filter: "contains",
             select: function (e) {
                 limpiarUploadFiles();
@@ -400,7 +400,7 @@
                 } else {
                     $("#ImprimirIncidencias").removeAttr("disabled");
                 }
-                ChecarPaseSalidaEnviado();
+                ChecarPaseSalidaEnviado(id);
             };
         });
     }
@@ -535,19 +535,21 @@
         });
     }
 
-    function ChecarPaseSalidaEnviado() {
+    function ChecarPaseSalidaEnviado(id) {
         loadingStart();
-        $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: FolioPaseSalida.FolioAvisoLlegadaID, token: Cookies.get("token") }).done(function (result) {
+        $PaseSalida.PaseSalida.read({ folioAvisoLlegadaID: id, token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
                 if (result) {
                     //DesahabilitarControles();
                     $("#GenerarPaseSalida").css("display", "none");
                     $("#ImprimirPaseSalida").css("display", "block");
+                    CargarFolio(id);
                     DeshabilitarObtenerDocumentosPaseSalida();
                 } else {
                     habilitarControles();
                     $("#GenerarPaseSalida").css("display", "block");
                     $("#ImprimirPaseSalida").css("display", "none");
+                    CargarFolio(id);
                     ObtenerDocumentosPaseSalida();
                 }
                 loadingStop();

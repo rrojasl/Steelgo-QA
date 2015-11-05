@@ -1022,7 +1022,7 @@
             function borrarArchivo(id, fila) {
                 $DocumentoAvisoLlegada.DocumentoAvisoLlegada.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
                     fila.closest("tr").remove();
-                    console.log("Client.DocumentoAvisoLlegada.destroy");
+                    //console.log("Client.DocumentoAvisoLlegada.destroy");
                 });
             };
 
@@ -1036,7 +1036,7 @@
                 BotonAlta();
 
                 $AvisoLlegada.AvisoLlegada.read({}, { avisollegadaID: id, token: Cookies.get("token") }).done(function (data) {
-                    console.log(data);
+                    //console.log(data);
                     var concat = "";
                     var concatPlanas = "";
                     loadingStart();
@@ -1099,7 +1099,7 @@
 
                     $.each(data.Plana, function (index, value) {
                         concatPlanas += "," + value.PlanaID;
-                        console.log(" concatPlanas:" + concatPlanas);
+                        //console.log(" concatPlanas:" + concatPlanas);
                     });
                     $("#PlanaID").data("kendoMultiSelect").value(concatPlanas.split(","));
 
@@ -1318,7 +1318,7 @@
 
                 loadingStart();
                 $PermisoTramite.PermisoAduana.read({}, { folio: folio, token: Cookies.get("token") }).done(function (result) {
-                    console.log("$PermisoTramite.PermisoAduana.read");
+                    //console.log("$PermisoTramite.PermisoAduana.read");
                     loadingStop();
                     if (Error(result)) {
                         $("#hdPermisoTramite").val(1);//Permiso en tramite
@@ -1364,7 +1364,7 @@
                     $("#ProyectoID").data("kendoMultiSelect").dataSource.filter(filters);
                     $.each(data.Proyectos, function (index, value) {
                         concat += "," + value.ProyectoID;
-                        console.log(" concat:" + concat);
+                        //console.log(" concat:" + concat);
                     });
                     $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
                 });

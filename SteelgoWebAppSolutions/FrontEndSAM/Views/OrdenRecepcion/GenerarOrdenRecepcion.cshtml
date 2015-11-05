@@ -541,7 +541,7 @@
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID;;
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + (Proyecto.ProyectoID?Proyecto.ProyectoID:"");
                 }
             });
         } else {
@@ -567,7 +567,7 @@
             $OrdenRecepcion.OrdenRecepcion.create(OrdenRecepcion, { token: $.cookie("token") }).done(function (result) {
                 loadingStop();
                 if (Error(result)) {
-                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + Proyecto.ProyectoID + "&ImprimirFormatos=1";
+                    window.location.href = _detalleurl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&OrdenRecepcionID=" + result.ReturnMessage[1] + "&ProyectoID=" + (Proyecto.ProyectoID ? Proyecto.ProyectoID : "") + "&ImprimirFormatos=1";
                 }
             });
         } else {
@@ -596,7 +596,7 @@
 
     }
     function onDataBoundPrincipal(e) {
-        console.log("onDataBoundPrincipal");
+        //console.log("onDataBoundPrincipal");
         var view = this.dataSource.view();
         var body = this.tbody[0];
 
@@ -612,7 +612,7 @@
     };
     //se busca el folio cuantificacion, itemcode para marcarlo en el check
     function onDataBoundAccesorios(e) {
-        console.log("onDataBoundDetalle");
+        //console.log("onDataBoundDetalle");
         var view = this.dataSource.view();
         var body = this.tbody[0];
 
@@ -634,7 +634,7 @@
     };
 
     function onDataBoundTubos(e) {
-        console.log("onDataBoundDetalle");
+        //console.log("onDataBoundDetalle");
         var view = this.dataSource.view();
         var body = this.tbody[0];
 

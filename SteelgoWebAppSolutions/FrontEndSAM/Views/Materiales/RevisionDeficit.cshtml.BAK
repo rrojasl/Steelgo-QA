@@ -181,7 +181,7 @@
         pageable: false,
         editable:"inline",
         save: function(e) {
-            console.log(e);
+            //console.log(e);
         },
         remove: function(e) {
             $RevisionDeficit.RevisionDeficit.destroy({},{deficitID:e.model.DeficitID,token:Cookies.get("token")}).done(function(){
@@ -235,10 +235,10 @@
         pageable: false,
         editable:false,
         save: function(e) {
-            console.log(e);
+            //console.log(e);
         },
         remove: function(e) {
-            console.log(e);
+            //console.log(e);
         },
         dataBound: function(e) {
             $(".sub").on("change",function(){
@@ -250,7 +250,7 @@
             })
         },
         edit:function(e){
-            console.log(e);
+            //console.log(e);
         },
     });
 

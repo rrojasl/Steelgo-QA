@@ -292,7 +292,7 @@
             filter: "td",
             select: function (e) {
                 var grid = $("#grid").data("kendoGrid");
-                console.log(grid.select());
+                //console.log(grid.select());
                 var select = grid.select();
                 var data = grid.dataItem(select);
 
@@ -441,7 +441,7 @@
                 displayMessage("notificationslabel0067", "", '2');
                 return;
             };
-            console.log(Listado.lista);
+            //console.log(Listado.lista);
             $PreDespacho.PreDespacho.create(Listado, { token: $.cookie("token") }).done(function (result) {// no tengo controlador dummy
                 if (Error(result)) {
                     _PreDespachoID = result.ReturnMessage[1];

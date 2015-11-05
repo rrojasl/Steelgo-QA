@@ -367,7 +367,7 @@
         ItemCode.Diametro1 = D1_ItemCode.Valor;
         ItemCode.Diametro2 = D2_ItemCode.Valor;
 
-        console.log(JSON.stringify(ItemCode))
+        //console.log(JSON.stringify(ItemCode))
         $ItemCode.ItemCode.create({}, { data: JSON.stringify(ItemCode), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalItemCode();
             if (Error(data)) {

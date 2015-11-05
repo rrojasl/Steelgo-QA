@@ -112,8 +112,8 @@
             ],
             select: function (e) {
                 var dataItem = this.dataItem(e.item.index());
-                console.log("dataItem");
-                console.log(dataItem);
+                //console.log("dataItem");
+                //console.log(dataItem);
 
                 CargarPeriodoTiempo(dataItem.PeriodoID);
             },
@@ -338,7 +338,7 @@
         Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
         Listado.token = Cookies.get("token");
         Listado.TipoListado = 5;
-        console.log("Cantidades del menu dashboard: " + JSON.stringify(Listado));
+        //console.log("Cantidades del menu dashboard: " + JSON.stringify(Listado));
 
         ObtenerAccionesListado(Listado);
     }
@@ -416,8 +416,8 @@
         dataValueField: "ClienteID",
         select: function (e) {
             var dataItem = this.dataItem(e.item.index());
-            console.log("dataItem");
-            console.log(dataItem);
+            //console.log("dataItem");
+            //console.log(dataItem);
             CargarCliente(dataItem.ClienteID, dataItem.Nombre);
         },
         change: function (e) {

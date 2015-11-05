@@ -110,7 +110,7 @@
 			}).keyup(function(e)
 			{
 				if (e.keyCode == ctrlKey) ctrlDown = false;
-				//console.log("Ctrl ? " + ctrlDown);
+				////console.log("Ctrl ? " + ctrlDown);
 			});
 			
 			//Mappeo de Controles y sus flechas
@@ -195,7 +195,7 @@
 				$("#grid").on("click", ".k-grid-Custom", function(e){
 					e.preventDefault();
 					var cookieContent = kendo.stringify( $("#grid").data("kendoGrid").dataSource.view() );
-					console.log(cookieContent);
+					//console.log(cookieContent);
 					$.removeCookie("pivotCokie");
 					$.cookie("pivotCokie", cookieContent);
 					window.open("pivot.html");
@@ -283,7 +283,7 @@
 					//selectable: "multiple cell",
 					allowCopy: true,
 					change: function(){
-						console.log("kendo grid change");
+						//console.log("kendo grid change");
 					},
 					columns: [
 						{
@@ -342,9 +342,9 @@
 				
 				function onChange(e) {
 					var grid = this;
-					console.log("Grid Change Event" + grid);
+					//console.log("Grid Change Event" + grid);
 					var model = grid.dataItem(grid.select());
-					console.log("Grid Change Event" + model);
+					//console.log("Grid Change Event" + model);
 				}
 
 				function itemCodeAutocomplete(container, options) {
@@ -426,7 +426,7 @@
 				$("#grid table").on("keydown", "tr", function (e) {
 					var code = (e.keyCode ? e.keyCode : e.which);
 					if (code == 13) { //If key is ENTER
-						console.log("--KendoEnter--");
+						//console.log("--KendoEnter--");
 						//find index of the td element
 						var tdIndex = $(e.target).closest('td').index();
 						//get the next row's cell
@@ -449,7 +449,7 @@
 						
 						//focus the next cell on a different context
 						setTimeout(function () {
-							console.log("--Changing Current--");
+							//console.log("--Changing Current--");
 							var grid = $("#grid").data("kendoGrid");
 							grid.current(nextRowCell);
 						}, 0);

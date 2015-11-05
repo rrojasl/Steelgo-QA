@@ -33,7 +33,7 @@
         Client.add('DummyFormatoIncidencias');
 
         Client.DummyFormatoIncidencias.read({}, { incidencias: JSON.stringify(incidencias), token: Cookies.get("token") }).done(function (data) {
-            console.log("Client.DummyFormatoIncidencias.read");
+            //console.log("Client.DummyFormatoIncidencias.read");
             var strhtml = "";
             $.each(data, function (key) {
                 var strchecked = "";

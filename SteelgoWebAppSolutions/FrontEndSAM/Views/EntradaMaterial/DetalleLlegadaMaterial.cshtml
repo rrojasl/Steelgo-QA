@@ -529,7 +529,7 @@
 
                     //$.each(data.Proyectos, function (index, value) {
                     //    concat += "," + value.ProyectoID;
-                    //    console.log(" concat:" + concat);
+                    //    //console.log(" concat:" + concat);
                     //});
                     //$("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
 
@@ -537,7 +537,7 @@
                     //$Proyecto.Proyecto.read({ folio: folioAvisoLlegada, token: Cookies.get("token") }).done(function (data) {
                     //    $.each(data, function (index, value) {
                     //        concat += "," + value;
-                    //        console.log(" concat:" + concat);
+                    //        //console.log(" concat:" + concat);
                     //    });
                     //    $("#ProyectoID").data("kendoMultiSelect").value(concat.split(","));
                     //});
@@ -898,7 +898,7 @@
         function borrarArchivo(id, fila) {
             $DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy({}, { documentoID: id, token: Cookies.get("token") }).done(function (data) {
                 fila.closest("tr").remove();
-                console.log("$DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy");
+                //console.log("$DocumentoFolioAvisoEntrada.DocumentoFolioAvisoEntrada.destroy");
             });
         };
 
@@ -1003,7 +1003,7 @@
             FolioLlegada.FolioAvisollegadaId = folioAvisoLlegada != -1 ? folioAvisoLlegada : Folio.FolioAvisoLlegadaID;
             FolioLlegada.ClienteId = Cliente.ClienteID;
             FolioLlegada.Proyectos = ProyectoIDs;
-            FolioLlegada.ProveedorID = Proveedor.ProveedorID;
+            FolioLlegada.ProveedorID = $("#ProveedorID").data("kendoComboBox").value();
             FolioLlegada.OrdenCompra = $("#OrdenDeCompra").val();
             FolioLlegada.Factura = $("#Factura").val();
             FolioLlegada.Estatus = $("#hdnOrdenDescargada").val() == "true" ? Estatus.Nombre == _estatusCierreDevolucion ? _estatusCierreDevolucion : _estatusDescargada : Estatus.Nombre;
@@ -1011,14 +1011,14 @@
             FolioLlegada.Archivos = Documentos;
             FolioLlegada.ComboEstatus = Estatus.Nombre;
 
-            console.log(JSON.stringify(FolioLlegada));
+            //console.log(JSON.stringify(FolioLlegada));
 
             loadingStart();
             if (folioLlegada != -1 && folioLlegada != 0)//Edición
             {
                 BotonEdicion();
                 $FolioAvisoEntrada.FolioAvisoEntrada.update(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
-                    console.log("$FolioAvisoEntrada.FolioAvisoEntrada.update");
+                    //console.log("$FolioAvisoEntrada.FolioAvisoEntrada.update");
                     Error(data);
                     loadingStop();
                     BotonAlta();
@@ -1033,7 +1033,7 @@
             } else //Alta
             {
                 $FolioAvisoEntrada.FolioAvisoEntrada.create(FolioLlegada, { token: Cookies.get("token") }).done(function (data) {
-                    console.log("$FolioAvisoEntrada.FolioAvisoEntrada.create");
+                    //console.log("$FolioAvisoEntrada.FolioAvisoEntrada.create");
                     if (Error(data))
                     {
                         folioLlegada = data.ReturnMessage[1];
@@ -1046,7 +1046,7 @@
                         }
                     }
                     $("#hdnOrdenDescargada").val("false");
-                    console.log("foliollegada: " + folioLlegada + ", folioAvisoLlegada: " + folioAvisoLlegada);
+                    //console.log("foliollegada: " + folioLlegada + ", folioAvisoLlegada: " + folioAvisoLlegada);
                     loadingStop();
                 });
             }
@@ -1214,7 +1214,7 @@
             PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
             PatioModal[0].RequierePermisoAduana = $("#RequierePermisoAduana_Patio").is(":checked");
 
-            console.log(PatioModal[0]);
+            //console.log(PatioModal[0]);
 
             $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalPatio();
@@ -1234,7 +1234,7 @@
             ProveedorModal[0].Direccion = $("#Direccion_Proveedor").val();
             ProveedorModal[0].Telefono = $("#Telefono_Proveedor").val();
 
-            console.log(ProveedorModal[0]);
+            //console.log(ProveedorModal[0]);
 
             $Proveedor.Proveedor.create(ProveedorModal[0], { token: Cookies.get("token") }).done(function (data) {
                 LimpiarModalProveedor();
@@ -1296,7 +1296,7 @@
         function GenerarOrdenDescarga() {
             loadingStart();
             $OrdenDescarga.OrdenDescarga.create({},{ folioAvisoEntrada: folioLlegada, token: Cookies.get("token") }).done(function (data) {
-                console.log("$OrdenDescarga.OrdenDescarga.create");
+                //console.log("$OrdenDescarga.OrdenDescarga.create");
                 if (Error(data)) {
                     $("#GenerarOrdenDescarga").attr("disabled", "disabled");
                     $("#hdnOrdenDescargada").val(true);

@@ -9,7 +9,7 @@
         <a href="@Url.Action("landing", "Home")"><span id="GenerarOrdenAlmacenaje0001"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenAlmacenaje0028"></span></a>
+        <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenAlmacenaje0029"></span></a>
     </li>
     <li>
         <a href="@Url.Action("DashboardRecepcionAlmacenaje", "DashboardRecepcionAlmacenaje")"><span id="GenerarOrdenAlmacenaje0002"></span></a>
@@ -76,6 +76,9 @@
                             <label id="GenerarOrdenAlmacenaje0015"></label>
                             <input id="NumeroUnico" />
                         </div>
+                        <div id="MostrarDiv" class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <a id="Mostrar" href="#" class="btn btn-primary"><span id="GenerarOrdenAlmacenaje0028"></span></a>
+                        </div>
                     </div>
                 </div>
              </div>
@@ -115,11 +118,33 @@
             createIncidence: ".incidencia"
         },
         properties: {
-            username: {
-                visible: "",
-                editable: "",
-                required: ""
+            proyecto: {
+                visible: "#ProyectoDiv",
+                editable: "#ProyectoID",
+                required: "#ProyectoID"
+            },
+            foliocuantificacion: {
+                visible: "#FolioCuantificacionDiv",
+                editable: "#FolioCuantificacionID",
+                required: "#FolioCuantificacionID"
+            },
+            itemcode: {
+                visible: "#ItemCodeDiv",
+                editable: "#ItemCode",
+                required: "#ItemCode"
+            },
+            numerounico: {
+                visible: "#NumeroUnicoDiv",
+                editable: "#NumeroUnico",
+                required: "#NumeroUnico"
+            },
+            mostrar: {
+                visible: "#MostrarDiv",
+                editable: "#Mostrar",
+                required: "#Mostrar"
             }
+
+
         }
     };
 
@@ -168,7 +193,7 @@
                 } else {
                     ObtenerFoliosCuantificacion();
                 }
-                CargarDatosGrid();
+                //CargarDatosGrid();
             },
             filter: "contains",
         });
@@ -194,7 +219,7 @@
                 } else {
                     ObtenerItemCodes();
                 };
-                CargarDatosGrid();
+                //CargarDatosGrid();
                 
             },
         });
@@ -240,7 +265,13 @@
                 CargarDatosGrid();
             },
         });
-        CargarDatosGrid();
+
+        $("#Mostrar").click(function () {
+            $("#grid").data("kendoGrid").dataSource.filter([]);
+            Filtros();
+        });
+
+       // CargarDatosGrid();
     }
     function cargarInicialGrid() {
         var grid = $("#grid").kendoGrid({
@@ -426,8 +457,33 @@
             ControlErroresObjetosComboBox("NumeroUnico", result);
         });
     };
+
+    function validarRequeridosFormaOrdenAlmacenaje() {
+        var bool = true;
+        $("#formOrdenRecepcion .security_required").each(function (i, elem) {
+            if (elem.tagName.toLowerCase() != 'label') {
+                if (!$(this).val()) {
+                    bool = false;
+                    $(this).closest("div").find("label").addClass("error");
+                } else {
+                    $(this).closest("div").find("label").removeClass("error");
+                };
+            };
+        });
+        return bool;
+    };
+
+    function Filtros() {
+        if (validarRequeridosFormaOrdenAlmacenaje()) {
+            CargarDatosGrid();
+        } else {
+            displayMessage("notificationslabel0031", "", '1');
+        }
+    };
+
     function CargarDatosGrid() {
         loadingStart();
+       
         var ProyectoID = Proyecto.ProyectoID ? Proyecto.ProyectoID : "";
         var FolioCuantificacionID = FolioCuantificacion.FolioCuantificacionID ? FolioCuantificacion.FolioCuantificacionID : "";
         var ItemCodeid = ItemCode.ItemCodeID ? ItemCode.ItemCodeID : "";
@@ -437,16 +493,17 @@
 
         $GenerarOrdenAlmacenaje.GenerarOrdenAlmacenaje.read({}, { data: JSON.stringify(Listado), token: Cookies.get("token") }).done(function (result) {
             if (Error(result)) {
-                        _resultadoJson = result;
-                        if (_resultadoJson.length > 0) {
-                            $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
-                        } else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                        };
-                        applySecurityPolicy(false);
+                _resultadoJson = result;
+                if (_resultadoJson.length > 0) {
+                    $("#grid").data("kendoGrid").dataSource.data(_resultadoJson);
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                };
+                applySecurityPolicy(false);
             }
             loadingStop();
         });
+      
     };
 
     function AgregarActualizarNodoPrincipal(value, checkbox) {
@@ -684,7 +741,7 @@
     }
 
     function onDataBoundPrincipal(e) {
-        console.log("onDataBoundPrincipal");
+        //console.log("onDataBoundPrincipal");
         var view = this.dataSource.view();
         var body = this.tbody[0];
 
@@ -700,7 +757,7 @@
     };
     //se busca el folio cuantificacion, itemcode para marcarlo en el check
     function onDataBoundDetalle(e) {
-        console.log("onDataBoundDetalle");
+        //console.log("onDataBoundDetalle");
         var view = this.dataSource.view();
         var body = this.tbody[0];
 
@@ -718,7 +775,7 @@
 
     //se busca el folio cuantificacion, itemcode y numero unico para marcarlo en el check
     function onDataBoundNumerosUnicos(e) {
-        console.log("onDataBoundNumerosUnicos");
+        //console.log("onDataBoundNumerosUnicos");
         var view = this.dataSource.view();
         var body = this.tbody[0];
 

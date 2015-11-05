@@ -334,8 +334,8 @@
         Listado.PorSalir = accion == 3 ? true : false;
         Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
         Listado.token = Cookies.get("token");
-        console.log("listado");
-        console.log(JSON.stringify(Listado));
+        //console.log("listado");
+        //console.log(JSON.stringify(Listado));
         return Listado;
     };
 
@@ -479,7 +479,7 @@
         Listado.ClienteID = Cliente.ClienteID ? Cliente.ClienteID : -1;
         Listado.token = Cookies.get("token");
         Listado.TipoListado = 5;
-        console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
+        //console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
 
         ObtenerAccionesListado(Listado);
     };

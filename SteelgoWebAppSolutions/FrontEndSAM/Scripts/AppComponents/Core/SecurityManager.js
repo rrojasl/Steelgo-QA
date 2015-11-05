@@ -35,7 +35,7 @@ function applySecurityPolicy(loadMenu) {
 
         //Execute REST Petition to obtain the user access
         $BackEndSAM.perfil.read({}, { token: Cookies.get("token"), paginaID: Cookies.get("navegacion") }).done(function (data) {
-            console.log(data);
+            //console.log(data);
 
             if (loadMenu) {
                 //Retrieve the context menu definition**
@@ -47,7 +47,7 @@ function applySecurityPolicy(loadMenu) {
                 //Generate Side Menu
                 generateSideMenuDOMElements(0, 0, $(".main-menu"));
                 if (!$currentPageOnMenu && !window.opener && $errorURI != $currentUrl.split("?")[0]) {
-                    document.location.href = $errorURI;
+                    //document.location.href = $errorURI;
                 }
 
                 //Retrieve the QuickLinks definition**
