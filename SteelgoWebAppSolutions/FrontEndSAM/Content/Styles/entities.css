@@ -1569,6 +1569,8 @@ header .menu > div {
     .breadcrumb {
         padding: 12px 15px;
         margin-bottom: 15px;
+        max-height: none;
+        background-repeat: repeat-y;
     }
 
         .breadcrumb li {
