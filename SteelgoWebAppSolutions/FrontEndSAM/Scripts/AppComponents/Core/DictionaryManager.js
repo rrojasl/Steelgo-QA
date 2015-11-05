@@ -1324,6 +1324,10 @@ _dictionary = {
         "es-MX": "No ha habido modificaciones",
         "en-US": "There has not been modifications"
     },
+    "AsociacionICS0007": {
+        "es-MX": "No hay datos con esos diametros",
+        "en-US": "There are no data with that diameters"
+    },
     //Notificacion Deficit
     "NotificacionDeficit0001": {
         "es-MX": "Orden de trabajo",

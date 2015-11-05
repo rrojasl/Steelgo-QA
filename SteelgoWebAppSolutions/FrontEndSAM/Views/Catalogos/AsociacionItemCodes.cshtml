@@ -23,6 +23,7 @@
                         <div class="button-section">
                             <div class="btn-group save-group">
                                 <button id="GuardarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0011"></span></button>
+                                <button id="EditarICS" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="LlegadaMaterial0064"></span></button>
                             </div>
                             <a id="Cancelar" href="#" class="btn btn-black"><span id="LlegadaMaterial0012"></span></a>
                         </div>
@@ -142,6 +143,8 @@
             }
         },
         change:function(e){
+            botonDefault()
+            itemActual={};
             itemActual["ItemCodeID"]=e.sender._old;
             $("#D1").data("kendoComboBox").enable(false);
             $("#D2").data("kendoComboBox").enable(false);
@@ -162,6 +165,7 @@
             itemActual["D1"]=e.sender._old;
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
                 if (data.length>0) {
+                    $("#Guardar span").attr("id","LlegadaMaterial0011");
                     limpiarDatos();
                     regenerarCombo($("#D2"));
                     $("#D2").data("kendoComboBox").dataSource.data(data);
@@ -179,11 +183,14 @@
             itemActual["D2"]=e.sender._old;
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
                 $("#descripcionIC").val(data.Descripcion);
+                $("#icsasociado").val(data.ItemCodeSteelgo);
+                $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
+                $("#grid").data("kendoGrid").dataSource.read();
+                $("#grid").data("kendoGrid").refresh();
+                0>$("#grid").data("kendoGrid").dataSource.data().length ? displayMessage("AsociacionICS0007","","2") : 0;
                 if(data.ItemCodeSteelgo!==null && data.ItemCodeSteelgo!==""){
-                    $("#icsasociado").val(data.ItemCodeSteelgo);
-                    $("#grid").data("kendoGrid").options.dataSource.transport.read.url=$AsociacionICS.AsociacionICS.urlNoId+"?diametro1="+$("#D1").data("kendoComboBox").value()+"&diametro2="+$("#D2").data("kendoComboBox").value()+"&token="+Cookies.get("token");
-                    $("#grid").data("kendoGrid").dataSource.read();
-                    $("#grid").data("kendoGrid").refresh();
+                    $("#GuardarICS").hide();
+                    $("#EditarICS").show();
                 }
             })
         },
@@ -248,7 +255,7 @@
                 pageSize: 20,
                 transport:{
                     read:{
-                        url:"#",
+                        url:"",
                         dataType:"json",
                         type:"GET",
                         cache: false
@@ -315,9 +322,17 @@
             displayMessage("AsociacionICS0006", "", '1');
         }
     })
+
+    $("#EditarICS").on("click",botonDefault);
+
+    function botonDefault(){
+        $("#EditarICS").hide();
+        $("#GuardarICS").show();
+    }
 };
 
 @section JavascriptDocumentReadyFunctions {
+    $("#EditarICS").hide();
     $authorizationModel["AsociacionItemCodes"] = $AsociacionItemCodesModel;
     $("#D1").data("kendoComboBox").enable(false);
     $("#D2").data("kendoComboBox").enable(false);
