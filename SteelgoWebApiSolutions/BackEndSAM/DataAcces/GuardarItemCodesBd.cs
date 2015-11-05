@@ -226,7 +226,9 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         //Inserta un nuevo registro
-                                        InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, datosItemCode, usuario);
+                                        string relID = "";
+                                        InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, datosItemCode, usuario, out relID);
+                                        datosItemCode.RelFCId = relID;
                                     }
 
 
@@ -470,7 +472,9 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         //Inserta un nuevo registro
-                                        InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, datosItemCode, usuario);
+                                        string relID = "";
+                                        InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, datosItemCode, usuario, out relID);
+                                        datosItemCode.RelFCId = relID;
                                     }
                                     #endregion
 
@@ -715,7 +719,9 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         //Inserta un nuevo registro
-                                        InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, datosItemCode, usuario);
+                                        string relID = "";
+                                        InsertarRelacionFolioCuantificacion_IC(FolioCuantificacion, datosItemCode, usuario, out relID);
+                                        datosItemCode.RelFCId = relID;
                                     }
 
 
@@ -902,7 +908,9 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         //Insertamos nueva relacion
-                                        CrearRelacionBulto_IC(datosItemCode, usuario);
+                                        string relID = "";
+                                        CrearRelacionBulto_IC(datosItemCode, usuario, out relID);
+                                        datosItemCode.RelBID = relID;
                                     }
 
                                     #endregion
@@ -1131,7 +1139,9 @@ namespace BackEndSAM.DataAcces
                                     else
                                     {
                                         //Insertamos nueva relacion
-                                        CrearRelacionBulto_IC(datosItemCode, usuario);
+                                        string relID = "";
+                                        CrearRelacionBulto_IC(datosItemCode, usuario, out relID);
+                                        datosItemCode.RelBID = relID;
                                     }
                                     #endregion
 
@@ -1465,18 +1475,19 @@ namespace BackEndSAM.DataAcces
         /// <param name="FolioCuantificacion">Folio Cuantificacion seleccionado</param>
         /// <param name="IC">CuantificacionListado object</param>
         /// <param name="usuario">usuario actual</param>
-        public void InsertarRelacionFolioCuantificacion_IC(int FolioCuantificacion, CuantificacionListado IC, Sam3_Usuario usuario)
+        public void InsertarRelacionFolioCuantificacion_IC(int FolioCuantificacion, CuantificacionListado IC, Sam3_Usuario usuario, out string RelID)
         {
             try
             {
+                Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
                 using (SamContext ctx = new SamContext())
                 {
                     int relItemDiametroID = Convert.ToInt32(IC.ItemCodeID);
-                    if (!ctx.Sam3_Rel_FolioCuantificacion_ItemCode
-                        .Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
-                    {
+                    //if (!ctx.Sam3_Rel_FolioCuantificacion_ItemCode
+                    //    .Where(x => x.FolioCuantificacionID == FolioCuantificacion && x.Rel_ItemCode_Diametro_ID == relItemDiametroID).Any())
+                    //{
                         //Insertar la Relacion Folio Cuantificacion IC
-                        Sam3_Rel_FolioCuantificacion_ItemCode relIC = new Sam3_Rel_FolioCuantificacion_ItemCode();
+                        
                         relIC.FolioCuantificacionID = FolioCuantificacion;
                         relIC.Rel_ItemCode_Diametro_ID = relItemDiametroID;
                         relIC.TieneNumerosUnicos = false;
@@ -1486,8 +1497,9 @@ namespace BackEndSAM.DataAcces
                         relIC.Cantidad = IC.Cantidad;
                         ctx.Sam3_Rel_FolioCuantificacion_ItemCode.Add(relIC);
                         ctx.SaveChanges();
-                    }
+                    //}
                 }
+                RelID = relIC.Rel_FolioCuantificacion_ItemCode_ID.ToString();
             }
             catch (Exception ex)
             {
@@ -1570,19 +1582,20 @@ namespace BackEndSAM.DataAcces
         /// </summary>
         /// <param name="item">Datos capturados en el grid</param>
         /// <param name="usuario">usuario actual</param>
-        public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario)
+        public void CrearRelacionBulto_IC(CuantificacionListado item, Sam3_Usuario usuario, string RelID)
         {
             try
             {
+                Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
                 //creo la relacion bulto IC
                 using (SamContext ctx = new SamContext())
                 {
                     int bultoID = Int32.Parse(item.BultoID);
                     int relItemDiametroID = Int32.Parse(item.ItemCodeID);
 
-                    if (!ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == bultoID && x.Rel_ItemCode_Diametro_ID == relItemDiametroID && x.Activo).Any())
-                    {
-                        Sam3_Rel_Bulto_ItemCode bic = new Sam3_Rel_Bulto_ItemCode();
+                    //if (!ctx.Sam3_Rel_Bulto_ItemCode.Where(x => x.BultoID == bultoID && x.Rel_ItemCode_Diametro_ID == relItemDiametroID && x.Activo).Any())
+                    //{
+                        
                         bic.BultoID = bultoID;
                         bic.Rel_ItemCode_Diametro_ID = relItemDiametroID;
                         bic.TieneNumerosUnicos = false;
@@ -1592,8 +1605,12 @@ namespace BackEndSAM.DataAcces
                         bic.Cantidad = item.Cantidad;
                         ctx.Sam3_Rel_Bulto_ItemCode.Add(bic);
                         ctx.SaveChanges();
-                    }
+
+                        
+                    //}
                 }
+
+                RelID = bic.Rel_Bulto_ItemCode_ID.ToString();
             }
             catch (Exception ex)
             {
