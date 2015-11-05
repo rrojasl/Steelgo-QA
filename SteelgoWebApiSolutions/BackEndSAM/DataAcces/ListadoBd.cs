@@ -1569,7 +1569,8 @@ namespace BackEndSAM.DataAcces
                     List<ListaCombos> listado = (from fe in ctx.Sam3_FolioAvisoEntrada
                                                  join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                                  join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on fc.FolioCuantificacionID equals rfi.FolioCuantificacionID
-                                                 join it in ctx.Sam3_ItemCode on rfi.ItemCodeID equals it.ItemCodeID
+                                                 join rid in ctx.Sam3_Rel_ItemCode_Diametro on rfi.Rel_ItemCode_Diametro_ID equals rid.Rel_ItemCode_Diametro_ID
+                                                 join it in ctx.Sam3_ItemCode on rid.ItemCodeID equals it.ItemCodeID
                                                  where fe.Activo && fc.Activo && rfi.Activo && it.Activo
                                                  && fe.FolioAvisoLlegadaID == folioAvisoLlegada
                                                  && !(from nu in ctx.Sam3_NumeroUnico
@@ -1581,6 +1582,12 @@ namespace BackEndSAM.DataAcces
                                                      value = it.Codigo
                                                  }).AsParallel().ToList();
 
+                    listado = listado.GroupBy(x => x.id).Select(x => x.First()).ToList();
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(listado);
+#endif
                     return listado;
                 }
             }

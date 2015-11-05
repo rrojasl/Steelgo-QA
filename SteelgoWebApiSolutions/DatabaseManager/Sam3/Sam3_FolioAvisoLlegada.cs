@@ -41,6 +41,8 @@ namespace DatabaseManager.Sam3
         public int VehiculoID { get; set; }
         public Nullable<int> ClienteID { get; set; }
         public Nullable<int> TipoAvisoID { get; set; }
+        public int Entidad { get; set; }
+        public int ProyectoNombrado { get; set; }
     
         public virtual ICollection<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
@@ -55,5 +57,7 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_TipoAviso Sam3_TipoAviso { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
         public virtual ICollection<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
+        public virtual Sam3_Entidad Sam3_Entidad { get; set; }
+        public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }
 }

@@ -100,6 +100,8 @@ namespace BackEndSAM.DataAcces
                     nuevoAvisoLlegada.UsuarioModificacion = usuario.UsuarioID;
                     nuevoAvisoLlegada.FechaModificacion = DateTime.Now;
                     nuevoAvisoLlegada.VehiculoID = avisoJson.Tracto.VehiculoID != null ? Convert.ToInt32(avisoJson.Tracto.VehiculoID) : 0;
+                    nuevoAvisoLlegada.Entidad = 1;
+                    nuevoAvisoLlegada.ProyectoNombrado = 1;
                     //los datos de entrada traen el id del cliente en sam2
                     int sam2ClienteID = avisoJson.Cliente.ClienteID != string.Empty || avisoJson.Cliente.ClienteID != "-1"
                         ? Convert.ToInt32(avisoJson.Cliente.ClienteID) : 0;
@@ -791,8 +793,29 @@ namespace BackEndSAM.DataAcces
                                                    select new ListaCombos
                                                   {
                                                       id = r.FolioAvisoLlegadaID.ToString(),
-                                                      value = r.FolioAvisoLlegadaID.ToString()
+                                                      value = (from pc in ctx.Sam3_Rel_Proyecto_Entidad_Configuracion
+                                                               where pc.Entidad == r.Entidad && pc.Proyecto == r.ProyectoNombrado
+                                                               select pc.PreFijoFolioAvisoLlegada + "," 
+                                                                + pc.CantidadCerosFolioAvisoLlegada.ToString() + ","
+                                                                + r.Consecutivo.ToString() + ","
+                                                                + pc.PostFijoFolioAvisoLlegada).FirstOrDefault()
                                                   }).AsParallel().ToList();
+
+                    foreach (ListaCombos lst in lstFolios)
+                    {
+                        string[] elemntos = lst.value.Split(',').ToArray();
+                        int digitos = Convert.ToInt32(elemntos[1]);
+                        int consecutivo = Convert.ToInt32(elemntos[2]);
+                        string formato = "D" + digitos.ToString();
+
+                        lst.value = elemntos[0].Trim() + consecutivo.ToString(formato) + elemntos[3];
+
+                    }
+
+#if DEBUG
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    string json = serializer.Serialize(lstFolios);
+#endif
 
                     return lstFolios;
                 }

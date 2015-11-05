@@ -85,4 +85,32 @@ ALTER TABLE dbo.Sam3_Rel_Proyecto_Entidad_Configuracion ADD CONSTRAINT
 GO
 ALTER TABLE dbo.Sam3_Rel_Proyecto_Entidad_Configuracion SET (LOCK_ESCALATION = TABLE)
 GO
+
+ALTER TABLE dbo.Sam3_FolioAvisoLlegada ADD Entidad int NOT NULL DEFAULT(1)
+GO
+ALTER TABLE dbo.Sam3_FolioAvisoLlegada ADD CONSTRAINT
+	FK_Sam3_FolioAvisoLlegada_Sam3_Entidad FOREIGN KEY
+	(
+	Entidad
+	) REFERENCES dbo.Sam3_Entidad
+	(
+	EntidadID
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+GO
+
+ALTER TABLE dbo.Sam3_FolioAvisoLlegada ADD ProyectoNombrado int NOT NULL DEFAULT(1)
+GO
+
+ALTER TABLE dbo.Sam3_FolioAvisoLlegada ADD CONSTRAINT
+	FK_Sam3_FolioAvisoLlegada_Sam3_Proyecto FOREIGN KEY
+	(
+	ProyectoNombrado
+	) REFERENCES dbo.Sam3_Proyecto
+	(
+	ProyectoID
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION
+GO
+
 COMMIT

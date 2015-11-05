@@ -103,7 +103,7 @@ namespace BackEndSAM.DataAcces
                         ListadoGenerarOrdenRecepcion elemento = new ListadoGenerarOrdenRecepcion();
                         elemento.AvisoEntradaID = f.FolioAvisoLlegadaID.ToString();
 
-                        elemento.Tubos = (from r in ctx.Sam3_FolioAvisoEntrada
+                        List<ElementoItemCodeGenerarOrden> tubosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
                                           join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                           join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                           join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
@@ -125,10 +125,13 @@ namespace BackEndSAM.DataAcces
                                               Descripcion = i.DescripcionEspanol,
                                               TipoMaterial = t.Nombre,
                                               FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                              RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString()
+                                              RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                              ItemCodeIDOriginal = i.ItemCodeID
                                           }).AsParallel().Distinct().ToList();
 
-                        elemento.Tubos.AddRange((from r in ctx.Sam3_FolioAvisoEntrada
+                        
+
+                        List<ElementoItemCodeGenerarOrden> tubosRB =(from r in ctx.Sam3_FolioAvisoEntrada
                                                  join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                                  join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
                                                  join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
@@ -150,8 +153,11 @@ namespace BackEndSAM.DataAcces
                                                      Descripcion = i.DescripcionEspanol,
                                                      TipoMaterial = t.Nombre,
                                                      FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                     RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString()
-                                                 }).AsParallel().Distinct().ToList());
+                                                     RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                                     ItemCodeIDOriginal = i.ItemCodeID
+                                                 }).AsParallel().Distinct().ToList();
+
+                        
 
                         //codigo cortado del query anterior
                         //&& !(from nu in ctx.Sam3_NumeroUnico
@@ -161,7 +167,7 @@ namespace BackEndSAM.DataAcces
                         //                              where roi.Activo
                         //                              select roi.ItemCodeID).Contains(i.ItemCodeID)
 
-                        elemento.Accesorios = (from r in ctx.Sam3_FolioAvisoEntrada
+                        List<ElementoItemCodeGenerarOrden> AccesoriosRFC = (from r in ctx.Sam3_FolioAvisoEntrada
                                                join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                                join rfp in ctx.Sam3_Rel_FolioAvisoLlegada_Proyecto on r.FolioAvisoLlegadaID equals rfp.FolioAvisoLlegadaID
                                                join rfi in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on c.FolioCuantificacionID equals rfi.FolioCuantificacionID
@@ -183,10 +189,13 @@ namespace BackEndSAM.DataAcces
                                                    Descripcion = i.DescripcionEspanol,
                                                    TipoMaterial = t.Nombre,
                                                    FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                   RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString()
+                                                   RelFCId = rfi.Rel_FolioCuantificacion_ItemCode_ID.ToString(),
+                                                   ItemCodeIDOriginal = i.ItemCodeID
                                                }).AsParallel().Distinct().ToList();
 
-                        elemento.Accesorios.AddRange((from r in ctx.Sam3_FolioAvisoEntrada
+                        
+
+                        List<ElementoItemCodeGenerarOrden> AccesoriosRB =(from r in ctx.Sam3_FolioAvisoEntrada
                                                       join c in ctx.Sam3_FolioCuantificacion on r.FolioAvisoEntradaID equals c.FolioAvisoEntradaID
                                                       join b in ctx.Sam3_Bulto on c.FolioCuantificacionID equals b.FolioCuantificacionID
                                                       join rbi in ctx.Sam3_Rel_Bulto_ItemCode on b.BultoID equals rbi.BultoID
@@ -208,16 +217,38 @@ namespace BackEndSAM.DataAcces
                                                           Descripcion = i.DescripcionEspanol,
                                                           TipoMaterial = t.Nombre,
                                                           FolioAvisoLlegadaId = r.FolioAvisoLlegadaID.ToString(),
-                                                          RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString()
-                                                      }).AsParallel().Distinct().ToList());
+                                                          RelBID = rbi.Rel_Bulto_ItemCode_ID.ToString(),
+                                                          ItemCodeIDOriginal = i.ItemCodeID
+                                                      }).AsParallel().Distinct().ToList();
 
-                        elemento.Tubos = elemento.Tubos.GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
-                        elemento.Accesorios = elemento.Accesorios.GroupBy(x => x.ItemCodeID).Select(x => x.First()).AsParallel().ToList();
+
+                        tubosRB = tubosRB.GroupBy(x => x.RelBID).Select(x => x.First()).ToList();
+                        tubosRFC = tubosRFC.GroupBy(x => x.RelFCId).Select(x => x.First()).ToList();
+
+                        AccesoriosRB = AccesoriosRB.GroupBy(x => x.RelBID).Select(x => x.First()).ToList();
+                        AccesoriosRFC = AccesoriosRFC.GroupBy(x => x.RelFCId).Select(x => x.First()).ToList();
+
+                        if (tubosRB.Count > 0)
+                        {
+                            elemento.Tubos.AddRange(tubosRB);
+                        }
+                        if (tubosRFC.Count > 0)
+                        {
+                            elemento.Tubos.AddRange(tubosRFC);
+                        }
+                        if (AccesoriosRB.Count > 0)
+                        {
+                            elemento.Accesorios.AddRange(AccesoriosRB);
+                        }
+                        if (AccesoriosRFC.Count > 0)
+                        {
+                            elemento.Accesorios.AddRange(AccesoriosRFC);
+                        }
 
                         if (itemCodeID > 0)
                         {
-                            elemento.Tubos = elemento.Tubos.Where(x => x.ItemCodeID == itemCodeID.ToString()).AsParallel().ToList();
-                            elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeID == itemCodeID.ToString()).AsParallel().ToList();
+                            elemento.Tubos = elemento.Tubos.Where(x => x.ItemCodeIDOriginal == itemCodeID).AsParallel().ToList();
+                            elemento.Accesorios = elemento.Accesorios.Where(x => x.ItemCodeIDOriginal == itemCodeID).AsParallel().ToList();
                         }
 
                         if (elemento.Tubos.Count > 0 || elemento.Accesorios.Count > 0)
@@ -541,26 +572,59 @@ namespace BackEndSAM.DataAcces
                     using (SamContext ctx = new SamContext())
                     {
 
-                        foliosEntrada = (from i in ctx.Sam3_ItemCode
-                                         join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                                         join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals fci.Rel_ItemCode_Diametro_ID
-                                         join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
-                                         join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                         where i.Activo && fci.Activo && fc.Activo && fe.Activo
-                                         && RelItemCodesD.Select(x => x.ID).Contains(rid.Rel_ItemCode_Diametro_ID)
-                                         && RelItemCodesD.Select(x => x.RelFCID).Contains(fci.Rel_FolioCuantificacion_ItemCode_ID)
-                                         select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList();
+                        List<int> tempIDs = RelItemCodesD.Where(x => x.ID != 0).Select(x => x.ID).ToList();
+                        List<int> tempRFc = RelItemCodesD.Where(x => x.RelFCID != 0).Select(x => x.RelFCID).ToList();
+                        List<int> tempRbd = RelItemCodesD.Where(x => x.RelBID != 0).Select(x => x.RelBID).ToList();
 
-                        foliosEntrada.AddRange((from i in ctx.Sam3_ItemCode
-                                                join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
-                                                join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
-                                                join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
-                                                join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
-                                                join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
-                                                where i.Activo && rbi.Activo && b.Activo && fc.Activo && fe.Activo
-                                                && RelItemCodesD.Select(x => x.ID).Contains(rid.Rel_ItemCode_Diametro_ID)
-                                                && RelItemCodesD.Select(x => x.RelBID).Contains(rbi.Rel_Bulto_ItemCode_ID)
-                                                select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList());
+                        if (tempRFc.Count > 0)
+                        {
+                            foliosEntrada = (from i in ctx.Sam3_ItemCode
+                                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
+                                             join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals fci.Rel_ItemCode_Diametro_ID
+                                             join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                             join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                             where i.Activo && fci.Activo && fc.Activo && fe.Activo
+                                             && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
+                                             && tempRFc.Contains(fci.Rel_FolioCuantificacion_ItemCode_ID)
+                                             select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList();
+                        }
+                        else
+                        {
+                            foliosEntrada = (from i in ctx.Sam3_ItemCode
+                                             join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
+                                             join fci in ctx.Sam3_Rel_FolioCuantificacion_ItemCode on rid.Rel_ItemCode_Diametro_ID equals fci.Rel_ItemCode_Diametro_ID
+                                             join fc in ctx.Sam3_FolioCuantificacion on fci.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                             join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                             where i.Activo && fci.Activo && fc.Activo && fe.Activo
+                                             && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
+                                             select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList();
+                        }
+
+                        if (tempRbd.Count > 0)
+                        {
+                            foliosEntrada.AddRange((from i in ctx.Sam3_ItemCode
+                                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
+                                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                    join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                    join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                    where i.Activo && rbi.Activo && b.Activo && fc.Activo && fe.Activo
+                                                    && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
+                                                    && tempRbd.Contains(rbi.Rel_Bulto_ItemCode_ID)
+                                                    select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList());
+                        }
+                        else
+                        {
+                            foliosEntrada.AddRange((from i in ctx.Sam3_ItemCode
+                                                    join rid in ctx.Sam3_Rel_ItemCode_Diametro on i.ItemCodeID equals rid.ItemCodeID
+                                                    join rbi in ctx.Sam3_Rel_Bulto_ItemCode on rid.Rel_ItemCode_Diametro_ID equals rbi.Rel_Bulto_ItemCode_ID
+                                                    join b in ctx.Sam3_Bulto on rbi.BultoID equals b.BultoID
+                                                    join fc in ctx.Sam3_FolioCuantificacion on b.FolioCuantificacionID equals fc.FolioCuantificacionID
+                                                    join fe in ctx.Sam3_FolioAvisoEntrada on fc.FolioAvisoEntradaID equals fe.FolioAvisoEntradaID
+                                                    where i.Activo && rbi.Activo && b.Activo && fc.Activo && fe.Activo
+                                                    && tempIDs.Contains(rid.Rel_ItemCode_Diametro_ID)
+                                                    select fe.FolioAvisoEntradaID).AsParallel().Distinct().ToList());
+                        }
 
                         //retiramos los duplicados
                         foliosEntrada = foliosEntrada.GroupBy(x => x).Select(x => x.First()).ToList();

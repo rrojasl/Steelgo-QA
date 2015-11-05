@@ -1764,6 +1764,10 @@ _dictionary = {
         "es-MX": "Orden de Descarga Generada",
         "en-US": "Generated Download Order"
     },
+    "LlegadaMaterial0064": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     //Listado Llegada Material
     "ListadoLlegadaMaterial0001": {
         "es-MX": "Nueva Llegada",
@@ -2766,6 +2770,10 @@ _dictionary = {
     "GenerarOrdenRecepcion0026": {
         "es-MX": "RelBID",
         "en-US": "RelBID"
+    },
+    "GenerarOrdenRecepcion0027": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
     },
     //Listado Orden de Recepcion
     "ListadoOrdenRecepcion0001": {

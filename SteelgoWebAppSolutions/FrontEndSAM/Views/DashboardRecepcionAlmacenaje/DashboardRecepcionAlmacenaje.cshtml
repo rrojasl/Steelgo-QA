@@ -272,7 +272,7 @@
 
             $("#FolioAvisoEntradaID").kendoComboBox({
                 dataTextField: "id",
-                dataValueField: "value",
+                dataValueField: "id",
                 select: function (e) {
                     var dataItem = this.dataItem(e.item.index());
                     CargarFolioAvisoEntrada(dataItem.id, dataItem.value);

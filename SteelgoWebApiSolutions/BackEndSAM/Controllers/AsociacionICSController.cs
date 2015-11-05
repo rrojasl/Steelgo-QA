@@ -85,7 +85,7 @@ namespace BackEndSAM.Controllers
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
-                return AsociacionICSBd.Instance.obtenerInformacionItemCode(itemCode);
+                return AsociacionICSBd.Instance.obtenerInformacionItemCode(itemCode, diametro1, diametro2);
             }
             else
             {
@@ -98,7 +98,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
-        public object Get(string data, string diametro1,string diametro2, string token)
+        public object Get(string diametro1,string diametro2, string token)
         {
             string payload = "";
             string newToken = "";
@@ -106,9 +106,8 @@ namespace BackEndSAM.Controllers
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
-                ICSDatosAsociacion informacion = serializer.Deserialize<ICSDatosAsociacion>(data);
-
-                return AsociacionICSBd.Instance.obtenerInformacionICS(informacion, diametro1, diametro2);
+                //ICSDatosAsociacion informacion = serializer.Deserialize<ICSDatosAsociacion>(data);
+                return AsociacionICSBd.Instance.obtenerInformacionICS(diametro1, diametro2);
             }
             else
             {
