@@ -11,6 +11,8 @@
 /****************************/
 
 //Add all global variables for your partial view here
+var $currentPageOnMenu = false;
+var $currentUrl = window.location.href.toString().split(window.location.host)[1].toString().split('?')[0];
 
 /****************************/
 /*    Document Ready        */
@@ -265,7 +267,7 @@ function generateQuickLinks(data) {
     //    htmlToAppend = htmlToAppend + "<li><a href='#' onclick='removeUserSession()'><span id='quickLabel9003'>QuickLink1</span></a></li>";
     //}
     data.forEach(function (d) {
-        htmlToAppend += "<li><a href='/" + d.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + d.texto + "'></span></a></li>";
+        htmlToAppend += "<li><a href='"+window.location.origin + d.liga + "' onclick='redirectToLanguage(event,this)'><span id='" + d.texto + "'></span></a></li>";
     })
     //Add closure elements of the basic structure
     htmlToAppend = htmlToAppend + "</ul></li>";
@@ -322,6 +324,9 @@ function generateSideMenuDOMElements(idPadre, nivel, appendingTarget) {
                 case 1: newAppendingTarget = generateSideMenuDOMElementsLevel1($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
                 case 2: newAppendingTarget = generateSideMenuDOMElementsLevel2($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
                 case 3: newAppendingTarget = generateSideMenuDOMElementsLevel3($sideMenuLayout[nivel][idPadre][key], appendingTarget); break;
+            }
+            if ($sideMenuLayout[nivel][idPadre][key].liga == $currentUrl) {
+                $currentPageOnMenu = true;
             }
             generateSideMenuDOMElements(key, nivel + 1, newAppendingTarget);
         }

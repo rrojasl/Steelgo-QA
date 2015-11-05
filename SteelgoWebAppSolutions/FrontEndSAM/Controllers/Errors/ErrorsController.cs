@@ -14,5 +14,12 @@ namespace FrontEndSAM.Controllers.Errors
         {
             return View();
         }
+
+        //
+        // GET: /Errors/
+        public ActionResult accessdenied()
+        {
+            return View();
+        }
 	}
 }
