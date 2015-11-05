@@ -959,6 +959,7 @@
     <Content Include="Scripts\AppComponents\Core\DictionaryManager.js" />
     <Content Include="Scripts\xdomain.js" />
     <Content Include="Views\Materiales\RevisionDeficit.cshtml" />
+    <Content Include="Views\Errors\accessdenied.cshtml" />
     <None Include="Views\Materiales\RevisionDeficit.cshtml.BAK" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

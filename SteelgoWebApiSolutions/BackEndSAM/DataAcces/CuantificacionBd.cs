@@ -78,7 +78,7 @@ namespace BackEndSAM.DataAcces
                                        D1 = d1.Valor,
                                        D2 = d2.Valor,
                                        Cantidad = fc.Cantidad,
-                                       MM = ic.MM,
+                                       MM = fc.MM,
 
                                        ItemCodeSteelgo = (from rdi in ctx.Sam3_Rel_ItemCode_Diametro
                                                           join rics in ctx.Sam3_Rel_ItemCode_ItemCodeSteelgo on rdi.Rel_ItemCode_Diametro_ID equals rics.Rel_ItemCode_Diametro_ID
@@ -168,7 +168,7 @@ namespace BackEndSAM.DataAcces
                                        D1 = d1.Valor,
                                        D2 = d2.Valor,
                                        Cantidad = rbic.Cantidad,
-                                       MM = ic.MM,
+                                       MM = rbic.MM,
                                        ItemCodeSteelgo = ics.Codigo,
                                        ItemCodeSteelgoID =  rids.Rel_ItemCodeSteelgo_Diametro_ID.ToString(),
                                        Familia = (from fa in ctx.Sam3_FamiliaAcero
