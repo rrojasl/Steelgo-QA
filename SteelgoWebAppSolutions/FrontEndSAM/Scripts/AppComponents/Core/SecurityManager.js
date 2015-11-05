@@ -46,6 +46,9 @@ function applySecurityPolicy(loadMenu) {
 
                 //Generate Side Menu
                 generateSideMenuDOMElements(0, 0, $(".main-menu"));
+                if (!$currentPageOnMenu && !window.opener) {
+                    document.location.href = $errorURI;
+                }
 
                 //Retrieve the QuickLinks definition**
                 $quickLinks = {};
