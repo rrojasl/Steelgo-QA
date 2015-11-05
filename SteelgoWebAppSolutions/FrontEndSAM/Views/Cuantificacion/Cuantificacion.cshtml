@@ -965,6 +965,13 @@
                     $(".k-button.k-button-icontext.k-grid-add").on("click",function(){
                         fromButton=true;
                     })
+                    $('td:nth-child(5):contains("ICS-Default")').each(function(){
+                        tmp=this;
+                        for(var i=0;4>i;i++){
+                            tmp.style.color="rgba(0,0,0,0)";
+                            tmp=tmp.nextElementSibling;
+                        }
+                    });
                 },
                 autoHeight: true,
                 sortable: true,
