@@ -207,7 +207,7 @@
         TransportistaModal[0].Direccion = $("#Direccion_Transportista").val();
         TransportistaModal[0].Telefono = $("#Telefono_Transportista").val();
 
-        console.log(TransportistaModal[0]);
+        //console.log(TransportistaModal[0]);
 
         $Transportista.Transportista.create(TransportistaModal[0], { token: Cookies.get("token") }).done(function (data) {
             LimpiarModalTransportista();

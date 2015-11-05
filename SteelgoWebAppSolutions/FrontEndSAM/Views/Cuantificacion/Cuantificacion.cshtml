@@ -447,7 +447,7 @@
         var result = [];
         $.each(list, function (i, e) {
             if ($.inArray(e, result) == -1) {
-                console.log(e)
+                //console.log(e)
                 result.push(e);
             }
         });
@@ -927,7 +927,7 @@
             $("#grid").kendoGrid({
                 dataSource: {
                     change:function(e){
-                        console.log(e);
+                        //console.log(e);
                     },
                     data: resultadoJson,
                     autoSync: true,
@@ -1052,7 +1052,7 @@
             $("#grid table").on("keydown", "tr", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if (code == 13) { //If key is ENTER
-                    console.log("--KendoEnter--");
+                    //console.log("--KendoEnter--");
                     //find index of the td element
                     var tdIndex = $(e.target).closest('td').index();
                     //get the next row's cell
@@ -1075,7 +1075,7 @@
                         grids.current(nextRowCell);
                         //$("#grid tr[data-uid] td:first").trigger("click");
                         setTimeout(function () {
-                            console.log("--Changing Current--");
+                            //console.log("--Changing Current--");
                             var grid = $("#grid").data("kendoGrid");
                             //grid.current(nextRowCell);
                             $("#grid tr[data-uid] td:first").trigger("click");
@@ -2556,7 +2556,7 @@
                     change: function (e) {
                         var value = this.value();
 
-                        console.log(e.sender.current());
+                        //console.log(e.sender.current());
                         if (!e.sender.current()) {
                             lastEditedCellID.ItemCodeID = "";
                             lastEditedCellID.ItemCode = "";
@@ -2651,7 +2651,7 @@
         //    Client.add('DummyTipoAcero');
 
         //    Client.DummyTipoAcero.read({}, {  familiaAcero:"", proyectoid: "",token: Cookies.get("token") }).done(function (data) {
-        //        console.log("DummyTipoAcero="+ data);
+        //        //console.log("DummyTipoAcero="+ data);
         //        tipoAceroJson = data;
         //    });
         //};

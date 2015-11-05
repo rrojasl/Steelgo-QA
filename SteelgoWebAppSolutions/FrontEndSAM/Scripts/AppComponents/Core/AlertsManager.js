@@ -55,7 +55,7 @@ function displayMessage(message, messageComplement, type) {
     messageText = messageText + messageComplement;
 
     $(".message").text(messageText);
-    console.log(messageText);
+    //console.log(messageText);
     //Cookies.set("messageBody", message, { path: '/' });
     //Cookies.set("messageComplement", messageComplement, { path: '/' });
     //Cookies.set("messageType", type, { path: '/' });

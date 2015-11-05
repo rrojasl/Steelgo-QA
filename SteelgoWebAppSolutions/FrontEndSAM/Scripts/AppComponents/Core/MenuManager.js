@@ -169,7 +169,7 @@ function menuManagerToBeExecutedOnDocumentReady() {
 //Update cookies for QuickLinks
 function updateCookiesQuickLinks() {
     var url = window.location.href.toString().split(window.location.host)[1].toString().split('?')[0];
-    console.log(url);
+    //console.log(url);
     if ($('a[href="' + url + '"]').children("span").attr("id") != undefined) {
         var label = "quickLabel9002";
         if (url != "/Busqueda/Busqueda") {
@@ -178,19 +178,19 @@ function updateCookiesQuickLinks() {
 
         //Validate if the page it's already on the quicklinks
         if (Cookies.get("QL1route") == url) {
-            console.log("Remover las cookies 1");
+            //console.log("Remover las cookies 1");
             //Remover las cookies 1
             Cookies.remove("QL1route", { path: '/' });
             Cookies.remove("QL1label", { path: '/' });
         }
         if (Cookies.get("QL1route") == Cookies.get("QL2route")) {
-            console.log("Remover las cookies 2");
+            //console.log("Remover las cookies 2");
             //Remover las cookies 2
             Cookies.remove("QL2route", { path: '/' });
             Cookies.remove("QL2label", { path: '/' });
         }
         if (Cookies.get("QL1route") == Cookies.get("QL3route")) {
-            console.log("Remover las cookies 3");
+            //console.log("Remover las cookies 3");
             //Remover las cookies 3
             Cookies.remove("QL3route", { path: '/' });
             Cookies.remove("QL3label", { path: '/' });
@@ -198,7 +198,7 @@ function updateCookiesQuickLinks() {
 
         //Check if Cookies 1 not exist
         if (Cookies.get("QL1route") == null || Cookies.get("QL1route") == "" || Cookies.get("QL1label") == null || Cookies.get("QL1label") == "") {
-            console.log("Check if Cookies 1 not exist");
+            //console.log("Check if Cookies 1 not exist");
             //Generar las cookies 1 con mis datos
             Cookies.set("QL1route", url, { path: '/' });
             Cookies.set("QL1label", label, { path: '/' });
@@ -211,7 +211,7 @@ function updateCookiesQuickLinks() {
         } else {
             //Check if Cookies 1 exist and 2 not exist
             if (Cookies.get("QL2route") == null || Cookies.get("QL2route") == "" || Cookies.get("QL2label") == null || Cookies.get("QL2label") == "") {
-                console.log("Check if Cookies 1 exist and 2 not exist");
+                //console.log("Check if Cookies 1 exist and 2 not exist");
                 //Creo las cookies 2 con los datos de las cookies 1
                 Cookies.set("QL2route", Cookies.get("QL1route"), { path: '/' });
                 Cookies.set("QL2label", Cookies.get("QL1label"), { path: '/' });
@@ -222,7 +222,7 @@ function updateCookiesQuickLinks() {
                 Cookies.remove("QL3route", { path: '/' });
                 Cookies.remove("QL3label", { path: '/' });
             } else {
-                console.log("else");
+                //console.log("else");
                 //Creo las cookies 3 con los datos de las cookies 2
                 Cookies.set("QL3route", Cookies.get("QL2route"), { path: '/' });
                 Cookies.set("QL3label", Cookies.get("QL2label"), { path: '/' });
@@ -239,7 +239,7 @@ function updateCookiesQuickLinks() {
 
 //Create the QuickLinks
 function generateQuickLinks(data) {
-    console.log(data);
+    //console.log(data);
     //Update cookies for QuickLinks
     //updateCookiesQuickLinks();
 

@@ -271,7 +271,7 @@
         ColadaModal.NumeroCertificado = $("#NumeroCertificado_Colada").val();
         ColadaModal.HoldCalidad = $("#HoldCalidad_Colada").is(":checked");
 
-        console.log(JSON.stringify(ColadaModal));
+        //console.log(JSON.stringify(ColadaModal));
         $Colada.Colada.create({}, { data: JSON.stringify(ColadaModal), token: Cookies.get("token") }).done(function (data) {
             LimpiarModalColada();
             if (Error(data)) {

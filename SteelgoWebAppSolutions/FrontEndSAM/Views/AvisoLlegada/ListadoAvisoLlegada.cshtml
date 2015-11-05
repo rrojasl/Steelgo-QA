@@ -315,7 +315,7 @@
         if (DashBoardAccionListado != -1) {
             tabActivo(DashBoardAccionListado);
             CargarControlesFiltrado();
-            console.log("AccionesListado inicio");
+            //console.log("AccionesListado inicio");
             AccionesListado(DashBoardAccionListado);
         } else {
 
@@ -573,7 +573,7 @@
             Listado.Completos = accion == 4 ? true : false;
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
-            console.log(JSON.stringify(Listado));
+            //console.log(JSON.stringify(Listado));
             return Listado;
         };
 
@@ -590,20 +590,20 @@
             $("#hdAccionFiltrado").val(accion);
 
             $FiltrosListadoEntradaMaterial.AvisoLlegada.read({}, { data: JSON.stringify(Listado) }).done(function (data) {
-                console.log("Error " + Error(data));
+                //console.log("Error " + Error(data));
                 if (Error(data)) {
                     resultadoJson = data;
-                    console.log("grid value " + $("#grid").data("kendoGrid"));
+                    //console.log("grid value " + $("#grid").data("kendoGrid"));
                     if ($("#grid").data("kendoGrid")) {
-                        console.log("resultadoJson: " + resultadoJson.length);
+                        //console.log("resultadoJson: " + resultadoJson.length);
                         if (resultadoJson.length > 0) {
                             $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
                             $("#grid").data("kendoGrid").dataSource.page(1);
                         } else {
-                            console.log("bindear empty inicio");
+                            //console.log("bindear empty inicio");
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             $("#grid").data("kendoGrid").dataSource.page(0);
-                            console.log("bindear empty fin");
+                            //console.log("bindear empty fin");
                         };
                        CantidadesDelMenuDashboard();
                        applySecurityPolicy(false);
@@ -611,7 +611,7 @@
                 };
                 
                 loadingStop();
-                console.log("AccionesListado fin");
+                //console.log("AccionesListado fin");
             });
         };
 
@@ -622,7 +622,7 @@
         function Filtros() {
             var Listado;
             var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
-            console.log(accion);
+            //console.log(accion);
             AccionesListado(accion);
         };
 
@@ -631,7 +631,7 @@
         //Parametros: N/A
         //Return:    N/A
         function CargarControlesFiltrado() {
-            console.log("CargarControlesFiltrado inicio");
+            //console.log("CargarControlesFiltrado inicio");
             var date, format;
             if ($("#language").data("kendoDropDownList").value() == "es-MX") {
                 format = "dd/MM/yyyy";
@@ -657,7 +657,7 @@
             $("#FechaInic").data("kendoDatePicker").value(fechaInicialkendo);
             $("#FechaFinal").data("kendoDatePicker").value(fechaFinalkendo);
             $("#PeriodoTiempo").data("kendoComboBox").value(DashPeriodo);
-            console.log("CargarControlesFiltrado fin");
+            //console.log("CargarControlesFiltrado fin");
         };
 
         function Error(data) {
@@ -753,7 +753,7 @@
             Listado.ClienteID = $("#ClienteID").data("kendoComboBox").value();
             Listado.token = Cookies.get("token");
             Listado.TipoListado = 4;
-            console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
+            //console.log("CantidadesDelMenuDashboard: " + JSON.stringify(Listado));
 
             ObtenerAccionesListado(Listado);
         };

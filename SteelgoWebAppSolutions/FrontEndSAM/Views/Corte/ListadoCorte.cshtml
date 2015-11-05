@@ -281,7 +281,7 @@
         Listado.FechaInicial = obtenerFormatoFecha(d);
         Listado.FechaFinal = obtenerFormatoFecha(d1);
         Listado.token = Cookies.get("token");
-        console.log(JSON.stringify(Listado));
+        //console.log(JSON.stringify(Listado));
         return Listado;
     };
 
@@ -321,7 +321,7 @@
     function Filtros() {
         var Listado;
         var accion = $("#hdAccionFiltrado").val() ? $("#hdAccionFiltrado").val() : 1;
-        console.log(accion);
+        //console.log(accion);
         AccionesListado(accion);
     };
 

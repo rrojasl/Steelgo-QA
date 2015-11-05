@@ -152,7 +152,7 @@
         PatioModal[0].Descripcion = $("#Descripcion_Patio").val();
         PatioModal[0].RequierePermisoAduana = $("#RequierePermisoAduana_Patio").is(":checked");
 
-        console.log(PatioModal[0]);
+        //console.log(PatioModal[0]);
 
         $Patio.Patio.create(PatioModal[0], { token: Cookies.get("token") }).done(function (data) {
             LimpiarModalPatio();

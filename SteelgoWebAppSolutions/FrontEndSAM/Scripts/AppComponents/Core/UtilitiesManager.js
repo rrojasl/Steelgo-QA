@@ -198,11 +198,11 @@ function esNumero(n) {
     $("#grid .k-grid-header tr th:visible").each(function (i, obj) {
         var wd = 0;
         wd = $(this).outerWidth(true);
-        console.log("th: "+i+" width: "+$(this).outerWidth(true));
+        //console.log("th: "+i+" width: "+$(this).outerWidth(true));
         $("#filterContainer > div").find("input").each(function (index, event) {
             if (i == index) {
                 $(this).outerWidth(wd + 1.4);
-                console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+                //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
             }
         });
     });
@@ -212,11 +212,11 @@ function esNumero(n) {
         $("#grid .k-grid-header tr th").each(function (i, obj) {
             var wd = 0
             wd = $(this).outerWidth(true);
-            console.log("th: "+i+" width: "+$(this).outerWidth(true));
+            //console.log("th: "+i+" width: "+$(this).outerWidth(true));
             $("#filterContainer > div").find("input").each(function (index, event) {
                 if (i == index) {
                     $(this).outerWidth(wd + 1.4);
-                    console.log("qf: " + index + " width: " + $(this).outerWidth(true));
+                    //console.log("qf: " + index + " width: " + $(this).outerWidth(true));
                 }
             });
         });
