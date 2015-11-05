@@ -980,7 +980,10 @@
                 pageable: false,
                 groupable: true,
                 selectable: true,
-                editable:  true,
+                editable: {
+                    mode: "incell",
+                    confirmation: false
+                },
                 edit: function(e) {
                     if ((typeof returnOfSecurityCheck != 'undefined') && (typeof returnOfSecurityCheck["Item Code"] != 'undefined') && (typeof returnOfSecurityCheck["Item Code"]["detail"] != 'undefined') && !returnOfSecurityCheck["Item Code"]["detail"]) {
                         this.closeCell();
@@ -1100,8 +1103,8 @@
                         };
 
                         if (typeof (filaseleccionada) != undefined) {
-                            var valor = filaseleccionada.BultoID;
-                            var ItemCode = filaseleccionada.ItemCode;
+                            var valor = filaseleccionada.RelBID;
+                            var ItemCode = filaseleccionada.RelFCId;
 
 
 
