@@ -2550,8 +2550,8 @@ _dictionary = {
         "en-US": "Materials"
     },
     "PaseDeSalida0003": {
-        "es-MX": "Llegada Material",
-        "en-US": "Arrival Material"
+        "es-MX": "Listado Llegada Material",
+        "en-US": "Arrival Material List"
     },
     "PaseDeSalida0004": {
         "es-MX": "Pase de Salida",

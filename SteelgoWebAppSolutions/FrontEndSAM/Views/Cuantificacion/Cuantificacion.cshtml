@@ -926,6 +926,9 @@
         function LoadGridQuantification() {
             $("#grid").kendoGrid({
                 dataSource: {
+                    change:function(e){
+                        console.log(e);
+                    },
                     data: resultadoJson,
                     autoSync: true,
                     schema: {
