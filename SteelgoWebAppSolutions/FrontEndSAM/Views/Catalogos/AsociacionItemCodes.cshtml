@@ -75,6 +75,7 @@
 
 <script>
 @section JavascriptGlobalVariables {
+    once=true;
     editado=false;
     itemActual={};
     var $AsociacionItemCodesModel = {
@@ -118,14 +119,9 @@
     }
 
     $("#Cancelar").on("click",function(){
-        var options = $("#grid").data("kendoGrid").options;
-        $("#grid").data("kendoGrid").destroy();
-        $("#grid").empty().kendoGrid(options);
-        options=$("#icinput").data("kendoComboBox").options;
-        $("#icinput").data("kendoComboBox").destroy();
-        $("#icinput").empty().kendoComboBox(options);
-        $("#D1").val(null);
-        $("#D2").val(null);
+        regenerarCombo($("#icinput"));
+        regenerarCombo($("#D1"));
+        regenerarCombo($("#D2"));
         $("#descripcionIC").val(null);
         $("#icsasociado").val(null);
         itemActual=[];
@@ -148,6 +144,7 @@
             itemActual["ItemCodeID"]=e.sender._old;
             $("#D1").data("kendoComboBox").enable(false);
             $("#D2").data("kendoComboBox").enable(false);
+            $("#grid").data("kendoGrid").dataSource.data([]);
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), token:Cookies.get("token")}).done(function(data){
                 regenerarCombo($("#D1"));
                 regenerarCombo($("#D2"));
@@ -162,6 +159,7 @@
 
     $("#D1").kendoComboBox({
         change:function(e){
+            $("#grid").data("kendoGrid").dataSource.data([]);
             itemActual["D1"]=e.sender._old;
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1ID:e.sender._old ,token:Cookies.get("token")}).done(function(data){
                 if (data.length>0) {
@@ -179,7 +177,9 @@
 
     $("#D2").kendoComboBox({
         change:function(e){
+            $("#grid").data("kendoGrid").dataSource.data([]);
             limpiarDatos();
+            $("#grid").data("kendoGrid").dataSource.filter([]);
             itemActual["D2"]=e.sender._old;
             $AsociacionICS.AsociacionICS.read({},{itemCode:$("#icinput").data("kendoComboBox").value(), diametro1:$("#D1").data("kendoComboBox").value(), diametro2:e.sender._old ,token:Cookies.get("token")}).done(function(data){
                 $("#descripcionIC").val(data.Descripcion);
@@ -201,23 +201,30 @@
     function cargarInicialGrid(){
         $("#grid").kendoGrid({
             columns: [
-                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
+                { field: "Codigo", title: _dictionary.ItemCodeSteelGo0001[$("#language").data("kendoDropDownList").value()], filterable: { 
+                    cell: { 
+                        showOperators: false,
+                        operator: "contains",
+                        delay: 10,
+                        dataTextField: "Codigo"
+                    } 
+                }, width: "120px" },
+                { field: "Descripcion", title: _dictionary.ItemCodeSteelGo0005[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains", delay: 10, dataTextField: "Descripcion"} }, width: "120px" },
                 //{ field: "DescripcionLarga", title: _dictionary.ItemCodeSteelGo0006[$("#language").data("kendoDropDownList").value()], hidden: true, filterable: { cell: { showOperators: false, operator: "startswith" } } },
                 //{ field: "DescripcionIngles", title: _dictionary.ItemCodeSteelGo0007[$("#language").data("kendoDropDownList").value()], hidden: true, filterable: { cell: { showOperators: false, operator: "startswith" } } },
                 //{ field: "DescripcionLargaIngles", title: _dictionary.ItemCodeSteelGo0008[$("#language").data("kendoDropDownList").value()], hidden: true, filterable: { cell: { showOperators: false, operator: "startswith" } } },
-                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Acero", title: _dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "CedulaB", title: _dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Libra", title: _dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Inch", title: _dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "MM", title: "MM", filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Espesor", title: _dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Peso", title: _dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
-                { field: "Area", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "startswith",cell: { inputWidth: 116 } } }, width: "120px" },
+                { field: "Diametro1", title: _dictionary.ItemCodeSteelGo0009[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Diametro2", title: _dictionary.ItemCodeSteelGo0010[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Grupo", title: _dictionary.ItemCodeSteelGo0011[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Acero", title: _dictionary.ItemCodeSteelGo0012[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "CedulaA", title: _dictionary.ItemCodeSteelGo0013[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "CedulaB", title: _dictionary.ItemCodeSteelGo0014[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Libra", title: _dictionary.ItemCodeSteelGo0015[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Inch", title: _dictionary.ItemCodeSteelGo0016[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "MM", title: "MM", filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Espesor", title: _dictionary.ItemCodeSteelGo0017[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Peso", title: _dictionary.ItemCodeSteelGo0018[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
+                { field: "Area", title: _dictionary.ItemCodeSteelGo0019[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false, operator: "contains" } }, width: "120px" },
             ],
             dataSource: {
                 data: [],
@@ -255,7 +262,7 @@
                 pageSize: 20,
                 transport:{
                     read:{
-                        url:"",
+                        url:$CatalogoICSteelgo.CatalogoICSteelgo.urlNoId+"?token="+Cookies.get("token"),
                         dataType:"json",
                         type:"GET",
                         cache: false
@@ -287,6 +294,10 @@
                 buttonCount: 2
             },
             dataBound: function(e) {
+                if(once){
+                    once=false;
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                }
                 $("#context-menu").kendoContextMenu({
                     //target: "#grid tr td:first-child",
                     target: "#grid",
@@ -298,7 +309,12 @@
                         itemActual["ItemCodeSteelgoIDNuevo"]=dataItem.ItemCodeSteelgoID;
                         editado=true;
                         this.close();
-                    }
+                    },
+                    open:function(e){
+                        if(!$("#GuardarICS").is(":visible")){
+                            e.preventDefault();
+                        }
+                    },
                 })
                 if(!$("#grid").data("kendoGrid").dataSource.filter()){
                     $("#grid").data("kendoGrid").tbody.hide();
