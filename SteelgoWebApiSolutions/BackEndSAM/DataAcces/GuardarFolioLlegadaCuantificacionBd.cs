@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces
                                                  join fc in ctx.Sam3_FolioCuantificacion on fe.FolioAvisoEntradaID equals fc.FolioAvisoEntradaID
                                                  join p in ctx.Sam3_Proyecto on rel.ProyectoID equals p.ProyectoID
                                                  where fc.FolioCuantificacionID == folioCuantificacion.FolioCuantificacionID
-                                                 select fe.FolioAvisoLlegadaID.Value).AsParallel().SingleOrDefault();
+                                                 select fe.FolioAvisoLlegadaID.Value).AsParallel().Distinct().SingleOrDefault();
 
                         if (cuentaProyectos == 1)
                         {

@@ -915,7 +915,7 @@
         };
 
         function GenerarOrdenRecepcion() {
-            if (_folioCuantificacion!="-1"){
+            if (_folioCuantificacion != "-1") {
                 var detalleIdeaUrl = "@Url.Action("GenerarOrdenRecepcion", "OrdenRecepcion")";
                 window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value() + "&FolioAvisoEntradaID=" + FolioAvisoEntrada.FolioAvisoEntradaID + "&ProyectoID=" + Proyecto.ProyectoID;
             } else {
